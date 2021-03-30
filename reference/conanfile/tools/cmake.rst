@@ -13,8 +13,8 @@ CMakeDeps
 
 Available since: `1.33.0 <https://github.com/conan-io/conan/releases/tag/1.33.0>`_
 
-The ``CMakeDeps`` helper will generate one **xxxx-config.cmake** file per dependency, together with other necessary .cmake files
-like version, or configuration. It can be used like:
+The ``CMakeDeps`` helper will generate one **xxxx-config.cmake** file per dependency, together with other necessary *.cmake* files
+like version, flags and directory data or configuration. It can be used like:
 
 
 .. code-block:: python
@@ -230,6 +230,11 @@ when a package is being built directly by Conan (create, install)
             cmake = CMake(self)
             cmake.configure()
             cmake.build()
+
+.. note:
+
+**Note:** This helper includes the additional flag `-DCMAKE_SH="CMAKE_SH-NOTFOUND"` when using the `MinGW Makefiles` CMake's
+generator, to avoid the error of `sh` being in the PATH (CMake version < 3.17.0).
 
 It supports the following methods:
 
