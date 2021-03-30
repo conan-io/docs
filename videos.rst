@@ -128,6 +128,15 @@ Videos and links
       </iframe>
 
       <br/><br/>
+      
+- "Conan Package Manager for C++ in Practice" by Jerry Wiltse
+
+  .. raw:: html
+
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/0ekPQvSCoXE" frameborder="0" allowfullscreen>
+      </iframe>
+
+      <br/><br/>
 
 Do you have a video, tutorial, blog post that could be useful for other users and would like to share?
 Please tell us about it or directly send a PR to our docs: https://github.com/conan-io/docs, and we will link it here.
