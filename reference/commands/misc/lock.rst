@@ -150,6 +150,24 @@ conan lock clean-modified
     optional arguments:
         -h, --help  show this help message and exit
 
+conan lock install
+------------------
+
+.. code-block:: bash
+
+    $ conan lock install [-h] [--recipes] [-g GENERATOR] lockfile
+
+.. code-block:: text
+
+    positional arguments:
+    lockfile              Path to the lockfile
+
+    optional arguments:
+    -h, --help            show this help message and exit
+    --recipes             Install only recipes, not binaries
+    -g GENERATOR, --generator GENERATOR
+                            Generators to use
+
 conan lock bundle
 =================
 
