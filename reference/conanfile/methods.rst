@@ -398,8 +398,6 @@ recipe has requirements, you can access to your requirements ``user_info`` using
         jars = self.deps_user_info["pkg"].jars
         jar_list = jars.replace(" ", "").split(",")
 
-.. _method_configure_config_options:
-
 
 set_name(), set_version()
 --------------------------
@@ -445,9 +443,20 @@ To define a relative path to the *conanfile.py*, irrespective of the current wor
             git = tools.Git(folder=self.recipe_folder)
             self.version = "%s_%s" % (git.get_branch(), git.get_revision())
 
+
+.. warning::
+
+    The ``set_name()`` and ``set_version()`` methods are alternatives to the ``name`` and ``version`` attributes. It is
+    not advised or supported to define both a ``name`` attribute and a ``set_name()`` method.  Likewise, it is
+    not advised or supported to define both a ``version`` attribute and a ``set_version()`` method. If you define both,
+    you may experience unexpected behavior.
+
 .. seealso::
 
     See more examples :ref:`in this howto <capture_version>`.
+
+
+.. _method_configure_config_options:
 
 
 configure(), config_options()
@@ -501,6 +510,9 @@ This will be executed before the actual assignment of ``options`` (then, such ``
 the command :command:`conan install -o pkg:shared=True` will raise an exception in Windows saying that ``shared`` is not an option for such
 package.
 
+These methods can also be used to assign values to options as seen in :ref:`conanfile_options`. Values assigned
+in the ``configure()`` method cannot be overriden, while values assigned in ``config_options()`` can.
+
 .. _invalid_configuration:
 
 Invalid configuration
@@ -532,6 +544,8 @@ validate()
 .. warning::
 
     This is an **experimental** feature subject to breaking changes in future releases.
+
+Available since: `1.32.0 <https://github.com/conan-io/conan/releases/tag/1.32.0>`_
 
 The ``validate()`` method can be used to mark a binary as "impossible" or invalid for a given configuration. For example,
 if a given library does not build or work at all in Windows it can be defined as:
