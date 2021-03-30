@@ -18,8 +18,51 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-    Conan 1.34 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
+    Conan 1.35 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
     submit a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
+
+1.35.0 (30-Mar-2021)
+--------------------
+
+- Feature: ``MSBuildDeps`` generator uses new visitor model and handles conditional requirements correctly. `#8733 <https://github.com/conan-io/conan/pull/8733>`_ . Docs `here <https://github.com/conan-io/docs/pull/2052>`__
+- Feature: CMake toolchain supports include_guard() feature `#8728 <https://github.com/conan-io/conan/pull/8728>`_
+- Feature: new ``conan lock bundle clean-modified`` command `#8726 <https://github.com/conan-io/conan/pull/8726>`_ . Docs `here <https://github.com/conan-io/docs/pull/2053>`__
+- Feature: Use ``conancvvars.bat`` file for Meson toolchain `#8719 <https://github.com/conan-io/conan/pull/8719>`_
+- Feature: Allow arbitrary defines in :command:`conan new` templates. `#8718 <https://github.com/conan-io/conan/pull/8718>`_ . Docs `here <https://github.com/conan-io/docs/pull/2051>`__
+- Feature: Automatically handle `CONAN_RUN_TESTS` to avoid extra boilerplate. `#8687 <https://github.com/conan-io/conan/pull/8687>`_ . Docs `here <https://github.com/conan-io/docs/pull/2056>`__
+- Feature: More fine-grained control (using [conf]) for build parallelization. `#8665 <https://github.com/conan-io/conan/pull/8665>`_ . Docs `here <https://github.com/conan-io/docs/pull/2061>`__
+- Feature: Add support for testing with different tools versions. `#8656 <https://github.com/conan-io/conan/pull/8656>`_
+- Feature: Add different CMake versions for testing. `#8656 <https://github.com/conan-io/conan/pull/8656>`_
+- Feature: Move the definition of CMakeDeps variables to its own file `#8655 <https://github.com/conan-io/conan/pull/8655>`_ . Docs `here <https://github.com/conan-io/docs/pull/2055>`__
+- Feature: Added `conan.tools.files.patch` to apply a single patch (new interface for legacy `conans.tools.patch` function. `#8650 <https://github.com/conan-io/conan/pull/8650>`_ . Docs `here <https://github.com/conan-io/docs/pull/2062>`__
+- Feature: Added `conan.tools.files.apply_conandata_patches` to apply patches defined in `conandata.yml`. `#8650 <https://github.com/conan-io/conan/pull/8650>`_ . Docs `here <https://github.com/conan-io/docs/pull/2062>`__
+- Feature: Allow integers as ``preprocessor_definitions`` in ``CMakeToolchain``. `#8645 <https://github.com/conan-io/conan/pull/8645>`_
+- Feature: New ``Environment`` model for recipes and profiles `#8630 <https://github.com/conan-io/conan/pull/8630>`_ . Docs `here <https://github.com/conan-io/docs/pull/2060>`__
+- Feature: Do not remove sh from the path in the new CMake helper. `#8625 <https://github.com/conan-io/conan/pull/8625>`_ . Docs `here <https://github.com/conan-io/docs/pull/2055>`__
+- Feature: Allow definition of custom Visual Studio version for msvc compiler in MSBuild helpers. `#8603 <https://github.com/conan-io/conan/pull/8603>`_ . Docs `here <https://github.com/conan-io/docs/pull/2054>`__
+- Feature: MSBuildToolchain creates conanvcvars.bat containing vcvars command for command line building. `#8603 <https://github.com/conan-io/conan/pull/8603>`_ . Docs `here <https://github.com/conan-io/docs/pull/2054>`__
+- Feature: Set `CMAKE_FIND_PACKAGE_PREFER_CONFIG=ON`. `#8599 <https://github.com/conan-io/conan/pull/8599>`_
+- Feature: Include the recipe name when constrained settings prevent install. `#8559 <https://github.com/conan-io/conan/pull/8559>`_ . Docs `here <https://github.com/conan-io/docs/pull/2032>`__
+- Feature: Create new conan.tools.files for 2.0. `#8550 <https://github.com/conan-io/conan/pull/8550>`_
+- Feature: New AutotoolsDeps, AutotoolsToolchain helpers in conan.tools.gnu `#8457 <https://github.com/conan-io/conan/pull/8457>`_ . Docs `here <https://github.com/conan-io/docs/pull/2057>`__
+- Feature: Experimental ``conan lock install`` that can install a lockfile in the cache, all the binaries or only the recipes with ``--recipes``, intended for CI flows. `#8021 <https://github.com/conan-io/conan/pull/8021>`_ . Docs `here <https://github.com/conan-io/docs/pull/2053>`__
+- Fix: Fix incorrect output of ``default_user`` and ``default_channel`` in ``export``. `#8732 <https://github.com/conan-io/conan/pull/8732>`_
+- Fix: remotes not being loaded for the :command:`conan alias` command, which was preventing :command:`conan alias` from working if python_requires is used. `#8704 <https://github.com/conan-io/conan/pull/8704>`_
+- Fix: Improve error message for ``lock create`` providing a path instead of full path with filename. `#8695 <https://github.com/conan-io/conan/pull/8695>`_
+- Fix: Rename `tools.microsoft:msbuild_verbosity` to `tools.microsoft.msbuild:verbosity` `#8692 <https://github.com/conan-io/conan/pull/8692>`_ . Docs `here <https://github.com/conan-io/docs/pull/2059>`__
+- Fix: Simplifications to ``CMakeDeps`` generator to remove legacy code. `#8666 <https://github.com/conan-io/conan/pull/8666>`_
+- Fix: Add dirty management in download cache, so interrupted downloads doesn't need a manual cleaning of such download cache. `#8664 <https://github.com/conan-io/conan/pull/8664>`_
+- Fix: Build helper qbs install now installs directly into package_folder. `#8660 <https://github.com/conan-io/conan/pull/8660>`_
+- Fix: Allow arbitrary template structure. `#8641 <https://github.com/conan-io/conan/pull/8641>`_
+- Fix: Restoring the behavior that `exports` and `exports_sources` were case sensitive by default. `#8585 <https://github.com/conan-io/conan/pull/8585>`_
+- Fix: #8575 `#8576 <https://github.com/conan-io/conan/pull/8576>`_
+- Fix: Do not order Settings lists, so error messages are in declared order. `#8573 <https://github.com/conan-io/conan/pull/8573>`_
+- BugFix: Command :command:`conan new` accepts short reference with address sign. `#8721 <https://github.com/conan-io/conan/pull/8721>`_
+- Bugfix: Fix profile definitions of env-vars per-package using patterns, not only the package name. `#8688 <https://github.com/conan-io/conan/pull/8688>`_
+- Bugfix: Preserve the explicit value `None` for SCM attributes if the default is a different value. `#8622 <https://github.com/conan-io/conan/pull/8622>`_
+- Bugfix: Properly detect Amazon Linux 2 distro. `#8612 <https://github.com/conan-io/conan/pull/8612>`_
+- Bugfix: Fix config install not working when .git* folder is in the path. `#8605 <https://github.com/conan-io/conan/pull/8605>`_
+- Bugfix: Fix: Transitive python requires not working with the new syntax. `#8604 <https://github.com/conan-io/conan/pull/8604>`_
 
 1.34.1 (10-Mar-2021)
 --------------------
