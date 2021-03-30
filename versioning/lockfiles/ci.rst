@@ -259,3 +259,17 @@ product packages without problems. When the Pull Request is merged there might b
   than the source used in this CI job. Then it is necessary to fire again a new job that will build these packages.
 - If the merge is a clean fast-forward, then the packages that were built in this job would be valid, and could be
   copied from the repository ``conan-build`` to the ``conan-develop``.
+
+After the ``app1`` lockfile is created it could be possible to install all the binaries referenced in
+that lockfile using the :command:`conan lock install`:
+
+.. code:: bash
+
+    $ conan lock install app1_release_updated.lock -g deploy
+
+It is also possible to use this command for just installing the recipes but not the binaries adding
+the ``--recipes`` argument:
+
+.. code:: bash
+
+    $ conan lock install app1_release_updated.lock --recipes
