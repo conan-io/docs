@@ -26,7 +26,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 - Feature: ``MSBuildDeps`` generator uses new visitor model and handles conditional requirements correctly. `#8733 <https://github.com/conan-io/conan/pull/8733>`_ . Docs `here <https://github.com/conan-io/docs/pull/2052>`__
 - Feature: CMake toolchain supports include_guard() feature `#8728 <https://github.com/conan-io/conan/pull/8728>`_
-- Feature: new ``conan lock bundle clean-modified`` command `#8726 <https://github.com/conan-io/conan/pull/8726>`_ . Docs `here <https://github.com/conan-io/docs/pull/2053>`__
+- Feature: New ``conan lock bundle clean-modified`` command. `#8726 <https://github.com/conan-io/conan/pull/8726>`_ . Docs `here <https://github.com/conan-io/docs/pull/2053>`__
 - Feature: Use ``conancvvars.bat`` file for Meson toolchain `#8719 <https://github.com/conan-io/conan/pull/8719>`_
 - Feature: Allow arbitrary defines in :command:`conan new` templates. `#8718 <https://github.com/conan-io/conan/pull/8718>`_ . Docs `here <https://github.com/conan-io/docs/pull/2051>`__
 - Feature: Automatically handle `CONAN_RUN_TESTS` to avoid extra boilerplate. `#8687 <https://github.com/conan-io/conan/pull/8687>`_ . Docs `here <https://github.com/conan-io/docs/pull/2056>`__
@@ -55,7 +55,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Fix: Build helper qbs install now installs directly into package_folder. `#8660 <https://github.com/conan-io/conan/pull/8660>`_
 - Fix: Allow arbitrary template structure. `#8641 <https://github.com/conan-io/conan/pull/8641>`_
 - Fix: Restoring the behavior that `exports` and `exports_sources` were case sensitive by default. `#8585 <https://github.com/conan-io/conan/pull/8585>`_
-- Fix: #8575 `#8576 <https://github.com/conan-io/conan/pull/8576>`_
+- Fix: Remove default dummy value for iOS XCode signature. `#8576 <https://github.com/conan-io/conan/pull/8576>`_
 - Fix: Do not order Settings lists, so error messages are in declared order. `#8573 <https://github.com/conan-io/conan/pull/8573>`_
 - BugFix: Command :command:`conan new` accepts short reference with address sign. `#8721 <https://github.com/conan-io/conan/pull/8721>`_
 - Bugfix: Fix profile definitions of env-vars per-package using patterns, not only the package name. `#8688 <https://github.com/conan-io/conan/pull/8688>`_
