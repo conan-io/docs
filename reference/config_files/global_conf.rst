@@ -30,11 +30,11 @@ have priority over globally defined ones in *global.conf*, and can be defined as
     ...
 
     [conf]
-    tools.microsoft:msbuild_verbosity=Diagnostic
+    tools.microsoft.msbuild:verbosity=Diagnostic
 
 
 Existing configurations:
 
-- ``tools.microsoft:msbuild_verbosity`` allows defining a value from ``"Quiet", "Minimal", "Normal", "Detailed", "Diagnostic"`` for build using the
+- ``tools.microsoft.msbuild:verbosity`` allows defining a value from ``"Quiet", "Minimal", "Normal", "Detailed", "Diagnostic"`` for build using the
   MSBuild system, it could be with the ``tools.microsoft.MSBuild`` or with the ``tools.cmake.CMake`` helpers.
 
