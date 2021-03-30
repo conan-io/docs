@@ -164,14 +164,15 @@ defined by the default provide of that compiler version:
 
 This can be configured in your profiles with the ``tools.microsoft.msbuild:vs_version`` configuration:
 
-```
-[settings]
-compiler=msvc
-compiler.version=19.0
+.. code-block:: text
 
-[conf]
-tools.microsoft.msbuild:vs_version = 16
-```
+    [settings]
+    compiler=msvc
+    compiler.version=19.0
+
+    [conf]
+    tools.microsoft.msbuild:vs_version = 16
+
 
 In this case, the ``vcvars`` will activate the Visual Studio 16 installation, but the ``19.0`` compiler version will still be used
 because the necessary ``toolset=v140`` will be set.
