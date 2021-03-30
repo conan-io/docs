@@ -40,4 +40,5 @@ Contents:
    tools/meson
    tools/microsoft
    tools/qbs
+   tools/env
    tools/files
