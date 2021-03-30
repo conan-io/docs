@@ -9,7 +9,7 @@ cmake_paths
     This is the reference page for ``cmake_paths`` generator.
     Go to :ref:`Integrations/CMake<cmake>` if you want to learn how to integrate your project or recipes with CMake.
 
-It generates a file named ``conan_paths.cmake`` and declares two variables:
+It generates a file named ``conan_paths.cmake`` and declares these variables:
 
 .. _conan_paths_cmake_variables:
 

@@ -29,12 +29,10 @@ For private development:
 
 For distribution:
 
-- **Bintray**: Bintray is a cloud platform that gives you full control over how you publish, store,
-  promote, and distribute software. You can create binary repositories in Bintray to share Conan
-  packages or even create an organization. It is free for open source packages, and the recommended
-  server to distribute to the C and C++ communities. Check :ref:`using_bintray` for more information.
-
-.. _bintray_repositories:
+- **Artifactory Cloud-hosted instance**: Artifactory Cloud, where JFrog manages, maintains and scales
+  the infrastructure and provides automated server backups with free updates and guaranteed uptime.
+  It's offered with a free tier designed for individual with reduced usage.
+  Check :ref:`artifactory_cloud` for more information.
 
 .. _conan_center:
 
@@ -60,36 +58,6 @@ There are 2 different types of packages right now in Conan-center:
   ones to use from ConanCenter.
 
 To contribute packages to Conan-center, read the :ref:`conan-center guide <conan_center_flow>` for more information.
-
-
-Bintray Community Repositories
-------------------------------
-
-There are a number of popular community repositories that may be of interest for Conan users for retrieving
-open source packages. These repositories are not affiliated with the Conan team.
-
-Bincrafters
-+++++++++++
-
-**bincrafters** : https://bintray.com/bincrafters/public-conan
-
-.. pull-quote::
-
-    The `Bincrafters <https://bincrafters.github.io>`_ team builds binary software packages for the
-    OSS community. This repository contains a wide and growing variety of Conan packages from
-    contributors.
-
-    Use the following command to add this remote to Conan:
-
-    .. code-block:: bash
-
-        $ conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
-
-.. note::
-
-    If you are working in a team, you probably want to use the same remotes everywhere: developer machines, CI. The ``conan config install``
-    command can automatically define the remotes in a Conan client, as well as other resources as profiles. Have a look at the
-    :ref:`conan_config_install` command.
 
 
 .. _`conan-center`: https://bintray.com/conan/conan-center

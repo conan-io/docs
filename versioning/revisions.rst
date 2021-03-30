@@ -76,6 +76,24 @@ Take into account that it changes the default Conan behavior. e.g:
     - If you generate and upload N binary packages for a recipe with a given revision, then if you modify the recipe, and thus the recipe
       revision, you need to build and upload N new binaries matching that new recipe revision.
 
+GIT and Line Endings on Windows
+-------------------------------
+
+.. warning::
+
+  **Problem**
+
+  Git will (by default) checkout files in Windows systems using CRLF line endings, effectively producing different files. As files are different, the Conan revisions will be different from the revisions computed in other platforms such as Linux, resulting in missing the respective binaries in the other revision. 
+
+**Solution**
+
+It is necessary to instruct Git to do the checkout with the same line endings. This can be done several ways, for example, by adding a .gitattributes file:
+
+.. code-block:: ini
+
+  [auto]
+    crlf = false
+    
 Server support
 --------------
 

@@ -320,77 +320,104 @@ The ``get_safe()`` method will return ``None`` if that setting or subsetting doe
 options
 -------
 
-Conan packages recipes can generate different binary packages when different settings are used, but can also customize, per-package any other configuration that will produce a different binary.
+Conan provides this attribute to declare traits which will affect only one reference, unlike the settings that are typically the
+same for all the recipes in a Conan graph. Options are declared per recipe, this attribute consist on a dictionary where the key is the
+option name and the value is the list of different values that the option can take.
 
-A typical option would be being shared or static for a certain library. Note that this is optional, different packages can have this option, or not (like header-only packages), and different packages can have different values for this option, as opposed to settings, which typically have the same values for all packages being installed (though this can be controlled too, defining different settings for specific packages)
+.. important::
 
-Options are defined in package recipes as dictionaries of name and allowed values:
+    All the options with their values are encoded into the package ID, as everything that affects the generated binary.
+    See :ref:`method_configure_config_options` and :ref:`method_package_id` methods for information about removing certain
+    options for some configurations.
 
-.. code-block:: python
 
-    class MyPkg(ConanFile):
-        ...
-        options = {"shared": [True, False]}
+A very common one is the option ``shared`` with allowed values of ``[True, False]`` that many recipes declare and use to configure the
+build system to produce a static library or a shared library.
 
-Options are defined as a python dictionary inside the ``ConanFile`` where each key must be a
-string with the identifier of the option and the value be a list with all the possible option
-values:
-
-.. code-block:: python
-
-    class MyPkg(ConanFile):
-        ...
-        options = {"shared": [True, False],
-                   "option1": ["value1", "value2"],}
-
-Values for each option can be typed or plain strings, and there is a special value, ``ANY``, for
+Values for each option can be typed or plain strings (``"value"``, ``True``, ``None``, ``42``,...) and there is a special value, ``"ANY"``, for
 options that can take any value.
 
-The attribute ``default_options`` has the purpose of defining the default values for the options
-if the consumer (consuming recipe, project, profile or the user through the command line) does
-not define them. It is worth noticing that **an uninitialized option will get the value** ``None``
-**and it will be a valid value if its contained in the list of valid values**. This attribute
-should be defined as a python dictionary too, although other definitions could be valid for
-legacy reasons.
-
 .. code-block:: python
 
     class MyPkg(ConanFile):
         ...
-        options = {"shared": [True, False],
-                   "option1": ["value1", "value2"],
-                   "option2": "ANY"}
-        default_options = {"shared": True,
-                           "option1": "value1",
-                           "option2": 42}
+        options = {
+            "shared": [True, False],
+            "option1": ["value1", "value2"],
+            "option2": "ANY",
+            "option3": [None, "value1", "value2"],
+            "option4": [True, False, "value"],
+        }
 
-        def build(self):
-            shared = "-DBUILD_SHARED_LIBS=ON" if self.options.shared else ""
-            cmake = CMake(self)
-            self.run("cmake . %s %s" % (cmake.command_line, shared))
-            ...
+Every option in a recipe needs to be assigned a value from the ones declared in the ``options`` attribute. The
+consumer can define options using different methods: command line, profile or consumer
+recipes; **an uninitialized option will get the value** ``None`` **and it will be a valid value if it is contained
+in the list of valid values**. Invalid values will produce an error. See attribute :ref:`conanfile_default_options`
+for a way to declare a default value for options in a recipe.
 
 .. tip::
 
     - You can inspect available package options reading the package recipe, which can be
       done with the command :command:`conan inspect mypkg/0.1@user/channel`.
+
+.. tip::
+
     - Options ``"shared": [True, False]`` and ``"fPIC": [True, False]`` are automatically managed in :ref:`cmake_reference` and
       :ref:`autotools_reference` build helpers.
+
+
+**Define the value of an option**
 
 As we mentioned before, values for options in a recipe can be defined using different ways, let's
 go over all of them for the example recipe ``mypkg`` defined above:
 
-- Using the attribute ``default_options`` in the recipe itself.
-- In the ``default_options`` of a recipe that requires this one: the values defined here
-  will override the default ones in the recipe.
+- In the recipe that declares the option:
 
-  .. code-block:: python
+  + Using the attribute ``default_options`` in the recipe itself.
 
-      class OtherPkg(ConanFile):
-          requires = "mypkg/0.1@user/channel"
-          default_options = {"mypkg:shared": False}
+  + In the ``config_options()`` method of the recipe.
 
-  Of course, this will work in the same way working with a *conanfile.txt*:
+  + In the ``configure()`` method of the recipe itself (**this one has the highest precedence**, this
+    value can't be overriden)
+
+    .. code-block:: python
+
+        class MyPkg(ConanFile):
+
+            options = {
+                "shared": [True, False],
+                "option1": ["value1", "value2"],
+                "option2": "ANY",
+            }
+
+            def configure(self):
+                if some_condition:
+                    self.options.shared = False
+
+- From a recipe that requires this one:
+
+  + using the ``default_options`` attribute of the consumer:
+
+    .. code-block:: python
+
+        class OtherPkg(ConanFile):
+            requires = "mypkg/0.1@user/channel"
+            default_options = {"mypkg:shared": False}
+
+  + in the ``configure()`` method of the consumer (**highest precedence after** ``configure()`` **in the recipe itself**):
+
+    .. code-block:: python
+
+        class OtherPkg(ConanFile):
+            requires = "mypkg/0.1@user/channel"
+
+            def configure(self):
+                self.options['mypkg'].shared = False
+
+    This method allows to assign values based on other conditions, it can have some drawbacks
+    as it is explainded in the :ref:`mastering section<conditional_settings_options_requirements>`.
+
+- In the *conanfile.txt* file:
 
   .. code-block:: text
 
@@ -405,32 +432,57 @@ go over all of them for the example recipe ``mypkg`` defined above:
 
   .. code-block:: text
 
-      # file "myprofile"
-      # use it as $ conan install -pr=myprofile
       [settings]
       setting=value
 
       [options]
       mypkg:shared=False
 
-- Last way of defining values for options, with the highest priority over them all, is to pass
-  these values using the command argument :command:`-o` in the command line:
+- Last way of defining values for options is to pass these values using the command argument :command:`-o,--option` in the command line:
 
   .. code-block:: bash
 
-    $ conan install . -o mypkg:shared=True -o otherpkg:option=value
+    $ conan install . -o mypkg:shared=True
 
-Values for options can be also conditionally assigned (or even deleted) in the methods
-``configure()`` and ``config_options()``, the
-:ref:`corresponding section<method_configure_config_options>` has examples documenting these
-use cases. However, conditionally assigning values to options can have it drawbacks as it is
-explained in the :ref:`mastering section<conditional_settings_options_requirements>`.
+Regarding the precedence of all these ways of assigning a value to an option, it works like any other configuration element in Conan:
+the closer to the consumer and the command line the higher the precedence. The list above is ordered from the less priority to the
+highest one (with the exceptional assignment in ``configure()`` method which cannot be overridden).
 
-One important notice is how these options values are evaluated and how the different conditionals
-that we can implement in Python will behave. As seen before, values for options can be defined
-in Python code (assigning a dictionary to ``default_options``) or through strings (using a
-``conanfile.txt``, a profile file, or through the command line). In order to provide a
-consistent implementation take into account these considerations:
+
+**Get the value of an option**
+
+Values from options can be retrieved after they are assigned. For options that belong to the same recipe, the value can
+be retrieved in any method to run logic conditional to their values. **Options from required packages can be
+retrieved only after the full graph has been resolved**, this means that the value will be available in the methods
+``build()``, ``package()``, ``package_info()``. Accessing those values in other methods can lead to unexpected results.
+
+
+.. code-block:: python
+
+    class OtherPkg(ConanFile):
+        requires = "mypkg/0.1@user/channel"
+
+        def build(self):
+            if self.options['mypkg'].shared:
+                raise ConanInvalidConfiguration("Cannot use shared library of requirement 'mypkg'")
+
+If you want to retrieve the value of an option and fallback to a known value if the option doesn't exist
+you can use the ``get_safe()`` method:
+
+.. code-block:: python
+
+    def build(self):
+        # Will return None if doesn't exist
+        fpic = self.options.get_safe("fPIC")
+        # Will return the default value if the return is None
+        shared = self.options.get_safe("shared", default=False)
+
+The ``get_safe()`` method will return ``None`` if that option doesn't exist and there is no default value assigned.
+
+**Evaluate options**
+
+It is very important to know how the options are evaluated in conditional expressions and how the
+comparison operator works with them:
 
 - Evaluation for the typed value and the string one is the same, so all these inputs would
   behave the same:
@@ -448,7 +500,7 @@ consistent implementation take into account these considerations:
       string and for ``0`` and ``"0"`` as expected.
 
 - Comparison using ``is`` is always equals to ``False`` because the types would be different as
-  the option value is encapsulated inside a Conan class.
+  the option value is encapsulated inside a Python class.
 
 - Explicit comparisons with the ``==`` symbol **are case sensitive**, so:
 
@@ -458,17 +510,6 @@ consistent implementation take into account these considerations:
 - A different behavior has ``self.options.option = None``, because
   ``assert self.options.option != None``.
 
-If you want to do a safe check of options values, you could use the ``get_safe()`` method:
-
-.. code-block:: python
-
-    def build(self):
-        # Will be None if doesn't exist
-        fpic = self.options.get_safe("fPIC")
-        # Will be the default version if the return is None
-        shared = self.options.get_safe("shared", default=False)
-
-The ``get_safe()`` method will return ``None`` if that option doesn't exist and there is no default value assigned.
 
 
 .. _conanfile_default_options:
@@ -476,30 +517,31 @@ The ``get_safe()`` method will return ``None`` if that option doesn't exist and 
 default_options
 ---------------
 
-As you have seen in the examples above, recipe's default options are declared as a dictionary with the initial desired value of the options.
-However, you can also specify default option values of the required dependencies:
+The attribute ``default_options`` has the purpose of defining the default values for the options
+if the consumer (consuming recipe, project, profile or the user through the command line) does
+not define them. This attribute should be defined as a python dictionary:
 
 .. code-block:: python
 
-    class OtherPkg(ConanFile):
-        requires = "pkg/0.1@user/channel"
-        default_options = {"pkg:pkg_option": "value"}
+    class MyPkg(ConanFile):
+        ...
+        options = {"build_tests": [True, False],
+                   "option1": ["value1", "value2"],
+                   "option2": "ANY"}
+        default_options = {"build_tests": True,
+                           "option1": "value1",
+                           "option2": 42}
 
-And it also works with default option values of conditional required dependencies:
+        def build(self):
+            cmake = CMake(self)
+            cmake.definitions['BUILD_TESTS'] = self.options.build_tests
+            cmake.configure()
+            ...
 
-.. code-block:: python
+Remember that you can also assign default values for options of your requirements as we've seen in
+the attribute :ref:`conanfile_options`.
 
-    class OtherPkg(ConanFile):
-        default_options = {"pkg:pkg_option": "value"}
-
-        def requirements(self):
-            if self.settings.os != "Windows":
-                self.requires("pkg/0.1@user/channel")
-
-For this example running in Windows, the `default_options` for the `pkg/0.1@user/channel` will be ignored, they will only be used on every
-other OS.
-
-You can also set the options conditionally to a final value with ``config_options()`` instead of using ``default_options``:
+You can also set the options conditionally to a final value with ``configure()`` instead of using ``default_options``:
 
 .. code-block:: python
 
@@ -508,18 +550,14 @@ You can also set the options conditionally to a final value with ``config_option
         options = {"some_option": [True, False]}
         # Do NOT declare 'default_options', use 'config_options()'
 
-        def config_options(self):
+        def configure(self):
             if self.options.some_option == None:
                 if self.settings.os == 'Android':
                     self.options.some_option = True
                 else:
                     self.options.some_option = False
 
-.. important::
-
-    Setting options conditionally without a default value works only to define a default value if not defined in command line. However,
-    doing it this way will assign a final value to the option and not an initial one, so those option values will not be overridable from
-    downstream dependent packages.
+Take into account that if a value is assigned in the ``configure()`` method it cannot be overridden.
 
 .. important::
 
@@ -872,6 +910,8 @@ specified in the command line.
 
 recipe_folder
 -------------
+
+Available since: `1.28.0 <https://github.com/conan-io/conan/releases/tag/1.28.0>`_
 
 The folder where the recipe *conanfile.py* is stored, either in the local folder or in the cache. This is useful in order to access files
 that are exported along with the recipe.
@@ -1493,6 +1533,7 @@ deprecated
 
     This is an **experimental** feature subject to breaking changes in future releases.
 
+Available since: `1.28.0 <https://github.com/conan-io/conan/releases/tag/1.28.0>`_
 
 This attribute declares that the recipe is deprecated, causing a user-friendly warning message to be emitted whenever it is used.
 For example, the following code:
@@ -1538,6 +1579,8 @@ provides
 .. warning::
 
     This is an **experimental** feature subject to breaking changes in future releases.
+
+Available since: `1.28.0 <https://github.com/conan-io/conan/releases/tag/1.28.0>`_
 
 This attribute declares that the recipe provides the same functionality as other recipe(s). The attribute is usually needed if two or more
 libraries implement the same API to prevent link-time and run-time conflicts (ODR violations). One typical situation is forked libraries.
