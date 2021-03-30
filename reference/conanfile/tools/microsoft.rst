@@ -210,5 +210,5 @@ Where:
 conf
 ++++
 
-- ``tools.microsoft:msbuild_verbosity`` will accept one of ``"Quiet", "Minimal", "Normal", "Detailed", "Diagnostic"`` to be passed
+- ``tools.microsoft.msbuild:verbosity`` will accept one of ``"Quiet", "Minimal", "Normal", "Detailed", "Diagnostic"`` to be passed
   to the ``MSBuild.build()`` call as ``msbuild .... /verbosity:XXX``

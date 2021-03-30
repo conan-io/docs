@@ -314,7 +314,7 @@ Equivalent to running :command:`cmake --build . --target=RUN_TESTS`.
 conf
 ++++
 
-- ``tools.microsoft:msbuild_verbosity`` will accept one of ``"Quiet", "Minimal", "Normal", "Detailed", "Diagnostic"`` to be passed
+- ``tools.microsoft.msbuild:verbosity`` will accept one of ``"Quiet", "Minimal", "Normal", "Detailed", "Diagnostic"`` to be passed
   to the ``CMake.build()`` command, when a Visual Studio generator (MSBuild build system) is being used for CMake. It is passed as
   an argument to the underlying build system via the call ``cmake --build . --config Release -- /verbosity:Diagnostic``
 
