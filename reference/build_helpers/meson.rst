@@ -89,7 +89,8 @@ test()
 
     def test(args=None, build_dir=None, target=None)
 
-Executes ninja test target, which usually means building and running unit tests.
+Executes ninja test target, which usually means building and running unit tests. When this function
+is called :ref:`env_vars_conan_run_tests` will be evaluated to check if tests should run.
 
 Parameters:
     - **args** (Optional, Defaulted to ``None``): A list of additional arguments to be passed to the ``ninja`` command. Each argument will be escaped

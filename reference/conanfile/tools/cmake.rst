@@ -13,8 +13,8 @@ CMakeDeps
 
 Available since: `1.33.0 <https://github.com/conan-io/conan/releases/tag/1.33.0>`_
 
-The ``CMakeDeps`` helper will generate one **xxxx-config.cmake** file per dependency, together with other necessary .cmake files
-like version, or configuration. It can be used like:
+The ``CMakeDeps`` helper will generate one **xxxx-config.cmake** file per dependency, together with other necessary *.cmake* files
+like version, flags and directory data or configuration. It can be used like:
 
 
 .. code-block:: python
@@ -231,6 +231,9 @@ when a package is being built directly by Conan (create, install)
             cmake.configure()
             cmake.build()
 
+**Note:** This helper includes the additional flag `-DCMAKE_SH="CMAKE_SH-NOTFOUND"` when using the `MinGW Makefiles` CMake's
+generator, to avoid the error of `sh` being in the PATH (CMake version < 3.17.0).
+
 It supports the following methods:
 
 constructor
@@ -311,6 +314,12 @@ Equivalent to running :command:`cmake --build . --target=RUN_TESTS`.
 conf
 ++++
 
-- ``tools.microsoft:msbuild_verbosity`` will accept one of ``"Quiet", "Minimal", "Normal", "Detailed", "Diagnostic"`` to be passed
+- ``tools.microsoft.msbuild:verbosity`` will accept one of ``"Quiet", "Minimal", "Normal", "Detailed", "Diagnostic"`` to be passed
   to the ``CMake.build()`` command, when a Visual Studio generator (MSBuild build system) is being used for CMake. It is passed as
   an argument to the underlying build system via the call ``cmake --build . --config Release -- /verbosity:Diagnostic``
+
+- ``tools.ninja:jobs`` argument for the ``--jobs`` parameter when running Ninja generator. (overrides
+  the general ``tools.build:processes``).
+
+- ``tools.microsoft.msbuild:max_cpu_count`` argument for the ``/m`` (``/maxCpuCount``) when running
+  ``MSBuild`` (overrides the general ``tools.build:processes``).

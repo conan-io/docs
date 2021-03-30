@@ -195,5 +195,7 @@ updated package revision and status. The ``conan lock bundle update`` does this 
 - Scan all connected lockfiles for every ``ref`` recipe reference and ``package_id``, and collect those that have been modified.
 - Propagate the modified information to all the other connected lockfiles.
 
-After ``conan lock bundle update``, all packages sharing the same reference and ``package_id`` should have the same status (marked
-"modified" and same package revision)
+After ``conan lock bundle update``, all packages sharing the same reference and ``package_id`` should
+have the same status (marked "modified" and same package revision). The "modified" state for the
+lockfile bundles can be cleaned using the command ``conan lock bundle clean-modified`` that will
+clean that flag from both the *.bundle* file and the individual *.lock* files.

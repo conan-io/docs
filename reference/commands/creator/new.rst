@@ -58,6 +58,9 @@ Creates a new package recipe template with a 'conanfile.py' and optionally,
                             excluded
       -ciu CI_UPLOAD_URL, --ci-upload-url CI_UPLOAD_URL
                             Define URL of the repository to upload
+      -d DEFINE, --define DEFINE
+                            Define additional variables to be processed within
+                            template
 
 
 **Examples**:
@@ -92,6 +95,5 @@ Creates a new package recipe template with a 'conanfile.py' and optionally,
 
       $ conan new mypackage/1.0 --template=myconanfile.py  # Single template file
       $ conan new mypackage/1.0 --template=header_only  # Template directory
-
 
   Refer to the section :ref:`template_command_new` for more information about these templates.

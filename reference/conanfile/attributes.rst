@@ -454,7 +454,7 @@ highest one (with the exceptional assignment in ``configure()`` method which can
 Values from options can be retrieved after they are assigned. For options that belong to the same recipe, the value can
 be retrieved in any method to run logic conditional to their values. **Options from required packages can be
 retrieved only after the full graph has been resolved**, this means that the value will be available in the methods
-``build()``, ``package()``, ``package_info()``. Accessing those values in other methods can lead to unexpected results.
+``validate()``, ``build()``, ``package()``, ``package_info()``. Accessing those values in other methods can lead to unexpected results.
 
 
 .. code-block:: python
@@ -462,7 +462,7 @@ retrieved only after the full graph has been resolved**, this means that the val
     class OtherPkg(ConanFile):
         requires = "mypkg/0.1@user/channel"
 
-        def build(self):
+        def validate(self):
             if self.options['mypkg'].shared:
                 raise ConanInvalidConfiguration("Cannot use shared library of requirement 'mypkg'")
 

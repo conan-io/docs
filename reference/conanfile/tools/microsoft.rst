@@ -64,13 +64,15 @@ above:
 This is a multi-configuration generator, and will generate different files for the different Debug/Release
 configuration. The above commands the following files will be generated:
 
-- *conan_zlib_release_x64.props*: Properties file for the ``zlib`` dependency, Release config
-- *conan_zlib_debug_x64.props*: Properties file for the ``zlib`` dependency, Debug config
+- *conan_zlib_vars_release_x64.props*: ``Conanzlibxxxx`` variables definitions for the ``zlib`` dependency, Release config, like ``ConanzlibIncludeDirs``, ``ConanzlibLibs``, etc.
+- *conan_zlib_vars_debug_x64.props*: Same ``Conanzlib``variables for ``zlib`` dependency, Debug config
+- *conan_zlib_release_x64.props*: Activation of ``Conanzlibxxxx`` variables in the current build as standard C/C++ build configuration, Release config. This file contains also the transitive dependencies definitions.
+- *conan_zlib_debug_x64.props*: Same activation of ``Conanzlibxxxx`` variables, Debug config, also inclusion of transitive dependencies.
 - *conan_zlib.props*: Properties file for ``zlib``. It conditionally includes, depending on the configuration,
-  one of the above Release/Debug properties files.
-- Same 3 files will be generated for every dependency in the graph, in this case ``conan_bzip.props`` too, which
+  one of the two immediately above Release/Debug properties files.
+- Same 5 files will be generated for every dependency in the graph, in this case ``conan_bzip.props`` too, which
   will conditionally include the Release/Debug bzip properties files.
-- *conan_deps.props*: Properties files including all direct dependencies, in this case, it includes ``conan_zlib.props``
+- *conandeps.props*: Properties files including all direct dependencies, in this case, it includes ``conan_zlib.props``
   and ``conan_bzip2.props``
 
 You will be adding the *conan_deps.props* to your solution project files if you want to depend on all the declared
@@ -109,6 +111,21 @@ This will manage to generate new properties files for this custom configuration,
 in the IDE allows to be switching dependencies configuration like Debug/Release, it could be also
 switching dependencies from static to shared libraries.
 
+Included dependencies
++++++++++++++++++++++
+
+``MSBuildDeps`` uses the new experimental ``self.dependencies`` access to dependencies. The following
+dependencies will be translated to properties files:
+
+- All direct dependencies, that is, the ones declared by the current ``conanfile``, that lives in the
+  host context: all regular ``requires``, plus the ``build_requires`` that are in the host context,
+  for example test frameworks as ``gtest`` or ``catch``.
+- All transitive ``requires`` of those direct dependencies (all in the host context)
+
+Then, the ``build_requires`` of build context (like ``cmake`` packages as build_requires), plus the
+transitive ``build_requires`` (irrespective of the context) are not translated to properties files,
+as they shouldn't be necessary for the build.
+
 
 MSBuildToolchain
 ----------------
@@ -146,7 +163,7 @@ And it can also be fully instantiated in the conanfile ``generate()`` method:
             tc.generate()
 
 
-The ``MSBuildToolchain`` will generate two files after a ``conan install`` command:
+The ``MSBuildToolchain`` will generate three files after a ``conan install`` command:
 
 .. code-block:: bash
 
@@ -158,6 +175,10 @@ The ``MSBuildToolchain`` will generate two files after a ``conan install`` comma
 - A *conantoolchain_<config>.props* file, that will be conditionally included from the previous
   *conantoolchain.props* file based on the configuration and platform, e.g.:
   *conantoolchain_release_x86.props*
+- A *conanvcvars.bat* file with the necessary ``vcvars`` invocation to define the build environment if necessary
+  to build from the command line or from automated tools (might not be necessary if opening the IDE). This file
+  will be automatically called by the ``tools.microsoft.MSBuild`` helper ``build()`` method.
+
 
 Every invocation to ``conan install`` with different configuration will create a new properties ``.props``
 file, that will also be conditionally included. This allows to install different configurations,
@@ -210,5 +231,5 @@ Where:
 conf
 ++++
 
-- ``tools.microsoft:msbuild_verbosity`` will accept one of ``"Quiet", "Minimal", "Normal", "Detailed", "Diagnostic"`` to be passed
+- ``tools.microsoft.msbuild:verbosity`` will accept one of ``"Quiet", "Minimal", "Normal", "Detailed", "Diagnostic"`` to be passed
   to the ``MSBuild.build()`` call as ``msbuild .... /verbosity:XXX``
