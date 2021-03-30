@@ -30,11 +30,26 @@ have priority over globally defined ones in *global.conf*, and can be defined as
     ...
 
     [conf]
-    tools.microsoft:msbuild_verbosity=Diagnostic
-
+    tools.microsoft.msbuild:verbosity=Diagnostic
+    tools.microsoft.msbuild:max_cpu_count=20
+    tools.build:processes=10
+    tools.ninja:jobs=30
+    tools.gnu.make:jobs=40
 
 Existing configurations:
 
-- ``tools.microsoft:msbuild_verbosity`` allows defining a value from ``"Quiet", "Minimal", "Normal", "Detailed", "Diagnostic"`` for build using the
-  MSBuild system, it could be with the ``tools.microsoft.MSBuild`` or with the ``tools.cmake.CMake`` helpers.
+- ``tools.microsoft.msbuild:verbosity`` allows defining a value from ``"Quiet", "Minimal", "Normal",
+  "Detailed", "Diagnostic"`` for build using the
+  MSBuild system, it could be with the ``tools.microsoft.MSBuild`` or with the ``tools.cmake.CMake``
+  helpers.
 
+- ``tools.microsoft.msbuild:max_cpu_count`` argument for the ``/m`` (``/maxCpuCount``) when running
+  ``MSBuild`` standalone or via CMake (overrides the general ``tools.build:processes``).
+
+- ``tools.build:processes``: number of processes to use for every build-helper.
+
+- ``tools.ninja:jobs`` argument for the ``--jobs`` parameter when running Ninja generator via CMake
+  or Meson. (overrides the general ``tools.build:processes``). 
+
+- ``tools.gnu.make:jobs``: argument for the ``--jobs`` parameter when running ``make`` 
+  (overrides the general ``tools.build:processes``).

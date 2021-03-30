@@ -335,7 +335,9 @@ test()
 
     def test(args=None, build_dir=None, target=None, output_on_failure=False)
 
-Build `CMake` test target (could be RUN_TESTS in multi-config projects or ``test`` in single-config projects), which usually means building and running unit tests
+Build `CMake` test target (could be RUN_TESTS in multi-config projects or ``test`` in single-config
+projects), which usually means building and running unit tests. When this function is called
+:ref:`env_vars_conan_run_tests` will be evaluated to check if tests should run.
 
 Parameters:
     - **args** (Optional, Defaulted to ``None``): A list of additional arguments to be passed to the ``cmake`` command. Each argument will be escaped according to the current shell. No extra arguments will be added if ``args=None``.
