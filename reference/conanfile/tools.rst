@@ -41,3 +41,4 @@ Contents:
    tools/microsoft
    tools/qbs
    tools/env
+   tools/files

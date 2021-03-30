@@ -156,6 +156,11 @@ consistent conventions and strategy, however they are currently completely
 independent from each other. Thus, you can use this toolchain without using the
 ``MakeGenerator``.
 
+conf
+++++
+
+- ``tools.gnu.make:jobs``: argument for the ``--jobs`` parameter when running ``make`` 
+  (overrides the general ``tools.build:processes``).
 
 Using the toolchain in developer flow
 +++++++++++++++++++++++++++++++++++++
