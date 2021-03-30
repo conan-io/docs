@@ -163,7 +163,7 @@ And it can also be fully instantiated in the conanfile ``generate()`` method:
             tc.generate()
 
 
-The ``MSBuildToolchain`` will generate two files after a ``conan install`` command:
+The ``MSBuildToolchain`` will generate three files after a ``conan install`` command:
 
 .. code-block:: bash
 
@@ -175,6 +175,10 @@ The ``MSBuildToolchain`` will generate two files after a ``conan install`` comma
 - A *conantoolchain_<config>.props* file, that will be conditionally included from the previous
   *conantoolchain.props* file based on the configuration and platform, e.g.:
   *conantoolchain_release_x86.props*
+- A *conanvcvars.bat* file with the necessary ``vcvars`` invocation to define the build environment if necessary
+  to build from the command line or from automated tools (might not be necessary if opening the IDE). This file
+  will be automatically called by the ``tools.microsoft.MSBuild`` helper ``build()`` method.
+
 
 Every invocation to ``conan install`` with different configuration will create a new properties ``.props``
 file, that will also be conditionally included. This allows to install different configurations,

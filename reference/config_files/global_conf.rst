@@ -32,6 +32,7 @@ have priority over globally defined ones in *global.conf*, and can be defined as
     [conf]
     tools.microsoft.msbuild:verbosity=Diagnostic
     tools.microsoft.msbuild:max_cpu_count=20
+    tools.microsoft.msbuild:vs_version = 16
     tools.build:processes=10
     tools.ninja:jobs=30
     tools.gnu.make:jobs=40
@@ -45,6 +46,8 @@ Existing configurations:
 
 - ``tools.microsoft.msbuild:max_cpu_count`` argument for the ``/m`` (``/maxCpuCount``) when running
   ``MSBuild`` standalone or via CMake (overrides the general ``tools.build:processes``).
+
+- ``tools.microsoft.msbuild:vs_version`` defines the compiler version when using using the new ``msvc`` compiler.
 
 - ``tools.build:processes``: number of processes to use for every build-helper.
 
