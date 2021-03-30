@@ -1,5 +1,3 @@
-.. _make_toolchain:
-
 conan.tools.gnu
 ===============
 
