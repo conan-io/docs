@@ -5,14 +5,16 @@ conan lock
 
 .. code-block:: bash
 
-    $ conan lock [-h] {update,build-order,clean-modified,create} ...
+    $ conan lock [-h]
+                 {update,build-order,clean-modified,install,create,bundle}
+                 ...
 
 Generates and manipulates lock files.
 
 .. code-block:: text
 
     positional arguments:
-      {update,build-order,clean-modified,create}
+      {update,build-order,clean-modified,install,create,bundle}
                             sub-command help
         update              Complete missing information in the first lockfile
                             with information defined in the second lockfile. Both
@@ -22,7 +24,9 @@ Generates and manipulates lock files.
                             first one
         build-order         Returns build-order
         clean-modified      Clean modified flags
+        install             Install a lockfile
         create              Create a lockfile from a conanfile or a reference
+        bundle              Manages lockfile bundles
 
     optional arguments:
       -h, --help            show this help message and exit
