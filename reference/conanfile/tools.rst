@@ -40,3 +40,4 @@ Contents:
    tools/meson
    tools/microsoft
    tools/qbs
+   tools/files
