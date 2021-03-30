@@ -187,3 +187,9 @@ test()
     def test(self):
 
 Runs project's tests. Equivalent to running :command:`meson test -v -C .` in the build folder..
+
+conf
+++++
+
+- ``tools.ninja:jobs`` argument for the ``--jobs`` parameter when running Ninja. (overrides
+  the general ``tools.build:processes``).
