@@ -213,9 +213,14 @@ And if we inspect the new *locks/pkgb.lock* file:
         ...
     }
 
-It can be appreciated in *locks/pkgb.lock* that now ``pkgb/0.1@user/testing`` is fully locked, as a package (not a local *conanfile.py*),
-and contains a ``package_id``. So if we try to use this new file for creating the package again, it will error,
-as a package that is fully locked cannot be rebuilt:
+Note that some fields of the lockfile are now completed, as the modified flag, that indicates that
+``pkgb`` was built in the conan create command. That information can be useful in the CI environment
+to know which packages were built by different jobs. Those modified flags can be reset using the
+:command:`conan lock clean-modified`.
+Also, it can be appreciated in *locks/pkgb.lock* that now ``pkgb/0.1@user/testing`` is fully locked, as a
+package (not a local *conanfile.py*), and contains a ``package_id``. So if we try to use this new
+file for creating the package again, it will error, as a package that is fully locked cannot be
+rebuilt:
 
 
 .. code-block:: bash
