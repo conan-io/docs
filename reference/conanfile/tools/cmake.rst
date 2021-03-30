@@ -231,8 +231,6 @@ when a package is being built directly by Conan (create, install)
             cmake.configure()
             cmake.build()
 
-.. note:
-
 **Note:** This helper includes the additional flag `-DCMAKE_SH="CMAKE_SH-NOTFOUND"` when using the `MinGW Makefiles` CMake's
 generator, to avoid the error of `sh` being in the PATH (CMake version < 3.17.0).
 
