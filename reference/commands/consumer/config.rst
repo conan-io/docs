@@ -67,6 +67,12 @@ Used to edit conan.conf, or install config files.
 
       $ conan config init --force
 
+- Set config install scheduler for every 1 week:
+
+  .. code-block:: bash
+
+      $ conan config set general.config_install_interval=1w
+
 .. _conan_config_install:
 
 conan config install
@@ -204,7 +210,7 @@ Conan runs it based on *config_install.json*, including the timestamp of the las
   .. code-block:: bash
 
       $ conan config install my_settings\settings.yml
-      
+
 - Install the configuration from a local path:
 
   .. code-block:: bash
