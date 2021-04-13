@@ -21,6 +21,14 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.35 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
     submit a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.35.1 (13-Apr-2021)
+--------------------
+
+- Fix: Avoid breaking users calling forbidden private api ``conanfile.__init__``. `#8746 <https://github.com/conan-io/conan/pull/8746>`_
+- Bugfix: Fix opensuse SystemPackageTools incorrectly using apt-get when zypper-aptitude. `#8747 <https://github.com/conan-io/conan/pull/8747>`_
+- Bugfix: Fix linker flags in cmake (find_package based) generators. `#8740 <https://github.com/conan-io/conan/pull/8740>`_
+- Bugfix: Fixed bug in transitive build_requires of MSBuildDeps. `#8734 <https://github.com/conan-io/conan/pull/8734>`_
+
 1.35.0 (30-Mar-2021)
 --------------------
 
