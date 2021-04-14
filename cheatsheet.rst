@@ -47,7 +47,9 @@ Install configurations:
 
 .. code-block:: bash
 
-    $ conan config install <item>  # Copies the relevant contents from <item> to the user's ~/.conan directory.
+    $ conan config install <item>  # Copy the relevant contents from <item> to the user's ~/.conan directory.
+
+    $ conan config install ./my_config.conf
 
 Alternatively, copying files and editing conan.conf can be done manually.
 
@@ -55,23 +57,25 @@ Set up configurations:
 
 .. code-block:: bash
 
-    $ conan config init     # Initializes Conan configuration files
-    $ conan config home     # See the Conan home directory
-
-View configurations:
-
-.. code-block:: bash
-
-    $ conan config get      # Shows some or all configuration items
-    $ conan config get log.level
+    $ conan config init     # Initialize Conan configuration files
 
 Set configuration values:
 
 .. code-block:: bash
 
     $ conan config set <section>.<config>=<value>
+
     $ conan config set log.level=10
-    $ conan config set log.print_run_commands=False # Make conan less verbose
+    $ conan config set log.print_run_commands=False  # Make conan less verbose
+
+Inspect configurations:
+
+.. code-block:: bash
+
+    $ conan config home     # See the Conan home directory
+    $ conan config get      # Show some or all configuration items
+
+    $ conan config get log.level
 
 See `conan config <https://docs.conan.io/en/latest/reference/commands/consumer/config.html>`_ reference.
 
@@ -120,6 +124,7 @@ Show a profile:
 .. code-block:: bash
 
     $ conan profile show <profile>
+
     $ conan profile show default
 
 Use profile while executing command (e.g., ``conan install`` or ``conan create``):
@@ -181,12 +186,11 @@ Using packages in an application
 
 .. code-block:: bash
 
-    $ conan install .
-                    [-o <package>:<option>=<value>]  # Specify options, e.g. shared=True
-                    [-s <package>:<setting>=<value>] # Specify settings, e.g. build_type=Debug
-                                                     # <package> is optional: if not specified, the option/setting applies to all dependencies
-                    [-r=<remote ID>]                 # Download dependencies from only the specified remote
-                    [-g=<generator>]                 # Specify generators at the command line
+    $ conan install . [-o <package>:<option>=<value>]  # Specify options, e.g. shared=True
+                      [-s <package>:<setting>=<value>] # Specify settings, e.g. build_type=Debug
+                                                       # <package> is optional: if not specified, the option/setting applies to all dependencies
+                      [-r=<remote ID>]                 # Download dependencies from only the specified remote
+                      [-g=<generator>]                 # Specify generators at the command line
 
 3. #include interface files to the Conan packages in the source code
 4. Modify the build system to use the files output from the Generator
@@ -200,14 +204,14 @@ Download a package, if it isn't already in `the local cache`_:
 .. code-block:: bash
 
     $ conan install <package>/<version>@[<user>/<channel>#<revision>]
-                    [-r=<remote ID>]                                   # Download dependencies from only the specified remote
+                    [-r=<remote ID>]                                    # Download dependencies from only the specified remote
 
-    # Install a package requirement from a Conanfile.txt, saved in your current directory,
-    # with all options and settings coming from your default profile
-    $ conan install .
+    
+    $ conan install .  # Install a package requirement from a Conanfile.txt, saved in your current directory, with all
+                       # options and settings coming from your default profile
 
-    # As above, but override one option and one setting:
-    $ conan install . -o pkg_name:use_debug_mode=on -s compiler=clang
+    $ conan install . -o pkg_name:use_debug_mode=on -s compiler=clang   # As above, but override one option and one
+                                                                        # setting
 
 See `conan install <https://docs.conan.io/en/latest/reference/commands/consumer/install.html>`_ reference.
 
@@ -221,8 +225,9 @@ Clear packages from cache:
 .. code-block:: bash
 
     $ conan remove "<package>" --force  # <package> can include wildcards
-    $ conan remove 'boost/*'
-    $ conan remove 'MyPackage/1.2@user/channel'
+
+    $ conan remove 'boost/*'                     # Remove all versions of Boost
+    $ conan remove 'MyPackage/1.2@user/channel'  # Remove all revisions of Mypackage/1.2@user/channel
 
 See `conan remove <https://docs.conan.io/en/latest/reference/commands/misc/remove.html>`_ reference.
 
@@ -240,7 +245,7 @@ Prepare packages for use via the command line:
 .. code-block:: bash
 
     $ conan install . -g=deploy         # Copy dependencies to current folder
-    $ conan install . -g=virtualrunenv  # create shell scripts to activate and deactivate environments where you can run dependencies from the local cache
+    $ conan install . -g=virtualrunenv  # Create shell scripts to activate and deactivate environments where you can run dependencies from the local cache
 
 Searching and introspecting packages
 ------------------------------------
@@ -254,7 +259,7 @@ List names of packages in local cache:
 
 .. code-block:: bash
 
-    $ conan search              # lists names of packages in local cache
+    $ conan search              # List names of packages in local cache
 
 Show package recipes or builds of a package:
 
@@ -263,6 +268,9 @@ Show package recipes or builds of a package:
     $ conan search <package>/<revision>@<user>/<channel>  # Output depends on how much of a package reference is given. Wildcards are supported
                    [--table=file.html]                    # Save output in an HTML file
                    [-r=<remote>]                          # Look in a remote repository (default is the local cache)
+    
+    $ conan search mylib/1.0@user/channel                 # Show all packages of mylib/1.0@user/channel in the local cache
+    $ conan search "zlib/*" -r=all                        # Show all versions of zlib in all remotes
 
 Show revisions of a package:
 
@@ -280,6 +288,7 @@ Print the package recipe in full:
 .. code-block:: bash
 
     $ conan get <package>/<revision>@<user>/<channel>
+
     $ conan get boost/1.74.0
 
 Print attributes of the package recipe:
@@ -287,6 +296,7 @@ Print attributes of the package recipe:
 .. code-block:: bash
 
     $ conan inspect <package>/<revision>@<user>/<channel>
+
     $ conan inspect boost/1.74.0
 
 See `conan get <https://docs.conan.io/en/latest/reference/commands/consumer/get.html>`_ and `conan
@@ -299,8 +309,7 @@ Create a dependency graph for the package or application:
 
 .. code-block:: bash
 
-    $ conan info .
-                 [--graph=file.html]  # Save output in an HTML file
+    $ conan info . [--graph=file.html]  # Save output in an HTML file
 
 See `conan info <https://docs.conan.io/en/latest/reference/commands/consumer/info.html>`_ reference.
 
@@ -350,12 +359,12 @@ Build a package into the local cache:
 
 .. code-block:: bash
 
-    $ conan create . <user>/<channel>
-                   [-o <package>:<option>=<value>]   # Specify options, for example shared=True.
-                   [-s <package>:<setting>=<value>]  # Specify settings, for example build_type=Debug.
-                                                     # If <package> is not specified, the option and setting applies to all dependencies.
-                   [-pr=<profile name>]              # If -pr is not specified, the default profile is used
-                   [--build=missing]                 # Builds all dependencies if they can't be downloaded
+    $ conan create . <user>/<channel> [-o <package>:<option>=<value>]   # Specify options, for example shared=True.
+                                      [-s <package>:<setting>=<value>]  # Specify settings, for example build_type=Debug.
+                                                                        # If <package> is not specified, the option and
+                                                                        # setting applies to all dependencies.
+                                      [-pr=<profile name>]              # If -pr is not specified, the default profile is used
+                                      [--build=missing]                 # Build all dependencies if they can't be downloaded
 
 See `conan new <https://docs.conan.io/en/latest/reference/commands/creator/new.html>`_ and `conan
 create <https://docs.conan.io/en/latest/reference/commands/creator/create.html>`_ reference.
