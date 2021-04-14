@@ -36,8 +36,7 @@ Installation
     $ pip install conan
     $ pip install conan --upgrade
 
-See `Install docs
-<https://docs.conan.io/en/latest/installation.html>`_.
+See `Install <https://docs.conan.io/en/latest/installation.html>`_ docs.
 
 Configurations
 ++++++++++++++
@@ -73,6 +72,8 @@ Set configuration values:
     $ conan config set <section>.<config>=<value>
     $ conan config set log.level=10
     $ conan config set log.print_run_commands=False # Make conan less verbose
+
+See `conan config <https://docs.conan.io/en/latest/reference/commands/consumer/config.html>`_ reference.
 
 Profiles
 ++++++++
@@ -128,6 +129,8 @@ Use profile while executing command (e.g., ``conan install`` or ``conan create``
     $ conan <command> . -pr=<profile1> -pr=<profile2>  # Use installed profile name, or file path
                                                        # Composable, last -pr wins for conflicts
                                                        
+See `conan profile <https://docs.conan.io/en/latest/reference/commands/misc/profile.html>`_ reference.
+
 Remote repositories
 +++++++++++++++++++
 
@@ -144,6 +147,8 @@ Add remote:
 .. code-block:: bash
 
     $ conan remote add <remote ID> <URL of remote repo>
+
+See `conan remote <https://docs.conan.io/en/latest/reference/commands/misc/remote.html>`_ reference.
 
 Consuming packages
 ------------------
@@ -204,8 +209,7 @@ Download a package, if it isn't already in `the local cache`_:
     # As above, but override one option and one setting:
     $ conan install . -o pkg_name:use_debug_mode=on -s compiler=clang
 
-See `'conan install' reference
-<https://docs.conan.io/en/latest/reference/commands/consumer/install.html>`_.
+See `conan install <https://docs.conan.io/en/latest/reference/commands/consumer/install.html>`_ reference.
 
 The local cache
 +++++++++++++++
@@ -220,8 +224,7 @@ Clear packages from cache:
     $ conan remove 'boost/*'
     $ conan remove 'MyPackage/1.2@user/channel'
 
-See `'conan remove' docs
-<https://docs.conan.io/en/latest/reference/commands/misc/remove.html>`_.
+See `conan remove <https://docs.conan.io/en/latest/reference/commands/misc/remove.html>`_ reference.
 
 Using packages as standalone applications
 +++++++++++++++++++++++++++++++++++++++++
@@ -267,6 +270,8 @@ Show revisions of a package:
 
     $ conan search <package>/<revision>@<user>/<channel> --revisions
 
+See `conan search <https://docs.conan.io/en/latest/reference/commands/consumer/search.html>`_ reference.
+
 Inspecting packages
 +++++++++++++++++++
 
@@ -284,6 +289,9 @@ Print attributes of the package recipe:
     $ conan inspect <package>/<revision>@<user>/<channel>
     $ conan inspect boost/1.74.0
 
+See `conan get <https://docs.conan.io/en/latest/reference/commands/consumer/get.html>`_ and `conan
+inspect <https://docs.conan.io/en/latest/reference/commands/misc/inspect.html>`_ reference.
+
 Visualizing dependencies
 ++++++++++++++++++++++++
 
@@ -293,6 +301,8 @@ Create a dependency graph for the package or application:
 
     $ conan info .
                  [--graph=file.html]  # Save output in an HTML file
+
+See `conan info <https://docs.conan.io/en/latest/reference/commands/consumer/info.html>`_ reference.
 
 Creating packages
 -----------------
@@ -346,6 +356,9 @@ Build a package into the local cache:
                                                      # If <package> is not specified, the option and setting applies to all dependencies.
                    [-pr=<profile name>]              # If -pr is not specified, the default profile is used
                    [--build=missing]                 # Builds all dependencies if they can't be downloaded
+
+See `conan new <https://docs.conan.io/en/latest/reference/commands/creator/new.html>`_ and `conan
+create <https://docs.conan.io/en/latest/reference/commands/creator/create.html>`_ reference.
 
 The package recipe
 ++++++++++++++++++
@@ -423,6 +436,8 @@ Use the exported conanfile.py:
 
            ...
            self.python_requires["<package>"].module.func()           # To call the method func() from the exported conanfile.py
+
+See `conan export <https://docs.conan.io/en/latest/reference/commands/creator/export.html>`_ reference.
 
 Hooks
 #####
@@ -553,6 +568,8 @@ Use lockfile during ``conan create`` or ``conan install``:
 
     $ conan <command> --lockfile conan.lock
 
+See `conan lock <https://docs.conan.io/en/latest/reference/commands/misc/lock.html>`_ reference.
+
 Uploading packages to a remote repository
 +++++++++++++++++++++++++++++++++++++++++
 
@@ -564,8 +581,12 @@ Packages are not uploaded to a remote repository automatically. This needs to be
                    [--all]                     # Upload all binaries and their recipes (recipes only uploaded by default)
                    [--confirm]                 # Auto-confirm
 
+See `conan upload <https://docs.conan.io/en/latest/reference/commands/creator/upload.html>`_ reference.
+
 Important points for enterprises
 --------------------------------
 
-Versioning, revisioning and dependency resolution should be consistent across a company. Configurations_ should be synchronised across all developers, in particular `package id calculation modes`_.
+Versioning, revisioning and dependency resolution should be consistent across a company. Configurations_ should be
+synchronised across all developers, in particular `package id calculation modes`_.
+
 In a CI/CD system, use lockfiles_ throughout, so that builds are reproducible.
