@@ -389,7 +389,7 @@ A package recipe is a Python class, defined in a file called conanfile.py in the
 
 .. code-block:: python
 
-    class <Package>Conan(ConanFile):
+    class MypackageConan(ConanFile):
         ...                                                # Various package metadata
         settings = "os", "compiler", "build_type", "arch"  # Defines available settings
         options = {"shared": [True, False]}                # Defines available options and defaults. "shared" is a common
