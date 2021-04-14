@@ -31,6 +31,8 @@ Setup and configuration
 Installation
 ++++++++++++
 
+Conan is available as a Python package and installed via pip:
+
 .. code-block:: bash
 
     $ pip install conan
@@ -57,7 +59,8 @@ Set up configurations:
 
 .. code-block:: bash
 
-    $ conan config init     # Initialize Conan configuration files
+    $ conan config init     # Initialize Conan configuration files. If some are already present, missing files only are
+                            # created
 
 Set configuration values:
 
@@ -73,9 +76,11 @@ Inspect configurations:
 .. code-block:: bash
 
     $ conan config home     # See the Conan home directory
-    $ conan config get      # Show some or all configuration items
 
-    $ conan config get log.level
+    $ conan config get [<section>.<config>]  # Show some or all configuration items
+
+    $ conan config get                       # Show the full conan.conf file
+    $ conan config get log.level             # Show the "level" item in the "log" section
 
 See `conan config <https://docs.conan.io/en/latest/reference/commands/consumer/config.html>`_ reference.
 
