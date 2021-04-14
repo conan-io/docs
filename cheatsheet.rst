@@ -300,21 +300,30 @@ Creating packages
 Package terminology
 +++++++++++++++++++
 
-Each package recipe relates to a single package. However, a package can be built in different ways and result in multiple binaries, each with its own package ID.
+Each package recipe relates to a single package. However, a package can be built in different ways.
 
-A recipe reference is used to identify a certain version/revision of a package and its recipe:
+A reference is used to identify packages:
 
 .. code-block:: text
 
-    <package>/<version>@<user>/<channel>  # Identifies a package version/revision
+    <package>/<version>@<user>/<channel>#RREV:PACKAGE_ID#PREV
 
-A package ID is a SHA-1 hash, calculated from the build options_ and settings_ and from dependencies (according to certain modes__):
+The recipe reference is used to identify a certain version of a package recipe:
+
+.. code-block:: text
+
+    <package>/<version>@<user>/<channel>  # <package> and <version> are defined in the recipe; <user> and <channel> are
+                                          # defined by the user when exporting the package
+
+    lib/1.0@conan/stable
+
+
+The package ID is a SHA-1 hash calculated from the build options_ and settings_ and from dependencies (according to
+certain modes__).
 
 __ #package-id-calculation-modes
 
-.. code-block:: text
-
-   09512ff863f37e98ed748e                 # Identifies a unique build configuration of a package
+See `Revisions`_ for further details of the recipe revision and package revision (RREV and PREV).
 
 Creating a basic package
 ++++++++++++++++++++++++
@@ -478,18 +487,20 @@ Revisions
 Revisions allow changes to a package without increasing the version number or overwriting the existing version number. They are disabled by default.
 
 There are two types of revisions:
-- "Recipe Revisions" (aka RREV) - Revision of the recipe and sources
-- "Package Revisions" (aka PREV) - Revision of a binary package
 
-Conan only holds one recipe revision in the local cache. Many recipe revisions can be stored in remote repositories. Recipe revisions can be specified wherever a recipe is consumed. If a recipe revision is not specified, the latest revision is used.
+- "Recipe Revisions" (RREV) - Revision of the recipe and sources
+- "Package Revisions" (PREV) - Revision of a binary package
 
-Recipe revisions are an extension to the recipe reference which consist by default of a hash generated from the recipe contents:
+The recipe revision (RREV) is a SHA-1 hash either calculated over the recipe, or taken from the version control system.
+Conan only holds one recipe revision in the local cache. Many recipe revisions can be stored in remote repositories.
+This helps differentiate between packages that have been changed and built without changing the version number. Recipe
+revisions can be specified wherever a recipe is consumed. If a recipe revision is not specified, the latest revision is
+used.
 
-.. code-block:: text
-
-    <package>/<version>@<user>/<channel>#<recipe_revision>
-    
-Package revisions are very rarely used directly by users in commands or configurations, because it's fairly impactical to do so.  Instead, they are generally managed by the use of "Lockfiles". 
+The package revision (PREV) is a SHA-1 hash calculated over the package contents. Package revisions provide the most
+precise identification for a built package. They are very rarely used directly by users in commands or configurations,
+because it's fairly impactical to do so.  Instead, they are generally managed by
+the use of "Lockfiles". 
 
 Enable revisions:
 
