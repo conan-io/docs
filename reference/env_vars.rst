@@ -73,8 +73,8 @@ Conan ``CMake`` helper class is just a convenience to help to translate Conan
 settings and options into CMake parameters, but you can easily do it yourself, or adapt it.
 
 For some compiler configurations, as ``gcc`` it will use by default the ``Unix Makefiles``
-CMake generator. Note that this is not a package settings, building it with makefiles or other
-build system, as Ninja, should lead to the same binary if using appropriately the same
+CMake generator. Note that this is not a package setting, building it with Makefiles or another
+build system such as Ninja should lead to the same binary if using the same appropriate
 underlying compiler settings. So it doesn't make sense to provide a setting or option for this.
 
 So it can be set with the environment variable ``CONAN_CMAKE_GENERATOR``. Just set its value
