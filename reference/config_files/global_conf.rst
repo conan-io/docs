@@ -51,7 +51,7 @@ Existing configurations:
 
 - ``tools.build:processes``: number of processes to use for every build-helper.
 
-- ``tools.ninja:jobs`` argument for the ``--jobs`` parameter when running Ninja generator via CMake
+- ``tools.ninja:jobs`` argument for the ``--jobs`` parameter when running a Ninja generator via CMake
   or Meson. (overrides the general ``tools.build:processes``). 
 
 - ``tools.gnu.make:jobs``: argument for the ``--jobs`` parameter when running ``make`` 
