@@ -28,6 +28,7 @@ Used to edit conan.conf, or install config files.
         rm                  Remove an existing config element
         set                 Set a value for a configuration item
         init                Initializes Conan configuration files
+        list                List Conan configuration properties
 
     optional arguments:
       -h, --help            show this help message and exit
@@ -66,6 +67,12 @@ Used to edit conan.conf, or install config files.
   .. code-block:: bash
 
       $ conan config init --force
+
+- List all possible properties allowed for :ref:`global.conf<global_conf>`
+
+  .. code-block:: bash
+
+      $ conan config list
 
 .. _conan_config_install:
 
@@ -204,7 +211,7 @@ Conan runs it based on *config_install.json*, including the timestamp of the las
   .. code-block:: bash
 
       $ conan config install my_settings\settings.yml
-      
+
 - Install the configuration from a local path:
 
   .. code-block:: bash
