@@ -266,7 +266,7 @@ configure()
 
 Calls ``cmake``, with the generator defined in the ``cmake_generator`` field of the
 ``conanbuild.json`` file, and passing ``-DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake``.
-If not ``conanbuild.json`` file is not there, no generator will be passed.
+If ``conanbuild.json`` file is not there, no generator will be passed.
 
 - ``source_folder``: Relative path to the folder containing the root *CMakeLists.txt*
 
