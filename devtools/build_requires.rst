@@ -295,5 +295,5 @@ is a build tool, which can be done with:
 The rest of the test *conanfile.py* should take into account that the reference automatically injected
 will be a ``build_require``.
 
-If for some reason, it is neessary to test the same package both as a regular require and a build_require,
+If for some reason, it is necessary to test the same package both as a regular require and a build_require,
 then it is possible to specify: ``test_type = "build_requires", "requires"``.
