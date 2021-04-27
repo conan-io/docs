@@ -277,7 +277,7 @@ Testing build_requires
 
     This is an **experimental** feature, subject to future breaking changes
 
-Available since: `1.36.0 <https://github.com/conan-io/conan/releases/tag/1.36.0>`_
+Available since: `1.36.0 <https://github.com/conan-io/conan/releases>`_
 
 From Conan 1.36, it is possible to test ``build_requires`` with the ``test_package`` functionality.
 What is necessary is to specify in the ``test_package/conanfile.py``, that the tested package
