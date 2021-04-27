@@ -15,6 +15,30 @@ When to use settings or options?
 While creating a package, you may want to add different configurations and variants of the package. There are two main inputs that define
 packages: settings and options. Read more about them in :ref:`this section<settings_vs_options>`.
 
+
+Can Conan use git repositories as package servers?
+--------------------------------------------------
+
+Or put it with other words, can a conan recipe define requirements something like ``requires="git://github.com/someuser/somerepo.git#sometag"``?
+
+No, it is not possible. There are several technical reasons for this, mainly around the dependency resolution algorithm, but also about performance:
+
+- Conan manages dependency versions conflicts. These can be efficiently handled from the abstract reference quickly, while a git repo reference would require cloning contents even before deciding.
+- The version overriding mechanism from downstream consumers to resolve conflicts cannot be implemented either with git repos, as both the name and the version of the package is not defined.
+- Conan support version-ranges, like depending on ``boost/[>1.60 <1.70]``. This is basically impossible to implement in git repos.
+- Conan has an “update” concept, that allows to query servers for latest modifications, latest versions, or even latest revisions, which would not work at all with git repos either.
+- Binary management is one of the biggest advantages of Conan. Obviously, it is not possible to manage binaries for this case either.
+
+In summary, whatever could be done would be an extremely limited solution, very likely inefficient and much slower, with a lot of corner cases and rough edges around those said limitations. It would require a big development effort, and the compounded complexity it would induce in the codebase is a liability that will slow down future development, maintenance and support efforts.
+
+Besides the impossibility on the technical side, there are also other reasons like well known best practices around package management and modern devops in other languages that show evidence that even if this approach looks like convenient, it should be discouraged in practice:
+
+- Packages should be fully relocatable to a different location. Users should be able to retrieve their dependencies and upload a copy to their own private server, and fully disconnect from the external world. This is critical for robust and secure production environments, and avoid problems that other ecosystems like NPM have had in the past. As a consequence, all recipes dependencies should not be coupled to any location, and be abstract as conan "requires" are.
+- Other languages, like Java (which would be the closest one regarding enterprise-ness), never provided this feature. Languages like golang, that based its dependency management on this feature, has also evolved away from it and towards abstract "module" concepts that can be hosted in different servers
+
+So there are no plans to support this approach, and the client-server architecture will continue to be the proposed solution. There are several alternatives for the servers from different vendors, for public open source packages `ConanCenter <https://conan.io/center>`_ is the recommended one, and for private packages, the free `ArtifactoryCE <https://conan.io/downloads>`_ is a simple and powerful solution.
+
+
 How to obtain the dependents of a given package?
 ------------------------------------------------
 
@@ -90,9 +114,9 @@ In the case of the ``<channel>`` term, normally OSS package creators use ``testi
 only in few configurations) and ``stable`` when the recipe is ready enough to be used (e.g. it is built and tested in a wide range of
 configurations).
 
-From the perspective of a library developer, channels could be used to create different scopes of your library. For example, use ``rc``
-channel for release candidates, maybe ``experimental`` for those kind of features, or even ``qa``/``testing`` before the library is checked
-by QA department or testers.
+It is strongly recommended that packages are considered immutable. Once a package has been created with a user/channel, it shouldn't be
+changed. Instead, a new package with a new user/channel should be created.
+
 
 What does "outdated from recipe" mean exactly?
 ----------------------------------------------
@@ -117,6 +141,9 @@ This information is important to know if the packages are up to date with the re
 recipe. That means: if the recipe has completely removed an option (it could be a setting or a requirement) but there are old packages
 that were generated previously with that option, those packages will be impossible to install as their package ID are calculated from the
 recipe file (and that option does not exist anymore).
+
+When using "revisions" (it is opt-in in Conan 1.X, but it will be always enabled in Conan 2.0), this should never happen, as doing any change
+to a recipe or source should create a new revision that will contain its own binaries.
 
 How to configure the remotes priority order
 -------------------------------------------

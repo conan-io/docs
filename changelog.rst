@@ -21,6 +21,11 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.35 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
     submit a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.35.2 (19-Apr-2021)
+--------------------
+
+- Bugfix: Revert regression that replaces first ``/`` by ``-`` in ``cpp_info.xxxxlinkflags`` in _CMake_ generators because it can break passing objects and other paths that start with ``/``. `#8812 <https://github.com/conan-io/conan/pull/8812>`_
+
 1.35.1 (13-Apr-2021)
 --------------------
 
