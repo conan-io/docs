@@ -88,7 +88,7 @@ Or fully instantiated in the ``generate()`` method:
             tc.generate()
 
 
-This will generate a the following files after a ``conan install`` (or when building the package
+This will generate the following files after a ``conan install`` (or when building the package
 in the cache) with the information provided in the ``generate()`` method as well as information
 translated from the current ``settings``:
 
