@@ -1093,8 +1093,7 @@ component level.
 .. warning::
 
     Using ``set_property`` and ``get_property`` is a **experimental** feature subject to breaking
-    changes in future releases. Although this is an experimental feature, the use of the feature
-    using ``scm_to_conandata`` is considered stable.
+    changes in future releases.
 
 
 .. seealso::
