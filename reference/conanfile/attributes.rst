@@ -1092,8 +1092,8 @@ component level.
 
 .. warning::
 
-    Using ``set_property`` and ``get_property`` is a **experimental** feature subject to breaking
-    changes in future releases.
+    Using ``set_property`` and ``get_property`` methods for ``cpp_info`` is an **experimental**
+    feature subject to breaking changes in future releases.
 
 
 .. seealso::
