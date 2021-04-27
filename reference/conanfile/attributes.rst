@@ -1028,6 +1028,78 @@ has **the same default directories**.
 Dependencies among components and to components of other requirements can be defined using the ``requires`` attribute and the name
 of the component. The dependency graph for components will be calculated and values will be aggregated in the correct order for each field.
 
+There is a new way of setting and accessing ``filenames``, ``names`` and ``build_modules`` starting
+in Conan 1.36 using new ``set_property`` and ``get_property`` methods of the ``cpp_info`` object:
+
+.. code-block:: python
+
+    def set_property(self, property_name, value, generator=None)
+    def get_property(self, property_name, generator=None):
+
+New properties ``cmake_target_name``, ``cmake_file_name``, ``pkg_config_name`` and
+``cmake_build_modules`` are defined to allow migrating ``names``, ``filenames`` and ``build_modules``
+properties to this model.
+In Conan 2.0 this will be the default way of setting these properties and also passing custom
+properties to generators. 
+
+For example, setting some cpp_info properties with the current model:
+
+.. code-block:: python
+
+    def package_info(self):
+        ...
+        self.cpp_info.filenames["cmake_find_package"] = "MyFileName"
+        self.cpp_info.filenames["cmake_find_package_multi"] = "MyFileName"
+        self.cpp_info.components["mycomponent"].names["cmake_find_package"] = "mycomponent-name"
+        self.cpp_info.components["mycomponent"].names["cmake_find_package_multi"] = "mycomponent-name"
+        self.cpp_info.components["mycomponent"].build_modules.append(os.path.join("lib", "mypkg_bm.cmake"))
+        ...
+        self.cpp_info.components["mycomponent"].names["pkg_config"] = "mypkg-config-name"
+
+Could be declared like this in the new one:
+
+.. code-block:: python
+
+    def package_info(self):
+        ...
+        self.cpp_info.set_property("cmake_file_name", "MyFileName")
+        self.cpp_info.components["mycomponent"].set_property("cmake_target_name", "mycomponent-name")
+        self.cpp_info.components["mycomponent"].set_property("cmake_build_modules", [os.path.join("lib", "mypkg_bm.cmake")])
+        self.cpp_info.components["mycomponent"].set_property("custom_name", "mycomponent-name", "custom_generator")
+        ...
+        self.cpp_info.components["mycomponent"].set_property("pkg_config_name", "mypkg-config-name")
+
+New properties defined:
+- **cmake_file_name** property will affect all cmake generators that accept the ``filenames``
+property (``cmake_find_package`` and ``cmake_find_package_multi``).
+- **cmake_target_name** property will affect all cmake generators that accept the ``names``
+property (``cmake``, ``cmake_multi``, ``cmake_find_package``, ``cmake_find_package_multi`` and ``cmake_paths``).
+- **cmake_build_modules** property will replace the ``build_modules`` property.
+- **pkg_config_name** property will set the ``names`` property for ``pkg_config`` generator.
+
+There's also a new property called ``pkg_config_custom_content`` defined for the ``pkg_config``
+generator that can be set and will add user defined content to the files created by this generator.
+
+.. code-block:: python
+
+    def package_info(self):
+        custom_content = textwrap.dedent(\"""
+                datadir=${prefix}/share
+                schemasdir=${datadir}/mylib/schemas
+                bindir=${prefix}/bin
+            \""")
+        self.cpp_info.set_property("pkg_config_custom_content", custom_content)
+
+All of these properties, but ``cmake_file_name`` can be defined at global ``cpp_info`` level or at
+component level.
+
+.. warning::
+
+    Using ``set_property`` and ``get_property`` is a **experimental** feature subject to breaking
+    changes in future releases. Although this is an experimental feature, the use of the feature
+    using ``scm_to_conandata`` is considered stable.
+
+
 .. seealso::
 
     Read :ref:`package_information_components` and :ref:`method_package_info` to learn more.
