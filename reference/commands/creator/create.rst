@@ -87,10 +87,13 @@ to know more about 'test_folder' project.
                             built from source. --build=[pattern] Build packages
                             from source whose package reference matches the
                             pattern. The pattern uses 'fnmatch' style wildcards.
-                            Default behavior: If you omit the '--build' option,
-                            the 'build_policy' attribute in conanfile.py will be
-                            used if it exists, otherwise the behavior is like '--
-                            build=package name'.
+                            --build=![pattern] Excluded packages, which will not
+                            be built from the source, whose package reference
+                            matches the pattern. The pattern uses 'fnmatch' style
+                            wildcards. Default behavior: If you omit the '--build'
+                            option, the 'build_policy' attribute in conanfile.py
+                            will be used if it exists, otherwise the behavior is
+                            like '--build=package name'.
       -r REMOTE, --remote REMOTE
                             Look in the specified remote server
       -u, --update          Will check the remote and in case a newer version
