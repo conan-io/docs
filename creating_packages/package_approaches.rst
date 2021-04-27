@@ -79,6 +79,13 @@ Read more about this in :ref:`method_package_info`.
 N configs -> 1 package
 ----------------------
 
+.. warning::
+
+    This approach is discouraged. The support for defining multi-configuration packages (``self.cpp_info.release``, ``self.cpp_info.debug``),
+    will be removed in Conan 2.0, as discussed and approved by the Tribe in https://github.com/conan-io/tribe/pull/21. New generators and
+    helpers in ``conan.tools.xxxx``, like ``CMakeDeps`` or ``MSBuildDeps`` already ignore ``cpp_info`` multi-configuration definitions.
+
+
 You may want to package both debug and release artifacts in the same package, so it can be consumed from IDEs like Visual Studio. This will
 change the debug/release configuration from the IDE, without having to specify it in the command line. This type of package can contain
 different artifacts for different configurations and can be used to include both the release and debug version of a library in the same
