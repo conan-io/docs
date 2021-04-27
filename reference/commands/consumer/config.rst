@@ -74,6 +74,12 @@ Used to edit conan.conf, or install config files.
 
       $ conan config list
 
+- Set config install scheduler for every 1 week:
+
+  .. code-block:: bash
+
+      $ conan config set general.config_install_interval=1w
+
 .. _conan_config_install:
 
 conan config install
