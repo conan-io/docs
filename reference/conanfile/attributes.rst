@@ -1070,12 +1070,13 @@ Could be declared like this in the new one:
         self.cpp_info.components["mycomponent"].set_property("pkg_config_name", "mypkg-config-name")
 
 New properties defined:
+
 - **cmake_file_name** property will affect all cmake generators that accept the ``filenames``
-property (``cmake_find_package`` and ``cmake_find_package_multi``).
-- **cmake_target_name** property will affect all cmake generators that accept the ``names``
-property (``cmake``, ``cmake_multi``, ``cmake_find_package``, ``cmake_find_package_multi`` and ``cmake_paths``).
+  property (*cmake_find_package* and *cmake_find_package_multi*).
+- **cmake_target_name** property will affect all cmake generators that accept the ``names`` property 
+  (*cmake*, *cmake_multi*, *cmake_find_package*, *cmake_find_package_multi* and *cmake_paths*).
 - **cmake_build_modules** property will replace the ``build_modules`` property.
-- **pkg_config_name** property will set the ``names`` property for ``pkg_config`` generator.
+- **pkg_config_name** property will set the ``names`` property for *pkg_config* generator.
 
 There's also a new property called ``pkg_config_custom_content`` defined for the ``pkg_config``
 generator that can be set and will add user defined content to the files created by this generator.
