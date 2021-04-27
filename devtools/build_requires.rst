@@ -292,7 +292,7 @@ is a build tool, which can be done with:
 
         ...
 
-The rest of the test *conanfile.py* should take into account that the reference automatically injected
+The rest of the test *conanfile.py* should take into account that the reference is automatically injected
 will be a ``build_require``.
 
 If for some reason, it is neessary to test the same package both as a regular require and a build_require,
