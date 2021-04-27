@@ -1084,11 +1084,7 @@ generator that can be set and will add user defined content to the files created
 .. code-block:: python
 
     def package_info(self):
-        custom_content = textwrap.dedent(\"""
-                datadir=${prefix}/share
-                schemasdir=${datadir}/mylib/schemas
-                bindir=${prefix}/bin
-            \""")
+        custom_content = "datadir=${prefix}/share"
         self.cpp_info.set_property("pkg_config_custom_content", custom_content)
 
 All of these properties, but ``cmake_file_name`` can be defined at global ``cpp_info`` level or at
