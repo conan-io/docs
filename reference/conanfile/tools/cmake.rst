@@ -94,22 +94,21 @@ translated from the current ``settings``:
 
 - *conan_toolchain.cmake* file, containing the translation of Conan settings to CMake variables.
   Some things that will be defined in this file:
-    - Definition of the CMake generator platform and generator toolset
-    - Definition of the CMake ``build_type``
-    - Definition of the ``CMAKE_POSITION_INDEPENDENT_CODE``, based on ``fPIC`` option.
-    - Definition of the C++ standard as necessary
-    - Definition of the standard library used for C++
-    - Deactivation of rpaths in OSX
+
+  - Definition of the CMake generator platform and generator toolset
+  - Definition of the CMake ``build_type``
+  - Definition of the ``CMAKE_POSITION_INDEPENDENT_CODE``, based on ``fPIC`` option.
+  - Definition of the C++ standard as necessary
+  - Definition of the standard library used for C++
+  - Deactivation of rpaths in OSX
+
 - *conanbuild.json*: The toolchain can also generate a ``conanbuild.json`` file that contains arguments to
   the command line ``CMake()`` helper used in the recipe ``build()`` method. At the moment it contains only the CMake
   generator. The CMake generator will be deduced from the current Conan compiler settings:
-    - For ``settings.compiler="Visual Studio"``, the CMake generator is a direct mapping of ``compiler.version``,
-      as this version represents the IDE version, not the compiler version.
-    - For ``settings.compiler=msvc``, the CMake generator will be by default the one of the Visual Studio that
-      introduced this compiler version (``msvc 19.0`` => ``Visual Studio 14``, ``msvc 19.1`` => ``Visual Studio 15``,
-      etc). This can be changed, using the ``tools.microsoft.msbuild:vs_version`` [conf] configuration. If it is
-      defined, that Visual Studio version will be used as the CMake generator, and the specific compiler version
-      and toolset will be defined in the ``conan_toolchain.cmake`` file.
+
+  - For ``settings.compiler="Visual Studio"``, the CMake generator is a direct mapping of ``compiler.version``, as this version represents the IDE version, not the compiler version.
+  - For ``settings.compiler=msvc``, the CMake generator will be by default the one of the Visual Studio that introduced this compiler version (``msvc 19.0`` => ``Visual Studio 14``, ``msvc 19.1`` => ``Visual Studio 15``, etc). This can be changed, using the ``tools.microsoft.msbuild:vs_version`` [conf] configuration. If it is defined, that Visual Studio version will be used as the CMake generator, and the specific compiler version and toolset will be defined in the ``conan_toolchain.cmake`` file.
+
 - *conanvcvars.bat*: In some cases, the Visual Studio environment needs to be defined correctly for building,
   like when using the Ninja or NMake generators. If necessary, the ``CMakeToolchain`` will generate this script,
   so defining the correct Visual Studio prompt is easier.
