@@ -120,11 +120,11 @@ this meets your needs, we recommend removing the ``compiler.runtime`` subsetting
                 del self.settings.compiler.runtime
 
         def build(self):
-            cmake_release = CMake(self, build_type="Debug")
+            cmake_release = CMake(self, build_type="Release")
             cmake_release.configure()
             cmake_release.build()
 
-            cmake_debug = CMake(self, build_type="Release")
+            cmake_debug = CMake(self, build_type="Debug")
             cmake_debug.configure()
             cmake_debug.build()
 
