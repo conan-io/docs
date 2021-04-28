@@ -1080,7 +1080,7 @@ New properties defined:
 - **pkg_config_name** property will set the ``names`` property for *pkg_config* generator.
 
 There's also a new property called ``pkg_config_custom_content`` defined for the *pkg_config*
-generator that can be set and will add user defined content to the files created by this generator.
+generator that will add user defined content to the *.pc* files created by this generator.
 
 .. code-block:: python
 
