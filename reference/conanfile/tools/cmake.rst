@@ -220,7 +220,7 @@ Blocks can be customized in different ways:
     def generate(self):
         tc = CMakeToolchain(self)
         tmp = tc.pre_blocks["generic_system"].template
-        new_tmp = temp.replace(...)  # replace, fully replace, append...
+        new_tmp = tmp.replace(...)  # replace, fully replace, append...
         tc.pre_blocks["generic_system"].template = new_tmp
 
     # modify the context (variables) of an existing block
