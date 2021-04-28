@@ -1042,6 +1042,7 @@ properties to this model.
 In Conan 2.0 this will be the default way of setting these properties and also passing custom
 properties to generators. 
 
+For most cases, it is recommended not to use the ``generator`` argument. The properties are generic for build systems, and different generators that integrate with a given build system could be reading such generic properties.
 For example, setting some cpp_info properties with the current model:
 
 .. code-block:: python
