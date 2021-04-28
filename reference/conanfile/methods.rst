@@ -1395,6 +1395,8 @@ generate()
 
     This is an **experimental** feature subject to breaking changes in future releases.
 
+Available since: `1.32.0 <https://github.com/conan-io/conan/releases/tag/1.32.0>`_
+
 This method will run after the computation and installation of the dependency graph. This means that it will
 run after a :command:`conan install` command, or when a package is being built in the cache, it will be run before
 calling the ``build()`` method.
