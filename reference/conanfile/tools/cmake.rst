@@ -88,12 +88,30 @@ Or fully instantiated in the ``generate()`` method:
             tc.generate()
 
 
-This will generate a *conan_toolchain.cmake* file after a ``conan install`` (or when building the package
+This will generate the following files after a ``conan install`` (or when building the package
 in the cache) with the information provided in the ``generate()`` method as well as information
-translated from the current ``settings``.
+translated from the current ``settings``:
 
-These file will automatically manage the definition of cmake values according to current Conan
-settings.
+- *conan_toolchain.cmake* file, containing the translation of Conan settings to CMake variables.
+  Some things that will be defined in this file:
+
+  - Definition of the CMake generator platform and generator toolset
+  - Definition of the CMake ``build_type``
+  - Definition of the ``CMAKE_POSITION_INDEPENDENT_CODE``, based on ``fPIC`` option.
+  - Definition of the C++ standard as necessary
+  - Definition of the standard library used for C++
+  - Deactivation of rpaths in OSX
+
+- *conanbuild.json*: The toolchain can also generate a ``conanbuild.json`` file that contains arguments to
+  the command line ``CMake()`` helper used in the recipe ``build()`` method. At the moment it contains only the CMake
+  generator. The CMake generator will be deduced from the current Conan compiler settings:
+
+  - For ``settings.compiler="Visual Studio"``, the CMake generator is a direct mapping of ``compiler.version``, as this version represents the IDE version, not the compiler version.
+  - For ``settings.compiler=msvc``, the CMake generator will be by default the one of the Visual Studio that introduced this compiler version (``msvc 19.0`` => ``Visual Studio 14``, ``msvc 19.1`` => ``Visual Studio 15``, etc). This can be changed, using the ``tools.microsoft.msbuild:vs_version`` [conf] configuration. If it is defined, that Visual Studio version will be used as the CMake generator, and the specific compiler version and toolset will be defined in the ``conan_toolchain.cmake`` file.
+
+- *conanvcvars.bat*: In some cases, the Visual Studio environment needs to be defined correctly for building,
+  like when using the Ninja or NMake generators. If necessary, the ``CMakeToolchain`` will generate this script,
+  so defining the correct Visual Studio prompt is easier.
 
 
 constructor
@@ -224,6 +242,8 @@ Blocks can be customized in different ways:
         tc.pre_blocks["generic_system"].template = new_tmp
 
     # modify the context (variables) of an existing block
+    import types
+
     def generate(self):
         tc = CMakeToolchain(self)
         generic_block = toolchain.pre_blocks["generic_system"]
@@ -233,7 +253,7 @@ Blocks can be customized in different ways:
             return {"build_type": "SuperRelease"}
         generic_block.context = types.MethodType(context, generic_block)
 
-    # completely replace block
+    # completely replace existing block
     def generate(self):
         tc = CMakeToolchain(self)
         # this could go to a python_requires
@@ -319,11 +339,9 @@ constructor
 
 .. code:: python
 
-    def __init__(self, conanfile, generator=None, build_folder=None):
+    def __init__(self, conanfile, build_folder=None):
 
 - ``conanfile``: the current recipe object. Always use ``self``.
-- ``generator``: CMake generator. Define it only to override the default one (like ``Visual Studio 15``).
-  Note that as the platform (x64, Win32...) is now defined in the toolchain it is not necessary to specify it here.
 - ``build_folder``: Relative path to a folder to contain the temporary build files
 
 
@@ -334,10 +352,9 @@ configure()
 
     def configure(self, source_folder=None):
 
-Calls ``cmake``, with the given generator and passing ``-DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake``.
-It will also provide the CMake generator in the command like, like ``-G "Visual Studio 15"``. Note
-that it is not necessary to specify the platform, like ``-G "Visual Studio 15 Win64"``, as the
-platform is already defined in the toolchain file.
+Calls ``cmake``, with the generator defined in the ``cmake_generator`` field of the
+``conanbuild.json`` file, and passing ``-DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake``.
+If ``conanbuild.json`` file is not there, no generator will be passed.
 
 - ``source_folder``: Relative path to the folder containing the root *CMakeLists.txt*
 

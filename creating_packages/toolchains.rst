@@ -40,7 +40,7 @@ For example, for using the CMake toolchain this should be declared in the recipe
 
 .. note::
 
-    At the moment (Conan 1.32), the available built-in toolchains are ``CMakeToolchain``, ``MakeToolchain``,
+    At the moment (Conan 1.32), the available built-in toolchains are ``CMakeToolchain``,
     ``MSBuildToolchain`` and ``MesonToolchain``.
 
 But in the more general case, and if it needs any specific configuration beyond the default
