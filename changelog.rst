@@ -18,8 +18,39 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-    Conan 1.35 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
+    Conan 1.36 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
     submit a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
+
+1.36.0 (28-Apr-2021)
+--------------------
+
+- Feature: Add support to ``tools.cmake.CMake`` for Ninja toolchain defined with ``CMakeToolchain``. `#8887 <https://github.com/conan-io/conan/pull/8887>`_
+- Feature: The `CMakeDeps` generator will print CMake traces with the declared targets. e.g: `Target declared: 'OpenSSL::Crypto'`. `#8843 <https://github.com/conan-io/conan/pull/8843>`_
+- Feature: Add clang 12 support. `#8828 <https://github.com/conan-io/conan/pull/8828>`_
+- Feature: List tools and core from profile and _global.conf_. `#8821 <https://github.com/conan-io/conan/pull/8821>`_ . Docs `here <https://github.com/conan-io/docs/pull/2077>`__
+- Feature: Add cross-building tests for new AutoTools build helper. `#8819 <https://github.com/conan-io/conan/pull/8819>`_
+- Feature: ``CMakeToolchain`` generates a ``conanbuild.json`` file with the generator to be used in the ``CMake`` command line later, so it is not necessary to duplicate logic, and is explicit what generator should be used. `#8815 <https://github.com/conan-io/conan/pull/8815>`_ . Docs `here <https://github.com/conan-io/docs/pull/2079>`__
+- Feature: ``CMakeToolchain`` learned to build with different toolsets, down to the minor compiler version, for the ``msvc`` compiler. `#8815 <https://github.com/conan-io/conan/pull/8815>`_ . Docs `here <https://github.com/conan-io/docs/pull/2079>`__
+- Feature: Validate checksum and retry download for corrupted downloaded cache files. `#8806 <https://github.com/conan-io/conan/pull/8806>`_
+- Feature: ``CMakeToolchain`` defining `CMAKE_GENERATOR_TOOLSET` for msvc version different than the default. `#8800 <https://github.com/conan-io/conan/pull/8800>`_
+- Feature: Implement ``test_build_require`` in ``test_package/conanfile.py`` recipes, so build_requires can be tested as such. `#8787 <https://github.com/conan-io/conan/pull/8787>`_ . Docs `here <https://github.com/conan-io/docs/pull/2081>`__
+- Feature: Make available the full recipe and package reference to consumers via ``.dependencies``. `#8765 <https://github.com/conan-io/conan/pull/8765>`_
+- Feature: New ``CMakeToolchain`` customization and extensibility mechanism with blocks of components instead of inheritance. `#8749 <https://github.com/conan-io/conan/pull/8749>`_ . Docs `here <https://github.com/conan-io/docs/pull/2085>`__
+- Feature: Add `set_property` and `get_property` to set properties and access them in generators. Can be set only for a specific generator or as a default value for all of them. `#8727 <https://github.com/conan-io/conan/pull/8727>`_ . Docs `here <https://github.com/conan-io/docs/pull/2082>`__
+- Feature: Use `set_property` and `get_property` to support custom defined content in `pkg_config` generator. `#8727 <https://github.com/conan-io/conan/pull/8727>`_ . Docs `here <https://github.com/conan-io/docs/pull/2082>`__
+- Feature: Add new property names: `cmake_target_name`, `cmake_file_name`, `pkg_config_name` and `cmake_build_modules` that can be used for multiple generators of the same type allowing also an easier migration of `names`, `filenames` and `build_modules` properties to this model. `#8727 <https://github.com/conan-io/conan/pull/8727>`_ . Docs `here <https://github.com/conan-io/docs/pull/2082>`__
+- Feature: Skip package when building all package from sources at once using `--build=!<package>` syntax. `#8483 <https://github.com/conan-io/conan/pull/8483>`_ . Docs `here <https://github.com/conan-io/docs/pull/2023>`__
+- Feature: ``CMakeToolchain`` will generate ``conanvcvars.bat`` for Ninja builds for ``msvc``. `#8005 <https://github.com/conan-io/conan/pull/8005>`_
+- Fix: Remove ``tools.gnu.MakeToolchain``, superseded by ``tools.gnu.AutotoolsToolchain``. `#8880 <https://github.com/conan-io/conan/pull/8880>`_ . Docs `here <https://github.com/conan-io/docs/pull/2084>`__
+- Fix: Allow spaces in the path for new environment files and ``conancvvars.bat`` Visual toolchain file. `#8847 <https://github.com/conan-io/conan/pull/8847>`_
+- Fix: Return `deprecated` attribute in :command:`conan inspect` command. `#8832 <https://github.com/conan-io/conan/pull/8832>`_
+- Fix: Check if Artifactory url for publishing the build_info has `artifactory` string as the service context and remove from the API url if it doesn't. `#8826 <https://github.com/conan-io/conan/pull/8826>`_
+- Fix: Recognize ``Ninja Multi-Config`` as a  CMake multi-configuration generator. `#8814 <https://github.com/conan-io/conan/pull/8814>`_
+- Fix: using `CMAKE_CURRENT_LIST_DIR` in `CMakeToolchain` to locate `CMakeDeps` config files. `#8810 <https://github.com/conan-io/conan/pull/8810>`_
+- Fix: `config_install_interval` no longer enter in loop when invalid. `#8769 <https://github.com/conan-io/conan/pull/8769>`_ . Docs `here <https://github.com/conan-io/docs/pull/2067>`__
+- Fix: Remove multi-config support for ``CMakeDeps`` generator. `#8767 <https://github.com/conan-io/conan/pull/8767>`_ . Docs `here <https://github.com/conan-io/docs/pull/2083>`__
+- Fix: Accept relative profile path when folder is on same tree level. `#8685 <https://github.com/conan-io/conan/pull/8685>`_ . Docs `here <https://github.com/conan-io/docs/pull/2049>`__
+- Bugfix: Fixed test_package/conanfile.py using ``build_requires`` for a package belonging to a lockfile. `#8793 <https://github.com/conan-io/conan/pull/8793>`_
 
 1.35.2 (19-Apr-2021)
 --------------------

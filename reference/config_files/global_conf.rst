@@ -52,7 +52,9 @@ Existing configurations:
 - ``tools.build:processes``: number of processes to use for every build-helper.
 
 - ``tools.ninja:jobs`` argument for the ``--jobs`` parameter when running Ninja generator via CMake
-  or Meson. (overrides the general ``tools.build:processes``). 
+  or Meson. (overrides the general ``tools.build:processes``).
 
-- ``tools.gnu.make:jobs``: argument for the ``--jobs`` parameter when running ``make`` 
+- ``tools.gnu.make:jobs``: argument for the ``--jobs`` parameter when running ``make``
   (overrides the general ``tools.build:processes``).
+
+To list all possible configurations available, run :command:`conan config list`.

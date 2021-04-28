@@ -39,8 +39,9 @@ relative path:
 
 .. code-block:: bash
 
-    $ conan install . --profile /abs/path/to/profile  # abs path
-    $ conan install . --profile ./relpath/to/profile  # resolved to current dir
+    $ conan install . --profile /abs/path/to/profile   # abs path
+    $ conan install . --profile ./relpath/to/profile   # resolved to current dir
+    $ conan install . --profile ../relpath/to/profile  # resolved to relative dir
     $ conan install . --profile profile  # resolved to user/.conan/profiles/profile
 
 Listing existing profiles in the *profiles* folder can be done like this:

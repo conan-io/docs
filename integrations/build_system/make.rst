@@ -3,21 +3,16 @@
 Make
 ====
 
-Conan provides two integrations for plain Makefiles:
+.. warning::
 
- | The :ref:`Make generator<make_generator>`
- | The :ref:`Make toolchain<make_toolchain>` (experimental)
+    This integration is to be deprecated in Conan 2.0. Check :ref:`the conan.tools.gnu Autotools<conan_tools_gnu>` integration.
 
-Refer to the links above for more detail about each of them. Here we provide a
-high-level explanation of how these integrations are meant to be used. 
-
-If you are using ``Makefile`` to build your project you can use one or both of
-these depending on your needs.
+Conan provides the :ref:`Make generator<make_generator>` to integrate with plain Makefiles
 
 The ``make`` generator outputs all the variables related to package dependencies
 into a file which is named *conanbuildinfo.mak*. The ``make`` toolchain outputs
 all the variables related to settings, options, and platform into a file which
-is named ``conan_toolchain.mak``. 
+is named ``conan_toolchain.mak``.
 
 To use the generator, indicate it in your ``conanfile`` like this:
 
@@ -33,19 +28,6 @@ To use the generator, indicate it in your ``conanfile`` like this:
     class MyConan(ConanFile):
         ...
         generators = "make"
-
-To use the toolchain, add the following function to your ``conanfile``:
-
-.. code-block:: python
-   :caption: *conanfile.py*
-
-    class MyConan(ConanFile):
-        ...
-        def generate(self):
-            tc = Make(self)
-            tc.generate()
-
-**NOTE**: This can only be used in a ``conanfile.py`` and not ``conanfile.txt``.
 
 
 Example
@@ -74,33 +56,6 @@ This is the main source file for it:
         return 0;
     }
 
-As this project relies on the Poco Libraries we are going to create a ``conanfile.py`` with our requirement and also declare the Make
-generator and Make toolchain. For simplicity, this ``conanfile`` declares an
-empty build and package step. They're not needed for for the local developer
-workflow. 
-
-.. code-block:: python
-   :caption: *conanfile.py*
-          
-    from conans import ConanFile
-    from conan.tools.gnu import MakeToolchain
-    
-    class MyConan(ConanFile):
-        name = "myconan"
-        version = "0.1"
-        settings = "os", "arch", "compiler", "build_type"
-        generators = "make"
-        exports_sources = "*"
-
-        def generate(self):
-            tc = MakeToolchain(self)
-            tc.generate()
-
-        def build(self):
-            pass
-
-        def package(self):
-            pass
 
 In order to use this generator within your project, use the following Makefile as a reference:
 
@@ -113,13 +68,6 @@ In order to use this generator within your project, use the following Makefile a
 
     include conanbuildinfo.mak
     $(call CONAN_BASIC_SETUP)
-
-    #----------------------------------------
-    #     Prepare flags from make toolchain
-    #----------------------------------------
-
-    include conan_toolchain.mak
-    $(call CONAN_TC_SETUP)
 
     #----------------------------------------
     #     Make variables for a sample App
@@ -161,5 +109,3 @@ Now you can run your application with ``./main``.
 .. seealso::
 
     | Complete reference for :ref:`Make generator<make_generator>`
-    | Complete reference for :ref:`Make toolchain<make_toolchain>` (experimental)
-
