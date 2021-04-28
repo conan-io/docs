@@ -1396,7 +1396,7 @@ generate()
     This is an **experimental** feature subject to breaking changes in future releases.
 
 This method will run after the computation and installation of the dependency graph. This means that it will
-run after a ``conan install`` command, or when a package is being built in the cache, it will be run before
+run after a :command:`conan install` command, or when a package is being built in the cache, it will be run before
 calling the ``build()`` method.
 
 The purpose of ``generate()`` is to prepare the build, generating the necessary files. These files would typically be:
