@@ -1427,7 +1427,7 @@ In many cases, the ``generate()`` method might not be necessary, and declaring t
         generators = "CMakeDeps", "CMakeToolchain"
 
 
-But the ``generate()`` method can explicitly instantiate those generators, and customize them, or provide a completely user custom
+But the ``generate()`` method can explicitly instantiate those generators, customize them, or provide a complete custom
 generation. For user custom integrations, putting code in a common ``python_require`` would be a good way to avoid repetition in
 multiple recipes.
 
