@@ -144,13 +144,13 @@ This attribute allows defining CMake variables, for multiple configurations (Deb
 This will be translated to:
 
 - One ``set()`` definition for ``MYVAR`` in ``conan_toolchain.cmake`` file.
-- One ``set()`` definition, using a cmake generator expression in ``conan_project_include.cmake`` file,
-  using the different values for different configurations. It is important to recall that things
-  that depend on the build type cannot be directly set in the toolchain.
+- One ``set()`` definition, using a cmake generator expression in ``conan_toolchain.cmake`` file,
+  using the different values for different configurations.
 
 
 The ``CMakeToolchain`` is intended to run with the ``CMakeDeps`` dependencies generator. It might temporarily
 work with others like ``cmake_find_package`` and ``cmake_find_package_multi``, but this will be removed soon.
+
 
 Using the toolchain in developer flow
 +++++++++++++++++++++++++++++++++++++
@@ -202,11 +202,99 @@ For single-configuration build systems:
     $ cmake --build .  # or just "make"
 
 
-Conan is able to generate a toolchain file for different systems. In the
-following sections you can find more information about them:
+Extending and customizing CMakeToolchain
+++++++++++++++++++++++++++++++++++++++++
 
- * :ref:`Android <conan-cmake-toolchain-android>`.
- * :ref:`iOS <conan-cmake-toolchain-ios>`.
+Since Conan 1.36, ``CMakeToolchain`` implements a powerful capability for extending and customizing the resulting toolchain file.
+
+The following predefined blocks are available:
+
+- ``generic_system``: Defines ``CMAKE_GENERATOR_PLATFORM``, ``CMAKE_GENERATOR_TOOLSET``, ``CMAKE_C_COMPILER``,``CMAKE_CXX_COMPILER`` and ``CMAKE_BUILD_TYPE``
+- ``android_system``: Defines ``ANDROID_PLATFORM``, ``ANDROID_STL``, ``ANDROID_ABI`` and includes ``CMAKE_ANDROID_NDK/build/cmake/android.toolchain.cmake``
+  where CMAKE_ANDROID_NDK comes defined in ``tools.android:ndk_path``
+- ``ios_system``: Defines ``CMAKE_SYSTEM_NAME``, ``CMAKE_SYSTEM_VERSION``, ``CMAKE_OSX_ARCHITECTURES``, ``CMAKE_OSX_SYSROOT`` for Apple systems.
+- ``find_paths``: Defines ``CMAKE_FIND_PACKAGE_PREFER_CONFIG``, ``CMAKE_MODULE_PATH``, ``CMAKE_PREFIX_PATH`` so the generated files from ``CMakeDeps`` are found.
+- ``fpic``: Defines the ``CMAKE_POSITION_INDEPENDENT_CODE`` when there is a ``options.fPIC``
+- ``rpath``: Defines ``CMAKE_SKIP_RPATH`` for OSX
+- ``arch_flags``: Defines C/C++ flags like ``-m32, -m64`` when necessary.
+- ``libcxx``: Defines ``-stdlib=libc++`` flag when necessary as well as ``_GLIBCXX_USE_CXX11_ABI``.
+- ``vs_runtime``: Defines the ``CMAKE_MSVC_RUNTIME_LIBRARY`` variable, as a generator expression for
+  for multiple configurations.
+- ``cppstd``: defines ``CMAKE_CXX_STANDARD``, ``CMAKE_CXX_EXTENSIONS``
+- ``shared``: defines ``BUILD_SHARED_LIBS``
+- ``parallel``: defines ``/MP`` parallel build flag for Visual.
+
+
+Blocks can be customized in different ways:
+
+.. code:: python
+
+    # remove an existing block
+    def generate(self):
+        tc = CMakeToolchain(self)
+        tc.pre_blocks.remove("generic_system")
+
+    # modify the template of an existing block
+    def generate(self):
+        tc = CMakeToolchain(self)
+        tmp = tc.pre_blocks["generic_system"].template
+        new_tmp = tmp.replace(...)  # replace, fully replace, append...
+        tc.pre_blocks["generic_system"].template = new_tmp
+
+    # modify the context (variables) of an existing block
+    import types
+
+    def generate(self):
+        tc = CMakeToolchain(self)
+        generic_block = toolchain.pre_blocks["generic_system"]
+
+        def context(self):
+            assert self  # Your own custom logic here
+            return {"build_type": "SuperRelease"}
+        generic_block.context = types.MethodType(context, generic_block)
+
+    # completely replace existing block
+    def generate(self):
+        tc = CMakeToolchain(self)
+        # this could go to a python_requires
+        class MyGenericBlock(Block):
+            template = "HelloWorld"
+
+            def context(self):
+                return {}
+
+        tc.pre_blocks["generic_system"] = MyBlock
+
+    # add a completely new block
+    def generate(self):
+        tc = CMakeToolchain(self)
+        # this could go to a python_requires
+        class MyBlock(Block):
+            template = "Hello {{myvar}}!!!"
+
+            def context(self):
+                return {"myvar": "World"}
+
+        tc.pre_blocks["mynewblock"] = MyBlock
+
+
+    # extend from an existing block
+    def generate(self):
+        tc = CMakeToolchain(self)
+        # this could go to a python_requires
+        class MyBlock(GenericSystemBlock):
+            template = "Hello {{build_type}}!!"
+
+            def context(self):
+                c = super(MyBlock, self).context()
+                c["build_type"] = c["build_type"] + "Super"
+                return c
+
+        tc.pre_blocks["generic_system"] = MyBlock
+
+Recall that this is a very **experimental** feature, and these interfaces might change in the following releases.
+
+For more information about these blocks, please have a look at the source code.
 
 
 CMake
