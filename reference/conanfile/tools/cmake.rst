@@ -257,17 +257,6 @@ Blocks can be customized in different ways:
 
         tc.pre_blocks["mynewblock"] = MyBlock
 
-    # add a completely new block
-    def generate(self):
-        tc = CMakeToolchain(self)
-        # this could go to a python_requires
-        class MyBlock(Block):
-            template = "Hello {{myvar}}!!!"
-
-            def context(self):
-                return {"myvar": "World"}
-
-        tc.pre_blocks["mynewblock"] = MyBlock
 
     # extend from an existing block
     def generate(self):
