@@ -1386,3 +1386,62 @@ current folder (the one containing the *conanfile.py*). The ``dst`` is relative 
             self.output.info("Executing export_sources() method")
             # will copy all .txt files from the local "subfolder" folder to the cache "mydata" one
             self.copy("*.txt", src="mysubfolder", dst="mydata")
+
+
+generate()
+----------
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+Available since: `1.32.0 <https://github.com/conan-io/conan/releases/tag/1.32.0>`_
+
+This method will run after the computation and installation of the dependency graph. This means that it will
+run after a :command:`conan install` command, or when a package is being built in the cache, it will be run before
+calling the ``build()`` method.
+
+The purpose of ``generate()`` is to prepare the build, generating the necessary files. These files would typically be:
+
+- Files containing information to locate the dependencies, as ``xxxx-config.cmake`` CMake config scripts, or ``xxxx.props``
+  Visual Studio property files.
+- Environment activation scripts, like ``conanbuildenv.bat`` or ``conanbuildenv.sh``, that define all the necessary environment
+  variables necessary for the build.
+- Toolchain files, like ``conantoolchain.cmake``, that contains a mapping between the current Conan settings and options, and the
+  build system specific syntax.
+- General purpose build information, as a ``conanbuild.json`` file that could contain information like the CMake generator or
+  CMake toolchain file to be used in the ``build()`` method.
+- Specific build system files, like ``conanvcvars.bat``, that contains the necessary Visual Studio vcvars.bat call for certain
+  build systems like Ninja when compiling with the Microsoft compiler.
+
+
+The idea is that the ``generate()`` method implements all the necessary logic, making both the user manual builds after a :command:`conan install`
+very straightforward, and also the ``build()`` method logic simpler. The build produced by a user in their local flow should result
+exactly the same one as the build done in the cache with a ``conan create`` without effort.
+
+In many cases, the ``generate()`` method might not be necessary, and declaring the ``generators`` attribute could be enough:
+
+.. code:: python
+
+    from conans import ConanFile
+
+    class Pkg(ConanFile):
+        generators = "CMakeDeps", "CMakeToolchain"
+
+
+But the ``generate()`` method can explicitly instantiate those generators, customize them, or provide a complete custom
+generation. For custom integrations, putting code in a common ``python_require`` would be a good way to avoid repetition in
+multiple recipes.
+
+.. code:: python
+
+    from conans import ConanFile
+    from conan.tools.cmake import CMakeToolchain
+
+    class Pkg(ConanFile):
+
+        def generate(self):
+            tc = CMakeToolchain(self)
+            # customize toolchain "tc"
+            tc.generate()
+            # Or provide your own custom logic

@@ -54,10 +54,13 @@ to be tested must exist in the local cache or any configured remote.
                             built from source. --build=[pattern] Build packages
                             from source whose package reference matches the
                             pattern. The pattern uses 'fnmatch' style wildcards.
-                            Default behavior: If you omit the '--build' option,
-                            the 'build_policy' attribute in conanfile.py will be
-                            used if it exists, otherwise the behavior is like '--
-                            build=never'.
+                            --build=![pattern] Excluded packages, which will not
+                            be built from the source, whose package reference
+                            matches the pattern. The pattern uses 'fnmatch' style
+                            wildcards. Default behavior: If you omit the '--build'
+                            option, the 'build_policy' attribute in conanfile.py
+                            will be used if it exists, otherwise the behavior is
+                            like '--build=never'.
       -r REMOTE, --remote REMOTE
                             Look in the specified remote server
       -u, --update          Will check the remote and in case a newer version
@@ -109,7 +112,7 @@ to be tested must exist in the local cache or any configured remote.
                             defaults (host machine). e.g.: -s:h compiler=gcc
 
 
-This command is util for testing existing packages, that have been previously built (with :command:`conan create`, for example).
+This command is useful for testing existing packages, that have been previously built (with :command:`conan create`, for example).
 :command:`conan create` will automatically run this test if a *test_package* folder is found besides the *conanfile.py*, or if the
 :command:`--test-folder` argument is provided to :command:`conan create`.
 

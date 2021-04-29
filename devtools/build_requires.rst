@@ -268,3 +268,32 @@ same ``build_requires`` package. Something like:
 By using this mechanism, ``tool`` dependency will always be used (the recipe will be fetched from servers), and the version of ``tool`` will
 be used to compute the ``package_id`` following the ``default_python_requires_id_mode`` in *conan.conf*, or the specific
 ``self.info.python_requires.xxxx_mode()`` in recipes.
+
+
+Testing build_requires
+----------------------
+
+.. warning::
+
+    This is an **experimental** feature, subject to future breaking changes
+
+Available since: `1.36.0 <https://github.com/conan-io/conan/releases>`_
+
+From Conan 1.36, it is possible to test ``build_requires`` with the ``test_package`` functionality.
+What is necessary is to specify in the ``test_package/conanfile.py``, that the tested package
+is a build tool, which can be done with:
+
+.. code-block:: python
+
+    from conans import ConanFile
+
+    class Pkg(ConanFile):
+        test_type = "build_requires"
+
+        ...
+
+The rest of the test *conanfile.py* should take into account that the reference automatically injected
+will be a ``build_require``.
+
+If for some reason, it is necessary to test the same package both as a regular require and a build_require,
+then it is possible to specify: ``test_type = "build_requires", "requires"``.
