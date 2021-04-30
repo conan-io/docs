@@ -1460,7 +1460,7 @@ layout()
 Available since: `1.37.0 <https://github.com/conan-io/conan/releases/tag/1.3X.0>`_
 
 Method to describe the package contents, not only the final package but the layout while developing the package.
-In the layout method you can adjust 3 different things, ``self.folders``, ``self.patterns`` and ``self.infos``
+In the layout method you can adjust 3 different things, ``self.folders``, ``self.patterns`` and ``self.cpp``
 
 self.folders
 ++++++++++++
@@ -1534,8 +1534,8 @@ files are or the build files should be:
     from arguments (--profile, -s, -o...) and won't need the ``--if`` argument anymore, being always trivial to run.
 
 
-self.infos
-++++++++++
+self.cpp
+++++++++
 
 The ``layout()`` method allows to declare ``cpp_info`` objects not only for the final package (like the classic approach with
 the ``self.cpp_info`` in the ``package_info(self)`` method) but for the ``self.source_folder`` and ``self.build_folder``.
@@ -1555,13 +1555,13 @@ Example:
 
             def layout(self):
 
-                self.infos.source.includedirs = ["include"]
+                self.cpp.source.includedirs = ["include"]
 
-                self.infos.build.libdirs = ["."]
-                self.infos.build.libs = ["mylib"]
-                self.infos.build.includedirs = ["gen_include"]
+                self.cpp.build.libdirs = ["."]
+                self.cpp.build.libs = ["mylib"]
+                self.cpp.build.includedirs = ["gen_include"]
 
-                self.infos.package.libs = ["mylib"]
+                self.cpp.package.libs = ["mylib"]
 
 
 The fields of the cpp_info objects at ``self.info.build`` and ``self.info.source`` are the same described :ref:`here<cpp_info_attributes_reference>`.
@@ -1570,7 +1570,7 @@ Components are also supported.
 .. note::
 
         You can still use the ``package_info(self)`` method. The received `self.cpp_info` object will be populated with the information explicitly declared
-        in the ``self.infos.package`` object, so you can complete it or modify it later.
+        in the ``self.cpp.package`` object, so you can complete it or modify it later.
 
 self.patterns
 +++++++++++++
@@ -1596,19 +1596,19 @@ These are all the fields that can be adjusted, both in ``self.patterns.source`` 
 +--------------------------------------+---------------------------------------------------------------------------------------------------------+
 | NAME                                 | DESCRIPTION (xxx can be either ``build`` or ``source``)                                                 |
 +======================================+=========================================================================================================+
-| include                              | Patterns of the files from the folders: ``self.infos.xxx.includedirs``                                  |
+| include                              | Patterns of the files from the folders: ``self.cpp.xxx.includedirs``                                    |
 +--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| lib                                  | Patterns of the files from the folders: ``self.infos.xxx.libdirs``                                      |
+| lib                                  | Patterns of the files from the folders: ``self.cpp.xxx.libdirs``                                        |
 +--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| bin                                  | Patterns of the files from the folders: ``self.infos.xxx.bindirs``                                      |
+| bin                                  | Patterns of the files from the folders: ``self.cpp.xxx.bindirs``                                        |
 +--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| src                                  | Patterns of the files from the folders: ``self.infos.xxx.srcdirs``                                      |
+| src                                  | Patterns of the files from the folders: ``self.cpp.xxx.srcdirs``                                        |
 +--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| build                                | Patterns of the files from the folders: ``self.infos.xxx.builddirs``                                    |
+| build                                | Patterns of the files from the folders: ``self.cpp.xxx.builddirs``                                      |
 +--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| res                                  | Patterns of the files from the folders: ``self.infos.xxx.resdirs``                                      |
+| res                                  | Patterns of the files from the folders: ``self.cpp.xxx.resdirs``                                        |
 +--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| framework                            | Patterns of the files from the folders: ``self.infos.xxx.frameworkdirs``                                |
+| framework                            | Patterns of the files from the folders: ``self.cpp.xxx.frameworkdirs``                                  |
 +--------------------------------------+---------------------------------------------------------------------------------------------------------+
 
 
@@ -1679,11 +1679,11 @@ We can write a ``layout()`` method describing it:
                 self.folders.package = "package-{}".format(str(conanfile.settings.build_type).lower())
 
                 # ###### INFOS
-                self.infos.source.includedirs = ["include"] # Relative to ["."] (self.folders.source)
-                self.infos.build.libdirs = ["."]  # Relative to (self.folders.build)
-                self.infos.build.libs = ["hello"]
-                self.infos.build.includedirs = ["."] # Relative to (self.folders.build)
-                self.infos.package.libs = ["hello"]
+                self.cpp.source.includedirs = ["include"] # Relative to ["."] (self.folders.source)
+                self.cpp.build.libdirs = ["."]  # Relative to (self.folders.build)
+                self.cpp.build.libs = ["hello"]
+                self.cpp.build.includedirs = ["."] # Relative to (self.folders.build)
+                self.cpp.package.libs = ["hello"]
 
                 # ###### PATTERNS
                 self.patterns.source.res = ["*.jpeg"] # To package automatically the myasset.jpeg
@@ -1692,7 +1692,7 @@ We can write a ``layout()`` method describing it:
                 LayoutPackager(self).package()
 
 
-- There is no need to declare the ``package_info(self)`` method, we declared the needed information at ``self.infos.package``.
+- There is no need to declare the ``package_info(self)`` method, we declared the needed information at ``self.cpp.package``.
 - The ``package(self)`` method is quite simple using the ``LayoutPackager(self).package()``
 - We can easily put the package in editable mode and keep using the CLion IDE to build the libraries:
 
