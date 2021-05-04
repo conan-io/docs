@@ -14,7 +14,7 @@ repository follow these steps:
    .. image:: ../../images/artifactory/conan-artifactory_create_account.png
 
 2. **Add your Artifactory repository**
-   
+
    To get the correct address, click on ``Application -> Artifactory -> Artifacts -> Set Me Up``:
 
    .. image:: ../../images/artifactory/conan-artifactory_setme_up.png
@@ -30,7 +30,7 @@ repository follow these steps:
    Your API key is the “password” used to authenticate the Conan client to Artifactory, NOT your Artifatory
    password. To get your API key, go to “Set Me Up” and enter your account password. Your API key will
    appear on conan user command line listed on Set Me Up box:
-   
+
    .. image:: ../../images/artifactory/conan-artifactory_token.png
 
 5. **Set your user credentials**
@@ -55,7 +55,7 @@ when adding it:
     $ conan remote add <your_remote> <your_url> --insert 0
     $ conan remote list
       <your remote>: <your_url> [Verify SSL: True]
-      conan-center: https://conan.bintray.com [Verify SSL: True]
+      conan-center: https://center.conan.io [Verify SSL: True]
 
 .. tip::
 

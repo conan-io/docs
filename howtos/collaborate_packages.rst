@@ -26,8 +26,7 @@ You can just directly run:
 
     $ conan create . demo/testing
 
-Once you have generated the desired binaries, you can store your pre-compiled binaries in your Bintray repository or on your own Conan
-server:
+Once you have generated the desired binaries, you can store your pre-compiled binaries in your own free ArtifactoryCE repository:
 
 .. code-block:: bash
 

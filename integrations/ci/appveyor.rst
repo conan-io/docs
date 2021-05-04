@@ -68,22 +68,21 @@ You can use Appveyor to automate the building of binary packages, which will be 
 cloud after pushing to Github. You can probably set up your own way, but Conan has some utilities to help in the process.
 
 The command :command:`conan new` has arguments to create a default working *appveyor.yml* file. Other setups might be possible, but for this
-example we are assuming that you are using GitHub and also uploading your final packages to Bintray. You could follow these steps:
+example we are assuming that you are using GitHub and also uploading your final packages to your own free ArtifactoryCE repository. You could follow these steps:
 
 #. First, create an empty github repository. Let's call it "hello", for creating a "hello world" package. Github allows to create it with a Readme and .gitignore.
-#. Get the credentials User and API Key. (Remember, Bintray uses the API key as "password", not your main Bintray account password.)
-#. Create a Conan repository in Bintray under your user or organization, and get its URL ("Set me up"). We will call it ``UPLOAD_URL``
+#. Create a Conan repository in your ArtifactoryCE, and get its URL ("Set me up"). We will call it ``UPLOAD_URL``
 #. Activate the repo in your Appveyor account, so it is built when we push changes to it.
-#. Under *Appveyor Settings->Environment*, add the ``CONAN_PASSWORD`` environment variable with the Bintray API Key, and encrypt it.  If your Bintray user is different from the package user, you can define your Bintray username too, defining the environment variable ``CONAN_LOGIN_USERNAME``
+#. Under *Appveyor Settings->Environment*, add the ``CONAN_LOGIN_USERNAME`` and ``CONAN_PASSWORD`` environment variables with the ArtifactoryCE user and password.
 #. Clone the repo: ``$ git clone <your_repo/hello> && cd hello``
-#. Create the package: :command:`conan new hello/0.1@<user>/testing -t -s -ciw -cis -ciu=UPLOAD_URL` where **user** is your Bintray username
+#. Create the package: :command:`conan new hello/0.1@myteam/testing -t -s -ciw -cis -ciu=UPLOAD_URL`
 #. You can inspect the created files: both *appveyor.yml* and the *build.py* script, that is used by **conan-package-tools** utility to
    split different builds with different configurations in different appveyor jobs.
 #. You can test locally, before pushing, with :command:`conan create`
 #. Add the changes, commit and push: :command:`git add . && git commit -m "first commit" && git push`
 #. Go to Appveyor and see the build, with the different jobs.
-#. When it finish, go to your Bintray repository, you should see there the uploaded packages for different configurations
-#. Check locally, searching in Bintray: :command:`conan search hello/0.1@<user>/testing -r=mybintray`
+#. When it finish, go to your ArtifactoryCE repository, you should see there the uploaded packages for different configurations
+#. Check locally, searching in ArtifactoryCE: :command:`conan search hello/0.1@myteam/testing -r=myrepo`
 
 If something fails, please report an issue in the ``conan-package-tools`` github repository: https://github.com/conan-io/conan-package-tools
 

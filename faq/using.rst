@@ -153,7 +153,7 @@ The lookup remote order is defined by the command :command:`conan remote`:
 .. code-block:: bash
 
     $ conan remote list
-    conan-center: https://conan.bintray.com [Verify SSL: True]
+    conan-center: https://center.conan.io [Verify SSL: True]
     myremote: https://MyTeamServerIP:8081/artifactory/api/conan/myremote [Verify SSL: True]
 
 As you can see, the remote ``conan-center`` is listed on index **0**, which means it has the highest priority when searching or installing a package,
@@ -164,7 +164,7 @@ followed by ``myremote``, on index **1**. To update the index order, the argumen
     $ conan remote update myremote https://MyTeamServerIP:8081/artifactory/api/conan/myremote --insert
     $ conan remote list
     myremote: https://MyTeamServerIP:8081/artifactory/api/conan/myremote [Verify SSL: True]
-    conan-center: https://conan.bintray.com [Verify SSL: True]
+    conan-center: https://center.conan.io [Verify SSL: True]
 
 
 The ``--insert`` argument means *index 0*, the highest priority, thus the ``myremote`` remote will be updated as the first remote to be used.
@@ -177,7 +177,7 @@ It's also possible to define a specific index when adding a remote to the list:
     $ conan remote list
     myremote: https://MyTeamServerIP:8081/artifactory/api/conan/myremote [Verify SSL: True]
     otherremote: https://MyCompanyOtherIP:8081/artifactory/api/conan/otherremote [Verify SSL: True]
-    conan-center: https://conan.bintray.com [Verify SSL: True]
+    conan-center: https://center.conan.io [Verify SSL: True]
 
 
 The ``otherremote`` remote needs to be added after ``myremote``, so we need to set the remote index as **1**.
