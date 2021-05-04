@@ -43,7 +43,7 @@ It will automatically download the `Emscripten SDK <https://github.com/emscripte
 
    .. code-block:: bash
 
-      $ conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
+      $ conan remote add bincrafters https://bincrafters.jfrog.io/artifactory/api/conan/public-conan
 
 .. note::
 
