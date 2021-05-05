@@ -7,7 +7,7 @@ Custom integrations
 If you intend to use a build system that does not have a built-in generator, you may still be
 able to do so. There are several options:
 
-- First, search in Bintray for generator packages. Generators can be created and contributed by users as regular packages, so you can depend
+- First, search in ConanCenter for generator packages. Generators can be created and contributed by users as regular packages, so you can depend
   on them as a normal requirement, use versioning and evolve faster without depending on the Conan releases.
 
 - You can use the :ref:`text_generator` or :ref:`json_generator` generators. They will generate a text file, simple to read that you can

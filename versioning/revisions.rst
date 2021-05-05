@@ -12,7 +12,7 @@ The goal of the revisions feature is to achieve package immutability, the packag
     it later to force their usage, even if new versions or revisions were uploaded to the servers.
 
     Learn more about :ref:`lockfiles here.<versioning_lockfiles>`
-    
+
 
 How it works
 ------------
@@ -83,7 +83,7 @@ GIT and Line Endings on Windows
 
   **Problem**
 
-  Git will (by default) checkout files in Windows systems using CRLF line endings, effectively producing different files. As files are different, the Conan revisions will be different from the revisions computed in other platforms such as Linux, resulting in missing the respective binaries in the other revision. 
+  Git will (by default) checkout files in Windows systems using CRLF line endings, effectively producing different files. As files are different, the Conan revisions will be different from the revisions computed in other platforms such as Linux, resulting in missing the respective binaries in the other revision.
 
 **Solution**
 
@@ -93,10 +93,10 @@ It is necessary to instruct Git to do the checkout with the same line endings. T
 
   [auto]
     crlf = false
-    
+
 Server support
 --------------
 
    - ``conan_server`` >= 1.13.
    - ``Artifactory`` >= 6.9.
-   - ``Bintray``.
+   - ``ConanCenter``.
