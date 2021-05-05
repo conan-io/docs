@@ -64,20 +64,20 @@ You can use CircleCI to automate the building of binary packages, which will be 
 cloud after pushing to Github. You can probably set up your own way, but Conan has some utilities to help in the process.
 
 The command ``conan new`` has arguments to create a default working ``.circleci/config.yml`` file.
-Other setups might be possible, but for this example we are assuming that you are using github and also uploading your final packages to your own ArtifactoryCE server.
+Other setups might be possible, but for this example we are assuming that you are using github and also uploading your final packages to your own Artifactory CE server.
 You could follow these steps:
 
 #. First, create an empty Github repository (let's call it "hello") for creating a "hello world" package. Github allows to create it with a Readme, license and .gitignore.
-#. Create a Conan repository in your ArtifactoryCE and get its URL ("Set me up"). We will call it ``UPLOAD_URL``
-#. Under your project page, *Settings -> Pipelines -> Add a variable*, add the ``CONAN_LOGIN_USERNAME`` and ``CONAN_PASSWORD`` environment variables with the ArtifactoryCE user and password.
+#. Create a Conan repository in your Artifactory CE and get its URL ("Set me up"). We will call it ``UPLOAD_URL``
+#. Under your project page, *Settings -> Pipelines -> Add a variable*, add the ``CONAN_LOGIN_USERNAME`` and ``CONAN_PASSWORD`` environment variables with the Artifactory CE user and password.
 #. Clone the repo: ``$ git clone <your_repo/hello> && cd hello``
 #. Create the package: ``$ conan new hello/0.1@myteam/testing -t -s -ciccg -ciccc -cicco -cis -ciu=UPLOAD_URL``
 #. You can inspect the created files: both ``.circleci/config.yml`` and the ``build.py`` script, that is used by ``conan-package-tools`` utility to split different builds with different configurations in different GitLab CI jobs.
 #. You can test locally, before pushing, with ``$ conan create``
 #. Add the changes, commit and push: ``$ git add . && git commit -m "first commit" && git push``
 #. Go to Pipelines page and see the pipeline, with the different jobs.
-#. When it has finished, go to your ArtifactoryCE repository, you should see there the uploaded packages for different configurations
-#. Check locally, searching in ArtifactoryCE: ``$ conan search hello/0.1@myteam/testing -r=myremote``
+#. When it has finished, go to your Artifactory CE repository, you should see there the uploaded packages for different configurations
+#. Check locally, searching in Artifactory CE: ``$ conan search hello/0.1@myteam/testing -r=myremote``
 
 If something fails, please report an issue in the ``conan-package-tools`` github repository: https://github.com/conan-io/conan-package-tools
 

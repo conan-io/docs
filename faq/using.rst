@@ -36,7 +36,7 @@ Besides the impossibility on the technical side, there are also other reasons li
 - Packages should be fully relocatable to a different location. Users should be able to retrieve their dependencies and upload a copy to their own private server, and fully disconnect from the external world. This is critical for robust and secure production environments, and avoid problems that other ecosystems like NPM have had in the past. As a consequence, all recipes dependencies should not be coupled to any location, and be abstract as conan "requires" are.
 - Other languages, like Java (which would be the closest one regarding enterprise-ness), never provided this feature. Languages like golang, that based its dependency management on this feature, has also evolved away from it and towards abstract "module" concepts that can be hosted in different servers
 
-So there are no plans to support this approach, and the client-server architecture will continue to be the proposed solution. There are several alternatives for the servers from different vendors, for public open source packages `ConanCenter <https://conan.io/center>`_ is the recommended one, and for private packages, the free `ArtifactoryCE <https://conan.io/downloads>`_ is a simple and powerful solution.
+So there are no plans to support this approach, and the client-server architecture will continue to be the proposed solution. There are several alternatives for the servers from different vendors, for public open source packages `ConanCenter <https://conan.io/center>`_ is the recommended one, and for private packages, the free `Artifactory CE <https://conan.io/downloads>`_ is a simple and powerful solution.
 
 
 How to obtain the dependents of a given package?

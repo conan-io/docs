@@ -55,14 +55,14 @@ You can also use Travis CI to automate building new Conan binary packages with e
 your own way, but Conan has some utilities to help in the process.
 
 The command :command:`conan new` has arguments to create a default working *.travis.yml* file. Other setups might be possible, but for this
-example we are assuming that you are using GitHub and also uploading your final packages to your ArtifactoryCE server.
+example we are assuming that you are using GitHub and also uploading your final packages to your Artifactory CE server.
 
 You could follow these steps:
 
 #. First, create an empty GitHub repository. Let's call it "hello", for creating a "hello world" package. GitHub allows creating it with a Readme and .gitignore.
-#. Create a Conan repository in your ArtifactoryCE, and get its URL ("Set me up"). We will call it ``UPLOAD_URL``
+#. Create a Conan repository in your Artifactory CE, and get its URL ("Set me up"). We will call it ``UPLOAD_URL``
 #. Activate the repo in your Travis account, so it is built when we push changes to it.
-#. Under *Travis More Options -> Settings->Environment Variables*, add the ``CONAN_LOGIN_USERNAME`` and ``CONAN_PASSWORD`` environment variables with the ArtifactoryCE user and password.
+#. Under *Travis More Options -> Settings->Environment Variables*, add the ``CONAN_LOGIN_USERNAME`` and ``CONAN_PASSWORD`` environment variables with the Artifactory CE user and password.
 #. Clone the repo: :command:`git clone <your_repo/hello> && cd hello`.
 #. Create the package: :command:`conan new hello/0.1@myteam/testing -t -s -cilg -cis -ciu=UPLOAD_URL`
 #. You can inspect the created files: both *.travis.yml*, *.travis/run.sh*, and ``.travis/install.sh`` and the *build.py* script, that is
@@ -70,8 +70,8 @@ You could follow these steps:
 #. You can test locally, before pushing, with :command:`conan test`.
 #. Add the changes, commit and push: :command:`git add . && git commit -m "first commit" && git push`.
 #. Go to Travis and see the build, with the different jobs.
-#. When it has finished, go to your ArtifactoryCE repository, you should see there the uploaded packages for different configurations.
-#. Check locally, searching in ArtifactoryCE: :command:`conan search hello/0.1@myteam/testing -r=myremote`.
+#. When it has finished, go to your Artifactory CE repository, you should see there the uploaded packages for different configurations.
+#. Check locally, searching in Artifactory CE: :command:`conan search hello/0.1@myteam/testing -r=myremote`.
 
 If something fails, please report an issue in the ``conan-package-tools`` GitHub repository: https://github.com/conan-io/conan-package-tools
 
