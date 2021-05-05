@@ -310,7 +310,7 @@ To inspect all your current project's dependencies use the :command:`conan info`
     openssl/1.0.2t
         ID: eb50d18a5a5d59bd0c332464a4c348ab65e353bf
         BuildID: None
-        Remote: conan-center=https://api.bintray.com/conan/conan/conan-center
+        Remote: conan-center=https://center.conan.io
         URL: https://github.com/conan-io/conan-center-index
         Homepage: https://github.com/openssl/openssl
         License: OpenSSL
@@ -327,7 +327,7 @@ To inspect all your current project's dependencies use the :command:`conan info`
     poco/1.9.4
         ID: 645aaff0a79e6036c77803601e44677556109dd9
         BuildID: None
-        Remote: conan-center=https://api.bintray.com/conan/conan/conan-center
+        Remote: conan-center=https://center.conan.io
         URL: https://github.com/conan-io/conan-center-index
         Homepage: https://pocoproject.org
         License: BSL-1.0
@@ -344,7 +344,7 @@ To inspect all your current project's dependencies use the :command:`conan info`
     zlib/1.2.11
         ID: f74366f76f700cc6e991285892ad7a23c30e6d47
         BuildID: None
-        Remote: conan-center=https://api.bintray.com/conan/conan/conan-center
+        Remote: conan-center=https://center.conan.io
         URL: https://github.com/conan-io/conan-center-index
         Homepage: https://zlib.net
         License: Zlib
