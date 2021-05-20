@@ -1,8 +1,9 @@
+**********
 Cheatsheet
-============================================
+**********
 
 Single-Page Graphical Format
-----------------------------
+============================
 
 JFrog has created the following visual cheatsheet for basic Conan commands and
 concepts which users can print out and use as a handy reference. It is available
@@ -17,10 +18,13 @@ as both a PDF and PNG.
    :width: 800 px 
    :align: center
 
-.. cheatsheet:
+Community-Created Format 
+========================
 
-Conan Cheatsheet
-================
+Community contributors have also created the following extended cheatsheet
+providing a more narrative and workflow-centric cheatsheet. It is effectively, a
+single-page summary of other docs pages which community users found most
+relevant to daily Conan operations.
 
 .. contents::
     :local:
