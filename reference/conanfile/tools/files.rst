@@ -84,6 +84,6 @@ windows. This function renames file or folder using :command:`robocopy` to avoid
       tools.rename(self, "lib-sources-abe2h9fe", "sources")  # renaming a folder
 
 Parameters:
-    - **conanfile**: Conanfile object.
-    - **src** (Required): Path to be renamed.
-    - **dst** (Required): Path to be renamed to.
+  - **conanfile**: Conanfile object.
+  - **src** (Required): Path to be renamed.
+  - **dst** (Required): Path to be renamed to.
