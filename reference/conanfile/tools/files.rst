@@ -11,7 +11,7 @@ conan.tools.files.patch()
 .. code-block:: python
 
     def patch(conanfile, base_path=None, patch_file=None, patch_string=None,
-            strip=0, fuzz=False, **kwargs):
+              strip=0, fuzz=False, **kwargs):
 
 Applies a diff from file (*patch_file*)  or string (*patch_string*) in *base_path* directory. If
 *base_path* is not passed it is applied in the current directory.
@@ -67,3 +67,23 @@ Example of ``conandata.yml`` with different patches for different versions:
       "1.12.0":
         - patch_file: "patches/0001-buildflatbuffers-cmake.patch"
           base_path: "source_subfolder"
+
+conan.tools.rename()
+--------------------
+
+.. code-block:: python
+
+    def rename(conanfile, src, dst)
+
+Utility functions to rename a file or folder *src* to *dst* with retrying. ``os.rename()`` frequently raises "Access is denied" exception on
+windows. This function renames file or folder using :command:`robocopy` to avoid the exception on Windows.
+
+.. code-block:: python
+
+    def source(self):
+      tools.rename(self, "lib-sources-abe2h9fe", "sources")  # renaming a folder
+
+Parameters:
+    - **conanfile**: Conanfile object.
+    - **src** (Required): Path to be renamed.
+    - **dst** (Required): Path to be renamed to.
