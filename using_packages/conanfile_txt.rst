@@ -307,4 +307,4 @@ for package management, not only for (but focused on) C/C++ libraries.
     To learn more about working with shared libraries, please refer to :ref:`Howtos/Manage shared libraries<manage_shared>`.
 
 
-.. _`pocoproject`: https://bintray.com/pocoproject/conan/Poco%3Apocoproject
+.. _`pocoproject`: https://conan.io/center/poco
