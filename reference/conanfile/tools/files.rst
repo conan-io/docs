@@ -75,8 +75,7 @@ conan.tools.rename()
 
     def rename(conanfile, src, dst)
 
-Utility functions to rename a file or folder *src* to *dst* with retrying. ``os.rename()`` frequently raises "Access is denied" exception on
-windows. This function renames file or folder using :command:`robocopy` to avoid the exception on Windows.
+Utility functions to rename a file or folder *src* to *dst*. On Windows, it is very common that ``os.rename()`` raises an "Access is denied" exception, so this tool uses:command:`robocopy` if available. If that is not the case, or the rename is done in a non-Windows machine, it falls back to the ``os.rename()`` implementation.
 
 .. code-block:: python
 
