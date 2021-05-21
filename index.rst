@@ -46,7 +46,6 @@ commitment to stability, with no breaking changes across all Conan 1.X versions.
    integrations
    configuration
    howtos
-   cheatsheet
    reference
    videos
    faq
