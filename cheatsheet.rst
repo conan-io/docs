@@ -595,7 +595,7 @@ These modes can be set in the [general] section of configurations_, and in `the 
 Resolving dependency conflicts
 ##############################
 
-Versions defined in the `Conanfile.txt`__ take precedence over versions specified by dependencies. This can be used to
+Versions defined in the `conanfile.txt`__ take precedence over versions specified by dependencies. This can be used to
 resolve conflicts by dictating the use of only one version throughout the whole dependency graph.
 
 __ #using-conan-packages-in-an-application
