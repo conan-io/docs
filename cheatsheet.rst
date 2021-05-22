@@ -452,7 +452,7 @@ A package recipe is a Python class, defined in a file called conanfile.py in the
 Python requires
 ###############
 
-Python requires allow the re-use of python methods across multiple recipes. Complex dependency graphs can be produced,
+Python requires allow the re-use of python code across multiple recipes. Complex dependency graphs can be produced,
 and the `same concepts`__ apply with python requires as with normal package requirements.
 
 __ #managing-dependencies
