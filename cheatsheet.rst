@@ -322,7 +322,7 @@ inspect <https://docs.conan.io/en/latest/reference/commands/misc/inspect.html>`_
 Visualizing dependencies
 ++++++++++++++++++++++++
 
-Create a dependency graph for the package or application:
+Show a dependency graph for the package or application:
 
 .. code-block:: bash
 
