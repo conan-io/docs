@@ -368,7 +368,7 @@ Create a template package:
 
 .. code-block:: bash
 
-    $ conan new <package>/<version>@[<user>/<channel>]  # <user>/<channel> is not specified in Conan Centre, but otherwise they should be
+    $ conan new <package>/<version>@[<user>/<channel>]  # <user>/<channel> is not specified in Conan Center, but otherwise they should be
                 [-t]                                    # Create a recipe for a basic test to verify the package was created successfully
                 [-s]                                    # Create a recipe/source template for a package with local source code
 
