@@ -174,7 +174,7 @@ Consuming packages
 Using packages in an application
 ++++++++++++++++++++++++++++++++
 
-1. Write a Conanfile.txt. This captures the project configuration:
+1. Write a conanfile.txt. This captures the project configuration:
 
 .. code-block:: text
 
