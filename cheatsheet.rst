@@ -429,7 +429,7 @@ A package recipe is a Python class, defined in a file called conanfile.py in the
 
         def requirements(self):                                          # Responsible for specifying non-trivial requirements logic
             if self.options.myoption2:                                   # Specify a conditional requirement
-                self.requires("RequiredLib2/0.3@user/stable")
+                self.requires("requiredlib2/0.3@user/stable")
 
         def package_id(self):                                            # Responsible for changing the way the package
                                                                          # ID is calculated from the default
