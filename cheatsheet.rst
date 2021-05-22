@@ -344,7 +344,7 @@ A reference is used to identify packages:
 
     <package>/<version>@<user>/<channel>#RREV:PACKAGE_ID#PREV
 
-The recipe reference is used to identify a certain version of a package recipe:
+The recipe reference is used to identify a certain version of a recipe:
 
 .. code-block:: text
 
