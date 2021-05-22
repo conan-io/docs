@@ -241,7 +241,7 @@ Clear packages from cache:
     $ conan remove "<package>" --force  # <package> can include wildcards
 
     $ conan remove 'boost/*'                     # Remove all versions of Boost
-    $ conan remove 'MyPackage/1.2@user/channel'  # Remove all revisions of Mypackage/1.2@user/channel
+    $ conan remove 'mypackage/1.2@user/channel'  # Remove all revisions of mypackage/1.2@user/channel
 
 See `conan remove <https://docs.conan.io/en/latest/reference/commands/misc/remove.html>`_ reference.
 
