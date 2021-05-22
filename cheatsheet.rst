@@ -250,7 +250,7 @@ Using packages as standalone applications
 
 Packages can either be copied to the local project folder and run from there, or run directly from the local cache.
 
-In the `Conanfile.txt`__, this can be done in the [imports] or [generators] section. See below for the relevant
+In the `conanfile.txt`__, this can be done in the [imports] or [generators] section. See below for the relevant
 generators. In `the package recipe`_, this can be done using the ``imports()`` or ``deploy()`` methods.
 
 __ #using-conan-packages-in-an-application
