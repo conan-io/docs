@@ -221,7 +221,7 @@ Download a package, if it isn't already in `the local cache`_:
                     [-r=<remote ID>]                                    # Download dependencies from only the specified remote
 
 
-    $ conan install .  # Install a package requirement from a Conanfile.txt, saved in your current directory, with all
+    $ conan install .  # Install a package requirement from a conanfile.txt, saved in your current directory, with all
                        # options and settings coming from your default profile
 
     $ conan install . -o pkg_name:use_debug_mode=on -s compiler=clang   # As above, but override one option and one
