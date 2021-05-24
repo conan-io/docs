@@ -60,5 +60,4 @@ There are 2 different types of packages right now in Conan-center:
 To contribute packages to Conan-center, read the :ref:`conan-center guide <conan_center_flow>` for more information.
 
 
-.. _`conan-center`: https://bintray.com/conan/conan-center
 .. _Artifactory documentation: https://www.jfrog.com/confluence/display/JFROG/JFrog+Artifactory
