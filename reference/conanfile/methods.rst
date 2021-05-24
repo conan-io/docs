@@ -1447,9 +1447,6 @@ multiple recipes.
             # Or provide your own custom logic
 
 
-
-FIXME: MANY OF THIS IS NOT "REFERENCE" AND SHOULD BE ELSEWHERE
-
 layout()
 --------
 
@@ -1457,14 +1454,14 @@ layout()
 
     This is an **experimental** feature subject to breaking changes in future releases.
 
-Available since: `1.37.0 <https://github.com/conan-io/conan/releases/tag/1.3X.0>`_
+Available since: `1.37.0 <https://github.com/conan-io/conan/releases/tag/1.37.0>`_
 
-Method to describe the package contents, not only the final package but the layout while developing the package.
-In the layout method you can adjust 3 different things, ``self.folders``, ``self.patterns`` and ``self.cpp``
+Read about the feature :ref:`here<package_layout>`.
+
+In the layout() method you can adjust ``self.folders``, ``self.cpp`` and ``self.patterns``.
 
 self.folders
 ++++++++++++
-
 
 - **self.folders.source** (Defaulted to ""): Specifies a subfolder where the sources are. The ``self.source_folder`` attribute and
   the *current working directory* inside the ``source(self)`` method will be set with this subfolder. It is used in the cache when running
@@ -1488,95 +1485,22 @@ self.folders
   command. It is relative to the current working directory. This folder **will not** affect the package layout in the
   cache.
 
-In the following example we are declaring a layout that follows the standard CLion one, where the build directory is ``cmake-build-release``
-or ``cmake-build-debug`` depending on the declared ``build_type`` setting. In this example, the sources of the project are in the ``src`` folder.
-Also choosing the generators folders inside the build folder is quite convenient to include the :ref:`conan_toolchain.cmake<conan-cmake-toolchain>`
-file when using the :ref:`CMakeDeps<conan_tools_cmake>` generator because it will be always in the same relative path to the build folder.
-
-.. code:: python
-
-    from conans import ConanFile
-
-    class Pkg(ConanFile):
-
-        def layout(self):
-            self.folders.build = "cmake-build-{}".format(str(conanfile.settings.build_type).lower())
-            self.folders.generators = os.path.join(self.folders.build, "generators")
-            self.folders.imports = self.folders.build
-            self.folders.source = "src"
-
-Given the previous example we can run the conan local methods without taking much care of the directories where the
-files are or the build files should be:
-
-.. code:: bash
-
-    # This will write the toolchains and generator files from the dependencies to the ``cmake-build-debug/generators``
-    $ conan install . -if=my_install -s build_type=Debug
-
-    # This will fetch the sources to the ./src folder if we are using the ``source(self)`` method.
-    $ conan source . -if=my_install
-
-    # This will build the project using the declared source folder and ``cmake-build-debug`` as the build folder
-    $ conan build . -if=my_install
-
-    # This will import, if declared imports(self) method, the files to the ``cmake-build-debug`` folder
-    $ conan imports . -if=my_install
-
-.. note::
-
-    Maybe you are wondering why the **install folder** is not parametrized and has to be specified with the ``-if``
-    argument.
-    Currently, Conan generates several files like the ``graph_info.json`` and the ``conanbuildinfo.txt`` that
-    are read to restore the configuration saved (settings, options, etc) to be applied in the local commands.
-    That configuration is needed before running the ``layout()`` method because the folders might depend on the settings
-    like in the previous example. It is a kind of a chicken-egg issue. In Conan 2.0, likely, the
-    configuration won't be stored, and the local methods like :command:`conan build .` will compute the graph
-    from arguments (--profile, -s, -o...) and won't need the ``--if`` argument anymore, being always trivial to run.
-
 
 self.cpp
 ++++++++
 
 The ``layout()`` method allows to declare ``cpp_info`` objects not only for the final package (like the classic approach with
 the ``self.cpp_info`` in the ``package_info(self)`` method) but for the ``self.source_folder`` and ``self.build_folder``.
-This is useful when a package is in :ref:`editable mode<editable_packages>` to automatically propagate to the consumers
-all the needed information (library names, include directories...) but pointing to the local project directories while developing,
-whether you are calling directly your build-system, using an IDE or executing the :command:`conan build` command to build
-your code.
-
-
-Example:
-
-.. code:: python
-
-        from conans import ConanFile
-
-        class Pkg(ConanFile):
-
-            def layout(self):
-
-                self.cpp.source.includedirs = ["include"]
-
-                self.cpp.build.libdirs = ["."]
-                self.cpp.build.libs = ["mylib"]
-                self.cpp.build.includedirs = ["gen_include"]
-
-                self.cpp.package.libs = ["mylib"]
-
 
 The fields of the cpp_info objects at ``self.info.build`` and ``self.info.source`` are the same described :ref:`here<cpp_info_attributes_reference>`.
 Components are also supported.
 
-.. note::
-
-        You can still use the ``package_info(self)`` method. The received `self.cpp_info` object will be populated with the information explicitly declared
-        in the ``self.cpp.package`` object, so you can complete it or modify it later.
 
 self.patterns
 +++++++++++++
 
 You can fill the ``self.patterns.source`` and ``self.patterns.build`` objects describing the patterns of the files that are at the ``self.folders.source`` and ``self.folders.build``
-to automate the ``package(self)`` method with the **LayoutPackager()** tool. FIXME: LINK TO REFERENCE
+to automate the ``package(self)`` method with the **LayoutPackager()** tool.
 
 The defaults are the following but you can customize anything based on the configuration (``self.settings``, ``self.options``...):
 
@@ -1611,105 +1535,3 @@ These are all the fields that can be adjusted, both in ``self.patterns.source`` 
 | framework                            | Patterns of the files from the folders: ``self.cpp.xxx.frameworkdirs``                                  |
 +--------------------------------------+---------------------------------------------------------------------------------------------------------+
 
-
-Putting everything together
-+++++++++++++++++++++++++++
-
-Let's see how we can use the ``layout()`` method to both write simpler recipes, improve the local methods and the integration
-with the IDE and develop the package as an :ref:`editable package<editable_packages>`.
-
-This is the project structure:
-
-.. code-block:: text
-
-    <project_folder>
-      | - CMakeLists.txt
-      | - hello.cpp
-      | - include
-          | - hello.h
-      | - res
-          | - myasset.jpg
-
-We want to use CLion to build the project so we open the project (using both **Release** and **Debug** configurations).
-After building the project we have this layout:
-
-.. code-block:: text
-
-    <project_folder>
-      | - cmake-build-debug
-          | - CMakeFiles
-          | - ... other CMake stuff...
-          | - libhello.a
-          | - gen.h
-      | - cmake-build-release
-          | - CMakeFiles
-          | - ... other CMake stuff...
-          | - libhello.a
-          | - gen.h
-      | - CMakeLists.txt
-      | - hello.cpp
-      | - include
-          | - hello.h
-      | - res
-          | - myasset.jpeg
-
-
-We can write a ``layout()`` method describing it:
-
-.. code:: python
-
-        from conans import ConanFile
-        from conan.tools.layout import LayoutPackager
-
-        class Pkg(ConanFile):
-
-            def layout(self):
-                # ###### FOLDERS
-                # The sources can be found in the root dir
-                self.folders.source = ["."]
-
-                # The build folder is created with the CLion way
-                self.folders.build = "cmake-build-{}".format(str(conanfile.settings.build_type).lower())
-
-                # We want to have the toolchains in the build folder so we can always pass
-                # `-DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake` to CMake
-                self.folders.generators = os.path.join(self.folders.build, "generators")
-
-                # In case we use "conan package" we declare an output directory
-                self.folders.package = "package-{}".format(str(conanfile.settings.build_type).lower())
-
-                # ###### INFOS
-                self.cpp.source.includedirs = ["include"] # Relative to ["."] (self.folders.source)
-                self.cpp.build.libdirs = ["."]  # Relative to (self.folders.build)
-                self.cpp.build.libs = ["hello"]
-                self.cpp.build.includedirs = ["."] # Relative to (self.folders.build)
-                self.cpp.package.libs = ["hello"]
-
-                # ###### PATTERNS
-                self.patterns.source.res = ["*.jpeg"] # To package automatically the myasset.jpeg
-
-            def package(self):
-                LayoutPackager(self).package()
-
-
-- There is no need to declare the ``package_info(self)`` method, we declared the needed information at ``self.cpp.package``.
-- The ``package(self)`` method is quite simple using the ``LayoutPackager(self).package()``
-- We can easily put the package in editable mode and keep using the CLion IDE to build the libraries:
-
-    .. code:: bash
-
-        $ conan editable add . hello/1.0
-
-    The packages requiring "hello/1.0" will find the headers and libraries in the right CLion output directories automatically.
-
-- If we want to verify the that the Conan recipe is totally correct we can use the Conan local methods always with the same syntax:
-
-    .. code:: bash
-
-        $ conan install . -if=my_install
-        $ conan imports . -if=my_install
-        $ conan build . -if=my_install
-        $ conan package . -if=my_install
-
-    The conan commands will follow the same directory layout while building, and the ``conan package`` command will
-    create an additional ``package-release`` folder with the packaged artifacts.
