@@ -62,19 +62,6 @@ Release, Debug, etc ones. If the **settings.yml** file is customized to add new 
         cmake.generate()
 
 
-arch
-++++
-
-By default the ``self.settings.arch`` will be used but it can be override with this property.
-
-.. code-block:: python
-
-    ...
-        cmake = CMakeDeps(self)
-        cmake.arch = "x86"
-        cmake.generate()
-
-
 build_context_suffix / build_context_build_modules
 ++++++++++++++++++++++++++++++++++++++++++++++++++
 
