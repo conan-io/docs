@@ -41,14 +41,61 @@ The full instantiation, that allows custom configuration can be done in the ``ge
 
         def generate(self):
             cmake = CMakeDeps(self)
-            cmake.configurations.append("ReleaseShared")
-            if self.options["hello"].shared:
-                cmake.configuration = "ReleaseShared"
             cmake.generate()
 
-As it can be seen, it allows to define custom user CMake configurations besides the standard Release, Debug, etc ones.
-If the **settings.yml** file is customized to add new configurations to the ``settings.build_type``, then, adding it
-explicitly to ``.configurations`` is not necessary.
+There are some attributes you can adjust in the created ``CMakeDeps`` object to change the default behavior:
+
+configurations
+++++++++++++++
+
+As it can be seen in the following example, it allows to define custom user CMake configurations besides the standard
+Release, Debug, etc ones. If the **settings.yml** file is customized to add new configurations to the
+``settings.build_type``, then, adding it explicitly to ``.configurations`` is not necessary.
+
+.. code-block:: python
+
+    ...
+        cmake = CMakeDeps(self)
+        cmake.configurations.append("ReleaseShared")
+        if self.options["hello"].shared:
+            cmake.configuration = "ReleaseShared"
+        cmake.generate()
+
+
+build_context_suffix / build_context_build_modules
+++++++++++++++++++++++++++++++++++++++++++++++++++
+
+When you have the same package as a **build-require** and as a **regular require** it will cause a conflict in the generator
+because the file names of the config files will collide as well as the targets names, variables names etc.
+
+This is a typical situation with a requirement like **protobuff**: You want it as a **build-require** to generate **.cpp**
+files trough the **protoc** tool, but you also want to link the final application or library with **libprotoc** library,
+so you also have a **regular require**. Solving this conflict is specially important when we are cross-building because the
+**protoc** tool (that will run in the building machine) belongs to a different binary package than the **libprotoc** library,
+that will "run" in the host machine.
+
+Also there is another issue with the **build_modules**. As you may know, the recipes of the requirements can declare a
+`cppinfo.build_modules` entry containing one or more **.cmake** files. When the requirement is found by the cmake ``find_package()``
+function, Conan will include automatically these files. By default, Conan will include only the build modules from the
+``host`` context (regular requires) to avoid the collission, but you can change the default behavior.
+
+So there are two attributes of the ``CMakeDeps`` which helps with these issues:
+
+- **build_context_suffix**: You can specify a suffix for a requirement, so the files/targets/variables of the requirement
+  in the build context (build require) will be renamed.
+- **build_context_build_modules**: By default Conan will include only the ``host`` (regular requires) build modules, but
+  you can specify require names so the build modules from the ``build`` context are included instead.
+
+
+.. code-block:: python
+
+    ...
+        cmake = CMakeDeps(self)
+        # disambiguate the files, targets, etc
+        cmake.build_context_suffix = {"protobuff": "_BUILD"}
+        # Choose the build modules from "build" context, so our CMakeLists can call the correct "protoc" tool
+        cmake.build_context_build_modules = ["protobuff"]
+
 
 .. _conan-cmake-toolchain:
 
