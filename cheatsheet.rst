@@ -35,12 +35,15 @@ Setup and configuration
 Installation
 ++++++++++++
 
-Conan is available as a Python package and installed via pip:
+Conan is available as a Python package, and the recommended way to install is via pip:
 
 .. code-block:: bash
 
     $ pip install conan
     $ pip install conan --upgrade
+
+There are `other methods of installation <https://conan.io/downloads.html>`_ available, including standalone installers,
+which don't require a Python installation.
 
 See `Install <https://docs.conan.io/en/latest/installation.html>`_ docs.
 
@@ -93,7 +96,7 @@ See `conan config <https://docs.conan.io/en/latest/reference/commands/consumer/c
 Profiles
 ++++++++
 
-Profiles allow users to set aspects of the build environment. This includes settings_, options_, environment variables
+Profiles allow users to set aspects of the build configuration. This includes settings_, options_, environment variables
 and build requirements. They can be installed into ~/.conan/profiles. They can also be stored in project directories,
 which can be useful for specific compilation cases, for example cross-compiling.
 
@@ -185,14 +188,14 @@ Using packages in an application
     [build_requires]               # The Conan packages which are used to build the application
     7zip/16.00
 
-    [generators]                   # Generators create build system files that capture the dependency information
-    cmake
+    [generators]                   # Generators create build system files that capture the dependency information,
+    cmake                          # as well as configuration information from Conan settings and options
 
     [options]                      # Options here override options upstream in the dependency graph
     boost:shared=True              # Options can be specified on a per-package basis for dependencies
     poco:shared=True
 
-    [imports]                      # Copies files from the cache to the application directory
+    [imports]                      # Copies files from the cache to the current working directory
     bin, *.dll -> ./bin            # Copies all .dll files from the packages' bin/ folder to the local bin/ folder
 
 2. Get dependencies and generate build system files via ``conan install``
@@ -232,7 +235,7 @@ See `conan install <https://docs.conan.io/en/latest/reference/commands/consumer/
 The local cache
 +++++++++++++++
 
-The local package cache is located at ~/.conan/data.
+The local package cache is located at ~/.conan/data by default (but this is configurable).
 
 Clear packages from cache:
 
@@ -372,7 +375,9 @@ Create a template package:
                 [-t]                                    # Create a recipe for a basic test to verify the package was created successfully
                 [-s]                                    # Create a recipe/source template for a package with local source code
 
-Build a package into the local cache:
+Build a package from a `recipe`__ and store it in the local cache:
+
+__ #the-package-recipe
 
 .. code-block:: bash
 
@@ -389,7 +394,7 @@ create <https://docs.conan.io/en/latest/reference/commands/creator/create.html>`
 The package recipe
 ++++++++++++++++++
 
-A package recipe is a Python class, defined in a file called conanfile.py in the package directory:
+A package recipe is a Python class, defined in a file called conanfile.py:
 
 .. code-block:: python
 
@@ -400,25 +405,31 @@ A package recipe is a Python class, defined in a file called conanfile.py in the
                                                            # option which specifies whether a library is static or shared
 
         default_options = {"shared": False}
-        requires = "RequiredLib/0.1@user/stable"           # Defines package requirements
+        requires = "requiredlib/0.1@user/stable"           # Defines package requirements
         build_requires = "tool_a/0.2@user/testing"         # Defines requirements that are only used when the package is
-                                                           # built. These should be build and test tools only.
+                                                           # built. These should be build and test tools only
         generators = "cmake"                               # Generator for the package: specifies which build system
                                                            # type will be generated
 
         def source(self):                                                # Obtains the source code for the project
             self.run("git clone https://github.com/conan-io/hello.git")  # self.run() executes any command in the native shell
-            ...
+            tools.get("https://github.com/conan-io/hello/" +             # tools.get() downloads, unzips, and then removes the .zip file
+                      "archive/refs/heads/master.zip")                   # The tools module contains a lot of helper methods for common
+            ...                                                          # tasks, and using them is often preferable to using self.run()
+                                                                         # See the link below for more information
+
+        def build_requirements(self):                                    # Defines requirements that are only used when the package is
+            if self.options.myoption1:                                   # built. Useful for specifying conditional build requirements
+                self.build_requires("zlib/1.2@user/testing")
 
         def build(self):                                                 # Responsible for invoking the build system
             cmake = CMake(self)                                          # Helper classes are available for several build systems
             ...
-            if self.options.myoption1:                                   # Specify a conditional build requirement
-                self.build_requires("zlib/1.2@user/testing")
+            
             self.run("bin/unittests")                                    # Run unit tests compiled earlier in the build() method
 
         def package(self):                                               # Responsible for capturing build artifacts
-            self.copy("\*.h", dst="include", src="hello")                # self.copy() copies files from the cache to the project folder
+            self.copy("*.h", dst="include", src="hello")                 # self.copy() copies files from the cache to the project folder
             ...
 
         def package_info(self):                                          # Responsible for defining variables that are
@@ -431,8 +442,8 @@ A package recipe is a Python class, defined in a file called conanfile.py in the
             if self.options.myoption2:                                   # Specify a conditional requirement
                 self.requires("requiredlib2/0.3@user/stable")
 
-        def package_id(self):                                            # Responsible for changing the way the package
-                                                                         # ID is calculated from the default
+        def package_id(self):                                            # Responsible for overriding the way the package
+                                                                         # ID is calculated from the default, for this package only
             default_package_id_mode = full_version_mode
             if self.settings.compiler.version == "4.9":                  # Make compiler versions 4.8 and 4.7 compatible
                                                                          # with version4.9: i.e., they all result in the same package ID
@@ -448,6 +459,8 @@ A package recipe is a Python class, defined in a file called conanfile.py in the
 
         def deploy(self):                                                # Installs the project, which can include
             ...                                                          # copying build artifacts
+
+See `tools <https://docs.conan.io/en/1.36/reference/tools.html>`_ reference.
 
 Python requires
 ###############
@@ -495,8 +508,8 @@ Specifying build configuration items
 Settings
 ########
 
-Settings are configuration items which generally apply to all builds of all packages in the dependency tree, for example
-compiler, OS, and release or debug builds.
+Settings are configuration items which generally apply to all builds of all packages in the dependency tree.
+`compiler`, `os`, `arch`, and `build_type` (`Release`/`Debug`) are some of the most common.
 
 Available settings are defined in a global settings file: ~/.conan/settings.yml. The settings for a given package are
 defined in `the package recipe`_.
@@ -549,16 +562,17 @@ There are two types of revisions:
 - "Recipe Revisions" (RREV) - Revision of the recipe and sources
 - "Package Revisions" (PREV) - Revision of a binary package
 
-The recipe revision (RREV) is a SHA-1 hash either calculated over the recipe, or taken from the version control system.
-Conan only holds one recipe revision in the local cache. Many recipe revisions can be stored in remote repositories.
-This helps differentiate between packages that have been changed and built without changing the version number. Recipe
-revisions can be specified wherever a recipe is consumed. If a recipe revision is not specified, the latest revision is
-used.
+The recipe revision (RREV) is a SHA-1 hash calculated over the `conan_manifest.txt`, which contains the individual
+hashes of the `conanfile.py` and all the files exported with `exports` and `exports_sources`. If the `scm` feature is
+used, Conan can also formulate the recipe revision directly from the version control system. Conan only holds one recipe
+revision in the local cache. Many recipe revisions can be stored in remote repositories. This helps differentiate
+between packages that have been changed and built without changing the version number. Recipe revisions can be specified
+wherever a recipe is consumed. If a recipe revision is not specified, the latest revision is used.
 
-The package revision (PREV) is a SHA-1 hash calculated over the package contents. Package revisions provide the most
-precise identification for a built package. They are very rarely used directly by users in commands or configurations,
-because it's fairly impactical to do so.  Instead, they are generally managed by
-the use of "Lockfiles". 
+The package revision (PREV) is a SHA-1 hash calculated over the binary contents of the package directory after the build
+and package steps are completed. Package revisions provide the most precise identification for a built package. They are
+very rarely used directly by users in commands or configurations, because it's fairly impactical to do so. Instead, they
+are generally managed by the use of "Lockfiles". 
 
 Enable revisions:
 
