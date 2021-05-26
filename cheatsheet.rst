@@ -418,8 +418,8 @@ A package recipe is a Python class, defined in a file called conanfile.py:
             ...                                                          # tasks, and using them is often preferable to using self.run()
                                                                          # See the link below for more information
 
-        def build_requirements(self):                                    # Defines requirements that are only used when the package is
-            if self.options.myoption1:                                   # built. Useful for specifying conditional build requirements
+        def build_requirements(self):                                    # Responsible for specifying non-trivial build requirements logic
+            if self.options.myoption1:                                   # Specify a conditional build requirement
                 self.build_requires("zlib/1.2@user/testing")
 
         def build(self):                                                 # Responsible for invoking the build system
