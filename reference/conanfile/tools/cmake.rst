@@ -48,13 +48,13 @@ There are some attributes you can adjust in the created ``CMakeDeps`` object to 
 configurations
 ++++++++++++++
 
-As it can be seen in the following example, it allows to define custom user CMake configurations besides the standard
+Allows to define custom user CMake configurations besides the standard
 Release, Debug, etc ones. If the **settings.yml** file is customized to add new configurations to the
 ``settings.build_type``, then, adding it explicitly to ``.configurations`` is not necessary.
 
 .. code-block:: python
 
-    ...
+    def generate(self):
         cmake = CMakeDeps(self)
         cmake.configurations.append("ReleaseShared")
         if self.options["hello"].shared:
@@ -62,39 +62,79 @@ Release, Debug, etc ones. If the **settings.yml** file is customized to add new 
         cmake.generate()
 
 
-build_context_suffix / build_context_build_modules
-++++++++++++++++++++++++++++++++++++++++++++++++++
+build_context_activated
++++++++++++++++++++++++
+
+When you have a **build-require**, by default, the config files (`xxx-config.cmake`) files are not generated.
+But you can activate it using the **build_context_activated** attribute:
+
+.. code-block:: python
+
+    build_requires = ["my_tool/0.0.1"]
+
+    def generate(self):
+        cmake = CMakeDeps(self)
+        # generate the config files for the build require
+        cmake.build_context_activated = ["my_tool"]
+        cmake.generate()
+
+
+build_context_suffix
+++++++++++++++++++++
 
 When you have the same package as a **build-require** and as a **regular require** it will cause a conflict in the generator
 because the file names of the config files will collide as well as the targets names, variables names etc.
 
-This is a typical situation with a requirement like **protobuff**: You want it as a **build-require** to generate **.cpp**
-files trough the **protoc** tool, but you also want to link the final application or library with **libprotoc** library,
-so you also have a **regular require**. Solving this conflict is specially important when we are cross-building because the
-**protoc** tool (that will run in the building machine) belongs to a different binary package than the **libprotoc** library,
-that will "run" in the host machine.
+For example, this is a typical situation with some requirements (capnproto, protobuf...) that contain
+a tool used to generate source code at build time (so it is a **build_require**),
+but also providing a library to link to the final application, so you also have a **regular require**.
+Solving this conflict is specially important when we are cross-building because the tool
+(that will run in the building machine) belongs to a different binary package than the library, that will "run" in the
+host machine.
 
-Also there is another issue with the **build_modules**. As you may know, the recipes of the requirements can declare a
-`cppinfo.build_modules` entry containing one or more **.cmake** files. When the requirement is found by the cmake ``find_package()``
-function, Conan will include automatically these files. By default, Conan will include only the build modules from the
-``host`` context (regular requires) to avoid the collission, but you can change the default behavior.
-
-So there are two attributes of the ``CMakeDeps`` which helps with these issues:
-
-- **build_context_suffix**: You can specify a suffix for a requirement, so the files/targets/variables of the requirement
-  in the build context (build require) will be renamed.
-- **build_context_build_modules**: By default Conan will include only the ``host`` (regular requires) build modules, but
-  you can specify require names so the build modules from the ``build`` context are included instead.
-
+You can use the **build_context_suffix** attribute to specify a suffix for a requirement,
+so the files/targets/variables of the requirement in the build context (build require) will be renamed:
 
 .. code-block:: python
 
-    ...
+    build_requires = ["my_tool/0.0.1"]
+    requires = ["my_tool/0.0.1"]
+
+    def generate(self):
         cmake = CMakeDeps(self)
+        # generate the config files for the build require
+        cmake.build_context_activated = ["my_tool"]
         # disambiguate the files, targets, etc
-        cmake.build_context_suffix = {"protobuff": "_BUILD"}
-        # Choose the build modules from "build" context, so our CMakeLists can call the correct "protoc" tool
-        cmake.build_context_build_modules = ["protobuff"]
+        cmake.build_context_suffix = {"my_tool": "_BUILD"}
+        cmake.generate()
+
+
+
+build_context_build_modules
++++++++++++++++++++++++++++
+
+Also there is another issue with the **build_modules**. As you may know, the recipes of the requirements can declare a
+`cppinfo.build_modules` entry containing one or more **.cmake** files.
+When the requirement is found by the cmake ``find_package()``
+function, Conan will include automatically these files.
+
+By default, Conan will include only the build modules from the
+``host`` context (regular requires) to avoid the collision, but you can change the default behavior.
+
+Use the **build_context_build_modules** attribute to specify require names to include the **build_modules** from
+**build_requires**:
+
+.. code-block:: python
+
+    build_requires = ["my_tool/0.0.1"]
+
+    def generate(self):
+        cmake = CMakeDeps(self)
+        # generate the config files for the build require
+        cmake.build_context_activated = ["my_tool"]
+        # Choose the build modules from "build" context
+        cmake.build_context_build_modules = ["my_tool"]
+        cmake.generate()
 
 
 .. _conan-cmake-toolchain:
