@@ -151,7 +151,7 @@ translated from the current ``settings``:
 
 - *conanbuild.json*: The toolchain can also generate a ``conanbuild.json`` file that contains arguments to
   the command line ``CMake()`` helper used in the recipe ``build()`` method. At the moment it contains only the CMake
-  generator. The CMake generator will be deduced from the current Conan compiler settings:
+  generator and the CMake toolchain file. The CMake generator will be deduced from the current Conan compiler settings:
 
   - For ``settings.compiler="Visual Studio"``, the CMake generator is a direct mapping of ``compiler.version``, as this version represents the IDE version, not the compiler version.
   - For ``settings.compiler=msvc``, the CMake generator will be by default the one of the Visual Studio that introduced this compiler version (``msvc 19.0`` => ``Visual Studio 14``, ``msvc 19.1`` => ``Visual Studio 15``, etc). This can be changed, using the ``tools.microsoft.msbuild:vs_version`` [conf] configuration. If it is defined, that Visual Studio version will be used as the CMake generator, and the specific compiler version and toolset will be defined in the ``conan_toolchain.cmake`` file.
@@ -166,8 +166,7 @@ constructor
 
 .. code:: python
 
-    def __init__(self, conanfile, generator=None, generator_platform=None, build_type=None,
-                 cmake_system_name=True, toolset=None):
+    def __init__(self, conanfile, generator=None):
 
 
 Most of the arguments are optional and will be deduced from the current ``settings``, and not
@@ -197,6 +196,15 @@ This will be translated to:
 
 The ``CMakeToolchain`` is intended to run with the ``CMakeDeps`` dependencies generator. It might temporarily
 work with others like ``cmake_find_package`` and ``cmake_find_package_multi``, but this will be removed soon.
+
+
+Using a custom toolchain file
++++++++++++++++++++++++++++++
+
+There are two ways of providing a custom CMake toolchain file:
+
+- The ``conan_toolchain.cmake`` file can be completely skipped and replaced by a user one, defining the ``tools.cmake.cmaketoolchain:toolchain_file=<filepath>`` configuration value
+- A custom user toolchain file can be added (included from) the ``conan_toolchain.cmake`` one, by using the ``user_toolchain`` block described below, and defining the ``tools.cmake.cmaketoolchain:user_toolchain=<filepath>`` configuration value.
 
 
 Using the toolchain in developer flow
