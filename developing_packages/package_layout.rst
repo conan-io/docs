@@ -70,7 +70,7 @@ file when using the :ref:`CMakeDeps<conan_tools_cmake>` generator because it wil
 .. code:: python
 
     import os
-    from conans import ConanFile
+    from conans import ConanFile, CMake
 
     class Pkg(ConanFile):
 
