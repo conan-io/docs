@@ -42,3 +42,4 @@ Contents:
    tools/qbs
    tools/env
    tools/files
+   tools/layout
