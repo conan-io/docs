@@ -21,7 +21,7 @@ With the ``build_policy`` attribute in the `conanfile.py` the package creator ca
 - ``missing``: If no binary package is found, Conan will build it without the need to invoke Conan install with :command:`--build missing`
   option.
 - ``always``: The package will be built always, **retrieving each time the source code** executing the "source" method.
-- ``never``: (experimental) Never builds this package from source, this package can only be created with a ``conan export-pkg`` command.
+- ``never``: (experimental, available from Conan 1.37) Never builds this package from source, this package can only be created with a ``conan export-pkg`` command.
 
 
 .. code-block:: python
