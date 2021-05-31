@@ -400,7 +400,7 @@ Conan Center or any other remote. These are legacy packages, and the ones withou
 and channel are the ones strongly recommended to use from ConanCenter.
 
 ConanCenter is the central public repository for Conan packages. You can contribute packages to it in
-the `conancenter-index Github repository <https://github.com/conan-io/conan-center-index>`_.
+the `conan-center-index Github repository <https://github.com/conan-io/conan-center-index>`_.
 If you want to store your own private packages, you can download the free Artifactory Community Edition (CE)
 directly from the `Conan downloads page <https://conan.io/downloads.html>`_.
 
