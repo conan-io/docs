@@ -280,7 +280,7 @@ We can write a ``layout()`` method describing it:
                 self.folders.source = ["."]
 
                 # The build folder is created with the CLion way
-                self.folders.build = "cmake-build-{}".format(str(conanfile.settings.build_type).lower())
+                self.folders.build = "cmake-build-{}".format(str(self.settings.build_type).lower())
 
                 # We want to have the toolchains in the build folder so we can always pass
                 # `-DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake` to CMake
