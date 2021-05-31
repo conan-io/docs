@@ -265,7 +265,6 @@ Since Conan 1.36, ``CMakeToolchain`` implements a powerful capability for extend
 The following predefined blocks are available, and added in this order:
 
 - ``user_toolchain``: Allows to include a user toolchain from the ``conan_toolchain.cmake`` file. If the configuration ``tools.cmake.cmaketoolchain:user_toolchain=xxxx`` is defined, its value will be ``include(xxx)`` as the first line in ``conan_toolchain.cmake``.
-from the ``conan_toolchain.cmake`` file.
 - ``generic_system``: Defines ``CMAKE_GENERATOR_PLATFORM``, ``CMAKE_GENERATOR_TOOLSET``, ``CMAKE_C_COMPILER``,``CMAKE_CXX_COMPILER`` and ``CMAKE_BUILD_TYPE``
 - ``android_system``: Defines ``ANDROID_PLATFORM``, ``ANDROID_STL``, ``ANDROID_ABI`` and includes ``CMAKE_ANDROID_NDK/build/cmake/android.toolchain.cmake``
   where CMAKE_ANDROID_NDK comes defined in ``tools.android:ndk_path`` configuration value.
