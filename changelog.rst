@@ -18,8 +18,44 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-    Conan 1.36 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
+    Conan 1.37 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
     submit a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
+
+1.37.0 (31-May-2021)
+--------------------
+
+- Feature: Remove ``CMAKE_SKIP_RPATHS`` by default to True in ``CMakeToolchain``, it is not necessary by default, users can opt-in, and new test validates shared libs will work with ``VirtualEnv`` generator ``conanrunenv``. `#9024 <https://github.com/conan-io/conan/pull/9024>`_ . Docs `here <https://github.com/conan-io/docs/pull/2105>`__
+- Feature: simplified ``CMakeToolchain`` with only 1 category of blocks, made ``try-compile`` template code as another block, and reordered blocks so relevant flags for try-compile are taken into account. `#9009 <https://github.com/conan-io/conan/pull/9009>`_ . Docs `here <https://github.com/conan-io/docs/pull/2105>`__
+- Feature: Add new default `conancenter` remote for `https://center.conan.io` as first in the list. `#8999 <https://github.com/conan-io/conan/pull/8999>`_
+- Feature: Implements a new experimental ``conan.tools.google`` Bazel integration with ``BazelDeps``, ``BazelToolchain`` and ``Bazel``. `#8991 <https://github.com/conan-io/conan/pull/8991>`_ . Docs `here <https://github.com/conan-io/docs/pull/2109>`__
+- Feature: Introduced new options for the `CMakeDeps` generator allowing to manage `build_requires` even declaring the same package as a `require` and `build_require` avoiding the collision of the `config` cmake files and enabling to specify which `build_modules` should be included (e.g protobuf issue) `#8985 <https://github.com/conan-io/conan/pull/8985>`_ . Docs `here <https://github.com/conan-io/docs/pull/2104>`__
+- Feature: Expand user-agent string to include OS info. `#8947 <https://github.com/conan-io/conan/pull/8947>`_
+- Feature: Implement ``build_policy=never`` for :command:`conan export-pkg` packages that cannot be rebuilt with ``--build=xxx``. `#8946 <https://github.com/conan-io/conan/pull/8946>`_ . Docs `here <https://github.com/conan-io/docs/pull/2106>`__
+- Feature: Define ``[conf]`` for defining the user toolchain for ``CMakeToolchain``, both for injecting a user toolchain in the ``CMakeToolchain`` generated ``conan_toolchain.cmake`` and for completely replacing ``conan_toolchain.cmake``. `#8945 <https://github.com/conan-io/conan/pull/8945>`_ . Docs `here <https://github.com/conan-io/docs/pull/2105>`__
+- Feature: add GCC 11 to _settings.yml_. `#8924 <https://github.com/conan-io/conan/pull/8924>`_
+- Feature: Add new `tools.rename()` interface. `#8915 <https://github.com/conan-io/conan/pull/8915>`_ . Docs `here <https://github.com/conan-io/docs/pull/2099>`__
+- Feature: Update urlib3 Conan dependency setting version `>=1.25.8` to avoid CVE-2020-7212. `#8914 <https://github.com/conan-io/conan/pull/8914>`_
+- Feature: Build-requires can define [conf] for its consumers. `#8895 <https://github.com/conan-io/conan/pull/8895>`_ . Docs `here <https://github.com/conan-io/docs/pull/2107>`__
+- Feature: support M1 Catalyst. `#8818 <https://github.com/conan-io/conan/pull/8818>`_
+- Feature: New ``conan install <ref> --build-require`` and ``conan create <path> --build-require``  (when not using ``test_package``) arguments to explicitly define that the installed or created package has to be a ``build-require``, receiving the build profile instead of the host one. `#8627 <https://github.com/conan-io/conan/pull/8627>`_
+- Feature: Introduced the `layout()` method to the recipe to be able to declare the folder structure both for the local development methods (conan source, conan build...) and in the cache. Also, associated to the folders, cppinfo objects to be used in editable packages and file pattern descriptions to enable "auto packaging". `#8554 <https://github.com/conan-io/conan/pull/8554>`_ . Docs `here <https://github.com/conan-io/docs/pull/2092>`__
+- Fix: **CMakeDeps** generator: The transitive requirements for a build_require are not included in the `xxx-config.cmake` files generated. `#9015 <https://github.com/conan-io/conan/pull/9015>`_
+- Fix: The `CMakeToolchain` now supports Apple M1 cross-building with a profile without environment declared pointing to the system toolchain. `#9011 <https://github.com/conan-io/conan/pull/9011>`_
+- Fix: Set `env_info.DYLD_FRAMEWORK_PATH` correctly. `#8984 <https://github.com/conan-io/conan/pull/8984>`_
+- Fix: Fix some typos in the code. `#8977 <https://github.com/conan-io/conan/pull/8977>`_
+- Fix: Improve error message when a directory doesn't contain a valid repository. `#8956 <https://github.com/conan-io/conan/pull/8956>`_
+- Fix: The `build_modules` defined per generator in `cpp_info` now are rendered properly using the `markdown` generator. `#8942 <https://github.com/conan-io/conan/pull/8942>`_
+- Fix: Simplify code access to [conf] variables removing attribute based access. `#8901 <https://github.com/conan-io/conan/pull/8901>`_
+- Bugfix: Prevent unintended evil insertions into metadata.json resulted in corrupted package and inability to install. `#9022 <https://github.com/conan-io/conan/pull/9022>`_
+- Bugfix: Allow ``MSBuildDeps`` to correctly process packages with dots in the package name. `#9012 <https://github.com/conan-io/conan/pull/9012>`_
+- Bugfix: Avoid errors because of ``package_id`` mismatch in lockfiles when using ``compatible_packages`` feature. `#9008 <https://github.com/conan-io/conan/pull/9008>`_
+- BugFix: Respect order of declared directories when using components. `#8927 <https://github.com/conan-io/conan/pull/8927>`_
+- Bugfix: Raise an exception when response header `Content-type` is different than `application/json` or `application/json; charset=utf-8`. `#8912 <https://github.com/conan-io/conan/pull/8912>`_
+- Bugfix: Fix exception in CMakeToolchain when settings remove known compilers. `#8900 <https://github.com/conan-io/conan/pull/8900>`_
+- Bugfix: Fix current directory definition in ``vcvars`` commands in new toolchains. `#8899 <https://github.com/conan-io/conan/pull/8899>`_
+- Bugfix: AptTool: add repo key before running apt-add-repository. `#8861 <https://github.com/conan-io/conan/pull/8861>`_
+- BugFix: Prevent evil insertions into metadata.json resulted in corrupted package and inability to install. `#8532 <https://github.com/conan-io/conan/pull/8532>`_
+
 
 1.36.0 (28-Apr-2021)
 --------------------
