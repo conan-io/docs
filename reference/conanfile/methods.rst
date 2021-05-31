@@ -1454,7 +1454,7 @@ layout()
 
     This is an **experimental** feature subject to breaking changes in future releases.
 
-Available since: `1.37.0 <https://github.com/conan-io/conan/releases/tag/1.37.0>`_
+Available since: `1.37.0 <https://github.com/conan-io/conan/releases>`_
 
 Read about the feature :ref:`here<package_layout>`.
 
@@ -1534,4 +1534,3 @@ These are all the fields that can be adjusted, both in ``self.patterns.source`` 
 +--------------------------------------+---------------------------------------------------------------------------------------------------------+
 | framework                            | Patterns of the files from the folders: ``self.cpp.xxx.frameworkdirs``                                  |
 +--------------------------------------+---------------------------------------------------------------------------------------------------------+
-
