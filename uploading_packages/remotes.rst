@@ -36,7 +36,7 @@ For distribution:
 
 .. _conan_center:
 
-ConanCenter
+conancenter
 -----------
 
 **ConanCenter** (https://conan.io/center) is the main official repository for open source
@@ -46,17 +46,31 @@ Conan packages. It is configured as the default remote in the Conan client, but 
 
     $ conan remote add conancenter https://center.conan.io
 
-There are 2 different types of packages right now in ConanCenter:
-
-- **Packages with full reference**: Packages like `pkg/version@user/channel`. These packages binaries were created by users in their own
-  Bintray repositories, and included here. This flow of contributing packages to ConanCenter is deprecated now.
-  These packages are not recommended and should be considered as legacy.
-- **Packages without "user/channel"**: Can be used directly as `pkg/version`: These packages are created
-  automatically from the central Github repository `conan-center-index <https://github.com/conan-io/conan-center-index>`_,
-  with an automated build service: C3I (ConanCenter Continuous Integration). These packages are the recommended
-  ones to use from ConanCenter.
+It contains **packages without "user/channel"** that can be used directly as `pkg/version` (`zlib/1.2.11`): These packages are created
+automatically from the central GitHub repository `conan-center-index <https://github.com/conan-io/conan-center-index>`_, with an automated
+build service: C3I (ConanCenter Continuous Integration).
 
 To contribute packages to ConanCenter, read the :ref:`ConanCenter guide <conan_center_flow>` for more information.
+
+conan-center [deprecated]
+-------------------------
+
+**conan-center** was the official repository but is is no longer recommended. It is configured as the second default remote in the Conan
+client to keep backwards compatibility:
+
+.. code-block:: bash
+
+    $ conan-center: https://conan.bintray.com [Verify SSL: True]
+
+It contains all the packages from the ConanCenter remote as well as **legacy packages with full reference** (`zlib/1.2.11@conan/stable`).
+These package binaries were created by users in their own Bintray repositories and included in this main repository. This flow of
+contributing packages to ConanCenter is no longer available and packages are **not recommended** and should be considered as **legacy**.
+
+.. important::
+
+    This remote contains packages that are no longer maintained and will be removed from Conan's default configuration soon. We strongly
+    encourage users to use `conancenter` and swift to the official package references without **user/channel**
+    (`zlib/1.2.11@conan/stable` -> `zlib/1.2.11`).
 
 
 .. _`conancenter`: https://conan.io/center
