@@ -37,15 +37,14 @@ For distribution:
 .. _conan_center:
 
 ConanCenter
--------------
+-----------
 
 **ConanCenter** (https://conan.io/center) is the main official repository for open source
 Conan packages. It is configured as the default remote in the Conan client, but if you want to add it manually:
 
 .. code-block:: bash
 
-    $ conan remote add conan-center https://center.conan.io
-
+    $ conan remote add conancenter https://center.conan.io
 
 There are 2 different types of packages right now in ConanCenter:
 
@@ -57,8 +56,8 @@ There are 2 different types of packages right now in ConanCenter:
   with an automated build service: C3I (ConanCenter Continuous Integration). These packages are the recommended
   ones to use from ConanCenter.
 
-To contribute packages to ConanCenter, read the :ref:`conan-center guide <conan_center_flow>` for more information.
+To contribute packages to ConanCenter, read the :ref:`ConanCenter guide <conan_center_flow>` for more information.
 
 
-.. _`conan-center`: https://conan.io/center
+.. _`conancenter`: https://conan.io/center
 .. _Artifactory documentation: https://www.jfrog.com/confluence/display/JFROG/JFrog+Artifactory

@@ -47,7 +47,7 @@ to add a basic level of security).
   .. code-block:: bash
 
       $ conan user
-      Current user of remote 'conan-center' set to: 'None' (anonymous)
+      Current user of remote 'conancenter' set to: 'None' (anonymous)
       Current user of remote 'myprivateremote' set to: 'danimtb' [Authenticated]
       Current user of remote 'otherremote' set to: 'None' (anonymous)
 
