@@ -36,28 +36,29 @@ For distribution:
 
 .. _conan_center:
 
-Conan-center
+ConanCenter
 -------------
 
-**Conan-center** (https://conan.io/center) is the main official repository for open source
+**ConanCenter** (https://conan.io/center) is the main official repository for open source
 Conan packages. It is configured as the default remote in the Conan client, but if you want to add it manually:
 
 .. code-block:: bash
 
-    $ conan remote add conan-center https://conan.bintray.com
+    $ conan remote add conan-center https://center.conan.io
 
 
-There are 2 different types of packages right now in Conan-center:
+There are 2 different types of packages right now in ConanCenter:
 
 - **Packages with full reference**: Packages like `pkg/version@user/channel`. These packages binaries were created by users in their own
-  Bintray repositories, and included here. This flow of contributing packages to Conan-center is deprecated now.
+  Bintray repositories, and included here. This flow of contributing packages to ConanCenter is deprecated now.
   These packages are not recommended and should be considered as legacy.
 - **Packages without "user/channel"**: Can be used directly as `pkg/version`: These packages are created
   automatically from the central Github repository `conan-center-index <https://github.com/conan-io/conan-center-index>`_,
-  with an automated build service: C3I (Conan-Center Continuous Integration). These packages are the recommended
+  with an automated build service: C3I (ConanCenter Continuous Integration). These packages are the recommended
   ones to use from ConanCenter.
 
-To contribute packages to Conan-center, read the :ref:`conan-center guide <conan_center_flow>` for more information.
+To contribute packages to ConanCenter, read the :ref:`conan-center guide <conan_center_flow>` for more information.
 
 
+.. _`conan-center`: https://conan.io/center
 .. _Artifactory documentation: https://www.jfrog.com/confluence/display/JFROG/JFrog+Artifactory

@@ -130,7 +130,7 @@ topics
 
 Topics provide a useful way to group related tags together and to quickly tell developers what a
 package is about. Topics also make it easier for customers to find your recipe. It could be useful
-to filter packages by topics or to reuse them in Bintray package page.
+to filter packages by topics.
 
 The ``topics`` attribute should be a tuple with the needed topics inside.
 
@@ -851,11 +851,14 @@ no_copy_source
 --------------
 
 The attribute ``no_copy_source`` tells the recipe that the source code will not be copied from the ``source`` folder to the ``build`` folder.
-This is mostly an optimization for packages with large source codebases, to avoid extra copies. It is **mandatory** that the source code must not be modified at all by the configure or build scripts, as the source code will be shared among all builds.
+This is mostly an optimization for packages with large source codebases or header-only, to avoid extra copies. It is **mandatory** that the source code must not be modified at all by the configure or build scripts, as the source code will be shared among all builds.
 
-To be able to use it, the package recipe can access the ``self.source_folder`` attribute, which will point to the ``build`` folder when ``no_copy_source=False`` or not defined, and will point to the ``source`` folder when ``no_copy_source=True``
+To be able to use it, the package recipe can access the ``self.source_folder`` attribute, which will point to the ``build`` folder when ``no_copy_source=False`` or not defined, and will point to the ``source`` folder when ``no_copy_source=True``.
 
 When this attribute is set to True, the ``self.copy()`` lines will be called twice, one copying from the ``source`` folder and the other copying from the ``build`` folder.
+
+Read :ref:`header-only<header_only>` section for an example using ``no_copy_source`` attribute.
+
 
 .. _folders_attributes_reference:
 
@@ -1040,7 +1043,7 @@ New properties ``cmake_target_name``, ``cmake_file_name``, ``pkg_config_name`` a
 ``cmake_build_modules`` are defined to allow migrating ``names``, ``filenames`` and ``build_modules``
 properties to this model.
 In Conan 2.0 this will be the default way of setting these properties and also passing custom
-properties to generators. 
+properties to generators.
 
 For most cases, it is recommended not to use the ``generator`` argument. The properties are generic for build systems, and different generators that integrate with a given build system could be reading such generic properties.
 For example, setting some cpp_info properties with the current model:
@@ -1074,7 +1077,7 @@ New properties defined:
 
 - **cmake_file_name** property will affect all cmake generators that accept the ``filenames``
   property (*cmake_find_package* and *cmake_find_package_multi*).
-- **cmake_target_name** property will affect all cmake generators that accept the ``names`` property 
+- **cmake_target_name** property will affect all cmake generators that accept the ``names`` property
   (*cmake*, *cmake_multi*, *cmake_find_package*, *cmake_find_package_multi* and *cmake_paths*).
 - **cmake_build_modules** property will replace the ``build_modules`` property.
 - **pkg_config_name** property will set the ``names`` property for *pkg_config* generator.

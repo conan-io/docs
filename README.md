@@ -166,7 +166,7 @@ Use them in the following importance order:
 ```
 .. warning::
 
-    In the Bintray repositories there are binaries for several mainstream compilers...
+    In the ConanCenter repository there are binaries for several mainstream compilers...
 ```
 
 ```
@@ -210,12 +210,8 @@ Submit a pull request to include it in `conan-center-index`_.
 ...
 ...
 
-.. _`conan-center-index`: https://github.com/conan-io/conan-center-index
+.. _`conan-center`: https://center.conan.io
 ```
 
 In case you want to use explicit external references with a link, make sure it doesn't exceed the maximum line length, otherwise it
 should considered to be written as a normal external reference.
-
-```
-Visit conan-center to check if the library is already there on https://conan.io/center/
-```
