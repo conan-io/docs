@@ -280,7 +280,7 @@ The following predefined blocks are available, and added in this order:
 - ``find_paths``: Defines ``CMAKE_FIND_PACKAGE_PREFER_CONFIG``, ``CMAKE_MODULE_PATH``, ``CMAKE_PREFIX_PATH`` so the generated files from ``CMakeDeps`` are found.
 - ``rpath``: Defines ``CMAKE_SKIP_RPATH``. By default it is disabled, and it is needed to define ``self.blocks["rpath"].skip_rpath=True`` if you want to activate ``CMAKE_SKIP_RPATH``
 - ``shared``: defines ``BUILD_SHARED_LIBS``
-
+- ``find_package_dir_vars``: Defines ``XXX_DIR`` variable for each requirement. These are useful to help the ``find_package()`` mechanism to locate the dependencies, specially on OSX while cross-building where ``CMAKE_PREFIX_PATH`` and ``CMAKE_MODULE_PATH`` are ignored.
 
 
 Blocks can be customized in different ways:
