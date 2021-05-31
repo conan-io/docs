@@ -277,7 +277,7 @@ We can write a ``layout()`` method describing it:
             def layout(self):
                 # ###### FOLDERS
                 # The sources can be found in the root dir
-                self.folders.source = ["."]
+                self.folders.source = "."
 
                 # The build folder is created with the CLion way
                 self.folders.build = "cmake-build-{}".format(str(self.settings.build_type).lower())
