@@ -3,7 +3,7 @@
 conan.tools.layout
 ==================
 
-Available since: `1.37.0 <https://github.com/conan-io/conan/releases/tag/1.37.0>`_
+Available since: `1.37.0 <https://github.com/conan-io/conan/releases>`_
 
 LayoutPackager
 --------------
