@@ -311,7 +311,7 @@ To inspect all your current project's dependencies use the :command:`conan info`
         ID: eb50d18a5a5d59bd0c332464a4c348ab65e353bf
         BuildID: None
         Remote: conancenter=https://center.conan.io
-        URL: https://github.com/conan-io/conancenter-index
+        URL: https://github.com/conan-io/conan-center-index
         Homepage: https://github.com/openssl/openssl
         License: OpenSSL
         Description: A toolkit for the Transport Layer Security (TLS) and Secure Sockets Layer (SSL) protocols
