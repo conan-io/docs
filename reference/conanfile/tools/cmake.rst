@@ -151,7 +151,7 @@ translated from the current ``settings``:
 
 - *conanbuild.json*: The toolchain can also generate a ``conanbuild.json`` file that contains arguments to
   the command line ``CMake()`` helper used in the recipe ``build()`` method. At the moment it contains only the CMake
-  generator. The CMake generator will be deduced from the current Conan compiler settings:
+  generator and the CMake toolchain file. The CMake generator will be deduced from the current Conan compiler settings:
 
   - For ``settings.compiler="Visual Studio"``, the CMake generator is a direct mapping of ``compiler.version``, as this version represents the IDE version, not the compiler version.
   - For ``settings.compiler=msvc``, the CMake generator will be by default the one of the Visual Studio that introduced this compiler version (``msvc 19.0`` => ``Visual Studio 14``, ``msvc 19.1`` => ``Visual Studio 15``, etc). This can be changed, using the ``tools.microsoft.msbuild:vs_version`` [conf] configuration. If it is defined, that Visual Studio version will be used as the CMake generator, and the specific compiler version and toolset will be defined in the ``conan_toolchain.cmake`` file.
@@ -166,8 +166,7 @@ constructor
 
 .. code:: python
 
-    def __init__(self, conanfile, generator=None, generator_platform=None, build_type=None,
-                 cmake_system_name=True, toolset=None):
+    def __init__(self, conanfile, generator=None):
 
 
 Most of the arguments are optional and will be deduced from the current ``settings``, and not
@@ -197,6 +196,15 @@ This will be translated to:
 
 The ``CMakeToolchain`` is intended to run with the ``CMakeDeps`` dependencies generator. It might temporarily
 work with others like ``cmake_find_package`` and ``cmake_find_package_multi``, but this will be removed soon.
+
+
+Using a custom toolchain file
++++++++++++++++++++++++++++++
+
+There are two ways of providing a custom CMake toolchain file:
+
+- The ``conan_toolchain.cmake`` file can be completely skipped and replaced by a user one, defining the ``tools.cmake.cmaketoolchain:toolchain_file=<filepath>`` configuration value
+- A custom user toolchain file can be added (included from) the ``conan_toolchain.cmake`` one, by using the ``user_toolchain`` block described below, and defining the ``tools.cmake.cmaketoolchain:user_toolchain=<filepath>`` configuration value.
 
 
 Using the toolchain in developer flow
@@ -254,22 +262,25 @@ Extending and customizing CMakeToolchain
 
 Since Conan 1.36, ``CMakeToolchain`` implements a powerful capability for extending and customizing the resulting toolchain file.
 
-The following predefined blocks are available:
+The following predefined blocks are available, and added in this order:
 
+- ``user_toolchain``: Allows to include a user toolchain from the ``conan_toolchain.cmake`` file. If the configuration ``tools.cmake.cmaketoolchain:user_toolchain=xxxx`` is defined, its value will be ``include(xxx)`` as the first line in ``conan_toolchain.cmake``.
 - ``generic_system``: Defines ``CMAKE_GENERATOR_PLATFORM``, ``CMAKE_GENERATOR_TOOLSET``, ``CMAKE_C_COMPILER``,``CMAKE_CXX_COMPILER`` and ``CMAKE_BUILD_TYPE``
 - ``android_system``: Defines ``ANDROID_PLATFORM``, ``ANDROID_STL``, ``ANDROID_ABI`` and includes ``CMAKE_ANDROID_NDK/build/cmake/android.toolchain.cmake``
-  where CMAKE_ANDROID_NDK comes defined in ``tools.android:ndk_path``
-- ``ios_system``: Defines ``CMAKE_SYSTEM_NAME``, ``CMAKE_SYSTEM_VERSION``, ``CMAKE_OSX_ARCHITECTURES``, ``CMAKE_OSX_SYSROOT`` for Apple systems.
-- ``find_paths``: Defines ``CMAKE_FIND_PACKAGE_PREFER_CONFIG``, ``CMAKE_MODULE_PATH``, ``CMAKE_PREFIX_PATH`` so the generated files from ``CMakeDeps`` are found.
+  where CMAKE_ANDROID_NDK comes defined in ``tools.android:ndk_path`` configuration value.
+- ``apple_system``: Defines ``CMAKE_SYSTEM_NAME``, ``CMAKE_SYSTEM_VERSION``, ``CMAKE_OSX_ARCHITECTURES``, ``CMAKE_OSX_SYSROOT`` for Apple systems.
 - ``fpic``: Defines the ``CMAKE_POSITION_INDEPENDENT_CODE`` when there is a ``options.fPIC``
-- ``rpath``: Defines ``CMAKE_SKIP_RPATH`` for OSX
 - ``arch_flags``: Defines C/C++ flags like ``-m32, -m64`` when necessary.
 - ``libcxx``: Defines ``-stdlib=libc++`` flag when necessary as well as ``_GLIBCXX_USE_CXX11_ABI``.
-- ``vs_runtime``: Defines the ``CMAKE_MSVC_RUNTIME_LIBRARY`` variable, as a generator expression for
-  for multiple configurations.
+- ``vs_runtime``: Defines the ``CMAKE_MSVC_RUNTIME_LIBRARY`` variable, as a generator expression for multiple configurations.
 - ``cppstd``: defines ``CMAKE_CXX_STANDARD``, ``CMAKE_CXX_EXTENSIONS``
-- ``shared``: defines ``BUILD_SHARED_LIBS``
 - ``parallel``: defines ``/MP`` parallel build flag for Visual.
+- ``cmake_flags_init``: defines ``CMAKE_XXX_FLAGS`` variables based on previously defined Conan variables. The blocks above only define ``CONAN_XXX`` variables, and this block will define CMake ones like ``set(CMAKE_CXX_FLAGS_INIT "${CONAN_CXX_FLAGS}" CACHE STRING "" FORCE)```.
+- ``try_compile``: Stop processing the toolchain, skipping the blocks below this one, if ``IN_TRY_COMPILE`` CMake property is defined.
+- ``find_paths``: Defines ``CMAKE_FIND_PACKAGE_PREFER_CONFIG``, ``CMAKE_MODULE_PATH``, ``CMAKE_PREFIX_PATH`` so the generated files from ``CMakeDeps`` are found.
+- ``rpath``: Defines ``CMAKE_SKIP_RPATH``. By default it is disabled, and it is needed to define ``self.blocks["rpath"].skip_rpath=True`` if you want to activate ``CMAKE_SKIP_RPATH``
+- ``shared``: defines ``BUILD_SHARED_LIBS``
+
 
 
 Blocks can be customized in different ways:
@@ -279,21 +290,21 @@ Blocks can be customized in different ways:
     # remove an existing block
     def generate(self):
         tc = CMakeToolchain(self)
-        tc.pre_blocks.remove("generic_system")
+        tc.blocks.remove("generic_system")
 
     # modify the template of an existing block
     def generate(self):
         tc = CMakeToolchain(self)
-        tmp = tc.pre_blocks["generic_system"].template
+        tmp = tc.blocks["generic_system"].template
         new_tmp = tmp.replace(...)  # replace, fully replace, append...
-        tc.pre_blocks["generic_system"].template = new_tmp
+        tc.blocks["generic_system"].template = new_tmp
 
     # modify the context (variables) of an existing block
     import types
 
     def generate(self):
         tc = CMakeToolchain(self)
-        generic_block = toolchain.pre_blocks["generic_system"]
+        generic_block = toolchain.blocks["generic_system"]
 
         def context(self):
             assert self  # Your own custom logic here
@@ -310,7 +321,7 @@ Blocks can be customized in different ways:
             def context(self):
                 return {}
 
-        tc.pre_blocks["generic_system"] = MyBlock
+        tc.blocks["generic_system"] = MyBlock
 
     # add a completely new block
     def generate(self):
@@ -322,7 +333,7 @@ Blocks can be customized in different ways:
             def context(self):
                 return {"myvar": "World"}
 
-        tc.pre_blocks["mynewblock"] = MyBlock
+        tc.blocks["mynewblock"] = MyBlock
 
 
     # extend from an existing block
@@ -337,7 +348,7 @@ Blocks can be customized in different ways:
                 c["build_type"] = c["build_type"] + "Super"
                 return c
 
-        tc.pre_blocks["generic_system"] = MyBlock
+        tc.blocks["generic_system"] = MyBlock
 
 Recall that this is a very **experimental** feature, and these interfaces might change in the following releases.
 
