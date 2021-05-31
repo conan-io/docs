@@ -206,7 +206,7 @@ Or reference the :ref:`conan_export_pkg_command` directly.
 Use external references with external URL at the bottom of the file like this:
 
 ```
-Submit a request to include it in `conan-center`_.
+Submit a pull request to include it in `conan-center-index`_.
 ...
 ...
 

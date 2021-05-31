@@ -31,3 +31,4 @@ Conan can be integrated with any build system. This can be done with:
    build_system/meson
    build_system/scons
    build_system/gcc
+   build_system/bazel
