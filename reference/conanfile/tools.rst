@@ -37,6 +37,7 @@ Contents:
 
    tools/cmake
    tools/gnu
+   tools/google
    tools/meson
    tools/microsoft
    tools/qbs
