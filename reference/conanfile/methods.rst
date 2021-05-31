@@ -1460,6 +1460,10 @@ Read about the feature :ref:`here<package_layout>`.
 
 In the layout() method you can adjust ``self.folders``, ``self.cpp`` and ``self.patterns``.
 
+
+.. _layout_folders_reference:
+
+
 self.folders
 ++++++++++++
 

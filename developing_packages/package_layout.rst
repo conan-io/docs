@@ -29,27 +29,15 @@ In the ``layout()`` method you can adjust 3 different things:
 self.folders
 ++++++++++++
 
-- **self.folders.source**: To specify a folder where your sources are. The ``self.source_folder`` attribute and
-  the *current working directory* inside the ``source(self)`` method will be set with this subfolder. It is used in the cache when running
-  :command:`conan create` (relative to the cache source folder) as well as in a local folder when running :command:`conan source`
-  (relative to the local current folder).
+- **self.folders.source**: To specify a folder where your sources are.
+- **self.folders.build**: To specify a subfolder where the files from the build are (or will be).
+- **self.folders.generators**: To specify a subfolder where to write the files from the generators and the toolchains.
+- **self.folders.imports**: To specify a subfolder where to write the files copied when using the ``imports(self)``
+  method in a ``conanfile.py``.
+- **self.folders.package**: To specify a subfolder where to write the package files when running the :command:`conan package`
+  command.
 
-- **self.folders.build**: To specify a subfolder where the files from the build are (or will be). The ``self.build_folder`` attribute and
-  the *current working directory* inside the ``build(self)`` method will be set with this subfolder. It is used in the cache when running
-  :command:`conan create` (relative to the cache source folder) as well as in a local folder when running :command:`conan build`
-  (relative to the local current folder).
-
-- **self.folders.generators** (Defaulted to ""): To specify a subfolder where to write the files from the generators and the toolchains.
-  In the cache, when running the :command:`conan create`, this subfolder will be relative to the root build folder and when running
-  the :command:`conan install` command it will be relative to the current working directory.
-
-- **self.folders.imports** (Defaulted to ""): Specifies a subfolder where to write the files copied when using the ``imports(self)``
-  method in a ``conanfile.py``. In the cache, when running the :command:`conan create`, this subfolder will be relative to the root
-  build folder and when running the :command:`conan imports` command it will be relative to the current working directory.
-
-- **self.folders.package** (Defaulted to ""): Specifies a subfolder where to write the package files when running the :command:`conan package`
-  command. It is relative to the current working directory. This folder **will not** affect the package layout in the
-  cache.
+Check the :ref:`complete reference<layout_folders_reference>` of the folders attribute.
 
 In the following example we are declaring a layout that follows the standard CLion one, where the build directory is ``cmake-build-release``
 or ``cmake-build-debug`` depending on the declared ``build_type`` setting. The sources of the project are in the ``src`` folder.
