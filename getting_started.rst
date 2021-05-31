@@ -70,7 +70,7 @@ An MD5 hash calculator using the Poco Libraries
         $ conan inspect poco/1.9.4
         name: poco
         version: 1.9.4
-        url: https://github.com/conan-io/conancenter-index
+        url: https://github.com/conan-io/conan-center-index
         homepage: https://pocoproject.org
         license: BSL-1.0
         author: None
