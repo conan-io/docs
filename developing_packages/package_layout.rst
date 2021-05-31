@@ -7,11 +7,11 @@ Package layout
 
     This is an **experimental** feature subject to breaking changes in future releases.
 
-Available since: `1.37.0 <https://github.com/conan-io/conan/releases/tag/1.37.0>`_
+Available since: `1.37.0 <https://github.com/conan-io/conan/releases>`_
 
 You can declare a ``layout()`` method in the recipe to describe the package contents,
 not only the final package in the cache but also the package while developing.
-As the package will have the same structure in the cache and in our local directory, the recipe development become easier.
+As the package will have the same structure in the cache and in our local directory, the recipe development becomes easier.
 
 In the ``layout()`` method you can adjust 3 different things:
 
@@ -58,7 +58,7 @@ file when using the :ref:`CMakeDeps<conan_tools_cmake>` generator because it wil
 .. code:: python
 
     import os
-    from conans import ConanFile
+    from conans import ConanFile, CMake
 
     class Pkg(ConanFile):
 
@@ -79,7 +79,7 @@ file when using the :ref:`CMakeDeps<conan_tools_cmake>` generator because it wil
 
         def build(self):
             # We are at a folder like "myproject/cmake-build-debug"
-            cmake = CMake()
+            cmake = CMake(self)
             cmake.configure()
             cmake.build()
 
@@ -265,17 +265,17 @@ We can write a ``layout()`` method describing it:
             def layout(self):
                 # ###### FOLDERS
                 # The sources can be found in the root dir
-                self.folders.source = ["."]
+                self.folders.source = "."
 
                 # The build folder is created with the CLion way
-                self.folders.build = "cmake-build-{}".format(str(conanfile.settings.build_type).lower())
+                self.folders.build = "cmake-build-{}".format(str(self.settings.build_type).lower())
 
                 # We want to have the toolchains in the build folder so we can always pass
                 # `-DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake` to CMake
                 self.folders.generators = os.path.join(self.folders.build, "generators")
 
                 # In case we use "conan package" we declare an output directory
-                self.folders.package = "package-{}".format(str(conanfile.settings.build_type).lower())
+                self.folders.package = "package-{}".format(str(self.settings.build_type).lower())
 
                 # ###### INFOS
                 self.cpp.source.includedirs = ["include"] # Relative to ["."] (self.folders.source)
