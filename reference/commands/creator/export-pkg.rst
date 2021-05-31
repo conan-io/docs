@@ -137,6 +137,12 @@ There are different scenarios where this command could look like useful:
    :ref:`How to package existing binaries <existing_binaries>`.
 
 
+Packages created with ``conan export-pkg`` cannot be rebuilt from sources in the cache with the ``--build``
+command line argument. It is possible to specify the class attribute ``build_policy="never"`` in this recipes
+(this is an experimental feature) to avoid the ``--build=*`` or ``--build`` argument to try to rebuild them from sources
+as part of a dependency graph.
+
+
 .. note::
 
     Note that if :command:`--profile`, settings or options are not provided to :command:`export-pkg`,
