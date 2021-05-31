@@ -224,6 +224,7 @@ ERROR: Incompatible requirements obtained in different evaluations of 'requireme
 ------------------------------------------------------------------------------------
 
 When two different packages require the same package as a dependency, but with different versions, will result in the following error:
+
 .. code-block:: bash
 
     $ cat conanfile.txt
@@ -234,11 +235,11 @@ When two different packages require the same package as a dependency, but with d
 
     $ conan install conanfile.txt
 
-        [...]
-        WARN: foobar/1.0.0: requirement foo/1.3.0 overridden by baz/1.0.0 to foo/1.0.0
-        ERROR: baz/1.0.0: Incompatible requirements obtained in different evaluations of 'requirements'
-        Previous requirements: [foo/1.0.0]
-        New requirements: [foo/1.3.0]
+    [...]
+    WARN: foobar/1.0.0: requirement foo/1.3.0 overridden by baz/1.0.0 to foo/1.0.0
+    ERROR: baz/1.0.0: Incompatible requirements obtained in different evaluations of 'requirements'
+    Previous requirements: [foo/1.0.0]
+    New requirements: [foo/1.3.0]
 
 As we can see in the following situation: the ``conanfile.txt`` requires 2 packages (``baz/1.0.0`` and ``foobar/1.0.0``) which
 both require the package named ``foo``. However, ``baz`` requires ``foo/1.0.0``, but ``foobar`` requires ``foo/1.3.0``.

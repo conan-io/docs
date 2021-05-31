@@ -87,7 +87,7 @@ Creates a new package recipe template with a 'conanfile.py' and optionally,
 
   .. code-block:: bash
 
-      $ conan new mypackage/1.0@myuser/stable -t -ciglg -ciglc -ciu https://api.bintray.com/conan/myuser/myrepo
+      $ conan new mypackage/1.0@myuser/stable -t -ciglg -ciglc -ciu https://myrepo.url
 
 - Create files from a custom, predefined, user template recipe or template directory:
 
