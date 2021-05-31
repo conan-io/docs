@@ -91,7 +91,7 @@ file when using the :ref:`CMakeDeps<conan_tools_cmake>` generator because it wil
 
         def build(self):
             # We are at a folder like "myproject/cmake-build-debug"
-            cmake = CMake()
+            cmake = CMake(self)
             cmake.configure()
             cmake.build()
 
