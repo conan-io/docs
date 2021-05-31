@@ -328,7 +328,7 @@ To inspect all your current project's dependencies use the :command:`conan info`
         ID: 645aaff0a79e6036c77803601e44677556109dd9
         BuildID: None
         Remote: conancenter=https://center.conan.io
-        URL: https://github.com/conan-io/conancenter-index
+        URL: https://github.com/conan-io/conan-center-index
         Homepage: https://pocoproject.org
         License: BSL-1.0
         Description: Modern, powerful open source C++ class libraries for building network- and internet-based applications that run on desktop, server, mobile and embedded systems.
