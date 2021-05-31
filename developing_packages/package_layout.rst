@@ -287,7 +287,7 @@ We can write a ``layout()`` method describing it:
                 self.folders.generators = os.path.join(self.folders.build, "generators")
 
                 # In case we use "conan package" we declare an output directory
-                self.folders.package = "package-{}".format(str(conanfile.settings.build_type).lower())
+                self.folders.package = "package-{}".format(str(self.settings.build_type).lower())
 
                 # ###### INFOS
                 self.cpp.source.includedirs = ["include"] # Relative to ["."] (self.folders.source)
