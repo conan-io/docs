@@ -345,7 +345,7 @@ To inspect all your current project's dependencies use the :command:`conan info`
         ID: f74366f76f700cc6e991285892ad7a23c30e6d47
         BuildID: None
         Remote: conancenter=https://center.conan.io
-        URL: https://github.com/conan-io/conancenter-index
+        URL: https://github.com/conan-io/conan-center-index
         Homepage: https://zlib.net
         License: Zlib
         Description: A Massively Spiffy Yet Delicately Unobtrusive Compression Library (Also Free, Not to Mention Unencumbered by Patents)
