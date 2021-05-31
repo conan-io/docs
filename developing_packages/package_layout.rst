@@ -11,7 +11,7 @@ Available since: `1.37.0 <https://github.com/conan-io/conan/releases>`_
 
 You can declare a ``layout()`` method in the recipe to describe the package contents,
 not only the final package in the cache but also the package while developing.
-As the package will have the same structure in the cache and in our local directory, the recipe development become easier.
+As the package will have the same structure in the cache and in our local directory, the recipe development becomes easier.
 
 In the ``layout()`` method you can adjust 3 different things:
 
