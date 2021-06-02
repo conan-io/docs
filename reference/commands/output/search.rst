@@ -40,7 +40,7 @@ The output JSON contains a two first level keys:
     {
         "error": false,
         "results": [{
-            "remote": "conan-center",
+            "remote": "conancenter",
             "items": [{
                 "recipe": {
                     "id": "eigen/3.3.4@conan/stable"
@@ -76,7 +76,7 @@ The output JSON contains a two first level keys:
         }]
     }
 
-- Search packages of a reference in a remote: :command:`conan search paho-c/1.2.0@conan/stable -r conan-center --json search.json`
+- Search packages of a reference in a remote: :command:`conan search paho-c/1.2.0@conan/stable -r conancenter --json search.json`
 
   .. code-block:: json
 
@@ -84,7 +84,7 @@ The output JSON contains a two first level keys:
           "error":false,
           "results":[
               {
-                  "remote":"conan-center",
+                  "remote":"conancenter",
                   "items":[
                       {
                           "recipe":{

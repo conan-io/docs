@@ -44,7 +44,7 @@ repository follow these steps:
 Setting the remotes in this way will cause your Conan client to resolve packages and install them from
 repositories in the following order of priority:
 
-  1. `conan-center`_
+  1. `conancenter`_
   2. Your own repository
 
 If you want to have your own repository first, please use the ``--insert`` command line option
@@ -55,11 +55,11 @@ when adding it:
     $ conan remote add <your_remote> <your_url> --insert 0
     $ conan remote list
       <your remote>: <your_url> [Verify SSL: True]
-      conan-center: https://center.conan.io [Verify SSL: True]
+      conancenter: https://center.conan.io [Verify SSL: True]
 
 .. tip::
 
     Check the full reference of :ref:`$ conan remote<conan_remote>` command.
 
 
-.. _`conan-center`: https://conan.io/center
+.. _`conancenter`: https://conan.io/center

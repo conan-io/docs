@@ -32,7 +32,7 @@ List users per remote: :command:`conan user --json user.json`
           "error":false,
           "remotes":[
               {
-                  "name":"conan-center",
+                  "name":"conancenter",
                   "user_name":"danimtb",
                   "authenticated":true
               },
