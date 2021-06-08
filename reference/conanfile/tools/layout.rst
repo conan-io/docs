@@ -83,7 +83,7 @@ Here is the equivalent `package()` method:
 
 
 In the example above, we defined explicit values for the directories and
-patterns for illustration purposes. However, the many of the directories and
+patterns for illustration purposes. However, many of the directories and
 patterns have default values. So, here we show the equivalent `self.copy()`
 statements for the case where ``LayoutPackager.package()`` is used with the
 default values of `self.cpp` and `self.patterns`. 
