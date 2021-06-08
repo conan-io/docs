@@ -14,7 +14,7 @@ conan upload
 
 Uploads a recipe and binary packages to a remote.
 
-If no remote is specified, the first configured remote (by default conan-center, use
+If no remote is specified, the first configured remote (by default conancenter, use
 'conan remote list' to list the remotes) will be used.
 
 .. code-block:: text
