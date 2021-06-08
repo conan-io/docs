@@ -65,7 +65,7 @@ file when using the :ref:`CMakeDeps<conan_tools_cmake>` generator because it wil
         settings = "os", "build_type", "arch"
         requires = "zlib/1.2.11"
         generators = "CMakeDeps", "CMakeToolchain"
-        exports_sources = "src"
+        exports_sources = "src*"
 
         def layout(self):
             self.folders.build = "cmake-build-{}".format(str(self.settings.build_type).lower())
