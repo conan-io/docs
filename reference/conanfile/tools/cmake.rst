@@ -318,9 +318,10 @@ The following predefined blocks are available, and added in this order:
 - ``cmake_flags_init``: defines ``CMAKE_XXX_FLAGS`` variables based on previously defined Conan variables. The blocks above only define ``CONAN_XXX`` variables, and this block will define CMake ones like ``set(CMAKE_CXX_FLAGS_INIT "${CONAN_CXX_FLAGS}" CACHE STRING "" FORCE)```.
 - ``try_compile``: Stop processing the toolchain, skipping the blocks below this one, if ``IN_TRY_COMPILE`` CMake property is defined.
 - ``find_paths``: Defines ``CMAKE_FIND_PACKAGE_PREFER_CONFIG``, ``CMAKE_MODULE_PATH``, ``CMAKE_PREFIX_PATH`` so the generated files from ``CMakeDeps`` are found.
+                  Also defines ``XXX_DIR`` variable for each requirement when cross building to **iOS**, **tvOS** and **watchOS** where ``CMAKE_PREFIX_PATH`` and ``CMAKE_MODULE_PATH`` are ignored.
+
 - ``rpath``: Defines ``CMAKE_SKIP_RPATH``. By default it is disabled, and it is needed to define ``self.blocks["rpath"].skip_rpath=True`` if you want to activate ``CMAKE_SKIP_RPATH``
 - ``shared``: defines ``BUILD_SHARED_LIBS``
-
 
 
 Blocks can be customized in different ways:
