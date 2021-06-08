@@ -21,6 +21,16 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.37 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
     submit a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.37.1 (08-Jun-2021)
+--------------------
+
+- Fix: Update the experimental ``conan new ... -m=v2_cmake`` template to start using the new ``layout()`` basic info. `#9053 <https://github.com/conan-io/conan/pull/9053>`_
+- Fix: Do not fail in ``CMakeDeps`` when there are ``build_requires`` with same name as host requires, unless ``build_context_activated`` is enabled for those and a different suffix has not been defined. `#9046 <https://github.com/conan-io/conan/pull/9046>`_
+- Fix: When using the new `self.folders.source` (at `layout(self)` method) the sources (from `export`, `export_sources` and `scm`) are copied to the base source folder and not to the `self.folders.source` that is intended to describe where the sources are after fetching them. `#9043 <https://github.com/conan-io/conan/pull/9043>`_ . Docs `here <https://github.com/conan-io/docs/pull/2117>`__
+- BugFix: Do not quote all values and allow integer and macro referencing in ``MSBuildToolchain.preprocessor_definitions`` `#9056 <https://github.com/conan-io/conan/pull/9056>`_
+- Bugfix: The new generators like `CMakeDeps` and `CMakeToolchain`write the generated files defaulting to the `install folder` if no `self.folders.generators` is specified in the `layout()` method. `#9050 <https://github.com/conan-io/conan/pull/9050>`_
+- Bugfix: The `CMakeToolchain` generator now manages correctly a recipe without `arch` declared in an Apple system. `#9045 <https://github.com/conan-io/conan/pull/9045>`_
+
 1.37.0 (31-May-2021)
 --------------------
 
@@ -55,7 +65,6 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Bugfix: Fix current directory definition in ``vcvars`` commands in new toolchains. `#8899 <https://github.com/conan-io/conan/pull/8899>`_
 - Bugfix: AptTool: add repo key before running apt-add-repository. `#8861 <https://github.com/conan-io/conan/pull/8861>`_
 - BugFix: Prevent evil insertions into metadata.json resulted in corrupted package and inability to install. `#8532 <https://github.com/conan-io/conan/pull/8532>`_
-
 
 1.36.0 (28-Apr-2021)
 --------------------
