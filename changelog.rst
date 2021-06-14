@@ -21,6 +21,12 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.37 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
     submit a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.37.2 (14-Jun-2021)
+--------------------
+
+- Bugfix: Avoid crash when using ``--lockfile`` with the :command:`conan test` command. `#9089 <https://github.com/conan-io/conan/pull/9089>`_
+- Bugfix: The `CMakeDeps` generator variables were named wrongly when a component had the same name as the package. `#9073 <https://github.com/conan-io/conan/pull/9073>`_
+
 1.37.1 (08-Jun-2021)
 --------------------
 
