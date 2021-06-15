@@ -338,7 +338,7 @@ With the :command:`-c` parameters you can define specific package configurations
 
 .. seealso::
 
-    You can see more information about configurations in :ref:`global.conf section <conan_cfg>`.
+    You can see more information about configurations in :ref:`global.conf section <global_conf>`.
 
 
 reference

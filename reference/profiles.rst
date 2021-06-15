@@ -151,7 +151,7 @@ Tools configurations can also be used in profile files and *global.conf* one. Pr
 
 .. seealso::
 
-    You can see more information about configurations in :ref:`global.conf section <conan_cfg>`.
+    You can see more information about configurations in :ref:`global.conf section <global_conf>`.
 
 
 Profile composition
