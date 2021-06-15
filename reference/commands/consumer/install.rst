@@ -322,6 +322,24 @@ With the :command:`-o` parameters you can only define specific package options.
     You can use :ref:`profiles <profiles>` files to create predefined sets of **settings**,
     **options** and **environment variables**.
 
+conf
+----
+
+With the :command:`-c` parameters you can define specific package configurations.
+
+.. code-block:: bash
+
+    $ conan install . -c tools.microsoft.msbuild:verbosity=Diagnostic
+    $ conan install . -c core:required_conan_version>=1.34 -c tools.build:processes=10
+
+
+.. note::
+    To list all possible configurations available, run :command:`conan config list`.
+
+.. seealso::
+
+    You can see more information about configurations in :ref:`global.conf section <conan_cfg>`.
+
 
 reference
 ---------
