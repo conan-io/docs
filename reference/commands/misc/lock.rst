@@ -46,6 +46,7 @@ conan lock create
     $ conan lock create [-h] [--name NAME] [--version VERSION] [--user USER] [--channel CHANNEL] [--reference REFERENCE] [-l LOCKFILE] [--base]
                          [--lockfile-out LOCKFILE_OUT] [-b [BUILD]] [-r REMOTE] [-u] [-e ENV_HOST] [-e:b ENV_BUILD] [-e:h ENV_HOST] [-o OPTIONS_HOST] [-o:b OPTIONS_BUILD]
                          [-o:h OPTIONS_HOST] [-pr PROFILE_HOST] [-pr:b PROFILE_BUILD] [-pr:h PROFILE_HOST] [-s SETTINGS_HOST] [-s:b SETTINGS_BUILD] [-s:h SETTINGS_HOST]
+                         [-c CONF_HOST] [-c:b CONF_BUILD] [-c:h CONF_HOST]
                          [path]
 
 
@@ -98,6 +99,16 @@ conan lock create
                             Settings to build the package, overwriting the defaults (build machine). e.g.: -s:b compiler=gcc
       -s:h SETTINGS_HOST, --settings:host SETTINGS_HOST
                             Settings to build the package, overwriting the defaults (host machine). e.g.: -s:h compiler=gcc
+      -c CONF_HOST, --conf CONF_HOST
+                            Configuration to build the package, overwriting the defaults (host machine). e.g.: -c
+                            tools.cmake.cmaketoolchain:generator=Xcode
+      -c:b CONF_BUILD, --conf:build CONF_BUILD
+                            Configuration to build the package, overwriting the defaults (build machine). e.g.: -c:b
+                            tools.cmake.cmaketoolchain:generator=Xcode
+      -c:h CONF_HOST, --conf:host CONF_HOST
+                            Configuration to build the package, overwriting the defaults (host machine). e.g.: -c:h
+                            tools.cmake.cmaketoolchain:generator=Xcode
+
 
 
 conan lock update
