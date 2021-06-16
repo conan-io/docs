@@ -325,6 +325,10 @@ With the :command:`-o` parameters you can only define specific package options.
 conf
 ----
 
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
 With the :command:`-c` parameters you can define specific package configurations.
 
 .. code-block:: bash
