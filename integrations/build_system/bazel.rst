@@ -5,7 +5,7 @@
 __________________
 
 If you are using **Bazel** as your library build system, you can use the **Bazel** build helper.
-This helper has a .build()`` method available to ease the call to Meson build system.
+This helper has a .build()`` method available to ease the call to Bazel build system.
 
 If you want to declare Conan dependencies in your project, you must do it, as usual, in the
 **conanfile.py** file. For example:
