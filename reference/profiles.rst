@@ -134,6 +134,10 @@ They accept patterns too, like ``-s *@myuser/*``, which means that packages that
 Tools configurations
 --------------------
 
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
 Tools configurations can also be used in profile files and *global.conf* one. Profile values will have priority over globally defined ones in *global.conf*, and can be defined as:
 
 .. code-block:: text
