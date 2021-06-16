@@ -330,7 +330,7 @@ With the :command:`-c` parameters you can define specific package configurations
 .. code-block:: bash
 
     $ conan install . -c tools.microsoft.msbuild:verbosity=Diagnostic
-    $ conan install . -c core:required_conan_version>=1.34 -c tools.build:processes=10
+    $ conan install . -c tools.microsoft.msbuild:verbosity=Detailed -c tools.build:processes=10
 
 
 .. note::
