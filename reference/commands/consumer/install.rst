@@ -15,6 +15,7 @@ conan install
                     [-pr PROFILE_HOST] [-pr:b PROFILE_BUILD]
                     [-pr:h PROFILE_HOST] [-s SETTINGS_HOST]
                     [-s:b SETTINGS_BUILD] [-s:h SETTINGS_HOST]
+                    [-c CONF_HOST] [-c:b CONF_BUILD] [-c:h CONF_HOST]
                     [--lockfile-node-id LOCKFILE_NODE_ID]
                     path_or_reference [reference]
 
@@ -137,6 +138,15 @@ generators.
       -s:h SETTINGS_HOST, --settings:host SETTINGS_HOST
                             Settings to build the package, overwriting the
                             defaults (host machine). e.g.: -s:h compiler=gcc
+      -c CONF_HOST, --conf CONF_HOST
+                            Configuration to build the package, overwriting the defaults (host machine). e.g.: -c
+                            tools.cmake.cmaketoolchain:generator=Xcode
+      -c:b CONF_BUILD, --conf:build CONF_BUILD
+                            Configuration to build the package, overwriting the defaults (build machine). e.g.: -c:b
+                            tools.cmake.cmaketoolchain:generator=Xcode
+      -c:h CONF_HOST, --conf:host CONF_HOST
+                            Configuration to build the package, overwriting the defaults (host machine). e.g.: -c:h
+                            tools.cmake.cmaketoolchain:generator=Xcode
       --lockfile-node-id LOCKFILE_NODE_ID
                             NodeID of the referenced package in the lockfile
 
@@ -311,6 +321,28 @@ With the :command:`-o` parameters you can only define specific package options.
 
     You can use :ref:`profiles <profiles>` files to create predefined sets of **settings**,
     **options** and **environment variables**.
+
+conf
+----
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+With the :command:`-c` parameters you can define specific package configurations.
+
+.. code-block:: bash
+
+    $ conan install . -c tools.microsoft.msbuild:verbosity=Diagnostic
+    $ conan install . -c tools.microsoft.msbuild:verbosity=Detailed -c tools.build:processes=10
+
+
+.. note::
+    To list all possible configurations available, run :command:`conan config list`.
+
+.. seealso::
+
+    You can see more information about configurations in :ref:`global.conf section <global_conf>`.
 
 
 reference
