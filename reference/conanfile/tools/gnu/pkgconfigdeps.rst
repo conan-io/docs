@@ -12,7 +12,7 @@ conan.tools.gnu.pkgconfigdeps
 PkgConfigDeps
 -------------
 
-Available since: `1.38.0 <https://github.com/conan-io/conan/releases/tag/1.38.0>`_
+Available since: `1.38.0 <https://github.com/conan-io/conan/releases>`_
 
 
 The ``PkgConfigDeps`` is the dependencies generator for pkg-config. Generates pkg-config files named *<PKG-NAME>.pc*
