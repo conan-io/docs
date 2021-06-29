@@ -206,7 +206,19 @@ Blocks can be customized in different ways:
         new_tmp = tmp.replace(...)  # replace, fully replace, append...
         tc.blocks["generic_system"].template = new_tmp
 
-    # modify the context (variables) of an existing block
+    # modify one or more variables of the context
+    def generate(self):
+        tc = CMakeToolchain(conanfile)
+        # block.values is the context dictionary
+        build_type = tc.blocks["generic_system"].values["build_type"]
+        tc.blocks["generic_system"].values["build_type"] = "Super" + build_type
+
+    # modify the whole context values
+    def generate(self):
+        tc = CMakeToolchain(conanfile)
+        tc.blocks["generic_system"].values = {"build_type": "SuperRelease"}
+
+    # modify the context method of an existing block
     import types
 
     def generate(self):
@@ -260,3 +272,26 @@ Blocks can be customized in different ways:
 Recall that this is a very **experimental** feature, and these interfaces might change in the following releases.
 
 For more information about these blocks, please have a look at the source code.
+
+
+Cross building
+++++++++++++++
+
+The ``generic_system`` block contains some basic cross-building capabilities. In the general
+case, the user would want to provide their own user toolchain defining all the specifics,
+which can be done with the configuration ``tools.cmake.cmaketoolchain:user_toolchain``. If
+this conf value is defined, the ``generic_system`` block will include the provided file, but
+no further define any CMake variable for cross-building.
+
+If ``user_toolchain`` is not defined and Conan detects it is cross-building, because the build
+and host profiles contain different OS or architecture, it will try to define the following
+variables:
+
+- ``CMAKE_SYSTEM_NAME``: ``tools.cmake.cmaketoolchain:system_name`` configuration if defined,
+  otherwise, it will try to autodetect it. This block will consider cross-building if not Apple
+  or Android systems (that is managed by other blocks), and not 64bits to 32bits builds in x86_64, sparc and
+  ppc systems.
+- ``CMAKE_SYSTEM_VERSION``: ``tools.cmake.cmaketoolchain:system_version`` conf if defined, otherwise
+  ``os.version`` subsetting (host) when defined
+- ``CMAKE_SYSTEM_PROCESSOR``: ``tools.cmake.cmaketoolchain:system_processor`` conf if defined, otherwise
+  ``arch`` setting (host) if defined
