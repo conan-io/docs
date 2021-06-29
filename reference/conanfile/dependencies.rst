@@ -24,7 +24,7 @@ Conan recipes provide access to their dependencies via the ``self.dependencies``
 This attribute is extensively used by generators like ``CMakeDeps`` or ``MSBuildDeps`` to
 generate the necessary files for the build.
 
-This section documents the ``self.depepndencies`` attribute, as it might be used by users
+This section documents the ``self.dependencies`` attribute, as it might be used by users
 both directly in recipe or indirectly to create custom build integrations and generators.
 
 Dependencies interface
