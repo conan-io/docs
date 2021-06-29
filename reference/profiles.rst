@@ -289,7 +289,7 @@ Profile templates
 
 From Conan 1.38 it is possible to use **jinja2** template engine for profiles. This feature is
 enabled by naming the profile file with the ``.jinja`` extension. When Conan loads a profile with
-this extension, inmmediately parses and renders the template, which must result in a standard
+this extension, immediately parses and renders the template, which must result in a standard
 text profile.
 
 Some of the capabilities of the profile templates are:
