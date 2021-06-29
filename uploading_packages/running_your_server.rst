@@ -63,9 +63,7 @@ You can also bind to an IPv6 address or specify both IPv4 and IPv6 addresses:
 
 Server Configuration
 --------------------
-Your server configuration is saved under ``~/.conan_server/server.conf``. You can change values
-there, prior to launching the server. Note that the server is not reloaded when the values are changed. You
-have to stop and restart it manually.
+By default your server configuration is saved under ``~/.conan_server/server.conf``, however you can modify this behaviour by either setting the ``CONAN_SERVER_HOME`` environment variable or launching the server with ``-d`` or ``--server_dir`` command line argument followed by desired path. In case you use one of the options your configuration file will be stored under ``server_directory/server.conf`` Please note that command line argument will override the environment variable. You can change configuration values in ``server.conf``, prior to launching the server. Note that the server does not support hot-reload, and thus in order to see configuration changes you will have to manually relaunch the server.
 
 The server configuration file is by default:
 
