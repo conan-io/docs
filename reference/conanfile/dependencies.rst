@@ -75,7 +75,7 @@ Not all fields of the dependency conanfile are exposed, the current fields are:
 - context: The context (build, host) of this dependency
 - conf_info: Configuration information of this dependency, intended to be applied to consumers.
 - dependencies: The transitive dependencies of this dependency
-- is_build_context: Return ``True`` if context == "build".
+- is_build_context: Return ``True`` if ``context == "build"``.
 
 
 Iterating dependencies
