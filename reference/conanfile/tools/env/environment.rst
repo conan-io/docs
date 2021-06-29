@@ -6,8 +6,9 @@ Environment
     This is a **very experimental** feature and it will have breaking changes in future releases.
 
 
-``Environment`` is a class that helps defining modifications to the environment variables. This class is
-used by other tools like the ``conan.tools.gnu`` autotools helpers.
+``Environment`` is a class that helps defining modifications to the environment variables.
+This class is used by other tools like the :ref:`conan.tools.gnu<conan_tools_gnu>` autotools helpers and
+the :ref:`VirtualEnv<conan_tools_env_virtualenv>` generator.
 
 It allows different operations like:
 
@@ -43,6 +44,38 @@ Environments can compose:
     env2.append(...)
 
     env1.compose(env2) # env1 has priority, and its modifications will prevail
+
+Environments can generate launcher files:
+
+.. code:: python
+
+    env1 = Environment()
+    env1.define("foo", "var")
+
+    env1.save_bat("my_launcher.bat")
+    env1.save_sh("my_launcher.sh")
+
+And then be used in the ``self.run`` command through the ``env`` argument:
+
+.. code:: python
+
+    ...
+    # This will automatically wrap the "foo" command with the correct launcher:
+    # my_launcher.sh && foo
+    self.run("foo", env=["my_launcher"])
+
+
+Environments can be applied in the python environment:
+
+.. code:: python
+
+    from conan.tools.env import Environment
+
+    env1 = Environment()
+    env1.define("foo", "var")
+    with env1.apply():
+       # Here os.getenv("foo") == "var"
+       ...
 
 
 There are some places where this ``Environment`` is used:
