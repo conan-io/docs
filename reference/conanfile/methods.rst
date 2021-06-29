@@ -1467,11 +1467,16 @@ In the layout() method you can adjust ``self.folders``, ``self.cpp`` and ``self.
 self.folders
 ++++++++++++
 
-- **self.folders.source** (Defaulted to ""): Specifies a subfolder where the sources are. The ``self.source_folder`` attribute and
-  the *current working directory* inside the ``source(self)`` method will be set with this subfolder. It is used in the cache when running
-  :command:`conan create` (relative to the cache source folder) as well as in a local folder when running :command:`conan source`
-  (relative to the local current folder). Note: Both the `export_sources`, `exports` and `scm` sources will be copied to the root source
-  directory, being the **self.folders.source** variable the way to describe if the fetched sources are still in a subfolder.
+
+- **self.folders.source** (Defaulted to ""): Specifies a subfolder where the sources are. The ``self.source_folder`` attribute
+  inside the ``source(self)`` and ``build(self)`` methods will be set with this subfolder. But the *current working directory*
+  in the ``source(self)`` method will not include this subfolder, because it is intended to describe where the sources are after
+  downloading (zip, git...) them, not to force where the sources should be. As well, the `export_sources`, `exports` and `scm` sources 
+  will be copied to the root source directory, being the **self.folders.source** variable the way to describe if the fetched sources 
+  are still in a subfolder.
+  It is used in the cache when running
+  :command:`conan create` (relative to the cache source folder) as well as in a local folder when running :command:`conan build`
+  (relative to the local current folder).
 
 - **self.folders.build** (Defaulted to ""): Specifies a subfolder where the files from the build are. The ``self.build_folder`` attribute and
   the *current working directory* inside the ``build(self)`` method will be set with this subfolder. It is used in the cache when running
