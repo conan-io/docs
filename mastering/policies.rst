@@ -13,7 +13,7 @@ As previously demonstrated, we can use the :command:`--build` option to change t
 - :command:`--build cascade` will build from code all the nodes with some dependency being built (for any reason). Can be used together with any
   other build policy. Useful to make sure that any new change introduced in a dependency is incorporated by building again the package.
 - :command:`--build pattern*` will build only the packages with the reference starting with "pattern".
-- :command:`--build --build=!some_package` will build all requirements from sources, except for some_package.
+- :command:`--build=* --build=!some_package1 --build=!some_package2` will build all requirements from sources, except for some_package1 and some_package2.
 
 
 With the ``build_policy`` attribute in the `conanfile.py` the package creator can change the default Conan's build behavior. The allowed build_policy values are:

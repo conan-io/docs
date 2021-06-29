@@ -74,9 +74,9 @@ the right order.
 
 There are some packages you can use as ``build_requires``:
 
-- From Conan-center:
+- From ConanCenter:
 
-    - **mingw_installer/1.0@conan/stable**: MinGW compiler installer as a Conan package.
+    - **mingw-w64/8.1**: MinGW compiler installer as a Conan package.
     - **msys2/20190524@**: MSYS2 subsystem as a Conan package (Conan Center Index).
     - **cygwin_installer/2.9.0@bincrafters/stable**: Cygwin subsystem as a Conan package.
 
