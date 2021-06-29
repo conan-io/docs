@@ -165,4 +165,3 @@ Example:
         # Skip this package when generating the files for the whole dependency tree in the consumer
         # note: it will make useless the previous adjustements.
         self.cpp_info.set_property("skip_deps_file", True)
-
