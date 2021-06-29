@@ -11,7 +11,7 @@ AutotoolsToolchain
 The ``AutotoolsToolchain`` is the toolchain generator for Autotools. It will generate shell scripts containing
 environment variable definitions that the autotools build system can understand.
 
-The ``AutotooAutotoolsToolchain`` generator can be used by name in conanfiles:
+The ``AutotoolsToolchain`` generator can be used by name in conanfiles:
 
 .. code-block:: python
     :caption: conanfile.py
