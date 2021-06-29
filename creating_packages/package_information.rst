@@ -83,7 +83,7 @@ for components will be calculated and values will be aggregated in the correct o
         self.cpp_info.components["LibC"].libs = ["libc"]
         self.cpp_info.components["LibC"].requires = ["LibA"]
 
-        self.cpp_info.components["LibD"].libs = ["libD"]
+        self.cpp_info.components["LibD"].libs = ["libd"]
         self.cpp_info.components["LibD"].requires = ["LibA"]
 
         self.cpp_info.components["LibE"].libs = ["libe"]

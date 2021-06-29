@@ -131,6 +131,33 @@ They accept patterns too, like ``-s *@myuser/*``, which means that packages that
         [env]
         PATH=[/some/path/to/my/tool]
 
+Tools configurations
+--------------------
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+Tools configurations can also be used in profile files and *global.conf* one. Profile values will have priority over globally defined ones in *global.conf*, and can be defined as:
+
+.. code-block:: text
+
+    [settings]
+    ...
+
+    [conf]
+    tools.microsoft.msbuild:verbosity=Diagnostic
+    tools.microsoft.msbuild:max_cpu_count=20
+    tools.microsoft.msbuild:vs_version = 16
+    tools.build:processes=10
+    tools.ninja:jobs=30
+    tools.gnu.make:jobs=40
+
+.. seealso::
+
+    You can see more information about configurations in :ref:`global.conf section <global_conf>`.
+
+
 Profile composition
 -------------------
 

@@ -25,7 +25,7 @@ You can inspect the uploaded packages and also the packages in the local cache b
 
   .. code-block:: bash
 
-      $ conan get zlib/1.2.11@ -r conan-center
+      $ conan get zlib/1.2.11@ -r conancenter
 
   .. code-block:: python
 

@@ -7,16 +7,18 @@ conan install
 .. code-block:: bash
 
     $ conan install [-h] [-g GENERATOR] [-if INSTALL_FOLDER] [-m [MANIFESTS]]
-                    [-mi [MANIFESTS_INTERACTIVE]] [-v [VERIFY]]
-                    [--no-imports] [-j JSON] [-b [BUILD]] [-r REMOTE] [-u]
-                    [-l LOCKFILE] [--lockfile-out LOCKFILE_OUT] [-e ENV_HOST]
-                    [-e:b ENV_BUILD] [-e:h ENV_HOST] [-o OPTIONS_HOST]
-                    [-o:b OPTIONS_BUILD] [-o:h OPTIONS_HOST]
-                    [-pr PROFILE_HOST] [-pr:b PROFILE_BUILD]
-                    [-pr:h PROFILE_HOST] [-s SETTINGS_HOST]
-                    [-s:b SETTINGS_BUILD] [-s:h SETTINGS_HOST]
-                    [--lockfile-node-id LOCKFILE_NODE_ID]
-                    path_or_reference [reference]
+                     [-mi [MANIFESTS_INTERACTIVE]] [-v [VERIFY]]
+                     [--no-imports] [--build-require] [-j JSON] [-b [BUILD]]
+                     [-r REMOTE] [-u] [-l LOCKFILE]
+                     [--lockfile-out LOCKFILE_OUT] [-e ENV_HOST]
+                     [-e:b ENV_BUILD] [-e:h ENV_HOST] [-o OPTIONS_HOST]
+                     [-o:b OPTIONS_BUILD] [-o:h OPTIONS_HOST]
+                     [-pr PROFILE_HOST] [-pr:b PROFILE_BUILD]
+                     [-pr:h PROFILE_HOST] [-s SETTINGS_HOST]
+                     [-s:b SETTINGS_BUILD] [-s:h SETTINGS_HOST]
+                     [-c CONF_HOST] [-c:b CONF_BUILD] [-c:h CONF_HOST]
+                     [--lockfile-node-id LOCKFILE_NODE_ID]
+                     path_or_reference [reference]
 
 Installs the requirements specified in a recipe (conanfile.py or conanfile.txt).
 
@@ -60,6 +62,7 @@ generators.
       -v [VERIFY], --verify [VERIFY]
                             Verify dependencies manifests against stored ones
       --no-imports          Install specified packages but avoid running imports
+      --build-require       The provided reference is a build-require
       -j JSON, --json JSON  Path to a json file where the install information will
                             be written
       -b [BUILD], --build [BUILD]
@@ -137,6 +140,15 @@ generators.
       -s:h SETTINGS_HOST, --settings:host SETTINGS_HOST
                             Settings to build the package, overwriting the
                             defaults (host machine). e.g.: -s:h compiler=gcc
+      -c CONF_HOST, --conf CONF_HOST
+                            Configuration to build the package, overwriting the defaults (host machine). e.g.: -c
+                            tools.cmake.cmaketoolchain:generator=Xcode
+      -c:b CONF_BUILD, --conf:build CONF_BUILD
+                            Configuration to build the package, overwriting the defaults (build machine). e.g.: -c:b
+                            tools.cmake.cmaketoolchain:generator=Xcode
+      -c:h CONF_HOST, --conf:host CONF_HOST
+                            Configuration to build the package, overwriting the defaults (host machine). e.g.: -c:h
+                            tools.cmake.cmaketoolchain:generator=Xcode
       --lockfile-node-id LOCKFILE_NODE_ID
                             NodeID of the referenced package in the lockfile
 
@@ -312,6 +324,28 @@ With the :command:`-o` parameters you can only define specific package options.
     You can use :ref:`profiles <profiles>` files to create predefined sets of **settings**,
     **options** and **environment variables**.
 
+conf
+----
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+With the :command:`-c` parameters you can define specific package configurations.
+
+.. code-block:: bash
+
+    $ conan install . -c tools.microsoft.msbuild:verbosity=Diagnostic
+    $ conan install . -c tools.microsoft.msbuild:verbosity=Detailed -c tools.build:processes=10
+
+
+.. note::
+    To list all possible configurations available, run :command:`conan config list`.
+
+.. seealso::
+
+    You can see more information about configurations in :ref:`global.conf section <global_conf>`.
+
 
 reference
 ---------
@@ -351,3 +385,26 @@ The ``install`` command accepts several arguments related to :ref:`lockfiles<ver
 
   Installation of binaries can be accelerated setting up parallel downloads with the ``general.parallel_download``
   **experimental** configuration in :ref:`conan_conf`.
+
+--build-require
+---------------
+
+The ``--build-require``, new in Conan 1.37, is experimental. It allows to install the package using the
+configuration and settings of the "build" context, as it was a ``build_require``. Lets see it with an example:
+
+We have a ``mycmake/1.0`` package, which bundles cmake executable, and we are cross-compiling from Windows
+to Linux, so all the usual install commands will use something like ``-pr:b=Windows -pr:h=Linux``.
+At some point we might want to install the ``build-require`` to test it, executing it directly in the
+terminal, with ``-build-require`` it is possible:
+
+.. code-block:: bash
+
+    $ conan install mycmake/1.0@ --build-require -g virtualenv -pr:b=Windows -pr:h=Linux
+    # Installs Windows package binary, not the Linux one.
+    $ source ./activate.sh && mycmake
+    # This will execute the "mycmake" from the Windows package.
+
+This also works when building a dependency graph, including build-requires, in CI. As the
+``conan lock build-order`` command will return a list including the build/host context, it is
+possible to use that to add the ``--build-require`` to the command, and build ``build-requires``
+as necessary without needing to change the profiles at all.
