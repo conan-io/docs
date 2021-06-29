@@ -79,9 +79,28 @@ constructor
 Most of the arguments are optional and will be deduced from the current ``settings``, and not
 necessary to define them.
 
-
 preprocessor_definitions
 ++++++++++++++++++++++++
+
+This attribute allows defining compiler preprocessor definitions, for multiple configurations (Debug, Release, etc).
+
+.. code:: python
+
+    def generate(self):
+        tc = CMakeToolchain(self)
+        tc.preprocessor_definitions["MYDEF"] = "MyValue"
+        tc.preprocessor_definitions.debug["MYCONFIGDEF"] = "MyDebugValue"
+        tc.preprocessor_definitions.release["MYCONFIGDEF"] = "MyReleaseValue"
+        tc.generate()
+
+This will be translated to:
+
+- One ``add_definitions()`` definition for ``MYDEF`` in ``conan_toolchain.cmake`` file.
+- One ``add_definitions()`` definition, using a cmake generator expression in ``conan_toolchain.cmake`` file,
+  using the different values for different configurations.
+
+variables
++++++++++
 
 This attribute allows defining CMake variables, for multiple configurations (Debug, Release, etc).
 
@@ -89,9 +108,9 @@ This attribute allows defining CMake variables, for multiple configurations (Deb
 
     def generate(self):
         tc = CMakeToolchain(self)
-        tc.preprocessor_definitions["MYVAR"] = "MyValue"
-        tc.preprocessor_definitions.debug["MYCONFIGVAR"] = "MyDebugValue"
-        tc.preprocessor_definitions.release["MYCONFIGVAR"] = "MyReleaseValue"
+        tc.variables["MYVAR"] = "MyValue"
+        tc.variables.debug["MYCONFIGVAR"] = "MyDebugValue"
+        tc.variables.release["MYCONFIGVAR"] = "MyReleaseValue"
         tc.generate()
 
 This will be translated to:
@@ -100,6 +119,8 @@ This will be translated to:
 - One ``set()`` definition, using a cmake generator expression in ``conan_toolchain.cmake`` file,
   using the different values for different configurations.
 
+Generators
+++++++++++
 
 The ``CMakeToolchain`` is intended to run with the ``CMakeDeps`` dependencies generator. It might temporarily
 work with others like ``cmake_find_package`` and ``cmake_find_package_multi``, but this will be removed soon.
