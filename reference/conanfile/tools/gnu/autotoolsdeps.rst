@@ -50,3 +50,9 @@ This generator will define aggregated variables ``CPPFLAGS``, ``LIBS``, ``LDFLAG
 accumulate all dependencies information, including transitive dependencies, with flags like ``-I<path>``, ``-L<path>``, etc.
 
 At this moment, only the ``requires`` information is generated, the ``build_requires`` one is not managed by this generator yet.
+
+
+Attributes
+++++++++++
+
+At this moment, it is pending to expose attributes to let the user modify the behavior before calling ``generate()``
