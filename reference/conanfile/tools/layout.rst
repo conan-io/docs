@@ -3,6 +3,11 @@
 conan.tools.layout
 ==================
 
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+
 Available since: `1.37.0 <https://github.com/conan-io/conan/releases>`_
 
 LayoutPackager
@@ -36,3 +41,20 @@ Usage:
 
             def package(self):
                 LayoutPackager(self).package()
+
+
+Predefined layouts
+------------------
+
+There are some pre-defined common layouts, ready to be simply used in recipes.
+
+For example, this would implement the standard CMake project layout:
+
+.. code:: python
+
+    from conan.tools.layout import cmake_layout
+
+    def layout(self):
+        cmake_layout(self)
+
+If you want to try it, use the ``conan new hello/0.1 -m v2_cmake`` template.
