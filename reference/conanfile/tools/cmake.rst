@@ -9,9 +9,8 @@ conan.tools.cmake
 
 
 .. toctree::
-
    :maxdepth: 2
+
    cmake/cmakedeps
    cmake/cmaketoolchain
    cmake/cmake
-
