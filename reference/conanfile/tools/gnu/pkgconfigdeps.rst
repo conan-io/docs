@@ -17,7 +17,21 @@ Available since: `1.38.0 <https://github.com/conan-io/conan/releases>`_
 
 The ``PkgConfigDeps`` is the dependencies generator for pkg-config. Generates pkg-config files named *<PKG-NAME>.pc*
 (where ``<PKG-NAME`` is the name declared by dependencies in ``cpp_info.name`` or in ``cpp_info.names["pkg_config"]``
-if specified), containing a valid pkg-config file syntax. The ``prefix`` variable is automatically adjusted to the ``package_folder``.
+if specified), containing a valid pkg-config file syntax. Indeed, it can also be defined using ``set_property`` and the
+property ``pkg_config_name`` (available since Conan 1.36), for instance:
+
+.. code-block:: python
+
+    self.cpp_info.components["mycomponent"].set_property("pkg_config_name", "mypkg-config-name")
+
+
+.. note::
+    In Conan 2.0 that will be the default way of setting those properties and also passing custom properties to generators.
+    Check the :ref:`cpp_info attributes reference <cpp_info_attributes_reference>` for more information.
+
+
+The ``prefix`` variable is automatically adjusted to the ``package_folder``.
+
 
 The ``PkgConfigDeps`` generator can be used by name in conanfiles:
 
@@ -76,8 +90,5 @@ If a recipe uses :ref:`components<package_information_components>`, the files ge
 flags and require relations.
 
 Additionally, a *<PKG-NAME>.pc* is generated to maintain compatibility for consumers with recipes that start supporting components. This
-*<PKG-NAME>.pc* file will declare the all the components of the package as requires while the rest of the fields will be empty, relying on
+*<PKG-NAME>.pc* file will declare all the components of the package as requires while the rest of the fields will be empty, relying on
 the propagation of flags coming from the components *<COMP-NAME>.pc* files.
-
-Go to :ref:`Integrations/pkg-config and pc files/Use the pkg_config generator<pkg_config_generator_example>`
-if you want to learn how to use this generator.
