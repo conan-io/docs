@@ -145,6 +145,7 @@ The output will look like:
     Dependency/0.1@user/channel
      ID: 5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9
      BuildID: None
+     Context: host
      Remote: None
      URL: http://...
      License: MIT
@@ -157,6 +158,7 @@ The output will look like:
     hello/1.0@user/channel
      ID: 5ab84d6acfe1f23c4fa5ab84d6acfe1f23c4fa8
      BuildID: None
+     Context: host
      Remote: None
      URL: http://...
      License: MIT
@@ -265,6 +267,7 @@ The output will look like:
     foobar/1.0.0@user/channel
         ID: 6af9cc7cb931c5ad942174fd7838eb655717c709
         BuildID: None
+        Context: host
         export_folder: /home/conan/.conan/data/foobar/1.0.0/user/channel/export
         source_folder: /home/conan/.conan/data/foobar/1.0.0/user/channel/source
         build_folder: /home/conan/.conan/data/foobar/1.0.0/user/channel/build/6af9cc7cb931c5ad942174fd7838eb655717c709
