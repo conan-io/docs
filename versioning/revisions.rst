@@ -40,6 +40,12 @@ with ``-u, --update`` argument to :command:`conan install` command. In the clien
 The revisions can be pinned when you write a reference (in the recipe requires, a reference in a
 :command:`conan install` command,…) but if you don’t specify a revision, the server will retrieve the latest revision.
 
+If you specify a pinned revision in your references, and that revision is not the one present in the Conan cache, and ``--update``
+is not provided, it will fail with an error. This behavior can be change with ``core:allow_explicit_revision_update=True``
+``[conf]`` configuration. It is experimental and can result in later errors (that won't be possible to fix, use it at your own risk),
+for example as the cache can only host 1 revision, it might happen that multiple pinned references are competing for it, and kicking
+each others revisions out of the cache while the dependency graph is computed.
+
 You can specify the references in the following formats:
 
 +-----------------------------------------------+--------------------------------------------------------------------+
