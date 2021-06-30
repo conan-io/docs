@@ -62,14 +62,14 @@ And it can also be fully instantiated in the conanfile ``generate()`` method:
             pc = PkgConfigDeps(self)
             pc.generate()
 
-The ``PkgConfigDeps`` will generate the `*.pc` file after a ``conan install`` command:
+The ``PkgConfigDeps`` will generate the ``*.pc`` file after a ``conan install`` command:
 
 .. code-block:: bash
 
     $ conan install .
     # Check the [PC_FILE_NAME].pc created in your current folder
 
-Now, running this command using the previous ``conanfile.py``, you can check the `zlib.pc` file created into your current folder:
+Now, running this command using the previous ``conanfile.py``, you can check the ``zlib.pc`` file created into your current folder:
 
 .. code-block:: text
 
