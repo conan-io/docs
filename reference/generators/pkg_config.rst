@@ -17,7 +17,7 @@ If a recipe uses :ref:`components<package_information_components>`, the files ge
 flags and require relations.
 
 Additionally, a *<PKG-NAME>.pc* is generated to maintain compatibility for consumers with recipes that start supporting components. This
-*<PKG-NAME>.pc* file will declare the all the components of the package as requires while the rest of the fields will be empty, relying on
+*<PKG-NAME>.pc* file will declare all the components of the package as requires while the rest of the fields will be empty, relying on
 the propagation of flags coming from the components *<COMP-NAME>.pc* files.
 
 Go to :ref:`Integrations/pkg-config and pc files/Use the pkg_config generator<pkg_config_generator_example>`
