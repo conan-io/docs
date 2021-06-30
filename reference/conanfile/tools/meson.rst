@@ -28,6 +28,7 @@ The ``MesonToolchain`` can be used in the ``generate()`` method:
 
         def generate(self):
             tc = MesonToolchain(self)
+            tc.preprocessor_definitions["MYDEFINE"] = "MYDEF_VALUE"
             tc.generate()
 
 
@@ -86,6 +87,22 @@ This attribute allows defining Meson project options:
         tc.generate()
 
 - One project options definition for ``MYVAR`` in ``conan_meson_native.init`` or ``conan_meson_cross.ini`` file.
+
+preprocessor_definitions
+++++++++++++++++++++++++
+
+This attribute allows defining compiler preprocessor definitions, for multiple configurations (Debug, Release, etc).
+
+.. code:: python
+
+    def generate(self):
+        tc = MesonToolchain(self)
+        tc.preprocessor_definitions["MYDEF"] = "MyValue"
+        tc.generate()
+
+This will be translated to:
+
+- One preprocessor definition for ``MYDEF`` in ``conan_meson_native.init`` or ``conan_meson_cross.ini`` file.
 
 Generators
 ++++++++++
