@@ -56,30 +56,31 @@ And it can also be fully instantiated in the conanfile ``generate()`` method:
 
     class App(ConanFile):
         settings = "os", "arch", "compiler", "build_type"
+        requires = "zlib/1.2.11"
 
         def generate(self):
             pc = PkgConfigDeps(self)
             pc.generate()
 
-The ``PkgConfigDeps`` will generate after a ``conan install`` command the `*.pc`:
+The ``PkgConfigDeps`` will generate the `*.pc` file after a ``conan install`` command:
 
 .. code-block:: bash
 
     $ conan install .
     # Check the [PC_FILE_NAME].pc created in your current folder
 
-For instance, the `.pc` created could look like this one:
+Now, running this command using the previous ``conanfile.py``, you can check the `zlib.pc` file created into your current folder:
 
 .. code-block:: text
 
-    libdir=/my_absoulte_path/mylib/lib
-    libdir2=${prefix}/lib2
-    includedir=/my_absoulte_path/mylib/include
+    prefix=/Users/YOUR_USER/.conan/data/zlib/1.2.11/_/_/package/647afeb69d3b0a2d3d316e80b24d38c714cc6900
+    libdir=${prefix}/lib
+    includedir=${prefix}/include
 
-    Name: MyLib
-    Description: Conan package: MyLib
-    Version: 0.1
-    Libs: -L"${libdir}" -L"${libdir2}"%s
+    Name: zlib
+    Description: Conan package: zlib
+    Version: 1.2.11
+    Libs: -L"${libdir}" -lz  -Wl,-rpath,"${libdir}" -F Frameworks
     Cflags: -I"${includedir}"
 
 
