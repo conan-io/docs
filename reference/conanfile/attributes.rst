@@ -1698,3 +1698,18 @@ To declare that a recipe provides the functionality of several different recipes
 
 If the attribute is omitted, the value of the attribute is assumed to be equal to the current package name. Thus, it's redundant for
 ``libjpeg`` recipe to declare that it provides ``libjpeg``, it's already implicitly assumed by Conan.
+
+
+
+win_bash
+--------
+
+When `True` it enables the new run in a subsystem bash in windows mechanism. :ref:`Read more here<conanfile_win_bash>`.
+
+.. code-block:: python
+
+    from conans import ConanFile
+
+    class FooRecipe(ConanFile):
+        ...
+        win_bash = True
