@@ -345,6 +345,8 @@ Parameters:
     - **target** (Optional, default to ``None``). Alternative target name for running the tests. If not defined RUN_TESTS or ``test`` will be used.
     - **output_on_failure** (Optional, default to ``False``). Enables ctest to show output of failed tests by defining ``CTEST_OUTPUT_ON_FAILURE`` environment variable (same effect as ``ctest --output-on-failure``).
 
+This method can be globally skipped by ``tools.build:skip_test`` [conf], or ``CONAN_RUN_TESTS`` environment variable.
+
 install()
 +++++++++
 
