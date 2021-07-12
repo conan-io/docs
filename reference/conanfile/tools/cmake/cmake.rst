@@ -62,7 +62,11 @@ configure()
 
 Calls ``cmake``, with the generator defined in the ``cmake_generator`` field of the
 ``conanbuild.conf`` file, and passing ``-DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake``.
-If ``conanbuild.conf`` file is not there, no generator will be passed.
+
+.. important::
+
+    If ``conanbuild.conf`` file is not there, Conan will raise an exception because it's a mandatory one even though it's empty.
+
 
 - ``source_folder``: Relative path to the folder containing the root *CMakeLists.txt*
 
