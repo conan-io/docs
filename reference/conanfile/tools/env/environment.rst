@@ -1,3 +1,5 @@
+.. _conan_tools_env_environment:
+
 Environment
 ===========
 
@@ -20,7 +22,9 @@ It allows different operations like:
     env.define("MYVAR1", "MyValue1")  # Overwrite previously existing MYVAR1 with new value
     env.append("MYVAR2", "MyValue2")  # Append to existing MYVAR2 the new value
     env.prepend("MYVAR3", "MyValue3") # Prepend to existing MYVAR3 the new value
+    env.remove("MYVAR3", "MyValue3")  # Remove the MyValue3 from MYVAR3
     env.unset("MYVAR4")               # Remove MYVAR4 definition from environment
+
 
     # And the equivalent with paths
     env.define_path("MYPATH1", "path/one")  # Overwrite previously existing MYPATH1 with new value
@@ -76,6 +80,18 @@ Environments can be applied in the python environment:
     with env1.apply():
        # Here os.getenv("foo") == "var"
        ...
+
+
+You can iterate an Environment object:
+
+.. code:: python
+
+    env1 = Environment()
+    env1.append("foo", "var")
+    env1.append("foo", "var2")
+    for name, value in env.items():
+        assert name == "foo":
+        assert value == "var var2"
 
 
 There are some places where this ``Environment`` is used:
