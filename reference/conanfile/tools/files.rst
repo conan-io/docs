@@ -73,16 +73,15 @@ conan.tools.rename()
 
 .. code-block:: python
 
-    def rename(conanfile, src, dst)
+    def rename(src, dst)
 
 Utility functions to rename a file or folder *src* to *dst*. On Windows, it is very common that ``os.rename()`` raises an "Access is denied" exception, so this tool uses:command:`robocopy` if available. If that is not the case, or the rename is done in a non-Windows machine, it falls back to the ``os.rename()`` implementation.
 
 .. code-block:: python
 
     def source(self):
-      tools.rename(self, "lib-sources-abe2h9fe", "sources")  # renaming a folder
+      tools.rename("lib-sources-abe2h9fe", "sources")  # renaming a folder
 
 Parameters:
-  - **conanfile**: Conanfile object.
   - **src** (Required): Path to be renamed.
   - **dst** (Required): Path to be renamed to.
