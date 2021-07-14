@@ -38,7 +38,7 @@ And it can also be fully instantiated in the conanfile ``generate()`` method:
             ms = VirtualRunEnv(self)
             ms.generate()
 
-When the ``VirtualRunEnv`` generator is used, calling ``conan install`` will generate a *conanrunenv* .bat or .sh script
+When the ``VirtualRunEnv`` generator is used, calling :command:`conan install` will generate a *conanrunenv* .bat or .sh script
 containing environment variables of the run time environment.
 
 The launcher contains the runtime environment information, anything that is necessary in the environment to actually run
