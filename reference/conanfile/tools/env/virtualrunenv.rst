@@ -42,7 +42,7 @@ When the ``VirtualRunEnv`` generator is used, calling ``conan install`` will gen
 containing environment variables of the run time environment.
 
 The launcher contains the runtime environment information, anything that is necessary in the environment to actually run
-the compiled executables and applications. The information is obtained from the `self.runenv_info` and also automatically
+the compiled executables and applications. The information is obtained from the ``self.runenv_info`` and also automatically
 deduced from the ``self.cpp_info`` definition of the package, to define ``PATH``, ``LD_LIBRARY_PATH``, ``DYLD_LIBRARY_PATH``
 and ``DYLD_FRAMEWORK_PATH`` environment variables.
 
