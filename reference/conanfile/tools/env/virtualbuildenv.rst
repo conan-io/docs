@@ -38,7 +38,7 @@ And it can also be fully instantiated in the conanfile ``generate()`` method:
             ms = VirtualBuildEnv(self)
             ms.generate()
 
-When the ``VirtualBuildEnv`` generator is used, calling ``conan install`` will generate a *conanbuildenv* .bat or .sh script
+When the ``VirtualBuildEnv`` generator is used, calling :command:`conan install` will generate a *conanbuildenv* .bat or .sh script
 containing environment variables of the build time environment.
 
 That information is collected from the direct ``build_requires`` in "build" context recipes from the ``self.buildenv_info``
