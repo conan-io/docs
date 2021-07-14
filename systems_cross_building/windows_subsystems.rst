@@ -40,8 +40,8 @@ Running commands inside the subsystem
 
 .. _conanfile_win_bash:
 
-self.win_bash (New in 1.39)
-___________________________
+self.win_bash
+_____________
 
 This is an experimental feature introduced in Conan 1.39. It supersedes the ``run(..., win_bash=True)`` argument but
 if the ``run(..., win_bash=True)`` is used, it will have priority so the compatibility with the previous behavior is
@@ -50,7 +50,10 @@ guaranteed.
 The ``self.win_bash`` is an attribute of the conanfile, when set to ``True`` and only when running in Windows (you don't need
 to check if you are in Windows), it will run the ``self.run()`` commands inside a bash shell.
 
-Note: The ``bash.exe`` that will run is not auto-detected or read from the ``CONAN_BASH_PATH`` anymore, neither the subsystem to be used.
+
+.. note::
+
+The ``bash.exe`` that will run **is not auto-detected** or read from the ``CONAN_BASH_PATH`` anymore, neither the subsystem to be used.
 These are the config variables used:
 
 - ``tools.microsoft.bash:subsystem``: Values can be ``msys2``, ``cygwin``, ``msys`` and ``wsl``.

@@ -1704,7 +1704,7 @@ If the attribute is omitted, the value of the attribute is assumed to be equal t
 win_bash
 --------
 
-When `True` it enables the new run in a subsystem bash in windows mechanism. :ref:`Read more here<conanfile_win_bash>`.
+When ``True`` it enables the new run in a subsystem bash in Windows mechanism. :ref:`Read more here<conanfile_win_bash>`.
 
 .. code-block:: python
 
