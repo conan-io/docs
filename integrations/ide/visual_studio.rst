@@ -7,8 +7,8 @@ Conan Extension for Visual Studio
 =================================
 
 Thanks to the invaluable help of our community we manage to develop and maintain a free
-extension for Visual Studio in the Microsoft Marketplace, it is called **Conan Extension
-for Visual Studio** and it provides integration with Conan using the
+extension for Visual Studio in the Microsoft Marketplace, it is called `Conan Extension
+for Visual Studio <https://marketplace.visualstudio.com/items?itemName=conan-io.conan-vs-extension>`_ and it provides integration with Conan using the
 :ref:`Visual Studio generators <visualstudio_generator>`.
 
 .. image:: ../../images/visual_studio/conan-marketplace-header.png
