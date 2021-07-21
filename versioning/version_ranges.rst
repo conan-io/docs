@@ -31,6 +31,8 @@ Expressions are those defined and implemented by https://pypi.org/project/node-s
    [>1.1 || 0.8]              # conditions can be OR'ed
    [1.2.7 || >=1.2.9 <2.0.0]  # This range would match the versions 1.2.7, 1.2.9, and 1.4.6, but not the versions 1.2.8 or 2.0.0.
 
+See https://github.com/npm/node-semver for a detailed description of semver range syntax and more examples.
+
 There are two options for the version range:
 
    * ``loose=True|False`` (default ``True``): When using ``loose=False`` only valid Semantic Versioning strings are accepted.
@@ -66,3 +68,19 @@ The order of search for matching versions is as follows:
 - If the :command:`--update` parameter is used, then the existing packages in the local conan cache will not be used, and the same search of the
   previous steps is carried out in the remotes. If new matching versions are found, they will be retrieved, so subsequent calls to
   :command:`install` will find them locally and use them.
+
+Checking version ranges
+-----------------------
+To test version ranges use the Python `node_semver <https://pypi.org/project/node-semver/>`_ package::
+
+$ pip install node-semver
+
+>>> from semver import satisfies
+>>> satisfies('1.7.0-dev.123', '>=1.6.0')
+False
+>>> satisfies('1.7.0-dev.123', '>=1.6.0', include_prerelease=True)
+True
+>>> max_satisfying(['1.2.3', '1.2.4', '1.2.5', '1.2.6-pre.1', '2.0.1'], '~1.2.3')
+'1.2.5'
+>>> max_satisfying(['1.2.3', '1.2.4', '1.2.5', '1.2.6-pre.1', '2.0.1'], '~1.2.3', include_prerelease=True)
+'1.2.6-pre.1'
