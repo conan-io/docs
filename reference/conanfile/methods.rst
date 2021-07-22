@@ -1471,8 +1471,8 @@ self.folders
 - **self.folders.source** (Defaulted to ""): Specifies a subfolder where the sources are. The ``self.source_folder`` attribute
   inside the ``source(self)`` and ``build(self)`` methods will be set with this subfolder. But the *current working directory*
   in the ``source(self)`` method will not include this subfolder, because it is intended to describe where the sources are after
-  downloading (zip, git...) them, not to force where the sources should be. As well, the `export_sources`, `exports` and `scm` sources 
-  will be copied to the root source directory, being the **self.folders.source** variable the way to describe if the fetched sources 
+  downloading (zip, git...) them, not to force where the sources should be. As well, the `export_sources`, `exports` and `scm` sources
+  will be copied to the root source directory, being the **self.folders.source** variable the way to describe if the fetched sources
   are still in a subfolder.
   It is used in the cache when running
   :command:`conan create` (relative to the cache source folder) as well as in a local folder when running :command:`conan build`
@@ -1544,3 +1544,25 @@ These are all the fields that can be adjusted, both in ``self.patterns.source`` 
 +--------------------------------------+---------------------------------------------------------------------------------------------------------+
 | framework                            | Patterns of the files from the folders: ``self.cpp.xxx.frameworkdirs``                                  |
 +--------------------------------------+---------------------------------------------------------------------------------------------------------+
+
+
+test()
+------
+
+The ``test()`` method is only used for ``test_package/conanfile.py`` recipes. It will execute immediately after ``build()`` has been called, and its goal is to
+execute some executable or run some tests on binaries to prove the tested package was correctly created. Note that it is intended to be used as a
+test of the package: the headers are there, the libraries are there, it is possible to link, etc., but not to run unit, integration or functional tests.
+
+It usually takes the form:
+
+.. code:: python
+
+    def test(self):
+        if not tools.cross_building(self):
+            self.run(os.path.sep.join([".", "bin", "example"]))
+
+
+Note the ``tools.cross_building()`` check, as it is not possible to run executables different to the build machine architecture. In this case, it would
+make sense to check the existence of the binary, or inspect it with tools like ``dumpbin``, ``lipo``, etc to do basic checks about it.
+
+The ``self.run()`` might need some environment help, in case the execution needs for example shared libraries location.
