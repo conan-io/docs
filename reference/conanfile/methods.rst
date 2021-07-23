@@ -1549,7 +1549,7 @@ These are all the fields that can be adjusted, both in ``self.patterns.source`` 
 test()
 ------
 
-The ``test()`` method is only used for ``test_package/conanfile.py`` recipes. It will execute immediately after ``build()`` has been called, and its goal is to
+The ``test()`` method is only used for *test_package/conanfile.py* recipes. It will execute immediately after ``build()`` has been called, and its goal is to
 execute some executable or run some tests on binaries to prove the tested package was correctly created. Note that it is intended to be used as a
 test of the package: the headers are there, the libraries are there, it is possible to link, etc., but not to run unit, integration or functional tests.
 
