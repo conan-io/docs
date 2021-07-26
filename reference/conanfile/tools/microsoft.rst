@@ -19,6 +19,13 @@ It will generate multiple *xxxx.props* properties files one per dependency of a 
 to be used by consumers using MSBuild or Visual Studio, just adding the generated properties files
 to the solution and projects.
 
+.. important::
+
+    This class will require very soon to define both the "host" and "build" profiles. It is very recommended to
+    start defining both profiles immediately to avoid future breaking. Furthermore, some features, like trying to
+    cross-compile might not work at all if the "build" profile is not provided.
+
+
 It is important to highlight that this one is a **dependencies generator** and it is focused
 on the **dependencies** of a conanfile, not the current build.
 
@@ -133,6 +140,13 @@ MSBuildToolchain
 The ``MSBuildToolchain`` is the toolchain generator for MSBuild. It will generate MSBuild properties files
 that can be added to the Visual Studio solution projects. This generator translates
 the current package configuration, settings, and options, into MSBuild properties files syntax.
+
+.. important::
+
+    This class will require very soon to define both the "host" and "build" profiles. It is very recommended to
+    start defining both profiles immediately to avoid future breaking. Furthermore, some features, like trying to
+    cross-compile might not work at all if the "build" profile is not provided.
+
 
 The ``MSBuildToolchain`` generator can be used by name in conanfiles:
 

@@ -12,6 +12,13 @@ The ``CMakeToolchain`` is the toolchain generator for CMake. It will generate to
 command line invocation of CMake with the ``-DCMAKE_TOOLCHAIN_FILE=conantoolchain.cmake``. This generator translates
 the current package configuration, settings, and options, into CMake toolchain syntax.
 
+
+.. important::
+
+    This class will require very soon to define both the "host" and "build" profiles. It is very recommended to
+    start defining both profiles immediately to avoid future breaking. Furthermore, some features, like trying to
+    cross-compile might not work at all if the "build" profile is not provided.
+
 It can be declared as:
 
 .. code-block:: python

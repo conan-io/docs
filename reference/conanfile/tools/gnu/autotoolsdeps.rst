@@ -9,6 +9,13 @@ AutotoolsDeps
 The ``AutotoolsDeps`` is the dependencies generator for Autotools. It will generate shell scripts containing
 environment variable definitions that the autotools build system can understand.
 
+.. important::
+
+    This class will require very soon to define both the "host" and "build" profiles. It is very recommended to
+    start defining both profiles immediately to avoid future breaking. Furthermore, some features, like trying to
+    cross-compile might not work at all if the "build" profile is not provided.
+
+
 The ``AutotoolsDeps`` generator can be used by name in conanfiles:
 
 .. code-block:: python
