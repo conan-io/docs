@@ -302,7 +302,7 @@ With the :command:`-s` parameters you can define:
 - Global settings (:command:`-s compiler="Visual Studio"`). Will apply to all the requires.
 - Specific package settings (:command:`-s zlib:compiler="MinGW"`). Those settings will be applied only to
   the specified packages. They accept patterns too, like ``-s *@myuser/*:compiler=MinGW``, which means that packages that have the username "myuser" will use MinGW as compiler.
-- Settings only for the consumer package. (:command:`-s &:compiler="MinGW"`). If `&` is specified as the package name it will apply
+- **Experimental:** Settings only for the consumer package. (:command:`-s &:compiler="MinGW"`). If `&` is specified as the package name it will apply
   only to the consumer conanfile (.py or .txt). This is a special case because the consumer conanfile might not declare a `name` so
   it would be impossible to reference it.
 
