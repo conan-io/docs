@@ -56,6 +56,15 @@ Examples:
     $ conan inspect zlib/1.2.11@ --raw=settings
     ('os', 'arch', 'compiler', 'build_type')
 
+.. code-block:: bash
+
+    $ conan inspect pkg/latest@ -a alias
+    ...
+    alias: pkg/0.1
+
+    $ conan inspect pkg/latest@ -a alias --json=myinspect.json
+    # myinspect.json contains "alias" = "pkg/0.1"
+
 
 If no specific attributes are defined via ``-a``, then, some default attributes will be displayed:
 
