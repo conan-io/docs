@@ -427,7 +427,7 @@ New from **Conan 1.39**
 The ``--require-override`` argument allows to inject an override requirement to the consumer conanfile being called
 by this command, that would be equivalent to:
 
-.. code-block::
+.. code-block:: python
 
     class Pkg(ConanFile):
 
