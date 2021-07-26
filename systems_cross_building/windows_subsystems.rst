@@ -53,11 +53,11 @@ to check if you are in Windows), it will run the ``self.run()`` commands inside 
 
 .. note::
 
-The ``bash.exe`` that will run **is not auto-detected** or read from the ``CONAN_BASH_PATH`` anymore, neither the subsystem to be used.
-These are the config variables used:
+    The ``bash.exe`` that will run **is not auto-detected** or read from the ``CONAN_BASH_PATH`` anymore, neither the subsystem to be used.
+    These are the config variables used:
 
-- ``tools.microsoft.bash:subsystem``: Values can be ``msys2``, ``cygwin``, ``msys`` and ``wsl``.
-- ``tools.microsoft.bash:path``: Path to the ``bash.exe``
+    - ``tools.microsoft.bash:subsystem``: Values can be ``msys2``, ``cygwin``, ``msys`` and ``wsl``.
+    - ``tools.microsoft.bash:path``: Path to the ``bash.exe``
 
 The new :ref:`Autotools, AutotoolsToolchain, AutotoolsDeps and PkgConfigDeps<conan_tools_gnu>` will work automatically
 when ``self.win_bash`` is set.
