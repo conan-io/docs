@@ -6,4 +6,5 @@ conan.tools.env
    :maxdepth: 2
 
    env/environment
-   env/virtualenv
+   env/virtualbuildenv
+   env/virtualrunenv
