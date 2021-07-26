@@ -137,6 +137,8 @@ user decide which one.
 The same situation happens if the different packages require different configurations of the same upstream package, even if the same version is used. In the example above, both **PkgB** and **PkgC** can be requiring the same version **pkga/1.0**, but one of them will try to use it as a static library and the other one will try to use it as shared library.
 The dependency resolution algorithm will also raise an error.
 
+.. _versioning_dependencies_overriding:
+
 Dependencies overriding
 -----------------------
 
@@ -156,4 +158,3 @@ It is important to note and this point that versioning approaches and strategies
 consistent with the binary management.
 
 By default, Conan assumes *semver* compatibility, so it will not require to build a new binary for a package when its dependencies change their minor or patch versions. This might not be enough for C or C++ libraries which versioning scheme doesn't strictly follow semver. It is strongly suggested to read more about this in :ref:`define_abi_compatibility`
-
