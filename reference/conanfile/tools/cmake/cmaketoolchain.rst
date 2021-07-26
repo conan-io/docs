@@ -56,7 +56,7 @@ translated from the current ``settings``:
   - Definition of the standard library used for C++
   - Deactivation of rpaths in OSX
 
-- *conanbuild.json*: The toolchain can also generate a ``conanbuild.json`` file that contains arguments to
+- *conanbuild.conf*: The toolchain can also generate a ``conanbuild.conf`` file that contains arguments to
   the command line ``CMake()`` helper used in the recipe ``build()`` method. At the moment it contains only the CMake
   generator and the CMake toolchain file. The CMake generator will be deduced from the current Conan compiler settings:
 

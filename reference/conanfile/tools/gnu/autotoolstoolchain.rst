@@ -51,12 +51,12 @@ The ``AutotoolsToolchain`` will generate after a ``conan install`` command the *
 This generator will define aggregated variables ``CPPFLAGS``, ``LDFLAGS``, ``CXXFLAGS``, ``CFLAGS`` that
 accumulate all dependencies information, including transitive dependencies, with flags like ``-stdlib=libstdc++``, ``-std=gnu14``, architecture flags, etc.
 
-This generator will also generate a file called ``conanbuild.json`` containing two keys:
+This generator will also generate a file called ``conanbuild.conf`` containing two keys:
 
 - **configure_args**: Arguments to call the ``configure`` script.
 - **make_args**: Arguments to call the ``make`` script.
 
-The :ref:`Autotools build helper<conan_tools_gnu_build_helper>` will use that ``conanbuild.json`` file to seamlessly call
+The :ref:`Autotools build helper<conan_tools_gnu_build_helper>` will use that ``conanbuild.conf`` file to seamlessly call
 the configure and make script using these precalculated arguments.
 
 Attributes
