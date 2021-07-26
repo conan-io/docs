@@ -18,6 +18,7 @@ conan install
                      [-s:b SETTINGS_BUILD] [-s:h SETTINGS_HOST]
                      [-c CONF_HOST] [-c:b CONF_BUILD] [-c:h CONF_HOST]
                      [--lockfile-node-id LOCKFILE_NODE_ID]
+                     [--require-override REQUIRE_OVERRIDE]
                      path_or_reference [reference]
 
 Installs the requirements specified in a recipe (conanfile.py or conanfile.txt).
@@ -151,6 +152,8 @@ generators.
                             tools.cmake.cmaketoolchain:generator=Xcode
       --lockfile-node-id LOCKFILE_NODE_ID
                             NodeID of the referenced package in the lockfile
+      --require-override REQUIRE_OVERRIDE
+                            Define a requirement override
 
 
 :command:`conan install` executes methods of a *conanfile.py* in the following order:
@@ -408,3 +411,36 @@ This also works when building a dependency graph, including build-requires, in C
 ``conan lock build-order`` command will return a list including the build/host context, it is
 possible to use that to add the ``--build-require`` to the command, and build ``build-requires``
 as necessary without needing to change the profiles at all.
+
+
+.. _cli_arg_require_override:
+
+--require-override
+------------------
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+New from **Conan 1.39**
+
+The ``--require-override`` argument allows to inject an override requirement to the consumer conanfile being called
+by this command, that would be equivalent to:
+
+.. code-block::
+
+    class Pkg(ConanFile):
+
+        def requirements(self):
+            self.requires("zlib/1.3", override=True)
+
+This allows to dynamically test specific versions upstream without requiring editions to conanfiles. Note however this
+would not be a generally recommended practice for production, it would be better to actually update the conanfiles to
+explicitly reflect in code which specific versions upstream are being used.
+
+If the consumer conanfile already contains a direct requirement to that dependency, then such version will be directly overwritten,
+but no ``override=True`` will be added (note that ``override=True`` means that the current package does not depend on that
+other package).
+
+This feature affects only to regular ``requires``, not to ``build_requires`` or ``python_requires``, as those don't have such
+an overriding mechanism, and they are private to their consumer, not propagating downstream nor upstream.
