@@ -1704,6 +1704,8 @@ If the attribute is omitted, the value of the attribute is assumed to be equal t
 win_bash
 --------
 
+This is an **experimental** feature introduced in Conan 1.39.
+
 When ``True`` it enables the new run in a subsystem bash in Windows mechanism. :ref:`Read more here<conanfile_win_bash>`.
 
 .. code-block:: python
