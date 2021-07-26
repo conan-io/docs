@@ -55,7 +55,7 @@ At this moment, only the ``requires`` information is generated, the ``build_requ
 Attributes
 ++++++++++
 
-* **environment** : :ref:`Environment<conan_tools_env_environment>` object containing the computed variables. If you need
+* **environment** : :ref:`Environment<conan_tools_env_environment_model>` object containing the computed variables. If you need
   to modify some of the computed values you can access to the ``environment`` object.
 
 .. code:: python
