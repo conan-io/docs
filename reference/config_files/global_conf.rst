@@ -51,6 +51,8 @@ Existing configurations:
 
 - ``tools.build:processes``: number of processes to use for every build-helper.
 
+- ``tools.build:skip_test``: CMake and Meson helper should skip ``test()``
+
 - ``tools.ninja:jobs`` argument for the ``--jobs`` parameter when running Ninja generator via CMake
   or Meson. (overrides the general ``tools.build:processes``).
 
