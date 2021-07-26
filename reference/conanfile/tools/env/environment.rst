@@ -127,7 +127,7 @@ Other Environment usage
 There are some other places where this ``Environment`` is used internally by Conan:
 
 - In recipes ``package_info()`` method, in new ``self.buildenv_info`` and ``self.runenv_info``.
-- In generators like ``AutootoolsDeps``, ``AutotoolsToolchain``, `` that need to define environment.
+- In generators like ``AutootoolsDeps``, ``AutotoolsToolchain``, that need to define environment.
 - In profiles new ``[buildenv]`` and ``[runenv]`` sections.
 
 
@@ -153,5 +153,4 @@ are objects of ``Environment()`` class.
             # at runtime
             self.runenv_info.define("MYPKG_DATA_DIR", os.path.join(self.package_folder,
                                                                    "datadir"))
-
 
