@@ -112,17 +112,20 @@ will output:
 Where the ``require`` dictionary key is a "requirement", and can contain specifiers of the relation
 between the current recipe and the dependency. At the moment they can be:
 
-- ``require.direct``: boolean, if it is direct dependency or not
-- ``require.build``: boolean, if it is a build_require
+- ``require.direct``: boolean, ``True`` if it is direct dependency or ``False`` if it is a transitive one.
+- ``require.build``: boolean, ``True`` if it is a ``build_require`` in the build context, as ``cmake``.
+- ``require.test``: boolean, ``True`` if its a ``build_require`` in the host context (argument ``self.requires(..., force_host_context=True)``), as ``gtest``.
 
 The ``dependency`` dictionary value is the read-only object described above that access the dependency attributes.
 
 The ``self.dependencies`` contains some helpers to filter based on some criteria:
 
-- ``self.dependencies.host``: Will filter out requires with ``build=True``
+- ``self.dependencies.host``: Will filter out requires with ``build=True``, leaving regular dependencies like ``zlib`` or ``poco``.
 - ``self.dependencies.direct_host``: Will filter out requires with ``build=True`` or ``direct=False``
-- ``self.dependencies.build``: Will filter out requires with ``build=False``
+- ``self.dependencies.build``: Will filter out requires with ``build=False``, leaving only ``build_requires`` in the build context, as ``cmake``.
 - ``self.dependencies.direct_build``: Will filter out requires with ``build=False`` or ``direct=False``
+- ``self.dependencies.test``: Will filter out requires with ``build=True`` or with ``test=False``, leaving only test requirements as ``gtest`` in the host context.
+
 
 They can be used in the same way:
 
