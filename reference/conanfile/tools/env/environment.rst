@@ -34,7 +34,9 @@ Variable declaration
     env.define("MYVAR1", "MyValue1")  # Overwrite previously existing MYVAR1 with new value
     env.append("MYVAR2", "MyValue2")  # Append to existing MYVAR2 the new value
     env.prepend("MYVAR3", "MyValue3") # Prepend to existing MYVAR3 the new value
+    env.remove("MYVAR3", "MyValue3")  # Remove the MyValue3 from MYVAR3
     env.unset("MYVAR4")               # Remove MYVAR4 definition from environment
+
 
     # And the equivalent with paths
     env.define_path("MYPATH1", "path/one")  # Overwrite previously existing MYPATH1 with new value
@@ -119,6 +121,20 @@ of the launchers is recommended if possible:
     with env1.apply():
        # Here os.getenv("foo") == "var"
        ...
+
+Iterating the Environment object
+++++++++++++++++++++++++++++++++
+
+You can iterate an Environment object like this:
+
+.. code:: python
+
+    env1 = Environment()
+    env1.append("foo", "var")
+    env1.append("foo", "var2")
+    for name, value in env.items():
+        assert name == "foo":
+        assert value == "var var2"
 
 
 Other Environment usage

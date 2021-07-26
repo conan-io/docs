@@ -55,4 +55,21 @@ At this moment, only the ``requires`` information is generated, the ``build_requ
 Attributes
 ++++++++++
 
-At this moment, it is pending to expose attributes to let the user modify the behavior before calling ``generate()``
+* **environment** : :ref:`Environment<conan_tools_env_environment_model>` object containing the computed variables. If you need
+  to modify some of the computed values you can access to the ``environment`` object.
+
+.. code:: python
+
+    from conans import ConanFile
+    from conan.tools.gnu import AutotoolsDeps
+
+    class App(ConanFile):
+        settings = "os", "arch", "compiler", "build_type"
+
+        def generate(self):
+            tc = AutotoolsDeps(self)
+            tc.environment.remove("CPPFLAGS", "undesired_value")
+            tc.environment.append("CPPFLAGS", "var")
+            tc.environment.define("OTHER", "cat")
+            tc.environment.unset("LDFLAGS")
+            tc.generate()
