@@ -12,8 +12,9 @@ conan create
 
     $ conan create [-h] [-j JSON] [-k] [-kb] [-ne] [-tbf TEST_BUILD_FOLDER]
                     [-tf TEST_FOLDER] [--ignore-dirty] [--build-require]
-                    [-m [MANIFESTS]] [-mi [MANIFESTS_INTERACTIVE]]
-                    [-v [VERIFY]] [-b [BUILD]] [-r REMOTE] [-u] [-l LOCKFILE]
+                    [--require-override REQUIRE_OVERRIDE] [-m [MANIFESTS]]
+                    [-mi [MANIFESTS_INTERACTIVE]] [-v [VERIFY]] [-b [BUILD]]
+                    [-r REMOTE] [-u] [-l LOCKFILE]
                     [--lockfile-out LOCKFILE_OUT] [-e ENV_HOST]
                     [-e:b ENV_BUILD] [-e:h ENV_HOST] [-o OPTIONS_HOST]
                     [-o:b OPTIONS_BUILD] [-o:h OPTIONS_HOST]
@@ -59,7 +60,9 @@ to know more about 'test_folder' project.
       --ignore-dirty        When using the "scm" feature with "auto" values,
                             capture the revision and url even if there are
                             uncommitted changes
-       --build-require       The provided reference is a build-require
+      --build-require       The provided reference is a build-require
+      --require-override REQUIRE_OVERRIDE
+                            Define a requirement override
       -m [MANIFESTS], --manifests [MANIFESTS]
                             Install dependencies manifests in folder for later
                             verify. Default folder is .conan_manifests, but can be
@@ -207,3 +210,15 @@ configuration and settings of the "build" context, as it was a ``build_require``
 to create packages in a way that is consistent to the way they will be used later. When there is a
 ``test_package``, then it is possible to specify there the ``test_type`` directly, no need to provide it
 in the command line.
+
+
+--require-override
+------------------
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+New from **Conan 1.39**.
+
+This argument is the same, and has the same behavior as the :ref:`conan install command<cli_arg_require_override>`.
