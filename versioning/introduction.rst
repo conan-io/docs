@@ -75,8 +75,27 @@ the ``pkg/latest`` package will not appear in the dependency graph at all.
 
 This is also less deterministic, and puts the control on the package creator side, instead of
 the consumer (version ranges are controlled by the consumer). Package creators can control
-which real versions will their consumers be using. This is probably not the recommended way
-for normal dependencies versions management.
+which real versions will their consumers be using. **This is probably not the recommended way
+for normal dependencies versions management.**
+
+.. note::
+
+    From Conan 1.39, a new **experimental** syntax for requiring alias packages has been
+    introduced, to make explicit its usage and solve several issues with alias:
+
+    .. code-block:: python
+
+        from conans import ConanFile
+
+        class Pkg(ConanFile):
+            # Previous syntax, implicit, nothing in the reference tells it is an alias
+            # requires = "pkg/latest@user/testing"
+            # New experimental syntax, explicit:
+            requires = "pkg/(latest)@user/testing"
+
+    The new ``requires = "pkg/(latest)@user/testing"`` comes from https://github.com/conan-io/tribe/pull/25,
+    and is introduced in Conan 1.39 to allow getting feedback, stabilizing it, previously to make it the
+    default in Conan 2.0 while removing the previous one.
 
 
 Package revisions
