@@ -87,7 +87,7 @@ Now, running this command using the previous ``conanfile.py``, you can check the
 Components
 ++++++++++
 
-If a recipe uses :ref:`components<package_information_components>`, the files generated will be *<COMP-NAME>.pc* with their corresponding
+If a recipe uses :ref:`components<package_information_components>`, the files generated will be *<[PKG-NAME]-[COMP-NAME]>.pc* with their corresponding
 flags and require relations.
 
 Additionally, a *<PKG-NAME>.pc* is generated to maintain compatibility for consumers with recipes that start supporting components. This
