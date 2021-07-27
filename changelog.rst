@@ -40,7 +40,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Fix: Improve error message when ``conan search <ref>`` a package in editable mode. `#9262 <https://github.com/conan-io/conan/pull/9262>`_
 - Fix: Add ``options`` to ``conanfile.dependencies`` model. `#9258 <https://github.com/conan-io/conan/pull/9258>`_
 - Fix: Fix _CMake_ rejecting library name with special characters. `#9245 <https://github.com/conan-io/conan/pull/9245>`_
-- Fix: Use filename _PKG-NAME_COMP-NAME.pc_ for _PkgConfigDeps_. `#9228 <https://github.com/conan-io/conan/pull/9228>`_ . Docs `here <https://github.com/conan-io/docs/pull/2148>`__
+- Fix: Use filename `[PKG-NAME]-[COMP-NAME]` for `PkgConfigDeps`. `#9228 <https://github.com/conan-io/conan/pull/9228>`_ . Docs `here <https://github.com/conan-io/docs/pull/2148>`__
 - Fix: Saving all the toolchain args information into `conanbuild.conf` instead of json file. `#9225 <https://github.com/conan-io/conan/pull/9225>`_ . Docs `here <https://github.com/conan-io/docs/pull/2156>`__
 - Fix: Added warning in the new toolchains (the used in the generate() method) if no build profile is being used. `#9206 <https://github.com/conan-io/conan/pull/9206>`_ . Docs `here <https://github.com/conan-io/docs/pull/2173>`__
 - Fix: Implemented check that will raise an error in the `CMakeDeps` generator when using the `build_context_activated`, `build_context_suffix` or `build_context_build_modules` attributes if no build profile is being used. `#9206 <https://github.com/conan-io/conan/pull/9206>`_ . Docs `here <https://github.com/conan-io/docs/pull/2173>`__
