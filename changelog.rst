@@ -18,8 +18,42 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-    Conan 1.38 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
+    Conan 1.39 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
     submit a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
+
+1.39.0 (27-Jul-2021)
+--------------------
+
+- Feature: Use `CMAKE_OSX_DEPLOYMENT_TARGET` to get `-version-min` set in _CMakeToolchain_. `#9301 <https://github.com/conan-io/conan/pull/9301>`_
+- Feature: Display ``python_requires`` information in the :command:`conan info` output. `#9290 <https://github.com/conan-io/conan/pull/9290>`_
+- Feature: Now it is possible to define settings for a downstream consumer using `-s &:setting=value` or the same syntax in the profile even if the consumer is a `conanfile.txt` or a `conanfile.py` not declaring a name. e.g: Building a Debug application with Release dependencies: `-s build_type=Release -s &:build_type=Debug` `#9267 <https://github.com/conan-io/conan/pull/9267>`_ . Docs `here <https://github.com/conan-io/docs/pull/2160>`__
+- Feature: The `AutotoolsDeps` allows to alter the generated environment corresponding to the information read from the dependencies before calling the `generate()` method. `#9256 <https://github.com/conan-io/conan/pull/9256>`_ . Docs `here <https://github.com/conan-io/docs/pull/2155>`__
+- Feature: new `remove` and `items` methods for the `Environment` objects. `#9256 <https://github.com/conan-io/conan/pull/9256>`_ . Docs `here <https://github.com/conan-io/docs/pull/2155>`__
+- Feature: New `VCVars` generator that generates a `conanvcvars.bat` that activates the Visual Studio Developer Command Prompt. `#9230 <https://github.com/conan-io/conan/pull/9230>`_ . Docs `here <https://github.com/conan-io/docs/pull/2153>`__
+- Feature: Skip build helper test and using [conf]. `#9218 <https://github.com/conan-io/conan/pull/9218>`_ . Docs `here <https://github.com/conan-io/docs/pull/2154>`__
+- Feature: Implement a new ``requires = "pkg/(alias)"`` syntax to be able to dissambiguate alias requirements and resolve them earlier in the flow, solving some limitations of the previous alias definition. This approach is intended to be the one in Conan 2.0 (issue backported from https://github.com/conan-io/tribe/pull/25). `#9217 <https://github.com/conan-io/conan/pull/9217>`_ . Docs `here <https://github.com/conan-io/docs/pull/2169>`__
+- Feature: Introduce the ``-require-override`` argument to define dependency overrides directly on command line. `#9195 <https://github.com/conan-io/conan/pull/9195>`_ . Docs `here <https://github.com/conan-io/docs/pull/2170>`__
+- Feature: New `self.win_bash` mechanism to enable running commands in a bash shell in Windows. It works only with the new environment definition from the dependencies (`env_buildinfo` and `run_buildinfo`) as long as the new `AutotoolsToolchain`, `AutotoolsDeps` and `Autotools` build helper. It supports automatic conversion of the environment variables values declared as "path" according to the declared subsystem in the conf `tools.win.bash:subsystem`, that is not being auto-detected anymore. `#9194 <https://github.com/conan-io/conan/pull/9194>`_ . Docs `here <https://github.com/conan-io/docs/pull/2152>`__
+- Feature: A unique environment launcher (`conanenv.bat/sh`) is generated to aggregate all the environment generators (`VirtualRunEnv`, `VirtualBuildEnv`, `AutotoolsToolchain` and `AutotoolsDeps`) that had been generated so the user can easily activate all of them with one command. `#9161 <https://github.com/conan-io/conan/pull/9161>`_ . Docs `here <https://github.com/conan-io/docs/pull/2151>`__
+- Feature: Use _CMake_ File API. `#9005 <https://github.com/conan-io/conan/pull/9005>`_
+- Fix: Add ``bindirs`` definition to ``cmake_layout()``. `#9276 <https://github.com/conan-io/conan/pull/9276>`_
+- Fix: Improve error message when ``conan search <ref>`` a package in editable mode. `#9262 <https://github.com/conan-io/conan/pull/9262>`_
+- Fix: Add ``options`` to ``conanfile.dependencies`` model. `#9258 <https://github.com/conan-io/conan/pull/9258>`_
+- Fix: Fix _CMake_ rejecting library name with special characters. `#9245 <https://github.com/conan-io/conan/pull/9245>`_
+- Fix: Use filename _PKG-NAME_COMP-NAME.pc_ for _PkgConfigDeps_. `#9228 <https://github.com/conan-io/conan/pull/9228>`_ . Docs `here <https://github.com/conan-io/docs/pull/2148>`__
+- Fix: Saving all the toolchain args information into `conanbuild.conf` instead of json file. `#9225 <https://github.com/conan-io/conan/pull/9225>`_ . Docs `here <https://github.com/conan-io/docs/pull/2156>`__
+- Fix: Added warning in the new toolchains (the used in the generate() method) if no build profile is being used. `#9206 <https://github.com/conan-io/conan/pull/9206>`_ . Docs `here <https://github.com/conan-io/docs/pull/2173>`__
+- Fix: Implemented check that will raise an error in the `CMakeDeps` generator when using the `build_context_activated`, `build_context_suffix` or `build_context_build_modules` attributes if no build profile is being used. `#9206 <https://github.com/conan-io/conan/pull/9206>`_ . Docs `here <https://github.com/conan-io/docs/pull/2173>`__
+- Fix: The`CMakeDeps` generator will check if the targets specified in the `find_package(foo components x y z)` exist instead of checking against an internal variable. Also, this check will be done at the end of the `xxx-config.cmake` so any included `build_module` can declare the needed targets. `#9206 <https://github.com/conan-io/conan/pull/9206>`_ . Docs `here <https://github.com/conan-io/docs/pull/2173>`__
+- Fix: Consistent help message for conan profile (sub-command part). `#9204 <https://github.com/conan-io/conan/pull/9204>`_ . Docs `here <https://github.com/conan-io/docs/pull/2171>`__
+- Fix: Consistently put short arguments (-a) before long ones (--args). `#9199 <https://github.com/conan-io/conan/pull/9199>`_
+- Fix: `CC=clang` `--gcc-toolchain` is now identified as _clang_. `#9198 <https://github.com/conan-io/conan/pull/9198>`_
+- Fix: The new `VirtualEnv` generator has been split into `VirtualRunEnv` and `VirtualBuildEnv`. Both are automatically generated as before but only `VirtualBuildEnv` will be activated by default. `#9161 <https://github.com/conan-io/conan/pull/9161>`_ . Docs `here <https://github.com/conan-io/docs/pull/2151>`__
+- Bugfix: Fixing ``workspace install`` when conanfile has ``imports()``. `#9281 <https://github.com/conan-io/conan/pull/9281>`_
+- Bugfix: Fix QbsProfile toolchain ``qbs.architecture`` KeyError. `#9192 <https://github.com/conan-io/conan/pull/9192>`_
+- Bugfix: Do not define CMAKE_GENERATOR_TOOLSET  in CMakeToolchain for Ninja generator, and define it in ``vcvars_ver`` instead. `#9187 <https://github.com/conan-io/conan/pull/9187>`_
+- BugFix: ``build_requires`` in host context, like gtest, are being propagated downstream by generators in the ``dependencies`` model. `#9171 <https://github.com/conan-io/conan/pull/9171>`_ . Docs `here <https://github.com/conan-io/docs/pull/2172>`__
+- Bugfix: Fix that overridden requirements _"cannot be found in lockfile"_. `#8907 <https://github.com/conan-io/conan/pull/8907>`_
 
 1.38.0 (30-Jun-2021)
 --------------------
