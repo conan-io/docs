@@ -6,9 +6,9 @@ Package layout
 .. warning::
 
     This is an **experimental** feature subject to breaking changes in future releases.
-    The ``layout()`` feature also only works with new integrations in ``conan.tools``
-    like ``CMakeDeps``, ``CMakeToolchain``, ``MSBuildDeps``, etc. Older generators like
-    ``cmake``, ``visual_studio`` will not work or at least ignore the definitions in ``layout()``.
+    The ``layout()`` feature will be fully functional only in the new build system integrations
+    (:ref:`in the conan.tools space <conan_tools>`). If you are using other integrations, they
+    might not fully support this feature.
 
 
 Available since: `1.37.0 <https://github.com/conan-io/conan/releases>`_

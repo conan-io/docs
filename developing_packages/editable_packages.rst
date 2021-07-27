@@ -113,6 +113,11 @@ Example:
                 self.cpp.package.libs = ["mylib"]
 
 
+NOTE: The ``layout()`` feature will be fully functional only in the new build system integrations
+(:ref:`in the conan.tools space <conan_tools>`). If you are using other integrations, they
+might not fully support this feature.
+
+
 Recipe package_info()
 ++++++++++++++++++++++
 
