@@ -38,6 +38,14 @@ The full instantiation, that allows custom configuration can be done in the ``ge
             cmake = CMakeDeps(self)
             cmake.generate()
 
+
+.. important::
+
+    This class will require very soon to define both the "host" and "build" profiles. It is very recommended to
+    start defining both profiles immediately to avoid future breaking. Furthermore, some features, like trying to
+    cross-compile might not work at all if the "build" profile is not provided.
+
+
 There are some attributes you can adjust in the created ``CMakeDeps`` object to change the default behavior:
 
 configurations
@@ -73,6 +81,11 @@ But you can activate it using the **build_context_activated** attribute:
         cmake.build_context_activated = ["my_tool"]
         cmake.generate()
 
+.. warning::
+
+    The ``build_context_activated`` feature will fail if no "build" profile is used. This feature only work when using
+    the two host and build profiles.
+
 
 build_context_suffix
 ++++++++++++++++++++
@@ -104,6 +117,11 @@ so the files/targets/variables of the requirement in the build context (build re
         cmake.generate()
 
 
+.. warning::
+
+    The ``build_context_suffix`` feature will fail if no "build" profile is used. This feature only work when using
+    the two host and build profiles.
+
 
 build_context_build_modules
 +++++++++++++++++++++++++++
@@ -130,6 +148,13 @@ Use the **build_context_build_modules** attribute to specify require names to in
         # Choose the build modules from "build" context
         cmake.build_context_build_modules = ["my_tool"]
         cmake.generate()
+
+
+.. warning::
+
+    The ``build_context_build_modules`` feature will fail if no "build" profile is used. This feature only work when using
+    the two host and build profiles.
+
 
 Properties
 ++++++++++

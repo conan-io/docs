@@ -18,6 +18,7 @@ The 'list' subcommand will always use the default user 'conan/profiles' folder. 
 
     positional arguments:
       {list,show,new,update,get,remove}
+                            sub-command help
         list                List current profiles
         show                Show the values defined for a profile
         new                 Creates a new empty profile

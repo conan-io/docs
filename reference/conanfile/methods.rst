@@ -1409,7 +1409,7 @@ The purpose of ``generate()`` is to prepare the build, generating the necessary 
   variables necessary for the build.
 - Toolchain files, like ``conantoolchain.cmake``, that contains a mapping between the current Conan settings and options, and the
   build system specific syntax.
-- General purpose build information, as a ``conanbuild.json`` file that could contain information like the CMake generator or
+- General purpose build information, as a ``conanbuild.conf`` file that could contain information like the CMake generator or
   CMake toolchain file to be used in the ``build()`` method.
 - Specific build system files, like ``conanvcvars.bat``, that contains the necessary Visual Studio vcvars.bat call for certain
   build systems like Ninja when compiling with the Microsoft compiler.

@@ -11,6 +11,12 @@ AutotoolsToolchain
 The ``AutotoolsToolchain`` is the toolchain generator for Autotools. It will generate shell scripts containing
 environment variable definitions that the autotools build system can understand.
 
+.. important::
+
+    This class will require very soon to define both the "host" and "build" profiles. It is very recommended to
+    start defining both profiles immediately to avoid future breaking. Furthermore, some features, like trying to
+    cross-compile might not work at all if the "build" profile is not provided.
+
 The ``AutotoolsToolchain`` generator can be used by name in conanfiles:
 
 .. code-block:: python
@@ -51,12 +57,12 @@ The ``AutotoolsToolchain`` will generate after a ``conan install`` command the *
 This generator will define aggregated variables ``CPPFLAGS``, ``LDFLAGS``, ``CXXFLAGS``, ``CFLAGS`` that
 accumulate all dependencies information, including transitive dependencies, with flags like ``-stdlib=libstdc++``, ``-std=gnu14``, architecture flags, etc.
 
-This generator will also generate a file called ``conanbuild.json`` containing two keys:
+This generator will also generate a file called ``conanbuild.conf`` containing two keys:
 
 - **configure_args**: Arguments to call the ``configure`` script.
 - **make_args**: Arguments to call the ``make`` script.
 
-The :ref:`Autotools build helper<conan_tools_gnu_build_helper>` will use that ``conanbuild.json`` file to seamlessly call
+The :ref:`Autotools build helper<conan_tools_gnu_build_helper>` will use that ``conanbuild.conf`` file to seamlessly call
 the configure and make script using these precalculated arguments.
 
 Attributes
