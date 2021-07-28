@@ -1752,7 +1752,7 @@ It raises a ``ConanInvalidConfiguration`` when is not supported.
     class Recipe(ConanFile):
         ...
 
-        def configure(self):
+        def validate(self):
             tools.check_min_cppstd(self, "17")
 
 * If the current cppstd does not support C++17, ``check_min_cppstd`` will raise an ``ConanInvalidConfiguration`` error.
@@ -1784,7 +1784,7 @@ It returns ``True`` when is valid, otherwise, ``False``.
     class Recipe(ConanFile):
         ...
 
-        def configure(self):
+        def validate(self):
             if not tools.valid_min_cppstd(self, "17"):
                 self.output.error("C++17 is required.")
 

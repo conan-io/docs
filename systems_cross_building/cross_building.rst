@@ -201,7 +201,7 @@ the build requires using the ``profile_build`` and then it will compile the libr
 settings applying the environment of the former ones.
 
 Starting with Conan v1.25 (if the user provides the ``--profile:build``) it is possible to get the relative context
-where a recipe is running during a Conan invocation. The object instatiated from the recipe contains the following
+where a recipe is running during a Conan invocation. The object instantiated from the recipe contains the following
 attributes:
 
 * ``self.settings`` will always contain the settings corresponding to the binary to build/retrieve. It will contain
@@ -211,7 +211,7 @@ attributes:
   recipe appears in the ``build`` context, the build requirements of the build requirements are expected to
   run in the ``build`` machine too.
 * ``self.settings_target``: for recipes in the ``host`` context this attribute will be equal to ``None``, for those
-  in the ``build`` context, if will depend on the level of anidation:
+  in the ``build`` context, if will depend on the level of validation:
 
   + for recipes that are build requirements of packages in the ``host`` context, this attribute will contain
     the settings from the profile ``profile_host``, while
@@ -229,7 +229,7 @@ With previous attributes, a draft for a recipe that packages a cross compiler co
         options = {"target": "ANY"}
         default_options = {"shared": False, "target": None}
 
-        def configure(self):
+        def validate(self):
             settings_target = getattr(self, 'settings_target', None)
             if settings_target is None:
                 # It is running in 'host', so Conan is compiling this package
