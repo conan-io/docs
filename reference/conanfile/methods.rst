@@ -478,7 +478,7 @@ If the package options and settings are related, and you want to configure eithe
             # If header only, the compiler, etc, does not affect the package!
             if self.options.header_only:
                 self.settings.clear()
-                self.options.remove("static")
+                del self.options.static
 
 The package has 2 options set, to be compiled as a static (as opposed to shared) library, and also not to involve any builds, because
 header-only libraries will be used. In this case, the settings that would affect a normal build, and even the other option (static vs
@@ -520,12 +520,12 @@ Invalid configuration
 
 Conan allows the recipe creator to declare invalid configurations, those that are known not to work
 with the library being packaged. There is an especial kind of exception that can be raised from
-the ``configure()`` method to state this situation: ``conans.errors.ConanInvalidConfiguration``. Here
+the ``validate()`` method to state this situation: ``conans.errors.ConanInvalidConfiguration``. Here
 it is an example of a recipe for a library that doesn't support Windows operating system:
 
 .. code-block:: python
 
-    def configure(self):
+    def validate(self):
         if self.settings.os != "Windows":
             raise ConanInvalidConfiguration("Library MyLib is only supported for Windows")
 

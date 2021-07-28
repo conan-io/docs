@@ -42,7 +42,7 @@ the ``nasm`` tool for building assembler:
        settings = "os", "arch"
        description="Nasm for windows. Useful as a build_require."
 
-       def configure(self):
+       def validate(self):
            if self.settings.os != "Windows":
                raise ConanInvalidConfiguration("Only windows supported for nasm")
 

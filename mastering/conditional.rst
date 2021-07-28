@@ -9,12 +9,12 @@ Remember, in your ``conanfile.py`` you can use the value of your options to:
 * Change values of other options
 * Assign values to options of your requirements
 
-The ``configure()`` method might be used to hardcode values for options of the requirements.
+The ``configure()`` method might be used to hardcoded values for options of the requirements.
 It is strongly discouraged to use it to change the settings values. Please remember that ``settings``
 are a configuration *input*, so it doesn't make sense to modify it in the recipes.
 
 Also, for options, a more flexible solution is to define dependencies options values in the ``default_options``,
-not in the ``configure()`` method. Setting the values in ``configure()`` won't allow to override them and it 
+not in the ``configure()`` method. Setting the values in ``configure()`` won't allow to override them and it
 will make really hard (even impossible) to resolve some conflicts. Use it only when it is absolutely
 necessary that the package dependencies use those options.
 
@@ -64,7 +64,7 @@ settings under development.
 
 There are two approaches for this situation:
 
-- **Use** ``configure()`` **to raise an error for non-supported configurations**:
+- **Use** ``validate()`` **to raise an error for non-supported configurations**:
 
   This approach is the first one evaluated when Conan loads the recipe so it is quite handy to perform checks of the input settings. It
   relies on the set of possible settings inside your *settings.yml* file, so it can be used to constrain any recipe.
@@ -73,7 +73,7 @@ There are two approaches for this situation:
 
       from conans.errors import ConanInvalidConfiguration
       ...
-      def configure(self):
+      def validate(self):
           if self.settings.os == "Windows":
             raise ConanInvalidConfiguration("This library is not compatible with Windows")
 
