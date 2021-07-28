@@ -9,6 +9,13 @@ AutotoolsDeps
 The ``AutotoolsDeps`` is the dependencies generator for Autotools. It will generate shell scripts containing
 environment variable definitions that the autotools build system can understand.
 
+.. important::
+
+    This class will require very soon to define both the "host" and "build" profiles. It is very recommended to
+    start defining both profiles immediately to avoid future breaking. Furthermore, some features, like trying to
+    cross-compile might not work at all if the "build" profile is not provided.
+
+
 The ``AutotoolsDeps`` generator can be used by name in conanfiles:
 
 .. code-block:: python
@@ -50,3 +57,26 @@ This generator will define aggregated variables ``CPPFLAGS``, ``LIBS``, ``LDFLAG
 accumulate all dependencies information, including transitive dependencies, with flags like ``-I<path>``, ``-L<path>``, etc.
 
 At this moment, only the ``requires`` information is generated, the ``build_requires`` one is not managed by this generator yet.
+
+
+Attributes
+++++++++++
+
+* **environment** : :ref:`Environment<conan_tools_env_environment_model>` object containing the computed variables. If you need
+  to modify some of the computed values you can access to the ``environment`` object.
+
+.. code:: python
+
+    from conans import ConanFile
+    from conan.tools.gnu import AutotoolsDeps
+
+    class App(ConanFile):
+        settings = "os", "arch", "compiler", "build_type"
+
+        def generate(self):
+            tc = AutotoolsDeps(self)
+            tc.environment.remove("CPPFLAGS", "undesired_value")
+            tc.environment.append("CPPFLAGS", "var")
+            tc.environment.define("OTHER", "cat")
+            tc.environment.unset("LDFLAGS")
+            tc.generate()

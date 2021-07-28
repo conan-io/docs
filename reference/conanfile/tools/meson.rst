@@ -28,6 +28,7 @@ The ``MesonToolchain`` can be used in the ``generate()`` method:
 
         def generate(self):
             tc = MesonToolchain(self)
+            tc.preprocessor_definitions["MYDEFINE"] = "MYDEF_VALUE"
             tc.generate()
 
 
@@ -35,6 +36,13 @@ The ``MesonToolchain`` will generate the following file during ``conan install``
 command (or before calling the ``build()`` method when the package is being
 built in the cache): *conan_meson_native.ini*, if doing a native build, or
 *conan_meson_cross.ini*, if doing a cross-build (:ref:`cross_building_reference`).
+
+.. important::
+
+    This class will require very soon to define both the "host" and "build" profiles. It is very recommended to
+    start defining both profiles immediately to avoid future breaking. Furthermore, some features, like trying to
+    cross-compile might not work at all if the "build" profile is not provided.
+
 
 ``conan_meson_native.ini`` will contain the definitions of all the Meson properties
 related to the Conan options and settings for the current package, platform,
@@ -86,6 +94,22 @@ This attribute allows defining Meson project options:
         tc.generate()
 
 - One project options definition for ``MYVAR`` in ``conan_meson_native.init`` or ``conan_meson_cross.ini`` file.
+
+preprocessor_definitions
+++++++++++++++++++++++++
+
+This attribute allows defining compiler preprocessor definitions, for multiple configurations (Debug, Release, etc).
+
+.. code:: python
+
+    def generate(self):
+        tc = MesonToolchain(self)
+        tc.preprocessor_definitions["MYDEF"] = "MyValue"
+        tc.generate()
+
+This will be translated to:
+
+- One preprocessor definition for ``MYDEF`` in ``conan_meson_native.init`` or ``conan_meson_cross.ini`` file.
 
 Generators
 ++++++++++

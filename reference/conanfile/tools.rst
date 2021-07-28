@@ -14,6 +14,10 @@ Tools are all things that can be imported and used in Conan recipes.
     This is the current design for Conan 2.0, and these will be the supported tools. Only the tools documented
     in this section will be available in Conan 2.0.
 
+    Most of the utilities defined in "conan.tools" will require very soon to define both the "host" and "build" profiles.
+    It is very recommended to start defining both profiles immediately to avoid future breaking.
+    Furthermore, some features, like trying to cross-compile might not work at all if the "build" profile is not provided.
+
 
 The import path is always like:
 
@@ -37,8 +41,10 @@ Contents:
 
    tools/cmake
    tools/gnu
+   tools/google
    tools/meson
    tools/microsoft
    tools/qbs
    tools/env
    tools/files
+   tools/layout

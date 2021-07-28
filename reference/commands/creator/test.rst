@@ -11,8 +11,8 @@ conan test
                  [-e:b ENV_BUILD] [-e:h ENV_HOST] [-o OPTIONS_HOST]
                  [-o:b OPTIONS_BUILD] [-o:h OPTIONS_HOST] [-pr PROFILE_HOST]
                  [-pr:b PROFILE_BUILD] [-pr:h PROFILE_HOST]
-                 [-s SETTINGS_HOST] [-s:b SETTINGS_BUILD]
-                 [-s:h SETTINGS_HOST]
+                 [-s SETTINGS_HOST] [-s:b SETTINGS_BUILD] [-s:h SETTINGS_HOST]
+                 [-c CONF_HOST] [-c:b CONF_BUILD] [-c:h CONF_HOST]
                  path reference
 
 Tests a package consuming it from a conanfile.py with a test() method.
@@ -54,10 +54,13 @@ to be tested must exist in the local cache or any configured remote.
                             built from source. --build=[pattern] Build packages
                             from source whose package reference matches the
                             pattern. The pattern uses 'fnmatch' style wildcards.
-                            Default behavior: If you omit the '--build' option,
-                            the 'build_policy' attribute in conanfile.py will be
-                            used if it exists, otherwise the behavior is like '--
-                            build=never'.
+                            --build=![pattern] Excluded packages, which will not
+                            be built from the source, whose package reference
+                            matches the pattern. The pattern uses 'fnmatch' style
+                            wildcards. Default behavior: If you omit the '--build'
+                            option, the 'build_policy' attribute in conanfile.py
+                            will be used if it exists, otherwise the behavior is
+                            like '--build=never'.
       -r REMOTE, --remote REMOTE
                             Look in the specified remote server
       -u, --update          Will check the remote and in case a newer version
@@ -107,9 +110,19 @@ to be tested must exist in the local cache or any configured remote.
       -s:h SETTINGS_HOST, --settings:host SETTINGS_HOST
                             Settings to build the package, overwriting the
                             defaults (host machine). e.g.: -s:h compiler=gcc
+      -c CONF_HOST, --conf CONF_HOST
+                            Configuration to build the package, overwriting the defaults (host machine). e.g.: -c
+                            tools.cmake.cmaketoolchain:generator=Xcode
+      -c:b CONF_BUILD, --conf:build CONF_BUILD
+                            Configuration to build the package, overwriting the defaults (build machine). e.g.: -c:b
+                            tools.cmake.cmaketoolchain:generator=Xcode
+      -c:h CONF_HOST, --conf:host CONF_HOST
+                            Configuration to build the package, overwriting the defaults (host machine). e.g.: -c:h
+                            tools.cmake.cmaketoolchain:generator=Xcode
 
 
-This command is util for testing existing packages, that have been previously built (with :command:`conan create`, for example).
+
+This command is useful for testing existing packages, that have been previously built (with :command:`conan create`, for example).
 :command:`conan create` will automatically run this test if a *test_package* folder is found besides the *conanfile.py*, or if the
 :command:`--test-folder` argument is provided to :command:`conan create`.
 

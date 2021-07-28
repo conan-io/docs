@@ -51,8 +51,35 @@ Existing configurations:
 
 - ``tools.build:processes``: number of processes to use for every build-helper.
 
-- ``tools.ninja:jobs`` argument for the ``--jobs`` parameter when running Ninja generator via CMake
-  or Meson. (overrides the general ``tools.build:processes``). 
+- ``tools.build:skip_test``: CMake and Meson helper should skip ``test()``
 
-- ``tools.gnu.make:jobs``: argument for the ``--jobs`` parameter when running ``make`` 
+- ``tools.ninja:jobs`` argument for the ``--jobs`` parameter when running Ninja generator via CMake
+  or Meson. (overrides the general ``tools.build:processes``).
+
+- ``tools.gnu.make:jobs``: argument for the ``--jobs`` parameter when running ``make``
   (overrides the general ``tools.build:processes``).
+
+To list all possible configurations available, run :command:`conan config list`.
+
+
+Configuration from build_requires
+-----------------------------------
+
+From Conan 1.37, it is possible to define configuration in packages that are ``build_requires``. For example, assuming
+there is a package that bundles the AndroidNDK, it could define the location of such NDK to the ``tools.android:ndk_path``
+configuration as:
+
+
+.. code-block:: python
+
+    import os
+    from conans import ConanFile
+
+    class Pkg(ConanFile):
+        name = "android_ndk"
+
+        def package_info(self):
+            self.conf_info["tools.android:ndk_path"] = os.path.join(self.package_folder, "ndk")
+
+
+Note that this only propagates from the immediate, direct ``build_requires`` of a recipe.

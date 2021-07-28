@@ -46,7 +46,7 @@ Manages the remote list and the package recipes associated with a remote.
   .. code-block:: bash
 
       $ conan remote list
-      conan-center: https://conan.bintray.com [Verify SSL: True]
+      conancenter: https://center.conan.io [Verify SSL: True]
       local: http://localhost:9300 [Verify SSL: True, Disabled: True]
 
 - List remotes in a format almost valid for the *remotes.txt* to use with :ref:`conan_config_install`, only need
@@ -55,7 +55,7 @@ Manages the remote list and the package recipes associated with a remote.
   .. code-block:: bash
 
       $ conan remote list --raw
-      conan-center https://conan.bintray.com True
+      conancenter https://center.conan.io True
       local http://localhost:9300 True True
       # capture the current remotes in a text file
       $ conan remote list --raw > remotes.txt
@@ -139,7 +139,7 @@ the command will insert the remote in the specified position
 
   .. code-block:: bash
 
-      $ conan remote list_ref --no-remote 
+      $ conan remote list_ref --no-remote
       spdlog/1.8.0: None
       restinio/0.6.10: None
       opencv/2.4.13.7: None
@@ -149,7 +149,7 @@ the command will insert the remote in the specified position
   .. code-block:: bash
 
       $ conan remote list_pref zlib/1.2.8@
-      zlib/1.2.8:f83037eff23ab3a94190d7f3f7b37a2d6d522241: conan.io
+      zlib/1.2.8:f83037eff23ab3a94190d7f3f7b37a2d6d522241: conancenter
       zlib/1.2.8:e46341e9b52d3e4c66657dc8fb13ab6cdd5831c6: conan-local-dev
       zlib/1.2.8:9de3196f2439d69299f168e3088bbefafe212f38: conan-local-prod
 
@@ -164,7 +164,7 @@ the command will insert the remote in the specified position
 
   .. code-block:: bash
 
-      $ conan remote add_ref openssl/1.0.2u conan-center
+      $ conan remote add_ref openssl/1.0.2u conancenter
 
 - Update the remote associated with a package recipe:
 

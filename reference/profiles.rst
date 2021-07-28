@@ -39,8 +39,9 @@ relative path:
 
 .. code-block:: bash
 
-    $ conan install . --profile /abs/path/to/profile  # abs path
-    $ conan install . --profile ./relpath/to/profile  # resolved to current dir
+    $ conan install . --profile /abs/path/to/profile   # abs path
+    $ conan install . --profile ./relpath/to/profile   # resolved to current dir
+    $ conan install . --profile ../relpath/to/profile  # resolved to relative dir
     $ conan install . --profile profile  # resolved to user/.conan/profiles/profile
 
 Listing existing profiles in the *profiles* folder can be done like this:
@@ -118,6 +119,15 @@ They accept patterns too, like ``-s *@myuser/*``, which means that packages that
     compiler.version=4.9
     compiler.libcxx=libstdc++11
 
+Also, as a **experimental** feature, `&` can be specified as the package name. It will apply only to the consumer conanfile (.py or .txt).
+This is a special case because the consumer conanfile might not declare a `name` so it would be impossible to reference it.
+
+.. code-block:: text
+
+    [settings]
+    &:compiler=gcc
+    &:compiler.version=4.9
+    &:compiler.libcxx=libstdc++11
 
 .. note::
 
@@ -129,6 +139,33 @@ They accept patterns too, like ``-s *@myuser/*``, which means that packages that
 
         [env]
         PATH=[/some/path/to/my/tool]
+
+Tools configurations
+--------------------
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+Tools configurations can also be used in profile files and *global.conf* one. Profile values will have priority over globally defined ones in *global.conf*, and can be defined as:
+
+.. code-block:: text
+
+    [settings]
+    ...
+
+    [conf]
+    tools.microsoft.msbuild:verbosity=Diagnostic
+    tools.microsoft.msbuild:max_cpu_count=20
+    tools.microsoft.msbuild:vs_version = 16
+    tools.build:processes=10
+    tools.ninja:jobs=30
+    tools.gnu.make:jobs=40
+
+.. seealso::
+
+    You can see more information about configurations in :ref:`global.conf section <global_conf>`.
+
 
 Profile composition
 -------------------
@@ -250,6 +287,59 @@ extremly useful:
 * :ref:`create_installer_packages`
 * :ref:`cross_building`
 
+
+Profile templates
+-----------------
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+
+From Conan 1.38 it is possible to use **jinja2** template engine for profiles. This feature is
+enabled by naming the profile file with the ``.jinja`` extension. When Conan loads a profile with
+this extension, immediately parses and renders the template, which must result in a standard
+text profile.
+
+Some of the capabilities of the profile templates are:
+
+- Using the platform information, like obtaining the current OS is possible because the
+  Python ``platform`` module is added to the render context.:
+
+  .. code:: jinja
+
+     [settings]
+     os = {{ {"Darwin": "Macos"}.get(platform.system(), platform.system()) }}
+
+- Reading environment variables can be done because the Python ``os`` module is added
+  to the render context.:
+
+  .. code:: jinja
+
+     [settings]
+     build_type = {{ os.getenv("MY_BUILD_TYPE") }}
+
+- Defining your own variables and using them in the profile:
+
+  .. code:: jinja
+
+     {% set a = "FreeBSD" %}
+     [settings]
+     os = {{ a }}
+
+- Joining and defining paths, including referencing the current profile directory. For
+  example, defining a toolchain which file is located besides the profile can be done.
+  Besides the ``os`` Python module, the variable ``profile_dir`` pointing to the current profile
+  folder is added to the context.
+
+  .. code:: jinja
+
+       [conf]
+       tools.cmake.cmaketoolchain:toolchain_file = {{ os.path.join(profile_dir, "toolchain.cmake") }}
+
+- Any other feature supported by *jinja2* is possible: for loops, if-else, etc. This
+  would be useful to define custom per-package settings or options for multiple packages
+  in a large dependency graph.
 
 Examples
 --------

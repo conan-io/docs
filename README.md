@@ -166,7 +166,7 @@ Use them in the following importance order:
 ```
 .. warning::
 
-    In the Bintray repositories there are binaries for several mainstream compilers...
+    In the ConanCenter repository there are binaries for several mainstream compilers...
 ```
 
 ```
@@ -206,16 +206,12 @@ Or reference the :ref:`conan_export_pkg_command` directly.
 Use external references with external URL at the bottom of the file like this:
 
 ```
-Submit a request to include it in `conan-center`_.
+Submit a pull request to include it in `conan-center-index`_.
 ...
 ...
 
-.. _`conan-center`: https://bintray.com/conan/conan-center
+.. _`conan-center`: https://center.conan.io
 ```
 
 In case you want to use explicit external references with a link, make sure it doesn't exceed the maximum line length, otherwise it
 should considered to be written as a normal external reference.
-
-```
-If you are just evaluating conan, you can create an account on https://bintray.com
-```

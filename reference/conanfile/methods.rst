@@ -1386,3 +1386,186 @@ current folder (the one containing the *conanfile.py*). The ``dst`` is relative 
             self.output.info("Executing export_sources() method")
             # will copy all .txt files from the local "subfolder" folder to the cache "mydata" one
             self.copy("*.txt", src="mysubfolder", dst="mydata")
+
+
+generate()
+----------
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+Available since: `1.32.0 <https://github.com/conan-io/conan/releases/tag/1.32.0>`_
+
+This method will run after the computation and installation of the dependency graph. This means that it will
+run after a :command:`conan install` command, or when a package is being built in the cache, it will be run before
+calling the ``build()`` method.
+
+The purpose of ``generate()`` is to prepare the build, generating the necessary files. These files would typically be:
+
+- Files containing information to locate the dependencies, as ``xxxx-config.cmake`` CMake config scripts, or ``xxxx.props``
+  Visual Studio property files.
+- Environment activation scripts, like ``conanbuildenv.bat`` or ``conanbuildenv.sh``, that define all the necessary environment
+  variables necessary for the build.
+- Toolchain files, like ``conantoolchain.cmake``, that contains a mapping between the current Conan settings and options, and the
+  build system specific syntax.
+- General purpose build information, as a ``conanbuild.conf`` file that could contain information like the CMake generator or
+  CMake toolchain file to be used in the ``build()`` method.
+- Specific build system files, like ``conanvcvars.bat``, that contains the necessary Visual Studio vcvars.bat call for certain
+  build systems like Ninja when compiling with the Microsoft compiler.
+
+
+The idea is that the ``generate()`` method implements all the necessary logic, making both the user manual builds after a :command:`conan install`
+very straightforward, and also the ``build()`` method logic simpler. The build produced by a user in their local flow should result
+exactly the same one as the build done in the cache with a ``conan create`` without effort.
+
+In many cases, the ``generate()`` method might not be necessary, and declaring the ``generators`` attribute could be enough:
+
+.. code:: python
+
+    from conans import ConanFile
+
+    class Pkg(ConanFile):
+        generators = "CMakeDeps", "CMakeToolchain"
+
+
+But the ``generate()`` method can explicitly instantiate those generators, customize them, or provide a complete custom
+generation. For custom integrations, putting code in a common ``python_require`` would be a good way to avoid repetition in
+multiple recipes.
+
+.. code:: python
+
+    from conans import ConanFile
+    from conan.tools.cmake import CMakeToolchain
+
+    class Pkg(ConanFile):
+
+        def generate(self):
+            tc = CMakeToolchain(self)
+            # customize toolchain "tc"
+            tc.generate()
+            # Or provide your own custom logic
+
+
+layout()
+--------
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+    The ``layout()`` feature will be fully functional only in the new build system integrations
+    (:ref:`in the conan.tools space <conan_tools>`). If you are using other integrations, they
+    might not fully support this feature.
+
+Available since: `1.37.0 <https://github.com/conan-io/conan/releases>`_
+
+Read about the feature :ref:`here<package_layout>`.
+
+In the layout() method you can adjust ``self.folders``, ``self.cpp`` and ``self.patterns``.
+
+
+.. _layout_folders_reference:
+
+
+self.folders
+++++++++++++
+
+
+- **self.folders.source** (Defaulted to ""): Specifies a subfolder where the sources are. The ``self.source_folder`` attribute
+  inside the ``source(self)`` and ``build(self)`` methods will be set with this subfolder. But the *current working directory*
+  in the ``source(self)`` method will not include this subfolder, because it is intended to describe where the sources are after
+  downloading (zip, git...) them, not to force where the sources should be. As well, the `export_sources`, `exports` and `scm` sources
+  will be copied to the root source directory, being the **self.folders.source** variable the way to describe if the fetched sources
+  are still in a subfolder.
+  It is used in the cache when running
+  :command:`conan create` (relative to the cache source folder) as well as in a local folder when running :command:`conan build`
+  (relative to the local current folder).
+
+- **self.folders.build** (Defaulted to ""): Specifies a subfolder where the files from the build are. The ``self.build_folder`` attribute and
+  the *current working directory* inside the ``build(self)`` method will be set with this subfolder. It is used in the cache when running
+  :command:`conan create` (relative to the cache source folder) as well as in a local folder when running :command:`conan build`
+  (relative to the local current folder).
+
+- **self.folders.generators** (Defaulted to ""): Specifies a subfolder where to write the files from the generators and the toolchains.
+  In the cache, when running the :command:`conan create`, this subfolder will be relative to the root build folder and when running
+  the :command:`conan install` command it will be relative to the current working directory.
+
+- **self.folders.imports** (Defaulted to ""): Specifies a subfolder where to write the files copied when using the ``imports(self)``
+  method in a ``conanfile.py``. In the cache, when running the :command:`conan create`, this subfolder will be relative to the root
+  build folder and when running the :command:`conan imports` command it will be relative to the current working directory.
+
+- **self.folders.package** (Defaulted to ""): Specifies a subfolder where to write the package files when running the :command:`conan package`
+  command. It is relative to the current working directory. This folder **will not** affect the package layout in the
+  cache.
+
+
+self.cpp
+++++++++
+
+The ``layout()`` method allows to declare ``cpp_info`` objects not only for the final package (like the classic approach with
+the ``self.cpp_info`` in the ``package_info(self)`` method) but for the ``self.source_folder`` and ``self.build_folder``.
+
+The fields of the cpp_info objects at ``self.info.build`` and ``self.info.source`` are the same described :ref:`here<cpp_info_attributes_reference>`.
+Components are also supported.
+
+
+self.patterns
++++++++++++++
+
+You can fill the ``self.patterns.source`` and ``self.patterns.build`` objects describing the patterns of the files that are at the ``self.folders.source`` and ``self.folders.build``
+to automate the ``package(self)`` method with the **LayoutPackager()** tool.
+
+The defaults are the following but you can customize anything based on the configuration (``self.settings``, ``self.options``...):
+
+.. code:: python
+
+        self.patterns.source.include = ["*.h", "*.hpp", "*.hxx"]
+        self.patterns.source.lib = []
+        self.patterns.source.bin = []
+
+        self.patterns.build.include = ["*.h", "*.hpp", "*.hxx"]
+        self.patterns.build.lib = ["*.so", "*.so.*", "*.a", "*.lib", "*.dylib"]
+        self.patterns.build.bin = ["*.exe", "*.dll"]
+
+
+These are all the fields that can be adjusted, both in ``self.patterns.source`` and ``self.patterns.build``:
+
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| NAME                                 | DESCRIPTION (xxx can be either ``build`` or ``source``)                                                 |
++======================================+=========================================================================================================+
+| include                              | Patterns of the files from the folders: ``self.cpp.xxx.includedirs``                                    |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| lib                                  | Patterns of the files from the folders: ``self.cpp.xxx.libdirs``                                        |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| bin                                  | Patterns of the files from the folders: ``self.cpp.xxx.bindirs``                                        |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| src                                  | Patterns of the files from the folders: ``self.cpp.xxx.srcdirs``                                        |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| build                                | Patterns of the files from the folders: ``self.cpp.xxx.builddirs``                                      |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| res                                  | Patterns of the files from the folders: ``self.cpp.xxx.resdirs``                                        |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| framework                            | Patterns of the files from the folders: ``self.cpp.xxx.frameworkdirs``                                  |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+
+
+test()
+------
+
+The ``test()`` method is only used for *test_package/conanfile.py* recipes. It will execute immediately after ``build()`` has been called, and its goal is to
+run some executable or tests on binaries to prove the package is correctly created. Note that it is intended to be used as a
+test of the package: the headers are there, the libraries are there, it is possible to link, etc., but not to run unit, integration or functional tests.
+
+It usually takes the form:
+
+.. code:: python
+
+    def test(self):
+        if not tools.cross_building(self):
+            self.run(os.path.sep.join([".", "bin", "example"]))
+
+
+Note the ``tools.cross_building()`` check, as it is not possible to run executables different to the build machine architecture. In this case, it would
+make sense to check the existence of the binary, or inspect it with tools like ``dumpbin``, ``lipo``, etc to do basic checks about it.
+
+The ``self.run()`` might need some environment help, in case the execution needs for example shared libraries location.

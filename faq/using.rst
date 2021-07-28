@@ -36,7 +36,7 @@ Besides the impossibility on the technical side, there are also other reasons li
 - Packages should be fully relocatable to a different location. Users should be able to retrieve their dependencies and upload a copy to their own private server, and fully disconnect from the external world. This is critical for robust and secure production environments, and avoid problems that other ecosystems like NPM have had in the past. As a consequence, all recipes dependencies should not be coupled to any location, and be abstract as conan "requires" are.
 - Other languages, like Java (which would be the closest one regarding enterprise-ness), never provided this feature. Languages like golang, that based its dependency management on this feature, has also evolved away from it and towards abstract "module" concepts that can be hosted in different servers
 
-So there are no plans to support this approach, and the client-server architecture will continue to be the proposed solution. There are several alternatives for the servers from different vendors, for public open source packages `ConanCenter <https://conan.io/center>`_ is the recommended one, and for private packages, the free `ArtifactoryCE <https://conan.io/downloads>`_ is a simple and powerful solution.
+So there are no plans to support this approach, and the client-server architecture will continue to be the proposed solution. There are several alternatives for the servers from different vendors, for public open source packages `ConanCenter <https://conan.io/center>`_ is the recommended one, and for private packages, the free `Artifactory CE <https://conan.io/downloads>`_ is a simple and powerful solution.
 
 
 How to obtain the dependents of a given package?
@@ -153,10 +153,10 @@ The lookup remote order is defined by the command :command:`conan remote`:
 .. code-block:: bash
 
     $ conan remote list
-    conan-center: https://conan.bintray.com [Verify SSL: True]
+    conancenter: https://center.conan.io [Verify SSL: True]
     myremote: https://MyTeamServerIP:8081/artifactory/api/conan/myremote [Verify SSL: True]
 
-As you can see, the remote ``conan-center`` is listed on index **0**, which means it has the highest priority when searching or installing a package,
+As you can see, the remote ``conancenter`` is listed on index **0**, which means it has the highest priority when searching or installing a package,
 followed by ``myremote``, on index **1**. To update the index order, the argument ``--insert`` can be added to the command :command:`conan remote update`:
 
 .. code-block:: bash
@@ -164,7 +164,7 @@ followed by ``myremote``, on index **1**. To update the index order, the argumen
     $ conan remote update myremote https://MyTeamServerIP:8081/artifactory/api/conan/myremote --insert
     $ conan remote list
     myremote: https://MyTeamServerIP:8081/artifactory/api/conan/myremote [Verify SSL: True]
-    conan-center: https://conan.bintray.com [Verify SSL: True]
+    conancenter: https://center.conan.io [Verify SSL: True]
 
 
 The ``--insert`` argument means *index 0*, the highest priority, thus the ``myremote`` remote will be updated as the first remote to be used.
@@ -177,7 +177,7 @@ It's also possible to define a specific index when adding a remote to the list:
     $ conan remote list
     myremote: https://MyTeamServerIP:8081/artifactory/api/conan/myremote [Verify SSL: True]
     otherremote: https://MyCompanyOtherIP:8081/artifactory/api/conan/otherremote [Verify SSL: True]
-    conan-center: https://conan.bintray.com [Verify SSL: True]
+    conancenter: https://center.conan.io [Verify SSL: True]
 
 
 The ``otherremote`` remote needs to be added after ``myremote``, so we need to set the remote index as **1**.

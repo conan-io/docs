@@ -15,6 +15,7 @@ conan info
                  [-o:h OPTIONS_HOST] [-pr PROFILE_HOST] [-pr:b PROFILE_BUILD]
                  [-pr:h PROFILE_HOST] [-s SETTINGS_HOST]
                  [-s:b SETTINGS_BUILD] [-s:h SETTINGS_HOST]
+                 [-c CONF_HOST] [-c:b CONF_BUILD] [-c:h CONF_HOST]
                  path_or_reference
 
 Gets information about the dependency graph of a recipe.
@@ -116,6 +117,16 @@ your local cache.
       -s:h SETTINGS_HOST, --settings:host SETTINGS_HOST
                             Settings to build the package, overwriting the
                             defaults (host machine). e.g.: -s:h compiler=gcc
+      -c CONF_HOST, --conf CONF_HOST
+                            Configuration to build the package, overwriting the defaults (host machine). e.g.: -c
+                            tools.cmake.cmaketoolchain:generator=Xcode
+      -c:b CONF_BUILD, --conf:build CONF_BUILD
+                            Configuration to build the package, overwriting the defaults (build machine). e.g.: -c:b
+                            tools.cmake.cmaketoolchain:generator=Xcode
+      -c:h CONF_HOST, --conf:host CONF_HOST
+                            Configuration to build the package, overwriting the defaults (host machine). e.g.: -c:h
+                            tools.cmake.cmaketoolchain:generator=Xcode
+
 
 
 **Examples**:
@@ -134,6 +145,7 @@ The output will look like:
     Dependency/0.1@user/channel
      ID: 5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9
      BuildID: None
+     Context: host
      Remote: None
      URL: http://...
      License: MIT
@@ -146,6 +158,7 @@ The output will look like:
     hello/1.0@user/channel
      ID: 5ab84d6acfe1f23c4fa5ab84d6acfe1f23c4fa8
      BuildID: None
+     Context: host
      Remote: None
      URL: http://...
      License: MIT
@@ -254,6 +267,7 @@ The output will look like:
     foobar/1.0.0@user/channel
         ID: 6af9cc7cb931c5ad942174fd7838eb655717c709
         BuildID: None
+        Context: host
         export_folder: /home/conan/.conan/data/foobar/1.0.0/user/channel/export
         source_folder: /home/conan/.conan/data/foobar/1.0.0/user/channel/source
         build_folder: /home/conan/.conan/data/foobar/1.0.0/user/channel/build/6af9cc7cb931c5ad942174fd7838eb655717c709

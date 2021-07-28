@@ -87,7 +87,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # http =
     #   hostname.to.be.proxied.com = http://user:pass@10.10.1.10:3128
     # You can skip the proxy for the matching (fnmatch) urls (comma-separated)
-    # no_proxy_match = *bintray.com*, https://myserver.*
+    # no_proxy_match = *center.conan.io*, https://myserver.*
 
     [hooks]    # environment CONAN_HOOKS
     attribute_checker
@@ -222,7 +222,7 @@ this value using the environment variable ``CONAN_SCM_TO_CONANDATA``.
 The ``skip_broken_symlinks_check`` variable (defaulted to ``False``) allows the existence broken symlinks while creating a package.
 
 The ``config_install_interval`` variable starts a time scheduler which runs :command:`conan config install` according the time interval
-configured. It only accepts the follow time intervals: minutes, hours and days.
+configured. It only accepts the follow time intervals: seconds, minutes, hours, days and weeks (e.g 10s, 35m, 48h, 1d, 2w). Empty units or not listed units are not valid, they are considered an error and will be removed automatically on the next execution.
 
 The ``required_conan_version`` variable validates if the current Conan client version is valid according to its version. When it's not
 according to the required version or its range, Conan raises an exception before running any command. It accepts SemVer format, including version range.

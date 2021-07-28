@@ -1,3 +1,5 @@
+.. _conan_tools_gnu:
+
 conan.tools.gnu
 ===============
 
@@ -7,6 +9,5 @@ conan.tools.gnu
 
    gnu/autotoolsdeps
    gnu/autotoolstoolchain
-   gnu/autotoolsgen
    gnu/autotools
-   gnu/maketoolchain
+   gnu/pkgconfigdeps

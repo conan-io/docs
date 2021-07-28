@@ -90,7 +90,35 @@ Editable packages layouts
 
 The custom layout of a package while it is in editable mode can be defined in different ways:
 
-Recipe defined layout
+Recipe layout() method
+++++++++++++++++++++++
+
+The ``layout()`` method allows to declare ``cpp_info`` for the ``self.source_folder`` and ``self.build_folder``.
+You can read more about it in the :ref:`package layout documentation page<package_layout_cpp>`.
+If the method ``layout()`` is used, any other layout declaration will be ignored.
+
+Example:
+
+.. code:: python
+
+        from conans import ConanFile
+
+        class Pkg(ConanFile):
+
+            def layout(self):
+                self.cpp.source.includedirs = ["include"]
+                self.cpp.build.libdirs = ["."]
+                self.cpp.build.libs = ["mylib"]
+                self.cpp.build.includedirs = ["gen_include"]
+                self.cpp.package.libs = ["mylib"]
+
+
+NOTE: The ``layout()`` feature will be fully functional only in the new build system integrations
+(:ref:`in the conan.tools space <conan_tools>`). If you are using other integrations, they
+might not fully support this feature.
+
+
+Recipe package_info()
 ++++++++++++++++++++++
 
 A recipe can define a custom layout when it is not living in the local cache, in its ``package_info()`` method,
@@ -126,8 +154,8 @@ directories (libdirs, bindirs, etc) can be customized, with any logic, different
 That will define the libraries directories to ``examples/features/editable/cmake/say/Release_x86_64``, for example.
 That is only an example, the real layout used by VS would be different.
 
-Layout files
-+++++++++++++
+Layout external files
++++++++++++++++++++++
 
 Instead of changing the recipe file to match the local layout, it's possible to define the
 layout in a separate file. This is especially useful if you have a large number of libraries
@@ -224,6 +252,11 @@ Evaluation order and priority
 +++++++++++++++++++++++++++++
 
 It is important to understand the evaluation order and priorities regarding the definitions of layouts:
+
+- If the `layout()` method is declared in the recipe, it will ignore the rest of the information regarding
+  the layout. Only the `self.cpp.source` and `self.cpp.build` objects will be taken into account.
+
+Otherwise:
 
 - The first thing that will always execute is the recipe ``package_info()``. That will define
   the flags, definitions, as well as some values for the layout folders: ``includedirs``, ``libdirs``, etc.
