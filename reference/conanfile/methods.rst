@@ -878,7 +878,7 @@ The ``self.copy()`` method inside ``imports()`` supports the following arguments
 
 .. code-block:: python
 
-    def copy(pattern, dst="", src="", root_package=None, folder=False, ignore_case=True, excludes=None, keep_path=True)
+    def copy(pattern, dst="", src="", root_package=None, folder=False, ignore_case=True, excludes=None, keep_path=True, if_different=True)
 
 Parameters:
     - **pattern** (Required): An fnmatch file pattern of the files that should be copied.
@@ -896,6 +896,7 @@ Parameters:
       copy, even if they match the main ``pattern``.
     - **keep_path** (Optional, Defaulted to ``True``): Means if you want to keep the relative path when you copy the files from the **src**
       folder to the **dst** one. Useful to ignore (``keep_path=False``) path of *library.dll* files in the package it is imported from.
+    - **if_different** (Optional, Defaulted to ``True``): If enabled, no copy will be performed if destination file already exist and it is the same as the source file. 
 
 Example to collect license files from dependencies:
 
