@@ -155,17 +155,34 @@ flags to the build. It could be something like:
 .. code-block:: python
     :caption: *sanitizer_hook.py*
 
-    _OLD_CXX_FLAGS = None
+    import os
 
-    def set_sanitize_address_flag():
-        _OLD_CXX_FLAGS = os.environ.get("CXXFLAGS")
-        os.environ["CXXFLAGS"] = _OLD_CXX_FLAGS + " -fsanitize=address"
 
-    def reset_sanitize_address_flag():
-        if _OLD_CXX_FLAGS is None:
-            del os.environ["CXXFLAGS"]
-        else:
-            os.environ["CXXFLAGS"] = _OLD_CXX_FLAGS
+    class SanitizerHook(object):
+        def __init__(self):
+            self._old_cxx_flags = None
+
+        def set_sanitize_address_flag(self):
+            self._old_cxx_flags = os.environ.get("CXXFLAGS")
+            flags_str = self._old_cxx_flags or ""
+            os.environ["CXXFLAGS"] = flags_str + " -fsanitize=address"
+
+        def reset_sanitize_address_flag(self):
+            if self._old_cxx_flags is None:
+                del os.environ["CXXFLAGS"]
+            else:
+                os.environ["CXXFLAGS"] = self._old_cxx_flags
+
+
+    sanitizer = SanitizerHook()
+
+
+    def pre_build(output, conanfile, **kwargs):
+        sanitizer.set_sanitize_address_flag()
+
+
+    def post_build(output, conanfile, **kwargs):
+        sanitizer.reset_sanitize_address_flag()
 
 And then calling those functions from a *pre_build* and a *post_build* hook:
 
