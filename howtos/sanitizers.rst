@@ -183,14 +183,3 @@ flags to the build. It could be something like:
 
     def post_build(output, conanfile, **kwargs):
         sanitizer.reset_sanitize_address_flag()
-
-And then calling those functions from a *pre_build* and a *post_build* hook:
-
-.. code-block:: python
-    :caption: *sanitizer_hook.py*
-
-    def pre_build(output, conanfile, **kwargs):
-        set_sanitize_address_flag()
-
-    def post_build(output, conanfile, **kwargs):
-        reset_sanitize_address_flag()
