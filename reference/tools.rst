@@ -1753,7 +1753,8 @@ It raises a ``ConanInvalidConfiguration`` when is not supported.
         ...
 
         def configure(self):
-            tools.check_min_cppstd(self, "17")
+            if self.settings.compiler.get_safe("cppstd"):
+                tools.check_min_cppstd(self, "17")
 
 * If the current cppstd does not support C++17, ``check_min_cppstd`` will raise an ``ConanInvalidConfiguration`` error.
 * If ``gnu_extensions`` is True, it is required that the applied ``cppstd`` supports the gnu extensions.
@@ -1764,6 +1765,12 @@ Parameters:
     - **conanfile** (Required): ConanFile instance. Usually ``self``.
     - **cppstd** (Required): C++ standard version which must be supported.
     - **gnu_extensions** (Optional): GNU extension is required.
+
+.. warning::
+
+      All calls to ``tools.check_min_cppstd`` must be guarded by a check for the setting ``cppstd`` as this setting could absent
+      in some cases. See `the Conan-Center's FAQ for more details<https://github.com/conan-io/conan-center-index/blob/master/docs/faqs.md#why-is-a-toolscheck_min_cppstd-call-not-enough>`.
+
 
 .. _tools.valid_min_cppstd:
 
