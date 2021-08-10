@@ -336,7 +336,7 @@ conf
 
     This is an **experimental** feature subject to breaking changes in future releases.
 
-With the :command:`-c` parameters you can define specific package configurations.
+With the :command:`-c` parameters you can define specific tool configurations.
 
 .. code-block:: bash
 
