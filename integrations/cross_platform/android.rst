@@ -5,12 +5,12 @@ ____________________________
 
 There are several ways to cross-compile packages for `Android <https://www.android.com>`__ platform via conan.
 
-Using android_ndk_installer package (build require)
+Using android-ndk package (build require)
 ===================================================
 
-The easiest way so far is to use `android_ndk_installer <https://github.com/bincrafters/conan-android_ndk_installer>`_ conan package (which is in ``conan-center`` repository).
+The easiest way so far is to use `android-ndk <https://conan.io/center/android-ndk>`_ conan package (which is in ``conancenter`` repository).
 
-Using the ``android_ndk_installer`` package as a build requirement will do the following steps:
+Using the ``android-ndk`` package as a build requirement will do the following steps:
 
 - Download the appropriate `Android NDK <https://developer.android.com/ndk>`_ archive.
 
@@ -20,7 +20,7 @@ Using the ``android_ndk_installer`` package as a build requirement will do the f
 
 For instance, in order to cross-compile for ``ARMv8``, the following conan profile might be used:
 
-.. code-block:: text
+.. code-block:: ini
 
   include(default)
   [settings]
@@ -28,11 +28,11 @@ For instance, in order to cross-compile for ``ARMv8``, the following conan profi
   build_type=Release
   compiler=clang
   compiler.libcxx=libc++
-  compiler.version=8
+  compiler.version=11
   os=Android
   os.api_level=21
   [build_requires]
-  android_ndk_installer/r20@bincrafters/stable
+  android-ndk/r22b
   [options]
   [env]
 
@@ -43,7 +43,7 @@ For instance, in order to cross-compile for ``ARMv8``, the following conan profi
 
 Similar profile might be used to cross-compile for ``ARMv7`` (notice the ``arch`` change):
 
-.. code-block:: text
+.. code-block:: ini
 
   include(default)
   [settings]
@@ -51,11 +51,11 @@ Similar profile might be used to cross-compile for ``ARMv7`` (notice the ``arch`
   build_type=Release
   compiler=clang
   compiler.libcxx=libc++
-  compiler.version=8
+  compiler.version=11
   os=Android
   os.api_level=21
   [build_requires]
-  android_ndk_installer/r20@bincrafters/stable
+  android-ndk/r22b
   [options]
   [env]
 
