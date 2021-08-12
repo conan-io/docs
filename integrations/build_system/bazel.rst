@@ -15,7 +15,7 @@ If you want to declare Conan dependencies in your project, you must do it, as us
     class BazelExampleConan(ConanFile):
         name = "bazel-example"
         ....
-        build_requires = "boost/1.76.0"
+        requires = "boost/1.76.0"
 
 Then, tell Bazel to use that dependencies by adding this to the **WORKSPACE** file:
 

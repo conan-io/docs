@@ -31,7 +31,7 @@ The dependencies should be added to the **conanfile.py** file as usual:
         name = "bazel-example"
         ...
         generators = "BazelDeps", "BazelToolchain"
-        build_requires = "boost/1.76.0"
+        requires = "boost/1.76.0"
 
 Bazel
 -----
