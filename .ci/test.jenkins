@@ -31,11 +31,9 @@ node('Linux') {
         },
         linkcheck: {
             image.inside {
-                try {
+                catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE', message: 'Linkcheck failed! Please check links and fix broken ones.') {
                     sh(script: 'make linkcheck')
-                } catch (ex) {
-                    unstable('Linkcheck failed! Please check links and fix broken ones.')
-                }                
+                }
             }
         }
     }
