@@ -337,6 +337,20 @@ Some of the capabilities of the profile templates are:
        [conf]
        tools.cmake.cmaketoolchain:toolchain_file = {{ os.path.join(profile_dir, "toolchain.cmake") }}
 
+- Including or importing other files from ``profiles`` folder:
+
+  .. code-block:: jinja
+     :caption: profile_vars.jinja
+
+     {% set a = "Debug" %}
+
+  .. code-block:: jinja
+     :caption: profile1.jinja
+
+     {% import "profile_vars.jinja" as vars %}
+     [settings]
+     build_type = {{ vars.a }}
+
 - Any other feature supported by *jinja2* is possible: for loops, if-else, etc. This
   would be useful to define custom per-package settings or options for multiple packages
   in a large dependency graph.
