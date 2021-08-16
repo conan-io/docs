@@ -31,11 +31,11 @@ node('Linux') {
         },
         linkcheck: {
             image.inside {
-                int output = sh(script: 'make linkcheck', returnStatus: true)
-                if (output != 0) {
-                    currentBuild.result = 'FAILURE'
-                    error('Stop here, linkcheck failed!')
-                }
+                try {
+                    sh(script: 'make linkcheck')
+                } catch (ex) {
+                    unstable('Linkcheck failed! Please check links and fix broken ones.')
+                }                
             }
         }
     }
