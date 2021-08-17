@@ -31,10 +31,8 @@ node('Linux') {
         },
         linkcheck: {
             image.inside {
-                int output = sh(script: 'make linkcheck', returnStatus: true)
-                if (output != 0) {
-                    currentBuild.result = 'FAILURE'
-                    error('Stop here, linkcheck failed!')
+                catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE', message: 'Linkcheck failed! Please check links and fix broken ones.') {
+                    sh(script: 'make linkcheck')
                 }
             }
         }
