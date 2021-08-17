@@ -1660,7 +1660,7 @@ libraries implement the same API to prevent link-time and run-time conflicts (OD
 Some examples are:
 
  - `LibreSSL <https://www.libressl.org/>`__, `BoringSSL <https://boringssl.googlesource.com/boringssl/>`__ and `OpenSSL <https://www.openssl.org/>`__
- - `libav <https://libav.org/>`__ and `ffmpeg <https://ffmpeg.org/>`__
+ - `libav <https://en.wikipedia.org/wiki/Libav>`__ and `ffmpeg <https://ffmpeg.org/>`__
  - `MariaDB client <https://downloads.mariadb.org/client-native>`__ and `MySQL client <https://dev.mysql.com/downloads/c-api/>`__
 
 
