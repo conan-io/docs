@@ -63,10 +63,12 @@ generate()
 
 .. code:: python
 
-    def generate(self, auto_activate=True):
+    def generate(self, auto_activate=True, name="conanrunenv"):
 
 
 Parameters:
 
     * **auto_activate** (Defaulted to ``True``): Add the launcher automatically to the ``conanenv`` launcher. Read more
       in the :ref:`Environment documentation <conan_tools_env_environment_model>`.
+
+    * **name** (Defaulted to ``conanrunenv``): Name of the script to generate. It will generate automatically a conanrunenv.bat for Windows systems or conanrunenv.sh otherwise.
