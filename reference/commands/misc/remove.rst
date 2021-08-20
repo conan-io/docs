@@ -109,3 +109,8 @@ The ``-q`` parameter can't be used along with ``-p`` nor ``-b`` parameters.
   .. code-block:: bash
 
       $ conan remove -r myremote package/version@user/channel#RREV -p package_id
+
+      OR
+
+      $ conan remove -r myremote package/version@user/channel#RREV:PACKAGE_ID
+
