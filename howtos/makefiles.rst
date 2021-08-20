@@ -159,6 +159,6 @@ In this case, since the package has a ``deploy()`` method, we can use it:
 
 .. code-block:: bash
 
-    $ conan install hello/0.1user/testing -s compiler=gcc -s compiler.version=4.9 -s compiler.libcxx=libstdc++
+    $ conan install app/0.1@user/testing -s compiler=gcc -s compiler.version=4.9 -s compiler.libcxx=libstdc++
     $ ./bin/app
     $ Hello World Release!
