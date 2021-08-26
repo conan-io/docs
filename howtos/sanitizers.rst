@@ -142,6 +142,12 @@ the variable.
 Using conan Hooks to set compiler environment variables
 #######################################################
 
+.. warning::
+
+    This way of adding sanitizers is recommended just for testing purposes. In general, it's not a
+    good practice to inject this in the environment using a Conan hook. It's much better explicitly
+    defining this in the profiles.
+
 .. important::
 
     Take into account that the package ID doesn't encode information about the environment,
