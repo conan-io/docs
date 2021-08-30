@@ -178,6 +178,13 @@ In this case, the ``vcvars`` will activate the Visual Studio 16 installation, bu
 because the necessary ``toolset=v140`` will be set.
 
 
+clang
++++++
+
+The release 13.0.0 will be released officially on September 21, 2021. However, Conan 1.40 will support it in settings.yml before
+the final release. It will be considered as **experimental** in case of incompatibility until the release.
+
+
 Architectures
 -------------
 
