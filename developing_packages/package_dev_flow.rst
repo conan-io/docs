@@ -24,6 +24,15 @@ phase.
 
 We will use this `conan flow example <https://github.com/memsharded/example_conan_flow>`_ to follow the steps in the order below.
 
+If you use `conandata.yml` to target multiple package versions, running the following steps as-is will fail since no version is specified. To fix this, we can generate a lock file using our desired version. For example, with `0.1.0`.
+
+.. code-block:: bash
+
+    $ cd example_conan_flow
+    $ conan install . 0.1.0@user/channel
+
+This will allow you to run the following steps as expected.
+
 conan source
 ^^^^^^^^^^^^
 
