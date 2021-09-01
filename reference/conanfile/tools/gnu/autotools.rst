@@ -41,9 +41,13 @@ configure()
 
 .. code-block:: python
 
-    def configure(self)
+    def configure(self, build_script_folder=None)
 
 Call the configure script.
+
+Parameters:
+    - **build_script_folder** (Optional, Defaulted to ``None``): Subfolder where the configure script is located.
+      If ``None``, ``conanfile.source_folder`` will be used.
 
 
 make()
