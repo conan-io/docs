@@ -1,8 +1,8 @@
 .. _conan_tools_pkgconfig:
 
 
-conan.tools.gnu.pkgconfigdeps
-=============================
+PkgConfigDeps
+=============
 
 .. warning::
 
