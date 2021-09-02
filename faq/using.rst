@@ -9,11 +9,49 @@ Packaging header-only libraries is similar to other packages. Be sure to start b
 There are different approaches depending on if you want Conan to run the library unit tests while creating the package or not. Full details are described
 :ref:`in this how-to guide<header_only>`.
 
+.. _settings_vs_options:
+
 When to use settings or options?
 --------------------------------
 
 While creating a package, you may want to add different configurations and variants of the package. There are two main inputs that define
-packages: settings and options. Read more about them in :ref:`this section<settings_vs_options>`.
+packages: settings and options.
+
+**Settings** are a project-wide configuration, something that typically affects the whole project that
+is being built. For example, the operating system or the architecture would be naturally the same for all
+packages in a dependency graph, linking a Linux library for a Windows app, or
+mixing architectures is impossible.
+
+Settings cannot be defaulted in a package recipe. A recipe for a given library cannot say that its default is
+``os=Windows``. The ``os`` will be given by the environment in which that recipe is processed. It is
+a mandatory input.
+
+Settings are configurable. You can edit, add, remove settings or subsettings in your *settings.yml* file.
+See :ref:`the settings.yml reference <settings_yml>`.
+
+On the other hand, **options** are a package-specific configuration. Static or shared library are not
+settings that apply to all packages. Some can be header only libraries while others packages can be just data,
+or package executables. Packages can contain a mixture of different artifacts. ``shared`` is a common
+option, but packages can define and use any options they want.
+
+Options are defined in the package recipe, including their supported values, while other can be defaulted by the package
+recipe itself. A package for a library can well define that by default it will be a static library (a typical default).
+If not specified other. the package will be static.
+
+There are some exceptions to the above. For example, settings can be defined per-package using the command line:
+
+.. code-block:: bash
+
+    $ conan install . -s mypkg:compiler=gcc -s compiler=clang ..
+
+This will use ``gcc`` for "mypkg" and ``clang`` for the rest of the dependencies (extremely rare case).
+
+There are situations whereby many packages use the same option, thereby allowing you to set its value once using patterns, like:
+
+.. code-block:: bash
+
+    $ conan install . -o *:shared=True
+
 
 
 Can Conan use git repositories as package servers?
