@@ -31,11 +31,12 @@ Using the :command:`conan new` command will create a "Hello World" C++ library e
     File saved: test_package/src/example.cpp
 
 
-On the root folder, there is a *conanfile.py* which is the main recipe file, responsible for
-defining our package and the *src* folder that contains the simple C++ "hello" library with a simple generic
-*CMakeLists.txt* to build it, with nothing specific about Conan in it. Also, there is an optional *test_package*
-folder, which contains an *example* application that links the that will require and link with the created package.
-It is not mandatory, but it is useful to check that our package is correctly created.
+The generated files are:
+
+- **conanfile.py**: On the root folder, there is a *conanfile.py* which is the main recipe file, responsible for defining how the package is built and consumed.
+- **src** folder: the *src* folder that contains the simple C++ "hello" library with a simple generic *CMakeLists.txt* to build it, with nothing specific about Conan in it.
+- (optional) **test_package** folder: contains an *example* application that links the that will require and link with the created package.
+  It is not mandatory, but it is useful to check that our package is correctly created.
 
 Let's have a look at the package recipe *conanfile.py*:
 
@@ -81,7 +82,7 @@ Let's have a look at the package recipe *conanfile.py*:
             self.cpp_info.libs = ["hello"]
 
 
-Without going into detail, these are the basics:
+Let's explain a little bit this recipe:
 
 - The binary configuration is composed by ``settings`` and ``options``. See more in :ref:`this section<settings_vs_options>`.
   When something changes in the configuration, the resulting binary built and packaged will be different:
