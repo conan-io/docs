@@ -87,6 +87,12 @@ Global declared variables
 | conan_frameworks          | Aggregated frameworks from cpp_info.frameworks       |
 +---------------------------+------------------------------------------------------+
 
+.. note::
+
+    Both the global ``conan_frameworks`` and each ``conan_frameworks_xxx`` support only system frameworks, not
+    frameworks packaged by the requirements. See discussion `here <https://github.com/conan-io/conan/pull/9371>`_.
+
+
 Functions
 ---------
 
@@ -108,3 +114,4 @@ settings:
         defines{conan_cppdefines}
         bindirs{conan_bindirs}
     end
+
