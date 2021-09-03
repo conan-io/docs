@@ -38,7 +38,7 @@ Examples:
 
 .. code-block:: bash
 
-    $ conan inspect zlib/1.2.11@ -a=name -a=version -a=options -a default_options -r=conan-center
+    $ conan inspect zlib/1.2.11@ -a=name -a=version -a=options -a default_options -r=conancenter
     name: zlib
     version: 1.2.11
     options
