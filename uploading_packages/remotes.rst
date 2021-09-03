@@ -62,7 +62,7 @@ discouraged**. This documentation is kept here only for reference purposes.
 
     $ conan-center: https://conan.bintray.com [Verify SSL: True]
 
-It contains all the packages that were in the `conancenter` remote until July 1st (new packages are no longer uploaded to this remote),
+It contains all the packages that were uploaded to ConanCenter before July 1st (new packages are no longer uploaded to this remote),
 as well as **legacy packages with full reference** (`zlib/1.2.11@conan/stable`). These package binaries were created by users in their own
 Bintray repositories and included in this main repository. This flow of contributing packages to ConanCenter is no longer available and
 packages are **not recommended** and should be considered as **legacy**.
