@@ -55,7 +55,7 @@ To contribute packages to ConanCenter, read the :ref:`ConanCenter guide <conan_c
 conan-center [deprecated]
 -------------------------
 
-**conan-center** was the official repository but is is **no longer a default remote** in the Conan client and **its usage is completely
+**conan-center** was the official repository but is **no longer a default remote** in the Conan client and **its usage is completely
 discouraged**. This documentation is kept here only for reference purposes.
 
 .. code-block:: bash
