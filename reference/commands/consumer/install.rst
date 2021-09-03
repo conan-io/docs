@@ -324,6 +324,10 @@ With the :command:`-o` parameters you can only define specific package options.
     # you can also apply the same options to many packages with wildcards:
     $ conan install . -o *:shared=True
 
+**Experimental:** To define an option just for the consumer conanfile.py use :command:`-o &:shared=True` syntax.
+If `&` is specified as the package name it will apply only to the consumer conanfile.py. This is a special case
+because the consumer conanfile might not declare a `name` so it would be impossible to reference it.
+
 .. note::
 
     You can use :ref:`profiles <profiles>` files to create predefined sets of **settings**,
