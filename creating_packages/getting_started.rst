@@ -10,9 +10,9 @@ packages from sources in your computer.
 .. important::
 
     This is a **tutorial** section. You are encouraged to execute these commands.
-    For this concrete example you will need **CMake** installed  in your path.
+    For this concrete example, you will need **CMake** installed  in your path.
     It is not strictly required by Conan to create packages, you can use
-    other build systems (as VS, Meson, Autotools and even your own) to create packages, without any dependency
+    other build systems (as VS, Meson, Autotools and even your own) to do that, without any dependency
     to CMake.
 
 
