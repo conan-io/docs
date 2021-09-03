@@ -35,7 +35,7 @@ The generated files are:
 
 - **conanfile.py**: On the root folder, there is a *conanfile.py* which is the main recipe file, responsible for defining how the package is built and consumed.
 - **src** folder: the *src* folder that contains the simple C++ "hello" library with a simple generic *CMakeLists.txt* to build it, with nothing specific about Conan in it.
-- (optional) **test_package** folder: contains an *example* application that links the that will require and link with the created package.
+- (optional) **test_package** folder: contains an *example* application that will require and link with the created package.
   It is not mandatory, but it is useful to check that our package is correctly created.
 
 Let's have a look at the package recipe *conanfile.py*:
