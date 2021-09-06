@@ -287,6 +287,17 @@ extremly useful:
 * :ref:`create_installer_packages`
 * :ref:`cross_building`
 
+The default build profile in Conan 1.X is not defined by default, and needs to be specified in command line.
+However, it is also possible to define a default one in ``global.conf`` configuration file with:
+
+.. code-block:: text
+   :caption: *global.conf*
+
+    core:default_build_profile=default
+    core:default_profile=linux_armv8
+
+The default host profile can be defaulted as well using this configuration method.
+
 
 Profile templates
 -----------------
