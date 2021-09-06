@@ -13,11 +13,11 @@ conan.tools.files.patch()
     def patch(conanfile, base_path=None, patch_file=None, patch_string=None,
               strip=0, fuzz=False, **kwargs):
 
-Applies a diff from file (*patch_file*)  or string (*patch_string*) in *base_path* directory. If
-*base_path* is not passed it is applied in the current directory.
+Applies a diff from file (*patch_file*)  or string (*patch_string*) in the ``conanfile.source_folder`` directory.
+The folder containing the sources can be customized with the ``self.folders`` attribute in the :ref:`layout(self)
+method<layout_folders_reference>`.
 
 Parameters:
-    - **base_path**: Base path where the patch should be applied.
     - **patch_file**: Patch file that should be applied.
     - **patch_string**: Patch string that should be applied.
     - **strip**: Number of folders to be stripped from the path.
@@ -44,9 +44,7 @@ Example of ``conandata.yml`` without versions defined:
 
     patches:
     - patch_file: "patches/0001-buildflatbuffers-cmake.patch"
-      base_path: "source_subfolder"
     - patch_file: "patches/0002-implicit-copy-constructor.patch"
-      base_path: "source_subfolder"
       patch_type: backport
       patch_source: https://github.com/google/flatbuffers/pull/5650
       patch_description: Needed to build with modern clang compilers.
@@ -58,15 +56,12 @@ Example of ``conandata.yml`` with different patches for different versions:
     patches:
       "1.11.0":
         - patch_file: "patches/0001-buildflatbuffers-cmake.patch"
-          base_path: "source_subfolder"
         - patch_file: "patches/0002-implicit-copy-constructor.patch"
-          base_path: "source_subfolder"
           patch_type: backport
           patch_source: https://github.com/google/flatbuffers/pull/5650
           patch_description: Needed to build with modern clang compilers.
       "1.12.0":
         - patch_file: "patches/0001-buildflatbuffers-cmake.patch"
-          base_path: "source_subfolder"
 
 conan.tools.rename()
 --------------------
