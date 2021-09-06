@@ -18,8 +18,46 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-    Conan 1.39 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
+    Conan 1.40 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
     submit a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
+
+1.40.0 (06-Sept-2021)
+---------------------
+
+- Feature: Update :command:`conan new` modern templates ``--template=cmake_lib`` and ``--template=cmake_exe``. `#9516 <https://github.com/conan-io/conan/pull/9516>`_ . Docs `here <https://github.com/conan-io/docs/pull/2211>`__
+- Feature: Introduced a new cpp_info property `cmake_target_namespace` to declare the target namespace for the `CMakeDeps` generator. This feature allows declaring a global target with a different namespace like `Foo::Bar`. `#9513 <https://github.com/conan-io/conan/pull/9513>`_ . Docs `here <https://github.com/conan-io/docs/pull/2209>`__
+- Feature: Detect Visual Studio 2022 as `msvc`. `#9504 <https://github.com/conan-io/conan/pull/9504>`_
+- Feature: Add Clang 13 support. `#9502 <https://github.com/conan-io/conan/pull/9502>`_ . Docs `here <https://github.com/conan-io/docs/pull/2204>`__
+- Feature: Testing support for Windows CMake + Clang (independent LLVM, not VS) + Ninja/MinGW builds, and CMake + Clang (Visual Studio 16 internal LLVM 11 via ClangCL toolset). `#9477 <https://github.com/conan-io/conan/pull/9477>`_
+- Feature: Provide new ``[conf]`` ``core:default_build_profile`` to enable the usage of the build profile as default, and to allow definition of the host profile default in new ``[conf]`` ``core:default_profile``. `#9468 <https://github.com/conan-io/conan/pull/9468>`_ . Docs `here <https://github.com/conan-io/docs/pull/2213>`__
+- Feature: **CMakeToolchain** new member `find_builddirs` defaulted to `True` to add the `cpp_info.builddirs` from the requirements to the `CMAKE_PREFIX_PATH/CMAKE_MODULE_PATH`. That would allow finding the config files packaged and to be able to `include()` them from the consumer `CMakeLists.txt`. `#9455 <https://github.com/conan-io/conan/pull/9455>`_ . Docs `here <https://github.com/conan-io/docs/pull/2209>`__
+- Feature: **CMakeDeps**. Added a new property `cmake_find_mode` with possible values to `config`(default), `module`, `both` or `none` to control the files to be generated from a package itself. The `none` replaces the current `skip_deps_file` property. `#9455 <https://github.com/conan-io/conan/pull/9455>`_ . Docs `here <https://github.com/conan-io/docs/pull/2209>`__
+- Feature: **CMakeDeps**: Added two new properties `cmake_module_file_name` and `cmake_module_target_name`, analog to `cmake_file_name` and `cmake_target_name`, but to configure the name of `FindXXX.cmake` file and the target declared inside. `#9455 <https://github.com/conan-io/conan/pull/9455>`_ . Docs `here <https://github.com/conan-io/docs/pull/2209>`__
+- Feature: Remove `conan-center` (https://conan.bintray.com) default remote. `#9401 <https://github.com/conan-io/conan/pull/9401>`_ . Docs `here <https://github.com/conan-io/docs/pull/2212>`__
+- Feature: Implement round trip new profile ``[buildenv]`` section, necessary for lockfiles, and specially stdout printing. `#9320 <https://github.com/conan-io/conan/pull/9320>`_
+- Feature: Allow ``-o &:option=value`` wildcard for consumer, too, same it was done for settings in 1.39 `#9316 <https://github.com/conan-io/conan/pull/9316>`_ . Docs `here <https://github.com/conan-io/docs/pull/2214>`__
+- Fix: Adding management of private dependencies, via new ``visible`` trait compatible with 2.0 for new ``CMakeDeps`` and ``MSBuildDeps``. `#9517 <https://github.com/conan-io/conan/pull/9517>`_
+- Fix: Remove unused ``deprecation`` pip dependency `#9478 <https://github.com/conan-io/conan/pull/9478>`_
+- Fix: Upgrade ``distro`` dependency to allow 1.6.0 `#9462 <https://github.com/conan-io/conan/pull/9462>`_
+- Fix: Make :command:`conan remove` accept package reference syntax. `#9459 <https://github.com/conan-io/conan/pull/9459>`_ . Docs `here <https://github.com/conan-io/docs/pull/2198>`__
+- Fix: Fixed old CMake build helper to cross-build to iOS when two profiles are specified. `#9437 <https://github.com/conan-io/conan/pull/9437>`_
+- Fix: Fix :command:`conan export` typo in help message. `#9408 <https://github.com/conan-io/conan/pull/9408>`_ . Docs `here <https://github.com/conan-io/docs/pull/2187>`__
+- Fix:  Relax python six dependency to allow 1.16 `#9407 <https://github.com/conan-io/conan/pull/9407>`_
+- Fix: Bump urllib3 version to 1.26.6 `#9405 <https://github.com/conan-io/conan/pull/9405>`_
+- Fix: The new `Autotools` build helper accepts a `build_script_folder ` argument in the `configure()` method to specify are subfolder where the configure script is. `#9393 <https://github.com/conan-io/conan/pull/9393>`_ . Docs `here <https://github.com/conan-io/docs/pull/2208>`__
+- Fix: Use `frameworks` in Premake generator. `#9371 <https://github.com/conan-io/conan/pull/9371>`_ . Docs `here <https://github.com/conan-io/docs/pull/2210>`__
+- Fix: The tool `conan.tools.files.apply_conandata_patches` will use the root source folder to find the patch file and the tool `conan.tools.files.patch` will take the current source folder declared in the `layout()` method to know where is the source to apply the patches. `#9361 <https://github.com/conan-io/conan/pull/9361>`_ . Docs `here <https://github.com/conan-io/docs/pull/2207>`__
+- Fix: Avoid checking other remotes when ``-r=remote`` is defined and revisions are activated and binary is not found in the defined remote. `#9355 <https://github.com/conan-io/conan/pull/9355>`_
+- Bugfix: Setting the `CMAKE_OSX_DEPLOYMENT_TARGET` variable as a cache entry. `#9498 <https://github.com/conan-io/conan/pull/9498>`_
+- BugFix: Use topological ordering to define `VirtualBuildEnv` composition and precedence of appending variables. `#9491 <https://github.com/conan-io/conan/pull/9491>`_
+- Bugfix: Bazel build files have an extra `]` if there are no dependencies. `#9480 <https://github.com/conan-io/conan/pull/9480>`_
+- Bugfix: Add AlmaLinux to `with_yum`. `#9463 <https://github.com/conan-io/conan/pull/9463>`_
+- Bugfix: **CMakeToolchain**. Fixed a bugfix whereby a variable declared at the `.variables` containing a boolean ended at CMake with a quoted `"True"` or `"False"` values, instead of `ON` / `OFF` `#9455 <https://github.com/conan-io/conan/pull/9455>`_ . Docs `here <https://github.com/conan-io/docs/pull/2209>`__
+- Bugfix: Fixed bug whereby Conan failed when using `compiler=gcc` with `compiler.version=5` (without specifying a minor version) and `compiler.cppstd=17`. `#9431 <https://github.com/conan-io/conan/pull/9431>`_
+- Bugfix: No verbose traceback was been printed for `conanfile.layout()` method. `#9384 <https://github.com/conan-io/conan/pull/9384>`_
+- Bugfix: Fix Bazel `cc_library`: `deps` and `linkopts`. `#9381 <https://github.com/conan-io/conan/pull/9381>`_
+- Bugfix: Fixed bug whereby using new `layout()` method together with `cppinfo.components` in the `package_info` method caused an exception. `#9360 <https://github.com/conan-io/conan/pull/9360>`_
+- Bugfix: Fix `PkgConfigDeps` that was failing in the case of components with requirements. `#9341 <https://github.com/conan-io/conan/pull/9341>`_
 
 1.39.0 (27-Jul-2021)
 --------------------

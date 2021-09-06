@@ -126,6 +126,35 @@ This will be translated to:
 - One ``set()`` definition, using a cmake generator expression in ``conan_toolchain.cmake`` file,
   using the different values for different configurations.
 
+The booleans assigned to a variable will be translated to ``ON`` and ``OFF`` symbols in CMake:
+
+.. code:: python
+
+    def generate(self):
+        tc = CMakeToolchain(self)
+        tc.variables["FOO"] = True
+        tc.variables["VAR"] = False
+        tc.generate()
+
+
+Will generate the sentences: ``set(FOO ON ...)`` and ``set(VAR OFF ...)``.
+
+
+find_builddirs
+++++++++++++++
+
+Defaulted to ``True``. If ``True`` Conan adds the ``cpp_info.builddirs`` from the requirements to the
+``CMAKE_PREFIX_PATH`` and ``CMAKE_MODULE_PATH`` variables. That would allow finding the config files or modules
+packaged in the dependencies and also including them from the consumer CMakeLists.txt.
+
+.. code:: python
+
+    def generate(self):
+        tc = CMakeToolchain(self)
+        tc.find_builddirs = False
+        tc.generate()
+
+
 Generators
 ++++++++++
 

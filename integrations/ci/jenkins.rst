@@ -81,7 +81,7 @@ Create a new Jenkins Pipeline task using this script:
 Example: Build a Conan package and upload it to Artifactory
 ***********************************************************
 
-In this example we will call Conan :ref:`test package<creating_and_testing_packages>` command to create a binary packages
+In this example we will call Conan ``create`` command to create a binary packages
 and then upload it to Artifactory. We also upload the `build information`_:
 
 

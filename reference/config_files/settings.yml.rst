@@ -89,7 +89,7 @@ are possible. These are the **default** values, but it is possible to customize 
         clang:
             version: ["3.3", "3.4", "3.5", "3.6", "3.7", "3.8", "3.9", "4.0",
                       "5.0", "6.0", "7.0", "7.1",
-                      "8", "9", "10", "11"]
+                      "8", "9", "10", "11", "12", "13"]
             libcxx: [None, libstdc++, libstdc++11, libc++, c++_shared, c++_static]
             cppstd: [None, 98, gnu98, 11, gnu11, 14, gnu14, 17, gnu17, 20, gnu20]
             runtime: [None, MD, MT, MTd, MDd]
@@ -176,6 +176,13 @@ This can be configured in your profiles with the ``tools.microsoft.msbuild:vs_ve
 
 In this case, the ``vcvars`` will activate the Visual Studio 16 installation, but the ``19.0`` compiler version will still be used
 because the necessary ``toolset=v140`` will be set.
+
+
+clang
++++++
+
+The release 13.0.0 will be released officially on September 21, 2021. However, Conan 1.40 will support it in settings.yml before
+the final release. It will be considered as **experimental** in case of incompatibility until the release.
 
 
 Architectures

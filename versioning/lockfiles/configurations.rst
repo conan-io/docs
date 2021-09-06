@@ -117,6 +117,23 @@ it is guaranteed that both will use the ``pkga/0.1@user/testing`` dependency, an
 Now, we will have 2 lockfiles, *locks/pkgb_deps_debug.lock* and *locks/pkgb_deps_release.lock*. Each one will lock different profiles and different package-id
 of ``pkga/0.1@user/testing``.
 
+.. note::
+    In Conan 1.X, if you are generating lockfiles with separate build and host profiles, your base lockfiles must also use separate build and host profiles.
+    For example, here we are generating a base lockfile that will be used to generate lockfiles for a Linux and Windows build:
+
+    .. code-block:: bash
+
+        # The build and host profiles you choose for the base lockfile should
+        # include all dependencies needed by all lockfiles you will generate
+        # from the base lockfile.
+        $ conan lock create conanfile.py -pr:b release -pr:h debug --lockfile-out=base.lock --base
+
+        # Use the base lockfile to generate lockfiles for a Linux and Windows
+        # build.
+        $ conan lock create conanfile.py -pr:b linux-rel -pr:h linux-dbg --lockfile=base.lock --lockfile-out=linux.lock
+        $ conan lock create conanfile.py -pr:b windows-rel -pr:h windows-dbg --lockfile=base.lock --lockfile-out=windows.lock
+
+    For more information, please see `GitHub issue #9446 <https://github.com/conan-io/conan/issues/9446#issuecomment-904846681>`_.
 
 Locked configuration
 --------------------
