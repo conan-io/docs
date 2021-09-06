@@ -16,4 +16,4 @@ FAQ
    faq/troubleshooting
 
 
-.. _`Cpplang Slack`: https://cpplang-inviter.cppalliance.org/
+.. _`Cpplang Slack`: https://cppalliance.org/slack/

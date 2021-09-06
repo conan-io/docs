@@ -457,6 +457,6 @@ Got any doubts? Check our :ref:`faq`, |write_us| or join the community in `Cppla
 
 .. _`Poco`: https://pocoproject.org/
 
-.. _`Cpplang Slack`: https://cpplang-inviter.cppalliance.org/
+.. _`Cpplang Slack`: https://cppalliance.org/slack/
 
 .. _`example repository`: https://github.com/conan-io/examples
