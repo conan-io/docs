@@ -45,11 +45,12 @@ Usage:
             def package(self):
                 LayoutPackager(self).package()
 
+.. _conan_tools_layout_predefined_layouts:
 
 Predefined layouts
 ------------------
 
-There are some pre-defined common layouts, ready to be simply used in recipes.
+There are some pre-defined common layouts, ready to be simply used in recipes:
 
 For example, this would implement the standard CMake project layout:
 

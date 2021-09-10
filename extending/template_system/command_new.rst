@@ -7,17 +7,17 @@ Package scaffolding for :command:`conan new` command
 .. warning::
 
     This has to be an considered as an **experimental** feature, we might
-    change the context provided to this templates once we have more exmpales
+    change the context provided to this templates once we have more examples
     from the community.
 
 
 Using the Conan command :command:`conan new` is a very convenient way to start a new project with a
-example `conanfile.py`. This command has a ``--template`` argument you can use to provide a path to 
+example `conanfile.py`. This command has a ``--template`` argument you can use to provide a path to
 a template file for the ``conanfile.py`` itself or even a path to a folder containing files for a
 C++ project using Conan recipes.
 
 The argument ``--template`` can take an absolute path or a relative path. If relative, Conan will look
-for the files starting in the Conan cache folder ``templates/command/new/``, this is very useful in 
+for the files starting in the Conan cache folder ``templates/command/new/``, this is very useful in
 combination with :ref:`conan_config_install` because you can easily share these templates with all
 your team.
 
@@ -37,7 +37,7 @@ full C++ project scaffolding, and with a single command you can get started:
     $ conan new mypackage/version --template=conan-center
 
 Conan will process all the files found in that folder using `Jinja2 engine <https://palletsprojects.com/p/jinja/>`_
-and the paths to those files too. Thus the following template directory (which match the conventions for 
+and the paths to those files too. Thus the following template directory (which match the conventions for
 `conan-center-index <https://github.com/conan-io/conan-center-index/tree/master/recipes>`_ recipes):
 
 .. code-block:: text
@@ -48,7 +48,7 @@ and the paths to those files too. Thus the following template directory (which m
                 /{{name}}/all/test_package/conanfile.py
                 /{{name}}/all/test_package/CMakeLists.txt
                 /{{name}}/all/test_package/main.cpp
-               
+
 
 will be translated to:
 
@@ -104,7 +104,7 @@ This is a very simple example for a header only library:
 Custom definitions
 ------------------
 
-Sometimes it's needed to provide additional variables for the custom templates. For instance, if 
+Sometimes it's needed to provide additional variables for the custom templates. For instance, if
 it's desired to have ``description`` and ``homepage`` to be templated as well:
 
 
@@ -135,3 +135,16 @@ now it's easy to overwrite these values from the command line:
     .. code-block:: bash
 
         $ conan new mypackage/version --template=header_only -d homepage=https://www.example.com -d description="the best package"
+
+Predefined templates
+--------------------
+
+Available since: `1.40.0 <https://github.com/conan-io/conan/releases/tag/1.40.0>`_
+
+Conan client has some predefined templates which can be used with the command ``new``.
+Both templates are related to :ref:`Layouts<conan_tools_layout_predefined_layouts>` and offer a simple Hello World example:
+
+* `cmake_lib`: Generates a hello world c++ library based on modern Conan recipe (layout + generate)
+* `cmake_exe`: Generates a hello world executable based on modern Conan recipe (layout + generate)
+
+A full example can be read on :ref:`Creating Packages<packaging_getting_started>` section.
