@@ -45,6 +45,7 @@ Usage:
             def package(self):
                 LayoutPackager(self).package()
 
+.. _conan_tools_layout_predefined_layouts:
 
 Predefined layouts
 ------------------
