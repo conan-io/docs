@@ -81,7 +81,7 @@ requirements, :command:`conan install` command will generate a toolchain file li
     # but full path is necessary for others
     set(CMAKE_OSX_SYSROOT iphoneos)
 
-    
+
 
 
 With this toolchain file you can execute CMake's command to generate the binaries:
@@ -91,3 +91,53 @@ With this toolchain file you can execute CMake's command to generate the binarie
    conan install <conanfile> --profile:host=profile_host_ios --profile:build=default
    cmake . -GXcode -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
    cmake --build . --config Release
+
+
+Use the ios-cmake toolchain
+============================
+
+For CMake source code there is `iOS CMake toolchain <https://conan.io/center/ios-cmake>`_.
+Simply add this to the `build requires` of you build profile.
+
+.. note::
+
+    Please note, since building for iOS, tvOS, watchOS is always a cross compilation, it is recommended to use the new :ref:`build requires <build_requires>` with :ref:`build and host contexts <build_requires_context>`.
+
+
+This is an example for a ``--profile:host`` profile that:
+
+* uses the ios-cmake toolchain
+* does the setup for the ios-cmake toolchain
+* configures libcurl and openssl to generate builds with bitcode
+
+.. code-block:: ini
+   :caption: **profile_host_ios**
+
+    [settings]
+    os=iOS
+    os.version=11.0
+    arch=armv8
+    compiler=apple-clang
+    compiler.version=12.0
+    compiler.cppstd=17
+    compiler.libcxx=libc++
+    build_type=Release
+    os.sdk=iphoneos
+    [options]
+    ios-cmake:toolchain_target=OS64
+    libcurl:with_ssl=openssl
+    [conf]
+    [build_requires]
+    *: ios-cmake/4.2.0
+    [env]
+    openssl:CFLAGS=-fembed-bitcode
+    libcurl:CFLAGS=-fembed-bitcode
+    libcurl:CPPFLAGS=-fembed-bit
+
+
+For none CMake projects: It is up to them to get the build right and provide the correct options. Very often they do, e.g. openssl and libcurl.
+You can see in the example profile how to set them up.
+
+.. hint::
+    It is possible to use the `iOS CMake toolchain <https://conan.io/center/ios-cmake>`_ and combine it with the :ref:`conan cmake toolchain<conan-cmake-toolchain>` and get even more power and configuration possibilities.
+
