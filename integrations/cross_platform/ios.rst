@@ -132,7 +132,8 @@ This is an example for a ``--profile:host`` profile that:
     [env]
     openssl:CFLAGS=-fembed-bitcode
     libcurl:CFLAGS=-fembed-bitcode
-    libcurl:CPPFLAGS=-fembed-bit
+    libcurl:CPPFLAGS=-fembed-bitcode
+    CONAN_CMAKE_GENERATOR=Xcode
 
 
 For none CMake projects: It is up to them to get the build right and provide the correct options. Very often they do, e.g. openssl and libcurl.
