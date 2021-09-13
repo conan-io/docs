@@ -13,12 +13,13 @@ conan.tools.files.patch()
     def patch(conanfile, base_path=None, patch_file=None, patch_string=None,
               strip=0, fuzz=False, **kwargs):
 
-Applies a diff from file (*patch_file*)  or string (*patch_string*) in the ``conanfile.source_folder`` directory.
+Applies a diff from file (*patch_file*) or string (*patch_string*) in the ``conanfile.source_folder`` directory.
 The folder containing the sources can be customized with the ``self.folders`` attribute in the :ref:`layout(self)
 method<layout_folders_reference>`.
 
 Parameters:
     - **patch_file**: Patch file that should be applied.
+    - **base_path**: Relative path from **conanfile.source_folder**.
     - **patch_string**: Patch string that should be applied.
     - **strip**: Number of folders to be stripped from the path.
     - **output**: Stream object.
@@ -38,6 +39,8 @@ Applies patches stored in ``conanfile.conan_data`` (read from ``conandata.yml`` 
 all the patches under ``patches`` entry that matches the given ``conanfile.version``. If versions are
 not defined in ``conandata.yml`` it will apply all the patches directly under ``patches`` keyword.
 
+The key entries will be passed as kwargs to the :ref:`patch<conan_tools_files_patch>` function.
+
 Example of ``conandata.yml`` without versions defined:
 
 .. code-block:: yaml
@@ -45,6 +48,7 @@ Example of ``conandata.yml`` without versions defined:
     patches:
     - patch_file: "patches/0001-buildflatbuffers-cmake.patch"
     - patch_file: "patches/0002-implicit-copy-constructor.patch"
+      base_path: "subfolder"
       patch_type: backport
       patch_source: https://github.com/google/flatbuffers/pull/5650
       patch_description: Needed to build with modern clang compilers.
@@ -57,6 +61,7 @@ Example of ``conandata.yml`` with different patches for different versions:
       "1.11.0":
         - patch_file: "patches/0001-buildflatbuffers-cmake.patch"
         - patch_file: "patches/0002-implicit-copy-constructor.patch"
+          base_path: "subfolder"
           patch_type: backport
           patch_source: https://github.com/google/flatbuffers/pull/5650
           patch_description: Needed to build with modern clang compilers.
