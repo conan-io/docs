@@ -21,6 +21,16 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.40 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
     submit a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.40.1 (14-Sept-2021)
+---------------------
+
+- Feature: Change default `cmake_layout()` source folder from 'src' to '.' `#9596 <https://github.com/conan-io/conan/pull/9596>`_ . Docs `here <https://github.com/conan-io/docs/pull/2225>`__
+- Feature: Recovered `base_path` argument for `conan.tools.files.patch` and `conan.tools.files.apply_conandata_patches` to be able to specify a relative folder from the `conanfile.source_folder` directory (that follows the layout() method). `#9593 <https://github.com/conan-io/conan/pull/9593>`_ . Docs `here <https://github.com/conan-io/docs/pull/2222>`__
+- Fix: Allow user definition of `CMAKE_XXX_INIT` variables in user toolchains when using `CMakeToolchain`. `#9576 <https://github.com/conan-io/conan/pull/9576>`_
+- Fix: Upgrade minimum ``requests>=2.25`` in requirements.txt to make it compatible with latest upgrade of ``urllib3`` to 1.26.6 `#9562 <https://github.com/conan-io/conan/pull/9562>`_
+- Bugfix: Aggregate `[conf]` from `build_requires` earlier so it is available for generators declared as `generators`. attribute. Close https://github.com/conan-io/conan/issues/9571 `#9573 <https://github.com/conan-io/conan/pull/9573>`_
+- Bugfix: The qmake generator now assigns `QMAKE_LFLAGS_SHLIB` and `QMAKE_LFLAGS_APP` variables instead of the incorrect `QMAKE_LFLAGS` following the official docs. `#9568 <https://github.com/conan-io/conan/pull/9568>`_ . Docs `here <https://github.com/conan-io/docs/pull/2224>`__
+
 1.40.0 (06-Sept-2021)
 ---------------------
 
