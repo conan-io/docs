@@ -36,7 +36,8 @@ Using the :command:`conan new` command will create a "Hello World" C++ library e
 
 The generated files are:
 
-- **conanfile.py**: On the root folder, there is a *conanfile.py* which is the main recipe file, responsible for defining how the package is built and consumed, and a simple generic *CMakeLists.txt* to build it, with nothing specific about Conan in it.
+- **conanfile.py**: On the root folder, there is a *conanfile.py* which is the main recipe file, responsible for defining how the package is built and consumed. 
+- **CMakeLists.txt**: A simple generic *CMakeLists.txt*, with nothing specific about Conan in it.
 - **src** folder: the *src* folder that contains the simple C++ "hello" library.
 - (optional) **test_package** folder: contains an *example* application that will require and link with the created package.
   It is not mandatory, but it is useful to check that our package is correctly created.
