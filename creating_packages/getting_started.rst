@@ -26,18 +26,18 @@ Using the :command:`conan new` command will create a "Hello World" C++ library e
     $ mkdir hellopkg && cd hellopkg
     $ conan new hello/0.1 --template=cmake_lib
     File saved: conanfile.py
-    File saved: src/CMakeLists.txt
+    File saved: CMakeLists.txt
     File saved: src/hello.cpp
     File saved: src/hello.h
     File saved: test_package/conanfile.py
-    File saved: test_package/src/CMakeLists.txt
+    File saved: test_package/CMakeLists.txt
     File saved: test_package/src/example.cpp
 
 
 The generated files are:
 
-- **conanfile.py**: On the root folder, there is a *conanfile.py* which is the main recipe file, responsible for defining how the package is built and consumed.
-- **src** folder: the *src* folder that contains the simple C++ "hello" library with a simple generic *CMakeLists.txt* to build it, with nothing specific about Conan in it.
+- **conanfile.py**: On the root folder, there is a *conanfile.py* which is the main recipe file, responsible for defining how the package is built and consumed, and a simple generic *CMakeLists.txt* to build it, with nothing specific about Conan in it.
+- **src** folder: the *src* folder that contains the simple C++ "hello" library.
 - (optional) **test_package** folder: contains an *example* application that will require and link with the created package.
   It is not mandatory, but it is useful to check that our package is correctly created.
 
@@ -59,7 +59,7 @@ Let's have a look at the package recipe *conanfile.py*:
         default_options = {"shared": False, "fPIC": True}
 
         # Sources are located in the same place as this recipe, copy them to the recipe
-        exports_sources = "src/*"
+        exports_sources = "CMakeLists.txt", "src/*"
 
         def config_options(self):
             if self.settings.os == "Windows":

@@ -68,29 +68,31 @@ attributes described before:
 
 .. code:: python
 
-    def cmake_layout(conanfile, generator=None):
-        gen = conanfile.conf["tools.cmake.cmaketoolchain:generator"] or generator
-        if gen:
-            multi = "Visual" in gen or "Xcode" in gen or "Multi-Config" in gen
-        elif conanfile.settings.compiler == "Visual Studio" or conanfile.settings.compiler == "msvc":
-            multi = True
-        else:
-            multi = False
+def cmake_layout(conanfile, generator=None):
+    gen = conanfile.conf["tools.cmake.cmaketoolchain:generator"] or generator
+    if gen:
+        multi = "Visual" in gen or "Xcode" in gen or "Multi-Config" in gen
+    elif conanfile.settings.compiler == "Visual Studio" or conanfile.settings.compiler == "msvc":
+        multi = True
+    else:
+        multi = False
 
-        conanfile.folders.source = "src"
-        if multi:
-            conanfile.folders.build = "build"
-            conanfile.folders.generators = "build/conan"
-        else:
-            build_type = str(conanfile.settings.build_type).lower()
-            conanfile.folders.build = "cmake-build-{}".format(build_type)
-            conanfile.folders.generators = os.path.join(conanfile.folders.build, "conan")
+    conanfile.folders.source = "."
+    if multi:
+        conanfile.folders.build = "build"
+        conanfile.folders.generators = "build/conan"
+    else:
+        build_type = str(conanfile.settings.build_type).lower()
+        conanfile.folders.build = "cmake-build-{}".format(build_type)
+        conanfile.folders.generators = os.path.join(conanfile.folders.build, "conan")
 
-        conanfile.cpp.source.includedirs = ["."]
-        if multi:
-            conanfile.cpp.build.libdirs = ["{}".format(conanfile.settings.build_type)]
-        else:
-            conanfile.cpp.build.libdirs = ["."]
+    conanfile.cpp.source.includedirs = ["src"]
+    if multi:
+        conanfile.cpp.build.libdirs = ["{}".format(conanfile.settings.build_type)]
+        conanfile.cpp.build.bindirs = ["{}".format(conanfile.settings.build_type)]
+    else:
+        conanfile.cpp.build.libdirs = ["."]
+        conanfile.cpp.build.bindirs = ["."]
 
 First, it is important to notice that the layout depends on the CMake generator that will be used.
 So if defined from ``[conf]``, that value will be used. If defined in recipe, then the recipe should
@@ -106,8 +108,9 @@ Finally, the location where the libraries are created also depends. For multi-co
 will be located in a dedicated folder inside the build folder, while for single-config, the libraries will
 be located directly in the build folder.
 
-This helper defines a few things, for example that the source folder is called ``"src"``. This could be customized
-without fully changing the layout:
+This helper defines a few things, for example that the source folder is called ``"."``, meaning that Conan will
+search the main `CMakeLists.txt` in the same directory were the conanfile is (most likely the project root).
+This could be customized without fully changing the layout:
 
     def layout(self):
         cmake_layout(self)
