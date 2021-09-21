@@ -1407,7 +1407,7 @@ The purpose of ``generate()`` is to prepare the build, generating the necessary 
   Visual Studio property files.
 - Environment activation scripts, like ``conanbuildenv.bat`` or ``conanbuildenv.sh``, that define all the necessary environment
   variables necessary for the build.
-- Toolchain files, like ``conantoolchain.cmake``, that contains a mapping between the current Conan settings and options, and the
+- Toolchain files, like ``conan_toolchain.cmake``, that contains a mapping between the current Conan settings and options, and the
   build system specific syntax.
 - General purpose build information, as a ``conanbuild.conf`` file that could contain information like the CMake generator or
   CMake toolchain file to be used in the ``build()`` method.
