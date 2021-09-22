@@ -21,6 +21,11 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.40 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
     submit a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.40.2 (21-Sept-2021)
+---------------------
+
+- Bugfix: Add support for Xcode 13/Apple clang 13.0 `#9643 <https://github.com/conan-io/conan/pull/9643>`_
+
 1.40.1 (14-Sept-2021)
 ---------------------
 
