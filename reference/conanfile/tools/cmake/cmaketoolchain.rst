@@ -9,7 +9,7 @@ CMakeToolchain
 
 
 The ``CMakeToolchain`` is the toolchain generator for CMake. It will generate toolchain files that can be used in the
-command line invocation of CMake with the ``-DCMAKE_TOOLCHAIN_FILE=conantoolchain.cmake``. This generator translates
+command line invocation of CMake with the ``-DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake``. This generator translates
 the current package configuration, settings, and options, into CMake toolchain syntax.
 
 

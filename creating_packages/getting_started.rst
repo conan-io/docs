@@ -105,11 +105,11 @@ Let's explain a little bit this recipe:
 
 - The ``generate()`` method prepares the build of the package from source. In this case, it could be simplified
   to an attribute ``generators = "CMakeToolchain"``, but it is left to show this important method. In this case,
-  the execution of ``CMakeToolchain`` ``generate()`` method will create a *conantoolchain.cmake* file that maps
+  the execution of ``CMakeToolchain`` ``generate()`` method will create a *conan_toolchain.cmake* file that maps
   the Conan ``settings`` and ``options`` to CMake syntax.
 
 - The ``build()`` method uses the ``CMake`` wrapper to call CMake commands, it is a thin layer that will manage
-  to pass in this case the ``-DCMAKE_TOOLCHAIN_FILE=conantoolchain.cmake`` argument. It will configure the
+  to pass in this case the ``-DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake`` argument. It will configure the
   project and build it from source.
 
 - The ``package()`` method copies artifacts (headers, libs) from the build folder to the final
