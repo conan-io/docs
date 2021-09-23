@@ -95,7 +95,7 @@ Utility functions to rename a file or folder *src* to *dst*. On Windows, it is v
 
 .. code-block:: python
 
-    from conan.tools.file import rename
+    from conan.tools.files import rename
 
     def source(self):
         rename(self, "lib-sources-abe2h9fe", "sources")  # renaming a folder
