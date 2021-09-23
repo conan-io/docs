@@ -84,7 +84,7 @@ Example of ``conandata.yml`` with different patches for different versions:
       "1.12.0":
         - patch_file: "patches/0001-buildflatbuffers-cmake.patch"
 
-conan.tools.rename()
+conan.tools.files.rename()
 --------------------
 
 .. code-block:: python
