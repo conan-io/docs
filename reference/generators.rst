@@ -28,6 +28,7 @@ Available generators:
    generators/visualstudiomulti
    generators/visualstudiolegacy
    generators/xcode
+   generators/xcodemulti
    generators/compiler_args
    generators/gcc
    generators/boost_build
