@@ -11,7 +11,7 @@ xcode_multi
 The ``xcode`` generator creates a file named *conanbuildinfo_multi.xcconfig* that can be imported to your Xcode project.
 In addition it generates a *conanbuildinfo_<arch>.xcconfig* file for each generated architecture.
 
-The architecture specific files declare these variables with a conditional statemement defining the architecture:
+The architecture specific files declare these variables with a conditional statement defining the architecture:
 
 +--------------------------------+---------------------------------------------------------------------------+
 | VARIABLE                       | VALUE                                                                     |
@@ -30,3 +30,8 @@ The architecture specific files declare these variables with a conditional state
 +--------------------------------+---------------------------------------------------------------------------+
 | FRAMEWORK_SEARCH_PATHS         | The requirements framework folders, so xcode can find packaged frameworks |
 +--------------------------------+---------------------------------------------------------------------------+
+
+Usage
+-----
+Run `conan install` with a profile for each architecture. This will generate the architecture
+specific project files and add an include entry for each architecture in *conanbuildinfo_multi.xcconfig*

@@ -67,6 +67,10 @@ Build your project as usual.
 
 .. seealso::
 
+    Check the :ref:`Reference/Generators/xcode_multi <xcode_multi_generator>` for using multiple architectures.
+
+.. seealso::
+
     Check the :ref:`Tools section about Apple tools<tools_is_apple_os>` to ease the integration with the Apple development tools in your
     recipes using the toolchain as a :ref:`build require<build_requires>`.
 
