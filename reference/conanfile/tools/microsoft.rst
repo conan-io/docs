@@ -82,7 +82,7 @@ configuration. The above commands the following files will be generated:
 - *conandeps.props*: Properties files including all direct dependencies, in this case, it includes ``conan_zlib.props``
   and ``conan_bzip2.props``
 
-You will be adding the *conan_deps.props* to your solution project files if you want to depend on all the declared
+You will be adding the *conandeps.props* to your solution project files if you want to depend on all the declared
 dependencies. For single project solutions, this is probably the way to go. For multi-project solutions, you might
 be more efficient and add properties files per project. You could add *conan_zlib.props* properties to "project1"
 in the solution and *conan_bzip2.props* to "project2" in the solution for example.
