@@ -26,6 +26,15 @@ Parameters:
     - **fuzz**: Should accept fuzzy patches.
     - **kwargs**: Extra parameters that can be added and will contribute to output information.
 
+
+.. code-block:: python
+
+    from conan.tools.files import patch
+
+    def build(self):
+        for it in self.conan_data.get("patches", {}).get(self.version, []):
+            patch(self, **it)
+
 .. _conan_tools_files_apply_conandata_patches:
 
 conan.tools.files.apply_conandata_patches()
@@ -42,6 +51,13 @@ not defined in ``conandata.yml`` it will apply all the patches directly under ``
 The key entries will be passed as kwargs to the :ref:`patch<conan_tools_files_patch>` function.
 
 Example of ``conandata.yml`` without versions defined:
+
+.. code-block:: python
+
+    from conan.tools.files import apply_conandata_patches
+
+    def build(self):
+        apply_conandata_patches(self)
 
 .. code-block:: yaml
 
@@ -68,8 +84,8 @@ Example of ``conandata.yml`` with different patches for different versions:
       "1.12.0":
         - patch_file: "patches/0001-buildflatbuffers-cmake.patch"
 
-conan.tools.rename()
---------------------
+conan.tools.files.rename()
+--------------------------
 
 .. code-block:: python
 
@@ -79,8 +95,10 @@ Utility functions to rename a file or folder *src* to *dst*. On Windows, it is v
 
 .. code-block:: python
 
+    from conan.tools.files import rename
+
     def source(self):
-      tools.rename(self, "lib-sources-abe2h9fe", "sources")  # renaming a folder
+        rename(self, "lib-sources-abe2h9fe", "sources")  # renaming a folder
 
 Parameters:
   - **conanfile**: Conanfile object.

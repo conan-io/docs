@@ -2,7 +2,7 @@
 
 // TODO: Move to a file and avoid modifying CI script
 Map<String, String> versions = [
-        'release/1.40.2': '1.40',
+        'release/1.40.3': '1.40',
         'release/1.39.0': '1.39',
         'release/1.38.0': '1.38',
         'release/1.37.2': '1.37',

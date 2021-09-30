@@ -21,6 +21,11 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.40 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
     submit a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.40.3 (30-Sept-2021)
+---------------------
+
+- Bugfix: Added root certificate for Let's encrypt. `#9697 <https://github.com/conan-io/conan/pull/9697>`_
+
 1.40.2 (21-Sept-2021)
 ---------------------
 
