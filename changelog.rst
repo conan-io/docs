@@ -24,7 +24,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 1.40.3 (30-Sept-2021)
 ---------------------
 
-- Bugfix: Added root certificate for Let's encrypt. `#9696 <https://github.com/conan-io/conan/pull/9696>`_
+- Bugfix: Added root certificate for Let's encrypt. `#9697 <https://github.com/conan-io/conan/pull/9697>`_
 
 1.40.2 (21-Sept-2021)
 ---------------------
