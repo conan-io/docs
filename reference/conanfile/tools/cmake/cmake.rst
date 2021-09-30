@@ -1,3 +1,4 @@
+.. _conan-cmake-build-helper:
 
 CMake
 -----
@@ -47,11 +48,16 @@ constructor
 
 .. code:: python
 
-    def __init__(self, conanfile, build_folder=None):
+    def __init__(self, conanfile, build_folder=None, namespace=None):
 
 - ``conanfile``: the current recipe object. Always use ``self``.
 - ``build_folder``: Relative path to a folder to contain the temporary build files
-
+- ``namespace``: this argument avoids collisions when you have multiple toolchain calls in the same
+  recipe. By setting this argument the *conanbuild.conf* file used to pass some information to the
+  toolchain will be named as: *<namespace>_conanbuild.conf*. The default value is ``None`` meaning that
+  the name of the generated file is *conanbuild.conf*. This namespace must be also set with the same
+  value in the constructor of the :ref:`CMakeToolchain<conan-cmake-toolchain>` so that it reads the
+  information from the proper file.
 
 configure()
 +++++++++++
