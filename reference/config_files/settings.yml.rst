@@ -99,6 +99,7 @@ are possible. These are the **default** values, but it is possible to customize 
             cppstd: [None, 98, gnu98, 11, gnu11, 14, gnu14, 17, gnu17, 20, gnu20]
         intel:
             version: ["11", "12", "13", "14", "15", "16", "17", "18", "19"]
+            update: [None, ANY]
             base:
                 gcc:
                     <<: *gcc
@@ -108,6 +109,14 @@ are possible. These are the **default** values, but it is possible to customize 
                     <<: *visual_studio
                 apple-clang:
                     <<: *apple_clang
+        intel-cc:
+            version: ["2021.1", "2021.2", "2021.3"]
+            update: [None, ANY]
+            mode: ["icx", "classic", "dpcpp"]
+            libcxx: [None, libstdc++, libstdc++11, libc++]
+            cppstd: [None, 98, gnu98, 03, gnu03, 11, gnu11, 14, gnu14, 17, gnu17, 20, gnu20, 23, gnu23]
+            runtime: [None, static, dynamic]
+            runtime_type: [None, Debug, Release]
         qcc:
             version: ["4.4", "5.4"]
             libcxx: [cxx, gpp, cpp, cpp-ne, accp, acpp-ne, ecpp, ecpp-ne]
@@ -184,6 +193,23 @@ clang
 The release 13.0.0 will be released officially on September 21, 2021. However, Conan 1.40 will support it in settings.yml before
 the final release. It will be considered as **experimental** in case of incompatibility until the release.
 
+
+intel-cc
+++++++++
+
+Available since: `1.41.0 <https://github.com/conan-io/conan/releases>`_
+
+This compiler is a new, **experimental** one, aimed to handle the new Intel oneAPI DPC++/C++/Classic compilers. Instead of having *n* different compilers, you have 3 different **modes** of working:
+
+* ``icx`` for Intel oneAPI C++.
+* ``dpcpp`` for Intel oneAPI DPC++.
+* ``classic`` for Intel C++ Classic ones.
+
+Besides that, Intel releases some versions with revisions numbers so the ``update`` field it's supposed to be any possible minor number for the Intel compiler version used, e.g,
+``compiler.version=2021.1`` and ``compiler.update=311`` mean Intel version is ``2021.1.311``.
+
+
+For more information, you can check the :ref:`IntelCC section <conan_tools_intel_cc>`.
 
 Architectures
 -------------
