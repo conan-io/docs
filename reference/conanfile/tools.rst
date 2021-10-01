@@ -43,6 +43,7 @@ Contents:
    tools/gnu
    tools/google
    tools/meson
+   tools/intel_cc
    tools/microsoft
    tools/qbs
    tools/env
