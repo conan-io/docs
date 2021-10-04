@@ -143,7 +143,7 @@ Intel oneAPI Toolset and Microsoft Visual Studio
 If you're working in a Microsoft Visual Studio project, you can add the Intel Toolset as a new *.props* file easily.
 Let's suppose you have defined these files into your current project folder:
 
-.. code-block:: python
+.. code-block:: text
     :caption: intelprofile
 
     [settings]
@@ -178,7 +178,7 @@ Let's suppose you have defined these files into your current project folder:
 
 Running a ``conan install . -pr intelprofile`` you'll see a new *conantoolchain_release_x64.props* file generated in your current folder as the showed bellow:
 
-.. code-block:: python
+.. code-block:: xml
     :caption: conantoolchain_release_x64.props
 
     <?xml version="1.0" encoding="utf-8"?>
