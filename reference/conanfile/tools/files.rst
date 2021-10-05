@@ -83,6 +83,18 @@ Example of ``conandata.yml`` with different patches for different versions:
           patch_description: Needed to build with modern clang compilers.
       "1.12.0":
         - patch_file: "patches/0001-buildflatbuffers-cmake.patch"
+        - patch_string: |
+            --- a/tests/misc-test.c
+            +++ b/tests/misc-test.c
+            @@ -1232,6 +1292,8 @@ main (int argc, char **argv)
+                  g_test_add_func ("/misc/pause-cancel", do_pause_cancel_test);
+                  g_test_add_data_func ("/misc/stealing/async", GINT_TO_POINTER (FALSE), do_stealing_test);
+                  g_test_add_data_func ("/misc/stealing/sync", GINT_TO_POINTER (TRUE), do_stealing_test);
+            +     g_test_add_func ("/misc/response/informational/content-length", do_response_informational_content_length_test);
+            +
+
+            ret = g_test_run ();
+        - patch_file: "patches/0003-fix-content-length-calculation.patch"
 
 conan.tools.files.rename()
 --------------------------
