@@ -29,4 +29,4 @@ Conan can work with any compiler, the most common ones are already declared in t
 
 .. important::
 
-    If you are working with the new Intel oneAPI compilers, then you should use ``intel-cc`` one and have a look at :ref:`IntelCC tool<conan_tools_intel>` section.
+    If you are working with the new Intel oneAPI compilers, then you should use ``intel-cc`` one and have a look at :ref:`Working with Intel compilers<howto_intel_compiler>` section.
