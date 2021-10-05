@@ -21,6 +21,12 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.40 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
     submit a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.40.4 (05-Oct-2021)
+--------------------
+
+- Fix: Check current _cacert.pem_ file when updating Conan and only migrate if the user has not modified the file. If  the local file is modified then create a new cacert file but don't overwrite current. `#9734 <https://github.com/conan-io/conan/pull/9734>`_
+- Fix: Update Conan debian package to fix ssl certificates problem. `#9723 <https://github.com/conan-io/conan/pull/9723>`_
+
 1.40.3 (30-Sept-2021)
 ---------------------
 
