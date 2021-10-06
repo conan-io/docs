@@ -65,6 +65,24 @@ This generator will also generate a file called ``conanbuild.conf`` containing t
 The :ref:`Autotools build helper<conan_tools_gnu_build_helper>` will use that ``conanbuild.conf`` file to seamlessly call
 the configure and make script using these precalculated arguments.
 
+It supports the following methods and attributes:
+
+constructor
++++++++++++
+
+.. code:: python
+
+    def __init__(self, conanfile, namespace=None):
+
+- ``conanfile``: the current recipe object. Always use ``self``.
+- ``namespace``: this argument avoids collisions when you have multiple toolchain calls in the same
+  recipe. By setting this argument, the *conanbuild.conf* file used to pass information to the build
+  helper will be named as: *<namespace>_conanbuild.conf*. The default value is ``None`` meaning that
+  the name of the generated file is *conanbuild.conf*. This namespace must be also set with the same
+  value in the constructor of the :ref:`Autotools build helper<conan_tools_gnu_build_helper>` so that
+  it reads the information from the proper file.
+
+
 Attributes
 ++++++++++
 
