@@ -152,7 +152,7 @@ As you can observe, you have used one of these Intel compilers, the DPC++ one an
 
 
 intel-cc and Microsoft Visual Studio
---------------------------------------
++++++++++++++++++++++++++++++++++++++
 
 .. note::
 

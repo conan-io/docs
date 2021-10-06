@@ -25,6 +25,10 @@ This tool helps you to manage the new Intel oneAPI `DPC++/C++ <https://software.
 
     Remember, you need to have installed previously the `Intel oneAPI software <https://software.intel.com/content/www/us/en/develop/tools/oneapi/all-toolkits.html#gs.cgeofk>`_.
 
+.. note::
+
+    If you are using ``CMakeToolchain`` or ``MSBuildToolchain``, you don't need to use this generator. See :ref:`intel-cc compiler section<howto_intel_compiler>` for more information.
+
 
 This generator creates a ``conanintelsetvars.sh|bat`` wrapping the Intel script ``setvars.sh|bat`` that set the Intel oneAPI environment variables needed.
 That script is the first step to start using the Intel compilers because it's setting some important variables in your local environment.
