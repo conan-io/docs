@@ -22,7 +22,7 @@ intel-cc
 
 .. warning::
 
-    This compiler is **experimental** and subject to breaking changes.
+    The support for this compiler is **experimental** and subject to breaking changes.
 
 
 Available since: `1.41.0 <https://github.com/conan-io/conan/releases>`_
@@ -32,7 +32,7 @@ This new compiler is defined to manage the different Intel oneAPI `DPC++/C++ <ht
 
 .. warning::
 
-    macOS* is not supported for the Intel oneAPI DPC++/C++ (icx/icpx or dpcpp) compilers. For macOS or Xcode* support, you'll have to use the Intel C++ Classic Compiler.
+    macOS is not supported for the Intel oneAPI DPC++/C++ (icx/icpx or dpcpp) compilers. For macOS or Xcode support, you'll have to use the Intel C++ Classic Compiler.
 
 
 It can be declared into your local profile like any other compiler as follows:
@@ -72,12 +72,12 @@ We're specifying the ``CC`` and ``CXX`` compilers and the ``compiler.mode`` subs
 * ``classic`` for Intel C++ Classic (icc for Linux and icl for Windows).
 
 
-Without Conan, to set up the compiler you need to run an Intel official script to set all the proper variables to use those compilers called ``setvars.sh|bat`` script.
+To set up the compiler **without Conan** you need to run an Intel official script to set all the proper variables to use those compilers called ``setvars.sh|bat`` script.
 
 If you are using either the ``CMakeToolChain`` or the ``MSBuildToolchain``, when using the ``intel-cc`` compiler, Conan automatically calls the ``setvars`` script.
 Otherwise, you can use the :ref:`IntelCC generator<conan_tools_intel>`.
 
-This is an example of a Conan package called ``intelcc/1.0`` using the ``CMakeToolchain``. Remember you can use the command ``conan new intelcc/1.0 -m cmake_lib``
+This is an example of a Conan package called ``hello/1.0`` using the ``CMakeToolchain``. Remember you can use the command :command:`conan new hello/1.0 -m cmake_lib`
 to create a simple project like this one:
 
 .. code-block:: python
@@ -87,7 +87,7 @@ to create a simple project like this one:
     from conan.tools.cmake import CMakeToolchain
 
     class HelloConan(ConanFile):
-        name = "intelcc"
+        name = "hello"
         version = "1.0"
 
         # more code here...
@@ -97,16 +97,16 @@ to create a simple project like this one:
             tc.generate()
 
 
-Running ``conan create . -pr intelprofile -pr:b intelprofile``, you'll see something like this output:
+Running :command:`conan create . -pr intelprofile -pr:b intelprofile`, you'll see something like this output:
 
 .. code-block:: bash
     :caption: output
 
     ......
-    intelcc/1.0: Generating the package
-    intelcc/1.0: Package folder /home/franchuti/.conan/data/intelcc/1.0/_/_/package/7d9c7d5fa3c48c9705c2cb864656c00fa8672524
-    intelcc/1.0: Calling package()
-    intelcc/1.0: CMake command: cmake --build '/home/franchuti/.conan/data/intelcc/1.0/_/_/build/7d9c7d5fa3c48c9705c2cb864656c00fa8672524/cmake-build-release' '--target' 'install'
+    hello/1.0: Generating the package
+    hello/1.0: Package folder /home/franchuti/.conan/data/hello/1.0/_/_/package/7d9c7d5fa3c48c9705c2cb864656c00fa8672524
+    hello/1.0: Calling package()
+    hello/1.0: CMake command: cmake --build '/home/franchuti/.conan/data/hello/1.0/_/_/build/7d9c7d5fa3c48c9705c2cb864656c00fa8672524/cmake-build-release' '--target' 'install'
     :: initializing oneAPI environment ...
        dash: SH_VERSION = unknown
     :: advisor -- latest
@@ -131,7 +131,7 @@ Running ``conan create . -pr intelprofile -pr:b intelprofile``, you'll see somet
     :: vpl -- latest
     :: vtune -- latest
     :: oneAPI environment initialized ::
-    Using Conan toolchain through /home/franchuti/.conan/data/intelcc/1.0/_/_/build/7d9c7d5fa3c48c9705c2cb864656c00fa8672524/cmake-build-release/conan/conan_toolchain.cmake.
+    Using Conan toolchain through /home/franchuti/.conan/data/hello/1.0/_/_/build/7d9c7d5fa3c48c9705c2cb864656c00fa8672524/cmake-build-release/conan/conan_toolchain.cmake.
     -- Conan toolchain: Setting CMAKE_POSITION_INDEPENDENT_CODE=ON (options.fPIC)
     -- Conan toolchain: Setting BUILD_SHARED_LIBS= OFF
     -- The CXX compiler identification is Clang 13.0.0
@@ -148,7 +148,7 @@ Running ``conan create . -pr intelprofile -pr:b intelprofile``, you'll see somet
     .......
 
 
-As you can observe, you have used one of these Intel compilers, the DPC++ one and successfully generated the ``libintelcc.a`` file.
+As you can observe, you have used one of these Intel compilers, the DPC++ one and successfully generated the ``libhello.a`` file.
 
 
 intel-cc and Microsoft Visual Studio
@@ -196,7 +196,7 @@ Let's suppose you have defined these files into your current project folder:
             tc.generate()
 
 
-Running a ``conan install . -pr intelprofile``, a file *conantoolchain_release_x64.props* is generated in your current folder:
+Running a :command:`conan install . -pr intelprofile`, a file *conantoolchain_release_x64.props* is generated in your current folder:
 
 
 .. code-block:: xml

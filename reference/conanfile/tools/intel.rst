@@ -19,7 +19,7 @@ This tool helps you to manage the new Intel oneAPI `DPC++/C++ <https://software.
 
 .. warning::
 
-    macOS* is not supported for the Intel oneAPI DPC++/C++ (icx/icpx or dpcpp) compilers. For macOS or Xcode* support, you'll have to use the Intel C++ Classic Compiler.
+    macOS is not supported for the Intel oneAPI DPC++/C++ (icx/icpx or dpcpp) compilers. For macOS or Xcode support, you'll have to use the Intel C++ Classic Compiler.
 
 .. note::
 
@@ -82,7 +82,7 @@ You can invoke the environment variables generation from your ``conanfile.py`` a
             intelcc.generate()
 
 
-Now, running a simple ``conan install . -pr intelprofile`` will generate the ``conanintelsetvars.sh|bat`` script which will run the
+Now, running a simple :command:`conan install . -pr intelprofile` will generate the ``conanintelsetvars.sh|bat`` script which will run the
 Intel *setvars* script and load all the variables into your local environment.
 
 
@@ -112,7 +112,7 @@ You can apply different installation paths and command arguments simply by chang
     tools.intel:installation_path=/opt/intel/oneapi
     tools.intel:setvars_args=--config="full/path/to/your/config.txt" --force
 
-If we run again a ``conan install . -pr intelprofile`` then the ``conanintelsetvars.sh`` script (if we are using Linux OS) will contain something like:
+If we run again a :command:`conan install . -pr intelprofile` then the ``conanintelsetvars.sh`` script (if we are using Linux OS) will contain something like:
 
 .. code-block:: bash
     :caption: conanintelsetvars.sh
