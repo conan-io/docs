@@ -128,10 +128,11 @@ dependencies will be translated to properties files:
   host context: all regular ``requires``, plus the ``build_requires`` that are in the host context,
   for example test frameworks as ``gtest`` or ``catch``.
 - All transitive ``requires`` of those direct dependencies (all in the host context)
-
-Then, the ``build_requires`` of build context (like ``cmake`` packages as build_requires), plus the
-transitive ``build_requires`` (irrespective of the context) are not translated to properties files,
-as they shouldn't be necessary for the build.
+- Build requires, in the build context, that is, application and executables that run in the build
+  machine irrespective of the destination platform, are added exclusively to the ``<ExecutablePath>``
+  property, taking the value from ``$(Conan{{name}}BinaryDirectories)`` defined properties. This
+  allows to define custom build commands, invoke code generation tools, with the ``<CustomBuild>`` and
+  ``<Command>`` elements.
 
 
 MSBuildToolchain

@@ -993,6 +993,9 @@ This object should be filled in ``package_info()`` method.
 |                                      | | generators that implements components feature).                                                       |
 |                                      | | **Warning**: If declared, only the components listed here will used by the linker and consumers.      |
 +--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.objects                | | **[Experimental]** List of object libraries (*.obj* or *.o*). Defaulted to ``[]`` (empty)             |
+|                                      | | Only supported by new :ref:`CMakeDeps<conan_tools_cmake>` generator                                   |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
 
 The paths of the directories in the directory variables indicated above are relative to the
 :ref:`self.package_folder<folders_attributes_reference>` directory.
@@ -1019,6 +1022,10 @@ them and to components of other packages (the following case is not a real examp
         self.cpp_info.components["ssl"].libs = ["libssl"]
         self.cpp_info.components["ssl"].requires = ["crypto",
                                                     "boost::headers"]  # Depends on headers component in boost package
+        self.cpp_info.components["ssl"].names["cmake"] = "SSL"
+
+        obj_ext = "obj" if platform.system() == "Windows" else "o"
+        self.cpp_info.components["ssl-objs"].objects = [os.path.join("lib", "ssl-object.{}".format(obj_ext))]
 
 The interface of the ``Component`` object is the same as the one used by the ``cpp_info`` object and
 has **the same default directories**.
