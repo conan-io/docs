@@ -74,35 +74,55 @@ Environments can generate launcher files:
 
 .. code:: python
 
-    env1 = Environment(self)
-    env1.define("foo", "var")
-    env1.save_script("my_launcher")
+    def generate(self):
+        env1 = Environment(self)
+        env1.define("foo", "var")
+        env1.save_script("my_launcher")
 
+
+Although it potentially could be used in other methods, this functionality is intended to work in the ``generate()``
+method.
 
 It will generate automatically a ``my_launcher.bat`` for Windows systems or ``my_launcher.sh`` otherwise.
 
 Also, by default, Conan will automatically append that launcher file path to a list that will be used to
-create a ``conan_env.bat/sh`` file aggregating all the launchers in order. The ``conan_env.sh/bat`` launcher
+create a ``conanbuild.bat|sh`` file aggregating all the launchers in order. The ``conanbuild.sh/bat`` launcher
 will be created after the execution of the ``generate()`` method.
 
-The ``conan_env.bat/sh`` launcher will be executed by default before calling every ``self.run`` command.
-You can change the default launcher with the `env` argument:
+The ``conanbuild.bat/sh`` launcher will be executed by default before calling every ``self.run()`` command. This
+would be typically done in the ``build()`` method.
+
+You can change the default launcher with the ``env`` argument:
 
 .. code:: python
 
     ...
-    # This will automatically wrap the "foo" command with the correct launcher:
-    # my_launcher.sh && foo
-    self.run("foo", env=["my_launcher"])
+    def build(self):
+        # This will automatically wrap the "foo" command with the correct launcher:
+        # my_launcher.sh && foo
+        self.run("foo", env=["my_launcher"])
+
+The ``group`` argument (``"build"`` by default) can be used to define different groups of environment files, to
+aggregate them separately. For example, using a ``group="run"``, like the ``VirtualRunEnv`` generator does, will
+aggregate and create a ``conanrun.bat|sh`` script:
+
+.. code:: python
+
+    def generate(self):
+        env1 = Environment(self)
+        env1.define("foo", "var")
+        # Will append "my_launcher" to "conanrun.bat|sh"
+        env1.save_script("my_launcher", group="run")
 
 
-You can also use ``auto_activate=False`` argument to avoid appending the script to the aggregated ``conan_env.bat/sh``:
+You can also use ``group=None`` argument to avoid appending the script to the aggregated ``conanbuild.bat|sh``:
 
 .. code:: python
 
     env1 = Environment(self)
     env1.define("foo", "var")
-    env1.save_script("my_launcher", auto_activate=False)
+    # Will not append "my_launcher" to "conanbuild.bat|sh"
+    env1.save_script("my_launcher", group=None)
 
 
 
