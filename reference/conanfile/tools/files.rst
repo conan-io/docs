@@ -18,13 +18,14 @@ The folder containing the sources can be customized with the ``self.folders`` at
 method<layout_folders_reference>`.
 
 Parameters:
-    - **patch_file**: Patch file that should be applied.
-    - **base_path**: Relative path from **conanfile.source_folder**.
-    - **patch_string**: Patch string that should be applied.
-    - **strip**: Number of folders to be stripped from the path.
-    - **output**: Stream object.
-    - **fuzz**: Should accept fuzzy patches.
-    - **kwargs**: Extra parameters that can be added and will contribute to output information.
+
+- **patch_file**: Patch file that should be applied.
+- **base_path**: Relative path from **conanfile.source_folder**.
+- **patch_string**: Patch string that should be applied.
+- **strip**: Number of folders to be stripped from the path.
+- **output**: Stream object.
+- **fuzz**: Should accept fuzzy patches.
+- **kwargs**: Extra parameters that can be added and will contribute to output information.
 
 
 .. code-block:: python
@@ -84,6 +85,7 @@ Example of ``conandata.yml`` with different patches for different versions:
       "1.12.0":
         - patch_file: "patches/0001-buildflatbuffers-cmake.patch"
 
+
 conan.tools.files.rename()
 --------------------------
 
@@ -101,9 +103,10 @@ Utility functions to rename a file or folder *src* to *dst*. On Windows, it is v
         rename(self, "lib-sources-abe2h9fe", "sources")  # renaming a folder
 
 Parameters:
-  - **conanfile**: Conanfile object.
-  - **src** (Required): Path to be renamed.
-  - **dst** (Required): Path to be renamed to.
+
+- **conanfile**: Conanfile object.
+- **src** (Required): Path to be renamed.
+- **dst** (Required): Path to be renamed to.
 
 
 
@@ -122,8 +125,8 @@ Just a high level wrapper for download, unzip, and remove the temporary zip file
 ``ConanException``.
 
 Parameters:
-- **url**, **filename**, **md5**, **sha1**, **sha256**, **verify**, **retry**, **retry_wait**,
-  **auth**, **headers**: forwarded to ``download()``
+
+- **url**, **filename**, **md5**, **sha1**, **sha256**, **verify**, **retry**, **retry_wait**, **auth**, **headers**: forwarded to ``download()``
 - **keep_permissions**, **pattern**, **strip_root**: forwarded to ``tools.unzip()`` (legacy, will be updated).
 
 
@@ -187,15 +190,14 @@ If any of them doesn't match, the downloaded file will be removed and it will ra
 
 
 Parameters:
+
 - **conanfile** (Required): Conanfile object, use ``self`` always
-- **url** (Required): URL to download. It can be a list, which only the first one will be downloaded, and
-    the follow URLs will be used as mirror in case of download error.
+- **url** (Required): URL to download. It can be a list, which only the first one will be downloaded, and the follow URLs will be used as mirror in case of download error.
 - **filename** (Required): Name of the file to be created in the local storage
 - **verify** (Optional, Defaulted to ``True``): When False, disables https certificate validation.
 - **retry** (Optional, Defaulted to ``1``): Number of retries in case of failure.
 - **retry_wait** (Optional, Defaulted to ``5``): Seconds to wait between download attempts.
-- **auth** (Optional, Defaulted to ``None``): A tuple of user and password to use HTTPBasic authentication. This is used directly in the
-    ``requests`` Python library. Check other uses here: https://requests.readthedocs.io/en/master/user/authentication/#basic-authentication
+- **auth** (Optional, Defaulted to ``None``): A tuple of user and password to use HTTPBasic authentication. This is used directly in the ``requests`` Python library. Check other uses here: https://requests.readthedocs.io/en/master/user/authentication/#basic-authentication
 - **headers** (Optional, Defaulted to ``None``): A dictionary with additional headers.
 - **md5** (Optional, Defaulted to ``""``): MD5 hash code to check the downloaded file.
 - **sha1** (Optional, Defaulted to ``""``): SHA-1 hash code to check the downloaded file.
