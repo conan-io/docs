@@ -65,28 +65,20 @@ It can be declared into your local profile like any other compiler as follows:
     *   Windows: ``C:\Program Files (x86)\Intel\oneAPI``
 
 
-As you saw above, we're specifying the ``CC`` and ``CXX`` compilers, and ``mode`` because of Intel oneAPI has several ones so, in summary, we can play with different modes:
+We're specifying the ``CC`` and ``CXX`` compilers and the ``compiler.mode`` subsetting. The possible values for ``compiler.mode`` are:
 
 * ``icx`` for Intel oneAPI C++ (icx/icpx compilers).
 * ``dpcpp`` for Intel oneAPI DPC++ (dpcpp compiler and dpcpp-cl for Windows only).
 * ``classic`` for Intel C++ Classic (icc for Linux and icl for Windows).
 
 
-Now, the thing is that you need to run some Intel official script to set all the proper variables to use those compilers called ``setvars.sh|bat`` script.
-How is Conan managing it? Thanks to the :ref:`IntelCC class<conan_tools_intel>`. There is no need to declare that class inside your ``conanfile.py``
-for a general purpose, it will be enough to use some of these generators:
+Without Conan, to set up the compiler you need to run an Intel official script to set all the proper variables to use those compilers called ``setvars.sh|bat`` script.
 
-* ``CMakeToolChain``
-* ``MSBuildToolchain``
+If you are using either the ``CMakeToolChain`` or the ``MSBuildToolchain``, when using the ``intel-cc`` compiler, Conan automatically calls the ``setvars`` script.
+Otherwise, you can use the :ref:`IntelCC generator<conan_tools_intel>`.
 
-.. important::
-
-    In case you are not using any of these generators then you will have to declare it in your ``conanfile.py`` manually.
-    See the complete :ref:`IntelCC reference<conan_tools_intel>`.
-
-
-Then, following a general Conan package using ``CMakeToolchain``, for instance, if we are creating a package ``intelcc/1.0`` using
-that generator (remember you can use the command ``conan new intelcc/1.0 -m cmake_lib`` to create a simple project):
+This is an example of a Conan package called ``intelcc/1.0`` using the ``CMakeToolchain``. Remember you can use the command ``conan new intelcc/1.0 -m cmake_lib``
+to create a simple project like this one:
 
 .. code-block:: python
     :caption: conanfile.py
@@ -167,7 +159,7 @@ intel-cc and Microsoft Visual Studio
     Ensure you have installed the Intel plugins for Microsoft Visual Studio before reading this section.
 
 
-If you're working on a Microsoft Visual Studio project, you can add the Intel Toolset as a new *.props* file easily.
+If you're working on a Microsoft Visual Studio project, you can add the Intel Toolset as a new *.props* file.
 Let's suppose you have defined these files into your current project folder:
 
 .. code-block:: text
@@ -203,7 +195,9 @@ Let's suppose you have defined these files into your current project folder:
             tc = MSBuildToolchain(self)
             tc.generate()
 
-Running a ``conan install . -pr intelprofile`` you'll see a new *conantoolchain_release_x64.props* file generated in your current folder as the showed below:
+
+Running a ``conan install . -pr intelprofile``, a file *conantoolchain_release_x64.props* is generated in your current folder:
+
 
 .. code-block:: xml
     :caption: conantoolchain_release_x64.props
@@ -224,7 +218,10 @@ Running a ``conan install . -pr intelprofile`` you'll see a new *conantoolchain_
       </PropertyGroup>
     </Project>
 
-Then, you'll be able to load this new properties file into your current Microsoft Visual Studio project.
+
+Note that a ``PlatformToolset`` is set to ``Intel C++ Compiler 19.2``. You can import that file to your project or solution of Visual Studio.
+Read more about the :ref:`MSBuildToolchain here<conan_tools_microsoft>`.
+
 
 .. note::
 
