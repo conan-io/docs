@@ -48,10 +48,11 @@ constructor
 
 .. code:: python
 
-    def __init__(self, conanfile, build_folder=None, namespace=None):
+    def __init__(self, conanfile, parallel=True, namespace=None):
 
 - ``conanfile``: the current recipe object. Always use ``self``.
-- ``build_folder``: Relative path to a folder to contain the temporary build files
+- ``parallel``: (Optional, Defaulted to True): If True, will append the -jN attribute (/m: in MSBuild) for parallel
+  building being N the value of the :ref:`tools.microsoft.msbuild:max_cpu_count<global_conf>`.
 - ``namespace``: this argument avoids collisions when you have multiple toolchain calls in the same
   recipe. By setting this argument the *conanbuild.conf* file used to pass some information to the
   toolchain will be named as: *<namespace>_conanbuild.conf*. The default value is ``None`` meaning that
