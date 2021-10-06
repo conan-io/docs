@@ -15,7 +15,7 @@ This tool helps you to manage the new Intel oneAPI `DPC++/C++ <https://software.
 
 .. warning::
 
-    This tool is **experimental** and subject to breaking changes.
+    This generator is **experimental** and subject to breaking changes.
 
 .. warning::
 
