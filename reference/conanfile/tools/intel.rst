@@ -64,7 +64,22 @@ At first, ensure you are using a *profile* like this one:
     tools.intel:installation_path=/opt/intel/oneapi
 
 
-You can invoke the environment variables generation from your ``conanfile.py`` as follows:
+The ``IntelCC`` generator can be used by name in conanfiles:
+
+.. code-block:: python
+    :caption: conanfile.py
+
+    class Pkg(ConanFile):
+        generators = "IntelCC"
+
+
+.. code-block:: text
+    :caption: conanfile.txt
+
+    [generators]
+    IntelCC
+
+And it can also be fully instantiated in the conanfile ``generate()`` method:
 
 .. code-block:: python
     :caption: conanfile.py
@@ -77,12 +92,10 @@ You can invoke the environment variables generation from your ``conanfile.py`` a
 
         def generate(self):
             intelcc = IntelCC(self)
-            print(intelcc.installation_path)
-            print(intelcc.command)
             intelcc.generate()
 
 
-Now, running a simple :command:`conan install . -pr intelprofile` will generate the ``conanintelsetvars.sh|bat`` script which will run the
+Now, running the command :command:`conan install . -pr intelprofile` will generate the ``conanintelsetvars.sh|bat`` script which will run the
 Intel *setvars* script and load all the variables into your local environment.
 
 
