@@ -209,7 +209,7 @@ Besides that, Intel releases some versions with revisions numbers so the ``updat
 ``compiler.version=2021.1`` and ``compiler.update=311`` mean Intel version is ``2021.1.311``.
 
 
-For more information, you can check the :ref:`IntelCC section <conan_tools_intel_cc>`.
+For more information, you can check the :ref:`IntelCC section <conan_tools_intel>`.
 
 Architectures
 -------------
