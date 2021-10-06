@@ -60,8 +60,7 @@ It can be declared into your local profile like any other compiler as follows:
 
 .. important::
 
-    Remember to put this ``[conf]`` entry to find out the root path of your Intel oneAPI folder. Normally, it'll be installed by default in either ``/opt/intel/oneapi`` (Linux and macOS)
-    or ``C:\Program Files (x86)\Intel\oneAPI`` (Windows).
+    Remember to put this ``[conf]`` entry to find out the root path of your Intel oneAPI folder. Normally, it'll be installed by default in either ``/opt/intel/oneapi`` (Linux and macOS) or ``C:\Program Files (x86)\Intel\oneAPI`` (Windows).
 
 
 We're specifying the ``CC`` and ``CXX`` compilers and the ``compiler.mode`` subsetting. The possible values for ``compiler.mode`` are:
