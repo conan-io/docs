@@ -269,7 +269,7 @@ Otherwise:
 - If a specific match like ``[pkg/version@user/channel:includedirs]`` is found, it is expected to
   have defined also its specific ``[pkg/version@user/channel:libdirs]``, etc. The global layout
   folders specified without package reference won't be applied once a match is found.
-- It no match is found, the original values for the layout folders defined in ``package_info()`` will
+- If no match is found, the original values for the layout folders defined in ``package_info()`` will
   be respected.
 - The layout file to be used is defined at :command:`conan editable add` time. If a ``.conan/layouts/default`` file
   is added after the :command:`conan editable add`, it will not be used at all.
