@@ -18,8 +18,49 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-    Conan 1.40 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
-    submit a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
+    Conan 1.41 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
+    a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
+
+1.41.0 (06-Oct-2021)
+--------------------
+
+- Feature: Added `IntelCC` as public generator. `#9747 <https://github.com/conan-io/conan/pull/9747>`_ . Docs `here <https://github.com/conan-io/docs/pull/2233>`__
+- feature: Prepare ``conan.tools.files download, get, ftp_download`` for adoption. `#9715 <https://github.com/conan-io/conan/pull/9715>`_ . Docs `here <https://github.com/conan-io/docs/pull/2249>`__
+- Feature: Support multiple toolchains in one recipe. `#9688 <https://github.com/conan-io/conan/pull/9688>`_ . Docs `here <https://github.com/conan-io/docs/pull/2238>`__
+- Feature: ``MSBuildDeps`` generator learned how to handle ``build_requires`` to use executables from them. `#9686 <https://github.com/conan-io/conan/pull/9686>`_ . Docs `here <https://github.com/conan-io/docs/pull/2248>`__
+- Feature: ``PkgConfig`` helper now honors `PKG_CONFIG` environment variable. `#9627 <https://github.com/conan-io/conan/pull/9627>`_
+- Feature: Make new environment generators multi-config (Release/Debug and arch). `#9543 <https://github.com/conan-io/conan/pull/9543>`_ . Docs `here <https://github.com/conan-io/docs/pull/2247>`__
+- Feature: Environment ``activate`` scripts will generate ``deactivate`` scripts by default. `#9539 <https://github.com/conan-io/conan/pull/9539>`_
+- Feature: Support remote archives other than zip in ``conan config install``. `#9530 <https://github.com/conan-io/conan/pull/9530>`_
+- Feature: New "compiler" `intel-cc` with different modes (icx, dpcpp, classic) for Intel oneAPI. `#9522 <https://github.com/conan-io/conan/pull/9522>`_ . Docs `here <https://github.com/conan-io/docs/pull/2233>`__
+- Feature: Add Intel oneAPI support for `CMakeToolChain`, `MSBuildToolchain` and `VCVars`. `#9522 <https://github.com/conan-io/conan/pull/9522>`_ . Docs `here <https://github.com/conan-io/docs/pull/2233>`__
+- Feature: Add objects attribute to the cpp_info so that we can add object files to the linker without having to add those mixed with linker flags. `#9520 <https://github.com/conan-io/conan/pull/9520>`_ . Docs `here <https://github.com/conan-io/docs/pull/2243>`__
+- Feature: New setttings: _xtensalx6_ and _xtensalx106_ for ESP32/ESP8266 platforms. `#7977 <https://github.com/conan-io/conan/pull/7977>`_
+- Fix: New environment deactivate scripts fail in Windows because env-var different casing. `#9741 <https://github.com/conan-io/conan/pull/9741>`_
+- Fix: Avoid "overcrowding" Windows environment variables with `LD_LIBRARY_PATH` and `DYLD_LIBRARY_PATH`, not used in Windows. `#9678 <https://github.com/conan-io/conan/pull/9678>`_
+- Fix: Command :command:`conan package` now works for new ``layout()`` with generators folder. `#9674 <https://github.com/conan-io/conan/pull/9674>`_
+- Fix:  Don't just print  "ERROR: True" on unresolvable conflict. `#9624 <https://github.com/conan-io/conan/pull/9624>`_
+- Fix: Fix migrations settings comparison. `#9615 <https://github.com/conan-io/conan/pull/9615>`_
+- Fix: Removed unused ``future`` dependency from Python ``requirements.txt``. `#9563 <https://github.com/conan-io/conan/pull/9563>`_
+- Fix: Make automatic call of ``VirtualBuildEnv`` and ``VirtualRunEnv`` independent. `#9543 <https://github.com/conan-io/conan/pull/9543>`_ . Docs `here <https://github.com/conan-io/docs/pull/2247>`__
+- Bugfix: ``generator_folder`` was using the ``cwd`` instead of a relative folder to the conanfile, producing layout errors. `#9668 <https://github.com/conan-io/conan/pull/9668>`_
+- Bugfix: Support components with symbolic imports. `#9667 <https://github.com/conan-io/conan/pull/9667>`_
+- Bugfix: Fix ``conan.tools.files.patch`` bug with ``strip`` argument. `#9653 <https://github.com/conan-io/conan/pull/9653>`_
+- Bugfix: Add support for Xcode 13/Apple clang 13.0 `#9642 <https://github.com/conan-io/conan/pull/9642>`_
+- Bugfix: Fixed bad `Requires` declaration in `*.pc` files. `#9635 <https://github.com/conan-io/conan/pull/9635>`_
+- Bugfix: Fixed bug whereby when a conflict of requirements happens, in some special situations, just a message `ERROR: True` was printed in the terminal, making it hard to guess what was going on. `#9633 <https://github.com/conan-io/conan/pull/9633>`_
+- BugFix: Fixed a bug where using the new `layout()` the `exports` went to the `conanfile.source_folder` instead of the base source folder in the cache and only the `exports_sources` should go there. `#9536 <https://github.com/conan-io/conan/pull/9536>`_
+
+1.40.4 (05-Oct-2021)
+--------------------
+
+- Fix: Check current _cacert.pem_ file when updating Conan and only migrate if the user has not modified the file. If  the local file is modified then create a new cacert file but don't overwrite current. `#9734 <https://github.com/conan-io/conan/pull/9734>`_
+- Fix: Update Conan debian package to fix ssl certificates problem. `#9723 <https://github.com/conan-io/conan/pull/9723>`_
+
+1.40.3 (30-Sept-2021)
+---------------------
+
+- Bugfix: Added root certificate for Let's encrypt. `#9697 <https://github.com/conan-io/conan/pull/9697>`_
 
 1.40.2 (21-Sept-2021)
 ---------------------

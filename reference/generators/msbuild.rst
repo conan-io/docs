@@ -17,15 +17,15 @@ that can be added to the projects and solutions in the IDE, under the "propertie
 If a conanfile declares two requirements ``"zlib/1.2.11", "poco/1.9.4"``, then
 running the :command:`conan install -g=msbuild` will create the following files:
 
-- One properties file for each dependency and transitive dependency, like *conan_zlib.props*, 
-  *conan_openssl.props*and *conan_poco.props*. These files will transitively import other files, 
+- One properties file for each dependency and transitive dependency, like *conan_zlib.props*,
+  *conan_openssl.props* and *conan_poco.props*. These files will transitively import other files,
   in this case as the ``poco`` package depends on ``openssl``, the *conan_poco.props* will import
   *conan_openssl.props* file.
 - One file for each dependency for each configuration, like *conan_zlib_release_x64_v141.props*,
   containing the corresponding variables (include folders, library folders, library name, etc.)
-  for that configuration, like the ``<ConanzlibIncludeDirectories>`` variable. These files are 
-  conditionally included per configuration by the base dependency file (*conan_zlib.props*). 
-- One *conan_deps.props* Visual Studio properties file, importing all the direct
+  for that configuration, like the ``<ConanzlibIncludeDirectories>`` variable. These files are
+  conditionally included per configuration by the base dependency file (*conan_zlib.props*).
+- One *conandeps.props* Visual Studio properties file, importing all the direct
   dependencies, in this example both *conan_zlib.props* and *conan_poco.props*.
 
 

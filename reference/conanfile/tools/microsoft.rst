@@ -82,7 +82,7 @@ configuration. The above commands the following files will be generated:
 - *conandeps.props*: Properties files including all direct dependencies, in this case, it includes ``conan_zlib.props``
   and ``conan_bzip2.props``
 
-You will be adding the *conan_deps.props* to your solution project files if you want to depend on all the declared
+You will be adding the *conandeps.props* to your solution project files if you want to depend on all the declared
 dependencies. For single project solutions, this is probably the way to go. For multi-project solutions, you might
 be more efficient and add properties files per project. You could add *conan_zlib.props* properties to "project1"
 in the solution and *conan_bzip2.props* to "project2" in the solution for example.
@@ -128,10 +128,11 @@ dependencies will be translated to properties files:
   host context: all regular ``requires``, plus the ``build_requires`` that are in the host context,
   for example test frameworks as ``gtest`` or ``catch``.
 - All transitive ``requires`` of those direct dependencies (all in the host context)
-
-Then, the ``build_requires`` of build context (like ``cmake`` packages as build_requires), plus the
-transitive ``build_requires`` (irrespective of the context) are not translated to properties files,
-as they shouldn't be necessary for the build.
+- Build requires, in the build context, that is, application and executables that run in the build
+  machine irrespective of the destination platform, are added exclusively to the ``<ExecutablePath>``
+  property, taking the value from ``$(Conan{{name}}BinaryDirectories)`` defined properties. This
+  allows to define custom build commands, invoke code generation tools, with the ``<CustomBuild>`` and
+  ``<Command>`` elements.
 
 
 MSBuildToolchain
@@ -303,9 +304,9 @@ generate()
 
 .. code:: python
 
-    def generate(self, auto_activate=True):
+    def generate(self, group="build"):
 
 Parameters:
 
-    * **auto_activate** (Defaulted to ``True``): Add the launcher automatically to the ``conanenv`` launcher. Read more
+    * **group** (Defaulted to ``"build"``): Add the launcher automatically to the ``conanbuild`` launcher. Read more
       in the :ref:`Environment documentation <conan_tools_env_environment_model>`.
