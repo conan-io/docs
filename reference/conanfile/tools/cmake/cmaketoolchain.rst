@@ -80,7 +80,7 @@ constructor
 
 .. code:: python
 
-    def __init__(self, conanfile, generator=None):
+    def __init__(self, conanfile, namespace=None):
 
 - ``conanfile``: the current recipe object. Always use ``self``.
 - ``namespace``: this argument avoids collisions when you have multiple toolchain calls in the same
