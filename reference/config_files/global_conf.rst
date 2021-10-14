@@ -8,7 +8,14 @@ global.conf
     This new configuration mechanism is an **experimental** feature subject to breaking changes in future releases.
 
 
-The **global.conf** file is located in the Conan user home directory.
+By default, the **global.conf** file is does not exist but may be created by the user in the Conan user home directory.
+Conan expects the file to be a simple list of key-value settings, with one setting per line. E.g.:
+
+.. code-block:: text
+
+    core:default_profile=default
+    tools.microsoft.msbuild:max_cpu_count=20
+    tools.files.download:retry=3
 
 Global configuration
 --------------------
@@ -17,12 +24,11 @@ Global configuration
 - ``core.package_id:msvc_visual_incompatible`` allows opting-out the fallback from the new ``msvc`` compiler to the ``Visual Studio`` compiler existing binaries
 
 
-
 Tools configurations
 --------------------
 
 Tools and user configurations allows them to be defined both in the *global.conf* file and in profile files. Profile values will
-have priority over globally defined ones in *global.conf*, and can be defined as:
+have priority over globally defined ones in *global.conf*, and can be defined in the profile as:
 
 .. code-block:: text
 
