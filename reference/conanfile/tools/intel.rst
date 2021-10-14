@@ -6,7 +6,7 @@ conan.tools.intel
 
 
 IntelCC
-=========
+--------
 
 Available since: `1.41.0 <https://github.com/conan-io/conan/releases>`_
 
@@ -104,7 +104,7 @@ Intel *setvars* script and load all the variables into your local environment.
 
 
 Custom configurations
-----------------------
+++++++++++++++++++++++
 
 You can apply different installation paths and command arguments simply by changing the ``[conf]`` entries. For instance:
 
