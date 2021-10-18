@@ -281,7 +281,6 @@ The :ref:`cpp_info_attributes_reference` attribute has the following properties 
           self.cpp_info.exelinkflags = ["-NODEFAULTLIB:MSVCRT",
                                         "-DEFAULTLIB:LIBCMT"]
 
-- **name**: Alternative name for the package so generators can take into account in order to generate targets or file names.
 - **components**: **[Experimental]** Dictionary with names as keys and a component object as value to model the different components a
   package may have: libraries, executables... Read more about this feature at :ref:`package_information_components`.
 - **requires**: **[Experimental]** List of components from the requirements this package (and its consumers) should link with. It will
