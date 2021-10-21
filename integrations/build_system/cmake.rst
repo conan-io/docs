@@ -15,11 +15,11 @@ Conan can be integrated with CMake using different generators, build helpers and
 .. toctree::
    :maxdepth: 2
 
+   cmake/cmake_find_package_multi_generator
    cmake/cmake_generator
    cmake/cmake_multi_generator
    cmake/cmake_paths_generator
    cmake/cmake_find_package_generator
-   cmake/cmake_find_package_multi_generator
    cmake/build_automation
    cmake/find_packages
 
