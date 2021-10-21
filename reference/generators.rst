@@ -18,11 +18,11 @@ Available generators:
 .. toctree::
    :maxdepth: 1
 
+   generators/cmake_find_package_multi
    generators/cmake
    generators/cmakemulti
    generators/cmake_paths
    generators/cmake_find_package
-   generators/cmake_find_package_multi
    generators/msbuild
    generators/visualstudio
    generators/visualstudiomulti
