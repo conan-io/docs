@@ -65,7 +65,7 @@ configure()
 
 .. code:: python
 
-    def configure(self, source_folder=None):
+    def configure(self, build_script_folder=None):
 
 Calls ``cmake``, with the generator defined in the ``cmake_generator`` field of the
 ``conanbuild.conf`` file, and passing ``-DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake``.
@@ -75,7 +75,7 @@ Calls ``cmake``, with the generator defined in the ``cmake_generator`` field of 
     If ``conanbuild.conf`` file is not there, Conan will raise an exception because it's a mandatory one even though it's empty.
 
 
-- ``source_folder``: Relative path to the folder containing the root *CMakeLists.txt*
+- ``build_script_folder``: Relative path to the folder containing the root *CMakeLists.txt*
 
 
 build()
