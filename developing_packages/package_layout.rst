@@ -17,16 +17,13 @@ You can declare a ``layout()`` method in the recipe to describe the package cont
 not only the final package in the cache but also the package while developing.
 As the package will have the same structure in the cache and in our local directory, the recipe development becomes easier.
 
-In the ``layout()`` method you can adjust 3 different things:
+In the ``layout()`` method you can adjust 2 different things:
 
     - ``self.folders``: Specify the location of several things, like the sources, the build folder or even the folder where
-      the generators files (e.g the `xx-config.cmake` files from the ``CMakeDeps``) will be created.
+      the generators files (e.g the `xx-config.cmake` files from the `CMakeDeps`) will be created.
 
-    - ``self.patterns``: Describe the file patterns of your **source** and **build** folders. It will ease the process of
-      packaging the files in the ``package()`` method.
-
-    - ``self.cpp``: The same you could adjust the ``self.cpp_info`` in the :ref:`package_info()<method_package_info>` for the
-      package in the cache, you can do the same for the `source` and `build` folders while developing the package. This feature
+    - ``self.cpp``: The same you set the `self.cpp_info` in the :ref:`package_info()<method_package_info>` for the
+      package in the cache, you set `self.cpp.local` for the package while developing it. This feature
       enables an easier way to use :ref:`editable packages<editable_packages>`.
 
 
@@ -38,8 +35,7 @@ self.folders
 - **self.folders.generators**: To specify a subfolder where to write the files from the generators and the toolchains.
 - **self.folders.imports**: To specify a subfolder where to write the files copied when using the ``imports(self)``
   method in a ``conanfile.py``.
-- **self.folders.package**: To specify a subfolder where to write the package files when running the :command:`conan package`
-  command.
+
 
 Check the :ref:`complete reference<layout_folders_reference>` of the folders attribute.
 
@@ -124,11 +120,13 @@ folder.
 
 .. _package_layout_cpp:
 
-self.cpp
-++++++++
+self.cpp.local
+++++++++++++++
 
-The ``layout()`` method allows to declare ``cpp_info`` objects not only for the final package (like the classic approach with
-the ``self.cpp_info`` in the ``package_info(self)`` method) but for the ``self.source_folder`` and ``self.build_folder``.
+With the ``layout()`` method you can declare a ``cpp_info`` object not only for the final package (like the classic approach with
+the ``self.cpp_info`` in the ``package_info(self)`` method) but for a user local folder containing the sources and the build folder
+of a package, e.g: a Visual Studio project.
+
 This is useful when a package is in :ref:`editable mode<editable_packages>` to automatically propagate to the consumers
 all the needed information (library names, include directories...) but pointing to the local project directories while developing,
 whether you are calling directly your build-system, using an IDE or executing the :command:`conan build` command to build
@@ -145,72 +143,38 @@ Example:
 
             def layout(self):
 
-                self.cpp.source.includedirs = ["include"]
+                # The includes from the sources
+                self.cpp.local.includedirs = ["include"]
 
-                self.cpp.build.libdirs = ["."]
-                self.cpp.build.libs = ["mylib"]
-                self.cpp.build.includedirs = ["gen_include"]
+                # The library, in our project, will be built at "Release" or "Debug" folders
+                self.cpp.local.libdirs = [str(self.settings.build_type)]
 
+                # If we generate includes during the build we can include them also
+                self.cpp.local.includedirs.append("{}/gen_include".format(self.settings.build_type))
+
+                # The library name
+                self.cpp.local.libs = ["mylib"]
+
+                # This is the same than filling the object at "package_info()"
                 self.cpp.package.libs = ["mylib"]
 
 
-The fields of the cpp_info objects at ``self.info.build`` and ``self.info.source`` are the same described :ref:`here<cpp_info_attributes_reference>`.
+The fields of the cpp_info objects at ``self.cpp.local`` are the same described :ref:`here<cpp_info_attributes_reference>`.
 Components are also supported.
 
 .. note::
 
-        You can still use the ``package_info(self)`` method. The received `self.cpp_info` object will be populated with the information explicitly declared
-        in the ``self.cpp.package`` object, so you can complete it or modify it later.
+        You can still use the ``package_info(self)`` method. The received `self.cpp_info` object will be populated with
+        the information explicitly declared in the ``self.cpp.package`` object, so you can complete it or modify it later.
 
 
-Once you have your ``self.cpp.source`` and ``self.cpp.build`` objects declared you can put the package in
+Once you have your ``self.cpp.local`` object declared you can put the package in
 :ref:`editable mode<editable_packages>` and keep working on the code development with your IDE. Other packages
 depending on this one, will locate the libraries being developed instead of the Conan package in the cache.
 
 .. code:: bash
 
     $ conan editable add .  hello/1.0
-
-
-
-self.patterns
-+++++++++++++
-
-You can fill the ``self.patterns.source`` and ``self.patterns.build`` objects describing the patterns of the files that are at the ``self.folders.source`` and ``self.folders.build``
-to automate the ``package(self)`` method with the **LayoutPackager()** tool (see the :ref:`example below<layout_example>`).
-
-The defaults are the following but you can customize anything based on the configuration (``self.settings``, ``self.options``...):
-
-.. code:: python
-
-        self.patterns.source.include = ["*.h", "*.hpp", "*.hxx"]
-        self.patterns.source.lib = []
-        self.patterns.source.bin = []
-
-        self.patterns.build.include = ["*.h", "*.hpp", "*.hxx"]
-        self.patterns.build.lib = ["*.so", "*.so.*", "*.a", "*.lib", "*.dylib"]
-        self.patterns.build.bin = ["*.exe", "*.dll"]
-
-
-These are all the fields that can be adjusted, both in ``self.patterns.source`` and ``self.patterns.build``:
-
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| NAME                                 | DESCRIPTION (xxx can be either ``build`` or ``source``)                                                 |
-+======================================+=========================================================================================================+
-| include                              | Patterns of the files from the folders: ``self.cpp.xxx.includedirs``                                    |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| lib                                  | Patterns of the files from the folders: ``self.cpp.xxx.libdirs``                                        |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| bin                                  | Patterns of the files from the folders: ``self.cpp.xxx.bindirs``                                        |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| src                                  | Patterns of the files from the folders: ``self.cpp.xxx.srcdirs``                                        |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| build                                | Patterns of the files from the folders: ``self.cpp.xxx.builddirs``                                      |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| res                                  | Patterns of the files from the folders: ``self.cpp.xxx.resdirs``                                        |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| framework                            | Patterns of the files from the folders: ``self.cpp.xxx.frameworkdirs``                                  |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
 
 
 .. _layout_example:
@@ -262,7 +226,7 @@ We can write a ``layout()`` method describing it:
 .. code:: python
 
         from conans import ConanFile
-        from conan.tools.layout import LayoutPackager
+        from conan.tools.files import AutoPackager
 
         class Pkg(ConanFile):
 
@@ -278,25 +242,23 @@ We can write a ``layout()`` method describing it:
                 # `-DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake` to CMake
                 self.folders.generators = os.path.join(self.folders.build, "generators")
 
-                # In case we use "conan package" we declare an output directory
-                self.folders.package = "package-{}".format(str(self.settings.build_type).lower())
+                # ###### LOCAL
+                self.cpp.local.includedirs = ["include", self.folders.build]
+                self.cpp.local.libdirs = [self.folders.build]
+                self.cpp.local.libs = ["hello"]
 
-                # ###### INFOS
-                self.cpp.source.includedirs = ["include"] # Relative to ["."] (self.folders.source)
-                self.cpp.build.libdirs = ["."]  # Relative to (self.folders.build)
-                self.cpp.build.libs = ["hello"]
-                self.cpp.build.includedirs = ["."] # Relative to (self.folders.build)
+                # ###### PACKAGE
                 self.cpp.package.libs = ["hello"]
 
-                # ###### PATTERNS
-                self.patterns.source.res = ["*.jpeg"] # To package automatically the myasset.jpeg
-
             def package(self):
-                LayoutPackager(self).package()
+                packager = AutoPackager(self)
+                 # To package automatically the myasset.jpeg
+                packager.patterns.res = ["*.jpeg"]
+                packager.run()
 
 
 - There is no need to declare the ``package_info(self)`` method, we declared the needed information at ``self.cpp.package``.
-- The ``package(self)`` method is quite simple using the ``LayoutPackager(self).package()``
+- The ``package(self)`` method is quite simple using the ``AutoPackager``
 - We can easily put the package in editable mode and keep using the CLion IDE to build the libraries:
 
     .. code:: bash
