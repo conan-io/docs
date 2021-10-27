@@ -14,11 +14,9 @@ XcodeDeps
 Available since: `1.42.0 <https://github.com/conan-io/conan/releases>`_
 
 The ``XcodeDeps`` tool is the dependency information generator for *Xcode*. It will generate multiple
-*.xcconfig* configuration files, to be used by consumers using *xcodebuild* or *Xcode*, just adding the
-generated configuration files to the solution and projects.
-
-It is important to highlight that this one is a **dependencies generator** and it is focused
-on the **dependencies** of a conanfile, not the current build.
+*.xcconfig* configuration files, the can be used by consumers using *xcodebuild* or *Xcode*. To use
+them just add the generated configuration files to the Xcode project or set the ``-xcconfig``
+argument from the command line.
 
 The ``XcodeDeps`` generator can be used by name in conanfiles:
 
@@ -51,7 +49,7 @@ And it can also be fully instantiated in the conanfile ``generate()`` method:
             xcode.generate()
 
 When the ``XcodeDeps`` generator is used, every invocation of ``conan install`` will
-generate several configuration files, per dependency and per configuration. For the *conanfile.py*
+generate several configuration files, per dependency and configuration. For the *conanfile.py*
 above, for example:
 
 .. code-block:: bash
@@ -59,7 +57,7 @@ above, for example:
     $ conan install conanfile.py # default is Release
     $ conan install conanfile.py -s build_type=Debug
 
-This is a multi-configuration generator, and will generate different files for the different
+This generator is multi-configuration. It will generate different files for the different
 *Debug/Release* configurations for each requirement. It will also generate one single file
 (*conandeps.xcconfig*) aggregating all the files for the direct dependencies (just *libpng* in this
 case). The above commands generate the following files:
@@ -97,6 +95,6 @@ The second ``conan install -s build_type=Debug`` generates:
 - *conandeps.xcconfig*: configuration files including all direct dependencies, in this case, it just includes ``conan_libpng.xcconfig``.
 
 If you want to add this dependencies to you Xcode project, you just have to add the
-*conandeps.xcconfig* configuration file for all of the configurations you want to used (usually
+*conandeps.xcconfig* configuration file for all of the configurations you want to use (usually
 *Debug* and *Release*).
 
