@@ -155,6 +155,7 @@ Use the **build_context_build_modules** attribute to specify require names to in
     The ``build_context_build_modules`` feature will fail if no "build" profile is used. This feature only work when using
     the two host and build profiles.
 
+.. _CMakeDeps Properties:
 
 Properties
 ++++++++++

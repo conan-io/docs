@@ -8,6 +8,7 @@ PkgConfigDeps
 
     These tools are **experimental** and subject to breaking changes.
 
+.. _PkgConfigDeps Properties:
 
 PkgConfigDeps
 -------------
