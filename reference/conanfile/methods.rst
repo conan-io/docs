@@ -1497,13 +1497,12 @@ self.folders
 self.cpp
 ++++++++
 
-The ``layout()`` method allows to declare:
+The ``layout()`` method allows to declare ``cpp_info`` objects not only for the final package (like the classic approach with
+the ``self.cpp_info`` in the ``package_info(self)`` method) but for the ``self.source_folder`` and ``self.build_folder``.
 
-    - ``cpp.package``: Same as adjusting the ``self.cpp_info`` at the ``package_info(self)`` method.
-    - ``cpp.local``: Same fields but referring to a local folder while using editable packages.
+The fields of the cpp_info objects at ``self.info.build`` and ``self.info.source`` are the same described :ref:`here<cpp_info_attributes_reference>`.
+Components are also supported.
 
-The fields of these cpp_info objects are the same described :ref:`here<cpp_info_attributes_reference>`.
-Components are also supported in both objects.
 
 test()
 ------
