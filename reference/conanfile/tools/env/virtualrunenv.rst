@@ -75,10 +75,10 @@ generate()
 
 .. code:: python
 
-    def generate(self, group="run"):
+    def generate(self, scope="run"):
 
 
 Parameters:
 
-    * **group** (Defaulted to ``run``): Add the launcher automatically to the ``conanrun`` launcher. Read more
+    * **scope** (Defaulted to ``run``): Add the launcher automatically to the ``conanrun`` launcher. Read more
       in the :ref:`Environment documentation <conan_tools_env_environment_model>`.
