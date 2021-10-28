@@ -238,7 +238,7 @@ Examples:
 
 
 
-Available since: `1.37.0 <https://github.com/conan-io/conan/releases>`_
+Available since: `1.42.0 <https://github.com/conan-io/conan/releases>`_
 
 .. _conan_tools_files_autopackager:
 
