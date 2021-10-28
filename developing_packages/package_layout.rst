@@ -324,7 +324,7 @@ Let's review the layout() method changes:
 
    - We are setting ``self.cpp.source.includedirs = ["include"]``. The ``self.folders.source`` information will
      be automatically prepended to that path for consumers so, for example, when working with an editable package, Conan will try to get the
-     include files from the ``./my_project_folder/include`` folder.
+     include files from the **./my_project_folder/src/include** folder.
    - We set the ``self.cpp.build.libdirs`` to **["."]**, so we are declaring that, if we make the package ``editable``,
      the libraries will be at the **./cmake-build-<build_type>** folder.
    - We set the ``self.cpp.build.bindirs`` to **["bin"]**, because the ``CMakeLists.txt`` file is changing the ``RUNTIME_OUTPUT_DIRECTORY`` to
