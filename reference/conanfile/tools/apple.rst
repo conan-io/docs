@@ -38,7 +38,7 @@ And it can also be fully instantiated in the conanfile ``generate()`` method:
     :caption: conanfile.py
 
     from conans import ConanFile
-    from conan.tools.microsoft import XcodeDeps
+    from conan.tools.apple import XcodeDeps
 
     class Pkg(ConanFile):
         settings = "os", "compiler", "arch", "build_type"
@@ -98,3 +98,33 @@ If you want to add this dependencies to you Xcode project, you just have to add 
 *conandeps.xcconfig* configuration file for all of the configurations you want to use (usually
 *Debug* and *Release*).
 
+Custom configurations
++++++++++++++++++++++
+
+If your Xcode project defines custom configurations, like ``ReleaseShared``, or ``MyCustomConfig``,
+it is possible to define it into the ``XcodeDeps`` generator, so different project configurations can
+use different set of dependencies. Let's say that our current project can be built as a shared library,
+with the custom configuration ``ReleaseShared``, and the package also controls this with the ``shared``
+option:
+
+.. code-block:: python
+
+    from conans import ConanFile
+    from conan.tools.apple import XcodeDeps
+
+    class Pkg(ConanFile):
+        settings = "os", "compiler", "arch", "build_type"
+        options = {"shared": [True, False]}
+        default_options = {"shared": False}
+        requires = "zlib/1.2.11"
+
+        def generate(self):
+            xcode = XcodeDeps(self)
+            # We assume that -o *:shared=True is used to install all shared deps too
+            if self.options.shared:
+                xcode.configuration = str(self.settings.build_type) + "Shared"
+            xcode.generate()
+
+This will manage to generate new *.xcconfig* files for this custom configuration, and when you switch
+to this configuration in the IDE, the build system will take the correct values depending wether we
+want to link with shared or static libraries.
