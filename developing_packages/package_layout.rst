@@ -360,7 +360,6 @@ files are or the build files should be, because everything is declared in the la
     # This will build the project using the declared source folder and ``cmake-build-debug`` as the build folder
     $ conan build . -if=my_install
 
-
 .. note::
 
     Maybe you are wondering why the **install folder** is not parametrized and has to be specified with the ``-if``
@@ -401,6 +400,7 @@ completely transparent way, even locating the correct **Release**/**Debug** arti
           information set in ``self.cpp.package`` so that we don’t have to declare again something like ``self.cpp.build.libs = ["say"]`` that is
           the same for the consumers independently of if the package is in editable mode or not.
 
+
 And of course we can run also a ``conan create`` command. When the ``build(self)`` method is run in the conan cache, it is
 also able to locate the ``my_tool`` correctly, because it is using the same ``folders.build``:
 
@@ -428,3 +428,10 @@ also able to locate the ``my_tool`` correctly, because it is using the same ``fo
                  | - my_app
             |  - include
                  | - hello.h
+
+
+.. warning:: The ``conan package`` local command has been disabled (will raise an exception) when the ``layout()`` method
+   is declared. If the package can be consumed "locally" in a handy way, the use case for the ``conan package`` method
+   is only testing that the method is correctly coded, but that can also be done with the ``conan export-pkg`` method.
+   This responds to the migration to Conan 2.0, where the ``conan package`` method will disappear.
+
