@@ -425,12 +425,12 @@ also able to locate the ``my_tool`` correctly, because it is using the same ``fo
         │       └── bin
         │           └── my_app
         └── package
-           ├── lib
-            │   └── say.a
-            ├── bin
-            │   └── my_app
-            └── include
-               └── hello.h
+            ├── lib
+            │   └── say.a
+            ├── bin
+            │   └── my_app
+            └── include
+                └── hello.h
 
 
 .. warning:: The ``conan package`` local command has been disabled (will raise an exception) when the ``layout()`` method
