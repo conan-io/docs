@@ -38,7 +38,7 @@ And it can also be fully instantiated in the conanfile ``generate()`` method:
     :caption: conanfile.py
 
     from conans import ConanFile
-    from conan.tools.microsoft import XcodeDeps
+    from conan.tools.apple import XcodeDeps
 
     class Pkg(ConanFile):
         settings = "os", "compiler", "arch", "build_type"
