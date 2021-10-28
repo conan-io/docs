@@ -68,7 +68,7 @@ Not all fields of the dependency conanfile are exposed, the current fields are:
 - pref: an object that contains ``ref``, ``package_id`` and ``revision`` (package revision)
 - buildenv_info: ``Environment`` object with the information of the environment necessary to build
 - runenv_info: ``Environment`` object with the information of the environment necessary to run the app
-- new_cpp_info: (name to be changed): includedirs, libdirs, etc for the dependency
+- cpp_info: includedirs, libdirs, etc for the dependency.
 - settings: The actual settings values of this dependency
 - settings_build: The actual build settings values of this dependency
 - options: The actual options values of this dependency
@@ -137,3 +137,46 @@ They can be used in the same way:
         cmake = self.dependencies.direct_build["cmake"]
         for require, dependency in self.dependencies.build.items():
             # do something, only build deps here
+
+
+Dependencies ``cpp_info`` interface
++++++++++++++++++++++++++++++++++++
+
+The ``cpp_info`` interface is heavily used by build systems to access the data.
+This object defines global and per-component attributes to access information like the include
+folders:
+
+.. code-block:: python
+
+    def generate(self):
+        cpp_info = self.dependencies["mydep"].cpp_info
+        cpp_info.includedirs
+        cpp_info.libdirs
+
+        cpp_info.components["mycomp"].includedirs
+        cpp_info.components["mycomp"].libdirs
+
+These are the defined attributes in ``cpp_info``. All the paths are typically relative paths to
+the root of the package folder that contains the dependency artifacts:
+
+.. code-block:: python
+
+    # ###### DIRECTORIES
+    self.includedirs = None  # Ordered list of include paths
+    self.srcdirs = None  # Ordered list of source paths
+    self.libdirs = None  # Directories to find libraries
+    self.resdirs = None  # Directories to find resources, data, etc
+    self.bindirs = None  # Directories to find executables and shared libs
+    self.builddirs = None
+    self.frameworkdirs = None
+
+    # ##### FIELDS
+    self.system_libs = None  # Ordered list of system libraries
+    self.frameworks = None  # Macos .framework
+    self.libs = None  # The libs to link against
+    self.defines = None  # preprocessor definitions
+    self.cflags = None  # pure C flags
+    self.cxxflags = None  # C++ compilation flags
+    self.sharedlinkflags = None  # linker flags
+    self.exelinkflags = None  # linker flags
+    self.objects = None  # objects to link
