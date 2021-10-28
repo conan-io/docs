@@ -52,14 +52,16 @@ will create the following files:
   like PATH, LD_LIBRARY_PATH, etc, and any other variable defined in the dependencies ``buildenv_info``
   corresponding to the ``build`` context, and to the current installed
   configuration. If a repeated call is done with other settings, a different file will be created.
+  After the execution or sourcing of this file, a new deactivation script will be generated, capturing the current
+  environment, so the environment can be restored when desired. The file will be named also following the
+  current active configuration, like ``deactivate_conanbuildenv-release-x86_64.bat``.
 - conanbuild.(bat|sh): Accumulates the calls to one or more other scripts, in case there are multiple tools
   in the generate process that create files, to give one single convenient file for all. This only calls
   the latest specific configuration one, that is, if ``conan install`` is called first for Release build type,
   and then for Debug, ``conanbuild.(bat|sh)`` script will call the Debug one.
+- deactivate_conanbuild.(bat|sh): Accumulates the deactivation calls defined in the above ``conanbuild.(bat|sh)``.
+  This file should only be called after the accumulated activate has been called first.
 
-After the execution of one of those files, a new deactivation script will be generated, capturing the current
-environment, so the environment can be restored when desired. The file will be named also following the
-current active configuration, like ``deactivate_conanbuildenv-release-x86_64.bat``.
 
 Constructor
 +++++++++++
@@ -76,10 +78,10 @@ generate()
 
 .. code:: python
 
-    def generate(self, group="build"):
+    def generate(self, scope="build"):
 
 
 Parameters:
 
-    * **group** (Defaulted to ``"build"``): Add the launcher automatically to the ``conanbuild`` launcher. Read more
+    * **scope** (Defaulted to ``"build"``): Add the launcher automatically to the ``conanbuild`` launcher. Read more
       in the :ref:`Environment documentation <conan_tools_env_environment_model>`.
