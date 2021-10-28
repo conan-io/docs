@@ -42,12 +42,12 @@ When we call ``conan create``, this is a simplified description of what happens:
         ├── export
         │   └── conanfile.py
         └── export_source
-           └── src
-               ├── CMakeLists.txt
-               ├── hello.cpp
-               ├── my_tool.cpp
-               └── include
-                   └── hello.h
+            └── src
+                ├── CMakeLists.txt
+                ├── hello.cpp
+                ├── my_tool.cpp
+                └── include
+                    └── hello.h
 
 2. If the method ``source()`` exists, it might retrieve sources from the internet. Also, the ``export_source`` folder
    is copied to the ``source`` folder.
@@ -96,10 +96,10 @@ When we call ``conan create``, this is a simplified description of what happens:
         │       └── include
         │           └── hello.h
         └── build
-           └── <build_id>
-               ├── say.a
-               └── bin
-                   └── my_app
+            └── <build_id>
+                ├── say.a
+                └── bin
+                    └── my_app
 
 4. At last, Conan calls the ``package()`` method to copy the built artifacts from the ``source`` (typically includes)
    and ``build`` folders (libraries and executables) to a **package** folder.
@@ -129,13 +129,13 @@ When we call ``conan create``, this is a simplified description of what happens:
         │       └── bin
         │           └── my_app
         └── package
-           └── <package_id>
-               ├── lib
-               │   └── say.a
-               ├── bin
-               │   └── my_app
-               └── include
-                   └── hello.h
+            └── <package_id>
+                ├── lib
+                │   └── say.a
+                ├── bin
+                │   └── my_app
+                └── include
+                    └── hello.h
 
 5. The ``package_info(self)`` method will describe with the ``self.cpp_info`` object the contents of the ``package``
    folder, that is the one the consumers use to link against it. If we call `conan create` with different configurations
@@ -387,9 +387,9 @@ Our current folder now looks like this:
     │   └── include
     │       └── hello.h
     └── cmake-build-debug
-         ├── libsay.a
-         └── bin
-             └── my_tool
+        ├── libsay.a
+        └── bin
+            └── my_tool
 
 
 We could put the package in editable mode and other packages that require say would consume it in a
