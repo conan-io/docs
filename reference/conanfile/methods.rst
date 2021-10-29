@@ -1460,7 +1460,7 @@ Available since: `1.37.0 <https://github.com/conan-io/conan/releases>`_
 
 Read about the feature :ref:`here<package_layout>`.
 
-In the layout() method you can adjust ``self.folders``, ``self.cpp`` and ``self.patterns``.
+In the layout() method you can adjust ``self.folders`` and ``self.cpp``.
 
 
 .. _layout_folders_reference:
@@ -1493,10 +1493,6 @@ self.folders
   method in a ``conanfile.py``. In the cache, when running the :command:`conan create`, this subfolder will be relative to the root
   build folder and when running the :command:`conan imports` command it will be relative to the current working directory.
 
-- **self.folders.package** (Defaulted to ""): Specifies a subfolder where to write the package files when running the :command:`conan package`
-  command. It is relative to the current working directory. This folder **will not** affect the package layout in the
-  cache.
-
 
 self.cpp
 ++++++++
@@ -1506,46 +1502,6 @@ the ``self.cpp_info`` in the ``package_info(self)`` method) but for the ``self.s
 
 The fields of the cpp_info objects at ``self.info.build`` and ``self.info.source`` are the same described :ref:`here<cpp_info_attributes_reference>`.
 Components are also supported.
-
-
-self.patterns
-+++++++++++++
-
-You can fill the ``self.patterns.source`` and ``self.patterns.build`` objects describing the patterns of the files that are at the ``self.folders.source`` and ``self.folders.build``
-to automate the ``package(self)`` method with the **LayoutPackager()** tool.
-
-The defaults are the following but you can customize anything based on the configuration (``self.settings``, ``self.options``...):
-
-.. code:: python
-
-        self.patterns.source.include = ["*.h", "*.hpp", "*.hxx"]
-        self.patterns.source.lib = []
-        self.patterns.source.bin = []
-
-        self.patterns.build.include = ["*.h", "*.hpp", "*.hxx"]
-        self.patterns.build.lib = ["*.so", "*.so.*", "*.a", "*.lib", "*.dylib"]
-        self.patterns.build.bin = ["*.exe", "*.dll"]
-
-
-These are all the fields that can be adjusted, both in ``self.patterns.source`` and ``self.patterns.build``:
-
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| NAME                                 | DESCRIPTION (xxx can be either ``build`` or ``source``)                                                 |
-+======================================+=========================================================================================================+
-| include                              | Patterns of the files from the folders: ``self.cpp.xxx.includedirs``                                    |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| lib                                  | Patterns of the files from the folders: ``self.cpp.xxx.libdirs``                                        |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| bin                                  | Patterns of the files from the folders: ``self.cpp.xxx.bindirs``                                        |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| src                                  | Patterns of the files from the folders: ``self.cpp.xxx.srcdirs``                                        |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| build                                | Patterns of the files from the folders: ``self.cpp.xxx.builddirs``                                      |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| res                                  | Patterns of the files from the folders: ``self.cpp.xxx.resdirs``                                        |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| framework                            | Patterns of the files from the folders: ``self.cpp.xxx.frameworkdirs``                                  |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
 
 
 test()
