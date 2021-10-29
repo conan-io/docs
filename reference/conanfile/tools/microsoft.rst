@@ -304,9 +304,9 @@ generate()
 
 .. code:: python
 
-    def generate(self, group="build"):
+    def generate(self, scope="build"):
 
 Parameters:
 
-    * **group** (Defaulted to ``"build"``): Add the launcher automatically to the ``conanbuild`` launcher. Read more
+    * **scope** (Defaulted to ``"build"``): Add the launcher automatically to the ``conanbuild`` launcher. Read more
       in the :ref:`Environment documentation <conan_tools_env_environment_model>`.
