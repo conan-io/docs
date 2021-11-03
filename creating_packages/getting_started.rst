@@ -161,6 +161,7 @@ If "Hello world Release!" is displayed, it worked. This is what has happened:
 We can now validate that the recipe and the package binary are in the cache:
 
 .. code-block:: bash
+
     $ conan list recipes hello
     Local Cache:
       hello
