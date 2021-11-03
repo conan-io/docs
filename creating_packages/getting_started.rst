@@ -94,7 +94,7 @@ Let's have a look at the package recipe *conanfile.py*:
 Let's explain this recipe a little bit:
 
 - The binary configuration is composed by ``settings`` and ``options``. When something changes in the configuration,
-the resulting binary built and packaged will be different:
+  the resulting binary built and packaged will be different:
 
   - ``settings`` are project wide configuration that cannot be defaulted in recipes, like the OS or the
     architecture.
