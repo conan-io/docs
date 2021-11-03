@@ -13,7 +13,7 @@ The **global.conf** file is located in the Conan user home directory.
 Global configuration
 --------------------
 
-- ``core:required_conan_version = "expression"`` allows defining a version expression like ">=1.30". Conan will raise an error if its current version does not satisfy the condition
+- ``core:required_conan_version = expression`` allows defining a version expression like ``>=1.30``. Conan will raise an error if its current version does not satisfy the condition
 - ``core.package_id:msvc_visual_incompatible`` allows opting-out the fallback from the new ``msvc`` compiler to the ``Visual Studio`` compiler existing binaries
 
 
@@ -65,6 +65,7 @@ To list all possible configurations available, run :command:`conan config list`.
 - tools.microsoft.msbuild:verbosity: Verbosity level for MSBuild: 'Quiet', 'Minimal', 'Normal', 'Detailed', 'Diagnostic'
 - tools.microsoft.msbuild:max_cpu_count: Argument for the /m (/maxCpuCount) when running MSBuild
 - tools.microsoft.msbuild:vs_version: Defines the IDE version when using the new msvc compiler
+- tools.microsoft.msbuild:installation_path: VS install path, to avoid auto-detect via vswhere, like C:/Program Files (x86)/Microsoft Visual Studio/2019/Community
 - tools.microsoft.msbuilddeps:exclude_code_analysis: Suppress MSBuild code analysis for patterns
 - tools.microsoft.msbuildtoolchain:compile_options: Dictionary with MSBuild compiler options
 - tools.ninja:jobs: Argument for the --jobs parameter when running Ninja generator

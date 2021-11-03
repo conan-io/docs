@@ -46,6 +46,18 @@ the compiled executables and applications. The information is obtained from the 
 deduced from the ``self.cpp_info`` definition of the package, to define ``PATH``, ``LD_LIBRARY_PATH``, ``DYLD_LIBRARY_PATH``
 and ``DYLD_FRAMEWORK_PATH`` environment variables.
 
+This generator will create the following files:
+
+- conanrunenv-release-x86_64.(bat|sh): This file contains the actual definition of environment variables
+  like PATH, LD_LIBRARY_PATH, etc, and ``runenv_info`` of dependencies corresponding to the ``host`` context,
+  and to the current installed configuration. If a repeated call is done with other settings, a different file will be created.
+- conanrun.(bat|sh): Accumulates the calls to one or more other scripts to give one single convenient file
+  for all. This only calls the latest specific configuration one, that is, if ``conan install`` is called first for Release build type,
+  and then for Debug, ``conanrun.(bat|sh)`` script will call the Debug one.
+
+After the execution of one of those files, a new deactivation script will be generated, capturing the current
+environment, so the environment can be restored when desired. The file will be named also following the
+current active configuration, like ``deactivate_conanrunenv-release-x86_64.bat``.
 
 
 Constructor
@@ -63,10 +75,10 @@ generate()
 
 .. code:: python
 
-    def generate(self, auto_activate=True):
+    def generate(self, scope="run"):
 
 
 Parameters:
 
-    * **auto_activate** (Defaulted to ``True``): Add the launcher automatically to the ``conanenv`` launcher. Read more
+    * **scope** (Defaulted to ``run``): Add the launcher automatically to the ``conanrun`` launcher. Read more
       in the :ref:`Environment documentation <conan_tools_env_environment_model>`.

@@ -91,7 +91,7 @@ Conan commands. An example of this would be a profile like:
 
 .. code-block:: text
    :caption: *address_sanitizer_profile*
-   :emphasize-lines: 10,12,13
+   :emphasize-lines: 10,12,13,14
 
     [settings]
     os=Macos
@@ -104,11 +104,12 @@ Conan commands. An example of this would be a profile like:
     build_type=Release
     compiler.sanitizer=Address
     [env]
-    CXXFLAGS=-fsanitize=address
     CFLAGS=-fsanitize=address
+    CXXFLAGS=-fsanitize=address
+    LDFLAGS=-fsanitize=address
 
-Then calling to :command:`conan create . -pr address_sanitizer_profile` would inject
-``-fsanitize=address`` to the build through the ``CXXFLAGS`` environment variable.
+Then calling :command:`conan create . -pr address_sanitizer_profile` would inject
+``-fsanitize=address`` to the build through the ``CFLAGS``, ``CXXFLAGS``, and ``LDFLAGS`` environment variables.
 
 Managing sanitizer settings with the build system
 #################################################

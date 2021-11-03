@@ -1,3 +1,4 @@
+.. _conan-cmake-build-helper:
 
 CMake
 -----
@@ -9,7 +10,7 @@ CMake
 
 The ``CMake`` build helper is a wrapper around the command line invocation of cmake. It will abstract the
 calls like ``cmake --build . --config Release`` into Python method calls. It will also add the argument
-``-DCMAKE_TOOLCHAIN_FILE=conantoolchain.cmake`` to the ``configure()`` call.
+``-DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake`` to the ``configure()`` call.
 
 The helper is intended to be used in the ``build()`` method, to call CMake commands automatically
 when a package is being built directly by Conan (create, install)
@@ -47,18 +48,24 @@ constructor
 
 .. code:: python
 
-    def __init__(self, conanfile, build_folder=None):
+    def __init__(self, conanfile, parallel=True, namespace=None):
 
 - ``conanfile``: the current recipe object. Always use ``self``.
-- ``build_folder``: Relative path to a folder to contain the temporary build files
-
+- ``parallel``: (Optional, Defaulted to True): If True, will append the -jN attribute (/m: in MSBuild) for parallel
+  building being N the value of the :ref:`tools.microsoft.msbuild:max_cpu_count<global_conf>`.
+- ``namespace``: this argument avoids collisions when you have multiple toolchain calls in the same
+  recipe. By setting this argument the *conanbuild.conf* file used to pass some information to the
+  toolchain will be named as: *<namespace>_conanbuild.conf*. The default value is ``None`` meaning that
+  the name of the generated file is *conanbuild.conf*. This namespace must be also set with the same
+  value in the constructor of the :ref:`CMakeToolchain<conan-cmake-toolchain>` so that it reads the
+  information from the proper file.
 
 configure()
 +++++++++++
 
 .. code:: python
 
-    def configure(self, source_folder=None):
+    def configure(self, build_script_folder=None):
 
 Calls ``cmake``, with the generator defined in the ``cmake_generator`` field of the
 ``conanbuild.conf`` file, and passing ``-DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake``.
@@ -68,7 +75,7 @@ Calls ``cmake``, with the generator defined in the ``cmake_generator`` field of 
     If ``conanbuild.conf`` file is not there, Conan will raise an exception because it's a mandatory one even though it's empty.
 
 
-- ``source_folder``: Relative path to the folder containing the root *CMakeLists.txt*
+- ``build_script_folder``: Relative path to the folder containing the root *CMakeLists.txt*
 
 
 build()

@@ -10,41 +10,6 @@ conan.tools.layout
     (:ref:`in the conan.tools space <conan_tools>`). If you are using other integrations, they
     might not fully support this feature.
 
-
-Available since: `1.37.0 <https://github.com/conan-io/conan/releases>`_
-
-LayoutPackager
---------------
-
-The ``LayoutPackager`` together with the :ref:`package layouts<package_layout>` feature, allow to automatically
-package the files following the declared information in the ``layout()`` method:
-
-It will copy (being xxx => ``build`` and ``source`` (if destination is only one dir):
-
-- Files from ``self.cpp.xxx.includedirs`` to ``self.cpp.package.includedirs`` matching ``self.patterns.xxx.include`` patterns.
-- Files from ``self.cpp.xxx.libdirs`` to ``self.cpp.package.libdirs`` matching ``self.patterns.xxx.lib`` patterns.
-- Files from ``self.cpp.xxx.bindirs`` to ``self.cpp.package.bindirs`` matching ``self.patterns.xxx.bin`` patterns.
-- Files from ``self.cpp.xxx.srcdirs`` to ``self.cpp.package.srcdirs`` matching ``self.patterns.xxx.src`` patterns.
-- Files from ``self.cpp.xxx.builddirs`` to ``self.cpp.package.builddirs`` matching ``self.patterns.xxx.build`` patterns.
-- Files from ``self.cpp.xxx.resdirs`` to ``self.cpp.package.resdirs`` matching ``self.patterns.xxx.res`` patterns.
-- Files from ``self.cpp.xxx.frameworkdirs`` to ``self.cpp.package.frameworkdirs`` matching ``self.patterns.xxx.framework`` patterns.
-
-
-Usage:
-
-.. code:: python
-
-        from conans import ConanFile
-        from conan.tools.layout import LayoutPackager
-
-        class Pkg(ConanFile):
-
-            def layout(self):
-                ...
-
-            def package(self):
-                LayoutPackager(self).package()
-
 .. _conan_tools_layout_predefined_layouts:
 
 Predefined layouts
@@ -87,13 +52,14 @@ attributes described before:
             conanfile.folders.build = "cmake-build-{}".format(build_type)
             conanfile.folders.generators = os.path.join(conanfile.folders.build, "conan")
 
-        conanfile.cpp.source.includedirs = ["src"]
+        conanfile.cpp.local.includedirs = ["src"]
         if multi:
-            conanfile.cpp.build.libdirs = ["{}".format(conanfile.settings.build_type)]
-            conanfile.cpp.build.bindirs = ["{}".format(conanfile.settings.build_type)]
+            _dir = os.path.join(conanfile.folders.build, str(conanfile.settings.build_type))
+            conanfile.cpp.local.libdirs = [_dir]
+            conanfile.cpp.local.bindirs = [_dir]
         else:
-            conanfile.cpp.build.libdirs = ["."]
-            conanfile.cpp.build.bindirs = ["."]
+            conanfile.cpp.local.libdirs = [conanfile.folders.build]
+            conanfile.cpp.local.bindirs = [conanfile.folders.build]
 
 First, it is important to notice that the layout depends on the CMake generator that will be used.
 So if defined from ``[conf]``, that value will be used. If defined in recipe, then the recipe should
@@ -110,8 +76,11 @@ will be located in a dedicated folder inside the build folder, while for single-
 be located directly in the build folder.
 
 This helper defines a few things, for example that the source folder is called ``"."``, meaning that Conan will
-search the main `CMakeLists.txt` in the same directory were the conanfile is (most likely the project root).
+expect the sources in the same directory were the conanfile is (most likely the project root).
 This could be customized without fully changing the layout:
+
+
+.. code:: python
 
     def layout(self):
         cmake_layout(self)

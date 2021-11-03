@@ -9,7 +9,7 @@ CMakeToolchain
 
 
 The ``CMakeToolchain`` is the toolchain generator for CMake. It will generate toolchain files that can be used in the
-command line invocation of CMake with the ``-DCMAKE_TOOLCHAIN_FILE=conantoolchain.cmake``. This generator translates
+command line invocation of CMake with the ``-DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake``. This generator translates
 the current package configuration, settings, and options, into CMake toolchain syntax.
 
 
@@ -82,6 +82,13 @@ constructor
 
     def __init__(self, conanfile, generator=None):
 
+- ``conanfile``: the current recipe object. Always use ``self``.
+- ``namespace``: this argument avoids collisions when you have multiple toolchain calls in the same
+  recipe. By setting this argument, the *conanbuild.conf* file used to pass information to the
+  build helper will be named as: *<namespace>_conanbuild.conf*. The default value is ``None`` meaning that
+  the name of the generated file is *conanbuild.conf*. This namespace must be also set with the same
+  value in the constructor of the :ref:`CMake build helper<conan-cmake-build-helper>` so that it reads the
+  information from the proper file.
 
 Most of the arguments are optional and will be deduced from the current ``settings``, and not
 necessary to define them.
