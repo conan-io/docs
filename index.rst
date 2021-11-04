@@ -10,4 +10,4 @@ Welcome to Conan C/C++ Package Manager Documentation
    integrations
    examples
    reference
-
+   faq
