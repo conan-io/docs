@@ -7,7 +7,6 @@ Welcome to Conan C/C++ Package Manager Documentation
    introduction
    installation
    tutorial
-   creating_packages
    integrations
    examples
    reference
