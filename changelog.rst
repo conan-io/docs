@@ -21,6 +21,14 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.42 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
     a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.42.1 (08-Nov-2021)
+--------------------
+
+- Fix: Fix XcodeDeps architecture name translation from Conan to Apple identifiers. `#9955 <https://github.com/conan-io/conan/pull/9955>`_
+- Bugfix: Fix XcodeDeps bad xcconfig generation when using dash-case-named packages `#9955 <https://github.com/conan-io/conan/pull/9955>`_
+- Bugfix: Avoid exception if ``msvc`` compiler not defined in settings.yml file. `#9954 <https://github.com/conan-io/conan/pull/9954>`_
+- Bugfix: legacy `cmake` generator is not affected by `set_property`. `#9952 <https://github.com/conan-io/conan/pull/9952>`_
+
 1.42.0 (29-Oct-2021)
 --------------------
 
