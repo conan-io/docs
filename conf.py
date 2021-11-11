@@ -430,7 +430,6 @@ def copy_legacy_redirects(app, docname): # Sphinx expects two arguments
         "integrations/qnx_neutrino.html": "cross_platform/qnx_neutrino.html",
         "integrations/emscripten.html": "cross_platform/emscripten.html",
 
-        "integrations/visual_studio.html": "ide/visual_studio.html",
         "integrations/xcode.html": "ide/xcode.html",
         "integrations/android_studio.html": "ide/android_studio.html",
         "integrations/clion.html": "ide/clion.html",
