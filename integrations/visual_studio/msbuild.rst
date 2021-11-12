@@ -7,33 +7,20 @@ If you are using CMake to generate your Visual Studio projects, this is not the 
 to :ref:`visual_cmake` instead. This section is about native integration with Microsoft MSBuild,
 using properties files.
 
-Conan can be integrated with **MSBuild** natively, the build system of Visual Studio in different
-ways:
+Conan can be integrated with **MSBuild** natively, using the ``conan.tools.microsoft`` tools:
+``MSBuildDeps``, ``MSBuildToolchain`` and ``MSBuild`` to generate properties files for your
+project, containing information about the project dependencies and toolchain.
 
+With `MSBuildDeps` and `MSBuildToolchain` generators
+----------------------------------------------------
 
-- Using the ``conan.tools.microsoft`` tools: ``MSBuildDeps``, ``MSBuildToolchain`` and ``MSBuild``
-  helpers to generate properties files for your project, containing information about the project
-  dependencies and toolchain. This is the new integration that is experimental but will become the
-  standard one in Conan 2.0. Go to (:ref:)`conan_tools_microsoft` for more information.
-- Using the ``visual_studio`` or ``visual_studio_multi`` generators to create a MSBuild properties
-  *conanbuildinfo.props* file. This is the older integration, it is more stable now, but it wil be
-  deprecated and removed in Conan 2.0. Keep reading this page for more information.
+Use the **MSBuildDeps** generator if you are maintaining your Visual Studio projects, and want
+to use Conan to to tell Visual Studio how to find your third-party dependencies.
 
+Use the **MSBuildToolchain** generator to translate the current package configuration, settings,
+and options, into MSBuild properties files syntax that you can add to your Visual Studio project.
 
-With *visual_studio* generator
-------------------------------
-
-Use the **visual_studio** generator, or **visual_studio_multi**, if you are maintaining your Visual
-Studio projects, and want to use Conan to to tell Visual Studio how to find your third-party
-dependencies.
-
-You can use the **visual_studio** generator to manage your requirements via your *Visual Studio*
-project.
-
-This generator creates a `Visual Studio project properties`_ file, with all the *include paths*,
-*lib paths*, *libs*, *flags* etc., that can be imported in your project.
-
-Open ``conanfile.txt`` and change (or add) the ``visual_studio`` generator:
+Open ``conanfile.txt`` and change (or add) the ``MSBuildDeps`` and ``MSBuildToolchain`` generators:
 
 .. code-block:: text
 
@@ -41,7 +28,8 @@ Open ``conanfile.txt`` and change (or add) the ``visual_studio`` generator:
     poco/1.9.4
 
     [generators]
-    visual_studio
+    MSBuildDeps
+    MSBuildToolchain
 
 Install the requirements:
 
@@ -54,7 +42,7 @@ Windows -> Property Manager**).
 
 .. image:: ../../images/conan-property_manager.png
 
-Click the **+** icon and select the generated ``conanbuildinfo.props`` file:
+Click the **+** icon and select the generated ``conandeps.props`` and ``conantoolchain.props`` files:
 
 .. image:: ../../images/conan-property_manager2.png
 
@@ -70,7 +58,7 @@ Build your project as usual.
 
 .. seealso::
 
-    Check (:ref:)`visualstudio_generator` for the complete reference.
+    Check :ref:`conan_tools_microsoft` for the complete reference.
 
 .. _building_visual_project:
 
