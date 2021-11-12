@@ -1,4 +1,4 @@
-.. _references:
+.. _reference:
 
 Reference
 =========
@@ -11,3 +11,5 @@ Contents:
    :maxdepth: 2
 
    reference/conanfile
+   reference/commands
+   reference/python_api
