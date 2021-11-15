@@ -112,18 +112,6 @@ You can list the different created binary packages:
 
     $ conan search hello/0.1@memsharded/testing
 
-Uploading binaries
-------------------
-
-Your locally created packages can already be uploaded to a Conan remote.
-If you created them with the original username "memsharded", as from the git clone, you might want
-to do a :command:`conan copy` to put them on your own username. Of course, you can also directly
-use your user name in :command:`conan create`.
-
-Another alternative is to configure the permissions in the remote, to allow uploading packages
-with different usernames. By default, Artifactory will do it but Conan server won't: Permissions
-must be given in the ``[write_permissions]`` section of *server.conf* file.
-
 
 Reusing packages
 ----------------
