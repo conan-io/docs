@@ -8,6 +8,7 @@
 
    visual_studio/msbuild
    visual_studio/cmake
+   visual_studio/tasks
    visual_studio/creating_packages
    visual_studio/conan_extension
 

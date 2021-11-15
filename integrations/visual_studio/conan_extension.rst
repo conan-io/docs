@@ -1,6 +1,12 @@
 |visual_logo| Conan Extension for Visual Studio
 ===============================================
 
+.. warning::
+
+    This extension does not work with Conan 2.0 yet. We're working on updating it as soon as
+    possible. This section remains here for informative purposes only.
+
+
 Thanks to the invaluable help of our community we manage to develop and maintain a free
 extension for Visual Studio in the Microsoft Marketplace, it is called `Conan Extension
 for Visual Studio <https://marketplace.visualstudio.com/items?itemName=conan-io.conan-vs-extension>`_
