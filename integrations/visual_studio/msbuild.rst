@@ -4,7 +4,7 @@
 =================================
 
 If you are using CMake to generate your Visual Studio projects, this is not the right section, go
-to :ref:`visual_cmake` instead. This section is about native integration with Microsoft MSBuild,
+to (:ref:)`cmake` instead. This section is about native integration with Microsoft MSBuild,
 using properties files.
 
 Conan can be integrated with **MSBuild** natively, using the ``conan.tools.microsoft`` tools:
