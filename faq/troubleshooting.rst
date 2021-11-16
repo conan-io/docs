@@ -270,4 +270,4 @@ Conan still warns us about the conflict, but as we have :ref:`versioning_depende
 ERROR: HTTPSConnectionPool(host='conan.bintray.com', port=443)
 --------------------------------------------------------------
 
-The ``conan.bintray.com`` has been deprecated and you have to update to ``https://center.conan.io`` now. For more information, please, read `here <https://blog.conan.io/2021/10/28/conancenter-bintray-remote-eol.html>`_.
+The ``conan.bintray.com`` has been deprecated and you have to update to ``https://center.conan.io`` now. For more information, please, read `Old Bintray remote EOL <https://blog.conan.io/2021/10/28/conancenter-bintray-remote-eol.html>`_.
