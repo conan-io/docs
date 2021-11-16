@@ -265,3 +265,9 @@ Here we choose ``foo/1.3.0`` because is newer. Now we can proceed:
         WARN: baz/1.0.0: requirement foo/1.0.0 overridden by foobar/1.0.0 to foo/1.3.0
 
 Conan still warns us about the conflict, but as we have :ref:`versioning_dependencies_overriding` the ``foo`` version, it's no longer an error.
+
+
+ERROR: HTTPSConnectionPool(host='conan.bintray.com', port=443)
+--------------------------------------------------------------
+
+The ``conan.bintray.com`` has been deprecated and you have to update to ``https://center.conan.io`` now. For more information, please, read `here <https://blog.conan.io/2021/10/28/conancenter-bintray-remote-eol.html>`_.
