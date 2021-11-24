@@ -43,7 +43,8 @@ In the repository, there is already a ``conanfile.py`` recipe:
 
 .. code-block:: python
 
-    from conans import ConanFile, MSBuild
+    from conans import ConanFile
+    from conan.tools.microsoft import MSBuild
 
 
     class HelloConan(ConanFile):
