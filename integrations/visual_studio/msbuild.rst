@@ -70,7 +70,8 @@ You can build an existing Visual Studio from your ``build()`` method using the
 
 .. code-block:: python
 
-    from conans import ConanFile, MSBuild
+    from conans import ConanFile
+    from conan.tools.microsoft import MSBuild
 
     class ExampleConan(ConanFile):
         ...
@@ -78,17 +79,6 @@ You can build an existing Visual Studio from your ``build()`` method using the
         def build(self):
             msbuild = MSBuild(self)
             msbuild.build("MyProject.sln")
-
-Toolsets
---------
-
-You can use the sub-setting ``toolset`` of the Visual Studio compiler to specify a custom toolset.
-It will be automatically applied when using the ``CMake()`` and ``MSBuild()`` build helpers.
-The toolset can also be specified manually in these build helpers with the ``toolset`` parameter.
-
-By default, Conan will not generate a new binary package if the specified ``compiler.toolset``
-matches an already generated package for the corresponding ``compiler.version``.
-Check the (:ref:)`package_id()<method_package_id>` reference to learn more.
 
 .. seealso::
 
