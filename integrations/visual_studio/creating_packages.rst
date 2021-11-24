@@ -1,6 +1,6 @@
 .. _visual_studio_packages:
 
-|visual_logo| Creating and reusing packages based on Visual Studio
+|visual_logo| Creating and reusing packages with Visual Studio
 ==================================================================
 
 Conan has different helpers to manage Visual Studio and MSBuild based projects.
@@ -16,15 +16,15 @@ application:
 
 .. code-block:: bash
 
-    $ git clone https://github.com/memsharded/hello_vs
-    $ cd hello_vs
+    $ git clone https://github.com/conan-io/examples
+    $ cd features/visual_studio/creating_packages
 
 It contains a ``src`` folder with the source code and a ``build`` folder with a Visual Studio 2015
 solution, containing 2 projects: the HelloLib static library, and the Greet application. Open it:
 
-.. code-block:: bash
+::
 
-    $ build\HelloLib\HelloLib.sln
+    build\HelloLib\HelloLib.sln
 
 You should be able to select the ``Greet`` subproject -> ``Set as Startup Project``.
 Then build and run the app with Ctrl+F5. (Debug -> Start Without Debugging)
@@ -45,13 +45,14 @@ In the repository, there is already a ``conanfile.py`` recipe:
 
     from conans import ConanFile, MSBuild
 
+
     class HelloConan(ConanFile):
-        name = "hello"
+        name = "Hello"
         version = "0.1"
         license = "MIT"
-        url = "https://github.com/memsharded/hello_vs"
+        url = "https://github.com/conan-io/examples"
         settings = "os", "compiler", "build_type", "arch"
-        exports_sources = "src/*", "build/*"
+        exports_sources = "src/*", "build/*.vcxproj*", "build/*.sln*"
 
         def build(self):
             msbuild = MSBuild(self)
@@ -60,6 +61,7 @@ In the repository, there is already a ``conanfile.py`` recipe:
         def package(self):
             self.copy("*.h", dst="include", src="src")
             self.copy("*.lib", dst="lib", keep_path=False)
+            self.copy("*.dll", dst="bin", keep_path=False)
 
         def package_info(self):
             self.cpp_info.libs = ["HelloLib"]
@@ -78,13 +80,13 @@ be consumed with other build systems like CMake.
 
 Once we want to create a package, it is advised to close VS IDE, clean the temporary build files
 from VS to avoid problems, then create and test the package. Here it is using system defaults,
-assuming they are Visual Studio 14, Release, x86_64:
+assuming they are Visual Studio 19, Release, x86_64:
 
 .. code-block:: bash
 
    # close VS
    $ git clean -xdf
-   $ conan create . memsharded/testing
+   $ conan create . demo/testing
    ...
    > Hello World Release!
 
@@ -95,9 +97,9 @@ This process can be repeated to create and test packages for different configura
 
 .. code-block:: bash
 
-   $ conan create . memsharded/testing -s arch=x86
-   $ conan create . memsharded/testing -s compiler="Visual Studio" -s compiler.runtime=MDd -s build_type=Debug
-   $ conan create . memsharded/testing -s compiler="Visual Studio" -s compiler.runtime=MDd -s build_type=Debug -s arch=x86
+   $ conan create . demo/testing -s arch=x86
+   $ conan create . demo/testing -s compiler="Visual Studio" -s compiler.runtime=MDd -s build_type=Debug
+   $ conan create . demo/testing -s compiler="Visual Studio" -s compiler.runtime=MDd -s build_type=Debug -s arch=x86
 
 .. note::
 
@@ -110,33 +112,32 @@ You can list the different created binary packages:
 
 .. code-block:: bash
 
-    $ conan search hello/0.1@memsharded/testing
+    $ conan search hello/0.1@demo/testing
 
 
 Reusing packages
 ----------------
 
-To use existing packages directly from Visual Studio, Conan provides the ``visual_studio``
+To use existing packages directly from Visual Studio, Conan provides the ``MSBuildDeps``
 generator. Let's clone an existing "Chat" project, consisting of a ChatLib static library that
 makes use of the previous "Hello World" package, and a MyChat application, calling the ChatLib
 library function.
 
 .. code-block:: bash
 
-   $ git clone https://github.com/memsharded/chat_vs
-   $ cd chat_vs
+    $ git clone https://github.com/conan-io/examples
+    $ cd features/visual_studio/chat
 
-As above, the repository contains a Visual Studio solution in the ``build`` folder.
-But if you try to open it, it will fail to load.
-This is because it is expecting to find a file with the required information about dependencies,
-so it is necessary to obtain that file first. Just run:
+As above, the repository contains a Visual Studio solution in the ``build`` folder. But if
+you try to open it, it will fail to load. This is because it is expecting to find a file with
+the required information about dependencies, so it is necessary to obtain that file first. Just
+run:
 
 .. code-block:: bash
 
     $ conan install .
 
-You will see that it created two files, a ``conaninfo.txt`` file, containing the current
-configuration of dependencies, and a ``conanbuildinfo.props`` file, containing the Visual Studio
+You will see that it created several `*.props` files, containing the Visual Studio
 properties (like ``<AdditionalIncludeDirectories>``), so it is able to find the installed
 dependencies.
 
@@ -177,7 +178,7 @@ differences:
 
 .. code-block:: python
 
-    requires = "hello/0.1@memsharded/testing"
+    requires = "hello/0.1@demo/testing"
     ...
     generators = "visual_studio"
 
@@ -185,7 +186,7 @@ This will allow us to create and test the package of the ChatLib library:
 
 .. code-block:: bash
 
-    $ conan create . memsharded/testing
+    $ conan create . demo/testing
     > Hello World Release!
     > Hello World Release!
 
@@ -195,7 +196,7 @@ You can also repeat the process for different build types and architectures.
 Other configurations
 ---------------------
 
-The above example works as-is for VS2017, because VS supports upgrading from previous versions.
+The above example works as-is for VS2019, because VS supports upgrading from previous versions.
 The ``MSBuild()`` already implements such functionality, so building and testing
 packages with VS2017 can be done.
 
@@ -222,12 +223,5 @@ Finally, we used just one ``conanbuildinfo.props`` file, which the solution load
 level. You could also define multiple ``conanbuildinfo.props`` files, one per configuration
 (Release/Debug, x86/x86_64), and load them accordingly.
 
-
-.. note::
-
-    So far, the ``visual_studio`` generator is single-configuration (packages containing debug
-    or release artifacts, the generally recommended approach). It does not support multi-config
-    packages (packages containing both debug and release artifacts). Please report and provide
-    feedback (submit an issue in github) to request this feature if necessary.
 
 .. |visual_logo| image:: ../../images/conan-visual-studio-logo.png
