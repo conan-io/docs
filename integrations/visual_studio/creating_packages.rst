@@ -99,14 +99,8 @@ This process can be repeated to create and test packages for different configura
 .. code-block:: bash
 
    $ conan create . demo/testing -s arch=x86
-   $ conan create . demo/testing -s compiler="Visual Studio" -s compiler.runtime=MDd -s build_type=Debug
-   $ conan create . demo/testing -s compiler="Visual Studio" -s compiler.runtime=MDd -s build_type=Debug -s arch=x86
-
-.. note::
-
-    It is not mandatory to specify the ``compiler.runtime`` setting. If it is not explicitly
-    defined, Conan will automatically use ``runtime=MDd`` for ``build_type==Debug`` and
-    ``runtime=MD`` for ``build_type==Release``.
+   $ conan create . demo/testing -s compiler=msvc -s compiler.version=19.29 -s compiler.runtime=static -s compiler.cppstd=17
+   $ conan create . demo/testing -s compiler=msvc -s compiler.version=19.29 -s compiler.runtime=static -s compiler.cppstd=17 -s arch=x86
 
 
 You can list the different created binary packages:
@@ -159,7 +153,7 @@ type:
 
 .. code-block:: bash
 
-    $ conan install . -s build_type=Debug -s compiler="Visual Studio" -s compiler.runtime=MDd
+    $ conan install . -s build_type=Debug
     # Switch to Debug
     # Ctrl + F5 (Debug -> Run without debugging)
     > Hello World Debug!
@@ -199,11 +193,11 @@ Other configurations
 
 The above example works as-is for VS2019, because VS supports upgrading from previous versions.
 The ``MSBuild()`` already implements such functionality, so building and testing
-packages with VS2017 can be done.
+packages with VS2019 can be done.
 
 .. code-block:: bash
 
-    $ conan create . demo/testing -s compiler="Visual Studio" -s compiler.version=15
+    $ conan create . demo/testing -s compiler=msvc -s compiler.version=19.29 -s compiler.runtime=static -s compiler.cppstd=17
 
 
 If you have to build for older versions of Visual Studio, it is also possible.
