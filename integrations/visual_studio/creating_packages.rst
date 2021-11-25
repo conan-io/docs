@@ -68,12 +68,7 @@ In the repository, there is already a ``conanfile.py`` recipe:
             self.cpp_info.libs = ["HelloLib"]
 
 
-This recipe is using the (:ref:)`MSBuild() build helper <msbuild>` to build the ``sln`` project.
-If our recipe has ``requires``, the ``MSBUILD`` helper will also take care of inject all the needed
-information from the requirements, as include directories, library names, definitions, flags etc
-to allow our project to locate the declared dependencies.
-
-The recipe contains also a ``test_package`` folder with a simple example consuming application.
+The recipe contains a ``test_package`` folder with a simple example consuming application.
 In this example, the consuming application is using CMake to build, but it could also use Visual
 Studio too. We have left the CMake one because it is the default generated with
 :command:`conan new`, and also to show that packages created from Visual Studio projects can also
@@ -113,8 +108,12 @@ You can list the different created binary packages:
 Reusing packages
 ----------------
 
-To use existing packages directly from Visual Studio, Conan provides the ``MSBuildDeps``
-generator. Let's clone an existing "Chat" project, consisting of a ChatLib static library that
+To use existing packages directly from Visual Studio, Conan provides the ``MSBuildDeps`` and
+``MSBuildToolchain`` generators, which take care of injecting all the needed information from the
+requirements, as include directories, library names, definitions, flags etc. to allow our
+project to locate the declared dependencies.
+
+Let's clone an existing "Chat" project, consisting of a ChatLib static library that
 makes use of the previous "Hello World" package, and a MyChat application, calling the ChatLib
 library function.
 
