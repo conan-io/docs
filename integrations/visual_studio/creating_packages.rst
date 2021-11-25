@@ -179,9 +179,9 @@ differences:
 
 .. code-block:: python
 
-    requires = "hello/0.1@demo/testing"
+    requires = "Hello/0.1@demo/testing"
     ...
-    generators = "visual_studio"
+    generators = "MSBuildDeps", "MSBuildToolchain"
 
 This will allow us to create and test the package of the ChatLib library:
 
