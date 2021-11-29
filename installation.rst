@@ -27,7 +27,7 @@ Install Conan:
 
 .. code-block:: bash
 
-    $ pip install conan
+    $ pip install conan==2.0.0a1
 
 .. important::
 
