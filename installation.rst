@@ -27,7 +27,7 @@ Install Conan:
 
 .. code-block:: bash
 
-    $ pip install conan
+    $ pip install conan==2.0.0a1
 
 .. important::
 
@@ -58,77 +58,22 @@ Known installation issues with pip
 
       $ source ~/.profile
 
-Install from brew (OSX)
------------------------
-
-There is a brew recipe, so in OSX, you can install Conan as follows:
-
-.. code-block:: bash
-
-    $ brew update
-    $ brew install conan
-
-Install from AUR (Arch Linux)
------------------------------
-
-The easiest way to install Conan on Arch Linux is by using one of the `Arch User Repository (AUR) helpers <https://wiki.archlinux.org/index.php/AUR_helpers>`_, e.g., **yay**, **aurman**, or **pakku**.
-For example, the following command installs Conan using ``yay``:
-
-.. code-block:: bash
-
-    $ yay -S conan
-
-Alternatively, build and install Conan manually using ``makepkg`` and ``pacman`` as described in `the Arch Wiki <https://wiki.archlinux.org/index.php/Arch_User_Repository#Installing_and_upgrading_packages>`_.
-Conan build files can be downloaded from AUR: https://aur.archlinux.org/packages/conan/.
-Make sure to first install the three Conan dependencies which are also found in AUR:
-
-- python-patch-ng
-- python-node-semver
-- python-pluginbase
-
-
-Install the binaries
---------------------
-
-Go to the conan website and `download the installer for your platform <https://conan.io/downloads.html>`_!
-
-Execute the installer. You don't need to install python.
-
-
-Initial configuration
----------------------
-
-Check if Conan is installed correctly. Run the following command in your console:
-
-.. code-block:: bash
-
-    $ conan
-
-The response should be similar to:
-
-.. code-block:: bash
-
-    Consumer commands
-      install    Installs the requirements specified in a recipe (conanfile.py or conanfile.txt).
-      config     Manages Conan configuration.
-      get        Gets a file or list a directory of a given reference or package.
-      info       Gets information about the dependency graph of a recipe.
-      ...
-
-
 Install from source
 -------------------
 
-You can run Conan directly from source code. First, you need to install Python and
-pip.
+You can run Conan directly from source code. First, you need to install Python and pip.
 
-Clone (or download and unzip) the git repository and install it with:
+Clone (or download and unzip) the git repository and install it.
+
+Conan 2 is still in alpha stage, so you must check the `develop2` branch of the repository:
 
 .. code-block:: bash
 
     # clone folder name matters, to avoid imports issues
     $ git clone https://github.com/conan-io/conan.git conan_src
     $ cd conan_src
+    $ git fetch --all
+    $ git checkout -b develop2 origin/develop2
     $ python -m pip install -e .
 
 And test your ``conan`` installation:
@@ -150,8 +95,6 @@ If installed via ``pip``, Conan can be easily updated:
 
     $ pip install conan --upgrade  # Might need sudo or --user
 
-If installed via the installers (*.exe*, *.deb*), download the new installer and execute it.
-
 The default ``<userhome>/.conan/settings.yml`` file, containing the definition of compiler versions, etc.,
 will be upgraded if Conan does not detect local changes, otherwise it will create a ``settings.yml.new`` with the new settings.
 If you want to regenerate the settings, you can remove the ``settings.yml`` file manually and it will be created with the new information the first time it is required.
@@ -160,5 +103,3 @@ The upgrade shouldn't affect the installed packages or cache information. If the
 
 
 .. _`pip docs`: https://pip.pypa.io/en/stable/installing/
-
-.. _`Conan issue tracker`: https://github.com/conan-io/conan/issues/3334
