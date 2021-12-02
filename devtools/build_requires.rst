@@ -115,7 +115,10 @@ be linked to the generated library or other executable we want to deploy to the 
 
         def build_requirements(self):
             self.build_requires("protobuf/3.6.1")  # 'build' context (protoc.exe will be available)
-            self.build_requires("gtest/0.1", force_host_context=True)  # 'host' context (our library will link with it)
+            self.test_requires("gtest/0.1")
+
+Note: The ``test_requires()``, available from Conan 1.43, is equivalent to the previous ``self.build_requires(, force_host_context=True)``
+syntax. As the later is going to dissapear in Conan 2.0, the former ``test_requires()`` form is recommended.
 
 
 .. image:: ../images/xbuild/conan-cross-build-variables.png
