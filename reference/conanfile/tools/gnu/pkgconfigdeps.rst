@@ -120,3 +120,117 @@ Example:
         self.cpp_info.set_property("pkg_config_name", "myname")
         self.cpp_info.components["mycomponent"].set_property("pkg_config_name", "componentname")
 
+
+Names and aliases
+++++++++++++++++++
+
+Aliases are available since: `1.43.0 <https://github.com/conan-io/conan/releases>`_
+
+By default, the ``*.pc`` file names will follow the rules defined below:
+
+* For packages, the own package name, e.g., package ``zlib/1.2.11`` -> ``zlib.pc``.
+* For components, the package name as namespace plus the own component one, package ``openssl/3.0.0`` and component ``openssl::crypto`` -> ``openssl-crypto.pc``.
+
+Given that, it's also possible to change easily that behavior thanks to ``pkg_config_name`` and ``pkg_config_aliases`` properties.
+
+For instance, ``openssl/3.0.0``` recipe has these ``pkg_config_name`` properties declared:
+
+.. code:: python
+
+    from conans import ConanFile
+
+    class OpenSSLConan(ConanFile):
+        name = "openssl"
+        version = "3.0.0"
+
+        # any code here
+
+        def package_info(self):
+            self.cpp_info.set_property("pkg_config_name", "openssl")
+            self.cpp_info.components["crypto"].set_property("pkg_config_name", "libcrypto")
+            self.cpp_info.components["ssl"].set_property("pkg_config_name", "libssl")
+
+
+Making a simple ``conanfile.py`` to consume it:
+
+.. code:: python
+
+    from conans import ConanFile
+    from conan.tools.gnu import PkgConfigDeps
+
+    class App(ConanFile):
+        name = "hello"
+        version = "1.0"
+        settings = "os", "arch", "compiler", "build_type"
+        requires = "openssl/3.0.0"
+
+        def generate(self):
+            pc = PkgConfigDeps(self)
+            pc.generate()
+
+And running :command:`conan install .`, we'll see the next ``*.pc`` files created:
+
+- libcrypto.pc
+- libssl.pc
+- openssl.pc
+- zlib.pc *(openssl requires zlib)*
+
+Their ``pkg_config_name`` properties are used as absolute names for the PC files.
+
+.. code-block:: text
+    :caption: libcrypto.pc
+
+    prefix=/Users/conan_user/.conan/data/openssl/3.0.0/_/_/package/88955cec2844f731470e07bd44ce5a3a24ec88b7
+    libdir1=${prefix}/lib
+    includedir1=${prefix}/include
+
+    Name: libcrypto
+    Description: Conan component: libcrypto
+    Version: 3.0.0
+    Libs: -L"${libdir1}" -lcrypto -Wl,-rpath,"${libdir1}" -F Frameworks
+    Cflags: -I"${includedir1}"
+    Requires: zlib
+
+
+Now, we could want to create some aliases for those file names. Let's suppose we already have some ``pkg_config_aliases`` properties declared
+on the original recipe:
+
+.. code:: python
+
+    from conans import ConanFile
+
+    class OpenSSLConan(ConanFile):
+        name = "openssl"
+        version = "3.0.0"
+
+        # any code here
+
+        def package_info(self):
+            self.cpp_info.set_property("pkg_config_name", "openssl")
+            self.cpp_info.components["crypto"].set_property("pkg_config_name", "libcrypto")
+            self.cpp_info.components["ssl"].set_property("pkg_config_name", "libssl")
+            # Aliases
+            self.cpp_info.set_property("pkg_config_aliases", ["openssl_alias"])
+            self.cpp_info.components["crypto"].set_property("pkg_config_aliases", ["crypto", "crp"])
+            self.cpp_info.components["ssl"].set_property("pkg_config_aliases", ["ssl"])
+
+Keeping our original ``conanfile.py`` and running :command:`conan install .` again, the local ```.pc`` files created will be:
+
+- libcrypto.pc
+- libssl.pc
+- openssl.pc
+- crp.pc *(alias of libssl)*
+- ssl.pc *(alias of libssl)*
+- crypto.pc *(alias of libcrypto)*
+- openssl_alias.pc *(alias of openssl)*
+- zlib.pc *(openssl requires zlib)*
+
+Where any of those alias files contains something like this:
+
+.. code-block:: text
+    :caption: crypto.pc
+
+    Name: crypto
+    Description: Alias crypto for libcrypto
+    Version: 3.0.0
+    Requires: libcrypto
