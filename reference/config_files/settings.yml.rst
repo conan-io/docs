@@ -80,12 +80,11 @@ are possible. These are the **default** values, but it is possible to customize 
                       llvm, ClangCL]
             cppstd: [None, 14, 17, 20]
          msvc:
-            version: ["19.0",
-                      "19.1", "19.10", "19.11", "19.12", "19.13", "19.14", "19.15", "19.16",
-                      "19.2", "19.20", "19.21", "19.22", "19.23", "19.24", "19.25", "19.26", "19.27", "19.28"]
+            version: [190, 191, 192, 193]
+            update: [None, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
             runtime: [static, dynamic]
             runtime_type: [Debug, Release]
-            cppstd: [14, 17, 20]
+            cppstd: [14, 17, 20, 23]
         clang:
             version: ["3.3", "3.4", "3.5", "3.6", "3.7", "3.8", "3.9", "4.0",
                       "5.0", "6.0", "7.0", "7.1",
@@ -157,7 +156,7 @@ msvc
 
 The new ``msvc`` compiler is a new, **experimental** one, that is intended to deprecate the ``Visual Studio`` one in Conan 2.0:
 
-- It uses the compiler version, that is 19.0, 19.1, etc, instead of the Visual Studio IDE (15, 16, etc).
+- It uses the compiler version, that is 190 (19.0), 191 (19.1), etc, instead of the Visual Studio IDE (15, 16, etc).
 - It is only used by the new build integrations in :ref:`conan_tools_cmake` and :ref:`conan_tools_microsoft`, but not the previous ones.
 - At the moment it implements a ``compatible_packages`` fallback to Visual Studio compiled packages, that is, previous existing binaries
   compiled with ``settings.compiler="Visual Studio"`` can be used for the ``msvc`` compiler if no binaries exist for it yet.
@@ -167,9 +166,9 @@ The new ``msvc`` compiler is a new, **experimental** one, that is intended to de
 When using the ``msvc`` compiler, the Visual Studio toolset version (the actual ``vcvars`` activation and ``MSBuild`` location) will be
 defined by the default provide of that compiler version:
 
-- ``msvc`` compiler version '19.0': Visual Studio 14 2015
-- ``msvc`` compiler version '19.1': Visual Studio 15 2017
-- ``msvc`` compiler version '19.2': Visual Studio 16 2019
+- ``msvc`` compiler version '190': Visual Studio 14 2015
+- ``msvc`` compiler version '191': Visual Studio 15 2017
+- ``msvc`` compiler version '192': Visual Studio 16 2019
 
 This can be configured in your profiles with the ``tools.microsoft.msbuild:vs_version`` configuration:
 
@@ -177,14 +176,29 @@ This can be configured in your profiles with the ``tools.microsoft.msbuild:vs_ve
 
     [settings]
     compiler=msvc
-    compiler.version=19.0
+    compiler.version=190
 
     [conf]
     tools.microsoft.msbuild:vs_version = 16
 
 
-In this case, the ``vcvars`` will activate the Visual Studio 16 installation, but the ``19.0`` compiler version will still be used
+In this case, the ``vcvars`` will activate the Visual Studio 16 installation, but the ``190`` compiler version will still be used
 because the necessary ``toolset=v140`` will be set.
+
+The settings define the last digit ``update: [None, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9]``, which by default is ``None``, means that Conan
+assumes binary compatibility for the compiler patches, which works in general for the Microsoft compilers. For cases where finer
+control is desired, you can just add the ``update`` part to your profiles:
+
+.. code-block:: text
+
+    [settings]
+    compiler=msvc
+    compiler.version=191
+    compiler.version.update=3
+
+
+This will be equivalent to the full version ``1913 (19.13)``. If even further details is desired, you could even add your own digits
+to the ``update`` subsetting in ``settings.yml``.
 
 
 clang
