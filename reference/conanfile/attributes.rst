@@ -1126,9 +1126,10 @@ name. This code, for example:
 Will create a CMake target named ``myname::myname``.
 
 The property ``cmake_target_name`` accepts **complete** target names. That means that the
-name you set with this property will be the one that is added to the CMake generated
-files. So to translate the last example to the set_property model you should add the
-following declaration:
+name you set with this property will be the one added to the CMake generated
+files without appending any more information to it. 
+To translate the last example to the set_property model you should add the following
+declaration:
 
 .. code-block:: python
 
@@ -1138,16 +1139,17 @@ following declaration:
         ...
 
 Note that you can use whatever name you want, it can have a different namespace, like
-``mynamespace::myname`` or even not have a name with a namespace at all.
+``mynamespace::myname`` or use a name with no namespace at all.
 
-Also, please note that the case can happen that you want to have different target names
+Also, please note that you may want to have different target names
 for both `config <https://cmake.org/cmake/help/v3.15/command/find_package.html#full-signature-and-config-mode>`_
 and `module <https://cmake.org/cmake/help/v3.15/command/find_package.html#basic-signature-and-module-mode>`_ CMake generated files.
 For example, you have a package named ``myssl`` and you want to generate a ``Findmyssl.cmake`` 
 module that declares the target ``MySSL::SSL``, but for config mode you
-want to declare the target ``MySSL``. You can do that using the
-``cmake_module_target_name`` property along with ``cmake_find_mode`` to force `CMakeDeps` to
-generate module files. Let's see an example:
+want to declare the target ``MySSL`` without namespaces. You can do that using the
+``cmake_module_target_name`` property. Also, when setting this property, remember to set
+``cmake_find_mode`` so that `CMakeDeps` generates those module files. Let's see an
+example:
 
 .. code-block:: python
 
@@ -1164,8 +1166,8 @@ generate module files. Let's see an example:
 
 **Migrating from .filenames to cmake_file_name**
 
-To migrate from ``.filenames`` to names just use the same value you already set with
-``.filenames`` to the property ``cmake_file_name``. For example:
+To migrate from ``.filenames`` to names just use the same ``.filenames`` value for the
+property ``cmake_file_name``. For example:
 
 .. code-block:: python
 
@@ -1196,7 +1198,7 @@ not declared but ``.names`` is, then Conan will automatically set the value of
         self.cpp_info.names["cmake_find_package_multi"] = "SomeName"
         ...
 
-Should be migrated to ``cmake_file_name`` as:
+This will use "SomeName" to compose the generated filenames. In this case you should set ``cmake_file_name`` to "SomeName":
 
 .. code-block:: python
 
@@ -1205,7 +1207,7 @@ Should be migrated to ``cmake_file_name`` as:
         self.cpp_info.set_property("cmake_file_name", "SomeName")
         ...
 
-Also, please note that the case can happen that you want to use different file names
+Also, please note that you may want to use different file names
 for both `config <https://cmake.org/cmake/help/v3.15/command/find_package.html#full-signature-and-config-mode>`_
 and `module <https://cmake.org/cmake/help/v3.15/command/find_package.html#basic-signature-and-module-mode>`_ CMake generated files.
 If we take the previous example of the ``myssl`` and you want to generate a ``FindMySSL.cmake`` for module mode and 
@@ -1227,7 +1229,7 @@ You can read more about this properties in the :ref:`CMakeDeps<CMakeDeps Propert
 
 **Migrating components information**
 
-As we said, these properties but ``cmake_file_name`` and ``cmake_module_file_name`` have components
+As we said, all these properties but ``cmake_file_name`` and ``cmake_module_file_name`` have components
 support, so for example:
 
 .. code-block:: python
@@ -1240,7 +1242,7 @@ support, so for example:
         self.cpp_info.components["mycomponent"].build_modules.append(os.path.join("lib", "mypkg_bm.cmake"))
         ...
 
-Could be declared like this in the new one:
+Could be declared like this with the properties model:
 
 .. code-block:: python
 
@@ -1256,8 +1258,8 @@ Could be declared like this in the new one:
 Please **note** that most of the legacy generators like `cmake`, `cmake_multi`,
 `cmake_find_package`, `cmake_find_package_multi` and `cmake_paths` do not listen to these
 properties at all, so if you want to maintain compatibility with consumers that use those
-generators at the same time that you are adding that information for new generators like
-`CMakeDeps` you will have to have both models living together in the same recipe.
+generators and also that information for new generators like
+`CMakeDeps` you need both models living together in the same recipe.
 
 .. seealso::
 
