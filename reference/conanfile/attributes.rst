@@ -1061,7 +1061,7 @@ migrating ``names``, ``filenames`` and ``build_modules`` properties to this mode
 will be the default way of setting these properties for all generators and also passing
 custom properties to generators.
 
-New properties defined for for *CMake* generators family, used by :ref:`CMakeDeps<CMakeDeps>` generator:
+New properties defined for *CMake* generators family, used by :ref:`CMakeDeps<CMakeDeps>` generator:
 
 - **cmake_file_name** property will affect all cmake generators that accept the ``filenames``
   property (*cmake_find_package* and *cmake_find_package_multi*).
