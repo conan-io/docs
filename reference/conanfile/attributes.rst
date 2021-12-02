@@ -1126,7 +1126,7 @@ name. This code, for example:
 Will create a CMake target named ``myname::myname``.
 
 The property ``cmake_target_name`` accepts **complete** target names. That means that the
-name you set with this property will the the one that is added to the CMake generated
+name you set with this property will be the one that is added to the CMake generated
 files. So to translate the last example to the set_property model you should add the
 following declaration:
 
