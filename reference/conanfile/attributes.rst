@@ -1038,11 +1038,17 @@ has **the same default directories**.
 Dependencies among components and to components of other requirements can be defined using the ``requires`` attribute and the name
 of the component. The dependency graph for components will be calculated and values will be aggregated in the correct order for each field.
 
-**New properties model for the cpp_info**
+**New properties model for the cpp_info new tools**
 
-Using ``names``, ``filenames`` and ``build_modules`` is **deprecated** from Conan 1.42. The
-recommended way of setting this information is using ``set_property`` and ``get_property`` methods
-(available since Conan 1.36) of the ``cpp_info`` object.
+.. warning::
+
+    Using ``set_property`` and ``get_property`` methods for ``cpp_info`` is an **experimental**
+    feature subject to breaking changes in future releases.
+
+Using ``names``, ``filenames`` and ``build_modules`` will not work any more for new
+generators, like :ref:`CMakeDeps<CMakeDeps>` and :ref:`PkgConfigDeps<PkgConfigDeps>`. 
+They have a new way of setting this information using ``set_property`` and
+``get_property`` methods of the ``cpp_info`` object (available since Conan 1.36).
 
 .. code-block:: python
 
@@ -1052,11 +1058,10 @@ recommended way of setting this information is using ``set_property`` and ``get_
 New properties ``cmake_target_name``, ``cmake_file_name``, ``cmake_module_target_name``,
 ``cmake_module_file_name``, ``pkg_config_name`` and ``cmake_build_modules`` are defined to allow
 migrating ``names``, ``filenames`` and ``build_modules`` properties to this model. In Conan 2.0 this
-will be the default way of setting these properties and also passing custom properties to generators.
-These properties are supported by the new :ref:`CMakeDeps<CMakeDeps Properties>` and
-:ref:`PkgConfigDeps<PkgConfigDeps Properties>` generators.
+will be the default way of setting these properties for all generators and also passing
+custom properties to generators.
 
-New properties defined for *CMake* generators family:
+New properties defined for for *CMake* generators family, used by :ref:`CMakeDeps<CMakeDeps>` generator:
 
 - **cmake_file_name** property will affect all cmake generators that accept the ``filenames``
   property (*cmake_find_package* and *cmake_find_package_multi*).
@@ -1067,8 +1072,12 @@ New properties defined for *CMake* generators family:
 - **cmake_module_target_name** supported by *cmake_find_package* generator. Sets the target name of the
   module files created by this generator.
 - **cmake_build_modules** property replaces the ``build_modules`` property.
+- **cmake_find_mode** will tell ref:`CMakeDeps<CMakeDeps>` to generate config
+  files, modules files, both or none of them, depending on the value set (``config``,
+  ``module``, ``both`` or ``none``)
 
-Properties related to *pkg_config*:
+
+Properties related to *pkg_config*, used by legacy ``pkg_config`` and new :ref:`PkgConfigDeps<PkgConfigDeps>`:
 
 - **pkg_config_name** property sets the ``names`` property for *pkg_config* generator.
 - **pkg_config_custom_content** property supported by the *pkg_config* generator that will add user
@@ -1081,10 +1090,82 @@ For most cases, it is recommended not to use the ``generator`` argument. The pro
 for build systems, and different generators that integrate with a given build system could be reading
 such generic properties. 
 
-Migrating from `cpp_info.names` and `cpp_info.filenames` to `set_property()` is easy, for example
-with the old model you had to set the `names` and `filenames` for each generator if it was different from
-the package name. Now, it's only necessary to set the property and all the generators from the same
-family will read it. For example:
+The `set/get_property` model is very useful if you are creating a :ref:`custom generator<custom_generator>`.
+Using ``set_property()`` you can pass the parameters of your choice and read them using the
+``get_property()`` method inside the generator.
+
+.. code-block:: python
+
+    def package_info(self):
+        ...
+        # you have created a custom generator that reads the 'custom_property' property and you set here
+        # the value to 'prop_value'
+        self.cpp_info.components["mycomponent"].set_property("custom_property", "prop_value")
+        ...
+
+**Migrating from the .names and .filenames model to set_property()**
+
+Migrating from `.names` to ``set_property()`` is easy, but there are some details to take
+into account for properties like ``cmake_target_name`` and ``cmake_file_name``. Let's see
+some examples.
+
+**Migrating from .names to cmake_target_name**
+
+It is important to note that ``cmake_target_name`` is **not** goint to take the same value
+as the ``.names`` attribute did. With the ``.names`` attribute if you set a name for the
+target in CMake, Conan would automatically create a "namespaced" target name with that
+name. This code, for example:
+
+.. code-block:: python
+
+    def package_info(self):
+        ...
+        self.cpp_info.components.names["cmake_find_package"] = "myname"
+        ...
+
+Will create a CMake target named ``myname::myname``.
+
+The property ``cmake_target_name`` accepts **complete** target names. That means that the
+name you set with this property will the the one that is added to the CMake generated
+files. So to translate the last example to the set_property model you should add the
+following declaration:
+
+.. code-block:: python
+
+    def package_info(self):
+        ...
+        self.cpp_info.components.names["cmake_find_package"] = "myname::myname"
+        ...
+
+Note that you can use whatever name you want, it can have a different namespace, like
+``mynamespace::myname`` or even not have a name with a namespace at all.
+
+Also, please note that the case can happen that you want to have different target names
+for both `config <https://cmake.org/cmake/help/v3.15/command/find_package.html#full-signature-and-config-mode>`_
+and `module <https://cmake.org/cmake/help/v3.15/command/find_package.html#basic-signature-and-module-mode>`_ CMake generated files.
+For example, you have a package named ``myssl`` and you want to generate a ``Findmyssl.cmake`` 
+module that declares the target ``MySSL::SSL``, but for config mode you
+want to declare the target ``MySSL``. You can do that using the
+``cmake_module_target_name`` property along with ``cmake_find_mode`` to force `CMakeDeps` to
+generate module files. Let's see an example:
+
+.. code-block:: python
+
+    class MySSL(ConanFile):
+        name = "myssl"
+        version = "1.0"
+        ...
+        def package_info(self):
+            self.cpp_info.set_property("cmake_target_name", "MySSL")
+            self.cpp_info.set_property("cmake_module_target_name", "MySSL::SSL")
+            self.cpp_info.set_property("cmake_find_mode", "both")
+        ...
+
+
+**Migrating from .filenames to cmake_file_name**
+
+To migrate from ``.filenames`` to names just use the same value you already set with
+``.filenames`` to the property ``cmake_file_name``. For example:
 
 .. code-block:: python
 
@@ -1092,19 +1173,59 @@ family will read it. For example:
         ...
         self.cpp_info.filenames["cmake_find_package"] = "MyFileName"
         self.cpp_info.filenames["cmake_find_package_multi"] = "MyFileName"
-        self.cpp_info.names["cmake_find_package"] = "MyTargetName"
-        self.cpp_info.names["cmake_find_package_multi"] = "MyTargetName"
         ...
 
-Could be declared like this with `set_property()`:
+Could be declared like this with ``set_property()``:
 
 .. code-block:: python
 
     def package_info(self):
         ...
         self.cpp_info.set_property("cmake_file_name", "MyFileName")
-        self.cpp_info.set_property("cmake_target_name", "MyTargetName")
         ...
+
+Please note that for the legacy ``.names`` and ``.filenames`` model, if ``.filenames`` is
+not declared but ``.names`` is, then Conan will automatically set the value of
+``.filenames`` to the value of ``.names``. So for example:
+
+.. code-block:: python
+
+    def package_info(self):
+        ...
+        self.cpp_info.names["cmake_find_package"] = "SomeName"
+        self.cpp_info.names["cmake_find_package_multi"] = "SomeName"
+        ...
+
+Should be migrated to ``cmake_file_name`` as:
+
+.. code-block:: python
+
+    def package_info(self):
+        ...
+        self.cpp_info.set_property("cmake_file_name", "SomeName")
+        ...
+
+Also, please note that the case can happen that you want to use different file names
+for both `config <https://cmake.org/cmake/help/v3.15/command/find_package.html#full-signature-and-config-mode>`_
+and `module <https://cmake.org/cmake/help/v3.15/command/find_package.html#basic-signature-and-module-mode>`_ CMake generated files.
+If we take the previous example of the ``myssl`` and you want to generate a ``FindMySSL.cmake`` for module mode and 
+``myssl-config.cmake`` for config mode, you can set the ``cmake_module_file_name`` to set the value for the module file:
+
+.. code-block:: python
+
+    class MySSL(ConanFile):
+        name = "myssl"
+        version = "1.0"
+        ...
+        def package_info(self):
+            self.cpp_info.set_property("cmake_file_name", "myssl")
+            self.cpp_info.set_property("cmake_module_file_name", "MySSL")
+            self.cpp_info.set_property("cmake_find_mode", "both")
+        ...
+
+You can read more about this properties in the :ref:`CMakeDeps<CMakeDeps Properties>` properties reference.
+
+**Migrating components information**
 
 As we said, these properties but ``cmake_file_name`` and ``cmake_module_file_name`` have components
 support, so for example:
@@ -1125,40 +1246,18 @@ Could be declared like this in the new one:
 
     def package_info(self):
         ...
-        self.cpp_info.components["mycomponent"].set_property("cmake_target_name", "mycomponent-name")
+        self.cpp_info.components["mycomponent"].set_property("cmake_target_name", "component_namespace::mycomponent-name")
         self.cpp_info.components["mycomponent"].set_property("cmake_build_modules", [os.path.join("lib", "mypkg_bm.cmake")])
         self.cpp_info.components["mycomponent"].set_property("pkg_config_name", "mypkg-config-name")
         self.cpp_info.components["mycomponent"].set_property("custom_name", "mycomponent-name", "custom_generator")
         ...
 
-Also, for the other properties like `pkg_config_custom_content` you just have to set the property and
-the generators that support that (in this case `pkg_config` and `PkgConfigDeps`) will read it without
-having to set the generator name.
 
-.. code-block:: python
-
-    def package_info(self):
-        custom_content = "datadir=${prefix}/share"
-        self.cpp_info.set_property("pkg_config_custom_content", custom_content)
-
-This mechanism is also very useful if you are creating a :ref:`custom generator<custom_generator>`.
-Using `set_property()` you can pass the parameters of your choice and read them using the
-`get_property()` method inside the generator.
-
-.. code-block:: python
-
-    def package_info(self):
-        ...
-        # you have created a custom generator that reads the 'custom_property' property and you set here
-        # the value to 'prop_value'
-        self.cpp_info.components["mycomponent"].set_property("custom_property", "prop_value")
-        ...
-
-.. warning::
-
-    Using ``set_property`` and ``get_property`` methods for ``cpp_info`` is an **experimental**
-    feature subject to breaking changes in future releases.
-
+Please **note** that most of the legacy generators like `cmake`, `cmake_multi`,
+`cmake_find_package`, `cmake_find_package_multi` and `cmake_paths` do not listen to these
+properties at all, so if you want to maintain compatibility with consumers that use those
+generators at the same time that you are adding that information for new generators like
+`CMakeDeps` you will have to have both models living together in the same recipe.
 
 .. seealso::
 

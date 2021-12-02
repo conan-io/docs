@@ -8,7 +8,7 @@ PkgConfigDeps
 
     These tools are **experimental** and subject to breaking changes.
 
-.. _PkgConfigDeps Properties:
+.. _PkgConfigDeps:
 
 PkgConfigDeps
 -------------
@@ -94,3 +94,29 @@ flags and require relations.
 Additionally, a *<PKG-NAME>.pc* is generated to maintain compatibility for consumers with recipes that start supporting components. This
 *<PKG-NAME>.pc* file will declare all the components of the package as requires while the rest of the fields will be empty, relying on
 the propagation of flags coming from the components *<[PKG-NAME]-[COMP-NAME]>.pc* files.
+
+
+.. _PkgConfigDeps Properties:
+
+Properties
+++++++++++
+
+The following properties affect the PkgConfigDeps generator:
+
+- **pkg_config_name** property sets the ``names`` property for *pkg_config* generator.
+- **pkg_config_custom_content** property supported by the *pkg_config* generator that will add user
+  defined content to the *.pc* files created by this generator
+
+Both of these properties can be defined at global ``cpp_info`` level or at component
+level.
+
+Example:
+
+.. code-block:: python
+
+    def package_info(self):
+        custom_content = "datadir=${prefix}/share"
+        self.cpp_info.set_property("pkg_config_custom_content", custom_content)
+        self.cpp_info.set_property("pkg_config_name", "myname")
+        self.cpp_info.components["mycomponent"].set_property("pkg_config_name", "componentname")
+
