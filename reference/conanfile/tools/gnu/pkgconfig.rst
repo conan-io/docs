@@ -62,5 +62,5 @@ Where:
 conf
 ----
 
-This helper will listen to ``tools.gnu:pkg_config`` configuration to define the ``pkg_config`` executable name or full path.
+This helper will listen to ``tools.gnu:pkg_config`` :ref:`configuration <global_conf>` to define the ``pkg_config`` executable name or full path.
 It will by default it is ``pkg-config``.
