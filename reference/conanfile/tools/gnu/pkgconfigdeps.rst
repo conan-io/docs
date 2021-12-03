@@ -219,7 +219,7 @@ Where any of those aliases files contains something like this:
     Version: 1.0.0
     Requires: myopenssl-mycrypto
 
-Also, it's possible to use both properties together:
+It's also possible to use both properties together:
 
 .. code:: python
 
