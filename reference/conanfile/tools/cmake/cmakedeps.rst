@@ -48,21 +48,20 @@ The full instantiation, that allows custom configuration can be done in the ``ge
 
 There are some attributes you can adjust in the created ``CMakeDeps`` object to change the default behavior:
 
-configurations
+configuration
 ++++++++++++++
 
-Allows to define custom user CMake configurations besides the standard
-Release, Debug, etc ones. If the **settings.yml** file is customized to add new configurations to the
-``settings.build_type``, then, adding it explicitly to ``.configurations`` is not necessary.
+Allows to define custom user CMake configuration besides the standard Release, Debug, etc ones.
 
 .. code-block:: python
 
     def generate(self):
-        cmake = CMakeDeps(self)
-        cmake.configurations.append("ReleaseShared")
+        deps = CMakeDeps(self)
+        # By default, ``deps.configuration`` will be ``self.settings.build_type``
         if self.options["hello"].shared:
-            cmake.configuration = "ReleaseShared"
-        cmake.generate()
+            # Assuming the current project ``CMakeLists.txt`` defines the ReleasedShared configuration.
+            deps.configuration = "ReleaseShared"
+        deps.generate()
 
 
 build_context_activated
