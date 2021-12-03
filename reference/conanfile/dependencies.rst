@@ -114,7 +114,7 @@ between the current recipe and the dependency. At the moment they can be:
 
 - ``require.direct``: boolean, ``True`` if it is direct dependency or ``False`` if it is a transitive one.
 - ``require.build``: boolean, ``True`` if it is a ``build_require`` in the build context, as ``cmake``.
-- ``require.test``: boolean, ``True`` if its a ``build_require`` in the host context (argument ``self.requires(..., force_host_context=True)``), as ``gtest``.
+- ``require.test``: boolean, ``True`` if its a ``build_require`` in the host context (defined with ``self.test_requires()``), as ``gtest``.
 
 The ``dependency`` dictionary value is the read-only object described above that access the dependency attributes.
 

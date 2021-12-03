@@ -156,11 +156,9 @@ Tools configurations can also be used in profile files and *global.conf* one. Pr
 
     [conf]
     tools.microsoft.msbuild:verbosity=Diagnostic
-    tools.microsoft.msbuild:max_cpu_count=20
+    tools.microsoft.msbuild:max_cpu_count=2
     tools.microsoft.msbuild:vs_version = 16
-    tools.build:processes=10
-    tools.ninja:jobs=30
-    tools.gnu.make:jobs=40
+    tools.build:jobs=10
 
 .. seealso::
 
