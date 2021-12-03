@@ -1,6 +1,6 @@
 .. _conan_v2:
 
-Road to Conan 2.0
+Migrating to 2.0
 =================
 
 Conan has started to work on the next major release. We've been gathering feedback
@@ -9,10 +9,24 @@ behaviors, clean the codebase and add space for new developments. Development is
 ongoing and the `Conan 2.0 Tribe <https://conan.io/tribe.html>`_ is having discussions
 about it.
 
-In the future, this section will contain relevant information and changes regarding Conan 2.0,
-there is a lot of work ahead, as you can see in `our backlog <https://github.com/conan-io/conan/milestones>`_.
+Conan 2.0-alpha is already released. You can access its documentation with the right version label.
+It can be installed from PyPI with ``pip install conan==2.0.0-alpha1``
 
-Meanwhile, in version 1.23 we have introduced an environment variable to raise errors in case of using features
-that will be deprecated in Conan 2.0. Read more about ``CONAN_V2_MODE`` in :ref:`this section <conan_v2_mode>`.
+This section summarizes some of the necessary changes during Conan 1.X to be ready to upgrade to Conan 2.0:
 
-Stay tuned!
+
+- Use generators and helpers only from ``conan.tools.xxxx`` space. All the other ones are going to be removed.
+- Use always build and host profiles. You can enable it by passing ``-pr:b=default`` in the command line to most commands.
+  Do not use ``os_build``, ``arch_build`` anywhere in your recipes or code.
+- Use ``self.test_requires()`` to define test requirements instead of the legacy ``self.build_requires(..., force_host_context)``.
+- Activate revisions in your Conan configuration.
+- Move all your packages to lowercase. Uppercase package names (or versions/user/channel) will not be possible in 2.0.
+- Do not use ``self.deps_cpp_info``, ``self.deps_env_info`` or ``self.deps_user_info``. Use the ``self.dependencies`` access to get
+  information about dependencies.
+- Do not use the ``conan copy`` command to change user/channel. Packages will be immutable, and this command will dissapear in 2.0.
+  Package promotions are generally done in the server side, copying packages from one server repository to another repository.
+- Do not use dictionary expressions in your recipe ``settings`` definition (like ``settings = {"os": ["Windows", "Linux"]}``. This
+  way of limiting supported configurations by one recipe will be removed. Use the ``validate()`` method instead to raise
+  ``ConanInvalidConfiguration`` if strictly necessary to fail fast for unsupported configurations.
+- If you are using ``editables``, the external template files are going to be removed. Use the ``layout()`` method definition instead.
+
