@@ -101,14 +101,14 @@ the propagation of flags coming from the components *<[PKG-NAME]-[COMP-NAME]>.pc
 Properties
 ++++++++++
 
-The following properties affect the PkgConfigDeps generator:
+The following properties affect the ``PkgConfigDeps`` generator:
 
 - **pkg_config_name** property sets the ``names`` property for *pkg_config* generator.
+- **pkg_config_aliases** property sets some aliases of any package/component name for *pkg_config* generator. This property only accepts list-like Python objects.
 - **pkg_config_custom_content** property supported by the *pkg_config* generator that will add user
-  defined content to the *.pc* files created by this generator
+  defined content to the *.pc* files created by this generator.
 
-Both of these properties can be defined at global ``cpp_info`` level or at component
-level.
+These properties can be defined at global ``cpp_info`` level or at component level.
 
 Example:
 
@@ -119,6 +119,7 @@ Example:
         self.cpp_info.set_property("pkg_config_custom_content", custom_content)
         self.cpp_info.set_property("pkg_config_name", "myname")
         self.cpp_info.components["mycomponent"].set_property("pkg_config_name", "componentname")
+        self.cpp_info.components["mycomponent"].set_property("pkg_config_aliases", ["alias1", "alias2"])
 
 
 Names and aliases
@@ -126,14 +127,12 @@ Names and aliases
 
 Aliases are available since: `1.43.0 <https://github.com/conan-io/conan/releases>`_
 
-By default, the ``*.pc`` file names will follow the rules defined below:
+By default, the ``*.pc`` files will be named following these rules:
 
 * For packages, it uses the package name, e.g., package ``zlib/1.2.11`` -> ``zlib.pc``.
 * For components, the package name + hyphen + component name, e.g., ``openssl/3.0.0`` with ``self.cpp_info.components["crytpo"]``  -> ``openssl-crypto.pc``.
 
-You can change that default behavior with ``pkg_config_name`` and ``pkg_config_aliases`` properties.
-
-For instance, ``openssl/3.0.0``` recipe has these ``pkg_config_name`` properties already declared:
+You can change that default behavior with the ``pkg_config_name`` and ``pkg_config_aliases`` properties. For instance, ``openssl/3.0.0``` recipe has these ``pkg_config_name`` properties already declared:
 
 .. code:: python
 
@@ -156,7 +155,7 @@ Run :command:`conan install openssl/3.0.0@ -g PkgConfigDeps` and check the ``*.p
 - openssl.pc
 - zlib.pc *(openssl requires zlib)*
 
-Their ``pkg_config_name`` properties are used as absolute names for the PC files:
+Their ``pkg_config_name`` properties are used as the final PC file names:
 
 .. code-block:: text
     :caption: openssl.pc
@@ -184,7 +183,7 @@ Their ``pkg_config_name`` properties are used as absolute names for the PC files
 
 Now, let's see how ``pkg_config_aliases`` property works step by step.
 
-Let's create our own ``myopenssl/1.0.0`` recipe and define several aliases like these ones:
+Let's create our own ``myopenssl/1.0.0`` recipe and define several aliases like the following:
 
 .. code:: python
 
@@ -200,7 +199,7 @@ Let's create our own ``myopenssl/1.0.0`` recipe and define several aliases like 
             self.cpp_info.components["mycrypto"].set_property("pkg_config_aliases", ["mycrypto", "crp"])
             self.cpp_info.components["myssl"].set_property("pkg_config_aliases", ["myssl"])
 
-Then, creating the package locally with :command:`conan create .` and consuming it :command:`conan install myopenssl/1.0.0@ -g PkgConfigDeps`, the files created will be:
+Then, after creating the package locally with :command:`conan create .` and consuming it :command:`conan install myopenssl/1.0.0@ -g PkgConfigDeps`, the files created will be:
 
 - myopenssl-mycrypto.pc
 - myopenssl-myssl.pc
