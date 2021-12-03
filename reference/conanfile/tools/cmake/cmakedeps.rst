@@ -166,6 +166,7 @@ The following properties affect the CMakeDeps generator:
 - **cmake_file_name**: The config file generated for the current package will follow the ``<VALUE>-config.cmake`` pattern,
   so to find the package you write ``find_package(<VALUE>)``.
 - **cmake_target_name**: Name of the target to be consumed.
+- **cmake_target_aliases**: List of aliases that Conan will create for an already existing target.
 - **cmake_find_mode**: Defaulted to ``config``. Possible values are:
 
   - ``config``: The CMakeDeps generator will create config scripts for the dependency.
@@ -186,13 +187,18 @@ Example:
         ...
         # MyFileName-config.cmake
         self.cpp_info.set_property("cmake_file_name", "MyFileName")
-        # Foo:: namespace for the targets (Foo::Foo if no components)
-        self.cpp_info.set_property("cmake_target_name", "Foo")
+        # Names for targets are absolute, Conan won't add any namespace to the target names automatically
+        self.cpp_info.set_property("cmake_target_name", "Foo::Foo")
 
-        # Foo::Var target name for the component "mycomponent"
-        self.cpp_info.components["mycomponent"].set_property("cmake_target_name", "Var")
+        # Create a new target "MyFooAlias" that is an alias to the "Foo::Foo" target
+        self.cpp_info.set_property("cmake_target_aliases", ["MyFooAlias"])
+
+        self.cpp_info.components["mycomponent"].set_property("cmake_target_name", "Foo::Var")
         # Automatically include the lib/mypkg.cmake file when calling find_package()
         self.cpp_info.components["mycomponent"].set_property("cmake_build_modules", [os.path.join("lib", "mypkg.cmake")])
+
+        # Create a new target "VarComponent" that is an alias to the "Foo::Var" component target
+        self.cpp_info.components["mycomponent"].set_property("cmake_target_aliases", ["VarComponent"])
 
         # Skip this package when generating the files for the whole dependency tree in the consumer
         # note: it will make useless the previous adjustements.
