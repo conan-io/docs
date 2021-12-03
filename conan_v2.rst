@@ -32,7 +32,6 @@ Update the syntax of your Conanfile
   ``self.build_requires(..., force_host_context)``.
 - Move all your packages to lowercase. Uppercase package names (or versions/user/channel) will not be possible in 2.0.
 
-.. _conanv2_properties_model:
 
 New namespace conan.tools.xxxxx
 -------------------------------
@@ -68,7 +67,7 @@ the `self.dependencies access
 <https://docs.conan.io/en/latest/reference/conanfile/dependencies.html#dependencies-interface>`_ 
 to get information about dependencies.
 
-Commands that dissapear in 2.0: copy
+Commands that disappear in 2.0: copy
 ------------------------------------
 
 Do not use the ``conan copy`` command to change user/channel. Packages will be immutable,
@@ -81,6 +80,8 @@ Editables don't use external templates any more. New layout model
 If you are using ``editables``, the external template files are going to be removed. Use
 the ``layout()`` method definition instead. Please check the documentation for more
 information about :ref:`layouts <conan_tools_layout>`.
+
+.. _conanv2_properties_model:
 
 New properties model for the cpp_info in Conan 2.0 generators
 -------------------------------------------------------------
@@ -125,6 +126,7 @@ New properties defined for *CMake* generators family, used by :ref:`CMakeDeps<CM
 Properties related to *pkg_config*, used by legacy ``pkg_config`` and new :ref:`PkgConfigDeps<PkgConfigDeps>`:
 
 - **pkg_config_name** property sets the ``names`` property for *pkg_config* generator.
+- **pkg_config_aliases** property sets some aliases of any package/component name for *pkg_config* generator. This property only accepts list-like Python objects.
 - **pkg_config_custom_content** property supported by the *pkg_config* generator that will add user
   defined content to the *.pc* files created by this generator
 
