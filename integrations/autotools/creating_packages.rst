@@ -22,19 +22,19 @@ in the *features/makefiles* folder:
 
     $ git clone https://github.com/conan-io/examples.git
     $ cd examples/features/makefiles
-    $ cd hellolib
+    $ cd creating_packages
 
 
-It contains a *src* folder with the source code and a *conanfile.py* file for creating a package.
+It contains a *conanfile.py* file for creating a package and a *src* folder with the source code.
 
-Inside the *src* folder, there is *Makefile* to build the static library. This *Makefile* uses
-standard variables like ``$(CPPFLAGS)`` or ``$(CXX)`` to build it:
+It also contains a *Makefile* file to build the static library. This *Makefile* uses standard
+variables like ``$(CPPFLAGS)`` or ``$(CXX)`` to build it:
 
 .. code-block:: make
 
-    SRC = hello.cpp
+    SRC = src/hello.cpp
     OBJ = $(SRC:.cpp=.o)
-    OUT = libhello.a
+    OUT = src/libhello.a
     INCLUDES = -I.
 
     .SUFFIXES: .cpp
@@ -42,10 +42,10 @@ standard variables like ``$(CPPFLAGS)`` or ``$(CXX)`` to build it:
     default: $(OUT)
 
     .cpp.o:
-        $(CXX) $(INCLUDES) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
+    	$(CXX) $(INCLUDES) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
     $(OUT): $(OBJ)
-        ar rcs $(OUT) $(OBJ)
+    	ar rcs $(OUT) $(OBJ)
 
 
 The *conanfile.py* file uses the ``AutoTools`` build helper. This helper defines
@@ -54,30 +54,31 @@ to match the current Conan settings (like ``-m32`` or ``-m64`` based on the Cona
 
 .. code-block:: python
 
-   from conans import ConanFile
-   from conans import tools
-   from conan.tools.gnu import Autotools
+    from conans import ConanFile
+    from conan.tools.gnu import Autotools
 
 
-   class HelloConan(ConanFile):
-       name = "hello"
-       version = "0.1"
-       settings = "os", "compiler", "build_type", "arch"
-       exports_sources = "src/*"
-       generators = "AutotoolsToolchain"
+    class HelloConan(ConanFile):
+        name = "hello"
+        version = "0.1"
+        settings = "os", "compiler", "build_type", "arch"
+        exports_sources = "Makefile", "src/*"
+        generators = "AutotoolsToolchain"
 
-       def build(self):
-           with tools.chdir("src"):
-               atools = Autotools(self)
-               atools.make()
+        def layout(self):
+            self.folders.source = "src"
 
-       def package(self):
-           self.copy("*.h", dst="include", src="src")
-           self.copy("*.lib", dst="lib", keep_path=False)
-           self.copy("*.a", dst="lib", keep_path=False)
+        def build(self):
+            atools = Autotools(self)
+            atools.make()
 
-       def package_info(self):
-           self.cpp_info.libs = ["hello"]
+        def package(self):
+            self.copy("*.h", dst="include", src="src")
+            self.copy("*.lib", dst="lib", keep_path=False)
+            self.copy("*.a", dst="lib", keep_path=False)
+
+        def package_info(self):
+            self.cpp_info.libs = ["hello"]
 
 
 
@@ -85,7 +86,7 @@ With this *conanfile.py* you can create the package:
 
 .. code-block:: bash
 
-    $ conan create . user/testing -s compiler=gcc -s compiler.version=4.9 -s compiler.libcxx=libstdc++
+    $ conan create . demo/testing
 
 
 Using packages
@@ -95,16 +96,16 @@ Now let's move to the application folder:
 
 .. code-block:: bash
 
-    $ cd ../helloapp
+    $ cd ../reusing_packages
 
 
-There you can also see a *src* folder with a *Makefile* creating an executable:
+There you can also see a *Makefile*, for creating an executable:
 
 .. code-block:: make
 
-    SRC = app.cpp
+    SRC = src/app.cpp
     OBJ = $(SRC:.cpp=.o)
-    OUT = app
+    OUT = src/app
     INCLUDES = -I.
 
     .SUFFIXES: .cpp
@@ -118,36 +119,33 @@ There you can also see a *src* folder with a *Makefile* creating an executable:
         $(CXX) -o $(OUT)  $(OBJ)  $(LDFLAGS)  $(LIBS)
 
 
-And also a *conanfile.py* very similar to the previous one. In this case adding a ``requires`` and a ``deploy()`` method:
+And also a *conanfile.py* very similar to the previous one. In this case it adds a ``requires`` property:
 
 .. code-block:: python
-   :emphasize-lines: 11, 23, 24
+    :emphasize-lines: 10
 
-   from conans import ConanFile
-   from conans import tools
-   from conan.tools.gnu import Autotools
+    from conans import ConanFile
+    from conan.tools.gnu import Autotools
 
 
-   class AppConan(ConanFile):
-       name = "app"
-       version = "0.1"
-       settings = "os", "compiler", "build_type", "arch"
-       exports_sources = "src/*"
-       requires = "hello/0.1@user/testing"
-       generators = "AutotoolsDeps", "AutotoolsToolchain"
+    class AppConan(ConanFile):
+        name = "app"
+        version = "0.1"
+        settings = "os", "compiler", "build_type", "arch"
+        exports_sources = "Makefile", "src/*"
+        requires = "hello/0.1@demo/testing"
+        generators = "AutotoolsDeps", "AutotoolsToolchain"
 
-       def build(self):
-           with tools.chdir("src"):
-               atools = Autotools(self)
-               atools.make()
+        def layout(self):
+            self.folders.source = "src"
 
-       def package(self):
-           self.copy("*app", dst="bin", keep_path=False)
-           self.copy("*app.exe", dst="bin", keep_path=False)
+        def build(self):
+            atools = Autotools(self)
+            atools.make()
 
-       def deploy(self):
-           self.copy("*", src="bin", dst="bin")
-
+        def package(self):
+            self.copy("*app", dst="bin", keep_path=False)
+            self.copy("*app.exe", dst="bin", keep_path=False)
 
 
 Note that in this case, the ``AutoToolsDeps`` and ``AutotoolsToolchain`` generators will automatically set
@@ -155,20 +153,50 @@ values to ``CPPFLAGS``, ``LDFLAGS``, ``LIBS``, etc. existing in the *Makefile* w
 directories, library names, etc. to properly build and link with the ``hello`` library contained in the
 "hello" package.
 
+Also note the ``layout`` method, that define where the app sources are (``self.folders.source``).
+
 As above, we can create the package with:
 
 .. code-block:: bash
 
-    $ conan create . user/testing -s compiler=gcc -s compiler.version=4.9 -s compiler.libcxx=libstdc++
+    $ conan create . demo/testing
 
 
-There are different ways to run executables contained in packages, like using ``virtualrunenv`` generators.
-In this case, since the package has a ``deploy()`` method, we can use it:
+While working on a package, the recommended way to run your executables is using the
+(:ref:)`VirtualRunEnv<conan_tools_env_virtualrunenv>`generator. Please follow the link to learn more
+about what ``VirtualRunEnv`` is and how it works, but here is a quick summary on how to use it:
+
+Calling the VirtualRunEnv generator creates some *.sh* files that update some environment variables
+that help you to locate executables and shared libraries:
 
 .. code-block:: bash
 
-    $ conan install app/0.1@user/testing -s compiler=gcc -s compiler.version=4.9 -s compiler.libcxx=libstdc++
-    $ ./bin/app
-    $ Hello World Release!
+    $ mkdir runenv # not necessary, but convenient to avoid cluttering the root directory
+    $ cd runenv
+    $ conan install app/0.1@demo/testing -g VirtualRunEnv
+
+Then you run the *conanrun.sh* script to enable that environment variables:
+
+.. code-block:: bash
+
+    $ source conanrun.sh
+    Capturing current environment in deactivate_conanrunenv-release-x86_64.sh
+    Configuring environment variables
+
+And now you can call your binary, because it is now in your ``PATH``:
+
+.. code-block:: bash
+
+    $ app
+    Hello World Release!
+
+
+When you are done, you can restore your environment variables:
+
+.. code-block:: bash
+
+    $ source deactivate_conanrun.sh
+    Restoring environment
+
 
 .. |gnu_logo| image:: ../../images/conan-gnu-logo.png
