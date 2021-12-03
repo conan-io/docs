@@ -14,7 +14,7 @@ be installed from PyPI doing:
 .. code-block:: bash
 
     $ pip install conan==2.0.0-alpha1
- 
+
 The documentation for 2.0 is still far from being complete, but we are working on it and
 you can access it `with the right version label
 <https://docs.conan.io/en/2.0-alpha/index.html>`_.
@@ -25,6 +25,7 @@ This section summarizes some of the necessary changes during Conan 1.X to be rea
 Update the syntax of your Conanfile
 -----------------------------------
 
+- Use the ``from conan import ConanFile`` import instead of the legacy ``from conans ...`` (note the plural)
 - Do not use dictionary expressions in your recipe ``settings`` definition (like ``settings = {"os": ["Windows", "Linux"]}``. This
   way of limiting supported configurations by one recipe will be removed. Use the ``validate()`` method instead to raise
   ``ConanInvalidConfiguration`` if strictly necessary to fail fast for unsupported configurations.
@@ -64,7 +65,7 @@ self.dependencies to access information about dependencies
 
 Do not use ``self.deps_cpp_info``, ``self.deps_env_info`` or ``self.deps_user_info``. Use
 the `self.dependencies access
-<https://docs.conan.io/en/latest/reference/conanfile/dependencies.html#dependencies-interface>`_ 
+<https://docs.conan.io/en/latest/reference/conanfile/dependencies.html#dependencies-interface>`_
 to get information about dependencies.
 
 Commands that disappear in 2.0: copy
@@ -88,11 +89,11 @@ New properties model for the cpp_info in Conan 2.0 generators
 
 .. toctree::
    :hidden:
-   
+
    migrating_to_2.0/properties.rst
 
 Using ``.names``, ``.filenames`` and ``.build_modules`` will not work any more for new
-generators, like :ref:`CMakeDeps<CMakeDeps>` and :ref:`PkgConfigDeps<PkgConfigDeps>`. 
+generators, like :ref:`CMakeDeps<CMakeDeps>` and :ref:`PkgConfigDeps<PkgConfigDeps>`.
 They have a new way of setting this information using ``set_property`` and
 ``get_property`` methods of the ``cpp_info`` object (available since Conan 1.36).
 
@@ -135,7 +136,7 @@ global ``cpp_info`` level or at component level.
 
 For most cases, it is recommended not to use the ``generator`` argument. The properties are generic
 for build systems, and different generators that integrate with a given build system could be reading
-such generic properties. 
+such generic properties.
 
 The `set/get_property` model is very useful if you are creating a :ref:`custom generator<custom_generator>`.
 Using ``set_property()`` you can pass the parameters of your choice and read them using the
