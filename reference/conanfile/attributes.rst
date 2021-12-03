@@ -1045,7 +1045,7 @@ of the component. The dependency graph for components will be calculated and val
     Using ``set_property`` and ``get_property`` methods for ``cpp_info`` is an **experimental**
     feature subject to breaking changes in future releases.
 
-Using ``names``, ``filenames`` and ``build_modules`` will not work any more for new
+Using ``.names``, ``.filenames`` and ``.build_modules`` will not work any more for new
 generators, like :ref:`CMakeDeps<CMakeDeps>` and :ref:`PkgConfigDeps<PkgConfigDeps>`. 
 They have a new way of setting this information using ``set_property`` and
 ``get_property`` methods of the ``cpp_info`` object (available since Conan 1.36).
