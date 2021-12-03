@@ -86,7 +86,7 @@ Let's have a look at the package recipe *conanfile.py*:
             self.cpp_info.libs = ["hello"]
 
 
-Let's explain a little bit this recipe:
+Let's explain a little bit about this recipe:
 
 - The binary configuration is composed by ``settings`` and ``options``. See more in :ref:`this section<settings_vs_options>`.
   When something changes in the configuration, the resulting binary built and packaged will be different:

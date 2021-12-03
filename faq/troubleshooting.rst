@@ -29,10 +29,11 @@ that you get an error like the following one:
     - Requirements: libcurl/7.Y.Z, lz4/1.Y.Z, openssl/1.Y.Z, zeromq/4.Y.Z
     - Package ID: 7a4079899e0893ca670df1f682b4606abe79ee5b
 
-    ERROR: Missing prebuilt package for 'czmq/4.2.0'
-    Try to build it from sources with '--build czmq'
-    Use 'conan search <reference> --table table.html'
-    Or read 'http://docs.conan.io/en/latest/faq/troubleshooting.html#error-missing-prebuilt-package'
+    ERROR: Missing prebuilt package for 'czmq/4.2.0@'
+    Use 'conan search czmq/4.2.0@ --table=table.html -r=remote' and open the table.html file to see available packages
+    Or try to build locally from sources with '--build=czmq'
+
+    More Info at 'https://docs.conan.io/en/latest/faq/troubleshooting.html#error-missing-prebuilt-package'
 
 This means that the package recipe ``czmq/4.2.0@`` exists, but for some reason
 there is no precompiled package for your current settings. Maybe the package creator didn't build

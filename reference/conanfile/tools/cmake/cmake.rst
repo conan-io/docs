@@ -48,11 +48,9 @@ constructor
 
 .. code:: python
 
-    def __init__(self, conanfile, parallel=True, namespace=None):
+    def __init__(self, conanfile, namespace=None):
 
 - ``conanfile``: the current recipe object. Always use ``self``.
-- ``parallel``: (Optional, Defaulted to True): If True, will append the -jN attribute (/m: in MSBuild) for parallel
-  building being N the value of the :ref:`tools.microsoft.msbuild:max_cpu_count<global_conf>`.
 - ``namespace``: this argument avoids collisions when you have multiple toolchain calls in the same
   recipe. By setting this argument the *conanbuild.conf* file used to pass some information to the
   toolchain will be named as: *<namespace>_conanbuild.conf*. The default value is ``None`` meaning that
@@ -114,7 +112,7 @@ test()
 
 .. code:: python
 
-    def test(self, build_type=None, target=None, output_on_failure=False):
+    def test(self, build_type=None, target=None):
 
 
 Equivalent to running :command:`cmake --build . --target=RUN_TESTS`.
@@ -132,8 +130,7 @@ conf
   to the ``CMake.build()`` command, when a Visual Studio generator (MSBuild build system) is being used for CMake. It is passed as
   an argument to the underlying build system via the call ``cmake --build . --config Release -- /verbosity:Diagnostic``
 
-- ``tools.ninja:jobs`` argument for the ``--jobs`` parameter when running Ninja generator. (overrides
-  the general ``tools.build:processes``).
+- ``tools.build:jobs`` argument for the ``--jobs`` parameter when running Ninja generator.
 
 - ``tools.microsoft.msbuild:max_cpu_count`` argument for the ``/m`` (``/maxCpuCount``) when running
-  ``MSBuild`` (overrides the general ``tools.build:processes``).
+  ``MSBuild``

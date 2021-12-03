@@ -73,13 +73,13 @@ constructor
 
 .. code:: python
 
-    def __init__(self, conanfile, env=os.environ):
+    def __init__(self, conanfile, backend=None):
 
 Most of the arguments are optional and will be deduced from the current ``settings``, and not
 necessary to define them.
 
 - ``conanfile``: the current recipe object. Always use ``self``.
-- ``env``: the dictionary of the environment variables.
+- ``backend``: the meson `backend <https://mesonbuild.com/Configuring-a-build-directory.html>`_ to use. By default, ``ninja`` is used. Possible values: ninja, vs, vs2010, vs2015, vs2017, vs2019, xcode.
 
 definitions
 +++++++++++
@@ -215,5 +215,7 @@ Runs project's tests. Equivalent to running :command:`meson test -v -C .` in the
 conf
 ++++
 
-- ``tools.ninja:jobs`` argument for the ``--jobs`` parameter when running Ninja. (overrides
-  the general ``tools.build:processes``).
+- ``tools.build:jobs=10`` argument for the ``--jobs`` parameter when running Ninja.
+- ``tools.meson.mesontoolchain:backend``. the meson `backend
+  <https://mesonbuild.com/Configuring-a-build-directory.html>`_ to use. Possible values:
+  ``ninja``, ``vs``, ``vs2010``, ``vs2015``, ``vs2017``, ``vs2019``, ``xcode``.

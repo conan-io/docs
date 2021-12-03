@@ -68,7 +68,7 @@ translated from the current ``settings``:
   generator and the CMake toolchain file. The CMake generator will be deduced from the current Conan compiler settings:
 
   - For ``settings.compiler="Visual Studio"``, the CMake generator is a direct mapping of ``compiler.version``, as this version represents the IDE version, not the compiler version.
-  - For ``settings.compiler=msvc``, the CMake generator will be by default the one of the Visual Studio that introduced this compiler version (``msvc 19.0`` => ``Visual Studio 14``, ``msvc 19.1`` => ``Visual Studio 15``, etc). This can be changed, using the ``tools.microsoft.msbuild:vs_version`` [conf] configuration. If it is defined, that Visual Studio version will be used as the CMake generator, and the specific compiler version and toolset will be defined in the ``conan_toolchain.cmake`` file.
+  - For ``settings.compiler=msvc``, the applied CMake generator will be, by default, the Visual Studio that introduced the specified `settings.compiler.version`. e.g: (``settings.compiler.version = 190`` => ``Visual Studio 14``, ``settings.compiler.version =  191`` => ``Visual Studio 15``, etc). This can be changed, using the ``tools.microsoft.msbuild:vs_version`` [conf] configuration. If it is defined, that Visual Studio version will be used as the CMake generator, and the specific compiler version and toolset will be defined in the ``conan_toolchain.cmake`` file..
 
 - *conanvcvars.bat*: In some cases, the Visual Studio environment needs to be defined correctly for building,
   like when using the Ninja or NMake generators. If necessary, the ``CMakeToolchain`` will generate this script,
@@ -295,10 +295,12 @@ Blocks can be customized in different ways:
         generic_block.context = types.MethodType(context, generic_block)
 
     # completely replace existing block
+    from conan.tools.cmake import CMakeToolchain, CMakeToolchainBlock
+
     def generate(self):
         tc = CMakeToolchain(self)
         # this could go to a python_requires
-        class MyGenericBlock(Block):
+        class MyGenericBlock(CMakeToolchainBlock):
             template = "HelloWorld"
 
             def context(self):
@@ -307,10 +309,11 @@ Blocks can be customized in different ways:
         tc.blocks["generic_system"] = MyBlock
 
     # add a completely new block
+    from conan.tools.cmake import CMakeToolchain, CMakeToolchainBlock
     def generate(self):
         tc = CMakeToolchain(self)
         # this could go to a python_requires
-        class MyBlock(Block):
+        class MyBlock(CMakeToolchainBlock):
             template = "Hello {{myvar}}!!!"
 
             def context(self):
@@ -318,20 +321,6 @@ Blocks can be customized in different ways:
 
         tc.blocks["mynewblock"] = MyBlock
 
-
-    # extend from an existing block
-    def generate(self):
-        tc = CMakeToolchain(self)
-        # this could go to a python_requires
-        class MyBlock(GenericSystemBlock):
-            template = "Hello {{build_type}}!!"
-
-            def context(self):
-                c = super(MyBlock, self).context()
-                c["build_type"] = c["build_type"] + "Super"
-                return c
-
-        tc.blocks["generic_system"] = MyBlock
 
 Recall that this is a very **experimental** feature, and these interfaces might change in the following releases.
 
