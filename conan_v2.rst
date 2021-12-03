@@ -42,7 +42,7 @@ New properties model for the cpp_info in Conan 2.0 generators. Migrating from .n
     Using ``set_property`` and ``get_property`` methods for ``cpp_info`` is an **experimental**
     feature subject to breaking changes in future releases.
 
-Using ``names``, ``filenames`` and ``build_modules`` will not work any more for new
+Using ``.names``, ``.filenames`` and ``.build_modules`` will not work any more for new
 generators, like :ref:`CMakeDeps<CMakeDeps>` and :ref:`PkgConfigDeps<PkgConfigDeps>`. 
 They have a new way of setting this information using ``set_property`` and
 ``get_property`` methods of the ``cpp_info`` object (available since Conan 1.36).
@@ -108,7 +108,7 @@ some examples.
 
 **Migrating from .names to cmake_target_name**
 
-It is important to note that ``cmake_target_name`` is **not** goint to take the same value
+It is important to note that ``cmake_target_name`` is **not** going to take the same value
 as the ``.names`` attribute did. With the ``.names`` attribute, if you set a name for the
 target in CMake, Conan would automatically create a "namespaced" target name with that
 name. This code, for example:
