@@ -215,5 +215,4 @@ Runs project's tests. Equivalent to running :command:`meson test -v -C .` in the
 conf
 ++++
 
-- ``tools.ninja:jobs`` argument for the ``--jobs`` parameter when running Ninja. (overrides
-  the general ``tools.build:processes``).
+- ``tools.build:jobs=10`` argument for the ``--jobs`` parameter when running Ninja.
