@@ -217,5 +217,5 @@ conf
 
 - ``tools.build:jobs=10`` argument for the ``--jobs`` parameter when running Ninja.
 - ``tools.meson.mesontoolchain:backend``. the meson `backend
-<https://mesonbuild.com/Configuring-a-build-directory.html>`_ to use. Possible values:
-``ninja``, ``vs``, ``vs2010``, ``vs2015``, ``vs2017``, ``vs2019``, ``xcode``.
+  <https://mesonbuild.com/Configuring-a-build-directory.html>`_ to use. Possible values:
+  ``ninja``, ``vs``, ``vs2010``, ``vs2015``, ``vs2017``, ``vs2019``, ``xcode``.
