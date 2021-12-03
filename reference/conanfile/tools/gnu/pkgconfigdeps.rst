@@ -128,10 +128,10 @@ Aliases are available since: `1.43.0 <https://github.com/conan-io/conan/releases
 
 By default, the ``*.pc`` file names will follow the rules defined below:
 
-* For packages, the own package name, e.g., package ``zlib/1.2.11`` -> ``zlib.pc``.
-* For components, the package name as namespace plus the own component one, package ``openssl/3.0.0`` and component ``openssl::crypto`` -> ``openssl-crypto.pc``.
+* For packages, it's used the package name, e.g., package ``zlib/1.2.11`` -> ``zlib.pc``.
+* For components, the package name + hyphen + component name, e.g., ``openssl/3.0.0`` with ``self.cpp_info.components["crytpo"]``  -> ``openssl-crypto.pc``.
 
-Given that, it's also possible to change easily that behavior thanks to ``pkg_config_name`` and ``pkg_config_aliases`` properties.
+You can change that default behavior with ``pkg_config_name`` and ``pkg_config_aliases`` properties.
 
 For instance, ``openssl/3.0.0``` recipe has these ``pkg_config_name`` properties already declared:
 
