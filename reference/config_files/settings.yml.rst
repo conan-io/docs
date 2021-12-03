@@ -52,6 +52,7 @@ are possible. These are the **default** values, but it is possible to customize 
         Emscripten:
         Neutrino:
             version: ["6.4", "6.5", "6.6", "7.0"]
+        baremetal:
     arch: [x86, x86_64, ppc32be, ppc32, ppc64le, ppc64, armv4, armv4i, armv5el, armv5hf, armv6, armv7, armv7hf, armv7s, armv7k, armv8, armv8_32, armv8.3, sparc, sparcv9, mips, mips64, avr, s390, s390x, asm.js, wasm, sh4le, e2k-v2, e2k-v3, e2k-v4, e2k-v5, e2k-v6, e2k-v7]
     compiler:
         sun-cc:
@@ -146,6 +147,17 @@ to distribute a unified *settings.yml* file you can use the :ref:`conan config i
     with any missing settings and values that could make sense for other users.
 
     To force the creation of the *settings.yml* the command ``conan config init`` is available.
+
+Operating systems
+-----------------
+
+``baremetal`` operating system (introduced in Conan 1.43) is a convention meaning that the binaries run directly on the hardware, without a operating system or equivalent
+layer. This is to differentiate to the ``None`` value, which is associated to the "this value is not defined" semantics.
+The ``baremetal`` is a common name convention for embedded microprocessors and microcontrollers code. It is expected that users might customize the
+space inside the ``baremetal`` setting with further subsettings to specify their specific hardware platforms, boards, families, etc.
+At the moment (Conan 1.43) the ``os=baremetal`` value is still not used by Conan builtin toolchains and helpers, but it is expected that they can
+evolve and start using it.
+
 
 Compilers
 ---------
