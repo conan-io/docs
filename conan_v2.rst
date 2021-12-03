@@ -1,32 +1,151 @@
 .. _conan_v2:
 
-Migrating to 2.0
-=================
+Conan migration guide to 2.0
+============================
 
-Conan has started to work on the next major release. We've been gathering feedback
-from the community about our features and we think it's time to break some default
-behaviors, clean the codebase and add space for new developments. Development is
-ongoing and the `Conan 2.0 Tribe <https://conan.io/tribe.html>`_ is having discussions
-about it.
+Conan team is working hard on the next major release. We've been gathering feedback from the
+community about our features and we think it's time to break some default behaviors, clean
+the codebase and add space for new developments. Development is ongoing and the `Conan 2.0
+Tribe <https://conan.io/tribe.html>`_ is having discussions about it.
 
-Conan 2.0-alpha is already released. You can access its documentation with the right version label.
-It can be installed from PyPI with ``pip install conan==2.0.0-alpha1``
+Conan 2.0-alpha `is already released <https://pypi.org/project/conan/#history>`_  and can
+be installed from PyPI doing:
+
+.. code-block:: bash
+
+    $ pip install conan==2.0.0-alpha1
+ 
+The documentation for 2.0 is still far from being complete, but we are working on it and
+you can access it `with the right version label
+<https://docs.conan.io/en/2.0-alpha/index.html>`_.
+
 
 This section summarizes some of the necessary changes during Conan 1.X to be ready to upgrade to Conan 2.0:
 
+Update the syntax of your Conanfile
+-----------------------------------
 
-- Use generators and helpers only from ``conan.tools.xxxx`` space. All the other ones are going to be removed.
-- Use always build and host profiles. You can enable it by passing ``-pr:b=default`` in the command line to most commands.
-  Do not use ``os_build``, ``arch_build`` anywhere in your recipes or code.
-- Use ``self.test_requires()`` to define test requirements instead of the legacy ``self.build_requires(..., force_host_context)``.
-- Activate revisions in your Conan configuration.
-- Move all your packages to lowercase. Uppercase package names (or versions/user/channel) will not be possible in 2.0.
-- Do not use ``self.deps_cpp_info``, ``self.deps_env_info`` or ``self.deps_user_info``. Use the ``self.dependencies`` access to get
-  information about dependencies.
-- Do not use the ``conan copy`` command to change user/channel. Packages will be immutable, and this command will dissapear in 2.0.
-  Package promotions are generally done in the server side, copying packages from one server repository to another repository.
 - Do not use dictionary expressions in your recipe ``settings`` definition (like ``settings = {"os": ["Windows", "Linux"]}``. This
   way of limiting supported configurations by one recipe will be removed. Use the ``validate()`` method instead to raise
   ``ConanInvalidConfiguration`` if strictly necessary to fail fast for unsupported configurations.
-- If you are using ``editables``, the external template files are going to be removed. Use the ``layout()`` method definition instead.
+- Use ``self.test_requires()`` to define test requirements instead of the legacy
+  ``self.build_requires(..., force_host_context)``.
+- Move all your packages to lowercase. Uppercase package names (or versions/user/channel) will not be possible in 2.0.
 
+.. _conanv2_properties_model:
+
+New namespace conan.tools.xxxxx
+-------------------------------
+
+Use generators and helpers only from ``conan.tools.xxxx`` space. All the other ones are
+going to be removed. Please check the :ref:`tools<tools>` section to learn more about the new tools
+available for Conan 2.0.
+
+Host and build profiles and new cross-building model
+----------------------------------------------------
+
+Use always build and host profiles. You can enable it by passing ``-pr:b=default`` in the
+command line to most commands. Do not use ``os_build``, ``arch_build`` anywhere in your
+recipes or code.
+
+Conan uses revisions by default in Conan 2.0
+--------------------------------------------
+
+Conan 2.0 uses :ref:`revisions<package_revisions>` by default and the local cache 2.0 will
+store multiple recipe and package revisions for your Conan packages (Conan 1.X supports
+only one revision). To start working with revisions enabled in Conan 1.X, please enable
+them in your Conan configuration:
+
+.. code-block:: bash
+
+    $ conan config set general.revisions_enabled=True
+
+self.dependencies to access information about dependencies
+----------------------------------------------------------
+
+Do not use ``self.deps_cpp_info``, ``self.deps_env_info`` or ``self.deps_user_info``. Use
+the `self.dependencies access
+<https://docs.conan.io/en/latest/reference/conanfile/dependencies.html#dependencies-interface>`_ 
+to get information about dependencies.
+
+Commands that dissapear in 2.0: copy
+------------------------------------
+
+Do not use the ``conan copy`` command to change user/channel. Packages will be immutable,
+and this command will dissapear in 2.0. Package promotions are generally done in the
+server side, copying packages from one server repository to another repository.
+
+Editables don't use external templates any more. New layout model
+-----------------------------------------------------------------
+
+If you are using ``editables``, the external template files are going to be removed. Use
+the ``layout()`` method definition instead. Please check the documentation for more
+information about :ref:`layouts <conan_tools_layout>`.
+
+New properties model for the cpp_info in Conan 2.0 generators
+-------------------------------------------------------------
+
+.. toctree::
+   :hidden:
+   
+   migrating_to_2.0/properties.rst
+
+Using ``.names``, ``.filenames`` and ``.build_modules`` will not work any more for new
+generators, like :ref:`CMakeDeps<CMakeDeps>` and :ref:`PkgConfigDeps<PkgConfigDeps>`. 
+They have a new way of setting this information using ``set_property`` and
+``get_property`` methods of the ``cpp_info`` object (available since Conan 1.36).
+
+.. code-block:: python
+
+    def set_property(self, property_name, value, generator=None)
+    def get_property(self, property_name, generator=None):
+
+New properties ``cmake_target_name``, ``cmake_file_name``, ``cmake_module_target_name``,
+``cmake_module_file_name``, ``pkg_config_name`` and ``cmake_build_modules`` are defined to allow
+migrating ``names``, ``filenames`` and ``build_modules`` properties to this model. In Conan 2.0 this
+will be the default way of setting these properties for all generators and also passing
+custom properties to generators.
+
+New properties defined for *CMake* generators family, used by :ref:`CMakeDeps<CMakeDeps>` generator:
+
+- **cmake_file_name** property will affect all cmake generators that accept the ``filenames``
+  property (*cmake_find_package* and *cmake_find_package_multi*).
+- **cmake_target_name** property will affect all cmake generators that accept the ``names`` property
+  (*cmake*, *cmake_multi*, *cmake_find_package*, *cmake_find_package_multi* and *cmake_paths*).
+- **cmake_module_file_name** property supported by *cmake_find_package* generator. Sets the file name of the
+  module files created by this generator.
+- **cmake_module_target_name** supported by *cmake_find_package* generator. Sets the target name of the
+  module files created by this generator.
+- **cmake_build_modules** property replaces the ``build_modules`` property.
+- **cmake_find_mode** will tell ref:`CMakeDeps<CMakeDeps>` to generate config
+  files, modules files, both or none of them, depending on the value set (``config``,
+  ``module``, ``both`` or ``none``)
+
+
+Properties related to *pkg_config*, used by legacy ``pkg_config`` and new :ref:`PkgConfigDeps<PkgConfigDeps>`:
+
+- **pkg_config_name** property sets the ``names`` property for *pkg_config* generator.
+- **pkg_config_custom_content** property supported by the *pkg_config* generator that will add user
+  defined content to the *.pc* files created by this generator
+
+All of these properties, but ``cmake_file_name`` and ``cmake_module_file_name`` can be defined at
+global ``cpp_info`` level or at component level.
+
+For most cases, it is recommended not to use the ``generator`` argument. The properties are generic
+for build systems, and different generators that integrate with a given build system could be reading
+such generic properties. 
+
+The `set/get_property` model is very useful if you are creating a :ref:`custom generator<custom_generator>`.
+Using ``set_property()`` you can pass the parameters of your choice and read them using the
+``get_property()`` method inside the generator.
+
+.. code-block:: python
+
+    def package_info(self):
+        ...
+        # you have created a custom generator that reads the 'custom_property' property and you set here
+        # the value to 'prop_value'
+        self.cpp_info.components["mycomponent"].set_property("custom_property", "prop_value")
+        ...
+
+Please **check a detailed migration guide** in the :ref:`dedicated section <properties_migration>`.
