@@ -1111,7 +1111,7 @@ some examples.
 
 **Migrating from .names to cmake_target_name**
 
-It is important to note that ``cmake_target_name`` is **not** goint to take the same value
+It is important to note that ``cmake_target_name`` is **not** going to take the same value
 as the ``.names`` attribute did. With the ``.names`` attribute, if you set a name for the
 target in CMake, Conan would automatically create a "namespaced" target name with that
 name. This code, for example:
