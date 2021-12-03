@@ -295,10 +295,12 @@ Blocks can be customized in different ways:
         generic_block.context = types.MethodType(context, generic_block)
 
     # completely replace existing block
+    from conan.tools.cmake import CMakeToolchain, CMakeToolchainBlock
+
     def generate(self):
         tc = CMakeToolchain(self)
         # this could go to a python_requires
-        class MyGenericBlock(Block):
+        class MyGenericBlock(CMakeToolchainBlock):
             template = "HelloWorld"
 
             def context(self):
@@ -307,10 +309,11 @@ Blocks can be customized in different ways:
         tc.blocks["generic_system"] = MyBlock
 
     # add a completely new block
+    from conan.tools.cmake import CMakeToolchain, CMakeToolchainBlock
     def generate(self):
         tc = CMakeToolchain(self)
         # this could go to a python_requires
-        class MyBlock(Block):
+        class MyBlock(CMakeToolchainBlock):
             template = "Hello {{myvar}}!!!"
 
             def context(self):
@@ -318,20 +321,6 @@ Blocks can be customized in different ways:
 
         tc.blocks["mynewblock"] = MyBlock
 
-
-    # extend from an existing block
-    def generate(self):
-        tc = CMakeToolchain(self)
-        # this could go to a python_requires
-        class MyBlock(GenericSystemBlock):
-            template = "Hello {{build_type}}!!"
-
-            def context(self):
-                c = super(MyBlock, self).context()
-                c["build_type"] = c["build_type"] + "Super"
-                return c
-
-        tc.blocks["generic_system"] = MyBlock
 
 Recall that this is a very **experimental** feature, and these interfaces might change in the following releases.
 
