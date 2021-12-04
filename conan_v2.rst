@@ -108,6 +108,16 @@ migrating ``names``, ``filenames`` and ``build_modules`` properties to this mode
 will be the default way of setting these properties for all generators and also passing
 custom properties to generators.
 
+.. important::
+
+  The 2 mechanisms are completely independent:
+
+  - Old way using ``.names``, ``.filenames`` will work exclusively for legacy generators like ``cmake_find_package``
+  - New properties, like ``set_property("cmake_target_name")`` will work exclusively for new generators
+    like ``CMakeDeps``. They have changed to be absolute, and that would break legacy generators.
+  - Recipes that want to provide support for both generators need to provide the 2 definitions in their
+    ``package_info()``
+
 New properties defined for *CMake* generators family, used by :ref:`CMakeDeps<CMakeDeps>` generator:
 
 - **cmake_file_name** property will affect all cmake generators that accept the ``filenames``

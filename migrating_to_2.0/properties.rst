@@ -7,6 +7,17 @@ Migrating from `.names`, `.filenams` and `.build_modules` to ``set_property()`` 
 but there are some details to take into account for properties like ``cmake_target_name``
 and ``cmake_file_name``. Let's see some examples.
 
+.. important::
+
+  The 2 mechanisms are completely independent:
+
+  - Old way using ``.names``, ``.filenames`` will work exclusively for legacy generators like ``cmake_find_package``
+  - New properties, like ``set_property("cmake_target_name")`` will work exclusively for new generators
+    like ``CMakeDeps``. They have changed to be absolute, and that would break legacy generators.
+  - Recipes that want to provide support for both generators need to provide the 2 definitions in their
+    ``package_info()``
+
+
 Migrating from .names to cmake_target_name
 ==========================================
 
@@ -26,7 +37,7 @@ Will create a CMake target named ``myname::myname``.
 
 The property ``cmake_target_name`` accepts **complete** target names. That means that the
 name you set with this property will be the one added to the CMake generated
-files without appending any more information to it. 
+files without appending any more information to it.
 To translate the last example to the set_property model you should add the following
 declaration:
 
@@ -43,7 +54,7 @@ Note that you can use whatever name you want, it can have a different namespace,
 Also, please note that you may want to have different target names
 for both `config <https://cmake.org/cmake/help/v3.15/command/find_package.html#full-signature-and-config-mode>`_
 and `module <https://cmake.org/cmake/help/v3.15/command/find_package.html#basic-signature-and-module-mode>`_ CMake generated files.
-For example, you have a package named ``myssl`` and you want to generate a ``Findmyssl.cmake`` 
+For example, you have a package named ``myssl`` and you want to generate a ``Findmyssl.cmake``
 module that declares the target ``MySSL::SSL``, but for config mode you
 want to declare the target ``MySSL`` without namespaces. You can do that using the
 ``cmake_module_target_name`` property. Also, when setting this property, remember to set
@@ -110,7 +121,7 @@ This will use "SomeName" to compose the generated filenames. In this case you sh
 Also, please note that you may want to use different file names
 for both `config <https://cmake.org/cmake/help/v3.15/command/find_package.html#full-signature-and-config-mode>`_
 and `module <https://cmake.org/cmake/help/v3.15/command/find_package.html#basic-signature-and-module-mode>`_ CMake generated files.
-If we take the previous example of the ``myssl`` and you want to generate a ``FindMySSL.cmake`` for module mode and 
+If we take the previous example of the ``myssl`` and you want to generate a ``FindMySSL.cmake`` for module mode and
 ``myssl-config.cmake`` for config mode, you can set the ``cmake_module_file_name`` to set the value for the module file:
 
 .. code-block:: python
