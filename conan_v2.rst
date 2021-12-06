@@ -99,8 +99,8 @@ They have a new way of setting this information using ``set_property`` and
 
 .. code-block:: python
 
-    def set_property(self, property_name, value, generator=None)
-    def get_property(self, property_name, generator=None):
+    def set_property(self, property_name, value)
+    def get_property(self, property_name):
 
 New properties ``cmake_target_name``, ``cmake_file_name``, ``cmake_module_target_name``,
 ``cmake_module_file_name``, ``pkg_config_name`` and ``cmake_build_modules`` are defined to allow
@@ -120,14 +120,10 @@ custom properties to generators.
 
 New properties defined for *CMake* generators family, used by :ref:`CMakeDeps<CMakeDeps>` generator:
 
-- **cmake_file_name** property will affect all cmake generators that accept the ``filenames``
-  property (*cmake_find_package* and *cmake_find_package_multi*).
-- **cmake_target_name** property will affect all cmake generators that accept the ``names`` property
-  (*cmake*, *cmake_multi*, *cmake_find_package*, *cmake_find_package_multi* and *cmake_paths*).
-- **cmake_module_file_name** property supported by *cmake_find_package* generator. Sets the file name of the
-  module files created by this generator.
-- **cmake_module_target_name** supported by *cmake_find_package* generator. Sets the target name of the
-  module files created by this generator.
+- **cmake_file_name** property will define in ``CMakeDeps`` the name of the generated config file (``xxx-config.cmake``)
+- **cmake_target_name** property will define the absolute target name in ``CMakeDeps``
+- **cmake_module_file_name** property defines the generated filename for modules (``Findxxxx.cmake``)
+- **cmake_module_target_name** defines the absolute target name for find modules.
 - **cmake_build_modules** property replaces the ``build_modules`` property.
 - **cmake_find_mode** will tell ref:`CMakeDeps<CMakeDeps>` to generate config
   files, modules files, both or none of them, depending on the value set (``config``,
