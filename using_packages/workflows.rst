@@ -21,7 +21,7 @@ When working with a  single configuration, your conanfile will be quite simple a
 
 .. code-block:: bash
 
-    $ git clone git@github.com:conan-io/examples
+    $ git clone https://github.com/conan-io/examples.git
     $ cd libraries/poco
     $ conan install ./md5 --install-folder=md5_build
 
