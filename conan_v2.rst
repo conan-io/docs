@@ -132,10 +132,11 @@ New properties defined for *CMake* generators family, used by :ref:`CMakeDeps<CM
 
 Properties related to *pkg_config*, used by legacy ``pkg_config`` and new :ref:`PkgConfigDeps<PkgConfigDeps>`:
 
-- **pkg_config_name** property sets the ``names`` property for *pkg_config* generator.
-- **pkg_config_aliases** property sets some aliases of any package/component name for *pkg_config* generator. This property only accepts list-like Python objects.
-- **pkg_config_custom_content** property supported by the *pkg_config* generator that will add user
-  defined content to the *.pc* files created by this generator
+- **pkg_config_name** property equivalent to the ``names`` attribute. Used by both ``pkg_config`` and ``PkgConfigDeps``.
+- **pkg_config_aliases** property sets some aliases of any package/component name for the ``PkgConfigDeps`` generator only,
+  it doesn't work in ``pkg_config``. This property only accepts list-like Python objects.
+- **pkg_config_custom_content** property supported by both generators that will add user
+  defined content to the *.pc* files created by the generator
 
 All of these properties, but ``cmake_file_name`` and ``cmake_module_file_name`` can be defined at
 global ``cpp_info`` level or at component level.
