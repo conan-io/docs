@@ -1492,6 +1492,7 @@ Methods:
       e.g. `master`).
     - **checkout(element, submodule=None)**: Checkout a branch, commit or tag given by ``element``. Argument ``submodule`` can get values in
       ``shallow`` or ``recursive`` to instruct what to do with submodules.
+    - **checkout_submodules(submodule=None)**: Checkout submodules. Argument ``submodule`` can get values in ``shallow`` or ``recursive``.
     - **get_remote_url(remote_name=None)**: Returns the remote URL of the specified remote. If not ``remote_name`` is specified ``origin``
       will be used.
     - **get_qualified_remote_url()**: Returns the remote url (see ``get_remote_url()``) but with forward slashes if it is a local folder.
