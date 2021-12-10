@@ -73,7 +73,7 @@ to match the current Conan settings (like ``-m32`` or ``-m64`` based on the Cona
             atools.make()
 
         def package(self):
-            self.copy("*.h", dst="include", src="src")
+            self.copy("*.h", dst="include")
             self.copy("*.lib", dst="lib", keep_path=False)
             self.copy("*.a", dst="lib", keep_path=False)
 
