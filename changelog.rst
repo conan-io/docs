@@ -25,7 +25,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 --------------------
 
 - Feature: Remove `cmake_target_namespace` and `cmake_module_target_namespace` properties. `#10099 <https://github.com/conan-io/conan/pull/10099>`_ . Docs `here <https://github.com/conan-io/docs/pull/2316>`__
-- Feature: Allow `CMakeDeps` to set `cmake_target_name` property as an absolute target. `#10099 <https://github.com/conan-io/conan/pull/10099>`_ . This breaks current recipes in the ConanCenters, e.g. `#8324 <https://github.com/conan-io/conan-center-index/pull/8324>`_ |status|. Docs `here <https://github.com/conan-io/docs/pull/2316>`__
+- Feature: Allow `CMakeDeps` to set `cmake_target_name` property as an absolute target. `#10099 <https://github.com/conan-io/conan/pull/10099>`_ . This breaks current recipes in the ConanCenter, e.g. `#8324 <https://github.com/conan-io/conan-center-index/pull/8324>`_ |status|. Docs `here <https://github.com/conan-io/docs/pull/2316>`__
 .. |status| image:: https://img.shields.io/badge/dynamic/json?color=%23FF0000&label=Status&query=%24.state&url=https%3A%2F%2Fapi.github.com%2Frepos%2Fconan-io%2Fconan-center-index%2Fpulls%2F8324 
 - Feature: Add warning in `CMakeDeps` generated CMake files when target names collide. `#10099 <https://github.com/conan-io/conan/pull/10099>`_ . Docs `here <https://github.com/conan-io/docs/pull/2316>`__
 - Feature: Legacy cmake generators (`cmake_find_package`, `cmake_find_package_multi`) don't listen to new `set_properties` model anymore. `#10098 <https://github.com/conan-io/conan/pull/10098>`_ . Docs `here <https://github.com/conan-io/docs/pull/2316>`__
