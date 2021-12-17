@@ -21,6 +21,12 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.43 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
     a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.43.1 (17-Dec-2021)
+--------------------
+
+- Bugfix: making aggregate_components non-destructive, which was causing errors in generators with components. `#10183 <https://github.com/conan-io/conan/pull/10183>`_
+- Bugfix: Fix the definition of D_GLIBCXX_USE_CXX11_ABI in gcc-like compilers for ``CMakeToolchain`` and ``AutotoolsToolchain``. Define it only to ``D_GLIBCXX_USE_CXX11_ABI=0`` for new compilers, assuming that the default is alread 1. `#10165 <https://github.com/conan-io/conan/pull/10165>`_
+
 1.43.0 (03-Dec-2021)
 --------------------
 
