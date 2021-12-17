@@ -24,7 +24,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 1.43.1 (17-Dec-2021)
 --------------------
 
-- Bugfix: making aggregate_components non-destructive, which was causing errors in generators with components. `#10183 <https://github.com/conan-io/conan/pull/10183>`_
+- Bugfix: Making aggregate_components non-destructive, which was causing errors in generators with components. `#10183 <https://github.com/conan-io/conan/pull/10183>`_
 - Bugfix: Fix the definition of D_GLIBCXX_USE_CXX11_ABI in gcc-like compilers for ``CMakeToolchain`` and ``AutotoolsToolchain``. Define it only to ``D_GLIBCXX_USE_CXX11_ABI=0`` for new compilers, assuming that the default is alread 1. `#10165 <https://github.com/conan-io/conan/pull/10165>`_
 
 1.43.0 (03-Dec-2021)
