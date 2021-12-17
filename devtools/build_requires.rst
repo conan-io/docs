@@ -44,13 +44,18 @@ Build requirements can be declared in profiles, like:
     my_pkg*: tool5/0.1@user/channel
     &: tool6/0.1@user/channel
     &!: tool7/0.1@user/channel
+    !my_pkg*: tool8/0.1@user/channel
 
 Build requirements are specified by a ``pattern:``. If such pattern is not specified, it will be assumed to be ``*``, i.e. to apply to all
 packages. Packages can be declared in different lines or by a comma separated list. In this example, ``tool1``, ``tool2``, ``tool3`` and
 ``tool4`` will be used for all packages in the dependency graph (while running :command:`conan install` or :command:`conan create`).
 
 If a pattern like ``my_pkg*`` is specified, the declared build requirements will only be applied to packages matching that pattern: ``tool5``
-will not be applied to Zlib for example, but it will be applied to ``my_pkg_zlib``.
+will not be applied to Zlib for example, but it will be applied to ``my_pkg_zlib``. If you want to match for example only ``my_pkg`` (but not ``my_pkg_zlib``) then use ``my_pkg/*:``.
+
+If a pattern like ``!my_pkg*`` is specified, the declared build requirements will be applied to all packages except the ones matching that pattern: ``tool8``
+will be applied to Zlib for example, but it will not be applied to ``my_pkg_zlib``. If you want to exclude for example only ``my_pkg`` (but not ``my_pkg_zlib``) then use ``!my_pkg/*:``. 
+This feature may be helpful if you want to break some circular dependency in your build_requirements.
 
 The special case of a **consumer** conanfile (without name or version) it is impossible to match with a pattern, so it is handled with the
 special character ``&``:
