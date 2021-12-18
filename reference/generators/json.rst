@@ -70,6 +70,7 @@ The dependencies is a list, with each item belonging to one dependency, and each
  - ``include_paths``, ``lib_paths``, ``bin_paths``, ``build_paths``, ``res_paths``, ``framework_paths``
  - ``libs``, ``frameworks``, ``system_libs``
  - ``defines``, ``cflags``, ``cppflags``, ``sharedlinkflags``, ``exelinkflags``
+ - ``build_modules``, ``build_modules_paths``
  - ``configs`` (only for multi config dependencies, see below)
 
 Please note that the dependencies are ordered, it isn't a map, order is relevant. Upstream dependencies, i.e. the
