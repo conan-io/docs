@@ -1052,8 +1052,8 @@ They have a new way of setting this information using ``set_property`` and
 
 .. code-block:: python
 
-    def set_property(self, property_name, value, generator=None)
-    def get_property(self, property_name, generator=None):
+    def set_property(self, property_name, value)
+    def get_property(self, property_name):
 
 To read more about the new ``set_property`` and ``get_property`` methods for ``cpp_info``
 please check the dedicated section in the :ref:`Conan 2.0 migration guide <conanv2_properties_model>`.

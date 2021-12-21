@@ -144,10 +144,6 @@ Properties related to *pkg_config*, only supported by new :ref:`PkgConfigDeps<Pk
 All of these properties, but ``cmake_file_name`` and ``cmake_module_file_name`` can be defined at
 global ``cpp_info`` level or at component level.
 
-For most cases, it is recommended not to use the ``generator`` argument. The properties are generic
-for build systems, and different generators that integrate with a given build system could be reading
-such generic properties.
-
 The `set/get_property` model is very useful if you are creating a :ref:`custom generator<custom_generator>`.
 Using ``set_property()`` you can pass the parameters of your choice and read them using the
 ``get_property()`` method inside the generator.
