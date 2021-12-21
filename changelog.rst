@@ -21,6 +21,13 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.43 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
     a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.43.2 (21-Dec-2021)
+--------------------
+
+- Fix: Remove ``generator`` argument from ``cpp_info.set_property()`` method. `#10214 <https://github.com/conan-io/conan/pull/10214>`_ . Docs `here <https://github.com/conan-io/docs/pull/2331>`__
+- Fix: Do not convert to ``cmake_build_modules`` property the legacy ``cpp_info.build_modules``. `#10208 <https://github.com/conan-io/conan/pull/10208>`_
+- Bugfix: Compiler `msvc` was not working for CMake legacy generators. `#10195 <https://github.com/conan-io/conan/pull/10195>`_
+
 1.43.1 (17-Dec-2021)
 --------------------
 
