@@ -68,8 +68,8 @@ are possible. These are the **default** values, but it is possible to customize 
                       "9", "9.1", "9.2", "9.3",
                       "10", "10.1"]
             libcxx: [libstdc++, libstdc++11]
-            threads: [None, posix, win32] #  Windows MinGW
-            exception: [None, dwarf2, sjlj, seh] # Windows MinGW
+            threads: [None, posix, win32]  # Windows MinGW
+            exception: [None, dwarf2, sjlj, seh]  # Windows MinGW
             cppstd: [None, 98, gnu98, 11, gnu11, 14, gnu14, 17, gnu17, 20, gnu20]
         Visual Studio: &visual_studio
             runtime: [MD, MT, MTd, MDd]
