@@ -31,6 +31,7 @@ Update the syntax of your Conanfile
   ``ConanInvalidConfiguration`` if strictly necessary to fail fast for unsupported configurations.
 - Use ``self.test_requires()`` to define test requirements instead of the legacy
   ``self.build_requires(..., force_host_context)``.
+- Use ``self.tool_requires()`` to define the legacy build_requires.
 - Move all your packages to lowercase. Uppercase package names (or versions/user/channel) will not be possible in 2.0.
 
 

@@ -41,8 +41,8 @@ And it can also be fully instantiated in the conanfile ``generate()`` method:
 When the ``VirtualBuildEnv`` generator is used, calling :command:`conan install` will generate a *conanbuildenv* .bat or .sh script
 containing environment variables of the build time environment.
 
-That information is collected from the direct ``build_requires`` in "build" context recipes from the ``self.buildenv_info``
-definition plus the ``self.runenv_info`` of the transitive dependencies of those ``build_requires``.
+That information is collected from the direct ``tool_requires`` in "build" context recipes from the ``self.buildenv_info``
+definition plus the ``self.runenv_info`` of the transitive dependencies of those ``tool_requires``.
 
 
 This generator (for example the invocation of ``conan install cmake/3.20.0@ -g VirtualBuildEnv --build-require``)

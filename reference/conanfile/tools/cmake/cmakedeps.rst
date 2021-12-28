@@ -74,11 +74,11 @@ But you can activate it using the **build_context_activated** attribute:
 
 .. code-block:: python
 
-    build_requires = ["my_tool/0.0.1"]
+    tool_requires = ["my_tool/0.0.1"]
 
     def generate(self):
         cmake = CMakeDeps(self)
-        # generate the config files for the build require
+        # generate the config files for the tool require
         cmake.build_context_activated = ["my_tool"]
         cmake.generate()
 
@@ -102,16 +102,16 @@ Solving this conflict is specially important when we are cross-building because 
 host machine.
 
 You can use the **build_context_suffix** attribute to specify a suffix for a requirement,
-so the files/targets/variables of the requirement in the build context (build require) will be renamed:
+so the files/targets/variables of the requirement in the build context (tool require) will be renamed:
 
 .. code-block:: python
 
-    build_requires = ["my_tool/0.0.1"]
+    tool_requires = ["my_tool/0.0.1"]
     requires = ["my_tool/0.0.1"]
 
     def generate(self):
         cmake = CMakeDeps(self)
-        # generate the config files for the build require
+        # generate the config files for the tool require
         cmake.build_context_activated = ["my_tool"]
         # disambiguate the files, targets, etc
         cmake.build_context_suffix = {"my_tool": "_BUILD"}
@@ -136,15 +136,15 @@ By default, Conan will include only the build modules from the
 ``host`` context (regular requires) to avoid the collision, but you can change the default behavior.
 
 Use the **build_context_build_modules** attribute to specify require names to include the **build_modules** from
-**build_requires**:
+**tool_requires**:
 
 .. code-block:: python
 
-    build_requires = ["my_tool/0.0.1"]
+    tool_requires = ["my_tool/0.0.1"]
 
     def generate(self):
         cmake = CMakeDeps(self)
-        # generate the config files for the build require
+        # generate the config files for the tool require
         cmake.build_context_activated = ["my_tool"]
         # Choose the build modules from "build" context
         cmake.build_context_build_modules = ["my_tool"]

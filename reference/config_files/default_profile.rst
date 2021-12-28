@@ -7,7 +7,7 @@ This is the typical *~/.conan/profiles/default* file:
 
 .. code-block:: text
 
-    [build_requires]
+    [tool_requires]
     [settings]
         os=Macos
         arch=x86_64

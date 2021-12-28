@@ -85,10 +85,10 @@ To list all possible configurations available, run :command:`conan config list`.
     tools.intel:setvars_args: Custom arguments to be passed onto the setvars.sh|bat script from Intel oneAPI
 
 
-Configuration from build_requires
------------------------------------
+Configuration from tool_requires
+--------------------------------
 
-From Conan 1.37, it is possible to define configuration in packages that are ``build_requires``. For example, assuming
+From Conan 1.37, it is possible to define configuration in packages that are ``tool_requires``. For example, assuming
 there is a package that bundles the AndroidNDK, it could define the location of such NDK to the ``tools.android:ndk_path``
 configuration as:
 
@@ -105,4 +105,4 @@ configuration as:
             self.conf_info["tools.android:ndk_path"] = os.path.join(self.package_folder, "ndk")
 
 
-Note that this only propagates from the immediate, direct ``build_requires`` of a recipe.
+Note that this only propagates from the immediate, direct ``tool_requires`` of a recipe.

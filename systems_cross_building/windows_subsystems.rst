@@ -101,10 +101,10 @@ able to build the Makefile. A very common problem and example of the pain is the
 In the Visual Studio suite, ``link.exe`` is the linker, but in the ``MSYS2`` environment the ``link.exe``
 is a tool to manage symbolic links.
 
-Conan is able to prioritize the tools when you use ``build_requires``, and put the tools in the PATH in
+Conan is able to prioritize the tools when you use ``tool_requires``, and put the tools in the PATH in
 the right order.
 
-There are some packages you can use as ``build_requires``:
+There are some packages you can use as ``tool_requires``:
 
 - From ConanCenter:
 
@@ -116,7 +116,7 @@ For example, create a profile and name it *msys2_mingw* with the following conte
 
 .. code-block:: text
 
-    [build_requires]
+    [tool_requires]
     mingw_installer/1.0@conan/stable
     msys2/20190524
 

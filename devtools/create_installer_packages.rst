@@ -89,7 +89,7 @@ Using the tool packages in other recipes
 
 
 These kind of tools are not usually part of the application graph itself, they are needed only to build the library, so
-you should usually declare them as :ref:`build requirements <build_requires>`, in the recipe itself or in a profile.
+you should usually declare them as :ref:`tool requirements <build_requires>`, in the recipe itself or in a profile.
 
 For example, there are many recipes that can take advantage of the ``nasm`` package we've seen above, like
 `flac <https://conan.io/center/flac?tab=recipe>`_ or `libx264 <https://conan.io/center/libx264?tab=recipe>`_
@@ -103,7 +103,7 @@ being in the PATH to run some assembly optimizations.
     class LibX264Conan(ConanFile):
         name = "libx264"
         ...
-        build_requires = "nasm/2.13.02"
+        tool_requires = "nasm/2.13.02"
 
         def build(self):
             ... # ``nasm.exe`` will be in the PATH here
@@ -125,18 +125,18 @@ of adding the required paths to the corresponding environment variables:
     conan create path/to/libx264 --profile:build=windows --profile:host=profile_host
 
 Here we are telling Conan to create the package for the ``libx264`` for the ``host`` platform defined
-in the profile ``profile_host`` file and to use the profile ``windows`` for all the build requirements
+in the profile ``profile_host`` file and to use the profile ``windows`` for all the tool requirements
 that are in the ``build`` context. In other words: in this example we are running a Windows machine
 and we need a version of ``nasm`` compatible with this machine, so we are providing a ``windows`` profile
 for the ``build`` context, and we are generating the library for the ``host`` platform which is declared
-in the ``profile_host`` profile (read more about :ref:`build requires context <build_requires_context>`).
+in the ``profile_host`` profile (read more about :ref:`tool requires context <build_requires_context>`).
 
 Using two profiles forces Conan to make this distinction between recipes in the ``build`` context and those
 in the ``host`` context. It has several advantages:
 
 * Recipes for these tools are regular recipes, no need to adapt them (before 1.24 they require special
   settings and some package ID customization).
-* We provide a full profile for the ``build`` machine, so Conan is able to compile those build requirements
+* We provide a full profile for the ``build`` machine, so Conan is able to compile those tool requirements
   from sources if they are not already available.
 * Conan will add to the environment not only the path to the ``bin`` folder, but also it will populate
   the ``DYLD_LIBRARY_PATH`` and ``LD_LIBRARY_PATH`` variables that are needed to find the shared libraries
@@ -173,7 +173,7 @@ For example: Working in Windows with the ``nasm`` package we've already defined:
 
 #. Install them. Here it doesn't matter if you use only the ``host`` profile or the ``build`` one too
    because the environment that is going to be populated includes only the root of the graph and its
-   dependencies, without any build requirement. In any case, the ``profile:host`` needed is the one
+   dependencies, without any tool requirement. In any case, the ``profile:host`` needed is the one
    corresponding to the Windows machine where we are running these tests.
 
    .. code-block:: bash
