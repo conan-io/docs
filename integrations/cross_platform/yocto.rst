@@ -54,36 +54,24 @@ First of all, the recipe of the application to be deployed to the final image sh
 `deploy() method <https://docs.conan.io/en/latest/devtools/running_packages.html>`_. There you can specify the files of the application
 needed in the image as well as any other from its dependencies (like shared libraries or assets):
 
-.. code-block:: python
+.. code-block:: shell
+
+   conan install
    :caption: *conanfile.py*
    :emphasize-lines: 28-31
 
     from conans import ConanFile
 
 
-    class MosquittoConan(ConanFile):
-        name = "mosquitto"
-        version = "1.4.15"
-        description = "Open source message broker that implements the MQTT protocol"
-        license = "EPL", "EDL"
-        settings = "os", "arch", "compiler", "build_type"
-        generators = "cmake"
-        requires = "openssl/1.0.2u", "c-ares/1.15.0"
-
-    def source(self):
-        source_url = "https://github.com/eclipse/mosquitto"
-        tools.get("{0}/archive/v{1}.tar.gz".format(source_url, self.version))
-
-    def build(self):
-        cmake = CMake(self)
-        cmake.configure()
-        cmake.build()
+    class FoobarConan(ConanFile):
+        name = "foobar"
+        ...
 
     def package(self):
         self.copy("*.h", dst="include", src="hello")
         self.copy("*.so", dst="lib", keep_path=False)
         self.copy("*.a", dst="lib", keep_path=False)
-        self.copy("*mosquitto.conf", dst="bin", keep_path=False)
+        self.copy("foobar", dst="bin", keep_path=False)
 
     def deploy(self):
         # Deploy the executables from this eclipse/mosquitto package
@@ -93,8 +81,9 @@ needed in the image as well as any other from its dependencies (like shared libr
        # Deploy all the shared libs from the transitive deps
         self.copy_deps("*.so*", src="lib", dst="bin")
 
-    def package_info(self):
-        self.cpp_info.libs = ["mosquitto", "mosquitopp", "rt", "pthread", "dl"]
+Another option is using the `deploy generator <https://docs.conan.io/en/latest/reference/generators/deploy.html>`_ generator,
+ which will copy all artifacts, including package dependencies to your installation folder.
+
 
 Setting up a Yocto SDK
 ----------------------
@@ -150,19 +139,27 @@ The profile will be:
     compiler.libcxx=libstdc++11
     build_type=Release
 
-Activate the SDK environment and execute the create command.
+Activate the SDK environment and execute the create command if you have a specific recipe:
 
 .. code-block:: bash
 
     $ source oe-environment-setup-aarch64-poky-linux
     $ conan create . user/channel --profile armv8
 
+However, if you wish an official Conan package from Conan Center, you can install it directly:
+
+.. code-block:: bash
+
+    $ source oe-environment-setup-aarch64-poky-linux
+    $ conan install mosquitto/2.0.14@ -g deploy --profile:build=default --profile:host=armv8
+
+
 This will generate the packages using the Yocto toolchain from the environment variables such as ``CC``, ``CXX``, ``LD``... Now you can
 :ref:`upload the binaries <uploading_packages>` to an Artifactory server to share and reuse in your Yocto builds.
 
 .. code-block:: bash
 
-    $ conan upload mosquitto/1.4.15@user/channel --all --remote my_repo
+    $ conan upload mosquitto/2.0.14@ --all --remote my_repo
 
 .. important::
 
@@ -205,6 +202,15 @@ You would also have to activate the layers in the *bblayers.conf* file of your b
     /home/username/poky/meta-conan \
     "
 
+Or, if you are not confident editing the configuration file or just to automate all process, you can use bitbake commands:
+
+.. code-block:: bash
+
+    $ cd build/
+    $ bitbake-layers add-layer ${PWD}/../poky/meta-openembedded/meta-oe
+    $ bitbake-layers add-layer ${PWD}/../poky/meta-openembedded/meta-python
+    $ bitbake-layers add-layer ${PWD}/../poky/meta-conan
+
 .. note::
 
     Please report any question, feature request or issue related to the ``meta-conan`` layer in its
@@ -216,14 +222,14 @@ Write the Bitbake recipe for the Conan package
 With the ``meta-conan`` layer, a Conan recipe to deploy a Conan package should look as easy as this recipe:
 
 .. code-block:: text
-   :caption: *conan-mosquitto_1.4.15.bb*
+   :caption: *conan-mosquitto_2.0.14.bb*
 
     inherit conan
 
     DESCRIPTION = "An open source MQTT broker"
     LICENSE = "EPL-1.0"
 
-    CONAN_PKG = "mosquitto/1.4.15@bincrafters/stable"
+    CONAN_PKG = "mosquitto/2.0.14@"
 
 This recipe will be placed inside your application layer that should be also added to the *conf/bblayers.conf* file.
 
