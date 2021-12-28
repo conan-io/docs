@@ -295,25 +295,25 @@ Blocks can be customized in different ways:
         generic_block.context = types.MethodType(context, generic_block)
 
     # completely replace existing block
-    from conan.tools.cmake import CMakeToolchain, CMakeToolchainBlock
+    from conan.tools.cmake import CMakeToolchain
 
     def generate(self):
         tc = CMakeToolchain(self)
         # this could go to a python_requires
-        class MyGenericBlock(CMakeToolchainBlock):
+        class MyGenericBlock:
             template = "HelloWorld"
 
             def context(self):
                 return {}
 
-        tc.blocks["generic_system"] = MyBlock
+        tc.blocks["generic_system"] = MyGenericBlock
 
     # add a completely new block
-    from conan.tools.cmake import CMakeToolchain, CMakeToolchainBlock
+    from conan.tools.cmake import CMakeToolchain
     def generate(self):
         tc = CMakeToolchain(self)
         # this could go to a python_requires
-        class MyBlock(CMakeToolchainBlock):
+        class MyBlock:
             template = "Hello {{myvar}}!!!"
 
             def context(self):
