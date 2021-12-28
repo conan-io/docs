@@ -208,8 +208,8 @@ In case of installing a pre-built binary, steps from 5 to 11 will be skipped. No
 The ``--build-require``, new in Conan 1.37, is experimental. It allows to create the package using the
 configuration and settings of the "build" context, as it was a ``build_require``. This feature allows
 to create packages in a way that is consistent to the way they will be used later. When there is a
-``test_package``, then it is possible to specify there the ``test_type`` directly, no need to provide it
-in the command line.
+``test_package``, then, it is possible to use there the ``test_type="generic"`` and ``self.test_requires(self.tested_reference_str)``.
+There is no need to provide it in the command line, :ref:`check "testing build requires" <testing_build_requires>` to know more.
 
 
 --require-override
