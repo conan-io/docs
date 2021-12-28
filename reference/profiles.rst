@@ -406,6 +406,6 @@ A profile can also be used in :command:`conan create` and :command:`conan info`:
 
 .. seealso::
 
-    - Check the section :ref:`tool_requires` to read more about its usage in a profile.
+    - Check the section :ref:`build_requires` to read more about its usage in a profile.
     - Check :ref:`conan_profile` and :ref:`default_profile` for full reference.
     - Related section: :ref:`cross_building`.
