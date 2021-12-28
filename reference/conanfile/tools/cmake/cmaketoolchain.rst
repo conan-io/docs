@@ -174,8 +174,56 @@ Using a custom toolchain file
 
 There are two ways of providing a custom CMake toolchain file:
 
-- The ``conan_toolchain.cmake`` file can be completely skipped and replaced by a user one, defining the ``tools.cmake.cmaketoolchain:toolchain_file=<filepath>`` configuration value
-- A custom user toolchain file can be added (included from) the ``conan_toolchain.cmake`` one, by using the ``user_toolchain`` block described below, and defining the ``tools.cmake.cmaketoolchain:user_toolchain=<filepath>`` configuration value.
+- The ``conan_toolchain.cmake`` file can be completely skipped and replaced by a user one, defining the
+  ``tools.cmake.cmaketoolchain:toolchain_file=<filepath>`` configuration value
+- A custom user toolchain file can be added (included from) to the ``conan_toolchain.cmake`` one, by using the
+  ``user_toolchain`` block described below, and defining the ``tools.cmake.cmaketoolchain:user_toolchain=<filepath>``
+  configuration value.
+
+  The configuration ``tools.cmake.cmaketoolchain:user_toolchain=<filepath>`` can be defined in the :ref:`global.conf<global_conf>`
+  but also creating a Conan package for your toolchain and using ``self.conf_info`` to declare the toolchain file:
+
+    .. code:: python
+
+        import os
+        from conans import ConanFile
+        class MyToolchainPackage(ConanFile):
+            ...
+            def package_info(self):
+                f = os.path.join(self.package_folder, "mytoolchain.cmake")
+                self.conf_info["tools.cmake.cmaketoolchain:user_toolchain"] = f
+
+
+
+  If you declare the previous package as a ``tool_require``, the toolchain will be automatically applied.
+
+- You can also apply several user toolchains. If you have more than one ``tool_requires``, you can gather the values
+  from all the dependency configs and adjust the ``user_toolchain`` block to apply all the toolchains:
+
+.. code:: python
+
+    from conans import ConanFile
+    from conan.tools.cmake import CMake, CMakeToolchain
+    class Pkg(ConanFile):
+        settings = "os", "compiler", "arch", "build_type"
+        exports_sources = "CMakeLists.txt"
+        tool_requires = "toolchain1/0.1", "toolchain2/0.1"
+        def generate(self):
+            # Get the toolchains from "tools.cmake.cmaketoolchain:user_toolchain" conf at the
+            # tool_requires
+            user_toolchains = []
+            for dep in self.dependencies.direct_build.values():
+                ut = dep.conf_info["tools.cmake.cmaketoolchain:user_toolchain"]
+                if ut:
+                    user_toolchains.append(ut.replace('\\\\', '/'))
+            # Modify the context of the user_toolchain block
+            t = CMakeToolchain(self)
+            t.blocks["user_toolchain"].values["paths"] = user_toolchains
+            t.generate()
+
+        def build(self):
+            cmake = CMake(self)
+            cmake.configure()
 
 
 Using the toolchain in developer flow
@@ -235,7 +283,17 @@ Since Conan 1.36, ``CMakeToolchain`` implements a powerful capability for extend
 
 The following predefined blocks are available, and added in this order:
 
-- ``user_toolchain``: Allows to include a user toolchain from the ``conan_toolchain.cmake`` file. If the configuration ``tools.cmake.cmaketoolchain:user_toolchain=xxxx`` is defined, its value will be ``include(xxx)`` as the first line in ``conan_toolchain.cmake``.
+- ``user_toolchain``: Allows to include user toolchains from the ``conan_toolchain.cmake`` file.
+  If the configuration ``tools.cmake.cmaketoolchain:user_toolchain=xxxx`` is defined, its value will be ``include(xxx)`` as the
+  first line in ``conan_toolchain.cmake``. If you want to apply several toolchains you can use the context variable ``paths``:
+
+    .. code:: python
+
+            t = CMakeToolchain(self)
+            t.blocks["user_toolchain"].values["paths"] = ["path/to/user_toolchain1.cmake",
+                                                          "path/to/user_toolchain2.cmake"]
+            t.generate()
+
 - ``generic_system``: Defines ``CMAKE_GENERATOR_PLATFORM``, ``CMAKE_GENERATOR_TOOLSET``, ``CMAKE_C_COMPILER``,``CMAKE_CXX_COMPILER`` and ``CMAKE_BUILD_TYPE``
 - ``android_system``: Defines ``ANDROID_PLATFORM``, ``ANDROID_STL``, ``ANDROID_ABI`` and includes ``CMAKE_ANDROID_NDK/build/cmake/android.toolchain.cmake``
   where CMAKE_ANDROID_NDK comes defined in ``tools.android:ndk_path`` configuration value.
