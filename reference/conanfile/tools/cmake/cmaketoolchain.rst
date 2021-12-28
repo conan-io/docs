@@ -195,7 +195,7 @@ There are two ways of providing a custom CMake toolchain file:
 
 
 
-  If you declare a `tool_require` to the package declared above, the toolchain will be automatically applied.
+  If you declare the previous package as a ``tool_require``, the toolchain will be automatically applied.
 
 - You can also apply several user toolchains. If you have more than one ``tool_requires``, you can gather the values
   from all the dependency configs and adjust the ``user_toolchain`` block to apply all the toolchains:
