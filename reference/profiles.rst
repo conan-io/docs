@@ -171,7 +171,7 @@ Profile composition
 You can specify multiple profiles in the command line. The applied configuration will be the composition
 of all the profiles applied in the order they are specified.
 
-If, for example, you want to apply a :ref:`tool require<tool_requires>`, like a ``cmake`` installer to your dependency tree,
+If, for example, you want to apply a :ref:`tool require<build_requires>`, like a ``cmake`` installer to your dependency tree,
 it won't be very practical adding the `cmake` installer reference, e.g  ``cmake/3.16.3`` to all your profiles where you could
 need to inject ``cmake`` as a tool require.
 
