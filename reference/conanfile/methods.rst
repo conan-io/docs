@@ -676,8 +676,8 @@ It also has optional parameters that allow defining the special cases, as is sho
 build_requirements()
 --------------------
 
-Build requirements are requirements that are only installed and used when the package is built from sources. If there is an existing
-pre-compiled binary, then the tool requirements for this package will not be retrieved.
+The requires specified in this method are only installed and used when the package is built from sources.
+If there is an existing pre-compiled binary, then the tool requirements for this package will not be retrieved.
 
 This method is useful for defining conditional tool requirements, for example:
 

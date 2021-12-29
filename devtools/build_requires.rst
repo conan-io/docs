@@ -111,7 +111,7 @@ supplies two profiles** to the command line using the ``--profile:build`` and ``
   includes all the :ref:`dev tools <create_installer_packages>` like CMake, compilers, linkers,...
 
 
-Build requirements declared in the recipes can be forced to stay in the host context, this is needed for testing libraries that will
+Tool requirements declared in the recipes can be forced to stay in the host context, this is needed for testing libraries that will
 be linked to the generated library or other executable we want to deploy to the ``host`` platform, for example:
 
 .. code-block:: python
@@ -135,13 +135,13 @@ syntax. As the later is going to dissapear in Conan 2.0, the former ``test_requi
 Take into account that the same package (executable or library) can appear two times in the graph, in the ``host`` and
 in the ``build`` context, with different package IDs. Conan will propagate the proper information to the consumers:
 
-* Build requirements in the ``host`` context will propagate like any other requirement:
+* Tool requirements in the ``host`` context will propagate like any other requirement:
 
   + ``cpp_info``: all information will be available in the ``deps_cpp_info["xxx"]`` object.
   + ``env_info``: won't be propagated.
   + ``user_info``: will be available using the ``deps_user_info["xxx"]`` object.
 
-* Build requirements in the ``build`` context will propagate all the ``env_info`` and Conan will also populate the
+* Tool requirements in the ``build`` context will propagate all the ``env_info`` and Conan will also populate the
   environment variables ``DYLD_LIBRARY_PATH``, ``LD_LIBRARY_PATH`` and ``PATH`` with the corresponding information from
   the ``cpp_info`` object. All this information will be available in the ``deps_env_info`` object.
 
@@ -167,15 +167,15 @@ The behavior of ``tool_requires`` is the same irrespective if they are defined i
   In that way, you can define, for example, for the ``cmake/3.16.3`` package which CMake version will be installed.
 - Tool requirements will be activated for matching packages, see the section above about :ref:`tool requires context <build_requires_context>`
   to know the information that this package will propagate to its consumers.
-- Build requirements can also be transitive. They can declare their own requirements, both normal requirements and their own build
+- Tool requirements can also be transitive. They can declare their own requirements, both normal requirements and their own build
   requirements. Normal logic for dependency graph resolution applies, such as conflict resolution and dependency overriding.
 - Each matching pattern will produce a different dependency graph of tool requirements. These graphs are cached so that they are only
   computed once. If a tool requirement applies to different packages with the same configuration it will only be installed once (same
   behavior as normal dependencies - once they are cached locally, there is no need to retrieve or build them again).
-- Build requirements do not affect the binary package ID. If using a different tool requirement produces a different binary, you should
+- Tool requirements do not affect the binary package ID. If using a different tool requirement produces a different binary, you should
   consider adding an option or a setting to model that (if not already modeled).
 - Can also use version-ranges, like ``Tool/[>0.3]@user/channel``.
-- Build requirements are not listed in :command:`conan info` nor are represented in the graph (with :command:`conan info --graph`).
+- Tool requirements are not listed in :command:`conan info` nor are represented in the graph (with :command:`conan info --graph`).
 
 
 Example: testing framework and build tool

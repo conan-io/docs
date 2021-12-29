@@ -215,7 +215,7 @@ attributes:
 
   + for recipes that are tool requirements of packages in the ``host`` context, this attribute will contain
     the settings from the profile ``profile_host``, while
-  + for recipes that are tool requirements of other build requirements the ``self.settings_target``
+  + for recipes that are tool requirements of other tool requirements the ``self.settings_target``
     will contain the values of the ``profile_build``.
 
 With previous attributes, a draft for a recipe that packages a cross compiler could follow this pattern:

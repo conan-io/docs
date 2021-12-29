@@ -128,7 +128,7 @@ dependencies will be translated to properties files:
   host context: all regular ``requires``, plus the ``tool_requires`` that are in the host context,
   for example test frameworks as ``gtest`` or ``catch``.
 - All transitive ``requires`` of those direct dependencies (all in the host context)
-- Build requires, in the build context, that is, application and executables that run in the build
+- Tool requires, in the build context, that is, application and executables that run in the build
   machine irrespective of the destination platform, are added exclusively to the ``<ExecutablePath>``
   property, taking the value from ``$(Conan{{name}}BinaryDirectories)`` defined properties. This
   allows to define custom build commands, invoke code generation tools, with the ``<CustomBuild>`` and
