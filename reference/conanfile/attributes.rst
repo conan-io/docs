@@ -646,7 +646,7 @@ Expressions are those defined and implemented by [python node-semver](https://py
 tool_requires
 --------------
 
-Build requirements are requirements that are only installed and used when the package is built from sources. If there is an existing pre-compiled binary, then the tool requirements for this package will not be retrieved.
+Tool requirements are requirements that are only installed and used when the package is built from sources. If there is an existing pre-compiled binary, then the tool requirements for this package will not be retrieved.
 
 They can be specified as a comma separated tuple in the package recipe:
 
