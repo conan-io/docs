@@ -286,7 +286,7 @@ Testing build_requires
 Available since: `1.44.0 <https://github.com/conan-io/conan/releases>`_
 
 From Conan 1.44, it is possible to test ``build_requires`` with the ``test_package`` functionality.
-At the ``test_package/conanfile.py``, specify the ``test_type="explicit"`` and then use the variable
+In the ``test_package/conanfile.py``, specify the ``test_type = "explicit"`` and use the variable
 ``self.tested_reference_str`` to explicitly require the reference as a ``test_require``:
 
 .. code-block:: python
