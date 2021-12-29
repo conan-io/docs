@@ -12,7 +12,7 @@ conan.tools.files.symlinks.absolute_to_relative_symlinks()
     def absolute_to_relative_symlinks(conanfile, base_folder):
 
 
-Convert the symlinks with absolute paths to relative if they are pointing to a file or directory inside the
+Convert the symlinks with absolute paths into relative ones if they are pointing to a file or directory inside the
 'base_folder'. Any absolute symlink pointing outside the 'base_folder' will be ignored.
 
 Parameters:
