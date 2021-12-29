@@ -279,6 +279,8 @@ be used to compute the ``package_id`` following the ``default_python_requires_id
 ``self.info.python_requires.xxxx_mode()`` in recipes.
 
 
+.. _testing_build_requires:
+
 Testing tool_requires
 ----------------------
 
@@ -286,23 +288,36 @@ Testing tool_requires
 
     This is an **experimental** feature, subject to future breaking changes
 
-Available since: `1.36.0 <https://github.com/conan-io/conan/releases>`_
+Available since: `1.44.0 <https://github.com/conan-io/conan/releases>`_
 
-From Conan 1.36, it is possible to test ``tool_requires`` with the ``test_package`` functionality.
-What is necessary is to specify in the ``test_package/conanfile.py``, that the tested package
-is a build tool, which can be done with:
+From Conan 1.44, it is possible to test ``tool_requires`` with the ``test_package`` functionality.
+In the ``test_package/conanfile.py``, specify the ``test_type = "explicit"`` and use the variable
+``self.tested_reference_str`` in ``build_requirements()`` method to explicitly require the reference 
+as a ``tool_requires`` or ``test_requires``:
 
 .. code-block:: python
 
     from conans import ConanFile
 
     class Pkg(ConanFile):
-        test_type = "build_requires"
+        test_type = "explicit"
 
-        ...
+        def build_requirements(self):
+            self.test_requires(self.tested_reference_str)
 
-The rest of the test *conanfile.py* should take into account that the reference automatically injected
-will be a ``build_require``.
 
 If for some reason, it is necessary to test the same package both as a regular require and a build_require,
-then it is possible to specify: ``test_type = "build_requires", "requires"``.
+then it is possible to specify:
+
+.. code-block:: python
+
+    from conans import ConanFile
+
+    class Pkg(ConanFile):
+        test_type = "explicit"
+
+        def requirements(self):
+            self.requires(self.tested_reference_str)
+
+        def build_requirements(self):
+            self.test_requires(self.tested_reference_str)

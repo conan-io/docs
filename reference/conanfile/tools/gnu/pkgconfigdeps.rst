@@ -81,7 +81,7 @@ Now, running this command using the previous ``conanfile.py``, you can check the
     Name: zlib
     Description: Conan package: zlib
     Version: 1.2.11
-    Libs: -L"${libdir}" -lz  -Wl,-rpath,"${libdir}" -F Frameworks
+    Libs: -L"${libdir}" -lz -F Frameworks
     Cflags: -I"${includedir}"
 
 
@@ -176,7 +176,7 @@ Their ``pkg_config_name`` properties are used as the final PC file names:
     Name: libcrypto
     Description: Conan component: libcrypto
     Version: 3.0.0
-    Libs: -L"${libdir1}" -lcrypto -Wl,-rpath,"${libdir1}" -F Frameworks
+    Libs: -L"${libdir1}" -lcrypto -F Frameworks
     Cflags: -I"${includedir1}"
     Requires: zlib
 
