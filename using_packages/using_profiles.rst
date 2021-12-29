@@ -8,7 +8,7 @@ So far, we have used the default settings stored in ``~/.conan/profiles/default`
 However, in large projects, configurations can get complex, settings can be very different, and we need an easy way to switch between different configurations with different settings, options etc.
 An easy way to switch between configurations is by using profiles.
 
-A profile file contains a predefined set of ``settings``, ``options``, ``environment variables``, and ``build_requires`` specified in the following structure:
+A profile file contains a predefined set of ``settings``, ``options``, ``environment variables``, and ``tool_requires`` specified in the following structure:
 
 .. code-block:: text
 
@@ -21,7 +21,7 @@ A profile file contains a predefined set of ``settings``, ``options``, ``environ
     [env]
     env_var=value
 
-    [build_requires]
+    [tool_requires]
     tool1/0.1@user/channel
     tool2/0.1@user/channel, tool3/0.1@user/channel
     *: tool4/0.1@user/channel

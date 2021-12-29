@@ -676,10 +676,10 @@ It also has optional parameters that allow defining the special cases, as is sho
 build_requirements()
 --------------------
 
-Build requirements are requirements that are only installed and used when the package is built from sources. If there is an existing
-pre-compiled binary, then the build requirements for this package will not be retrieved.
+The requires specified in this method are only installed and used when the package is built from sources.
+If there is an existing pre-compiled binary, then the tool requirements for this package will not be retrieved.
 
-This method is useful for defining conditional build requirements, for example:
+This method is useful for defining conditional tool requirements, for example:
 
 .. code-block:: python
 
@@ -687,11 +687,11 @@ This method is useful for defining conditional build requirements, for example:
 
         def build_requirements(self):
             if self.settings.os == "Windows":
-                self.build_requires("tool_win/0.1@user/stable")
+                self.tool_requires("tool_win/0.1@user/stable")
 
 .. seealso::
 
-    :ref:`Build requirements <build_requires>`
+    :ref:`Tool requirements <build_requires>`
 
 .. _method_system_requirements:
 

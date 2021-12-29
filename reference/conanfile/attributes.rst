@@ -643,19 +643,19 @@ Expressions are those defined and implemented by [python node-semver](https://py
 
     Go to :ref:`Mastering/Version Ranges<version_ranges>` if you want to learn more about version ranges.
 
-build_requires
+tool_requires
 --------------
 
-Build requirements are requirements that are only installed and used when the package is built from sources. If there is an existing pre-compiled binary, then the build requirements for this package will not be retrieved.
+Tool requirements are requirements that are only installed and used when the package is built from sources. If there is an existing pre-compiled binary, then the tool requirements for this package will not be retrieved.
 
 They can be specified as a comma separated tuple in the package recipe:
 
 .. code-block:: python
 
     class MyPkg(ConanFile):
-        build_requires = "tool_a/0.2@user/testing", "tool_b/0.2@user/testing"
+        tool_requires = "tool_a/0.2@user/testing", "tool_b/0.2@user/testing"
 
-Read more: :ref:`Build requirements <build_requires>`
+Read more: :ref:`Tool requirements <build_requires>`
 
 .. _exports_attribute:
 
@@ -1240,7 +1240,7 @@ know more about this feature.
 
     class RecipeConan(ConanFile):
         ...
-        build_requires = "tool/1.0"
+        tool_requires = "tool/1.0"
         ...
 
         def build(self):
@@ -1259,13 +1259,13 @@ object.
 apply_env
 ---------
 
-When ``True`` (Default), the values from ``self.deps_env_info`` (corresponding to the declared ``env_info`` in the ``requires`` and ``build_requires``)
+When ``True`` (Default), the values from ``self.deps_env_info`` (corresponding to the declared ``env_info`` in the ``requires`` and ``tool_requires``)
 will be automatically applied to the ``os.environ``.
 
 Disable it setting ``apply_env`` to False if you want to control by yourself the environment variables
 applied to your recipes.
 
-You can apply manually the environment variables from the requires and build_requires:
+You can apply manually the environment variables from the requires and tool_requires:
 
 .. code-block:: python
    :emphasize-lines: 2

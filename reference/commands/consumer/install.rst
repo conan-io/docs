@@ -448,5 +448,5 @@ If the consumer conanfile already contains a direct requirement to that dependen
 but no ``override=True`` will be added (note that ``override=True`` means that the current package does not depend on that
 other package).
 
-This feature affects only to regular ``requires``, not to ``build_requires`` or ``python_requires``, as those don't have such
+This feature affects only to regular ``requires``, not to ``tool_requires`` or ``python_requires``, as those don't have such
 an overriding mechanism, and they are private to their consumer, not propagating downstream nor upstream.
