@@ -59,7 +59,7 @@ At first, ensure you are using a *profile* like this one:
     build_type=Release
     [options]
 
-    [build_requires]
+    [tool_requires]
     [env]
     CC=dpcpp
     CXX=dpcpp
@@ -120,7 +120,7 @@ You can apply different installation paths and command arguments simply by chang
     build_type=Release
     [options]
 
-    [build_requires]
+    [tool_requires]
     [env]
     CC=dpcpp
     CXX=dpcpp

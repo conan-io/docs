@@ -267,7 +267,7 @@ For single-configuration build systems:
     $ cmake .. -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
     $ cmake --build .  # or just "make"
 
-    # debug build requires its own folder
+    # debug tool requires its own folder
     $ cd .. && mkdir build_debug && cd build_debug
     $ conan install .. -s build_type=Debug
     # the build type Debug is encoded in the toolchain already.

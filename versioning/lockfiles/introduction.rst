@@ -82,7 +82,7 @@ Let's have a look at the lockfile:
             "revisions_enabled": false
         },
         "version": "0.4",
-        "profile_host": "[settings]\narch=x86_64\narch_build=x86_64\nbuild_type=Release\ncompiler=Visual Studio\ncompiler.runtime=MD\ncompiler.version=15\nos=Windows\nos_build=Windows\n[options]\n[build_requires]\n[env]\n"
+        "profile_host": "[settings]\narch=x86_64\narch_build=x86_64\nbuild_type=Release\ncompiler=Visual Studio\ncompiler.runtime=MD\ncompiler.version=15\nos=Windows\nos_build=Windows\n[options]\n[tool_requires]\n[env]\n"
     }
 
 

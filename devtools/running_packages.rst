@@ -293,7 +293,7 @@ package also contains a library, and the headers), we could do:
     class HellorunConan(ConanFile):
         name = "hello_run"
         version = "0.1"
-        build_requires = "hello/0.1@user/testing"
+        tool_requires = "hello/0.1@user/testing"
         keep_imports = True
 
         def imports(self):
@@ -304,7 +304,7 @@ package also contains a library, and the headers), we could do:
 
 This recipe has the following characteristics:
 
-- It includes the ``hello/0.1@user/testing`` package as ``build_requires``.
+- It includes the ``hello/0.1@user/testing`` package as ``tool_requires``.
   That means that it will be used to build this `hello_run` package, but once the `hello_run` package is built,
   it will not be necessary to retrieve it.
 - It is using ``imports()`` to copy from the dependencies, in this case, the executable

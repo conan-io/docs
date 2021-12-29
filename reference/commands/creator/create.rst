@@ -209,7 +209,7 @@ The ``--build-require``, new in Conan 1.37, is experimental. It allows to create
 configuration and settings of the "build" context, as it was a ``build_require``. This feature allows
 to create packages in a way that is consistent to the way they will be used later. When there is a
 ``test_package``, it is possible to use there the ``test_type="explicit"`` and ``self.test_requires(self.tested_reference_str)``.
-There is no need to provide it in the command line, :ref:`check "testing build requires" <testing_build_requires>` to know more.
+There is no need to provide it in the command line, :ref:`check "testing tool requires" <testing_build_requires>` to know more.
 
 
 --require-override
