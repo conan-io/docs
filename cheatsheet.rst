@@ -418,7 +418,7 @@ A package recipe is a Python class, defined in a file called conanfile.py:
             ...                                                          # tasks, and using them is often preferable to using self.run()
                                                                          # See the link below for more information
 
-        def tool_requirements(self):                                    # Responsible for specifying non-trivial build requirements logic
+        def build_requirements(self):                                    # Responsible for specifying non-trivial build requirements logic
             if self.options.myoption1:                                   # Specify a conditional tool requirement
                 self.tool_requires("zlib/1.2@user/testing")
 

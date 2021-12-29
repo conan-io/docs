@@ -61,14 +61,14 @@ special character ``&``:
 Remember that the consumer conanfile is the one inside the *test_package* folder or the one referenced in the :command:`conan install`
 command.
 
-Tool requirements can also be specified in a package recipe, with the ``tool_requires`` attribute and the ``tool_requirements()`` method:
+Tool requirements can also be specified in a package recipe, with the ``tool_requires`` attribute and the ``build_requirements()`` method:
 
 .. code-block:: python
 
     class MyPkg(ConanFile):
         tool_requires = "tool_a/0.2@user/testing", "tool_b/0.2@user/testing"
 
-        def tool_requirements(self):
+        def build_requirements(self):
             # useful for example for conditional tool_requires
             # This means, if we are running on a Windows machine, require ToolWin
             if platform.system() == "Windows":
@@ -77,8 +77,8 @@ Tool requirements can also be specified in a package recipe, with the ``tool_req
 The above ``tool_a`` and ``tool_b`` will always be retrieved and used for building this recipe, while the ``tool_win`` one will only be used
 only in Windows.
 
-If any tool requirement defined inside ``tool_requirements()`` has the same package name as the one defined in the ``tool_requires``
-attribute, the one inside the ``tool_requirements()`` method will prevail.
+If any tool requirement defined inside ``build_requirements()`` has the same package name as the one defined in the ``tool_requires``
+attribute, the one inside the ``build_requirements()`` method will prevail.
 
 As a rule of thumb, downstream defined values always override upstream dependency values. If some tool requirement is defined in the
 profile, it will overwrite the tool requirements defined in package recipes that have the same package name.
@@ -113,7 +113,7 @@ be linked to the generated library or other executable we want to deploy to the 
     class MyPkg(ConanFile):
         tool_requires = "nasm/2.14"  # 'build' context (nasm.exe will be available)
 
-        def tool_requirements(self):
+        def build_requirements(self):
             self.tool_requires("protobuf/3.6.1")  # 'build' context (protoc.exe will be available)
             self.test_requires("gtest/0.1")
 
@@ -184,7 +184,7 @@ the recipes. In this example, we could have one recipe with the following ``buil
 
 .. code-block:: python
 
-    def tool_requirements(self):
+    def build_requirements(self):
         if self.options.enable_testing:
             self.tool_requires("mytest_framework/0.1@user/channel", force_host_context=True)
 
