@@ -49,4 +49,5 @@ Contents:
    tools/qbs
    tools/env
    tools/files
+   tools/files/symlinks
    tools/layout

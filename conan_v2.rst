@@ -82,6 +82,14 @@ If you are using ``editables``, the external template files are going to be remo
 the ``layout()`` method definition instead. Please check the documentation for more
 information about :ref:`layouts <conan_tools_layout>`.
 
+
+Symlinks in recipes and packages
+--------------------------------
+
+Conan won't alter any symlink while exporting or packaging files.
+If any manipulation to the symlinks is required, the package :ref:`conan.tools.files.symlinks<conan_tools_files_symlinks>`
+contains some tools to help with that.
+
 .. _conanv2_properties_model:
 
 New properties model for the cpp_info in Conan 2.0 generators
