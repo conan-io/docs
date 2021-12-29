@@ -33,6 +33,32 @@ Update the syntax of your Conanfile
   ``self.build_requires(..., force_host_context)``.
 - Move all your packages to lowercase. Uppercase package names (or versions/user/channel) will not be possible in 2.0.
 
+Explicit test package requirement
+---------------------------------
+
+In Conan 2.0, the ``test_package/conanfile.py`` needs to declare the requirement being tested explicitly.
+To be prepared you have to set the attribute ``test_type="explicit"`` (this will be ignored in 2.0) to make Conan
+activate the explicit mode, then declaring the require using the ``self.tested_reference_str`` that contains the
+reference being tested.
+
+.. code-block:: python
+
+    from conans import ConanFile
+
+    class MyTestPkg(ConanFile):
+        test_type = "explicit"
+
+        def requirements(self):
+            # A regular requirement
+            self.requires(self.tested_reference_str)
+
+        def build_requirements(self):
+            # If we want to test the package as a tool_require (formerly `test_type = "build_requires"`)
+            # Keep both "requires()" and "tool_requires()" if you want to test the same package both as a regular
+            # require and a tool_require (formerly `test_type = "build_requires", "requires"`)
+            self.tool_requires(self.tested_reference_str)
+
+
 
 New namespace conan.tools.xxxxx
 -------------------------------
@@ -81,7 +107,6 @@ Editables don't use external templates any more. New layout model
 If you are using ``editables``, the external template files are going to be removed. Use
 the ``layout()`` method definition instead. Please check the documentation for more
 information about :ref:`layouts <conan_tools_layout>`.
-
 
 Symlinks in recipes and packages
 --------------------------------
