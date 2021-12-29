@@ -5,7 +5,7 @@ Tool requirements
 
 .. important::
 
-   The test requirement was formerly named "build requirement" and has been renamed to highlight that the usage of
+   The tool requirement was formerly named "build requirement" and has been renamed to highlight that the usage of
    this kind of requirement must be for "tools" exclusively, not being valid for libraries to express a "private"
    require or other meanings.
 
