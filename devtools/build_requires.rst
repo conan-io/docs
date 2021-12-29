@@ -3,6 +3,12 @@
 Tool requirements
 ==================
 
+.. important::
+
+   The test requirement was formerly named "build requirement" and has been renamed to highlight that the usage of
+   this kind of requirement must be for "tools" exclusively, not being valid for libraries to express a "private"
+   require or other meanings.
+
 There are some requirements that don't feel natural to add to a package recipe. For example, imagine that you had a ``cmake/3.4`` package in
 Conan. Would you add it as a requirement to the ``zlib`` package, so it will install cmake first in order to build ``zlib``?
 
