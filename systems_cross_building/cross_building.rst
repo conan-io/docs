@@ -131,6 +131,12 @@ You can find working examples at the :ref:`bottom of this section <cross_buildin
 Using tool requires
 +++++++++++++++++++
 
+.. important::
+
+   The tool requirement was formerly named "build requirement" and has been renamed to highlight that the usage of
+   this kind of requirement must be for "tools" exclusively, not being valid for libraries to express a "private"
+   require or other meanings.
+
 .. warning::
 
     This section refers to the **experimental feature** that is activated when using ``--profile:build`` and ``--profile:host``
