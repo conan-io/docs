@@ -72,11 +72,12 @@ Host and build profiles and new cross-building model
 ----------------------------------------------------
 
 Use always :ref:`build and host profiles <build_profiles_and_host_profiles>`.
-You can enable it:
 
-- By passing ``-pr:b=default`` in the command line to most commands.
-- Or setting the variable ``core:default_build_profile=default`` at the :ref:`global.conf<global_conf>` file to apply it
-  always automatically.
+Conan 1.x uses one profile by default, to start using two profiles, please do the following:
+
+- Pass ``-pr:b=default`` in the command line to most commands.
+- Or set the variable ``core:default_build_profile=default`` at the :ref:`global.conf<global_conf>` file to apply it
+  always, automatically.
 
 Do not use ``os_build``, ``arch_build`` anywhere in your recipes or code.
 
