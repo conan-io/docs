@@ -80,6 +80,8 @@ You can enable it:
 
 Do not use ``os_build``, ``arch_build`` anywhere in your recipes or code.
 
+Check the :ref:`"Build profiles and host profiles" <build_profiles_and_host_profiles>` section for more information.
+
 Conan uses revisions by default in Conan 2.0
 --------------------------------------------
 
