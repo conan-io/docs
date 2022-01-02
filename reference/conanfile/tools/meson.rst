@@ -35,6 +35,7 @@ The ``MesonToolchain`` will generate the following file during ``conan install``
 command (or before calling the ``build()`` method when the package is being
 built in the cache): *conan_meson_native.ini*, if doing a native build, or
 *conan_meson_cross.ini*, if doing a cross-build (:ref:`cross_building_reference`).
+The file will be placed in the generators folder.
 
 ``conan_meson_native.ini`` will contain the definitions of all the Meson properties
 related to the Conan options and settings for the current package, platform,
