@@ -36,7 +36,7 @@ Gets a file or list a directory of a given reference or package.
 
   .. code-block:: bash
 
-      $ conan get zlib/1.2.8@ -r conan-center
+      $ conan get zlib/1.2.8@ -r conancenter
 
 
 - List the files for a local package recipe:
@@ -81,7 +81,7 @@ Gets a file or list a directory of a given reference or package.
 
   .. code-block:: bash
 
-      $ conan get zlib/1.2.11@:2144f833c251030c3cfd61c4354ae0e38607a909 . -r conan-center
+      $ conan get zlib/1.2.11@:ff82a1e70ba8430648a79986385b20a3648f8c19 . -r conancenter
 
       Listing directory '.':
        conan_package.tgz

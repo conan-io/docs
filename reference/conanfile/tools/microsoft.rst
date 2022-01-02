@@ -19,6 +19,13 @@ It will generate multiple *xxxx.props* properties files one per dependency of a 
 to be used by consumers using MSBuild or Visual Studio, just adding the generated properties files
 to the solution and projects.
 
+.. important::
+
+    This class will require very soon to define both the "host" and "build" profiles. It is very recommended to
+    start defining both profiles immediately to avoid future breaking. Furthermore, some features, like trying to
+    cross-compile might not work at all if the "build" profile is not provided.
+
+
 It is important to highlight that this one is a **dependencies generator** and it is focused
 on the **dependencies** of a conanfile, not the current build.
 
@@ -75,7 +82,7 @@ configuration. The above commands the following files will be generated:
 - *conandeps.props*: Properties files including all direct dependencies, in this case, it includes ``conan_zlib.props``
   and ``conan_bzip2.props``
 
-You will be adding the *conan_deps.props* to your solution project files if you want to depend on all the declared
+You will be adding the *conandeps.props* to your solution project files if you want to depend on all the declared
 dependencies. For single project solutions, this is probably the way to go. For multi-project solutions, you might
 be more efficient and add properties files per project. You could add *conan_zlib.props* properties to "project1"
 in the solution and *conan_bzip2.props* to "project2" in the solution for example.
@@ -118,13 +125,14 @@ Included dependencies
 dependencies will be translated to properties files:
 
 - All direct dependencies, that is, the ones declared by the current ``conanfile``, that lives in the
-  host context: all regular ``requires``, plus the ``build_requires`` that are in the host context,
+  host context: all regular ``requires``, plus the ``tool_requires`` that are in the host context,
   for example test frameworks as ``gtest`` or ``catch``.
 - All transitive ``requires`` of those direct dependencies (all in the host context)
-
-Then, the ``build_requires`` of build context (like ``cmake`` packages as build_requires), plus the
-transitive ``build_requires`` (irrespective of the context) are not translated to properties files,
-as they shouldn't be necessary for the build.
+- Tool requires, in the build context, that is, application and executables that run in the build
+  machine irrespective of the destination platform, are added exclusively to the ``<ExecutablePath>``
+  property, taking the value from ``$(Conan{{name}}BinaryDirectories)`` defined properties. This
+  allows to define custom build commands, invoke code generation tools, with the ``<CustomBuild>`` and
+  ``<Command>`` elements.
 
 
 MSBuildToolchain
@@ -133,6 +141,13 @@ MSBuildToolchain
 The ``MSBuildToolchain`` is the toolchain generator for MSBuild. It will generate MSBuild properties files
 that can be added to the Visual Studio solution projects. This generator translates
 the current package configuration, settings, and options, into MSBuild properties files syntax.
+
+.. important::
+
+    This class will require very soon to define both the "host" and "build" profiles. It is very recommended to
+    start defining both profiles immediately to avoid future breaking. Furthermore, some features, like trying to
+    cross-compile might not work at all if the "build" profile is not provided.
+
 
 The ``MSBuildToolchain`` generator can be used by name in conanfiles:
 
@@ -233,3 +248,65 @@ conf
 
 - ``tools.microsoft.msbuild:verbosity`` will accept one of ``"Quiet", "Minimal", "Normal", "Detailed", "Diagnostic"`` to be passed
   to the ``MSBuild.build()`` call as ``msbuild .... /verbosity:XXX``
+
+
+
+VCVars
+------
+
+Generates a file called ``conanvcvars.bat`` that activate the Visual Studio developer command prompt according
+to the current settings by wrapping the `vcvarsall <https://docs.microsoft.com/en-us/cpp/build/building-on-the-command-line?view=vs-2017>`_
+Microsoft bash script.
+
+
+The ``VCVars`` generator can be used by name in conanfiles:
+
+.. code-block:: python
+    :caption: conanfile.py
+
+    class Pkg(ConanFile):
+        generators = "VCVars"
+
+.. code-block:: text
+    :caption: conanfile.txt
+
+    [generators]
+    VCVars
+
+And it can also be fully instantiated in the conanfile ``generate()`` method:
+
+.. code-block:: python
+    :caption: conanfile.py
+
+    from conans import ConanFile
+    from conan.tools.microsoft import VCVars
+
+    class Pkg(ConanFile):
+        settings = "os", "compiler", "arch", "build_type"
+        requires = "zlib/1.2.11", "bzip2/1.0.8"
+
+        def generate(self):
+            ms = VCVars(self)
+            ms.generate()
+
+Constructor
++++++++++++
+
+.. code:: python
+
+    def __init__(self, conanfile):
+
+- ``conanfile``: the current recipe object. Always use ``self``.
+
+
+generate()
+++++++++++
+
+.. code:: python
+
+    def generate(self, scope="build"):
+
+Parameters:
+
+    * **scope** (Defaulted to ``"build"``): Add the launcher automatically to the ``conanbuild`` launcher. Read more
+      in the :ref:`Environment documentation <conan_tools_env_environment_model>`.

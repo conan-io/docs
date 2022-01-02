@@ -75,8 +75,27 @@ the ``pkg/latest`` package will not appear in the dependency graph at all.
 
 This is also less deterministic, and puts the control on the package creator side, instead of
 the consumer (version ranges are controlled by the consumer). Package creators can control
-which real versions will their consumers be using. This is probably not the recommended way
-for normal dependencies versions management.
+which real versions will their consumers be using. **This is probably not the recommended way
+for normal dependencies versions management.**
+
+.. note::
+
+    From Conan 1.39, a new **experimental** syntax for requiring alias packages has been
+    introduced, to make explicit its usage and solve several issues with alias:
+
+    .. code-block:: python
+
+        from conans import ConanFile
+
+        class Pkg(ConanFile):
+            # Previous syntax, implicit, nothing in the reference tells it is an alias
+            # requires = "pkg/latest@user/testing"
+            # New experimental syntax, explicit:
+            requires = "pkg/(latest)@user/testing"
+
+    The new ``requires = "pkg/(latest)@user/testing"`` comes from https://github.com/conan-io/tribe/pull/25,
+    and is introduced in Conan 1.39 to allow getting feedback, stabilizing it, previously to make it the
+    default in Conan 2.0 while removing the previous one.
 
 
 Package revisions
@@ -137,6 +156,8 @@ user decide which one.
 The same situation happens if the different packages require different configurations of the same upstream package, even if the same version is used. In the example above, both **PkgB** and **PkgC** can be requiring the same version **pkga/1.0**, but one of them will try to use it as a static library and the other one will try to use it as shared library.
 The dependency resolution algorithm will also raise an error.
 
+.. _versioning_dependencies_overriding:
+
 Dependencies overriding
 -----------------------
 
@@ -156,4 +177,3 @@ It is important to note and this point that versioning approaches and strategies
 consistent with the binary management.
 
 By default, Conan assumes *semver* compatibility, so it will not require to build a new binary for a package when its dependencies change their minor or patch versions. This might not be enough for C or C++ libraries which versioning scheme doesn't strictly follow semver. It is strongly suggested to read more about this in :ref:`define_abi_compatibility`
-

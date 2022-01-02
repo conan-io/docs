@@ -52,6 +52,7 @@ are possible. These are the **default** values, but it is possible to customize 
         Emscripten:
         Neutrino:
             version: ["6.4", "6.5", "6.6", "7.0"]
+        baremetal:
     arch: [x86, x86_64, ppc32be, ppc32, ppc64le, ppc64, armv4, armv4i, armv5el, armv5hf, armv6, armv7, armv7hf, armv7s, armv7k, armv8, armv8_32, armv8.3, sparc, sparcv9, mips, mips64, avr, s390, s390x, asm.js, wasm, sh4le, e2k-v2, e2k-v3, e2k-v4, e2k-v5, e2k-v6, e2k-v7]
     compiler:
         sun-cc:
@@ -80,16 +81,15 @@ are possible. These are the **default** values, but it is possible to customize 
                       llvm, ClangCL]
             cppstd: [None, 14, 17, 20]
          msvc:
-            version: ["19.0",
-                      "19.1", "19.10", "19.11", "19.12", "19.13", "19.14", "19.15", "19.16",
-                      "19.2", "19.20", "19.21", "19.22", "19.23", "19.24", "19.25", "19.26", "19.27", "19.28"]
+            version: [190, 191, 192, 193]
+            update: [None, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
             runtime: [static, dynamic]
             runtime_type: [Debug, Release]
-            cppstd: [14, 17, 20]
+            cppstd: [14, 17, 20, 23]
         clang:
             version: ["3.3", "3.4", "3.5", "3.6", "3.7", "3.8", "3.9", "4.0",
                       "5.0", "6.0", "7.0", "7.1",
-                      "8", "9", "10", "11"]
+                      "8", "9", "10", "11", "12", "13"]
             libcxx: [None, libstdc++, libstdc++11, libc++, c++_shared, c++_static]
             cppstd: [None, 98, gnu98, 11, gnu11, 14, gnu14, 17, gnu17, 20, gnu20]
             runtime: [None, MD, MT, MTd, MDd]
@@ -99,6 +99,7 @@ are possible. These are the **default** values, but it is possible to customize 
             cppstd: [None, 98, gnu98, 11, gnu11, 14, gnu14, 17, gnu17, 20, gnu20]
         intel:
             version: ["11", "12", "13", "14", "15", "16", "17", "18", "19"]
+            update: [None, ANY]
             base:
                 gcc:
                     <<: *gcc
@@ -108,6 +109,14 @@ are possible. These are the **default** values, but it is possible to customize 
                     <<: *visual_studio
                 apple-clang:
                     <<: *apple_clang
+        intel-cc:
+            version: ["2021.1", "2021.2", "2021.3"]
+            update: [None, ANY]
+            mode: ["icx", "classic", "dpcpp"]
+            libcxx: [None, libstdc++, libstdc++11, libc++]
+            cppstd: [None, 98, gnu98, 03, gnu03, 11, gnu11, 14, gnu14, 17, gnu17, 20, gnu20, 23, gnu23]
+            runtime: [None, static, dynamic]
+            runtime_type: [None, Debug, Release]
         qcc:
             version: ["4.4", "5.4"]
             libcxx: [cxx, gpp, cpp, cpp-ne, accp, acpp-ne, ecpp, ecpp-ne]
@@ -138,6 +147,17 @@ to distribute a unified *settings.yml* file you can use the :ref:`conan config i
 
     To force the creation of the *settings.yml* the command ``conan config init`` is available.
 
+Operating systems
+-----------------
+
+``baremetal`` operating system (introduced in Conan 1.43) is a convention meaning that the binaries run directly on the hardware, without a operating system or equivalent
+layer. This is to differentiate to the ``None`` value, which is associated to the "this value is not defined" semantics.
+The ``baremetal`` is a common name convention for embedded microprocessors and microcontrollers code. It is expected that users might customize the
+space inside the ``baremetal`` setting with further subsettings to specify their specific hardware platforms, boards, families, etc.
+At the moment (Conan 1.43) the ``os=baremetal`` value is still not used by Conan builtin toolchains and helpers, but it is expected that they can
+evolve and start using it.
+
+
 Compilers
 ---------
 
@@ -148,7 +168,7 @@ msvc
 
 The new ``msvc`` compiler is a new, **experimental** one, that is intended to deprecate the ``Visual Studio`` one in Conan 2.0:
 
-- It uses the compiler version, that is 19.0, 19.1, etc, instead of the Visual Studio IDE (15, 16, etc).
+- It uses the compiler version, that is 190 (19.0), 191 (19.1), etc, instead of the Visual Studio IDE (15, 16, etc).
 - It is only used by the new build integrations in :ref:`conan_tools_cmake` and :ref:`conan_tools_microsoft`, but not the previous ones.
 - At the moment it implements a ``compatible_packages`` fallback to Visual Studio compiled packages, that is, previous existing binaries
   compiled with ``settings.compiler="Visual Studio"`` can be used for the ``msvc`` compiler if no binaries exist for it yet.
@@ -158,9 +178,9 @@ The new ``msvc`` compiler is a new, **experimental** one, that is intended to de
 When using the ``msvc`` compiler, the Visual Studio toolset version (the actual ``vcvars`` activation and ``MSBuild`` location) will be
 defined by the default provide of that compiler version:
 
-- ``msvc`` compiler version '19.0': Visual Studio 14 2015
-- ``msvc`` compiler version '19.1': Visual Studio 15 2017
-- ``msvc`` compiler version '19.2': Visual Studio 16 2019
+- ``msvc`` compiler version '190': Visual Studio 14 2015
+- ``msvc`` compiler version '191': Visual Studio 15 2017
+- ``msvc`` compiler version '192': Visual Studio 16 2019
 
 This can be configured in your profiles with the ``tools.microsoft.msbuild:vs_version`` configuration:
 
@@ -168,15 +188,54 @@ This can be configured in your profiles with the ``tools.microsoft.msbuild:vs_ve
 
     [settings]
     compiler=msvc
-    compiler.version=19.0
+    compiler.version=190
 
     [conf]
     tools.microsoft.msbuild:vs_version = 16
 
 
-In this case, the ``vcvars`` will activate the Visual Studio 16 installation, but the ``19.0`` compiler version will still be used
+In this case, the ``vcvars`` will activate the Visual Studio 16 installation, but the ``190`` compiler version will still be used
 because the necessary ``toolset=v140`` will be set.
 
+The settings define the last digit ``update: [None, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9]``, which by default is ``None``, means that Conan
+assumes binary compatibility for the compiler patches, which works in general for the Microsoft compilers. For cases where finer
+control is desired, you can just add the ``update`` part to your profiles:
+
+.. code-block:: text
+
+    [settings]
+    compiler=msvc
+    compiler.version=191
+    compiler.version.update=3
+
+
+This will be equivalent to the full version ``1913 (19.13)``. If even further details is desired, you could even add your own digits
+to the ``update`` subsetting in ``settings.yml``.
+
+
+clang
++++++
+
+The release 13.0.0 will be released officially on September 21, 2021. However, Conan 1.40 will support it in settings.yml before
+the final release. It will be considered as **experimental** in case of incompatibility until the release.
+
+
+intel-cc
+++++++++
+
+Available since: `1.41.0 <https://github.com/conan-io/conan/releases>`_
+
+This compiler is a new, **experimental** one, aimed to handle the new Intel oneAPI DPC++/C++/Classic compilers. Instead of having *n* different compilers, you have 3 different **modes** of working:
+
+* ``icx`` for Intel oneAPI C++.
+* ``dpcpp`` for Intel oneAPI DPC++.
+* ``classic`` for Intel C++ Classic ones.
+
+Besides that, Intel releases some versions with revisions numbers so the ``update`` field it's supposed to be any possible minor number for the Intel compiler version used, e.g,
+``compiler.version=2021.1`` and ``compiler.update=311`` mean Intel version is ``2021.1.311``.
+
+
+For more information, you can check the :ref:`IntelCC section <conan_tools_intel>`.
 
 Architectures
 -------------

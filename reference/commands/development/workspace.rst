@@ -39,6 +39,7 @@ conan workspace install
                               [-pr PROFILE_HOST] [-pr:b PROFILE_BUILD]
                               [-pr:h PROFILE_HOST] [-s SETTINGS_HOST]
                               [-s:b SETTINGS_BUILD] [-s:h SETTINGS_HOST]
+                              [-c CONF_HOST] [-c:b CONF_BUILD] [-c:h CONF_HOST]
                               [-if INSTALL_FOLDER]
                               path
 
@@ -109,6 +110,15 @@ conan workspace install
       -s:h SETTINGS_HOST, --settings:host SETTINGS_HOST
                             Settings to build the package, overwriting the defaults (host
                             machine). e.g.: -s compiler=gcc
+      -c CONF_HOST, --conf CONF_HOST
+                            Configuration to build the package, overwriting the defaults (host machine). e.g.: -c
+                            tools.cmake.cmaketoolchain:generator=Xcode
+      -c:b CONF_BUILD, --conf:build CONF_BUILD
+                            Configuration to build the package, overwriting the defaults (build machine). e.g.: -c:b
+                            tools.cmake.cmaketoolchain:generator=Xcode
+      -c:h CONF_HOST, --conf:host CONF_HOST
+                            Configuration to build the package, overwriting the defaults (host machine). e.g.: -c:h
+                            tools.cmake.cmaketoolchain:generator=Xcode
       -if INSTALL_FOLDER, --install-folder INSTALL_FOLDER
                             Folder where the workspace files will be created (default to
                             current working directory)

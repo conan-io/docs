@@ -288,11 +288,11 @@ These variables are useful for unattended executions like CI servers or automate
 
 If the remote name contains "-" you have to replace it with "_" in the variable name:
 
-For example: For a remote named "conan-center":
+For example: For a remote named "conancenter":
 
 .. code-block:: bash
 
-    SET CONAN_LOGIN_USERNAME_CONAN_CENTER=MyUser
+    SET CONAN_LOGIN_USERNAME_CONANCENTER=MyUser
 
 .. seealso::
 
@@ -380,11 +380,11 @@ These variables are useful for unattended executions like CI servers or automate
 The remote name is transformed to all uppercase. If the remote name contains "-",
 you have to replace it with "_" in the variable name.
 
-For example, for a remote named "conan-center":
+For example, for a remote named "conancenter":
 
 .. code-block:: bash
 
-    SET CONAN_PASSWORD_CONAN_CENTER=Mypassword
+    SET CONAN_PASSWORD_CONANCENTER=Mypassword
 
 .. seealso::
 

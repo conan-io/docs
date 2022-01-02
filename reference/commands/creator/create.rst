@@ -11,16 +11,18 @@ conan create
 .. code-block:: bash
 
     $ conan create [-h] [-j JSON] [-k] [-kb] [-ne] [-tbf TEST_BUILD_FOLDER]
-                   [-tf TEST_FOLDER] [--ignore-dirty] [-m [MANIFESTS]]
-                   [-mi [MANIFESTS_INTERACTIVE]] [-v [VERIFY]] [-b [BUILD]]
-                   [-r REMOTE] [-u] [-l LOCKFILE]
-                   [--lockfile-out LOCKFILE_OUT] [-e ENV_HOST]
-                   [-e:b ENV_BUILD] [-e:h ENV_HOST] [-o OPTIONS_HOST]
-                   [-o:b OPTIONS_BUILD] [-o:h OPTIONS_HOST]
-                   [-pr PROFILE_HOST] [-pr:b PROFILE_BUILD]
-                   [-pr:h PROFILE_HOST] [-s SETTINGS_HOST]
-                   [-s:b SETTINGS_BUILD] [-s:h SETTINGS_HOST]
-                   path [reference]
+                    [-tf TEST_FOLDER] [--ignore-dirty] [--build-require]
+                    [--require-override REQUIRE_OVERRIDE] [-m [MANIFESTS]]
+                    [-mi [MANIFESTS_INTERACTIVE]] [-v [VERIFY]] [-b [BUILD]]
+                    [-r REMOTE] [-u] [-l LOCKFILE]
+                    [--lockfile-out LOCKFILE_OUT] [-e ENV_HOST]
+                    [-e:b ENV_BUILD] [-e:h ENV_HOST] [-o OPTIONS_HOST]
+                    [-o:b OPTIONS_BUILD] [-o:h OPTIONS_HOST]
+                    [-pr PROFILE_HOST] [-pr:b PROFILE_BUILD]
+                    [-pr:h PROFILE_HOST] [-s SETTINGS_HOST]
+                    [-s:b SETTINGS_BUILD] [-s:h SETTINGS_HOST]
+                    [-c CONF_HOST] [-c:b CONF_BUILD] [-c:h CONF_HOST]
+                    path [reference]
 
 Builds a binary package for a recipe (conanfile.py).
 
@@ -58,6 +60,9 @@ to know more about 'test_folder' project.
       --ignore-dirty        When using the "scm" feature with "auto" values,
                             capture the revision and url even if there are
                             uncommitted changes
+      --build-require       The provided reference is a build-require
+      --require-override REQUIRE_OVERRIDE
+                            Define a requirement override
       -m [MANIFESTS], --manifests [MANIFESTS]
                             Install dependencies manifests in folder for later
                             verify. Default folder is .conan_manifests, but can be
@@ -143,6 +148,16 @@ to know more about 'test_folder' project.
       -s:h SETTINGS_HOST, --settings:host SETTINGS_HOST
                             Settings to build the package, overwriting the
                             defaults (host machine). e.g.: -s:h compiler=gcc
+      -c CONF_HOST, --conf CONF_HOST
+                            Configuration to build the package, overwriting the defaults (host machine). e.g.: -c
+                            tools.cmake.cmaketoolchain:generator=Xcode
+      -c:b CONF_BUILD, --conf:build CONF_BUILD
+                            Configuration to build the package, overwriting the defaults (build machine). e.g.: -c:b
+                            tools.cmake.cmaketoolchain:generator=Xcode
+      -c:h CONF_HOST, --conf:host CONF_HOST
+                            Configuration to build the package, overwriting the defaults (host machine). e.g.: -c:h
+                            tools.cmake.cmaketoolchain:generator=Xcode
+
 
 
 :command:`conan create . demo/testing` is equivalent to:
@@ -188,3 +203,22 @@ In case of installing a pre-built binary, steps from 5 to 11 will be skipped. No
 
   Installation of binaries can be accelerated setting up parallel downloads with the ``general.parallel_download``
   **experimental** configuration in :ref:`conan_conf`.
+
+
+The ``--build-require``, new in Conan 1.37, is experimental. It allows to create the package using the
+configuration and settings of the "build" context, as it was a ``build_require``. This feature allows
+to create packages in a way that is consistent to the way they will be used later. When there is a
+``test_package``, it is possible to use there the ``test_type="explicit"`` and ``self.test_requires(self.tested_reference_str)``.
+There is no need to provide it in the command line, :ref:`check "testing tool requires" <testing_build_requires>` to know more.
+
+
+--require-override
+------------------
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+New from **Conan 1.39**.
+
+This argument is the same, and has the same behavior as the :ref:`conan install command<cli_arg_require_override>`.

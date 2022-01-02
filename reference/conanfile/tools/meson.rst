@@ -28,6 +28,7 @@ The ``MesonToolchain`` can be used in the ``generate()`` method:
 
         def generate(self):
             tc = MesonToolchain(self)
+            tc.preprocessor_definitions["MYDEFINE"] = "MYDEF_VALUE"
             tc.generate()
 
 
@@ -36,6 +37,13 @@ command (or before calling the ``build()`` method when the package is being
 built in the cache): *conan_meson_native.ini*, if doing a native build, or
 *conan_meson_cross.ini*, if doing a cross-build (:ref:`cross_building_reference`).
 The file will be placed in the generators folder.
+
+.. important::
+
+    This class will require very soon to define both the "host" and "build" profiles. It is very recommended to
+    start defining both profiles immediately to avoid future breaking. Furthermore, some features, like trying to
+    cross-compile might not work at all if the "build" profile is not provided.
+
 
 ``conan_meson_native.ini`` will contain the definitions of all the Meson properties
 related to the Conan options and settings for the current package, platform,
@@ -66,13 +74,13 @@ constructor
 
 .. code:: python
 
-    def __init__(self, conanfile, env=os.environ):
+    def __init__(self, conanfile, backend=None):
 
 Most of the arguments are optional and will be deduced from the current ``settings``, and not
 necessary to define them.
 
 - ``conanfile``: the current recipe object. Always use ``self``.
-- ``env``: the dictionary of the environment variables.
+- ``backend``: the meson `backend <https://mesonbuild.com/Configuring-a-build-directory.html>`_ to use. By default, ``ninja`` is used. Possible values: ninja, vs, vs2010, vs2015, vs2017, vs2019, xcode.
 
 definitions
 +++++++++++
@@ -87,6 +95,22 @@ This attribute allows defining Meson project options:
         tc.generate()
 
 - One project options definition for ``MYVAR`` in ``conan_meson_native.init`` or ``conan_meson_cross.ini`` file.
+
+preprocessor_definitions
+++++++++++++++++++++++++
+
+This attribute allows defining compiler preprocessor definitions, for multiple configurations (Debug, Release, etc).
+
+.. code:: python
+
+    def generate(self):
+        tc = MesonToolchain(self)
+        tc.preprocessor_definitions["MYDEF"] = "MyValue"
+        tc.generate()
+
+This will be translated to:
+
+- One preprocessor definition for ``MYDEF`` in ``conan_meson_native.init`` or ``conan_meson_cross.ini`` file.
 
 Generators
 ++++++++++
@@ -192,5 +216,7 @@ Runs project's tests. Equivalent to running :command:`meson test -v -C .` in the
 conf
 ++++
 
-- ``tools.ninja:jobs`` argument for the ``--jobs`` parameter when running Ninja. (overrides
-  the general ``tools.build:processes``).
+- ``tools.build:jobs=10`` argument for the ``--jobs`` parameter when running Ninja.
+- ``tools.meson.mesontoolchain:backend``. the meson `backend
+  <https://mesonbuild.com/Configuring-a-build-directory.html>`_ to use. Possible values:
+  ``ninja``, ``vs``, ``vs2010``, ``vs2015``, ``vs2017``, ``vs2019``, ``xcode``.

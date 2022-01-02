@@ -296,7 +296,7 @@ There are few things that should be taken into account when using ``python-requi
   to very few cases, we recommend to use the simplest possible structure.
 - ``python-requires`` can conflict if they require other recipes and create conflicts in different
   versions.
-- ``python-requires`` cannot use regular ``requires`` or ``build_requires``.
+- ``python-requires`` cannot use regular ``requires`` or ``tool_requires``.
 - It is possible to use ``python-requires`` without user and channel.
 - ``python-requires`` can use native python ``import`` to other python files, as long as these are
   exported together with the recipe.

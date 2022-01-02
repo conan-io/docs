@@ -28,12 +28,11 @@ variables declared in the ``package_info()`` method and generate two scripts "ac
 
 The recipe of ``cmake/3.16.3`` appends to the PATH variable the package folder/bin.
 
-You can check existing CMake conan package versions in conan-center with:
+You can check existing CMake Conan package versions in `conancenter` with:
 
 .. code-block:: bash
 
-    $ conan search cmake* -r=conan-center
-
+    $ conan search cmake* -r=conancenter
 
 In the **bin** folder there is a **cmake** executable:
 

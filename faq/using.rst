@@ -9,11 +9,49 @@ Packaging header-only libraries is similar to other packages. Be sure to start b
 There are different approaches depending on if you want Conan to run the library unit tests while creating the package or not. Full details are described
 :ref:`in this how-to guide<header_only>`.
 
+.. _settings_vs_options:
+
 When to use settings or options?
 --------------------------------
 
 While creating a package, you may want to add different configurations and variants of the package. There are two main inputs that define
-packages: settings and options. Read more about them in :ref:`this section<settings_vs_options>`.
+packages: settings and options.
+
+**Settings** are a project-wide configuration, something that typically affects the whole project that
+is being built. For example, the operating system or the architecture would be naturally the same for all
+packages in a dependency graph, linking a Linux library for a Windows app, or
+mixing architectures is impossible.
+
+Settings cannot be defaulted in a package recipe. A recipe for a given library cannot say that its default is
+``os=Windows``. The ``os`` will be given by the environment in which that recipe is processed. It is
+a mandatory input.
+
+Settings are configurable. You can edit, add, remove settings or subsettings in your *settings.yml* file.
+See :ref:`the settings.yml reference <settings_yml>`.
+
+On the other hand, **options** are a package-specific configuration. Static or shared library are not
+settings that apply to all packages. Some can be header only libraries while others packages can be just data,
+or package executables. Packages can contain a mixture of different artifacts. ``shared`` is a common
+option, but packages can define and use any options they want.
+
+Options are defined in the package recipe, including their supported values, while other can be defaulted by the package
+recipe itself. A package for a library can well define that by default it will be a static library (a typical default).
+If not specified other. the package will be static.
+
+There are some exceptions to the above. For example, settings can be defined per-package using the command line:
+
+.. code-block:: bash
+
+    $ conan install . -s mypkg:compiler=gcc -s compiler=clang ..
+
+This will use ``gcc`` for "mypkg" and ``clang`` for the rest of the dependencies (extremely rare case).
+
+There are situations whereby many packages use the same option, thereby allowing you to set its value once using patterns, like:
+
+.. code-block:: bash
+
+    $ conan install . -o *:shared=True
+
 
 
 Can Conan use git repositories as package servers?
@@ -36,7 +74,7 @@ Besides the impossibility on the technical side, there are also other reasons li
 - Packages should be fully relocatable to a different location. Users should be able to retrieve their dependencies and upload a copy to their own private server, and fully disconnect from the external world. This is critical for robust and secure production environments, and avoid problems that other ecosystems like NPM have had in the past. As a consequence, all recipes dependencies should not be coupled to any location, and be abstract as conan "requires" are.
 - Other languages, like Java (which would be the closest one regarding enterprise-ness), never provided this feature. Languages like golang, that based its dependency management on this feature, has also evolved away from it and towards abstract "module" concepts that can be hosted in different servers
 
-So there are no plans to support this approach, and the client-server architecture will continue to be the proposed solution. There are several alternatives for the servers from different vendors, for public open source packages `ConanCenter <https://conan.io/center>`_ is the recommended one, and for private packages, the free `ArtifactoryCE <https://conan.io/downloads>`_ is a simple and powerful solution.
+So there are no plans to support this approach, and the client-server architecture will continue to be the proposed solution. There are several alternatives for the servers from different vendors, for public open source packages `ConanCenter <https://conan.io/center>`_ is the recommended one, and for private packages, the free `Artifactory CE <https://conan.io/downloads>`_ is a simple and powerful solution.
 
 
 How to obtain the dependents of a given package?
@@ -153,10 +191,10 @@ The lookup remote order is defined by the command :command:`conan remote`:
 .. code-block:: bash
 
     $ conan remote list
-    conan-center: https://conan.bintray.com [Verify SSL: True]
+    conancenter: https://center.conan.io [Verify SSL: True]
     myremote: https://MyTeamServerIP:8081/artifactory/api/conan/myremote [Verify SSL: True]
 
-As you can see, the remote ``conan-center`` is listed on index **0**, which means it has the highest priority when searching or installing a package,
+As you can see, the remote ``conancenter`` is listed on index **0**, which means it has the highest priority when searching or installing a package,
 followed by ``myremote``, on index **1**. To update the index order, the argument ``--insert`` can be added to the command :command:`conan remote update`:
 
 .. code-block:: bash
@@ -164,7 +202,7 @@ followed by ``myremote``, on index **1**. To update the index order, the argumen
     $ conan remote update myremote https://MyTeamServerIP:8081/artifactory/api/conan/myremote --insert
     $ conan remote list
     myremote: https://MyTeamServerIP:8081/artifactory/api/conan/myremote [Verify SSL: True]
-    conan-center: https://conan.bintray.com [Verify SSL: True]
+    conancenter: https://center.conan.io [Verify SSL: True]
 
 
 The ``--insert`` argument means *index 0*, the highest priority, thus the ``myremote`` remote will be updated as the first remote to be used.
@@ -177,7 +215,7 @@ It's also possible to define a specific index when adding a remote to the list:
     $ conan remote list
     myremote: https://MyTeamServerIP:8081/artifactory/api/conan/myremote [Verify SSL: True]
     otherremote: https://MyCompanyOtherIP:8081/artifactory/api/conan/otherremote [Verify SSL: True]
-    conan-center: https://conan.bintray.com [Verify SSL: True]
+    conancenter: https://center.conan.io [Verify SSL: True]
 
 
 The ``otherremote`` remote needs to be added after ``myremote``, so we need to set the remote index as **1**.

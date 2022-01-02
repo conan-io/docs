@@ -56,6 +56,9 @@ For each requirement *conanbuildinfo.premake.lua* file declares the following va
 +---------------------------+------------------------------------------------------+
 | conan_rootpath_XXX        | Abs path to root package folder                      |
 +---------------------------+------------------------------------------------------+
+| conan_frameworks_XXX      | Declared cpp_info.frameworks                         |
++---------------------------+------------------------------------------------------+
+
 
 Global declared variables
 +++++++++++++++++++++++++
@@ -81,6 +84,14 @@ Global declared variables
 +---------------------------+------------------------------------------------------+
 | conan_exelinkflags        | Aggregated executable link flags                     |
 +---------------------------+------------------------------------------------------+
+| conan_frameworks          | Aggregated frameworks from cpp_info.frameworks       |
++---------------------------+------------------------------------------------------+
+
+.. note::
+
+    Both the global ``conan_frameworks`` and each ``conan_frameworks_xxx`` support only system frameworks, not
+    frameworks packaged by the requirements. See discussion `here <https://github.com/conan-io/conan/pull/9371>`_.
+
 
 Functions
 ---------
@@ -99,6 +110,8 @@ settings:
         includedirs{conan_includedirs}
         libdirs{conan_libdirs}
         links{conan_libs}
+        links{conan_frameworks}
         defines{conan_cppdefines}
         bindirs{conan_bindirs}
     end
+

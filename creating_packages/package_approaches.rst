@@ -63,14 +63,10 @@ If the developer wants to switch configuration of the dependencies, they will us
 These switches will be fast, since all the dependencies are already cached locally.
 
 This process offers a number of advantages:
+
 - It is quite easy to implement and maintain.
-- The packages are of minimal size, so disk space and transfers are faster, and builds from sources are also kept to the
-necessary minimum.
-- The decoupling of configurations might help with isolating issues related to
-mixing different types of artifacts, and also protecting valuable information from deploy and
-distribution mistakes. For example, debug artifacts might contain symbols or source code, which
-could help or directly provide means for reverse engineering. So distributing debug artifacts by
-mistake could be a very risky issue.
+- The packages are of minimal size, so disk space and transfers are faster, and builds from sources are also kept to the necessary minimum.
+- The decoupling of configurations might help with isolating issues related to mixing different types of artifacts, and also protecting valuable information from deploy and distribution mistakes. For example, debug artifacts might contain symbols or source code, which could help or directly provide means for reverse engineering. So distributing debug artifacts by mistake could be a very risky issue.
 
 Read more about this in :ref:`method_package_info`.
 

@@ -87,7 +87,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # http =
     #   hostname.to.be.proxied.com = http://user:pass@10.10.1.10:3128
     # You can skip the proxy for the matching (fnmatch) urls (comma-separated)
-    # no_proxy_match = *bintray.com*, https://myserver.*
+    # no_proxy_match = *center.conan.io*, https://myserver.*
 
     [hooks]    # environment CONAN_HOOKS
     attribute_checker

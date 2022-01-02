@@ -81,6 +81,7 @@ contain a list with the information for each of the nodes.
             "display_name":"liba/0.1@lasote/stable",
             "id":"8da7d879f40d12efabc9a1f26ab12f1b6cafb6ad",
             "build_id":null,
+            "context": "host",
             "url":"myurl",
             "license":[
                 "MIT"
@@ -100,6 +101,7 @@ contain a list with the information for each of the nodes.
             "display_name":"libb/0.1@lasote/stable",
             "id":"c4ec2bf350e2a02405029ab366535e26372a4f63",
             "build_id":null,
+            "context": "host",
             "url":"myurl",
             "license":[
                 "MIT"

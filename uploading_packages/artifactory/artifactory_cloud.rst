@@ -14,7 +14,7 @@ repository follow these steps:
    .. image:: ../../images/artifactory/conan-artifactory_create_account.png
 
 2. **Add your Artifactory repository**
-   
+
    To get the correct address, click on ``Application -> Artifactory -> Artifacts -> Set Me Up``:
 
    .. image:: ../../images/artifactory/conan-artifactory_setme_up.png
@@ -30,7 +30,7 @@ repository follow these steps:
    Your API key is the “password” used to authenticate the Conan client to Artifactory, NOT your Artifatory
    password. To get your API key, go to “Set Me Up” and enter your account password. Your API key will
    appear on conan user command line listed on Set Me Up box:
-   
+
    .. image:: ../../images/artifactory/conan-artifactory_token.png
 
 5. **Set your user credentials**
@@ -44,7 +44,7 @@ repository follow these steps:
 Setting the remotes in this way will cause your Conan client to resolve packages and install them from
 repositories in the following order of priority:
 
-  1. `conan-center`_
+  1. `conancenter`_
   2. Your own repository
 
 If you want to have your own repository first, please use the ``--insert`` command line option
@@ -55,11 +55,11 @@ when adding it:
     $ conan remote add <your_remote> <your_url> --insert 0
     $ conan remote list
       <your remote>: <your_url> [Verify SSL: True]
-      conan-center: https://conan.bintray.com [Verify SSL: True]
+      conancenter: https://center.conan.io [Verify SSL: True]
 
 .. tip::
 
     Check the full reference of :ref:`$ conan remote<conan_remote>` command.
 
 
-.. _`conan-center`: https://conan.io/center
+.. _`conancenter`: https://conan.io/center

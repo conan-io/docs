@@ -66,7 +66,7 @@ _____________________
 
     This is an **experimental** feature subject to breaking changes in future releases.
 
-If the package was :ref:`created<create_omit_user_channel>` and :ref:`uploaded<uploading_packages>` without specifying
+If the package was created and uploaded without specifying
 the ``user`` and ``channel`` you can omit the ``user/channel`` when specifying a reference:
 
 
@@ -307,4 +307,4 @@ for package management, not only for (but focused on) C/C++ libraries.
     To learn more about working with shared libraries, please refer to :ref:`Howtos/Manage shared libraries<manage_shared>`.
 
 
-.. _`pocoproject`: https://bintray.com/pocoproject/conan/Poco%3Apocoproject
+.. _`pocoproject`: https://conan.io/center/poco

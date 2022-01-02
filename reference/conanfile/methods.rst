@@ -281,7 +281,6 @@ The :ref:`cpp_info_attributes_reference` attribute has the following properties 
           self.cpp_info.exelinkflags = ["-NODEFAULTLIB:MSVCRT",
                                         "-DEFAULTLIB:LIBCMT"]
 
-- **name**: Alternative name for the package so generators can take into account in order to generate targets or file names.
 - **components**: **[Experimental]** Dictionary with names as keys and a component object as value to model the different components a
   package may have: libraries, executables... Read more about this feature at :ref:`package_information_components`.
 - **requires**: **[Experimental]** List of components from the requirements this package (and its consumers) should link with. It will
@@ -478,7 +477,7 @@ If the package options and settings are related, and you want to configure eithe
             # If header only, the compiler, etc, does not affect the package!
             if self.options.header_only:
                 self.settings.clear()
-                self.options.remove("static")
+                del self.options.static
 
 The package has 2 options set, to be compiled as a static (as opposed to shared) library, and also not to involve any builds, because
 header-only libraries will be used. In this case, the settings that would affect a normal build, and even the other option (static vs
@@ -520,12 +519,12 @@ Invalid configuration
 
 Conan allows the recipe creator to declare invalid configurations, those that are known not to work
 with the library being packaged. There is an especial kind of exception that can be raised from
-the ``configure()`` method to state this situation: ``conans.errors.ConanInvalidConfiguration``. Here
+the ``validate()`` method to state this situation: ``conans.errors.ConanInvalidConfiguration``. Here
 it is an example of a recipe for a library that doesn't support Windows operating system:
 
 .. code-block:: python
 
-    def configure(self):
+    def validate(self):
         if self.settings.os != "Windows":
             raise ConanInvalidConfiguration("Library MyLib is only supported for Windows")
 
@@ -677,10 +676,10 @@ It also has optional parameters that allow defining the special cases, as is sho
 build_requirements()
 --------------------
 
-Build requirements are requirements that are only installed and used when the package is built from sources. If there is an existing
-pre-compiled binary, then the build requirements for this package will not be retrieved.
+The requires specified in this method are only installed and used when the package is built from sources.
+If there is an existing pre-compiled binary, then the tool requirements for this package will not be retrieved.
 
-This method is useful for defining conditional build requirements, for example:
+This method is useful for defining conditional tool requirements, for example:
 
 .. code-block:: python
 
@@ -688,11 +687,11 @@ This method is useful for defining conditional build requirements, for example:
 
         def build_requirements(self):
             if self.settings.os == "Windows":
-                self.build_requires("tool_win/0.1@user/stable")
+                self.tool_requires("tool_win/0.1@user/stable")
 
 .. seealso::
 
-    :ref:`Build requirements <build_requires>`
+    :ref:`Tool requirements <build_requires>`
 
 .. _method_system_requirements:
 
@@ -1407,9 +1406,9 @@ The purpose of ``generate()`` is to prepare the build, generating the necessary 
   Visual Studio property files.
 - Environment activation scripts, like ``conanbuildenv.bat`` or ``conanbuildenv.sh``, that define all the necessary environment
   variables necessary for the build.
-- Toolchain files, like ``conantoolchain.cmake``, that contains a mapping between the current Conan settings and options, and the
+- Toolchain files, like ``conan_toolchain.cmake``, that contains a mapping between the current Conan settings and options, and the
   build system specific syntax.
-- General purpose build information, as a ``conanbuild.json`` file that could contain information like the CMake generator or
+- General purpose build information, as a ``conanbuild.conf`` file that could contain information like the CMake generator or
   CMake toolchain file to be used in the ``build()`` method.
 - Specific build system files, like ``conanvcvars.bat``, that contains the necessary Visual Studio vcvars.bat call for certain
   build systems like Ninja when compiling with the Microsoft compiler.
@@ -1445,3 +1444,83 @@ multiple recipes.
             # customize toolchain "tc"
             tc.generate()
             # Or provide your own custom logic
+
+
+layout()
+--------
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+    The ``layout()`` feature will be fully functional only in the new build system integrations
+    (:ref:`in the conan.tools space <conan_tools>`). If you are using other integrations, they
+    might not fully support this feature.
+
+Available since: `1.37.0 <https://github.com/conan-io/conan/releases>`_
+
+Read about the feature :ref:`here<package_layout>`.
+
+In the layout() method you can adjust ``self.folders`` and ``self.cpp``.
+
+
+.. _layout_folders_reference:
+
+
+self.folders
+++++++++++++
+
+
+- **self.folders.source** (Defaulted to ""): Specifies a subfolder where the sources are. The ``self.source_folder`` attribute
+  inside the ``source(self)`` and ``build(self)`` methods will be set with this subfolder. But the *current working directory*
+  in the ``source(self)`` method will not include this subfolder, because it is intended to describe where the sources are after
+  downloading (zip, git...) them, not to force where the sources should be. As well, the `export_sources`, `exports` and `scm` sources
+  will be copied to the root source directory, being the **self.folders.source** variable the way to describe if the fetched sources
+  are still in a subfolder.
+  It is used in the cache when running
+  :command:`conan create` (relative to the cache source folder) as well as in a local folder when running :command:`conan build`
+  (relative to the local current folder).
+
+- **self.folders.build** (Defaulted to ""): Specifies a subfolder where the files from the build are. The ``self.build_folder`` attribute and
+  the *current working directory* inside the ``build(self)`` method will be set with this subfolder. It is used in the cache when running
+  :command:`conan create` (relative to the cache source folder) as well as in a local folder when running :command:`conan build`
+  (relative to the local current folder).
+
+- **self.folders.generators** (Defaulted to ""): Specifies a subfolder where to write the files from the generators and the toolchains.
+  In the cache, when running the :command:`conan create`, this subfolder will be relative to the root build folder and when running
+  the :command:`conan install` command it will be relative to the current working directory.
+
+- **self.folders.imports** (Defaulted to ""): Specifies a subfolder where to write the files copied when using the ``imports(self)``
+  method in a ``conanfile.py``. In the cache, when running the :command:`conan create`, this subfolder will be relative to the root
+  build folder and when running the :command:`conan imports` command it will be relative to the current working directory.
+
+
+self.cpp
+++++++++
+
+The ``layout()`` method allows to declare ``cpp_info`` objects not only for the final package (like the classic approach with
+the ``self.cpp_info`` in the ``package_info(self)`` method) but for the ``self.source_folder`` and ``self.build_folder``.
+
+The fields of the cpp_info objects at ``self.info.build`` and ``self.info.source`` are the same described :ref:`here<cpp_info_attributes_reference>`.
+Components are also supported.
+
+
+test()
+------
+
+The ``test()`` method is only used for *test_package/conanfile.py* recipes. It will execute immediately after ``build()`` has been called, and its goal is to
+run some executable or tests on binaries to prove the package is correctly created. Note that it is intended to be used as a
+test of the package: the headers are there, the libraries are there, it is possible to link, etc., but not to run unit, integration or functional tests.
+
+It usually takes the form:
+
+.. code:: python
+
+    def test(self):
+        if not tools.cross_building(self):
+            self.run(os.path.sep.join([".", "bin", "example"]))
+
+
+Note the ``tools.cross_building()`` check, as it is not possible to run executables different to the build machine architecture. In this case, it would
+make sense to check the existence of the binary, or inspect it with tools like ``dumpbin``, ``lipo``, etc to do basic checks about it.
+
+The ``self.run()`` might need some environment help, in case the execution needs for example shared libraries location.
