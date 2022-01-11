@@ -321,7 +321,7 @@ conan.tools.microsoft.is_msvc()
 
 Validate ``self.settings.compiler`` for which compiler is being used.
 It returns ``True`` when the host compiler is ``Visual Studio`` or ``msvc``, otherwise, returns ``False``.
-When the ``compiler`` is empty, it raises a ``ConanException``.
+When the ``compiler`` is empty, it returns ``False``.
 
 Parameters:
 
