@@ -310,3 +310,27 @@ Parameters:
 
     * **scope** (Defaulted to ``"build"``): Add the launcher automatically to the ``conanbuild`` launcher. Read more
       in the :ref:`Environment documentation <conan_tools_env_environment_model>`.
+
+
+conan.tools.microsoft.is_msvc()
+-------------------------------
+
+.. code-block:: python
+
+    def is_msvc(conanfile):
+
+Validate ``self.settings.compiler`` for which compiler is being used.
+It returns ``True`` when the host compiler is ``Visual Studio`` or ``msvc``, otherwise, returns ``False``.
+
+Parameters:
+
+- **conanfile**: ConanFile instance.
+
+
+.. code-block:: python
+
+    from conan.tools.microsoft import is_msvc
+
+    def validate(self):
+        if not is_msvc(self):
+            raise ConanInvalidConfiguration("Only supported by Visual Studio and msvc.")
