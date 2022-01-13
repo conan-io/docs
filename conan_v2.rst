@@ -71,9 +71,16 @@ available for Conan 2.0.
 Host and build profiles and new cross-building model
 ----------------------------------------------------
 
-Use always build and host profiles. You can enable it by passing ``-pr:b=default`` in the
-command line to most commands. Do not use ``os_build``, ``arch_build`` anywhere in your
-recipes or code.
+Use always :ref:`build and host profiles <build_profiles_and_host_profiles>`.
+
+Conan 1.x uses one profile by default, to start using two profiles, please do the following:
+
+- Pass ``-pr:b=default`` in the command line to most commands.
+- Or set the variable ``core:default_build_profile=default`` at the :ref:`global.conf<global_conf>` file to apply it
+  always, automatically.
+
+Do not use ``os_build``, ``arch_build`` anywhere in your recipes or code.
+
 
 Conan uses revisions by default in Conan 2.0
 --------------------------------------------
