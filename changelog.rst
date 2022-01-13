@@ -21,6 +21,13 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.44 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
     a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.44.1 (13-Jan-2022)
+--------------------
+
+- Bugfix: The `CMakeDeps` generator now uses the property `cmake_build_modules` declared in components of the required packages not only in the root cpp_info. `#10326 <https://github.com/conan-io/conan/pull/10326>`_
+- Bugfix: Adding missing hidden-imports to pyinstaller. Close https://github.com/conan-io/conan/issues/10318 `#10320 <https://github.com/conan-io/conan/pull/10320>`_
+- Bugfix: Make `pkg_config` generator listen to root `cpp_info` properties. `#10312 <https://github.com/conan-io/conan/pull/10312>`_
+
 1.44.0 (29-Dec-2021)
 --------------------
 
