@@ -173,7 +173,7 @@ The new ``msvc`` compiler is a new, **experimental** one, that is intended to de
 - At the moment it implements a ``compatible_packages`` fallback to Visual Studio compiled packages, that is, previous existing binaries
   compiled with ``settings.compiler="Visual Studio"`` can be used for the ``msvc`` compiler if no binaries exist for it yet.
   This behavior can be opted-out with ``core.package_id:msvc_visual_incompatible`` :ref:`global_conf` configuration.
-- It is not detected by the profile auto-detect, it needs to explicitly be defined in profiles.
+- Starting in conan 1.40.0 **and** if using Visual Studio 2022, ``msvc`` is detected by the profile auto-detect. Before 1.40.0 or using an older Visual Studio, it needs to be explicitly defined in profiles.
 
 When using the ``msvc`` compiler, the Visual Studio toolset version (the actual ``vcvars`` activation and ``MSBuild`` location) will be
 defined by the default provide of that compiler version:
