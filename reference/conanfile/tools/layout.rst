@@ -21,7 +21,7 @@ For example, this would implement the standard CMake project layout:
 
 .. code:: python
 
-    from conan.tools.layout import cmake_layout
+    from conan.tools.cmake import cmake_layout
 
     def layout(self):
         cmake_layout(self)
