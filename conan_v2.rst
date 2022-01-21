@@ -123,6 +123,19 @@ Conan won't alter any symlink while exporting or packaging files.
 If any manipulation to the symlinks is required, the package :ref:`conan.tools.files.symlinks<conan_tools_files_symlinks>`
 contains some tools to help with that.
 
+Default cpp_info.builddirs
+--------------------------
+
+The default root package folder (``self.cpp_info.builddirs = ['']``) has been removed. Also assign it
+will be discouraged because it affects how :ref:`CMakeToolchain<conan-cmake-toolchain>` and
+:ref:`CMakeDeps<CMakeDeps>` locate executables, libraries, headers... from the right context (host vs build).
+
+To be prepared for Conan 2.0:
+
+- If you are not assigning any ``self.cpp_info.builddirs`` assign an empty list: ``self.cpp_info.builddirs = []``.
+- Instead of appending new values to the default list, assign it: ``self.cpp_info.builddirs = ["cmake"]``
+
+
 .. _conanv2_properties_model:
 
 New properties model for the cpp_info in Conan 2.0 generators
