@@ -132,6 +132,8 @@ will be discouraged because it affects how :ref:`CMakeToolchain<conan-cmake-tool
 
 To be prepared for Conan 2.0:
 
+- If you have *cmake modules* or *cmake config files* at the root of the package, it is strongly recommended to move them
+  to a subfolder ``cmake`` and assing it: ``self.cpp_info.builddirs = ["cmake"]``
 - If you are not assigning any ``self.cpp_info.builddirs`` assign an empty list: ``self.cpp_info.builddirs = []``.
 - Instead of appending new values to the default list, assign it: ``self.cpp_info.builddirs = ["cmake"]``
 
