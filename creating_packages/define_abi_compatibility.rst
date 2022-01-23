@@ -630,6 +630,9 @@ All the modes can be applied to all dependencies, or to individual ones:
   marked as such. These dependency graphs cannot be built in a single invocation, because they are intended
   for CI systems, in which a package creation/built is called for each package in the graph.
 
+.. note::
+  
+  Version ranges are not used calculate the `package_id` only the resolved version in the graph is used
 
 You can also adjust the individual properties manually:
 
