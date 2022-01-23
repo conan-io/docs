@@ -66,3 +66,7 @@ The order of search for matching versions is as follows:
 - If the :command:`--update` parameter is used, then the existing packages in the local conan cache will not be used, and the same search of the
   previous steps is carried out in the remotes. If new matching versions are found, they will be retrieved, so subsequent calls to
   :command:`install` will find them locally and use them.
+
+.. note::
+
+   Version ranges are not used in generating `package_id`s those are always determined by the resolved graph.
