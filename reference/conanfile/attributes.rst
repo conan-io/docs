@@ -1683,7 +1683,7 @@ test_type
 Available since: `1.44.0 <https://github.com/conan-io/conan/releases/tag/1.44.0>`_
 
 This attribute allows testing requirements and build requiments explicitly on test package.
-It will become the standard behavior for 2.0.
+In Conan 2.0 the `test_type` attribute will be ignored, the behavior will be always explicit, so declaring `test_type="explicit"` will make the test recipe compatible with Conan 2.0.
 The possible values are:
 
  - ``requires`` (by default): It will consume all requirements automatically as usual.
