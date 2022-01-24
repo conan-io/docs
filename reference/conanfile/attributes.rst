@@ -1678,7 +1678,7 @@ test_type
 
 .. warning::
 
-    Components is a **experimental** feature subject to breaking changes in future releases.
+    Test type is an **experimental** feature subject to breaking changes in future releases.
 
 Available since: `1.44.0 <https://github.com/conan-io/conan/releases/tag/1.44.0>`_
 
