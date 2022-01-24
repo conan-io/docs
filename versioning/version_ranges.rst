@@ -69,4 +69,4 @@ The order of search for matching versions is as follows:
 
 .. note::
 
-   Version ranges are not used in generating `package_id`s those are always determined by the resolved graph.
+   Version ranges are not used in generating ``package_id``s those are always determined by the resolved graph.
