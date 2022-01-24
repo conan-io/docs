@@ -34,6 +34,8 @@ Update the syntax of your Conanfile
 - Use ``self.tool_requires()`` to define the legacy build_requires.
 - Move all your packages to lowercase. Uppercase package names (or versions/user/channel) will not be possible in 2.0.
 
+.. _explicit_test_package_requirement:
+
 Explicit test package requirement
 ---------------------------------
 

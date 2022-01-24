@@ -1046,7 +1046,7 @@ of the component. The dependency graph for components will be calculated and val
     feature subject to breaking changes in future releases.
 
 Using ``.names``, ``.filenames`` and ``.build_modules`` will not work any more for new
-generators, like :ref:`CMakeDeps<CMakeDeps>` and :ref:`PkgConfigDeps<PkgConfigDeps>`. 
+generators, like :ref:`CMakeDeps<CMakeDeps>` and :ref:`PkgConfigDeps<PkgConfigDeps>`.
 They have a new way of setting this information using ``set_property`` and
 ``get_property`` methods of the ``cpp_info`` object (available since Conan 1.36).
 
@@ -1670,3 +1670,24 @@ When ``True`` it enables the new run in a subsystem bash in Windows mechanism. :
     class FooRecipe(ConanFile):
         ...
         win_bash = True
+
+.. _test_type:
+
+test_type
+---------
+
+.. warning::
+
+    Components is a **experimental** feature subject to breaking changes in future releases.
+
+Available since: `1.44.0 <https://github.com/conan-io/conan/releases/tag/1.44.0>`_
+
+This attribute allows testing requirements and build requiments explicitly on test package.
+It will become the standard behavior for 2.0.
+The possible values are:
+
+ - ``requires`` (by default): It will consume all requirements automatically as usual.
+ - ``build_requires``: It will consume all build requirements automatically. It can be combined with ``requires``.
+ - ``explicit``: The test package will not solve its dependencies, need to declare explicitly with ``self.tested_reference_str``. This will be the default behavior for Conan 2.0
+
+For more information see :ref:`explicit test package requirement <explicit_test_package_requirement>` and :ref:`testing tool requirements <testing_build_requires>`.
