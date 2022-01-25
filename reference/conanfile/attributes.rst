@@ -1688,7 +1688,7 @@ The possible values are:
 
  - ``requires`` (by default): It will consume the tested requirement automatically as usual.
  - ``build_requires``: It will consume the test build requirement automatically. It can be combined with ``requires``.
- - ``explicit``: The test package will not solve its dependencies, need to declare explicitly with ``self.tested_reference_str``. This will be the default behavior for Conan 2.0. The ``explicit`` can not be combined with ``requires`` neither ``build_requires``, it doesn't generate an error, but only ``explicit`` will be computed.
+ - ``explicit``: The test package will not solve its dependencies automatically, you need to declare it explicitly using the reference at ``self.tested_reference_str``. This will be the only behavior for Conan 2.0. The additional values ``requires`` and ``build_requires`` (if specified) will be ignored.
 
 To solve build requirements and requirements automatically as regularly on Conan 1.0
 
