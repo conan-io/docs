@@ -1721,6 +1721,8 @@ To explicitly declare the required dependencies as required on Conan 2.0:
 
         def requirements(self):
             self.requires(self.tested_reference_str)
+            # and, or
+            self.build_requires(self.tested_reference_str)
 
         def build(self):
             cmake = CMake(self)
