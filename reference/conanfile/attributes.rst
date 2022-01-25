@@ -1687,7 +1687,7 @@ In Conan 2.0 the ``test_type`` attribute will be ignored, the behavior will be a
 The possible values are:
 
  - ``requires`` (by default): It will consume the tested requirement automatically as usual.
- - ``build_requires``: It will consume the test build requirement automatically. It can be combined with ``requires``.
+ - ``build_requires``: The package being tested will be consumed as a build requirement automatically. It can be combined with ``requires`` to be required in both ways.
  - ``explicit``: The test package will not solve its dependencies automatically, you need to declare it explicitly using the reference at ``self.tested_reference_str``. This will be the only behavior for Conan 2.0. The additional values ``requires`` and ``build_requires`` (if specified) will be ignored.
 
 To solve build requirements and requirements automatically as regularly on Conan 1.0
