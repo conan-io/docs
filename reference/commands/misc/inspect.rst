@@ -96,3 +96,5 @@ If no specific attributes are defined via ``-a``, then, some default attributes 
         fPIC: True
         minizip: False
         shared: False
+    deprecated: None
+    required_conan_version: None
