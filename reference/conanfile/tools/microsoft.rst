@@ -346,7 +346,7 @@ conan.tools.microsoft.msvc_runtime_flag()
     def msvc_runtime_flag(conanfile):
 
 If the current compiler is ``Visual Studio``, ``msvc`` or ``intel-cc``, then detects the runtime type and returns between
-``MD``, ``MT``, ``MDd`` or ``MTd``, otherwise, returns ``None``.
+``MD``, ``MT``, ``MDd`` or ``MTd``, otherwise, returns ``""`` (empty string).
 When the runtime type is ``static``, it returns ``MT``, otherwise, ``MD``. The suffix ``d`` is added when running on Debug mode.
 
 Parameters:
