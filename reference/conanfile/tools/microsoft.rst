@@ -335,3 +335,28 @@ Parameters:
     def validate(self):
         if not is_msvc(self):
             raise ConanInvalidConfiguration("Only supported by Visual Studio and msvc.")
+
+
+conan.tools.microsoft.is_msvc_static_runtime()
+----------------------------------------------
+
+.. code-block:: python
+
+    def is_msvc_static_runtime(conanfile):
+
+Validate ``self.settings.compiler.runtime`` for which compiler is being used.
+It returns ``True`` when the host compiler is ``Visual Studio`` or ``msvc``, and its runtime is ``MT``, ``MTd`` or ``static``.
+When the ``compiler`` is empty, it returns ``False``.
+
+Parameters:
+
+- **conanfile**: ConanFile instance.
+
+
+.. code-block:: python
+
+    from conan.tools.microsoft import is_msvc_static_runtime
+
+    def validate(self):
+        if is_msvc_static_runtime and self.options.shared(self):
+            raise ConanInvalidConfiguration("This project does not support shared and static runtime together.")
