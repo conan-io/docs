@@ -1,4 +1,4 @@
-.. _packaging:
+.. _tutorial_packaging:
 
 Creating Packages
 =================
