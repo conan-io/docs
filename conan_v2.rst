@@ -13,7 +13,7 @@ be installed from PyPI doing:
 
 .. code-block:: bash
 
-    $ pip install conan==2.0.0-alpha1
+    $ pip install conan==2.0.0-alpha3
 
 The documentation for 2.0 is still far from being complete, but we are working on it and
 you can access it `with the right version label
