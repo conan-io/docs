@@ -67,9 +67,12 @@ Context
 All the files should be valid Jinja2 templates. They will be feed with the following context:
 
 - ``name`` and ``version``: defined from the command line.
-- ``package_name``: a *CamelCase* variant of the name.
+- ``package_name``: a *UpperCamelCase* variant of the name.
   Any valid Conan package name like ``package_name``, ``package+name``, ``package.name`` or
   ``package-name`` will be converted into a suitable name for a Python class, ``PackageName``.
+- ``object_name``: a *lowerCamelCase* variant of the name.
+  Any valid Conan package name like ``object_name``, ``object+name``, ``object.name`` or
+  ``object-name`` will be converted into a suitable name for a C/C++ object, ``objectName``.
 - ``conan_version``: an object that renders as the current Conan version, e.g. ``1.24.0``.
 
 Example
