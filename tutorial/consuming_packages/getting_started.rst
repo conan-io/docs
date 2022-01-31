@@ -22,7 +22,7 @@ section<consuming_packages_getting_started_read_more>`.
 
     .. code-block:: bash
 
-        $ git clone https://github.com/conan-io/examples2.0.git && cd tutorial/consumer/getting_started/string_compressor
+        $ git clone https://github.com/conan-io/examples2.0.git && cd tutorial/consumer/getting_started
 
 
 Building a CMake project consuming Zlib with Conan
