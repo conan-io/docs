@@ -147,26 +147,12 @@ The booleans assigned to a variable will be translated to ``ON`` and ``OFF`` sym
 Will generate the sentences: ``set(FOO ON ...)`` and ``set(VAR OFF ...)``.
 
 
-find_builddirs
-++++++++++++++
-
-Defaulted to ``True``. If ``True`` Conan adds the ``cpp_info.builddirs`` from the requirements to the
-``CMAKE_PREFIX_PATH`` and ``CMAKE_MODULE_PATH`` variables. That would allow finding the config files or modules
-packaged in the dependencies and also including them from the consumer CMakeLists.txt.
-
-.. code:: python
-
-    def generate(self):
-        tc = CMakeToolchain(self)
-        tc.find_builddirs = False
-        tc.generate()
-
 
 Generators
 ++++++++++
 
-The ``CMakeToolchain`` is intended to run with the ``CMakeDeps`` dependencies generator. It might temporarily
-work with others like ``cmake_find_package`` and ``cmake_find_package_multi``, but this will be removed soon.
+The ``CMakeToolchain`` is intended to run with the ``CMakeDeps`` dependencies generator. Please do not use other
+CMake legacy generators (like ``cmake``, or ``cmake_paths``) with it.
 
 
 Using a custom toolchain file
