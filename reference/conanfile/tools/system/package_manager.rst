@@ -51,12 +51,16 @@ system package manager. They take the same form for all of the package managers 
 *Apt* that also accepts the *recommends* argument for the :ref:`install
 method<conan_tools_system_package_manager_apt_methods>`.
 
-* ``install(self, packages, update=False, check=False, recommends=False):`` try to install the list of packages passed as a parameter.
-  If the parameter ``check`` is ``True`` it will check if those packages are already installed before installing them.
-  If the parameter ``update`` is ``True`` it will try to update the package manager database before checking and installing.
-  Its behaviour is affected by the value of ``tools.system.package_manager:mode`` :ref:`configuration<conan_tools_system_package_manager_config>`.
-* ``update()`` update the system package manager database. Its behaviour is
-  affected by the value of ``tools.system.package_manager:mode`` :ref:`configuration<conan_tools_system_package_manager_config>`.
+* ``install(self, packages, update=False, check=False, recommends=False):`` try to install
+  the list of packages passed as a parameter. If the parameter ``check`` is ``True`` it
+  will check if those packages are already installed before installing them. If the
+  parameter ``update`` is ``True`` it will try to update the package manager database
+  before checking and installing. Its behaviour is affected by the value of
+  ``tools.system.package_manager:mode``
+  :ref:`configuration<conan_tools_system_package_manager_config>`.
+* ``update()`` update the system package manager database. Its behaviour is affected by
+  the value of ``tools.system.package_manager:mode``
+  :ref:`configuration<conan_tools_system_package_manager_config>`.
 * ``check(packages)`` check if the list of packages passed as parameter are already
   installed.
 
@@ -65,7 +69,8 @@ method<conan_tools_system_package_manager_apt_methods>`.
 Configuration properties that affect how system package managers are invoked
 ----------------------------------------------------------------------------
 
-As explained above there are several :ref:`configuration properties<global_conf>` that affect how these tools are invoked:
+As explained above there are several :ref:`configuration properties<global_conf>` that
+affect how these tools are invoked:
 
 * ``tools.system.package_manager:tool``: to choose which package manager tool you want to
   use by default: ``"apt-get"``, ``"yum"``, ``"dnf"``, ``"brew"``, ``"pacman"``,
@@ -74,13 +79,16 @@ As explained above there are several :ref:`configuration properties<global_conf>
 * ``tools.system.package_manager:mode``: mode to use when invoking the package manager
   tool. There are two possible values:
 
-  * ``"check"``: will not try to update the package manager database or install any packages in any case. This is the default value.
+  * ``"check"``: will not try to update the package manager database or install any
+    packages in any case. This is the default value.
 
   * ``"install"``: it will allow conan to perform update or install operations.
 
-* ``tools.system.package_manager:sudo``: Use *sudo* when invoking the package manager tools in Linux (``False`` by default)
+* ``tools.system.package_manager:sudo``: Use *sudo* when invoking the package manager
+  tools in Linux (``False`` by default)
 
-* ``tools.system.package_manager:sudo_askpass``: Use the ``-A`` argument if using sudo in Linux to invoke the system package manager (``False`` by default)
+* ``tools.system.package_manager:sudo_askpass``: Use the ``-A`` argument if using sudo in
+  Linux to invoke the system package manager (``False`` by default)
 
 
 There are some specific arguments for each of these tools. Here is the complete reference:
@@ -88,7 +96,8 @@ There are some specific arguments for each of these tools. Here is the complete 
 conan.tools.system.package_manager.Apt
 --------------------------------------
 
-Will invoke the *apt-get* command. Enabled by default when for **Linux** with distribution names: *ubuntu* and *debian*.
+Will invoke the *apt-get* command. Enabled by default when for **Linux** with distribution
+names: *ubuntu* and *debian*.
 
 Constructor
 +++++++++++
@@ -132,13 +141,18 @@ The default mapping Conan uses for *APT* packages architecture is:
 Methods
 +++++++
 
-* ``install(self, packages, update=False, check=False, recommends=False):``: will try to installed the list of packages passed as a parameter.
-  If the parameter ``check`` is ``True`` it will check if those packages are already installed before installing them.
-  If the parameter ``update`` is ``True`` it will try to update the package manager database before checking and installing.
-  If the parameter ``recommends`` is ``False`` it will add the ``'--no-install-recommends'`` argument to the *apt-get* command call.
-  Its behaviour is affected by the value of ``tools.system.package_manager:mode`` :ref:`configuration<conan_tools_system_package_manager_config>`.
-* ``update()`` same behaviour as the one explained in the :ref:`section<conan_tools_system_package_manager_methods>` above.
-* ``check(packages)`` same behaviour as the one explained in the :ref:`section<conan_tools_system_package_manager_methods>` above.
+* ``install(self, packages, update=False, check=False, recommends=False):``: will try to
+  installed the list of packages passed as a parameter. If the parameter ``check`` is
+  ``True`` it will check if those packages are already installed before installing them.
+  If the parameter ``update`` is ``True`` it will try to update the package manager
+  database before checking and installing. If the parameter ``recommends`` is ``False`` it
+  will add the ``'--no-install-recommends'`` argument to the *apt-get* command call. Its
+  behaviour is affected by the value of ``tools.system.package_manager:mode``
+  :ref:`configuration<conan_tools_system_package_manager_config>`.
+* ``update()`` same behaviour as the one explained in the
+  :ref:`section<conan_tools_system_package_manager_methods>` above.
+* ``check(packages)`` same behaviour as the one explained in the
+  :ref:`section<conan_tools_system_package_manager_methods>` above.
 
 
 .. _conan_tools_system_package_manager_yum:
@@ -180,14 +194,15 @@ The default mapping Conan uses for *Yum* packages architecture is:
 conan.tools.system.package_manager.Dnf
 --------------------------------------
 
-Will invoke the *dnf* command. Enabled by default for **Linux** with distribution names: *fedora*, *rhel*, *centos* and *mageia*.
-
-This tool has exactly the same behaviour, constructor and methods than the :ref:`Yum<conan_tools_system_package_manager_yum>` tool.
+Will invoke the *dnf* command. Enabled by default for **Linux** with distribution names:
+*fedora*, *rhel*, *centos* and *mageia*. This tool has exactly the same default values,
+constructor and methods than the :ref:`Yum<conan_tools_system_package_manager_yum>` tool.
 
 conan.tools.system.package_manager.PacMan
 -----------------------------------------
 
-Will invoke the *pacman* command. Enabled by default for **Linux** with distribution names: *arch*, *manjaro* and when using **Windows** with *msys2*
+Will invoke the *pacman* command. Enabled by default for **Linux** with distribution
+names: *arch*, *manjaro* and when using **Windows** with *msys2*
 
 Constructor
 +++++++++++
@@ -203,7 +218,7 @@ Constructor
   ``x86`` Conan architecture setting, it will map this value to ``lib32`` for *PacMan* and
   try to install the ``<package_name>-lib32`` package. 
 
-The default mapping Conan uses for *Yum* packages architecture is:
+The default mapping Conan uses for *PacMan* packages architecture is:
 
 ..  code-block:: python
 
@@ -212,24 +227,70 @@ The default mapping Conan uses for *Yum* packages architecture is:
 conan.tools.system.package_manager.Zypper
 -----------------------------------------
 
-Will invoke the *zypper* command. Enabled by default for **Linux** with distribution names: *opensuse*, *sles*.
+Will invoke the *zypper* command. Enabled by default for **Linux** with distribution
+names: *opensuse*, *sles*.
+
+Constructor
++++++++++++
+
+.. code:: python
+
+    def __init__(self, conanfile, arch_names=None):
+
+* ``conanfile``: the current recipe object. Always use ``self``.
 
 conan.tools.system.package_manager.Brew
 ---------------------------------------
 
 Will invoke the *brew* command. Enabled by default for **macOS**.
 
+Constructor
++++++++++++
+
+.. code:: python
+
+    def __init__(self, conanfile, arch_names=None):
+
+* ``conanfile``: the current recipe object. Always use ``self``.
+
 conan.tools.system.package_manager.Pkg
 --------------------------------------
 
 Will invoke the *pkg* command. Enabled by default for **Linux** with distribution names: *freebsd*.
+
+Constructor
++++++++++++
+
+.. code:: python
+
+    def __init__(self, conanfile, arch_names=None):
+
+* ``conanfile``: the current recipe object. Always use ``self``.
 
 conan.tools.system.package_manager.PkgUtil
 ------------------------------------------
 
 Will invoke the *pkgutil* command. Enabled by default for **Solaris**.
 
+Constructor
++++++++++++
+
+.. code:: python
+
+    def __init__(self, conanfile, arch_names=None):
+
+* ``conanfile``: the current recipe object. Always use ``self``.
+
 conan.tools.system.package_manager.Chocolatey
 ---------------------------------------------
 
 Will invoke the *choco* command. Enabled by default for **Windows**.
+
+Constructor
++++++++++++
+
+.. code:: python
+
+    def __init__(self, conanfile, arch_names=None):
+
+* ``conanfile``: the current recipe object. Always use ``self``.
