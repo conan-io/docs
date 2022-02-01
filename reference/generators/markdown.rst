@@ -12,7 +12,7 @@ consume them using different build systems.
 
     $ conan install poco/1.11.1@ --generator markdown
     ...
-    Generator markdown created libxml2.md
+    Generator markdown created poco.md
 
 
 Although markdown files can be read in plain text, we highly recommend you to use any plugin
