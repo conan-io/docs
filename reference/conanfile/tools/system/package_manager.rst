@@ -113,8 +113,8 @@ Constructor
 
     def __init__(self, conanfile, arch_names=None):
 
-* ``conanfile``: the current recipe object. Always use ``self``.
-* ``arch_names``: this argument maps the Conan architecture setting with the package manager
+* **conanfile**: the current recipe object. Always use ``self``.
+* **arch_names**: this argument maps the Conan architecture setting with the package manager
   tool architecture names. It is ``None`` by default, which means that it will use a
   default mapping for the most common architectures. For example, if you are using
   ``x86_64`` Conan architecture setting, it will map this value to ``amd64`` for *Apt* and
@@ -149,7 +149,7 @@ Methods
 +++++++
 
 * ``install(self, packages, update=False, check=False, recommends=False):``: will try to
-  installed the list of packages passed as a parameter. If the parameter ``check`` is
+  install the list of packages passed as a parameter. If the parameter ``check`` is
   ``True`` it will check if those packages are already installed before installing them.
   If the parameter ``update`` is ``True`` it will try to update the package manager
   database before checking and installing. If the parameter ``recommends`` is ``False`` it
@@ -177,8 +177,8 @@ Constructor
 
     def __init__(self, conanfile, arch_names=None):
 
-* ``conanfile``: the current recipe object. Always use ``self``.
-* ``arch_names``: this argument maps the Conan architecture setting with the package manager
+* **conanfile**: the current recipe object. Always use ``self``.
+* **arch_names**: this argument maps the Conan architecture setting with the package manager
   tool architecture names. It is ``None`` by default, which means that it will use a
   default mapping for the most common architectures. For example, if you are using
   ``x86`` Conan architecture setting, it will map this value to ``i?86`` for *Yum* and
@@ -218,8 +218,8 @@ Constructor
 
     def __init__(self, conanfile, arch_names=None):
 
-* ``conanfile``: the current recipe object. Always use ``self``.
-* ``arch_names``: this argument maps the Conan architecture setting with the package manager
+* **conanfile**: the current recipe object. Always use ``self``.
+* **arch_names**: this argument maps the Conan architecture setting with the package manager
   tool architecture names. It is ``None`` by default, which means that it will use a
   default mapping for the most common architectures. If you are using
   ``x86`` Conan architecture setting, it will map this value to ``lib32`` for *PacMan* and
@@ -244,7 +244,7 @@ Constructor
 
     def __init__(self, conanfile, arch_names=None):
 
-* ``conanfile``: the current recipe object. Always use ``self``.
+* **conanfile**: the current recipe object. Always use ``self``.
 
 conan.tools.system.package_manager.Brew
 ---------------------------------------
@@ -258,7 +258,7 @@ Constructor
 
     def __init__(self, conanfile, arch_names=None):
 
-* ``conanfile``: the current recipe object. Always use ``self``.
+* **conanfile**: the current recipe object. Always use ``self``.
 
 conan.tools.system.package_manager.Pkg
 --------------------------------------
@@ -272,7 +272,7 @@ Constructor
 
     def __init__(self, conanfile, arch_names=None):
 
-* ``conanfile``: the current recipe object. Always use ``self``.
+* **conanfile**: the current recipe object. Always use ``self``.
 
 conan.tools.system.package_manager.PkgUtil
 ------------------------------------------
@@ -286,7 +286,7 @@ Constructor
 
     def __init__(self, conanfile, arch_names=None):
 
-* ``conanfile``: the current recipe object. Always use ``self``.
+* **conanfile**: the current recipe object. Always use ``self``.
 
 conan.tools.system.package_manager.Chocolatey
 ---------------------------------------------
@@ -300,4 +300,4 @@ Constructor
 
     def __init__(self, conanfile, arch_names=None):
 
-* ``conanfile``: the current recipe object. Always use ``self``.
+* **conanfile**: the current recipe object. Always use ``self``
