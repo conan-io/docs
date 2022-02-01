@@ -62,6 +62,15 @@ etc. This includes but is not limited to the following:
 but with additional information to describe host, target, and build machines (such
 as the processor architecture).
 
+**NOTE**: unlike CMake, meson cannot automatically deduce the compiler executable in case of cross-building, so it has to be
+explicitly specified within conan profile, for instance, the following might be required in case of Visual Studio:
+
+.. code-block:: text
+
+	[env]
+	CC=cl
+	CXX=cl
+
 Check out the meson documentation for more details on native and cross files:
 
 * `Machine files <https://mesonbuild.com/Machine-files.html>`_
