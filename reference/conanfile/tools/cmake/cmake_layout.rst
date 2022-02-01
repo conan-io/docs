@@ -30,28 +30,33 @@ attributes described in the (:ref:`layout reference <conan_tools_layout>`):
         gen = conanfile.conf["tools.cmake.cmaketoolchain:generator"] or generator
         if gen:
             multi = "Visual" in gen or "Xcode" in gen or "Multi-Config" in gen
-        elif conanfile.settings.compiler == "Visual Studio" or conanfile.settings.compiler == "msvc":
-            multi = True
         else:
-            multi = False
+            compiler = conanfile.settings.get_safe("compiler")
+            if compiler in ("Visual Studio", "msvc"):
+                multi = True
+            else:
+                multi = False
 
         conanfile.folders.source = "."
+        try:
+            build_type = str(conanfile.settings.build_type)
+        except ConanException:
+            raise ConanException("'build_type' setting not defined, it is necessary for cmake_layout()")
         if multi:
             conanfile.folders.build = "build"
             conanfile.folders.generators = "build/conan"
         else:
-            build_type = str(conanfile.settings.build_type).lower()
+            build_type = build_type.lower()
             conanfile.folders.build = "cmake-build-{}".format(build_type)
             conanfile.folders.generators = os.path.join(conanfile.folders.build, "conan")
 
-        conanfile.cpp.local.includedirs = ["src"]
+        conanfile.cpp.source.includedirs = ["src"]
         if multi:
-            _dir = os.path.join(conanfile.folders.build, str(conanfile.settings.build_type))
-            conanfile.cpp.local.libdirs = [_dir]
-            conanfile.cpp.local.bindirs = [_dir]
+            conanfile.cpp.build.libdirs = ["{}".format(build_type)]
+            conanfile.cpp.build.bindirs = ["{}".format(build_type)]
         else:
-            conanfile.cpp.local.libdirs = [conanfile.folders.build]
-            conanfile.cpp.local.bindirs = [conanfile.folders.build]
+            conanfile.cpp.build.libdirs = ["."]
+            conanfile.cpp.build.bindirs = ["."]
 
 
 First, it is important to notice that the layout depends on the CMake generator that will be used.
