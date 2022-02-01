@@ -199,10 +199,6 @@ The only ``*.pc`` file created will be the one belonging to the component:
 
 - OpenCL.pc (from component)
 
-.. important::
-
-    Components ``*.pc`` file names have more priority than package one in case of collision.
-
 
 Now, let's see how ``pkg_config_aliases`` property works step by step.
 
