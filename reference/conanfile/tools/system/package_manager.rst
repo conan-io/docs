@@ -3,6 +3,11 @@
 conan.tools.system.package_manager
 ==================================
 
+.. warning::
+
+    These tools are **experimental** and subject to breaking changes.
+
+
 The tools under `conan.tools.system.package_manager` are wrappers around some of the most
 popular system package managers for different platforms. You can use them to invoke system
 package managers in recipes and perform the most typical operations, like installing a
@@ -51,7 +56,7 @@ system package manager. They take the same form for all of the package managers 
 *Apt* that also accepts the *recommends* argument for the :ref:`install
 method<conan_tools_system_package_manager_apt_methods>`.
 
-* ``install(self, packages, update=False, check=False, recommends=False):`` try to install
+* ``install(self, packages, update=False, check=False):`` try to install
   the list of packages passed as a parameter. If the parameter ``check`` is ``True`` it
   will check if those packages are already installed before installing them. If the
   parameter ``update`` is ``True`` it will try to update the package manager database
