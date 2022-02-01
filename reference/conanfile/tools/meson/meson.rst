@@ -29,7 +29,7 @@ constructor
 
 .. code:: python
 
-    def __init__(self, conanfile, build_folder='build'):
+    def __init__(self, conanfile):
 
 - ``conanfile``: the current recipe object. Always use ``self``.
 - ``build_folder``: Relative path to a folder to contain the temporary build files
