@@ -767,6 +767,12 @@ On Windows, there is no standard package manager, however **choco** can be invok
 SystemPackageTool
 +++++++++++++++++
 
+.. warning::
+
+    SystemPackageTool will dissapear in Conan 2.0, there's already a new implementation of
+    these wrappers in :ref:`conan_tools_system_package_manager` that will be the default
+    in Conan 2.0.
+
 .. code-block:: python
 
     def SystemPackageTool(runner=None, os_info=None, tool=None, recommends=False, output=None, conanfile=None, default_mode="enabled")

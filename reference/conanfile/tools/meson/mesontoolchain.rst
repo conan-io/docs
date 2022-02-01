@@ -142,3 +142,5 @@ conf
 - ``tools.meson.mesontoolchain:backend``. the meson `backend
   <https://mesonbuild.com/Configuring-a-build-directory.html>`_ to use. Possible values:
   ``ninja``, ``vs``, ``vs2010``, ``vs2015``, ``vs2017``, ``vs2019``, ``xcode``.
+- ``tools.apple:sdk_path`` argument for SDK path in case of Apple cross-compilation. It will be used as value
+  of the flag ``-isysroot``.

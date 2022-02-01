@@ -297,6 +297,12 @@ The following predefined blocks are available, and added in this order:
 - ``shared``: defines ``BUILD_SHARED_LIBS``
 
 
+.. note::
+    In Conan 1.45 the CMakeToolchain doesn't append the root package folder of the dependencies (declared in the cpp_info.builddirs)
+    to the ``CMAKE_PREFIX_PATH`` variable. That interfered with the ``find_file``, ``find_path`` and ``find_program``, making,
+    for example, impossible to locate only the executables from the build context. In Conan 2.0, the ``cppinfo.builddirs``
+    won't contain by default the ``''`` entry (root package).
+
 
 Blocks can be customized in different ways:
 
