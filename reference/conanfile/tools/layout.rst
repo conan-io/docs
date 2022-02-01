@@ -23,7 +23,7 @@ There are some pre-defined common layouts, ready to be simply used in recipes:
 
 
 The predefined layouts define a few things, for example in the ``cmake_layout()`` the source folder is  called ``"."``, meaning that Conan will
-expect the sources in the same directory were the conanfile is (most likely the project root, where a ``CMakeLists.txt`` file will be typically found).
+expect the sources in the same directory where the conanfile is (most likely the project root, where a ``CMakeLists.txt`` file will be typically found).
 This could be customized without fully changing the layout:
 
 .. code:: python
