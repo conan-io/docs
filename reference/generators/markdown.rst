@@ -5,8 +5,8 @@ markdown
 
 
 This generator creates a *.md* file for each requirement with useful information to consume
-the installed packages: libraries available, headers, compiler flags, snippet to consume them
-using different build systems,...
+the installed packages: libraries available, components, headers, and basic instructions to
+consume them using different build systems.
 
 .. code-block:: bash
 
@@ -24,4 +24,3 @@ markdown documents).
     :alt: Markdown generator output for ``libxml2/2.9.9`` package.
     :width: 800 px
     :align: center
-
