@@ -87,7 +87,7 @@ affect how these tools are invoked:
   * ``"check"``: will not try to update the package manager database or install any
     packages in any case. This is the default value.
 
-  * ``"install"``: it will allow conan to perform update or install operations.
+  * ``"install"``: it will allow Conan to perform update or install operations.
 
 * ``tools.system.package_manager:sudo``: Use *sudo* when invoking the package manager
   tools in Linux (``False`` by default)
