@@ -23,6 +23,8 @@ You can use these tools inside the :ref:`method_system_requirements` method of y
     from conan.tools.system.package_manager import Apt, Yum, PacMan, Zypper
 
     def system_requirements(self):
+        # depending on the platform or the tools.system.package_manager:tool configuration
+        # only one of these will be executed
         Apt(self).install(["libgl-dev"])
         Yum(self).install(["libglvnd-devel"])
         PacMan(self).install(["libglvnd"])
@@ -101,7 +103,7 @@ There are some specific arguments for each of these tools. Here is the complete 
 conan.tools.system.package_manager.Apt
 --------------------------------------
 
-Will invoke the *apt-get* command. Enabled by default when for **Linux** with distribution
+Will invoke the *apt-get* command. Enabled by default for **Linux** with distribution
 names: *ubuntu* and *debian*.
 
 Constructor
@@ -165,7 +167,7 @@ Methods
 conan.tools.system.package_manager.Yum
 --------------------------------------
 
-Will invoke the *yum* command. Enabled by default when for **Linux** with distribution names:
+Will invoke the *yum* command. Enabled by default for **Linux** with distribution names:
 *pidora*, *scientific*, *xenserver*, *amazon*, *oracle*, *amzn* and *almalinux*.
 
 Constructor
