@@ -358,5 +358,5 @@ Parameters:
     from conan.tools.microsoft import is_msvc_static_runtime
 
     def validate(self):
-        if is_msvc_static_runtime and self.options.shared(self):
+        if is_msvc_static_runtime(self) and self.options.shared(self):
             raise ConanInvalidConfiguration("This project does not support shared and static runtime together.")
