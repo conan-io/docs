@@ -21,6 +21,6 @@ markdown documents).
 
 
 .. image:: /images/conan-markdown_generator.png
-    :alt: Markdown generator output for ``libxml2/2.9.9`` package.
+    :alt: Markdown generator output for ``poco/1.11.1`` package.
     :width: 800 px
     :align: center
