@@ -155,7 +155,7 @@ Run :command:`conan install openssl/3.0.0@ -g PkgConfigDeps` and check the ``*.p
 - openssl.pc
 - zlib.pc *(openssl requires zlib)*
 
-Their ``pkg_config_name`` properties are used as the final PC file names:
+Their ``pkg_config_name`` properties are used as the final ``*.pc`` file names:
 
 .. code-block:: text
     :caption: openssl.pc
@@ -181,7 +181,7 @@ Their ``pkg_config_name`` properties are used as the final PC file names:
     Requires: zlib
 
 
-A special mention when a component shares the same final PC name as the root package one:
+A special mention when a component shares the same ``*.pc`` file name as the root package one:
 
 .. code:: python
 
@@ -195,13 +195,13 @@ A special mention when a component shares the same final PC name as the root pac
             self.cpp_info.set_property("pkg_config_name", "OpenCL")  # -> OpenCL.pc
             self.cpp_info.components["_opencl-headers"].set_property("pkg_config_name", "OpenCL")  # -> OpenCL.pc
 
-The only file created will be the PC one belonging to the component:
+The only ``*.pc`` file created will be the one belonging to the component:
 
 - OpenCL.pc (from component)
 
 .. important::
 
-    Components PC names have more priority than package one in case of collision.
+    Components ``*.pc`` file names have more priority than package one in case of collision.
 
 
 Now, let's see how ``pkg_config_aliases`` property works step by step.
