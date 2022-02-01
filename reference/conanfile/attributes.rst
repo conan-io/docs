@@ -643,19 +643,19 @@ Expressions are those defined and implemented by [python node-semver](https://py
 
     Go to :ref:`Mastering/Version Ranges<version_ranges>` if you want to learn more about version ranges.
 
-build_requires
+tool_requires
 --------------
 
-Build requirements are requirements that are only installed and used when the package is built from sources. If there is an existing pre-compiled binary, then the build requirements for this package will not be retrieved.
+Tool requirements are requirements that are only installed and used when the package is built from sources. If there is an existing pre-compiled binary, then the tool requirements for this package will not be retrieved.
 
 They can be specified as a comma separated tuple in the package recipe:
 
 .. code-block:: python
 
     class MyPkg(ConanFile):
-        build_requires = "tool_a/0.2@user/testing", "tool_b/0.2@user/testing"
+        tool_requires = "tool_a/0.2@user/testing", "tool_b/0.2@user/testing"
 
-Read more: :ref:`Build requirements <build_requires>`
+Read more: :ref:`Tool requirements <build_requires>`
 
 .. _exports_attribute:
 
@@ -1038,131 +1038,26 @@ has **the same default directories**.
 Dependencies among components and to components of other requirements can be defined using the ``requires`` attribute and the name
 of the component. The dependency graph for components will be calculated and values will be aggregated in the correct order for each field.
 
-**New properties model for the cpp_info**
-
-Using ``names``, ``filenames`` and ``build_modules`` is **deprecated** from Conan 1.42. The
-recommended way of setting this information is using ``set_property`` and ``get_property`` methods
-(available since Conan 1.36) of the ``cpp_info`` object.
-
-.. code-block:: python
-
-    def set_property(self, property_name, value, generator=None)
-    def get_property(self, property_name, generator=None):
-
-New properties ``cmake_target_name``, ``cmake_file_name``, ``cmake_module_target_name``,
-``cmake_module_file_name``, ``pkg_config_name`` and ``cmake_build_modules`` are defined to allow
-migrating ``names``, ``filenames`` and ``build_modules`` properties to this model. In Conan 2.0 this
-will be the default way of setting these properties and also passing custom properties to generators.
-These properties are supported by the new :ref:`CMakeDeps<CMakeDeps Properties>` and
-:ref:`PkgConfigDeps<PkgConfigDeps Properties>` generators.
-
-New properties defined for *CMake* generators family:
-
-- **cmake_file_name** property will affect all cmake generators that accept the ``filenames``
-  property (*cmake_find_package* and *cmake_find_package_multi*).
-- **cmake_target_name** property will affect all cmake generators that accept the ``names`` property
-  (*cmake*, *cmake_multi*, *cmake_find_package*, *cmake_find_package_multi* and *cmake_paths*).
-- **cmake_module_file_name** property supported by *cmake_find_package* generator. Sets the file name of the
-  module files created by this generator.
-- **cmake_module_target_name** supported by *cmake_find_package* generator. Sets the target name of the
-  module files created by this generator.
-- **cmake_build_modules** property replaces the ``build_modules`` property.
-
-Properties related to *pkg_config*:
-
-- **pkg_config_name** property sets the ``names`` property for *pkg_config* generator.
-- **pkg_config_custom_content** property supported by the *pkg_config* generator that will add user
-  defined content to the *.pc* files created by this generator
-
-All of these properties, but ``cmake_file_name`` and ``cmake_module_file_name`` can be defined at
-global ``cpp_info`` level or at component level.
-
-For most cases, it is recommended not to use the ``generator`` argument. The properties are generic
-for build systems, and different generators that integrate with a given build system could be reading
-such generic properties. 
-
-Migrating from `cpp_info.names` and `cpp_info.filenames` to `set_property()` is easy, for example
-with the old model you had to set the `names` and `filenames` for each generator if it was different from
-the package name. Now, it's only necessary to set the property and all the generators from the same
-family will read it. For example:
-
-.. code-block:: python
-
-    def package_info(self):
-        ...
-        self.cpp_info.filenames["cmake_find_package"] = "MyFileName"
-        self.cpp_info.filenames["cmake_find_package_multi"] = "MyFileName"
-        self.cpp_info.names["cmake_find_package"] = "MyTargetName"
-        self.cpp_info.names["cmake_find_package_multi"] = "MyTargetName"
-        ...
-
-Could be declared like this with `set_property()`:
-
-.. code-block:: python
-
-    def package_info(self):
-        ...
-        self.cpp_info.set_property("cmake_file_name", "MyFileName")
-        self.cpp_info.set_property("cmake_target_name", "MyTargetName")
-        ...
-
-As we said, these properties but ``cmake_file_name`` and ``cmake_module_file_name`` have components
-support, so for example:
-
-.. code-block:: python
-
-    def package_info(self):
-        ...
-        self.cpp_info.components["mycomponent"].names["cmake_find_package"] = "mycomponent-name"
-        self.cpp_info.components["mycomponent"].names["cmake_find_package_multi"] = "mycomponent-name"
-        self.cpp_info.components["mycomponent"].names["pkg_config"] = "mypkg-config-name"
-        self.cpp_info.components["mycomponent"].build_modules.append(os.path.join("lib", "mypkg_bm.cmake"))
-        ...
-
-Could be declared like this in the new one:
-
-.. code-block:: python
-
-    def package_info(self):
-        ...
-        self.cpp_info.components["mycomponent"].set_property("cmake_target_name", "mycomponent-name")
-        self.cpp_info.components["mycomponent"].set_property("cmake_build_modules", [os.path.join("lib", "mypkg_bm.cmake")])
-        self.cpp_info.components["mycomponent"].set_property("pkg_config_name", "mypkg-config-name")
-        self.cpp_info.components["mycomponent"].set_property("custom_name", "mycomponent-name", "custom_generator")
-        ...
-
-Also, for the other properties like `pkg_config_custom_content` you just have to set the property and
-the generators that support that (in this case `pkg_config` and `PkgConfigDeps`) will read it without
-having to set the generator name.
-
-.. code-block:: python
-
-    def package_info(self):
-        custom_content = "datadir=${prefix}/share"
-        self.cpp_info.set_property("pkg_config_custom_content", custom_content)
-
-This mechanism is also very useful if you are creating a :ref:`custom generator<custom_generator>`.
-Using `set_property()` you can pass the parameters of your choice and read them using the
-`get_property()` method inside the generator.
-
-.. code-block:: python
-
-    def package_info(self):
-        ...
-        # you have created a custom generator that reads the 'custom_property' property and you set here
-        # the value to 'prop_value'
-        self.cpp_info.components["mycomponent"].set_property("custom_property", "prop_value")
-        ...
+**New properties model for the cpp_info new tools**
 
 .. warning::
 
     Using ``set_property`` and ``get_property`` methods for ``cpp_info`` is an **experimental**
     feature subject to breaking changes in future releases.
 
+Using ``.names``, ``.filenames`` and ``.build_modules`` will not work any more for new
+generators, like :ref:`CMakeDeps<CMakeDeps>` and :ref:`PkgConfigDeps<PkgConfigDeps>`. 
+They have a new way of setting this information using ``set_property`` and
+``get_property`` methods of the ``cpp_info`` object (available since Conan 1.36).
 
-.. seealso::
+.. code-block:: python
 
-    Read :ref:`package_information_components` and :ref:`method_package_info` to learn more.
+    def set_property(self, property_name, value)
+    def get_property(self, property_name):
+
+To read more about the new ``set_property`` and ``get_property`` methods for ``cpp_info``
+please check the dedicated section in the :ref:`Conan 2.0 migration guide <conanv2_properties_model>`.
+
 
 .. _deps_cpp_info_attributes_reference:
 
@@ -1345,7 +1240,7 @@ know more about this feature.
 
     class RecipeConan(ConanFile):
         ...
-        build_requires = "tool/1.0"
+        tool_requires = "tool/1.0"
         ...
 
         def build(self):
@@ -1364,13 +1259,13 @@ object.
 apply_env
 ---------
 
-When ``True`` (Default), the values from ``self.deps_env_info`` (corresponding to the declared ``env_info`` in the ``requires`` and ``build_requires``)
+When ``True`` (Default), the values from ``self.deps_env_info`` (corresponding to the declared ``env_info`` in the ``requires`` and ``tool_requires``)
 will be automatically applied to the ``os.environ``.
 
 Disable it setting ``apply_env`` to False if you want to control by yourself the environment variables
 applied to your recipes.
 
-You can apply manually the environment variables from the requires and build_requires:
+You can apply manually the environment variables from the requires and tool_requires:
 
 .. code-block:: python
    :emphasize-lines: 2

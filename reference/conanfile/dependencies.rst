@@ -8,7 +8,7 @@ Introduced in Conan 1.38.
 .. warning::
 
     These tools are **very experimental** and subject to breaking changes.
-    It also contains some known bugs regarding ``build_requires``, to be addressed in next Conan 1.39
+    It also contains some known bugs regarding ``tool_requires``, to be addressed in next Conan 1.39
 
 
 
@@ -16,7 +16,7 @@ Introduced in Conan 1.38.
 
     This is an advanced feature. Most users will not need to use it, it is intended for
     developing new build system integrations and similar purposes.
-    For defining dependencies between packages, check the ``requires``, ``build_requires`` and
+    For defining dependencies between packages, check the ``requires``, ``tool_requires`` and
     other attributes
 
 
@@ -114,7 +114,7 @@ between the current recipe and the dependency. At the moment they can be:
 
 - ``require.direct``: boolean, ``True`` if it is direct dependency or ``False`` if it is a transitive one.
 - ``require.build``: boolean, ``True`` if it is a ``build_require`` in the build context, as ``cmake``.
-- ``require.test``: boolean, ``True`` if its a ``build_require`` in the host context (argument ``self.requires(..., force_host_context=True)``), as ``gtest``.
+- ``require.test``: boolean, ``True`` if its a ``build_require`` in the host context (defined with ``self.test_requires()``), as ``gtest``.
 
 The ``dependency`` dictionary value is the read-only object described above that access the dependency attributes.
 
@@ -122,7 +122,7 @@ The ``self.dependencies`` contains some helpers to filter based on some criteria
 
 - ``self.dependencies.host``: Will filter out requires with ``build=True``, leaving regular dependencies like ``zlib`` or ``poco``.
 - ``self.dependencies.direct_host``: Will filter out requires with ``build=True`` or ``direct=False``
-- ``self.dependencies.build``: Will filter out requires with ``build=False``, leaving only ``build_requires`` in the build context, as ``cmake``.
+- ``self.dependencies.build``: Will filter out requires with ``build=False``, leaving only ``tool_requires`` in the build context, as ``cmake``.
 - ``self.dependencies.direct_build``: Will filter out requires with ``build=False`` or ``direct=False``
 - ``self.dependencies.test``: Will filter out requires with ``build=True`` or with ``test=False``, leaving only test requirements as ``gtest`` in the host context.
 

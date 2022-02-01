@@ -11,3 +11,4 @@ conan.tools.gnu
    gnu/autotoolstoolchain
    gnu/autotools
    gnu/pkgconfigdeps
+   gnu/pkgconfig

@@ -27,7 +27,7 @@ Expressions are those defined and implemented by https://pypi.org/project/node-s
 
    [>1.1 <2.1]                # In such range
    [2.8]                      # equivalent to =2.8
-   [~=3.0]                    # compatible, according to semver
+   [~3.0]                     # compatible, according to semver
    [>1.1 || 0.8]              # conditions can be OR'ed
    [1.2.7 || >=1.2.9 <2.0.0]  # This range would match the versions 1.2.7, 1.2.9, and 1.4.6, but not the versions 1.2.8 or 2.0.0.
 
@@ -66,3 +66,7 @@ The order of search for matching versions is as follows:
 - If the :command:`--update` parameter is used, then the existing packages in the local conan cache will not be used, and the same search of the
   previous steps is carried out in the remotes. If new matching versions are found, they will be retrieved, so subsequent calls to
   :command:`install` will find them locally and use them.
+
+.. note::
+
+   Version ranges are not used in generating ``package_id`` those are always determined by the resolved graph.

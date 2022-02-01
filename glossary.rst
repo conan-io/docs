@@ -85,8 +85,8 @@ Glossary
       Packages on which another package depends on. They are represented by a conan reference:
       `lib/1.0@`
 
-   build requirement
-      Requirements that are only needed when you need to build a package (that declares the `build requirement`)
+   tool requirement
+      Requirements that are only needed when you need to build a package (that declares the `tool requirement`)
       from sources, but if the binary package already exists, the build-require is not retrieved.
 
    dependency graph
@@ -172,7 +172,7 @@ Glossary
 
    profile
       :ref:`A profile<conan_profile>` is the set of different settings, options, environment
-      variables and build requirements used when working with packages. The settings define the
+      variables and tool requirements used when working with packages. The settings define the
       operating system, architecture, compiler, build type, and C++ standard. Options define, among
       other things, if dependencies are linked in shared or static mode or other compile options.
 

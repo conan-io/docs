@@ -125,10 +125,10 @@ Included dependencies
 dependencies will be translated to properties files:
 
 - All direct dependencies, that is, the ones declared by the current ``conanfile``, that lives in the
-  host context: all regular ``requires``, plus the ``build_requires`` that are in the host context,
+  host context: all regular ``requires``, plus the ``tool_requires`` that are in the host context,
   for example test frameworks as ``gtest`` or ``catch``.
 - All transitive ``requires`` of those direct dependencies (all in the host context)
-- Build requires, in the build context, that is, application and executables that run in the build
+- Tool requires, in the build context, that is, application and executables that run in the build
   machine irrespective of the destination platform, are added exclusively to the ``<ExecutablePath>``
   property, taking the value from ``$(Conan{{name}}BinaryDirectories)`` defined properties. This
   allows to define custom build commands, invoke code generation tools, with the ``<CustomBuild>`` and
@@ -310,3 +310,53 @@ Parameters:
 
     * **scope** (Defaulted to ``"build"``): Add the launcher automatically to the ``conanbuild`` launcher. Read more
       in the :ref:`Environment documentation <conan_tools_env_environment_model>`.
+
+
+conan.tools.microsoft.is_msvc()
+-------------------------------
+
+.. code-block:: python
+
+    def is_msvc(conanfile):
+
+Validate ``self.settings.compiler`` for which compiler is being used.
+It returns ``True`` when the host compiler is ``Visual Studio`` or ``msvc``, otherwise, returns ``False``.
+When the ``compiler`` is empty, it returns ``False``.
+
+Parameters:
+
+- **conanfile**: ConanFile instance.
+
+.. code-block:: python
+
+    from conan.tools.microsoft import is_msvc
+
+    def validate(self):
+        if not is_msvc(self):
+            raise ConanInvalidConfiguration("Only supported by Visual Studio and msvc.")
+
+
+.. _conan_tools_microsoft_msvc_runtime_flag:
+
+conan.tools.microsoft.msvc_runtime_flag()
+-----------------------------------------
+
+.. code-block:: python
+
+    def msvc_runtime_flag(conanfile):
+
+If the current compiler is ``Visual Studio``, ``msvc`` or ``intel-cc``, then detects the runtime type and returns between
+``MD``, ``MT``, ``MDd`` or ``MTd``, otherwise, returns ``""`` (empty string).
+When the runtime type is ``static``, it returns ``MT``, otherwise, ``MD``. The suffix ``d`` is added when running on Debug mode.
+
+Parameters:
+
+- **conanfile**: Conanfile instance.
+
+.. code-block:: python
+
+    from conan.tools.microsoft import msvc_runtime_flag
+
+    def validate(self):
+         if "MT" in msvc_runtime_flag(self):
+            self.output.warning("Runtime MT/MTd is not well tested.")

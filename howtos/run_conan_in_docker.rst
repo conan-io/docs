@@ -106,7 +106,7 @@ Building and uploading a package along with all its missing dependencies for ``L
     compiler.libcxx=libstdc++
     build_type=Release
     [options]
-    [build_requires]
+    [tool_requires]
     [env]
 
     $ sudo pip install conan --upgrade # We make sure we are running the latest Conan version

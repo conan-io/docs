@@ -49,7 +49,7 @@ It can be declared into your local profile like any other compiler as follows:
     build_type=Release
     [options]
 
-    [build_requires]
+    [tool_requires]
     [env]
     CC=dpcpp
     CXX=dpcpp
@@ -175,7 +175,7 @@ Let's suppose you have defined these files into your current project folder:
     compiler.runtime=dynamic
     build_type=Release
     [options]
-    [build_requires]
+    [tool_requires]
     [env]
     [conf]
     tools.intel:installation_path="C:\Program Files (x86)\Intel\oneAPI"
