@@ -34,5 +34,5 @@ This could be customized without fully changing the layout:
 
 
 Even if this pre-defined layout doesn't suit your specific projects layout, checking how they implement their logic
-whows how you could implement your own logic (and probably put it in a common ``python_require`` if you are going to use it in multiple
+shows how you could implement your own logic (and probably put it in a common ``python_require`` if you are going to use it in multiple
 packages).
