@@ -38,12 +38,11 @@ configure()
 
 .. code:: python
 
-    def configure(self, source_folder=None):
+    def configure(self):
 
 Calls :command:`meson`, with the given generator and passing either :command:`--native-file conan_meson_native.ini`
 (native builds) or :command:`--cross-file conan_meson_cross.ini` (cross builds).
 
-- ``source_folder``: Relative path to the folder containing the root *meson.build*
 
 build()
 +++++++
