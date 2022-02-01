@@ -32,7 +32,7 @@ You can use these tools inside the :ref:`method_system_requirements` method of y
 
 Conan will automatically choose which package manager to use by looking at the Operating
 System name. In the example above, if we are running on Ubuntu Linux, Conan will ignore
-all the calls but the ``Apt()`` one. Conan will only try to install the packages using the
+all the calls except for the ``Apt()`` one and will only try to install the packages using the
 ``apt-get`` tool. Conan uses the following mapping by default:
 
 * *Apt* for **Linux** with distribution names: *ubuntu*, *debian*
