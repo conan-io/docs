@@ -17,7 +17,7 @@ when a package is being built directly by Conan (create, install)
 
     def build(self):
         meson = Meson(self)
-        meson.configure(source_folder="src")
+        meson.configure()
         meson.build()
 
 
