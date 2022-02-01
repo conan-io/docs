@@ -31,10 +31,9 @@ The ``MesonToolchain`` can be used in the ``generate()`` method:
             tc.generate()
 
 
-The ``MesonToolchain`` will generate the following file during ``conan install``
-command (or before calling the ``build()`` method when the package is being
-built in the cache): *conan_meson_native.ini*, if doing a native build, or
-*conan_meson_cross.ini*, if doing a cross-build (:ref:`cross_building_reference`).
+The ``MesonToolchain`` will generate a file:
+-  *conan_meson_native.ini*: if doing a native build.
+-  *conan_meson_cross.ini*: if doing a cross-build (:ref:`cross_building_reference`).
 
 .. important::
 
