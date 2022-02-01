@@ -181,6 +181,29 @@ Their ``pkg_config_name`` properties are used as the final PC file names:
     Requires: zlib
 
 
+A special mention when a component shares the same final PC name as the root package one:
+
+.. code:: python
+
+    from conans import ConanFile
+
+    class OpenCLConan(ConanFile):
+
+        # ...
+
+        def package_info(self):
+            self.cpp_info.set_property("pkg_config_name", "OpenCL")  # -> OpenCL.pc
+            self.cpp_info.components["_opencl-headers"].set_property("pkg_config_name", "OpenCL")  # -> OpenCL.pc
+
+The only file created will be the PC one belonging to the component:
+
+- OpenCL.pc (from component)
+
+.. important::
+
+    Components PC names have more priority than package one in case of collision.
+
+
 Now, let's see how ``pkg_config_aliases`` property works step by step.
 
 Let's create our own ``myopenssl/1.0.0`` recipe and define several aliases like the following:
