@@ -10,8 +10,7 @@ conan.tools.files.patch()
 
 .. code-block:: python
 
-    def patch(conanfile, base_path=None, patch_file=None, patch_string=None,
-              strip=0, fuzz=False, **kwargs):
+    def patch(conanfile, base_path=None, patch_file=None, patch_string=None, strip=0, fuzz=False, **kwargs):
 
 Applies a diff from file (*patch_file*) or string (*patch_string*) in the ``conanfile.source_folder`` directory.
 The folder containing the sources can be customized with the ``self.folders`` attribute in the :ref:`layout(self)
@@ -19,8 +18,9 @@ method<layout_folders_reference>`.
 
 Parameters:
 
-- **patch_file**: Patch file that should be applied.
-- **base_path**: Relative path from **conanfile.source_folder**.
+- **patch_file**: Patch file that should be applied. The path is relative to the **conanfile.source_folder** unless
+  an absolute path is provided.
+- **base_path**: The path is a relative path to **conanfile.source_folder** unless an absolute path is provided.
 - **patch_string**: Patch string that should be applied.
 - **strip**: Number of folders to be stripped from the path.
 - **output**: Stream object.
