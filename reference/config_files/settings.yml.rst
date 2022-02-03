@@ -80,7 +80,7 @@ are possible. These are the **default** values, but it is possible to customize 
                       LLVM-vs2017, LLVM-vs2017_xp, v141, v141_xp, v141_clang_c2, v142,
                       llvm, ClangCL]
             cppstd: [None, 14, 17, 20]
-         msvc:
+        msvc:
             version: [190, 191, 192, 193]
             update: [None, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
             runtime: [static, dynamic]
