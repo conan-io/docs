@@ -56,7 +56,7 @@ The ``AutotoolsDeps`` will generate after a ``conan install`` command the *conan
 This generator will define aggregated variables ``CPPFLAGS``, ``LIBS``, ``LDFLAGS``, ``CXXFLAGS``, ``CFLAGS`` that
 accumulate all dependencies information, including transitive dependencies, with flags like ``-I<path>``, ``-L<path>``, etc.
 
-At this moment, only the ``requires`` information is generated, the ``build_requires`` one is not managed by this generator yet.
+At this moment, only the ``requires`` information is generated, the ``tool_requires`` one is not managed by this generator yet.
 
 
 Attributes

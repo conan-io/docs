@@ -29,10 +29,11 @@ that you get an error like the following one:
     - Requirements: libcurl/7.Y.Z, lz4/1.Y.Z, openssl/1.Y.Z, zeromq/4.Y.Z
     - Package ID: 7a4079899e0893ca670df1f682b4606abe79ee5b
 
-    ERROR: Missing prebuilt package for 'czmq/4.2.0'
-    Try to build it from sources with '--build czmq'
-    Use 'conan search <reference> --table table.html'
-    Or read 'http://docs.conan.io/en/latest/faq/troubleshooting.html#error-missing-prebuilt-package'
+    ERROR: Missing prebuilt package for 'czmq/4.2.0@'
+    Use 'conan search czmq/4.2.0@ --table=table.html -r=remote' and open the table.html file to see available packages
+    Or try to build locally from sources with '--build=czmq'
+
+    More Info at 'https://docs.conan.io/en/latest/faq/troubleshooting.html#error-missing-prebuilt-package'
 
 This means that the package recipe ``czmq/4.2.0@`` exists, but for some reason
 there is no precompiled package for your current settings. Maybe the package creator didn't build
@@ -265,3 +266,9 @@ Here we choose ``foo/1.3.0`` because is newer. Now we can proceed:
         WARN: baz/1.0.0: requirement foo/1.0.0 overridden by foobar/1.0.0 to foo/1.3.0
 
 Conan still warns us about the conflict, but as we have :ref:`versioning_dependencies_overriding` the ``foo`` version, it's no longer an error.
+
+
+ERROR: HTTPSConnectionPool(host='conan.bintray.com', port=443)
+--------------------------------------------------------------
+
+The ``conan.bintray.com`` has been deprecated and you have to update to ``https://center.conan.io`` now. For more information, please, read `Old Bintray remote EOL <https://blog.conan.io/2021/10/28/conancenter-bintray-remote-eol.html>`_.

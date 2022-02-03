@@ -18,8 +18,194 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-    Conan 1.41 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
+    Conan 1.45 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
     a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
+
+1.45.0 (02-Feb-2022)
+--------------------
+
+- Feature: Add system.package_manager tools to `conan config list`. `#10469 <https://github.com/conan-io/conan/pull/10469>`_ . Docs `here <https://github.com/conan-io/docs/pull/2379>`__
+- Feature: Use system package manager helpers `from conan.tools.system.package_manager`. `#10467 <https://github.com/conan-io/conan/pull/10467>`_ . Docs `here <https://github.com/conan-io/docs/pull/2379>`__
+- Feature: Add ``[tool_requires]`` section to profiles. `#10462 <https://github.com/conan-io/conan/pull/10462>`_
+- Feature: Add ``meson_lib`` and ``meson_exe``, :command:`conan new` templates. `#10460 <https://github.com/conan-io/conan/pull/10460>`_ . Docs `here <https://github.com/conan-io/docs/pull/2364>`__
+- Feature: Add `is_msvc_static_runtime` method to `conan.tools.microsoft.visual` to identify when using `msvc` with static runtime. `#10437 <https://github.com/conan-io/conan/pull/10437>`_ . Docs `here <https://github.com/conan-io/docs/pull/2372>`__
+- Feature: Improve support for Visual Studio in ``AutotoolsToolchain``. `#10429 <https://github.com/conan-io/conan/pull/10429>`_
+- Feature: Make `pkg-config` tooling accessible under `conan.tools.gnu.PkgConfig` and `conan.tools.gnu.PkgConfigDeps`. `#10415 <https://github.com/conan-io/conan/pull/10415>`_
+- Feature: Use `.bazel` suffix for generated Bazel files. `#10391 <https://github.com/conan-io/conan/pull/10391>`_ . Docs `here <https://github.com/conan-io/docs/pull/2381>`__
+- Feature: New tools in `conan.tools.system` for invoking system package managers in recipes. `#10380 <https://github.com/conan-io/conan/pull/10380>`_ . Docs `here <https://github.com/conan-io/docs/pull/2379>`__
+- Feature: Testing the expected PC files created when the component name matches with the root package one using either `pkg_config` or `PkgConfigDeps` generators. `#10344 <https://github.com/conan-io/conan/pull/10344>`_ . Docs `here <https://github.com/conan-io/docs/pull/2378>`__
+- Feature: Better definition of clang compiler in Windows in `CMakeToolchain`. `#10333 <https://github.com/conan-io/conan/pull/10333>`_
+- Feature: Add VxWorks to OSs in default settings.yml. `#10315 <https://github.com/conan-io/conan/pull/10315>`_ . Docs `here <https://github.com/conan-io/docs/pull/2355>`__
+- Feature: Add `is_msvc` to validate if `settings.compiler` is `Visual Studio` and `msvc` compilers. `#10310 <https://github.com/conan-io/conan/pull/10310>`_ . Docs `here <https://github.com/conan-io/docs/pull/2353>`__
+- Feature: `os.sdk` field is mandatory for CMakeToolchain and OS in `('Macos', 'iOS', 'watchOS', 'tvOS')`. `#10300 <https://github.com/conan-io/conan/pull/10300>`_
+- Feature: Adding ``--source-folder`` and ``--output-folder`` to ``conan editable`` and :command:`conan install` to work with ``layout()``. `#10274 <https://github.com/conan-io/conan/pull/10274>`_ . Docs `here <https://github.com/conan-io/docs/pull/2377>`__
+- Feature: Adding clang 14 to ``settings.yml``. Needed for emsdk package in Conan Center Index. `#10269 <https://github.com/conan-io/conan/pull/10269>`_
+- Feature: `PkgConfigDeps` shows `WARN` messages if there are duplicated `pkg_config_name` and/or `pkg_config_aliases`. `#10263 <https://github.com/conan-io/conan/pull/10263>`_ . Docs `here <https://github.com/conan-io/docs/pull/2378>`__
+- Feature: Improvements in ``MesonToolchain``, including some cross-building functionality. `#10174 <https://github.com/conan-io/conan/pull/10174>`_
+- Feature: Update content created by the markdown generator. `#9758 <https://github.com/conan-io/conan/pull/9758>`_ . Docs `here <https://github.com/conan-io/docs/pull/2380>`__
+- Fix: Remove auto-detection of VS 2022 as ``msvc`` compiler, detect it as ``Visual Studio`` version ``17``. `#10457 <https://github.com/conan-io/conan/pull/10457>`_ . Docs `here <https://github.com/conan-io/docs/pull/2376>`__
+- Fix: Do not report warning for duplicated component names in CMakeDeps. `#10456 <https://github.com/conan-io/conan/pull/10456>`_
+- Fix: Let legacy `Meson` build helper use other backends apart from `ninja`. `#10447 <https://github.com/conan-io/conan/pull/10447>`_
+- Fix: `msvc_runtime_flag` returns empty string instead of `None`. `#10424 <https://github.com/conan-io/conan/pull/10424>`_ . Docs `here <https://github.com/conan-io/docs/pull/2363>`__
+- Fix: Parsing a url with query args in ``conan config install`` results in a bad filename that could fail. `#10423 <https://github.com/conan-io/conan/pull/10423>`_
+- Fix: The argument `patch_file` from `tools.files.patch` is now relative to `conanfile.source_folder`by default, unless an absolute path to another location is provided, for example, to a path in the `conanfile.build_folder`. `#10408 <https://github.com/conan-io/conan/pull/10408>`_ . Docs `here <https://github.com/conan-io/docs/pull/2382>`__
+- Fix: Use install folder for Bazel dependency paths. `#10391 <https://github.com/conan-io/conan/pull/10391>`_ . Docs `here <https://github.com/conan-io/docs/pull/2381>`__
+- Fix: Enforce `CMP0091` policy to NEW in `CMakeToolchain`. `#10390 <https://github.com/conan-io/conan/pull/10390>`_
+- Fix: Add quotes around `conan_message` output variable so it is not modified. `#10388 <https://github.com/conan-io/conan/pull/10388>`_
+- Fix: Add ``pathlib`` as hidden-import to pyinstaller.py, so it is bundled with the installer. `#10386 <https://github.com/conan-io/conan/pull/10386>`_
+- Fix: Move imports of pre-defined layouts to their build-system domain. `#10385 <https://github.com/conan-io/conan/pull/10385>`_ . Docs `here <https://github.com/conan-io/docs/pull/2364>`__
+- Fix: Allow ``cmake`` generator checks for Visual Studio 2022. `#10361 <https://github.com/conan-io/conan/pull/10361>`_
+- Fix: Do not generate transitive `.props` for `MSbuildDeps` tool-requires. `#10350 <https://github.com/conan-io/conan/pull/10350>`_
+- Fix: Manage spaces in ``[buildenv]`` profile definition. `#10343 <https://github.com/conan-io/conan/pull/10343>`_
+- Fix: Add ``-debug`` to `LDFLAGS` in ``AutotoolsToolchain`` when necessary. `#10339 <https://github.com/conan-io/conan/pull/10339>`_
+- Fix: Fix extra `}` characters in cppstd info message. `#10337 <https://github.com/conan-io/conan/pull/10337>`_
+- Fix: Fix quotes in generated environment deactivation scripts. `#10325 <https://github.com/conan-io/conan/pull/10325>`_
+- Fix: Fix the ``CMakeToolchain`` generated code, so it doesnt fail for ``-Werror --warn-unitilized``. `#10292 <https://github.com/conan-io/conan/pull/10292>`_
+- Fix: Fix spaces in settings.yml to prevent the YAML linter from complaining. `#10230 <https://github.com/conan-io/conan/pull/10230>`_
+- Fix: Convert `NewCppInfo` folders to absolute. `#10207 <https://github.com/conan-io/conan/pull/10207>`_
+- Fix: Improved CMakeToolchain robustness regarding ``find_file``, ``find_path`` and ``find_program`` commands allowing better cross-build scenarios and better differentiation of the right context where to get, for example,  executables (build vs host). `#10186 <https://github.com/conan-io/conan/pull/10186>`_ . Docs `here <https://github.com/conan-io/docs/pull/2383>`__
+- Bugfix: Fix ``BazelDeps`` using absolute ``glob`` paths instead of relative. `#10478 <https://github.com/conan-io/conan/pull/10478>`_
+- BugFix: Avoid BazelDeps exception when depending on a package without libs. Close https://github.com/conan-io/conan/issues/10471 `#10472 <https://github.com/conan-io/conan/pull/10472>`_
+- Bugfix: Fix ``AttributeError: 'PackageEditableLayout' object has no attribute 'package_lock'`` that happened when sing ``package_revision_mode`` with ``editable`` packages (and lockfiles). `#10416 <https://github.com/conan-io/conan/pull/10416>`_
+- Bugfix: Visual Studio 2022 auto-detected profile was incomplete. `#10322 <https://github.com/conan-io/conan/pull/10322>`_
+- Bugfix: Fix the caching of `ConanFile.dependencies` at `validate()` time. `#10307 <https://github.com/conan-io/conan/pull/10307>`_
+- Bugfix: Avoid ``package_id`` errors when using ``compatible_packages`` of repeated references (which can happen if using ``private`` dependencies). `#10266 <https://github.com/conan-io/conan/pull/10266>`_
+
+1.44.1 (13-Jan-2022)
+--------------------
+
+- Bugfix: The `CMakeDeps` generator now uses the property `cmake_build_modules` declared in components of the required packages not only in the root cpp_info. `#10326 <https://github.com/conan-io/conan/pull/10326>`_
+- Bugfix: Adding missing hidden-imports to pyinstaller. Close https://github.com/conan-io/conan/issues/10318 `#10320 <https://github.com/conan-io/conan/pull/10320>`_
+- Bugfix: Make `pkg_config` generator listen to root `cpp_info` properties. `#10312 <https://github.com/conan-io/conan/pull/10312>`_
+
+1.44.0 (29-Dec-2021)
+--------------------
+
+- Feature: Add `<PackageName>_LIBRARIES`, `<PackageName>_INCLUDE_DIRS`, `<PackageName>_INCLUDE_DIR`, `<PackageName>_DEFINITIONS` and `<PackageName>_VERSION_STRING` variables in CMakeDeps. `#10227 <https://github.com/conan-io/conan/pull/10227>`_
+- Feature: Adding a new Block to the CMakeToolchain now doesn't require inheriting `CMakeToolchainBlock`. `#10213 <https://github.com/conan-io/conan/pull/10213>`_ . Docs `here <https://github.com/conan-io/docs/pull/2337>`__
+- Feature: Add build_modules and build_modules_paths to JsonGenerator. `#10203 <https://github.com/conan-io/conan/pull/10203>`_ . Docs `here <https://github.com/conan-io/docs/pull/2329>`__
+- Feature: The `CMakeToolchain` is now prepared to apply several user toolchains. `#10178 <https://github.com/conan-io/conan/pull/10178>`_ . Docs `here <https://github.com/conan-io/docs/pull/2340>`__
+- Feature: In the conanfile.py of the test_package, the reference being tested is always available at `self.tested_reference_str`. `#10171 <https://github.com/conan-io/conan/pull/10171>`_ . Docs `here <https://github.com/conan-io/docs/pull/2341>`__
+- Feature: Introduced a new `test_type` value `explicit` so a user can declare explicitly the `requires` or `build_requires` manually (using `self.tested_reference_str`), it won't be automatically injected as a require. In Conan 2.0 the `test_type` attribute will be ignored, the behavior will be always explicit, so declaring `test_type="explicit"` will make the test recipe compatible with Conan 2.0. `#10171 <https://github.com/conan-io/conan/pull/10171>`_ . Docs `here <https://github.com/conan-io/docs/pull/2341>`__
+- Feature: Introduced `tool_requires` attribute to provide a compatible way to migrate to Conan 2.0, where the current concept of `build_requires` has been renamed to `tool_requires`. `#10168 <https://github.com/conan-io/conan/pull/10168>`_ . Docs `here <https://github.com/conan-io/docs/pull/2342>`__
+- Feature: Upgrade Conan python jinja requirement to v3.x. `#10159 <https://github.com/conan-io/conan/pull/10159>`_
+- Feature: Provided several `conan.tools.files` functions to manage symlinks: Transform absolute to relative symlinks, remove broken symlinks, remove external symlinks and get the symlinks in a folder. These tools will help migrate to Conan 2.0 where the package files won't be automatically cleaned from broken absolute symlinks or external symlinks. `#10154 <https://github.com/conan-io/conan/pull/10154>`_ . Docs `here <https://github.com/conan-io/docs/pull/2343>`__
+- Feature: Remove legacy folder setters in ``conanfile.xxxx_folder = yyy`` only used for testing. `#10153 <https://github.com/conan-io/conan/pull/10153>`_
+- Feature: Add ``Git.version`` property to check the current git version, aligned with ``SVN.version``. `#10114 <https://github.com/conan-io/conan/pull/10114>`_ . Docs `here <https://github.com/conan-io/docs/pull/2338>`__
+- Feature: Add build_requires support in BazelDeps generators. `#9876 <https://github.com/conan-io/conan/pull/9876>`_
+- Fix: Fix variable names set by `CMakeDeps` modules. `#10227 <https://github.com/conan-io/conan/pull/10227>`_
+- Fix: Call to `find_dependency` in module mode to find transitive dependencies. `#10227 <https://github.com/conan-io/conan/pull/10227>`_
+- Fix: remove rpath from .pc files generated by `pkg_config` & `PkgConfigDeps` generators. `#10192 <https://github.com/conan-io/conan/pull/10192>`_ . Docs `here <https://github.com/conan-io/docs/pull/2339>`__
+- Fix: Deleted CMake warning for already existing targets. `#10150 <https://github.com/conan-io/conan/pull/10150>`_
+- Bugfix: Fix passing component's linkflags in CMakeDepes generator `#10205 <https://github.com/conan-io/conan/pull/10205>`_
+- Bugfix: `AutotoolsToolchain` was not passing the `compiler` to `get_gnu_triplet` function. `#10141 <https://github.com/conan-io/conan/pull/10141>`_
+
+1.43.3 (13-Jan-2022)
+--------------------
+
+- Bugfix: The CMakeDeps generator now uses the property cmake_build_modules declared in components of the required packages not only in the root cpp_info. `#10331 <https://github.com/conan-io/conan/pull/10331>`_
+- Bugfix: Make pkg_config generator listen to root cpp_info properties. `#10323 <https://github.com/conan-io/conan/pull/10323>`_
+
+1.43.2 (21-Dec-2021)
+--------------------
+
+- Fix: Remove ``generator`` argument from ``cpp_info.set_property()`` method. `#10214 <https://github.com/conan-io/conan/pull/10214>`_ . Docs `here <https://github.com/conan-io/docs/pull/2331>`__
+- Fix: Do not convert to ``cmake_build_modules`` property the legacy ``cpp_info.build_modules``. `#10208 <https://github.com/conan-io/conan/pull/10208>`_
+- Bugfix: Compiler `msvc` was not working for CMake legacy generators. `#10195 <https://github.com/conan-io/conan/pull/10195>`_
+
+1.43.1 (17-Dec-2021)
+--------------------
+
+- Bugfix: Making aggregate_components non-destructive, which was causing errors in generators with components. `#10183 <https://github.com/conan-io/conan/pull/10183>`_
+- Bugfix: Fix the definition of D_GLIBCXX_USE_CXX11_ABI in gcc-like compilers for ``CMakeToolchain`` and ``AutotoolsToolchain``. Define it only to ``D_GLIBCXX_USE_CXX11_ABI=0`` for new compilers, assuming that the default is alread 1. `#10165 <https://github.com/conan-io/conan/pull/10165>`_
+
+1.43.0 (03-Dec-2021)
+--------------------
+
+- Feature: Remove `cmake_target_namespace` and `cmake_module_target_namespace` properties. `#10099 <https://github.com/conan-io/conan/pull/10099>`_ . Docs `here <https://github.com/conan-io/docs/pull/2316>`__
+- Feature: Allow `CMakeDeps` to set `cmake_target_name` property as an absolute target. `#10099 <https://github.com/conan-io/conan/pull/10099>`_ . Docs `here <https://github.com/conan-io/docs/pull/2316>`__
+- Feature: Add warning in `CMakeDeps` generated CMake files when target names collide. `#10099 <https://github.com/conan-io/conan/pull/10099>`_ . Docs `here <https://github.com/conan-io/docs/pull/2316>`__
+- Feature: Legacy cmake generators (`cmake_find_package`, `cmake_find_package_multi`) don't listen to new `set_properties` model anymore. `#10098 <https://github.com/conan-io/conan/pull/10098>`_ . Docs `here <https://github.com/conan-io/docs/pull/2316>`__
+- Feature: `pkg_config_name` is used as the main name for a package/component and it will be used as the name for the `*.pc` file. `#10084 <https://github.com/conan-io/conan/pull/10084>`_ . Docs `here <https://github.com/conan-io/docs/pull/2315>`__
+- Feature: Added new property`pkg_config_aliases` which admits a  list of strings to define different aliases for any package/component. `#10084 <https://github.com/conan-io/conan/pull/10084>`_ . Docs `here <https://github.com/conan-io/docs/pull/2315>`__
+- Feature: Define ``os=baremetal`` in ``settings.yml`` to represent platforms without OS "bare metal". `#10067 <https://github.com/conan-io/conan/pull/10067>`_ . Docs `here <https://github.com/conan-io/docs/pull/2309>`__
+- Feature: Modern ``tools.gnu.PkgConfig`` to supersede legacy ``tools.PkgConfig``. Includes management of `PKG_CONFIG_PATH` and mapping to a ``cpp_info`` structure `#10065 <https://github.com/conan-io/conan/pull/10065>`_ . Docs `here <https://github.com/conan-io/docs/pull/2310>`__
+- Feature: Add ``test_requires()`` for 2.0 migration of force_host_context. `#10027 <https://github.com/conan-io/conan/pull/10027>`_ . Docs `here <https://github.com/conan-io/docs/pull/2313>`__
+- Feature: Added C++23 support for Visual Studio and GCC 11.2 one. `#10021 <https://github.com/conan-io/conan/pull/10021>`_
+- Feature: Enable ``from conan import ConanFile`` to prepare for future namespace. `#10016 <https://github.com/conan-io/conan/pull/10016>`_ . Docs `here <https://github.com/conan-io/docs/pull/2318>`__
+- Feature: Add backend support to MesonToolchain. `#9990 <https://github.com/conan-io/conan/pull/9990>`_ . Docs `here <https://github.com/conan-io/docs/pull/2295>`__
+- Fix: Fix `<PackageName>_FIND_COMPONENTS` CMake generated variable to the correct value associated with the filename, not the package name. `#10098 <https://github.com/conan-io/conan/pull/10098>`_ . Docs `here <https://github.com/conan-io/docs/pull/2316>`__
+- Fix: Updated the ConanException in installer.py to improve the error message handling. `#10089 <https://github.com/conan-io/conan/pull/10089>`_ . Docs `here <https://github.com/conan-io/docs/pull/2305>`__
+- Fix: Simplify ``parallel`` definition in new ``conf``, leaving only ``tools.build:jobs``. Use max number of CPUs by default to build in parallel. `#10068 <https://github.com/conan-io/conan/pull/10068>`_ . Docs `here <https://github.com/conan-io/docs/pull/2308>`__
+- Fix: Fix the ``msvc`` version model, which is comparison broken with the "main" 19.3 version < 19.22. `#10057 <https://github.com/conan-io/conan/pull/10057>`_ . Docs `here <https://github.com/conan-io/docs/pull/2314>`__
+- Fix: Fix the `EnvVar.save_ps1()` method. `#10049 <https://github.com/conan-io/conan/pull/10049>`_
+- Fix: CMakeToolchain will not crash if build_type not defined. `#9984 <https://github.com/conan-io/conan/pull/9984>`_
+- Fix: Avoid raising an exception for ``conan info --paths`` when there are editables in the graph. `#9944 <https://github.com/conan-io/conan/pull/9944>`_
+- Fix: Fix wrong parameter name in CMakeDeps find_library function. `#9932 <https://github.com/conan-io/conan/pull/9932>`_
+- Fix: Improve error message when unzipping Conan `.tgz` artifacts. `#9925 <https://github.com/conan-io/conan/pull/9925>`_
+- Fix: Respect error code 6 in some situations. `#9905 <https://github.com/conan-io/conan/pull/9905>`_
+- Bugfix: Fix parallel package downloading. While downloading conan locks incorrect package ref. `#10038 <https://github.com/conan-io/conan/pull/10038>`_
+- Bugfix: Add import for ``CMakeToolchainBlock`` custom Blocks in ``CMakeToolchain``. `#10026 <https://github.com/conan-io/conan/pull/10026>`_ . Docs `here <https://github.com/conan-io/docs/pull/2312>`__
+- Bugfix: Option `--require-override` is not working for `conanfile.txt`. `#10013 <https://github.com/conan-io/conan/pull/10013>`_
+- Bugfix: Fix unescaped double-quotes for defines in ``Premake`` generator. `#10008 <https://github.com/conan-io/conan/pull/10008>`_
+- Bugfix: Use new `tools.cross_building` in MesonToolchain . `#9992 <https://github.com/conan-io/conan/pull/9992>`_
+- Bugfix: CMakeDeps generated `*-data.cmake` was not including properly the set of link flags. `#9980 <https://github.com/conan-io/conan/pull/9980>`_
+- Bugfix: CMakeDeps was not populating `INTERFACE_LINK_OPTIONS` to each target. `#9980 <https://github.com/conan-io/conan/pull/9980>`_
+- Bugfix: `PkgConfigDeps` was not adding correctly the `Requires` for all the package dependencies. `#9945 <https://github.com/conan-io/conan/pull/9945>`_
+- Bugfix: ``user_toolchain`` properly included and path quoted in ``CMakeToolchain``. `#9916 <https://github.com/conan-io/conan/pull/9916>`_
+- Bugfix: Solved an issue with the `conan config install` whereby a cryptic error was raised when a user tried to install a directory that previously was a file and vice-versa. `#9908 <https://github.com/conan-io/conan/pull/9908>`_
+- Bugfix: Missing framework for Xcode generator with no compiler setting. `#9896 <https://github.com/conan-io/conan/pull/9896>`_
+
+1.42.2 (22-Nov-2021)
+--------------------
+
+- Bugfix: Legacy `cmake_multi` generator is not affected by `set_property`. `#10062 <https://github.com/conan-io/conan/pull/10062>`_
+
+1.42.1 (08-Nov-2021)
+--------------------
+
+- Fix: Fix XcodeDeps architecture name translation from Conan to Apple identifiers. `#9955 <https://github.com/conan-io/conan/pull/9955>`_
+- Bugfix: Fix XcodeDeps bad xcconfig generation when using dash-case-named packages `#9955 <https://github.com/conan-io/conan/pull/9955>`_
+- Bugfix: Avoid exception if ``msvc`` compiler not defined in settings.yml file. `#9954 <https://github.com/conan-io/conan/pull/9954>`_
+- Bugfix: legacy `cmake` generator is not affected by `set_property`. `#9952 <https://github.com/conan-io/conan/pull/9952>`_
+
+1.42.0 (29-Oct-2021)
+--------------------
+
+- Feature: Remove `sdk` condition in _.xcconfig_ files generated by _XcodeDeps_. `#9887 <https://github.com/conan-io/conan/pull/9887>`_
+- Feature: Add new Macos version 12.0 (Monterey). `#9886 <https://github.com/conan-io/conan/pull/9886>`_
+- Feature: Add `CMAKE_POSITION_INDEPENDENT_CODE` in `CMakeToolchain` if it's set in the conanfile independently from the value of the shared option. `#9868 <https://github.com/conan-io/conan/pull/9868>`_
+- Feature: Generate aggregated deactivation file for aggregated environments. `#9862 <https://github.com/conan-io/conan/pull/9862>`_ . Docs `here <https://github.com/conan-io/docs/pull/2279>`__
+- Feature: adding preprocessor definitions to ``MSBuildTolchain`` ResourceCompile. `#9843 <https://github.com/conan-io/conan/pull/9843>`_
+- Feature: Support `cmake_module_target_name` and `cmake_module_file_name` properties in _cmake_find_package_ generator. `#9832 <https://github.com/conan-io/conan/pull/9832>`_ . Docs `here <https://github.com/conan-io/docs/pull/2271>`__
+- Feature: Define new ``conf["tools.microsoft.msbuild:install_path"]`` for the MSBuild toolchain and remove generation of intel_vars files by ``VCVars``. `#9827 <https://github.com/conan-io/conan/pull/9827>`_ . Docs `here <https://github.com/conan-io/docs/pull/2281>`__
+- Feature: New Conan _XcodeDeps_ multi-config generator for _Xcode_. `#9807 <https://github.com/conan-io/conan/pull/9807>`_ . Docs `here <https://github.com/conan-io/docs/pull/2274>`__
+- Feature: Refactor `conan.tools.gnu.pkgconfigdeps` module. `#9806 <https://github.com/conan-io/conan/pull/9806>`_
+- Feature: Decoupled ``Environment`` as an abstract environment representation (do not depend on conanfile), and ``EnvVars``, as the specialization for a given conanfile, settings/settings_build, and ``win_bash``. `#9755 <https://github.com/conan-io/conan/pull/9755>`_ . Docs `here <https://github.com/conan-io/docs/pull/2279>`__
+- Feature: Enabled `patch_string` when using `apply_conandata_patches`. `#9740 <https://github.com/conan-io/conan/pull/9740>`_ . Docs `here <https://github.com/conan-io/docs/pull/2246>`__
+- Feature: Add property "cmake_target_aliases" to create some CMake alias targets using CMakeDeps. `#8533 <https://github.com/conan-io/conan/pull/8533>`_
+- Fix: Do not fall back for the property "filename" to target properties, only to legacy "names" definition. `#9894 <https://github.com/conan-io/conan/pull/9894>`_
+- Fix: Fix build settings conditional logic to work correctly with Xcode IDE. `#9892 <https://github.com/conan-io/conan/pull/9892>`_
+- Fix: Show a more specific error message on 'conan search' when a package version is not valid `#9891 <https://github.com/conan-io/conan/pull/9891>`_
+- Fix: Removed the new layout `folders.package` property as it was not clear the value/usage. `#9884 <https://github.com/conan-io/conan/pull/9884>`_ . Docs `here <https://github.com/conan-io/docs/pull/2278>`__
+- Fix: The "conan package" method now raises an exception when declaring the layout() method. This is part of the migration to Conan 2.0 where the local method "conan package" is removed. `#9884 <https://github.com/conan-io/conan/pull/9884>`_ . Docs `here <https://github.com/conan-io/docs/pull/2278>`__
+- Fix: Moved experimental LayoutPackager to a `conan.tools.files.AutoPackager` with a new interface. Removed also the `conanfile.patterns` attribute that now is configured directly in the AutoPackager. `#9882 <https://github.com/conan-io/conan/pull/9882>`_ . Docs `here <https://github.com/conan-io/docs/pull/2278>`__
+- Fix: When the `layout()` method is declared inside the conanfile.py of a `test-package`, Conan won't generate temporary folders at build/_HASH_ anymore. The build folder will follow the structure declared at the layout() method. `#9882 <https://github.com/conan-io/conan/pull/9882>`_ . Docs `here <https://github.com/conan-io/docs/pull/2278>`__
+- Fix: Fix frameworks aggregation in XcodeDeps. `#9881 <https://github.com/conan-io/conan/pull/9881>`_
+- Fix: Remove python ``requests`` version from ``User-Agent`` header, it can be problematic sometimes and adds no value. `#9861 <https://github.com/conan-io/conan/pull/9861>`_
+- Fix: Change ``MesonToolchain`` to define ``preprocessor_definitions`` as ``[constant]``, because Meson 0.60 now raises errors on it defined in ``[built-in options]``. `#9858 <https://github.com/conan-io/conan/pull/9858>`_
+- Fix: Rename ``ConanFileInterface.new_cpp_info`` to ``ConanFileInterface.cpp_info`` (being it a ``NewCppInfo`` object). The `ConanFileInterface` object is only used when accessing `self.dependencies` in a conanfile, so we can make sure that the new develop generators use the final `cpp_info` name. `#9800 <https://github.com/conan-io/conan/pull/9800>`_ . Docs `here <https://github.com/conan-io/docs/pull/2280>`__
+- Fix: Renamed ``group`` argument in ``Environment`` classes to ``scope``, that can get "build" and "run" values. `#9755 <https://github.com/conan-io/conan/pull/9755>`_ . Docs `here <https://github.com/conan-io/docs/pull/2279>`__
+- Fix: New ``win_bash`` behavior failed for dual profile, the new computation of subsystem paths completely depend now on defined settings, but not on ``platform.system()`` or auto-detection. `#9755 <https://github.com/conan-io/conan/pull/9755>`_ . Docs `here <https://github.com/conan-io/docs/pull/2279>`__
+- Bugfix: Avoid lockfile raising because of incorrect options when using ``compatible_packages``. Close https://github.com/conan-io/conan/issues/9591 `#9890 <https://github.com/conan-io/conan/pull/9890>`_
+- Bugfix: Avoid VCVars defining ``-vcvars`` argument for VS<=2015. Close https://github.com/conan-io/conan/issues/9888 `#9889 <https://github.com/conan-io/conan/pull/9889>`_
+- Bugfix: Respect the previous value of ``sys.dont_write_bytecode``. `#9865 <https://github.com/conan-io/conan/pull/9865>`_
+- Bugfix: :command:`conan export-pkg` now raises an error (ConanInvalidConfiguration exception) if the ``validate()`` method raise that error and results in an invalid `package_id`. `#9818 <https://github.com/conan-io/conan/pull/9818>`_
+- Bugfix: Respect the ``build_policy="never"`` even for ``--build=missing`` cli argument. `#9817 <https://github.com/conan-io/conan/pull/9817>`_
+- Bugfix: Avoid crash in ``CMakeToolchain`` for custom generator when compiler is not defined. `#9801 <https://github.com/conan-io/conan/pull/9801>`_
+- Bugfix: Do not force new authentication when a token is expired, it might not be needed. `#9781 <https://github.com/conan-io/conan/pull/9781>`_
+- Bugfix: The CMakeToolchain generator always sets fPIC enabled due to a typo where the actual parameter is not templated but instead hard-coded as `ON`. `#9752 <https://github.com/conan-io/conan/pull/9752>`_
+- Bugfix: The path to a patch file in a `conandata.yml` is also relative to the base source folder when the patches are not associated with a version (list of patches). `#9740 <https://github.com/conan-io/conan/pull/9740>`_ . Docs `here <https://github.com/conan-io/docs/pull/2246>`__
 
 1.41.0 (06-Oct-2021)
 --------------------

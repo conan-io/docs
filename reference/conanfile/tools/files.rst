@@ -10,8 +10,7 @@ conan.tools.files.patch()
 
 .. code-block:: python
 
-    def patch(conanfile, base_path=None, patch_file=None, patch_string=None,
-              strip=0, fuzz=False, **kwargs):
+    def patch(conanfile, base_path=None, patch_file=None, patch_string=None, strip=0, fuzz=False, **kwargs):
 
 Applies a diff from file (*patch_file*) or string (*patch_string*) in the ``conanfile.source_folder`` directory.
 The folder containing the sources can be customized with the ``self.folders`` attribute in the :ref:`layout(self)
@@ -19,8 +18,9 @@ method<layout_folders_reference>`.
 
 Parameters:
 
-- **patch_file**: Patch file that should be applied.
-- **base_path**: Relative path from **conanfile.source_folder**.
+- **patch_file**: Patch file that should be applied. The path is relative to the **conanfile.source_folder** unless
+  an absolute path is provided.
+- **base_path**: The path is a relative path to **conanfile.source_folder** unless an absolute path is provided.
 - **patch_string**: Patch string that should be applied.
 - **strip**: Number of folders to be stripped from the path.
 - **output**: Stream object.
@@ -84,6 +84,18 @@ Example of ``conandata.yml`` with different patches for different versions:
           patch_description: Needed to build with modern clang compilers.
       "1.12.0":
         - patch_file: "patches/0001-buildflatbuffers-cmake.patch"
+        - patch_string: |
+            --- a/tests/misc-test.c
+            +++ b/tests/misc-test.c
+            @@ -1232,6 +1292,8 @@ main (int argc, char **argv)
+                  g_test_add_func ("/misc/pause-cancel", do_pause_cancel_test);
+                  g_test_add_data_func ("/misc/stealing/async", GINT_TO_POINTER (FALSE), do_stealing_test);
+                  g_test_add_data_func ("/misc/stealing/sync", GINT_TO_POINTER (TRUE), do_stealing_test);
+            +     g_test_add_func ("/misc/response/informational/content-length", do_response_informational_content_length_test);
+            +
+
+            ret = g_test_run ();
+        - patch_file: "patches/0003-fix-content-length-calculation.patch"
 
 
 conan.tools.files.rename()
@@ -235,3 +247,60 @@ Examples:
                     "http://mirror.linux-ia64.org/gnu/gcc/releases/gcc-9.3.0/gcc-9.3.0.tar.gz"],
                     "gcc-9.3.0.tar.gz",
                    sha256="5258a9b6afe9463c2e56b9e8355b1a4bee125ca828b8078f910303bc2ef91fa6")
+
+
+
+Available since: `1.42.0 <https://github.com/conan-io/conan/releases>`_
+
+.. _conan_tools_files_autopackager:
+
+conan.tools.files.AutoPackager
+------------------------------
+
+The ``AutoPackager`` together with the :ref:`package layouts<package_layout>` feature, allow to automatically
+package the files following the declared information in the ``layout()`` method:
+
+It will copy:
+
+- Files from ``self.cpp.local.includedirs`` to ``self.cpp.package.includedirs``
+- Files from ``self.cpp.local.libdirs`` to ``self.cpp.package.libdirs``
+- Files from ``self.cpp.local.bindirs`` to ``self.cpp.package.bindirs``
+- Files from ``self.cpp.local.srcdirs`` to ``self.cpp.package.srcdirs``
+- Files from ``self.cpp.local.builddirs`` to ``self.cpp.package.builddirs``
+- Files from ``self.cpp.local.resdirs`` to ``self.cpp.package.resdirs``
+- Files from ``self.cpp.local.frameworkdirs`` to ``self.cpp.package.frameworkdirs``
+
+The patterns of the files to be copied can be defined with the `.patterns` property of the ``AutoPackager`` instance.
+The default patterns are:
+
+.. code:: python
+
+        packager = AutoPackager(self)
+        packager.patterns.include == ["*.h", "*.hpp", "*.hxx"]
+        packager.patterns.lib == ["*.so", "*.so.*", "*.a", "*.lib", "*.dylib"]
+        packager.patterns.bin == ["*.exe", "*.dll"]
+        packager.patterns.src == []
+        packager.patterns.build == []
+        packager.patterns.res == []
+        packager.patterns.framework == []
+
+Usage:
+
+.. code:: python
+
+        from conans import ConanFile
+        from conan.tools.files import AutoPackager
+
+        class Pkg(ConanFile):
+
+            def layout(self):
+                ...
+
+            def package(self):
+                packager = AutoPackager(self)
+                packager.patterns.include = ["*.hpp", "*.h", "include3.h"]
+                packager.patterns.lib = ["*.a"]
+                packager.patterns.bin = ["*.exe"]
+                packager.patterns.src = ["*.cpp"]
+                packager.patterns.framework = ["sframe*", "bframe*"]
+                packager.run()

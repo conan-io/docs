@@ -23,7 +23,7 @@ This tool helps you to manage the new Intel oneAPI `DPC++/C++ <https://software.
 
 .. note::
 
-    Remember, you need to have installed previously the `Intel oneAPI software <https://software.intel.com/content/www/us/en/develop/tools/oneapi/all-toolkits.html#gs.cgeofk>`_.
+    Remember, you need to have installed previously the `Intel oneAPI software <https://software.intel.com/content/www/us/en/develop/tools/oneapi/all-toolkits.html>`_.
 
 .. note::
 
@@ -59,7 +59,7 @@ At first, ensure you are using a *profile* like this one:
     build_type=Release
     [options]
 
-    [build_requires]
+    [tool_requires]
     [env]
     CC=dpcpp
     CXX=dpcpp
@@ -120,7 +120,7 @@ You can apply different installation paths and command arguments simply by chang
     build_type=Release
     [options]
 
-    [build_requires]
+    [tool_requires]
     [env]
     CC=dpcpp
     CXX=dpcpp

@@ -31,8 +31,14 @@ node('Linux') {
         },
         linkcheck: {
             image.inside {
-                catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE', message: 'Linkcheck failed! Please check links and fix broken ones.') {
-                    sh(script: 'make linkcheck')
+                def status = sh(returnStatus: true, script: 'make linkcheck > links_output.txt')
+                sh 'cat links_output.txt'
+                if (status != 0) {
+                    def broken_links = sh(returnStdout: true , script: 'cat links_output.txt | grep broken')
+                    echo "Broken Links: \n ${broken_links}"
+                    def subject = "Broken links in `conan-io/docs`: ${env.BUILD_URL}"
+                    def summary = "${subject}\n```\n${broken_links}\n```"
+                    slackSend (color: '#FF0000', message: summary)
                 }
             }
         }
