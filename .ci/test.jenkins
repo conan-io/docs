@@ -37,7 +37,7 @@ node('Linux') {
                         def output = sh(returnStdout: true , script: 'cat links_output.txt | grep broken')
                         println output
                         def subject = "Broken Links in Docs: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
-                        def summary = "${subject} (${env.BUILD_URL}), Conan Branch: ${branch}\n ${output}"
+                        def summary = "${subject} (${env.BUILD_URL}) \n ${output}"
                         slackSend (color: '#FF0000', message: summary)
                     }
                 }
