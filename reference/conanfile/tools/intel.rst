@@ -23,7 +23,7 @@ This tool helps you to manage the new Intel oneAPI `DPC++/C++ <https://software.
 
 .. note::
 
-    Remember, you need to have installed previously the `Intel oneAPI software <https://software.intel.com/content/www/us/en/develop/tools/oneapi/all-toolkits.html#gs.cgeofk>`_.
+    Remember, you need to have installed previously the `Intel oneAPI software <https://software.intel.com/content/www/us/en/develop/tools/oneapi/all-toolkits.html>`_.
 
 .. note::
 
