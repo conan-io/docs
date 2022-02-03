@@ -32,7 +32,14 @@ node('Linux') {
         linkcheck: {
             image.inside {
                 catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE', message: 'Linkcheck failed! Please check links and fix broken ones.') {
-                    sh(script: 'make linkcheck')
+                    def status = sh(returnStatus: true, script: 'make linkcheck > links_output.txt')
+                    if (status != 0) {
+                        def output = sh(returnStdout: true , script: 'cat links_output.txt | grep broken')
+                        println output
+                        def subject = "Broken Links in Docs: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
+                        def summary = "${subject} (${env.BUILD_URL}), Conan Branch: ${branch}\n ${output}"
+                        slackSend (color: '#FF0000', message: summary)
+                    }
                 }
             }
         }
