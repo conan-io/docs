@@ -5,12 +5,6 @@ Dependencies
 
 Introduced in Conan 1.38.
 
-.. warning::
-
-    These tools are **very experimental** and subject to breaking changes.
-    It also contains some known bugs regarding ``tool_requires``, to be addressed in next Conan 1.39
-
-
 
 .. note::
 
