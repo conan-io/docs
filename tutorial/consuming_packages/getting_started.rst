@@ -25,7 +25,7 @@ section<consuming_packages_getting_started_read_more>`.
 Building a CMake project consuming Zlib with Conan
 --------------------------------------------------
 
-#. We start from a very simple C language project with this structure:
+1. We start from a very simple C language project with this structure:
 
 .. code-block:: text
 
@@ -88,13 +88,13 @@ Also, the contents of *CMakeLists.txt* are:
     add_executable(${PROJECT_NAME} main.c)
     target_link_libraries(${PROJECT_NAME} ZLIB::ZLIB)
 
-#. Our application relies on the Zlib library. Conan, by default, tries to install
-   libraries from a remote server called `Conan Center Index <https://conan.io/center/>`_.
-   You can search there for libraries and also check the available versions. In our case, 
-   after checking the available versions for `Zlib <https://conan.io/center/zlib>`__ we
-   choose to use the latest available version: **zlib/1.2.11**.
+Our application relies on the Zlib library. Conan, by default, tries to install
+libraries from a remote server called `Conan Center Index <https://conan.io/center/>`_.
+You can search there for libraries and also check the available versions. In our case, 
+after checking the available versions for `Zlib <https://conan.io/center/zlib>`__ we
+choose to use the latest available version: **zlib/1.2.11**.
 
-#. The easiest way to install the Zlib library and find it from our project with Conan is
+3. The easiest way to install the Zlib library and find it from our project with Conan is
    using a *conanfile.txt* file. Let's create one with the following content:
 
 .. code-block:: ini
@@ -118,7 +118,7 @@ As you can see we added two sections to this file with a syntax similar to an *I
       about where the *Zlib* library files are installed and *CMakeToolchain* to pass build
       information to *CMake* using a *CMake* toolchain file.
 
-#. Besides the *conanfile.txt*, in order to build our project successfully we need a **Conan
+4. Besides the *conanfile.txt*, in order to build our project successfully we need a **Conan
    profile**. Conan profiles allows users to define a configuration set for things like
    compiler, build configuration, architecture, shared or static libraries, etc. Conan, by
    default, will not try to detect a profile automatically, so we need to create one. To
@@ -153,7 +153,7 @@ configuration:
     [env]
     ...
 
-#. Now we will use Conan to install Zlib and generate the files that CMake needs to find
+5. Now we will use Conan to install Zlib and generate the files that CMake needs to find
    this library and build our project. We will generate those files in the folder
    *cmake-build-release*.
 
