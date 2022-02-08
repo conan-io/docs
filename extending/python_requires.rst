@@ -191,6 +191,10 @@ There are a few limitations that should be taken into account:
   directly in the recipes. A reusable alternative might be using the ``SCM`` component.
 - ``build_policy`` shouldn't be inherited from a base class, but explictly defined
   directly in the recipes.
+- Mixing Python inheritance with ``python_requires_extend`` should be avoided, because 
+  the inheritance order can be different than the expected one. Multiple level ``python_requires_extend``
+  might be possible, but don't mix both approaches (also in general try to avoid
+  multiple inheritance and multiple level hierarchies, try to keep it simple).
 
 
 Reusing files
