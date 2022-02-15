@@ -48,7 +48,6 @@ Contents:
    tools/microsoft
    tools/qbs
    tools/env
-   tools/system/package_manager
+   tools/system
    tools/files
-   tools/files/symlinks
    tools/layout
