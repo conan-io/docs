@@ -38,7 +38,7 @@ Or fully instantiated in the ``generate()`` method:
     class App(ConanFile):
         settings = "os", "arch", "compiler", "build_type"
         requires = "hello/0.1"
-        generators = "cmake_find_package_multi"
+        generators = "CMakeDeps"
         options = {"shared": [True, False], "fPIC": [True, False]}
         default_options = {"shared": False, "fPIC": True}
 
@@ -219,7 +219,7 @@ One of the advantages of using Conan toolchains is that they can help to achieve
 with local development flows, than when the package is created in the cache.
 
 With the ``CMakeToolchain`` it is possible to do, for multi-configuration systems like Visual Studio
-(assuming we are using the ``cmake_find_package_multi`` generator):
+(assuming we are using the ``CMakeDeps`` generator):
 
 .. code:: bash
 
