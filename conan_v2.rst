@@ -8,12 +8,12 @@ community about our features and we think it's time to break some default behavi
 the codebase and add space for new developments. Development is ongoing and the `Conan 2.0
 Tribe <https://conan.io/tribe.html>`_ is having discussions about it.
 
-Conan 2.0-alpha `is already released <https://pypi.org/project/conan/#history>`_  and can
-be installed from PyPI doing:
+Conan 2.0-alpha `is already released <https://pypi.org/project/conan/#history>`_. You can
+install the latest Conan Alpha version from PyPI doing:
 
 .. code-block:: bash
 
-    $ pip install conan==2.0.0-alpha3
+    $ pip install conan --pre
 
 The documentation for 2.0 is still far from being complete, but we are working on it and
 you can access it `with the right version label
