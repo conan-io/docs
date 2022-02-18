@@ -21,6 +21,11 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.43 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
     a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.43.4 (18-Feb-2022)
+--------------------
+
+- Fix: Limit markupsafe python dependency to <2.1. `#10616 <https://github.com/conan-io/conan/pull/10616>`_
+
 1.43.3 (13-Jan-2022)
 --------------------
 
