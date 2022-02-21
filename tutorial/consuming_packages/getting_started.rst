@@ -141,7 +141,7 @@ configuration:
 
 .. code-block:: ini
 
-    ➜ conan profile detect --force
+    $ conan profile detect --force
     Found apple-clang 13.0    
     Detected profile:
     [settings]
