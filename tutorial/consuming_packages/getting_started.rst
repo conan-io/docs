@@ -6,6 +6,13 @@ Getting started: build a simple CMake project using Conan
 Let's get started with an example: We are going to create a string compressor application
 that uses one of the most popular C++ libraries: `Zlib <https://zlib.net/>`__.
 
+.. important::
+
+    In this example, we will retreive the zlib Conan package from a Conan repository with
+    packages compatible for Conan 2.0. To run this example succesfully you should add this
+    remote to your Conan configuration doing:
+    ``conan remote add conanv2 https://conanv2beta.jfrog.io/artifactory/api/conan/conan --index 0``
+
 We'll use CMake as build system in this case but keep in mind that Conan **works with any
 build system** and is not limited to using CMake. You can check more examples with other
 build systems in the :ref:`Read More
@@ -20,19 +27,6 @@ section<consuming_packages_getting_started_read_more>`.
     .. code-block:: bash
 
         $ git clone https://github.com/conan-io/examples2.0.git && cd tutorial/consumer/getting_started
-
-
-Building a CMake project consuming Zlib with Conan
---------------------------------------------------
-
-.. important::
-
-    In this example, we will retreive the zlib Conan package from a Conan repository with
-    packages compatible for Conan 2.0. To run this example succesfully you should add this
-    remote to your Conan configuration doing:
-    ``conan remote add conanv2 https://conanv2beta.jfrog.io/artifactory/api/conan/conan --index 0``
-
-
 
 1. We start from a very simple C language project with this structure:
 
