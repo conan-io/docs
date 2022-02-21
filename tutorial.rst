@@ -8,3 +8,4 @@ Tutorial
    :maxdepth: 2
 
    tutorial/creating_packages
+   tutorial/versioning
