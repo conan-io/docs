@@ -29,3 +29,4 @@ example to a :ref:`a more powerful conanfile.py
    consuming_packages/build_tools_as_conan_packages
    consuming_packages/different_configurations
    consuming_packages/the_power_of_conanfile_py
+   consuming_packages/versioning
