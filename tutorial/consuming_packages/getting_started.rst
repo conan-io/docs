@@ -135,7 +135,7 @@ As you can see we added two sections to this file with a syntax similar to an *I
 This will detect the operating system, build architecture and compiler settings based on
 the environent. It will also set the build configuration as *Release* by default. The
 generated profile will be stored in the Conan home folder with name *default* and will be
-used by Conan in all commands by default unless other profile is specified via de command
+used by Conan in all commands by default unless other profile is specified via the command
 line. After executing the command you should see some output similar to this but for your
 configuration:
 
