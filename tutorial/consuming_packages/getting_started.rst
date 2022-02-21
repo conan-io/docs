@@ -25,6 +25,15 @@ section<consuming_packages_getting_started_read_more>`.
 Building a CMake project consuming Zlib with Conan
 --------------------------------------------------
 
+.. important::
+
+    In this example, we will retreive the zlib Conan package from a Conan repository with
+    packages compatible for Conan 2.0. To run this example succesfully you should add this
+    remote to your Conan configuration doing:
+    ``conan remote add conanv2 https://conanv2beta.jfrog.io/artifactory/api/conan/conan --index 0``
+
+
+
 1. We start from a very simple C language project with this structure:
 
 .. code-block:: text
@@ -34,8 +43,8 @@ Building a CMake project consuming Zlib with Conan
     └── src
         └── main.c
 
-This project contains a basic *CMakeLists.txt* including the *Zlib* dependency and the
-source code of the string compressor in *main.c*.
+This project contains a basic *CMakeLists.txt* including the **zlib** dependency and the
+source code for the string compressor program in *main.c*.
 
 Let's have a look at the *main.c* file:
 
