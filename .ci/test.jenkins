@@ -2,7 +2,9 @@
 
 node('Linux') {
     String masterBranch = 'master'
+    String preReleaseBranch = 'release/2.0.0-alpha'
     boolean isMaster = env.BRANCH_NAME == masterBranch
+    boolean isPreRelease = env.BRANCH_NAME == preReleaseBranch
 
     stage('Clone sources') {
         checkout scm
@@ -44,8 +46,8 @@ node('Linux') {
         }
     }
 
-    // 'master' branch is published to GH pages
-    if (isMaster) {
+    // Publish docs when we merge to master or the pre-release branch
+    if (isMaster || isPreRelease) {
         build(job: 'Conan-Docs-Publish', propagate: true, wait: true, parameters: [
             [$class: 'StringParameterValue', name: 'latest', value: masterBranch],
             [$class: 'StringParameterValue', name: 'prefix', value: 'https://docs.conan.io/'],
