@@ -17,23 +17,24 @@ There are three ways to install Conan:
 Install with pip (recommended)
 ------------------------------
 
-To install Conan using ``pip``, you need a Python >= 3.5 distribution installed on your machine. Modern Python distros come with pip
-pre-installed. However, if necessary you can install pip by following the instructions in `pip docs`_.
+To install latest Conan 2.0 pre-release version using ``pip``, you need a Python >= 3.6
+distribution installed on your machine. Modern Python distros come with pip pre-installed.
+However, if necessary you can install pip by following the instructions in `pip docs`_.
 
 .. warning::
-    Python 2.x and Python <= 3.4 support has been dropped. Conan will not work with those python versions.
+    Python 2.x and Python <= 3.5 support has been dropped. Conan will not work with those python versions.
 
 Install Conan:
 
 .. code-block:: bash
 
-    $ pip install conan==2.0.0a1
+    $ pip install conan --pre
 
 .. important::
 
     **Please READ carefully**
 
-    - Make sure that your **pip** installation matches your **Python (>= 3.5)** version.
+    - Make sure that your **pip** installation matches your **Python (>= 3.6)** version.
     - In **Linux**, you may need **sudo** permissions to install Conan globally.
     - We strongly recommend using **virtualenvs** (virtualenvwrapper works great) for everything related to Python.
       (check https://virtualenvwrapper.readthedocs.io/en/stable/, or https://pypi.org/project/virtualenvwrapper-win/ in Windows)
@@ -89,11 +90,11 @@ You should see the Conan commands help.
 Update
 ------
 
-If installed via ``pip``, Conan can be easily updated:
+If installed via ``pip``, Conan 2.0 pre-release version can be easily updated:
 
 .. code-block:: bash
 
-    $ pip install conan --upgrade  # Might need sudo or --user
+    $ pip install conan --pre --upgrade  # Might need sudo or --user
 
 The default ``<userhome>/.conan/settings.yml`` file, containing the definition of compiler versions, etc.,
 will be upgraded if Conan does not detect local changes, otherwise it will create a ``settings.yml.new`` with the new settings.
