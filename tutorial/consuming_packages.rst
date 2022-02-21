@@ -1,4 +1,4 @@
-.. _tutorial_consuming:
+.. _tutorial_consuming_packages:
 
 Consuming Packages
 ==================
