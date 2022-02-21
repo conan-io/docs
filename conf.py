@@ -166,7 +166,7 @@ html_baseurl = html_theme_options['base_url']
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
-html_logo = "_static/conan-logo.png"
+html_logo = "_static/conan-logo-2.0.png"
 
 # The name of an image file (relative to this directory) to use as a favicon of
 # the docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
