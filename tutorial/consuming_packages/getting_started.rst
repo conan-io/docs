@@ -26,7 +26,8 @@ section<consuming_packages_getting_started_read_more>`.
 
     .. code-block:: bash
 
-        $ git clone https://github.com/conan-io/examples2.git && cd tutorial/consumer/getting_started
+        $ git clone https://github.com/conan-io/examples2.git
+        $ cd tutorial/consumer/getting_started
 
 1. We start from a very simple C language project with this structure:
 
@@ -163,13 +164,13 @@ configuration:
 
 .. code-block:: bash
 
-    ➜ conan install . --output-folder cmake-build-release
+    $ conan install . --output-folder cmake-build-release
 
 You will get something similar to this as output of that command:
 
 .. code-block:: bash
 
-    ➜ conan install . --output-folder cmake-build-release
+    $ conan install . --output-folder cmake-build-release
     ...
     -------- Computing dependency graph ----------
     zlib/1.2.11: Not found in local cache, looking in remotes...
