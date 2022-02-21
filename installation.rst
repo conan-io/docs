@@ -90,11 +90,11 @@ You should see the Conan commands help.
 Update
 ------
 
-If installed via ``pip``, Conan can be easily updated:
+If installed via ``pip``, Conan 2.0 pre-release version can be easily updated:
 
 .. code-block:: bash
 
-    $ pip install conan --upgrade  # Might need sudo or --user
+    $ pip install conan --pre --upgrade  # Might need sudo or --user
 
 The default ``<userhome>/.conan/settings.yml`` file, containing the definition of compiler versions, etc.,
 will be upgraded if Conan does not detect local changes, otherwise it will create a ``settings.yml.new`` with the new settings.
