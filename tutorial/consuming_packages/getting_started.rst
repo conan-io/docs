@@ -1,7 +1,7 @@
 .. _consuming_packages_getting_started:
 
-Getting started: building your project using a Conan package
-============================================================
+Getting started: build a simple CMake project using Conan
+=========================================================
 
 Let's get started with an example: We are going to create a string compressor application
 that uses one of the most popular C++ libraries: `Zlib <https://zlib.net/>`__.
