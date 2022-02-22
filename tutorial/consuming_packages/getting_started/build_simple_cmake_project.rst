@@ -11,7 +11,7 @@ that uses one of the most popular C++ libraries: `Zlib <https://zlib.net/>`__.
     In this example, we will retreive the zlib Conan package from a Conan repository with
     packages compatible for Conan 2.0. To run this example succesfully you should add this
     remote to your Conan configuration doing:
-    ``conan remote add conanv2 https://conanv2.jfrog.io/artifactory/api/conan/conan --index 0``
+    ``conan remote add conanv2 https://conanv2beta.jfrog.io/artifactory/api/conan/conan --index 0``
 
 We'll use CMake as build system in this case but keep in mind that Conan **works with any
 build system** and is not limited to using CMake. You can check more examples with other
@@ -142,15 +142,18 @@ configuration:
 .. code-block:: ini
 
     $ conan profile detect --force
-    Found apple-clang 13.0    
+    CC and CXX: /usr/bin/gcc, /usr/bin/g++ 
+    Found gcc 10
+    gcc>=5, using the major as version
+    gcc C++ standard library: libstdc++11
     Detected profile:
     [settings]
-    os=Macos
+    os=Linux
     arch=x86_64
-    compiler=apple-clang
-    compiler.version=13.0
-    compiler.libcxx=libc++
-    compiler.cppstd=gnu98
+    compiler=gcc
+    compiler.version=10
+    compiler.libcxx=libstdc++11
+    compiler.cppstd=gnu14
     build_type=Release
     [options]
     [tool_requires]
@@ -163,13 +166,13 @@ configuration:
 
 .. code-block:: bash
 
-    $ conan install . --output-folder cmake-build-release
+    $ conan install . --output-folder cmake-build-release --build=missing
 
 You will get something similar to this as output of that command:
 
 .. code-block:: bash
 
-    $ conan install . --output-folder cmake-build-release
+    $ conan install . --output-folder cmake-build-release --build=missing
     ...
     -------- Computing dependency graph ----------
     zlib/1.2.11: Not found in local cache, looking in remotes...
@@ -206,11 +209,14 @@ You will get something similar to this as output of that command:
     conanfile.txt: Aggregating env generators
 
 
-As you can see in the output, Conan installed the *Zlib* library from the remote server we
-configured at the beginning of the tutorial. This server does not only store the Conan
-recipes, that tell Conan how to build the libraries and what information to pass to the
-projects that use this libraries but also prebuilt binaries that can be reused so we don't
-have to build from sources everytime.
+As you can see in the output, there are a couple of things that happened:
+    * Conan installed the *Zlib* library from the remote server we configured at the
+      beginning of the tutorial. This server store both the Conan recipes, that are the
+      files that define how libraries must be built and binaries that can be reused so we
+      don't have to build from sources everytime.
+    * ...
+
+
 
 
 .. _consuming_packages_getting_started_read_more:
