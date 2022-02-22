@@ -182,30 +182,30 @@ You will get something similar to this as output of that command:
     Downloading conanfile.py
     Downloading conan_export.tgz
     Decompressing conan_export.tgz
-    zlib/1.2.11: Downloaded recipe revision 25fd8350c227f2d6b5c5ca74c4009074
+    zlib/1.2.11: Downloaded recipe revision f1fadf0d3b196dc0332750354ad8ab7b
     Graph root
-        conanfile.txt: /Users/conan-docs/Documents/developer/conan/examples2.0/tutorial/consumer/getting_started/conanfile.txt
+        conanfile.txt: /home/conan/examples2/tutorial/consuming_packages/getting_started/simple_cmake_project/conanfile.txt
     Requirements
-        zlib/1.2.11#25fd8350c227f2d6b5c5ca74c4009074 - Downloaded (conanv2)
+        zlib/1.2.11#f1fadf0d3b196dc0332750354ad8ab7b - Downloaded (conanv2)
 
     -------- Computing necessary packages ----------
     Requirements
-        zlib/1.2.11#25fd8350c227f2d6b5c5ca74c4009074:2a823fda5c9d8b4f682cb27c30caf4124c5726c8#2d46b6fb6c2b74296cf021fa332cd1da - Download (conanv2)
+        zlib/1.2.11#f1fadf0d3b196dc0332750354ad8ab7b:cdc9a35e010a17fc90bb845108cf86cfcbce64bf#dd7bf2a1ab4eb5d1943598c09b616121 - Download (conanv2)
 
     -------- Installing packages ----------
 
     Installing (downloading, building) binaries...
-    zlib/1.2.11: Retrieving package 2a823fda5c9d8b4f682cb27c30caf4124c5726c8 from remote 'conanv2' 
+    zlib/1.2.11: Retrieving package cdc9a35e010a17fc90bb845108cf86cfcbce64bf from remote 'conanv2' 
     Downloading conanmanifest.txt
     Downloading conaninfo.txt
     Downloading conan_package.tgz
     Decompressing conan_package.tgz
-    zlib/1.2.11: Package installed 2a823fda5c9d8b4f682cb27c30caf4124c5726c8
-    zlib/1.2.11: Downloaded package revision 2d46b6fb6c2b74296cf021fa332cd1da
+    zlib/1.2.11: Package installed cdc9a35e010a17fc90bb845108cf86cfcbce64bf
+    zlib/1.2.11: Downloaded package revision dd7bf2a1ab4eb5d1943598c09b616121
 
-    -------- Finalizing install (generators) ----------
-    conanfile.txt: Generator 'CMakeDeps' calling 'generate()'
+    -------- Finalizing install (deploy, generators) ----------
     conanfile.txt: Generator 'CMakeToolchain' calling 'generate()'
+    conanfile.txt: Generator 'CMakeDeps' calling 'generate()'
     conanfile.txt: Aggregating env generators
 
 
