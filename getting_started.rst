@@ -210,13 +210,19 @@ An MD5 hash calculator using the Poco Libraries
 
 7. Now we are ready to build and run our MD5 app:
 
-    .. code-block:: bash
+.. tabs::
 
-        (win)
+   .. code-tab:: bash Windows
+
         $ cmake .. -G "Visual Studio 16"
         $ cmake --build . --config Release
+        ...
+        [100%] Built target md5
+        $ ./bin/md5
+        c3fcd3d76192e4007dfb496cca67e13b
 
-        (linux, mac)
+   .. code-tab:: bash Linux, Mac
+
         $ cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
         $ cmake --build .
         ...
