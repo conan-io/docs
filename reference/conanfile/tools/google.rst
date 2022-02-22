@@ -13,7 +13,7 @@ BazelDeps
 
 Available since: `1.37.0 <https://github.com/conan-io/conan/releases>`_
 
-The ``BazelDeps`` helper will generate one **conandeps/xxxx/BUILD** file per dependency. This dependencies will be
+The ``BazelDeps`` helper will generate one **conandeps/xxxx/BUILD.bazel** file per dependency. This dependencies will be
 automatically added to the project by adding the following to the project's **WORKSPACE** file:
 
 

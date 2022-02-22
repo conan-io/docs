@@ -8,7 +8,7 @@ Introduced in Conan 1.38.
 .. warning::
 
     These tools are **very experimental** and subject to breaking changes.
-    It also contains some known bugs regarding ``build_requires``, to be addressed in next Conan 1.39
+    It also contains some known bugs regarding ``tool_requires``, to be addressed in next Conan 1.39
 
 
 
@@ -16,7 +16,7 @@ Introduced in Conan 1.38.
 
     This is an advanced feature. Most users will not need to use it, it is intended for
     developing new build system integrations and similar purposes.
-    For defining dependencies between packages, check the ``requires``, ``build_requires`` and
+    For defining dependencies between packages, check the ``requires``, ``tool_requires`` and
     other attributes
 
 
@@ -68,7 +68,7 @@ Not all fields of the dependency conanfile are exposed, the current fields are:
 - pref: an object that contains ``ref``, ``package_id`` and ``revision`` (package revision)
 - buildenv_info: ``Environment`` object with the information of the environment necessary to build
 - runenv_info: ``Environment`` object with the information of the environment necessary to run the app
-- new_cpp_info: (name to be changed): includedirs, libdirs, etc for the dependency
+- cpp_info: includedirs, libdirs, etc for the dependency.
 - settings: The actual settings values of this dependency
 - settings_build: The actual build settings values of this dependency
 - options: The actual options values of this dependency
@@ -114,7 +114,7 @@ between the current recipe and the dependency. At the moment they can be:
 
 - ``require.direct``: boolean, ``True`` if it is direct dependency or ``False`` if it is a transitive one.
 - ``require.build``: boolean, ``True`` if it is a ``build_require`` in the build context, as ``cmake``.
-- ``require.test``: boolean, ``True`` if its a ``build_require`` in the host context (argument ``self.requires(..., force_host_context=True)``), as ``gtest``.
+- ``require.test``: boolean, ``True`` if its a ``build_require`` in the host context (defined with ``self.test_requires()``), as ``gtest``.
 
 The ``dependency`` dictionary value is the read-only object described above that access the dependency attributes.
 
@@ -122,7 +122,7 @@ The ``self.dependencies`` contains some helpers to filter based on some criteria
 
 - ``self.dependencies.host``: Will filter out requires with ``build=True``, leaving regular dependencies like ``zlib`` or ``poco``.
 - ``self.dependencies.direct_host``: Will filter out requires with ``build=True`` or ``direct=False``
-- ``self.dependencies.build``: Will filter out requires with ``build=False``, leaving only ``build_requires`` in the build context, as ``cmake``.
+- ``self.dependencies.build``: Will filter out requires with ``build=False``, leaving only ``tool_requires`` in the build context, as ``cmake``.
 - ``self.dependencies.direct_build``: Will filter out requires with ``build=False`` or ``direct=False``
 - ``self.dependencies.test``: Will filter out requires with ``build=True`` or with ``test=False``, leaving only test requirements as ``gtest`` in the host context.
 
@@ -137,3 +137,46 @@ They can be used in the same way:
         cmake = self.dependencies.direct_build["cmake"]
         for require, dependency in self.dependencies.build.items():
             # do something, only build deps here
+
+
+Dependencies ``cpp_info`` interface
++++++++++++++++++++++++++++++++++++
+
+The ``cpp_info`` interface is heavily used by build systems to access the data.
+This object defines global and per-component attributes to access information like the include
+folders:
+
+.. code-block:: python
+
+    def generate(self):
+        cpp_info = self.dependencies["mydep"].cpp_info
+        cpp_info.includedirs
+        cpp_info.libdirs
+
+        cpp_info.components["mycomp"].includedirs
+        cpp_info.components["mycomp"].libdirs
+
+These are the defined attributes in ``cpp_info``. All the paths are typically relative paths to
+the root of the package folder that contains the dependency artifacts:
+
+.. code-block:: python
+
+    # ###### DIRECTORIES
+    self.includedirs = None  # Ordered list of include paths
+    self.srcdirs = None  # Ordered list of source paths
+    self.libdirs = None  # Directories to find libraries
+    self.resdirs = None  # Directories to find resources, data, etc
+    self.bindirs = None  # Directories to find executables and shared libs
+    self.builddirs = None
+    self.frameworkdirs = None
+
+    # ##### FIELDS
+    self.system_libs = None  # Ordered list of system libraries
+    self.frameworks = None  # Macos .framework
+    self.libs = None  # The libs to link against
+    self.defines = None  # preprocessor definitions
+    self.cflags = None  # pure C flags
+    self.cxxflags = None  # C++ compilation flags
+    self.sharedlinkflags = None  # linker flags
+    self.exelinkflags = None  # linker flags
+    self.objects = None  # objects to link

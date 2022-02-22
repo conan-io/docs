@@ -48,6 +48,10 @@ need to build a new binary because a new ``package_id`` will be computed.
 
     $ conan config set general.default_package_id_mode=full_version_mode
 
+This sets the *default* package ID mode.  Be aware, however, that if any of your packages provide their own 
+`package_id()` implementation, for example explicitly setting a different mode for a dependency, `full_version_mode` 
+might not be used for that package.
+
 This example will use version ranges, and it is not necessary to have revisions enabled. It also does not require
 a server, everything can be reproduced locally, although the usage of different repositories will be introduced.
 

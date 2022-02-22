@@ -191,6 +191,10 @@ There are a few limitations that should be taken into account:
   directly in the recipes. A reusable alternative might be using the ``SCM`` component.
 - ``build_policy`` shouldn't be inherited from a base class, but explictly defined
   directly in the recipes.
+- Mixing Python inheritance with ``python_requires_extend`` should be avoided, because 
+  the inheritance order can be different than the expected one. Multiple level ``python_requires_extend``
+  might be possible, but don't mix both approaches (also in general try to avoid
+  multiple inheritance and multiple level hierarchies, try to keep it simple).
 
 
 Reusing files
@@ -296,7 +300,7 @@ There are few things that should be taken into account when using ``python-requi
   to very few cases, we recommend to use the simplest possible structure.
 - ``python-requires`` can conflict if they require other recipes and create conflicts in different
   versions.
-- ``python-requires`` cannot use regular ``requires`` or ``build_requires``.
+- ``python-requires`` cannot use regular ``requires`` or ``tool_requires``.
 - It is possible to use ``python-requires`` without user and channel.
 - ``python-requires`` can use native python ``import`` to other python files, as long as these are
   exported together with the recipe.
