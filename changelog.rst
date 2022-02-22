@@ -100,6 +100,11 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Bugfix: Fix passing component's linkflags in CMakeDepes generator `#10205 <https://github.com/conan-io/conan/pull/10205>`_
 - Bugfix: `AutotoolsToolchain` was not passing the `compiler` to `get_gnu_triplet` function. `#10141 <https://github.com/conan-io/conan/pull/10141>`_
 
+1.43.4 (18-Feb-2022)
+--------------------
+
+- Fix: Limit markupsafe python dependency to <2.1. `#10616 <https://github.com/conan-io/conan/pull/10616>`_
+
 1.43.3 (13-Jan-2022)
 --------------------
 
