@@ -3,3 +3,4 @@ docutils
 sphinx-sitemap>=2.1.0
 sphinxcontrib-spelling
 sphinx-notfound-page
+sphinx-tabs
