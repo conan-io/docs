@@ -115,7 +115,7 @@ Profiles are stored in text files with no file extension. An example profile:
     compiler.libcxx=libstdc++11
     build_type=Release
     arch=armv7
-    os_build=Linus
+    os_build=Linux
     arch_build=x86_64
     OpenSSL:compiler.version=4.8  # Dependency-specific value
 
