@@ -1482,6 +1482,7 @@ Parameters of the constructor:
     - **runner** (Optional, Defaulted to ``None``): By default ``subprocess.check_output`` will be used to invoke the ``git`` tool.
 
 Methods:
+    - **version**: (property) Retrieve version from the installed Git client.
     - **run(command)**: Run any "git" command, e.g., ``run("status")``
     - **get_url_with_credentials(url)**: Returns the passed URL but containing the ``username`` and ``password`` in the URL to authenticate
       (only if ``username`` and ``password`` is specified)
@@ -1531,7 +1532,7 @@ Parameters of the constructor:
     - **runner** (Optional, Defaulted to ``None``): By default ``subprocess.check_output`` will be used to invoke the ``svn`` tool.
 
 Methods:
-    - **version()**: Retrieve version from the installed SVN client.
+    - **version**: (property) Retrieve version from the installed SVN client.
     - **run(command)**: Run any "svn" command, e.g., ``run("status")``
     - **get_url_with_credentials(url)**: Return the passed url but containing the ``username`` and ``password`` in the URL to authenticate
       (only if ``username`` and ``password`` is specified)

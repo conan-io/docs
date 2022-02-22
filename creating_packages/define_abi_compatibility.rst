@@ -625,6 +625,11 @@ All the modes can be applied to all dependencies, or to individual ones:
           self.info.requires["mypkg"].package_revision_mode()
 
 
+.. note::
+  
+  Version ranges are not used to calculate the ``package_id`` only the resolved version in the graph is used
+
+
 You can also adjust the individual properties manually:
 
 .. code-block:: python

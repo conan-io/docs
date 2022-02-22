@@ -48,11 +48,9 @@ constructor
 
 .. code:: python
 
-    def __init__(self, conanfile, parallel=True, namespace=None):
+    def __init__(self, conanfile, namespace=None):
 
 - ``conanfile``: the current recipe object. Always use ``self``.
-- ``parallel``: (Optional, Defaulted to True): If True, will append the -jN attribute (/m: in MSBuild) for parallel
-  building being N the value of the :ref:`tools.microsoft.msbuild:max_cpu_count<global_conf>`.
 - ``namespace``: this argument avoids collisions when you have multiple toolchain calls in the same
   recipe. By setting this argument the *conanbuild.conf* file used to pass some information to the
   toolchain will be named as: *<namespace>_conanbuild.conf*. The default value is ``None`` meaning that
@@ -65,7 +63,7 @@ configure()
 
 .. code:: python
 
-    def configure(self, source_folder=None):
+    def configure(self, build_script_folder=None):
 
 Calls ``cmake``, with the generator defined in the ``cmake_generator`` field of the
 ``conanbuild.conf`` file, and passing ``-DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake``.
@@ -75,7 +73,7 @@ Calls ``cmake``, with the generator defined in the ``cmake_generator`` field of 
     If ``conanbuild.conf`` file is not there, Conan will raise an exception because it's a mandatory one even though it's empty.
 
 
-- ``source_folder``: Relative path to the folder containing the root *CMakeLists.txt*
+- ``build_script_folder``: Relative path to the folder containing the root *CMakeLists.txt*
 
 
 build()
@@ -114,7 +112,7 @@ test()
 
 .. code:: python
 
-    def test(self, build_type=None, target=None, output_on_failure=False):
+    def test(self, build_type=None, target=None):
 
 
 Equivalent to running :command:`cmake --build . --target=RUN_TESTS`.
@@ -132,8 +130,7 @@ conf
   to the ``CMake.build()`` command, when a Visual Studio generator (MSBuild build system) is being used for CMake. It is passed as
   an argument to the underlying build system via the call ``cmake --build . --config Release -- /verbosity:Diagnostic``
 
-- ``tools.ninja:jobs`` argument for the ``--jobs`` parameter when running Ninja generator. (overrides
-  the general ``tools.build:processes``).
+- ``tools.build:jobs`` argument for the ``--jobs`` parameter when running Ninja generator.
 
 - ``tools.microsoft.msbuild:max_cpu_count`` argument for the ``/m`` (``/maxCpuCount``) when running
-  ``MSBuild`` (overrides the general ``tools.build:processes``).
+  ``MSBuild``

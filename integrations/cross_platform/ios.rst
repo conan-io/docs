@@ -5,17 +5,17 @@ ____________________________
 
 .. _darwin_toolchain:
 
-Using Darwin toolchain package (build require)
-==============================================
+Using Darwin toolchain package (tool require)
+=============================================
 
 .. warning::
 
     This is an **experimental** feature subject to breaking changes in future releases.
 
-One example of a build requires implementing a toolchain to cross-compile to iOS, tvOS or watchOS, is
+One example of a tool requires implementing a toolchain to cross-compile to iOS, tvOS or watchOS, is
 the `Darwin Toolchain <https://github.com/theodelrieu/conan-darwin-toolchain>`_  package. Although
 this package is not in Conan Center Index you can check it to see an example of how to use a
-toolchain for cross-compilation by using a build requires. You can use a profile like the following
+toolchain for cross-compilation by using a tool requires. You can use a profile like the following
 to cross-build your packages for ``iOS``,  ``watchOS`` and ``tvOS``:
 
 .. code-block:: text
@@ -28,7 +28,7 @@ to cross-build your packages for ``iOS``,  ``watchOS`` and ``tvOS``:
     os.version=9.0
     arch=armv7
 
-    [build_requires]
+    [tool_requires]
     darwin-toolchain/1.0@theodelrieu/stable
 
 

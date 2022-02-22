@@ -49,7 +49,7 @@ With `QNX SDK <http://www.qnx.com/download/>`__ set up on the machine, the follo
   compiler.version=4.4
   compiler.libcxx=cxx
   [options]
-  [build_requires]
+  [tool_requires]
   [env]
   CC=qcc
   CXX=QCC

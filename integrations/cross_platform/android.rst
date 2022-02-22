@@ -5,12 +5,12 @@ ____________________________
 
 There are several ways to cross-compile packages for `Android <https://www.android.com>`__ platform via conan.
 
-Using android-ndk package (build require)
-===================================================
+Using android-ndk package (tool require)
+========================================
 
 The easiest way so far is to use `android-ndk <https://conan.io/center/android-ndk>`_ conan package (which is in ``conancenter`` repository).
 
-Using the ``android-ndk`` package as a build requirement will do the following steps:
+Using the ``android-ndk`` package as a tool requirement will do the following steps:
 
 - Download the appropriate `Android NDK <https://developer.android.com/ndk>`_ archive.
 
@@ -31,7 +31,7 @@ For instance, in order to cross-compile for ``ARMv8``, the following conan profi
   compiler.version=11
   os=Android
   os.api_level=21
-  [build_requires]
+  [tool_requires]
   android-ndk/r22b
   [options]
   [env]
@@ -54,7 +54,7 @@ Similar profile might be used to cross-compile for ``ARMv7`` (notice the ``arch`
   compiler.version=11
   os=Android
   os.api_level=21
-  [build_requires]
+  [tool_requires]
   android-ndk/r22b
   [options]
   [env]
@@ -158,7 +158,7 @@ You have to specify different environment variables in the Conan profile for mak
   compiler.version=8
   os=Android
   os.api_level=$api_level
-  [build_requires]
+  [tool_requires]
   [options]
   [env]
   PATH=[$android_ndk/toolchains/llvm/prebuilt/darwin-x86_64/bin]
@@ -202,7 +202,7 @@ And then, you may use the following profile:
   compiler.version=8
   os=Android
   os.api_level=21
-  [build_requires]
+  [tool_requires]
   [options]
   [env]
   CONAN_CMAKE_TOOLCHAIN_FILE=/home/conan/my_android_toolchain.cmake
@@ -235,7 +235,7 @@ Therefore, the following conan profile could be used for ``ARMv8``:
   compiler.version=7.0
   os=Android
   os.api_level=21
-  [build_requires]
+  [tool_requires]
   [options]
   [env]
   ANDROID_NDK_ROOT=/home/conan/android-ndk-r18b
