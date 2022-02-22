@@ -128,3 +128,27 @@ values:
 * **build_type_flags**: Flags from ``settings.build_type``
 * **apple_arch_flag**: Only when cross-building with Apple systems. Flags from ``settings.arch``.
 * **apple_isysroot_flag**: Only when cross-building with Apple systems. Path to the root sdk.
+
+
+Customizing the environment
++++++++++++++++++++++++++++
+
+If your ``Makefile`` or ``configure`` scripts need some other environment variable rather than ``CPPFLAGS``, ``LDFLAGS``,
+``CXXFLAGS`` or ``CFLAGS``, you can customize it before calling the ``generate()`` method.
+Call the ``environment()`` method to calculate the mentioned variables and then add the variables that you need.
+The ``environment()`` method returns an :ref:`Environment<conan_tools_env_environment_model>` object:
+
+
+.. code:: python
+
+    from conans import ConanFile
+    from conan.tools.gnu import AutotoolsToolchain
+
+    class App(ConanFile):
+        settings = "os", "arch", "compiler", "build_type"
+
+        def generate(self):
+            tc = AutotoolsToolchain(self)
+            env = at.environment()
+            env.define("FOO", "BAR")
+            tc.generate(env)
