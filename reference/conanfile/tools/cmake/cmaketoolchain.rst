@@ -38,7 +38,7 @@ Or fully instantiated in the ``generate()`` method:
     class App(ConanFile):
         settings = "os", "arch", "compiler", "build_type"
         requires = "hello/0.1"
-        generators = "cmake_find_package_multi"
+        generators = "CMakeDeps"
         options = {"shared": [True, False], "fPIC": [True, False]}
         default_options = {"shared": False, "fPIC": True}
 
@@ -147,26 +147,12 @@ The booleans assigned to a variable will be translated to ``ON`` and ``OFF`` sym
 Will generate the sentences: ``set(FOO ON ...)`` and ``set(VAR OFF ...)``.
 
 
-find_builddirs
-++++++++++++++
-
-Defaulted to ``True``. If ``True`` Conan adds the ``cpp_info.builddirs`` from the requirements to the
-``CMAKE_PREFIX_PATH`` and ``CMAKE_MODULE_PATH`` variables. That would allow finding the config files or modules
-packaged in the dependencies and also including them from the consumer CMakeLists.txt.
-
-.. code:: python
-
-    def generate(self):
-        tc = CMakeToolchain(self)
-        tc.find_builddirs = False
-        tc.generate()
-
 
 Generators
 ++++++++++
 
-The ``CMakeToolchain`` is intended to run with the ``CMakeDeps`` dependencies generator. It might temporarily
-work with others like ``cmake_find_package`` and ``cmake_find_package_multi``, but this will be removed soon.
+The ``CMakeToolchain`` is intended to run with the ``CMakeDeps`` dependencies generator. Please do not use other
+CMake legacy generators (like ``cmake``, or ``cmake_paths``) with it.
 
 
 Using a custom toolchain file
@@ -233,7 +219,7 @@ One of the advantages of using Conan toolchains is that they can help to achieve
 with local development flows, than when the package is created in the cache.
 
 With the ``CMakeToolchain`` it is possible to do, for multi-configuration systems like Visual Studio
-(assuming we are using the ``cmake_find_package_multi`` generator):
+(assuming we are using the ``CMakeDeps`` generator):
 
 .. code:: bash
 
@@ -310,6 +296,12 @@ The following predefined blocks are available, and added in this order:
 - ``rpath``: Defines ``CMAKE_SKIP_RPATH``. By default it is disabled, and it is needed to define ``self.blocks["rpath"].skip_rpath=True`` if you want to activate ``CMAKE_SKIP_RPATH``
 - ``shared``: defines ``BUILD_SHARED_LIBS``
 
+
+.. note::
+    In Conan 1.45 the CMakeToolchain doesn't append the root package folder of the dependencies (declared in the cpp_info.builddirs)
+    to the ``CMAKE_PREFIX_PATH`` variable. That interfered with the ``find_file``, ``find_path`` and ``find_program``, making,
+    for example, impossible to locate only the executables from the build context. In Conan 2.0, the ``cppinfo.builddirs``
+    won't contain by default the ``''`` entry (root package).
 
 
 Blocks can be customized in different ways:

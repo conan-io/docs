@@ -310,3 +310,78 @@ Parameters:
 
     * **scope** (Defaulted to ``"build"``): Add the launcher automatically to the ``conanbuild`` launcher. Read more
       in the :ref:`Environment documentation <conan_tools_env_environment_model>`.
+
+
+conan.tools.microsoft.is_msvc()
+-------------------------------
+
+.. code-block:: python
+
+    def is_msvc(conanfile):
+
+Validate ``self.settings.compiler`` for which compiler is being used.
+It returns ``True`` when the host compiler is ``Visual Studio`` or ``msvc``, otherwise, returns ``False``.
+When the ``compiler`` is empty, it returns ``False``.
+
+Parameters:
+
+- **conanfile**: ConanFile instance.
+
+.. code-block:: python
+
+    from conan.tools.microsoft import is_msvc
+
+    def validate(self):
+        if not is_msvc(self):
+            raise ConanInvalidConfiguration("Only supported by Visual Studio and msvc.")
+
+
+conan.tools.microsoft.is_msvc_static_runtime()
+----------------------------------------------
+
+.. code-block:: python
+
+    def is_msvc_static_runtime(conanfile):
+
+Validate ``self.settings.compiler.runtime`` for which compiler is being used.
+It returns ``True`` when the host compiler is ``Visual Studio`` or ``msvc``, and its runtime is ``MT``, ``MTd`` or ``static``.
+When the ``compiler`` is empty, it returns ``False``.
+
+Parameters:
+
+- **conanfile**: ConanFile instance.
+
+
+.. code-block:: python
+
+    from conan.tools.microsoft import is_msvc_static_runtime
+
+    def validate(self):
+        if is_msvc_static_runtime(self) and self.options.shared(self):
+            raise ConanInvalidConfiguration("This project does not support shared and static runtime together.")
+
+
+.. _conan_tools_microsoft_msvc_runtime_flag:
+
+conan.tools.microsoft.msvc_runtime_flag()
+-----------------------------------------
+
+.. code-block:: python
+
+    def msvc_runtime_flag(conanfile):
+
+If the current compiler is ``Visual Studio``, ``msvc`` or ``intel-cc``, then detects the runtime type and returns between
+``MD``, ``MT``, ``MDd`` or ``MTd``, otherwise, returns ``""`` (empty string).
+When the runtime type is ``static``, it returns ``MT``, otherwise, ``MD``. The suffix ``d`` is added when running on Debug mode.
+
+Parameters:
+
+- **conanfile**: Conanfile instance.
+
+.. code-block:: python
+
+    from conan.tools.microsoft import msvc_runtime_flag
+
+    def validate(self):
+         if "MT" in msvc_runtime_flag(self):
+            self.output.warning("Runtime MT/MTd is not well tested.")

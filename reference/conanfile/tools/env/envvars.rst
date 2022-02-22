@@ -22,10 +22,10 @@ Creating launcher files
 .. code:: python
 
     def generate(self):
-        env1 = Environment(self)
+        env1 = Environment()
         env1.define("foo", "var")
         envvars = env1.vars(self)
-        env1.save_script("my_launcher")
+        envvars.save_script("my_launcher")
 
 
 Although it potentially could be used in other methods, this functionality is intended to work in the ``generate()``

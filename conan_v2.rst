@@ -8,12 +8,12 @@ community about our features and we think it's time to break some default behavi
 the codebase and add space for new developments. Development is ongoing and the `Conan 2.0
 Tribe <https://conan.io/tribe.html>`_ is having discussions about it.
 
-Conan 2.0-alpha `is already released <https://pypi.org/project/conan/#history>`_  and can
-be installed from PyPI doing:
+Conan 2.0-alpha `is already released <https://pypi.org/project/conan/#history>`_. You can
+install the latest Conan Alpha version from PyPI doing:
 
 .. code-block:: bash
 
-    $ pip install conan==2.0.0-alpha1
+    $ pip install conan --pre
 
 The documentation for 2.0 is still far from being complete, but we are working on it and
 you can access it `with the right version label
@@ -124,6 +124,21 @@ Symlinks in recipes and packages
 Conan won't alter any symlink while exporting or packaging files.
 If any manipulation to the symlinks is required, the package :ref:`conan.tools.files.symlinks<conan_tools_files_symlinks>`
 contains some tools to help with that.
+
+Default cpp_info.builddirs
+--------------------------
+
+The default root package folder (``self.cpp_info.builddirs = ['']``) has been removed. Also assign it
+will be discouraged because it affects how :ref:`CMakeToolchain<conan-cmake-toolchain>` and
+:ref:`CMakeDeps<CMakeDeps>` locate executables, libraries, headers... from the right context (host vs build).
+
+To be prepared for Conan 2.0:
+
+- If you have *cmake modules* or *cmake config files* at the root of the package, it is strongly recommended to move them
+  to a subfolder ``cmake`` and assing it: ``self.cpp_info.builddirs = ["cmake"]``
+- If you are not assigning any ``self.cpp_info.builddirs`` assign an empty list: ``self.cpp_info.builddirs = []``.
+- Instead of appending new values to the default list, assign it: ``self.cpp_info.builddirs = ["cmake"]``
+
 
 .. _conanv2_properties_model:
 
