@@ -281,7 +281,6 @@ The :ref:`cpp_info_attributes_reference` attribute has the following properties 
           self.cpp_info.exelinkflags = ["-NODEFAULTLIB:MSVCRT",
                                         "-DEFAULTLIB:LIBCMT"]
 
-- **name**: Alternative name for the package so generators can take into account in order to generate targets or file names.
 - **components**: **[Experimental]** Dictionary with names as keys and a component object as value to model the different components a
   package may have: libraries, executables... Read more about this feature at :ref:`package_information_components`.
 - **requires**: **[Experimental]** List of components from the requirements this package (and its consumers) should link with. It will
@@ -677,10 +676,10 @@ It also has optional parameters that allow defining the special cases, as is sho
 build_requirements()
 --------------------
 
-Build requirements are requirements that are only installed and used when the package is built from sources. If there is an existing
-pre-compiled binary, then the build requirements for this package will not be retrieved.
+The requires specified in this method are only installed and used when the package is built from sources.
+If there is an existing pre-compiled binary, then the tool requirements for this package will not be retrieved.
 
-This method is useful for defining conditional build requirements, for example:
+This method is useful for defining conditional tool requirements, for example:
 
 .. code-block:: python
 
@@ -688,11 +687,11 @@ This method is useful for defining conditional build requirements, for example:
 
         def build_requirements(self):
             if self.settings.os == "Windows":
-                self.build_requires("tool_win/0.1@user/stable")
+                self.tool_requires("tool_win/0.1@user/stable")
 
 .. seealso::
 
-    :ref:`Build requirements <build_requires>`
+    :ref:`Tool requirements <build_requires>`
 
 .. _method_system_requirements:
 
@@ -767,6 +766,12 @@ On Windows, there is no standard package manager, however **choco** can be invok
 
 SystemPackageTool
 +++++++++++++++++
+
+.. warning::
+
+    SystemPackageTool will dissapear in Conan 2.0, there's already a new implementation of
+    these wrappers in :ref:`conan_tools_system_package_manager` that will be the default
+    in Conan 2.0.
 
 .. code-block:: python
 
@@ -1407,7 +1412,7 @@ The purpose of ``generate()`` is to prepare the build, generating the necessary 
   Visual Studio property files.
 - Environment activation scripts, like ``conanbuildenv.bat`` or ``conanbuildenv.sh``, that define all the necessary environment
   variables necessary for the build.
-- Toolchain files, like ``conantoolchain.cmake``, that contains a mapping between the current Conan settings and options, and the
+- Toolchain files, like ``conan_toolchain.cmake``, that contains a mapping between the current Conan settings and options, and the
   build system specific syntax.
 - General purpose build information, as a ``conanbuild.conf`` file that could contain information like the CMake generator or
   CMake toolchain file to be used in the ``build()`` method.
@@ -1461,7 +1466,7 @@ Available since: `1.37.0 <https://github.com/conan-io/conan/releases>`_
 
 Read about the feature :ref:`here<package_layout>`.
 
-In the layout() method you can adjust ``self.folders``, ``self.cpp`` and ``self.patterns``.
+In the layout() method you can adjust ``self.folders`` and ``self.cpp``.
 
 
 .. _layout_folders_reference:
@@ -1494,10 +1499,6 @@ self.folders
   method in a ``conanfile.py``. In the cache, when running the :command:`conan create`, this subfolder will be relative to the root
   build folder and when running the :command:`conan imports` command it will be relative to the current working directory.
 
-- **self.folders.package** (Defaulted to ""): Specifies a subfolder where to write the package files when running the :command:`conan package`
-  command. It is relative to the current working directory. This folder **will not** affect the package layout in the
-  cache.
-
 
 self.cpp
 ++++++++
@@ -1507,46 +1508,6 @@ the ``self.cpp_info`` in the ``package_info(self)`` method) but for the ``self.s
 
 The fields of the cpp_info objects at ``self.info.build`` and ``self.info.source`` are the same described :ref:`here<cpp_info_attributes_reference>`.
 Components are also supported.
-
-
-self.patterns
-+++++++++++++
-
-You can fill the ``self.patterns.source`` and ``self.patterns.build`` objects describing the patterns of the files that are at the ``self.folders.source`` and ``self.folders.build``
-to automate the ``package(self)`` method with the **LayoutPackager()** tool.
-
-The defaults are the following but you can customize anything based on the configuration (``self.settings``, ``self.options``...):
-
-.. code:: python
-
-        self.patterns.source.include = ["*.h", "*.hpp", "*.hxx"]
-        self.patterns.source.lib = []
-        self.patterns.source.bin = []
-
-        self.patterns.build.include = ["*.h", "*.hpp", "*.hxx"]
-        self.patterns.build.lib = ["*.so", "*.so.*", "*.a", "*.lib", "*.dylib"]
-        self.patterns.build.bin = ["*.exe", "*.dll"]
-
-
-These are all the fields that can be adjusted, both in ``self.patterns.source`` and ``self.patterns.build``:
-
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| NAME                                 | DESCRIPTION (xxx can be either ``build`` or ``source``)                                                 |
-+======================================+=========================================================================================================+
-| include                              | Patterns of the files from the folders: ``self.cpp.xxx.includedirs``                                    |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| lib                                  | Patterns of the files from the folders: ``self.cpp.xxx.libdirs``                                        |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| bin                                  | Patterns of the files from the folders: ``self.cpp.xxx.bindirs``                                        |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| src                                  | Patterns of the files from the folders: ``self.cpp.xxx.srcdirs``                                        |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| build                                | Patterns of the files from the folders: ``self.cpp.xxx.builddirs``                                      |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| res                                  | Patterns of the files from the folders: ``self.cpp.xxx.resdirs``                                        |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| framework                            | Patterns of the files from the folders: ``self.cpp.xxx.frameworkdirs``                                  |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
 
 
 test()

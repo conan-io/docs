@@ -42,9 +42,12 @@ Contents:
    tools/cmake
    tools/gnu
    tools/google
+   tools/apple
    tools/meson
+   tools/intel
    tools/microsoft
    tools/qbs
    tools/env
+   tools/system
    tools/files
    tools/layout

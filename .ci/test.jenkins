@@ -31,10 +31,14 @@ node('Linux') {
         },
         linkcheck: {
             image.inside {
-                int output = sh(script: 'make linkcheck', returnStatus: true)
-                if (output != 0) {
-                    currentBuild.result = 'FAILURE'
-                    error('Stop here, linkcheck failed!')
+                def status = sh(returnStatus: true, script: 'make linkcheck > links_output.txt')
+                sh 'cat links_output.txt'
+                if (status != 0) {
+                    def broken_links = sh(returnStdout: true , script: 'cat links_output.txt | grep broken')
+                    echo "Broken Links: \n ${broken_links}"
+                    def subject = "Broken links in `conan-io/docs`: ${env.BUILD_URL}"
+                    def summary = "${subject}\n```\n${broken_links}\n```"
+                    slackSend (color: '#FF0000', message: summary)
                 }
             }
         }

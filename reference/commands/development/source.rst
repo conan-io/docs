@@ -42,7 +42,7 @@ All that information is saved automatically in the *conaninfo.txt* and *conanbui
 
 **Examples**:
 
-- Call a local recipe's source method: In user space, the command will execute a local *conanfile.py* ``source()`` method, in the *src*
+- Call a local recipe's source method: In user space, the command will execute a local *conanfile.py* ``source()`` method, in the *mysrc*
   folder in the current directory.
 
   .. code-block:: bash

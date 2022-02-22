@@ -9,7 +9,7 @@ CMakeToolchain
 
 
 The ``CMakeToolchain`` is the toolchain generator for CMake. It will generate toolchain files that can be used in the
-command line invocation of CMake with the ``-DCMAKE_TOOLCHAIN_FILE=conantoolchain.cmake``. This generator translates
+command line invocation of CMake with the ``-DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake``. This generator translates
 the current package configuration, settings, and options, into CMake toolchain syntax.
 
 
@@ -38,7 +38,7 @@ Or fully instantiated in the ``generate()`` method:
     class App(ConanFile):
         settings = "os", "arch", "compiler", "build_type"
         requires = "hello/0.1"
-        generators = "cmake_find_package_multi"
+        generators = "CMakeDeps"
         options = {"shared": [True, False], "fPIC": [True, False]}
         default_options = {"shared": False, "fPIC": True}
 
@@ -68,7 +68,7 @@ translated from the current ``settings``:
   generator and the CMake toolchain file. The CMake generator will be deduced from the current Conan compiler settings:
 
   - For ``settings.compiler="Visual Studio"``, the CMake generator is a direct mapping of ``compiler.version``, as this version represents the IDE version, not the compiler version.
-  - For ``settings.compiler=msvc``, the CMake generator will be by default the one of the Visual Studio that introduced this compiler version (``msvc 19.0`` => ``Visual Studio 14``, ``msvc 19.1`` => ``Visual Studio 15``, etc). This can be changed, using the ``tools.microsoft.msbuild:vs_version`` [conf] configuration. If it is defined, that Visual Studio version will be used as the CMake generator, and the specific compiler version and toolset will be defined in the ``conan_toolchain.cmake`` file.
+  - For ``settings.compiler=msvc``, the applied CMake generator will be, by default, the Visual Studio that introduced the specified `settings.compiler.version`. e.g: (``settings.compiler.version = 190`` => ``Visual Studio 14``, ``settings.compiler.version =  191`` => ``Visual Studio 15``, etc). This can be changed, using the ``tools.microsoft.msbuild:vs_version`` [conf] configuration. If it is defined, that Visual Studio version will be used as the CMake generator, and the specific compiler version and toolset will be defined in the ``conan_toolchain.cmake`` file..
 
 - *conanvcvars.bat*: In some cases, the Visual Studio environment needs to be defined correctly for building,
   like when using the Ninja or NMake generators. If necessary, the ``CMakeToolchain`` will generate this script,
@@ -82,6 +82,13 @@ constructor
 
     def __init__(self, conanfile, generator=None):
 
+- ``conanfile``: the current recipe object. Always use ``self``.
+- ``namespace``: this argument avoids collisions when you have multiple toolchain calls in the same
+  recipe. By setting this argument, the *conanbuild.conf* file used to pass information to the
+  build helper will be named as: *<namespace>_conanbuild.conf*. The default value is ``None`` meaning that
+  the name of the generated file is *conanbuild.conf*. This namespace must be also set with the same
+  value in the constructor of the :ref:`CMake build helper<conan-cmake-build-helper>` so that it reads the
+  information from the proper file.
 
 Most of the arguments are optional and will be deduced from the current ``settings``, and not
 necessary to define them.
@@ -126,11 +133,26 @@ This will be translated to:
 - One ``set()`` definition, using a cmake generator expression in ``conan_toolchain.cmake`` file,
   using the different values for different configurations.
 
+The booleans assigned to a variable will be translated to ``ON`` and ``OFF`` symbols in CMake:
+
+.. code:: python
+
+    def generate(self):
+        tc = CMakeToolchain(self)
+        tc.variables["FOO"] = True
+        tc.variables["VAR"] = False
+        tc.generate()
+
+
+Will generate the sentences: ``set(FOO ON ...)`` and ``set(VAR OFF ...)``.
+
+
+
 Generators
 ++++++++++
 
-The ``CMakeToolchain`` is intended to run with the ``CMakeDeps`` dependencies generator. It might temporarily
-work with others like ``cmake_find_package`` and ``cmake_find_package_multi``, but this will be removed soon.
+The ``CMakeToolchain`` is intended to run with the ``CMakeDeps`` dependencies generator. Please do not use other
+CMake legacy generators (like ``cmake``, or ``cmake_paths``) with it.
 
 
 Using a custom toolchain file
@@ -138,8 +160,56 @@ Using a custom toolchain file
 
 There are two ways of providing a custom CMake toolchain file:
 
-- The ``conan_toolchain.cmake`` file can be completely skipped and replaced by a user one, defining the ``tools.cmake.cmaketoolchain:toolchain_file=<filepath>`` configuration value
-- A custom user toolchain file can be added (included from) the ``conan_toolchain.cmake`` one, by using the ``user_toolchain`` block described below, and defining the ``tools.cmake.cmaketoolchain:user_toolchain=<filepath>`` configuration value.
+- The ``conan_toolchain.cmake`` file can be completely skipped and replaced by a user one, defining the
+  ``tools.cmake.cmaketoolchain:toolchain_file=<filepath>`` configuration value
+- A custom user toolchain file can be added (included from) to the ``conan_toolchain.cmake`` one, by using the
+  ``user_toolchain`` block described below, and defining the ``tools.cmake.cmaketoolchain:user_toolchain=<filepath>``
+  configuration value.
+
+  The configuration ``tools.cmake.cmaketoolchain:user_toolchain=<filepath>`` can be defined in the :ref:`global.conf<global_conf>`
+  but also creating a Conan package for your toolchain and using ``self.conf_info`` to declare the toolchain file:
+
+    .. code:: python
+
+        import os
+        from conans import ConanFile
+        class MyToolchainPackage(ConanFile):
+            ...
+            def package_info(self):
+                f = os.path.join(self.package_folder, "mytoolchain.cmake")
+                self.conf_info["tools.cmake.cmaketoolchain:user_toolchain"] = f
+
+
+
+  If you declare the previous package as a ``tool_require``, the toolchain will be automatically applied.
+
+- You can also apply several user toolchains. If you have more than one ``tool_requires``, you can gather the values
+  from all the dependency configs and adjust the ``user_toolchain`` block to apply all the toolchains:
+
+.. code:: python
+
+    from conans import ConanFile
+    from conan.tools.cmake import CMake, CMakeToolchain
+    class Pkg(ConanFile):
+        settings = "os", "compiler", "arch", "build_type"
+        exports_sources = "CMakeLists.txt"
+        tool_requires = "toolchain1/0.1", "toolchain2/0.1"
+        def generate(self):
+            # Get the toolchains from "tools.cmake.cmaketoolchain:user_toolchain" conf at the
+            # tool_requires
+            user_toolchains = []
+            for dep in self.dependencies.direct_build.values():
+                ut = dep.conf_info["tools.cmake.cmaketoolchain:user_toolchain"]
+                if ut:
+                    user_toolchains.append(ut.replace('\\\\', '/'))
+            # Modify the context of the user_toolchain block
+            t = CMakeToolchain(self)
+            t.blocks["user_toolchain"].values["paths"] = user_toolchains
+            t.generate()
+
+        def build(self):
+            cmake = CMake(self)
+            cmake.configure()
 
 
 Using the toolchain in developer flow
@@ -149,7 +219,7 @@ One of the advantages of using Conan toolchains is that they can help to achieve
 with local development flows, than when the package is created in the cache.
 
 With the ``CMakeToolchain`` it is possible to do, for multi-configuration systems like Visual Studio
-(assuming we are using the ``cmake_find_package_multi`` generator):
+(assuming we are using the ``CMakeDeps`` generator):
 
 .. code:: bash
 
@@ -183,7 +253,7 @@ For single-configuration build systems:
     $ cmake .. -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
     $ cmake --build .  # or just "make"
 
-    # debug build requires its own folder
+    # debug tool requires its own folder
     $ cd .. && mkdir build_debug && cd build_debug
     $ conan install .. -s build_type=Debug
     # the build type Debug is encoded in the toolchain already.
@@ -199,7 +269,17 @@ Since Conan 1.36, ``CMakeToolchain`` implements a powerful capability for extend
 
 The following predefined blocks are available, and added in this order:
 
-- ``user_toolchain``: Allows to include a user toolchain from the ``conan_toolchain.cmake`` file. If the configuration ``tools.cmake.cmaketoolchain:user_toolchain=xxxx`` is defined, its value will be ``include(xxx)`` as the first line in ``conan_toolchain.cmake``.
+- ``user_toolchain``: Allows to include user toolchains from the ``conan_toolchain.cmake`` file.
+  If the configuration ``tools.cmake.cmaketoolchain:user_toolchain=xxxx`` is defined, its value will be ``include(xxx)`` as the
+  first line in ``conan_toolchain.cmake``. If you want to apply several toolchains you can use the context variable ``paths``:
+
+    .. code:: python
+
+            t = CMakeToolchain(self)
+            t.blocks["user_toolchain"].values["paths"] = ["path/to/user_toolchain1.cmake",
+                                                          "path/to/user_toolchain2.cmake"]
+            t.generate()
+
 - ``generic_system``: Defines ``CMAKE_GENERATOR_PLATFORM``, ``CMAKE_GENERATOR_TOOLSET``, ``CMAKE_C_COMPILER``,``CMAKE_CXX_COMPILER`` and ``CMAKE_BUILD_TYPE``
 - ``android_system``: Defines ``ANDROID_PLATFORM``, ``ANDROID_STL``, ``ANDROID_ABI`` and includes ``CMAKE_ANDROID_NDK/build/cmake/android.toolchain.cmake``
   where CMAKE_ANDROID_NDK comes defined in ``tools.android:ndk_path`` configuration value.
@@ -216,6 +296,12 @@ The following predefined blocks are available, and added in this order:
 - ``rpath``: Defines ``CMAKE_SKIP_RPATH``. By default it is disabled, and it is needed to define ``self.blocks["rpath"].skip_rpath=True`` if you want to activate ``CMAKE_SKIP_RPATH``
 - ``shared``: defines ``BUILD_SHARED_LIBS``
 
+
+.. note::
+    In Conan 1.45 the CMakeToolchain doesn't append the root package folder of the dependencies (declared in the cpp_info.builddirs)
+    to the ``CMAKE_PREFIX_PATH`` variable. That interfered with the ``find_file``, ``find_path`` and ``find_program``, making,
+    for example, impossible to locate only the executables from the build context. In Conan 2.0, the ``cppinfo.builddirs``
+    won't contain by default the ``''`` entry (root package).
 
 
 Blocks can be customized in different ways:
@@ -259,22 +345,25 @@ Blocks can be customized in different ways:
         generic_block.context = types.MethodType(context, generic_block)
 
     # completely replace existing block
+    from conan.tools.cmake import CMakeToolchain
+
     def generate(self):
         tc = CMakeToolchain(self)
         # this could go to a python_requires
-        class MyGenericBlock(Block):
+        class MyGenericBlock:
             template = "HelloWorld"
 
             def context(self):
                 return {}
 
-        tc.blocks["generic_system"] = MyBlock
+        tc.blocks["generic_system"] = MyGenericBlock
 
     # add a completely new block
+    from conan.tools.cmake import CMakeToolchain
     def generate(self):
         tc = CMakeToolchain(self)
         # this could go to a python_requires
-        class MyBlock(Block):
+        class MyBlock:
             template = "Hello {{myvar}}!!!"
 
             def context(self):
@@ -282,20 +371,6 @@ Blocks can be customized in different ways:
 
         tc.blocks["mynewblock"] = MyBlock
 
-
-    # extend from an existing block
-    def generate(self):
-        tc = CMakeToolchain(self)
-        # this could go to a python_requires
-        class MyBlock(GenericSystemBlock):
-            template = "Hello {{build_type}}!!"
-
-            def context(self):
-                c = super(MyBlock, self).context()
-                c["build_type"] = c["build_type"] + "Super"
-                return c
-
-        tc.blocks["generic_system"] = MyBlock
 
 Recall that this is a very **experimental** feature, and these interfaces might change in the following releases.
 

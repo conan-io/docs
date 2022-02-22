@@ -17,7 +17,7 @@ requirements** in a file. They have this structure:
     [env]
     env_var=value
 
-    [build_requires]
+    [tool_requires]
     tool1/0.1@user/channel
     tool2/0.1@user/channel, tool3/0.1@user/channel
     *: tool4/0.1@user/channel
@@ -68,7 +68,7 @@ You can also show profile's content:
     compiler.version=15
     build_type=Release
     [options]
-    [build_requires]
+    [tool_requires]
     [env]
 
 Use ``$PROFILE_DIR`` in your profile and it will be replaced with the absolute path to
@@ -156,11 +156,9 @@ Tools configurations can also be used in profile files and *global.conf* one. Pr
 
     [conf]
     tools.microsoft.msbuild:verbosity=Diagnostic
-    tools.microsoft.msbuild:max_cpu_count=20
+    tools.microsoft.msbuild:max_cpu_count=2
     tools.microsoft.msbuild:vs_version = 16
-    tools.build:processes=10
-    tools.ninja:jobs=30
-    tools.gnu.make:jobs=40
+    tools.build:jobs=10
 
 .. seealso::
 
@@ -173,16 +171,16 @@ Profile composition
 You can specify multiple profiles in the command line. The applied configuration will be the composition
 of all the profiles applied in the order they are specified.
 
-If, for example, you want to apply a :ref:`build require<build_requires>`, like a ``cmake`` installer to your dependency tree,
+If, for example, you want to apply a :ref:`tool require<build_requires>`, like a ``cmake`` installer to your dependency tree,
 it won't be very practical adding the `cmake` installer reference, e.g  ``cmake/3.16.3`` to all your profiles where you could
-need to inject ``cmake`` as a build require.
+need to inject ``cmake`` as a tool require.
 
 You can specify both profiles instead:
 
 .. code-block:: text
    :caption: *.conan/profiles/cmake_316*
 
-    [build_requires]
+    [tool_requires]
     cmake/3.16.3
 
 .. code-block:: bash
@@ -287,6 +285,17 @@ extremly useful:
 * :ref:`create_installer_packages`
 * :ref:`cross_building`
 
+The default build profile in Conan 1.X is not defined by default, and needs to be specified in command line.
+However, it is also possible to define a default one in ``global.conf`` configuration file with:
+
+.. code-block:: text
+   :caption: *global.conf*
+
+    core:default_build_profile=default
+    core:default_profile=linux_armv8
+
+The default host profile can be defaulted as well using this configuration method.
+
 
 Profile templates
 -----------------
@@ -336,6 +345,20 @@ Some of the capabilities of the profile templates are:
 
        [conf]
        tools.cmake.cmaketoolchain:toolchain_file = {{ os.path.join(profile_dir, "toolchain.cmake") }}
+
+- Including or importing other files from ``profiles`` folder:
+
+  .. code-block:: jinja
+     :caption: profile_vars.jinja
+
+     {% set a = "Debug" %}
+
+  .. code-block:: jinja
+     :caption: profile1.jinja
+
+     {% import "profile_vars.jinja" as vars %}
+     [settings]
+     build_type = {{ vars.a }}
 
 - Any other feature supported by *jinja2* is possible: for loops, if-else, etc. This
   would be useful to define custom per-package settings or options for multiple packages

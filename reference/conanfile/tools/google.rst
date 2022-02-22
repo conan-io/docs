@@ -13,7 +13,7 @@ BazelDeps
 
 Available since: `1.37.0 <https://github.com/conan-io/conan/releases>`_
 
-The ``BazelDeps`` helper will generate one **conandeps/xxxx/BUILD** file per dependency. This dependencies will be
+The ``BazelDeps`` helper will generate one **conandeps/xxxx/BUILD.bazel** file per dependency. This dependencies will be
 automatically added to the project by adding the following to the project's **WORKSPACE** file:
 
 
@@ -31,7 +31,38 @@ The dependencies should be added to the **conanfile.py** file as usual:
         name = "bazel-example"
         ...
         generators = "BazelDeps", "BazelToolchain"
-        build_requires = "boost/1.76.0"
+        requires = "boost/1.76.0"
+
+BazelToolchain
+--------------
+
+The ``BazelToolchain`` is the toolchain generator for Bazel. It will generate a file called
+``conanbuild.conf`` containing two keys:
+
+- **bazel_config**: defining Bazel config file.
+- **bazelrc_path**: defining Bazel rc-path.
+
+The Bazel build helper will use that ``conanbuild.conf`` file to seamlessly call
+the configure and make script using these precalculated arguments. Note that the file can have a
+different name if you set the namespace argument in the constructor as explained bellow.
+
+It supports the following methods and attributes:
+
+constructor
++++++++++++
+
+.. code:: python
+
+    def __init__(self, conanfile, namespace=None):
+
+- ``conanfile``: the current recipe object. Always use ``self``.
+- ``namespace``: this argument avoids collisions when you have multiple toolchain calls in the same
+  recipe. By setting this argument, the *conanbuild.conf* file used to pass information to the
+  build helper will be named as: *<namespace>_conanbuild.conf*. The default value is ``None`` meaning that
+  the name of the generated file is *conanbuild.conf*. This namespace must be also set with the same
+  value in the constructor of the ``Bazel`` build helper so that it reads the information from the proper
+  file.
+
 
 Bazel
 -----
@@ -62,9 +93,14 @@ constructor
 
 .. code:: python
 
-    def __init__(self, conanfile):
+    def __init__(self, conanfile, namespace=None):
 
 - ``conanfile``: the current recipe object. Always use ``self``.
+- ``namespace``: this argument avoids collisions when you have multiple toolchain calls in the same
+  recipe. By setting this argument, the *conanbuild.conf* file used to pass information to the
+  toolchain will be named as: *<namespace>_conanbuild.conf*. The default value is ``None`` meaning that
+  the name of the generated file is *conanbuild.conf*. This namespace must be also set with the same
+  value in the constructor of ``BazelToolchain`` so that it reads the information from the proper file.
 
 
 build()

@@ -36,14 +36,34 @@ to know read the arguments for calling the configure and make scripts:
 Methods
 -------
 
+constructor
++++++++++++
+
+.. code:: python
+
+    def __init__(self, conanfile, namespace=None):
+
+- ``conanfile``: the current recipe object. Always use ``self``.
+- ``namespace``: this argument avoids collisions when you have multiple toolchain calls in the same
+  recipe. By setting this argument, the *conanbuild.conf* file used to pass information to the
+  toolchain will be named as: *<namespace>_conanbuild.conf*. The default value is ``None`` meaning that
+  the name of the generated file is *conanbuild.conf*. This namespace must be also set with the same
+  value in the constructor of the :ref:`AutotoolsToolchain<conan_tools_gnu_autotools_toolchain>` so
+  that it reads the information from the proper file.
+
+
 configure()
 +++++++++++
 
 .. code-block:: python
 
-    def configure(self)
+    def configure(self, build_script_folder=None)
 
 Call the configure script.
+
+Parameters:
+    - **build_script_folder** (Optional, Defaulted to ``None``): Subfolder where the configure script is located.
+      If ``None``, ``conanfile.source_folder`` will be used.
 
 
 make()

@@ -101,8 +101,8 @@ This attribute can contain several, comma separated licenses. It is a text strin
 contain any text, including hyperlinks to license files elsewhere.
 
 However, we strongly recommend packagers of Open-Source projects to use
-[SPDX](https://spdx.dev/) identifiers from the [SPDX license
-list](https://spdx.dev/licenses/) instead of free-formed text. This will help
+`SPDX <https://spdx.dev>`_ identifiers from the `SPDX license
+list <https://spdx.dev/licenses/>`_ instead of free-formed text. This will help
 people wanting to automate license compatibility checks, like consumers of your
 package, or you if your package has Open-Source dependencies.
 
@@ -643,19 +643,19 @@ Expressions are those defined and implemented by [python node-semver](https://py
 
     Go to :ref:`Mastering/Version Ranges<version_ranges>` if you want to learn more about version ranges.
 
-build_requires
+tool_requires
 --------------
 
-Build requirements are requirements that are only installed and used when the package is built from sources. If there is an existing pre-compiled binary, then the build requirements for this package will not be retrieved.
+Tool requirements are requirements that are only installed and used when the package is built from sources. If there is an existing pre-compiled binary, then the tool requirements for this package will not be retrieved.
 
 They can be specified as a comma separated tuple in the package recipe:
 
 .. code-block:: python
 
     class MyPkg(ConanFile):
-        build_requires = "tool_a/0.2@user/testing", "tool_b/0.2@user/testing"
+        tool_requires = "tool_a/0.2@user/testing", "tool_b/0.2@user/testing"
 
-Read more: :ref:`Build requirements <build_requires>`
+Read more: :ref:`Tool requirements <build_requires>`
 
 .. _exports_attribute:
 
@@ -993,6 +993,9 @@ This object should be filled in ``package_info()`` method.
 |                                      | | generators that implements components feature).                                                       |
 |                                      | | **Warning**: If declared, only the components listed here will used by the linker and consumers.      |
 +--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.objects                | | **[Experimental]** List of object libraries (*.obj* or *.o*). Defaulted to ``[]`` (empty)             |
+|                                      | | Only supported by new :ref:`CMakeDeps<conan_tools_cmake>` generator                                   |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
 
 The paths of the directories in the directory variables indicated above are relative to the
 :ref:`self.package_folder<folders_attributes_reference>` directory.
@@ -1019,6 +1022,10 @@ them and to components of other packages (the following case is not a real examp
         self.cpp_info.components["ssl"].libs = ["libssl"]
         self.cpp_info.components["ssl"].requires = ["crypto",
                                                     "boost::headers"]  # Depends on headers component in boost package
+        self.cpp_info.components["ssl"].names["cmake"] = "SSL"
+
+        obj_ext = "obj" if platform.system() == "Windows" else "o"
+        self.cpp_info.components["ssl-objs"].objects = [os.path.join("lib", "ssl-object.{}".format(obj_ext))]
 
 The interface of the ``Component`` object is the same as the one used by the ``cpp_info`` object and
 has **the same default directories**.
@@ -1031,78 +1038,26 @@ has **the same default directories**.
 Dependencies among components and to components of other requirements can be defined using the ``requires`` attribute and the name
 of the component. The dependency graph for components will be calculated and values will be aggregated in the correct order for each field.
 
-There is a new way of setting and accessing ``filenames``, ``names`` and ``build_modules`` starting
-in Conan 1.36 using new ``set_property`` and ``get_property`` methods of the ``cpp_info`` object:
-
-.. code-block:: python
-
-    def set_property(self, property_name, value, generator=None)
-    def get_property(self, property_name, generator=None):
-
-New properties ``cmake_target_name``, ``cmake_file_name``, ``pkg_config_name`` and
-``cmake_build_modules`` are defined to allow migrating ``names``, ``filenames`` and ``build_modules``
-properties to this model.
-In Conan 2.0 this will be the default way of setting these properties and also passing custom
-properties to generators.
-
-For most cases, it is recommended not to use the ``generator`` argument. The properties are generic for build systems, and different generators that integrate with a given build system could be reading such generic properties.
-For example, setting some cpp_info properties with the current model:
-
-.. code-block:: python
-
-    def package_info(self):
-        ...
-        self.cpp_info.filenames["cmake_find_package"] = "MyFileName"
-        self.cpp_info.filenames["cmake_find_package_multi"] = "MyFileName"
-        self.cpp_info.components["mycomponent"].names["cmake_find_package"] = "mycomponent-name"
-        self.cpp_info.components["mycomponent"].names["cmake_find_package_multi"] = "mycomponent-name"
-        self.cpp_info.components["mycomponent"].build_modules.append(os.path.join("lib", "mypkg_bm.cmake"))
-        ...
-        self.cpp_info.components["mycomponent"].names["pkg_config"] = "mypkg-config-name"
-
-Could be declared like this in the new one:
-
-.. code-block:: python
-
-    def package_info(self):
-        ...
-        self.cpp_info.set_property("cmake_file_name", "MyFileName")
-        self.cpp_info.components["mycomponent"].set_property("cmake_target_name", "mycomponent-name")
-        self.cpp_info.components["mycomponent"].set_property("cmake_build_modules", [os.path.join("lib", "mypkg_bm.cmake")])
-        self.cpp_info.components["mycomponent"].set_property("custom_name", "mycomponent-name", "custom_generator")
-        ...
-        self.cpp_info.components["mycomponent"].set_property("pkg_config_name", "mypkg-config-name")
-
-New properties defined:
-
-- **cmake_file_name** property will affect all cmake generators that accept the ``filenames``
-  property (*cmake_find_package* and *cmake_find_package_multi*).
-- **cmake_target_name** property will affect all cmake generators that accept the ``names`` property
-  (*cmake*, *cmake_multi*, *cmake_find_package*, *cmake_find_package_multi* and *cmake_paths*).
-- **cmake_build_modules** property will replace the ``build_modules`` property.
-- **pkg_config_name** property will set the ``names`` property for *pkg_config* generator.
-
-There's also a new property called ``pkg_config_custom_content`` defined for the *pkg_config*
-generator that will add user defined content to the *.pc* files created by this generator.
-
-.. code-block:: python
-
-    def package_info(self):
-        custom_content = "datadir=${prefix}/share"
-        self.cpp_info.set_property("pkg_config_custom_content", custom_content)
-
-All of these properties, but ``cmake_file_name`` can be defined at global ``cpp_info`` level or at
-component level.
+**New properties model for the cpp_info new tools**
 
 .. warning::
 
     Using ``set_property`` and ``get_property`` methods for ``cpp_info`` is an **experimental**
     feature subject to breaking changes in future releases.
 
+Using ``.names``, ``.filenames`` and ``.build_modules`` will not work any more for new
+generators, like :ref:`CMakeDeps<CMakeDeps>` and :ref:`PkgConfigDeps<PkgConfigDeps>`. 
+They have a new way of setting this information using ``set_property`` and
+``get_property`` methods of the ``cpp_info`` object (available since Conan 1.36).
 
-.. seealso::
+.. code-block:: python
 
-    Read :ref:`package_information_components` and :ref:`method_package_info` to learn more.
+    def set_property(self, property_name, value)
+    def get_property(self, property_name):
+
+To read more about the new ``set_property`` and ``get_property`` methods for ``cpp_info``
+please check the dedicated section in the :ref:`Conan 2.0 migration guide <conanv2_properties_model>`.
+
 
 .. _deps_cpp_info_attributes_reference:
 
@@ -1285,7 +1240,7 @@ know more about this feature.
 
     class RecipeConan(ConanFile):
         ...
-        build_requires = "tool/1.0"
+        tool_requires = "tool/1.0"
         ...
 
         def build(self):
@@ -1304,13 +1259,13 @@ object.
 apply_env
 ---------
 
-When ``True`` (Default), the values from ``self.deps_env_info`` (corresponding to the declared ``env_info`` in the ``requires`` and ``build_requires``)
+When ``True`` (Default), the values from ``self.deps_env_info`` (corresponding to the declared ``env_info`` in the ``requires`` and ``tool_requires``)
 will be automatically applied to the ``os.environ``.
 
 Disable it setting ``apply_env`` to False if you want to control by yourself the environment variables
 applied to your recipes.
 
-You can apply manually the environment variables from the requires and build_requires:
+You can apply manually the environment variables from the requires and tool_requires:
 
 .. code-block:: python
    :emphasize-lines: 2
@@ -1660,7 +1615,7 @@ libraries implement the same API to prevent link-time and run-time conflicts (OD
 Some examples are:
 
  - `LibreSSL <https://www.libressl.org/>`__, `BoringSSL <https://boringssl.googlesource.com/boringssl/>`__ and `OpenSSL <https://www.openssl.org/>`__
- - `libav <https://libav.org/>`__ and `ffmpeg <https://ffmpeg.org/>`__
+ - `libav <https://en.wikipedia.org/wiki/Libav>`__ and `ffmpeg <https://ffmpeg.org/>`__
  - `MariaDB client <https://downloads.mariadb.org/client-native>`__ and `MySQL client <https://dev.mysql.com/downloads/c-api/>`__
 
 

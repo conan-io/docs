@@ -56,7 +56,7 @@ Examples
 .. code-block:: bash
 
     $ conan search "zlib/*"
-    $ conan search "zlib/*" -r=conan-center
+    $ conan search "zlib/*" -r=conancenter
 
 To search for recipes in all defined remotes use :command:`-r all` (this is only valid for searching recipes, not binaries):
 
@@ -118,7 +118,7 @@ You can generate a table for all binaries from a given recipe with the :command:
 
 .. code-block:: bash
 
-    $ conan search jinja2cpp/1.1.0@ --table=file.html -r=conan-center
+    $ conan search jinja2cpp/1.1.0@ --table=file.html -r=conancenter
     $ file.html # or open the file, double-click
 
 .. image:: /images/conan-search_binary_table.png

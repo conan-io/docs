@@ -19,7 +19,7 @@ For each requirement ``conanbuildinfo.txt`` file declares the following sections
 +-----------------------------+---------------------------------------------------------------------+
 | SECTION                     | DESCRIPTION                                                         |
 +=============================+=====================================================================+
-| [include_dirs_XXX]          | List with the include paths of the requirement                      |
+| [includedirs_XXX]           | List with the include paths of the requirement                      |
 +-----------------------------+---------------------------------------------------------------------+
 | [libdirs_XXX]               | List with library paths of the requirement                          |
 +-----------------------------+---------------------------------------------------------------------+
@@ -57,7 +57,7 @@ The values are ordered in the right order according to the dependency tree.
 +-----------------------------+---------------------------------------------------------------------+
 | SECTION                     | DESCRIPTION                                                         |
 +=============================+=====================================================================+
-| [include_dirs]              | List with the aggregated include paths of the requirements          |
+| [includedirs]               | List with the aggregated include paths of the requirements          |
 +-----------------------------+---------------------------------------------------------------------+
 | [libdirs]                   | List with aggregated library paths of the requirements              |
 +-----------------------------+---------------------------------------------------------------------+

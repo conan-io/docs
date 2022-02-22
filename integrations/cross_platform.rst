@@ -16,3 +16,4 @@ for different platforms.
    cross_platform/yocto
    cross_platform/android
    cross_platform/ios
+   cross_platform/vxworks

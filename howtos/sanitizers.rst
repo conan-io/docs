@@ -91,7 +91,7 @@ Conan commands. An example of this would be a profile like:
 
 .. code-block:: text
    :caption: *address_sanitizer_profile*
-   :emphasize-lines: 10,12,13
+   :emphasize-lines: 10,12,13,14
 
     [settings]
     os=Macos
@@ -104,11 +104,12 @@ Conan commands. An example of this would be a profile like:
     build_type=Release
     compiler.sanitizer=Address
     [env]
-    CXXFLAGS=-fsanitize=address
     CFLAGS=-fsanitize=address
+    CXXFLAGS=-fsanitize=address
+    LDFLAGS=-fsanitize=address
 
-Then calling to :command:`conan create . -pr address_sanitizer_profile` would inject
-``-fsanitize=address`` to the build through the ``CXXFLAGS`` environment variable.
+Then calling :command:`conan create . -pr address_sanitizer_profile` would inject
+``-fsanitize=address`` to the build through the ``CFLAGS``, ``CXXFLAGS``, and ``LDFLAGS`` environment variables.
 
 Managing sanitizer settings with the build system
 #################################################
@@ -142,6 +143,12 @@ the variable.
 Using conan Hooks to set compiler environment variables
 #######################################################
 
+.. warning::
+
+    This way of adding sanitizers is recommended just for testing purposes. In general, it's not a
+    good practice to inject this in the environment using a Conan hook. It's much better explicitly
+    defining this in the profiles.
+
 .. important::
 
     Take into account that the package ID doesn't encode information about the environment,
@@ -155,23 +162,31 @@ flags to the build. It could be something like:
 .. code-block:: python
     :caption: *sanitizer_hook.py*
 
-    def set_sanitize_address_flag(self):
-        self._old_cxx_flags = os.environ.get("CXXFLAGS")
-        os.environ["SOURCE_DATE_EPOCH"] = _old_flags + " -fsanitize=address"
+    import os
 
-    def reset_sanitize_address_flag(self):
-        if self._old_cxx_flags is None:
-            del os.environ["CXXFLAGS"]
-        else:
-            os.environ["CXXFLAGS"] = self._old_cxx_flags
 
-And then calling those functions from a *pre_build* and a *post_build* hook:
+    class SanitizerHook(object):
+        def __init__(self):
+            self._old_cxx_flags = None
 
-.. code-block:: python
-    :caption: *sanitizer_hook.py*
+        def set_sanitize_address_flag(self):
+            self._old_cxx_flags = os.environ.get("CXXFLAGS")
+            flags_str = self._old_cxx_flags or ""
+            os.environ["CXXFLAGS"] = flags_str + " -fsanitize=address"
+
+        def reset_sanitize_address_flag(self):
+            if self._old_cxx_flags is None:
+                del os.environ["CXXFLAGS"]
+            else:
+                os.environ["CXXFLAGS"] = self._old_cxx_flags
+
+
+    sanitizer = SanitizerHook()
+
 
     def pre_build(output, conanfile, **kwargs):
-        set_sanitize_address_flag()
+        sanitizer.set_sanitize_address_flag()
+
 
     def post_build(output, conanfile, **kwargs):
-        reset_sanitize_address_flag()
+        sanitizer.reset_sanitize_address_flag()
