@@ -18,18 +18,17 @@ build system** and is not limited to using CMake. You can check more examples wi
 build systems in the :ref:`Read More
 section<consuming_packages_getting_started_read_more>`.
 
-.. note::
 
-    The source files to recreate this project are available in the `examples2.0 repository
-    <https://github.com/conan-io/examples2>`_ in GitHub. You can skip the manual
-    creation of the folder and sources with this command:
+1. Please, first clone the sources to recreate this project, you can find them in the
+   `examples2.0 repository <https://github.com/conan-io/examples2>`_ in GitHub:
 
     .. code-block:: bash
 
         $ git clone https://github.com/conan-io/examples2.git
-        $ cd tutorial/consumer/getting_started
+        $ cd tutorial/consuming_packages/getting_started/simple_cmake_project
 
-1. We start from a very simple C language project with this structure:
+
+2. We start from a very simple C language project with this structure:
 
 .. code-block:: text
 
