@@ -96,6 +96,8 @@
     background-repeat: no-repeat;
     background-position: left;
     padding-left: 80px;
+}
 
-
+form.mktoForm input#Email{
+    width: 90% !important;
 }
