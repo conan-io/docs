@@ -148,7 +148,7 @@ The ``environment()`` method returns an :ref:`Environment<conan_tools_env_enviro
         settings = "os", "arch", "compiler", "build_type"
 
         def generate(self):
-            tc = AutotoolsToolchain(self)
+            at = AutotoolsToolchain(self)
             env = at.environment()
             env.define("FOO", "BAR")
-            tc.generate(env)
+            at.generate(env)
