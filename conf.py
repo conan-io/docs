@@ -39,6 +39,7 @@ extensions = [
     'sphinxcontrib.spelling',
     'sphinx_sitemap',
     'notfound.extension',
+    'sphinx_tabs.tabs'
 ]
 
 # The short X.Y version.
