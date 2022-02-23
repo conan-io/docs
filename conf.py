@@ -39,7 +39,6 @@ extensions = [
     'sphinxcontrib.spelling',
     'sphinx_sitemap',
     'notfound.extension',
-    'sphinx_tabs.tabs'
 ]
 
 # The short X.Y version.
@@ -243,7 +242,6 @@ html_show_sphinx = False
 htmlhelp_basename = 'conandoc'
 
 # -- Options for LaTeX output ---------------------------------------------
-latex_engine = 'xelatex'
 
 latex_elements = {
 # The paper size ('letterpaper' or 'a4paper').
