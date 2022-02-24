@@ -111,13 +111,39 @@ Now, if you check the *cmake-build-release* folder you will see that Conan gener
 file called ``conanbuild.sh``. This is the result of automatically invoking a
 ``VirtualBuildEnv`` generator when we declared the ``tool_requires`` in the
 **conanfile.txt**. This file, declares some environment variables like a new ``PATH`` that
-we can use to inject to our environment the location of the CMake v3.16.9.
+we can use to inject to our environment the location of CMake v3.16.9.
 
 4. Activate the virtual environment, and now you can run ``cmake --version`` to check that you
    have the installed CMake in path.
+
+.. code-block:: bash
+
+    $ source ./cmake-build-release/conanbuild.sh
+    Capturing current environment in deactivate_conanbuildenv-release-x86_64.sh
+    Configuring environment variables
+    
+    $ cmake --version
+    cmake version 3.16.9
+    ...
+
+
+As you can see, after activating the environment, the CMake v3.16.9 binary folder was
+added to the path and is the current active version now. Also note that when we activated
+the environment another file named ``deactivate_conanbuild.sh`` was created in the same
+folder. If you source this file you can restore the environment as it was before.
+
+.. code-block:: bash
+
+    $ source ./cmake-build-release/deactivate_conanbuild.sh
+    Restoring environment
+    
+    $ cmake --version
+    cmake version 3.22.0
+    ...
 
 
 Read more
 ---------
 
 - Using MinGW as tool_requires...
+- Using tool_requires in profiles?
