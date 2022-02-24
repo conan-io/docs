@@ -42,7 +42,7 @@ previous example and use a different CMake version to build the example.
 
 The main difference is the addition of the **[tool_requires]** section in the
 **conanfile.txt** file. In this section we are going to declare that we want to build our
-application using CMake v3.16.9.
+application using CMake v3.19.8.
 
 .. code-block:: ini
     :caption: **conanfile.txt**
@@ -51,7 +51,7 @@ application using CMake v3.16.9.
     zlib/1.2.11
 
     [tool_requires]
-    cmake/3.16.9
+    cmake/3.19.8
 
     [generators]
     CMakeDeps
@@ -59,7 +59,7 @@ application using CMake v3.16.9.
 
 
 3. Now, as in the previous example, we will use Conan to install **Zlib** and **CMake
-   3.16.9** and generate the files to find the both CMake and Zlib. We will
+   3.19.8** and generate the files to find the both CMake and Zlib. We will
    generate those files in the folder *cmake-build-release*. To do that, just run:
 
 .. code-block:: bash
@@ -71,35 +71,35 @@ You can check the output:
 .. code-block:: bash
 
     -------- Computing dependency graph ----------
-    cmake/3.16.9: Not found in local cache, looking in remotes...
-    cmake/3.16.9: Checking remote: conanv2
-    cmake/3.16.9: Trying with 'conanv2'...
+    cmake/3.19.8: Not found in local cache, looking in remotes...
+    cmake/3.19.8: Checking remote: conanv2
+    cmake/3.19.8: Trying with 'conanv2'...
     Downloading conanmanifest.txt
     Downloading conanfile.py
-    cmake/3.16.9: Downloaded recipe revision 3e3d8f3a848b2a60afafbe7a0955085a
+    cmake/3.19.8: Downloaded recipe revision 3e3d8f3a848b2a60afafbe7a0955085a
     Graph root
         conanfile.txt: /Users/carlosz/Documents/developer/conan/examples2/tutorial/consuming_packages/getting_started/tool_requires/conanfile.txt
     Requirements
         zlib/1.2.11#f1fadf0d3b196dc0332750354ad8ab7b - Cache
     Build requirements
-        cmake/3.16.9#3e3d8f3a848b2a60afafbe7a0955085a - Downloaded (conanv2)
+        cmake/3.19.8#3e3d8f3a848b2a60afafbe7a0955085a - Downloaded (conanv2)
 
     -------- Computing necessary packages ----------
     Requirements
         zlib/1.2.11#f1fadf0d3b196dc0332750354ad8ab7b:2a823fda5c9d8b4f682cb27c30caf4124c5726c8#48bc7191ec1ee467f1e951033d7d41b2 - Cache
     Build requirements
-        cmake/3.16.9#3e3d8f3a848b2a60afafbe7a0955085a:f2f48d9745706caf77ea883a5855538256e7f2d4#6c519070f013da19afd56b52c465b596 - Download (conanv2)
+        cmake/3.19.8#3e3d8f3a848b2a60afafbe7a0955085a:f2f48d9745706caf77ea883a5855538256e7f2d4#6c519070f013da19afd56b52c465b596 - Download (conanv2)
 
     -------- Installing packages ----------
 
     Installing (downloading, building) binaries...
-    cmake/3.16.9: Retrieving package f2f48d9745706caf77ea883a5855538256e7f2d4 from remote 'conanv2' 
+    cmake/3.19.8: Retrieving package f2f48d9745706caf77ea883a5855538256e7f2d4 from remote 'conanv2' 
     Downloading conanmanifest.txt
     Downloading conaninfo.txt
     Downloading conan_package.tgz
     Decompressing conan_package.tgz
-    cmake/3.16.9: Package installed f2f48d9745706caf77ea883a5855538256e7f2d4
-    cmake/3.16.9: Downloaded package revision 6c519070f013da19afd56b52c465b596
+    cmake/3.19.8: Package installed f2f48d9745706caf77ea883a5855538256e7f2d4
+    cmake/3.19.8: Downloaded package revision 6c519070f013da19afd56b52c465b596
     zlib/1.2.11: Already installed!
 
     -------- Finalizing install (deploy, generators) ----------
@@ -111,7 +111,7 @@ Now, if you check the *cmake-build-release* folder you will see that Conan gener
 file called ``conanbuild.sh``. This is the result of automatically invoking a
 ``VirtualBuildEnv`` generator when we declared the ``tool_requires`` in the
 **conanfile.txt**. This file, declares some environment variables like a new ``PATH`` that
-we can use to inject to our environment the location of CMake v3.16.9.
+we can use to inject to our environment the location of CMake v3.19.8.
 
 4. Activate the virtual environment, and now you can run ``cmake --version`` to check that you
    have the installed CMake in path.
@@ -123,11 +123,11 @@ we can use to inject to our environment the location of CMake v3.16.9.
     Configuring environment variables
     
     $ cmake --version
-    cmake version 3.16.9
+    cmake version 3.19.8
     ...
 
 
-As you can see, after activating the environment, the CMake v3.16.9 binary folder was
+As you can see, after activating the environment, the CMake v3.19.8 binary folder was
 added to the path and is the current active version now. Also note that when we activated
 the environment another file named ``deactivate_conanbuild.sh`` was created in the same
 folder. If you source this file you can restore the environment as it was before.
