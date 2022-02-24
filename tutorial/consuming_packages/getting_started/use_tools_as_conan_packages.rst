@@ -118,9 +118,13 @@ we can use to inject to our environment the location of CMake v3.19.8.
 
 .. code-block:: bash
 
+    (linux, macos)
     $ source ./cmake-build-release/conanbuild.sh
     Capturing current environment in deactivate_conanbuildenv-release-x86_64.sh
     Configuring environment variables
+
+    (windows)
+    $ cmake-build-release/conanbuild.bat
     
     $ cmake --version
     cmake version 3.19.8
@@ -133,9 +137,13 @@ the environment another file named ``deactivate_conanbuild.sh`` was created in t
 folder. If you source this file you can restore the environment as it was before.
 
 .. code-block:: bash
-
+    
+    (linux, macos)
     $ source ./cmake-build-release/deactivate_conanbuild.sh
     Restoring environment
+
+    (windows)
+    $ cmake-build-release/deactivate_conanbuild.bat
     
     $ cmake --version
     cmake version 3.22.0
