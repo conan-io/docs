@@ -24,10 +24,10 @@ previous example and use a different CMake version to build the example.
 1. Please, first clone the sources to recreate this project, you can find them in the
    `examples2.0 repository <https://github.com/conan-io/examples2>`_ in GitHub:
 
-    .. code-block:: bash
+.. code-block:: bash
 
-        $ git clone https://github.com/conan-io/examples2.git
-        $ cd tutorial/consuming_packages/getting_started/tool_requires
+    $ git clone https://github.com/conan-io/examples2.git
+    $ cd tutorial/consuming_packages/getting_started/tool_requires
 
 2. The structure of the project is the same as the one of the previous example:
 

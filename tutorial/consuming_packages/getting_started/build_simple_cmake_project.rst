@@ -22,10 +22,10 @@ section<consuming_packages_getting_started_read_more>`.
 1. Please, first clone the sources to recreate this project, you can find them in the
    `examples2.0 repository <https://github.com/conan-io/examples2>`_ in GitHub:
 
-    .. code-block:: bash
+.. code-block:: bash
 
-        $ git clone https://github.com/conan-io/examples2.git
-        $ cd tutorial/consuming_packages/getting_started/simple_cmake_project
+    $ git clone https://github.com/conan-io/examples2.git
+    $ cd tutorial/consuming_packages/getting_started/simple_cmake_project
 
 
 2. We start from a very simple C language project with this structure:
