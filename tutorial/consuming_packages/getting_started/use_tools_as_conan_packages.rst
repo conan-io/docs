@@ -11,17 +11,17 @@ Using build tools as Conan packages
     ``conan remote add conanv2 https://conanv2beta.jfrog.io/artifactory/api/conan/conan --index 0``
 
 
-In the previous example, we built our CMake project and used Conan to install and
-locate the *Zlib* library. To build this example we needed to have a CMake version
-installed and set in the path. But, what happens if you  don't have CMake installed in
-your build environment or want to build your project with a specific CMake version
-different from the one you have already installed system-wide? In this case you can
-declare this dependency in Conan using a special type of requirement named
-``tool_requires``. Let's see an example on how to add this kind of requirement to the
-previous example and use a different CMake version to build the example. 
+In the previous example, we built our CMake project and used Conan to install and locate
+the *Zlib* library. To build this example we needed a CMake version installed that could
+be found in the system path. But, what happens if you  don't have CMake installed in your
+build environment or want to build your project with a specific CMake version different
+from the one you have already installed system-wide? In this case, you can declare this
+dependency in Conan using a kind of requirement named ``tool_requires``. Let’s see an
+example of how adding a ``tool_requires`` to our project and using a different CMake
+version to build it.
 
 
-1. Please, first clone the sources to recreate this project, you can find them in the
+1. Please, first clone the sources to recreate this project. You can find them in the
    `examples2.0 repository <https://github.com/conan-io/examples2>`_ in GitHub:
 
 .. code-block:: bash
@@ -41,8 +41,8 @@ previous example and use a different CMake version to build the example.
 
 
 The main difference is the addition of the **[tool_requires]** section in the
-**conanfile.txt** file. In this section we are going to declare that we want to build our
-application using CMake v3.19.8.
+**conanfile.txt** file. In this section, we declare that we want to build our application
+using CMake v3.19.8.
 
 .. code-block:: ini
     :caption: **conanfile.txt**
@@ -110,11 +110,11 @@ You can check the output:
 Now, if you check the *cmake-build-release* folder you will see that Conan generated a new
 file called ``conanbuild.sh``. This is the result of automatically invoking a
 ``VirtualBuildEnv`` generator when we declared the ``tool_requires`` in the
-**conanfile.txt**. This file, declares some environment variables like a new ``PATH`` that
+**conanfile.txt**. This file declares some environment variables like a new ``PATH`` that
 we can use to inject to our environment the location of CMake v3.19.8.
 
 4. Activate the virtual environment, and now you can run ``cmake --version`` to check that you
-   have the installed CMake in path.
+   have the installed CMake in the path.
 
 .. code-block:: bash
 
@@ -132,7 +132,7 @@ we can use to inject to our environment the location of CMake v3.19.8.
 
 
 As you can see, after activating the environment, the CMake v3.19.8 binary folder was
-added to the path and is the current active version now. Also note that when we activated
+added to the path and is the current active version now. Also, note that when we activated
 the environment another file named ``deactivate_conanbuild.sh`` was created in the same
 folder. If you source this file you can restore the environment as it was before.
 
