@@ -88,7 +88,7 @@ Also, the contents of *CMakeLists.txt* are:
 
     find_package(ZLIB REQUIRED)
 
-    add_executable(${PROJECT_NAME} main.c)
+    add_executable(${PROJECT_NAME} src/main.c)
     target_link_libraries(${PROJECT_NAME} ZLIB::ZLIB)
 
 Our application relies on the **Zlib** library. Conan, by default, tries to install
