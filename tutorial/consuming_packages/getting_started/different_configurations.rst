@@ -12,13 +12,14 @@ Building for multiple configurations: Release, Debug, Static and Shared
 
 
 So far, we have built a simple CMake project that depended on the **zlib** library and
-learned about ``tool_requires``, a special type or requirements to use build tools. In
-both cases we did not specify anywhere that we wanted to build the application in
-*Release* or *Debug* mode, or if we wanted to link against *static* or *shared* libraries.
-That is because Conan, if not instructed otherwise will use a default configuration
-declared in the 'default profile'. This default profile was created in the first example
-when we run the ``conan profile`` command. Conan stores this file in the **/profiles**
-folder, located in the Conan user home. You can check the contents of your default profile:
+learned about ``tool_requires``, a special type or requirements for build tools like
+CMake. In both cases we did not specify anywhere that we wanted to build the application
+in *Release* or *Debug* mode, or if we wanted to link against *static* or *shared*
+libraries. That is because Conan, if not instructed otherwise will use a default
+configuration declared in the 'default profile'. This default profile was created in the
+first example when we run the ``conan profile`` command. Conan stores this file in the
+**/profiles** folder, located in the Conan user home. You can check the contents of your
+default profile:
 
 Run the ``conan config`` command and get the location of the Conan user home, then show
 the contents of the default profile:
@@ -27,6 +28,7 @@ the contents of the default profile:
 
     $ conan config home
     Current Conan home: /Users/tutorial_user/.conan2
+    # output the file contents
     $ cat /Users/tutorial_user/.conan2/profiles/default
     [settings]
     os=Macos
