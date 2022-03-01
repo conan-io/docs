@@ -179,7 +179,7 @@ You will get something similar to this as output of that command:
 .. code-block:: bash
 
     (Windows)
-    $ conan install . --output-folder build --build=missing
+    $ conan install . --output-folder=build --build=missing
 
     (Linux, macOS)
     $ conan install . --output-folder cmake-build-release --build=missing
