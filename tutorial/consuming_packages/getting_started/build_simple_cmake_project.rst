@@ -167,7 +167,7 @@ configuration:
 .. code-block:: bash
     :caption: Windows
 
-    $ conan install . --output-folder build --build=missing
+    $ conan install . --output-folder=build --build=missing
 
 .. code-block:: bash
     :caption: Linux, macOS
