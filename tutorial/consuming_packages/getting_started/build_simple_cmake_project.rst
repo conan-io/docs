@@ -160,9 +160,10 @@ configuration:
     [env]
     ...
 
-5. Now, we will use Conan to install **Zlib** and generate the files that CMake needs to find
-   this library and build our project. We will generate those files in the folder
-   *cmake-build-release*. To do that, just run:
+5. Now, we will use Conan to install **Zlib** and generate the files that CMake needs to
+   find this library and build our project. We will generate those files in the folder
+   *cmake-build-release* (Linux/macOS) or in the folder *build* (Windows). To do that,
+   just run:
 
 .. code-block:: bash
     :caption: Windows

@@ -59,12 +59,19 @@ using CMake v3.19.8.
 
 
 3. Now, as in the previous example, we will use Conan to install **Zlib** and **CMake
-   3.19.8** and generate the files to find the both CMake and Zlib. We will
-   generate those files in the folder *cmake-build-release*. To do that, just run:
+   3.19.8** and generate the files to find the both CMake and Zlib. We will generate those
+   files in the folder *cmake-build-release* (Linux/macOS) or in the folder *build*
+   (Windows). To do that, just run:
 
 .. code-block:: bash
+    :caption: Windows
 
-    $ conan install . --output-folder cmake-build-release
+    $ conan install . --output-folder=build --build=missing
+
+.. code-block:: bash
+    :caption: Linux, macOS
+    
+    $ conan install . --output-folder cmake-build-release --build=missing
 
 You can check the output:
 
@@ -117,14 +124,20 @@ we can use to inject to our environment the location of CMake v3.19.8.
    have the installed CMake in the path.
 
 .. code-block:: bash
+    :caption: Windows
 
-    (linux, macos)
+    $ cmake-build-release/conanbuild.bat
+
+.. code-block:: bash
+    :caption: Linux, macOS
+    
     $ source ./cmake-build-release/conanbuild.sh
     Capturing current environment in deactivate_conanbuildenv-release-x86_64.sh
     Configuring environment variables
 
-    (windows)
-    $ cmake-build-release/conanbuild.bat
+Run ``cmake`` and check the version:
+
+.. code-block:: bash
     
     $ cmake --version
     cmake version 3.19.8
@@ -137,17 +150,26 @@ the environment another file named ``deactivate_conanbuild.sh`` was created in t
 folder. If you source this file you can restore the environment as it was before.
 
 .. code-block:: bash
+    :caption: Windows
     
-    (linux, macos)
+    $ cmake-build-release/deactivate_conanbuild.bat
+
+.. code-block:: bash
+    :caption: Linux, macOS
+    
     $ source ./cmake-build-release/deactivate_conanbuild.sh
     Restoring environment
 
-    (windows)
-    $ cmake-build-release/deactivate_conanbuild.bat
+
+Run ``cmake`` and check the version, it will be the version that was installed previous to
+the environment activation:
+
+.. code-block:: bash
     
     $ cmake --version
     cmake version 3.22.0
     ...
+
 
 
 Read more
