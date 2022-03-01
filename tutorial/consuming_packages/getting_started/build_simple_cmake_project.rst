@@ -22,10 +22,10 @@ section<consuming_packages_getting_started_read_more>`.
 1. Please, first clone the sources to recreate this project, you can find them in the
    `examples2.0 repository <https://github.com/conan-io/examples2>`_ in GitHub:
 
-    .. code-block:: bash
+.. code-block:: bash
 
-        $ git clone https://github.com/conan-io/examples2.git
-        $ cd tutorial/consuming_packages/getting_started/simple_cmake_project
+    $ git clone https://github.com/conan-io/examples2.git
+    $ cd tutorial/consuming_packages/getting_started/simple_cmake_project
 
 
 2. We start from a very simple C language project with this structure:
@@ -52,8 +52,10 @@ Let's have a look at the *main.c* file:
     #include <zlib.h>
 
     int main(void) {
-        char buffer_in [32] = {"Conan Package Manager"};
-        char buffer_out [32] = {0};
+        char buffer_in [256] = {"Conan is a MIT-licensed, Open Source package manager for C and C++ development "
+                                "for C and C++ development, allowing development teams to easily and efficiently "
+                                "manage their packages and dependencies across platforms and build systems."};
+        char buffer_out [256] = {0};
 
         z_stream defstream;
         defstream.zalloc = Z_NULL;
@@ -68,10 +70,8 @@ Let's have a look at the *main.c* file:
         deflate(&defstream, Z_FINISH);
         deflateEnd(&defstream);
 
-        printf("Compressed size is: %lu\n", strlen(buffer_in));
-        printf("Compressed string is: %s\n", buffer_in);
+        printf("Uncompressed size is: %lu\n", strlen(buffer_in));
         printf("Compressed size is: %lu\n", strlen(buffer_out));
-        printf("Compressed string is: %s\n", buffer_out);
 
         printf("ZLIB VERSION: %s\n", zlibVersion());
 
@@ -88,7 +88,7 @@ Also, the contents of *CMakeLists.txt* are:
 
     find_package(ZLIB REQUIRED)
 
-    add_executable(${PROJECT_NAME} main.c)
+    add_executable(${PROJECT_NAME} src/main.c)
     target_link_libraries(${PROJECT_NAME} ZLIB::ZLIB)
 
 Our application relies on the **Zlib** library. Conan, by default, tries to install
@@ -165,13 +165,23 @@ configuration:
    *cmake-build-release*. To do that, just run:
 
 .. code-block:: bash
+    :caption: Windows
 
+    $ conan install . --output-folder=build --build=missing
+
+.. code-block:: bash
+    :caption: Linux, macOS
+    
     $ conan install . --output-folder cmake-build-release --build=missing
 
 You will get something similar to this as output of that command:
 
 .. code-block:: bash
 
+    (Windows)
+    $ conan install . --output-folder=build --build=missing
+
+    (Linux, macOS)
     $ conan install . --output-folder cmake-build-release --build=missing
     ...
     -------- Computing dependency graph ----------
@@ -226,21 +236,30 @@ As you can see in the output, there are a couple of things that happened:
 6. Now we are ready to build and run our **compressor** app:
 
 .. code-block:: bash
+    :caption: Windows
 
-    (win)
-    $ cmake . -G "Visual Studio 15 2017" -DCMAKE_TOOLCHAIN_FILE=cmake-build/conan_toolchain.cmake
+    $ cd build
+    # assuming Visual Studio 15 2017 is your VS version and that it matches your default profile
+    $ cmake .. -G "Visual Studio 15 2017" -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
     $ cmake --build . --config Release
+    ...
+    [100%] Built target compressor
+    $ Release\compressor.exe
+    Uncompressed size is: 233
+    Compressed size is: 147
+    ZLIB VERSION: 1.2.11
 
-    (linux, mac)
-    $ cmake . -DCMAKE_TOOLCHAIN_FILE=cmake-build-release/conan_toolchain.cmake
+.. code-block:: bash
+    :caption: Linux, macOS
+    
+    $ cd cmake-build-release
+    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
     $ cmake --build .
     ...
-    [100%] Built target md5
+    [100%] Built target compressor
     $ ./compressor
-    Compressed size is: 21
-    Compressed string is: Conan Package Manager
-    Compressed size is: 22
-    Compressed string is: x?s??K?HL?NLOU?M?RE
+    Uncompressed size is: 233
+    Compressed size is: 147
     ZLIB VERSION: 1.2.11
 
 
