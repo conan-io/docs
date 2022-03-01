@@ -239,6 +239,7 @@ As you can see in the output, there are a couple of things that happened:
     :caption: Windows
 
     $ cd build
+    # assuming Visual Studio 15 2017 is your VS version and that it matches your default profile
     $ cmake .. -G "Visual Studio 15 2017" -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
     $ cmake --build . --config Release
     ...
