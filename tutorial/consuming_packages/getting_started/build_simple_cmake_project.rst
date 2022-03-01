@@ -88,7 +88,7 @@ Also, the contents of *CMakeLists.txt* are:
 
     find_package(ZLIB REQUIRED)
 
-    add_executable(${PROJECT_NAME} main.c)
+    add_executable(${PROJECT_NAME} src/main.c)
     target_link_libraries(${PROJECT_NAME} ZLIB::ZLIB)
 
 Our application relies on the **Zlib** library. Conan, by default, tries to install
@@ -226,16 +226,28 @@ As you can see in the output, there are a couple of things that happened:
 6. Now we are ready to build and run our **compressor** app:
 
 .. code-block:: bash
+    :caption: Windows
 
-    (win)
-    $ cmake . -G "Visual Studio 15 2017" -DCMAKE_TOOLCHAIN_FILE=cmake-build/conan_toolchain.cmake
+    $ cd cmake-build
+    $ cmake .. -G "Visual Studio 15 2017" -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
     $ cmake --build . --config Release
+    ...
+    [100%] Built target compressor
+    $ Release\compressor.exe
+    Compressed size is: 21
+    Compressed string is: Conan Package Manager
+    Compressed size is: 22
+    Compressed string is: x?s??K?HL?NLOU?M?RE
+    ZLIB VERSION: 1.2.11
 
-    (linux, mac)
-    $ cmake . -DCMAKE_TOOLCHAIN_FILE=cmake-build-release/conan_toolchain.cmake
+.. code-block:: bash
+    :caption: Linux, macOS
+    
+    $ cd cmake-build-release
+    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
     $ cmake --build .
     ...
-    [100%] Built target md5
+    [100%] Built target compressor
     $ ./compressor
     Compressed size is: 21
     Compressed string is: Conan Package Manager
