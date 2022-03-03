@@ -141,7 +141,7 @@ dependencies you can do it in the ``generate(self)`` method:
 
     from conan.tools.files import copy
 
-    def generaqte(self):
+    def generate(self):
         for dep in self.dependencies.values():
             copy(self, "*.dylib", dep.cpp_info.libdirs[0], self.build_folder)
             copy(self, "*.dll", dep.cpp_info.libdirs[0], self.build_folder)
