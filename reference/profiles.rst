@@ -172,7 +172,7 @@ Configuration data types
 
 Available since: `1.46.0 <https://github.com/conan-io/conan/releases>`_
 
-All the values will be understood by Conan as the result of the python built-in `eval()` function:
+All the values will be interpreted by Conan as the result of the python built-in `eval()` function:
 
 .. code-block:: text
 
