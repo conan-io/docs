@@ -1,3 +1,4 @@
+.. _conan_tools_scm_git:
 
 Git
 ===

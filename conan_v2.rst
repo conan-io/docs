@@ -230,3 +230,16 @@ The ``scm`` by attribute feature will be removed. The new approach in Conan 2.0 
   purpose.
 
 This approach is already available in 1.X,. Check the ``conan.tools.scm.Git`` documentation in the reference for examples.
+
+The core logic would be in the ``export()`` method:
+
+.. code-block:: python
+
+    def export(self):
+        git = Git(self, self.recipe_folder)
+        scm_url, scm_commit = git.get_url_and_commit()
+        # we store the current url and commit in conandata.yml
+        update_conandata(self, {"sources": {"commit": scm_commit, "url": scm_url}})
+
+
+Please **check the full example** in the :ref:`conan.tools.scm.Git section <conan_tools_scm_git>`.
