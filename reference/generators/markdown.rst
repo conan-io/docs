@@ -10,7 +10,7 @@ consume them using different build systems.
 
 .. code-block:: bash
 
-    $ conan install poco/1.11.1@ --generator markdown
+    $ conan install poco/1.10.1@ --generator markdown
     ...
     Generator markdown created poco.md
 
@@ -21,6 +21,6 @@ markdown documents).
 
 
 .. image:: /images/conan-markdown_generator.png
-    :alt: Markdown generator output for ``poco/1.11.1`` package.
+    :alt: Markdown generator output for ``poco/1.10.1`` package.
     :width: 800 px
     :align: center
