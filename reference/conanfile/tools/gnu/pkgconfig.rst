@@ -3,7 +3,8 @@ PkgConfig
 
 .. warning::
 
-    These tools are **experimental** and subject to breaking changes.
+    These tools are still **experimental** (so subject to breaking changes) but with very stable syntax.
+    We encourage the usage of it to be prepared for Conan 2.0.
 
 
 Available since: `1.43.0 <https://github.com/conan-io/conan/releases>`_
