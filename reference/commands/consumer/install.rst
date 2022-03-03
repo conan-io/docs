@@ -47,8 +47,6 @@ generators.
                             generatorfiles. e.g., conaninfo/conanbuildinfo.txt
       -of OUTPUT_FOLDER, --output-folder OUTPUT_FOLDER
                             The root output folder for generated and build files
-      -sf SOURCE_FOLDER, --source-folder SOURCE_FOLDER
-                            The root source folder
       -m [MANIFESTS], --manifests [MANIFESTS]
                             Install dependencies manifests in folder for later
                             verify. Default folder is .conan_manifests, but can be
@@ -338,12 +336,11 @@ folders
     This is an **experimental** feature subject to breaking changes in future releases.
 
 
-The ``--output-folder`` and ``--source-folder`` define together with the ``layout()`` recipe
+The ``--output-folder`` define together with the ``layout()`` recipe
 method the location of the output files. For example, the files created by build system integrations
 such as ``CMakeToolchain`` or ``PkgConfigDeps`` will be created in the folder defined by the
-``layout()`` ``generators`` folder, inside the defined ``--output-folder``. By default, both the
-``--output-folder`` and the ``--source-folder`` are the folder containing the ``conanfile.py`` or
-the current folder otherwise.
+``layout()`` ``generators`` folder, inside the defined ``--output-folder``. By default, the
+``--output-folder`` is the folder containing the ``conanfile.py``.
 
 
 conf
