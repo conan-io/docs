@@ -60,7 +60,8 @@ executable will be one component inside ``cpp_info`` like this:
 .. code-block:: python
 
     def package_info(self):
-        self.cpp_info.name = "OpenSSL"
+        self.cpp_info.names["cmake_find_package"] = "OpenSSL"
+        self.cpp_info.names["cmake_find_package_multi"] = "OpenSSL"
         self.cpp_info.components["crypto"].names["cmake_find_package"] = "Crypto"
         self.cpp_info.components["crypto"].libs = ["libcrypto"]
         self.cpp_info.components["crypto"].defines = ["DEFINE_CRYPTO=1"]
@@ -132,13 +133,13 @@ Consumers can get this information via ``self.deps_cpp_info`` as usual and use i
             self.deps_cpp_info["openssl"].components["ssl"].include_paths
 
 
-Recipes that require packages that declare components can also take advantage of this granularity, they can declare in the 
+Recipes that require packages that declare components can also take advantage of this granularity, they can declare in the
 ``cpp_info.requires`` attribute the list of components from the requirements they want to link with:
 
 .. code-block:: python
 
     class Library(ConanFile):
-        name = 'library' 
+        name = 'library'
         requires = "openssl/1.0.2u"
 
         def package_info(self):

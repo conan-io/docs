@@ -18,8 +18,8 @@ Variables in *conanbuildinfo.cmake*
 - **Package declared variables**:
 
   For each requirement *conanbuildinfo.cmake* file declares the following variables. Where ``<PKG-NAME>`` is the placeholder for the name of
-  the require in uppercase (``ZLIB`` for ``zlib/1.2.8@lasote/stable``) or the one declared in ``cpp_info.name`` or in
-  ``cpp_info.names["cmake"]`` if specified:
+  the require in uppercase (``ZLIB`` for ``zlib/1.2.8@lasote/stable``) in
+  ``cpp_info.names["cmake_find_package"]`` or ``cpp_info.names["cmake_find_package_multi"]`` if specified:
 
   +---------------------------------------+----------------------------------------------------------------------+
   | NAME                                  | VALUE                                                                |
