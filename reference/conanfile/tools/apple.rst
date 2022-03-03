@@ -244,7 +244,7 @@ The ``Xcode`` helper can be used like:
         settings = "os", "arch", "compiler", "build_type"
 
         def build(self):
-            xcodebuild = Xcode(self)
+            xcodebuild = XcodeBuild(self)
             xcodebuild.build("app.xcodeproj")
 
 The ``Xcode.build()`` method internally implements a call to ``xcodebuild`` like:
