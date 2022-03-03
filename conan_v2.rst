@@ -209,6 +209,8 @@ Properties related to *pkg_config*, supported by both legacy :ref:`pkg_config<pk
 - **pkg_config_name** property equivalent to the ``names`` attribute.
 - **pkg_config_custom_content** property supported by both generators that will add user
   defined content to the *.pc* files created by the generator
+- **component_version** property supported by both generators that sets a custom version to be used
+  in the ``Version`` field belonging to the created ``*.pc`` file for that component.
 
 Properties related to *pkg_config*, only supported by new :ref:`PkgConfigDeps<PkgConfigDeps>`:
 
