@@ -817,7 +817,7 @@ It tells Conan to workaround the limitation of 260 chars in Windows paths.
 .. important::
 
     Since Windows 10 (ver. 10.0.14393), it is possible to `enable long paths at the system level
-    <https://docs.microsoft.com/es-es/windows/win32/fileio/naming-a-file#maximum-path-length-limitation>`_.
+    <https://docs.microsoft.com/en-us/windows/win32/fileio/naming-a-file#maximum-path-length-limitation>`_.
     Latest python 2.x and 3.x installers enable this by default. With the path limit removed both on the OS
     and on Python, the ``short_paths`` functionality becomes unnecessary, and can be disabled explicitly
     through the ``CONAN_USER_HOME_SHORT`` environment variable.
@@ -1046,7 +1046,7 @@ of the component. The dependency graph for components will be calculated and val
     feature subject to breaking changes in future releases.
 
 Using ``.names``, ``.filenames`` and ``.build_modules`` will not work any more for new
-generators, like :ref:`CMakeDeps<CMakeDeps>` and :ref:`PkgConfigDeps<PkgConfigDeps>`. 
+generators, like :ref:`CMakeDeps<CMakeDeps>` and :ref:`PkgConfigDeps<PkgConfigDeps>`.
 They have a new way of setting this information using ``set_property`` and
 ``get_property`` methods of the ``cpp_info`` object (available since Conan 1.36).
 
@@ -1670,3 +1670,68 @@ When ``True`` it enables the new run in a subsystem bash in Windows mechanism. :
     class FooRecipe(ConanFile):
         ...
         win_bash = True
+
+.. _test_type:
+
+test_type
+---------
+
+.. warning::
+
+    Test type is an **experimental** feature subject to breaking changes in future releases.
+
+Available since: `1.44.0 <https://github.com/conan-io/conan/releases/tag/1.44.0>`_
+
+This attribute allows testing requirements and build requiments explicitly on test package.
+In Conan 2.0 the ``test_type`` attribute will be ignored, the behavior will be always explicit, so declaring ``test_type="explicit"`` will make the test recipe compatible with Conan 2.0.
+The possible values are:
+
+ - ``requires`` (default): The package being tested will be consumed as a regular requirement automatically.
+ - ``build_requires``: The package being tested will be consumed as a build requirement automatically. It can be combined with ``requires`` to be required in both ways.
+ - ``explicit``: The test package will not solve its dependencies automatically, you need to declare it explicitly using the reference at ``self.tested_reference_str``. This will be the only behavior for Conan 2.0. The additional values ``requires`` and ``build_requires`` (if specified) will be ignored.
+
+To solve build requirements and requirements automatically as regularly on Conan 1.0
+
+ .. code-block:: python
+
+    from conans import ConanFile, CMake
+    import os
+
+    class TestPackage(ConanFile):
+        test_type = "build_requires", "requires"
+
+        def build(self):
+            cmake = CMake(self)
+            cmake.configure()
+            cmake.build()
+
+        def test(self):
+            bin_path = os.path.join("bin", "test_package")
+            self.run(bin_path, run_environment=True)
+
+To explicitly declare the required dependencies as required on Conan 2.0:
+
+ .. code-block:: python
+
+    from conans import ConanFile, CMake
+    import os
+
+    class TestPackage(ConanFile):
+        test_type = "explicit"
+
+        def requirements(self):
+            self.requires(self.tested_reference_str)
+            # and, or
+            self.build_requires(self.tested_reference_str)
+
+        def build(self):
+            cmake = CMake(self)
+            cmake.configure()
+            cmake.build()
+
+        def test(self):
+            bin_path = os.path.join("bin", "test_package")
+            self.run(bin_path, run_environment=True)
+
+
+For more information see :ref:`explicit test package requirement <explicit_test_package_requirement>` and :ref:`testing tool requirements <testing_build_requires>`.
