@@ -140,6 +140,22 @@ To be prepared for Conan 2.0:
 - Instead of appending new values to the default list, assign it: ``self.cpp_info.builddirs = ["cmake"]``
 
 
+Removing missing settings
+-------------------------
+
+In Conan 2, removing a setting, for example, ``del self.settings.compiler.libcxx`` in the ``configure()`` method, will
+raise an exception if the setting doesn't exist. It has to be protected with try/except:
+
+.. code-block:: python
+
+    def configure(self):
+        try:
+           # In windows, with msvc, the compiler.libcxx doesn't exist, so it will raise.
+           del self.settings.compiler.libcxx
+        except Exception:
+           pass
+
+
 .. _conanv2_properties_model:
 
 New properties model for the cpp_info in Conan 2.0 generators
