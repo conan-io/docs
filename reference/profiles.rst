@@ -187,7 +187,7 @@ All the values will be interpreted by Conan as the result of the python built-in
     # Integer
     tools.microsoft.msbuild:max_cpu_count=2
     # List of values
-    user.myconf.build:ldflags=["-mmacosx-version-min", "-arch x86_64"]
+    user.myconf.build:ldflags=["--flag1", "--flag2"]
     # Dictionary
     tools.microsoft.msbuildtoolchain:compile_options={"ExceptionHandling": "Async"}
 
@@ -258,8 +258,8 @@ It's also possible to use some extra operators when you're composing different t
     :caption: global.conf
 
     # Defining several lists
-    user.myconf.build:ldflags=["-mmacosx-version-min"]
-    user.myconf.build:cflags=["-mmacosx-version-min"]
+    user.myconf.build:ldflags=["--flag1 value1"]
+    user.myconf.build:cflags=["--flag1 value1"]
 
 .. code-block:: text
     :caption: profile_arch
@@ -269,7 +269,7 @@ It's also possible to use some extra operators when you're composing different t
 
     [conf]
     # Appending values into the existing list
-    user.myconf.build:ldflags+=["-arch x86_64"]
+    user.myconf.build:ldflags+=["--flag2 value2"]
     # Unsetting the existing value (it'd be like we define it as an empty value)
     user.myconf.build:cflags=!
 
@@ -284,7 +284,7 @@ It's also possible to use some extra operators when you're composing different t
 
     [conf]
     # Prepending values into the existing list
-    user.myconf.build:ldflags=+["-isysroot /path/to/SDKs/MacOSX.sdk"]
+    user.myconf.build:ldflags=+["--prefix prefix-value"]
 
 Running, for instance, :command:`conan install . -pr profile_sysroot`, the configuration output will be something like:
 
@@ -298,7 +298,7 @@ Running, for instance, :command:`conan install . -pr profile_sysroot`, the confi
     [env]
     [conf]
     user.myconf.build:cflags=!
-    user.myconf.build:ldflags=['-isysroot /path/to/SDKs/MacOSX.sdk', '-mmacosx-version-min', '-arch x86_64']
+    user.myconf.build:ldflags=['--prefix prefix-value', '--flag1 value1', '--flag2 value2']
     ...
 
 
