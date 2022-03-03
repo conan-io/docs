@@ -36,8 +36,8 @@ have priority over globally defined ones in *global.conf*, and can be defined as
     tools.build:jobs=10
 
 
-Tools template
-+++++++++++++++
+Configuration file template
+++++++++++++++++++++++++++++
 
 Available since: `1.46.0 <https://github.com/conan-io/conan/releases>`_
 
@@ -50,7 +50,7 @@ and renders the template, which must result in a standard tools-configuration te
      # Using all the cores automatically
      tools.build:jobs={{os.cpu_count()}}
      # Using the current OS
-     tool.build.system:name = {{platform.system()}}
+     user.myconf.system:name = {{platform.system()}}
 
 
 .. note::
@@ -60,12 +60,12 @@ and renders the template, which must result in a standard tools-configuration te
 
 .. seealso::
 
-    - Check this section :ref:`<profiles_tools_values_evaluation>` to see more related information.
-    - Check this section :ref:`<profiles_tools_values_operations>` to see more related information.
+    - Check :ref:`Configuration data types section<profiles_configuration_data_types>` to see more related information.
+    - Check :ref:`Configuration data operators section<profiles_configuration_data_operations>` to see more related information.
 
 
-Tools list command
-+++++++++++++++++++
+Configuration list command
+++++++++++++++++++++++++++
 
 To list all possible configurations available, run :command:`conan config list`.
 

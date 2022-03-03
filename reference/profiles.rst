@@ -162,13 +162,13 @@ Tools configurations can also be used in profile files and *global.conf* one. Pr
 
 .. seealso::
 
-    You can see more information about configurations in :ref:`global.conf section <global_conf>`.
+    You can see more information about global configurations in :ref:`global.conf section <global_conf>`.
 
 
-.. _profiles_tools_values_evaluation:
+.. _profiles_configuration_data_types:
 
-Tools values evaluation
-+++++++++++++++++++++++
+Configuration data types
+++++++++++++++++++++++++++
 
 Available since: `1.46.0 <https://github.com/conan-io/conan/releases>`_
 
@@ -187,7 +187,7 @@ All the values will be understood by Conan as the result of the python built-in 
     # Integer
     tools.microsoft.msbuild:max_cpu_count=2
     # List of values
-    tools.build.flags:ldflags=["-mmacosx-version-min", "-arch x86_64"]
+    user.myconf.build:ldflags=["-mmacosx-version-min", "-arch x86_64"]
     # Dictionary
     tools.microsoft.msbuildtoolchain:compile_options={"ExceptionHandling": "Async"}
 
@@ -245,14 +245,14 @@ The ``include()`` statement has to be at the top of the profile file:
     zlib:CXX=/usr/bin/clang++
 
 
-.. _profiles_tools_values_operations:
+.. _profiles_configuration_data_operators:
 
-Tools values operations
-++++++++++++++++++++++++
+Configuration data operators
++++++++++++++++++++++++++++++++++
 
 Available since: `1.46.0 <https://github.com/conan-io/conan/releases>`_
 
-It's also possible to use some extra operations when you're composing different tools configurations:
+It's also possible to use some extra operators when you're composing different tools configurations:
 
 .. code-block:: text
     :caption: global.conf
@@ -262,8 +262,8 @@ It's also possible to use some extra operations when you're composing different 
 
     [conf]
     # Defining several lists
-    tools.build.flags:ldflags=["-mmacosx-version-min"]
-    tools.build.flags:cflags=["-mmacosx-version-min"]
+    user.myconf.build:ldflags=["-mmacosx-version-min"]
+    user.myconf.build:cflags=["-mmacosx-version-min"]
 
 .. code-block:: text
     :caption: profile_arch
@@ -273,9 +273,9 @@ It's also possible to use some extra operations when you're composing different 
 
     [conf]
     # Appending values into the existing list
-    tools.build.flags:ldflags+=["-arch x86_64"]
+    user.myconf.build:ldflags+=["-arch x86_64"]
     # Unsetting the existing value (it'd be like we define it as an empty value)
-    tools.build.flags:cflags=!
+    user.myconf.build:cflags=!
 
 
 .. code-block:: text
@@ -288,7 +288,7 @@ It's also possible to use some extra operations when you're composing different 
 
     [conf]
     # Prepending values into the existing list
-    tools.build.flags:ldflags=+["-isysroot /path/to/SDKs/MacOSX.sdk"]
+    user.myconf.build:ldflags=+["-isysroot /path/to/SDKs/MacOSX.sdk"]
 
 Running, for instance, :command:`conan install . -pr profile_sysroot`, the configuration output will be something like:
 
@@ -301,8 +301,8 @@ Running, for instance, :command:`conan install . -pr profile_sysroot`, the confi
     [build_requires]
     [env]
     [conf]
-    tools.build.flags:cflags=!
-    tools.build.flags:ldflags=['-isysroot /path/to/SDKs/MacOSX.sdk', '-mmacosx-version-min', '-arch x86_64']
+    user.myconf.build:cflags=!
+    user.myconf.build:ldflags=['-isysroot /path/to/SDKs/MacOSX.sdk', '-mmacosx-version-min', '-arch x86_64']
     ...
 
 
