@@ -218,10 +218,6 @@ In the ``layout()`` method you can set:
          - **self.folders.root**: To specify the relative path from the ``conanfile.py`` to the root of the project, in case 
            the conanfile.py is in a subfolder and not in the project root. If defined all the other paths will be relative to
            the project root, not to the location of the ``conanfile.py``
-         - **self.folders.base_source_folder** points to the root folder that is used as a base to compute the actual ``self.source_folder``.
-           This can be useful if for example ``layout()`` specifies ``self.folders.source="src"``, the ``source()`` method will run inside 
-           that folder (``self.source_folder``) if it wants to access files that are exported.
-         
 
          Check the :ref:`complete reference<layout_folders_reference>` of the ".folders" attribute.
 
@@ -491,6 +487,11 @@ The ``conanfile.py`` would look like this:
               cmake_path = os.path.join(self.base_source_folder, "CMakeLists.txt")
 
 
+We can see that the ``Conanfile.base_source_folder`` can provide access to the root folder of the sources:
+
+- Locally it will be the folder where the conanfile.py lives
+- In the cache it will be the "source" folder, that will contain a copy of ``CMakeLists.txt`` and ``patches``,
+  while the "source/src" folder will contain the actual downloaded sources.
 
 Example: conanfile in subfolder
 -------------------------------
