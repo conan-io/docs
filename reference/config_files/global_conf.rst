@@ -60,7 +60,8 @@ and renders the template, which must result in a standard tools-configuration te
 
 .. seealso::
 
-    Check this section :ref:`<profiles_tools_values_evaluation>` to see more related information.
+    - Check this section :ref:`<profiles_tools_values_evaluation>` to see more related information.
+    - Check this section :ref:`<profiles_tools_values_operations>` to see more related information.
 
 
 Tools list command

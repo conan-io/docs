@@ -245,6 +245,8 @@ The ``include()`` statement has to be at the top of the profile file:
     zlib:CXX=/usr/bin/clang++
 
 
+.. _profiles_tools_values_operations:
+
 Tools values operations
 ++++++++++++++++++++++++
 
