@@ -6,6 +6,7 @@ conan.tools.files basic operations
 
     These tools are **experimental** and subject to breaking changes.
 
+.. _conan_tools_files_copy:
 
 conan.tools.files.copy()
 ------------------------
