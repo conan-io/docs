@@ -96,6 +96,23 @@ them in your Conan configuration:
 
     $ conan config set general.revisions_enabled=True
 
+
+self.copy() disappears from recipes
+-----------------------------------
+
+The ``self.copy`` has been replaced by the explicit tool :ref:`copy<conan_tools_files_copy>`.
+
+
+.. code-block:: bash
+
+    from conan.tools.files import copy
+
+    def package(self):
+        ...
+        copy(self, "*.lib", self.build_folder, join(self.package_folder, "lib"), keep_path=False)
+        copy(self, "*.dll", self.build_folder, join(self.package_folder, "bin"), keep_path=False)
+
+
 self.dependencies to access information about dependencies
 ----------------------------------------------------------
 
@@ -104,12 +121,32 @@ the `self.dependencies access
 <https://docs.conan.io/en/latest/reference/conanfile/dependencies.html#dependencies-interface>`_
 to get information about dependencies.
 
+
 Commands that disappear in 2.0: copy
 ------------------------------------
 
 Do not use the ``conan copy`` command to change user/channel. Packages will be immutable,
 and this command will dissapear in 2.0. Package promotions are generally done in the
 server side, copying packages from one server repository to another repository.
+
+
+Methods that disappear in 2.0:  self.imports
+--------------------------------------------
+
+The ``def imports(self)`` method from the conanfile has been removed. If you need to import files from your
+dependencies you can do it in the ``generate(self)`` method:
+
+
+.. code-block:: bash
+
+    from conan.tools.files import copy
+
+    def generate(self):
+        for dep in self.dependencies.values():
+            copy(self, "*.dylib", dep.cpp_info.libdirs[0], self.build_folder)
+            copy(self, "*.dll", dep.cpp_info.libdirs[0], self.build_folder)
+
+
 
 Editables don't use external templates any more. New layout model
 -----------------------------------------------------------------
