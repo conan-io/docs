@@ -165,6 +165,33 @@ Tools configurations can also be used in profile files and *global.conf* one. Pr
     You can see more information about configurations in :ref:`global.conf section <global_conf>`.
 
 
+.. _profiles_tools_values_evaluation:
+
+Tools values evaluation
++++++++++++++++++++++++
+
+Available since: `1.46.0 <https://github.com/conan-io/conan/releases>`_
+
+All the values will be understood by Conan as the result of the python built-in `eval()` function:
+
+.. code-block:: text
+
+    [settings]
+    ...
+
+    [conf]
+    # String
+    tools.microsoft.msbuild:verbosity=Diagnostic
+    # Boolean
+    tools.system.package_manager:sudo=True
+    # Integer
+    tools.microsoft.msbuild:max_cpu_count=2
+    # List of values
+    tools.build.flags:ldflags=["-mmacosx-version-min", "-arch x86_64"]
+    # Dictionary
+    tools.microsoft.msbuildtoolchain:compile_options={"ExceptionHandling": "Async"}
+
+
 Profile composition
 -------------------
 
@@ -216,6 +243,66 @@ The ``include()`` statement has to be at the top of the profile file:
     [env]
     zlib:CC=/usr/bin/clang
     zlib:CXX=/usr/bin/clang++
+
+
+Tools values operations
+++++++++++++++++++++++++
+
+Available since: `1.46.0 <https://github.com/conan-io/conan/releases>`_
+
+It's also possible to use some extra operations when you're composing different tools configurations:
+
+.. code-block:: text
+    :caption: global.conf
+
+    [settings]
+    ...
+
+    [conf]
+    # Defining several lists
+    tools.build.flags:ldflags=["-mmacosx-version-min"]
+    tools.build.flags:cflags=["-mmacosx-version-min"]
+
+.. code-block:: text
+    :caption: profile_arch
+
+    [settings]
+    ...
+
+    [conf]
+    # Appending values into the existing list
+    tools.build.flags:ldflags+=["-arch x86_64"]
+    # Unsetting the existing value (it'd be like we define it as an empty value)
+    tools.build.flags:cflags=!
+
+
+.. code-block:: text
+    :caption: profile_sysroot
+
+    include(./profile_arch)
+
+    [settings]
+    ...
+
+    [conf]
+    # Prepending values into the existing list
+    tools.build.flags:ldflags=+["-isysroot /path/to/SDKs/MacOSX.sdk"]
+
+Running, for instance, :command:`conan install . -pr profile_sysroot`, the configuration output will be something like:
+
+.. code-block:: bash
+
+    ...
+    Configuration:
+    [settings]
+    [options]
+    [build_requires]
+    [env]
+    [conf]
+    tools.build.flags:cflags=!
+    tools.build.flags:ldflags=['-isysroot /path/to/SDKs/MacOSX.sdk', '-mmacosx-version-min', '-arch x86_64']
+    ...
+
 
 Variable declaration
 --------------------

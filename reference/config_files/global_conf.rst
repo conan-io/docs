@@ -36,6 +36,36 @@ have priority over globally defined ones in *global.conf*, and can be defined as
     tools.build:jobs=10
 
 
+Tools template
++++++++++++++++
+
+Available since: `1.46.0 <https://github.com/conan-io/conan/releases>`_
+
+It is possible to use **jinja2** template engine for *global.conf*. When Conan loads this file, immediately parses
+and renders the template, which must result in a standard tools-configuration text.
+
+  .. code:: jinja
+
+     [conf]
+     # Using all the cores automatically
+     tools.build:jobs={{os.cpu_count()}}
+     # Using the current OS
+     tool.build.system:name = {{platform.system()}}
+
+
+.. note::
+
+    The Python packages passed to render the template are only ``os`` and ``platform``.
+
+
+.. seealso::
+
+    Check this section :ref:`<profiles_tools_values_evaluation>` to see more related information.
+
+
+Tools list command
++++++++++++++++++++
+
 To list all possible configurations available, run :command:`conan config list`.
 
 .. code-block:: bash
