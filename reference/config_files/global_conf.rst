@@ -46,7 +46,6 @@ and renders the template, which must result in a standard tools-configuration te
 
   .. code:: jinja
 
-     [conf]
      # Using all the cores automatically
      tools.build:jobs={{os.cpu_count()}}
      # Using the current OS
