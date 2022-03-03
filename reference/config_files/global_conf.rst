@@ -61,7 +61,7 @@ and renders the template, which must result in a standard tools-configuration te
 .. seealso::
 
     - Check :ref:`Configuration data types section<profiles_configuration_data_types>` to see more related information.
-    - Check :ref:`Configuration data operators section<profiles_configuration_data_operations>` to see more related information.
+    - Check :ref:`Configuration data operators section<profiles_configuration_data_operators>` to see more related information.
 
 
 Configuration list command
