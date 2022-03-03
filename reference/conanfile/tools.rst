@@ -52,3 +52,4 @@ Contents:
    tools/files
    tools/layout
    tools/scm
+   tools/build
