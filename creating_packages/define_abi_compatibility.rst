@@ -624,15 +624,11 @@ All the modes can be applied to all dependencies, or to individual ones:
       def package_id(self):
           self.info.requires["mypkg"].package_revision_mode()
 
-  Given that the package ID of consumers depends on the package revision PREV of the dependencies, when
-  one of the upstream dependencies doesn't have a package revision yet (for example it is going to be
-  built from sources, so its PREV cannot be determined yet), the consumers package ID will be unknown and
-  marked as such. These dependency graphs cannot be built in a single invocation, because they are intended
-  for CI systems, in which a package creation/built is called for each package in the graph.
 
 .. note::
   
-  Version ranges are not used calculate the ``package_id`` only the resolved version in the graph is used
+  Version ranges are not used to calculate the ``package_id`` only the resolved version in the graph is used
+
 
 You can also adjust the individual properties manually:
 
