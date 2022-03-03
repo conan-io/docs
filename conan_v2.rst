@@ -232,3 +232,32 @@ Using ``set_property()`` you can pass the parameters of your choice and read the
         ...
 
 Please **check a detailed migration guide** in the :ref:`dedicated section <properties_migration>`.
+
+
+``scm`` is removed, replaced by ``export()`` and ``source()`` methods
+----------------------------------------------------------------------
+
+The ``scm`` by attribute feature will be removed. The new approach in Conan 2.0 will be:
+
+- The ``export()`` method is responsible of capturing the "coordinates" of the current URL and commit.
+  The new ``conan.tools.scm.Git`` can be used for this (do not use the legacy ``Git`` helper but this one)
+- The ``export()`` method, after capturing the coordinates, can store them in the ``conandata.yml`` using
+  the ``update_conandata()`` helper function
+- The ``source()`` method can use the information in ``self.conan_data`` coming from exported ``conandata.yml``
+  file to do a clone and checkout of the matching code. The new ``conan.tools.scm.Git`` can be used for this
+  purpose.
+
+This approach is already available in 1.X,. Check the ``conan.tools.scm.Git`` documentation in the reference for examples.
+
+The core logic would be in the ``export()`` method:
+
+.. code-block:: python
+
+    def export(self):
+        git = Git(self, self.recipe_folder)
+        scm_url, scm_commit = git.get_url_and_commit()
+        # we store the current url and commit in conandata.yml
+        update_conandata(self, {"sources": {"commit": scm_commit, "url": scm_url}})
+
+
+Please **check the full example** in the :ref:`conan.tools.scm.Git section <conan_tools_scm_git>`.
