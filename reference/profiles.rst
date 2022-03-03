@@ -257,10 +257,6 @@ It's also possible to use some extra operators when you're composing different t
 .. code-block:: text
     :caption: global.conf
 
-    [settings]
-    ...
-
-    [conf]
     # Defining several lists
     user.myconf.build:ldflags=["-mmacosx-version-min"]
     user.myconf.build:cflags=["-mmacosx-version-min"]
