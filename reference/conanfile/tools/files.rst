@@ -14,5 +14,6 @@ conan.tools.files
     files/basic
     files/downloads
     files/patches
+    files/checksum
     files/symlinks
     files/autopackager
