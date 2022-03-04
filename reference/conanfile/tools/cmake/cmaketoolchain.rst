@@ -178,7 +178,7 @@ There are two ways of providing a custom CMake toolchain file:
             ...
             def package_info(self):
                 f = os.path.join(self.package_folder, "mytoolchain.cmake")
-                self.conf_info["tools.cmake.cmaketoolchain:user_toolchain"] = f
+                self.conf_info.define("tools.cmake.cmaketoolchain:user_toolchain", f)
 
 
 
@@ -200,7 +200,7 @@ There are two ways of providing a custom CMake toolchain file:
             # tool_requires
             user_toolchains = []
             for dep in self.dependencies.direct_build.values():
-                ut = dep.conf_info["tools.cmake.cmaketoolchain:user_toolchain"]
+                ut = dep.conf_info.get("tools.cmake.cmaketoolchain:user_toolchain")
                 if ut:
                     user_toolchains.append(ut.replace('\\\\', '/'))
             # Modify the context of the user_toolchain block

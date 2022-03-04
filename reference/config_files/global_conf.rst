@@ -136,7 +136,7 @@ configuration as:
         name = "android_ndk"
 
         def package_info(self):
-            self.conf_info["tools.android:ndk_path"] = os.path.join(self.package_folder, "ndk")
+            self.conf_info.define("tools.android:ndk_path", os.path.join(self.package_folder, "ndk"))
 
 
 Note that this only propagates from the immediate, direct ``tool_requires`` of a recipe.
