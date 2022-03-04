@@ -109,16 +109,6 @@ values:
 * **cxxflags** (Defaulted to ``[]``): Additional cxxflags.
 * **cflags** (Defaulted to ``[]``): Additional cflags.
 * **ldflags** (Defaulted to ``[]``): Additional ldflags.
-* **default_configure_install_args** (Defaulted to ``False``): If True it will pass automatically the following flags to the configure script:
-
-   * ``--prefix``: With the self.package_folder value.
-   * ``--bindir=${prefix}/bin``
-   * ``--sbindir=${prefix}/bin``
-   * ``--libdir=${prefix}/lib``
-   * ``--includedir=${prefix}/include``
-   * ``--oldincludedir=${prefix}/includev``
-   * ``--datarootdir=${prefix}/share``
-
 * **ndebug**: "NDEBUG" if the ``settings.build_type`` != `Debug`.
 * **gcc_cxx11_abi**: "_GLIBCXX_USE_CXX11_ABI" if ``gcc/libstdc++``.
 * **libcxx**: Flag calculated from ``settings.compiler.libcxx``.
@@ -128,3 +118,56 @@ values:
 * **build_type_flags**: Flags from ``settings.build_type``
 * **apple_arch_flag**: Only when cross-building with Apple systems. Flags from ``settings.arch``.
 * **apple_isysroot_flag**: Only when cross-building with Apple systems. Path to the root sdk.
+* **default_configure_install_args** (Defaulted to ``True``): If True it will pass automatically the following flags to the configure script:
+
+   * ``--prefix``: With the self.package_folder value.
+   * ``--bindir=${prefix}/bin``
+   * ``--sbindir=${prefix}/bin``
+   * ``--libdir=${prefix}/lib``
+   * ``--includedir=${prefix}/include``
+   * ``--oldincludedir=${prefix}/include``
+   * ``--datarootdir=${prefix}/res``
+
+
+ If you want to change the default values, adjust the ``cpp.package`` object at the ``layout()`` method:
+
+    .. code:: python
+
+        def layout(self):
+            ...
+            # For bindir and sbindir takes the first value:
+            self.cpp.package.bindirs = ["mybin"]
+            # For libdir takes the first value:
+            self.cpp.package.libdirs = ["mylib"]
+            # For includedir and oldincludedir takes the first value:
+            self.cpp.package.includedirs = ["myinclude"]
+            # For datarootdir takes the first value:
+            self.cpp.package.resdirs = ["myres"]
+
+    .. note::
+        It is **not valid** to change the self.cpp_info  at the ``package_info()`` method.
+
+
+
+Customizing the environment
++++++++++++++++++++++++++++
+
+If your ``Makefile`` or ``configure`` scripts need some other environment variable rather than ``CPPFLAGS``, ``LDFLAGS``,
+``CXXFLAGS`` or ``CFLAGS``, you can customize it before calling the ``generate()`` method.
+Call the ``environment()`` method to calculate the mentioned variables and then add the variables that you need.
+The ``environment()`` method returns an :ref:`Environment<conan_tools_env_environment_model>` object:
+
+
+.. code:: python
+
+    from conans import ConanFile
+    from conan.tools.gnu import AutotoolsToolchain
+
+    class App(ConanFile):
+        settings = "os", "arch", "compiler", "build_type"
+
+        def generate(self):
+            at = AutotoolsToolchain(self)
+            env = at.environment()
+            env.define("FOO", "BAR")
+            at.generate(env)

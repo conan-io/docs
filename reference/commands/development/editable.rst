@@ -49,6 +49,8 @@ Opens the package ``<reference>`` in editable mode in the user folder ``<path>``
                             Relative or absolute path to a file containing the
                             layout. Relative paths will be resolved first relative
                             to current dir, then to local cache "layouts" folder
+    -of OUTPUT_FOLDER, --output-folder OUTPUT_FOLDER
+                        The root output folder for generated and build files
 
 
 
@@ -62,6 +64,11 @@ the file ``win_layout``.
 .. code-block:: bash
 
     $ conan editable add . cool/version@user/dev --layout=win_layout
+
+
+The ``--output-folder`` will specify the location of the output (build files, generators, etc), with the same meaning as the ``conan install`` command.
+By default, if not specified, they will point to the folder containing the ``conanfile.py``. These arguments work
+together with the ``layout()`` method to determine the location of the different Conan and build files.
 
 
 

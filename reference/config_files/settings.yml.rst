@@ -68,8 +68,8 @@ are possible. These are the **default** values, but it is possible to customize 
                       "9", "9.1", "9.2", "9.3",
                       "10", "10.1"]
             libcxx: [libstdc++, libstdc++11]
-            threads: [None, posix, win32] #  Windows MinGW
-            exception: [None, dwarf2, sjlj, seh] # Windows MinGW
+            threads: [None, posix, win32]  # Windows MinGW
+            exception: [None, dwarf2, sjlj, seh]  # Windows MinGW
             cppstd: [None, 98, gnu98, 11, gnu11, 14, gnu14, 17, gnu17, 20, gnu20]
         Visual Studio: &visual_studio
             runtime: [MD, MT, MTd, MDd]
@@ -80,7 +80,7 @@ are possible. These are the **default** values, but it is possible to customize 
                       LLVM-vs2017, LLVM-vs2017_xp, v141, v141_xp, v141_clang_c2, v142,
                       llvm, ClangCL]
             cppstd: [None, 14, 17, 20]
-         msvc:
+        msvc:
             version: [190, 191, 192, 193]
             update: [None, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
             runtime: [static, dynamic]
@@ -173,7 +173,6 @@ The new ``msvc`` compiler is a new, **experimental** one, that is intended to de
 - At the moment it implements a ``compatible_packages`` fallback to Visual Studio compiled packages, that is, previous existing binaries
   compiled with ``settings.compiler="Visual Studio"`` can be used for the ``msvc`` compiler if no binaries exist for it yet.
   This behavior can be opted-out with ``core.package_id:msvc_visual_incompatible`` :ref:`global_conf` configuration.
-- It is not detected by the profile auto-detect, it needs to explicitly be defined in profiles.
 
 When using the ``msvc`` compiler, the Visual Studio toolset version (the actual ``vcvars`` activation and ``MSBuild`` location) will be
 defined by the default provide of that compiler version:

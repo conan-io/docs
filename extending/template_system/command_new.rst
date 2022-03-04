@@ -139,7 +139,9 @@ Available since: `1.40.0 <https://github.com/conan-io/conan/releases/tag/1.40.0>
 The Conan client has some predefined templates that can be used with the command ``new``.
 These two templates are related to :ref:`Layouts<conan_tools_layout_predefined_layouts>` and offer a simple Hello World example:
 
-* `cmake_lib`: Generates a hello world c++ library based on modern Conan recipe (layout + generate)
-* `cmake_exe`: Generates a hello world executable based on modern Conan recipe (layout + generate)
+* `cmake_lib`: Generates a hello world c++ library based on modern Conan recipe (layout + generate) using CMake as the build system.
+* `cmake_exe`: Generates a hello world executable based on modern Conan recipe (layout + generate) using CMake as the build system.
+* `meson_lib`: Generates a hello world c++ library based on modern Conan recipe (layout + generate) using Meson as the build system (since Conan 1.45).
+* `meson_exe`: Generates a hello world executable based on modern Conan recipe (layout + generate) using Meson as the build system (since Conan 1.45).
 
 A full example can be found in :ref:`Creating Packages<packaging_getting_started>` section.

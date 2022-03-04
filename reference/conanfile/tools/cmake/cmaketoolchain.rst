@@ -38,7 +38,7 @@ Or fully instantiated in the ``generate()`` method:
     class App(ConanFile):
         settings = "os", "arch", "compiler", "build_type"
         requires = "hello/0.1"
-        generators = "cmake_find_package_multi"
+        generators = "CMakeDeps"
         options = {"shared": [True, False], "fPIC": [True, False]}
         default_options = {"shared": False, "fPIC": True}
 
@@ -147,26 +147,12 @@ The booleans assigned to a variable will be translated to ``ON`` and ``OFF`` sym
 Will generate the sentences: ``set(FOO ON ...)`` and ``set(VAR OFF ...)``.
 
 
-find_builddirs
-++++++++++++++
-
-Defaulted to ``True``. If ``True`` Conan adds the ``cpp_info.builddirs`` from the requirements to the
-``CMAKE_PREFIX_PATH`` and ``CMAKE_MODULE_PATH`` variables. That would allow finding the config files or modules
-packaged in the dependencies and also including them from the consumer CMakeLists.txt.
-
-.. code:: python
-
-    def generate(self):
-        tc = CMakeToolchain(self)
-        tc.find_builddirs = False
-        tc.generate()
-
 
 Generators
 ++++++++++
 
-The ``CMakeToolchain`` is intended to run with the ``CMakeDeps`` dependencies generator. It might temporarily
-work with others like ``cmake_find_package`` and ``cmake_find_package_multi``, but this will be removed soon.
+The ``CMakeToolchain`` is intended to run with the ``CMakeDeps`` dependencies generator. Please do not use other
+CMake legacy generators (like ``cmake``, or ``cmake_paths``) with it.
 
 
 Using a custom toolchain file
@@ -233,7 +219,7 @@ One of the advantages of using Conan toolchains is that they can help to achieve
 with local development flows, than when the package is created in the cache.
 
 With the ``CMakeToolchain`` it is possible to do, for multi-configuration systems like Visual Studio
-(assuming we are using the ``cmake_find_package_multi`` generator):
+(assuming we are using the ``CMakeDeps`` generator):
 
 .. code:: bash
 
@@ -294,9 +280,9 @@ The following predefined blocks are available, and added in this order:
                                                           "path/to/user_toolchain2.cmake"]
             t.generate()
 
-- ``generic_system``: Defines ``CMAKE_GENERATOR_PLATFORM``, ``CMAKE_GENERATOR_TOOLSET``, ``CMAKE_C_COMPILER``,``CMAKE_CXX_COMPILER`` and ``CMAKE_BUILD_TYPE``
+- ``generic_system``: Defines ``CMAKE_GENERATOR_PLATFORM``, ``CMAKE_GENERATOR_TOOLSET``, ``CMAKE_C_COMPILER``, ``CMAKE_CXX_COMPILER`` and ``CMAKE_BUILD_TYPE``
 - ``android_system``: Defines ``ANDROID_PLATFORM``, ``ANDROID_STL``, ``ANDROID_ABI`` and includes ``CMAKE_ANDROID_NDK/build/cmake/android.toolchain.cmake``
-  where CMAKE_ANDROID_NDK comes defined in ``tools.android:ndk_path`` configuration value.
+  where ``CMAKE_ANDROID_NDK`` comes defined in ``tools.android:ndk_path`` configuration value.
 - ``apple_system``: Defines ``CMAKE_SYSTEM_NAME``, ``CMAKE_SYSTEM_VERSION``, ``CMAKE_OSX_ARCHITECTURES``, ``CMAKE_OSX_SYSROOT`` for Apple systems.
 - ``fpic``: Defines the ``CMAKE_POSITION_INDEPENDENT_CODE`` when there is a ``options.fPIC``
 - ``arch_flags``: Defines C/C++ flags like ``-m32, -m64`` when necessary.
@@ -308,8 +294,40 @@ The following predefined blocks are available, and added in this order:
 - ``try_compile``: Stop processing the toolchain, skipping the blocks below this one, if ``IN_TRY_COMPILE`` CMake property is defined.
 - ``find_paths``: Defines ``CMAKE_FIND_PACKAGE_PREFER_CONFIG``, ``CMAKE_MODULE_PATH``, ``CMAKE_PREFIX_PATH`` so the generated files from ``CMakeDeps`` are found.
 - ``rpath``: Defines ``CMAKE_SKIP_RPATH``. By default it is disabled, and it is needed to define ``self.blocks["rpath"].skip_rpath=True`` if you want to activate ``CMAKE_SKIP_RPATH``
-- ``shared``: defines ``BUILD_SHARED_LIBS``
+- ``shared``: defines ``BUILD_SHARED_LIBS``.
+- ``output_dirs``: Define the ``CMAKE_INSTALL_XXX`` variables.
 
+    - **CMAKE_INSTALL_PREFIX**: Is set with the ``package_folder``, so if a "cmake install" operation is run, the artifacts go
+      to that location.
+    - **CMAKE_INSTALL_BINDIR**, **CMAKE_INSTALL_SBINDIR** and **CMAKE_INSTALL_LIBEXECDIR**: Set by default to ``bin``.
+    - **CMAKE_INSTALL_LIBDIR**: Set by default to ``lib``.
+    - **CMAKE_INSTALL_INCLUDEDIR** and **CMAKE_INSTALL_OLDINCLUDEDIR**: Set by default to ``include``.
+    - **CMAKE_INSTALL_DATAROOTDIR**: Set by default to ``res``.
+
+    If you want to change the default values, adjust the ``cpp.package`` object at the ``layout()`` method:
+
+        .. code:: python
+
+            def layout(self):
+                ...
+                # For CMAKE_INSTALL_BINDIR, CMAKE_INSTALL_SBINDIR and CMAKE_INSTALL_LIBEXECDIR, takes the first value:
+                self.cpp.package.bindirs = ["mybin"]
+                # For CMAKE_INSTALL_LIBDIR, takes the first value:
+                self.cpp.package.libdirs = ["mylib"]
+                # For CMAKE_INSTALL_INCLUDEDIR, CMAKE_INSTALL_OLDINCLUDEDIR, takes the first value:
+                self.cpp.package.includedirs = ["myinclude"]
+                # For CMAKE_INSTALL_DATAROOTDIR, takes the first value:
+                self.cpp.package.resdirs = ["myres"]
+
+    .. note::
+        It is **not valid** to change the self.cpp_info  at the ``package_info()`` method.
+
+
+.. note::
+    In Conan 1.45 the CMakeToolchain doesn't append the root package folder of the dependencies (declared in the cpp_info.builddirs)
+    to the ``CMAKE_PREFIX_PATH`` variable. That interfered with the ``find_file``, ``find_path`` and ``find_program``, making,
+    for example, impossible to locate only the executables from the build context. In Conan 2.0, the ``cppinfo.builddirs``
+    won't contain by default the ``''`` entry (root package).
 
 
 Blocks can be customized in different ways:

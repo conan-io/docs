@@ -103,10 +103,10 @@ Properties
 
 The following properties affect the ``PkgConfigDeps`` generator:
 
-- **pkg_config_name** property sets the ``names`` property for *pkg_config* generator.
+- **pkg_config_name** property will define the name of the generated ``*.pc`` file (``xxxxx.pc``)
 - **pkg_config_aliases** property sets some aliases of any package/component name for *pkg_config* generator. This property only accepts list-like Python objects.
-- **pkg_config_custom_content** property supported by the *pkg_config* generator that will add user
-  defined content to the *.pc* files created by this generator.
+- **pkg_config_custom_content** property will add user defined content to the *.pc* files created by this generator.
+- **component_version** property sets a custom version to be used in the ``Version`` field belonging to the created ``*.pc`` file for that component.
 
 These properties can be defined at global ``cpp_info`` level or at component level.
 
@@ -120,6 +120,7 @@ Example:
         self.cpp_info.set_property("pkg_config_name", "myname")
         self.cpp_info.components["mycomponent"].set_property("pkg_config_name", "componentname")
         self.cpp_info.components["mycomponent"].set_property("pkg_config_aliases", ["alias1", "alias2"])
+        self.cpp_info.components["mycomponent"].set_property("component_version", "1.14.12")
 
 
 Names and aliases
@@ -155,7 +156,7 @@ Run :command:`conan install openssl/3.0.0@ -g PkgConfigDeps` and check the ``*.p
 - openssl.pc
 - zlib.pc *(openssl requires zlib)*
 
-Their ``pkg_config_name`` properties are used as the final PC file names:
+Their ``pkg_config_name`` properties are used as the final ``*.pc`` file names:
 
 .. code-block:: text
     :caption: openssl.pc
@@ -179,6 +180,25 @@ Their ``pkg_config_name`` properties are used as the final PC file names:
     Libs: -L"${libdir1}" -lcrypto -F Frameworks
     Cflags: -I"${includedir1}"
     Requires: zlib
+
+
+A special mention when a component shares the same ``*.pc`` file name as the root package one:
+
+.. code:: python
+
+    from conans import ConanFile
+
+    class OpenCLConan(ConanFile):
+
+        # ...
+
+        def package_info(self):
+            self.cpp_info.set_property("pkg_config_name", "OpenCL")  # -> OpenCL.pc
+            self.cpp_info.components["_opencl-headers"].set_property("pkg_config_name", "OpenCL")  # -> OpenCL.pc
+
+The only ``*.pc`` file created will be the one belonging to the component:
+
+- OpenCL.pc (from component)
 
 
 Now, let's see how ``pkg_config_aliases`` property works step by step.
