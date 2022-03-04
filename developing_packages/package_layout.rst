@@ -215,6 +215,9 @@ In the ``layout()`` method you can set:
            (e.g the `xx-config.cmake` files from the ``CMakeDeps``)
          - **self.folders.imports**: To specify a subfolder where to write the files copied when using the ``imports(self)``
            method in a ``conanfile.py``.
+         - **self.folders.root**: To specify the relative path from the ``conanfile.py`` to the root of the project, in case 
+           the conanfile.py is in a subfolder and not in the project root. If defined all the other paths will be relative to
+           the project root, not to the location of the ``conanfile.py``
 
          Check the :ref:`complete reference<layout_folders_reference>` of the ".folders" attribute.
 
@@ -438,3 +441,101 @@ also able to locate the ``my_tool`` correctly, because it is using the same ``fo
    is only testing that the method is correctly coded, but that can also be done with the ``conan export-pkg`` method.
    This responds to the migration to Conan 2.0, where the ``conan package`` method will disappear.
 
+
+
+Example: base_source_folder
+---------------------------
+
+If we have this project, intended to create a package for a third party library which code is located externally:
+
+.. code-block:: text
+
+    ├── conanfile.py
+    ├── patches
+    │   └── mypatch
+    └── CMakeLists.txt
+
+
+The ``conanfile.py`` would look like this:
+
+.. code-block:: python
+
+      import os
+      from conan import ConanFile
+
+
+      class Pkg(ConanFile):
+          name = "pkg"
+          version = "0.1"
+          exports_sources = "CMakeLists.txt", "patches*"
+
+          def layout(self):
+              self.folders.source = "src"
+          
+          def source(self):
+              # we are inside a "src" subfolder, as defined by layout
+              # download something, that will be inside the "src" subfolder
+              base_source = self.base_source_folder
+              # access to paches and CMakeLists, to apply them, replace files is done with:
+              mypatch_path = os.path.join(base_source, "patches/mypatch")
+              cmake_path = os.path.join(base_source, "CMakeLists.txt")
+              # patching, replacing, happens here
+
+          def build(self):
+              # If necessary, the build() method also has access to the base_source_folder
+              # for example if patching happens in build() instead of source()
+              cmake_path = os.path.join(self.base_source_folder, "CMakeLists.txt")
+
+
+We can see that the ``Conanfile.base_source_folder`` can provide access to the root folder of the sources:
+
+- Locally it will be the folder where the conanfile.py lives
+- In the cache it will be the "source" folder, that will contain a copy of ``CMakeLists.txt`` and ``patches``,
+  while the "source/src" folder will contain the actual downloaded sources.
+
+Example: conanfile in subfolder
+-------------------------------
+
+If we have this project, intended to package the code that is in the same repo as the ``conanfile.py``, but
+the ``conanfile.py`` is not in the root of the project
+
+.. code-block:: text
+
+    ├── CMakeLists.txt
+    ├── conan
+        └── conanfile.py
+
+
+The ``conanfile.py`` would look like this:
+
+.. code-block:: python
+
+      import os
+      from conan import ConanFile
+      from conan.tools.files import load, copy
+
+
+      class Pkg(ConanFile):
+          name = "pkg"
+          version = "0.1"
+
+          def layout(self):
+              # The root of the project is one level above
+              self.folders.root = ".." 
+              # The source of the project (the root CMakeLists.txt) is the source folder
+              self.folders.source = "."  
+              self.folders.build = "build"
+        
+          def export_sources(self):
+              # The path of the CMakeLists.txt we want to export is one level above
+              folder = os.path.join(self.recipe_folder, "..")
+              copy(self, "*.txt", folder, self.export_sources_folder)
+          
+          def source(self):
+              # we can see that the CMakeLists.txt is inside the source folder
+              cmake = load(self, "CMakeLists.txt")
+
+          def build(self):
+              # The build() method can also access the CMakeLists.txt in the source folder
+              path = os.path.join(self.source_folder, "CMakeLists.txt")
+              cmake = load(self, path)
