@@ -21,15 +21,15 @@ example of how adding a ``tool_requires`` to our project and using a different C
 version to build it.
 
 
-1. Please, first clone the sources to recreate this project. You can find them in the
-   `examples2.0 repository <https://github.com/conan-io/examples2>`_ in GitHub:
+Please, first clone the sources to recreate this project. You can find them in the
+`examples2.0 repository <https://github.com/conan-io/examples2>`_ in GitHub:
 
 .. code-block:: bash
 
     $ git clone https://github.com/conan-io/examples2.git
     $ cd tutorial/consuming_packages/getting_started/tool_requires
 
-2. The structure of the project is the same as the one of the previous example:
+The structure of the project is the same as the one of the previous example:
 
 .. code-block:: text
 
@@ -58,10 +58,10 @@ using CMake v3.19.8.
     CMakeToolchain
 
 
-3. Now, as in the previous example, we will use Conan to install **Zlib** and **CMake
-   3.19.8** and generate the files to find the both CMake and Zlib. We will generate those
-   files in the folder *cmake-build-release* (Linux/macOS) or in the folder *build*
-   (Windows). To do that, just run:
+Now, as in the previous example, we will use Conan to install **Zlib** and **CMake
+3.19.8** and generate the files to find the both CMake and Zlib. We will generate those
+files in the folder *cmake-build-release* (Linux/macOS) or in the folder *build*
+(Windows). To do that, just run:
 
 .. code-block:: bash
     :caption: Windows
@@ -120,8 +120,8 @@ file called ``conanbuild.sh``. This is the result of automatically invoking a
 **conanfile.txt**. This file declares some environment variables like a new ``PATH`` that
 we can use to inject to our environment the location of CMake v3.19.8.
 
-4. Activate the virtual environment, and now you can run ``cmake --version`` to check that you
-   have the installed CMake in the path.
+Activate the virtual environment, and now you can run ``cmake --version`` to check that you
+have the installed CMake in the path.
 
 .. code-block:: bash
     :caption: Windows
@@ -169,7 +169,6 @@ the environment activation:
     $ cmake --version
     cmake version 3.22.0
     ...
-
 
 
 Read more
