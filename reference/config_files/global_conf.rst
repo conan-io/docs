@@ -79,43 +79,35 @@ All the values will be interpreted by Conan as the result of the python built-in
 
 
 Configuration data operators
-+++++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++
 
 Available since: `1.46.0 <https://github.com/conan-io/conan/releases>`_
 
-It's also possible to use some extra operators when you're composing different tools configurations:
+It's also possible to use some extra operators when you're composing tool configurations in your *global.conf* or
+any of your profiles:
+
+* ``+=`` == ``append``: appends values at the end of the existing value (only for lists).
+* ``=+`` == ``prepend``: puts values at the beginning of the existing value (only for lists).
+* ``=!`` == ``unset``: gets rid of any configuration value.
 
 .. code-block:: text
     :caption: *myprofile*
 
-    # Defining several lists
-    user.myconf.build:ldflags=["--flag1 value1"]
-    user.myconf.build:cflags=["--flag1 value1"]
-
-    # Appending values into the existing list
-    user.myconf.build:ldflags+=["--flag2 value2"]
-
-    # Unsetting the existing value (it'd be like we define it as an empty value)
-    user.myconf.build:cflags=!
-
-    # Prepending values into the existing list
-    user.myconf.build:ldflags=+["--prefix prefix-value"]
-
-
-Running, for instance, :command:`conan install . -pr myprofile`, the configuration output will be something like:
-
-.. code-block:: bash
-
-    ...
-    Configuration:
     [settings]
-    [options]
-    [build_requires]
-    [env]
-    [conf]
-    user.myconf.build:cflags=!
-    user.myconf.build:ldflags=['--prefix prefix-value', '--flag1 value1', '--flag2 value2']
     ...
+
+    [conf]
+    # Define the value => ["-f1"]
+    user.myconf.build:flags=["-f1"]
+
+    # Append the value ["-f2"] => ["-f1", "-f2"]
+    user.myconf.build:flags+=["-f2"]
+
+    # Prepend the value ["-f0"] => ["-f0", "-f1", "-f2"]
+    user.myconf.build:flags=+["-f0"]
+
+    # Unset the value
+    user.myconf.build:flags=!
 
 
 Configuration list command
@@ -174,6 +166,95 @@ To list all possible configurations available, run :command:`conan config list`.
     tools.system.package_manager:sudo_askpass: Use the '-A' argument if using sudo in Linux to invoke the system package manager (False by default)
 
 
+Configuration in your profiles
+--------------------------------
+
+Let's see a little bit more complex example trying different configurations coming from the *global.conf* and a simple profile:
+
+.. code-block:: text
+    :caption: *global.conf*
+
+    # Defining several lists
+    user.myconf.build:ldflags=["--flag1 value1"]
+    user.myconf.build:cflags=["--flag1 value1"]
+
+
+.. code-block:: text
+    :caption: *myprofile*
+
+    [settings]
+    ...
+
+    [conf]
+    # Appending values into the existing list
+    user.myconf.build:ldflags+=["--flag2 value2"]
+
+    # Unsetting the existing value (it'd be like we define it as an empty value)
+    user.myconf.build:cflags=!
+
+    # Prepending values into the existing list
+    user.myconf.build:ldflags=+["--prefix prefix-value"]
+
+
+Running, for instance, :command:`conan install . -pr myprofile`, the configuration output will be something like:
+
+.. code-block:: bash
+
+    ...
+    Configuration:
+    [settings]
+    [options]
+    [build_requires]
+    [env]
+    [conf]
+    user.myconf.build:cflags=!
+    user.myconf.build:ldflags=['--prefix prefix-value', '--flag1 value1', '--flag2 value2']
+    ...
+
+
+Configuration in your recipes
+-------------------------------
+
+From Conan 1.46, the user interface to manage the configurations in your recipes has been improved. For instance:
+
+.. code-block:: python
+
+    import os
+    from conans import ConanFile
+
+    class Pkg(ConanFile):
+        name = "pkg"
+
+        def package_info(self):
+            # Setting values
+            self.conf_info.define("tools.microsoft.msbuild:verbosity", "Diagnostic")
+            self.conf_info.define("tools.system.package_manager:sudo", True)
+            self.conf_info.define("tools.microsoft.msbuild:max_cpu_count", 2)
+            self.conf_info.define("user.myconf.build:ldflags", ["--flag1", "--flag2"])
+            self.conf_info.define("tools.microsoft.msbuildtoolchain:compile_options", {"ExceptionHandling": "Async"})
+            # Getting values
+            self.conf_info.get("tools.microsoft.msbuild:verbosity")  # == "Diagnostic"
+            # Getting default values from configurations that don't exist yet
+            self.conf_info.get("user.myotherconf.build:cxxflags", default=["--flag3"])  # == ["--flag3"]
+            # Getting values and ensuring the gotten type is the passed one otherwise an exception will be raised
+            self.conf_info.get("tools.system.package_manager:sudo", check_type=bool)  # == True
+            self.conf_info.get("tools.system.package_manager:sudo", check_type=int)  # ERROR! It raises a ConanException
+            # Modifying configuration list-like values
+            self.conf_info.append("user.myconf.build:ldflags", ["--flag3"])
+            self.conf_info.prepend("user.myconf.build:ldflags", ["--flag0"])
+            # Modifying configuration dict-like values
+            self.conf_info.update("tools.microsoft.msbuildtoolchain:compile_options", {"ExpandAttributedSource": "false"})
+            # Unset any value
+            self.conf_info.unset("tools.microsoft.msbuildtoolchain:compile_options")
+
+
+.. important::
+
+    Legacy configuration methods to set/get values like ``self.conf_info["xxxxx"] = "yyyyy"`` and ``v = self.conf_info["xxxxx"]`` are
+    deprecated since Conan 1.46 version. Use ``self.conf_info.define("xxxxx", "yyyyy")`` and ``v = self.conf_info.get("xxxxx")`` instead
+    like the example above.
+
+
 Configuration from tool_requires
 --------------------------------
 
@@ -195,43 +276,3 @@ configuration as:
 
 
 Note that this only propagates from the immediate, direct ``tool_requires`` of a recipe.
-
-
-From Conan 1.46, the user interface to manage the configuration in your recipes has been improved. For instance:
-
-.. code-block:: python
-
-    import os
-    from conans import ConanFile
-
-    class Pkg(ConanFile):
-        name = "pkg"
-
-        def package_info(self):
-            # Setting values
-            self.conf_info.define("tools.microsoft.msbuild:verbosity", "Diagnostic")
-            self.conf_info.define("tools.system.package_manager:sudo", True)
-            self.conf_info.define("tools.microsoft.msbuild:max_cpu_count", 2)
-            self.conf_info.define("user.myconf.build:ldflags", ["--flag1", "--flag2"])
-            self.conf_info.define("tools.microsoft.msbuildtoolchain:compile_options", {"ExceptionHandling": "Async"})
-            # Getting values
-            self.conf_info.get("tools.microsoft.msbuild:verbosity")  # == "Diagnostic"
-            # Getting default values from configurations that don't exist yet
-            self.conf_info.get("user.myotherconf.build:cxxflags", default=[["--flag3"])  # == ["--flag3"]
-            # Getting values and ensuring the gotten type is the passed one otherwise an exception will be raised
-            self.conf_info.get("tools.system.package_manager:sudo", check_type=bool)  # == True
-            self.conf_info.get("tools.system.package_manager:sudo", check_type=int)  # ERROR! It raises a ConanException
-            # Modifying configuration list-like values
-            self.conf_info.append("user.myconf.build:ldflags", ["--flag3"])
-            self.conf_info.prepend("user.myconf.build:ldflags", ["--flag0"])
-            # Modifying configuration dict-like values
-            self.conf_info.update("tools.microsoft.msbuildtoolchain:compile_options", {"ExpandAttributedSource", "false"})
-            # Unsetting any value
-            self.conf_info.unset("tools.microsoft.msbuildtoolchain:compile_options")
-
-
-.. important::
-
-    Legacy configuration methods to set/get values like ``self.conf_info["xxxxx"] = "yyyyy"`` and ``v = self.conf_info["xxxxx"]`` are
-    deprecated since Conan 1.46 version. Use ``self.conf_info.define("xxxxx", "yyyyy")`` and ``v = self.conf_info.get("xxxxx")`` instead
-    like the example above.
