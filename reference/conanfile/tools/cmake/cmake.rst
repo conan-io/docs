@@ -5,7 +5,8 @@ CMake
 
 .. warning::
 
-    These tools are **experimental** and subject to breaking changes.
+    These tools are still **experimental** (so subject to breaking changes) but with very stable syntax.
+    We encourage the usage of it to be prepared for Conan 2.0.
 
 
 The ``CMake`` build helper is a wrapper around the command line invocation of cmake. It will abstract the
