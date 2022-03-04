@@ -191,6 +191,53 @@ All the values will be interpreted by Conan as the result of the python built-in
     # Dictionary
     tools.microsoft.msbuildtoolchain:compile_options={"ExceptionHandling": "Async"}
 
+.. _profiles_configuration_data_operators:
+
+Configuration data operators
++++++++++++++++++++++++++++++++++
+
+Available since: `1.46.0 <https://github.com/conan-io/conan/releases>`_
+
+It's also possible to use some extra operators when you're composing different tools configurations:
+
+.. code-block:: text
+    :caption: *myprofile*
+
+    [settings]
+    [options]
+    [build_requires]
+    [env]
+
+    [conf]
+    # Defining several lists
+    user.myconf.build:ldflags=["--flag1 value1"]
+    user.myconf.build:cflags=["--flag1 value1"]
+
+    # Appending values into the existing list
+    user.myconf.build:ldflags+=["--flag2 value2"]
+
+    # Unsetting the existing value (it'd be like we define it as an empty value)
+    user.myconf.build:cflags=!
+
+    # Prepending values into the existing list
+    user.myconf.build:ldflags=+["--prefix prefix-value"]
+
+
+Running, for instance, :command:`conan install . -pr myprofile`, the configuration output will be something like:
+
+.. code-block:: bash
+
+    ...
+    Configuration:
+    [settings]
+    [options]
+    [build_requires]
+    [env]
+    [conf]
+    user.myconf.build:cflags=!
+    user.myconf.build:ldflags=['--prefix prefix-value', '--flag1 value1', '--flag2 value2']
+    ...
+
 
 Profile composition
 -------------------
@@ -243,63 +290,6 @@ The ``include()`` statement has to be at the top of the profile file:
     [env]
     zlib:CC=/usr/bin/clang
     zlib:CXX=/usr/bin/clang++
-
-
-.. _profiles_configuration_data_operators:
-
-Configuration data operators
-+++++++++++++++++++++++++++++++++
-
-Available since: `1.46.0 <https://github.com/conan-io/conan/releases>`_
-
-It's also possible to use some extra operators when you're composing different tools configurations:
-
-.. code-block:: text
-    :caption: global.conf
-
-    # Defining several lists
-    user.myconf.build:ldflags=["--flag1 value1"]
-    user.myconf.build:cflags=["--flag1 value1"]
-
-.. code-block:: text
-    :caption: profile_arch
-
-    [settings]
-    ...
-
-    [conf]
-    # Appending values into the existing list
-    user.myconf.build:ldflags+=["--flag2 value2"]
-    # Unsetting the existing value (it'd be like we define it as an empty value)
-    user.myconf.build:cflags=!
-
-
-.. code-block:: text
-    :caption: profile_sysroot
-
-    include(./profile_arch)
-
-    [settings]
-    ...
-
-    [conf]
-    # Prepending values into the existing list
-    user.myconf.build:ldflags=+["--prefix prefix-value"]
-
-Running, for instance, :command:`conan install . -pr profile_sysroot`, the configuration output will be something like:
-
-.. code-block:: bash
-
-    ...
-    Configuration:
-    [settings]
-    [options]
-    [build_requires]
-    [env]
-    [conf]
-    user.myconf.build:cflags=!
-    user.myconf.build:ldflags=['--prefix prefix-value', '--flag1 value1', '--flag2 value2']
-    ...
 
 
 Variable declaration
