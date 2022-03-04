@@ -162,7 +162,7 @@ Tools configurations can also be used in profile files and *global.conf* one. Pr
 
 .. seealso::
 
-    You can see more information about global configurations, data types, operators, etc., in :ref:`global.conf section <global_conf>`.
+    You can see more information about configurations in :ref:`global.conf section <global_conf>`.
 
 
 Profile composition
@@ -216,7 +216,6 @@ The ``include()`` statement has to be at the top of the profile file:
     [env]
     zlib:CC=/usr/bin/clang
     zlib:CXX=/usr/bin/clang++
-
 
 Variable declaration
 --------------------
