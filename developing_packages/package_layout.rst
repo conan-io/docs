@@ -503,7 +503,7 @@ the ``conanfile.py`` is not in the root of the project
 
     ├── CMakeLists.txt
     ├── conan
-    │   └── conanfile.py
+        └── conanfile.py
 
 
 The ``conanfile.py`` would look like this:
