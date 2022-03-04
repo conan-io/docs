@@ -8,4 +8,4 @@ conan.tools.scm
    :maxdepth: 2
 
    scm/git
-
+   scm/other
