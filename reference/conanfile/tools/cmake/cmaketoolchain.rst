@@ -161,14 +161,13 @@ Using a custom toolchain file
 
 There are two ways of providing custom CMake toolchain files:
 
-- The ``conan_toolchain.cmake`` file can be completely skipped and replaced by an user one, defining the
-  ``tools.cmake.cmaketoolchain:toolchain_file=["<filepath>"]`` configuration list or even appending to any
-  existing list declared before with ``tools.cmake.cmaketoolchain:toolchain_file+=<filepath>``.
+- The ``conan_toolchain.cmake`` file can be completely skipped and replaced by a user one, defining the
+  ``tools.cmake.cmaketoolchain:toolchain_file=<filepath>`` configuration value.
 - A custom user toolchain file can be added (included from) to the ``conan_toolchain.cmake`` one, by using the
-  ``user_toolchain`` block described below, and defining the ``tools.cmake.cmaketoolchain:user_toolchain``
+  ``user_toolchain`` block described below, and defining the ``tools.cmake.cmaketoolchain:user_toolchain=["<filepath>"]``
   configuration value.
 
-  The configuration ``tools.cmake.cmaketoolchain:user_toolchain`` can be defined in the :ref:`global.conf<global_conf>`
+  The configuration ``tools.cmake.cmaketoolchain:user_toolchain=["<filepath>"]`` can be defined in the :ref:`global.conf<global_conf>`
   but also creating a Conan package for your toolchain and using ``self.conf_info`` to declare the toolchain file:
 
     .. code:: python
