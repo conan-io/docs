@@ -89,7 +89,7 @@ To list all possible configurations available, run :command:`conan config list`.
 
 
 Configuration file template
-++++++++++++++++++++++++++++
+---------------------------
 
 Available since: `1.46.0 <https://github.com/conan-io/conan/releases>`_
 
