@@ -211,7 +211,26 @@ Running, for instance, :command:`conan install . -pr myprofile`, the configurati
 Configuration in your recipes
 -------------------------------
 
-From Conan 1.46, the user interface to manage the configurations in your recipes has been improved. For instance:
+From Conan 1.46, the user interface to manage the configurations in your recipes has been improved. The ``self.conf_info``
+object has the following methods available:
+
+* ``get(name, default=None, check_type=None)``: gets the value for the given configuration name. Besides that you can pass
+  ``check_type`` to check the Python type matches with the value type returned, e.g., ``check_type=list``. If the configuration
+  does not exist, ``default`` will be returned instead. Notice that this ``default`` value won't be affected by the ``check_type=list`` param.
+* ``pop(name, default=None)``: removes (if exists) the configuration name given. If the configuration does not exist,
+  ``default`` will be returned instead.
+* ``define(name, value)``: sets ``value`` for the given configuration name. If it already exists, the configuration will be
+  overwritten with the new value.
+* ``append(name, value)``: (only available for ``list``) appends ``value`` into the existing list for the given configuration name. If the list does not
+  exist yet, it'll be created with the value given by default. ``value`` can be a list or a single value.
+* ``prepend(name, value)``: (only available for ``list``) prepends ``value`` into the existing list for the given configuration name. If the list does not
+  exist yet, it'll be created with the value given by default. ``value`` can be a list or a single value.
+* ``update(name, value)``: (only available for ``dict``) updates the existing dictionary with ``value`` for the given configuration name. If the dict does not
+  exist yet, it'll be created with the value given by default. ``value`` must be another dictionary.
+* ``remove(name, value)``: (only available for ``dict`` and ``list``) removes ``value`` from the existing value for the given configuration name.
+* ``unset(name)``: removes any existing value for the given configuration name. It's behaving like using ``define(name, None)``.
+
+This example illustrates all of these methods:
 
 .. code-block:: python
 
@@ -236,12 +255,16 @@ From Conan 1.46, the user interface to manage the configurations in your recipes
             self.conf_info.get("tools.system.package_manager:sudo", check_type=bool)  # == True
             self.conf_info.get("tools.system.package_manager:sudo", check_type=int)  # ERROR! It raises a ConanException
             # Modifying configuration list-like values
-            self.conf_info.append("user.myconf.build:ldflags", ["--flag3"])
-            self.conf_info.prepend("user.myconf.build:ldflags", ["--flag0"])
+            self.conf_info.append("user.myconf.build:ldflags", "--flag3")  # == ["--flag1", "--flag2", "--flag3"]
+            self.conf_info.prepend("user.myconf.build:ldflags", "--flag0")  # == ["--flag0", "--flag1", "--flag2", "--flag3"]
             # Modifying configuration dict-like values
             self.conf_info.update("tools.microsoft.msbuildtoolchain:compile_options", {"ExpandAttributedSource": "false"})
             # Unset any value
             self.conf_info.unset("tools.microsoft.msbuildtoolchain:compile_options")
+            # Remove
+            self.conf_info.remove("user.myconf.build:ldflags", "--flag1")  # == ["--flag0", "--flag2", "--flag3"]
+            # Removing completely the configuration
+            self.conf_info.pop("tools.system.package_manager:sudo")
 
 
 .. important::
