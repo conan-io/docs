@@ -110,7 +110,7 @@ and renders the template, which must result in a standard tools-configuration te
 
 
 Configuration data types
-++++++++++++++++++++++++++
+------------------------
 
 Available since: `1.46.0 <https://github.com/conan-io/conan/releases>`_
 
