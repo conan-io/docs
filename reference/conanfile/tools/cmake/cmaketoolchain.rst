@@ -159,15 +159,15 @@ CMake legacy generators (like ``cmake``, or ``cmake_paths``) with it.
 Using a custom toolchain file
 +++++++++++++++++++++++++++++
 
-There are two ways of providing a custom CMake toolchain file:
+There are two ways of providing custom CMake toolchain files:
 
 - The ``conan_toolchain.cmake`` file can be completely skipped and replaced by a user one, defining the
-  ``tools.cmake.cmaketoolchain:toolchain_file=<filepath>`` configuration value
+  ``tools.cmake.cmaketoolchain:toolchain_file=<filepath>`` configuration value.
 - A custom user toolchain file can be added (included from) to the ``conan_toolchain.cmake`` one, by using the
-  ``user_toolchain`` block described below, and defining the ``tools.cmake.cmaketoolchain:user_toolchain=<filepath>``
+  ``user_toolchain`` block described below, and defining the ``tools.cmake.cmaketoolchain:user_toolchain=["<filepath>"]``
   configuration value.
 
-  The configuration ``tools.cmake.cmaketoolchain:user_toolchain=<filepath>`` can be defined in the :ref:`global.conf<global_conf>`
+  The configuration ``tools.cmake.cmaketoolchain:user_toolchain=["<filepath>"]`` can be defined in the :ref:`global.conf<global_conf>`
   but also creating a Conan package for your toolchain and using ``self.conf_info`` to declare the toolchain file:
 
     .. code:: python
@@ -178,39 +178,40 @@ There are two ways of providing a custom CMake toolchain file:
             ...
             def package_info(self):
                 f = os.path.join(self.package_folder, "mytoolchain.cmake")
-                self.conf_info["tools.cmake.cmaketoolchain:user_toolchain"] = f
-
+                self.conf_info.define("tools.cmake.cmaketoolchain:user_toolchain", [f])
 
 
   If you declare the previous package as a ``tool_require``, the toolchain will be automatically applied.
+- If you have more than one ``tool_requires`` defined, you can easily append all the user toolchain values
+  together using the ``append`` method in each of them, for instance:
 
-- You can also apply several user toolchains. If you have more than one ``tool_requires``, you can gather the values
-  from all the dependency configs and adjust the ``user_toolchain`` block to apply all the toolchains:
+    .. code:: python
 
-.. code:: python
+        import os
+        from conans import ConanFile
+        class MyToolRequire(ConanFile):
+            ...
+            def package_info(self):
+                f = os.path.join(self.package_folder, "mytoolchain.cmake")
+                # Appending the value to any existing one
+                self.conf_info.append("tools.cmake.cmaketoolchain:user_toolchain", f)
 
-    from conans import ConanFile
-    from conan.tools.cmake import CMake, CMakeToolchain
-    class Pkg(ConanFile):
-        settings = "os", "compiler", "arch", "build_type"
-        exports_sources = "CMakeLists.txt"
-        tool_requires = "toolchain1/0.1", "toolchain2/0.1"
-        def generate(self):
-            # Get the toolchains from "tools.cmake.cmaketoolchain:user_toolchain" conf at the
-            # tool_requires
-            user_toolchains = []
-            for dep in self.dependencies.direct_build.values():
-                ut = dep.conf_info["tools.cmake.cmaketoolchain:user_toolchain"]
-                if ut:
-                    user_toolchains.append(ut.replace('\\\\', '/'))
-            # Modify the context of the user_toolchain block
-            t = CMakeToolchain(self)
-            t.blocks["user_toolchain"].values["paths"] = user_toolchains
-            t.generate()
 
-        def build(self):
-            cmake = CMake(self)
-            cmake.configure()
+  So, they'll be automatically applied by your ``CMakeToolchain`` generator without writing any extra code:
+
+    .. code:: python
+
+        from conans import ConanFile
+        from conan.tools.cmake import CMake
+        class Pkg(ConanFile):
+            settings = "os", "compiler", "arch", "build_type"
+            exports_sources = "CMakeLists.txt"
+            tool_requires = "toolchain1/0.1", "toolchain2/0.1"
+            generators = "CMakeToolchain"
+
+            def build(self):
+                cmake = CMake(self)
+                cmake.configure()
 
 
 Using the toolchain in developer flow
@@ -271,16 +272,8 @@ Since Conan 1.36, ``CMakeToolchain`` implements a powerful capability for extend
 The following predefined blocks are available, and added in this order:
 
 - ``user_toolchain``: Allows to include user toolchains from the ``conan_toolchain.cmake`` file.
-  If the configuration ``tools.cmake.cmaketoolchain:user_toolchain=xxxx`` is defined, its value will be ``include(xxx)`` as the
-  first line in ``conan_toolchain.cmake``. If you want to apply several toolchains you can use the context variable ``paths``:
-
-    .. code:: python
-
-            t = CMakeToolchain(self)
-            t.blocks["user_toolchain"].values["paths"] = ["path/to/user_toolchain1.cmake",
-                                                          "path/to/user_toolchain2.cmake"]
-            t.generate()
-
+  If the configuration ``tools.cmake.cmaketoolchain:user_toolchain=["xxxx", "yyyy"]`` is defined, its values will be ``include(xxx)\ninclude(yyyy)`` as the
+  first lines in ``conan_toolchain.cmake``.
 - ``generic_system``: Defines ``CMAKE_GENERATOR_PLATFORM``, ``CMAKE_GENERATOR_TOOLSET``, ``CMAKE_C_COMPILER``, ``CMAKE_CXX_COMPILER`` and ``CMAKE_BUILD_TYPE``
 - ``android_system``: Defines ``ANDROID_PLATFORM``, ``ANDROID_STL``, ``ANDROID_ABI`` and includes ``CMAKE_ANDROID_NDK/build/cmake/android.toolchain.cmake``
   where ``CMAKE_ANDROID_NDK`` comes defined in ``tools.android:ndk_path`` configuration value.
@@ -410,7 +403,7 @@ Cross building
 The ``generic_system`` block contains some basic cross-building capabilities. In the general
 case, the user would want to provide their own user toolchain defining all the specifics,
 which can be done with the configuration ``tools.cmake.cmaketoolchain:user_toolchain``. If
-this conf value is defined, the ``generic_system`` block will include the provided file, but
+this conf value is defined, the ``generic_system`` block will include the provided file or files, but
 no further define any CMake variable for cross-building.
 
 If ``user_toolchain`` is not defined and Conan detects it is cross-building, because the build
