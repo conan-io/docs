@@ -159,7 +159,7 @@ CMake legacy generators (like ``cmake``, or ``cmake_paths``) with it.
 Using a custom toolchain file
 +++++++++++++++++++++++++++++
 
-There are two ways of providing a custom CMake toolchain files:
+There are two ways of providing custom CMake toolchain files:
 
 - The ``conan_toolchain.cmake`` file can be completely skipped and replaced by an user one, defining the
   ``tools.cmake.cmaketoolchain:toolchain_file=["<filepath>"]`` configuration list or even appending to any
