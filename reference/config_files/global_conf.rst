@@ -131,7 +131,7 @@ All the values will be interpreted by Conan as the result of the python built-in
 
 
 Configuration data operators
-+++++++++++++++++++++++++++++++
+----------------------------
 
 Available since: `1.46.0 <https://github.com/conan-io/conan/releases>`_
 
