@@ -5,7 +5,8 @@ Environment
 
 .. warning::
 
-    This is a **very experimental** feature and it will have breaking changes in future releases.
+    These tools are still **experimental** (so subject to breaking changes) but with very stable syntax.
+    We encourage the usage of it to be prepared for Conan 2.0.
 
 
 ``Environment`` is a generic class that helps defining modifications to the environment variables.

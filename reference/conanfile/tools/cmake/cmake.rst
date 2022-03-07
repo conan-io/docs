@@ -5,7 +5,8 @@ CMake
 
 .. warning::
 
-    These tools are **experimental** and subject to breaking changes.
+    These tools are still **experimental** (so subject to breaking changes) but with very stable syntax.
+    We encourage the usage of it to be prepared for Conan 2.0.
 
 
 The ``CMake`` build helper is a wrapper around the command line invocation of cmake. It will abstract the
@@ -63,7 +64,7 @@ configure()
 
 .. code:: python
 
-    def configure(self, build_script_folder=None):
+    def configure(self, variables=None, build_script_folder=None):
 
 Calls ``cmake``, with the generator defined in the ``cmake_generator`` field of the
 ``conanbuild.conf`` file, and passing ``-DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake``.
@@ -74,6 +75,9 @@ Calls ``cmake``, with the generator defined in the ``cmake_generator`` field of 
 
 
 - ``build_script_folder``: Relative path to the folder containing the root *CMakeLists.txt*
+- ``variables``: should be a dictionary of CMake variables and values, that will be mapped to command line ``-DVAR=VALUE`` arguments.
+  Recall that in the general case information to CMake should be passed in ``CMakeToolchain`` to be provided in the ``conan_toolchain.cmake`` file.
+  This ``variables`` argument is intended for exceptional cases that wouldn't work in the toolchain approach.
 
 
 build()
@@ -81,7 +85,7 @@ build()
 
 .. code:: python
 
-    def build(self, build_type=None, target=None):
+    def build(self, build_type=None, target=None, cli_args=None, build_tool_args=None):
 
 
 Calls the build system. Equivalent to :command:`cmake --build .` in the build folder.
@@ -90,6 +94,9 @@ Calls the build system. Equivalent to :command:`cmake --build .` in the build fo
 - ``build_type``: Use it only to override the value defined in the ``settings.build_type`` for a multi-configuration generator (e.g. Visual Studio, XCode).
   This value will be ignored for single-configuration generators, they will use the one defined in the toolchain file during the install step.
 - ``target``: name of the build target to run.
+- ``cli_args``: A list of arguments ``[arg1, arg2, ...]`` that will be passed to the ``cmake --build ... arg1 arg2`` command directly.
+- ``build_tool_args``: A list of arguments ``[barg1, barg2, ...]`` for the underlying build system that will be passed to the command line after the ``--``
+  indicator: ``cmake --build ... -- barg1 barg2``
 
 
 install()
@@ -112,7 +119,7 @@ test()
 
 .. code:: python
 
-    def test(self, build_type=None, target=None):
+    def test(self, build_type=None, target=None, cli_args=None, build_tool_args=None):
 
 
 Equivalent to running :command:`cmake --build . --target=RUN_TESTS`.
@@ -121,6 +128,8 @@ Equivalent to running :command:`cmake --build . --target=RUN_TESTS`.
   can fail if the build is single configuration (e.g. Unix Makefiles), as in that case the build
   type must be specified at configure time, not build type.
 - ``target``: name of the build target to run, by default ``RUN_TESTS`` or ``test``.
+- ``cli_args``: Same as above ``build()``
+- ``build_tool_args``: Same as above ``build()``
 
 
 conf

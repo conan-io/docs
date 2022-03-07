@@ -51,3 +51,5 @@ Contents:
    tools/system
    tools/files
    tools/layout
+   tools/scm
+   tools/build

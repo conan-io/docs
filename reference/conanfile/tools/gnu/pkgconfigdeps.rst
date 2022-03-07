@@ -6,7 +6,9 @@ PkgConfigDeps
 
 .. warning::
 
-    These tools are **experimental** and subject to breaking changes.
+    These tools are still **experimental** (so subject to breaking changes) but with very stable syntax.
+    We encourage the usage of it to be prepared for Conan 2.0.
+
 
 .. _PkgConfigDeps:
 
@@ -103,10 +105,10 @@ Properties
 
 The following properties affect the ``PkgConfigDeps`` generator:
 
-- **pkg_config_name** property sets the ``names`` property for *pkg_config* generator.
+- **pkg_config_name** property will define the name of the generated ``*.pc`` file (``xxxxx.pc``)
 - **pkg_config_aliases** property sets some aliases of any package/component name for *pkg_config* generator. This property only accepts list-like Python objects.
-- **pkg_config_custom_content** property supported by the *pkg_config* generator that will add user
-  defined content to the *.pc* files created by this generator.
+- **pkg_config_custom_content** property will add user defined content to the *.pc* files created by this generator.
+- **component_version** property sets a custom version to be used in the ``Version`` field belonging to the created ``*.pc`` file for that component.
 
 These properties can be defined at global ``cpp_info`` level or at component level.
 
@@ -120,6 +122,7 @@ Example:
         self.cpp_info.set_property("pkg_config_name", "myname")
         self.cpp_info.components["mycomponent"].set_property("pkg_config_name", "componentname")
         self.cpp_info.components["mycomponent"].set_property("pkg_config_aliases", ["alias1", "alias2"])
+        self.cpp_info.components["mycomponent"].set_property("component_version", "1.14.12")
 
 
 Names and aliases

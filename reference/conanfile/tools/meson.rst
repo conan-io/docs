@@ -17,4 +17,3 @@ to try this Meson integration.
 
    meson/mesontoolchain
    meson/meson
-   meson/meson_layout

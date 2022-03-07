@@ -32,6 +32,11 @@ control. But if the source code is available in a repository, you can directly g
             # git.clone("https://github.com/conan-io/hello.git")
 
 
+The current working directory where the ``source()`` method runs is the ``self.source_folder``. Note, however, that this folder
+can be different if the recipe defines the ``layout()`` method and specifies a ``self.folders.source = "src"``. In that case, the
+``self.source_folder`` and the current working directory will be the composition of the base folder (typically where the recipe is)
+and the user specified ``"src"`` subfolder.
+
 This will work, as long as git is in your current path (so in Win you probably want to run things in msysgit, cmder, etc). You can also use
 another VCS or direct download/unzip. For that purpose, we have provided some helpers, but you can use your own code or origin as well. This
 is a snippet of the conanfile of the Poco library:

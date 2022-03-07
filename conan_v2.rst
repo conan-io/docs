@@ -96,6 +96,23 @@ them in your Conan configuration:
 
     $ conan config set general.revisions_enabled=True
 
+
+self.copy() disappears from recipes
+-----------------------------------
+
+The ``self.copy`` has been replaced by the explicit tool :ref:`copy<conan_tools_files_copy>`.
+
+
+.. code-block:: bash
+
+    from conan.tools.files import copy
+
+    def package(self):
+        ...
+        copy(self, "*.lib", self.build_folder, join(self.package_folder, "lib"), keep_path=False)
+        copy(self, "*.dll", self.build_folder, join(self.package_folder, "bin"), keep_path=False)
+
+
 self.dependencies to access information about dependencies
 ----------------------------------------------------------
 
@@ -104,12 +121,32 @@ the `self.dependencies access
 <https://docs.conan.io/en/latest/reference/conanfile/dependencies.html#dependencies-interface>`_
 to get information about dependencies.
 
+
 Commands that disappear in 2.0: copy
 ------------------------------------
 
 Do not use the ``conan copy`` command to change user/channel. Packages will be immutable,
 and this command will dissapear in 2.0. Package promotions are generally done in the
 server side, copying packages from one server repository to another repository.
+
+
+Methods that disappear in 2.0:  self.imports
+--------------------------------------------
+
+The ``def imports(self)`` method from the conanfile has been removed. If you need to import files from your
+dependencies you can do it in the ``generate(self)`` method:
+
+
+.. code-block:: bash
+
+    from conan.tools.files import copy
+
+    def generate(self):
+        for dep in self.dependencies.values():
+            copy(self, "*.dylib", dep.cpp_info.libdirs[0], self.build_folder)
+            copy(self, "*.dll", dep.cpp_info.libdirs[0], self.build_folder)
+
+
 
 Editables don't use external templates any more. New layout model
 -----------------------------------------------------------------
@@ -138,6 +175,22 @@ To be prepared for Conan 2.0:
   to a subfolder ``cmake`` and assing it: ``self.cpp_info.builddirs = ["cmake"]``
 - If you are not assigning any ``self.cpp_info.builddirs`` assign an empty list: ``self.cpp_info.builddirs = []``.
 - Instead of appending new values to the default list, assign it: ``self.cpp_info.builddirs = ["cmake"]``
+
+
+Removing missing settings
+-------------------------
+
+In Conan 2, removing a setting, for example, ``del self.settings.compiler.libcxx`` in the ``configure()`` method, will
+raise an exception if the setting doesn't exist. It has to be protected with try/except:
+
+.. code-block:: python
+
+    def configure(self):
+        try:
+           # In windows, with msvc, the compiler.libcxx doesn't exist, so it will raise.
+           del self.settings.compiler.libcxx
+        except Exception:
+           pass
 
 
 .. _conanv2_properties_model:
@@ -193,6 +246,8 @@ Properties related to *pkg_config*, supported by both legacy :ref:`pkg_config<pk
 - **pkg_config_name** property equivalent to the ``names`` attribute.
 - **pkg_config_custom_content** property supported by both generators that will add user
   defined content to the *.pc* files created by the generator
+- **component_version** property supported by both generators that sets a custom version to be used
+  in the ``Version`` field belonging to the created ``*.pc`` file for that component.
 
 Properties related to *pkg_config*, only supported by new :ref:`PkgConfigDeps<PkgConfigDeps>`:
 
@@ -216,3 +271,32 @@ Using ``set_property()`` you can pass the parameters of your choice and read the
         ...
 
 Please **check a detailed migration guide** in the :ref:`dedicated section <properties_migration>`.
+
+
+``scm`` is removed, replaced by ``export()`` and ``source()`` methods
+----------------------------------------------------------------------
+
+The ``scm`` by attribute feature will be removed. The new approach in Conan 2.0 will be:
+
+- The ``export()`` method is responsible of capturing the "coordinates" of the current URL and commit.
+  The new ``conan.tools.scm.Git`` can be used for this (do not use the legacy ``Git`` helper but this one)
+- The ``export()`` method, after capturing the coordinates, can store them in the ``conandata.yml`` using
+  the ``update_conandata()`` helper function
+- The ``source()`` method can use the information in ``self.conan_data`` coming from exported ``conandata.yml``
+  file to do a clone and checkout of the matching code. The new ``conan.tools.scm.Git`` can be used for this
+  purpose.
+
+This approach is already available in 1.X,. Check the ``conan.tools.scm.Git`` documentation in the reference for examples.
+
+The core logic would be in the ``export()`` method:
+
+.. code-block:: python
+
+    def export(self):
+        git = Git(self, self.recipe_folder)
+        scm_url, scm_commit = git.get_url_and_commit()
+        # we store the current url and commit in conandata.yml
+        update_conandata(self, {"sources": {"commit": scm_commit, "url": scm_url}})
+
+
+Please **check the full example** in the :ref:`conan.tools.scm.Git section <conan_tools_scm_git>`.
