@@ -213,7 +213,6 @@ The :ref:`cpp_info_attributes_reference` attribute has the following properties 
 
 .. code-block:: python
 
-    self.cpp_info.name = "<PKG_NAME>"
     self.cpp_info.names["generator_name"] = "<PKG_NAME>"
     self.cpp_info.includedirs = ['include']  # Ordered list of include paths
     self.cpp_info.libs = []  # The libs to link against

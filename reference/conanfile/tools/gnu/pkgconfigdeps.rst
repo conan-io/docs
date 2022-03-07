@@ -19,8 +19,8 @@ Available since: `1.38.0 <https://github.com/conan-io/conan/releases>`_
 
 
 The ``PkgConfigDeps`` is the dependencies generator for pkg-config. Generates pkg-config files named *<PKG-NAME>.pc*
-(where ``<PKG-NAME`` is the name declared by dependencies in ``cpp_info.name`` or in ``cpp_info.names["pkg_config"]``
-if specified), containing a valid pkg-config file syntax. Indeed, it can also be defined using ``set_property`` and the
+(where ``<PKG-NAME`` is the name declared by dependencies in ``cpp_info.names["pkg_config"]`` if specified),
+containing a valid pkg-config file syntax. Indeed, it can also be defined using ``set_property`` and the
 property ``pkg_config_name`` (available since Conan 1.36), for instance:
 
 .. code-block:: python

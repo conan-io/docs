@@ -967,18 +967,16 @@ This object should be filled in ``package_info()`` method.
 +--------------------------------------+---------------------------------------------------------------------------------------------------------+
 | self.cpp_info.rootpath               | Filled with the root directory of the package, see ``deps_cpp_info``                                    |
 +--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.name                   | | Alternative name for the package used by generators to create files or variables.                     |
-|                                      | | Defaulted to the package name. Supported by `cmake`, `cmake_multi`, `cmake_find_package`,             |
-|                                      | | `cmake_find_package_multi`, `cmake_paths` and `pkg_config` generators.                                |
+| self.cpp_info.name                   | **[DEPRECATED]** Use ``self.cpp_info.names`` instead.                                                   |
 +--------------------------------------+---------------------------------------------------------------------------------------------------------+
 | self.cpp_info.names["generator"]     | | Alternative name for the package used by an specific generator to create files or variables.          |
-|                                      | | If set for a generator it will overrite the information provided by self.cpp_info.name.               |
+|                                      | | If set for a generator it will override the information provided by self.cpp_info.name.               |
 |                                      | | Like the cpp_info.name, this is only supported by `cmake`, `cmake_multi`, `cmake_find_package`,       |
 |                                      | | `cmake_find_package_multi`, `cmake_paths` and `pkg_config` generators.                                |
 +--------------------------------------+---------------------------------------------------------------------------------------------------------+
 | self.cpp_info.filenames["generator"] | | Alternative name for the filename produced by a specific generator. If set for a generator it will    |
-|                                      | | override the "names" value (which itself overrides self.cppinfo.name). This is only supported by      |
-|                                      | | the `cmake_find_package` and `cmake_find_package_multi` generators.                                   |
+|                                      | | override the "names" value. This is only supported by the `cmake_find_package` and                    |
+|                                      | | `cmake_find_package_multi` generators.                                                                |
 +--------------------------------------+---------------------------------------------------------------------------------------------------------+
 | self.cpp_info.system_libs            | Ordered list with the system library names. Defaulted to ``[]`` (empty)                                 |
 +--------------------------------------+---------------------------------------------------------------------------------------------------------+
@@ -1011,7 +1009,8 @@ them and to components of other packages (the following case is not a real examp
 .. code-block:: python
 
     def package_info(self):
-        self.cpp_info.name = "OpenSSL"
+        self.cpp_info.names["cmake_find_package"] = "OpenSSL"
+        self.cpp_info.names["cmake_find_package_multi"] = "OpenSSL"
         self.cpp_info.components["crypto"].names["cmake_find_package"] = "Crypto"
         self.cpp_info.components["crypto"].libs = ["libcrypto"]
         self.cpp_info.components["crypto"].defines = ["DEFINE_CRYPTO=1"]
@@ -1033,7 +1032,7 @@ has **the same default directories**.
 .. warning::
 
     Using components and global ``cpp_info`` non-default values or release/debug configurations at the same time is not allowed (except for
-    ``self.cpp_info.name`` and ``self.cpp_info.names``).
+    ``self.cpp_info.names``).
 
 Dependencies among components and to components of other requirements can be defined using the ``requires`` attribute and the name
 of the component. The dependency graph for components will be calculated and values will be aggregated in the correct order for each field.

@@ -5,7 +5,7 @@ pkg_config
 ==========
 
 Generates pkg-config files named *<PKG-NAME>.pc* (where ``<PKG-NAME`` is the name declared by dependencies in
-``cpp_info.name`` or in ``cpp_info.names["pkg_config"]`` if specified), containing a
+``cpp_info.names["pkg_config"]`` if specified), containing a
 valid pkg-config file syntax. The ``prefix`` variable is automatically adjusted to the ``package_folder``.
 
 Components
