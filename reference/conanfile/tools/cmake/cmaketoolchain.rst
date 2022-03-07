@@ -181,36 +181,34 @@ There are two ways of providing a custom CMake toolchain file:
                 self.conf_info.define("tools.cmake.cmaketoolchain:user_toolchain", f)
 
 
-
   If you declare the previous package as a ``tool_require``, the toolchain will be automatically applied.
+- You can also apply several user toolchains. From Conan 1.46, a configuration field can be saved as a list of values so,
+  you could use the operator ``+=``, e.g., ``tools.cmake.cmaketoolchain:toolchain_file+=<filepath>``
+  or ``conf_info.append("tools.cmake.cmaketoolchain:toolchain_file", filepath)`` method at Conan package level
+  for all your dependencies (more information at :ref:`global.conf section<global_conf>`). Then, if you have more than
+  one ``tool_requires``, you can gather the values from all the dependency configs and adjust the ``user_toolchain`` block to apply all the toolchains:
 
-- You can also apply several user toolchains. If you have more than one ``tool_requires``, you can gather the values
-  from all the dependency configs and adjust the ``user_toolchain`` block to apply all the toolchains:
+    .. code:: python
 
-.. code:: python
+        from conans import ConanFile
+        from conan.tools.cmake import CMake, CMakeToolchain
+        class Pkg(ConanFile):
+            settings = "os", "compiler", "arch", "build_type"
+            exports_sources = "CMakeLists.txt"
+            tool_requires = "toolchain1/0.1", "toolchain2/0.1"
+            def generate(self):
+                # Get the toolchains from "tools.cmake.cmaketoolchain:user_toolchain" conf at the
+                # tool_requires
+                user_toolchains = self.conf_info.get("tools.cmake.cmaketoolchain:user_toolchain", default=[], check_type=list)
+                user_toolchains = [ut.replace('\\\\', '/')) for ut in user_toolchains]
+                # Modify the context of the user_toolchain block
+                t = CMakeToolchain(self)
+                t.blocks["user_toolchain"].values["paths"] = user_toolchains
+                t.generate()
 
-    from conans import ConanFile
-    from conan.tools.cmake import CMake, CMakeToolchain
-    class Pkg(ConanFile):
-        settings = "os", "compiler", "arch", "build_type"
-        exports_sources = "CMakeLists.txt"
-        tool_requires = "toolchain1/0.1", "toolchain2/0.1"
-        def generate(self):
-            # Get the toolchains from "tools.cmake.cmaketoolchain:user_toolchain" conf at the
-            # tool_requires
-            user_toolchains = []
-            for dep in self.dependencies.direct_build.values():
-                ut = dep.conf_info.get("tools.cmake.cmaketoolchain:user_toolchain")
-                if ut:
-                    user_toolchains.append(ut.replace('\\\\', '/'))
-            # Modify the context of the user_toolchain block
-            t = CMakeToolchain(self)
-            t.blocks["user_toolchain"].values["paths"] = user_toolchains
-            t.generate()
-
-        def build(self):
-            cmake = CMake(self)
-            cmake.configure()
+            def build(self):
+                cmake = CMake(self)
+                cmake.configure()
 
 
 Using the toolchain in developer flow
