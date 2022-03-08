@@ -172,7 +172,7 @@ you prevoiusly did, but this time Conan will use CMake 3.19.8 to build it:
     ZLIB VERSION: 1.2.11
 
 
-Note that when we activated the environment a new file named
+Note that when we activated the environment, a new file named
 ``deactivate_conanbuild.sh/bat`` was created in the same folder. If you source this file
 you can restore the environment as it was before.
 
