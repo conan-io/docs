@@ -204,3 +204,4 @@ Read more
 - Using MinGW as tool_requires
 - Using tool_requires in profiles
 - Using conf to set a toolchain from a tool requires
+- Creating recipes for tool_requires: packaging build tools
