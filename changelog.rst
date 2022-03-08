@@ -18,8 +18,59 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-    Conan 1.45 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
+    Conan 1.46 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
     a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
+
+1.46.0 (07-Mar-2022)
+--------------------
+
+- Feature: Configuration field `tools.cmake.cmaketoolchain:user_toolchain` defined as list-like object `#10729 <https://github.com/conan-io/conan/pull/10729>`_ . Docs `here <https://github.com/conan-io/docs/pull/2427>`__
+- Feature: Prepare Conan for search remote repos with mix of 1.X and 2.0 binaries. Conan 1.X will not list binaries (``conan search <ref>``) stored in remote repos that were created with Conan 2.0. `#10692 <https://github.com/conan-io/conan/pull/10692>`_
+- Feature: Adding jinja rendering of global.conf config file. `#10687 <https://github.com/conan-io/conan/pull/10687>`_ . Docs `here <https://github.com/conan-io/docs/pull/2427>`__
+- Feature: Improve markdown generator instructions. `#10673 <https://github.com/conan-io/conan/pull/10673>`_ . Docs `here <https://github.com/conan-io/docs/pull/2423>`__
+- Feature: The `CMakeToolchain` and `AutotoolsToolchain` take into account the `cpp.package` info to set the output directories for libraries, executables, and so on when running `cmake.install` or `make install`. `#10672 <https://github.com/conan-io/conan/pull/10672>`_ . Docs `here <https://github.com/conan-io/docs/pull/2425>`__
+- Feature: Added `basic_layout`, removed `meson_layout` and added argument `src_folder` to `cmake_layout`as a shortcut for adjusting `conanfile.folders.source`. `#10659 <https://github.com/conan-io/conan/pull/10659>`_ . Docs `here <https://github.com/conan-io/docs/pull/2426>`__
+- Feature: Adding ``self.base_source_folder`` for ``exports_sources`` explicit layouts. `#10654 <https://github.com/conan-io/conan/pull/10654>`_ . Docs `here <https://github.com/conan-io/docs/pull/2418>`__
+- Feature: Adding ``root`` to layout model to allow conanfile.py in subfolders. `#10654 <https://github.com/conan-io/conan/pull/10654>`_ . Docs `here <https://github.com/conan-io/docs/pull/2418>`__
+- Feature: Added new property `component_version` for `PkgConfigDeps` and legacy `PkgConfig`. `#10633 <https://github.com/conan-io/conan/pull/10633>`_ . Docs `here <https://github.com/conan-io/docs/pull/2433>`__
+- Feature: Changed `.pc` file description field for components in `PkgConfigDeps`. `#10633 <https://github.com/conan-io/conan/pull/10633>`_ . Docs `here <https://github.com/conan-io/docs/pull/2433>`__
+- Feature: Add `sdk_version` setting for `Macos`, `iOS`, `watchOS` and `tvOS`. `#10608 <https://github.com/conan-io/conan/pull/10608>`_ . Docs `here <https://github.com/conan-io/docs/pull/2431>`__
+- Feature: Add new `XcodeBuild` build helper. `#10608 <https://github.com/conan-io/conan/pull/10608>`_ . Docs `here <https://github.com/conan-io/docs/pull/2431>`__
+- Feature: Add new `XcodeToolchain` helper. `#10608 <https://github.com/conan-io/conan/pull/10608>`_ . Docs `here <https://github.com/conan-io/docs/pull/2431>`__
+- Feature: Add ``compiler.version`` 12 for GCC in settings. `#10595 <https://github.com/conan-io/conan/pull/10595>`_
+- Feature: Introduce new ``conan.tools.scm.Git`` helper, for direct use in ``export()`` method to capture git url and commit, and to be used in ``source()`` method to clone and checkout a git repo. `#10594 <https://github.com/conan-io/conan/pull/10594>`_ . Docs `here <https://github.com/conan-io/docs/pull/2419>`__
+- Feature: New ``from conan.tools.files import update_conandata()`` helper to add data to ``conandata.yml`` in the ``export()`` method. `#10586 <https://github.com/conan-io/conan/pull/10586>`_ . Docs `here <https://github.com/conan-io/docs/pull/2422>`__
+- Feature: Add CMake variables, cli arguments and native build system arguments to new ``conan.tools.cmake.CMake`` helper. `#10573 <https://github.com/conan-io/conan/pull/10573>`_ . Docs `here <https://github.com/conan-io/docs/pull/2424>`__
+- Feature: Adding more functionality to `ConfDefinition` and `Conf`, something similar to `ProfileEnvironment` and `Environment` ones. `#10537 <https://github.com/conan-io/conan/pull/10537>`_ . Docs `here <https://github.com/conan-io/docs/pull/2427>`__
+- Feature: Port `conan.tools.Version` to Conan 1.X. `#10536 <https://github.com/conan-io/conan/pull/10536>`_ . Docs `here <https://github.com/conan-io/docs/pull/2434>`__
+- Feature: Port `conan.tools.build.cross_building` to Conan 1.X. `#10536 <https://github.com/conan-io/conan/pull/10536>`_ . Docs `here <https://github.com/conan-io/docs/pull/2434>`__
+- Feature: New `copy` tool at `conan.tools.files` namespace that will replace the `self.copy` in Conan 2.0. `#10530 <https://github.com/conan-io/conan/pull/10530>`_ . Docs `here <https://github.com/conan-io/docs/pull/2428>`__
+- Feature: Add ``recipe_folder`` to pylint plugin. `#10527 <https://github.com/conan-io/conan/pull/10527>`_
+- Fix: Pin Markupsafe==2.0.1 for py27 and upgrade Jinja2>3 for py3, after Markupsafe latest 2.1 release broke Jinja2 2.11. `#10710 <https://github.com/conan-io/conan/pull/10710>`_
+- Fix: Fixed templates for :command:`conan new` with `--template cmake_lib` and `--template cmake_exe` to include Conan 2.0 compatible syntax. `#10706 <https://github.com/conan-io/conan/pull/10706>`_
+- Fix: Moved new tool `cross_building` from `conan.tool.cross_building` to `conan.tool.build` to match the location in develop2. `#10706 <https://github.com/conan-io/conan/pull/10706>`_
+- Fix: Don't compose folders in Xcode generator using `dep.package_folder`, now `cpp_info.bindirs`, `cpp_info.includedirs`, etc. are absolute. `#10694 <https://github.com/conan-io/conan/pull/10694>`_
+- Fix: When the `layout()` method is declared, the `self.package_folder` in the recipe is now available even when doing a `conan install . `, pointing to the specified output folder (`-of` ) or the path of the conanfile if not specified. `#10655 <https://github.com/conan-io/conan/pull/10655>`_
+- Fix: Fix creation path of deactivate scripts. `#10653 <https://github.com/conan-io/conan/pull/10653>`_
+- Fix: Add support for `[tool_requires]` section in conanfile.txt. `#10642 <https://github.com/conan-io/conan/pull/10642>`_
+- Fix: When ``layout()`` is defined, the ``exports`` will not be considered sources anymore, but only the ``exports_sources``. The ``exports`` are used exclusively by the recipe, but not as package source. `#10625 <https://github.com/conan-io/conan/pull/10625>`_
+- Fix: Make the ``source()`` method run inside the ``self.source_folder``, in the same way ``build()`` runs in ``self.build_folder``. But only for recipes that define the ``layout()`` method, to not break unless using ``layout()``. `#10612 <https://github.com/conan-io/conan/pull/10612>`_ . Docs `here <https://github.com/conan-io/docs/pull/2418>`__
+- Fix: Remove the ``--source-folder`` new argument to ``install`` and ``editable``, not necessary at the moment. `#10590 <https://github.com/conan-io/conan/pull/10590>`_ . Docs `here <https://github.com/conan-io/docs/pull/2420>`__
+- Fix: Fix conf `True` and `False` handling in `tools.system.package_manage` helpers. `#10583 <https://github.com/conan-io/conan/pull/10583>`_
+- Fix: Change the ``CMakeToolchain`` message to use ``CMAKE_CURRENT_LIST_FILE``. `#10552 <https://github.com/conan-io/conan/pull/10552>`_
+- Fix: BazelDeps was generating invalid bazel files cause the static_library paths were absolute and not relative. `#10484 <https://github.com/conan-io/conan/pull/10484>`_
+- Fix: BazelDeps was crashing when generating packages without libs cause the context was not checking the array size. `#10484 <https://github.com/conan-io/conan/pull/10484>`_
+- Fix: Fix Premake test failing on Linux because the Premake executable isn't found. `#10250 <https://github.com/conan-io/conan/pull/10250>`_
+- Bugfix: Fix ``MesonToolchain`` extra quotes in ``cpp_std`` `#10707 <https://github.com/conan-io/conan/pull/10707>`_
+- Bugfix: Add missing ``system_libs`` management in ``AutotoolsDeps``. `#10681 <https://github.com/conan-io/conan/pull/10681>`_
+- Bugfix: `GnuDepsFlags` attributes like `frameworks` and `frameworkdirs` are only available for Apple OS. `#10675 <https://github.com/conan-io/conan/pull/10675>`_
+- Bugfix: Remove tmp folders created in Conan while checking the output of a command and detecting the compiler. `#10663 <https://github.com/conan-io/conan/pull/10663>`_
+- Bugfix: Fix ``conan_server`` circular import do to ``conan.tools`` namespace. `#10635 <https://github.com/conan-io/conan/pull/10635>`_
+- bugfix: Fix ``meson_layout()`` issue with shared folders. `#10600 <https://github.com/conan-io/conan/pull/10600>`_
+- Bugfix: Fix ``SystemPackageTool`` when ``mode=verify``, it was still installing packages. `#10596 <https://github.com/conan-io/conan/pull/10596>`_
+- Bugfix: ``self.build_folder`` not being computed even if ``layout()`` method is defined in local :command:`conan install`. Close https://github.com/conan-io/conan/issues/10566 `#10567 <https://github.com/conan-io/conan/pull/10567>`_
+- Bugfix: Fix conan_manifest.txt parse error when the filename has ":" in it. `#10492 <https://github.com/conan-io/conan/pull/10492>`_
+- Bugfix: Use meson toolchain file from install folder. `#8965 <https://github.com/conan-io/conan/pull/8965>`_
 
 1.45.0 (02-Feb-2022)
 --------------------
