@@ -53,8 +53,11 @@ the contents of the default profile:
     [env]
 
 
-You can use the ``--profile`` argument to specify the profile you want to use when calling
-Conan. If you don't specify that argument it's equivalent to call it with
+As you can see, the profile have different sections. The ``[settings]`` section is the one
+that has information about things like the operating system, architecture, compiler and
+build configuration. When you call a Conan command setting the ``--profile`` argument,
+Conan will take all the information from the profile and apply it to the packages you want
+to build or instal. If you don't specify that argument it's equivalent to call it with
 ``--profile=default``. These two commands will behave exactly the same:
 
 .. code-block:: bash
@@ -63,13 +66,79 @@ Conan. If you don't specify that argument it's equivalent to call it with
     $ conan install . --build=missing --profile=default
 
 
-You can store different profiles and use them at your criteria. For example, to use a
-``build_type=Debug``, or adding some ``tool_requires``.
+You can store different profiles and use them to build for differente setings. For example,
+to use a ``build_type=Debug``, or adding a ``tool_requires`` to all the packages you build
+with that profile.
 
-Using profiles is not the only way to set the configuration you want to use to build your
-project. You can always override the profile settings in the Conan command using the
-``--settings`` argument. For example, you can build the project from the previous examples
-in *Debug* configuration instead of *Release*.
+Using profiles is not the only way to set the configuration you want to use. You can also
+override the profile settings in the Conan command using the ``--settings`` argument. For
+example, you can build the project from the previous examples in *Debug* configuration
+instead of *Release*.
+
+Before building, please check that we modified the source code from the previous example to show the build configuration the
+sources were built with:
+
+.. code-block:: cpp
+    :emphasize-lines: 6-10
+
+    #include <stdlib.h>
+    ...
+
+    int main(void) {
+        ...
+        #ifdef NDEBUG
+        printf("Release configuration!\n");
+        #else
+        printf("Debug configuration!\n");
+        #endif
+
+        return EXIT_SUCCESS;
+    }
+
+Now let's build our project for *Debug* configuration:
+
+.. code-block:: bash
+    :caption: Windows
+
+    $ conan install . --output-folder=build --build=missing -s build_type=Debug
+
+.. code-block:: bash
+    :caption: Linux, macOS
+    
+    $ conan install . --output-folder cmake-build-release --build=missing -s build_type=Debug
+
+
+This ``conan instal`` command will check if we already installed the required libraries
+(Zlib) in Debug configuration and install them otherwise. It will also set the build
+configuration in the ``conan_toolchain.cmake`` toolchain that the CMakeToolchain generator
+creates so that when we build the application it's build in *Debug* configuration. Now
+build your project as you did in the previous examples and check in the output how it was
+built in *Debug* configuration:
+
+.. code-block:: bash
+    :caption: Windows
+    :emphasize-lines: 8
+
+    # assuming Visual Studio 15 2017 is your VS version and that it matches your default profile
+    $ cmake .. -G "Visual Studio 15 2017" -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
+    $ cmake --build . --config Debug
+    $ Debug\compressor.exe
+    Uncompressed size is: 233
+    Compressed size is: 147
+    ZLIB VERSION: 1.2.11
+    Debug configuration!
+
+.. code-block:: bash
+    :caption: Linux, macOS
+    :emphasize-lines: 7
+    
+    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
+    $ cmake --build .
+    $ ./compressor
+    Uncompressed size is: 233
+    Compressed size is: 147
+    ZLIB VERSION: 1.2.11
+    Debug configuration!
 
 
 
