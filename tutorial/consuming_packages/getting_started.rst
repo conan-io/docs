@@ -22,6 +22,6 @@ example to a more powerful conanfile.py.
    :caption: Table of contents
    
    getting_started/build_simple_cmake_project
-   getting_started/build_tools_as_conan_packages
+   getting_started/use_tools_as_conan_packages
    getting_started/different_configurations
    getting_started/the_power_of_conanfile_py

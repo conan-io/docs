@@ -8,9 +8,9 @@ that uses one of the most popular C++ libraries: `Zlib <https://zlib.net/>`__.
 
 .. important::
 
-    In this example, we will retreive the zlib Conan package from a Conan repository with
+    In this example, we will retrieve the CMake Conan package from a Conan repository with
     packages compatible for Conan 2.0. To run this example succesfully you should add this
-    remote to your Conan configuration doing:
+    remote to your Conan configuration (if did not already do it) doing:
     ``conan remote add conanv2 https://conanv2beta.jfrog.io/artifactory/api/conan/conan --index 0``
 
 We'll use CMake as build system in this case but keep in mind that Conan **works with any
@@ -19,16 +19,16 @@ build systems in the :ref:`Read More
 section<consuming_packages_getting_started_read_more>`.
 
 
-1. Please, first clone the sources to recreate this project, you can find them in the
-   `examples2.0 repository <https://github.com/conan-io/examples2>`_ in GitHub:
+Please, first clone the sources to recreate this project, you can find them in the
+`examples2.0 repository <https://github.com/conan-io/examples2>`_ in GitHub:
 
-    .. code-block:: bash
+.. code-block:: bash
 
-        $ git clone https://github.com/conan-io/examples2.git
-        $ cd tutorial/consuming_packages/getting_started/simple_cmake_project
+    $ git clone https://github.com/conan-io/examples2.git
+    $ cd tutorial/consuming_packages/getting_started/simple_cmake_project
 
 
-2. We start from a very simple C language project with this structure:
+We start from a very simple C language project with this structure:
 
 .. code-block:: text
 
@@ -52,8 +52,10 @@ Let's have a look at the *main.c* file:
     #include <zlib.h>
 
     int main(void) {
-        char buffer_in [32] = {"Conan Package Manager"};
-        char buffer_out [32] = {0};
+        char buffer_in [256] = {"Conan is a MIT-licensed, Open Source package manager for C and C++ development "
+                                "for C and C++ development, allowing development teams to easily and efficiently "
+                                "manage their packages and dependencies across platforms and build systems."};
+        char buffer_out [256] = {0};
 
         z_stream defstream;
         defstream.zalloc = Z_NULL;
@@ -68,10 +70,8 @@ Let's have a look at the *main.c* file:
         deflate(&defstream, Z_FINISH);
         deflateEnd(&defstream);
 
-        printf("Compressed size is: %lu\n", strlen(buffer_in));
-        printf("Compressed string is: %s\n", buffer_in);
+        printf("Uncompressed size is: %lu\n", strlen(buffer_in));
         printf("Compressed size is: %lu\n", strlen(buffer_out));
-        printf("Compressed string is: %s\n", buffer_out);
 
         printf("ZLIB VERSION: %s\n", zlibVersion());
 
@@ -88,17 +88,17 @@ Also, the contents of *CMakeLists.txt* are:
 
     find_package(ZLIB REQUIRED)
 
-    add_executable(${PROJECT_NAME} main.c)
+    add_executable(${PROJECT_NAME} src/main.c)
     target_link_libraries(${PROJECT_NAME} ZLIB::ZLIB)
 
 Our application relies on the **Zlib** library. Conan, by default, tries to install
-libraries from a remote server called `Conan Center Index <https://conan.io/center/>`_.
+libraries from a remote server called `ConanCenter <https://conan.io/center/>`_.
 You can search there for libraries and also check the available versions. In our case, 
 after checking the available versions for `Zlib <https://conan.io/center/zlib>`__ we
 choose to use the latest available version: **zlib/1.2.11**.
 
-3. The easiest way to install the **Zlib** library and find it from our project with Conan is
-   using a *conanfile.txt* file. Let's create one with the following content:
+The easiest way to install the **Zlib** library and find it from our project with Conan is
+using a *conanfile.txt* file. Let's create one with the following content:
 
 .. code-block:: ini
     :caption: **conanfile.txt**
@@ -121,12 +121,12 @@ As you can see we added two sections to this file with a syntax similar to an *I
       about where the **Zlib** library files are installed and *CMakeToolchain* to pass build
       information to *CMake* using a *CMake* toolchain file.
 
-4. Besides the *conanfile.txt*, we need a **Conan profile** to build our project. Conan
-   profiles allows users to define a configuration set for things like compiler, build
-   configuration, architecture, shared or static libraries, etc. Conan, by default, will
-   not try to detect a profile automatically, so we need to create one. To let Conan try
-   to guess the profile, based on the current operating system and installed tools, please
-   run:
+Besides the *conanfile.txt*, we need a **Conan profile** to build our project. Conan
+profiles allows users to define a configuration set for things like compiler, build
+configuration, architecture, shared or static libraries, etc. Conan, by default, will
+not try to detect a profile automatically, so we need to create one. To let Conan try
+to guess the profile, based on the current operating system and installed tools, please
+run:
 
 .. code-block:: bash
 
@@ -160,18 +160,29 @@ configuration:
     [env]
     ...
 
-5. Now, we will use Conan to install **Zlib** and generate the files that CMake needs to find
-   this library and build our project. We will generate those files in the folder
-   *cmake-build-release*. To do that, just run:
+We will use Conan to install **Zlib** and generate the files that CMake needs to
+find this library and build our project. We will generate those files in the folder
+*cmake-build-release* (Linux/macOS) or in the folder *build* (Windows). To do that,
+just run:
 
 .. code-block:: bash
+    :caption: Windows
 
+    $ conan install . --output-folder=build --build=missing
+
+.. code-block:: bash
+    :caption: Linux, macOS
+    
     $ conan install . --output-folder cmake-build-release --build=missing
 
 You will get something similar to this as output of that command:
 
 .. code-block:: bash
 
+    (Windows)
+    $ conan install . --output-folder=build --build=missing
+
+    (Linux, macOS)
     $ conan install . --output-folder cmake-build-release --build=missing
     ...
     -------- Computing dependency graph ----------
@@ -223,24 +234,33 @@ As you can see in the output, there are a couple of things that happened:
       using the same settings that we detected for our default profile.
 
 
-6. Now we are ready to build and run our **compressor** app:
+Now we are ready to build and run our **compressor** app:
 
 .. code-block:: bash
+    :caption: Windows
 
-    (win)
-    $ cmake . -G "Visual Studio 15 2017" -DCMAKE_TOOLCHAIN_FILE=cmake-build/conan_toolchain.cmake
+    $ cd build
+    # assuming Visual Studio 15 2017 is your VS version and that it matches your default profile
+    $ cmake .. -G "Visual Studio 15 2017" -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
     $ cmake --build . --config Release
+    ...
+    [100%] Built target compressor
+    $ Release\compressor.exe
+    Uncompressed size is: 233
+    Compressed size is: 147
+    ZLIB VERSION: 1.2.11
 
-    (linux, mac)
-    $ cmake . -DCMAKE_TOOLCHAIN_FILE=cmake-build-release/conan_toolchain.cmake
+.. code-block:: bash
+    :caption: Linux, macOS
+    
+    $ cd cmake-build-release
+    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
     $ cmake --build .
     ...
-    [100%] Built target md5
+    [100%] Built target compressor
     $ ./compressor
-    Compressed size is: 21
-    Compressed string is: Conan Package Manager
-    Compressed size is: 22
-    Compressed string is: x?s??K?HL?NLOU?M?RE
+    Uncompressed size is: 233
+    Compressed size is: 147
     ZLIB VERSION: 1.2.11
 
 
