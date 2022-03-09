@@ -15,8 +15,8 @@ the **Zlib** library. Conan used the CMake version found in the system path to b
 example. But, what happens if you don’t have CMake installed in your build environment or
 want to build your project with a specific CMake version different from the one you have
 already installed system-wide? In this case, you can declare this dependency in Conan
-using a type requirement named ``tool_requires``. Let’s see an example of how adding a
-``tool_requires`` to our project and using a different CMake version to build it.
+using a type of requirement named ``tool_requires``. Let’s see an example on how to add a
+``tool_requires`` to our project, and using a different CMake version to build it.
 
 Please, first clone the sources to recreate this project. You can find them in the
 `examples2.0 repository <https://github.com/conan-io/examples2>`_ in GitHub:
@@ -43,6 +43,7 @@ using CMake **v3.19.8**.
 
 .. code-block:: ini
     :caption: **conanfile.txt**
+    :emphasize-lines: 4,5
 
     [requires]
     zlib/1.2.11
@@ -54,6 +55,21 @@ using CMake **v3.19.8**.
     CMakeDeps
     CMakeToolchain
 
+We also added a message to the *CMakeLists.txt* to output the CMake version:
+
+.. code-block:: cmake
+    :caption: **CMakeLists.txt**
+    :emphasize-lines: 6
+
+    cmake_minimum_required(VERSION 3.15)
+    project(compressor C)
+
+    find_package(ZLIB REQUIRED)
+
+    message("Building with CMake version: ${CMAKE_VERSION}")
+    
+    add_executable(${PROJECT_NAME} src/main.c)
+    target_link_libraries(${PROJECT_NAME} ZLIB::ZLIB)
 
 Now, as in the previous example, we will use Conan to install **Zlib** and **CMake
 3.19.8** and generate the files to find both of them. We will generate those
@@ -111,13 +127,13 @@ You can check the output:
     conanfile.txt: Generator 'CMakeDeps' calling 'generate()'
     conanfile.txt: Aggregating env generators
 
-Now, if you check that folder you will see that Conan generated a new
+Now, if you check the folder you will see that Conan generated a new
 file called ``conanbuild.sh/bat``. This is the result of automatically invoking a
 ``VirtualBuildEnv`` generator when we declared the ``tool_requires`` in the
-**conanfile.txt**. This file declares some environment variables like a new ``PATH`` that
+**conanfile.txt**. This file sets some environment variables like a new ``PATH`` that
 we can use to inject to our environment the location of CMake v3.19.8.
 
-Activate the virtual environment, and now you can run ``cmake --version`` to check that you
+Activate the virtual environment, and run ``cmake --version`` to check that you
 have the installed the new CMake version in the path.
 
 .. code-block:: bash
@@ -153,6 +169,8 @@ you prevoiusly did, but this time Conan will use CMake 3.19.8 to build it:
     $ cmake .. -G "Visual Studio 15 2017" -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
     $ cmake --build . --config Release
     ...
+    Building with CMake version: 3.19.8
+    ...
     [100%] Built target compressor
     $ Release\compressor.exe
     Uncompressed size is: 233
@@ -165,6 +183,8 @@ you prevoiusly did, but this time Conan will use CMake 3.19.8 to build it:
     $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
     $ cmake --build .
     ...
+    Building with CMake version: 3.19.8
+    ...
     [100%] Built target compressor
     $ ./compressor
     Uncompressed size is: 233
@@ -172,7 +192,7 @@ you prevoiusly did, but this time Conan will use CMake 3.19.8 to build it:
     ZLIB VERSION: 1.2.11
 
 
-Note that when we activated the environment a new file named
+Note that when we activated the environment, a new file named
 ``deactivate_conanbuild.sh/bat`` was created in the same folder. If you source this file
 you can restore the environment as it was before.
 
