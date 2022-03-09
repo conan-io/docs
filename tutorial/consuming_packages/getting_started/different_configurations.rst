@@ -58,6 +58,7 @@ Conan. If you don't specify that argument it's equivalent to call it with
 ``--profile=default``. These two commands will behave exactly the same:
 
 .. code-block:: bash
+
     $ conan install . --build=missing
     $ conan install . --build=missing --profile=default
 
