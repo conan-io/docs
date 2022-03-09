@@ -15,8 +15,8 @@ the **Zlib** library. Conan used the CMake version found in the system path to b
 example. But, what happens if you don’t have CMake installed in your build environment or
 want to build your project with a specific CMake version different from the one you have
 already installed system-wide? In this case, you can declare this dependency in Conan
-using a type requirement named ``tool_requires``. Let’s see an example of how adding a
-``tool_requires`` to our project and using a different CMake version to build it.
+using a type of requirement named ``tool_requires``. Let’s see an example on how to add a
+``tool_requires`` to our project, and using a different CMake version to build it.
 
 Please, first clone the sources to recreate this project. You can find them in the
 `examples2.0 repository <https://github.com/conan-io/examples2>`_ in GitHub:
@@ -43,6 +43,7 @@ using CMake **v3.19.8**.
 
 .. code-block:: ini
     :caption: **conanfile.txt**
+    :emphasize-lines: 4,5
 
     [requires]
     zlib/1.2.11
@@ -111,7 +112,7 @@ You can check the output:
     conanfile.txt: Generator 'CMakeDeps' calling 'generate()'
     conanfile.txt: Aggregating env generators
 
-Now, if you check that folder you will see that Conan generated a new
+Now, if you check the folder you will see that Conan generated a new
 file called ``conanbuild.sh/bat``. This is the result of automatically invoking a
 ``VirtualBuildEnv`` generator when we declared the ``tool_requires`` in the
 **conanfile.txt**. This file declares some environment variables like a new ``PATH`` that
