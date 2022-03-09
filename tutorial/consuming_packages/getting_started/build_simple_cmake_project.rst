@@ -25,7 +25,7 @@ Please, first clone the sources to recreate this project, you can find them in t
 .. code-block:: bash
 
     $ git clone https://github.com/conan-io/examples2.git
-    $ cd tutorial/consuming_packages/getting_started/simple_cmake_project
+    $ cd tutorial/consuming_packages/getting_started/different_configurations
 
 
 We start from a very simple C language project with this structure:
