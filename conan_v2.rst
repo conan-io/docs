@@ -46,7 +46,7 @@ reference being tested.
 
 .. code-block:: python
 
-    from conans import ConanFile
+    from conan import ConanFile
 
     class MyTestPkg(ConanFile):
         test_type = "explicit"
