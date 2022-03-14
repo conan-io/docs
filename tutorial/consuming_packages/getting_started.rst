@@ -15,7 +15,7 @@ use them to build your projects for different configurations like Debug, Release
 static or shared libraries, etc. 
 
 Also, we will explain how to transition from the *conanfile.txt* file we used in the first
-example to a more powerful conanfile.py.
+example to a more powerful *conanfile.py*.
 
 .. toctree::
    :maxdepth: 2
@@ -24,4 +24,4 @@ example to a more powerful conanfile.py.
    getting_started/build_simple_cmake_project
    getting_started/use_tools_as_conan_packages
    getting_started/different_configurations
-   getting_started/the_power_of_conanfile_py
+   getting_started/the_flexibility_of_conanfile_py
