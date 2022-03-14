@@ -70,6 +70,9 @@ You can store different profiles and use them to build for differente setings. F
 to use a ``build_type=Debug``, or adding a ``tool_requires`` to all the packages you build
 with that profile.
 
+
+.. _different_configurations_modify_settings:
+
 Modifying settings: use Debug configuration for the application and its dependencies
 ------------------------------------------------------------------------------------
 
@@ -143,6 +146,8 @@ built in *Debug* configuration:
     ZLIB VERSION: 1.2.11
     Debug configuration!
 
+
+.. _different_configurations_modify_options:
 
 Modifying options: linking the application dependencies as shared libraries
 ---------------------------------------------------------------------------
@@ -257,9 +262,23 @@ created to restore the environment. Source or run it to do so:
     $ source deactivate_conanrun.sh
 
 
-.. important::
+Difference between settings and options
+=======================================
 
-    Add a note to explain the difference beween settings and options
+You may have noticed that for changing between *Debug* and *Release* configuration we
+used a Conan **setting**, but when we set *shared* mode for our executable we used a
+Conan **option**. Please, note the difference between **settings** and **options**:
+
+* **settings** are typically a project-wide configuration defined by the client machine,
+  so they cannot have a default value in the recipe. For example, it doesn’t make sense for
+  a package recipe to declare “Visual Studio” as a default compiler because that is
+  something defined by the end consumer, and unlikely to make sense if they are working
+  in Linux.
+
+* **options** are intended for package specific configuration
+  that can be set to a default value in the recipe. For example, one package can define
+  that its default linkage is static, and this is the linkage that should be used if
+  consumers don’t specify otherwise.
 
 
 Read more
