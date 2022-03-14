@@ -70,6 +70,9 @@ You can store different profiles and use them to build for differente setings. F
 to use a ``build_type=Debug``, or adding a ``tool_requires`` to all the packages you build
 with that profile.
 
+Modifying settings: use Debug configuration for the application and its dependencies
+------------------------------------------------------------------------------------
+
 Using profiles is not the only way to set the configuration you want to use. You can also
 override the profile settings in the Conan command using the ``--settings`` argument. For
 example, you can build the project from the previous examples in *Debug* configuration
@@ -100,15 +103,15 @@ Now let's build our project for *Debug* configuration:
 .. code-block:: bash
     :caption: Windows
 
-    $ conan install . --output-folder=build --build=missing -s build_type=Debug
+    $ conan install . --output-folder=build --build=missing --settings=build_type=Debug
 
 .. code-block:: bash
     :caption: Linux, macOS
     
-    $ conan install . --output-folder cmake-build-release --build=missing -s build_type=Debug
+    $ conan install . --output-folder cmake-build-release --build=missing --settings=build_type=Debug
 
 
-This ``conan instal`` command will check if we already installed the required libraries
+This ``conan install`` command will check if we already installed the required libraries
 (Zlib) in Debug configuration and install them otherwise. It will also set the build
 configuration in the ``conan_toolchain.cmake`` toolchain that the CMakeToolchain generator
 creates so that when we build the application it's build in *Debug* configuration. Now
@@ -141,6 +144,122 @@ built in *Debug* configuration:
     Debug configuration!
 
 
+Modifying options: linking the application dependencies as shared libraries
+---------------------------------------------------------------------------
+
+So far, we have been linking *Zlib* statically in our application. That's because in the
+Zlib's Conan package there's an attribute set to build in that mode by default. We can
+change from **static** to **shared** linking by setting the ``shared`` option to ``True``
+using the ``--options`` argument. To do so, please run:
+
+
+.. code-block:: bash
+    :caption: Windows
+
+    $ conan install . --output-folder=build --build=missing --options=zlib/1.2.11:shared=True
+
+.. code-block:: bash
+    :caption: Linux, macOS
+    
+    $ conan install . --output-folder cmake-build-release --build=missing --options=zlib/1.2.11:shared=True
+
+
+Doing this, Conan will install the *Zlib* shared libraries, generate the files to build with
+them and also the necessary files to locate those dynamic libraries when running the
+application. Let's build the application again after configuring it to link *Zlib* as a
+shared library:
+
+.. code-block:: bash
+    :caption: Windows
+
+    $ cd build
+    # assuming Visual Studio 15 2017 is your VS version and that it matches your default profile
+    $ cmake .. -G "Visual Studio 15 2017" -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
+    $ cmake --build . --config Release
+    ...
+    [100%] Built target compressor
+
+.. code-block:: bash
+    :caption: Linux, Macos
+    
+    $ cd cmake-build-release
+    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
+    $ cmake --build .
+    ...
+    [100%] Built target compressor
+
+
+Now, if you try to run the compiled executable you will see an error because the
+executable can't find the shared libraries for *Zlib* that we just installed.
+
+.. code-block:: bash
+    :caption: Windows
+
+    $ Release\compressor.exe
+    (on a pop-up window) The code execution cannot proceed because zlib1.dll was not found. Reinstalling the program may fix this problem.
+
+.. code-block:: bash
+    :caption: Linux, Macos
+    
+    $ ./compressor
+    ./compressor: error while loading shared libraries: libz.so.1: cannot open shared object file: No such file or directory
+
+
+This is because shared libraries (*.dll* in windows, *.dylib* in OSX and *.so* in Linux),
+are loaded at runtime. That means that the application executable needs to know where are
+the required shared libraries when it runs. On Windows, the dynamic linker, will search in
+the same directory then in the *PATH* directories. On OSX, it will search in the
+directories declared in *DYLD_LIBRARY_PATH* as on Linux will use the *LD_LIBRARY_PATH*.
+
+Conan provides a mechanism to define those variables and make possible for executables to
+find and load these shared libraries. This mechanism is the ``VirtualRunEnv`` generator.
+If you check the output folder you will see that Conan generated a new file called
+``conanrun.sh/bat``. This is the result of automatically invoking that ``VirtualRunEnv``
+generator when we activated the ``shared`` option when doing the ``conan install``. This
+generated script will set the **PATH**, **LD_LIBRARY_PATH**, **DYLD_LIBRARY_PATH** and
+**DYLD_FRAMEWORK_PATH** environment variables so that executables can find the shared
+libraries.
+
+Activate the virtual environment, and run the executables again:
+
+.. code-block:: bash
+    :caption: Windows
+
+    $ conanrun.bat
+    $ Release\compressor.exe
+    Uncompressed size is: 233
+    Compressed size is: 147
+    ...
+
+.. code-block:: bash
+    :caption: Linux, macOS
+    
+    $ source conanrun.sh
+    $ ./compressor
+    Uncompressed size is: 233
+    Compressed size is: 147
+    ...
+
+
+Just as in the previous example with the ``VirtualBuildEnv`` generator, when we run the
+``conanrun.sh/bat`` script a deactivation script called ``deactivate_conanrun.sh/bat`` is
+created to restore the environment. Source or run it to do so:
+
+
+.. code-block:: bash
+    :caption: Windows
+
+    $ deactivate_conanrun.bat
+
+.. code-block:: bash
+    :caption: Linux, macOS
+    
+    $ source deactivate_conanrun.sh
+
+
+.. important::
+
+    Add a note to explain the difference beween settings and options
 
 
 Read more
