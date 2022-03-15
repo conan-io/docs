@@ -269,16 +269,17 @@ You may have noticed that for changing between *Debug* and *Release* configurati
 used a Conan **setting**, but when we set *shared* mode for our executable we used a
 Conan **option**. Please, note the difference between **settings** and **options**:
 
-* **settings** are typically a project-wide configuration defined by the client machine,
-  so they cannot have a default value in the recipe. For example, it doesn’t make sense for
-  a package recipe to declare “Visual Studio” as a default compiler because that is
-  something defined by the end consumer, and unlikely to make sense if they are working
-  in Linux.
+* **settings** are typically a project-wide configuration defined by the client machine.
+  Things like the operating system, compiler or build configuration that will be common to
+  several Conan packages and would not make sense to define one default value for only one
+  of them. For example, it doesn’t make sense for a Conan package to declare “Visual
+  Studio” as a default compiler because that is something defined by the end consumer, and
+  unlikely to make sense if they are working in Linux.
 
-* **options** are intended for package specific configuration
-  that can be set to a default value in the recipe. For example, one package can define
-  that its default linkage is static, and this is the linkage that should be used if
-  consumers don’t specify otherwise.
+* **options** are intended for package specific configuration that can be set to a default
+  value in the recipe. For example, one package can define that its default linkage is
+  static, and this is the linkage that should be used if consumers don’t specify
+  otherwise.
 
 
 Read more
