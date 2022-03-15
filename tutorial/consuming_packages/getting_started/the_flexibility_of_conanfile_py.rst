@@ -11,7 +11,7 @@ Understanding the flexibility of using conanfile.py vs conanfile.txt
     ``conan remote add conanv2 https://conanv2beta.jfrog.io/artifactory/api/conan/conan --index 0``
 
 
-In the previous examples, we always declared our dependencies (*Zlib* and *CMake*) in a
+In the previous examples, we declared our dependencies (*Zlib* and *CMake*) in a
 *conanfile.txt* file. Let's have a look at that file:
 
 .. code-block:: ini
@@ -27,9 +27,9 @@ In the previous examples, we always declared our dependencies (*Zlib* and *CMake
     CMakeDeps
     CMakeToolchain
 
-Using a *conanfile.txt* to build your projects using Conan it's enough for very simple
-cases, but if you need more flexibility you should use a *conanfile.py* file where you can
-use Python code to make things such as adding requirements dinamically, changing options
+Using a *conanfile.txt* to build your projects using Conan it's enough for simple cases,
+but if you need more flexibility you should use a *conanfile.py* file where you can use
+Python code to make things such as adding requirements dinamically, changing options
 depending on other options or setting options for your requirements. Let's see an example
 on how to migrate to a *conanfile.py* and use some of those features.
 
