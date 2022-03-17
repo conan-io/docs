@@ -21,6 +21,16 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.46 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
     a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.46.1 (17-Mar-2022)
+--------------------
+
+- Feature: Added a checker for Conan 2.x deprecated from conans imports in pylint_plugin. `#10811 <https://github.com/conan-io/conan/pull/10811>`_
+- Feature: Add apple-clang 13 major version to settings. `#10807 <https://github.com/conan-io/conan/pull/10807>`_
+- Feature: Make apple-clang 13 version package-id compatible with 13.0. `#10807 <https://github.com/conan-io/conan/pull/10807>`_
+- Feature: Autodetect only major version for apple-clang profile starting in version 13. `#10807 <https://github.com/conan-io/conan/pull/10807>`_
+- Feature: Add clang 15 version to settings. `#10807 <https://github.com/conan-io/conan/pull/10807>`_
+- Bugfix: Fix call to undefined function for markdown generator when components add system_libs. `#10810 <https://github.com/conan-io/conan/pull/10810>`_
+
 1.46.0 (07-Mar-2022)
 --------------------
 
