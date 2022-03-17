@@ -68,14 +68,14 @@ Remember that in the previous examples the *conanfile.txt* had this information:
     CMakeToolchain
 
 We will translate that same information to a *conanfile.py*. This file is what is
-typically called a "Conan recipe". It can be used for consuming packages, like in this
+typically called a **"Conan recipe"**. It can be used for consuming packages, like in this
 case, and also to create packages. For our current case it will define our requirements
 (both libraries and build tools) and logic to modify options and set how we want to
 consume those packages. In the case of using this file to create packages it can define
 (among other things) how to download the package’s source code, how to build the binaries
 from those sources, how to package the binaries and information for future consumers on
-how to consume the package. We will later explain how to use Conan recipes to create
-packages in the "Creating Packages" section.
+how to consume the package. We will explain how to use Conan recipes to create
+packages in the "Creating Packages" section later.
 
 The equivalent of the *conanfile.txt* in form of Conan recipe could look like this:
 
@@ -100,13 +100,14 @@ class and set the information defining different class attributes and methods:
 * **settings** this class attribute defines the project-wide variables, like the compiler,
   its version, or the OS itself that may change when we build our project. This is related
   to how Conan manages binary compatibility as these values will affect the value of the
-  package ID. We will explain how Conan uses this value to manage binary compatibility
-  later.
+  **package ID** for Conan packages. We will explain how Conan uses this value to manage
+  binary compatibility later.
 * **generators** this class attribute specifies which Conan generators will be run when we
-  call to the ``conan install`` command. In this case, as we are using CMake for building
-  our project we added **CMakeToolchain** and **CMakeDeps**.
+  call to the ``conan install`` command. In this case, we added **CMakeToolchain** and
+  **CMakeDeps** as in the *conanfile.txt*.
 * **requirements()** in this method we can use the ``self.requires()`` and
-  ``self.tool_requires()`` methods to declare all our dependencies.
+  ``self.tool_requires()`` methods to declare all our dependencies (libraries and build
+  tools).
 
 You can check that running the same commands as in the previous examples will lead to the
 same results as before.
@@ -124,6 +125,7 @@ same results as before.
     Building with CMake version: 3.19.8
     ...
     [100%] Built target compressor
+
     $ Release\compressor.exe
     Uncompressed size is: 233
     Compressed size is: 147
@@ -144,12 +146,16 @@ same results as before.
     Building with CMake version: 3.19.8
     ...
     [100%] Built target compressor
+
     $ ./compressor
     Uncompressed size is: 233
     Compressed size is: 147
     ZLIB VERSION: 1.2.11
     $ source deactivate_conanbuild.sh
 
+So far we have achieved the same functionality we had using a *conanfile.txt*, let's
+see how we can take advantage of the capabilities of the *conanfile.py* to add some logic to
+how we depend on packages.
 
 
 
