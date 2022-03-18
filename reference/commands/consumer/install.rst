@@ -6,7 +6,7 @@ conan install
 
 .. code-block:: bash
 
-     $ conan install [-h] [-g GENERATOR] [-if INSTALL_FOLDER] [-of OUTPUT_FOLDER] [-sf SOURCE_FOLDER] [-m [MANIFESTS]] [-mi [MANIFESTS_INTERACTIVE]]
+     $ conan install [-h] [-g GENERATOR] [-if INSTALL_FOLDER] [-of OUTPUT_FOLDER] [-m [MANIFESTS]] [-mi [MANIFESTS_INTERACTIVE]]
                      [-v [VERIFY]] [--no-imports] [--build-require] [-j JSON] [-b [BUILD]] [-r REMOTE] [-u] [-l LOCKFILE] [--lockfile-out LOCKFILE_OUT]
                      [-e ENV_HOST] [-e:b ENV_BUILD] [-e:h ENV_HOST] [-o OPTIONS_HOST] [-o:b OPTIONS_BUILD] [-o:h OPTIONS_HOST] [-pr PROFILE_HOST]
                      [-pr:b PROFILE_BUILD] [-pr:h PROFILE_HOST] [-s SETTINGS_HOST] [-s:b SETTINGS_BUILD] [-s:h SETTINGS_HOST] [-c CONF_HOST]
