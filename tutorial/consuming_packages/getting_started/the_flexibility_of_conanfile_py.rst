@@ -95,7 +95,7 @@ The equivalent of the *conanfile.txt* in form of Conan recipe could look like th
 
 
 To create the Conan recipe we declared a new class that inherits from the ``ConanFile``
-class and set the information defining different class attributes and methods:
+class. This class has different class attributes and methods:
 
 * **settings** this class attribute defines the project-wide variables, like the compiler,
   its version, or the OS itself that may change when we build our project. This is related
@@ -153,10 +153,73 @@ same results as before.
     ZLIB VERSION: 1.2.11
     $ source deactivate_conanbuild.sh
 
-So far we have achieved the same functionality we had using a *conanfile.txt*, let's
-see how we can take advantage of the capabilities of the *conanfile.py* to add some logic to
-how we depend on packages.
+So far we have achieved the same functionality we had using a *conanfile.txt*, let's see
+how we can take advantage of the capabilities of the *conanfile.py* to define the project
+structure we want to follow and also to add some logic using Conan settings and options.
 
+Use the layout() method
+-----------------------
+
+In the previous examples, everytime we executed a `conan install` command we had to use
+the `--output-folder argument` to define where we wanted to create the files that Conan
+generates. Also, note that we used a different folder when building in Windows or in
+Linux/Macos. You can define this directly in the conanfile.py inside the `layout()`
+method and make it work for every platform without adding more changes:
+
+
+
+
+Conditional requirements using a conanfile.py
+---------------------------------------------
+
+You could add some logic to the `requirements()` method to add or remove requirements
+conditionally. Imagine, for example, that you want to add an additional dependency in
+Windows or that you want to use the system's CMake installation instead of using the Conan
+`tool_requires`:
+
+.. code-block:: python
+    :caption: conanfile.py
+
+from conan import ConanFile
+from conan.tools.cmake import cmake_layout
+
+
+class CompressorRecipe(ConanFile):
+    # Binary configuration
+    settings = "os", "compiler", "build_type", "arch"
+    generators = "CMakeToolchain", "CMakeDeps"
+
+    def requirements(self):
+        self.requires("zlib/1.2.11")
+        # Use the system's CMake for Windows
+        # and add base64 dependency
+        if self.settings.os == "Windows":
+            self.requires("base64/0.4.0")
+        else:
+            self.tool_requires("cmake/3.19.8")
+
+
+Use the validate() method to raise an error for non-supported configurations
+----------------------------------------------------------------------------
+
+The `validate()` method is the first one evaluated when Conan loads the *conanfile.py* so
+it is quite handy to perform checks of the input settings. If, for example, your project
+does not support *armv8* architecture on Macos you can raise the
+`ConanInvalidConfiguration` exception to make Conan return with a special error code. This
+will indicate that the configuration used for settings or options is not supported.
+
+.. code-block:: python
+    :caption: conanfile.py
+
+...
+from conan.errors import ConanInvalidConfiguration
+
+class CompressorRecipe(ConanFile):
+    ...
+
+    def validate(self):
+        if self.settings.os == "Macos" and self.settings.arch == "armv8":
+            raise ConanInvalidConfiguration("ARM v8 not supported")
 
 
 Read more
