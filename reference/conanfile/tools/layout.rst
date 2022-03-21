@@ -25,8 +25,7 @@ There are some pre-defined common layouts, ready to be simply used in recipes:
 
 The predefined layouts define a few things, for example in the ``cmake_layout()`` the source folder is  called ``"."``, meaning that Conan will
 expect the sources in the same directory where the conanfile is (most likely the project root, where a ``CMakeLists.txt`` file will be typically found).
-If you have a different folder where the ``CMakeLists.txt`` is located, for example, when
-creating a package for an external library, you can use the ``src_folder`` argument:
+If you have a different folder where the ``CMakeLists.txt`` is located, you can use the ``src_folder`` argument:
 
 .. code:: python
 
