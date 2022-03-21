@@ -230,7 +230,7 @@ The :ref:`cpp_info_attributes_reference` attribute has the following properties 
     self.cpp_info.components  # Dictionary with the different components a package may have
     self.cpp_info.requires = None  # List of components from requirements
 
-- **name**: Alternative name for the package to be used by generators.
+- **names**: Alternative name(s) for the package to be used by generators.
 - **includedirs**: List of relative paths (starting from the package root) of directories where headers can be found. By default it is
   initialized to ``['include']``, and it is rarely changed.
 - **libs**: Ordered list of libs the client should link against. Empty by default, it is common that different configurations produce
