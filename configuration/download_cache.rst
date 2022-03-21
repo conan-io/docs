@@ -16,7 +16,7 @@ It is not related to the ``short_paths`` mechanism for long path in Windows, nor
 of the artifacts, it is not a new location of files. Those files will still be copied to the Conan package cache, which will not change anything,
 its behavior, layout or location of any file.
 
-This cache (whose path can be configured in the *conan.conf* file) will store the following items:
+This cache (whose path can be configured in the *conan.conf* file or via environment variable ``CONAN_DOWNLOAD_CACHE``) will store the following items:
 
 - All files that are downloaded from a Conan server (conan_server, Artifactory), both in the api V1 (without revisions) and V2 (with revisions).
   This includes files like *conanfile.py*, but also the zipped artifacts like *conan_package.tgz* or *conan_sources.tgz*.
@@ -31,8 +31,28 @@ This cache (whose path can be configured in the *conan.conf* file) will store th
     transparently changes a existing server and moves it to a new location, without the clients changing the URL too.
 
 
-Activating/deactivating the download cache
-------------------------------------------
+Activating/deactivating the download cache via CONAN_DOWNLOAD_CACHE
+-------------------------------------------------------------------
+
+The download cache can be activated and configured via environment variable :ref:`env_vars_conan_download_cache` like this:
+
+Windows users:
+
+.. code-block:: bash
+
+   $ SET CONAN_DOWNLOAD_CACHE=c:\path\to\my\cache
+
+
+Linux/macOS users:
+
+.. code-block:: bash
+
+   $ export CONAN_DOWNLOAD_CACHE=/path/to/my/cache
+
+
+
+Activating/deactivating the download cache via conan.conf
+---------------------------------------------------------
 
 The download cache is activated and configured in the :ref:`conan_conf` like this:
 
@@ -41,7 +61,7 @@ The download cache is activated and configured in the :ref:`conan_conf` like thi
     [storage]
     download_cache=/path/to/my/cache
 
-It can be defined from the command line:
+This can be done from the command line:
 
 .. code-block:: bash
 

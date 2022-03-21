@@ -624,6 +624,24 @@ according to the value of its ``short_paths`` attribute. So, ``CONAN_USE_ALWAYS_
 force every recipe to use short paths, but it won't work to force the opposite behavior.
 
 
+.. _env_vars_conan_download_cache:
+
+CONAN_DOWNLOAD_CACHE
+--------------------
+
+**Defaulted to**: Not defined
+
+This variable can be used to define a path to a directory which Conan will use as download cache directory. 
+It overrides the value defined in the *conan.conf* as ``download_cache = <path>`` under the section ``[general]``. 
+If relative, the path will be resolved as relative to the current execution directory.
+
+
+
+.. _env_vars_non_interactive:
+
+
+
+
 CONAN_VERBOSE_TRACEBACK
 -----------------------
 
