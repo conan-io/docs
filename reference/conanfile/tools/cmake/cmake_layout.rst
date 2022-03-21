@@ -86,5 +86,5 @@ you can use the ``src_folder`` argument:
 .. code:: python
 
     def layout(self):
-        cmake_layout(self, src_folder="subfolder"):
+        cmake_layout(self, src_folder="subfolder")
 
