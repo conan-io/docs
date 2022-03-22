@@ -16,18 +16,24 @@ conan.tools.layout
 Predefined layouts
 ------------------
 
-There are some pre-defined common layouts, ready to be simply used in recipes:
+There are some pre-defined common :ref:`layouts<conanfile_layout>`, ready to be simply used in recipes:
 
 - ``cmake_layout()``: :ref:`a layout for a typical CMake project <cmake_layout>`
 - ``vs_layout()``: a layout for a typical Visual Studio project
 - ``basic_layout()``: :ref:`a very basic layout for a generic project <conan_tools_basic_layout>`
 
 
-The predefined layouts define a few things, for example in the ``cmake_layout()`` the source folder is  called ``"."``, meaning that Conan will
-expect the sources in the same directory where the conanfile is (most likely the project root, where a ``CMakeLists.txt`` file will be typically found).
-If you have a different folder where the ``CMakeLists.txt`` is located, you can use the ``src_folder`` argument:
+The pre-defined layouts define the Conanfile ``.folders`` and ``.cpp`` attributes with
+typical values. To check which are the values set by these pre-defined layouts please check
+the reference for the :ref:`layout()<conanfile_layout>` method. For example in the
+``cmake_layout()`` the source folder is  called ``"."``, meaning that Conan will expect
+the sources in the same directory where the conanfile is (most likely the project root,
+where a ``CMakeLists.txt`` file will be typically found). If you have a different folder
+where the ``CMakeLists.txt`` is located, you can use the ``src_folder`` argument:
 
 .. code:: python
+    
+    from conan.tools.cmake import cmake_layout
 
     def layout(self):
         cmake_layout(self, src_folder="mysrcfolder")
@@ -37,6 +43,9 @@ Even if this pre-defined layout doesn't suit your specific projects layout, chec
 shows how you could implement your own logic (and probably put it in a common ``python_require`` if you are going to use it in multiple
 packages).
 
+
+To learn more about the layouts and how to use them while developing packages, please
+check the :ref:`package layout<package_layout>` section.
 
 .. _conan_tools_basic_layout:
 
