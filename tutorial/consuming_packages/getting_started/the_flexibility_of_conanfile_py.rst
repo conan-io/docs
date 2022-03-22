@@ -288,22 +288,22 @@ Windows or that you want to use the system's CMake installation instead of using
 .. code-block:: python
     :caption: conanfile.py
 
-from conan import ConanFile
+    from conan import ConanFile
 
 
-class CompressorRecipe(ConanFile):
-    # Binary configuration
-    settings = "os", "compiler", "build_type", "arch"
-    generators = "CMakeToolchain", "CMakeDeps"
+    class CompressorRecipe(ConanFile):
+        # Binary configuration
+        settings = "os", "compiler", "build_type", "arch"
+        generators = "CMakeToolchain", "CMakeDeps"
 
-    def requirements(self):
-        self.requires("zlib/1.2.11")
-        # Use the system's CMake for Windows
-        # and add base64 dependency
-        if self.settings.os == "Windows":
-            self.requires("base64/0.4.0")
-        else:
-            self.tool_requires("cmake/3.19.8")
+        def requirements(self):
+            self.requires("zlib/1.2.11")
+            # Use the system's CMake for Windows
+            # and add base64 dependency
+            if self.settings.os == "Windows":
+                self.requires("base64/0.4.0")
+            else:
+                self.tool_requires("cmake/3.19.8")
 
 
 Use the validate() method to raise an error for non-supported configurations
@@ -318,15 +318,15 @@ will indicate that the configuration used for settings or options is not support
 .. code-block:: python
     :caption: conanfile.py
 
-...
-from conan.errors import ConanInvalidConfiguration
-
-class CompressorRecipe(ConanFile):
     ...
+    from conan.errors import ConanInvalidConfiguration
 
-    def validate(self):
-        if self.settings.os == "Macos" and self.settings.arch == "armv8":
-            raise ConanInvalidConfiguration("ARM v8 not supported")
+    class CompressorRecipe(ConanFile):
+        ...
+
+        def validate(self):
+            if self.settings.os == "Macos" and self.settings.arch == "armv8":
+                raise ConanInvalidConfiguration("ARM v8 not supported")
 
 
 Read more
