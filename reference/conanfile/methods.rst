@@ -1456,6 +1456,8 @@ multiple recipes.
             # Or provide your own custom logic
 
 
+.. _layout_method_reference:
+
 layout()
 --------
 
