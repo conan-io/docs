@@ -172,7 +172,7 @@ using the ``--options`` argument. To do so, please run:
 
 
 Doing this, Conan will install the *Zlib* shared libraries, generate the files to build with
-them and also the necessary files to locate those dynamic libraries when running the
+them and, also the necessary files to locate those dynamic libraries when running the
 application. Let's build the application again after configuring it to link *Zlib* as a
 shared library:
 
