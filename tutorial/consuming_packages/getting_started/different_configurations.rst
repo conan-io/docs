@@ -288,5 +288,5 @@ Read more
 - Installing configurations with conan config install
 - VS Multi-config
 - Example about how settings and options influence the package id
-- Cross compiling using --profile:build and --profile:host
+- Cross-compiling using --profile:build and --profile:host
 - Using patterns for settings and options
