@@ -126,6 +126,7 @@ built in *Debug* configuration:
     :emphasize-lines: 8
 
     # assuming Visual Studio 15 2017 is your VS version and that it matches your default profile
+    $ cd build
     $ cmake .. -G "Visual Studio 15 2017" -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
     $ cmake --build . --config Debug
     $ Debug\compressor.exe
