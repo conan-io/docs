@@ -3,8 +3,4 @@ docutils<0.18
 sphinx-sitemap>=2.1.0
 sphinxcontrib-spelling
 sphinx-notfound-page
-elasticsearch>=6.0.0,<7.0.0
-boto3
-requests
-requests-aws4auth
-beautifulsoup4
+jinja2<=3.0.3
