@@ -208,6 +208,8 @@ Running, for instance, :command:`conan install . -pr myprofile`, the configurati
     ...
 
 
+.. _conf_in_recipes:
+
 Configuration in your recipes
 -------------------------------
 
