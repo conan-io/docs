@@ -214,7 +214,7 @@ executable can't find the shared libraries for *Zlib* that we just installed.
 
 This is because shared libraries (*.dll* in windows, *.dylib* in OSX and *.so* in Linux),
 are loaded at runtime. That means that the application executable needs to know where are
-the required shared libraries when it runs. On Windows, the dynamic linker, will search in
+the required shared libraries when it runs. On Windows, the dynamic linker will search in
 the same directory then in the *PATH* directories. On OSX, it will search in the
 directories declared in *DYLD_LIBRARY_PATH* as on Linux will use the *LD_LIBRARY_PATH*.
 
