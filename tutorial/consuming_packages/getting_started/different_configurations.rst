@@ -117,7 +117,7 @@ Now let's build our project for *Debug* configuration:
 This ``conan install`` command will check if we already installed the required libraries
 (Zlib) in Debug configuration and install them otherwise. It will also set the build
 configuration in the ``conan_toolchain.cmake`` toolchain that the CMakeToolchain generator
-creates so that when we build the application it's build in *Debug* configuration. Now
+creates so that when we build the application it's built in *Debug* configuration. Now
 build your project as you did in the previous examples and check in the output how it was
 built in *Debug* configuration:
 
