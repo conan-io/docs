@@ -218,7 +218,7 @@ the required shared libraries when it runs. On Windows, the dynamic linker will 
 the same directory then in the *PATH* directories. On OSX, it will search in the
 directories declared in *DYLD_LIBRARY_PATH* as on Linux will use the *LD_LIBRARY_PATH*.
 
-Conan provides a mechanism to define those variables and make possible for executables to
+Conan provides a mechanism to define those variables and make it possible, for executables, to
 find and load these shared libraries. This mechanism is the ``VirtualRunEnv`` generator.
 If you check the output folder you will see that Conan generated a new file called
 ``conanrun.sh/bat``. This is the result of automatically invoking that ``VirtualRunEnv``
