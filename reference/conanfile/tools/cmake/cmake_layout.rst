@@ -22,7 +22,7 @@ For example, this would implement the standard CMake project layout:
 If you want to try it, use the ``conan new hello/0.1 --template=cmake_lib`` template.
 
 It is very important to note that this ``cmake_layout()`` is just calling the ``folders`` and ``cpp``
-attributes described in the (:ref:`layout reference <conan_tools_layout>`).
+attributes described in the (:ref:`layout reference <layout_folders_reference>`).
 
 This is the implementation of ``cmake_layout()``:
 
