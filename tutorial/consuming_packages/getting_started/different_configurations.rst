@@ -57,7 +57,7 @@ As you can see, the profile has different sections. The ``[settings]`` section i
 that has information about things like the operating system, architecture, compiler and
 build configuration. When you call a Conan command setting the ``--profile`` argument,
 Conan will take all the information from the profile and apply it to the packages you want
-to build or instal. If you don't specify that argument it's equivalent to call it with
+to build or install. If you don't specify that argument it's equivalent to call it with
 ``--profile=default``. These two commands will behave exactly the same:
 
 .. code-block:: bash
