@@ -138,6 +138,7 @@ built in *Debug* configuration:
     :caption: Linux, macOS
     :emphasize-lines: 7
     
+    $ cd cmake-build-release
     $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
     $ cmake --build .
     $ ./compressor
