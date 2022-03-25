@@ -22,7 +22,7 @@ Please, first clone the sources to recreate this project. You can find them in t
 
 So far, we built a simple CMake project that depended on the **zlib** library and learned
 about ``tool_requires``, a special type or requirements for build-tools like CMake. In
-both cases we did not specify anywhere that we wanted to build the application in
+both cases, we did not specify anywhere that we wanted to build the application in
 *Release* or *Debug* mode, or if we wanted to link against *static* or *shared* libraries.
 That is because Conan, if not instructed otherwise, will use a default configuration
 declared in the 'default profile'. This default profile was created in the first example
