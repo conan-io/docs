@@ -3,3 +3,4 @@ docutils<0.18
 sphinx-sitemap>=2.1.0
 sphinxcontrib-spelling
 sphinx-notfound-page
+jinja2<=3.0.3
