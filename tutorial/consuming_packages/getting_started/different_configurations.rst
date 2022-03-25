@@ -66,7 +66,7 @@ to build or install. If you don't specify that argument it's equivalent to call 
     $ conan install . --build=missing --profile=default
 
 
-You can store different profiles and use them to build for differente setings. For example,
+You can store different profiles and use them to build for different settings. For example,
 to use a ``build_type=Debug``, or adding a ``tool_requires`` to all the packages you build
 with that profile.
 
