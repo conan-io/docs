@@ -30,7 +30,7 @@ when we run the ``conan profile detect`` command. Conan stores this file in the 
 folder, located in the Conan user home. You can check the contents of your default
 profile:
 
-Run the ``conan config`` command and get the location of the Conan user home, then show
+Run the ``conan config home`` command and get the location of the Conan user home, then show
 the contents of the default profile:
 
 .. code-block:: bash
