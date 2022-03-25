@@ -276,7 +276,7 @@ Conan **option**. Please, note the difference between **settings** and **options
   Studio” as a default compiler because that is something defined by the end consumer, and
   unlikely to make sense if they are working in Linux.
 
-* **options** are intended for package specific configuration that can be set to a default
+* **options** are intended for package-specific configuration that can be set to a default
   value in the recipe. For example, one package can define that its default linkage is
   static, and this is the linkage that should be used if consumers don’t specify
   otherwise.
