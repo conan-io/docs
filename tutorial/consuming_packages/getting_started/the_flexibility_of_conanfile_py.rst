@@ -184,9 +184,16 @@ for every platform without adding more changes:
         def layout(self):
             build_type = str(self.settings.build_type)
             compiler = self.settings.get_safe("compiler")
-            
+
+            # We make the assumption that if the compiler is msvc the
+            # CMake generator is multi-config
             if compiler == "msvc":
-                # If the compiler is msvc the CMake generator is multi-config
+                multi = True
+            else:
+                multi = False            
+
+            if multi:
+                # CMake multi-config, just one folder for both builds
                 self.folders.build = "build"
                 self.folders.generators = "build"
             else:
