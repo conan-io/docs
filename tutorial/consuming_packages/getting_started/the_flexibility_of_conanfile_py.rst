@@ -160,7 +160,7 @@ structure we want to follow and also to add some logic using Conan settings and 
 Use the layout() method
 -----------------------
 
-In the previous examples, everytime we executed a `conan install` command we had to use
+In the previous examples, every time we executed a `conan install` command we had to use
 the `--output-folder argument` to define where we wanted to create the files that Conan
 generates. Also, note that we used a different folder when building in Windows or in
 Linux/Macos depending if we were using a multi-config CMake generator or not. You can
