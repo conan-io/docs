@@ -69,7 +69,7 @@ Remember that in the previous examples the *conanfile.txt* had this information:
 
 We will translate that same information to a *conanfile.py*. This file is what is
 typically called a **"Conan recipe"**. It can be used for consuming packages, like in this
-case, and also to create packages. For our current case it will define our requirements
+case, and also to create packages. For our current case, it will define our requirements
 (both libraries and build tools) and logic to modify options and set how we want to
 consume those packages. In the case of using this file to create packages it can define
 (among other things) how to download the package’s source code, how to build the binaries
