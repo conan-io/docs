@@ -3,7 +3,7 @@
 Getting started
 ===============
 
-This section introduces how to create your own Conan packages, explain *conanfile.py* recipes and the commands to build
+This section introduces how to create your own Conan packages, explain *conanfile.py* recipes, and the commands to build
 packages from sources in your computer.
 
 
@@ -12,8 +12,8 @@ packages from sources in your computer.
     This is a **tutorial** section. You are encouraged to execute these commands.
     For this concrete example, you will need **CMake** installed  in your path.
     It is not strictly required by Conan to create packages, you can use
-    other build systems (as VS, Meson, Autotools and even your own) to do that, without any dependency
-    to CMake.
+    other build systems (such as VS, Meson, Autotools, and even your own) to do that, without any dependency
+    on CMake.
 
 
 Using the :command:`conan new` command will create a "Hello World" C++ library example project for us:
@@ -96,17 +96,17 @@ Let's explain this recipe a little bit:
 - The binary configuration is composed by ``settings`` and ``options``. When something changes in the configuration,
   the resulting binary built and packaged will be different:
 
-  - ``settings`` are project wide configuration that cannot be defaulted in recipes, like the OS or the
+  - ``settings`` are project-wide configuration that cannot be defaulted in recipes, like the OS or the
     architecture.
-  - ``options`` are package specific configuration and can be defaulted in recipes, in this case we
+  - ``options`` are package-specific configuration and can be defaulted in recipes, in this case, we
     have the option of creating the package as a shared or static library, being static the default.
 
 - The ``exports_sources`` attribute defines which sources are exported together with the recipe, these
-  sources become part of the package recipe (there are other mechanisms that don't do this, will be explained
-  later.
+  sources become part of the package recipe (others mechanisms don't do this, will be explained
+  later).
 
-- The ``config_options()`` method (together with ``configure()`` one) allows to fine tune the binary configuration
-  model, for example, in Windows there is no ``fPIC`` option, so it can be removed.
+- The ``config_options()`` method (together with ``configure()`` one) allows to fine-tune the binary configuration
+  model, for example, in Windows, there is no ``fPIC`` option, so it can be removed.
 
 - The ``generate()`` method prepares the build of the package from source. In this case, it could be simplified
   to an attribute ``generators = "CMakeToolchain"``, but it is left to show this important method. In this case,
@@ -118,7 +118,7 @@ Let's explain this recipe a little bit:
   project and build it from source.
 
 - The ``package()`` method copies artifacts (headers, libs) from the build folder to the final
-  package folder. It can be done with bare "copy" commands, but in this case it is leveraging the already
+  package folder. It can be done with bare "copy" commands, but in this case, it is leveraging the already
   existing CMake install functionality (if the CMakeLists.txt didn't implement it, it is easy to write ``self.copy()``
   commands in this ``package()`` method.
 
@@ -129,14 +129,14 @@ Let's explain this recipe a little bit:
   it is important to define this, as Conan packages can be consumed by any other build system, not only CMake.
 
 
-The contents of the ``test_package`` folder is not critical now for understanding how packages are created. The important
+The content of the ``test_package`` folder is not critical now for understanding how packages are created. The important
 bits are:
 
 - ``test_package`` folder is different from unit or integration tests. These tests are "package" tests, and validate that the package is properly
-  created, and that the package consumers will be able to link against it and reuse it.
-- It is a small Conan project itself, it contains its own ``conanfile.py``, and its source code including build scripts, that depends on
-  the package being created, and builds and execute a small application that requires the library in the package.
-- It doesn't belong to the package. It only exist in the source repository, not in the package.
+  created and that the package consumers will be able to link against it and reuse it.
+- It is a small Conan project itself, it contains its ``conanfile.py``, and its source code including build scripts, that depends on
+  the package being created, and builds and executes a small application that requires the library in the package.
+- It doesn't belong in the package. It only exists in the source repository, not in the package.
 
 
 Let's build the package from sources with the current default configuration, and then let the ``test_package`` folder test the package:

@@ -6,7 +6,7 @@ Using build tools as Conan packages
 .. important::
 
     In this example, we will retrieve the CMake Conan package from a Conan repository with
-    packages compatible for Conan 2.0. To run this example succesfully you should add this
+    packages compatible with Conan 2.0. To run this example successfully you should add this
     remote to your Conan configuration (if did not already do it) doing:
     ``conan remote add conanv2 https://conanv2beta.jfrog.io/artifactory/api/conan/conan --index 0``
 
@@ -15,8 +15,8 @@ the **Zlib** library. Conan used the CMake version found in the system path to b
 example. But, what happens if you don’t have CMake installed in your build environment or
 want to build your project with a specific CMake version different from the one you have
 already installed system-wide? In this case, you can declare this dependency in Conan
-using a type of requirement named ``tool_requires``. Let’s see an example on how to add a
-``tool_requires`` to our project, and using a different CMake version to build it.
+using a type of requirement named ``tool_requires``. Let’s see an example of how to add a
+``tool_requires`` to our project, and use a different CMake version to build it.
 
 Please, first clone the sources to recreate this project. You can find them in the
 `examples2.0 repository <https://github.com/conan-io/examples2>`_ in GitHub:
@@ -24,7 +24,7 @@ Please, first clone the sources to recreate this project. You can find them in t
 .. code-block:: bash
 
     $ git clone https://github.com/conan-io/examples2.git
-    $ cd tutorial/consuming_packages/getting_started/tool_requires
+    $ cd examples2/tutorial/consuming_packages/getting_started/tool_requires
 
 The structure of the project is the same as the one of the previous example:
 
@@ -134,7 +134,7 @@ file called ``conanbuild.sh/bat``. This is the result of automatically invoking 
 we can use to inject to our environment the location of CMake v3.19.8.
 
 Activate the virtual environment, and run ``cmake --version`` to check that you
-have the installed the new CMake version in the path.
+have installed the new CMake version in the path.
 
 .. code-block:: bash
     :caption: Windows
@@ -159,8 +159,8 @@ Run ``cmake`` and check the version:
     ...
 
 As you can see, after activating the environment, the CMake v3.19.8 binary folder was
-added to the path and is the current active version now. Now you can build your project as
-you prevoiusly did, but this time Conan will use CMake 3.19.8 to build it:
+added to the path and is the currently active version now. Now you can build your project as
+you previously did, but this time Conan will use CMake 3.19.8 to build it:
 
 .. code-block:: bash
     :caption: Windows
