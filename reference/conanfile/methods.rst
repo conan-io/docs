@@ -1455,6 +1455,7 @@ multiple recipes.
             tc.generate()
             # Or provide your own custom logic
 
+.. _conanfile_layout:
 
 .. _layout_method_reference:
 
