@@ -29,7 +29,7 @@ In the previous examples, we declared our dependencies (*Zlib* and *CMake*) in a
 
 Using a *conanfile.txt* to build your projects using Conan it's enough for simple cases,
 but if you need more flexibility you should use a *conanfile.py* file where you can use
-Python code to make things such as adding requirements dinamically, changing options
+Python code to make things such as adding requirements dynamically, changing options
 depending on other options or setting options for your requirements. Let's see an example
 on how to migrate to a *conanfile.py* and use some of those features.
 
