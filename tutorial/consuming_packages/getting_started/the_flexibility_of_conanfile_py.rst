@@ -6,7 +6,7 @@ Understanding the flexibility of using conanfile.py vs conanfile.txt
 .. important::
 
     In this example, we will retrieve Conan packages from a Conan repository with
-    packages compatible for Conan 2.0. To run this example succesfully you should add this
+    packages compatible with Conan 2.0. To run this example successfully you should add this
     remote to your Conan configuration (if did not already do it) doing:
     ``conan remote add conanv2 https://conanv2beta.jfrog.io/artifactory/api/conan/conan --index 0``
 
