@@ -103,7 +103,7 @@ class. This class has different class attributes and methods:
   **package ID** for Conan packages. We will explain how Conan uses this value to manage
   binary compatibility later.
 * **generators** this class attribute specifies which Conan generators will be run when we
-  call to the ``conan install`` command. In this case, we added **CMakeToolchain** and
+  call the ``conan install`` command. In this case, we added **CMakeToolchain** and
   **CMakeDeps** as in the *conanfile.txt*.
 * **requirements()** in this method we can use the ``self.requires()`` and
   ``self.tool_requires()`` methods to declare all our dependencies (libraries and build
