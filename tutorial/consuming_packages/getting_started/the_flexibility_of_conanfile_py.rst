@@ -73,7 +73,7 @@ case, and also to create packages. For our current case, it will define our requ
 (both libraries and build tools) and logic to modify options and set how we want to
 consume those packages. In the case of using this file to create packages, it can define
 (among other things) how to download the package’s source code, how to build the binaries
-from those sources, how to package the binaries and information for future consumers on
+from those sources, how to package the binaries, and information for future consumers on
 how to consume the package. We will explain how to use Conan recipes to create
 packages in the "Creating Packages" section later.
 
