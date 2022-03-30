@@ -112,6 +112,34 @@ Settings
            pass
 
 
+Options
+-------
+
+The definition of the ``default_options`` attribute has changed when referring to a dependency. It is related to the
+:ref:`unified patterns in the command line<conan_v2_unified_arguments>`.
+
+
+.. code-block:: python
+   :caption: **From:**
+
+    from conans import ConanFile
+
+    class Pkg(Conanfile):
+        default_options = {"pkg:some_option": "value"}
+
+
+.. code-block:: python
+   :caption: **To:**
+
+    from conan import ConanFile
+
+    class Pkg(Conanfile):
+        # "pkg/*:some_option" or ""pkg/1.0:some_option" or "pkg*:some_option" would be valid
+        default_options = {"pkg/*:some_option": "value"}
+
+
+
+
 The layout() method
 -------------------
 
@@ -129,8 +157,8 @@ If your recipe is using CMake, you might want to use the ``cmake_layout(self)``:
 
     class Pkg(Conanfile):
 
-          def layout(self):
-              cmake_layout(self)
+        def layout(self):
+            cmake_layout(self)
 
 A typical anti-pattern in the recipes that can be solved with a ``layout()`` declaration would be:
 
