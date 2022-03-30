@@ -248,11 +248,24 @@ The ``Xcode`` helper can be used like:
             xcodebuild = XcodeBuild(self)
             xcodebuild.build("app.xcodeproj")
 
+Xcode.build() method
+++++++++++++++++++++
+
+.. code:: python
+
+    def build(self, xcodeproj, target=None):
+
+- ``xcodeproj``: the *xcodeproj* file to build.
+- ``target``: the target to build, in case this argument is passed to the ``build()``
+  method it will add the ``-target`` argument to the build system call. If not passed, it
+  will build all the targets passing the ``-alltargets`` argument instead.
+
+
 The ``Xcode.build()`` method internally implements a call to ``xcodebuild`` like:
 
 .. code:: bash
 
-    $ xcodebuild -project app.xcodeproj -configuration <configuration> -arch <architecture> <sdk> <verbosity>
+    $ xcodebuild -project app.xcodeproj -configuration <configuration> -arch <architecture> <sdk> <verbosity> -target <target>/-alltargets
 
 Where:
 
