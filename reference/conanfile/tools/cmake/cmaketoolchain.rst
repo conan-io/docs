@@ -274,10 +274,12 @@ The following predefined blocks are available, and added in this order:
 - ``user_toolchain``: Allows to include user toolchains from the ``conan_toolchain.cmake`` file.
   If the configuration ``tools.cmake.cmaketoolchain:user_toolchain=["xxxx", "yyyy"]`` is defined, its values will be ``include(xxx)\ninclude(yyyy)`` as the
   first lines in ``conan_toolchain.cmake``.
-- ``generic_system``: Defines ``CMAKE_GENERATOR_PLATFORM``, ``CMAKE_GENERATOR_TOOLSET``, ``CMAKE_C_COMPILER``, ``CMAKE_CXX_COMPILER`` and ``CMAKE_BUILD_TYPE``
+- ``generic_system``: Defines ``CMAKE_SYSTEM_NAME``, ``CMAKE_SYSTEM_VERSION``, ``CMAKE_SYSTEM_PROCESSOR``,
+  ``CMAKE_GENERATOR_PLATFORM``, ``CMAKE_GENERATOR_TOOLSET``, ``CMAKE_C_COMPILER``,
+  ``CMAKE_CXX_COMPILER`` and ``CMAKE_BUILD_TYPE``
 - ``android_system``: Defines ``ANDROID_PLATFORM``, ``ANDROID_STL``, ``ANDROID_ABI`` and includes ``CMAKE_ANDROID_NDK/build/cmake/android.toolchain.cmake``
   where ``CMAKE_ANDROID_NDK`` comes defined in ``tools.android:ndk_path`` configuration value.
-- ``apple_system``: Defines ``CMAKE_SYSTEM_NAME``, ``CMAKE_SYSTEM_VERSION``, ``CMAKE_OSX_ARCHITECTURES``, ``CMAKE_OSX_SYSROOT`` for Apple systems.
+- ``apple_system``: Defines ``CMAKE_OSX_ARCHITECTURES``, ``CMAKE_OSX_SYSROOT`` for Apple systems.
 - ``fpic``: Defines the ``CMAKE_POSITION_INDEPENDENT_CODE`` when there is a ``options.fPIC``
 - ``arch_flags``: Defines C/C++ flags like ``-m32, -m64`` when necessary.
 - ``libcxx``: Defines ``-stdlib=libc++`` flag when necessary as well as ``_GLIBCXX_USE_CXX11_ABI``.
