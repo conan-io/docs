@@ -261,6 +261,23 @@ For single-configuration build systems:
     $ cmake .. -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
     $ cmake --build .  # or just "make"
 
+conf
++++++
+
+``CMakeToolchain`` is affected by these :ref:`[conf]<global_conf>` variables:
+
+- ``tools.cmake.cmaketoolchain:toolchain_file`` user toolchain file to replace the ``conan_toolchain.cmake`` one.
+- ``tools.cmake.cmaketoolchain:user_toolchain`` list of user toolchains to be included from the ``conan_toolchain.cmake`` file.
+- ``tools.android:ndk_path`` value for ``CMAKE_ANDROID_NDK``.
+- ``tools.cmake.cmaketoolchain:system_name`` value for ``CMAKE_SYSTEM_NAME``.
+- ``tools.cmake.cmaketoolchain:system_version`` value for ``CMAKE_SYSTEM_VERSION``.
+- ``tools.cmake.cmaketoolchain:system_processor`` value for ``CMAKE_SYSTEM_PROCESSOR``.
+- ``tools.build:cxxflags`` list of extra C++ flags that will be used by ``CONAN_CXX_FLAGS`` (appended to ``CMAKE_CXX_FLAGS_INIT``).
+- ``tools.build:cflags`` list of extra of pure C flags that will be used by ``CONAN_C_FLAGS`` (appended to ``CMAKE_C_FLAGS_INIT``).
+- ``tools.build:sharedlinkflags`` list of extra linker flags that will be used by ``CONAN_SHARED_LINKER_FLAGS`` (appended to ``CMAKE_SHARED_LINKER_FLAGS_INIT``).
+- ``tools.build:exelinkflags`` list of extra linker flags that will be used by by ``CONAN_EXE_LINKER_FLAGS`` (appended to ``CMAKE_EXE_LINKER_FLAGS_INIT``).
+- ``tools.build:defines`` list of preprocessor definitions that will be used by ``add_definitions()``.
+
 
 Extending and customizing CMakeToolchain
 ++++++++++++++++++++++++++++++++++++++++
