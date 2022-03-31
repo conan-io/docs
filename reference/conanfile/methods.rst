@@ -1380,6 +1380,8 @@ The current folder (``os.getcwd()``) and the ``self.export_sources_folder`` can 
             content = load(os.path.join(os.getcwd(), "data.txt"))
             save(os.path.join(self.export_sources_folder, "myfile.txt"), content)
 
+Note, if the recipe defines the ``layout()`` method and specifies a ``self.folders.source = "src"`` it won't change the
+current folder in the ``export_sources`` method. The current dir will be the base source folder (``self.base_source_folder``).
 
 The ``self.copy`` support ``src`` and ``dst`` subfolder arguments. The ``src`` is relative to the
 current folder (the one containing the *conanfile.py*). The ``dst`` is relative to the cache
