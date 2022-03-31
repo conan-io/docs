@@ -206,7 +206,7 @@ Those files are:
 - *conantoolchain.xcconfig*: aggregates all the *conantoolchain_<config>_<arch>.xcconfig*
   files for the different installed configurations.
 - *conan_global_flags.xcconfig*: this file will only be generated in case any
-  configuration variable related to compiler or linker flags are set. Check :ref:`the
+  configuration variables related to compiler or linker flags are set. Check :ref:`the
   configuration section<xcodetoolchain_conf>` below for more details.
 
 
