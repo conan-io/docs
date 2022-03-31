@@ -205,7 +205,7 @@ Those files are:
   conditional logic depending on the build configuration, architecture and sdk set.
 - *conantoolchain.xcconfig*: aggregates all the *conantoolchain_<config>_<arch>.xcconfig*
   files for the different installed configurations.
-- *conan_global_flags.xcconfig*: this file will only be generated in case any
+- *conan_global_flags.xcconfig*: this file will only be generated in case of any
   configuration variables related to compiler or linker flags are set. Check :ref:`the
   configuration section<xcodetoolchain_conf>` below for more details.
 
