@@ -174,3 +174,22 @@ Where:
 * ``$TOOLCHAIN``: ``[NDK_PATH]/toolchains/llvm/prebuilt/[OS_BUILD]-x86_64/bin``.
 * ``$TARGET``: target triple, e.g., for ``armv8`` will be ``aarch64-linux-android``.
 * ``$API``: Android API version.
+
+Besides that, you'll always be able to change any of these variables before being applied thanks
+to the ``MesonToolchain`` class interface. For instance:
+
+.. code:: python
+
+    from conan import ConanFile
+    from conan.tools.meson import MesonToolchain
+
+    class App(ConanFile):
+        settings = "os", "arch", "compiler", "build_type"
+        requires = "hello/0.1"
+        options = {"shared": [True, False]}
+        default_options = {"shared": False}
+
+        def generate(self):
+            tc = MesonToolchain(self)
+            tc.cpp = "/path/to/other/compiler"
+            tc.generate()
