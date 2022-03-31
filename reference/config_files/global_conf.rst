@@ -59,7 +59,7 @@ To list all possible configurations available, run :command:`conan config list`.
     core.net.http:client_cert: Path or tuple of files containing a client cert (and key)
     core.net.http:clean_system_proxy: If defined, the proxies system env-vars will be discarded
     core.gzip:compresslevel: The Gzip compresion level for Conan artifacts (default=9)
-    tools.android:ndk_path: Argument for the CMAKE_ANDROID_NDK
+    tools.android:ndk_path: Argument for the ANDROID_NDK_PATH
     tools.build:skip_test: Do not execute CMake.test() and Meson.test() when enabled
     tools.build:jobs: Default compile jobs number -jX Ninja, Make, /MP VS (default: max CPUs)
     tools.cmake.cmaketoolchain:generator: User defined CMake generator to use instead of default
