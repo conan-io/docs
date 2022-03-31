@@ -412,10 +412,10 @@ If ``user_toolchain`` is not defined and Conan detects it is cross-building, bec
 and host profiles contain different OS or architecture, it will try to define the following
 variables:
 
-- ``CMAKE_SYSTEM_NAME``: ``tools.cmake.cmaketoolchain:system_name`` configuration if defined,
-  otherwise, it will try to autodetect it. This block will consider cross-building if not Apple
-  or Android systems (that is managed by other blocks), and not 64bits to 32bits builds in x86_64, sparc and
-  ppc systems.
+- ``CMAKE_SYSTEM_NAME``: ``tools.cmake.cmaketoolchain:system_name`` configuration if
+  defined, otherwise, it will try to autodetect it. This block will consider
+  cross-building if Android systems (that is managed by other blocks), and not 64bits to
+  32bits builds in x86_64, sparc and ppc systems.
 - ``CMAKE_SYSTEM_VERSION``: ``tools.cmake.cmaketoolchain:system_version`` conf if defined, otherwise
   ``os.version`` subsetting (host) when defined
 - ``CMAKE_SYSTEM_PROCESSOR``: ``tools.cmake.cmaketoolchain:system_processor`` conf if defined, otherwise
