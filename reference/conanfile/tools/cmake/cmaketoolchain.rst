@@ -272,10 +272,10 @@ conf
 - ``tools.cmake.cmaketoolchain:system_name`` value for ``CMAKE_SYSTEM_NAME``.
 - ``tools.cmake.cmaketoolchain:system_version`` value for ``CMAKE_SYSTEM_VERSION``.
 - ``tools.cmake.cmaketoolchain:system_processor`` value for ``CMAKE_SYSTEM_PROCESSOR``.
-- ``tools.build:cxxflags`` list of extra C++ flags that will be used by ``CONAN_CXX_FLAGS`` (appended to ``CMAKE_CXX_FLAGS_INIT``).
-- ``tools.build:cflags`` list of extra of pure C flags that will be used by ``CONAN_C_FLAGS`` (appended to ``CMAKE_C_FLAGS_INIT``).
-- ``tools.build:sharedlinkflags`` list of extra linker flags that will be used by ``CONAN_SHARED_LINKER_FLAGS`` (appended to ``CMAKE_SHARED_LINKER_FLAGS_INIT``).
-- ``tools.build:exelinkflags`` list of extra linker flags that will be used by by ``CONAN_EXE_LINKER_FLAGS`` (appended to ``CMAKE_EXE_LINKER_FLAGS_INIT``).
+- ``tools.build:cxxflags`` list of extra C++ flags that will be appended to ``CMAKE_CXX_FLAGS_INIT``.
+- ``tools.build:cflags`` list of extra of pure C flags that will be appended to ``CMAKE_C_FLAGS_INIT``.
+- ``tools.build:sharedlinkflags`` list of extra linker flags that will be appended to ``CMAKE_SHARED_LINKER_FLAGS_INIT``.
+- ``tools.build:exelinkflags`` list of extra linker flags that will be appended to ``CMAKE_EXE_LINKER_FLAGS_INIT``.
 - ``tools.build:defines`` list of preprocessor definitions that will be used by ``add_definitions()``.
 
 
