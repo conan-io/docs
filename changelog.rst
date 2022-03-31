@@ -18,8 +18,52 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-    Conan 1.46 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
+    Conan 1.47 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
     a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
+
+1.47.0 (31-Mar-2022)
+--------------------
+
+- Feature: Renamed `tools.build:cppflags` to `tools.build:defines` and removed `tools.build:ldflags` (now it's the union between `tools.build:sharedlinkflags` and `tools.build:exelinkflags` in mostly all the cases). `#10928 <https://github.com/conan-io/conan/pull/10928>`_ . Docs `here <https://github.com/conan-io/docs/pull/2484>`__
+- Feature: Adding cross-compilation for Android in MesonToolchain. `#10908 <https://github.com/conan-io/conan/pull/10908>`_ . Docs `here <https://github.com/conan-io/docs/pull/2480>`__
+- Feature: Add extra flags via [conf] into XcodeToolchain. `#10906 <https://github.com/conan-io/conan/pull/10906>`_ . Docs `here <https://github.com/conan-io/docs/pull/2471>`__
+- Feature: Preliminar support for CMakePresets.json. `#10903 <https://github.com/conan-io/conan/pull/10903>`_ . Docs `here <https://github.com/conan-io/docs/pull/2476>`__
+- Feature: Added `wrap_mode=nofallback` project-option into `MesonToolchain` as default value. `#10884 <https://github.com/conan-io/conan/pull/10884>`_
+- Feature: Added basic `rmdir` tool at `conan.tools.files`. `#10874 <https://github.com/conan-io/conan/pull/10874>`_ . Docs `here <https://github.com/conan-io/docs/pull/2470>`__
+- Feature: Backport of 2.0 compatibility() recipe method. `#10868 <https://github.com/conan-io/conan/pull/10868>`_
+- Feature: Add detection in meson toolchain for cross conditions and requirement of needs_exe_wrapper. Users may specify the exe wrapper in their meson.build now. `#10846 <https://github.com/conan-io/conan/pull/10846>`_
+- Feature: Allow `tested_reference_str` to be `None`. `#10834 <https://github.com/conan-io/conan/pull/10834>`_
+- Feature: New templates for the :command:`conan new` command with bazel examples: `bazel_exe` and `bazel_lib`. `#10812 <https://github.com/conan-io/conan/pull/10812>`_ . Docs `here <https://github.com/conan-io/docs/pull/2474>`__
+- Feature: Add some support for ``msvc`` compiler older versions. `#10808 <https://github.com/conan-io/conan/pull/10808>`_
+- Feature: Added mechanism to inject extra flags via `[conf]` into several toolchains like `AutotoolsToolchain`, `MesonToolchain` and `CMakeToolchain`. `#10800 <https://github.com/conan-io/conan/pull/10800>`_ . Docs `here <https://github.com/conan-io/docs/pull/2484>`__
+- Feature: Support selecting the target to build for XcodeBuild helper. `#10799 <https://github.com/conan-io/conan/pull/10799>`_ . Docs `here <https://github.com/conan-io/docs/pull/2473>`__
+- Feature:  Support for Xcode 13.3, iOS 15.4, watchOS 8.5 and tvOS 15.4. `#10797 <https://github.com/conan-io/conan/pull/10797>`_
+- Feature: New modern "conan new --template=msbuild_lib|exe" for modern MSBuild VS integration. `#10760 <https://github.com/conan-io/conan/pull/10760>`_ . Docs `here <https://github.com/conan-io/docs/pull/2483>`__
+- Feature: Added a checker for Conan 2.x deprecated `from conans` imports in `pylint_plugin`. `#10746 <https://github.com/conan-io/conan/pull/10746>`_ . Docs `here <https://github.com/conan-io/docs/pull/2475>`__
+- Feature: New `conan.tool.microsoft.unix_path` to convert paths to any subsystem when using `conanfile.win_bash`. `#10743 <https://github.com/conan-io/conan/pull/10743>`_ . Docs `here <https://github.com/conan-io/docs/pull/2479>`__
+- Feature: New ``from conan.errors import XXX`` new namespace to be ready for 2.0. `#10734 <https://github.com/conan-io/conan/pull/10734>`_ . Docs `here <https://github.com/conan-io/docs/pull/2482>`__
+- Feature: Allow specifying `default_options = {"pkg/*:option": "value"}` or `default_options = {"pkg*:option": "value"}`   instead of `default_options = {"pkg:option": "value"}` to make compatible recipes with 2.0. `#10731 <https://github.com/conan-io/conan/pull/10731>`_ . Docs `here <https://github.com/conan-io/docs/pull/2468>`__
+- Feature: Add Clang 15 to default settings. `#10558 <https://github.com/conan-io/conan/pull/10558>`_
+- Feature: When the layout is declared, the cwd() in the source() method will follow the declared `self.folders.source` but the `exports_sources` will still be copied to the base source folder. `#10091 <https://github.com/conan-io/conan/pull/10091>`_ . Docs `here <https://github.com/conan-io/docs/pull/2486>`__
+- Fix: Add support for ``clang`` to ``msvc_runtime_flag()``. It requires defining ``compiler.runtime = static/dynamic`` definition, same as modern ``msvc`` compiler setting. `#10898 <https://github.com/conan-io/conan/pull/10898>`_ . Docs `here <https://github.com/conan-io/docs/pull/2485>`__
+- Fix: Generate the correct `--target` triple when building for Apple catalyst. `#10880 <https://github.com/conan-io/conan/pull/10880>`_
+- Fix: The "conan.tools.files.patch" will (by default) look for the patch files in the `self.base_source_folder` instead of `self.source_folder` but will apply them with `self.source_folder` as the base folder. `#10875 <https://github.com/conan-io/conan/pull/10875>`_ . Docs `here <https://github.com/conan-io/docs/pull/2477>`__
+- Fix: Setting `CMAKE_SYSTEM_PROCESSOR` for Apple cross-compiling including M1. `#10856 <https://github.com/conan-io/conan/pull/10856>`_ . Docs `here <https://github.com/conan-io/docs/pull/2472>`__
+- Fix: Do not overwrite values for `CMAKE_SYSTEM_NAME`, `CMAKE_SYSTEM_VERSION` and `CMAKE_SYSTEM_PROCESSOR` set from the [conf] or the user_toolchain. `#10856 <https://github.com/conan-io/conan/pull/10856>`_ . Docs `here <https://github.com/conan-io/docs/pull/2472>`__
+- Fix: Fix architecture translation from Conan syntax to build system in CMakeToolchain. `#10856 <https://github.com/conan-io/conan/pull/10856>`_ . Docs `here <https://github.com/conan-io/docs/pull/2472>`__
+- Fix: Several improvements of the Bazel integration (`Bazel`, `BazelToolchain`, `BazelDeps`), new functional tests in all platforms. `#10812 <https://github.com/conan-io/conan/pull/10812>`_ . Docs `here <https://github.com/conan-io/docs/pull/2474>`__
+- Fix: `Conf.get()` always returns `default` value if internal `conf_value.value` is `None`, i.e., it was unset. `#10800 <https://github.com/conan-io/conan/pull/10800>`_ . Docs `here <https://github.com/conan-io/docs/pull/2484>`__
+- Fix: Set `-DCMAKE_MAKE_PROGRAM` when the generator is for MinGW and the conf `tools.gnu:make_program` is set. `#10770 <https://github.com/conan-io/conan/pull/10770>`_
+- Fix: Remove unused ``clion_layout``. `#10760 <https://github.com/conan-io/conan/pull/10760>`_ . Docs `here <https://github.com/conan-io/docs/pull/2483>`__
+- Fix: AutotoolsToolchain adjust the runtime flag of `msvc` (`MTd`, `MT`, `MDd` or `MD`) to `CFLAGS` and `CXXFLAGS` when using the `msvc` as `settings.compiler`. `#10755 <https://github.com/conan-io/conan/pull/10755>`_ . Docs `here <https://github.com/conan-io/docs/pull/2478>`__
+- Fix: Removed `subsystem_path` from the `conan.tool.microsoft` namespace, superseded by `unix_path`. `#10743 <https://github.com/conan-io/conan/pull/10743>`_ . Docs `here <https://github.com/conan-io/docs/pull/2479>`__
+- Fix: Show an error message at :command:`conan install` if the ``validate()`` method raises ``ConanInvalidConfiguration``. `#10725 <https://github.com/conan-io/conan/pull/10725>`_
+- BugFix: The `find_dependency` called internally in `CMakeDeps` generator to locate transitive dependencies now use the `MODULE/NO_MODULE` following the `cmake_find_mode` property when declared in the dependency. `#10917 <https://github.com/conan-io/conan/pull/10917>`_
+- Bugfix: Fix virtualrunenv wrong ``build`` scope. `#10904 <https://github.com/conan-io/conan/pull/10904>`_
+- BugFix: Make ``self.folders.root`` apply at package ``conan install .`` too. `#10842 <https://github.com/conan-io/conan/pull/10842>`_
+- Bugfix: Fix call to undefined function for markdown generator when components add `system_libs`. `#10783 <https://github.com/conan-io/conan/pull/10783>`_
+- Bugfix: solve ``build_policy=never`` bug when ``conan export-pkg --force`` and there already exists a package in the cache. `#10738 <https://github.com/conan-io/conan/pull/10738>`_
+- Bugfix: Add transitive dependencies to generated Bazel BUILD files. `#10686 <https://github.com/conan-io/conan/pull/10686>`_
 
 1.46.2 (18-Mar-2022)
 --------------------
