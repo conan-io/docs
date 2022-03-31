@@ -269,9 +269,9 @@ conf
 - ``tools.cmake.cmaketoolchain:toolchain_file`` user toolchain file to replace the ``conan_toolchain.cmake`` one.
 - ``tools.cmake.cmaketoolchain:user_toolchain`` list of user toolchains to be included from the ``conan_toolchain.cmake`` file.
 - ``tools.android:ndk_path`` value for ``ANDROID_NDK_PATH``.
-- ``tools.cmake.cmaketoolchain:system_name`` value for ``CMAKE_SYSTEM_NAME``.
-- ``tools.cmake.cmaketoolchain:system_version`` value for ``CMAKE_SYSTEM_VERSION``.
-- ``tools.cmake.cmaketoolchain:system_processor`` value for ``CMAKE_SYSTEM_PROCESSOR``.
+- ``tools.cmake.cmaketoolchain:system_name`` is not necessary in most cases and is only used to force-define ``CMAKE_SYSTEM_NAME``.
+- ``tools.cmake.cmaketoolchain:system_version`` is not necessary in most cases and is only used to force-define ``CMAKE_SYSTEM_VERSION``.
+- ``tools.cmake.cmaketoolchain:system_processor`` is not necessary in most cases and is only used to force-define ``CMAKE_SYSTEM_PROCESSOR``.
 - ``tools.build:cxxflags`` list of extra C++ flags that will be appended to ``CMAKE_CXX_FLAGS_INIT``.
 - ``tools.build:cflags`` list of extra of pure C flags that will be appended to ``CMAKE_C_FLAGS_INIT``.
 - ``tools.build:sharedlinkflags`` list of extra linker flags that will be appended to ``CMAKE_SHARED_LINKER_FLAGS_INIT``.
