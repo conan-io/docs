@@ -241,7 +241,7 @@ This toolchain is also affected by these :ref:`[conf]<global_conf>` variables:
 - ``tools.build:exelinkflags`` list of flags that will be used by the linker when creating an executable.
 - ``tools.build:defines`` list of preprocessor definitions.
 
-If you set any of this variables, the toolchain will use them to generate the
+If you set any of these variables, the toolchain will use them to generate the
 ``conan_global_flags.xcconfig`` file that will be included from the ``conan_config.xcconfig``
 file.
 
