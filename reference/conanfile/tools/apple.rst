@@ -192,7 +192,8 @@ Will create these files:
     ├── conan_config.xcconfig
     ├── conantoolchain_release_x86_64.xcconfig
     ├── conantoolchain_debug_x86_64.xcconfig
-    └── conantoolchain.xcconfig
+    ├── conantoolchain.xcconfig
+    └── conan_global_flags.xcconfig
 
 Those files are:
 
@@ -204,6 +205,9 @@ Those files are:
   conditional logic depending on the build configuration, architecture and sdk set.
 - *conantoolchain.xcconfig*: aggregates all the *conantoolchain_<config>_<arch>.xcconfig*
   files for the different installed configurations.
+- *conan_global_flags.xcconfig*: this file will only be generated in case of any
+  configuration variables related to compiler or linker flags are set. Check :ref:`the
+  configuration section<xcodetoolchain_conf>` below for more details.
 
 
 Every invocation to ``conan install`` with different configuration will create a new
@@ -224,6 +228,22 @@ The XcodeToolchain files can declare the following Xcode build settings based on
 One of the advantages of using toolchains is that they can help to achieve the exact same build
 with local development flows, than when the package is created in the cache.
 
+.. _xcodetoolchain_conf:
+
+conf
+++++
+
+This toolchain is also affected by these :ref:`[conf]<global_conf>` variables:
+
+- ``tools.build:cxxflags`` list of C++ flags.
+- ``tools.build:cflags`` list of pure C flags.
+- ``tools.build:sharedlinkflags`` list of flags that will be used by the linker when creating a shared library.
+- ``tools.build:exelinkflags`` list of flags that will be used by the linker when creating an executable.
+- ``tools.build:defines`` list of preprocessor definitions.
+
+If you set any of these variables, the toolchain will use them to generate the
+``conan_global_flags.xcconfig`` file that will be included from the ``conan_config.xcconfig``
+file.
 
 XcodeBuild
 ----------
@@ -248,11 +268,24 @@ The ``Xcode`` helper can be used like:
             xcodebuild = XcodeBuild(self)
             xcodebuild.build("app.xcodeproj")
 
+Xcode.build() method
+++++++++++++++++++++
+
+.. code:: python
+
+    def build(self, xcodeproj, target=None):
+
+- ``xcodeproj``: the *xcodeproj* file to build.
+- ``target``: the target to build, in case this argument is passed to the ``build()``
+  method it will add the ``-target`` argument to the build system call. If not passed, it
+  will build all the targets passing the ``-alltargets`` argument instead.
+
+
 The ``Xcode.build()`` method internally implements a call to ``xcodebuild`` like:
 
 .. code:: bash
 
-    $ xcodebuild -project app.xcodeproj -configuration <configuration> -arch <architecture> <sdk> <verbosity>
+    $ xcodebuild -project app.xcodeproj -configuration <configuration> -arch <architecture> <sdk> <verbosity> -target <target>/-alltargets
 
 Where:
 

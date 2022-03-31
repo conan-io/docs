@@ -718,6 +718,36 @@ Exclude patterns are also possible, with the ``!`` prefix:
 
     exports_sources = "include*", "src*", "!src/build/*"
 
+
+Note, if the recipe defines the ``layout()`` method and specifies a ``self.folders.source = "src"`` it won't affect
+where the files (from the ``exports_sources``) are copied. They will be copied to the base source folder. So, if you
+want to replace some file that got into the ``source()`` method, you need to explicitly copy it from the parent folder
+or even better, from ``self.base_source_folder``.
+
+
+.. code-block:: python
+
+   import os, shutil
+   from conan import ConanFile
+   from conan.tools.files import save, load
+
+   class Pkg(ConanFile):
+      ...
+      exports_sources = "CMakeLists.txt"
+
+      def layout(self):
+          self.folders.source = "src"
+          self.folders.build = "build"
+
+      def source(self):
+          # emulate a download from web site
+          save(self, "CMakeLists.txt", "MISTAKE: Very old CMakeLists to be replaced")
+          # Now I fix it with one of the exported files
+          shutil.copy("../CMakeLists.txt", ".")
+          shutil.copy(os.path.join(self.base_source_folder, "CMakeLists.txt", "."))
+
+
+
 generators
 ----------
 
@@ -1653,6 +1683,75 @@ To declare that a recipe provides the functionality of several different recipes
 If the attribute is omitted, the value of the attribute is assumed to be equal to the current package name. Thus, it's redundant for
 ``libjpeg`` recipe to declare that it provides ``libjpeg``, it's already implicitly assumed by Conan.
 
+conf
+----
+
+This is an **experimental** feature introduced in Conan 1.47.
+
+In the ``self.conf`` attribute we can find all the conf entries declared in the :ref:`[conf] section of the profiles<profiles_tools_conf>`
+in addition of the declared :ref:`self.conf_info<conf_in_recipes>` entries from the first level tool requirements. The profile entries have priority.
+
+This is an example of a recipe for a tool called ``my_android_ndk`` with the following recipe:
+
+.. code-block:: python
+
+    from conan import ConanFile
+
+    class MyAndroidNDKRecipe(ConanFile):
+
+      name="my_android_ndk"
+      version="1.0"
+
+      def package_info(self):
+          self.conf_info.define("tools.android:ndk_path", "bar")
+
+If we require that tool:
+
+.. code-block:: python
+
+    from conan import ConanFile
+
+    class MyConsumer(ConanFile):
+
+      tool_requires = "my_android_ndk/1.0"
+
+      def generate(self):
+          self.output.info("NDK host: %s" % self.conf.get("tools.android:ndk_path"))
+          self.output.info("Custom var1: %s" % self.conf.get("user.custom.var1"))
+
+
+And we install it applying this profile:
+
+.. code-block:: text
+   :caption: myprofile
+
+   include(default)
+   [conf]
+   tools.android:ndk_path=foo
+   user.custom.var1=hello
+
+.. code-block:: shell
+
+   $ conan install . --profile myprofile
+   ...
+   conanfile.py: Applying build-requirement: my_android_ndk/1.0
+   conanfile.py: Generator txt created conanbuildinfo.txt
+   conanfile.py: Calling generate()
+   conanfile.py: NDK host: foo
+   conanfile.py: Custom var1: hello
+   ...
+
+Without the profile:
+
+.. code-block:: shell
+
+   $ conan install .
+   ...
+   conanfile.py: Applying build-requirement: my_android_ndk/1.0
+   conanfile.py: Generator txt created conanbuildinfo.txt
+   conanfile.py: Calling generate()
+   conanfile.py: NDK host: bar
+   conanfile.py: Custom var1: None
 
 
 win_bash

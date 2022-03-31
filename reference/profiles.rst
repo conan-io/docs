@@ -140,6 +140,8 @@ This is a special case because the consumer conanfile might not declare a `name`
         [env]
         PATH=[/some/path/to/my/tool]
 
+.. _profiles_tools_conf:
+
 Tools configurations
 --------------------
 

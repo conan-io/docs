@@ -371,9 +371,10 @@ conan.tools.microsoft.msvc_runtime_flag()
 
     def msvc_runtime_flag(conanfile):
 
-If the current compiler is ``Visual Studio``, ``msvc`` or ``intel-cc``, then detects the runtime type and returns between
-``MD``, ``MT``, ``MDd`` or ``MTd``, otherwise, returns ``""`` (empty string).
-When the runtime type is ``static``, it returns ``MT``, otherwise, ``MD``. The suffix ``d`` is added when running on Debug mode.
+If the current compiler is ``Visual Studio``, ``msvc``, ``clang `` or ``intel-cc``, then
+detects the runtime type and returns between ``MD``, ``MT``, ``MDd`` or ``MTd``,
+otherwise, returns ``""`` (empty string). When the runtime type is ``static``, it returns
+``MT``, otherwise, ``MD``. The suffix ``d`` is added when running on Debug mode.
 
 Parameters:
 
@@ -386,3 +387,46 @@ Parameters:
     def validate(self):
          if "MT" in msvc_runtime_flag(self):
             self.output.warning("Runtime MT/MTd is not well tested.")
+
+
+
+conan.tools.microsoft.unix_path()
+---------------------------------
+
+.. code-block:: python
+
+    def unix_path(conanfile, path):
+
+Transforms the specified path into the correct one according to the subsystem.
+To determine the subsystem:
+
+   - The ``settings_build.os`` is checked to verify that we are running on "Windows" otherwise, the path is returned
+     without changes.
+
+   - If ``settings_build.os.subsystem`` is specified (meaning we are running Conan under that subsystem) it will be
+     returned.
+
+   - If ``conanfile.win_bash==True`` (meaning we have to run the commands inside the subsystem), the conf
+     ``tools.microsoft.bash:subsystem`` has to be declared or it will raise an Exception.
+
+   - Otherwise the path is returned without changes.
+
+Parameters:
+
+- **conanfile**: ConanFile instance.
+
+.. code-block:: python
+
+    from conan.tools.microsoft import unix_path
+
+
+
+    def build(self):
+        adjusted_path = unix_path(self, "C:\\path\\to\\stuff")
+
+
+In the example above, ``adjusted_path`` will be:
+    - ``/c/path/to/stuff`` if msys2 or msys
+    - ``/cygdrive/c/path/to/stuff`` if cygwin
+    - ``/mnt/c/path/to/stuff`` if wsl
+    - ``/dev/fs/C/path/to/stuff`` if sfu

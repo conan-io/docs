@@ -64,12 +64,18 @@ translated from the current ``settings``:
   - Definition of the standard library used for C++
   - Deactivation of rpaths in OSX
 
-- *conanbuild.conf*: The toolchain can also generate a ``conanbuild.conf`` file that contains arguments to
-  the command line ``CMake()`` helper used in the recipe ``build()`` method. At the moment it contains only the CMake
-  generator and the CMake toolchain file. The CMake generator will be deduced from the current Conan compiler settings:
+- *CMakePresets.json*: The toolchain also generates a ``CMakePresets.json`` standard file, check the documentation
+  `here <https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html>`_. It is currently using the version "3" of
+  the JSON schema.
+  Conan creates a ``default`` configure preset with the information:
 
-  - For ``settings.compiler="Visual Studio"``, the CMake generator is a direct mapping of ``compiler.version``, as this version represents the IDE version, not the compiler version.
-  - For ``settings.compiler=msvc``, the applied CMake generator will be, by default, the Visual Studio that introduced the specified `settings.compiler.version`. e.g: (``settings.compiler.version = 190`` => ``Visual Studio 14``, ``settings.compiler.version =  191`` => ``Visual Studio 15``, etc). This can be changed, using the ``tools.microsoft.msbuild:vs_version`` [conf] configuration. If it is defined, that Visual Studio version will be used as the CMake generator, and the specific compiler version and toolset will be defined in the ``conan_toolchain.cmake`` file..
+     - The ``generator`` to be used.
+     - The path to the ``conan_toolchain.cmake``
+     - Some cache variables corresponding to the specified settings cannot work if specified in the toolchain.
+
+  This file will be generated at the ``conanfile.generators_folder``, If you want your IDE (Visual Studio, Visual Studio Code, CLion...)
+  to leverage this file you should create a symlink or copy the generated file to the folder containing the ``CMakeLists.txt`` file.
+
 
 - *conanvcvars.bat*: In some cases, the Visual Studio environment needs to be defined correctly for building,
   like when using the Ninja or NMake generators. If necessary, the ``CMakeToolchain`` will generate this script,
@@ -81,18 +87,10 @@ constructor
 
 .. code:: python
 
-    def __init__(self, conanfile, generator=None):
+    def __init__(self, conanfile):
 
 - ``conanfile``: the current recipe object. Always use ``self``.
-- ``namespace``: this argument avoids collisions when you have multiple toolchain calls in the same
-  recipe. By setting this argument, the *conanbuild.conf* file used to pass information to the
-  build helper will be named as: *<namespace>_conanbuild.conf*. The default value is ``None`` meaning that
-  the name of the generated file is *conanbuild.conf*. This namespace must be also set with the same
-  value in the constructor of the :ref:`CMake build helper<conan-cmake-build-helper>` so that it reads the
-  information from the proper file.
 
-Most of the arguments are optional and will be deduced from the current ``settings``, and not
-necessary to define them.
 
 preprocessor_definitions
 ++++++++++++++++++++++++
@@ -263,6 +261,23 @@ For single-configuration build systems:
     $ cmake .. -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
     $ cmake --build .  # or just "make"
 
+conf
++++++
+
+``CMakeToolchain`` is affected by these :ref:`[conf]<global_conf>` variables:
+
+- ``tools.cmake.cmaketoolchain:toolchain_file`` user toolchain file to replace the ``conan_toolchain.cmake`` one.
+- ``tools.cmake.cmaketoolchain:user_toolchain`` list of user toolchains to be included from the ``conan_toolchain.cmake`` file.
+- ``tools.android:ndk_path`` value for ``ANDROID_NDK_PATH``.
+- ``tools.cmake.cmaketoolchain:system_name`` is not necessary in most cases and is only used to force-define ``CMAKE_SYSTEM_NAME``.
+- ``tools.cmake.cmaketoolchain:system_version`` is not necessary in most cases and is only used to force-define ``CMAKE_SYSTEM_VERSION``.
+- ``tools.cmake.cmaketoolchain:system_processor`` is not necessary in most cases and is only used to force-define ``CMAKE_SYSTEM_PROCESSOR``.
+- ``tools.build:cxxflags`` list of extra C++ flags that will be appended to ``CMAKE_CXX_FLAGS_INIT``.
+- ``tools.build:cflags`` list of extra of pure C flags that will be appended to ``CMAKE_C_FLAGS_INIT``.
+- ``tools.build:sharedlinkflags`` list of extra linker flags that will be appended to ``CMAKE_SHARED_LINKER_FLAGS_INIT``.
+- ``tools.build:exelinkflags`` list of extra linker flags that will be appended to ``CMAKE_EXE_LINKER_FLAGS_INIT``.
+- ``tools.build:defines`` list of preprocessor definitions that will be used by ``add_definitions()``.
+
 
 Extending and customizing CMakeToolchain
 ++++++++++++++++++++++++++++++++++++++++
@@ -274,10 +289,12 @@ The following predefined blocks are available, and added in this order:
 - ``user_toolchain``: Allows to include user toolchains from the ``conan_toolchain.cmake`` file.
   If the configuration ``tools.cmake.cmaketoolchain:user_toolchain=["xxxx", "yyyy"]`` is defined, its values will be ``include(xxx)\ninclude(yyyy)`` as the
   first lines in ``conan_toolchain.cmake``.
-- ``generic_system``: Defines ``CMAKE_GENERATOR_PLATFORM``, ``CMAKE_GENERATOR_TOOLSET``, ``CMAKE_C_COMPILER``, ``CMAKE_CXX_COMPILER`` and ``CMAKE_BUILD_TYPE``
-- ``android_system``: Defines ``ANDROID_PLATFORM``, ``ANDROID_STL``, ``ANDROID_ABI`` and includes ``CMAKE_ANDROID_NDK/build/cmake/android.toolchain.cmake``
-  where ``CMAKE_ANDROID_NDK`` comes defined in ``tools.android:ndk_path`` configuration value.
-- ``apple_system``: Defines ``CMAKE_SYSTEM_NAME``, ``CMAKE_SYSTEM_VERSION``, ``CMAKE_OSX_ARCHITECTURES``, ``CMAKE_OSX_SYSROOT`` for Apple systems.
+- ``generic_system``: Defines ``CMAKE_SYSTEM_NAME``, ``CMAKE_SYSTEM_VERSION``, ``CMAKE_SYSTEM_PROCESSOR``,
+  ``CMAKE_GENERATOR_PLATFORM``, ``CMAKE_GENERATOR_TOOLSET``, ``CMAKE_C_COMPILER``,
+  ``CMAKE_CXX_COMPILER`` and ``CMAKE_BUILD_TYPE``
+- ``android_system``: Defines ``ANDROID_PLATFORM``, ``ANDROID_STL``, ``ANDROID_ABI`` and includes ``ANDROID_NDK_PATH/build/cmake/android.toolchain.cmake``
+  where ``ANDROID_NDK_PATH`` comes defined in ``tools.android:ndk_path`` configuration value.
+- ``apple_system``: Defines ``CMAKE_OSX_ARCHITECTURES``, ``CMAKE_OSX_SYSROOT`` for Apple systems.
 - ``fpic``: Defines the ``CMAKE_POSITION_INDEPENDENT_CODE`` when there is a ``options.fPIC``
 - ``arch_flags``: Defines C/C++ flags like ``-m32, -m64`` when necessary.
 - ``libcxx``: Defines ``-stdlib=libc++`` flag when necessary as well as ``_GLIBCXX_USE_CXX11_ABI``.
@@ -410,10 +427,10 @@ If ``user_toolchain`` is not defined and Conan detects it is cross-building, bec
 and host profiles contain different OS or architecture, it will try to define the following
 variables:
 
-- ``CMAKE_SYSTEM_NAME``: ``tools.cmake.cmaketoolchain:system_name`` configuration if defined,
-  otherwise, it will try to autodetect it. This block will consider cross-building if not Apple
-  or Android systems (that is managed by other blocks), and not 64bits to 32bits builds in x86_64, sparc and
-  ppc systems.
+- ``CMAKE_SYSTEM_NAME``: ``tools.cmake.cmaketoolchain:system_name`` configuration if
+  defined, otherwise, it will try to autodetect it. This block will consider
+  cross-building if Android systems (that is managed by other blocks), and not 64bits to
+  32bits builds in x86_64, sparc and ppc systems.
 - ``CMAKE_SYSTEM_VERSION``: ``tools.cmake.cmaketoolchain:system_version`` conf if defined, otherwise
   ``os.version`` subsetting (host) when defined
 - ``CMAKE_SYSTEM_PROCESSOR``: ``tools.cmake.cmaketoolchain:system_processor`` conf if defined, otherwise
