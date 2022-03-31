@@ -152,6 +152,17 @@ values:
         It is **not valid** to change the self.cpp_info  at the ``package_info()`` method.
 
 
+conf
++++++
+
+``AutotoolsToolchain`` is affected by these :ref:`[conf]<global_conf>` variables:
+
+- ``tools.build:cxxflags`` list of extra C++ flags that will be used by ``CXXFLAGS``.
+- ``tools.build:cflags`` list of extra of pure C flags that will be used by ``CFLAGS``.
+- ``tools.build:sharedlinkflags`` list of extra linker flags that will be used by ``LDFLAGS``.
+- ``tools.build:exelinkflags`` list of extra linker flags that will be used by by ``LDFLAGS``.
+- ``tools.build:defines`` list of preprocessor definitions that will be used by ``CPPFLAGS``.
+
 
 Customizing the environment
 +++++++++++++++++++++++++++

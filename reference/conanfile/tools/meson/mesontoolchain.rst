@@ -139,7 +139,7 @@ With the ``MesonToolchain`` it is possible to do:
 conf
 ++++
 
-``MesonToolchain`` is affected by these configuration variables:
+``MesonToolchain`` is affected by these :ref:`[conf]<global_conf>` variables:
 
 - ``tools.meson.mesontoolchain:backend``. the meson `backend
   <https://mesonbuild.com/Configuring-a-build-directory.html>`_ to use. Possible values:
@@ -148,6 +148,13 @@ conf
   of the flag ``-isysroot``.
 - ``tools.android:ndk_path`` argument for NDK path in case of Android cross-compilation. It will be used to get
   some binaries like ``c``, ``cpp`` and ``ar`` used in ``[binaries]`` section from *conan_meson_cross.ini*.
+
+Apart from that, since Conan 1.47, you can inject extra flags thanks to these ones:
+
+- ``tools.build:cxxflags`` list of extra C++ flags that will be used by ``cpp_args``.
+- ``tools.build:cflags`` list of extra of pure C flags that will be used by ``c_args``.
+- ``tools.build:sharedlinkflags`` list of extra linker flags that will be used by ``c_link_args`` and ``cpp_link_args``.
+- ``tools.build:exelinkflags`` list of extra linker flags that will be used by by ``c_link_args`` and ``cpp_link_args``.
 
 
 Cross-building for Apple and Android
@@ -165,9 +172,9 @@ into Meson ``c_args``, ``c_link_args``, ``cpp_args`` and ``cpp_link_args`` built
 
 It'll initialize the ``c``, ``cpp`` and ``ar`` variables which are needed to cross-compile for Android. For instance:
 
-* c=$TOOLCHAIN/bin/llvm-ar
-* cpp=$TOOLCHAIN/bin/$TARGET$API-clang
-* ar=$TOOLCHAIN/bin/$TARGET$API-clang++
+* ``c == $TOOLCHAIN/bin/llvm-ar``
+* ``cpp == $TOOLCHAIN/bin/$TARGET$API-clang``
+* ``ar == $TOOLCHAIN/bin/$TARGET$API-clang++``
 
 Where:
 

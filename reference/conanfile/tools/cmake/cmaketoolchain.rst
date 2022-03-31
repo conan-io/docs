@@ -261,6 +261,23 @@ For single-configuration build systems:
     $ cmake .. -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
     $ cmake --build .  # or just "make"
 
+conf
++++++
+
+``CMakeToolchain`` is affected by these :ref:`[conf]<global_conf>` variables:
+
+- ``tools.cmake.cmaketoolchain:toolchain_file`` user toolchain file to replace the ``conan_toolchain.cmake`` one.
+- ``tools.cmake.cmaketoolchain:user_toolchain`` list of user toolchains to be included from the ``conan_toolchain.cmake`` file.
+- ``tools.android:ndk_path`` value for ``ANDROID_NDK_PATH``.
+- ``tools.cmake.cmaketoolchain:system_name`` is not necessary in most cases and is only used to force-define ``CMAKE_SYSTEM_NAME``.
+- ``tools.cmake.cmaketoolchain:system_version`` is not necessary in most cases and is only used to force-define ``CMAKE_SYSTEM_VERSION``.
+- ``tools.cmake.cmaketoolchain:system_processor`` is not necessary in most cases and is only used to force-define ``CMAKE_SYSTEM_PROCESSOR``.
+- ``tools.build:cxxflags`` list of extra C++ flags that will be appended to ``CMAKE_CXX_FLAGS_INIT``.
+- ``tools.build:cflags`` list of extra of pure C flags that will be appended to ``CMAKE_C_FLAGS_INIT``.
+- ``tools.build:sharedlinkflags`` list of extra linker flags that will be appended to ``CMAKE_SHARED_LINKER_FLAGS_INIT``.
+- ``tools.build:exelinkflags`` list of extra linker flags that will be appended to ``CMAKE_EXE_LINKER_FLAGS_INIT``.
+- ``tools.build:defines`` list of preprocessor definitions that will be used by ``add_definitions()``.
+
 
 Extending and customizing CMakeToolchain
 ++++++++++++++++++++++++++++++++++++++++
@@ -275,8 +292,8 @@ The following predefined blocks are available, and added in this order:
 - ``generic_system``: Defines ``CMAKE_SYSTEM_NAME``, ``CMAKE_SYSTEM_VERSION``, ``CMAKE_SYSTEM_PROCESSOR``,
   ``CMAKE_GENERATOR_PLATFORM``, ``CMAKE_GENERATOR_TOOLSET``, ``CMAKE_C_COMPILER``,
   ``CMAKE_CXX_COMPILER`` and ``CMAKE_BUILD_TYPE``
-- ``android_system``: Defines ``ANDROID_PLATFORM``, ``ANDROID_STL``, ``ANDROID_ABI`` and includes ``CMAKE_ANDROID_NDK/build/cmake/android.toolchain.cmake``
-  where ``CMAKE_ANDROID_NDK`` comes defined in ``tools.android:ndk_path`` configuration value.
+- ``android_system``: Defines ``ANDROID_PLATFORM``, ``ANDROID_STL``, ``ANDROID_ABI`` and includes ``ANDROID_NDK_PATH/build/cmake/android.toolchain.cmake``
+  where ``ANDROID_NDK_PATH`` comes defined in ``tools.android:ndk_path`` configuration value.
 - ``apple_system``: Defines ``CMAKE_OSX_ARCHITECTURES``, ``CMAKE_OSX_SYSROOT`` for Apple systems.
 - ``fpic``: Defines the ``CMAKE_POSITION_INDEPENDENT_CODE`` when there is a ``options.fPIC``
 - ``arch_flags``: Defines C/C++ flags like ``-m32, -m64`` when necessary.
