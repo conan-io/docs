@@ -13,7 +13,7 @@ BazelDeps
 
 Available since: `1.37.0 <https://github.com/conan-io/conan/releases>`_
 
-The ``BazelDeps`` helper will generate one **conandeps/xxxx/BUILD.bazel** file per dependency. This dependencies will be
+The ``BazelDeps`` helper will generate one **conandeps/xxxx/BUILD** file per dependency. This dependencies will be
 automatically added to the project by adding the following to the project's **WORKSPACE** file:
 
 
@@ -33,13 +33,14 @@ The dependencies should be added to the **conanfile.py** file as usual:
         generators = "BazelDeps", "BazelToolchain"
         requires = "boost/1.76.0"
 
+
 BazelToolchain
 --------------
 
 The ``BazelToolchain`` is the toolchain generator for Bazel. It will generate a file called
 ``conanbuild.conf`` containing two keys:
 
-- **bazel_config**: defining Bazel config file.
+- **bazel_configs**: !!!!.
 - **bazelrc_path**: defining Bazel rc-path.
 
 The Bazel build helper will use that ``conanbuild.conf`` file to seamlessly call
