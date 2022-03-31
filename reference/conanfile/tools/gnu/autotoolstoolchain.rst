@@ -119,6 +119,8 @@ values:
 * **build_type_flags**: Flags from ``settings.build_type``
 * **apple_arch_flag**: Only when cross-building with Apple systems. Flags from ``settings.arch``.
 * **apple_isysroot_flag**: Only when cross-building with Apple systems. Path to the root sdk.
+* **msvc_runtime_flag**: Flag from ``settings.compiler.runtime_type`` when compiler is ``msvc`` or
+  ``settings.compiler.runtime`` when using the deprecated ``Visual Studio``.
 * **default_configure_install_args** (Defaulted to ``True``): If True it will pass automatically the following flags to the configure script:
 
    * ``--prefix``: With the self.package_folder value.
@@ -128,6 +130,7 @@ values:
    * ``--includedir=${prefix}/include``
    * ``--oldincludedir=${prefix}/include``
    * ``--datarootdir=${prefix}/res``
+
 
 
  If you want to change the default values, adjust the ``cpp.package`` object at the ``layout()`` method:
