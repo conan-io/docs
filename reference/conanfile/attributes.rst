@@ -1673,7 +1673,7 @@ This is an example of a recipe for a tool called ``my_android_ndk`` with the fol
       version="1.0"
 
       def package_info(self):
-          self.conf_info["tools.android:ndk_path"] = "bar"
+          self.conf_info.define("tools.android:ndk_path", "bar")
 
 If we require that tool:
 
@@ -1686,8 +1686,8 @@ If we require that tool:
       tool_requires = "my_android_ndk/1.0"
 
       def generate(self):
-          self.output.info("NDK host: %s" % self.conf["tools.android:ndk_path"])
-          self.output.info("Custom var1: %s" % self.conf["user.custom.var1"])
+          self.output.info("NDK host: %s" % self.conf.get("tools.android:ndk_path"))
+          self.output.info("Custom var1: %s" % self.conf.get("user.custom.var1"))
 
 
 And we install it applying this profile:
