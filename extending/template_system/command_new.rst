@@ -143,5 +143,7 @@ These two templates are related to :ref:`Layouts<conan_tools_layout_predefined_l
 * `cmake_exe`: Generates a hello world executable based on modern Conan recipe (layout + generate) using CMake as the build system.
 * `meson_lib`: Generates a hello world c++ library based on modern Conan recipe (layout + generate) using Meson as the build system (since Conan 1.45).
 * `meson_exe`: Generates a hello world executable based on modern Conan recipe (layout + generate) using Meson as the build system (since Conan 1.45).
+* `bazel_lib`: Generates a hello world c++ library based on modern Conan recipe (layout + generate) using Bazel as the build system (since Conan 1.47).
+* `bazel_exe`: Generates a hello world executable based on modern Conan recipe (layout + generate) using Bazel as the build system (since Conan 1.47).
 
 A full example can be found in :ref:`Creating Packages<packaging_getting_started>` section.
