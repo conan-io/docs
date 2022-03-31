@@ -19,7 +19,9 @@ To use it when running pylint outside Conan, just add the following to your ``.p
 Hook
 ----
 
-There is also a "recipe_linter" hook in the `official hooks repository <https://github.com/conan-io/hooks>`_ 
+There is also a ``recipe_linter`` hook in the `official hooks repository <https://github.com/conan-io/hooks>`_
 that can be activated to run automatic linter checks on the recipes when they are exported to the conan
-cache (``export``, ``create`` and ``export-pkg`` commands). Read the hook documentation for details.
-You could also write your own custom linter hook to provide your own recipe quality checks.
+cache (``export``, ``create`` and ``export-pkg`` commands). Since Conan 1.47, it has also being added a checker for Conan ``2.x``
+deprecated imports like ``from conans import xxxxx`` (you should use ``from conan import xxxxx`` instead) as part of the ``recipe_linter`` hook.
+
+Read the hook documentation for details. You could also write your own custom linter hook to provide your own recipe quality checks.
