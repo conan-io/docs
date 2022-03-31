@@ -64,7 +64,7 @@ translated from the current ``settings``:
   - Definition of the standard library used for C++
   - Deactivation of rpaths in OSX
 
-- *CMakePresets.json*: The toolchain can also generate a ``CMakePresets.json`` standard file, check the documentation
+- *CMakePresets.json*: The toolchain also generates a ``CMakePresets.json`` standard file, check the documentation
   `here <https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html>`_. It is currently using the version "3" of
   the JSON schema.
   Conan creates a ``default`` configure preset with the information:
