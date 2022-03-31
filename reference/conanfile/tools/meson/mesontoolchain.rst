@@ -139,8 +139,57 @@ With the ``MesonToolchain`` it is possible to do:
 conf
 ++++
 
+``MesonToolchain`` is affected by these configuration variables:
+
 - ``tools.meson.mesontoolchain:backend``. the meson `backend
   <https://mesonbuild.com/Configuring-a-build-directory.html>`_ to use. Possible values:
   ``ninja``, ``vs``, ``vs2010``, ``vs2015``, ``vs2017``, ``vs2019``, ``xcode``.
 - ``tools.apple:sdk_path`` argument for SDK path in case of Apple cross-compilation. It will be used as value
   of the flag ``-isysroot``.
+- ``tools.android:ndk_path`` argument for NDK path in case of Android cross-compilation. It will be used to get
+  some binaries like ``c``, ``cpp`` and ``ar`` used in ``[binaries]`` section from *conan_meson_cross.ini*.
+
+
+Cross-building for Apple and Android
++++++++++++++++++++++++++++++++++++++
+
+It deserves a special mention because ``MesonToolchain`` is automatically adding all the flags needed
+to cross-compile for Apple (MacOS M1, iOS, etc.) and Android.
+
+**Apple**
+
+It'll add link flags like ``-arch XXX``, ``-isysroot [SDK_PATH]`` and the minimum deployment target flag, e.g., ``-mios-version-min=8.0``
+into Meson ``c_args``, ``c_link_args``, ``cpp_args`` and ``cpp_link_args`` built-in options.
+
+**Android**
+
+It'll initialize the ``c``, ``cpp`` and ``ar`` variables which are needed to cross-compile for Android. For instance:
+
+* c=$TOOLCHAIN/bin/llvm-ar
+* cpp=$TOOLCHAIN/bin/$TARGET$API-clang
+* ar=$TOOLCHAIN/bin/$TARGET$API-clang++
+
+Where:
+
+* ``$TOOLCHAIN``: ``[NDK_PATH]/toolchains/llvm/prebuilt/[OS_BUILD]-x86_64/bin``.
+* ``$TARGET``: target triple, e.g., for ``armv8`` will be ``aarch64-linux-android``.
+* ``$API``: Android API version.
+
+Besides that, you'll always be able to change any of these variables before being applied thanks
+to the ``MesonToolchain`` class interface. For instance:
+
+.. code:: python
+
+    from conan import ConanFile
+    from conan.tools.meson import MesonToolchain
+
+    class App(ConanFile):
+        settings = "os", "arch", "compiler", "build_type"
+        requires = "hello/0.1"
+        options = {"shared": [True, False]}
+        default_options = {"shared": False}
+
+        def generate(self):
+            tc = MesonToolchain(self)
+            tc.cpp = "/path/to/other/compiler"
+            tc.generate()
