@@ -64,12 +64,18 @@ translated from the current ``settings``:
   - Definition of the standard library used for C++
   - Deactivation of rpaths in OSX
 
-- *conanbuild.conf*: The toolchain can also generate a ``conanbuild.conf`` file that contains arguments to
-  the command line ``CMake()`` helper used in the recipe ``build()`` method. At the moment it contains only the CMake
-  generator and the CMake toolchain file. The CMake generator will be deduced from the current Conan compiler settings:
+- *CMakePresets.json*: The toolchain can also generate a ``CMakePresets.json`` standard file, check the documentation
+  `here <https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html>`_. It is currently using the version "3" of
+  the JSON schema.
+  Conan creates a ``default`` configure preset with the information:
 
-  - For ``settings.compiler="Visual Studio"``, the CMake generator is a direct mapping of ``compiler.version``, as this version represents the IDE version, not the compiler version.
-  - For ``settings.compiler=msvc``, the applied CMake generator will be, by default, the Visual Studio that introduced the specified `settings.compiler.version`. e.g: (``settings.compiler.version = 190`` => ``Visual Studio 14``, ``settings.compiler.version =  191`` => ``Visual Studio 15``, etc). This can be changed, using the ``tools.microsoft.msbuild:vs_version`` [conf] configuration. If it is defined, that Visual Studio version will be used as the CMake generator, and the specific compiler version and toolset will be defined in the ``conan_toolchain.cmake`` file..
+     - The ``generator`` to be used.
+     - The path to the ``conan_toolchain.cmake``
+     - Some cache variables corresponding to the specified settings cannot work if specified in the toolchain.
+
+  This file will be generated at the ``conanfile.generators_folder``, If you want your IDE (Visual Studio, Visual Studio Code, CLion...)
+  to leverage this file you should create a symlink or copy the generated file to the folder containing the ``CMakeLists.txt`` file.
+
 
 - *conanvcvars.bat*: In some cases, the Visual Studio environment needs to be defined correctly for building,
   like when using the Ninja or NMake generators. If necessary, the ``CMakeToolchain`` will generate this script,
@@ -81,18 +87,10 @@ constructor
 
 .. code:: python
 
-    def __init__(self, conanfile, generator=None):
+    def __init__(self, conanfile):
 
 - ``conanfile``: the current recipe object. Always use ``self``.
-- ``namespace``: this argument avoids collisions when you have multiple toolchain calls in the same
-  recipe. By setting this argument, the *conanbuild.conf* file used to pass information to the
-  build helper will be named as: *<namespace>_conanbuild.conf*. The default value is ``None`` meaning that
-  the name of the generated file is *conanbuild.conf*. This namespace must be also set with the same
-  value in the constructor of the :ref:`CMake build helper<conan-cmake-build-helper>` so that it reads the
-  information from the proper file.
 
-Most of the arguments are optional and will be deduced from the current ``settings``, and not
-necessary to define them.
 
 preprocessor_definitions
 ++++++++++++++++++++++++
