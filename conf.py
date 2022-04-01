@@ -22,7 +22,6 @@ import json
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 
-sys.path.insert(0, os.path.abspath('./_themes'))
 
 
 # -- General configuration ------------------------------------------------
@@ -35,7 +34,6 @@ sys.path.insert(0, os.path.abspath('./_themes'))
 # ones.
 extensions = [
     'sphinx.ext.todo',
-    'conan',
     'sphinxcontrib.spelling',
     'sphinx_sitemap',
     'notfound.extension',
@@ -134,14 +132,11 @@ pygments_style = 'sphinx'
 todo_include_todos = True
 
 
-# -- Options for HTML output ----------------------------------------------
-import conan
-
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 # html_theme = 'sphinx_rtd_theme'
 html_theme = "conan"
-html_theme_path = conan.get_html_theme_path()
+html_theme_path = ["_themes"]
 
 
 # Theme options are theme-specific and customize the look and feel of a theme
