@@ -25,6 +25,7 @@ node('Linux') {
     stage('Test build') {
         parallel html: {
             image.inside {
+                sh 'pip3 install colorama'
                 sh 'make html'
             }
         },

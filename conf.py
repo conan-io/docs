@@ -51,7 +51,7 @@ extensions = [
 # autodoc configuration
 add_module_names = False
 autoclass_content = 'both'
-autodoc_mock_imports = ["PyJWT", "requests", "urllib3", "colorama", "PyYAML", 
+autodoc_mock_imports = ["PyJWT", "requests", "urllib3", "PyYAML", 
                         "patch-ng", "fasteners", "six", "node-semver", "distro",
                         "pygments", "tqdm", "Jinja2", "MarkupSafe", "Jinja2", 
                         "python-dateutil", "configparse"]
