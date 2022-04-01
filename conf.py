@@ -35,7 +35,7 @@ sys.path.insert(0, os.path.abspath('./_themes'))
 # ones.
 extensions = [
     'sphinx.ext.todo',
-    'conan',
+    'conan_docs_theme',
     'sphinxcontrib.spelling',
     'sphinx_sitemap',
     'notfound.extension',
@@ -135,13 +135,13 @@ todo_include_todos = True
 
 
 # -- Options for HTML output ----------------------------------------------
-import conan
+import conan_docs_theme
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 # html_theme = 'sphinx_rtd_theme'
-html_theme = "conan"
-html_theme_path = conan.get_html_theme_path()
+html_theme = "conan_docs_theme"
+html_theme_path = conan_docs_theme.get_html_theme_path()
 
 
 # Theme options are theme-specific and customize the look and feel of a theme
