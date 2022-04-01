@@ -18,9 +18,17 @@ import os
 from shutil import copyfile
 import json
 
+# path to the conan_sources, they must be cloned to the branch
+# that we are building the docs for
+# if building the docs in local, point this to the local conan_sources
+
+path_to_conan_sources = './conan_sources'
+
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
+
+sys.path.insert(0, os.path.abspath(path_to_conan_sources))
 
 
 
@@ -37,7 +45,12 @@ extensions = [
     'sphinxcontrib.spelling',
     'sphinx_sitemap',
     'notfound.extension',
+    'sphinx.ext.autodoc',
 ]
+
+# autodoc configuration
+add_module_names = False
+autoclass_content = 'both'
 
 # The short X.Y version.
 version = "2.0-alpha"
@@ -102,7 +115,7 @@ language = None
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
-exclude_patterns = ['_build', '**/site-packages']
+exclude_patterns = ['_build', '**/site-packages', 'conan_sources/**.rst']
 
 # The reST default role (used for this markup: `text`) to use for all
 # documents.
