@@ -25,18 +25,20 @@ node('Linux') {
     stage('Test build') {
         parallel html: {
             image.inside {
-                sh 'pip3 install colorama'
-                sh 'make html'
+                // for some reason even adding this to autodoc_mock_imports
+                // does not work, se we have to install the real dependency
+                sh(script: 'pip3 install colorama')
+                sh(script: 'make html')
             }
         },
         pdf: {
             image.inside {
-                sh 'make latex'
+                sh(script: 'make latex')
             }
         },
         spelling: {
             image.inside {
-                sh 'make spelling'
+                sh(script: 'make spelling')
             }
         },
         linkcheck: {
