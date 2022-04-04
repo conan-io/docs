@@ -154,7 +154,7 @@ Apart from that, since Conan 1.47, you can inject extra flags thanks to these on
 - ``tools.build:cxxflags`` list of extra C++ flags that will be used by ``cpp_args``.
 - ``tools.build:cflags`` list of extra of pure C flags that will be used by ``c_args``.
 - ``tools.build:sharedlinkflags`` list of extra linker flags that will be used by ``c_link_args`` and ``cpp_link_args``.
-- ``tools.build:exelinkflags`` list of extra linker flags that will be used by by ``c_link_args`` and ``cpp_link_args``.
+- ``tools.build:exelinkflags`` list of extra linker flags that will be used by ``c_link_args`` and ``cpp_link_args``.
 
 
 Cross-building for Apple and Android
