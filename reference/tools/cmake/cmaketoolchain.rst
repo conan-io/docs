@@ -8,6 +8,3 @@ Reference
 
 .. autoclass:: CMakeToolchain
     :members:
-
-Read more
-=========
