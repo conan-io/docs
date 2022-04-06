@@ -265,7 +265,7 @@ created to restore the environment. Source or run it to do so:
 
 
 Difference between settings and options
-=======================================
+---------------------------------------
 
 You may have noticed that for changing between *Debug* and *Release* configuration we
 used a Conan **setting**, but when we set *shared* mode for our executable we used a

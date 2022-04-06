@@ -1,4 +1,4 @@
-.. _consuming_packages_getting_started_build_simple_cmake_project:
+.. _consuming_packages_build_simple_cmake_project:
 
 Build a simple CMake project using Conan
 ========================================
@@ -16,7 +16,7 @@ that uses one of the most popular C++ libraries: `Zlib <https://zlib.net/>`__.
 We'll use CMake as build system in this case but keep in mind that Conan **works with any
 build system** and is not limited to using CMake. You can check more examples with other
 build systems in the :ref:`Read More
-section<consuming_packages_getting_started_read_more>`.
+section<consuming_packages_read_more>`.
 
 
 Please, first clone the sources to recreate this project, you can find them in the
@@ -264,7 +264,7 @@ Now we are ready to build and run our **compressor** app:
     ZLIB VERSION: 1.2.11
 
 
-.. _consuming_packages_getting_started_read_more:
+.. _consuming_packages_read_more:
 
 Read more
 ---------

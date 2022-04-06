@@ -1,4 +1,4 @@
-.. _consuming_packages_getting_started_tool_requires:
+.. _consuming_packages_tool_requires:
 
 Using build tools as Conan packages
 ===================================
