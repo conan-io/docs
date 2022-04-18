@@ -37,7 +37,7 @@ have priority over globally defined ones in *global.conf*, and can be defined as
 
 To list all possible configurations available, run :command:`conan config list`.
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan config list
     Supported Conan *experimental* global.conf and [conf] properties:
