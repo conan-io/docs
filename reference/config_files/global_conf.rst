@@ -42,24 +42,10 @@ To list all possible configurations available, run :command:`conan config list`.
     $ conan config list
     Supported Conan *experimental* global.conf and [conf] properties:
     core:required_conan_version: Raise if current version does not match the defined range.
-    core:non_interactive: Disable interactive user input, raises error if input necessary
     core.package_id:msvc_visual_incompatible: Allows opting-out the fallback from the new msvc compiler to the Visual Studio compiler existing binaries
     core:default_profile: Defines the default host profile ('default' by default)
     core:default_build_profile: Defines the default build profile (None by default)
-    core.upload:retry: Number of retries in case of failure when uploading to Conan server
-    core.upload:retry_wait: Seconds to wait between upload attempts to Conan server
-    core.download:parallel: Number of concurrent threads to download packages
-    core.download:retry: Number of retries in case of failure when downloading from Conan server
-    core.download:retry_wait: Seconds to wait between download attempts from Conan server
-    core.net.http:max_retries: Maximum number of connection retries (requests library)
-    core.net.http:timeout: Number of seconds without response to timeout (requests library)
-    core.net.http:no_proxy_match: List of urls to skip from proxies configuration
-    core.net.http:proxies: Dictionary containing the proxy configuration
-    core.net.http:cacert_path: Path containing a custom Cacert file
-    core.net.http:client_cert: Path or tuple of files containing a client cert (and key)
-    core.net.http:clean_system_proxy: If defined, the proxies system env-vars will be discarded
-    core.gzip:compresslevel: The Gzip compresion level for Conan artifacts (default=9)
-    tools.android:ndk_path: Argument for the ANDROID_NDK_PATH
+    tools.android:ndk_path: Argument for the CMAKE_ANDROID_NDK
     tools.build:skip_test: Do not execute CMake.test() and Meson.test() when enabled
     tools.build:jobs: Default compile jobs number -jX Ninja, Make, /MP VS (default: max CPUs)
     tools.cmake.cmaketoolchain:generator: User defined CMake generator to use instead of default
@@ -69,10 +55,12 @@ To list all possible configurations available, run :command:`conan config list`.
     tools.cmake.cmaketoolchain:system_name: Define CMAKE_SYSTEM_NAME in CMakeToolchain
     tools.cmake.cmaketoolchain:system_version: Define CMAKE_SYSTEM_VERSION in CMakeToolchain
     tools.cmake.cmaketoolchain:system_processor: Define CMAKE_SYSTEM_PROCESSOR in CMakeToolchain
+    tools.env.virtualenv:auto_use: Automatically activate virtualenv file generation
     tools.files.download:retry: Number of retries in case of failure when downloading
     tools.files.download:retry_wait: Seconds to wait between download attempts
     tools.gnu:make_program: Indicate path to make program
-    tools.google.bazel:config: Define Bazel config file
+    tools.gnu:define_libcxx11_abi: Force definition of GLIBCXX_USE_CXX11_ABI=1 for libstdc++11
+    tools.google.bazel:configs: Define Bazel config file
     tools.google.bazel:bazelrc_path: Defines Bazel rc-path
     tools.microsoft.msbuild:verbosity: Verbosity level for MSBuild: 'Quiet', 'Minimal', 'Normal', 'Detailed', 'Diagnostic'
     tools.microsoft.msbuild:vs_version: Defines the IDE version when using the new msvc compiler
@@ -86,6 +74,12 @@ To list all possible configurations available, run :command:`conan config list`.
     tools.system.package_manager:mode: Mode for package_manager tools: 'check' or 'install'
     tools.system.package_manager:sudo: Use 'sudo' when invoking the package manager tools in Linux (False by default)
     tools.system.package_manager:sudo_askpass: Use the '-A' argument if using sudo in Linux to invoke the system package manager (False by default)
+    tools.apple.xcodebuild:verbosity: Verbosity level for xcodebuild: 'verbose' or 'quiet
+    tools.build:cxxflags: List of extra CXX flags used by different toolchains like CMakeToolchain, AutotoolsToolchain and MesonToolchain
+    tools.build:cflags: List of extra C flags used by different toolchains like CMakeToolchain, AutotoolsToolchain and MesonToolchain
+    tools.build:defines: List of extra definition flags used by different toolchains like CMakeToolchain and AutotoolsToolchain
+    tools.build:sharedlinkflags: List of extra flags used by CMakeToolchain for CMAKE_SHARED_LINKER_FLAGS_INIT variable
+    tools.build:exelinkflags: List of extra flags used by CMakeToolchain for CMAKE_EXE_LINKER_FLAGS_INIT variable
 
 
 Configuration file template
