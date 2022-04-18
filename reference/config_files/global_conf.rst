@@ -13,9 +13,13 @@ The **global.conf** file is located in the Conan user home directory.
 Global configuration
 --------------------
 
-- ``core:required_conan_version = expression`` allows defining a version expression like ``>=1.30``. Conan will raise an error if its current version does not satisfy the condition
-- ``core.package_id:msvc_visual_incompatible`` allows opting-out the fallback from the new ``msvc`` compiler to the ``Visual Studio`` compiler existing binaries
-
+- ``core:required_conan_version = expression`` allows defining a version expression like
+  ``>=1.30``. Conan will raise an error if its current version does not satisfy the
+  condition
+- ``core.package_id:msvc_visual_incompatible`` allows opting-out the fallback from the new
+  ``msvc`` compiler to the ``Visual Studio`` compiler existing binaries
+- ``core:default_profile`` defines the default host profile ('default' by default)
+- ``core:default_build_profile`` defines the default build profile (None by default)
 
 Tools configurations
 --------------------
