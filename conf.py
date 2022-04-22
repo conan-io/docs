@@ -18,11 +18,18 @@ import os
 from shutil import copyfile
 import json
 
+# path to the conan_sources, they must be cloned to the branch
+# that we are building the docs for
+# if building the docs in local, point this to the local conan_sources
+
+path_to_conan_sources = './conan_sources'
+
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 
-sys.path.insert(0, os.path.abspath('./_themes'))
+sys.path.insert(0, os.path.abspath(path_to_conan_sources))
+
 
 
 # -- General configuration ------------------------------------------------
@@ -35,11 +42,20 @@ sys.path.insert(0, os.path.abspath('./_themes'))
 # ones.
 extensions = [
     'sphinx.ext.todo',
-    'conan',
     'sphinxcontrib.spelling',
     'sphinx_sitemap',
     'notfound.extension',
+    'sphinx.ext.autodoc',
 ]
+
+# autodoc configuration
+add_module_names = False
+autoclass_content = 'both'
+autodoc_mock_imports = ["PyJWT", "requests", "urllib3", "PyYAML", 
+                        "patch-ng", "fasteners", "six", "node-semver", "distro",
+                        "pygments", "tqdm", "Jinja2", "MarkupSafe", "Jinja2", 
+                        "python-dateutil", "configparse", "patch_ng", "yaml", "semver", "dateutil"]
+
 
 # The short X.Y version.
 version = "2.0-alpha"
@@ -104,7 +120,7 @@ language = None
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
-exclude_patterns = ['_build', '**/site-packages']
+exclude_patterns = ['_build', '**/site-packages', 'conan_sources/**.rst']
 
 # The reST default role (used for this markup: `text`) to use for all
 # documents.
@@ -134,14 +150,11 @@ pygments_style = 'sphinx'
 todo_include_todos = True
 
 
-# -- Options for HTML output ----------------------------------------------
-import conan
-
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 # html_theme = 'sphinx_rtd_theme'
 html_theme = "conan"
-html_theme_path = conan.get_html_theme_path()
+html_theme_path = ["_themes"]
 
 
 # Theme options are theme-specific and customize the look and feel of a theme
