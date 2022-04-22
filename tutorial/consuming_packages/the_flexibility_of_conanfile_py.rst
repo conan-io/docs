@@ -1,4 +1,4 @@
-.. _consuming_packages_getting_started_flexibility_of_conanfile_py:
+.. _consuming_packages_flexibility_of_conanfile_py:
 
 Understanding the flexibility of using conanfile.py vs conanfile.txt
 ====================================================================
@@ -157,6 +157,36 @@ So far we have achieved the same functionality we had using a *conanfile.txt*, l
 how we can take advantage of the capabilities of the *conanfile.py* to define the project
 structure we want to follow and also to add some logic using Conan settings and options.
 
+
+Conditional requirements using a conanfile.py
+---------------------------------------------
+
+You could add some logic to the `requirements()` method to add or remove requirements
+conditionally. Imagine, for example, that you want to add an additional dependency in
+Windows or that you want to use the system's CMake installation instead of using the Conan
+`tool_requires`:
+
+.. code-block:: python
+    :caption: conanfile.py
+
+    from conan import ConanFile
+
+
+    class CompressorRecipe(ConanFile):
+        # Binary configuration
+        settings = "os", "compiler", "build_type", "arch"
+        generators = "CMakeToolchain", "CMakeDeps"
+
+        def requirements(self):
+            self.requires("zlib/1.2.11")
+            # Use the system's CMake for Windows
+            # and add base64 dependency
+            if self.settings.os == "Windows":
+                self.requires("base64/0.4.0")
+            else:
+                self.tool_requires("cmake/3.19.8")
+
+
 Use the layout() method
 -----------------------
 
@@ -284,43 +314,15 @@ CMake case, there's a `cmake_layout()` already defined in Conan:
         def layout(self):
             cmake_layout(self)
 
-Conditional requirements using a conanfile.py
----------------------------------------------
-
-You could add some logic to the `requirements()` method to add or remove requirements
-conditionally. Imagine, for example, that you want to add an additional dependency in
-Windows or that you want to use the system's CMake installation instead of using the Conan
-`tool_requires`:
-
-.. code-block:: python
-    :caption: conanfile.py
-
-    from conan import ConanFile
-
-
-    class CompressorRecipe(ConanFile):
-        # Binary configuration
-        settings = "os", "compiler", "build_type", "arch"
-        generators = "CMakeToolchain", "CMakeDeps"
-
-        def requirements(self):
-            self.requires("zlib/1.2.11")
-            # Use the system's CMake for Windows
-            # and add base64 dependency
-            if self.settings.os == "Windows":
-                self.requires("base64/0.4.0")
-            else:
-                self.tool_requires("cmake/3.19.8")
-
 
 Use the validate() method to raise an error for non-supported configurations
 ----------------------------------------------------------------------------
 
-The `validate()` method is the first one evaluated when Conan loads the *conanfile.py* so
-it is quite handy to perform checks of the input settings. If, for example, your project
-does not support *armv8* architecture on Macos you can raise the
-`ConanInvalidConfiguration` exception to make Conan return with a special error code. This
-will indicate that the configuration used for settings or options is not supported.
+The `validate()` method is evaluated when Conan loads the *conanfile.py* and you can use
+it to perform checks of the input settings. If, for example, your project does not support
+*armv8* architecture on Macos you can raise the `ConanInvalidConfiguration` exception to
+make Conan return with a special error code. This will indicate that the configuration
+used for settings or options is not supported.
 
 .. code-block:: python
     :caption: conanfile.py
@@ -337,7 +339,7 @@ will indicate that the configuration used for settings or options is not support
 
 
 Read more
-=========
+---------
 
 - Importing resource files in the generate() method
 - Layouts advanced use

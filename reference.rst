@@ -9,3 +9,4 @@ Reference
 
    reference/commands
    reference/python_api
+   reference/tools
