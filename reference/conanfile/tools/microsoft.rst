@@ -208,6 +208,19 @@ The MSBuildToolchain files can configure:
 One of the advantages of using toolchains is that they can help to achieve the exact same build
 with local development flows, than when the package is created in the cache.
 
+conf
+++++
+
+``MSBuildToolchain`` is affected by these :ref:`[conf]<global_conf>` variables:
+
+- ``tools.microsoft.msbuildtoolchain:compile_options`` dict-like object of extra compile options to be added to ``<ClCompile>`` section.
+  The dict will be translated as follows: ``<[KEY]>[VALUE]</[KEY]>``.
+- ``tools.build:cxxflags`` list of extra C++ flags that will be appended to ``<AdditionalOptions>`` section from ``<ClCompile>`` and ``<ResourceCompile>`` one.
+- ``tools.build:cflags`` list of extra of pure C flags that will be appended to ``<AdditionalOptions>`` section from ``<ClCompile>`` and ``<ResourceCompile>`` one.
+- ``tools.build:sharedlinkflags`` list of extra linker flags that will be appended to ``<AdditionalOptions>`` section from ``<Link>`` one.
+- ``tools.build:exelinkflags`` list of extra linker flags that will be appended to ``<AdditionalOptions>`` section from ``<Link>`` one.
+- ``tools.build:defines`` list of preprocessor definitions that will be appended to ``<PreprocessorDefinitions>`` section from ``<ResourceCompile>`` one.
+
 
 MSBuild
 -------
@@ -246,6 +259,8 @@ Where:
 
 conf
 ++++
+
+``MSBuild`` is affected by these :ref:`[conf]<global_conf>` variables:
 
 - ``tools.microsoft.msbuild:verbosity`` will accept one of ``"Quiet", "Minimal", "Normal", "Detailed", "Diagnostic"`` to be passed
   to the ``MSBuild.build()`` call as ``msbuild .... /verbosity:XXX``
