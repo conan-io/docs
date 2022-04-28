@@ -722,7 +722,7 @@ Exclude patterns are also possible, with the ``!`` prefix:
 Note, if the recipe defines the ``layout()`` method and specifies a ``self.folders.source = "src"`` it won't affect
 where the files (from the ``exports_sources``) are copied. They will be copied to the base source folder. So, if you
 want to replace some file that got into the ``source()`` method, you need to explicitly copy it from the parent folder
-or even better, from ``self.base_source_folder``.
+or even better, from ``self.export_sources_folder``.
 
 
 .. code-block:: python
@@ -744,7 +744,7 @@ or even better, from ``self.base_source_folder``.
           save(self, "CMakeLists.txt", "MISTAKE: Very old CMakeLists to be replaced")
           # Now I fix it with one of the exported files
           shutil.copy("../CMakeLists.txt", ".")
-          shutil.copy(os.path.join(self.base_source_folder, "CMakeLists.txt", "."))
+          shutil.copy(os.path.join(self.export_sources_folder, "CMakeLists.txt", "."))
 
 
 
