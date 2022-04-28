@@ -268,14 +268,14 @@ so you can use the ``--preset`` argument from ``cmake >= 3.23`` or use an IDE:
 
     # For single-configuration generator
     $ cmake --preset Debug
-    $ cmake --build --preset "Build Debug"
+    $ cmake --build --preset Debug
     $ cmake --preset Release
-    $ cmake --build --preset "Build Release"
+    $ cmake --build --preset Release
 
     # For multi-configuration generator
     $ cmake --preset default
-    $ cmake --build --preset "Build Debug"
-    $ cmake --build --preset "Build Release"
+    $ cmake --build --preset Debug
+    $ cmake --build --preset Release
 
 
 conf
