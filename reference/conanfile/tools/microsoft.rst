@@ -214,7 +214,7 @@ conf
 ``MSBuildToolchain`` is affected by these :ref:`[conf]<global_conf>` variables:
 
 - ``tools.microsoft.msbuildtoolchain:compile_options`` dict-like object of extra compile options to be added to ``<ClCompile>`` section.
-  The dict will be translated as follow: ``<[KEY]>[VALUE]</[KEY]>``.
+  The dict will be translated as follows: ``<[KEY]>[VALUE]</[KEY]>``.
 - ``tools.build:cxxflags`` list of extra C++ flags that will be appended to ``<AdditionalOptions>`` section from ``<ClCompile>`` and ``<ResourceCompile>`` one.
 - ``tools.build:cflags`` list of extra of pure C flags that will be appended to ``<AdditionalOptions>`` section from ``<ClCompile>`` and ``<ResourceCompile>`` one.
 - ``tools.build:sharedlinkflags`` list of extra linker flags that will be appended to ``<AdditionalOptions>`` section from ``<Link>`` one.
