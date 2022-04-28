@@ -124,7 +124,7 @@ You can iterate the environment variables of an ``EnvVars`` object like this:
     that limit, for example for large dependency graphs where all packages contribute to the PATH env-var.
     
     This can be mitigated by:
+    
     - Putting the Conan cache closer to C:/ for shorter paths
     - Better definition of what dependencies can contribute to the PATH env-var
-    - Other mechanisms for things like running with many shared libraries dependencies with too many .dlls, like
-      ``imports``
+    - Other mechanisms for things like running with many shared libraries dependencies with too many .dlls, like ``imports``
