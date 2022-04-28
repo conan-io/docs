@@ -182,16 +182,7 @@ The following properties affect the CMakeDeps generator:
 - **cmake_set_interface_link_directories**: boolean value that should be only used by dependencies that don't declare `self.cpp_info.libs` but have ``#pragma comment(lib, "foo")`` (automatic link) declared at the public headers. Those dependencies should
   add this property to their *conanfile.py* files at root ``cpp_info`` level (components not supported for now). For instance:
 
-.. code-block:: python
-
-    def package_info(self):
-        self.cpp_info.includedirs.append('include')
-        self.cpp_info.libdirs.append('lib')
-        self.cpp_info.libs = []
-        self.cpp_info.set_property("cmake_set_interface_link_directories", True)
-
-
-A more general example using some of the properties explained above:
+Example:
 
 .. code-block:: python
 
