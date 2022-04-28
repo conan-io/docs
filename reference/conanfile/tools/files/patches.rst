@@ -18,7 +18,7 @@ Parameters:
 
 - **patch_file**: Patch file that should be applied. The path is relative to the **conanfile.source_folder** unless
   an absolute path is provided.
-- **base_path**: The path is a relative path to **conanfile.base_source_folder** unless an absolute path is provided.
+- **base_path**: The path is a relative path to **conanfile.export_sources_folder** unless an absolute path is provided.
 - **patch_string**: Patch string that should be applied.
 - **strip**: Number of folders to be stripped from the path.
 - **output**: Stream object.

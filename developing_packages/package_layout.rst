@@ -443,8 +443,8 @@ also able to locate the ``my_tool`` correctly, because it is using the same ``fo
 
 
 
-Example: base_source_folder
----------------------------
+Example: export_sources_folder
+-------------------------------
 
 If we have this project, intended to create a package for a third party library which code is located externally:
 
@@ -475,19 +475,19 @@ The ``conanfile.py`` would look like this:
           def source(self):
               # we are inside a "src" subfolder, as defined by layout
               # download something, that will be inside the "src" subfolder
-              base_source = self.base_source_folder
+              base_source = self.export_sources_folder
               # access to paches and CMakeLists, to apply them, replace files is done with:
               mypatch_path = os.path.join(base_source, "patches/mypatch")
               cmake_path = os.path.join(base_source, "CMakeLists.txt")
               # patching, replacing, happens here
 
           def build(self):
-              # If necessary, the build() method also has access to the base_source_folder
+              # If necessary, the build() method also has access to the export_sources_folder
               # for example if patching happens in build() instead of source()
-              cmake_path = os.path.join(self.base_source_folder, "CMakeLists.txt")
+              cmake_path = os.path.join(self.export_sources_folder, "CMakeLists.txt")
 
 
-We can see that the ``Conanfile.base_source_folder`` can provide access to the root folder of the sources:
+We can see that the ``Conanfile.export_sources_folder`` can provide access to the root folder of the sources:
 
 - Locally it will be the folder where the conanfile.py lives
 - In the cache it will be the "source" folder, that will contain a copy of ``CMakeLists.txt`` and ``patches``,
