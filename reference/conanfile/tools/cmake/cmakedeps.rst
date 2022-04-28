@@ -179,7 +179,7 @@ The following properties affect the CMakeDeps generator:
 - **cmake_module_target_name**: Same as **cmake_target_name**  but when generating modules with ``cmake_find_mode=module/both``.  If not specified it will default to **cmake_target_name**.
 - **cmake_build_modules**: List of ``.cmake`` files (route relative to root package folder) that are automatically
   included when the consumer run the ``find_package()``.
-- **cmake_set_interface_link_directories**: boolean value that should be only used by dependencies that have a ``#pragma comment(lib, "foo")`` (automatic link) declared at code. Those dependencies should
+- **cmake_set_interface_link_directories**: boolean value that should be only used by dependencies that don't declare `self.cpp_info.libs` but have ``#pragma comment(lib, "foo")`` (automatic link) declared at the public headers. Those dependencies should
   add this property to their *conanfile.py* files at root ``cpp_info`` level (components not supported for now). For instance:
 
 .. code-block:: python
