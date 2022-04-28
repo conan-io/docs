@@ -221,10 +221,6 @@ conf
 - ``tools.build:exelinkflags`` list of extra linker flags that will be appended to ``<AdditionalOptions>`` section from ``<Link>`` one.
 - ``tools.build:defines`` list of preprocessor definitions that will be appended to ``<PreprocessorDefinitions>`` section from ``<ResourceCompile>`` one.
 
-.. note::
-
-    All the "sections" mentioned above can be found out in *conantoolchain_<config>.props* file created by :command:`conan install` command.
-
 
 MSBuild
 -------
