@@ -74,7 +74,7 @@ translated from the current ``settings``:
      - The ``CMAKE_BUILD_TYPE`` variable when using a single-configuration generators.
 
 - *CMakeUserPresets.json*:  If you declare a ``layout()`` in the recipe and your ``CMakeLists.txt`` file is found at
-  the ``conanfile.source_folder``, a file ``CMakeUserPresets.json`` file will be generated (if doesn't exist already) including
+  the ``conanfile.source_folder`` folder, a ``CMakeUserPresets.json`` file will be generated (if doesn't exist already) including
   automatically the ``CMakePresets.json`` (at the ``conanfile.generators_folder``) to allow your IDE (Visual Studio,
   Visual Studio Code, CLion...) or ``cmake`` tool to locate the ``CMakePresets.json``. The version schema of the generated
   ``CMakeUserPresets.json`` is "4" and requires CMake >= 3.23.
