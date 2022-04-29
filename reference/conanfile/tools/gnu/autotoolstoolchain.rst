@@ -56,7 +56,7 @@ The ``AutotoolsToolchain`` will generate after a ``conan install`` command the *
     $ conanautotoolstoolchain.bat
 
 This generator will append information to the ``CPPFLAGS``, ``LDFLAGS``, ``CXXFLAGS``,
-``CFLAGS`` environment variables that to translate the settings and options to the
+``CFLAGS`` environment variables that translate the settings and options to the
 corresponding build flags like ``-stdlib=libstdc++``, ``-std=gnu14``, architecture flags,
 etc. It will also append the folder where the Conan generators are located to the
 ``PKG_CONFIG_PATH`` environment variable.
