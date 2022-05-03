@@ -68,32 +68,81 @@ from ``test()`` side:
     :caption: conanfile.py
 
     import os
+
     from conan import ConanFile
+    from conan.tools.cmake import CMakeToolchain, CMake, cmake_layout
 
-    class HelloConan(ConanFile)
 
-        # ...
+    class HelloConan(ConanFile):
+        name = "hello"
+        version = "1.0"
+        # Binary configuration
+        settings = "os", "compiler", "build_type", "arch"
+        options = {"shared": [True, False], "fPIC": [True, False]}
+        default_options = {"shared": False, "fPIC": True}
+        # Sources are located in the same place as this recipe, copy them to the recipe
+        exports_sources = "CMakeLists.txt", "src/*", "include/*"
+
+        def config_options(self):
+            if self.settings.os == "Windows":
+                del self.options.fPIC
+
+        def layout(self):
+            cmake_layout(self)
+
+        def generate(self):
+            tc = CMakeToolchain(self)
+            tc.generate()
+
+        def build(self):
+            cmake = CMake(self)
+            cmake.configure()
+            cmake.build()
+
+        def package(self):
+            cmake = CMake(self)
+            cmake.install()
 
         def package_info(self):
             # Using append_path or prepend_path will depend on your needs. Here, using append_path
             self.runenv_info.append_path("PYTHONPATH", os.path.join(self.package_folder, "my-site-packages"))
+            self.cpp_info.libs = ["hello"]
 
 
 .. code-block:: python
     :caption: test_package/conanfile.py
 
+    import os
+
     from conan import ConanFile
+    from conan.tools.cmake import CMake, cmake_layout
+    from conan.tools.build import cross_building
+
 
     class HelloTestConan(ConanFile):
+        settings = "os", "compiler", "build_type", "arch"
         # VirtualBuildEnv and VirtualRunEnv can be avoided if "tools.env.virtualenv:auto_use" is defined
         # (it will be defined in Conan 2.0)
-        generators = "VirtualRunEnv"
+        generators = "CMakeDeps", "CMakeToolchain", "VirtualBuildEnv", "VirtualRunEnv"
+        apply_env = False
+        test_type = "explicit"
 
-        # ...
+        def requirements(self):
+            self.requires(self.tested_reference_str)
+
+        def build(self):
+            cmake = CMake(self)
+            cmake.configure()
+            cmake.build()
+
+        def layout(self):
+            cmake_layout(self)
 
         def test(self):
-            self.run("echo %PYTHONPATH%", env="conanrun")  # Windows-style
-            self.run("my-super-command", env="conanrun")
+            if not cross_building(self):
+                cmd = os.path.join(self.cpp.build.bindirs[0], "example")
+                self.run("echo $PYTHONPATH", env="conanrun")  # Unix-style
+                self.run(cmd, env="conanrun")
 
 
 As we already said above, the ``conanrun`` launcher contains the runtime environment information so the ``PYTHONPATH`` variable
