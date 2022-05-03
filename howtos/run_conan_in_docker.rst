@@ -1,6 +1,6 @@
 .. _docker_conan:
 
-How to use Docker to create and cross-build C and C++ Conan packages
+How to use Docker to create C and C++ Conan packages
 ====================================================================
 
 With Docker, you can run different virtual Linux operating systems in a Linux, Mac OSX or Windows machine.
@@ -16,7 +16,7 @@ Using Conan inside a container
 
 .. code-block:: bash
 
-    $ docker run -it --rm conanio/gcc7 /bin/bash
+    $ docker run -it --rm --name conangcc11 conanio/gcc11-ubuntu16.04 /bin/bash
 
 
 .. note::
@@ -27,20 +27,21 @@ The previous code will run a shell in container. We have specified:
 
 - :command:`-it`: Keep STDIN open and allocate a pseudo-tty, in other words, we want to type in the container because we are opening a bash.
 - :command:`--rm`: Once the container exits, remove the container. Helps to keep clean or hard drive.
-- :command:`conanio/gcc7`: Image name, check the :ref:`available Docker images<available_docker_images>`.
+- :command:`--name conangcc11``: The Docker container name
+- :command:`conanio/gcc11-ubuntu16.04`: Image name, check the :ref:`available Docker images<available_docker_images>`.
 - :command:`/bin/bash`: The command to run
 
 
-Now we are running on the conangcc7 container we can use Conan normally. In the following example we are
+Now we are running on the conangcc11 container we can use Conan normally. In the following example we are
 creating a package from the recipe by cloning the repository, for OpenSSL.
 It is always recommended to upgrade Conan from pip first:
 
 .. code-block:: bash
 
-    $ sudo pip install conan --upgrade # We make sure we are running the latest Conan version
+    $ pip install conan --upgrade # We make sure we are running the latest Conan version
     $ git clone https://github.com/conan-io/conan-center-index
     $ cd conan-center-index/recipes/openssl/1.x.x
-    $ conan create . 1.1.1i@
+    $ conan create . 1.1.1n@
 
 
 Sharing a local folder with a Docker container
@@ -52,7 +53,7 @@ You can share a local folder with your container, for example a project:
 
     $ git clone https://github.com/conan-io/conan-center-index
     $ cd conan-center-index/recipes/openssl/1.x.x
-    $ docker run -it -v$(pwd):/home/conan/project --rm conanio/gcc7 /bin/bash
+    $ docker run -it -v$(pwd):/home/conan/project --rm conanio/gcc11-ubuntu16.04 /bin/bash
 
 
 - ``v$(pwd):/home/conan/project``: We are mapping the current directory (conan-openssl) to the container
@@ -61,61 +62,12 @@ You can share a local folder with your container, for example a project:
 
 .. code-block:: bash
 
-    # Now we are running on the conangcc7 container
-    $ sudo pip install conan --upgrade # We make sure we are running the latest Conan version
+    # Now we are running on the conangcc11 container
+    $ pip install conan --upgrade # We make sure we are running the latest Conan version
     $ cd project
     $ conan create . user/channel --build missing
     $ conan remote add myremote http://some.remote.url
     $ conan upload "*" -r myremote --all
-
-
-.. _use_docker_to_crossbuild:
-
-Using the images to *cross build* packages
-------------------------------------------
-
-You can use the :ref:`available docker images <available_docker_images>` (with the suffix ``-i386``, ``-armv7`` and ``-armv7gh``)
-to generate packages for those platforms.
-
-For example, the ``armv7`` images have a toolchain for linux ARM installed, and declared as main compiler with the
-environment variables ``CC`` and ``CXX``. Also, the default Conan profile (``~/.conan/profiles/default``)
-is adjusted to declare the correct arch (``armv7`` / ``armv7hf``).
-
-This process will run a native compilation inside docker, so we cannot say it is actual cross building, but if we were talking
-in terms of cross compiling: the docker service is running in your machine (the ``build`` platform) a docker
-image (which is the ``host`` platform) to generate the binaries.
-To read about actual cross compiling with Conan we have a dedicated section in the docs: :ref:`cross_building`.
-
-Building and uploading a package along with all its missing dependencies for ``Linux/armv7hf`` is done in few steps:
-
-.. code-block:: bash
-
-    $ git clone https://github.com/conan-io/conan-center-index
-    $ cd conan-center-index/recipes/openssl/1.x.x
-    $ docker run -it -v$(pwd):/home/conan/project --rm conanio/gcc49-armv7hf /bin/bash
-
-    # Now we are running on the conangcc49-armv7hf container
-    # The default profile is automatically adjusted to armv7hf
-    $ cat ~/.conan/profiles/default
-
-    [settings]
-    os=Linux
-    arch=armv7hf
-    compiler=gcc
-    compiler.version=4.9
-    compiler.libcxx=libstdc++
-    build_type=Release
-    [options]
-    [tool_requires]
-    [env]
-
-    $ sudo pip install conan --upgrade # We make sure we are running the latest Conan version
-    $ cd project
-
-    $ conan create . user/channel --build missing
-    $ conan remote add myremoteARMV7 http://some.remote.url
-    $ conan upload "*" -r myremoteARMV7 --all
-
 
 .. _available_docker_images:
 
@@ -132,63 +84,38 @@ Their dockerfiles can be found in the `Conan Docker Tools <https://github.com/co
 
 **GCC** images
 
-+--------------------------------------------------------------------------------------+----------------+
-| **Version**                                                                          | **Target Arch**|
-+--------------------------------------------------------------------------------------+----------------+
-| `conanio/gcc49 (GCC 4.9) <https://hub.docker.com/r/conanio/gcc49/>`_                 | x86_64         |
-+--------------------------------------------------------------------------------------+----------------+
-| `conanio/gcc49-i386 (GCC 4.9) <https://hub.docker.com/r/conanio/gcc49-i386/>`_       | x86            |
-+--------------------------------------------------------------------------------------+----------------+
-| `conanio/gcc49-armv7 (GCC 4.9) <https://hub.docker.com/r/conanio/gcc49-armv7/>`_     | armv7          |
-+--------------------------------------------------------------------------------------+----------------+
-| `conanio/gcc49-armv7hf (GCC 4.9) <https://hub.docker.com/r/conanio/gcc49-armv7hf/>`_ | armv7hf        |
-+--------------------------------------------------------------------------------------+----------------+
-| `conanio/gcc5-armv7 (GCC 5) <https://hub.docker.com/r/conanio/gcc5-armv7/>`_         | armv7          |
-+--------------------------------------------------------------------------------------+----------------+
-| `conanio/gcc5-armv7hf (GCC 5) <https://hub.docker.com/r/conanio/gcc5-armv7hf/>`_     | armv7hf        |
-+--------------------------------------------------------------------------------------+----------------+
-| `conanio/gcc5 (GCC 5) <https://hub.docker.com/r/conanio/gcc5/>`_                     | x86_64         |
-+--------------------------------------------------------------------------------------+----------------+
-| `conanio/gcc5-i386 (GCC 5)  <https://hub.docker.com/r/conanio/gcc5-i386/>`_          | x86            |
-+--------------------------------------------------------------------------------------+----------------+
-| `conanio/gcc5-armv7 (GCC 5) <https://hub.docker.com/r/conanio/gcc5-armv7/>`_         | armv7          |
-+--------------------------------------------------------------------------------------+----------------+
-| `conanio/gcc5-armv7hf (GCC 5)  <https://hub.docker.com/r/conanio/gcc5-armv7hf/>`_    | armv7hf        |
-+--------------------------------------------------------------------------------------+----------------+
-| `conanio/gcc6 (GCC 6) <https://hub.docker.com/r/conanio/gcc6/>`_                     | x86_64         |
-+--------------------------------------------------------------------------------------+----------------+
-| `conanio/gcc6-i386 (GCC 6)  <https://hub.docker.com/r/conanio/gcc6-i386/>`_          | x86            |
-+--------------------------------------------------------------------------------------+----------------+
-| `conanio/gcc6-armv7 (GCC 6)  <https://hub.docker.com/r/conanio/gcc6-armv7/>`_        | armv7          |
-+--------------------------------------------------------------------------------------+----------------+
-| `conanio/gcc6-armv7hf: (GCC 6)  <https://hub.docker.com/r/conanio/gcc6-armv7hf/>`_   | armv7hf        |
-+--------------------------------------------------------------------------------------+----------------+
-| `conanio/gcc7-i386 (GCC 7) <https://hub.docker.com/r/conanio/gcc7-i386/>`_           | x86            |
-+--------------------------------------------------------------------------------------+----------------+
-| `conanio/gcc7 (GCC 7) <https://hub.docker.com/r/conanio/gcc7/>`_                     | x86_64         |
-+--------------------------------------------------------------------------------------+----------------+
-| `conanio/gcc7-armv7 (GCC 7) <https://hub.docker.com/r/conanio/gcc7-armv7/>`_         | armv7          |
-+--------------------------------------------------------------------------------------+----------------+
-| `conanio/gcc7-armv7hf (GCC 7) <https://hub.docker.com/r/conanio/gcc7-armv7hf/>`_     | armv7hf        |
-+--------------------------------------------------------------------------------------+----------------+
++----------------------------------------------------------------------------------------------+----------------+
+| **Version**                                                                                  | **Target Arch**|
++----------------------------------------------------------------------------------------------+----------------+
+| `conanio/gcc5-ubuntu16.04 (GCC 5) <https://hub.docker.com/r/conanio/gcc5-ubuntu16.04/>`_     | x86_64         |
++----------------------------------------------------------------------------------------------+----------------+
+| `conanio/gcc6-ubuntu16.04 (GCC 6) <https://hub.docker.com/r/conanio/gcc6-ubuntu16.04/>`_     | x86_64         |
++----------------------------------------------------------------------------------------------+----------------+
+| `conanio/gcc7-ubuntu16.04 (GCC 7) <https://hub.docker.com/r/conanio/gcc7-ubuntu16.04/>`_     | x86_64         |
++----------------------------------------------------------------------------------------------+----------------+
+| `conanio/gcc8-ubuntu16.04 (GCC 8) <https://hub.docker.com/r/conanio/gcc8-ubuntu16.04/>`_     | x86_64         |
++----------------------------------------------------------------------------------------------+----------------+
+| `conanio/gcc9-ubuntu16.04 (GCC 9) <https://hub.docker.com/r/conanio/gcc9-ubuntu16.04/>`_     | x86_64         |
++----------------------------------------------------------------------------------------------+----------------+
+| `conanio/gcc10-ubuntu16.04 (GCC 10) <https://hub.docker.com/r/conanio/gcc10-ubuntu16.04/>`_  | x86_64         |
++----------------------------------------------------------------------------------------------+----------------+
+| `conanio/gcc11-ubuntu16.04 (GCC 11) <https://hub.docker.com/r/conanio/gcc11-ubuntu16.04/>`_  | x86_64         |
++----------------------------------------------------------------------------------------------+----------------+
+
 
 
 **Clang** images
 
-+--------------------------------------------------------------------------------------+------------------+
-| Version                                                                              | **Target Arch**  |
-+--------------------------------------------------------------------------------------+------------------+
-| `conanio/clang38 (Clang 3.8) <https://hub.docker.com/r/conanio/clang38/>`_           | x86_64           |
-+--------------------------------------------------------------------------------------+------------------+
-| `conanio/clang39-i386 (Clang 3.9) <https://hub.docker.com/r/conanio/clang39-i386/>`_ | x86              |
-+--------------------------------------------------------------------------------------+------------------+
-| `conanio/clang39 (Clang 3.9) <https://hub.docker.com/r/conanio/clang39/>`_           | x86_64           |
-+--------------------------------------------------------------------------------------+------------------+
-| `conanio/clang40-i386 (Clang 4) <https://hub.docker.com/r/conanio/clang40/-i386>`_   | x86              |
-+--------------------------------------------------------------------------------------+------------------+
-| `conanio/clang40 (Clang 4) <https://hub.docker.com/r/conanio/clang40/>`_             | x86_64           |
-+--------------------------------------------------------------------------------------+------------------+
-| `conanio/clang50-i386 (Clang 5) <https://hub.docker.com/r/conanio/clang50-i386/>`_   | x86              |
-+--------------------------------------------------------------------------------------+------------------+
-| `conanio/clang50 (Clang 5) <https://hub.docker.com/r/conanio/clang50/>`_             | x86_64           |
-+--------------------------------------------------------------------------------------+------------------+
++-------------------------------------------------------------------------------------------------------+------------------+
+| Version                                                                                               | **Target Arch**  |
++-------------------------------------------------------------------------------------------------------+------------------+
+| `conanio/clang10-ubuntu16.04 (Clang 10) <https://hub.docker.com/r/conanio/clang10-ubuntu16.04/>`_     | x86_64           |
++-------------------------------------------------------------------------------------------------------+------------------+
+| `conanio/clang11-ubuntu16.04 (Clang 11) <https://hub.docker.com/r/conanio/clang11-ubuntu16.04/>`_     | x86_64           |
++-------------------------------------------------------------------------------------------------------+------------------+
+| `conanio/clang12-ubuntu16.04 (Clang 12) <https://hub.docker.com/r/conanio/clang12-ubuntu16.04/>`_     | x86_64           |
++-------------------------------------------------------------------------------------------------------+------------------+
+| `conanio/clang13-ubuntu16.04 (Clang 13) <https://hub.docker.com/r/conanio/clang13-ubuntu16.04/>`_     | x86_64           |
++-------------------------------------------------------------------------------------------------------+------------------+
+| `conanio/clang14-ubuntu16.04 (Clang 14) <https://hub.docker.com/r/conanio/clang14-ubuntu16.04/>`_     | x86_64           |
++-------------------------------------------------------------------------------------------------------+------------------+
