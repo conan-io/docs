@@ -60,7 +60,7 @@ After the execution of one of those files, a new deactivation script will be gen
 environment, so the environment can be restored when desired. The file will be named also following the
 current active configuration, like ``deactivate_conanrunenv-release-x86_64.bat``.
 
-Given that, let's see, for instance, how to set the ``PYTHONPATH`` through the ``runenv_info`` to be applied when running a command
+Given that, let's see, for instance, how to set a ``MYPATH`` variable through the ``runenv_info`` to be applied when running a command
 from ``test()`` side:
 
 
