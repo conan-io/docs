@@ -60,8 +60,8 @@ After the execution of one of those files, a new deactivation script will be gen
 environment, so the environment can be restored when desired. The file will be named also following the
 current active configuration, like ``deactivate_conanrunenv-release-x86_64.bat``.
 
-Given that, let's see, for instance, how to set a ``MYPATH`` variable through the ``runenv_info`` to be applied when running a command
-from ``test()`` side:
+Let's see an example on how to add an environment variable to the ``runenv_info`` and get its value later
+in the consumer side using the ``conanrun`` launcher:
 
 
 .. code-block:: python
@@ -73,8 +73,7 @@ from ``test()`` side:
     class HelloConan(ConanFile):
 
         def package_info(self):
-            # Using append_path or prepend_path will depend on your needs. Here, using append_path
-            self.runenv_info.append_path("MYPATH", os.path.join(self.package_folder, "my-site-packages"))
+            self.runenv_info.define("MYVAR", os.path.join(self.package_folder, "my-site-packages"))
 
 
 .. code-block:: python
@@ -88,7 +87,7 @@ from ``test()`` side:
         generators = "VirtualRunEnv"
 
         def test(self):
-            self.run("echo $MYPATH", env="conanrun")  # Unix-style
+            self.run("echo $MYVAR", env="conanrun")  # Unix-style
 
 As we already said above, the ``conanrun`` launcher contains the runtime environment information, so let's run
 a :command:`conan create . hello/1.0@` and check the console output that should show something like this:
@@ -97,7 +96,7 @@ a :command:`conan create . hello/1.0@` and check the console output that should 
 
     ....
     Configuring environment variables
-    :/Users/myuser/.conan/data/hello/1.0/_/_/package/5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9/my-site-packages
+    /Users/myuser/.conan/data/hello/1.0/_/_/package/5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9/my-site-packages
 
 
 Constructor
