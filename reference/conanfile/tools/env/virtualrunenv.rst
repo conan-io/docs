@@ -75,7 +75,8 @@ from ``test()`` side:
         # ...
 
         def package_info(self):
-            self.runenv_info.append("PYTHONPATH", os.path.join(self.package_folder, "my-site-packages"))
+            # Using append_path or prepend_path will depend on your needs. Here, using append_path
+            self.runenv_info.append_path("PYTHONPATH", os.path.join(self.package_folder, "my-site-packages"))
 
 
 .. code-block:: python
@@ -91,7 +92,7 @@ from ``test()`` side:
         # ...
 
         def test(self):
-            self.run("set PYTHONPATH", env="conanrun")
+            self.run("echo %PYTHONPATH%", env="conanrun")  # Windows-style
             self.run("my-super-command", env="conanrun")
 
 
