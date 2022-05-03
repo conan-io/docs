@@ -67,13 +67,12 @@ in the consumer side using the ``conanrun`` launcher:
 .. code-block:: python
     :caption: conanfile.py
 
-    import os
     from conan import ConanFile
 
     class HelloConan(ConanFile):
 
         def package_info(self):
-            self.runenv_info.define("MYVAR", os.path.join(self.package_folder, "my-site-packages"))
+            self.runenv_info.define("MYVAR", "My value!")
 
 
 .. code-block:: python
@@ -96,7 +95,7 @@ a :command:`conan create . hello/1.0@` and check the console output that should 
 
     ....
     Configuring environment variables
-    /Users/myuser/.conan/data/hello/1.0/_/_/package/5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9/my-site-packages
+    My value!
 
 
 Constructor
