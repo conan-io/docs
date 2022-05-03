@@ -60,6 +60,44 @@ After the execution of one of those files, a new deactivation script will be gen
 environment, so the environment can be restored when desired. The file will be named also following the
 current active configuration, like ``deactivate_conanrunenv-release-x86_64.bat``.
 
+Given that, let's see, for instance, how to set the ``PYTHONPATH`` through the ``runenv_info`` to be applied when running a command
+from ``test()`` side:
+
+conanfile.py
+
+.. code-block:: python
+    :caption: conanfile.py
+
+    import os
+    from conan import ConanFile
+
+    class HelloConan(ConanFile)
+
+        # ...
+
+        def package_info(self):
+            self.runenv_info.append("PYTHONPATH", os.path.join(self.package_folder, "my-site-packages"))
+
+
+.. code-block:: python
+    :caption: test_package/conanfile.py
+
+    from conan import ConanFile
+
+    class HelloTestConan(ConanFile):
+        # VirtualBuildEnv and VirtualRunEnv can be avoided if "tools.env.virtualenv:auto_use" is defined
+        # (it will be defined in Conan 2.0)
+        generators = "VirtualRunEnv"
+
+        # ...
+
+        def test(self):
+            self.run("set PYTHONPATH", env="conanrun")
+            self.run("my-super-command", env="conanrun")
+
+
+As we already said above, the ``conanrun`` launcher contains the runtime environment information so the ``PYTHONPATH`` variable
+will be set correctly before running our custom command.
 
 Constructor
 +++++++++++
