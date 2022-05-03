@@ -63,7 +63,6 @@ current active configuration, like ``deactivate_conanrunenv-release-x86_64.bat``
 Given that, let's see, for instance, how to set the ``PYTHONPATH`` through the ``runenv_info`` to be applied when running a command
 from ``test()`` side:
 
-conanfile.py
 
 .. code-block:: python
     :caption: conanfile.py
