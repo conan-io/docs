@@ -58,7 +58,6 @@ translated from the current ``settings``:
   Some things that will be defined in this file:
 
   - Definition of the CMake generator platform and generator toolset
-  - Definition of the CMake ``build_type``
   - Definition of the ``CMAKE_POSITION_INDEPENDENT_CODE``, based on ``fPIC`` option.
   - Definition of the C++ standard as necessary
   - Definition of the standard library used for C++
@@ -72,9 +71,13 @@ translated from the current ``settings``:
      - The ``generator`` to be used.
      - The path to the ``conan_toolchain.cmake``
      - Some cache variables corresponding to the specified settings cannot work if specified in the toolchain.
+     - The ``CMAKE_BUILD_TYPE`` variable when using a single-configuration generators.
 
-  This file will be generated at the ``conanfile.generators_folder``, If you want your IDE (Visual Studio, Visual Studio Code, CLion...)
-  to leverage this file you should create a symlink or copy the generated file to the folder containing the ``CMakeLists.txt`` file.
+- *CMakeUserPresets.json*:  If you declare a ``layout()`` in the recipe and your ``CMakeLists.txt`` file is found at
+  the ``conanfile.source_folder`` folder, a ``CMakeUserPresets.json`` file will be generated (if doesn't exist already) including
+  automatically the ``CMakePresets.json`` (at the ``conanfile.generators_folder``) to allow your IDE (Visual Studio,
+  Visual Studio Code, CLion...) or ``cmake`` tool to locate the ``CMakePresets.json``. The version schema of the generated
+  ``CMakeUserPresets.json`` is "4" and requires CMake >= 3.23.
 
 
 - *conanvcvars.bat*: In some cases, the Visual Studio environment needs to be defined correctly for building,
@@ -218,8 +221,6 @@ Using the toolchain in developer flow
 One of the advantages of using Conan toolchains is that they can help to achieve the exact same build
 with local development flows, than when the package is created in the cache.
 
-With the ``CMakeToolchain`` it is possible to do, for multi-configuration systems like Visual Studio
-(assuming we are using the ``CMakeDeps`` generator):
 
 .. code:: bash
 
@@ -229,6 +230,11 @@ With the ``CMakeToolchain`` it is possible to do, for multi-configuration system
     $ conan install ..
     $ conan install .. -s build_type=Debug
     # the conan_toolchain.cmake is common for both configurations
+
+If you are using a multi-configuration generator:
+
+.. code:: bash
+
     # Need to pass the generator WITHOUT the platform, that matches your default settings
     $ cmake .. -G "Visual Studio 15" -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
     # Now you can open the IDE, select Debug or Release config and build
@@ -241,25 +247,36 @@ With the ``CMakeToolchain`` it is possible to do, for multi-configuration system
 ``-G "Visual Studio 15"`` instead of the ``-G "Visual Studio 15 Win64"``
 
 
-For single-configuration build systems:
+If you are using a single-configuration generator:
 
 .. code:: bash
 
-    # Lets start in the folder containing the conanfile.py
-    $ mkdir build_release && cd build_release
-    $ conan install ..
-    # the build type Release is encoded in the toolchain already.
-    # This conan_toolchain.cmake is specific for release
-    $ cmake .. -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
-    $ cmake --build .  # or just "make"
+    $ cmake ..  -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
+    $ cmake --build
 
-    # debug tool requires its own folder
-    $ cd .. && mkdir build_debug && cd build_debug
-    $ conan install .. -s build_type=Debug
-    # the build type Debug is encoded in the toolchain already.
-    # This conan_toolchain.cmake is specific for debug
-    $ cmake .. -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
-    $ cmake --build .  # or just "make"
+
+It is recommended to use the ``cmake_layout(self)`` in the ``layout()`` method of your ``conanfile.py``. If a layout
+is declared, the ``CMakeUserPresets.json`` file will be generated in the same folder of your ``CMakeLists.txt`` file,
+so you can use the ``--preset`` argument from ``cmake >= 3.23`` or use an IDE:
+
+
+.. code:: bash
+
+    # The conan_toolchain.cmake is common for both configurations and will be located at "build/generators"
+    $ conan install .
+    $ conan install . -s build_type=Debug
+
+    # For single-configuration generator
+    $ cmake --preset Debug
+    $ cmake --build --preset Debug
+    $ cmake --preset Release
+    $ cmake --build --preset Release
+
+    # For multi-configuration generator
+    $ cmake --preset default
+    $ cmake --build --preset Debug
+    $ cmake --build --preset Release
+
 
 conf
 +++++
@@ -277,6 +294,9 @@ conf
 - ``tools.build:sharedlinkflags`` list of extra linker flags that will be appended to ``CMAKE_SHARED_LINKER_FLAGS_INIT``.
 - ``tools.build:exelinkflags`` list of extra linker flags that will be appended to ``CMAKE_EXE_LINKER_FLAGS_INIT``.
 - ``tools.build:defines`` list of preprocessor definitions that will be used by ``add_definitions()``.
+- ``tools.build:tools.apple:enable_bitcode`` boolean value to enable/disable Bitcode Apple Clang flags, e.g., ``CMAKE_XCODE_ATTRIBUTE_ENABLE_BITCODE``.
+- ``tools.build:tools.apple:enable_arc`` boolean value to enable/disable ARC Apple Clang flags, e.g., ``CMAKE_XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC``.
+- ``tools.build:tools.apple:enable_visibility`` boolean value to enable/disable Visibility Apple Clang flags, e.g., ``CMAKE_XCODE_ATTRIBUTE_GCC_SYMBOLS_PRIVATE_EXTERN``.
 
 
 Extending and customizing CMakeToolchain
@@ -291,7 +311,7 @@ The following predefined blocks are available, and added in this order:
   first lines in ``conan_toolchain.cmake``.
 - ``generic_system``: Defines ``CMAKE_SYSTEM_NAME``, ``CMAKE_SYSTEM_VERSION``, ``CMAKE_SYSTEM_PROCESSOR``,
   ``CMAKE_GENERATOR_PLATFORM``, ``CMAKE_GENERATOR_TOOLSET``, ``CMAKE_C_COMPILER``,
-  ``CMAKE_CXX_COMPILER`` and ``CMAKE_BUILD_TYPE``
+  ``CMAKE_CXX_COMPILER``
 - ``android_system``: Defines ``ANDROID_PLATFORM``, ``ANDROID_STL``, ``ANDROID_ABI`` and includes ``ANDROID_NDK_PATH/build/cmake/android.toolchain.cmake``
   where ``ANDROID_NDK_PATH`` comes defined in ``tools.android:ndk_path`` configuration value.
 - ``apple_system``: Defines ``CMAKE_OSX_ARCHITECTURES``, ``CMAKE_OSX_SYSROOT`` for Apple systems.
@@ -361,13 +381,13 @@ Blocks can be customized in different ways:
     def generate(self):
         tc = CMakeToolchain(conanfile)
         # block.values is the context dictionary
-        build_type = tc.blocks["generic_system"].values["build_type"]
-        tc.blocks["generic_system"].values["build_type"] = "Super" + build_type
+        toolset = tc.blocks["generic_system"].values["toolset"]
+        tc.blocks["generic_system"].values["toolset"] = "other_toolset"
 
     # modify the whole context values
     def generate(self):
         tc = CMakeToolchain(conanfile)
-        tc.blocks["generic_system"].values = {"build_type": "SuperRelease"}
+        tc.blocks["generic_system"].values = {"toolset": "other_toolset"}
 
     # modify the context method of an existing block
     import types
@@ -378,7 +398,7 @@ Blocks can be customized in different ways:
 
         def context(self):
             assert self  # Your own custom logic here
-            return {"build_type": "SuperRelease"}
+            return {"toolset": "other_toolset"}
         generic_block.context = types.MethodType(context, generic_block)
 
     # completely replace existing block

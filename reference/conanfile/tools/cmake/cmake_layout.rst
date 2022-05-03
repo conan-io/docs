@@ -47,12 +47,11 @@ This is the implementation of ``cmake_layout()``:
             raise ConanException("'build_type' setting not defined, it is necessary for cmake_layout()")
         if multi:
             conanfile.folders.build = "build"
-            conanfile.folders.generators = "build/conan"
         else:
             build_type = build_type.lower()
             conanfile.folders.build = "cmake-build-{}".format(build_type)
-            conanfile.folders.generators = os.path.join(conanfile.folders.build, "conan")
 
+        conanfile.folders.generators = "build/generators"
         conanfile.cpp.source.includedirs = ["include"]
 
         if multi:
@@ -72,6 +71,11 @@ or a single-config generator (like Unix Makefiles). In the first case, the folde
 of the build type, and the build system will manage the different build types inside that folder. But
 single-config generators like Unix Makefiles, must use a different folder for each different configuration
 (as a different build_type Release/Debug).
+
+Nevertheless, the ``conanfile.folders.generators`` folder containing
+the saved files from the generators (CMakeDeps, CMakeToolchain...) is always at ``build/generators`` because they
+support multi-configuration. That is, you can run :command:`conan install . -s build_type=Debug` and
+:command:`conan install . -s build_type=Debug` and the generated files will coexist at the ``build/generators`` without any issue.
 
 Finally, the location where the libraries are created also depends. For multi-config, the respective libraries
 will be located in a dedicated folder inside the build folder, while for single-config, the libraries will

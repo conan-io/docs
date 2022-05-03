@@ -36,7 +36,6 @@ First, clone the Conan repository from source and install the requirements:
 
     $ git clone https://github.com/conan-io/conan.git
     $ cd conan
-    $ git checkout master
     $ pip install -r conans/requirements.txt
     $ pip install -r conans/requirements_server.txt
     $ pip install gunicorn

@@ -199,7 +199,7 @@ The CMake helper will automatically append some definitions based on your settin
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 | CMAKE_SYSROOT                             | Defined if CONAN_CMAKE_SYSROOT is defined as environment variable                                                            |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
-| CMAKE_SYSTEM_VERSION                      | Set to ``self.settings.os_version`` value if cross-building is detected                                                      |
+| CMAKE_SYSTEM_VERSION                      | Set to ``self.settings.os.version`` value if cross-building is detected                                                      |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 | CONAN_CMAKE_CXX_EXTENSIONS                | Set to ``ON`` or ``OFF`` value when GNU extensions for the given C++ standard are enabled                                    |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
