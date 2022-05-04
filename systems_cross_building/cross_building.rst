@@ -56,8 +56,7 @@ the ``host`` platform when we are using it to build binaries.
 .. seealso::
 
     One way to avoid this complexity is to run the compilation in the host platform, so both ``build`` and
-    ``host`` will take the same value and it will be a *native compilation*. Docker is a very successful
-    tool that can help you with this, read more about it in :ref:`this section <use_docker_to_crossbuild>`.
+    ``host`` will take the same value and it will be a *native compilation*.
 
 
 Cross building with Conan

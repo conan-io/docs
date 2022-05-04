@@ -20,14 +20,15 @@ Copy the files matching the ``pattern`` (fnmatch) at the ``src`` folder to a ``d
 
 Parameters:
     - **conanfile**: Conanfile object.
-    - **pattern** (Required): An fnmatch file pattern of the files that should be copied.
+    - **pattern** (Required): An fnmatch file pattern of the files that should be copied. It must not start with ``..`` relative path or an exception will be raised.
     - **src** (Required): Source folder in which those files will be searched. This folder will be stripped from the
       dst parameter. E.g., `lib/Debug/x86`.
-    - **dst** (Required): Destination local folder.
-    - **keep_path** (Optional, Defaulted to ``True``): Means if you want to keep the relative path when you copy the files from the **src**
+    - **dst** (Required): Destination local folder. It must be different from ``src`` value or an exception will be raised.
+    - **keep_path** (Optional, defaulted to ``True``): Means if you want to keep the relative path when you copy the files from the **src**
       folder to the **dst** one.
-    - **ignore_case** (Optional, Defaulted to ``True``): If enabled, it will do a case-insensitive pattern matching.
-    - **copy_symlink_folders** (Optional, Defaulted to ``True``): If enabled, it will copy symlink folders, no matter where they point to.
+    - **excludes** (Optional, defaulted to ``None``): A tuple/list of fnmatch patterns or even a single one to be excluded from the copy.
+    - **ignore_case** (Optional, defaulted to ``True``): If enabled, it will do a case-insensitive pattern matching.
+    - **copy_symlink_folders** (Optional, defaulted to ``True``): If enabled, it will copy symlink folders, no matter where they point to.
 
 
 conan.tools.files.load()

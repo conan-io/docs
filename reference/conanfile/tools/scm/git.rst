@@ -81,7 +81,7 @@ clone()
 
 .. code-block:: python
     
-    ef clone(self, url, target="")
+    def clone(self, url, target="")
 
 
 Does a ``git clone <url> <target>`` 
