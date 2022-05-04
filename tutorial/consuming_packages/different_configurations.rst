@@ -26,12 +26,11 @@ both cases, we did not specify anywhere that we wanted to build the application 
 *Release* or *Debug* mode, or if we wanted to link against *static* or *shared* libraries.
 That is because Conan, if not instructed otherwise, will use a default configuration
 declared in the 'default profile'. This default profile was created in the first example
-when we run the ``conan profile detect`` command. Conan stores this file in the **/profiles**
-folder, located in the Conan user home. You can check the contents of your default
-profile:
-
-Run the ``conan config home`` command and get the location of the Conan user home, then show
-the contents of the default profile:
+when we run the ``conan profile detect`` command. Conan stores this file in the
+**/profiles** folder, located in the Conan user home. You can check the contents of your
+default profile by running the ``conan config home`` command to get the location of the
+Conan user home and then showing the contents of the default profile in the **/profiles**
+folder:
 
 .. code-block:: bash
 
