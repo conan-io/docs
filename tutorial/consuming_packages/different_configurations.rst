@@ -67,7 +67,20 @@ to build or install. If you don't specify that argument it's equivalent to call 
 
 You can store different profiles and use them to build for different settings. For example,
 to use a ``build_type=Debug``, or adding a ``tool_requires`` to all the packages you build
-with that profile.
+with that profile. One example of a *debug* profile could be:
+
+.. code-block:: bash
+    :caption: <conan home>/profiles/debug
+    :emphasize-lines: 9
+
+    [settings]
+    os=Macos
+    arch=x86_64
+    compiler=apple-clang
+    compiler.version=13.0
+    compiler.libcxx=libc++
+    compiler.cppstd=gnu98
+    build_type=Debug
 
 
 .. _different_configurations_modify_settings:
@@ -112,6 +125,10 @@ Now let's build our project for *Debug* configuration:
     
     $ conan install . --output-folder cmake-build-release --build=missing --settings=build_type=Debug
 
+
+As we explained above, this is the equivalent of having *debug* profile and running these
+command using the ``--profile=debug`` argument instead of the
+``--settings=build_type=Debug`` argument.
 
 This ``conan install`` command will check if we already installed the required libraries
 (Zlib) in Debug configuration and install them otherwise. It will also set the build
