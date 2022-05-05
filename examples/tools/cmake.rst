@@ -9,3 +9,4 @@ tools.cmake
    :titlesonly:
 
    cmake/cmake_toolchain/local_flow
+   cmake/cmake_toolchain/local_flow_cmake_presets

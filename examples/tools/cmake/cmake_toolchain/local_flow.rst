@@ -1,16 +1,25 @@
 CMakeToolchain in the developer flow
 ====================================
 
+.. note::
+
+    You can find the following example in this repository
+
+    .. code-block:: bash
+
+        $ git clone https://github.com/conan-io/examples2.git
+        $ cd examples2/examples/tools/cmake/cmake_toolchain/local_flow
+
 
 One of the advantages of using Conan toolchains is that they can help to achieve the same build
 with local development flows, as if the package is created in the cache.
 
 
-Let's create a basic project based on the template ``cmake_lib`` as an example of a C++ project:
+Let's create a basic project based on the template ``cmake_exe`` as an example of a C++ project:
 
 .. code:: bash
 
-    $ conan new -d name=foo -d version=1.0 cmake_lib
+    $ conan new -d name=foo -d version=1.0 cmake_exe
 
 
 Generating the toolchain
@@ -45,7 +54,12 @@ If you are using a multi-configuration generator:
     # Now you can open the IDE, select Debug or Release config and build
     # or, in the command line
     $ cmake --build . --config Release
+    $ Release\foo.exe
+      foo/1.0: Hello World Release!
+
     $ cmake --build . --config Debug
+    $ Debug\foo.exe
+      foo/1.0: Hello World Debug!
 
 
 **NOTE**: The platform (Win64), is already encoded in the toolchain. The command line shouldn't pass it, so using
@@ -56,38 +70,14 @@ If you are using a single-configuration generator:
 
 .. code:: bash
 
-    $ cd build
-    $ cmake ..  -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
+    $ mkdir cmake-build-release && cmake-build-release
+    $ cmake ..  -DCMAKE_TOOLCHAIN_FILE=../build/generators/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
     $ cmake --build .
+    $ ./foo
+    foo/1.0: Hello World Release!
 
-
-Building the project using ``CMakePresets``
--------------------------------------------
-
-
-A ``CMakeUserPresets.json`` file is generated in the same folder of your ``CMakeLists.txt`` file,
-so you can use the ``--preset`` argument from ``cmake >= 3.23`` or use an IDE. The ``CMakeUserPresets.json`` is
-including the ``CMakePresets.json`` file located at the ``build/generators`` folder.
-
-The ``CMakePresets.json`` contain information about the ``conan_toolchain.cmake`` location and even the ``binaryDir``
-set with the output directory.
-
-
-If you are using a multi-configuration generator:
-
-.. code:: bash
-
-    $ cmake --preset default
-    $ cmake --build --preset Debug
-    $ cmake --build --preset Release
-
-
-If you are using a single-configuration generator:
-
-.. code:: bash
-
-    $ cmake --preset Debug
-    $ cmake --build --preset Debug
-    $ cmake --preset Release
-    $ cmake --build --preset Release
-
+    $ mkdir cmake-build-debug && cmake-build-debug
+    $ cmake ..  -DCMAKE_TOOLCHAIN_FILE=../build/generators/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Debug
+    $ cmake --build .
+    $ ./foo
+    foo/1.0: Hello World Debug!
