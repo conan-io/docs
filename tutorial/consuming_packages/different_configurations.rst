@@ -140,7 +140,7 @@ built in *Debug* configuration:
     :emphasize-lines: 7
     
     $ cd cmake-build-release
-    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
+    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Debug
     $ cmake --build .
     $ ./compressor
     Uncompressed size is: 233
@@ -190,7 +190,7 @@ shared library:
     :caption: Linux, Macos
     
     $ cd cmake-build-release
-    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
+    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
     $ cmake --build .
     ...
     [100%] Built target compressor

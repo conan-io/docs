@@ -254,7 +254,7 @@ Now we are ready to build and run our **compressor** app:
     :caption: Linux, macOS
     
     $ cd cmake-build-release
-    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
+    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
     $ cmake --build .
     ...
     [100%] Built target compressor
