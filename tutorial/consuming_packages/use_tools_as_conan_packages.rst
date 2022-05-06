@@ -180,7 +180,7 @@ you previously did, but this time Conan will use CMake 3.19.8 to build it:
 .. code-block:: bash
     :caption: Linux, macOS
     
-    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
+    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
     $ cmake --build .
     ...
     Building with CMake version: 3.19.8
