@@ -11,7 +11,7 @@ cmake_layout
     def layout(self):
         cmake_layout(self)
 
-If you want to try it, use the ``conan new hello/0.1 --template=cmake_lib`` template.
+If you want to try it, use the ``conan new cmake_lib -d name=hello -d version=0.1`` template.
 
 It is very important to note that this ``cmake_layout()`` is just calling the ``folders`` and ``cpp``
 attributes described in the layout reference (MISSING LINK).

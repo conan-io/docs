@@ -205,31 +205,32 @@ There are two ways of providing custom CMake toolchain files:
 Extending and advanced customization
 ------------------------------------
 
-Since Conan 1.36, ``CMakeToolchain`` implements a powerful capability for extending and customizing the resulting toolchain file.
+``CMakeToolchain`` implements a powerful capability for extending and customizing the resulting toolchain file.
 
-The following predefined blocks are available, and added in this order:
+The contents are organized by ``blocks`` that can be customized. The following predefined blocks are available,
+and added in this order:
 
-- ``user_toolchain``: Allows to include user toolchains from the ``conan_toolchain.cmake`` file.
+- **user_toolchain**: Allows to include user toolchains from the ``conan_toolchain.cmake`` file.
   If the configuration ``tools.cmake.cmaketoolchain:user_toolchain=["xxxx", "yyyy"]`` is defined, its values will be ``include(xxx)\ninclude(yyyy)`` as the
   first lines in ``conan_toolchain.cmake``.
-- ``generic_system``: Defines ``CMAKE_SYSTEM_NAME``, ``CMAKE_SYSTEM_VERSION``, ``CMAKE_SYSTEM_PROCESSOR``,
+- **generic_system**: Defines ``CMAKE_SYSTEM_NAME``, ``CMAKE_SYSTEM_VERSION``, ``CMAKE_SYSTEM_PROCESSOR``,
   ``CMAKE_GENERATOR_PLATFORM``, ``CMAKE_GENERATOR_TOOLSET``, ``CMAKE_C_COMPILER``,
   ``CMAKE_CXX_COMPILER``
-- ``android_system``: Defines ``ANDROID_PLATFORM``, ``ANDROID_STL``, ``ANDROID_ABI`` and includes ``ANDROID_NDK_PATH/build/cmake/android.toolchain.cmake``
+- **android_system**: Defines ``ANDROID_PLATFORM``, ``ANDROID_STL``, ``ANDROID_ABI`` and includes ``ANDROID_NDK_PATH/build/cmake/android.toolchain.cmake``
   where ``ANDROID_NDK_PATH`` comes defined in ``tools.android:ndk_path`` configuration value.
-- ``apple_system``: Defines ``CMAKE_OSX_ARCHITECTURES``, ``CMAKE_OSX_SYSROOT`` for Apple systems.
-- ``fpic``: Defines the ``CMAKE_POSITION_INDEPENDENT_CODE`` when there is a ``options.fPIC``
-- ``arch_flags``: Defines C/C++ flags like ``-m32, -m64`` when necessary.
-- ``libcxx``: Defines ``-stdlib=libc++`` flag when necessary as well as ``_GLIBCXX_USE_CXX11_ABI``.
-- ``vs_runtime``: Defines the ``CMAKE_MSVC_RUNTIME_LIBRARY`` variable, as a generator expression for multiple configurations.
-- ``cppstd``: defines ``CMAKE_CXX_STANDARD``, ``CMAKE_CXX_EXTENSIONS``
-- ``parallel``: defines ``/MP`` parallel build flag for Visual.
-- ``cmake_flags_init``: defines ``CMAKE_XXX_FLAGS`` variables based on previously defined Conan variables. The blocks above only define ``CONAN_XXX`` variables, and this block will define CMake ones like ``set(CMAKE_CXX_FLAGS_INIT "${CONAN_CXX_FLAGS}" CACHE STRING "" FORCE)```.
-- ``try_compile``: Stop processing the toolchain, skipping the blocks below this one, if ``IN_TRY_COMPILE`` CMake property is defined.
-- ``find_paths``: Defines ``CMAKE_FIND_PACKAGE_PREFER_CONFIG``, ``CMAKE_MODULE_PATH``, ``CMAKE_PREFIX_PATH`` so the generated files from ``CMakeDeps`` are found.
-- ``rpath``: Defines ``CMAKE_SKIP_RPATH``. By default it is disabled, and it is needed to define ``self.blocks["rpath"].skip_rpath=True`` if you want to activate ``CMAKE_SKIP_RPATH``
-- ``shared``: defines ``BUILD_SHARED_LIBS``.
-- ``output_dirs``: Define the ``CMAKE_INSTALL_XXX`` variables.
+- **apple_system**: Defines ``CMAKE_OSX_ARCHITECTURES``, ``CMAKE_OSX_SYSROOT`` for Apple systems.
+- **fpic**: Defines the ``CMAKE_POSITION_INDEPENDENT_CODE`` when there is a ``options.fPIC``
+- **arch_flags**: Defines C/C++ flags like ``-m32, -m64`` when necessary.
+- **libcxx**: Defines ``-stdlib=libc++`` flag when necessary as well as ``_GLIBCXX_USE_CXX11_ABI``.
+- **vs_runtime**: Defines the ``CMAKE_MSVC_RUNTIME_LIBRARY`` variable, as a generator expression for multiple configurations.
+- **cppstd**: defines ``CMAKE_CXX_STANDARD``, ``CMAKE_CXX_EXTENSIONS``
+- **parallel**: defines ``/MP`` parallel build flag for Visual.
+- **cmake_flags_init**: defines ``CMAKE_XXX_FLAGS`` variables based on previously defined Conan variables. The blocks above only define ``CONAN_XXX`` variables, and this block will define CMake ones like ``set(CMAKE_CXX_FLAGS_INIT "${CONAN_CXX_FLAGS}" CACHE STRING "" FORCE)```.
+- **try_compile**: Stop processing the toolchain, skipping the blocks below this one, if ``IN_TRY_COMPILE`` CMake property is defined.
+- **find_paths**: Defines ``CMAKE_FIND_PACKAGE_PREFER_CONFIG``, ``CMAKE_MODULE_PATH``, ``CMAKE_PREFIX_PATH`` so the generated files from ``CMakeDeps`` are found.
+- **rpath**: Defines ``CMAKE_SKIP_RPATH``. By default it is disabled, and it is needed to define ``self.blocks["rpath"].skip_rpath=True`` if you want to activate ``CMAKE_SKIP_RPATH``
+- **shared**: defines ``BUILD_SHARED_LIBS``.
+- **output_dirs**: Define the ``CMAKE_INSTALL_XXX`` variables.
 
     - **CMAKE_INSTALL_PREFIX**: Is set with the ``package_folder``, so if a "cmake install" operation is run, the artifacts go
       to that location.
@@ -257,7 +258,10 @@ The following predefined blocks are available, and added in this order:
         It is **not valid** to change the self.cpp_info  at the ``package_info()`` method.
 
 
-Blocks can be customized in different ways:
+Customizing the content blocks
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Every block can be customized in different ways:
 
 .. code:: python
 
@@ -324,8 +328,6 @@ Blocks can be customized in different ways:
 
         tc.blocks["mynewblock"] = MyBlock
 
-
-Recall that this is a very **experimental** feature, and these interfaces might change in the following releases.
 
 For more information about these blocks, please have a look at the source code.
 
