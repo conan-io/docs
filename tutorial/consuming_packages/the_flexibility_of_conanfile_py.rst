@@ -341,6 +341,10 @@ used for settings or options is not supported.
 Read more
 ---------
 
-- Importing resource files in the generate() method
-- Layouts advanced use
-- Conditional generators in configure()
+.. container:: examples
+
+    - :ref:`Using "cmake_layout" + "CMakeToolchain" to build your project<examples-tools-cmake-toolchain-build-project>`.
+    - :ref:`Using "cmake_layout" + "CMakeToolchain" + "CMakePresets feature" to build your project<examples-tools-cmake-toolchain-build-project-presets>`.
+    - Importing resource files in the generate() method
+    - Layouts advanced use
+    - Conditional generators in configure()
