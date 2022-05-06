@@ -71,7 +71,7 @@ with that profile. One example of a *debug* profile could be:
 
 .. code-block:: bash
     :caption: <conan home>/profiles/debug
-    :emphasize-lines: 9
+    :emphasize-lines: 8
 
     [settings]
     os=Macos
