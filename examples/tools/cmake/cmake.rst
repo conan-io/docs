@@ -1,6 +1,5 @@
 .. _examples_cmake:
 
-asadnal sdnasljdha lskjd
 
 tools.cmake
 ===========
