@@ -75,7 +75,7 @@ single-config generators like Unix Makefiles, must use a different folder for ea
 Nevertheless, the ``conanfile.folders.generators`` folder containing
 the saved files from the generators (CMakeDeps, CMakeToolchain...) is always at ``build/generators`` because they
 support multi-configuration. That is, you can run :command:`conan install . -s build_type=Debug` and
-:command:`conan install . -s build_type=Debug` and the generated files will coexist at the ``build/generators`` without any issue.
+:command:`conan install . -s build_type=Release` and the generated files will coexist at the ``build/generators`` without any issue.
 
 Finally, the location where the libraries are created also depends. For multi-config, the respective libraries
 will be located in a dedicated folder inside the build folder, while for single-config, the libraries will
