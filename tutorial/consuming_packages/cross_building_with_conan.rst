@@ -110,6 +110,9 @@ If you have a look at the *raspberry* profile, you will see a new section named
 build the application. In this case we declare the ``CC``, ``CXX`` and ``LD`` variables
 pointing to the cross-build toolchain compilers and linker, respectively. 
 
+Build and host contexts
+^^^^^^^^^^^^^^^^^^^^^^^
+
 Now that we have our two profiles prepared, let's have a look at our *conanfile.py*:
 
 .. code-block:: python
@@ -129,12 +132,12 @@ Now that we have our two profiles prepared, let's have a look at our *conanfile.
         def layout(self):
             cmake_layout(self)
 
-As you can see we are using practically the same *conanfile.py* we used in the previous
+As you can see, this is practically the same *conanfile.py* we used in the previous
 example. We will require **zlib/1.2.11** as a regular dependency and **cmake/3.19.8** as a
 tool needed for building the application. Also, we are using the pre-defined
 ``cmake_layout``.
 
-We will need the application to be built for the Raspberry Pi with the cross-build
+We will need the application to build for the Raspberry Pi with the cross-build
 toolchain and also linking the **zlib/1.2.11** library built for the same platform. On the
 other side we need the **cmake/3.19.8** binary to run in Ubuntu Linux. Conan manages this
 internally in the dependency graph differentiating between what we call the "build
@@ -151,11 +154,56 @@ context" and the "host context":
   compilers, linkers,... In this case this includes the **cmake/3.19.8** tool.
 
 
-In general, all the ``requires`` added to the dependency
-graph should run in the **host** machine and hence, they will belong to the **host
-context**. The ``tool_requires`` will run in the **build** machine and hence, they will
-belong to the **host context**.
+These contexts define how Conan will manage each one of the dependencies. For example, as
+**zlib/1.2.11** belongs to the **host context**, the ``[buildenv]`` build environment we
+defined in the **raspberry** profile (profile host) will only apply to the **zlib/1.2.11**
+library when building and won't affect anything that belongs to the **build context** like
+the **cmake/3.19.8** dependency.
 
+Now, let's build the application. First, calling :command:`conan install` with the
+profiles for the build and host platforms. This will install the  **zlib/1.2.11**
+dependency built for *armv7hf* architecture and a **cmake/3.19.8** version that runs for
+64 bit architecture.
+
+.. code-block:: bash
+    
+    $ conan install . --build missing -pr:b=./profiles/ubuntu -pr:h=./profiles/raspberry
+
+Then, lets call CMake to build the application. As we did in the previous example we have
+to activate the build environment running ``source generators/conanbuild.sh``. That will
+set the environment variables needed to locate the cross-build toolchain and build the
+application.
+
+.. code-block:: bash
+
+    $ cd build
+    $ source generators/conanbuild.sh
+    Capturing current environment in deactivate_conanbuildenv-release-armv7hf.sh
+    Configuring environment variables    
+    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
+    $ cmake --build .
+    ...
+    -- Conan toolchain: C++ Standard 14 with extensions ON
+    -- The C compiler identification is GNU 9.4.0
+    -- Detecting C compiler ABI info
+    -- Detecting C compiler ABI info - done
+    -- Check for working C compiler: /usr/bin/arm-linux-gnueabihf-gcc-9 - skipped
+    -- Detecting C compile features
+    -- Detecting C compile features - done    [100%] Built target compressor
+    ...
+    $ source generators/deactivate_conanbuild.sh
+
+You could check that we built the application for the correct architecture by running the
+``file`` Linux utility:
+
+.. code-block:: bash
+    :emphasize-lines: 2
+
+    $ file compressor
+    compressor: ELF 32-bit LSB shared object, ARM, EABI5 version 1 (SYSV), dynamically
+    linked, interpreter /lib/ld-linux-armhf.so.3,
+    BuildID[sha1]=2a216076864a1b1f30211debf297ac37a9195196, for GNU/Linux 3.2.0, not
+    stripped
 
 
 Read more
