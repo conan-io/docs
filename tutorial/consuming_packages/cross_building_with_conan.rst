@@ -141,20 +141,20 @@ tool needed for building the application. Also, we are using the pre-defined
 ``cmake_layout``.
 
 We will need the application to build for the Raspberry Pi with the cross-build
-toolchain and also linking the **zlib/1.2.11** library built for the same platform. On the
-other side we need the **cmake/3.19.8** binary to run in Ubuntu Linux. Conan manages this
+toolchain and also link the **zlib/1.2.11** library built for the same platform. On the
+other side, we need the **cmake/3.19.8** binary to run in Ubuntu Linux. Conan manages this
 internally in the dependency graph differentiating between what we call the "build
 context" and the "host context":
 
 * The **host context** is populated with the root package (the one specified in the
   :command:`conan install` or :command:`conan create` command) and all its requirements.
-  In some cases it may also include tools that should run in the host machine (for example
-  a test framework that will run in the host machine). In this case this includes the
+  In some cases, it may also include tools that should run in the host machine (for example
+  a test framework that will run in the host machine). In this case, this includes the
   compressor application and the **zlib/1.2.11** dependency.
 
-* The **build context** contains the rest of tool requirements and all of them in the
-  profiles. This category typically includes all the developer tools like CMake,
-  compilers, linkers,... In this case this includes the **cmake/3.19.8** tool.
+* The **build context** contains the tool requirements used in the build machine. This
+  category typically includes all the developer tools like CMake, compilers and linkers.
+  In this case, this includes the **cmake/3.19.8** tool.
 
 
 These contexts define how Conan will manage each one of the dependencies. For example, as
@@ -163,17 +163,17 @@ defined in the **raspberry** profile (profile host) will only apply to the **zli
 library when building and won't affect anything that belongs to the **build context** like
 the **cmake/3.19.8** dependency.
 
-Now, let's build the application. First, calling :command:`conan install` with the
+Now, let's build the application. First, call :command:`conan install` with the
 profiles for the build and host platforms. This will install the  **zlib/1.2.11**
 dependency built for *armv7hf* architecture and a **cmake/3.19.8** version that runs for
-64 bit architecture.
+64-bit architecture.
 
 .. code-block:: bash
     
     $ conan install . --build missing -pr:b=./profiles/ubuntu -pr:h=./profiles/raspberry
 
-Then, lets call CMake to build the application. As we did in the previous example we have
-to activate the build environment running ``source generators/conanbuild.sh``. That will
+Then, let's call CMake to build the application. As we did in the previous example we have
+to activate the **build environment** running ``source generators/conanbuild.sh``. That will
 set the environment variables needed to locate the cross-build toolchain and build the
 application.
 
