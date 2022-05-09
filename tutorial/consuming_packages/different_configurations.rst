@@ -26,9 +26,9 @@ both cases, we did not specify anywhere that we wanted to build the application 
 *Release* or *Debug* mode, or if we wanted to link against *static* or *shared* libraries.
 That is because Conan, if not instructed otherwise, will use a default configuration
 declared in the 'default profile'. This default profile was created in the first example
-when we run the ``conan profile detect`` command. Conan stores this file in the
+when we run the :command:`conan profile detect` command. Conan stores this file in the
 **/profiles** folder, located in the Conan user home. You can check the contents of your
-default profile by running the ``conan config home`` command to get the location of the
+default profile by running the :command:`conan config home` command to get the location of the
 Conan user home and then showing the contents of the default profile in the **/profiles**
 folder:
 
@@ -130,7 +130,7 @@ As we explained above, this is the equivalent of having *debug* profile and runn
 command using the ``--profile=debug`` argument instead of the
 ``--settings=build_type=Debug`` argument.
 
-This ``conan install`` command will check if we already installed the required libraries
+This :command:`conan install` command will check if we already installed the required libraries
 (Zlib) in Debug configuration and install them otherwise. It will also set the build
 configuration in the ``conan_toolchain.cmake`` toolchain that the CMakeToolchain generator
 creates so that when we build the application it's built in *Debug* configuration. Now
@@ -238,7 +238,7 @@ Conan provides a mechanism to define those variables and make it possible, for e
 find and load these shared libraries. This mechanism is the ``VirtualRunEnv`` generator.
 If you check the output folder you will see that Conan generated a new file called
 ``conanrun.sh/bat``. This is the result of automatically invoking that ``VirtualRunEnv``
-generator when we activated the ``shared`` option when doing the ``conan install``. This
+generator when we activated the ``shared`` option when doing the :command:`conan install`. This
 generated script will set the **PATH**, **LD_LIBRARY_PATH**, **DYLD_LIBRARY_PATH** and
 **DYLD_FRAMEWORK_PATH** environment variables so that executables can find the shared
 libraries.
