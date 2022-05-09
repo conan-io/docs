@@ -39,7 +39,7 @@ Please, first clone the sources to recreate this project. You can find them in t
 .. code-block:: bash
 
     $ git clone https://github.com/conan-io/examples2.git
-    $ cd examples2/tutorial/consuming_packages/getting_started/conanfile_py
+    $ cd examples2/tutorial/getting_started/conanfile_py
 
 Check the contents of the folder and note that the contents are the same that in the
 previous examples but with a *conanfile.py* instead of a *conanfile.txt*.
