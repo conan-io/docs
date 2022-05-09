@@ -4,9 +4,7 @@ CMakeToolchain: Building your project using CMakePresets
 ========================================================
 
 In this example we are going to see how to use ``CMakeToolchain``, predefined layouts like ``cmake_layout`` and the
-``CMakePresets`` CMake feature, to ease even more (compared with the :ref:`previous example<examples-tools-cmake-toolchain-build-project>`)
-the way we build our project calling ``cmake``.
-
+``CMakePresets`` CMake feature.
 
 Let's create a basic project based on the template ``cmake_exe`` as an example of a C++ project:
 
@@ -79,8 +77,8 @@ If you are using a single-configuration generator:
     foo/1.0: Hello World Release!
 
 
-Note that we haven't needed to create the ``cmake-build-debug`` or ``cmake-build-release`` folders, as we did in this
-:ref:`previous example<examples-tools-cmake-toolchain-build-project>`. The output directory
+Note that we haven't needed to create the ``cmake-build-debug`` or ``cmake-build-release`` folders, as we did :ref:`in the
+tutorial<consuming_packages_flexibility_of_conanfile_py_use_layout>`. The output directory
 is declared by the ``cmake_layout()`` and automatically managed by the CMake Presets feature.
 
 This behavior is also managed automatically by Conan (with CMake >= 3.15) when you build a package in the Conan
