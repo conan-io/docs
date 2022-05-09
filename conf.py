@@ -51,6 +51,7 @@ extensions = [
 # autodoc configuration
 add_module_names = False
 autoclass_content = 'both'
+autodoc_member_order = 'bysource'  # To order the methods following the order at the code, not alphabetically
 autodoc_mock_imports = ["PyJWT", "requests", "urllib3", "PyYAML", 
                         "patch-ng", "fasteners", "six", "node-semver", "distro",
                         "pygments", "tqdm", "Jinja2", "MarkupSafe", "Jinja2", 

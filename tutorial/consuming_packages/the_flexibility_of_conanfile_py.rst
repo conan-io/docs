@@ -187,6 +187,8 @@ Windows or that you want to use the system's CMake installation instead of using
                 self.tool_requires("cmake/3.19.8")
 
 
+.. _consuming_packages_flexibility_of_conanfile_py_use_layout:
+
 Use the layout() method
 -----------------------
 
@@ -341,6 +343,9 @@ used for settings or options is not supported.
 Read more
 ---------
 
-- Importing resource files in the generate() method
-- Layouts advanced use
-- Conditional generators in configure()
+.. container:: examples
+
+    - :ref:`Using "cmake_layout" + "CMakeToolchain" + "CMakePresets feature" to build your project<examples-tools-cmake-toolchain-build-project-presets>`.
+    - Importing resource files in the generate() method
+    - Layouts advanced use
+    - Conditional generators in configure()
