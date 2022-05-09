@@ -12,7 +12,7 @@ How to cross-compile your applications using Conan: host and build contexts
 
 
 Please, first clone the sources to recreate this project. You can find them in the
-`examples2.0 repository <https://github.com/conan-io/examples2>`_ in GitHub:
+`examples2.0 repository <https://github.com/conan-io/examples2>`_ on GitHub:
 
 .. code-block:: bash
 
@@ -23,30 +23,31 @@ Please, first clone the sources to recreate this project. You can find them in t
 In the previous examples, we learned how to use a *conanfile.py* or *conanfile.txt* to
 build an application that compresses strings using the *Zlib* and *CMake* Conan packages.
 Also, we explained that you can set information like the operating system, compiler or
-build configuration in a file called the Conan profile. You can use that profile to call
-the :command:`conan install` command with the ``--profile`` argument. We also explained that not
-specifying that profile is equivalent to using the ``--profile=default`` argument.
+build configuration in a file called the Conan profile. You can use that profile as an
+argument (``--profile``) to invoke the :command:`conan install`. We also explained that
+not specifying that profile is equivalent to using the ``--profile=default`` argument.
 
-For all these examples we used the same platform for building and running the application.
-But, what if you want to build the application in your machine running Ubuntu Linux but you would
-like that application to run in other platform like, for example, a Raspberry Pi? Conan
-can model that case by using two different profiles, one for the machine that **builds**
-the application (Ubuntu Linux) and another one for the machine that **runs** the application
-(Raspberry Pi). We will explain this "two profiles" approach in the section that follows.
+For all those examples, we used the same platform for building and running the
+application. But what if you want to build the application in your machine running Ubuntu
+Linux, but you would like that application to run on other platform like, for example, a
+Raspberry Pi? Conan can model that case using two different profiles, one for the
+machine that **builds** the application (Ubuntu Linux) and another for the machine that
+**runs** the application (Raspberry Pi). We will explain this "two profiles" approach in
+the next section.
 
 Conan two profiles model: build and host profiles
 -------------------------------------------------
 
 Although for every conan command you can specify only one ``--profile`` argument, Conan
-will internally use two profiles. One for the machine that is **building** the binaries
-(called the **build** profile) and another for the machine that will **run** those
-binaries (called the **host** profile). So calling this command:
+will internally use two profiles. One for the machine that **builds** the binaries (called
+the **build** profile) and another for the machine that **runs** those binaries (called
+the **host** profile). Calling this command:
 
 .. code-block:: bash
 
     $ conan install . --build=missing --profile=someprofile
 
-Would be equivalent to:
+Is equivalent to:
 
 .. code-block:: bash
 
@@ -55,12 +56,12 @@ Would be equivalent to:
 
 As you can see we used two new arguments:
 
-* ``profile:host``: This is the profile that is applied for all the dependencies where the
-  built binary is meant to run. For our string compressor application this profile would
-  be the one applied for the *Zlib* library that will run in a **Raspberry Pi**.
-* ``profile:build``: This is the profile that is applied for all the dependencies we may
-  need for building the binary. For our string compressor application this profile would
-  be the one applied to the *CMake* tool that will run on the **Ubuntu Linux** machine.
+* ``profile:host``: This is the profile that defines the platform where the built binaries
+  will run. For our string compressor application this profile would be the one applied
+  for the *Zlib* library that will run in a **Raspberry Pi**.
+* ``profile:build``: This is the profile that that defines the platform where the we will
+  build the binaries. For our string compressor application this profile would be the one
+  applied to the *CMake* tool that will run on the **Ubuntu Linux** machine.
 
 So, if we want to build the compressor application in the Ubuntu Linux machine but run it in a
 Raspberry Pi, we could define two different profiles. The profile for our **build** machine
@@ -101,14 +102,16 @@ And the profile for the Raspberry Pi that is the **host** machine could look lik
 
     Please, take into account that in order to build this example successfully, you should
     have installed a toolchain that includes the compiler and all the tools to build the
-    application for the proper architecture. In this case the host machine is a Raspberry Pi 3
-    with *armv7hf* architecture and we already have installed in the Ubuntu machine the
-    *arm-linux-gnueabihf* toolchain.
+    application for the proper architecture. In this case the host machine is a Raspberry
+    Pi 3 with *armv7hf* architecture operating system and we have the
+    *arm-linux-gnueabihf* toolchain installed in the Ubuntu machine.
 
-If you have a look at the *raspberry* profile, you will see a new section named
+If you have a look at the *raspberry* profile, you will see a section named
 ``[buildenv]``. This section is used to set the environment variables that are needed to
 build the application. In this case we declare the ``CC``, ``CXX`` and ``LD`` variables
-pointing to the cross-build toolchain compilers and linker, respectively. 
+pointing to the cross-build toolchain compilers and linker, respectively. This information
+will be later set in the ``conanbuild.sh`` script that we will source before building with
+CMake so that it can use the cross-build toolchain.
 
 Build and host contexts
 ^^^^^^^^^^^^^^^^^^^^^^^
