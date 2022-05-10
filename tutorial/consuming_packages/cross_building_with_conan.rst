@@ -151,9 +151,8 @@ context" and the "host context":
 
 * The **host context** is populated with the root package (the one specified in the
   :command:`conan install` or :command:`conan create` command) and all its requirements.
-  In some cases, it may also include tools that should run in the host machine (for example
-  a test framework that will run in the host machine). In this case, this includes the
-  compressor application and the **zlib/1.2.11** dependency.
+  In this case, this includes the compressor application and the **zlib/1.2.11**
+  dependency.
 
 * The **build context** contains the tool requirements used in the build machine. This
   category typically includes all the developer tools like CMake, compilers and linkers.
@@ -216,5 +215,6 @@ Read more
 ---------
 
 - Cross-build using a tool_requires
+- How to require test frameworks: using ``test_requires``
 - Using Conan to build for Android
 - Using Conan to build for iOS
