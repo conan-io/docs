@@ -38,10 +38,10 @@ the next section.
 Conan two profiles model: build and host profiles
 -------------------------------------------------
 
-Although for every command you can specify only one :command:`--profile` argument, Conan
-will internally use two profiles. One for the machine that **builds** the binaries (called
-the **build** profile) and another for the machine that **runs** those binaries (called
-the **host** profile). Calling this command:
+Even if you specify only one :command:`--profile` argument when invoking Conan, Conan will
+internally use two profiles. One for the machine that **builds** the binaries (called the
+**build** profile) and another for the machine that **runs** those binaries (called the
+**host** profile). Calling this command:
 
 .. code-block:: bash
 
