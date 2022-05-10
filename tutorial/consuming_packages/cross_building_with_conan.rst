@@ -82,7 +82,7 @@ could use the default profile, that in our case looks like this:
     compiler.libcxx=libstdc++11
     compiler.version=9
 
-And the profile for the Raspberry Pi that is the **host** machine could look like this:
+And the profile for the Raspberry Pi that is the **host** machine would be:
 
 .. code-block:: bash
     :caption: <local folder>/profiles/raspberry
