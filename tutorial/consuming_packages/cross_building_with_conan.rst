@@ -109,7 +109,7 @@ And the profile for the Raspberry Pi that is the **host** machine:
     Pi 3 with *armv7hf* architecture operating system and we have the
     *arm-linux-gnueabihf* toolchain installed in the Ubuntu machine.
 
-If you have a look at the *raspberry* profile, you will see a section named
+If you have a look at the *raspberry* profile, there is a section named
 ``[buildenv]``. This section is used to set the environment variables that are needed to
 build the application. In this case we declare the ``CC``, ``CXX`` and ``LD`` variables
 pointing to the cross-build toolchain compilers and linker, respectively. This information
