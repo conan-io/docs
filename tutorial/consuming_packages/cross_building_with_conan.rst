@@ -138,10 +138,10 @@ Now that we have our two profiles prepared, let's have a look at our *conanfile.
         def layout(self):
             cmake_layout(self)
 
-As you can see, this is practically the same *conanfile.py* we used in the previous
-example. We will require **zlib/1.2.11** as a regular dependency and **cmake/3.19.8** as a
-tool needed for building the application. Also, we are using the pre-defined
-``cmake_layout``.
+As you can see, this is practically the same *conanfile.py* we used in the :ref:`previous
+example<consuming_packages_flexibility_of_conanfile_py>`. We will require **zlib/1.2.11**
+as a regular dependency and **cmake/3.19.8** as a tool needed for building the
+application.
 
 We will need the application to build for the Raspberry Pi with the cross-build
 toolchain and also link the **zlib/1.2.11** library built for the same platform. On the
@@ -214,7 +214,10 @@ You could check that we built the application for the correct architecture by ru
 Read more
 ---------
 
-- Cross-build using a tool_requires
-- How to require test frameworks: using ``test_requires``
-- Using Conan to build for Android
-- Using Conan to build for iOS
+.. container:: examples
+
+    - Cross-build using a tool_requires
+    - How to require test frameworks like gtest: using ``test_requires``
+    - Using Conan to build for Android
+    - Using Conan to build for iOS
+    - Link to the VirtualBuildEnv reference
