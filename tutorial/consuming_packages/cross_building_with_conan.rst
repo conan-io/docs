@@ -51,7 +51,7 @@ Is equivalent to:
 
 .. code-block:: bash
 
-    $ conan install . --build=missing --profile:host=someprofile --profile:build=someprofile
+    $ conan install . --build=missing --profile:host=someprofile --profile:build=default
 
 
 As you can see we used two new arguments:
@@ -62,6 +62,10 @@ As you can see we used two new arguments:
 * ``profile:build``: This is the profile that that defines the platform where the we will
   build the binaries. For our string compressor application this profile would be the one
   applied to the *CMake* tool that will run on the **Ubuntu Linux** machine.
+
+Note that when you just use one argument for the profile ``--profile`` is equivalent to
+``--profile:host``. If you don't specify the ``--profile:build`` argument, Conan will use
+the *default* profile internally.
 
 So, if we want to build the compressor application in the Ubuntu Linux machine but run it in a
 Raspberry Pi, we could define two different profiles. The profile for our **build** machine
