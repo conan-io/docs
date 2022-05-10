@@ -86,7 +86,7 @@ could use the default profile, that in our case looks like this:
 And the profile for the Raspberry Pi that is the **host** machine could look like this:
 
 .. code-block:: bash
-    :caption: <conan home>/profiles/raspberry
+    :caption: <local folder>/profiles/raspberry
     :emphasize-lines: 9-12
 
     [settings]
@@ -174,7 +174,7 @@ dependency built for *armv7hf* architecture and a **cmake/3.19.8** version that 
 
 .. code-block:: bash
     
-    $ conan install . --build missing -pr:b=./profiles/default -pr:h=./profiles/raspberry
+    $ conan install . --build missing -pr:b=default -pr:h=./profiles/raspberry
 
 Then, let's call CMake to build the application. As we did in the previous example we have
 to activate the **build environment** running ``source generators/conanbuild.sh``. That will
