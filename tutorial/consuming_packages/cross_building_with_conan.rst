@@ -67,12 +67,12 @@ Note that when you just use one argument for the profile ``--profile`` is equiva
 ``--profile:host``. If you don't specify the ``--profile:build`` argument, Conan will use
 the *default* profile internally.
 
-So, if we want to build the compressor application in the Ubuntu Linux machine but run it in a
-Raspberry Pi, we could define two different profiles. The profile for our **build** machine
-could look like this:
+So, if we want to build the compressor application in the Ubuntu Linux machine but run it
+in a Raspberry Pi, we should use two different profiles. For the **build** machine we
+could use the default profile, that in our case looks like this:
 
 .. code-block:: bash
-    :caption: <conan home>/profiles/ubuntu
+    :caption: <conan home>/profiles/default
 
     [settings]
     os=Linux
@@ -174,7 +174,7 @@ dependency built for *armv7hf* architecture and a **cmake/3.19.8** version that 
 
 .. code-block:: bash
     
-    $ conan install . --build missing -pr:b=./profiles/ubuntu -pr:h=./profiles/raspberry
+    $ conan install . --build missing -pr:b=./profiles/default -pr:h=./profiles/raspberry
 
 Then, let's call CMake to build the application. As we did in the previous example we have
 to activate the **build environment** running ``source generators/conanbuild.sh``. That will
