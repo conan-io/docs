@@ -150,9 +150,9 @@ internally in the dependency graph differentiating between what we call the "bui
 context" and the "host context":
 
 * The **host context** is populated with the root package (the one specified in the
-  :command:`conan install` or :command:`conan create` command) and all its requirements.
-  In this case, this includes the compressor application and the **zlib/1.2.11**
-  dependency.
+  :command:`conan install` or :command:`conan create` command) and all its requirements
+  added via ``self.requires()``. In this case, this includes the compressor application
+  and the **zlib/1.2.11** dependency.
 
 * The **build context** contains the tool requirements used in the build machine. This
   category typically includes all the developer tools like CMake, compilers and linkers.
