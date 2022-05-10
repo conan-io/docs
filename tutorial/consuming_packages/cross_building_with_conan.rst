@@ -28,8 +28,8 @@ argument (``--profile``) to invoke the :command:`conan install`. We also explain
 not specifying that profile is equivalent to using the ``--profile=default`` argument.
 
 For all those examples, we used the same platform for building and running the
-application. But what if you want to build the application in your machine running Ubuntu
-Linux, but you would like that application to run on other platform like, for example, a
+application. But, what if you want to build the application on your machine running Ubuntu
+Linux and then run it on another platform like a
 Raspberry Pi? Conan can model that case using two different profiles, one for the
 machine that **builds** the application (Ubuntu Linux) and another for the machine that
 **runs** the application (Raspberry Pi). We will explain this "two profiles" approach in
