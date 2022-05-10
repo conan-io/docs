@@ -112,9 +112,11 @@ And the profile for the Raspberry Pi that is the **host** machine:
 If you have a look at the *raspberry* profile, you will see a section named
 ``[buildenv]``. This section is used to set the environment variables that are needed to
 build the application. In this case we declare the ``CC``, ``CXX`` and ``LD`` variables
-pointing to the cross-build toolchain compilers and linker, respectively. This information
-will be later set in the ``conanbuild.sh`` script that we will source before building with
-CMake so that it can use the cross-build toolchain.
+pointing to the cross-build toolchain compilers and linker, respectively. Adding this
+section to the profile will invoke the VirtualBuildEnv generator everytime we do a
+:command:`conan install`. This generator will add that environment information to the
+``conanbuild.sh`` script that we will source before building with CMake so that it can use
+the cross-build toolchain.
 
 Build and host contexts
 ^^^^^^^^^^^^^^^^^^^^^^^
