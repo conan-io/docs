@@ -59,9 +59,8 @@ As you can see we used two new arguments:
 * ``profile:host``: This is the profile that defines the platform where the built binaries
   will run. For our string compressor application this profile would be the one applied
   for the *Zlib* library that will run in a **Raspberry Pi**.
-* ``profile:build``: This is the profile that that defines the platform where the we will
-  build the binaries. For our string compressor application this profile would be the one
-  applied to the *CMake* tool that will run on the **Ubuntu Linux** machine.
+* ``profile:build``: This is the profile that defines the platform where the binaries will be built. For our string compressor application, this profile would be the one
+  used by the *CMake* tool that will compile it on the **Ubuntu Linux** machine.
 
 Note that when you just use one argument for the profile ``--profile`` is equivalent to
 ``--profile:host``. If you don't specify the ``--profile:build`` argument, Conan will use
