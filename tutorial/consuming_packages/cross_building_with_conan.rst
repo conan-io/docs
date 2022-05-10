@@ -24,8 +24,8 @@ In the previous examples, we learned how to use a *conanfile.py* or *conanfile.t
 build an application that compresses strings using the *Zlib* and *CMake* Conan packages.
 Also, we explained that you can set information like the operating system, compiler or
 build configuration in a file called the Conan profile. You can use that profile as an
-argument (``--profile``) to invoke the :command:`conan install`. We also explained that
-not specifying that profile is equivalent to using the ``--profile=default`` argument.
+argument (:command:`--profile`) to invoke the :command:`conan install`. We also explained that
+not specifying that profile is equivalent to using the :command:`--profile=default` argument.
 
 For all those examples, we used the same platform for building and running the
 application. But, what if you want to build the application on your machine running Ubuntu
