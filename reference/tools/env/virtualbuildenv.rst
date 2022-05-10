@@ -46,7 +46,7 @@ And it can also be fully instantiated in the conanfile ``generate()`` method:
 Generated files
 ---------------
 
-This generator (for example the invocation of ``conan install cmake/3.20.0@ -g VirtualBuildEnv --build-require``)
+This generator (for example the invocation of ``conan install --tool-require=cmake/3.20.0@ -g VirtualBuildEnv``)
 will create the following files:
 
 - conanbuildenv-release-x86_64.(bat|sh): This file contains the actual definition of environment variables
