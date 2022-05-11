@@ -1,9 +1,5 @@
 .. _introduction:
 
-Introduction
-============
-
-.. _introduction:
 
 Introduction
 ============
