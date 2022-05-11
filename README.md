@@ -10,6 +10,14 @@ How to build
 
   `$ pip install -r requirements.txt`
 
+- Point to the Conan source code folder (``git clone https://github.com/conan-io/conan && cd conan && git checkout develop2``)
+
+  Windows:
+  `$ set PYTHONPATH=<your/path/to/conan>;%PYTHONPATH%`
+  Linux:
+  `$ export PYTHONPATH=<your/path/to/conan>:$PYTHONPATH`
+
+
 - Build the documentation:
 
   `$ make html`
