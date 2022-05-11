@@ -25,4 +25,5 @@ example to a more powerful *conanfile.py*.
    consuming_packages/use_tools_as_conan_packages
    consuming_packages/different_configurations
    consuming_packages/the_flexibility_of_conanfile_py
+   consuming_packages/intro_to_versioning
 
