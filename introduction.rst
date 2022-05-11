@@ -108,9 +108,9 @@ Conan is being used in production by thousands of companies like TomTom, Audi, C
 
 But an essential part of Conan is that many of those users will contribute back, creating an amazing and helpful community:
 
-- The https://github.com/conan-io/conan project has more than 3.5K stars in Github and counts with contributions of nearly 200 different users (this is just the client tool).
-- Many other users contribute recipes for ConanCenter via the https://github.com/conan-io/conan-center-index repo, creating packages for popular Open Source libraries.
-- More than one thousand of Conan users hang around the `CppLang Slack #conan channel <https://cppalliance.org/slack/>`_, and help responding to questions, discussing problems and approaches..
+- The https://github.com/conan-io/conan project has around 6K stars in Github and counts with contributions of almost 300 different users (this is just the client tool).
+- Many other users contribute recipes for ConanCenter via the https://github.com/conan-io/conan-center-index repo, creating packages for popular Open Source libraries, contributing many thousands of Pull Requests per year.
+- More than two thousands Conan users hang around the `CppLang Slack #conan channel <https://cppalliance.org/slack/>`_, and help responding to questions, discussing problems and approaches, making it one of the most active channels in the whole CppLang slack.
 - There is Conan channel in `#include<cpp> discord <https://www.includecpp.org/discord/>`_.
 
 
