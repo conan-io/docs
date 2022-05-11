@@ -4,7 +4,7 @@ CMakeDeps
 =========
 
 
-The ``CMakeDeps`` helper will generate the necessary files for each dependency to be able to use the cmake
+The ``CMakeDeps`` generator produces the necessary files for each dependency to be able to use the cmake
 ``find_package()`` function to locate the dependencies. It can be used like:
 
 
