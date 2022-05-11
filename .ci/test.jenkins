@@ -3,9 +3,18 @@
 node('Linux') {
     String alphaReleaseBranch = 'release/2.0.0-alpha'
     boolean publishDocs = env.BRANCH_NAME == alphaReleaseBranch
+    def targetBranch = env.CHANGE_BRANCH
+    
+    // We also have to clone conan sources for the sphinx autodoc extension
+    def conanBranch = (targetBranch == alphaReleaseBranch) ? 'release/2.0-alpha' : 'develop2'
+    def conan_repo_url = 'https://github.com/conan-io/conan.git'
+    echo "Docs target branch: ${targetBranch}"
+    echo "Conan target branch: ${conanBranch}"
 
     stage('Clone sources') {
         checkout scm
+        def cloneConan = "git clone --single-branch -b ${conanBranch} --depth 1 ${conan_repo_url} conan_sources"
+        sh(script: cloneConan)
     }
 
     def image = null
@@ -16,17 +25,20 @@ node('Linux') {
     stage('Test build') {
         parallel html: {
             image.inside {
-                sh 'make html'
+                // for some reason even adding this to autodoc_mock_imports
+                // does not work, se we have to install the real dependency
+                sh(script: 'pip3 install colorama')
+                sh(script: 'make html')
             }
         },
         pdf: {
             image.inside {
-                sh 'make latex'
+                sh(script: 'make latex')
             }
         },
         spelling: {
             image.inside {
-                sh 'make spelling'
+                sh(script: 'make spelling')
             }
         },
         linkcheck: {

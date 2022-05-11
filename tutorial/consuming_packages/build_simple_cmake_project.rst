@@ -1,4 +1,4 @@
-.. _consuming_packages_getting_started_build_simple_cmake_project:
+.. _consuming_packages_build_simple_cmake_project:
 
 Build a simple CMake project using Conan
 ========================================
@@ -8,27 +8,27 @@ that uses one of the most popular C++ libraries: `Zlib <https://zlib.net/>`__.
 
 .. important::
 
-    In this example, we will retreive the zlib Conan package from a Conan repository with
-    packages compatible for Conan 2.0. To run this example succesfully you should add this
-    remote to your Conan configuration doing:
+    In this example, we will retrieve the CMake Conan package from a Conan repository with
+    packages compatible with Conan 2.0. To run this example successfully you should add this
+    remote to your Conan configuration (if did not already do it) doing:
     ``conan remote add conanv2 https://conanv2beta.jfrog.io/artifactory/api/conan/conan --index 0``
 
 We'll use CMake as build system in this case but keep in mind that Conan **works with any
 build system** and is not limited to using CMake. You can check more examples with other
 build systems in the :ref:`Read More
-section<consuming_packages_getting_started_read_more>`.
+section<consuming_packages_read_more>`.
 
 
-1. Please, first clone the sources to recreate this project, you can find them in the
-   `examples2.0 repository <https://github.com/conan-io/examples2>`_ in GitHub:
+Please, first clone the sources to recreate this project, you can find them in the
+`examples2.0 repository <https://github.com/conan-io/examples2>`_ in GitHub:
 
 .. code-block:: bash
 
     $ git clone https://github.com/conan-io/examples2.git
-    $ cd tutorial/consuming_packages/getting_started/simple_cmake_project
+    $ cd examples2/tutorial/consuming_packages/getting_started/simple_cmake_project
 
 
-2. We start from a very simple C language project with this structure:
+We start from a very simple C language project with this structure:
 
 .. code-block:: text
 
@@ -92,13 +92,13 @@ Also, the contents of *CMakeLists.txt* are:
     target_link_libraries(${PROJECT_NAME} ZLIB::ZLIB)
 
 Our application relies on the **Zlib** library. Conan, by default, tries to install
-libraries from a remote server called `Conan Center Index <https://conan.io/center/>`_.
+libraries from a remote server called `ConanCenter <https://conan.io/center/>`_.
 You can search there for libraries and also check the available versions. In our case, 
 after checking the available versions for `Zlib <https://conan.io/center/zlib>`__ we
 choose to use the latest available version: **zlib/1.2.11**.
 
-3. The easiest way to install the **Zlib** library and find it from our project with Conan is
-   using a *conanfile.txt* file. Let's create one with the following content:
+The easiest way to install the **Zlib** library and find it from our project with Conan is
+using a *conanfile.txt* file. Let's create one with the following content:
 
 .. code-block:: ini
     :caption: **conanfile.txt**
@@ -113,7 +113,7 @@ choose to use the latest available version: **zlib/1.2.11**.
 As you can see we added two sections to this file with a syntax similar to an *INI* file.
 
     * **[requires]** section is where we declare the libraries we want to use in the
-      project, in this case **zlib/1.2.11**.
+      project, in this case, **zlib/1.2.11**.
 
     * **[generators]** section tells Conan to generate the files that the compilers
       or build systems will use to find the dependencies and build the project. In this
@@ -121,21 +121,21 @@ As you can see we added two sections to this file with a syntax similar to an *I
       about where the **Zlib** library files are installed and *CMakeToolchain* to pass build
       information to *CMake* using a *CMake* toolchain file.
 
-4. Besides the *conanfile.txt*, we need a **Conan profile** to build our project. Conan
-   profiles allows users to define a configuration set for things like compiler, build
-   configuration, architecture, shared or static libraries, etc. Conan, by default, will
-   not try to detect a profile automatically, so we need to create one. To let Conan try
-   to guess the profile, based on the current operating system and installed tools, please
-   run:
+Besides the *conanfile.txt*, we need a **Conan profile** to build our project. Conan
+profiles allow users to define a configuration set for things like the compiler, build
+configuration, architecture, shared or static libraries, etc. Conan, by default, will
+not try to detect a profile automatically, so we need to create one. To let Conan try
+to guess the profile, based on the current operating system and installed tools, please
+run:
 
 .. code-block:: bash
 
     conan profile detect --force
 
 This will detect the operating system, build architecture and compiler settings based on
-the environent. It will also set the build configuration as *Release* by default. The
+the environment. It will also set the build configuration as *Release* by default. The
 generated profile will be stored in the Conan home folder with name *default* and will be
-used by Conan in all commands by default unless other profile is specified via the command
+used by Conan in all commands by default unless another profile is specified via the command
 line. After executing the command you should see some output similar to this but for your
 configuration:
 
@@ -160,9 +160,10 @@ configuration:
     [env]
     ...
 
-5. Now, we will use Conan to install **Zlib** and generate the files that CMake needs to find
-   this library and build our project. We will generate those files in the folder
-   *cmake-build-release*. To do that, just run:
+We will use Conan to install **Zlib** and generate the files that CMake needs to
+find this library and build our project. We will generate those files in the folder
+*cmake-build-release* (Linux/macOS) or in the folder *build* (Windows). To do that,
+just run:
 
 .. code-block:: bash
     :caption: Windows
@@ -174,7 +175,7 @@ configuration:
     
     $ conan install . --output-folder cmake-build-release --build=missing
 
-You will get something similar to this as output of that command:
+You will get something similar to this as the output of that command:
 
 .. code-block:: bash
 
@@ -222,18 +223,18 @@ You will get something similar to this as output of that command:
 As you can see in the output, there are a couple of things that happened:
 
     * Conan installed the *Zlib* library from the remote server we configured at the
-      beginning of the tutorial. This server stores both the Conan recipes, that are the
-      files that define how libraries must be built and binaries that can be reused so we
-      don't have to build from sources everytime.
+      beginning of the tutorial. This server stores both the Conan recipes, which are the
+      files that define how libraries must be built, and the binaries that can be reused so we
+      don't have to build from sources every time.
     * Conan generated several files under the **cmake-build-release** folder. Those files
       were generated by both the ``CMakeToolchain`` and ``CMakeDeps`` generators we set in
       the **conanfile.txt**. ``CMakeDeps`` generates files so that CMake finds the Zlib
-      library we have just download. On the other side ``CMakeToolchain`` generates a
+      library we have just downloaded. On the other side, ``CMakeToolchain`` generates a
       toolchain file for CMake so that we can transparently build our project with CMake
       using the same settings that we detected for our default profile.
 
 
-6. Now we are ready to build and run our **compressor** app:
+Now we are ready to build and run our **compressor** app:
 
 .. code-block:: bash
     :caption: Windows
@@ -253,7 +254,7 @@ As you can see in the output, there are a couple of things that happened:
     :caption: Linux, macOS
     
     $ cd cmake-build-release
-    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
+    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
     $ cmake --build .
     ...
     [100%] Built target compressor
@@ -263,7 +264,7 @@ As you can see in the output, there are a couple of things that happened:
     ZLIB VERSION: 1.2.11
 
 
-.. _consuming_packages_getting_started_read_more:
+.. _consuming_packages_read_more:
 
 Read more
 ---------
