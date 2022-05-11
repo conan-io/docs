@@ -11,4 +11,4 @@ conan.tools.files
     files/patches
     files/checksum
     files/symlinks
-    files/autopackager
+    files/packaging

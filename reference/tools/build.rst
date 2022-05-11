@@ -3,8 +3,8 @@
 conan.tools.build
 =================
 
-General
-^^^^^^^
+Building
+^^^^^^^^
 
 conan.tools.build.build_jobs()
 """"""""""""""""""""""""""""""
@@ -20,6 +20,7 @@ conan.tools.build.cross_building()
 .. currentmodule:: conan.tools.build.cross_building
 
 .. autofunction:: cross_building
+
 
 
 Cppstd
