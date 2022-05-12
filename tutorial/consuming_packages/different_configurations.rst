@@ -17,7 +17,7 @@ Please, first clone the sources to recreate this project. You can find them in t
 .. code-block:: bash
 
     $ git clone https://github.com/conan-io/examples2.git
-    $ cd examples2/tutorial/consuming_packages/getting_started/different_configurations
+    $ cd examples2/tutorial/getting_started/different_configurations
 
 
 So far, we built a simple CMake project that depended on the **zlib** library and learned
@@ -26,12 +26,11 @@ both cases, we did not specify anywhere that we wanted to build the application 
 *Release* or *Debug* mode, or if we wanted to link against *static* or *shared* libraries.
 That is because Conan, if not instructed otherwise, will use a default configuration
 declared in the 'default profile'. This default profile was created in the first example
-when we run the ``conan profile detect`` command. Conan stores this file in the **/profiles**
-folder, located in the Conan user home. You can check the contents of your default
-profile:
-
-Run the ``conan config home`` command and get the location of the Conan user home, then show
-the contents of the default profile:
+when we run the :command:`conan profile detect` command. Conan stores this file in the
+**/profiles** folder, located in the Conan user home. You can check the contents of your
+default profile by running the :command:`conan config home` command to get the location of the
+Conan user home and then showing the contents of the default profile in the **/profiles**
+folder:
 
 .. code-block:: bash
 
@@ -68,7 +67,20 @@ to build or install. If you don't specify that argument it's equivalent to call 
 
 You can store different profiles and use them to build for different settings. For example,
 to use a ``build_type=Debug``, or adding a ``tool_requires`` to all the packages you build
-with that profile.
+with that profile. One example of a *debug* profile could be:
+
+.. code-block:: bash
+    :caption: <conan home>/profiles/debug
+    :emphasize-lines: 8
+
+    [settings]
+    os=Macos
+    arch=x86_64
+    compiler=apple-clang
+    compiler.version=13.0
+    compiler.libcxx=libc++
+    compiler.cppstd=gnu98
+    build_type=Debug
 
 
 .. _different_configurations_modify_settings:
@@ -114,7 +126,11 @@ Now let's build our project for *Debug* configuration:
     $ conan install . --output-folder cmake-build-release --build=missing --settings=build_type=Debug
 
 
-This ``conan install`` command will check if we already installed the required libraries
+As we explained above, this is the equivalent of having *debug* profile and running these
+command using the ``--profile=debug`` argument instead of the
+``--settings=build_type=Debug`` argument.
+
+This :command:`conan install` command will check if we already installed the required libraries
 (Zlib) in Debug configuration and install them otherwise. It will also set the build
 configuration in the ``conan_toolchain.cmake`` toolchain that the CMakeToolchain generator
 creates so that when we build the application it's built in *Debug* configuration. Now
@@ -140,7 +156,7 @@ built in *Debug* configuration:
     :emphasize-lines: 7
     
     $ cd cmake-build-release
-    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
+    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Debug
     $ cmake --build .
     $ ./compressor
     Uncompressed size is: 233
@@ -190,7 +206,7 @@ shared library:
     :caption: Linux, Macos
     
     $ cd cmake-build-release
-    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
+    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
     $ cmake --build .
     ...
     [100%] Built target compressor
@@ -222,7 +238,7 @@ Conan provides a mechanism to define those variables and make it possible, for e
 find and load these shared libraries. This mechanism is the ``VirtualRunEnv`` generator.
 If you check the output folder you will see that Conan generated a new file called
 ``conanrun.sh/bat``. This is the result of automatically invoking that ``VirtualRunEnv``
-generator when we activated the ``shared`` option when doing the ``conan install``. This
+generator when we activated the ``shared`` option when doing the :command:`conan install`. This
 generated script will set the **PATH**, **LD_LIBRARY_PATH**, **DYLD_LIBRARY_PATH** and
 **DYLD_FRAMEWORK_PATH** environment variables so that executables can find the shared
 libraries.

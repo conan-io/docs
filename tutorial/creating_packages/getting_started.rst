@@ -21,7 +21,7 @@ Using the :command:`conan new` command will create a "Hello World" C++ library e
 .. code-block:: bash
 
     $ mkdir hellopkg && cd hellopkg
-    $ conan new hello/0.1 --template=cmake_lib
+    $ conan new cmake_lib --name=hello --version=0.1
     File saved: CMakeLists.txt
     File saved: conanfile.py
     File saved: src/hello.cpp
@@ -155,7 +155,7 @@ If "Hello world Release!" is displayed, it worked. This is what has happened:
   local Conan cache.
 - A new build from source for the ``hello/0.1@demo/testing`` package starts, calling the ``generate()``, ``build()`` and
   ``package()`` methods. This creates the binary package in the Conan cache.
-- Moves to the *test_package* folder and executes a ``conan install`` + ``conan build`` + ``test()`` method, to check if
+- Moves to the *test_package* folder and executes a :command:`conan install` + :command:`conan build` + ``test()`` method, to check if
   the package was correctly created.
 
 We can now validate that the recipe and the package binary are in the cache:

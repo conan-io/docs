@@ -39,7 +39,7 @@ Please, first clone the sources to recreate this project. You can find them in t
 .. code-block:: bash
 
     $ git clone https://github.com/conan-io/examples2.git
-    $ cd examples2/tutorial/consuming_packages/getting_started/conanfile_py
+    $ cd examples2/tutorial/getting_started/conanfile_py
 
 Check the contents of the folder and note that the contents are the same that in the
 previous examples but with a *conanfile.py* instead of a *conanfile.txt*.
@@ -103,7 +103,7 @@ class. This class has different class attributes and methods:
   **package ID** for Conan packages. We will explain how Conan uses this value to manage
   binary compatibility later.
 * **generators** this class attribute specifies which Conan generators will be run when we
-  call the ``conan install`` command. In this case, we added **CMakeToolchain** and
+  call the :command:`conan install` command. In this case, we added **CMakeToolchain** and
   **CMakeDeps** as in the *conanfile.txt*.
 * **requirements()** in this method we can use the ``self.requires()`` and
   ``self.tool_requires()`` methods to declare all our dependencies (libraries and build
@@ -140,7 +140,7 @@ same results as before.
     $ source conanbuild.sh
     Capturing current environment in deactivate_conanbuildenv-release-x86_64.sh
     Configuring environment variables    
-    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
+    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
     $ cmake --build .
     ...
     Building with CMake version: 3.19.8
@@ -186,6 +186,8 @@ Windows or that you want to use the system's CMake installation instead of using
             else:
                 self.tool_requires("cmake/3.19.8")
 
+
+.. _consuming_packages_flexibility_of_conanfile_py_use_layout:
 
 Use the layout() method
 -----------------------
@@ -279,7 +281,7 @@ Check that running the same commands as in the previous examples without the
     $ source conanbuild.sh
     Capturing current environment in deactivate_conanbuildenv-release-x86_64.sh
     Configuring environment variables    
-    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
+    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
     $ cmake --build .
     ...
     Building with CMake version: 3.19.8
@@ -341,6 +343,9 @@ used for settings or options is not supported.
 Read more
 ---------
 
-- Importing resource files in the generate() method
-- Layouts advanced use
-- Conditional generators in configure()
+.. container:: examples
+
+    - :ref:`Using "cmake_layout" + "CMakeToolchain" + "CMakePresets feature" to build your project<examples-tools-cmake-toolchain-build-project-presets>`.
+    - Importing resource files in the generate() method
+    - Layouts advanced use
+    - Conditional generators in configure()

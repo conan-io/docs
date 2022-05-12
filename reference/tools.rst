@@ -26,6 +26,7 @@ Contents:
    :maxdepth: 2
 
    tools/cmake
+   tools/gnu
    tools/env
    tools/build
    tools/files

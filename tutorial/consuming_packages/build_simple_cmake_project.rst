@@ -25,7 +25,7 @@ Please, first clone the sources to recreate this project, you can find them in t
 .. code-block:: bash
 
     $ git clone https://github.com/conan-io/examples2.git
-    $ cd examples2/tutorial/consuming_packages/getting_started/simple_cmake_project
+    $ cd examples2/tutorial/getting_started/simple_cmake_project
 
 
 We start from a very simple C language project with this structure:
@@ -195,7 +195,7 @@ You will get something similar to this as the output of that command:
     Decompressing conan_export.tgz
     zlib/1.2.11: Downloaded recipe revision f1fadf0d3b196dc0332750354ad8ab7b
     Graph root
-        conanfile.txt: /home/conan/examples2/tutorial/consuming_packages/getting_started/simple_cmake_project/conanfile.txt
+        conanfile.txt: /home/conan/examples2/tutorial/getting_started/simple_cmake_project/conanfile.txt
     Requirements
         zlib/1.2.11#f1fadf0d3b196dc0332750354ad8ab7b - Downloaded (conanv2)
 
@@ -254,7 +254,7 @@ Now we are ready to build and run our **compressor** app:
     :caption: Linux, macOS
     
     $ cd cmake-build-release
-    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
+    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
     $ cmake --build .
     ...
     [100%] Built target compressor
