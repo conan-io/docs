@@ -79,6 +79,7 @@ From Conan 2.0 and onwards, there is a commitment to stability, with the goal of
 - Bug fixes will not be considered breaking, recipes and packages relying on the incorrect behavior of such bugs will be considered already broken.
 - Only documented features are considered part of the public interface of Conan. Private implementation details, and everything not included in the documentation is subject to change.
 - The compatibility is always considered forward. New APIs, tools, methods, helpers can be added in following 2.X versions. Recipes and packages created with these features will be backwards incompatible with earlier Conan versions.
+- Only the latest released patch (major.minor.patch) of every minor version is supported and stable.
 
 There are some things that are not included in this commitment:
 
@@ -88,7 +89,7 @@ There are some things that are not included in this commitment:
 - Output of packages templates with ``conan new`` can update at any time to use latest features.
 - The output streams stdout, stderr, i.e. the terminal output can change at any time. Do not parse the terminal output for automation.
 - Anything that is explicitily labeled as ``experimental``, ``alpha``, ``beta`` in the documentation, or in the Conan cli output.
-- Other tools and repos outside of the Conan client
+- Other tools and repositories outside of the Conan client
 
 
 Conan needs Python>=3.6 to run. Conan will deprecate support for Python versions 1 year after those versions have been declared End Of Life (EOL).
@@ -100,14 +101,14 @@ If you have any question regarding Conan updates, stability, or any clarificatio
 Community
 ---------
 
-Conan is being used in production by thousands of companies like TomTom, Audi, Continental, Plex, Electrolux and Mercedes-Benz and many thousands of developers around the world. 
+Conan is being used in production by thousands of companies like TomTom, Audi, RTI, Continental, Plex, Electrolux and Mercedes-Benz and many thousands of developers around the world. 
 
 But an essential part of Conan is that many of those users will contribute back, creating an amazing and helpful community:
 
 - The https://github.com/conan-io/conan project has around 6K stars in Github and counts with contributions of almost 300 different users (this is just the client tool).
 - Many other users contribute recipes for ConanCenter via the https://github.com/conan-io/conan-center-index repo, creating packages for popular Open Source libraries, contributing many thousands of Pull Requests per year.
 - More than two thousands Conan users hang around the `CppLang Slack #conan channel <https://cppalliance.org/slack/>`_, and help responding to questions, discussing problems and approaches, making it one of the most active channels in the whole CppLang slack.
-- There is Conan channel in `#include<cpp> discord <https://www.includecpp.org/discord/>`_.
+- There is a Conan channel in `#include<cpp> discord <https://www.includecpp.org/discord/>`_.
 
 
 Have any questions? Please check out our :ref:`FAQ section <faq>` or |write_us|.
