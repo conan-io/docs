@@ -20,6 +20,11 @@ example to a more powerful *conanfile.py*.
 After that, we will introduce the concept of Conan build and host profiles and explain how
 you can use them to cross-compile your application to different platforms.
 
+Then, in the "Introduction to versioning" we will learn about using different versions, 
+defining requirements with version ranges, the concept of revisions and a brief introduction 
+to lockfiles to achieve reproducibility of the dependency graph.
+
+
 .. toctree::
    :maxdepth: 2
    :caption: Table of contents
