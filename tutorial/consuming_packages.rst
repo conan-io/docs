@@ -17,6 +17,9 @@ static or shared libraries, etc.
 Also, we will explain how to transition from the *conanfile.txt* file we used in the first
 example to a more powerful *conanfile.py*.
 
+After that, we will introduce the concept of Conan build and host profiles and explain how
+you can use them to cross-compile your application to different platforms.
+
 .. toctree::
    :maxdepth: 2
    :caption: Table of contents
@@ -25,5 +28,5 @@ example to a more powerful *conanfile.py*.
    consuming_packages/use_tools_as_conan_packages
    consuming_packages/different_configurations
    consuming_packages/the_flexibility_of_conanfile_py
+   consuming_packages/cross_building_with_conan.rst
    consuming_packages/intro_to_versioning
-
