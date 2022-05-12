@@ -197,7 +197,7 @@ Now, lets restore the original ``requires`` version range:
         self.requires("zlib/[~1.2]")
 
 
-And run ``conan install .``, which by default will find the ``conan.lock``, and run the equivalent ``conan install . --lockfile=conan.lock``
+And run :command:`conan install .`, which by default will find the ``conan.lock``, and run the equivalent :command:`conan install . --lockfile=conan.lock`
 
 .. code-block:: bash
 
