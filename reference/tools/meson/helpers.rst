@@ -1,8 +1,8 @@
 .. _conan_tools_meson_helpers:
 
 
-Meson helpers
-===============
+helpers
+========
 
 conan.tools.meson.helpers.to_meson_machine()
 --------------------------------------------

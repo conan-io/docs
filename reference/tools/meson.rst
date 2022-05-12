@@ -1,6 +1,6 @@
 .. _conan_tools_meson:
 
-conan.tools.files
+conan.tools.meson
 ==================
 
 .. toctree::
