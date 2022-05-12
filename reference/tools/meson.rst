@@ -8,4 +8,3 @@ conan.tools.meson
 
     meson/mesontoolchain
     meson/meson
-    meson/helpers
