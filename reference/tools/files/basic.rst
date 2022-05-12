@@ -158,9 +158,9 @@ but without the extension, or to a filename defined by the ``destination`` argum
 
     from conan.tools.files import unzip
 
-    tools.unzip("myfile.zip")
+    unzip(self, "myfile.zip")
     # or to extract in "myfolder" sub-folder
-    tools.unzip("myfile.zip", "myfolder")
+    unzip(self, "myfile.zip", "myfolder")
 
 You can keep the permissions of the files using the ``keep_permissions=True`` parameter.
 
@@ -244,8 +244,8 @@ Usage:
 
 .. code-block:: python
 
-    from conans import tools
+    from conan.tools.files import collect_libs
 
     def package_info(self):
         self.cpp_info.libdirs = ["lib", "other_libdir"]  # Deafult value is 'lib'
-        self.cpp_info.libs = tools.collect_libs(self)
+        self.cpp_info.libs = collect_libs(self)

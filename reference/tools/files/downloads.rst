@@ -21,10 +21,10 @@ Usage:
 
 .. code-block:: python
 
-    from conans import tools
+    from conan.tools.files import ftp_download
 
     def source(self):
-        tools.ftp_download('ftp.debian.org', "debian/README")
+        ftp_download(self, 'ftp.debian.org', "debian/README")
         self.output.info(load("README"))
 
 
