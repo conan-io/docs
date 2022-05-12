@@ -47,7 +47,7 @@ That ``requires`` contains the expression ``zlib/[~1.2]``, which means "approxim
 any ``zlib/1.2.8``, ``zlib/1.2.11`` or ``zlib/1.2.12``, but it will not resolve to something like ``zlib/1.3.0``. Among the available
 matching versions, a version range will always pick the latest one.
 
-If we do a conan install, we would see something like:
+If we do a :command:`conan install`, we would see something like:
 
 .. code-block:: bash
 
