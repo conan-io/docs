@@ -117,7 +117,7 @@ or ``pkgname/version@user/channel#recipe_revision``.
 The recipe revision is a hash of the contents of the recipe and the source code. So if something changes either in the recipe,
 its associated files or in the source code that this recipe is packaging, it will create a new recipe revision.
 
-You can list existing revisions with the ``conan list`` command:
+You can list existing revisions with the :command:`conan list` command:
 
 .. code-block:: bash
 
