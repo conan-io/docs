@@ -9,4 +9,4 @@ tools.meson
    :maxdepth: 2
 
 
-   mesontoolchain/build_project_cmake_presets
+   mesontoolchain/developer_flow
