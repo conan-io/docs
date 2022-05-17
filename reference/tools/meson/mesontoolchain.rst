@@ -33,7 +33,7 @@ as follows:
 Generated files
 -----------------
 
-This will generate the following files after a :command:`conan install` (or when building the package
+This generates the following files after a :command:`conan install` (or when building the package
 in the cache) with the information provided in the ``generate()`` method as well as information
 translated from the current ``settings``, ``conf``, etc.:
 
@@ -60,7 +60,7 @@ and settings for the current package, platform, etc. This includes but is not li
 conan_meson_cross.ini
 ++++++++++++++++++++++++
 
-This file will contain the same information as the previous *conan_meson_native.ini*,
+This file contains the same information as the previous *conan_meson_native.ini*,
 but with additional information to describe host, target, and build machines (such as the processor architecture).
 
 
@@ -89,7 +89,7 @@ This attribute allows defining Meson project options:
         tc.definitions["MYVAR"] = "MyValue"
         tc.generate()
 
-This will be translated to:
+This is translated to:
 
 - One project options definition for ``MYVAR`` in ``conan_meson_native.init`` or ``conan_meson_cross.ini`` file.
 
@@ -105,7 +105,7 @@ This attribute allows defining compiler preprocessor definitions, for multiple c
         tc.preprocessor_definitions["MYDEF"] = "MyValue"
         tc.generate()
 
-This will be translated to:
+This is translated to:
 
 - One preprocessor definition for ``MYDEF`` in ``conan_meson_native.ini`` or ``conan_meson_cross.ini`` file.
 
@@ -122,53 +122,29 @@ conf
 - ``tools.meson.mesontoolchain:backend``. the meson `backend
   <https://mesonbuild.com/Configuring-a-build-directory.html>`_ to use. Possible values:
   ``ninja``, ``vs``, ``vs2010``, ``vs2015``, ``vs2017``, ``vs2019``, ``xcode``.
-- ``tools.apple:sdk_path`` argument for SDK path in case of Apple cross-compilation. It will be used as value
+- ``tools.apple:sdk_path`` argument for SDK path in case of Apple cross-compilation. It is used as value
   of the flag ``-isysroot``.
-- ``tools.android:ndk_path`` argument for NDK path in case of Android cross-compilation. It will be used to get
+- ``tools.android:ndk_path`` argument for NDK path in case of Android cross-compilation. It is used to get
   some binaries like ``c``, ``cpp`` and ``ar`` used in ``[binaries]`` section from *conan_meson_cross.ini*.
-- ``tools.build:cxxflags`` list of extra C++ flags that will be used by ``cpp_args``.
-- ``tools.build:cflags`` list of extra of pure C flags that will be used by ``c_args``.
-- ``tools.build:sharedlinkflags`` list of extra linker flags that will be used by ``c_link_args`` and ``cpp_link_args``.
-- ``tools.build:exelinkflags`` list of extra linker flags that will be used by ``c_link_args`` and ``cpp_link_args``.
-
-
-Extending and advanced customization
-------------------------------------
-
-Using the toolchain in developer flow
-+++++++++++++++++++++++++++++++++++++
-
-One of the advantages of using Conan toolchains is that they can help to achieve the exact same build
-with local development flows, than when the package is created in the cache.
-
-With the ``MesonToolchain`` it is possible to do:
-
-.. code:: bash
-
-    # Lets start in the folder containing the conanfile.py
-    $ mkdir build && cd build
-    # Install both debug and release deps and create the toolchain
-    $ conan install ..
-    # the build type Release is encoded in the toolchain already.
-    # This conan_meson_native.iniis specific for release
-    $ meson setup --native-file conan_meson_native.ini build .
-    $ meson compile -C build
+- ``tools.build:cxxflags`` list of extra C++ flags that is used by ``cpp_args``.
+- ``tools.build:cflags`` list of extra of pure C flags that is used by ``c_args``.
+- ``tools.build:sharedlinkflags`` list of extra linker flags that is used by ``c_link_args`` and ``cpp_link_args``.
+- ``tools.build:exelinkflags`` list of extra linker flags that is used by ``c_link_args`` and ``cpp_link_args``.
 
 
 Cross-building for Apple and Android
-+++++++++++++++++++++++++++++++++++++
+-------------------------------------
 
- The ``MesonToolchain`` automatically adds all the flags needed
-to cross-compile for Apple (MacOS M1, iOS, etc.) and Android.
+The ``MesonToolchain`` adds all the flags needed to cross-compile for Apple (MacOS M1, iOS, etc.) and Android.
 
 **Apple**
 
 It adds link flags ``-arch XXX``, ``-isysroot [SDK_PATH]`` and the minimum deployment target flag, e.g., ``-mios-version-min=8.0``
-into Meson ``c_args``, ``c_link_args``, ``cpp_args`` and ``cpp_link_args`` built-in options.
+to the ``MesonToolchain`` ``c_args``, ``c_link_args``, ``cpp_args`` and ``cpp_link_args`` attributes.
 
 **Android**
 
-It initializes the ``c``, ``cpp`` and ``ar`` variables which are needed to cross-compile for Android. For instance:
+It initializes the ``MesonToolchain`` ``c``, ``cpp``, and ``ar`` attributes, which are needed to cross-compile for Android. For instance:
 
 * ``c == $TOOLCHAIN/bin/llvm-ar``
 * ``cpp == $TOOLCHAIN/bin/$TARGET$API-clang``
@@ -177,11 +153,12 @@ It initializes the ``c``, ``cpp`` and ``ar`` variables which are needed to cross
 Where:
 
 * ``$TOOLCHAIN``: ``[NDK_PATH]/toolchains/llvm/prebuilt/[OS_BUILD]-x86_64/bin``.
-* ``$TARGET``: target triple, e.g., for ``armv8`` will be ``aarch64-linux-android``.
+* ``$TARGET``: target triple, e.g., for ``armv8`` is ``aarch64-linux-android``.
 * ``$API``: Android API version.
 
-Besides that, you'll always be able to change any of these variables before being applied thanks
-to the ``MesonToolchain`` class interface. For instance:
+
+Besides that, you can change any of these mentioned attributes above before being applied thanks to the ``MesonToolchain``
+class interface. For instance:
 
 .. code:: python
 
@@ -196,8 +173,12 @@ to the ``MesonToolchain`` class interface. For instance:
 
         def generate(self):
             tc = MesonToolchain(self)
-            tc.cpp = "/path/to/other/compiler"
+            tc.c = "/path/to/other/c"
+            tc.cpp = "/path/to/other/cpp"
+            tc.c_args = ["flag1", "flag2"]
+            tc.c_link_args = ["ld_flag1", "ld_flag2"]
             tc.generate()
+
 
 .. _MesonToolchain Reference:
 
