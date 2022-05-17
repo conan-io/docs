@@ -51,7 +51,7 @@ constructor
   the name of the generated file is *conanbuild.conf*. This namespace must be also set with the same
   value in the constructor of the :ref:`AutotoolsToolchain<conan_tools_gnu_autotools_toolchain>` so
   that it reads the information from the proper file.
-- **build_script_folder** (Optional, Defaulted to ``None``): Subfolder where the configure script is located.
+- ``build_script_folder`` (Optional, Defaulted to ``None``): Subfolder where the configure script is located.
     If ``None``, ``conanfile.source_folder`` will be used.
 
 configure()
