@@ -163,7 +163,7 @@ to cross-compile for Apple (MacOS M1, iOS, etc.) and Android.
 
 **Apple**
 
-It'll add link flags like ``-arch XXX``, ``-isysroot [SDK_PATH]`` and the minimum deployment target flag, e.g., ``-mios-version-min=8.0``
+It adds link flags ``-arch XXX``, ``-isysroot [SDK_PATH]`` and the minimum deployment target flag, e.g., ``-mios-version-min=8.0``
 into Meson ``c_args``, ``c_link_args``, ``cpp_args`` and ``cpp_link_args`` built-in options.
 
 **Android**
