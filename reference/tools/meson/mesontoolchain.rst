@@ -168,7 +168,7 @@ into Meson ``c_args``, ``c_link_args``, ``cpp_args`` and ``cpp_link_args`` built
 
 **Android**
 
-It'll initialize the ``c``, ``cpp`` and ``ar`` variables which are needed to cross-compile for Android. For instance:
+It initializes the ``c``, ``cpp`` and ``ar`` variables which are needed to cross-compile for Android. For instance:
 
 * ``c == $TOOLCHAIN/bin/llvm-ar``
 * ``cpp == $TOOLCHAIN/bin/$TARGET$API-clang``
