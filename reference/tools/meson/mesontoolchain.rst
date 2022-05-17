@@ -158,7 +158,7 @@ With the ``MesonToolchain`` it is possible to do:
 Cross-building for Apple and Android
 +++++++++++++++++++++++++++++++++++++
 
-It deserves a special mention because ``MesonToolchain`` is automatically adding all the flags needed
+ The ``MesonToolchain`` automatically adds all the flags needed
 to cross-compile for Apple (MacOS M1, iOS, etc.) and Android.
 
 **Apple**
