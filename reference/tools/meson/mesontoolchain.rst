@@ -43,7 +43,7 @@ translated from the current ``settings``, ``conf``, etc.:
 conan_meson_native.ini
 +++++++++++++++++++++++++
 
-This file will contain the definitions of all the Meson properties related to the Conan options
+This file contains the definitions of all the Meson properties related to the Conan options
 and settings for the current package, platform, etc. This includes but is not limited to the following:
 
 * Detection of ``default_library`` from Conan settings.
