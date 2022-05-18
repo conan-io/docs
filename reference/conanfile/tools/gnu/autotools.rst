@@ -42,7 +42,7 @@ constructor
 
 .. code:: python
 
-    def __init__(self, conanfile, namespace=None):
+    def __init__(self, conanfile, namespace=None, build_script_folder=None):
 
 - ``conanfile``: the current recipe object. Always use ``self``.
 - ``namespace``: this argument avoids collisions when you have multiple toolchain calls in the same
@@ -51,20 +51,17 @@ constructor
   the name of the generated file is *conanbuild.conf*. This namespace must be also set with the same
   value in the constructor of the :ref:`AutotoolsToolchain<conan_tools_gnu_autotools_toolchain>` so
   that it reads the information from the proper file.
-
+- ``build_script_folder`` (Optional, Defaulted to ``None``): Subfolder where the configure script is located.
+    If ``None``, ``conanfile.source_folder`` will be used.
 
 configure()
 +++++++++++
 
 .. code-block:: python
 
-    def configure(self, build_script_folder=None)
+    def configure(self):
 
 Call the configure script.
-
-Parameters:
-    - **build_script_folder** (Optional, Defaulted to ``None``): Subfolder where the configure script is located.
-      If ``None``, ``conanfile.source_folder`` will be used.
 
 
 make()
