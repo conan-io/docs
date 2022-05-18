@@ -48,7 +48,7 @@ and settings for the current package, platform, etc. This includes but is not li
 
 * Detection of ``default_library`` from Conan settings.
 
-    * Based on existance/value of a option named ``shared``.
+    * Based on existence/value of an option named ``shared``.
 
 * Detection of ``buildtype`` from Conan settings.
 
