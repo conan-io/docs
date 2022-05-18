@@ -91,7 +91,7 @@ This attribute allows defining Meson project options:
 
 This is translated to:
 
-- One project options definition for ``MYVAR`` in ``conan_meson_native.init`` or ``conan_meson_cross.ini`` file.
+- One project options definition for ``MYVAR`` in ``conan_meson_native.ini`` or ``conan_meson_cross.ini`` file.
 
 preprocessor_definitions
 ^^^^^^^^^^^^^^^^^^^^^^^^
