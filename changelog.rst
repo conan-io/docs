@@ -21,6 +21,13 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.48 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
     a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.48.1 (18-May-2022)
+--------------------
+
+- Fix: Add `-DCMAKE_BUILD_TYPE` to markdown generator instructions for CMake single config. `#11234 <https://github.com/conan-io/conan/pull/11234>`_
+- Bugfix: Fix case where CMakeDeps assumes a module dependency when transitive dependencies do not define `cmake_find_mode` and fallback to a config one. `#11240 <https://github.com/conan-io/conan/pull/11240>`_
+- Bugfix: Fixed broken ``apple-clang`` 13.0 compatibility. `#11231 <https://github.com/conan-io/conan/pull/11231>`_
+
 1.48.0 (03-May-2022)
 --------------------
 
