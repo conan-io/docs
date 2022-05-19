@@ -109,11 +109,6 @@ This is translated to:
 
 - One preprocessor definition for ``MYDEF`` in ``conan_meson_native.ini`` or ``conan_meson_cross.ini`` file.
 
-.. note::
-
-    You can have a look at the rest of the public attributes in the
-    :ref:`MesonToolchain class Reference<MesonToolchain Reference>`
-
 conf
 ++++++
 
@@ -135,49 +130,48 @@ conf
 Cross-building for Apple and Android
 -------------------------------------
 
-The ``MesonToolchain`` adds all the flags needed to cross-compile for Apple (MacOS M1, iOS, etc.) and Android.
+The ``MesonToolchain`` adds all the flags required to cross-compile for Apple (MacOS M1, iOS, etc.) and Android.
 
 **Apple**
 
 It adds link flags ``-arch XXX``, ``-isysroot [SDK_PATH]`` and the minimum deployment target flag, e.g., ``-mios-version-min=8.0``
-to the ``MesonToolchain`` ``c_args``, ``c_link_args``, ``cpp_args`` and ``cpp_link_args`` attributes.
+to the ``MesonToolchain`` ``c_args``, ``c_link_args``, ``cpp_args``, and ``cpp_link_args`` attributes, given the
+Conan settings for any Apple OS (iOS, watchOS, etc.) and the ``tools.apple:sdk_path`` configuration value like it's showed
+in this example of host profile:
+
+.. code-block:: text
+    :caption: **ios_host_profile**
+
+    [settings]
+    os = iOS
+    os.version = 10.0
+    os.sdk = iphoneos
+    arch = armv8
+    compiler = apple-clang
+    compiler.version = 12.0
+    compiler.libcxx = libc++
+
+    [conf]
+    tools.apple:sdk_path=/my/path/to/iPhoneOS.sdk
+
 
 **Android**
 
-It initializes the ``MesonToolchain`` ``c``, ``cpp``, and ``ar`` attributes, which are needed to cross-compile for Android. For instance:
-
-* ``c == $TOOLCHAIN/bin/llvm-ar``
-* ``cpp == $TOOLCHAIN/bin/$TARGET$API-clang``
-* ``ar == $TOOLCHAIN/bin/$TARGET$API-clang++``
-
-Where:
-
-* ``$TOOLCHAIN``: ``[NDK_PATH]/toolchains/llvm/prebuilt/[OS_BUILD]-x86_64/bin``.
-* ``$TARGET``: target triple, e.g., for ``armv8`` is ``aarch64-linux-android``.
-* ``$API``: Android API version.
+It initializes the ``MesonToolchain`` ``c``, ``cpp``, and ``ar`` attributes, which are needed to cross-compile for Android, given the
+Conan settings for Android and the ``tools.android:ndk_path`` configuration value like it's showed
+in this example of host profile:
 
 
-Besides that, you can change any of these mentioned attributes above before being applied thanks to the ``MesonToolchain``
-class interface. For instance:
+.. code-block:: text
+    :caption: **android_host_profile**
 
-.. code:: python
+    [settings]
+    os = Android
+    os.api_level = 21
+    arch = armv8
 
-    from conan import ConanFile
-    from conan.tools.meson import MesonToolchain
-
-    class App(ConanFile):
-        settings = "os", "arch", "compiler", "build_type"
-        requires = "hello/0.1"
-        options = {"shared": [True, False]}
-        default_options = {"shared": False}
-
-        def generate(self):
-            tc = MesonToolchain(self)
-            tc.c = "/path/to/other/c"
-            tc.cpp = "/path/to/other/cpp"
-            tc.c_args = ["flag1", "flag2"]
-            tc.c_link_args = ["ld_flag1", "ld_flag2"]
-            tc.generate()
+    [conf]
+    tools.android:ndk_path=/my/path/to/NDK
 
 
 .. _MesonToolchain Reference:
