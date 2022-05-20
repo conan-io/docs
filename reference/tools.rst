@@ -897,7 +897,7 @@ tools.run_in_windows_bash()
 
 .. code-block:: python
 
-    def run_in_windows_bash(conanfile, bashcmd, cwd=None, subsystem=None, msys_mingw=True, env=None, with_login=True)
+    def run_in_windows_bash(conanfile, bashcmd, cwd=None, subsystem=None, msys_mingw=True, env=None, with_login=True, output=True)
 
 Runs a UNIX command inside a bash shell. It requires to have "bash" in the path.
 Useful to build libraries using ``configure`` and ``make`` in Windows. Check :ref:`Windows subsytems <windows_subsystems>` section.
@@ -924,6 +924,15 @@ Parameters:
       will have more priority than others.
     - **with_login** (Optional, Defaulted to ``True``): Pass the ``--login`` flag to :command:`bash` command. This might come handy when you
       don't want to create a fresh user session for running the command.
+    - **output** (Optional, Defaulted to ``True``): When True it will write in stdout. You can pass any stream that accepts a ``write`` 
+      method like a ``six.StringIO()``:
+
+    ..  code-block:: python
+
+        from six import StringIO  # Python 2 and 3 compatible
+        mybuf = StringIO()
+        tools.run_in_windows_bash(self, "mycommand", output=mybuf)
+        self.output.warn(mybuf.getvalue())
 
 .. _tools_get_cased_path:
 
