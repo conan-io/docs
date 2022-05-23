@@ -158,7 +158,7 @@ in this example of host profile:
 **Android**
 
 It initializes the ``MesonToolchain`` ``c``, ``cpp``, and ``ar`` attributes, which are needed to cross-compile for Android, given the
-Conan settings for Android and the ``tools.android:ndk_path`` configuration value like it's showed
+Conan settings for Android and the ``tools.android:ndk_path`` configuration value like it's shown
 in this example of host profile:
 
 
