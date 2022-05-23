@@ -33,7 +33,7 @@ as follows:
 Generated files
 -----------------
 
-This generates the following files after a :command:`conan install` (or when building the package
+The ``MesonToolchain`` generates the following files after a :command:`conan install` (or when building the package
 in the cache) with the information provided in the ``generate()`` method as well as information
 translated from the current ``settings``, ``conf``, etc.:
 
