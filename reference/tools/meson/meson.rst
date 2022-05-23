@@ -3,8 +3,7 @@
 Meson
 ======
 
-The ``Meson()`` build helper is intended to be used in the ``build()`` and ``package()`` methods, to call Meson commands automatically
-when a package is being built directly by Conan (create, install).
+The ``Meson()`` build helper is intended to be used in the ``build()`` and ``package()`` methods, to call Meson commands automatically.
 
 .. code:: python
 
