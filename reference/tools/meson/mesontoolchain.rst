@@ -26,7 +26,7 @@ as follows:
 
 .. important::
 
-    The ``MesonToolchain`` only works with the ``PkgConfigDeps`` generator.
+    When your recipe has dependencies ``MesonToolchain`` only works with the ``PkgConfigDeps`` generator.
     Please, do not use other generators, as they can have overlapping definitions that can conflict.
 
 
