@@ -136,7 +136,7 @@ The ``MesonToolchain`` adds all the flags required to cross-compile for Apple (M
 
 It adds link flags ``-arch XXX``, ``-isysroot [SDK_PATH]`` and the minimum deployment target flag, e.g., ``-mios-version-min=8.0``
 to the ``MesonToolchain`` ``c_args``, ``c_link_args``, ``cpp_args``, and ``cpp_link_args`` attributes, given the
-Conan settings for any Apple OS (iOS, watchOS, etc.) and the ``tools.apple:sdk_path`` configuration value like it's showed
+Conan settings for any Apple OS (iOS, watchOS, etc.) and the ``tools.apple:sdk_path`` configuration value like it's shown
 in this example of host profile:
 
 .. code-block:: text
