@@ -30,3 +30,4 @@ Contents:
    tools/env
    tools/build
    tools/files
+   tools/meson
