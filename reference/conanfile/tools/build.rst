@@ -20,3 +20,22 @@ Parameters:
 - **skip_x64_x86**: Will not consider the as cross-building the case of building in 64 bit
   architecture for 32 bit architecture, like ``build_arch=x86_64`` and ``host_arch=x86``
   for example.
+
+
+conan.tools.build.can_run()
+----------------------------------
+
+.. code-block:: python
+
+    def can_run(conanfile):
+
+
+Check it we are cross execute any application based on :ref:`global conf <global_conf>`  or ``cross_building()``.
+Returns the configuration value for ``tools.build.cross_building:can_run``. In case is not configured,
+it returns ``False`` in the case that we are cross-building, otherwise, ``True``.
+
+It's an useful feature in case your archtecture can run more then one target. For instance, Mac M1 machines can run both ``armv8`` and ``x86_64``.
+
+Parameters:
+
+- **conanfile**: Conanfile object, use always ``self``.
