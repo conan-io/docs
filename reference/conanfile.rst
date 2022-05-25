@@ -4,8 +4,7 @@ conanfile.py
 ============
 
 
-.. currentmodule:: conan
-.. autoclass:: ConanFile
+The ``conanfile.py`` is the recipe file of a package, responsible for defining how to build it and consume it.
 
    .. code-block:: python
 
