@@ -113,7 +113,7 @@ require those specific components instead of aggregating all the dependencies li
 
 For executables that require libraries with components you can overwrite the
 ``conandeps.xcconfig`` file in the ``generate()`` method to add just the components you need.
-For example, myapplication only uses the ``Boost::random`` component from `boost/1.79.0
+For example, *myapplication* only uses the ``Boost::random`` component from `boost/1.79.0
 <https://conan.io/center/boost>`_. To just add that component you could do something like:
 
 .. code-block:: python
