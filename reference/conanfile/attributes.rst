@@ -398,10 +398,8 @@ tool_requires
          tool_requires = "tool_a/0.2", "tool_b/0.2@user/testing"
 
 
-  .. seealso::
-
-      - This is the declarative way to add ``tool_requires``. Check the <MISSING PAGE> tool_requires()
-        conanfile.py method to learn a more flexible way to add them.
+  This is the declarative way to add ``tool_requires``. Check the <MISSING PAGE> tool_requires()
+  conanfile.py method to learn a more flexible way to add them.
 
 
 build_requires
@@ -416,10 +414,10 @@ build_requires
         build_requires = ["my_build_scripts/1.3",]
 
 
-  .. seealso::
 
-      - This is the declarative way to add ``build_requires``. Check the <MISSING PAGE> build_requires()
-        conanfile.py method to learn a more flexible way to add them.
+
+  This is the declarative way to add ``build_requires``. Check the <MISSING PAGE> build_requires()
+  conanfile.py method to learn a more flexible way to add them.
 
 
 test_requires
@@ -434,10 +432,8 @@ test_requires
         test_requires = "gtest/1.11.0", "other_test_tool/0.2@user/testing"
 
 
-  .. seealso::
-
-      - This is the declarative way to add ``test_requires``. Check the <MISSING PAGE> test_requires()
-        conanfile.py method to learn a more flexible way to add them.
+  This is the declarative way to add ``test_requires``. Check the <MISSING PAGE> test_requires()
+  conanfile.py method to learn a more flexible way to add them.
 
 
 .. _exports_attribute:
