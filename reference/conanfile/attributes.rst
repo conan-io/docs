@@ -400,7 +400,8 @@ tool_requires
 
   .. seealso::
 
-      - Check <MISSING PAGE> tool_requires() conanfile.py method.
+      - This is the declarative way to add ``tool_requires``. Check the <MISSING PAGE> tool_requires()
+        conanfile.py method to learn a more flexible way to add them.
 
 
 build_requires
@@ -417,7 +418,8 @@ build_requires
 
   .. seealso::
 
-      - Check <MISSING PAGE> build_requires() conanfile.py method.
+      - This is the declarative way to add ``build_requires``. Check the <MISSING PAGE> build_requires()
+        conanfile.py method to learn a more flexible way to add them.
 
 
 test_requires
@@ -434,7 +436,8 @@ test_requires
 
   .. seealso::
 
-      - Check <MISSING PAGE> test_requires() conanfile.py method.
+      - This is the declarative way to add ``test_requires``. Check the <MISSING PAGE> test_requires()
+        conanfile.py method to learn a more flexible way to add them.
 
 
 .. _exports_attribute:
