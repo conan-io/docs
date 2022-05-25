@@ -227,6 +227,7 @@ Usage:
 
 .. autofunction:: update_conandata
 
+.. _conan_tools_files_collect_libs:
 
 conan.tools.files.collect_libs()
 --------------------------------
