@@ -27,6 +27,7 @@ Contents:
 
    tools/cmake
    tools/gnu
+   tools/apple
    tools/env
    tools/build
    tools/files
