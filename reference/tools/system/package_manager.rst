@@ -9,7 +9,7 @@ package managers in recipes and perform the most typical operations, like instal
 package, updating the package manager database or checking if a package is installed.
 
 
-You can use these tools inside the :ref:`method_system_requirements` method of your recipe, like:
+You can use these tools inside the ``system_requirements()`` method of your recipe, like:
 
 
 ..  code-block:: python
@@ -51,7 +51,7 @@ Methods available for system package manager tools
 All these wrappers share three methods that represent the most common operations with a
 system package manager. They take the same form for all of the package managers except for
 *Apt* that also accepts the *recommends* argument for the :ref:`install
-method<conan_tools_system_package_manager_apt_methods>`.
+method<conan_tools_system_package_manager_apt>`.
 
 * ``install(self, packages, update=False, check=False):`` try to install
   the list of packages passed as a parameter. If the parameter ``check`` is ``True`` it
@@ -71,7 +71,7 @@ method<conan_tools_system_package_manager_apt_methods>`.
 Configuration properties that affect how system package managers are invoked
 ----------------------------------------------------------------------------
 
-As explained above there are several :ref:`configuration properties<global_conf>` that
+As explained above there are several ``[conf]`` that
 affect how these tools are invoked:
 
 * ``tools.system.package_manager:tool``: to choose which package manager tool you want to
@@ -95,26 +95,25 @@ affect how these tools are invoked:
 
 There are some specific arguments for each of these tools. Here is the complete reference:
 
+.. _conan_tools_system_package_manager_apt:
+
 conan.tools.system.package_manager.Apt
 --------------------------------------
 
 Will invoke the *apt-get* command. Enabled by default for **Linux** with distribution
 names: *ubuntu* and *debian*.
 
-Constructor
-+++++++++++
+Reference
+---------
 
-.. code:: python
+.. currentmodule:: conan.tools.system.package_manager
 
-    def __init__(self, conanfile, arch_names=None):
+.. autoclass:: Apt
+    :members:
+    :inherited-members:
 
-* **conanfile**: the current recipe object. Always use ``self``.
-* **arch_names**: this argument maps the Conan architecture setting with the package manager
-  tool architecture names. It is ``None`` by default, which means that it will use a
-  default mapping for the most common architectures. For example, if you are using
-  ``x86_64`` Conan architecture setting, it will map this value to ``amd64`` for *Apt* and
-  try to install the ``<package_name>:amd64`` package. You can pass this argument to
-  override the default Conan mapping, like: 
+
+You can pass the ``arch_names`` argument to override the default Conan mapping like this:
 
 ..  code-block:: python
     :caption: conanfile.py
@@ -124,7 +123,7 @@ Constructor
         apt = Apt(self, arch_names={"<conan_arch_setting>": "apt_arch_setting"})
         apt.install(["libgl-dev"])
 
-The default mapping Conan uses for *APT* packages architecture is:
+The default mapping that Conan uses for *APT* packages architecture is:
 
 ..  code-block:: python
 
@@ -137,26 +136,6 @@ The default mapping Conan uses for *APT* packages architecture is:
                           "armv8": "aarch64",
                           "s390x": "s390x"} if arch_names is None else arch_names
 
-
-.. _conan_tools_system_package_manager_apt_methods:
-
-Methods
-+++++++
-
-* ``install(self, packages, update=False, check=False, recommends=False):``: will try to
-  install the list of packages passed as a parameter. If the parameter ``check`` is
-  ``True`` it will check if those packages are already installed before installing them.
-  If the parameter ``update`` is ``True`` it will try to update the package manager
-  database before checking and installing. If the parameter ``recommends`` is ``False`` it
-  will add the ``'--no-install-recommends'`` argument to the *apt-get* command call. Its
-  behaviour is affected by the value of ``tools.system.package_manager:mode``
-  :ref:`configuration<conan_tools_system_package_manager_config>`.
-* ``update()`` same behaviour as the one explained in the
-  :ref:`section<conan_tools_system_package_manager_methods>` above.
-* ``check(packages)`` same behaviour as the one explained in the
-  :ref:`section<conan_tools_system_package_manager_methods>` above.
-
-
 .. _conan_tools_system_package_manager_yum:
 
 conan.tools.system.package_manager.Yum
@@ -165,20 +144,16 @@ conan.tools.system.package_manager.Yum
 Will invoke the *yum* command. Enabled by default for **Linux** with distribution names:
 *pidora*, *scientific*, *xenserver*, *amazon*, *oracle*, *amzn* and *almalinux*.
 
-Constructor
-+++++++++++
+Reference
+---------
 
-.. code:: python
+.. currentmodule:: conan.tools.system.package_manager
 
-    def __init__(self, conanfile, arch_names=None):
+.. autoclass:: Yum
+    :members:
+    :inherited-members:
 
-* **conanfile**: the current recipe object. Always use ``self``.
-* **arch_names**: this argument maps the Conan architecture setting with the package manager
-  tool architecture names. It is ``None`` by default, which means that it will use a
-  default mapping for the most common architectures. For example, if you are using
-  ``x86`` Conan architecture setting, it will map this value to ``i?86`` for *Yum* and
-  try to install the ``<package_name>.i?86`` package. 
-  
+
 The default mapping Conan uses for *Yum* packages architecture is:
 
 ..  code-block:: python
@@ -191,7 +166,6 @@ The default mapping Conan uses for *Yum* packages architecture is:
                           "armv7hf": "armv7hl",
                           "armv8": "aarch64",
                           "s390x": "s390x"} if arch_names is None else arch_names
-
 
 conan.tools.system.package_manager.Dnf
 --------------------------------------
@@ -206,19 +180,14 @@ conan.tools.system.package_manager.PacMan
 Will invoke the *pacman* command. Enabled by default for **Linux** with distribution
 names: *arch*, *manjaro* and when using **Windows** with *msys2*
 
-Constructor
-+++++++++++
+Reference
+---------
 
-.. code:: python
+.. currentmodule:: conan.tools.system.package_manager
 
-    def __init__(self, conanfile, arch_names=None):
-
-* **conanfile**: the current recipe object. Always use ``self``.
-* **arch_names**: this argument maps the Conan architecture setting with the package manager
-  tool architecture names. It is ``None`` by default, which means that it will use a
-  default mapping for the most common architectures. If you are using
-  ``x86`` Conan architecture setting, it will map this value to ``lib32`` for *PacMan* and
-  try to install the ``<package_name>-lib32`` package. 
+.. autoclass:: PacMan
+    :members:
+    :inherited-members:
 
 The default mapping Conan uses for *PacMan* packages architecture is:
 
@@ -232,67 +201,67 @@ conan.tools.system.package_manager.Zypper
 Will invoke the *zypper* command. Enabled by default for **Linux** with distribution
 names: *opensuse*, *sles*.
 
-Constructor
-+++++++++++
+Reference
+---------
 
-.. code:: python
+.. currentmodule:: conan.tools.system.package_manager
 
-    def __init__(self, conanfile, arch_names=None):
-
-* **conanfile**: the current recipe object. Always use ``self``.
+.. autoclass:: Zypper
+    :members:
+    :inherited-members:
 
 conan.tools.system.package_manager.Brew
 ---------------------------------------
 
 Will invoke the *brew* command. Enabled by default for **macOS**.
 
-Constructor
-+++++++++++
+Reference
+---------
 
-.. code:: python
+.. currentmodule:: conan.tools.system.package_manager
 
-    def __init__(self, conanfile, arch_names=None):
-
-* **conanfile**: the current recipe object. Always use ``self``.
+.. autoclass:: Brew
+    :members:
+    :inherited-members:
 
 conan.tools.system.package_manager.Pkg
 --------------------------------------
 
 Will invoke the *pkg* command. Enabled by default for **Linux** with distribution names: *freebsd*.
 
-Constructor
-+++++++++++
+Reference
+---------
 
-.. code:: python
+.. currentmodule:: conan.tools.system.package_manager
 
-    def __init__(self, conanfile, arch_names=None):
-
-* **conanfile**: the current recipe object. Always use ``self``.
+.. autoclass:: Pkg
+    :members:
+    :inherited-members:
 
 conan.tools.system.package_manager.PkgUtil
 ------------------------------------------
 
 Will invoke the *pkgutil* command. Enabled by default for **Solaris**.
 
-Constructor
-+++++++++++
+Reference
+---------
 
-.. code:: python
+.. currentmodule:: conan.tools.system.package_manager
 
-    def __init__(self, conanfile, arch_names=None):
-
-* **conanfile**: the current recipe object. Always use ``self``.
+.. autoclass:: PkgUtil
+    :members:
+    :inherited-members:
 
 conan.tools.system.package_manager.Chocolatey
 ---------------------------------------------
 
 Will invoke the *choco* command. Enabled by default for **Windows**.
 
-Constructor
-+++++++++++
+Reference
+---------
 
-.. code:: python
+.. currentmodule:: conan.tools.system.package_manager
 
-    def __init__(self, conanfile, arch_names=None):
-
-* **conanfile**: the current recipe object. Always use ``self``
+.. autoclass:: Chocolatey
+    :members:
+    :inherited-members:
