@@ -31,3 +31,4 @@ Contents:
    tools/build
    tools/files
    tools/meson
+   tools/system
