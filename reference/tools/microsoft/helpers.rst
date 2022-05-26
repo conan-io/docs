@@ -3,31 +3,14 @@
 conan.tools.microsoft.visual
 =============================
 
-msvc_version_to_vs_ide_version
--------------------------------
+check_min_vs
+---------------
 
 
 .. currentmodule:: conan.tools.microsoft.visual
 
-.. autofunction:: msvc_version_to_vs_ide_version
+.. autofunction:: check_min_vs
 
-
-msvc_version_to_toolset_version
---------------------------------
-
-
-.. currentmodule:: conan.tools.microsoft.visual
-
-.. autofunction:: msvc_version_to_toolset_version
-
-
-vs_ide_version
-----------------
-
-
-.. currentmodule:: conan.tools.microsoft.visual
-
-.. autofunction:: vs_ide_version
 
 
 msvc_runtime_flag
@@ -37,15 +20,6 @@ msvc_runtime_flag
 .. currentmodule:: conan.tools.microsoft.visual
 
 .. autofunction:: msvc_runtime_flag
-
-
-vcvars_command
--------------------
-
-
-.. currentmodule:: conan.tools.microsoft.visual
-
-.. autofunction:: vcvars_command
 
 
 is_msvc
