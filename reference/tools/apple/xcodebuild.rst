@@ -3,11 +3,11 @@
 XcodeBuild
 ----------
 
-The ``Xcode`` build helper is a wrapper around the command line invocation of Xcode. It
+The ``XcodeBuild`` build helper is a wrapper around the command line invocation of Xcode. It
 will abstract the calls like ``xcodebuild -project app.xcodeproj -configuration <config>
 -arch <arch> ...``
 
-The ``Xcode`` helper can be used like:
+The ``XcodeBuild`` helper can be used like:
 
 .. code:: python
 
@@ -21,18 +21,17 @@ The ``Xcode`` helper can be used like:
             xcodebuild = XcodeBuild(self)
             xcodebuild.build("app.xcodeproj")
 
-Xcode.build()
-+++++++++++++
+Reference
++++++++++
 
-.. code:: python
+.. currentmodule:: conan.tools.apple.xcodebuild
 
-    def build(self, xcodeproj, target=None):
+.. autoclass:: XcodeBuild
+    :members: __init__
 
-- ``xcodeproj``: the *xcodeproj* file to build.
-- ``target``: the target to build, in case this argument is passed to the ``build()``
-  method it will add the ``-target`` argument to the build system call. If not passed, it
-  will build all the targets passing the ``-alltargets`` argument instead.
+.. currentmodule:: conan.tools.apple.xcodebuild
 
+.. automethod:: XcodeBuild.build
 
 The ``Xcode.build()`` method internally implements a call to ``xcodebuild`` like:
 
