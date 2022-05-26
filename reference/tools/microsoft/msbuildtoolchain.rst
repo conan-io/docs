@@ -4,6 +4,81 @@
 MSBuildToolchain
 =================
 
+The ``MSBuildToolchain`` is the toolchain generator for MSBuild. It will generate MSBuild properties files
+that can be added to the Visual Studio solution projects. This generator translates
+the current package configuration, settings, and options, into MSBuild properties files syntax.
+
+The ``MSBuildToolchain`` generator can be used by name in conanfiles:
+
+.. code-block:: python
+    :caption: conanfile.py
+
+    class Pkg(ConanFile):
+        generators = "MSBuildToolchain"
+
+.. code-block:: text
+    :caption: conanfile.txt
+
+    [generators]
+    MSBuildToolchain
+
+And it can also be fully instantiated in the conanfile ``generate()`` method:
+
+.. code:: python
+
+    from conans import ConanFile
+    from conan.tools.microsoft import MSBuildToolchain
+
+    class App(ConanFile):
+        settings = "os", "arch", "compiler", "build_type"
+
+        def generate(self):
+            tc = MSBuildToolchain(self)
+            tc.generate()
+
+
+The ``MSBuildToolchain`` will generate three files after a ``conan install`` command:
+
+.. code-block:: bash
+
+    $ conan install conanfile.py # default is Release
+    $ conan install conanfile.py -s build_type=Debug
+
+
+- The main *conantoolchain.props* file, to be added to the project.
+- A *conantoolchain_<config>.props* file, that will be conditionally included from the previous
+  *conantoolchain.props* file based on the configuration and platform, e.g.:
+  *conantoolchain_release_x86.props*
+- A *conanvcvars.bat* file with the necessary ``vcvars`` invocation to define the build environment if necessary
+  to build from the command line or from automated tools (might not be necessary if opening the IDE). This file
+  will be automatically called by the ``tools.microsoft.MSBuild`` helper ``build()`` method.
+
+
+Every invocation to ``conan install`` with different configuration will create a new properties ``.props``
+file, that will also be conditionally included. This allows to install different configurations,
+then switch among them directly from the Visual Studio IDE.
+
+The MSBuildToolchain files can configure:
+
+- The Visual Studio runtime (MT/MD/MTd/MDd), obtained from Conan input settings
+- The C++ standard, obtained from Conan input settings
+
+One of the advantages of using toolchains is that they can help to achieve the exact same build
+with local development flows, than when the package is created in the cache.
+
+conf
+++++
+
+``MSBuildToolchain`` is affected by these :ref:`[conf]<global_conf>` variables:
+
+- ``tools.microsoft.msbuildtoolchain:compile_options`` dict-like object of extra compile options to be added to ``<ClCompile>`` section.
+  The dict will be translated as follows: ``<[KEY]>[VALUE]</[KEY]>``.
+- ``tools.build:cxxflags`` list of extra C++ flags that will be appended to ``<AdditionalOptions>`` section from ``<ClCompile>`` and ``<ResourceCompile>`` one.
+- ``tools.build:cflags`` list of extra of pure C flags that will be appended to ``<AdditionalOptions>`` section from ``<ClCompile>`` and ``<ResourceCompile>`` one.
+- ``tools.build:sharedlinkflags`` list of extra linker flags that will be appended to ``<AdditionalOptions>`` section from ``<Link>`` one.
+- ``tools.build:exelinkflags`` list of extra linker flags that will be appended to ``<AdditionalOptions>`` section from ``<Link>`` one.
+- ``tools.build:defines`` list of preprocessor definitions that will be appended to ``<PreprocessorDefinitions>`` section from ``<ResourceCompile>`` one.
+
 
 Reference
 ---------
