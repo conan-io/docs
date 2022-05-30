@@ -88,4 +88,4 @@ Reference
 .. currentmodule:: conan.tools.microsoft
 
 .. autoclass:: MSBuildToolchain
-    :members:
+    :members: generate

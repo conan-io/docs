@@ -40,10 +40,23 @@ And it can also be fully instantiated in the conanfile ``generate()`` method:
             ms.generate()
 
 
+
+Customization
+---------------
+
+conf
+++++
+
+``VCVars`` is affected by these ``[conf]`` variables:
+
+- ``tools.microsoft.msbuild:installation_path`` indicates the path to Visual Studio installation folder.
+  For instance: ``C:\Program Files (x86)\Microsoft Visual Studio\2019\Community``, ``C:\Program Files (x86)\Microsoft Visual Studio 14.0``, etc.
+
+
 Reference
 -----------
 
 .. currentmodule:: conan.tools.microsoft
 
 .. autoclass:: VCVars
-    :members:
+    :members: generate

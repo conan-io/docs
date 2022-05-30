@@ -118,10 +118,22 @@ dependencies are translated to properties files:
   ``<Command>`` elements.
 
 
+Customization
+---------------
+
+conf
+++++
+
+``MSBuildDeps`` is affected by these ``[conf]`` variables:
+
+- ``tools.microsoft.msbuilddeps:exclude_code_analysis`` list of packages names patterns to be added to the
+  Visual Studio ``CAExcludePath`` property.
+
+
 Reference
 ---------
 
 .. currentmodule:: conan.tools.microsoft
 
 .. autoclass:: MSBuildDeps
-    :members:
+    :members: generate

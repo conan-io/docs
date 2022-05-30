@@ -57,5 +57,4 @@ Reference
 .. currentmodule:: conan.tools.microsoft
 
 .. autoclass:: MSBuild
-    :members:
-    :exclude-members: get_version command
+    :members: command, build
