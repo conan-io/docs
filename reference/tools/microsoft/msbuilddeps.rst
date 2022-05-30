@@ -46,8 +46,8 @@ Debug/Release configuration. For instance, running these commands:
 
 .. code-block:: bash
 
-    $ conan install conanfile.py  # default is Release
-    $ conan install conanfile.py -s build_type=Debug
+    $ conan install .  # default is Release
+    $ conan install . -s build_type=Debug
 
 It generates the next files:
 
