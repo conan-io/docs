@@ -11,7 +11,7 @@ This helper can be used like:
 
 .. code:: python
 
-    from conan import conanfile
+    from conan import ConanFile
     from conan.tools.microsoft import MSBuild
 
     class App(ConanFile):
