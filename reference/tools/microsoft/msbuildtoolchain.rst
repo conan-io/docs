@@ -49,9 +49,9 @@ The ``MSBuildToolchain`` will generate three files after a ``conan install`` com
 - The main *conantoolchain.props* file, to be added to the project.
 - A *conantoolchain_<config>.props* file, that will be conditionally included from the previous
   *conantoolchain.props* file based on the configuration and platform, e.g., *conantoolchain_release_x86.props*.
-- A *conanvcvars.bat* file with the necessary ``vcvars`` invocation to define the build environment if necessary
-  to build from the command line or from automated tools (might not be necessary if opening the IDE). This file
-  will be automatically called by the ``tools.microsoft.MSBuild`` helper ``build()`` method.
+- A *conanvcvars.bat* file with the ``vcvars`` invocation to define the build environment from the command line,
+  or any other automated tools (might not be required if opening the IDE). This file will be automatically called
+  by the ``MSBuild.build()`` method.
 
 Every invocation with different configuration creates a new properties ``.props`` file, that is also conditionally
 included. That allows to install different configurations, then switch among them directly from the Visual Studio IDE.
