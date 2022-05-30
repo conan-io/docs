@@ -29,7 +29,7 @@ And it can also be fully instantiated in the conanfile ``generate()`` method:
 .. code-block:: python
     :caption: conanfile.py
 
-    from conans import ConanFile
+    from conan import ConanFile
     from conan.tools.microsoft import MSBuildDeps
 
     class Pkg(ConanFile):
@@ -81,7 +81,7 @@ option:
 
 .. code-block:: python
 
-    from conans import ConanFile
+    from conan import ConanFile
     from conan.tools.microsoft import MSBuildDeps
 
     class Pkg(ConanFile):
