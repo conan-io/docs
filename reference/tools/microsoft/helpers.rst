@@ -12,15 +12,6 @@ check_min_vs
 .. autofunction:: check_min_vs
 
 
-vcvars_command
----------------
-
-
-.. currentmodule:: conan.tools.microsoft.visual
-
-.. autofunction:: vcvars_command
-
-
 
 msvc_runtime_flag
 -------------------
