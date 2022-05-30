@@ -54,7 +54,7 @@ And it can also be fully instantiated in the conanfile ``generate()`` method:
 
 .. code:: python
 
-    from conans import ConanFile
+    from conan import ConanFile
     from conan.tools.gnu import PkgConfigDeps
 
     class App(ConanFile):
@@ -139,7 +139,7 @@ You can change that default behavior with the ``pkg_config_name`` and ``pkg_conf
 
 .. code:: python
 
-    from conans import ConanFile
+    from conan import ConanFile
 
     class OpenSSLConan(ConanFile):
         name = "openssl"
@@ -188,7 +188,7 @@ A special mention when a component shares the same ``*.pc`` file name as the roo
 
 .. code:: python
 
-    from conans import ConanFile
+    from conan import ConanFile
 
     class OpenCLConan(ConanFile):
 
@@ -209,7 +209,7 @@ Let's create our own ``myopenssl/1.0.0`` recipe and define several aliases like 
 
 .. code:: python
 
-    from conans import ConanFile
+    from conan import ConanFile
 
     class MyOpenSSLConan(ConanFile):
         name = "myopenssl"
@@ -245,7 +245,7 @@ It's also possible to use both properties together:
 
 .. code:: python
 
-    from conans import ConanFile
+    from conan import ConanFile
 
     class MyOpenSSLConan(ConanFile):
         name = "myopenssl"

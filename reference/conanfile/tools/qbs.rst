@@ -17,7 +17,7 @@ The ``QbsProfile`` can be used in the ``generate()`` method:
 
 .. code:: python
 
-    from conans import ConanFile
+    from conan import ConanFile
     from conan.tools.qbs import QbsProfile
 
     class App(ConanFile):
@@ -77,7 +77,7 @@ If you are using **Qbs** as your build system, you can use the **Qbs** build hel
 
 .. code-block:: python
 
-    from conans import ConanFile
+    from conan import ConanFile
     from conan.tools.qbs import Qbs
 
     class ConanFileToolsTest(ConanFile):
@@ -169,7 +169,7 @@ library locally (in your user folder, not in the local cache), could be:
 
 .. code-block:: python
 
-    from conans import ConanFile
+    from conan import ConanFile
     from conan.tools.qbs import Qbs
 
 

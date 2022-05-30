@@ -36,7 +36,7 @@ And it can also be fully instantiated in the conanfile ``generate()`` method:
 
 .. code:: python
 
-    from conans import ConanFile
+    from conan import ConanFile
     from conan.tools.gnu import AutotoolsToolchain
 
     class App(ConanFile):
@@ -95,7 +95,7 @@ values:
 
 .. code:: python
 
-    from conans import ConanFile
+    from conan import ConanFile
     from conan.tools.gnu import AutotoolsToolchain
 
     class App(ConanFile):
@@ -178,7 +178,7 @@ The ``environment()`` method returns an :ref:`Environment<conan_tools_env_enviro
 
 .. code:: python
 
-    from conans import ConanFile
+    from conan import ConanFile
     from conan.tools.gnu import AutotoolsToolchain
 
     class App(ConanFile):

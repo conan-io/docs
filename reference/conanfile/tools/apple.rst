@@ -258,7 +258,7 @@ The ``Xcode`` helper can be used like:
 
 .. code:: python
 
-    from conan import conanfile
+    from conan import ConanFile
     from conan.tools.apple import XcodeBuild
 
     class App(ConanFile):
