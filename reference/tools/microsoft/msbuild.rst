@@ -54,7 +54,7 @@ conf
 Reference
 ---------
 
-.. currentmodule:: conan.tools.microsoft.visual
+.. currentmodule:: conan.tools.microsoft
 
 .. autoclass:: MSBuild
     :members:
