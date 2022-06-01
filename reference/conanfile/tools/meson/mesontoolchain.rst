@@ -79,8 +79,8 @@ necessary to define them.
 - ``conanfile``: the current recipe object. Always use ``self``.
 - ``backend``: the meson `backend <https://mesonbuild.com/Configuring-a-build-directory.html>`_ to use. By default, ``ninja`` is used. Possible values: ninja, vs, vs2010, vs2015, vs2017, vs2019, xcode.
 
-definitions
-+++++++++++
+project_options
++++++++++++++++
 
 This attribute allows defining Meson project options:
 
@@ -88,7 +88,7 @@ This attribute allows defining Meson project options:
 
     def generate(self):
         tc = MesonToolchain(self)
-        tc.definitions["MYVAR"] = "MyValue"
+        tc.project_options["MYVAR"] = "MyValue"
         tc.generate()
 
 - One project options definition for ``MYVAR`` in ``conan_meson_native.init`` or ``conan_meson_cross.ini`` file.
