@@ -30,7 +30,7 @@ conan.tools.build.can_run()
     def can_run(conanfile):
 
 
-Check it we are cross execute any application based on :ref:`global conf <global_conf>`  or ``cross_building()``.
+Validates whether is possible to run a non-native app on the same architecture.
 Returns the configuration value for ``tools.build.cross_building:can_run``. In case is not configured,
 it returns ``False`` in the case that we are cross-building, otherwise, ``True``.
 
