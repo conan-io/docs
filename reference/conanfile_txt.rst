@@ -130,6 +130,27 @@ Example to collect license files from dependencies into a *licenses* folder, exc
     [imports]
     ., license* -> ./licenses @ folder=True, ignore_case=True, excludes=*.html *.jpeg
 
+
+[layout]
+++++++++
+
+This is a feature introduced in Conan 1.49
+
+
+You can specify one name of a predefined layout. The available values are:
+
+- :ref:`cmake_layout<conan_tools_layout_predefined_layouts>`
+- :ref:`vs_layout<conan_tools_layout_predefined_layouts>`
+- :ref:`bazel_layout<conan_tools_layout_predefined_layouts>`
+
+
+.. code-block:: text
+
+    [layout]
+    cmake_layout
+
+
+
 Comments
 ++++++++
 
