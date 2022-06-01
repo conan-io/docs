@@ -49,6 +49,12 @@ The full instantiation, that allows custom configuration can be done in the ``ge
     cross-compile might not work at all if the "build" profile is not provided.
 
 
+The ``CMakeDeps`` is a *multi-configuration* generator, it can correctly create files for Release/Debug configurations
+to be simultaneously used by IDEs like Visual Studio. In single configuration environments, it is necessary to have
+a configuration defined, which must be provided via the ``cmake ... -DCMAKE_BUILD_TYPE=<build-type>`` argument in command line
+(Conan will do it automatically when necessary, in the ``CMake.configure()`` helper).
+
+
 There are some attributes you can adjust in the created ``CMakeDeps`` object to change the default behavior:
 
 configuration
