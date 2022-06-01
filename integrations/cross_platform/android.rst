@@ -116,7 +116,7 @@ With this toolchain file you can execute CMake's command to generate the binarie
 .. code-block:: bash
 
    conan install <conanfile> --profile:host=profile_host --profile:build=default
-   cmake . -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
+   cmake . -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
    cmake --build . --config Release
 
 
