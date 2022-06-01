@@ -44,7 +44,6 @@ To list all possible configurations available, run :command:`conan config list`.
 .. code-block:: text
 
     $ conan config list
-    Supported Conan *experimental* global.conf and [conf] properties:
     core:required_conan_version: Raise if current version does not match the defined range.
     core.package_id:msvc_visual_incompatible: Allows opting-out the fallback from the new msvc compiler to the Visual Studio compiler existing binaries
     core:default_profile: Defines the default host profile ('default' by default)
@@ -52,6 +51,7 @@ To list all possible configurations available, run :command:`conan config list`.
     tools.android:ndk_path: Argument for the CMAKE_ANDROID_NDK
     tools.build:skip_test: Do not execute CMake.test() and Meson.test() when enabled
     tools.build:jobs: Default compile jobs number -jX Ninja, Make, /MP VS (default: max CPUs)
+    tools.build:sysroot: Pass the --sysroot=<tools.build:sysroot> flag if available. (None by default)
     tools.cmake.cmaketoolchain:generator: User defined CMake generator to use instead of default
     tools.cmake.cmaketoolchain:find_package_prefer_config: Argument for the CMAKE_FIND_PACKAGE_PREFER_CONFIG
     tools.cmake.cmaketoolchain:toolchain_file: Use other existing file rather than conan_toolchain.cmake one
@@ -60,6 +60,7 @@ To list all possible configurations available, run :command:`conan config list`.
     tools.cmake.cmaketoolchain:system_version: Define CMAKE_SYSTEM_VERSION in CMakeToolchain
     tools.cmake.cmaketoolchain:system_processor: Define CMAKE_SYSTEM_PROCESSOR in CMakeToolchain
     tools.env.virtualenv:auto_use: Automatically activate virtualenv file generation
+    tools.cmake.cmake_layout.build_folder_vars: Settings and Options that will produce a different build folder and different CMake presets names
     tools.files.download:retry: Number of retries in case of failure when downloading
     tools.files.download:retry_wait: Seconds to wait between download attempts
     tools.gnu:make_program: Indicate path to make program
@@ -79,6 +80,9 @@ To list all possible configurations available, run :command:`conan config list`.
     tools.system.package_manager:sudo: Use 'sudo' when invoking the package manager tools in Linux (False by default)
     tools.system.package_manager:sudo_askpass: Use the '-A' argument if using sudo in Linux to invoke the system package manager (False by default)
     tools.apple.xcodebuild:verbosity: Verbosity level for xcodebuild: 'verbose' or 'quiet
+    tools.apple:enable_bitcode: (boolean) Enable/Disable Bitcode Apple Clang flags
+    tools.apple:enable_arc: (boolean) Enable/Disable ARC Apple Clang flags
+    tools.apple:enable_visibility: (boolean) Enable/Disable Visibility Apple Clang flags
     tools.build:cxxflags: List of extra CXX flags used by different toolchains like CMakeToolchain, AutotoolsToolchain and MesonToolchain
     tools.build:cflags: List of extra C flags used by different toolchains like CMakeToolchain, AutotoolsToolchain and MesonToolchain
     tools.build:defines: List of extra definition flags used by different toolchains like CMakeToolchain and AutotoolsToolchain
