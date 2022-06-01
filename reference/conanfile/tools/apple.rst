@@ -107,9 +107,15 @@ Components support
 ++++++++++++++++++
 
 Since Conan version `1.49.0 <https://github.com/conan-io/conan/releases>`_, this generator
-supports packages with components. That means that if a library only requires certain
-components, the generated *.xcconfig* files after installing that library only require
-those specific components instead of aggregating all the dependencies libraries.
+supports packages with components. That means that:
+
+* If a **dependency** ``package_info()`` declares ``cpp_info.requires`` on some
+  components, the generated *.xcconfig* files will contain includes to only those
+  components.
+
+* The current package ``requires`` will be fully dependent on and all components. Recall
+  that the ``package_info()`` only applies for consumers, but not to the current package.
+
 
 Custom configurations
 +++++++++++++++++++++
