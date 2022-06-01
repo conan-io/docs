@@ -42,7 +42,7 @@ constructor
 
 .. code:: python
 
-    def __init__(self, conanfile, namespace=None, build_script_folder=None):
+    def __init__(self, conanfile, namespace=None):
 
 - ``conanfile``: the current recipe object. Always use ``self``.
 - ``namespace``: this argument avoids collisions when you have multiple toolchain calls in the same
@@ -51,8 +51,6 @@ constructor
   the name of the generated file is *conanbuild.conf*. This namespace must be also set with the same
   value in the constructor of the :ref:`AutotoolsToolchain<conan_tools_gnu_autotools_toolchain>` so
   that it reads the information from the proper file.
-- ``build_script_folder`` (Optional, Defaulted to ``None``): Subfolder where the configure script is located.
-    If ``None``, ``conanfile.source_folder`` will be used.
 
 configure()
 +++++++++++
@@ -62,6 +60,9 @@ configure()
     def configure(self):
 
 Call the configure script.
+
+- ``build_script_folder`` (Optional, Defaulted to ``None``): Subfolder where the configure script is located.
+    If ``None``, ``conanfile.source_folder`` will be used.
 
 
 make()
@@ -90,10 +91,11 @@ This is just an "alias" of ``self.make(target="install")``
 A note about relocatable shared libraries in macOS built the  Autotools build helper
 ------------------------------------------------------------------------------------
 
-When building a shared library with Autotools in macOS a section ``LC_ID_DYLIB`` is added
-to the ``.dylib``. This section stores the ``install_name`` which is the location of the
-folder where the library is installed. You can check the install_name of
-your shared libraries using the otool command:
+When building a shared library with Autotools in macOS a section ``LC_ID_DYLIB`` and
+another ``LC_LOAD_DYLIB`` are added to the ``.dylib``. These sections store
+``install_name`` information, which is the location of the folder where the library or its
+dependencies are installed. You can check the install_name of your shared libraries using
+the otool command:
 
 .. code-block:: text
 
@@ -105,6 +107,14 @@ your shared libraries using the otool command:
     time stamp 1 Thu Jan  1 01:00:01 1970
         current version 0.0.0
     compatibility version 0.0.0
+    ...
+    Load command 11
+            cmd LC_LOAD_DYLIB
+        cmdsize 48
+            name path/to/dependency.dylib (offset 24)
+    time stamp 2 Thu Jan  1 01:00:02 1970
+        current version 1.0.0
+    compatibility version 1.0.0
     ...
 
 
@@ -121,21 +131,28 @@ pointing to a folder that does not exist in your current machine so you would ge
 errors when building. 
 
 
-What does the Autotools build helper do about this?
-+++++++++++++++++++++++++++++++++++++++++++++++++++
+How to adress this problem in Conan
++++++++++++++++++++++++++++++++++++
 
 The only thing Conan can do to make these shared libraries relocatable is to patch the
 built binaries after installation. To do this, when using the ``Autotools`` build helper
-and after running the Makefile's ``install()`` step, Conan will search for the built
-``.dylib`` files and patch them by running the ``install_name_tool`` macOS utility, like
-this:
+and after running the Makefile's ``install()`` step, you can use the
+:ref:`fix_apple_shared_install_name()<conan_tools_apple_fix_apple_shared_install_name>`
+tool to search for the built ``.dylib`` files and patch them by running the
+``install_name_tool`` macOS utility, like this:
 
-.. code-block:: text
+.. code-block:: python
+    from conan.tools.apple import fix_apple_shared_install_name
+    class HelloConan(ConanFile):
+      ...
+      def package(self):
+          autotools = Autotools(self)
+          autotools.install()
+          fix_apple_shared_install_name(self)
 
-    install_name_tool -id @rpath/libMyLib.dylib path/to/libMyLib.dylib
 
-
-This will change the value of the ``LC_ID_DYLIB`` section in the ``.dylib`` file to:
+This will change the value of the ``LC_ID_DYLIB`` and ``LC_LOAD_DYLIB`` sections in the
+``.dylib`` file to:
 
 
 .. code-block:: text
@@ -149,6 +166,15 @@ This will change the value of the ``LC_ID_DYLIB`` section in the ``.dylib`` file
         current version 0.0.0
     compatibility version 0.0.0
     ...
+    Load command 11
+            cmd LC_LOAD_DYLIB
+        cmdsize 48
+            name @rpath/dependency.dylib (offset 24)
+    time stamp 2 Thu Jan  1 01:00:02 1970
+        current version 1.0.0
+    compatibility version 1.0.0
+    ...
+
 
 The ``@rpath`` special keyword will tell the loader to search a list of paths to find the
 library. These paths can be defined by the consumer of that library by defining the
