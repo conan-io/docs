@@ -89,6 +89,6 @@ The values assigned by the ``cmake_layout`` (installing the Release/shared confi
 So we can keep separated folders for any number of different configurations that we want to install.
 
 The ``CMakePresets.json`` file generated at the :ref:`CMakeToolchain<conan-cmake-toolchain>`
-generator, will also take this ``tools.cmake.cmake_layout.build_folder_vars`` config into account to generate different
+generator, will also take this ``tools.cmake.cmake_layout:build_folder_vars`` config into account to generate different
 names for the presets, being very handy to install N configurations and building our project for any of them by
 selecting the chosen preset.
