@@ -13,7 +13,7 @@ conan.tools.files.copy()
 
 .. code-block:: python
 
-    def copy(conanfile, pattern, src, dst, keep_path=True, excludes=None, ignore_case=True, copy_symlink_folders=True)
+    def copy(conanfile, pattern, src, dst, keep_path=True, excludes=None, ignore_case=True)
 
 
 Copy the files matching the ``pattern`` (fnmatch) at the ``src`` folder to a ``dst`` folder.
@@ -28,7 +28,17 @@ Parameters:
       folder to the **dst** one.
     - **excludes** (Optional, defaulted to ``None``): A tuple/list of fnmatch patterns or even a single one to be excluded from the copy.
     - **ignore_case** (Optional, defaulted to ``True``): If enabled, it will do a case-insensitive pattern matching.
-    - **copy_symlink_folders** (Optional, defaulted to ``True``): If enabled, it will copy symlink folders, no matter where they point to.
+
+.. note::
+
+    The files that are **symlinks to files** or **symlinks to folders** with be treated like any other file, so they will only
+    be copied if the specified pattern matches with the file.
+
+    At the destination folder, the symlinks will be created pointing to the exact same file or folder, absolute or relative,
+    being the responsibility of the user to manipulate the symlink to, for example, transform the symlink into a relative path
+    before copying it so it points to the destination folder.
+
+    Check :ref:`here<conan_tools_files_symlinks>` the reference of tools to manage symlinks.
 
 
 conan.tools.files.load()
