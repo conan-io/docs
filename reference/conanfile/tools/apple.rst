@@ -103,6 +103,14 @@ If you want to add this dependencies to you Xcode project, you just have to add 
 *conan_config.xcconfig* configuration file for all of the configurations you want to use
 (usually *Debug* and *Release*).
 
+Components support
+++++++++++++++++++
+
+Since Conan version `1.49.0 <https://github.com/conan-io/conan/releases>`_, this generator
+supports packages with components. That means that if a library only requires certain
+components, the generated *.xcconfig* files after installing that library only require
+those specific components instead of aggregating all the dependencies libraries.
+
 Custom configurations
 +++++++++++++++++++++
 
