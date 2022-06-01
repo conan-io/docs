@@ -31,8 +31,7 @@ conan.tools.build.can_run()
 
 
 Validates whether is possible to run a non-native app on the same architecture.
-Returns the configuration value for ``tools.build.cross_building:can_run``. In case is not configured,
-it returns ``False`` in the case that we are cross-building, otherwise, ``True``.
+It returns the configuration value for ``tools.build.cross_building:can_run`` if exists, otherwise, it returns ``False`` if we are cross-building, else, ``True``.
 
 It's an useful feature for the case your architecture can run more than one target. For instance, Mac M1 machines can run both ``armv8`` and ``x86_64``.
 
