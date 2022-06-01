@@ -65,6 +65,7 @@ This generator will also generate a file called ``conanbuild.conf`` containing t
 
 - **configure_args**: Arguments to call the ``configure`` script.
 - **make_args**: Arguments to call the ``make`` script.
+- **autoreconf_args**: Arguments to call the ``autoreconf`` script.
 
 The :ref:`Autotools build helper<conan_tools_gnu_build_helper>` will use that ``conanbuild.conf`` file to seamlessly call
 the configure and make script using these precalculated arguments.
@@ -107,8 +108,21 @@ values:
             tc.generate()
 
 
-* **configure_args** (Defaulted to ``[]``): Additional arguments to be passed to the configure script.
+* **configure_args**: Additional arguments to be passed to the configure script.
+    - By default the following arguments are passed:
+        * ``--prefix``: With the self.package_folder value.
+        * ``--bindir=${prefix}/bin``
+        * ``--sbindir=${prefix}/bin``
+        * ``--libdir=${prefix}/lib``
+        * ``--includedir=${prefix}/include``
+        * ``--oldincludedir=${prefix}/include``
+        * ``--datarootdir=${prefix}/res``
+    - Also if the shared option exists it will add by default:
+        * ``--enable-shared``, ``--disable-static`` if ``shared==True``
+        * ``--disable-shared``, ``--enable-static`` if ``shared==False``
+
 * **make_args** (Defaulted to ``[]``): Additional arguments to be passed to he make script.
+* **autoreconf_args** (Defaulted to ``["--force", "--install"]``): Additional arguments to be passed to he make script.
 * **defines** (Defaulted to ``[]``): Additional defines.
 * **cxxflags** (Defaulted to ``[]``): Additional cxxflags.
 * **cflags** (Defaulted to ``[]``): Additional cflags.
@@ -124,19 +138,9 @@ values:
 * **apple_isysroot_flag**: Only when cross-building with Apple systems. Path to the root sdk.
 * **msvc_runtime_flag**: Flag from ``settings.compiler.runtime_type`` when compiler is ``msvc`` or
   ``settings.compiler.runtime`` when using the deprecated ``Visual Studio``.
-* **default_configure_install_args** (Defaulted to ``True``): If True it will pass automatically the following flags to the configure script:
-
-   * ``--prefix``: With the self.package_folder value.
-   * ``--bindir=${prefix}/bin``
-   * ``--sbindir=${prefix}/bin``
-   * ``--libdir=${prefix}/lib``
-   * ``--includedir=${prefix}/include``
-   * ``--oldincludedir=${prefix}/include``
-   * ``--datarootdir=${prefix}/res``
 
 
-
- If you want to change the default values, adjust the ``cpp.package`` object at the ``layout()`` method:
+If you want to change the default values for ``configure_args``, adjust the ``cpp.package`` object at the ``layout()`` method:
 
     .. code:: python
 

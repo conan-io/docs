@@ -52,8 +52,8 @@ constructor
   value in the constructor of the :ref:`AutotoolsToolchain<conan_tools_gnu_autotools_toolchain>` so
   that it reads the information from the proper file.
 
-configure()
-+++++++++++
+configure(self, build_script_folder=None, args=None):
++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 .. code-block:: python
 
@@ -63,24 +63,42 @@ Call the configure script.
 
 - ``build_script_folder`` (Optional, Defaulted to ``None``): Subfolder where the configure script is located.
     If ``None``, ``conanfile.source_folder`` will be used.
+- **args** (Optional, Defaulted to ``None``): List of arguments to use for the
+    ``configure`` call.
 
+autoreconf(self, args=None):
++++++++++++++++++++++++++++++++++++
 
-make()
-++++++
+.. code-block:: python
+
+    def autoreconf(self, target=None)
+
+Call the ``autoreconf`` program.
+
+Parameters:
+    - **target** (Optional, Defaulted to ``None``): Choose which target to build. This allows building of e.g., docs, shared libraries or
+      install for some AutoTools projects.
+    - **args** (Optional, Defaulted to ``None``): List of arguments to use for the
+        ``autoreconf`` call.
+
+make(self, target=None, args=None):
++++++++++++++++++++++++++++++++++++
 
 .. code-block:: python
 
     def make(self, target=None)
 
-Call the make program.
+Call the ``make`` program.
 
 Parameters:
     - **target** (Optional, Defaulted to ``None``): Choose which target to build. This allows building of e.g., docs, shared libraries or
       install for some AutoTools projects.
+    - **args** (Optional, Defaulted to ``None``): List of arguments to use for the
+      ``make`` call. By default an argument ``DESTDIR=self.package_folder`` is added to the
+      call if the passed value is ``None``.
 
-
-install()
-+++++++++
+install(self, args=None):
++++++++++++++++++++++++++
 
 .. code-block:: python
 
@@ -142,6 +160,7 @@ tool to search for the built ``.dylib`` files and patch them by running the
 ``install_name_tool`` macOS utility, like this:
 
 .. code-block:: python
+
     from conan.tools.apple import fix_apple_shared_install_name
     class HelloConan(ConanFile):
       ...
