@@ -120,6 +120,7 @@ values:
 * **cppstd**: Flag from ``settings.compiler.cppstd``
 * **arch_flag**: Flag from ``settings.arch``
 * **build_type_flags**: Flags from ``settings.build_type``
+* **sysroot_flag**: To pass the ``--sysroot`` flag to the compiler.
 * **apple_arch_flag**: Only when cross-building with Apple systems. Flags from ``settings.arch``.
 * **apple_isysroot_flag**: Only when cross-building with Apple systems. Path to the root sdk.
 * **msvc_runtime_flag**: Flag from ``settings.compiler.runtime_type`` when compiler is ``msvc`` or
@@ -165,6 +166,7 @@ conf
 - ``tools.build:sharedlinkflags`` list of extra linker flags that will be used by ``LDFLAGS``.
 - ``tools.build:exelinkflags`` list of extra linker flags that will be used by by ``LDFLAGS``.
 - ``tools.build:defines`` list of preprocessor definitions that will be used by ``CPPFLAGS``.
+- ``tools.build:sysroot`` defines the ``--sysroot`` flag to the compiler.
 
 
 Customizing the environment
