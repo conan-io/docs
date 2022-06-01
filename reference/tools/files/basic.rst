@@ -18,6 +18,18 @@ Usage:
         copy(self, "*.lib", self.build_folder, os.path.join(self.package_folder, "lib"))
 
 
+.. note::
+
+    The files that are **symlinks to files** or **symlinks to folders** with be treated like any other file, so they will only
+    be copied if the specified pattern matches with the file.
+
+    At the destination folder, the symlinks will be created pointing to the exact same file or folder, absolute or relative,
+    being the responsibility of the user to manipulate the symlink to, for example, transform the symlink into a relative path
+    before copying it so it points to the destination folder.
+
+    Check :ref:`here<conan_tools_files_symlinks>` the reference of tools to manage symlinks.
+
+
 conan.tools.files.load()
 ------------------------
 
