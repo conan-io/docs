@@ -311,6 +311,7 @@ conf
 - ``tools.apple:sdk_path`` path for the sdk location, will set the ``SDKROOT`` value with
   preference over composing the value from the ``os.sdk`` and ``os.sdk_version`` settings.
 
+.. _conan_tools_apple_fix_apple_shared_install_name:
 
 conan.tools.apple.fix_apple_shared_install_name()
 -------------------------------------------------
