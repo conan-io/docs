@@ -1,6 +1,7 @@
 conan.tools.files.symlinks
 ==========================
 
+.. _conan_tools_files_symlinks:
 
 conan.tools.files.symlinks.absolute_to_relative_symlinks()
 ----------------------------------------------------------
