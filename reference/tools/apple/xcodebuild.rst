@@ -67,13 +67,9 @@ conf
 conan.tools.apple.fix_apple_shared_install_name()
 -------------------------------------------------
 
-.. code-block:: python
+.. currentmodule:: conan.tools.apple
 
-    def fix_apple_shared_install_name(conanfile):
-
-Parameters:
-
-- **conanfile**: Conanfile instance.
+.. autofunction:: fix_apple_shared_install_name
 
 This tool will search for all the *dylib* files in the conanfile's *package_folder* and fix
 both the ``LC_ID_DYLIB`` and ``LC_LOAD_DYLIB`` fields on those files using the
