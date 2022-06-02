@@ -21,6 +21,11 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.48 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
     a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.48.2 (02-Jun-2022)
+--------------------
+
+- Feature: Port https://github.com/conan-io/conan/pull/11365 and https://github.com/conan-io/conan/pull/11284 to 1.48.2 `#11381 <https://github.com/conan-io/conan/pull/11381>`_
+
 1.48.1 (18-May-2022)
 --------------------
 
