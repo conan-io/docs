@@ -141,6 +141,18 @@ components are added.
     ``XcodeDeps.use_components`` property. Specifying any component from other transitive
     dependencies or one that does not exist raises an error.
 
+Components support
+++++++++++++++++++
+
+This generator supports packages with components. That means that:
+
+* If a **dependency** ``package_info()`` declares ``cpp_info.requires`` on some
+  components, the generated *.xcconfig* files will contain includes to only those
+  components.
+
+* The current package ``requires`` will be fully dependent on and all components. Recall
+  that the ``package_info()`` only applies for consumers, but not to the current package.
+
 
 Custom configurations
 +++++++++++++++++++++
