@@ -32,3 +32,4 @@ Contents:
    tools/files
    tools/meson
    tools/system
+   tools/microsoft

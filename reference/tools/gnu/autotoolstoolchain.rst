@@ -178,4 +178,4 @@ conf
 - ``tools.build:sharedlinkflags`` list of extra linker flags that will be used by ``LDFLAGS``.
 - ``tools.build:exelinkflags`` list of extra linker flags that will be used by by ``LDFLAGS``.
 - ``tools.build:defines`` list of preprocessor definitions that will be used by ``CPPFLAGS``.
-
+- ``tools.build:sysroot`` defines the ``--sysroot`` flag to the compiler.
