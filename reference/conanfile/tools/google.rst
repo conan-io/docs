@@ -98,7 +98,7 @@ when a package is being built directly by Conan (create, install)
 
 .. code-block:: python
 
-    from conans import ConanFile
+    from conan import ConanFile
     from conan.tools.google import Bazel
 
     class App(ConanFile):

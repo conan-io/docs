@@ -17,7 +17,7 @@ like version, flags and directory data or configuration. It can be used like:
 
 .. code-block:: python
 
-    from conans import ConanFile
+    from conan import ConanFile
 
     class App(ConanFile):
         settings = "os", "arch", "compiler", "build_type"
@@ -30,7 +30,7 @@ The full instantiation, that allows custom configuration can be done in the ``ge
 
 .. code-block:: python
 
-    from conans import ConanFile
+    from conan import ConanFile
     from conan.tools.cmake import CMakeDeps
 
     class App(ConanFile):
