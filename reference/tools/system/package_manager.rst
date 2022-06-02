@@ -62,7 +62,8 @@ method<conan_tools_system_package_manager_apt>`.
   parameter ``update`` is ``True`` it will try to update the package manager database
   before checking and installing. Its behaviour is affected by the value of
   ``tools.system.package_manager:mode``
-  :ref:`configuration<conan_tools_system_package_manager_config>`.
+  :ref:`configuration<conan_tools_system_package_manager_config>`. It will return the
+  return code of the executed commands.
 * ``install_substitutes(packages_substitutes, update=False, check=True)``: try to install
   the list of lists of substitutes packages passed as a parameter, e.g., ``[["pkg1", "pkg2"], ["pkg3"]]``.
   It succeeds if one of the substitutes list is completely installed, so it's intended to be used when you have
@@ -73,7 +74,7 @@ method<conan_tools_system_package_manager_apt>`.
   the value of ``tools.system.package_manager:mode``
   :ref:`configuration<conan_tools_system_package_manager_config>`.
 * ``check(packages)`` check if the list of packages passed as parameter are already
-  installed.
+  installed. It will return a list with the packages that are missing.
 
 .. _conan_tools_system_package_manager_config:
 
