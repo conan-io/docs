@@ -44,8 +44,8 @@ constructor
 
     def __init__(self, conanfile, namespace=None):
 
-- ``conanfile``: the current recipe object. Always use ``self``.
-- ``namespace``: this argument avoids collisions when you have multiple toolchain calls in the same
+- **conanfile**: the current recipe object. Always use ``self``.
+- **namespace**: this argument avoids collisions when you have multiple toolchain calls in the same
   recipe. By setting this argument, the *conanbuild.conf* file used to pass information to the
   toolchain will be named as: *<namespace>_conanbuild.conf*. The default value is ``None`` meaning that
   the name of the generated file is *conanbuild.conf*. This namespace must be also set with the same
@@ -61,13 +61,13 @@ configure(self, build_script_folder=None, args=None):
 
 Call the configure script.
 
-- ``build_script_folder`` (Optional, Defaulted to ``None``): Subfolder where the configure script is located.
+- **build_script_folder** (Optional, Defaulted to ``None``): Subfolder where the configure script is located.
     If ``None``, ``conanfile.source_folder`` will be used.
 - **args** (Optional, Defaulted to ``None``): List of arguments to use for the
     ``configure`` call.
 
 autoreconf(self, args=None):
-+++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++
 
 .. code-block:: python
 
@@ -76,8 +76,6 @@ autoreconf(self, args=None):
 Call the ``autoreconf`` program.
 
 Parameters:
-    - **target** (Optional, Defaulted to ``None``): Choose which target to build. This allows building of e.g., docs, shared libraries or
-      install for some AutoTools projects.
     - **args** (Optional, Defaulted to ``None``): List of arguments to use for the
         ``autoreconf`` call.
 
@@ -94,8 +92,7 @@ Parameters:
     - **target** (Optional, Defaulted to ``None``): Choose which target to build. This allows building of e.g., docs, shared libraries or
       install for some AutoTools projects.
     - **args** (Optional, Defaulted to ``None``): List of arguments to use for the
-      ``make`` call. By default an argument ``DESTDIR=self.package_folder`` is added to the
-      call if the passed value is ``None``.
+      ``make`` call.
 
 install(self, args=None):
 +++++++++++++++++++++++++
@@ -105,6 +102,12 @@ install(self, args=None):
     def install(self)
 
 This is just an "alias" of ``self.make(target="install")``
+
+Parameters:
+    - **args** (Optional, Defaulted to ``None``): List of arguments to use for the
+      ``make install`` call. By default an argument ``DESTDIR=self.package_folder`` is added to the
+      call if the passed value is ``None``.
+
 
 A note about relocatable shared libraries in macOS built the  Autotools build helper
 ------------------------------------------------------------------------------------
