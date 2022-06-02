@@ -22,6 +22,15 @@ conan.tools.build.cross_building()
 .. autofunction:: cross_building
 
 
+conan.tools.build.can_run()
+""""""""""""""""""""""""""""""
+
+
+.. currentmodule:: conan.tools.build.cross_building
+
+.. autofunction:: can_run
+
+
 
 Cppstd
 ^^^^^^
