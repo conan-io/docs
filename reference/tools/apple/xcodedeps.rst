@@ -91,56 +91,6 @@ If you want to add this dependencies to you Xcode project, you just have to add 
 *conan_config.xcconfig* configuration file for all of the configurations you want to use
 (usually *Debug* and *Release*).
 
-use_components
-++++++++++++++
-
-This generator supports packages with components. That means that if a library only
-requires certain components, the generated *.xcconfig* files after installing that library
-only require those specific components instead of aggregating all the dependencies
-libraries.
-
-For executables that require libraries with components you can overwrite the select just
-the components you want in the ``generate()`` method setting the
-``XcodeDeps.use_components`` property. For example, *myapplication* only uses the
-``Boost::random`` component from `boost/1.79.0 <https://conan.io/center/boost>`_. To just
-add that component you could do something like:
-
-.. code-block:: python
-
-    import os
-    from conans import ConanFile
-    from conan.tools.apple import XcodeBuild, XcodeDeps
-    from conan.tools.files import save
-
-    class MyApplicationConan(ConanFile):
-        name = "myapplication"
-        version = "1.0"
-
-        requires = "boost/1.79.0"
-        settings = "os", "compiler", "build_type", "arch"
-        generators = "XcodeToolchain"
-
-        exports_sources = "app.xcodeproj/*", "app/*"
-
-        def generate(self):
-            deps = XcodeDeps(self)
-            deps.use_components = ["boost::random"]
-            deps.generate()
-
-        def build(self):
-            xcode = XcodeBuild(self)
-            xcode.build("app.xcodeproj", target="app")
-
-Then, in the *.xcconfig* that specifies what you require from boost, only the
-``Boost::random`` component are included. If you don't specify anything, all
-components are added.
-
-.. note::
-
-    You can only select components for **direct dependencies** using the
-    ``XcodeDeps.use_components`` property. Specifying any component from other transitive
-    dependencies or one that does not exist raises an error.
-
 Components support
 ++++++++++++++++++
 

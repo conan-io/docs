@@ -86,11 +86,12 @@ How to adress this problem in Conan
 The only thing Conan can do to make these shared libraries relocatable is to patch the
 built binaries after installation. To do this, when using the ``Autotools`` build helper
 and after running the Makefile's ``install()`` step, you can use the
-:ref:`fix_apple_shared_install_name()<conan_tools_apple_fix_apple_shared_install_name>`
+:ref:`fix_apple_shared_install_name() <conan_tools_apple_fix_apple_shared_install_name>`
 tool to search for the built ``.dylib`` files and patch them by running the
 ``install_name_tool`` macOS utility, like this:
 
 .. code-block:: python
+
     from conan.tools.apple import fix_apple_shared_install_name
     class HelloConan(ConanFile):
       ...
