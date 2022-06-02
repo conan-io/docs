@@ -56,6 +56,11 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Bugfix: Catching `KeyError` if `USERNAME` is not set as env variable on Windows. `#11223 <https://github.com/conan-io/conan/pull/11223>`_
 - Bugfix: Add Rocky Linux to with_yum. `#11212 <https://github.com/conan-io/conan/pull/11212>`_
 
+1.48.2 (02-Jun-2022)
+--------------------
+
+- Feature: Port https://github.com/conan-io/conan/pull/11365 and https://github.com/conan-io/conan/pull/11284 to 1.48.2 `#11381 <https://github.com/conan-io/conan/pull/11381>`_
+
 1.48.1 (18-May-2022)
 --------------------
 
