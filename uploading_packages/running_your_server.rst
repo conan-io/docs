@@ -7,6 +7,8 @@ The *conan_server* is a free and open source server that implements Conan remote
 bundled with the regular Conan client installation. In most cases, it is recommended to use the free Artifactory
 Community Edition for C/C++ server, check :ref:`artifactory_ce` for more information.
 
+``conan_server`` needs Python>=3.6 for running.
+
 Running the simple open source *conan_server* that comes with the Conan installers (or pip packages) is simple. Just open
 a terminal and type:
 
@@ -249,11 +251,11 @@ Running Conan Server using Apache
     .. code-block:: text
 
         <VirtualHost *:80>
-            WSGIScriptAlias / /usr/local/lib/python2.7/dist-packages/conans/server/server_launcher.py
+            WSGIScriptAlias / /usr/local/lib/python3.6/dist-packages/conans/server/server_launcher.py
             WSGICallableObject app
             WSGIPassAuthorization On
 
-            <Directory /usr/local/lib/python2.7/dist-packages/conans>
+            <Directory /usr/local/lib/python3.6/dist-packages/conans>
                 Require all granted
             </Directory>
         </VirtualHost>
