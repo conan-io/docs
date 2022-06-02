@@ -7,9 +7,19 @@ check_min_vs
 ---------------
 
 
+
+    
 .. currentmodule:: conan.tools.microsoft.visual
 
 .. autofunction:: check_min_vs
+
+
+Example:
+
+.. code-block:: python
+
+    def validate(self):
+        check_min_vs(self, "192")
 
 
 

@@ -5,7 +5,9 @@ CMake
 
 The ``CMake`` build helper is a wrapper around the command line invocation of cmake. It will abstract the
 calls like ``cmake --build . --config Release`` into Python method calls. It will also add the argument
-``-DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake`` (from the generator ``CMakeToolchain``) to the ``configure()`` call.
+``-DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake`` (from the generator ``CMakeToolchain``) to the ``configure()`` call,
+as well as other possible arguments like ``-DCMAKE_BUILD_TYPE=<config>``. The arguments that will be used are obtained from a 
+generated ``CMakePresets.json`` file.
 
 The helper is intended to be used in the ``build()`` method, to call CMake commands automatically
 when a package is being built directly by Conan (create, install)

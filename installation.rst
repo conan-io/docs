@@ -21,8 +21,6 @@ To install latest Conan 2.0 pre-release version using ``pip``, you need a Python
 distribution installed on your machine. Modern Python distros come with pip pre-installed.
 However, if necessary you can install pip by following the instructions in `pip docs`_.
 
-.. warning::
-    Python 2.x and Python <= 3.5 support has been dropped. Conan will not work with those python versions.
 
 Install Conan:
 
@@ -45,8 +43,7 @@ Install Conan:
       install with another user ``$ pip install --user conan``.
     - Some Linux distros, such as Linux Mint, require a restart (shell restart, or logout/system if not enough) after
       installation, so Conan is found in the path.
-    - In Windows, Python 3 installation can fail installing the ``wrapt`` dependency because of a bug in **pip**. Information about this issue and
-      workarounds is available here: https://github.com/GrahamDumpleton/wrapt/issues/112.
+
 
 Known installation issues with pip
 ++++++++++++++++++++++++++++++++++

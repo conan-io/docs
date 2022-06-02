@@ -91,6 +91,12 @@ Allows to define custom user CMake configuration besides the standard Release, D
         deps.generate()
 
 
+The ``CMakeDeps`` is a *multi-configuration* generator, it can correctly create files for Release/Debug configurations
+to be simultaneously used by IDEs like Visual Studio. In single configuration environments, it is necessary to have
+a configuration defined, which must be provided via the ``cmake ... -DCMAKE_BUILD_TYPE=<build-type>`` argument in command line
+(Conan will do it automatically when necessary, in the ``CMake.configure()`` helper).
+
+
 build_context_activated
 ^^^^^^^^^^^^^^^^^^^^^^^
 
