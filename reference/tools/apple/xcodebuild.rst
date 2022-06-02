@@ -71,7 +71,7 @@ conan.tools.apple.fix_apple_shared_install_name()
 
 .. autofunction:: fix_apple_shared_install_name
 
-This tool will search for all the *dylib* files in the conanfile's *package_folder* and fix
+This tool will search for all the *dylib* files in the  *conanfile.package_folder* and fix
 both the ``LC_ID_DYLIB`` and ``LC_LOAD_DYLIB`` fields on those files using the
 *install_name_tool* utility available in macOS.
 
