@@ -6,7 +6,10 @@ conan.tools.system.package_manager
 The tools under `conan.tools.system.package_manager` are wrappers around some of the most
 popular system package managers for different platforms. You can use them to invoke system
 package managers in recipes and perform the most typical operations, like installing a
-package, updating the package manager database or checking if a package is installed.
+package, updating the package manager database or checking if a package is installed. By
+default, when you invoke them they will not try to install anything on the system, to
+change this behavior you can set the value of the ``tools.system.package_manager:mode``
+:ref:`configuration<conan_tools_system_package_manager_config>`.
 
 
 You can use these tools inside the ``system_requirements()`` method of your recipe, like:
