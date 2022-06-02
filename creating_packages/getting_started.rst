@@ -108,8 +108,9 @@ Let's explain a little bit about this recipe:
   the Conan ``settings`` and ``options`` to CMake syntax.
 
 - The ``build()`` method uses the ``CMake`` wrapper to call CMake commands, it is a thin layer that will manage
-  to pass in this case the ``-DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake`` argument. It will configure the
-  project and build it from source.
+  to pass in this case the ``-DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake`` argument, plus other possible arguments, 
+  like ``-DCMAKE_BUILD_TYPE=<config>`` if necessary. It will configure the project and build it from source. The actual
+  arguments that will be used are obtained from a generated ``CMakePresets.json`` file.
 
 - The ``package()`` method copies artifacts (headers, libs) from the build folder to the final
   package folder. It can be done with bare "copy" commands, but in this case it is leveraging the already

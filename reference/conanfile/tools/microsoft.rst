@@ -445,3 +445,29 @@ In the example above, ``adjusted_path`` will be:
     - ``/cygdrive/c/path/to/stuff`` if cygwin
     - ``/mnt/c/path/to/stuff`` if wsl
     - ``/dev/fs/C/path/to/stuff`` if sfu
+
+
+check_min_vs()
+--------------
+
+Helper method to allow the migration to 2.0 more easily. It will handle internally both ``Visual Studio``
+and ``msvc`` compiler settings, raising a ``ConanInvalidConfiguration`` error if the minimum version
+is not satisfied
+
+
+.. code-block:: python
+
+    def check_min_vs(conanfile, version):
+
+
+- ``conanfile``: Always use ``self``, the current recipe
+- ``version``: Minimum version that will be accepted. Use a version number following the MSVC compiler version (or ``msvc`` setting),
+  that is, ``191``, ``192``, etc (updates like ``193.1`` are also acceptable)
+
+
+Example:
+
+.. code-block:: python
+
+    def validate(self):
+        check_min_vs(self, "192")

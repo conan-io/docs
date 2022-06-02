@@ -103,6 +103,20 @@ If you want to add this dependencies to you Xcode project, you just have to add 
 *conan_config.xcconfig* configuration file for all of the configurations you want to use
 (usually *Debug* and *Release*).
 
+Components support
+++++++++++++++++++
+
+Since Conan version `1.49.0 <https://github.com/conan-io/conan/releases>`_, this generator
+supports packages with components. That means that:
+
+* If a **dependency** ``package_info()`` declares ``cpp_info.requires`` on some
+  components, the generated *.xcconfig* files will contain includes to only those
+  components.
+
+* The current package ``requires`` will be fully dependent on and all components. Recall
+  that the ``package_info()`` only applies for consumers, but not to the current package.
+
+
 Custom configurations
 +++++++++++++++++++++
 
@@ -310,3 +324,57 @@ conf
 - ``tools.apple.xcodebuild:verbosity`` verbosity value for the build, can be 'verbose' or 'quiet'
 - ``tools.apple:sdk_path`` path for the sdk location, will set the ``SDKROOT`` value with
   preference over composing the value from the ``os.sdk`` and ``os.sdk_version`` settings.
+
+.. _conan_tools_apple_fix_apple_shared_install_name:
+
+conan.tools.apple.fix_apple_shared_install_name()
+-------------------------------------------------
+
+.. code-block:: python
+
+    def fix_apple_shared_install_name(conanfile):
+
+Parameters:
+
+- **conanfile**: Conanfile instance.
+
+This tool will search for all the *dylib* files in the conanfile's *package_folder* and fix
+both the ``LC_ID_DYLIB`` and ``LC_LOAD_DYLIB`` fields on those files using the
+*install_name_tool* utility available in macOS.
+
+* For ``LC_ID_DYLIB`` which is the field containing the install name of the library, it
+  will change the install name to one that uses the ``@rpath``. For example, if the
+  install name is ``/path/to/lib/libname.dylib``, the new install name will be
+  ``@rpath/libname.dylib``. This is done by executing internally something like: 
+  
+.. code-block:: bash
+  
+  install_name_tool /path/to/lib/libname.dylib -id @rpath/libname.dylib
+
+* For ``LC_LOAD_DYLIB`` which is the field containing the path to the library
+  dependencies, it will change the path of the dependencies to one that uses the
+  ``@rpath``. For example, if the path is ``/path/to/lib/dependency.dylib``, the new path
+  will be ``@rpath/dependency.dylib``. This is done by executing internally something
+  like:
+
+.. code-block:: bash
+  
+  install_name_tool /path/to/lib/libname.dylib -change /path/to/lib/dependency.dylib @rpath/dependency.dylib
+
+
+This tool is typically needed by recipes that use Autotools as the build system and in the
+case that the correct install names are not fixed in the library being packaged. Use this
+tool, if needed, in the conanfile's ``package()`` method like:
+
+.. code-block:: python
+
+    from conan.tools.apple import fix_apple_shared_install_name
+
+    class HelloConan(ConanFile):
+
+      ...
+
+      def package(self):
+          autotools = Autotools(self)
+          autotools.install()
+          fix_apple_shared_install_name(self)
