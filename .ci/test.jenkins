@@ -38,6 +38,7 @@ node('Linux') {
         },
         spelling: {
             image.inside {
+                sh(script: 'pip3 install colorama')
                 sh(script: 'make spelling')
             }
         },
