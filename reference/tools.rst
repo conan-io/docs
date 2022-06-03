@@ -27,6 +27,10 @@ Contents:
 
    tools/cmake
    tools/gnu
+   tools/apple
    tools/env
    tools/build
    tools/files
+   tools/meson
+   tools/system
+   tools/microsoft
