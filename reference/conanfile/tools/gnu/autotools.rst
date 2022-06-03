@@ -16,7 +16,7 @@ The ``Autotools`` helper can be used like:
 
 .. code:: python
 
-    from conans import conanfile
+    from conan import ConanFile
     from conan.tools.gnu import Autotools
 
     class App(ConanFile):
@@ -57,7 +57,7 @@ configure(self, build_script_folder=None, args=None):
 
 .. code-block:: python
 
-    def configure(self):
+    def configure(self, build_script_folder=None, args=None):
 
 Call the configure script.
 
@@ -71,7 +71,7 @@ autoreconf(self, args=None):
 
 .. code-block:: python
 
-    def autoreconf(self, target=None)
+    def autoreconf(self, args=None)
 
 Call the ``autoreconf`` program.
 
@@ -99,7 +99,7 @@ install(self, args=None):
 
 .. code-block:: python
 
-    def install(self)
+    def install(self, args=None)
 
 This is just an "alias" of ``self.make(target="install")``
 
