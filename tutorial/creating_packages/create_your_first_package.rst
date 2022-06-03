@@ -1,7 +1,7 @@
 .. _packaging_getting_started:
 
-Getting started
-===============
+Create your first Conan package
+===============================
 
 This section introduces how to create your own Conan packages, explain *conanfile.py* recipes, and the commands to build
 packages from sources in your computer.
