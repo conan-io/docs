@@ -73,18 +73,11 @@ We also added a message to the *CMakeLists.txt* to output the CMake version:
 
 Now, as in the previous example, we will use Conan to install **Zlib** and **CMake
 3.19.8** and generate the files to find both of them. We will generate those
-files in the folder *cmake-build-release* (Linux/macOS) or in the folder *build*
-(Windows). To do that, just run:
+files the folder *build*. To do that, just run:
 
 .. code-block:: bash
-    :caption: Windows
 
     $ conan install . --output-folder=build --build=missing
-
-.. code-block:: bash
-    :caption: Linux, macOS
-    
-    $ conan install . --output-folder cmake-build-release --build=missing
 
 You can check the output:
 
@@ -145,7 +138,7 @@ have installed the new CMake version in the path.
 .. code-block:: bash
     :caption: Linux, macOS
     
-    $ cd cmake-build-release
+    $ cd build
     $ source conanbuild.sh
     Capturing current environment in deactivate_conanbuildenv-release-x86_64.sh
     Configuring environment variables

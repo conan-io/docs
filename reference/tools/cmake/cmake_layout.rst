@@ -31,7 +31,7 @@ These are the values assigned by the ``cmake_layout``:
 - ``conanfile.folders.source``: *src_folder* argument or ``.`` if not specified.
 - ``conanfile.folders.build``:
     - ``build``: if the cmake generator is multi-configuration.
-    - ``cmake-build-debug`` or ``cmake-build-debug``: if the cmake generator is single-configuration, depending on the
+    - ``build/Release`` or ``build/Debug``: if the cmake generator is single-configuration, depending on the
       build_type.
 - ``conanfile.folders.generators``: ``build/generators``
 - ``conanfile.cpp.source.includedirs``: ``["include"]``
@@ -63,9 +63,9 @@ For the previous example, the values assigned by the ``cmake_layout`` (installin
 configuration) would be:
 
 - ``conanfile.folders.build``:
-    - ``build-apple-clang-shared_false``: if the cmake generator is multi-configuration.
-    - ``cmake-build-debug-apple-clang-shared_false``: if the cmake generator is single-configuration.
-- ``conanfile.folders.generators``: ``build-apple-clang-shared_false/generators``
+    - ``apple-clang-shared_false``: if the cmake generator is multi-configuration.
+    - ``apple-clang-shared_false/Debug``: if the cmake generator is single-configuration.
+- ``conanfile.folders.generators``: ``apple-clang-shared_false/generators``
 
 If we repeat the previous install with a different configuration:
 
