@@ -9,11 +9,10 @@ packages from sources in your computer.
 
 .. important::
 
-    This is a **tutorial** section. You are encouraged to execute these commands.
-    For this concrete example, you will need **CMake** installed  in your path.
-    It is not strictly required by Conan to create packages, you can use
-    other build systems (such as VS, Meson, Autotools, and even your own) to do that, without any dependency
-    on CMake.
+    This is a **tutorial** section. You are encouraged to execute these commands. For this
+    concrete example, you will need **CMake** installed  in your path. It is not strictly
+    required by Conan to create packages, you can use other build systems (such as VS,
+    Meson, Autotools, and even your own) to do that, without any dependency on CMake.
 
 
 Using the :command:`conan new` command will create a "Hello World" C++ library example project for us:
@@ -21,11 +20,11 @@ Using the :command:`conan new` command will create a "Hello World" C++ library e
 .. code-block:: bash
 
     $ mkdir hellopkg && cd hellopkg
-    $ conan new cmake_lib --name=hello --version=0.1
+    $ conan new cmake_lib -d name=hello -d version=0.1
     File saved: CMakeLists.txt
     File saved: conanfile.py
+    File saved: include/hello.h
     File saved: src/hello.cpp
-    File saved: src/hello.h
     File saved: test_package/CMakeLists.txt
     File saved: test_package/conanfile.py
     File saved: test_package/src/example.cpp
@@ -33,62 +32,64 @@ Using the :command:`conan new` command will create a "Hello World" C++ library e
 
 The generated files are:
 
-- **conanfile.py**: On the root folder, there is a *conanfile.py* which is the main recipe file, responsible for defining how the package is built and consumed.
-- **CMakeLists.txt**: A simple generic *CMakeLists.txt*, with nothing specific about Conan in it.
+- **conanfile.py**: On the root folder, there is a *conanfile.py* which is the main recipe
+  file, responsible for defining how the package is built and consumed.
+- **CMakeLists.txt**: A simple generic *CMakeLists.txt*, with nothing specific about Conan
+  in it.
 - **src** folder: the *src* folder that contains the simple C++ "hello" library.
-- (optional) **test_package** folder: contains an *example* application that will require and link with the created package.
-  It is not mandatory, but it is useful to check that our package is correctly created.
+- (optional) **test_package** folder: contains an *example* application that will require
+  and link with the created package. It is not mandatory, but it is useful to check that
+  our package is correctly created.
 
 Let's have a look at the package recipe *conanfile.py*:
 
 .. code-block:: python
 
-    from conans import ConanFile
-    from conan.tools.cmake import CMakeToolchain, CMake
-    from conan.tools.layout import cmake_layout
+  from conan import ConanFile
+  from conan.tools.cmake import CMakeToolchain, CMake, cmake_layout
 
 
-    class HelloConan(ConanFile):
-        name = "hello"
-        version = "0.1"
+  class helloRecipe(ConanFile):
+      name = "hello"
+      version = "0.1"
 
-        # Optional metadata
-        license = "<Put the package license here>"
-        author = "<Put your name here> <And your email here>"
-        url = "<Package recipe repository url here, for issues about the package>"
-        description = "<Description of Hello here>"
-        topics = ("<Put some tag here>", "<here>", "<and here>")
+      # Optional metadata
+      license = "<Put the package license here>"
+      author = "<Put your name here> <And your email here>"
+      url = "<Package recipe repository url here, for issues about the package>"
+      description = "<Description of hello package here>"
+      topics = ("<Put some tag here>", "<here>", "<and here>")
 
-        # Binary configuration
-        settings = "os", "compiler", "build_type", "arch"
-        options = {"shared": [True, False], "fPIC": [True, False]}
-        default_options = {"shared": False, "fPIC": True}
+      # Binary configuration
+      settings = "os", "compiler", "build_type", "arch"
+      options = {"shared": [True, False], "fPIC": [True, False]}
+      default_options = {"shared": False, "fPIC": True}
 
-        # Sources are located in the same place as this recipe, copy them to the recipe
-        exports_sources = "CMakeLists.txt", "src/*"
+      # Sources are located in the same place as this recipe, copy them to the recipe
+      exports_sources = "CMakeLists.txt", "src/*", "include/*"
 
-        def config_options(self):
-            if self.settings.os == "Windows":
-                del self.options.fPIC
+      def config_options(self):
+          if self.settings.os == "Windows":
+              del self.options.fPIC
 
-        def layout(self):
-            cmake_layout(self)
+      def layout(self):
+          cmake_layout(self)
 
-        def generate(self):
-            tc = CMakeToolchain(self)
-            tc.generate()
+      def generate(self):
+          tc = CMakeToolchain(self)
+          tc.generate()
 
-        def build(self):
-            cmake = CMake(self)
-            cmake.configure()
-            cmake.build()
+      def build(self):
+          cmake = CMake(self)
+          cmake.configure()
+          cmake.build()
 
-        def package(self):
-            cmake = CMake(self)
-            cmake.install()
+      def package(self):
+          cmake = CMake(self)
+          cmake.install()
 
-        def package_info(self):
-            self.cpp_info.libs = ["hello"]
+      def package_info(self):
+          self.cpp_info.libs = ["hello"]
 
 
 Let's explain this recipe a little bit:
@@ -143,17 +144,32 @@ Let's build the package from sources with the current default configuration, and
 
 .. code-block:: bash
 
-    $ conan create . demo/testing
+    $ conan create .
+    -------- Exporting the recipe ----------
+    hello/0.1: Exporting package recipe
     ...
+    [ 50%] Building CXX object CMakeFiles/example.dir/src/example.cpp.o
+    [100%] Linking CXX executable example
+    [100%] Built target example
+
+    -------- Testing the package: Running test() ----------
+    hello/0.1 (test package): Running test()
+    hello/0.1 (test package): RUN: ./example
     hello/0.1: Hello World Release!
-      hello/0.1: _M_X64 defined
-      ...
+      hello/0.1: __x86_64__ defined
+      hello/0.1: __cplusplus199711
+      hello/0.1: __GNUC__4
+      hello/0.1: __GNUC_MINOR__2
+      hello/0.1: __clang_major__13
+      hello/0.1: __clang_minor__1
+      hello/0.1: __apple_build_version__13160021
+    ...
 
 If "Hello world Release!" is displayed, it worked. This is what has happened:
 
 - The *conanfile.py* together with the contents of the *src* folder have been copied (exported, in Conan terms) to the
   local Conan cache.
-- A new build from source for the ``hello/0.1@demo/testing`` package starts, calling the ``generate()``, ``build()`` and
+- A new build from source for the ``hello/0.1`` package starts, calling the ``generate()``, ``build()`` and
   ``package()`` methods. This creates the binary package in the Conan cache.
 - Moves to the *test_package* folder and executes a :command:`conan install` + :command:`conan build` + ``test()`` method, to check if
   the package was correctly created.
@@ -165,22 +181,7 @@ We can now validate that the recipe and the package binary are in the cache:
     $ conan list recipes hello
     Local Cache:
       hello
-        hello/0.1@demo/testing#afa4685e137e7d13f2b9845987c5af77
-
-    $ conan list package-ids hello/0.1@demo/testing#afa4685e137e7d13f2b9845987c5af77
-    Local Cache:
-      hello/0.1@demo/testing#afa4685e137e7d13f2b9845987c5af77:e360b62ce00057522e221cfe56714705a46e20e2
-        settings:
-          arch=x86_64
-          build_type=Release
-          compiler=apple-clang
-          compiler.libcxx=libc++
-          compiler.version=12.0
-          os=Macos
-        options:
-          fPIC=True
-          shared=False
-
+        hello/0.1
 
 The :command:`conan create` command receives the same parameters as :command:`conan install`, so
 you can pass to it the same settings and options. If we execute the following lines, we will create new package
@@ -188,11 +189,11 @@ binaries for those configurations:
 
 .. code-block:: bash
 
-    $ conan create . demo/testing -s build_type=Debug
+    $ conan create . -s build_type=Debug
     ...
     hello/0.1: Hello World Debug!
 
-    $ conan create . demo/testing -o hello:shared=True
+    $ conan create . -o hello:shared=True
     ...
     hello/0.1: Hello World Release!
 
@@ -203,41 +204,33 @@ we can see them with:
 
 .. code-block:: bash
 
-    $ conan list package-ids hello/0.1@demo/testing#afa4685e137e7d13f2b9845987c5af77
+    $ conan list packages hello/0.1#latest
     Local Cache:
-      hello/0.1@demo/testing#afa4685e137e7d13f2b9845987c5af77:842490321f80b0a9e1ba253d04972a72b836aa28
-        settings:
-          arch=x86_64
-          build_type=Release
-          compiler=apple-clang
-          compiler.libcxx=libc++
-          compiler.version=12.0
-          os=Macos
-        options:
-          fPIC=True
-          shared=True
-      hello/0.1@demo/testing#afa4685e137e7d13f2b9845987c5af77:a5c01fc21d2db712d56189dff69fc10f12b22375
+      hello/0.1#b834efe27793b0c1124727cf0e2a2a0e:65b76cd1e932112820b979ce174c2c96968f51fb
         settings:
           arch=x86_64
           build_type=Debug
           compiler=apple-clang
+          compiler.cppstd=gnu98
           compiler.libcxx=libc++
-          compiler.version=12.0
+          compiler.version=13
           os=Macos
         options:
           fPIC=True
           shared=False
-      hello/0.1@demo/testing#afa4685e137e7d13f2b9845987c5af77:e360b62ce00057522e221cfe56714705a46e20e2
+      hello/0.1#b834efe27793b0c1124727cf0e2a2a0e:bde82464870a3362a84c3c5d1dd4094fdd4b1bfd
         settings:
           arch=x86_64
           build_type=Release
           compiler=apple-clang
+          compiler.cppstd=gnu98
           compiler.libcxx=libc++
-          compiler.version=12.0
+          compiler.version=13
           os=Macos
         options:
           fPIC=True
           shared=False
+
 
 
 Any doubts? Please check out our :ref:`FAQ section <faq>` or open a `Github issue <https://github.com/conan-io/conan/issues>`_
