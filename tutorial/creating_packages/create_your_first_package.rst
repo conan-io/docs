@@ -3,8 +3,11 @@
 Create your first Conan package
 ===============================
 
-This section introduces how to create your own Conan packages, explain *conanfile.py* recipes, and the commands to build
-packages from sources in your computer.
+In the previous examples we have been *consuming* Conan packages (like the *Zlib* one),
+first with a *conanfile.txt* and after that with a *conanfile.py*. But a *conanfile.py*
+recipe file is not only meant to consume other packages, it can be used to create your own
+packages as well. In this section, we explain how to create a simple Conan packages with a
+*conanfile.py* recipe and how to use Conan commands to build those packages from sources.
 
 
 .. important::
