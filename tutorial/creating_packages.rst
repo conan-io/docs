@@ -3,27 +3,33 @@
 Creating packages
 =================
 
-This section shows how to build your projects using Conan to manage your dependencies. We
-will begin with a basic example of a C project that uses CMake and depends on the **zlib**
-library. This project will use a *conanfile.txt* file to declare its dependencies.
+This section show how to create Conan packages using a Conan recipe. We begin by creating
+a basic Conan recipe to package a simple C++ library that you can scaffold using the
+:command:`conan new` command. Then, we will explain the different methods that you can
+define inside a Conan recipe and the things you can do inside them:
 
-We will also cover how you can not only use 'regular' libraries with Conan but also manage
-tools you may need to use while building: like CMake, msys2, MinGW, etc. 
+* Using the ``source()`` method to retrieve sources from external repositories and apply
+  patches to those sources.
 
-Then, we will explain different Conan concepts like settings and options and how you can
-use them to build your projects for different configurations like Debug, Release, with
-static or shared libraries, etc. 
+* Add requirements to your Conan packages inside the ``requirements()`` method. 
 
-Also, we will explain how to transition from the *conanfile.txt* file we used in the first
-example to a more powerful *conanfile.py*.
+* Use the ``generate()`` method to prepare the build of the package and customize the
+  toolchain to build the package. 
 
-After that, we will introduce the concept of Conan build and host profiles and explain how
-you can use them to cross-compile your application to different platforms.
+* Mark certain configurations as not supported for your packages usingthe ``validate()`` method.
 
-Then, in the "Introduction to versioning" we will learn about using different versions, 
-defining requirements with version ranges, the concept of revisions and a brief introduction 
-to lockfiles to achieve reproducibility of the dependency graph.
+* Use the ``build()`` method to customize the build process and launch the tests for the
+  library you are packaging. 
 
+* Select which files will be included in the Conan package using the ``package()`` method.
+
+* Define the information of the package in the ``package_info()`` method so that consumers
+  of this package can use it.
+
+After this walkthrough around the most important Conan recipe methods, we will explain
+some peculiarities of different types of Conan packages like for example header-only
+libraries, packages for pre-build binaries, packaging tools for building other packages or
+packaging your own applications.
 
 .. toctree::
    :maxdepth: 2
