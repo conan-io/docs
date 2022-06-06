@@ -13,22 +13,21 @@ define inside a Conan recipe and the things you can do inside them:
 
 * Add requirements to your Conan packages inside the ``requirements()`` method. 
 
-* Use the ``generate()`` method to prepare the build of the package and customize the
-  toolchain to build the package. 
+* Use the ``generate()`` method to prepare the package build, and customize the toolchain.
 
-* Mark certain configurations as not supported for your packages usingthe ``validate()`` method.
+* Mark some configurations as not supported for your packages using the ``validate()`` method.
 
 * Use the ``build()`` method to customize the build process and launch the tests for the
   library you are packaging. 
 
 * Select which files will be included in the Conan package using the ``package()`` method.
 
-* Define the information of the package in the ``package_info()`` method so that consumers
+* Define the package information in the ``package_info()`` method so that consumers
   of this package can use it.
 
-After this walkthrough around the most important Conan recipe methods, we will explain
-some peculiarities of different types of Conan packages like for example header-only
-libraries, packages for pre-build binaries, packaging tools for building other packages or
+After this walkthrough around some Conan recipe methods, we will explain some
+peculiarities of different types of Conan packages like, for example, header-only
+libraries, packages for pre-built binaries, packaging tools for building other packages or
 packaging your own applications.
 
 .. toctree::
