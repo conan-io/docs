@@ -4,9 +4,9 @@ Create your first Conan package
 ===============================
 
 In the previous examples we have been *consuming* Conan packages (like the *Zlib* one),
-first with a *conanfile.txt* and after that with a *conanfile.py*. But a *conanfile.py*
+first using a *conanfile.txt* and after that with a *conanfile.py*. But a *conanfile.py*
 recipe file is not only meant to consume other packages, it can be used to create your own
-packages as well. In this section, we explain how to create a simple Conan packages with a
+packages as well. In this section, we explain how to create a simple Conan package with a
 *conanfile.py* recipe and how to use Conan commands to build those packages from sources.
 
 
@@ -22,8 +22,7 @@ Using the :command:`conan new` command will create a "Hello World" C++ library e
 
 .. code-block:: bash
 
-    $ mkdir hellopkg && cd hellopkg
-    $ conan new cmake_lib -d name=hello -d version=0.1
+    $ conan new cmake_lib -d name=hello -d version=1.0
     File saved: CMakeLists.txt
     File saved: conanfile.py
     File saved: include/hello.h
@@ -54,7 +53,7 @@ Let's have a look at the package recipe *conanfile.py*:
 
   class helloRecipe(ConanFile):
       name = "hello"
-      version = "0.1"
+      version = "1.0"
 
       # Optional metadata
       license = "<Put the package license here>"
@@ -149,30 +148,30 @@ Let's build the package from sources with the current default configuration, and
 
     $ conan create .
     -------- Exporting the recipe ----------
-    hello/0.1: Exporting package recipe
+    hello/1.0: Exporting package recipe
     ...
     [ 50%] Building CXX object CMakeFiles/example.dir/src/example.cpp.o
     [100%] Linking CXX executable example
     [100%] Built target example
 
     -------- Testing the package: Running test() ----------
-    hello/0.1 (test package): Running test()
-    hello/0.1 (test package): RUN: ./example
-    hello/0.1: Hello World Release!
-      hello/0.1: __x86_64__ defined
-      hello/0.1: __cplusplus199711
-      hello/0.1: __GNUC__4
-      hello/0.1: __GNUC_MINOR__2
-      hello/0.1: __clang_major__13
-      hello/0.1: __clang_minor__1
-      hello/0.1: __apple_build_version__13160021
+    hello/1.0 (test package): Running test()
+    hello/1.0 (test package): RUN: ./example
+    hello/1.0: Hello World Release!
+      hello/1.0: __x86_64__ defined
+      hello/1.0: __cplusplus199711
+      hello/1.0: __GNUC__4
+      hello/1.0: __GNUC_MINOR__2
+      hello/1.0: __clang_major__13
+      hello/1.0: __clang_minor__1
+      hello/1.0: __apple_build_version__13160021
     ...
 
 If "Hello world Release!" is displayed, it worked. This is what has happened:
 
 - The *conanfile.py* together with the contents of the *src* folder have been copied (exported, in Conan terms) to the
   local Conan cache.
-- A new build from source for the ``hello/0.1`` package starts, calling the ``generate()``, ``build()`` and
+- A new build from source for the ``hello/1.0`` package starts, calling the ``generate()``, ``build()`` and
   ``package()`` methods. This creates the binary package in the Conan cache.
 - Moves to the *test_package* folder and executes a :command:`conan install` + :command:`conan build` + ``test()`` method, to check if
   the package was correctly created.
@@ -184,7 +183,7 @@ We can now validate that the recipe and the package binary are in the cache:
     $ conan list recipes hello
     Local Cache:
       hello
-        hello/0.1
+        hello/1.0
 
 The :command:`conan create` command receives the same parameters as :command:`conan install`, so
 you can pass to it the same settings and options. If we execute the following lines, we will create new package
@@ -194,11 +193,11 @@ binaries for those configurations:
 
     $ conan create . -s build_type=Debug
     ...
-    hello/0.1: Hello World Debug!
+    hello/1.0: Hello World Debug!
 
     $ conan create . -o hello:shared=True
     ...
-    hello/0.1: Hello World Release!
+    hello/1.0: Hello World Release!
 
 
 These new package binaries will be also stored in the Conan cache, ready to be used by any project in this computer,
@@ -207,9 +206,9 @@ we can see them with:
 
 .. code-block:: bash
 
-    $ conan list packages hello/0.1#latest
+    $ conan list packages hello/1.0#latest
     Local Cache:
-      hello/0.1#b834efe27793b0c1124727cf0e2a2a0e:65b76cd1e932112820b979ce174c2c96968f51fb
+      hello/1.0#b834efe27793b0c1124727cf0e2a2a0e:65b76cd1e932112820b979ce174c2c96968f51fb
         settings:
           arch=x86_64
           build_type=Debug
@@ -221,7 +220,7 @@ we can see them with:
         options:
           fPIC=True
           shared=False
-      hello/0.1#b834efe27793b0c1124727cf0e2a2a0e:bde82464870a3362a84c3c5d1dd4094fdd4b1bfd
+      hello/1.0#b834efe27793b0c1124727cf0e2a2a0e:bde82464870a3362a84c3c5d1dd4094fdd4b1bfd
         settings:
           arch=x86_64
           build_type=Release
