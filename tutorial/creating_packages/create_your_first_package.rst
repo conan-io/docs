@@ -283,9 +283,10 @@ we can see them with:
           fPIC=True
           shared=False
 
-Now that we have gone through the process of creating a simple Conan package we will
-explain in detail how we can modify several aspects of the package to understand better
-the purpouse of each of the ConanFile's methods.
+Now that we have created a simple Conan package, we will explain each of the methods of
+the Conanfile in more detail. You will learn how to modify those methods to achieve things
+like retrieving the sources from an external repository, adding dependencies to our
+package, customising our toolchain and much more.
 
 Read more
 ---------
