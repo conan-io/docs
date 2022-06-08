@@ -135,8 +135,8 @@ same results as before.
 .. code-block:: bash
     :caption: Linux, macOS
     
-    $ conan install . --output-folder cmake-build-release --build=missing
-    $ cd cmake-build-release
+    $ conan install . --output-folder build --build=missing
+    $ cd build
     $ source conanbuild.sh
     Capturing current environment in deactivate_conanbuildenv-release-x86_64.sh
     Configuring environment variables    
@@ -214,23 +214,15 @@ for every platform without adding more changes:
             self.tool_requires("cmake/3.19.8")
 
         def layout(self):
-            build_type = str(self.settings.build_type)
-            compiler = self.settings.get_safe("compiler")
-
             # We make the assumption that if the compiler is msvc the
             # CMake generator is multi-config
-            if compiler == "msvc":
+            if self.settings.get_safe("compiler") == "msvc":
                 multi = True
             else:
-                multi = False            
+                multi = False
 
-            if multi:
-                # CMake multi-config, just one folder for both builds
-                self.folders.build = "build"
-                self.folders.generators = "build"
-            else:
-                self.folders.build = "cmake-build-{}".format(build_type.lower())
-                self.folders.generators = self.folders.build
+            self.folders.build = "build" if multi else f"build/{str(self.settings.build_type)}"
+            self.folders.generators = "build"
 
 
 As you can see, we defined two different attributes for the Conanfile in the `layout()` method:
@@ -277,7 +269,7 @@ Check that running the same commands as in the previous examples without the
     :caption: Linux, macOS
     
     $ conan install . --build=missing
-    $ cd cmake-build-release
+    $ cd build
     $ source conanbuild.sh
     Capturing current environment in deactivate_conanbuildenv-release-x86_64.sh
     Configuring environment variables    
@@ -288,7 +280,7 @@ Check that running the same commands as in the previous examples without the
     ...
     [100%] Built target compressor
 
-    $ ./compressor
+    $ ./Release/compressor
     Uncompressed size is: 233
     Compressed size is: 147
     ZLIB VERSION: 1.2.11

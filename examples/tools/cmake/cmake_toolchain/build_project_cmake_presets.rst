@@ -67,17 +67,17 @@ If you are using a single-configuration generator:
 
     $ cmake --preset Debug
     $ cmake --build --preset Debug
-    $ ./cmake-build-debug/foo
+    $ ./build/Debug/foo
     foo/1.0: Hello World Debug!
 
 
     $ cmake --preset Release
     $ cmake --build --preset Release
-    $ ./cmake-build-release/foo
+    $ ./build/Release/foo
     foo/1.0: Hello World Release!
 
 
-Note that we haven't needed to create the ``cmake-build-debug`` or ``cmake-build-release`` folders, as we did :ref:`in the
+Note that we did'nt need to create the ``build/Release`` or ``build/Debug`` folders, as we did :ref:`in the
 tutorial<consuming_packages_flexibility_of_conanfile_py_use_layout>`. The output directory
 is declared by the ``cmake_layout()`` and automatically managed by the CMake Presets feature.
 

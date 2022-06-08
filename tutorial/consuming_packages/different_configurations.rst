@@ -116,14 +116,8 @@ sources were built with:
 Now let's build our project for *Debug* configuration:
 
 .. code-block:: bash
-    :caption: Windows
 
     $ conan install . --output-folder=build --build=missing --settings=build_type=Debug
-
-.. code-block:: bash
-    :caption: Linux, macOS
-    
-    $ conan install . --output-folder cmake-build-release --build=missing --settings=build_type=Debug
 
 
 As we explained above, this is the equivalent of having *debug* profile and running these
@@ -155,7 +149,7 @@ built in *Debug* configuration:
     :caption: Linux, macOS
     :emphasize-lines: 7
     
-    $ cd cmake-build-release
+    $ cd build
     $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Debug
     $ cmake --build .
     $ ./compressor
@@ -181,11 +175,6 @@ using the ``--options`` argument. To do so, please run:
 
     $ conan install . --output-folder=build --build=missing --options=zlib/1.2.11:shared=True
 
-.. code-block:: bash
-    :caption: Linux, macOS
-    
-    $ conan install . --output-folder cmake-build-release --build=missing --options=zlib/1.2.11:shared=True
-
 
 Doing this, Conan will install the *Zlib* shared libraries, generate the files to build with
 them and, also the necessary files to locate those dynamic libraries when running the
@@ -205,7 +194,7 @@ shared library:
 .. code-block:: bash
     :caption: Linux, Macos
     
-    $ cd cmake-build-release
+    $ cd build
     $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
     $ cmake --build .
     ...
