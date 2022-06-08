@@ -235,7 +235,7 @@ We can now validate that the recipe and the package binary are in the cache:
 
 The :command:`conan create` command receives the same parameters as :command:`conan install`, so
 you can pass to it the same settings and options. If we execute the following lines, we will create new package
-binaries for those configurations:
+binaries for Debug configuration or to build the hello library as shared:
 
 .. code-block:: bash
 
@@ -243,7 +243,7 @@ binaries for those configurations:
     ...
     hello/1.0: Hello World Debug!
 
-    $ conan create . -o hello:shared=True
+    $ conan create . -o hello/1.0:shared=True
     ...
     hello/1.0: Hello World Release!
 
@@ -258,7 +258,19 @@ we can see them with:
     # latest is a placeholder to show the package that is the latest created
     $ conan list packages hello/1.0#latest
     Local Cache:
-      hello/1.0#b834efe27793b0c1124727cf0e2a2a0e:65b76cd1e932112820b979ce174c2c96968f51fb
+      hello/1.0#a778356a93c60fe1f687dc2c2ed1449f:46d0e61c1613f12c0e46d007c90dfda85a76a954
+        settings:
+          arch=x86_64
+          build_type=Release
+          compiler=apple-clang
+          compiler.cppstd=gnu98
+          compiler.libcxx=libc++
+          compiler.version=13
+          os=Macos
+        options:
+          fPIC=True
+          shared=True
+      hello/1.0#a778356a93c60fe1f687dc2c2ed1449f:65b76cd1e932112820b979ce174c2c96968f51fb
         settings:
           arch=x86_64
           build_type=Debug
@@ -270,7 +282,7 @@ we can see them with:
         options:
           fPIC=True
           shared=False
-      hello/1.0#b834efe27793b0c1124727cf0e2a2a0e:bde82464870a3362a84c3c5d1dd4094fdd4b1bfd
+      hello/1.0#a778356a93c60fe1f687dc2c2ed1449f:bde82464870a3362a84c3c5d1dd4094fdd4b1bfd
         settings:
           arch=x86_64
           build_type=Release
@@ -287,6 +299,13 @@ Now that we have created a simple Conan package, we will explain each of the met
 the Conanfile in more detail. You will learn how to modify those methods to achieve things
 like retrieving the sources from an external repository, adding dependencies to our
 package, customising our toolchain and much more.
+
+
+A note about the Conan cache
+----------------------------
+
+When you did the :command:`conan create` command, the build of your package did not take
+place in your local folder but in other folder inside the *Conan cache*. This cache is usually located in the 
 
 Read more
 ---------
