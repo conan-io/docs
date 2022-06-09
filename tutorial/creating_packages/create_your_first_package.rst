@@ -1,4 +1,4 @@
-.. _packaging_getting_started:
+.. _creating_packages_create_your_first_conan_package:
 
 Create your first Conan package
 ===============================
@@ -108,9 +108,8 @@ Let's explain the different sections of the recipe briefly:
 
 First, you can see the **name and version** of the Conan package defined:
 
-* ``name``: a string, with a minimum of 2 and a maximum of 100 **lowercase** characters that
-  defines the package name. It should match the following regex
-  ``^[a-z0-9_][a-z0-9_+.-]{1,100}$``, so start with alphanumeric or underscore, then
+* ``name``: a string, with a minimum of 2 and a maximum of 100 **lowercase** characters
+  that defines the package name. It should with alphanumeric or underscore and can contain
   alphanumeric, underscore, +, ., - characters.
 * ``version``: It is a string, and can take any value, matching the same constraints as
   the ``name`` attribute. In case the version follows semantic versioning in the form
@@ -165,10 +164,10 @@ Then, several methods are declared:
 
 * Finally, the ``package_info()`` method defines that consumers must link with a "hello" library
   when using this package. Other information as include or lib paths can be defined as well. This
-  information is used for files created by generators (as ``CMakeDeps``) to be used by consumers. Although
-  this method implies some potential duplication with the build system output (CMake could generate xxx-config.cmake files),
-  it is important to define this, as Conan packages can be consumed by any other build system, not only CMake.
-
+  information is used for files created by generators (as ``CMakeDeps``) to be used by consumers. 
+  This is generic information about the current package, and is available to the consumers
+  irrespective of the build system they are using and irrespective of the build system we
+  have used in the ``build()`` method
 
 The **test_package** folder is not critical now for understanding how packages are created. The important
 bits are:
