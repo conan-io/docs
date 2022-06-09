@@ -288,7 +288,7 @@ options
 
    .. seealso::
 
-      - Read the :ref:`Getting started, creating packages<packaging_getting_started>` to know how to declare and how to
+      - Read the :ref:`Getting started, creating packages<creating_packages_create_your_first_conan_package>` to know how to declare and how to
         define a value to an option.
       - Removing options in the ``package_id()`` method. <MISSING PAGE>
       - About the package_type and how it plays when a ``shared`` option is declared. <MISSING PAGE>

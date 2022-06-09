@@ -268,6 +268,7 @@ created to restore the environment. Source or run it to do so:
     
     $ source deactivate_conanrun.sh
 
+.. _settings_and_options_difference:
 
 Difference between settings and options
 ---------------------------------------
