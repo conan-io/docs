@@ -305,7 +305,20 @@ A note about the Conan cache
 ----------------------------
 
 When you did the :command:`conan create` command, the build of your package did not take
-place in your local folder but in other folder inside the *Conan cache*. This cache is usually located in the 
+place in your local folder but in other folder inside the *Conan cache*. This cache is
+located in the user home folder under the ``.conan2`` folder. Conan will use the
+``~/.conan2`` folder to store the built packages and also different configuration files.
+You already used the :command:`conan list` command to list the recipes and binaries stored
+in the local cache. There are different subcommands for this command that we will explain
+in more detail through this tutorial:
+
+* :command:`conan list recipes`: Search available recipes in the local cache or in the remotes.
+* :command:`conan list recipe-revisions`: List all the revisions of a recipe reference.
+* :command:`conan list packages`: List all the different packages for a given recipe reference.
+* :command:`conan list package-revisions`: List all the revisions of a package.
+
+TODO: add note about Conan references, recipe/package references.
+
 
 Read more
 ---------
