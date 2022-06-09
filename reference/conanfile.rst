@@ -32,6 +32,7 @@ Contents:
    :maxdepth: 2
 
    conanfile/attributes
+   conanfile/traits
    conanfile/other
    conanfile/methods
 
