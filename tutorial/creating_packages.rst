@@ -3,7 +3,7 @@
 Creating packages
 =================
 
-This section show how to create Conan packages using a Conan recipe. We begin by creating
+This section shows how to create Conan packages using a Conan recipe. We begin by creating
 a basic Conan recipe to package a simple C++ library that you can scaffold using the
 :command:`conan new` command. Then, we will explain the different methods that you can
 define inside a Conan recipe and the things you can do inside them:
