@@ -1,0 +1,2 @@
+Handle sources in packages
+==========================

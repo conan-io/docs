@@ -288,7 +288,7 @@ options
 
    .. seealso::
 
-      - Read the :ref:`Getting started, creating packages<packaging_getting_started>` to know how to declare and how to
+      - Read the :ref:`Getting started, creating packages<creating_packages_create_your_first_conan_package>` to know how to declare and how to
         define a value to an option.
       - Removing options in the ``package_id()`` method. <MISSING PAGE>
       - About the package_type and how it plays when a ``shared`` option is declared. <MISSING PAGE>
@@ -652,6 +652,32 @@ as the folder from where we copy the files:
        def export(self):
            copy(self, "LICENSE.md", self.recipe_folder, self.export_folder)
 
+
+.. _conan_conanfile_attributes_folders:
+
+folders
+-------
+
+<MISSING REFERENCE>
+
+The ``folders`` attribute has to be set only in the ``layout()`` method.
+
+   - **self.folders.source**: To specify a folder where your sources are.
+   - **self.folders.build**: To specify a subfolder where the files from the build are (or will be).
+   - **self.folders.generators**: To specify a subfolder where to write the files from the generators and the toolchains
+     (e.g. the `xx-config.cmake` files from the ``CMakeDeps`` generator).
+   - **self.folders.imports**: To specify a subfolder where to write the files copied when using the ``imports(self)``
+     method in a ``conanfile.py``.
+   - **self.folders.root**: To specify the relative path from the ``conanfile.py`` to the root of the project, in case
+     the ``conanfile.py`` is in a subfolder and not in the project root. If defined, all the other paths will be relative to
+     the project root, not to the location of the ``conanfile.py``.
+
+   .. seealso::
+
+       Read more about the usage of the ``layout()`` in :ref:`this tutorial<consuming_packages_flexibility_of_conanfile_py_use_layout>`.
+
+
+.. _conan_conanfile_attributes_cpp:
 
 cpp
 ---

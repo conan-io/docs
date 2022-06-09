@@ -91,6 +91,12 @@ Allows to define custom user CMake configuration besides the standard Release, D
         deps.generate()
 
 
+The ``CMakeDeps`` is a *multi-configuration* generator, it can correctly create files for Release/Debug configurations
+to be simultaneously used by IDEs like Visual Studio. In single configuration environments, it is necessary to have
+a configuration defined, which must be provided via the ``cmake ... -DCMAKE_BUILD_TYPE=<build-type>`` argument in command line
+(Conan will do it automatically when necessary, in the ``CMake.configure()`` helper).
+
+
 build_context_activated
 ^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -201,6 +207,7 @@ The following properties affect the CMakeDeps generator:
   included when the consumer run the ``find_package()``.
 - **cmake_set_interface_link_directories**: boolean value that should be only used by dependencies that don't declare `self.cpp_info.libs` but have ``#pragma comment(lib, "foo")`` (automatic link) declared at the public headers. Those dependencies should
   add this property to their *conanfile.py* files at root ``cpp_info`` level (components not supported for now).
+- **nosoname**: boolean value that should be used only by dependencies that are defined as ``SHARED`` and represent a library built without the ``soname`` flag option.
 
 Example:
 
