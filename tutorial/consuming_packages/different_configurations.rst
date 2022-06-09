@@ -1,4 +1,4 @@
-.. _consuming_packages_getting_started_different_configurations:
+.. _consuming_packages_consuming_packages_different_configurations:
 
 Building for multiple configurations: Release, Debug, Static and Shared
 =======================================================================
@@ -17,7 +17,7 @@ Please, first clone the sources to recreate this project. You can find them in t
 .. code-block:: bash
 
     $ git clone https://github.com/conan-io/examples2.git
-    $ cd examples2/tutorial/getting_started/different_configurations
+    $ cd examples2/tutorial/consuming_packages/different_configurations
 
 
 So far, we built a simple CMake project that depended on the **zlib** library and learned
