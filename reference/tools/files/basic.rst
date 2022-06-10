@@ -156,6 +156,7 @@ Usage:
         with chdir(self, "./subdir"):
             do_something()
 
+.. _conan_tools_files_unzip:
 
 conan.tools.files.unzip()
 -------------------------

@@ -98,5 +98,8 @@ Now we declare a ``source()`` method with this information:
         get(self, "https://github.com/czoido/hello/archive/refs/heads/update_source.zip", 
                   strip_root=True)
 
-As you can see we used the `conan.tools.files.get()`_ tool that will download the zip file
-we pass as an argument and then unzip it.
+As you can see we used the :ref:`conan.tools.files.get()<conan_tools_files_get>` tool that
+will first **download** the url of the zip file that we pass as an argument and then
+**unzip** it. Note that we are passing ``strip_root=True`` so that if all the unzipped
+contents are in a single folder all the contents are moved to the parent folder (check the
+:ref:`conan.tools.files.unzip()<conan_tools_files_unzip>` reference for more details).
