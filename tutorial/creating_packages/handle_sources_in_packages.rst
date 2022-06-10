@@ -193,6 +193,8 @@ method of the Git tool:
 For more information about the ``Git`` class methods, please check the
 :ref:`conan.tools.scm.Git()<reference>` reference.
 
+TODO: briefly explain the conandata.yml ?
+
 Read more
 ---------
 
