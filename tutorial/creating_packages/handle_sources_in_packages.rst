@@ -3,27 +3,27 @@
 Handle sources in packages
 ==========================
 
-In the :ref:`previous tutorial
-section<creating_packages_create_your_first_conan_package>`, we created a Conan package
-for a "Hello World" C++ library. We used the ``exports_sources`` attribute of the
-Conanfile to declare the location of the sources for the library. Using this method is the
-simplest way to do declare their location when the sources are in the same folder as the
-Conanfile. However, sometimes the sources are stored in a repository or a file in a remote
-server and not in the same location as the Conanfile. In this section we will modify the
-recipe we created previously adding a ``source()`` method and explain how to:
+In the :ref:`previous tutorial section<creating_packages_create_your_first_conan_package>`
+we created a Conan package for a "Hello World" C++ library. We used the
+``exports_sources`` attribute of the Conanfile to declare the location of the sources for
+the library. This method is the simplest way to define the location of the source files
+when they are in the same folder as the Conanfile. However, sometimes the source files are
+stored in a repository or a file in a remote server, and not in the same location as the
+Conanfile. In this section, we will modify the recipe we created previously by adding a
+``source()`` method and explain how to:
 
 * Retrieve the sources from a *zip* file stored in a remote repository.
 * Retrieve the sources from a branch of a *git* repository.
 
 Please, first clone the sources to recreate this project. You can find them in the
-`examples2.0 repository <https://github.com/conan-io/examples2>`_ in GitHub:
+`examples2.0 repository <https://github.com/conan-io/examples2>`_ on GitHub:
 
 .. code-block:: bash
 
     $ git clone https://github.com/conan-io/examples2.git
     $ cd examples2/tutorial/creating_packages/handle_sources
 
-The structure of the project is the same as the one of the previous example but without
+The structure of the project is the same as the one in the previous example but without
 the library sources:
 
 .. code-block:: text
@@ -87,7 +87,7 @@ Let's have a look at the changes in the *conanfile.py*:
         def package_info(self):
             self.cpp_info.libs = ["hello"]
 
-As you can see, the recipe is exactly the same but instead declaring the ``exports_sources``
+As you can see, the recipe is the same but instead declaring the ``exports_sources``
 attribute as we did previously:
 
 .. code-block:: python
@@ -95,7 +95,7 @@ attribute as we did previously:
     exports_sources = "CMakeLists.txt", "src/*", "include/*"
 
 
-Now we declare a ``source()`` method with this information:
+We declare a ``source()`` method with this information:
 
 .. code-block:: python
 
@@ -103,15 +103,15 @@ Now we declare a ``source()`` method with this information:
         get(self, "https://github.com/conan-io/libhello/archive/refs/heads/main.zip", 
                   strip_root=True)
 
-As you can see we used the :ref:`conan.tools.files.get()<conan_tools_files_get>` tool that
-will first **download** the url of the zip file that we pass as an argument and then
-**unzip** it. Note that we are passing ``strip_root=True`` so that if all the unzipped
-contents are in a single folder all the contents are moved to the parent folder (check the
-:ref:`conan.tools.files.unzip()<conan_tools_files_unzip>` reference for more details).
+We used the :ref:`conan.tools.files.get()<conan_tools_files_get>` tool that will first
+**download** the *zip* file from the URL that we pass as an argument and then **unzip**
+it. Note that we pass the ``strip_root=True`` argument so that if all the unzipped
+contents are in a single folder, all the contents are moved to the parent folder (check
+the :ref:`conan.tools.files.unzip()<conan_tools_files_unzip>` reference for more details).
 
-The contents of the zip file are exactly the same than the sources we previously had
-beside the Conan recipe, so if you do a :command:`conan create` again the results will be
-exactly the same as before.
+The contents of the zip file are the same as the sources we previously had beside the
+Conan recipe, so if you do a :command:`conan create` the results will be the
+same as before.
 
 .. code-block:: text
     :emphasize-lines: 8-13
@@ -175,7 +175,7 @@ instead of a *zip* file. We show just the relevant parts:
 
 
 Here, we use the :ref:`conan.tools.scm.Git()<reference>` tool. The ``Git`` class
-implements several methods to work with *git* repositories. In this case we call the clone
+implements several methods to work with *git* repositories. In this case, we call the clone
 method to clone the `<https://github.com/conan-io/libhello.git>`_ repository in the
 default branch using the same folder for cloning the sources instead of a subfolder
 (passing the ``target="."`` argument). 
