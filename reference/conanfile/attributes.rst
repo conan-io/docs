@@ -39,7 +39,7 @@ version
    The version is only strictly necessary for ``export``-ing the recipe into the local cache (``export`` and ``create`` commands),
    if they are not defined in the command line.
 
-.. _attribute_package_type:
+.. _reference_conanfile_attributes_package_type:
 
 package_type
 ------------
