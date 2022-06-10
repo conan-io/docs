@@ -10,8 +10,10 @@ Conanfile to declare the location of the sources for the library. Using this met
 simplest way to do declare their location when the sources are in the same folder as the
 Conanfile. However, sometimes the sources are stored in a repository or a file in a remote
 server and not in the same location as the Conanfile. In this section we will modify the
-recipe we created previously to retrieve the same sources from other repository or a
-remote server using the ``source()`` method.
+recipe we created previously adding a ``source()`` method and explain how to:
+
+* Retrieve the sources from a *zip* file stored in a remote repository.
+* Retrieve the sources from a branch of a *git* repository.
 
 Please, first clone the sources to recreate this project. You can find them in the
 `examples2.0 repository <https://github.com/conan-io/examples2>`_ in GitHub:
@@ -35,6 +37,9 @@ the library sources:
         └── src
             └── example.cpp
 
+Sources from a *zip* file stored in a remote repository
+-------------------------------------------------------
+
 Let's have a look at the changes in the *conanfile.py*:
 
 .. code-block:: python
@@ -56,7 +61,7 @@ Let's have a look at the changes in the *conanfile.py*:
         default_options = {"shared": False, "fPIC": True}
 
         def source(self):
-            get(self, "https://github.com/czoido/hello/archive/refs/heads/update_source.zip", 
+            get(self, "https://github.com/conan-io/libhello/archive/refs/heads/main.zip", 
                       strip_root=True)
 
         def config_options(self):
@@ -95,7 +100,7 @@ Now we declare a ``source()`` method with this information:
 .. code-block:: python
 
     def source(self):
-        get(self, "https://github.com/czoido/hello/archive/refs/heads/update_source.zip", 
+        get(self, "https://github.com/conan-io/libhello/archive/refs/heads/main.zip", 
                   strip_root=True)
 
 As you can see we used the :ref:`conan.tools.files.get()<conan_tools_files_get>` tool that
@@ -103,3 +108,46 @@ will first **download** the url of the zip file that we pass as an argument and 
 **unzip** it. Note that we are passing ``strip_root=True`` so that if all the unzipped
 contents are in a single folder all the contents are moved to the parent folder (check the
 :ref:`conan.tools.files.unzip()<conan_tools_files_unzip>` reference for more details).
+
+The contents of the zip file are exactly the same than the sources we previously had
+beside the Conan recipe, so if you do a :command:`conan create` again the results will be
+exactly the same as before.
+
+.. code-block:: text
+    :emphasize-lines: 8-13
+
+    $ conan create .
+
+    ...
+
+    -------- Installing packages ----------
+
+    Installing (downloading, building) binaries...
+    hello/1.0: Calling source() in /Users/carlosz/.conan2/p/0fcb5ffd11025446/s/.
+    Downloading update_source.zip
+
+    hello/1.0: Unzipping 3.7KB
+    Unzipping 100 %                                                       
+    hello/1.0: Copying sources to build folder
+    hello/1.0: Building your package in /Users/carlosz/.conan2/p/tmp/369786d0fb355069/b
+
+    ...
+
+    -------- Testing the package: Running test() ----------
+    hello/1.0 (test package): Running test()
+    hello/1.0 (test package): RUN: ./example
+    hello/1.0: Hello World Release!
+    hello/1.0: __x86_64__ defined
+    hello/1.0: __cplusplus199711
+    hello/1.0: __GNUC__4
+    hello/1.0: __GNUC_MINOR__2
+    hello/1.0: __clang_major__13
+    hello/1.0: __clang_minor__1
+    hello/1.0: __apple_build_version__13160021
+
+Please, check the highlighted lines with the messages about the download and unzip operation.
+
+
+Sources from a branch in a *git* repository
+-------------------------------------------
+
