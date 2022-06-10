@@ -193,3 +193,10 @@ method of the Git tool:
 For more information about the ``Git`` class methods, please check the
 :ref:`conan.tools.scm.Git()<reference>` reference.
 
+Read more
+---------
+
+- Patching sources
+- Advanced git repository handling (implement the "scm feature")
+- ...
+
