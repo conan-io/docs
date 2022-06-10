@@ -151,3 +151,45 @@ Please, check the highlighted lines with the messages about the download and unz
 Sources from a branch in a *git* repository
 -------------------------------------------
 
+Now, let's modify the ``source()`` method to bring the sources from a *git* repository
+instead of a *zip* file. We show just the relevant parts:
+
+.. code-block:: python
+
+    ...
+
+    from conan.tools.scm import Git
+
+
+    class helloRecipe(ConanFile):
+        name = "hello"
+        version = "1.0"
+
+        ...
+
+        def source(self):
+            git = Git(self)
+            git.clone(url="https://github.com/conan-io/libhello.git", target=".")
+
+        ...
+
+
+Here, we use the :ref:`conan.tools.scm.Git()<reference>` tool. The ``Git`` class
+implements several methods to work with *git* repositories. In this case we call the clone
+method to clone the `<https://github.com/conan-io/libhello.git>`_ repository in the
+default branch using the same folder for cloning the sources instead of a subfolder
+(passing the ``target="."`` argument). 
+
+If we wanted to checkout a commit or tag in the repository we could use the ``checkout()``
+method of the Git tool:
+
+.. code-block:: python
+
+    def source(self):
+        git = Git(self)
+        git.clone(url="https://github.com/conan-io/libhello.git", target=".")
+        git.checkout("<tag> or <commit hash>")
+
+For more information about the ``Git`` class methods, please check the
+:ref:`conan.tools.scm.Git()<reference>` reference.
+
