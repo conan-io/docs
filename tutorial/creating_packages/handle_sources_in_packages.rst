@@ -188,7 +188,7 @@ method of the Git tool:
     def source(self):
         git = Git(self)
         git.clone(url="https://github.com/conan-io/libhello.git", target=".")
-        git.checkout("<tag> or <commit hash>")
+        git.checkout("<branch name>, <tag> or <commit hash>")
 
 For more information about the ``Git`` class methods, please check the
 :ref:`conan.tools.scm.Git()<reference>` reference.
