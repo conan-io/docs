@@ -13,10 +13,10 @@ Add dependencies to packages
 In the :ref:`previous tutorial section<tutorial_creating_packages>` we created a Conan
 package for a "Hello World" C++ library. We used the
 :ref:`conan.tools.scm.Git()<reference>` tool to retrieve the sources from a git
-repository. So far, our package did not have any dependencies on other Conan packages.
+repository. So far, the package does not have any dependency on other Conan packages.
 Let's explain how to add a dependency to our package in a very similar way that we did in
 the :ref:`consuming packages section<consuming_packages_flexibility_of_conanfile_py>`. We
-will add some fancy color output to our "Hello World" library using the `fmt 
+will add some fancy colour output to our "Hello World" library using the `fmt 
 <https://conan.io/center/fmt>`__ library.
 
 Please, first clone the sources to recreate this project. You can find them in the
@@ -27,7 +27,7 @@ Please, first clone the sources to recreate this project. You can find them in t
     $ git clone https://github.com/conan-io/examples2.git
     $ cd examples2/tutorial/creating_packages/add_requires
 
-You will notice a couple of changes in the `conanfile.py` file from the previous recipe.
+You will notice some changes in the `conanfile.py` file from the previous recipe.
 Let's check the relevant parts:
 
 .. code-block:: python
@@ -66,9 +66,9 @@ Let's check the relevant parts:
   `fmt <https://conan.io/center/fmt>`__  dependency to our package.
 
 * Also, check that we added an extra line in the :ref:`source()<conan_conanfile_methods>`
-  method. We use the `Git().checkout` method to checkout the sources in the
+  method. We use the `Git().checkout` method to checkout the source code in the
   `require_fmt <https://github.com/conan-io/libhello/tree/require_fmt>`__ branch. This
-  branch contains the changes in the source code to add colors to the library messages,
+  branch contains the changes in the source code to add colours to the library messages,
   and also in the ``CMakeLists.txt`` to declare that we are using the ``fmt`` library.
 
 * Finally, note we added the :ref:`validate()<conan_conanfile_methods>` method to the
@@ -82,7 +82,7 @@ Let's check the relevant parts:
 You can check the new sources, using the fmt library in the
 `require_fmt <https://github.com/conan-io/libhello/tree/require_fmt>`__. You will see that
 the `hello.cpp <https://github.com/conan-io/libhello/blob/require_fmt/src/hello.cpp>`__
-file adds colored output:
+file adds colours to the output messages:
 
 .. code-block:: cpp
 
@@ -101,7 +101,7 @@ file adds colored output:
 
 Let's build the package from sources with the current default configuration, and then let
 the ``test_package`` folder test the package. You should see the output messages with
-color now:
+colour now:
 
 
 .. code-block:: bash
@@ -121,10 +121,9 @@ color now:
       hello/1.0: __clang_minor__ 1
       hello/1.0: __apple_build_version__ 13160021
 
-Note that we passed the ``-s compiler.cppstd=gnu11`` argument to the
-:command:`conan create` command to override the C++ standard used in the default profile.
-You can pass the standard of your choice or leave the default one as long as it is higher
-than C++11.
+Note that we passed the ``-s compiler.cppstd=gnu11`` argument to the :command:`conan
+create` command to override the C++ standard used in the default profile. You can set the
+C++ standard of your choice or leave the default one as long as it is higher than C++11.
 
 Read more
 ---------
