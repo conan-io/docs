@@ -1,2 +1,251 @@
-Header only packages
+Header-only packages
 ====================
+
+In this section, we are going to learn how to create a recipe for a header-only library.
+
+Please, first clone the sources to recreate this project. You can find them in the
+`examples2.0 repository <https://github.com/conan-io/examples2>`_ on GitHub:
+
+.. code-block:: bash
+
+    $ git clone https://github.com/conan-io/examples2.git
+    $ cd examples2/tutorial/creating_packages/other_packages/header_only
+
+
+A header-only library is composed only of header files. That means a consumer doesn't link with any library but
+includes headers, so we need only one binary configuration for a header-only library.
+
+In the :ref:`Create your first Conan package
+<creating_packages_create_your_first_conan_package>` section, we learned about the settings, and how building the
+recipe applying different ``build_type`` (Release/Debug) generates a new binary package.
+
+As we only need one binary package, we don't need to declare the `settings` attribute.
+This is a basic recipe for a header-only recipe:
+
+.. code-block:: python
+   :caption: conanfile.py
+
+
+    from conan import ConanFile
+    from conan.tools.files import copy
+
+
+    class SumConan(ConanFile):
+        name = "sum"
+        version = "0.1"
+        # No settings/options are necessary, this is header only
+        exports_sources = "include/*"
+        # We can avoid copying the sources to the build folder in the cache
+        no_copy_source = True
+
+        def package(self):
+            # This will also copy the "include" folder
+            copy(self, "*.h", self.source_folder, self.package_folder)
+
+Our header-only library is this simple function that sums two numbers:
+
+
+.. code-block:: cpp
+   :caption: include/sum.h
+
+    inline int sum(int a, int b){
+        return a + b;
+    }
+
+
+The folder `examples2/tutorial/creating_packages/other_packages/header_only` in the cloned project contains a ``test_package``
+folder with an example of an application consuming the header-only library. So we can run a ``conan create .`` command
+to build the package and test the package:
+
+.. code-block:: bash
+
+    $ conan create .
+    ...
+    [ 50%] Building CXX object CMakeFiles/example.dir/src/example.cpp.o
+    [100%] Linking CXX executable example
+    [100%] Built target example
+
+    -------- Testing the package: Running test() ----------
+    sum/0.1 (test package): Running test()
+    sum/0.1 (test package): RUN: ./example
+    1 + 3 = 4
+
+After running the ``conan create`` a new binary package is created for the header-only library, and we can see how the
+``test_package`` project can use it correctly.
+
+We can list the binary packages created running this command:
+
+.. code-block:: bash
+
+    $ conan list packages sum/0.1#latest
+    Local Cache:
+        sum/0.1#154c10cda76635e3ca85bcd7e21c2de9:da39a3ee5e6b4b0d3255bfef95601890afd80709
+
+We get one package with the package ID ``da39a3ee5e6b4b0d3255bfef95601890afd80709``.
+Let's see what happen if we run the ``conan create`` but specifying ``-s build_type=Debug``:
+
+.. code-block:: bash
+
+    $ conan create . -s build_type=Debug
+    $ conan list packages sum/0.1#latest
+    Local Cache:
+        sum/0.1#154c10cda76635e3ca85bcd7e21c2de9:da39a3ee5e6b4b0d3255bfef95601890afd80709
+
+Even in the ``test_package`` executable is built for Debug, we get the same binary package for the header-only library.
+
+
+Header-only library with tests
+------------------------------
+
+.. important::
+
+    In this example, we will retrieve the CMake Conan package from a Conan repository with
+    packages compatible with Conan 2.0. To run this example successfully you should add this
+    remote to your Conan configuration (if did not already do it) doing:
+    ``conan remote add conanv2 https://conanv2beta.jfrog.io/artifactory/api/conan/conan --index 0``
+
+
+In the previous example, we saw why a recipe header-only library shouldn't declare the ``settings`` attribute,
+but sometimes the recipe needs them to build some executable, for example, for testing the library.
+Nonetheless, the binary package of the header-only library should still be unique, so we are going to review how to
+achieve that.
+
+
+Please, first clone the sources to recreate this project. You can find them in the
+`examples2.0 repository <https://github.com/conan-io/examples2>`_ on GitHub:
+
+.. code-block:: bash
+
+    $ git clone https://github.com/conan-io/examples2.git
+    $ cd examples2/tutorial/creating_packages/other_packages/header_only_gtest
+
+We have the same header-only library that sums two numbers, but now we have this recipe:
+
+
+.. code-block:: python
+
+    import os
+    from conan import ConanFile
+    from conan.tools.files import copy
+    from conan.tools.cmake import cmake_layout, CMake
+
+
+    class SumConan(ConanFile):
+        name = "sum"
+        version = "0.1"
+        settings = "os", "arch", "compiler", "build_type"
+        exports_sources = "include/*", "test/*"
+        no_copy_source = True
+        generators = "CMakeToolchain", "CMakeDeps"
+
+        def requirements(self):
+            self.test_requires("gtest/1.11.0")
+
+        def validate(self):
+            check_min_cppstd(self, 11)
+
+        def layout(self):
+            cmake_layout(self)
+
+        def build(self):
+            if not self.conf.get("tools.build:skip_test", default=False):
+                cmake = CMake(self)
+                cmake.configure(build_script_folder="test")
+                cmake.build()
+                self.run(os.path.join(self.cpp.build.bindirs[0], "test_sum"))
+
+        def package(self):
+            # This will also copy the "include" folder
+            copy(self, "*.h", self.source_folder, self.package_folder)
+
+        def package_id(self):
+            self.info.header_only()
+
+
+
+
+These are the changes introduced in the recipe:
+
+    - We are introducing a ``test_require`` to ``gtest/1.11.0``. A ``test_require`` is similar to a regular requirement
+      but it is not propagated to the consumers and cannot conflict.
+    - ``gtest`` needs at least C++11 to build. So we introduced a ``validate()`` method calling ``check_min_cppstd``.
+    - As we are building the ``gtest`` examples with CMake, we use the generators ``CMakeToolchain`` and ``CMakeDeps``,
+      and we declared the ``cmake_layout()`` to have a known/standard directory structure.
+    - We have a ``build()`` method, building the tests, but only when the standard conf ``tools.build:skip_test`` is not
+      True. Use that conf as a standard way to enable/disable the testing. It is used by the helpers like ``CMake`` to
+      skip the ``cmake.test()`` in case we implement the tests in CMake.
+    - We have a ``package_id()`` method calling ``self.info.header_only()``. This is internally removing the settings
+      from the package ID calculation so we generate only one configuration for our header-only library.
+      The ``self.info.header_only()`` is equivalent to:
+
+      .. code-block:: python
+
+         def package_id(self):
+            self.info.settings.clear()
+            self.info.options.clear()
+            self.info.requires.clear()
+
+      And also to:
+
+      .. code-block:: python
+
+         def package_id(self):
+            del self.info.settings.os
+            del self.info.settings.arch
+            del self.info.settings.build_type
+            del self.info.settings.compiler
+            self.info.requires.clear()
+
+      All of the previous alternatives remove the ``settings`` and the ``requires`` (gtest) from being included in the package_id.
+
+
+We can call ``conan create`` to build and test our package.
+
+   .. code-block:: bash
+
+         $ conan create . -s compiler.cppstd=11
+         ...
+         Running main() from /Users/luism/.conan2/p/tmp/9bf83ef65d5ff0d6/b/googletest/src/gtest_main.cc
+         [==========] Running 1 test from 1 test suite.
+         [----------] Global test environment set-up.
+         [----------] 1 test from SumTest
+         [ RUN      ] SumTest.BasicSum
+         [       OK ] SumTest.BasicSum (0 ms)
+         [----------] 1 test from SumTest (0 ms total)
+
+         [----------] Global test environment tear-down
+         [==========] 1 test from 1 test suite ran. (0 ms total)
+         [  PASSED  ] 1 test.
+         sum/0.1: Package 'da39a3ee5e6b4b0d3255bfef95601890afd80709' built
+         ...
+
+We can run ``conan create`` again specifying a different ``compiler.cppstd`` and the built package would be the same:
+
+   .. code-block:: bash
+
+         $ conan create . -s compiler.cppstd=14
+         ...
+         sum/0.1: RUN: ./test_sum
+         Running main() from /Users/luism/.conan2/p/tmp/9bf83ef65d5ff0d6/b/googletest/src/gtest_main.cc
+         [==========] Running 1 test from 1 test suite.
+         [----------] Global test environment set-up.
+         [----------] 1 test from SumTest
+         [ RUN      ] SumTest.BasicSum
+         [       OK ] SumTest.BasicSum (0 ms)
+         [----------] 1 test from SumTest (0 ms total)
+
+         [----------] Global test environment tear-down
+         [==========] 1 test from 1 test suite ran. (0 ms total)
+         [  PASSED  ] 1 test.
+         sum/0.1: Package 'da39a3ee5e6b4b0d3255bfef95601890afd80709' built
+
+   .. note::
+
+      Once we have the ``sum/0.1`` binary package available (in a server, after a ``conan upload``, or in the local cache),
+      we can install it even if we don't specify input values for ``os``, ``arch``, ... etc. This is a new feature of Conan 2.X.
+
+      We could call ``conan install --require sum/0.1`` with an empty profile and would get the binary package from the
+      server. But if we miss the binary and we need to build the package again, it will fail because of the lack of
+      settings.
+
+
