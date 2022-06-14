@@ -100,7 +100,8 @@ file adds colored output:
 
 
 Let's build the package from sources with the current default configuration, and then let
-the ``test_package`` folder test the package:
+the ``test_package`` folder test the package. You should see the output messages with
+color now:
 
 
 .. code-block:: bash
