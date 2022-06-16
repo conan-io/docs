@@ -139,6 +139,8 @@ This mechanism can however be tedious to maintain and update when new revisions 
 shouldn't be done.
 
 
+.. _tutorial_consuming_packages_versioning_lockfiles:
+
 Lockfiles
 ---------
 
