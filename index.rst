@@ -12,3 +12,4 @@ Welcome to Conan C/C++ Package Manager Documentation
    examples
    reference
    faq
+   changelog
