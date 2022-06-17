@@ -48,7 +48,7 @@ Conan 2.0 allows extending Conan with custom user commands, written in python th
 
 New CLI
 -------
-Conan 2.0 has redesigned the CLI for better consistency, removing ambiguities and improving the user experience. The new CLI also sends all the information, warning and error messages to stderr, while keeping the final result in stderr, allowing multiple output formats like ``--format=html`` or ``--format=json`` and using redirects to create files ``--format=json > myfile.json``. The information provided by the CLI will be more structured and through, so it can be used more easily for automation, especially in CI/CD systems.
+Conan 2.0 has redesigned the CLI for better consistency, removing ambiguities, and improving the user experience. The new CLI also sends all the information, warning, and error messages to stderr, while keeping the final result in stdout, allowing multiple output formats like ``--format=html`` or ``--format=json`` and using redirects to create files ``--format=json > myfile.json``. The information provided by the CLI will be more structured and thorough so that it can be used more easily for automation, especially in CI/CD systems.
 
 Read more:
 
