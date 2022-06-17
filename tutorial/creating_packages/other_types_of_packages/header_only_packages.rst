@@ -161,7 +161,7 @@ We have the same header-only library that sums two numbers, but now we have this
             copy(self, "*.h", self.source_folder, self.package_folder)
 
         def package_id(self):
-            self.info.header_only()
+            self.info.clear()
 
 
 
@@ -176,36 +176,15 @@ These are the changes introduced in the recipe:
     - We have a ``build()`` method, building the tests, but only when the standard conf ``tools.build:skip_test`` is not
       True. Use that conf as a standard way to enable/disable the testing. It is used by the helpers like ``CMake`` to
       skip the ``cmake.test()`` in case we implement the tests in CMake.
-    - We have a ``package_id()`` method calling ``self.info.header_only()``. This is internally removing the settings
+    - We have a ``package_id()`` method calling ``self.info.clear()``. This is internally removing the settings
       from the package ID calculation so we generate only one configuration for our header-only library.
-      The ``self.info.header_only()`` is equivalent to:
-
-      .. code-block:: python
-
-         def package_id(self):
-            self.info.settings.clear()
-            self.info.options.clear()
-            self.info.requires.clear()
-
-      And also to:
-
-      .. code-block:: python
-
-         def package_id(self):
-            del self.info.settings.os
-            del self.info.settings.arch
-            del self.info.settings.build_type
-            del self.info.settings.compiler
-            self.info.requires.clear()
-
-      All of the previous alternatives remove the ``settings`` and the ``requires`` (gtest) from being included in the package_id.
 
 
 We can call ``conan create`` to build and test our package.
 
    .. code-block:: bash
 
-         $ conan create . -s compiler.cppstd=11 --build missing
+         $ conan create . -s compiler.cppstd=14 --build missing
          ...
          Running main() from /Users/luism/.conan2/p/tmp/9bf83ef65d5ff0d6/b/googletest/src/gtest_main.cc
          [==========] Running 1 test from 1 test suite.
@@ -225,7 +204,7 @@ We can run ``conan create`` again specifying a different ``compiler.cppstd`` and
 
    .. code-block:: bash
 
-         $ conan create . -s compiler.cppstd=14
+         $ conan create . -s compiler.cppstd=17
          ...
          sum/0.1: RUN: ./test_sum
          Running main() from /Users/luism/.conan2/p/tmp/9bf83ef65d5ff0d6/b/googletest/src/gtest_main.cc
