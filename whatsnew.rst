@@ -3,9 +3,13 @@
 What's new in Conan 2.0
 ========================
 
+Conan 2.0 comes with many exciting improvements based on the lessons learned in the last years with Conan 1.X.
+Also, a lot of effort has been made to backport necessary things to Conan 1.X to make the upgrade easier: Recipes using latest 1.X integrations will be compatible with Conan 2.0, and binaries for both versions will not collide and be able to live in the same server repositories.
+
+
 Conan 2.0 migration guide
 -------------------------
-If you are using Conan 1.X, please read the `Conan 2.0 Migration guide <https://docs.conan.io/en/latest/conan_v2.html>`_ , to start preparing your package recipes to 2.0 and be aware of some changes while you still work in Conan 1.X.
+If you are using Conan 1.X, please read the `Conan 2.0 Migration guide <https://docs.conan.io/en/latest/conan_v2.html>`_ , to start preparing your package recipes to 2.0 and be aware of some changes while you still work in Conan 1.X. That guide summarizes the above mentioned backports to make the upgrade easier.
 
 
 New graph model
@@ -32,6 +36,10 @@ New build system integrations
 -----------------------------
 Introduced in latest Conan 1.X, Conan 2.0 will use modern build system integrations like ``CMakeDeps`` and ``CMakeToolchain`` that are fully transparent CMake integration (i.e. the consuming ``CMakeLists.txt`` doesn’t need to be aware at all about Conan). These integrations can also achieve a better IDE integration, for example via CMakePresets.json.
 
+Read more:
+
+- :ref:`Tools reference <conan_tools>`
+
 
 New custom user commands
 ------------------------
@@ -40,7 +48,7 @@ Conan 2.0 allows extending Conan with custom user commands, written in python th
 
 New CLI
 -------
-Conan 2.0 has redesigned the CLI for better consistency, removing ambiguities and improving the user experience. The new CLI also sends all the information, warning and error messages to stderr, while keeping the final result in stderr, allowing multiple output formats like ``--format=html`` or ``--format=json`` and using redirects to create files ``--format=json > myfile.json``. The information provided by the CLI will be more structured and through, so it can be used more easily for automation.
+Conan 2.0 has redesigned the CLI for better consistency, removing ambiguities and improving the user experience. The new CLI also sends all the information, warning and error messages to stderr, while keeping the final result in stderr, allowing multiple output formats like ``--format=html`` or ``--format=json`` and using redirects to create files ``--format=json > myfile.json``. The information provided by the CLI will be more structured and through, so it can be used more easily for automation, especially in CI/CD systems.
 
 Read more:
 
@@ -56,13 +64,13 @@ Deployers can be multi-configuration. Running ``conan install . --deploy=full_de
 
 New package_id
 --------------
-Conan 2.0 defines a new, dynamic ``package_id`` that greatly improves the limitations of Conan 1.X. This ``package_id`` will take into account the package types and types of requirements to implement a more meaningful strategy, depending on the scenario. For example, it is well known that when an application ``myapp`` is linking a static library ``mylib``, any change in the binary of the static library ``mylib`` requires re-building the application ``myapp``. So Conan will default to a mode like ``full_mode`` that will generate a new ``myapp`` ``package_id``, for every change in the ``mylib`` recipe or binary. While a dependency between a static library ``mylib_a`` and another ``mylib_b`` does in general does not imply that a change in ``mylib_b`` always needs a rebuild of ``mylib_a``, and then that relationship can default to a ``minor_mode`` mode, in which the one doing modifications to ``mylib_b`` can decide whether the consumer ``mylib_a`` needs to rebuild or not, based on the version bump (patch version bump will not trigger a rebuild while a minor version bump will trigger it)
+Conan 2.0 defines a new, dynamic ``package_id`` that is a great improvement over the limitations of Conan 1.X. This ``package_id`` will take into account the package types and types of requirements to implement a more meaningful strategy, depending on the scenario. For example, it is well known that when an application ``myapp`` is linking a static library ``mylib``, any change in the binary of the static library ``mylib`` requires re-building the application ``myapp``. So Conan will default to a mode like ``full_mode`` that will generate a new ``myapp`` ``package_id``, for every change in the ``mylib`` recipe or binary. While a dependency between a static library ``mylib_a`` that is used by``mylib_b`` in general does not imply that a change in ``mylib_b`` always needs a rebuild of ``mylib_a``, and that relationship can default to a ``minor_mode`` mode. In Conan 2.0, the one doing modifications to ``mylib_a`` can better express whether the consumer ``mylib_b`` needs to rebuild or not, based on the version bump (patch version bump will not trigger a rebuild while a minor version bump will trigger it)
 
 Furthermore the default versioning scheme in Conan has been generalized to any number of digits and letters, as opposed to the official “semver” that uses just 3 fields.
 
-Compatibility.py
+compatibility.py
 ----------------
-Conan 2.0 features a new extension mechanism to define binary compatibility at a global level. A ``compatibility.py`` file in the Conan cache will be used to define which fallbacks of binaries should be used in case there is some missing binary for a given package. Conan will provide a default one to account for ``cppstd`` compatibility, and executables compatibility, but this extension is fully configurable by the user.
+Conan 2.0 features a new extension mechanism to define binary compatibility at a global level. A ``compatibility.py`` file in the Conan cache will be used to define which fallbacks of binaries should be used in case there is some missing binary for a given package. Conan will provide a default one to account for ``cppstd`` compatibility, and executables compatibility, but this extension is fully configurable by the user (and can also be shared and managed with ``conan config install``)
 
 New lockfiles
 -------------
@@ -100,7 +108,7 @@ A new ``profile.py`` extension point is provided that can be used to perform ope
 
 Command wrapper
 +++++++++++++++
-A new ``cmd_wrapper.py`` extension provides a mean to wrap any ``conanfile.py`` command (i.e., anything that runs inside ``self.run()`` in a recipe), in a new command. This functionality can be useful for wrapping build commands in build optimization tools as IncrediBuild or compile caches.
+A new ``cmd_wrapper.py`` extension provides a way to wrap any ``conanfile.py`` command (i.e., anything that runs inside ``self.run()`` in a recipe), in a new command. This functionality can be useful for wrapping build commands in build optimization tools as IncrediBuild or compile caches.
 
 Package signing
 +++++++++++++++
@@ -108,7 +116,7 @@ A new ``sign.py`` extension has been added to implement signing and verifying of
 
 Package immutability optimizations
 ----------------------------------
-The thorough use of ``revisions`` in Conan 2.0, together with the declaration of artifacts **immutability** allows for improved processes, downloading, installing and updated dependencies as well as uploading dependencies.
+The thorough use of ``revisions`` (already introduced in Conan 1.X as opt-in in `<https://docs.conan.io/en/latest/versioning/revisions.html>`_) in Conan 2.0, together with the declaration of artifacts **immutability** allows for improved processes, downloading, installing and updated dependencies as well as uploading dependencies.
 
 The ``revisions`` allow accurate traceability of artifacts, and thus allows better update flows. For example, it will be easier to get different binaries for different configurations from different repositories, as long as they were created from the same recipe revision.
 
