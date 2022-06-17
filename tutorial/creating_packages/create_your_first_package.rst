@@ -109,8 +109,8 @@ Let's explain the different sections of the recipe briefly:
 First, you can see the **name and version** of the Conan package defined:
 
 * ``name``: a string, with a minimum of 2 and a maximum of 100 **lowercase** characters
-  that defines the package name. It should with alphanumeric or underscore and can contain
-  alphanumeric, underscore, +, ., - characters.
+  that defines the package name. It should start with alphanumeric or underscore and can
+  contain alphanumeric, underscore, +, ., - characters.
 * ``version``: It is a string, and can take any value, matching the same constraints as
   the ``name`` attribute. In case the version follows semantic versioning in the form
   ``X.Y.Z-pre1+build2``, that value might be used for requiring this package through
