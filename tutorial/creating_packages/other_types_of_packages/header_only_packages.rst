@@ -92,6 +92,8 @@ Let's see what happen if we run the ``conan create`` but specifying ``-s build_t
         sum/0.1#154c10cda76635e3ca85bcd7e21c2de9:da39a3ee5e6b4b0d3255bfef95601890afd80709
 
 Even in the ``test_package`` executable is built for Debug, we get the same binary package for the header-only library.
+This is because we didn't specify the ``settings`` attribute in the recipe, so the changes in the input settings (``-s build_type=Debug``)
+do not affect the recipe and therefore the generated binary package is always the same.
 
 
 Header-only library with tests
