@@ -203,7 +203,7 @@ We can call ``conan create`` to build and test our package.
 
    .. code-block:: bash
 
-         $ conan create . -s compiler.cppstd=11
+         $ conan create . -s compiler.cppstd=11 --build missing
          ...
          Running main() from /Users/luism/.conan2/p/tmp/9bf83ef65d5ff0d6/b/googletest/src/gtest_main.cc
          [==========] Running 1 test from 1 test suite.
@@ -247,5 +247,3 @@ We can run ``conan create`` again specifying a different ``compiler.cppstd`` and
       We could call ``conan install --require sum/0.1`` with an empty profile and would get the binary package from the
       server. But if we miss the binary and we need to build the package again, it will fail because of the lack of
       settings.
-
-
