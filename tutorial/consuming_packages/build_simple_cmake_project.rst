@@ -115,11 +115,12 @@ As you can see we added two sections to this file with a syntax similar to an *I
     * **[requires]** section is where we declare the libraries we want to use in the
       project, in this case, **zlib/1.2.11**.
 
-    * **[generators]** section tells Conan to generate the files that the compilers
-      or build systems will use to find the dependencies and build the project. In this
-      case, as our project is based in *CMake*, we will use *CMakeDeps* to generate information
-      about where the **Zlib** library files are installed and *CMakeToolchain* to pass build
-      information to *CMake* using a *CMake* toolchain file.
+    * **[generators]** section tells Conan to generate the files that the compilers or
+      build systems will use to find the dependencies and build the project. In this case,
+      as our project is based in *CMake*, we will use :ref:`CMakeDeps<CMakeDeps>` to
+      generate information about where the **Zlib** library files are installed and
+      :ref:`CMakeToolchain<conan-cmake-toolchain>` to pass build information to *CMake*
+      using a *CMake* toolchain file.
 
 Besides the *conanfile.txt*, we need a **Conan profile** to build our project. Conan
 profiles allow users to define a configuration set for things like the compiler, build

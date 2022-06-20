@@ -35,6 +35,7 @@ conan.tools.build.can_run()
 Cppstd
 ^^^^^^
 
+.. _conan_tools_build_check_min_cppstd:
 
 conan.tools.build.check_min_cppstd()
 """"""""""""""""""""""""""""""""""""
