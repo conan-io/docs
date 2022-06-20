@@ -1,3 +1,5 @@
+.. _reference_commands:
+
 Conan commands
 ==============
 
