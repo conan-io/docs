@@ -50,7 +50,7 @@ Map<String, String> versions = [
         'release/1.5.2': '1.5',
         'release/1.4.5': '1.4',
         'release/1.3.3': '1.3',
-        'release/2.0.0-beta': '2.0-beta'
+        'release/2.0.0-beta': '2.0'
         ]
 
 node('Linux') {
@@ -110,13 +110,13 @@ node('Linux') {
                         sh "rm -fr ${folderName}/_themes/conan"
                         sh "cp -a latest/_themes/. ${folderName}/_themes/"
                     }
-                    if (folderName == '2.0-beta') {
+                    if (folderName == '2.0') {
                         // Needed for autodocs in 2.0 docs
                         // FIXME: cloning develop2 but should be the release branch
                         def conanBranch = 'develop2'
                         def conan_repo_url = 'https://github.com/conan-io/conan.git'
                         stage('Clone sources') {
-                            def cloneConan = "git clone --single-branch -b ${conanBranch} --depth 1 ${conan_repo_url} 2.0-beta/conan_sources"
+                            def cloneConan = "git clone --single-branch -b ${conanBranch} --depth 1 ${conan_repo_url} 2.0/conan_sources"
                             sh(script: cloneConan)
                         }
                         // for some reason even adding this to autodoc_mock_imports
@@ -133,8 +133,8 @@ node('Linux') {
                     sh "make -C ${folderName}/_build/latex all-pdf"
                     sh "cp ${folderName}/_build/latex/conan.pdf gh-pages/en/${folderName}/conan.pdf"
                 }
-                if (folderName=='2.0-beta') {
-                    sh 'rm -fr 2.0-beta/conan_sources'
+                if (folderName=='2.0') {
+                    sh 'rm -fr 2.0/conan_sources'
                 }
             }
         }
