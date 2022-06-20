@@ -59,7 +59,7 @@ autodoc_mock_imports = ["PyJWT", "requests", "urllib3", "PyYAML",
 
 
 # The short X.Y version.
-version = "2.0-beta"
+version = "2.0"
 # The full version, including alpha/beta/rc tags.
 release = u'2.0.0-beta'
 
