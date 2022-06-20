@@ -1,12 +1,12 @@
 #!groovy​
 
 node('Linux') {
-    String alphaReleaseBranch = 'release/2.0.0-alpha'
-    boolean publishDocs = env.BRANCH_NAME == alphaReleaseBranch
+    String betaReleaseBranch = 'release/2.0.0-beta'
+    boolean publishDocs = env.BRANCH_NAME == betaReleaseBranch
     def targetBranch = env.CHANGE_BRANCH
     
     // We also have to clone conan sources for the sphinx autodoc extension
-    def conanBranch = (targetBranch == alphaReleaseBranch) ? 'release/2.0-alpha' : 'develop2'
+    def conanBranch = (targetBranch == betaReleaseBranch) ? 'release/2.0-beta' : 'develop2'
     def conan_repo_url = 'https://github.com/conan-io/conan.git'
     echo "Docs target branch: ${targetBranch}"
     echo "Conan target branch: ${conanBranch}"
@@ -51,8 +51,8 @@ node('Linux') {
         }
     }
 
-    // For alpha releases we trigger the publish job on the master branch
-    // this will republish all the docs including the updated release/2.0.0-alpha
+    // For beta releases we trigger the publish job on the master branch
+    // this will republish all the docs including the updated release/2.0.0-beta
     // latest parameter still has to be 'master'
     if (publishDocs) {
         build(job: 'Conan-Docs-Publish', propagate: true, wait: true, parameters: [

@@ -25,7 +25,7 @@ Please, first clone the sources to recreate this project, you can find them in t
 .. code-block:: bash
 
     $ git clone https://github.com/conan-io/examples2.git
-    $ cd examples2/tutorial/getting_started/simple_cmake_project
+    $ cd examples2/tutorial/consuming_packages/simple_cmake_project
 
 
 We start from a very simple C language project with this structure:
@@ -115,11 +115,12 @@ As you can see we added two sections to this file with a syntax similar to an *I
     * **[requires]** section is where we declare the libraries we want to use in the
       project, in this case, **zlib/1.2.11**.
 
-    * **[generators]** section tells Conan to generate the files that the compilers
-      or build systems will use to find the dependencies and build the project. In this
-      case, as our project is based in *CMake*, we will use *CMakeDeps* to generate information
-      about where the **Zlib** library files are installed and *CMakeToolchain* to pass build
-      information to *CMake* using a *CMake* toolchain file.
+    * **[generators]** section tells Conan to generate the files that the compilers or
+      build systems will use to find the dependencies and build the project. In this case,
+      as our project is based in *CMake*, we will use :ref:`CMakeDeps<CMakeDeps>` to
+      generate information about where the **Zlib** library files are installed and
+      :ref:`CMakeToolchain<conan-cmake-toolchain>` to pass build information to *CMake*
+      using a *CMake* toolchain file.
 
 Besides the *conanfile.txt*, we need a **Conan profile** to build our project. Conan
 profiles allow users to define a configuration set for things like the compiler, build
@@ -185,7 +186,7 @@ You will get something similar to this as the output of that command:
     Decompressing conan_export.tgz
     zlib/1.2.11: Downloaded recipe revision f1fadf0d3b196dc0332750354ad8ab7b
     Graph root
-        conanfile.txt: /home/conan/examples2/tutorial/getting_started/simple_cmake_project/conanfile.txt
+        conanfile.txt: /home/conan/examples2/tutorial/consuming_packages/simple_cmake_project/conanfile.txt
     Requirements
         zlib/1.2.11#f1fadf0d3b196dc0332750354ad8ab7b - Downloaded (conanv2)
 

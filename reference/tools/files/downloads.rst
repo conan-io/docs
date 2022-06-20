@@ -1,6 +1,8 @@
 conan.tools.files downloads
 ===========================
 
+.. _conan_tools_files_get:
+
 conan.tools.files.get()
 -----------------------
 
