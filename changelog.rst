@@ -1,8 +1,8 @@
 Changelog
 =========
 
-2.0 (Beta.1 18-June-2022)
--------------------------
+2.0.0-beta1 (20-June-2022)
+--------------------------
 
 For a more detailed description of the major changes that Conan 2.0 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
