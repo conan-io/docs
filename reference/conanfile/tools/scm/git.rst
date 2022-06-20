@@ -5,7 +5,7 @@ Git
 
 .. warning::
 
-    This tool is **experimental** and subject to breaking changes.
+    This tool is **experimental** and subject to breaking changes. This tool is intended to replace the current ``conans.tools.Git`` and the current ``scm`` attribute, that will be removed in Conan 2.0.
 
 
 constructor
@@ -123,7 +123,7 @@ again from sources from the same commit. This is the behavior:
 Example: Implementing the ``scm`` feature 
 -----------------------------------------
 
-This example is the new way to implement the ``scm`` feature (to be removed in Conan 2.0), using this new ``Git`` capabilities.
+This example is the new way to implement the ``scm`` feature (the ``scm`` attribute will be removed in Conan 2.0, and the way it will survive is the one described in this section), using this new ``Git`` capabilities.
 
 Assume we have this project with this layout, in a git repository:
 
