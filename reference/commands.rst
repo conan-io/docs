@@ -18,3 +18,11 @@ Creator commands
 
 
 
+Custom commands
+----------------
+
+.. toctree::
+   :caption: Custom commands
+   :maxdepth: 1
+
+   commands/custom_commands
