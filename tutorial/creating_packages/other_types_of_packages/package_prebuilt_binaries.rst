@@ -38,10 +38,9 @@ have any structure and use any build system. These are the files:
     ├── CMakeLists.txt
     ├── conanfile.py
     ├── include
-    │    └── foo.h
-    ├── run_example.py
+    │    └── hello.h
     ├── src
-    │    └── foo.cpp
+    │    └── hello.cpp
     └── test_package
         ├── CMakeLists.txt
         ├── CMakeUserPresets.json
@@ -60,30 +59,31 @@ For packaging the built binaries a recipe is still required. This is the ``conan
 
 .. code-block:: python
 
-    import os
-    from conan import ConanFile
-    from conan.tools.files import copy
-    from conan.tools.cmake import cmake_layout
+      import os
+      from conan import ConanFile
+      from conan.tools.files import copy
+      from conan.tools.cmake import cmake_layout
 
 
-    class fooRecipe(ConanFile):
-        name = "foo"
-        version = "0.1"
-        settings = "os", "compiler", "build_type", "arch"
-        generators = "CMakeToolchain"
+      class helloRecipe(ConanFile):
+          name = "hello"
+          version = "0.1"
+          settings = "os", "compiler", "build_type", "arch"
+          generators = "CMakeToolchain", "CMakeDeps"
 
-        def layout(self):
-            cmake_layout(self)
+          def layout(self):
+              cmake_layout(self)
 
-        def package(self):
-            local_include_folder = os.path.join(self.source_folder, self.cpp.source.includedirs[0])
-            local_lib_folder = os.path.join(self.build_folder, self.cpp.build.libdirs[0])
-            copy(self, "*.h", local_include_folder, os.path.join(self.package_folder, "include"), keep_path=False)
-            copy(self, "*.lib", local_lib_folder, os.path.join(self.package_folder, "lib"), keep_path=False)
-            copy(self, "*.a", local_lib_folder, os.path.join(self.package_folder, "lib"), keep_path=False)
+          def package(self):
+              local_include_folder = os.path.join(self.source_folder, self.cpp.source.includedirs[0])
+              local_lib_folder = os.path.join(self.build_folder, self.cpp.build.libdirs[0])
+              copy(self, "*.h", local_include_folder, os.path.join(self.package_folder, "include"), keep_path=False)
+              copy(self, "*.lib", local_lib_folder, os.path.join(self.package_folder, "lib"), keep_path=False)
+              copy(self, "*.a", local_lib_folder, os.path.join(self.package_folder, "lib"), keep_path=False)
 
-        def package_info(self):
-            self.cpp_info.libs = ["foo"]
+          def package_info(self):
+              self.cpp_info.libs = ["hello"]
+
 
 
 As we are developing a ``CMake`` project we declare a ``layout()`` method calling ``cmake_layout(self)``.
@@ -116,9 +116,9 @@ Now, for every different configuration (different compilers, architectures, buil
     $ cmake ../.. -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=../generators/conan_toolchain.cmake
     $ cmake --build .
     ...
-    [ 50%] Building CXX object CMakeFiles/foo.dir/src/foo.cpp.o
-    [100%] Linking CXX static library libfoo.a
-    [100%] Built target foo
+    [ 50%] Building CXX object CMakeFiles/hello.dir/src/hello.cpp.o
+    [100%] Linking CXX static library libhello.a
+    [100%] Built target hello
 
 - ``CMakePresets`` *way*:
 
@@ -127,9 +127,9 @@ Now, for every different configuration (different compilers, architectures, buil
     $ cmake . --preset release
     $ cmake --build --preset release
     ...
-    [ 50%] Building CXX object CMakeFiles/foo.dir/src/foo.cpp.o
-    [100%] Linking CXX static library libfoo.a
-    [100%] Built target foo
+    [ 50%] Building CXX object CMakeFiles/hello.dir/src/hello.cpp.o
+    [100%] Linking CXX static library libhello.a
+    [100%] Built target hello
 
 3. We call :command:`conan export-pkg` to package the built artifacts:
 
@@ -137,32 +137,32 @@ Now, for every different configuration (different compilers, architectures, buil
 
     $ conan export-pkg . -s build_type=Release
     ...
-    foo/0.1: Calling package()
-    foo/0.1: Copied 1 '.h' file: foo.h
-    foo/0.1: Copied 1 '.a' file: libfoo.a
-    foo/0.1 package(): Packaged 1 '.h' file: foo.h
-    foo/0.1 package(): Packaged 1 '.a' file: libfoo.a
+    hello/0.1: Calling package()
+    hello/0.1: Copied 1 '.h' file: hello.h
+    hello/0.1: Copied 1 '.a' file: libhello.a
+    hello/0.1 package(): Packaged 1 '.h' file: hello.h
+    hello/0.1 package(): Packaged 1 '.a' file: libhello.a
     ...
-    foo/0.1: Package '54a3ab9b777a90a13e500dd311d9cd70316e9d55' created
+    hello/0.1: Package '54a3ab9b777a90a13e500dd311d9cd70316e9d55' created
 
 
 4. We can test the built package calling :command:`conan test`:
 
 .. code-block:: bash
 
-    $ conan test test_package/conanfile.py foo/0.1 -s build_type=Release
+    $ conan test test_package/conanfile.py hello/0.1 -s build_type=Release
 
     -------- Testing the package: Running test() ----------
-    foo/0.1 (test package): Running test()
-    foo/0.1 (test package): RUN: ./example
-    foo/0.1: Hello World Release!
-      foo/0.1: __x86_64__ defined
-      foo/0.1: __cplusplus199711
-      foo/0.1: __GNUC__4
-      foo/0.1: __GNUC_MINOR__2
-      foo/0.1: __clang_major__13
-      foo/0.1: __clang_minor__1
-      foo/0.1: __apple_build_version__13160021
+    hello/0.1 (test package): Running test()
+    hello/0.1 (test package): RUN: ./example
+    hello/0.1: Hello World Release!
+      hello/0.1: __x86_64__ defined
+      hello/0.1: __cplusplus199711
+      hello/0.1: __GNUC__4
+      hello/0.1: __GNUC_MINOR__2
+      hello/0.1: __clang_major__13
+      hello/0.1: __clang_minor__1
+      hello/0.1: __apple_build_version__13160021
 
 
 Now you can try to generate a binary package for ``build_type=Debug`` running the same steps but changing the ``build_type``.
@@ -190,34 +190,34 @@ These are the files of our example, (be aware that the library files are only em
 
     .
     ├── conanfile.py
-    └── vendor_foo_library
+    └── vendor_hello_library
         ├── linux
         │   ├── armv8
         │   │   ├── include
-        │   │   │   └── foo.h
-        │   │   └── libfoo.a
+        │   │   │   └── hello.h
+        │   │   └── libhello.a
         │   └── x86_64
         │       ├── include
-        │       │   └── foo.h
-        │       └── libfoo.a
+        │       │   └── hello.h
+        │       └── libhello.a
         ├── macos
         │   ├── armv8
         │   │   ├── include
-        │   │   │   └── foo.h
-        │   │   └── libfoo.a
+        │   │   │   └── hello.h
+        │   │   └── libhello.a
         │   └── x86_64
         │       ├── include
-        │       │   └── foo.h
-        │       └── libfoo.a
+        │       │   └── hello.h
+        │       └── libhello.a
         └── windows
             ├── armv8
-            │   ├── foo.lib
+            │   ├── hello.lib
             │   └── include
-            │       └── foo.h
+            │       └── hello.h
             └── x86_64
-                ├── foo.lib
+                ├── hello.lib
                 └── include
-                    └── foo.h
+                    └── hello.h
 
 
 We have folders with ``os`` and subfolders with ``arch``. This the recipe of our example:
@@ -225,33 +225,34 @@ We have folders with ``os`` and subfolders with ``arch``. This the recipe of our
 
 .. code-block:: python
 
-    import os
-    from conan import ConanFile
-    from conan.tools.files import copy
+      import os
+      from conan import ConanFile
+      from conan.tools.files import copy
 
 
-    class fooRecipe(ConanFile):
-        name = "foo"
-        version = "0.1"
-        settings = "os", "arch"
+      class helloRecipe(ConanFile):
+          name = "hello"
+          version = "0.1"
+          settings = "os", "arch"
 
-        def layout(self):
-            _os = str(self.settings.os).lower()
-            _arch = str(self.settings.arch).lower()
-            self.folders.build = os.path.join("vendor_foo_library", _os, _arch)
-            self.folders.source = self.folders.build
-            self.cpp.source.includedirs = ["include"]
-            self.cpp.build.libdirs = ["."]
+          def layout(self):
+              _os = str(self.settings.os).lower()
+              _arch = str(self.settings.arch).lower()
+              self.folders.build = os.path.join("vendor_hello_library", _os, _arch)
+              self.folders.source = self.folders.build
+              self.cpp.source.includedirs = ["include"]
+              self.cpp.build.libdirs = ["."]
 
-        def package(self):
-            local_include_folder = os.path.join(self.source_folder, self.cpp.source.includedirs[0])
-            local_lib_folder = os.path.join(self.build_folder, self.cpp.build.libdirs[0])
-            copy(self, "*.h", local_include_folder, os.path.join(self.package_folder, "include"), keep_path=False)
-            copy(self, "*.lib", local_lib_folder, os.path.join(self.package_folder, "lib"), keep_path=False)
-            copy(self, "*.a", local_lib_folder, os.path.join(self.package_folder, "lib"), keep_path=False)
+          def package(self):
+              local_include_folder = os.path.join(self.source_folder, self.cpp.source.includedirs[0])
+              local_lib_folder = os.path.join(self.build_folder, self.cpp.build.libdirs[0])
+              copy(self, "*.h", local_include_folder, os.path.join(self.package_folder, "include"), keep_path=False)
+              copy(self, "*.lib", local_lib_folder, os.path.join(self.package_folder, "lib"), keep_path=False)
+              copy(self, "*.a", local_lib_folder, os.path.join(self.package_folder, "lib"), keep_path=False)
 
-        def package_info(self):
-            self.cpp_info.libs = ["foo"]
+          def package_info(self):
+              self.cpp_info.libs = ["hello"]
+
 
 
 - We are not building anything, so the ``build`` method is not useful here.
@@ -259,7 +260,7 @@ We have folders with ``os`` and subfolders with ``arch``. This the recipe of our
   declared by the ``layout()``.
 - Both the source folder (with headers) and the build folder (with libraries) are in the same location, in a path that follows:
 
-        ``vendor_foo_library/{os}/{arch}``
+        ``vendor_hello_library/{os}/{arch}``
 
 - The headers are in the ``include`` subfolder of the ``self.source_folder`` (we declare it in ``self.cpp.source.includedirs``).
 - The libraries are in the root of the ``self.build_folder`` folder (we declare ``self.cpp.build.libdirs = ["."]``).
@@ -279,29 +280,29 @@ so we can check we have one package for each precompiled library:
         $ conan export-pkg . -s os="Windows" -s arch="x86_64"
         $ conan export-pkg . -s os="Windows" -s arch="armv8"
 
-        $ conan list packages foo/0.1#latest
+        $ conan list packages hello/0.1#latest
         Local Cache:
-          foo/0.1#a7068582757c24d362aac7d92f6a4a92:522dcea5982a3f8a5b624c16477e47195da2f84f
+          hello/0.1#a7068582757c24d362aac7d92f6a4a92:522dcea5982a3f8a5b624c16477e47195da2f84f
             settings:
               arch=x86_64
               os=Windows
-          foo/0.1#a7068582757c24d362aac7d92f6a4a92:63fead0844576fc02943e16909f08fcdddd6f44b
+          hello/0.1#a7068582757c24d362aac7d92f6a4a92:63fead0844576fc02943e16909f08fcdddd6f44b
             settings:
               arch=x86_64
               os=Linux
-          foo/0.1#a7068582757c24d362aac7d92f6a4a92:82339cc4d6db7990c1830d274cd12e7c91ab18a1
+          hello/0.1#a7068582757c24d362aac7d92f6a4a92:82339cc4d6db7990c1830d274cd12e7c91ab18a1
             settings:
               arch=x86_64
               os=Macos
-          foo/0.1#a7068582757c24d362aac7d92f6a4a92:a0cd51c51fe9010370187244af885b0efcc5b69b
+          hello/0.1#a7068582757c24d362aac7d92f6a4a92:a0cd51c51fe9010370187244af885b0efcc5b69b
             settings:
               arch=armv8
               os=Windows
-          foo/0.1#a7068582757c24d362aac7d92f6a4a92:c93719558cf197f1df5a7f1d071093e26f0e44a0
+          hello/0.1#a7068582757c24d362aac7d92f6a4a92:c93719558cf197f1df5a7f1d071093e26f0e44a0
             settings:
               arch=armv8
               os=Linux
-          foo/0.1#a7068582757c24d362aac7d92f6a4a92:dcf68e932572755309a5f69f3cee1bede410e907
+          hello/0.1#a7068582757c24d362aac7d92f6a4a92:dcf68e932572755309a5f69f3cee1bede410e907
             settings:
               arch=armv8
               os=Macos
@@ -331,32 +332,32 @@ Please, first clone the sources to recreate this project. You can find them in t
    :caption: conanfile.py
 
 
-    import os
-    from conan.tools.files import get, copy
-    from conan import ConanFile
+      import os
+      from conan.tools.files import get, copy
+      from conan import ConanFile
 
 
-    class HelloConan(ConanFile):
-        name = "foo"
-        version = "0.1"
-        settings = "os", "arch"
+      class HelloConan(ConanFile):
+          name = "hello"
+          version = "0.1"
+          settings = "os", "arch"
 
-        def build(self):
-            base_url = "https://github.com/conan-io/examples2/raw/assets/tutorial/other_packages/" \
-                       "prebuilt_remote_binaries/vendor_foo_library"
+          def build(self):
+              base_url = "https://github.com/conan-io/libhello/releases/download/0.0.1/"
 
-            _os = str(self.settings.os).lower()
-            _arch = str(self.settings.arch).lower()
-            url = "{}/{}/{}/library.tgz".format(base_url, _os, _arch)
-            get(self, url)
+              _os = {"Windows": "win", "Linux": "linux", "Macos": "macos"}.get(str(self.settings.os))
+              _arch = str(self.settings.arch).lower()
+              url = "{}/{}_{}.tgz".format(base_url, _os, _arch)
+              get(self, url)
 
-        def package(self):
-            copy(self, "*.h", self.build_folder, os.path.join(self.package_folder, "include"))
-            copy(self, "*.lib", self.build_folder, os.path.join(self.package_folder, "lib"))
-            copy(self, "*.a", self.build_folder, os.path.join(self.package_folder, "lib"))
+          def package(self):
+              copy(self, "*.h", self.build_folder, os.path.join(self.package_folder, "include"))
+              copy(self, "*.lib", self.build_folder, os.path.join(self.package_folder, "lib"))
+              copy(self, "*.a", self.build_folder, os.path.join(self.package_folder, "lib"))
 
-        def package_info(self):
-            self.cpp_info.libs = ["foo"]
+          def package_info(self):
+              self.cpp_info.libs = ["hello"]
+
 
 Typically, pre-compiled binaries come for different configurations, so the only task that the
 ``build()`` method has to implement is to map the ``settings`` to the different URLs.
@@ -373,30 +374,30 @@ We only need to call :command:`conan create` with different settings to generate
         $ conan create . -s os="Windows" -s arch="x86_64"
         $ conan create . -s os="Windows" -s arch="armv8"
 
-        $ conan list packages foo/0.1#latest
+        $ conan list packages hello/0.1#latest
 
         Local Cache:
-          foo/0.1#a7068582757c24d362aac7d92f6a4a92:522dcea5982a3f8a5b624c16477e47195da2f84f
+          hello/0.1#a7068582757c24d362aac7d92f6a4a92:522dcea5982a3f8a5b624c16477e47195da2f84f
             settings:
               arch=x86_64
               os=Windows
-          foo/0.1#a7068582757c24d362aac7d92f6a4a92:63fead0844576fc02943e16909f08fcdddd6f44b
+          hello/0.1#a7068582757c24d362aac7d92f6a4a92:63fead0844576fc02943e16909f08fcdddd6f44b
             settings:
               arch=x86_64
               os=Linux
-          foo/0.1#a7068582757c24d362aac7d92f6a4a92:82339cc4d6db7990c1830d274cd12e7c91ab18a1
+          hello/0.1#a7068582757c24d362aac7d92f6a4a92:82339cc4d6db7990c1830d274cd12e7c91ab18a1
             settings:
               arch=x86_64
               os=Macos
-          foo/0.1#a7068582757c24d362aac7d92f6a4a92:a0cd51c51fe9010370187244af885b0efcc5b69b
+          hello/0.1#a7068582757c24d362aac7d92f6a4a92:a0cd51c51fe9010370187244af885b0efcc5b69b
             settings:
               arch=armv8
               os=Windows
-          foo/0.1#a7068582757c24d362aac7d92f6a4a92:c93719558cf197f1df5a7f1d071093e26f0e44a0
+          hello/0.1#a7068582757c24d362aac7d92f6a4a92:c93719558cf197f1df5a7f1d071093e26f0e44a0
             settings:
               arch=armv8
               os=Linux
-          foo/0.1#a7068582757c24d362aac7d92f6a4a92:dcf68e932572755309a5f69f3cee1bede410e907
+          hello/0.1#a7068582757c24d362aac7d92f6a4a92:dcf68e932572755309a5f69f3cee1bede410e907
             settings:
               arch=armv8
               os=Macos
