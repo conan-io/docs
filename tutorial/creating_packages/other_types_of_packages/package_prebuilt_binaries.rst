@@ -1,2 +1,414 @@
-Package prebuild binaries
+Package prebuilt binaries
 =========================
+
+There are specific scenarios in which it is necessary to create packages from existing binaries, for example from 3rd
+parties or binaries previously built by another process or team that is not using Conan. Under these circumstances,
+building from sources is not what you want.
+
+You can package the local files in the following scenarios:
+
+ 1. When you are developing your package locally and you want to export the built artifacts to the local
+    cache. As you don't want to rebuild again (clean copy) your artifacts, you don't want to call
+    :command:`conan create`. This method will keep your build cache if you are using an IDE.
+ 2. When you cannot build the packages from sources (when only pre-built binaries are available) and you have them
+    in a local directory.
+ 3. Same as 2 but you have the precompiled libraries in a remote repository.
+
+
+Locally building binaries
+-------------------------
+
+This is an example of scenario 1 explained in the introduction. In this case, you can run :command:`conan export-pkg`
+command directly.
+
+Please, first clone the sources to recreate this project. You can find them in the
+`examples2.0 repository <https://github.com/conan-io/examples2>`_ on GitHub:
+
+.. code-block:: bash
+
+    $ git clone https://github.com/conan-io/examples2.git
+    $ cd examples2/tutorial/creating_packages/other_packages/prebuilt_local_project
+
+In the example, we have a simple CMake project that we are building using an IDE. This is only an example, the project can
+have any structure and use any build system. These are the files:
+
+.. code-block:: text
+
+    .
+    ├── CMakeLists.txt
+    ├── conanfile.py
+    ├── include
+    │    └── foo.h
+    ├── run_example.py
+    ├── src
+    │    └── foo.cpp
+    └── test_package
+        ├── CMakeLists.txt
+        ├── CMakeUserPresets.json
+        ├── conanfile.py
+        └── src
+            └── example.cpp
+
+
+
+We have a ``CMakeLists.txt`` file in the root, an ``src`` folder with the ``cpp`` files and, an ``include``
+folder for the headers.
+
+They also have a ``test_package/`` folder to test that the exported package is working correctly.
+
+For packaging the built binaries a recipe is still required. This is the ``conanfile.py`` from our example:
+
+.. code-block:: python
+
+    import os
+    from conan import ConanFile
+    from conan.tools.files import copy
+    from conan.tools.cmake import cmake_layout
+
+
+    class fooRecipe(ConanFile):
+        name = "foo"
+        version = "0.1"
+        settings = "os", "compiler", "build_type", "arch"
+        generators = "CMakeToolchain"
+
+        def layout(self):
+            cmake_layout(self)
+
+        def package(self):
+            local_include_folder = os.path.join(self.source_folder, self.cpp.source.includedirs[0])
+            local_lib_folder = os.path.join(self.build_folder, self.cpp.build.libdirs[0])
+
+            copy(self, "*.h", local_include_folder, os.path.join(self.package_folder, "include"))
+            copy(self, "*.lib", local_lib_folder, os.path.join(self.package_folder, "lib"))
+            copy(self, "*.a", local_lib_folder, os.path.join(self.package_folder, "lib"))
+
+        def package_info(self):
+            self.cpp_info.libs = ["foo"]
+
+
+As we are developing a ``CMake`` project we declare a ``layout()`` method calling ``cmake_layout(self)``.
+This will help locate the headers and the built libraries to be packaged.
+
+The ``package()`` method is copying artifacts from the following directories that, thanks to the layout(), will always
+point to the correct places:
+
+- **os.path.join(self.source_folder, self.cpp.source.includedirs[0])** will always point to our local include folder.
+- **os.path.join(self.build_folder, self.cpp.build.libdirs[0])** will always point to the location of the libraries when
+  they are built, no matter if using a single-config CMake Generator or a multi-config one.
+
+Now, for every different configuration (different compilers, architectures, build_type...):
+
+1. We call :command:`conan install` to generate the ``conan_toolchain.cmake`` file and the ``CMakeUserPresets.json``
+   that we can be used in our IDE or calling CMake (only >= 3.23).
+
+.. code-block:: bash
+
+    $ conan install . -s build_type=Release
+
+2. We build our project calling CMake, our IDE, ... etc:
+
+- *Traditional way*:
+
+.. code-block:: bash
+
+    $ mkdir -p build/Release
+    $ cd build/Release
+    $ cmake ../.. -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=../generators/conan_toolchain.cmake
+    $ cmake --build .
+    ...
+    [ 50%] Building CXX object CMakeFiles/foo.dir/src/foo.cpp.o
+    [100%] Linking CXX static library libfoo.a
+    [100%] Built target foo
+
+- ``CMakePresets`` *way*:
+
+.. code-block:: bash
+
+    $ cmake . --preset release
+    $ cmake --build --preset release
+    ...
+    [ 50%] Building CXX object CMakeFiles/foo.dir/src/foo.cpp.o
+    [100%] Linking CXX static library libfoo.a
+    [100%] Built target foo
+
+3. We call :command:`conan export-pkg` to package the built artifacts:
+
+.. code-block:: bash
+
+    $ conan export-pkg . -s build_type=Release
+    ...
+    foo/0.1: Calling package()
+    foo/0.1: Copied 1 '.h' file: foo.h
+    foo/0.1: Copied 1 '.a' file: libfoo.a
+    foo/0.1 package(): Packaged 1 '.h' file: foo.h
+    foo/0.1 package(): Packaged 1 '.a' file: libfoo.a
+    ...
+    foo/0.1: Package '54a3ab9b777a90a13e500dd311d9cd70316e9d55' created
+
+
+4. We can test the built package calling :command:`conan test`:
+
+.. code-block:: bash
+
+    $ conan test test_package/conanfile.py foo/0.1 -s build_type=Release
+
+    -------- Testing the package: Running test() ----------
+    foo/0.1 (test package): Running test()
+    foo/0.1 (test package): RUN: ./example
+    foo/0.1: Hello World Release!
+      foo/0.1: __x86_64__ defined
+      foo/0.1: __cplusplus199711
+      foo/0.1: __GNUC__4
+      foo/0.1: __GNUC_MINOR__2
+      foo/0.1: __clang_major__13
+      foo/0.1: __clang_minor__1
+      foo/0.1: __apple_build_version__13160021
+
+
+Now you can try to generate a binary package for ``build_type=Debug`` running the same steps but changing the ``build_type``.
+You can repeat this process any number of times for different configurations.
+
+
+Packaging already Pre-built Binaries
+------------------------------------
+
+Please, first clone the sources to recreate this project. You can find them in the
+`examples2.0 repository <https://github.com/conan-io/examples2>`_ on GitHub:
+
+.. code-block:: bash
+
+    $ git clone https://github.com/conan-io/examples2.git
+    $ cd examples2/tutorial/creating_packages/other_packages/prebuilt_binaries
+
+This is an example of scenario 2 explained in the introduction. If you have a local folder containing the binaries
+for different configurations you can package them using the following approach.
+
+
+These are the files of our example, (be aware that the library files are only empty files so not valid libraries):
+
+.. code-block:: text
+
+    .
+    ├── conanfile.py
+    └── vendor_foo_library
+        ├── linux
+        │   ├── armv8
+        │   │   ├── include
+        │   │   │   └── foo.h
+        │   │   └── libfoo.a
+        │   └── x86_64
+        │       ├── include
+        │       │   └── foo.h
+        │       └── libfoo.a
+        ├── macos
+        │   ├── armv8
+        │   │   ├── include
+        │   │   │   └── foo.h
+        │   │   └── libfoo.a
+        │   └── x86_64
+        │       ├── include
+        │       │   └── foo.h
+        │       └── libfoo.a
+        └── windows
+            ├── armv8
+            │   ├── foo.lib
+            │   └── include
+            │       └── foo.h
+            └── x86_64
+                ├── foo.lib
+                └── include
+                    └── foo.h
+
+
+We have folders with ``os`` and subfolders with ``arch``. This the recipe of our example:
+
+
+.. code-block:: python
+
+    import os
+    from conan import ConanFile
+    from conan.tools.files import copy
+
+
+    class fooRecipe(ConanFile):
+        name = "foo"
+        version = "0.1"
+        settings = "os", "arch"
+
+        def layout(self):
+            _os = str(self.settings.os).lower()
+            _arch = str(self.settings.arch).lower()
+            self.folders.build = os.path.join("vendor_foo_library", _os, _arch)
+            self.folders.source = self.folders.build
+            self.cpp.source.includedirs = ["include"]
+            self.cpp.build.libdirs = ["."]
+
+        def package(self):
+            local_include_folder = os.path.join(self.source_folder, self.cpp.source.includedirs[0])
+            local_lib_folder = os.path.join(self.build_folder, self.cpp.build.libdirs[0])
+            copy(self, "*.h", local_include_folder, os.path.join(self.package_folder, "include"))
+            copy(self, "*.lib", local_lib_folder, os.path.join(self.package_folder, "lib"))
+            copy(self, "*.a", local_lib_folder, os.path.join(self.package_folder, "lib"))
+
+        def package_info(self):
+            self.cpp_info.libs = ["foo"]
+
+
+- We are not building anything, so the ``build`` method is not useful here.
+- We can keep the same ``package`` method from the previous example because the location of the artifacts is
+  declared by the ``layout()``.
+- Both the source folder (with headers) and the build folder (with libraries) are in the same location, in a path that follows:
+
+        ``vendor_foo_library/{os}/{arch}``
+
+- The headers are in the ``include`` subfolder of the ``self.source_folder`` (we declare it in ``self.cpp.source.includedirs``).
+- The libraries are in the root of the ``self.build_folder`` folder (we declare ``self.cpp.build.libdirs = ["."]``).
+- We removed the ``compiler`` and the ``build_type`` because we only have different libraries depending on the operating
+  system and the architecture (it might be a pure C library).
+
+
+Now, for each different configuration we call :command:`conan export-pkg` command, later we can list the binaries
+so we can check we have one package for each precompiled library:
+
+    .. code-block:: bash
+
+        $ conan export-pkg . -s os="Linux" -s arch="x86_64"
+        $ conan export-pkg . -s os="Linux" -s arch="armv8"
+        $ conan export-pkg . -s os="Macos" -s arch="x86_64"
+        $ conan export-pkg . -s os="Macos" -s arch="armv8"
+        $ conan export-pkg . -s os="Windows" -s arch="x86_64"
+        $ conan export-pkg . -s os="Windows" -s arch="armv8"
+
+        $ conan list packages foo/0.1#latest
+        Local Cache:
+          foo/0.1#a7068582757c24d362aac7d92f6a4a92:522dcea5982a3f8a5b624c16477e47195da2f84f
+            settings:
+              arch=x86_64
+              os=Windows
+          foo/0.1#a7068582757c24d362aac7d92f6a4a92:63fead0844576fc02943e16909f08fcdddd6f44b
+            settings:
+              arch=x86_64
+              os=Linux
+          foo/0.1#a7068582757c24d362aac7d92f6a4a92:82339cc4d6db7990c1830d274cd12e7c91ab18a1
+            settings:
+              arch=x86_64
+              os=Macos
+          foo/0.1#a7068582757c24d362aac7d92f6a4a92:a0cd51c51fe9010370187244af885b0efcc5b69b
+            settings:
+              arch=armv8
+              os=Windows
+          foo/0.1#a7068582757c24d362aac7d92f6a4a92:c93719558cf197f1df5a7f1d071093e26f0e44a0
+            settings:
+              arch=armv8
+              os=Linux
+          foo/0.1#a7068582757c24d362aac7d92f6a4a92:dcf68e932572755309a5f69f3cee1bede410e907
+            settings:
+              arch=armv8
+              os=Macos
+
+
+In this example, we don't have a ``test_package/`` folder but you can provide one to test the packages like in the
+previous example.
+
+
+Downloading and Packaging Pre-built Binaries
+--------------------------------------------
+
+This is an example of scenario 3 explained in the introduction. If we are not building the libraries we likely
+have them somewhere in a remote repository. In this case, creating a complete Conan recipe, with the detailed
+retrieval of the binaries could be the preferred method, because it is reproducible, and the original binaries might be traced.
+
+Please, first clone the sources to recreate this project. You can find them in the
+`examples2.0 repository <https://github.com/conan-io/examples2>`_ on GitHub:
+
+.. code-block:: bash
+
+    $ git clone https://github.com/conan-io/examples2.git
+    $ cd examples2/tutorial/creating_packages/other_packages/prebuilt_remote_binaries
+
+
+.. code-block:: python
+   :caption: conanfile.py
+
+
+    import os
+    from conan.tools.files import get, copy
+    from conan import ConanFile
+
+
+    class HelloConan(ConanFile):
+        name = "foo"
+        version = "0.1"
+        settings = "os", "arch"
+
+        def build(self):
+            base_url = "https://github.com/conan-io/examples2/raw/assets/tutorial/other_packages/" \
+                       "prebuilt_remote_binaries/vendor_foo_library"
+
+            _os = str(self.settings.os).lower()
+            _arch = str(self.settings.arch).lower()
+            url = "{}/{}/{}/library.tgz".format(base_url, _os, _arch)
+            get(self, url)
+
+        def package(self):
+            copy(self, "*.h", self.build_folder, os.path.join(self.package_folder, "include"))
+            copy(self, "*.lib", self.build_folder, os.path.join(self.package_folder, "lib"))
+            copy(self, "*.a", self.build_folder, os.path.join(self.package_folder, "lib"))
+
+        def package_info(self):
+            self.cpp_info.libs = ["foo"]
+
+Typically, pre-compiled binaries come for different configurations, so the only task that the
+``build()`` method has to implement is to map the ``settings`` to the different URLs.
+
+We only need to call :command:`conan create` with different settings to generate the needed packages:
+
+
+    .. code-block:: bash
+
+        $ conan create . -s os="Linux" -s arch="x86_64"
+        $ conan create . -s os="Linux" -s arch="armv8"
+        $ conan create . -s os="Macos" -s arch="x86_64"
+        $ conan create . -s os="Macos" -s arch="armv8"
+        $ conan create . -s os="Windows" -s arch="x86_64"
+        $ conan create . -s os="Windows" -s arch="armv8"
+
+        $ conan list packages foo/0.1#latest
+
+        Local Cache:
+          foo/0.1#a7068582757c24d362aac7d92f6a4a92:522dcea5982a3f8a5b624c16477e47195da2f84f
+            settings:
+              arch=x86_64
+              os=Windows
+          foo/0.1#a7068582757c24d362aac7d92f6a4a92:63fead0844576fc02943e16909f08fcdddd6f44b
+            settings:
+              arch=x86_64
+              os=Linux
+          foo/0.1#a7068582757c24d362aac7d92f6a4a92:82339cc4d6db7990c1830d274cd12e7c91ab18a1
+            settings:
+              arch=x86_64
+              os=Macos
+          foo/0.1#a7068582757c24d362aac7d92f6a4a92:a0cd51c51fe9010370187244af885b0efcc5b69b
+            settings:
+              arch=armv8
+              os=Windows
+          foo/0.1#a7068582757c24d362aac7d92f6a4a92:c93719558cf197f1df5a7f1d071093e26f0e44a0
+            settings:
+              arch=armv8
+              os=Linux
+          foo/0.1#a7068582757c24d362aac7d92f6a4a92:dcf68e932572755309a5f69f3cee1bede410e907
+            settings:
+              arch=armv8
+              os=Macos
+
+
+It is recommended to include also a small consuming project in a ``test_package`` folder to verify the package is correctly
+built, and then upload it to a Conan remote with :command:`conan upload`.
+
+The same building policies apply. Having a recipe fails if no Conan packages are
+created, and the :command:`--build` argument is not defined. A typical approach for this kind of
+package could be to define a :command:`build_policy="missing"`, especially if the URLs are also
+under the team's control. If they are external (on the internet), it could be better to create the
+packages and store them on your own Conan repository, so that the builds do not rely on third-party URLs
+being available.
