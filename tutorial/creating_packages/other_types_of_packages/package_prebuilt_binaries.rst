@@ -78,10 +78,9 @@ For packaging the built binaries a recipe is still required. This is the ``conan
         def package(self):
             local_include_folder = os.path.join(self.source_folder, self.cpp.source.includedirs[0])
             local_lib_folder = os.path.join(self.build_folder, self.cpp.build.libdirs[0])
-
-            copy(self, "*.h", local_include_folder, os.path.join(self.package_folder, "include"))
-            copy(self, "*.lib", local_lib_folder, os.path.join(self.package_folder, "lib"))
-            copy(self, "*.a", local_lib_folder, os.path.join(self.package_folder, "lib"))
+            copy(self, "*.h", local_include_folder, os.path.join(self.package_folder, "include"), keep_path=False)
+            copy(self, "*.lib", local_lib_folder, os.path.join(self.package_folder, "lib"), keep_path=False)
+            copy(self, "*.a", local_lib_folder, os.path.join(self.package_folder, "lib"), keep_path=False)
 
         def package_info(self):
             self.cpp_info.libs = ["foo"]
@@ -247,9 +246,9 @@ We have folders with ``os`` and subfolders with ``arch``. This the recipe of our
         def package(self):
             local_include_folder = os.path.join(self.source_folder, self.cpp.source.includedirs[0])
             local_lib_folder = os.path.join(self.build_folder, self.cpp.build.libdirs[0])
-            copy(self, "*.h", local_include_folder, os.path.join(self.package_folder, "include"))
-            copy(self, "*.lib", local_lib_folder, os.path.join(self.package_folder, "lib"))
-            copy(self, "*.a", local_lib_folder, os.path.join(self.package_folder, "lib"))
+            copy(self, "*.h", local_include_folder, os.path.join(self.package_folder, "include"), keep_path=False)
+            copy(self, "*.lib", local_lib_folder, os.path.join(self.package_folder, "lib"), keep_path=False)
+            copy(self, "*.a", local_lib_folder, os.path.join(self.package_folder, "lib"), keep_path=False)
 
         def package_info(self):
             self.cpp_info.libs = ["foo"]
