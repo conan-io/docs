@@ -101,7 +101,7 @@ Now, for every different configuration (different compilers, architectures, buil
              copy(self, "*.lib", local_lib_folder, os.path.join(self.package_folder, "lib"), keep_path=False)
              copy(self, "*.a", local_lib_folder, os.path.join(self.package_folder, "lib"), keep_path=False)
 
-   The ``package()`` method is copying artifacts from the following directories that, thanks to the layout(), will always
+   This alternative ``package()`` method is copying artifacts from the following directories that, thanks to the layout(), will always
    point to the correct places:
 
    - **os.path.join(self.source_folder, self.cpp.source.includedirs[0])** will always point to our local include folder.
