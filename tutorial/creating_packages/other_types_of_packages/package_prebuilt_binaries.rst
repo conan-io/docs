@@ -74,8 +74,7 @@ Now, for every different configuration (different compilers, architectures, buil
          As we are directly using our IDE or CMake to build the library, the ``build()`` method of the recipe
          is never called and could be removed.
 
-3. We call :command:`conan export-pkg` to package the built artifacts. This will call the ``package()`` method of
-   the recipe, that is using `cmake --install` internally.
+3. We call :command:`conan export-pkg` to package the built artifacts.
 
    .. code-block:: bash
 
@@ -89,8 +88,9 @@ Now, for every different configuration (different compilers, architectures, buil
 
 
    Let's deep a bit more in the package method. The generated ``package()`` method is using ``cmake.install()`` to copy
-   the artifacts from our local folders to the Conan package. This is an example of how a generic ``package()``
-   method could be without using CMake:
+   the artifacts from our local folders to the Conan package.
+
+   There is an alternative and generic ``package()`` method that could be used for any build system:
 
    .. code-block:: python
 
@@ -101,7 +101,7 @@ Now, for every different configuration (different compilers, architectures, buil
              copy(self, "*.lib", local_lib_folder, os.path.join(self.package_folder, "lib"), keep_path=False)
              copy(self, "*.a", local_lib_folder, os.path.join(self.package_folder, "lib"), keep_path=False)
 
-   This alternative ``package()`` method is copying artifacts from the following directories that, thanks to the layout(), will always
+   This  ``package()`` method is copying artifacts from the following directories that, thanks to the layout(), will always
    point to the correct places:
 
    - **os.path.join(self.source_folder, self.cpp.source.includedirs[0])** will always point to our local include folder.
