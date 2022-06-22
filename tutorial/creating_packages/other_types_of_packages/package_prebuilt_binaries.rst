@@ -50,7 +50,7 @@ They also have a ``test_package/`` folder to test that the exported package is w
 Now, for every different configuration (different compilers, architectures, build_type...):
 
 1. We call :command:`conan install` to generate the ``conan_toolchain.cmake`` file and the ``CMakeUserPresets.json``
-   that we can be used in our IDE or calling CMake (only >= 3.23).
+   that can be used in our IDE or calling CMake (only >= 3.23).
 
    .. code-block:: bash
 
