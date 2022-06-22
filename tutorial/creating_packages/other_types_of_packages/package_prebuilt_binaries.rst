@@ -7,9 +7,8 @@ building from sources is not what you want.
 
 You can package the local files in the following scenarios:
 
- 1. When you are developing your package locally and you want to export the built artifacts to the local
-    cache. As you don't want to rebuild again (clean copy) your artifacts, you don't want to call
-    :command:`conan create`. This method will keep your build cache if you are using an IDE.
+ 1. When you are developing your package locally and you want to quickly create a package with the built artifacts, but as you don't want to rebuild again (clean copy) your artifacts, you don't want to call
+    :command:`conan create`. This method will keep your local project build if you are using an IDE.
  2. When you cannot build the packages from sources (when only pre-built binaries are available) and you have them
     in a local directory.
  3. Same as 2 but you have the precompiled libraries in a remote repository.
