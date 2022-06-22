@@ -18,36 +18,29 @@ You can package the local files in the following scenarios:
 Locally building binaries
 -------------------------
 
-This is an example of scenario 1 explained in the introduction. In this case, you can run :command:`conan export-pkg`
-command directly.
-
-Please, first clone the sources to recreate this project. You can find them in the
-`examples2.0 repository <https://github.com/conan-io/examples2>`_ on GitHub:
+Use the :command:`conan new` command to create a "Hello World" C++ library example project:
 
 .. code-block:: bash
 
-    $ git clone https://github.com/conan-io/examples2.git
-    $ cd examples2/tutorial/creating_packages/other_packages/prebuilt_local_project
+    $ conan new cmake_lib -d name=hello -d version=1.0
 
-In the example, we have a simple CMake project that we are building using an IDE. This is only an example, the project can
-have any structure and use any build system. These are the files:
+
+This will create a Conan package project with the following structure.
 
 .. code-block:: text
 
-    .
-    ├── CMakeLists.txt
-    ├── conanfile.py
-    ├── include
-    │    └── hello.h
-    ├── src
-    │    └── hello.cpp
-    └── test_package
-        ├── CMakeLists.txt
-        ├── CMakeUserPresets.json
-        ├── conanfile.py
-        └── src
-            └── example.cpp
-
+  .
+  ├── CMakeLists.txt
+  ├── conanfile.py
+  ├── include
+  │   └── hello.h
+  ├── src
+  │   └── hello.cpp
+  └── test_package
+      ├── CMakeLists.txt
+      ├── conanfile.py
+      └── src
+          └── example.cpp
 
 
 We have a ``CMakeLists.txt`` file in the root, an ``src`` folder with the ``cpp`` files and, an ``include``
@@ -55,114 +48,92 @@ folder for the headers.
 
 They also have a ``test_package/`` folder to test that the exported package is working correctly.
 
-For packaging the built binaries a recipe is still required. This is the ``conanfile.py`` from our example:
-
-.. code-block:: python
-
-      import os
-      from conan import ConanFile
-      from conan.tools.files import copy
-      from conan.tools.cmake import cmake_layout
-
-
-      class helloRecipe(ConanFile):
-          name = "hello"
-          version = "0.1"
-          settings = "os", "compiler", "build_type", "arch"
-          generators = "CMakeToolchain", "CMakeDeps"
-
-          def layout(self):
-              cmake_layout(self)
-
-          def package(self):
-              local_include_folder = os.path.join(self.source_folder, self.cpp.source.includedirs[0])
-              local_lib_folder = os.path.join(self.build_folder, self.cpp.build.libdirs[0])
-              copy(self, "*.h", local_include_folder, os.path.join(self.package_folder, "include"), keep_path=False)
-              copy(self, "*.lib", local_lib_folder, os.path.join(self.package_folder, "lib"), keep_path=False)
-              copy(self, "*.a", local_lib_folder, os.path.join(self.package_folder, "lib"), keep_path=False)
-
-          def package_info(self):
-              self.cpp_info.libs = ["hello"]
-
-
-
-As we are developing a ``CMake`` project we declare a ``layout()`` method calling ``cmake_layout(self)``.
-This will help locate the headers and the built libraries to be packaged.
-
-The ``package()`` method is copying artifacts from the following directories that, thanks to the layout(), will always
-point to the correct places:
-
-- **os.path.join(self.source_folder, self.cpp.source.includedirs[0])** will always point to our local include folder.
-- **os.path.join(self.build_folder, self.cpp.build.libdirs[0])** will always point to the location of the libraries when
-  they are built, no matter if using a single-config CMake Generator or a multi-config one.
-
 Now, for every different configuration (different compilers, architectures, build_type...):
 
 1. We call :command:`conan install` to generate the ``conan_toolchain.cmake`` file and the ``CMakeUserPresets.json``
    that we can be used in our IDE or calling CMake (only >= 3.23).
 
-.. code-block:: bash
+   .. code-block:: bash
 
-    $ conan install . -s build_type=Release
+       $ conan install . -s build_type=Release
 
 2. We build our project calling CMake, our IDE, ... etc:
 
-- *Traditional way*:
+   - *Traditional way*:
 
-.. code-block:: bash
+   .. code-block:: bash
 
-    $ mkdir -p build/Release
-    $ cd build/Release
-    $ cmake ../.. -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=../generators/conan_toolchain.cmake
-    $ cmake --build .
-    ...
-    [ 50%] Building CXX object CMakeFiles/hello.dir/src/hello.cpp.o
-    [100%] Linking CXX static library libhello.a
-    [100%] Built target hello
+       $ mkdir -p build/Release
+       $ cd build/Release
+       $ cmake ../.. -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=../generators/conan_toolchain.cmake
+       $ cmake --build .
+       ...
+       [ 50%] Building CXX object CMakeFiles/hello.dir/src/hello.cpp.o
+       [100%] Linking CXX static library libhello.a
+       [100%] Built target hello
 
-- ``CMakePresets`` *way*:
+   - ``CMakePresets`` *way*:
 
-.. code-block:: bash
+   .. code-block:: bash
 
-    $ cmake . --preset release
-    $ cmake --build --preset release
-    ...
-    [ 50%] Building CXX object CMakeFiles/hello.dir/src/hello.cpp.o
-    [100%] Linking CXX static library libhello.a
-    [100%] Built target hello
+       $ cmake . --preset release
+       $ cmake --build --preset release
+       ...
+       [ 50%] Building CXX object CMakeFiles/hello.dir/src/hello.cpp.o
+       [100%] Linking CXX static library libhello.a
+       [100%] Built target hello
 
-3. We call :command:`conan export-pkg` to package the built artifacts:
+3. We call :command:`conan export-pkg` to package the built artifacts. This will call the ``package()`` method of
+   the recipe, that is using `cmake --install` internally.
 
-.. code-block:: bash
+   .. code-block:: bash
 
-    $ conan export-pkg . -s build_type=Release
-    ...
-    hello/0.1: Calling package()
-    hello/0.1: Copied 1 '.h' file: hello.h
-    hello/0.1: Copied 1 '.a' file: libhello.a
-    hello/0.1 package(): Packaged 1 '.h' file: hello.h
-    hello/0.1 package(): Packaged 1 '.a' file: libhello.a
-    ...
-    hello/0.1: Package '54a3ab9b777a90a13e500dd311d9cd70316e9d55' created
+       $ conan export-pkg . -s build_type=Release
+       ...
+       hello/0.1: Calling package()
+       hello/0.1 package(): Packaged 1 '.h' file: hello.h
+       hello/0.1 package(): Packaged 1 '.a' file: libhello.a
+       ...
+       hello/0.1: Package '54a3ab9b777a90a13e500dd311d9cd70316e9d55' created
 
+
+   Let's deep a bit more in the package method. The generated ``package()`` method is using ``cmake.install()`` to copy
+   the artifacts from our local folders to the Conan package. This is an example of how a generic ``package()``
+   method could be without using CMake:
+
+   .. code-block:: python
+
+         def package(self):
+             local_include_folder = os.path.join(self.source_folder, self.cpp.source.includedirs[0])
+             local_lib_folder = os.path.join(self.build_folder, self.cpp.build.libdirs[0])
+             copy(self, "*.h", local_include_folder, os.path.join(self.package_folder, "include"), keep_path=False)
+             copy(self, "*.lib", local_lib_folder, os.path.join(self.package_folder, "lib"), keep_path=False)
+             copy(self, "*.a", local_lib_folder, os.path.join(self.package_folder, "lib"), keep_path=False)
+
+   The ``package()`` method is copying artifacts from the following directories that, thanks to the layout(), will always
+   point to the correct places:
+
+   - **os.path.join(self.source_folder, self.cpp.source.includedirs[0])** will always point to our local include folder.
+   - **os.path.join(self.build_folder, self.cpp.build.libdirs[0])** will always point to the location of the libraries when
+     they are built, no matter if using a single-config CMake Generator or a multi-config one.
 
 4. We can test the built package calling :command:`conan test`:
 
-.. code-block:: bash
+   .. code-block:: bash
 
-    $ conan test test_package/conanfile.py hello/0.1 -s build_type=Release
+       $ conan test test_package/conanfile.py hello/0.1 -s build_type=Release
 
-    -------- Testing the package: Running test() ----------
-    hello/0.1 (test package): Running test()
-    hello/0.1 (test package): RUN: ./example
-    hello/0.1: Hello World Release!
-      hello/0.1: __x86_64__ defined
-      hello/0.1: __cplusplus199711
-      hello/0.1: __GNUC__4
-      hello/0.1: __GNUC_MINOR__2
-      hello/0.1: __clang_major__13
-      hello/0.1: __clang_minor__1
-      hello/0.1: __apple_build_version__13160021
+       -------- Testing the package: Running test() ----------
+       hello/0.1 (test package): Running test()
+       hello/0.1 (test package): RUN: ./example
+       hello/0.1: Hello World Release!
+         hello/0.1: __x86_64__ defined
+         hello/0.1: __cplusplus199711
+         hello/0.1: __GNUC__4
+         hello/0.1: __GNUC_MINOR__2
+         hello/0.1: __clang_major__13
+         hello/0.1: __clang_minor__1
+         hello/0.1: __apple_build_version__13160021
 
 
 Now you can try to generate a binary package for ``build_type=Debug`` running the same steps but changing the ``build_type``.
