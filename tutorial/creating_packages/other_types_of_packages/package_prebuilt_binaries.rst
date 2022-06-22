@@ -59,15 +59,22 @@ Now, for every different configuration (different compilers, architectures, buil
 2. We build our project calling CMake, our IDE, ... etc:
 
    .. code-block:: bash
+       :caption: Linux, macOS
 
        $ mkdir -p build/Release
        $ cd build/Release
        $ cmake ../.. -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=../generators/conan_toolchain.cmake
        $ cmake --build .
-       ...
-       [ 50%] Building CXX object CMakeFiles/hello.dir/src/hello.cpp.o
-       [100%] Linking CXX static library libhello.a
-       [100%] Built target hello
+
+
+   .. code-block:: bash
+       :caption: Windows
+
+       $ mkdir -p build
+       $ cd build
+       $ cmake ..  -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake
+       $ cmake --build . --config Release
+
 
    .. note::
 
