@@ -82,6 +82,11 @@ Now, for every different configuration (different compilers, architectures, buil
        [100%] Linking CXX static library libhello.a
        [100%] Built target hello
 
+   .. note::
+
+         As we are directly using our IDE or CMake to build the library, the ``build()`` method of the recipe
+         is never called and could be removed.
+
 3. We call :command:`conan export-pkg` to package the built artifacts. This will call the ``package()`` method of
    the recipe, that is using `cmake --install` internally.
 
