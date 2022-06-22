@@ -58,25 +58,12 @@ Now, for every different configuration (different compilers, architectures, buil
 
 2. We build our project calling CMake, our IDE, ... etc:
 
-   - *Traditional way*:
-
    .. code-block:: bash
 
        $ mkdir -p build/Release
        $ cd build/Release
        $ cmake ../.. -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=../generators/conan_toolchain.cmake
        $ cmake --build .
-       ...
-       [ 50%] Building CXX object CMakeFiles/hello.dir/src/hello.cpp.o
-       [100%] Linking CXX static library libhello.a
-       [100%] Built target hello
-
-   - ``CMakePresets`` *way*:
-
-   .. code-block:: bash
-
-       $ cmake . --preset release
-       $ cmake --build --preset release
        ...
        [ 50%] Building CXX object CMakeFiles/hello.dir/src/hello.cpp.o
        [100%] Linking CXX static library libhello.a
