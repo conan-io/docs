@@ -1,3 +1,5 @@
+.. _reference_python_api_conan_api_v2:
+
 Conan API Reference
 ===================
 
