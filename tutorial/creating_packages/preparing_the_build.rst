@@ -12,10 +12,10 @@ Preparing the build
     ``conan remote add conanv2 https://conanv2beta.jfrog.io/artifactory/api/conan/conan --index 0``
 
 
-In the :ref:`previous tutorial section<creating_packages_add_dependencies_to_packages>` we
+In the :ref:`previous tutorial section<creating_packages_add_dependencies_to_packages>`, we
 added the `fmt <https://conan.io/center/fmt>`__ requirement to our Conan package to
-provide color output to our "Hello World" C++ library. In this section we make further
-modifications on the recipe. We will add a `with_fmt` option to the recipe and depending
+provide colour output to our "Hello World" C++ library. In this section, we make further
+modifications to the recipe. We will add a `with_fmt` option to the recipe and depending
 on the value we will require the `fmt` library or not. We will use the `generate()` method
 to modify the toolchain so that it passes a variable to CMake so that we can conditionally
 add that library and use `fmt` or not in the source code.
@@ -76,17 +76,17 @@ Let's check the relevant parts:
 
 As you can see:
 
-* We declare a new ``with_fmt`` option with default value ``True``
+* We declare a new ``with_fmt`` option with the default value set to ``True``
 
 * Based on the value of the ``with_fmt`` option:
 
     - We install or not the ``fmt/8.1.1`` Conan package.
-    - We require or not a minimum C++ standard as the fmt library requires at least C++11.
-    - We inject the ``WITH_FMT`` variable with value ``True`` to the :ref:`CMakeToolchain<conan-cmake-toolchain>` so that we
+    - We require or not a minimum C++ standard as the *fmt* library requires at least C++11.
+    - We inject the ``WITH_FMT`` variable with the value ``True`` to the :ref:`CMakeToolchain<conan-cmake-toolchain>` so that we
       can use it in the *CMakeLists.txt* of the **hello** library to add the CMake **fmt::fmt** target
       conditionally.
 
-* We are cloning another branch of the library. The *optional_fmt* branch that contains
+* We are cloning another branch of the library. The *optional_fmt* branch contains
   some changes in the code. Let's see what changed on the CMake side:
 
 .. code-block:: cmake
@@ -110,8 +110,8 @@ As you can see:
 
 As you can see, we use the ``WITH_FMT`` we injected in the
 :ref:`CMakeToolchain<conan-cmake-toolchain>`. Depending on the value we will try to find
-the fmt library and link our hello library with it. Also check that we add the
-``USING_FMT=1`` compile definition that we use in the source code depending wether we
+the fmt library and link our hello library with it. Also, check that we add the
+``USING_FMT=1`` compile definition that we use in the source code depending on whether we
 choose to add support for ``fmt`` or not.
 
 .. code-block:: cpp
@@ -166,18 +166,18 @@ on the value of the option.
     hello/1.0 (test package): RUN: ./example
     hello/1.0: Hello World Release! (without color)
 
-This is just a simple example on how to use the ``generate()`` method to customize the
+This is just a simple example of how to use the ``generate()`` method to customize the
 toolchain based on the value of one option, but there are lots of other things that you
 could do in the ``generate()`` method like:
 
 * Create a complete custom toolchain based on your needs to use in your build.
-* Access to certain information of the package dependencies, like:
-    - The configuration accessing the the defined
+* Access to certain information about the package dependencies, like:
+    - The configuration accessing the defined
       :ref:`conf_info<conan_conanfile_model_conf_info>`.
     - Accessing the dependencies options.
     - Import files from dependencies using the :ref:`copy tool<conan_tools_files_copy>`.
-      You could also use this to create manifests for package, collecting all dependencies
-      versions and licenses.
+      You could also import the files create manifests for the package, collecting all
+      dependencies versions and licenses.
 * Use the :ref:`Environment tools<conan_tools_env_environment_model>` to generate
   information for the system environment.
 
