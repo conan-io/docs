@@ -179,7 +179,7 @@ could do in the ``generate()`` method like:
     - Import files from dependencies using the :ref:`copy tool<conan_tools_files_copy>`.
       You could also use this to create manifests for package, collecting all dependencies
       versions and licenses.
-* Use the :ref:`Environment tools<onan_tools_env_environment_model>` to generate
+* Use the :ref:`Environment tools<conan_tools_env_environment_model>` to generate
   information for the system environment.
 
 Read more
