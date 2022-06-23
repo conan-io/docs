@@ -848,7 +848,7 @@ Object used in:
      .. code-block:: python
 
         def package_id(self):
-            self.info.header_only()
+            self.info.clear()
 
 .. _revision_mode_attribute:
 

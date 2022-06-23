@@ -1,3 +1,5 @@
+.. _reference_tools_env:
+
 conan.tools.env
 ===============
 
