@@ -13,15 +13,177 @@ Preparing the build
 
 
 In the :ref:`previous tutorial section<tutorial_creating_packages>` we added the `fmt
-<https://conan.io/center/fmt>`__ requirement to our Conan package to provide fancy color
-output to our "Hello World" C++ library. We will continue adding modifications to our recipe...
+<https://conan.io/center/fmt>`__ requirement to our Conan package to provide color output
+to our "Hello World" C++ library. In this section we make further modifications on the
+recipe. We will add a `with_fmt` option to the recipe and depending on the value we will
+require the `fmt` library or not. We will use the `generate()` method to modify the
+toolchain so that it passes a variable to CMake so that we can conditionally add that
+library and use `fmt` or not in the source code.
 
-- Customize the toolchain
-- Explain toolchains and deps generators in more detail?
-- ..
+Please, first clone the sources to recreate this project. You can find them in the
+`examples2.0 repository <https://github.com/conan-io/examples2>`_ on GitHub:
 
+.. code-block:: bash
+
+    $ git clone https://github.com/conan-io/examples2.git
+    $ cd examples2/tutorial/creating_packages/preparing_the_build
+
+You will notice some changes in the `conanfile.py` file from the previous recipe.
+Let's check the relevant parts:
+
+.. code-block:: python
+    :emphasize-lines: 12,16,20,27,30,35
+
+    ...
+    from conan.tools.build import check_min_cppstd
+    ...
+
+    class helloRecipe(ConanFile):
+        name = "hello"
+        version = "1.0"
+
+        ...
+        options = {"shared": [True, False], 
+                   "fPIC": [True, False],
+                   "with_fmt": [True, False]}
+
+        default_options = {"shared": False, 
+                           "fPIC": True,
+                           "with_fmt": True}
+        ...
+
+        def validate(self):
+            if self.info.options.with_fmt:
+                check_min_cppstd(self, "11")
+
+        def source(self):
+            git = Git(self)
+            # TODO: change the repo to conan-io
+            git.clone(url="https://github.com/czoido/libhello.git", target=".")
+            git.checkout("optional_fmt")
+
+        def requirements(self):
+            if self.options.with_fmt:
+                self.requires("fmt/8.1.1")
+
+        def generate(self):
+            tc = CMakeToolchain(self)
+            if self.options.with_fmt:
+                tc.variables["WITH_FMT"] = True
+            tc.generate()
+
+        ...
+
+
+As you can see:
+
+* We declare a new ``with_fmt`` option with default value ``True``
+
+* Based on the value of the ``with_fmt`` option:
+
+    - We install or not the ``fmt/8.1.1`` Conan package.
+    - We require or not a minimum C++ standard as the fmt library requires at least C++11.
+    - We inject the ``WITH_FMT`` variable with value ``True`` to the :ref:`CMakeToolchain<conan-cmake-toolchain>` so that we
+      can use it in the *CMakeLists.txt* of the **hello** library to add the CMake **fmt::fmt** target
+      conditionally.
+
+* We are cloning another branch of the library. The *optional_fmt* branch that contains
+  some changes in the code. Let's see what changed on the CMake side:
+
+.. code-block:: cmake
+    :caption: **CMakeLists.txt**
+    :emphasize-lines: 8-12
+
+    cmake_minimum_required(VERSION 3.15)
+    project(hello CXX)
+
+    add_library(hello src/hello.cpp)
+    target_include_directories(hello PUBLIC include)
+    set_target_properties(hello PROPERTIES PUBLIC_HEADER "include/hello.h")
+
+    if (WITH_FMT)
+        find_package(fmt)
+        target_link_libraries(hello fmt::fmt)
+        target_compile_definitions(hello PRIVATE USING_FMT=1)
+    endif()
+
+    install(TARGETS hello)
+
+As you can see, we use the ``WITH_FMT`` we injected in the
+:ref:`CMakeToolchain<conan-cmake-toolchain>`. Depending on the value we will try to find
+the fmt library and link our hello library with it. Also check that we add the
+``USING_FMT=1`` compile definition that we use in the source code depending wether we
+choose to add support for ``fmt`` or not.
+
+.. code-block:: cpp
+    :caption: **hello.cpp**
+    :emphasize-lines: 4,9
+
+    #include <iostream>
+    #include "hello.h"
+
+    #if USING_FMT == 1
+    #include <fmt/color.h>
+    #endif
+
+    void hello(){
+        #if USING_FMT == 1
+            #ifdef NDEBUG
+            fmt::print(fg(fmt::color::crimson) | fmt::emphasis::bold, "hello/1.0: Hello World Release! (with color!)\n");
+            #else
+            fmt::print(fg(fmt::color::crimson) | fmt::emphasis::bold, "hello/1.0: Hello World Debug! (with color!)\n");
+            #endif
+        #else
+            #ifdef NDEBUG
+            std::cout << "hello/1.0: Hello World Release! (without color)" << std::endl;
+            #else
+            std::cout << "hello/1.0: Hello World Debug! (without color)" << std::endl;
+            #endif
+        #endif
+    }
+
+Let's build the package from sources first using ``with_fmt=True`` and then
+``with_fmt=False``. When *test_package* runs it will show different messages depending
+on the value of the option.
+
+
+.. code-block:: bash
+
+    $ conan create . --build=missing -s compiler.cppstd=gnu1 -o with_fmt=True
+    -------- Exporting the recipe ----------
+    ...
+
+    -------- Testing the package: Running test() ----------
+    hello/1.0 (test package): Running test()
+    hello/1.0 (test package): RUN: ./example
+    hello/1.0: Hello World Release! (with color!)
+
+    $ conan create . --build=missing -o with_fmt=False
+    -------- Exporting the recipe ----------
+    ...
+
+    -------- Testing the package: Running test() ----------
+    hello/1.0 (test package): Running test()
+    hello/1.0 (test package): RUN: ./example
+    hello/1.0: Hello World Release! (without color)
+
+This is just a simple example on how to use the ``generate()`` method to customize the
+toolchain based on the value of one option, but there are lots of other things that you
+could do in the ``generate()`` method like:
+
+* Create a complete custom toolchain based on your needs to use in your build.
+* Access to certain information of the package dependencies, like:
+    - The configuration accessing the the defined
+      :ref:`conf_info<conan_conanfile_model_conf_info>`.
+    - Accessing the dependencies options.
+    - Import files from dependencies using the :ref:`copy tool<conan_tools_files_copy>`.
+      You could also use this to create manifests for package, collecting all dependencies
+      versions and licenses.
+* Use the :ref:`Environment tools<onan_tools_env_environment_model>` to generate
+  information for the system environment.
 
 Read more
 ---------
 
-- ...
+- Use the ``generate()`` method to import files from dependencies.
+- More based on the examples mentioned above ... 
