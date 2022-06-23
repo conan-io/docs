@@ -12,13 +12,13 @@ Preparing the build
     ``conan remote add conanv2 https://conanv2beta.jfrog.io/artifactory/api/conan/conan --index 0``
 
 
-In the :ref:`previous tutorial section<tutorial_creating_packages>` we added the `fmt
-<https://conan.io/center/fmt>`__ requirement to our Conan package to provide color output
-to our "Hello World" C++ library. In this section we make further modifications on the
-recipe. We will add a `with_fmt` option to the recipe and depending on the value we will
-require the `fmt` library or not. We will use the `generate()` method to modify the
-toolchain so that it passes a variable to CMake so that we can conditionally add that
-library and use `fmt` or not in the source code.
+In the :ref:`previous tutorial section<creating_packages_add_dependencies_to_packages>` we
+added the `fmt <https://conan.io/center/fmt>`__ requirement to our Conan package to
+provide color output to our "Hello World" C++ library. In this section we make further
+modifications on the recipe. We will add a `with_fmt` option to the recipe and depending
+on the value we will require the `fmt` library or not. We will use the `generate()` method
+to modify the toolchain so that it passes a variable to CMake so that we can conditionally
+add that library and use `fmt` or not in the source code.
 
 Please, first clone the sources to recreate this project. You can find them in the
 `examples2.0 repository <https://github.com/conan-io/examples2>`_ on GitHub:
