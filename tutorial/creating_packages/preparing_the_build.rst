@@ -180,6 +180,8 @@ could do in the ``generate()`` method like:
       dependencies versions and licenses.
 * Use the :ref:`Environment tools<conan_tools_env_environment_model>` to generate
   information for the system environment.
+* Adding custom configurations besides *Release* and *Debug*, taking into account the
+  settings, like *ReleaseShared* or *DebugShared*.
 
 Read more
 ---------
