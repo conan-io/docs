@@ -6,7 +6,7 @@ Preparing the build
 
 .. important::
 
-    In this example, we will retrieve the CMake Conan package from a Conan repository with
+    In this example, we retrieve the CMake Conan package from a Conan repository with
     packages compatible with Conan 2.0. To run this example successfully you should add this
     remote to your Conan configuration (if did not already do it) doing:
     ``conan remote add conanv2 https://conanv2beta.jfrog.io/artifactory/api/conan/conan --index 0``
@@ -15,22 +15,22 @@ Preparing the build
 In the :ref:`previous tutorial section<creating_packages_add_dependencies_to_packages>`,
 we added the `fmt <https://conan.io/center/fmt>`__ requirement to our Conan package to
 provide colour output to our "Hello World" C++ library. In this section, we focus on the
-``generate()`` method of the recipe. The aim of this method is to generate all the
+``generate()`` method of the recipe. The aim of this method generating all the
 information that could be needed while running the build step. That means things like:
 
 * Write files to be used in the build step, like
   :ref:`scripts<conan_tools_env_environment_model>` that inject environment variables,
-  files to be passed to the build system, etc.
+  files to pass to the build system, etc.
 * Configuring the toolchain to provide extra information based on the settings and options
   or removing information from the toolchain that Conan generates by default and may not
   apply for certain cases.
 
 
-We will explain how to use this method for a simple example, based on the previous
-tutorial section. We add a `with_fmt` option to the recipe and depending on the value we
-will require the `fmt` library or not. We will use the `generate()` method to modify the
-toolchain so that it passes a variable to CMake so that we can conditionally add that
-library and use `fmt` or not in the source code.
+We explain to use this method for a simple example based on the previous tutorial section.
+We add a `with_fmt` option to the recipe, depending on the value we require the
+`fmt` library or not. We use the `generate()` method to modify the toolchain so that
+it passes a variable to CMake so that we can conditionally add that library and use `fmt`
+or not in the source code.
 
 Please, first clone the sources to recreate this project. You can find them in the
 `examples2.0 repository <https://github.com/conan-io/examples2>`_ on GitHub:
