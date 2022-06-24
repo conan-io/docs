@@ -1,6 +1,7 @@
 conan.tools.files basic operations
 ==================================
 
+.. _conan_tools_files_copy:
 
 conan.tools.files.copy()
 ------------------------
