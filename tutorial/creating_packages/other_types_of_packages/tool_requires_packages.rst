@@ -33,7 +33,11 @@ We can check how the following simple recipe covers most of the ``tool-require``
         name = "secure_scanner"
         version = "1.0"
         package_type = "application"
+
+        # Binary configuration
         settings = "os", "compiler", "build_type", "arch"
+
+        # Sources are located in the same place as this recipe, copy them to the recipe
         exports_sources = "CMakeLists.txt", "src/*"
 
         def layout(self):
@@ -49,7 +53,9 @@ We can check how the following simple recipe covers most of the ``tool-require``
             cmake.build()
 
         def package(self):
-            copy(self, "secure_scanner*", self.build_folder, os.path.join(self.package_folder, "bin"), keep_path=False)
+            extension = ".exe" if self.settings_build.os == "Windows" else ""
+            copy(self, "*secure_scanner{}".format(extension),
+                 self.build_folder, os.path.join(self.package_folder, "bin"), keep_path=False)
 
         def package_info(self):
             self.buildenv_info.define("MY_VAR", "23")
