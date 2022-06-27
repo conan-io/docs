@@ -83,6 +83,17 @@ declared it in the recipe and it will raise an exception saying that the option 
 exist. Nevertheless, if we delete it in the ``configure()`` method we can pass the option
 but it will just have no effect.
 
+As you have noticed, both in the ``configure()`` and ``config_options()`` methods we are
+**deleting** an option if certain conditions meet. But, why are we doing that and what are
+the implications of removing that options? This is related to how Conan identify packages
+that are binary compatible with the configuration set in the profile. Let's get a bit
+deeper into this topic:
+
+Conan packages binary compatibililty: the Package ID
+----------------------------------------------------
+
+
+
 
 - Que quiere decir borrar un setting o una opción?
 
