@@ -11,38 +11,48 @@ Please, first clone the sources to recreate this project. You can find them in t
 .. code-block:: bash
 
     $ git clone https://github.com/conan-io/examples2.git
-    $ cd examples2/tutorial/creating_packages/other_packages/tool_requires
+    $ cd examples2/tutorial/creating_packages/other_packages/tool_requires/tool
 
 
 A simple tool require recipe
 ----------------------------
 
-Let's see a recipe that even being very simple, covers most of the ``tool-require`` use-cases:
+This is a recipe for a (fake) application that receiving a path returns 0 if the path is secure.
+We can check how the following simple recipe covers most of the ``tool-require`` use-cases:
 
 .. code-block:: python
     :caption: conanfile.py
 
     import os
-    import stat
     from conan import ConanFile
-    from conan.tools.files import save
+    from conan.tools.cmake import CMakeToolchain, CMake, cmake_layout
+    from conan.tools.files import copy
 
 
-    class my_tool(ConanFile):
-        name = "my_tool"
+    class secure_scannerRecipe(ConanFile):
+        name = "secure_scanner"
         version = "1.0"
         package_type = "application"
+        settings = "os", "compiler", "build_type", "arch"
+        exports_sources = "CMakeLists.txt", "src/*"
 
-        settings = "os", "arch"
+        def layout(self):
+            cmake_layout(self)
+
+        def generate(self):
+            tc = CMakeToolchain(self)
+            tc.generate()
+
+        def build(self):
+            cmake = CMake(self)
+            cmake.configure()
+            cmake.build()
 
         def package(self):
-            extension = "sh" if self.settings_build.os != "Windows" else "bat"
-            app_path = os.path.join(self.package_folder, "bin", "say_hello.{}".format(extension))
-            save(self, app_path, 'echo "Hello!!!"')
-            os.chmod(app_path, os.stat(app_path).st_mode | stat.S_IEXEC)
+            copy(self, "secure_scanner*", self.build_folder, os.path.join(self.package_folder, "bin"), keep_path=False)
 
         def package_info(self):
-            self.buildenv_info.define("MYVAR", "23")
+            self.buildenv_info.define("MY_VAR", "23")
 
 
 There are few relevant things in this recipe:
@@ -50,13 +60,12 @@ There are few relevant things in this recipe:
 1. It declares ``package_type = "application"``, this is optional but convenient, it will indicate conan that the current
    package doesn't contain headers or libraries to be linked. The consumers will know that this package is an application.
 
-2. The ``package()`` method is packaging the executables into the ``bin/`` folder, that is declared by default as a bindir:
+2. The ``package()`` method is packaging the executable into the ``bin/`` folder, that is declared by default as a bindir:
    ``self.cpp_info.bindirs = ["bin"]``.
 
-3. We are using ``self.buildenv_info`` to define environment variables that will be available in the consumer.
+3. In the ``package_info()`` method, we are using ``self.buildenv_info`` to define a environment variable ``MY_VAR``
+   that will also be available in the consumer.
 
-As the application is a simple shell script we are granting execution permissions to the script, this is usually not
-needed if you are building a real executable.
 
 Let's create a binary package for the tool_require:
 
@@ -64,38 +73,39 @@ Let's create a binary package for the tool_require:
 
     $ conan create .
     ...
-    my_tool/1.0: Calling package()
-    my_tool/1.0 package(): Packaged 1 '.sh' file: say_hello.sh
-    my_tool/1.0 package(): Packaged 1 '.bat' file: say_hello.bat
-    my_tool/1.0: Full package reference: my_tool/1.0#a05ef273264042c2082499a3061fb8df:82339...2e7c91ab18a1#dd38aae...37c60cbc
+    secure_scanner/1.0: Calling package()
+    secure_scanner/1.0: Copied 1 file: secure_scanner
+    secure_scanner/1.0 package(): Packaged 1 file: secure_scanner
+    ...
+    Security Scanner: The path 'mypath' is secure!
 
 
-We can create a consumer recipe to test if we can run the ``say_hello`` application of the ``tool_require``.
+We can create a consumer recipe to test if we can run the ``secure_scanner`` application of the ``tool_require`` and
+read the environment variable. Go to the `examples2/tutorial/creating_packages/other_packages/tool_requires/consumer`
+folder:
 
 
 .. code-block:: python
-    :caption: consumer.py
+    :caption: conanfile.py
 
     from conan import ConanFile
 
-
     class MyConsumer(ConanFile):
-        name = "my_library"
+        name = "my_consumer"
         version = "1.0"
         settings = "os", "arch", "compiler", "build_type"
-        tool_requires = "my_tool/1.0"
+        tool_requires = "secure_scanner/1.0"
 
         def build(self):
-            if self.settings_build.os != "Windows"
-                self.run("say_hello.sh")
-                self.run("echo MYVAR=$MYVAR")
+            self.run("secure_scanner {}".format(self.build_folder))
+            if self.settings_build.os != "Windows":
+                self.run("echo MY_VAR=$MY_VAR")
             else:
-                self.run("say_hello.bat")
-                self.run("echo MYVAR=%MYVAR%")
+                self.run("echo MY_VAR=%MY_VAR%")
 
 
-In this simple recipe we are declaring a ``tool_require`` to ``my_tool/1.0`` and we are calling directly the packaged
-application ``say_hello`` in the ``build()`` method, also printing the value of the ``MYVAR`` env variable.
+In this simple recipe we are declaring a ``tool_require`` to ``secure_scanner/1.0`` and we are calling directly the packaged
+application ``secure_scanner`` in the ``build()`` method, also printing the value of the ``MY_VAR`` env variable.
 
 If we build the consumer:
 
@@ -103,24 +113,22 @@ If we build the consumer:
 .. code-block:: bash
 
 
-    $ conan build consumer.py
+    $ conan build .
 
-    -------- Installing packages ----------
+    -------- Installing (downloading, building) binaries... --------
+    secure_scanner/1.0: Already installed!
 
-    Installing (downloading, building) binaries...
-    my_tool/1.0: Already installed!
-
-    -------- Finalizing install (deploy, generators) ----------
-    consumer.py (my_library/1.0): Aggregating env generators
-    consumer.py (my_library/1.0): Calling build()
-    consumer.py (my_library/1.0): RUN: say_hello.sh
-    Capturing current environment in ../deactivate_conanbuildenv-release-x86_64.sh
-    Configuring environment variables
-    Hello!!!
+    -------- Finalizing install (deploy, generators) --------
     ...
-    MYVAR=23
+    conanfile.py (my_consumer/1.0): RUN: secure_scanner /Users/luism/workspace/examples2/tutorial/creating_packages/other_packages/tool_requires/consumer
+    ...
+    Security Scanner: The path '/Users/luism/workspace/examples2/tutorial/creating_packages/other_packages/tool_requires/consumer' is secure!
+    ...
+    MY_VAR=23
 
-We can see the ``Hello!!!`` message, and the "23" value assigned to ``MYVAR`` but, why are these automatically available?
+
+We can see that the executable returned 0 (because our folder is secure) and it printed ``Security Scanner: The path is secure!`` message.
+It also printed the "23" value assigned to ``MY_VAR`` but, why are these automatically available?
 
 - The generators ``VirtualBuildEnv`` and ``VirtualRunEnv`` are automatically used.
 - The ``VirtualRunEnv`` is reading the ``tool-requires`` and is creating a launcher like ``conanbuildenv-release-x86_64.sh`` appending
