@@ -9,7 +9,7 @@ Location and naming
 --------------------
 
 All the custom commands must be located in ``[YOUR_CONAN_HOME]/extensions/commands/`` folder. If _commands_ one is not created yet,
-you will have to do it. Those custom commands files must be Python files and start with the prefix ``cmd_[your_command_name].py``.
+you will have to create the directory. Those custom commands files must be Python files and start with the prefix ``cmd_[your_command_name].py``.
 The call to the custom commands is like any other existing Conan one: :command:`conan your_command_name`.
 
 
