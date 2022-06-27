@@ -21,4 +21,8 @@ Creator commands
 Custom commands
 ----------------
 
-Read more information about custom commands :ref:`here<examples_extensions_custom_commands>`.
+.. toctree::
+   :caption: Custom commands
+   :maxdepth: 2
+
+   commands/custom_commands
