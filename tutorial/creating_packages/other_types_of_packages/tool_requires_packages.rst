@@ -86,7 +86,29 @@ Let's create a binary package for the tool_require:
     Security Scanner: The path 'mypath' is secure!
 
 
-We can create a consumer recipe to test if we can run the ``secure_scanner`` application of the ``tool_require`` and
+Let's review the ``test_package/conanfile.py``:
+
+.. code-block:: python
+
+    from conan import ConanFile
+
+
+    class secure_scannerTestConan(ConanFile):
+        settings = "os", "compiler", "build_type", "arch"
+
+        def requirements(self):
+            self.tool_requires(self.tested_reference_str)
+
+        def test(self):
+            extension = ".exe" if self.settings_build.os == "Windows" else ""
+            self.run("secure_scanner{} mypath".format(extension))
+
+
+We are requiring the ``secure_scanner`` package as ``tool_require`` doing ``self.tool_requires(self.tested_reference_str)``.
+In the ``test()`` method we are running the application, because it is available in the PATH. In the
+next example we are going to see why the executables from a ``tool_require`` are available in the consumers.
+
+So, let's create a consumer recipe to test if we can run the ``secure_scanner`` application of the ``tool_require`` and
 read the environment variable. Go to the `examples2/tutorial/creating_packages/other_packages/tool_requires/consumer`
 folder:
 
@@ -146,9 +168,9 @@ It also printed the "23" value assigned to ``MY_VAR`` but, why are these automat
   and the enviornment variable "MYVAR" has the value declared in the tool-require.
 
 
-More complex recipes
---------------------
+Read more
+---------
 
-- Toolchains (compilers) ?
-- Usage of `self.rundenv_info` ?
-- settings_target ?
+- Toolchains (compilers)
+- Usage of `self.rundenv_info`
+- ``settings_target``
