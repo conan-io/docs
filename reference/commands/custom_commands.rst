@@ -1,16 +1,19 @@
-.. _examples_extensions_custom_commands:
+.. _reference_commands_custom_commands:
 
 Custom commands
 =================
 
-Since Conan 2.0, it's so easy to create your own Conan commands.
+It's possible to create your own Conan commands to solve self-needs thanks to Python and Conan public API powers altogether.
 
 Location and naming
 --------------------
 
-All the custom commands must be located in ``[YOUR_CONAN_HOME]/extensions/commands/`` folder. If _commands_ one is not created yet,
-you will have to create the directory. Those custom commands files must be Python files and start with the prefix ``cmd_[your_command_name].py``.
-The call to the custom commands is like any other existing Conan one: :command:`conan your_command_name`.
+All the custom commands must be located in ``[YOUR_CONAN_HOME]/extensions/commands/`` folder. If you don't know where
+``[YOUR_CONAN_HOME]`` is located, you can run :command:`conan config home` to check it.
+
+If _commands_ sub-directory is not created yet, you will have to create it. Those custom commands files must be Python
+files and start with the prefix ``cmd_[your_command_name].py``. The call to the custom commands is like any other
+existing Conan one: :command:`conan your_command_name`.
 
 
 Scoping
@@ -22,9 +25,9 @@ For instance:
 
 .. code-block:: text
 
-    [YOUR_CONAN_HOME]/extensions/commands/greet/
-        | - cmd_hello.py
-        | - cmd_bye.py
+    | - [YOUR_CONAN_HOME]/extensions/commands/greet/
+          | - cmd_hello.py
+          | - cmd_bye.py
 
 The call to those commands change a little bit: :command:`conan [topic_name]:your_command_name`. Following the previous example:
 
@@ -32,6 +35,12 @@ The call to those commands change a little bit: :command:`conan [topic_name]:you
 
     $ conan greet:hello
     $ conan greet:bye
+
+
+.. note::
+
+    It's possible for only one folder layer, so it won't work to have something like
+    ``[YOUR_CONAN_HOME]/extensions/commands/topic1/topic2/cmd_command.py``
 
 
 Decorators
@@ -107,6 +116,10 @@ Similar to ``conan_command``, but this one is declaring a sub-command of an exis
 
 The command call looks like :command:`conan hello moon`.
 
+.. note::
+
+    Notice that to declare a sub-command is needed an empty Python function acting like the root command.
+
 
 Command function arguments
 ----------------------------
@@ -118,22 +131,44 @@ These are the passed arguments to any custom command and its sub-commands functi
 
     from conans.cli.command import conan_command, conan_subcommand
 
+
     @conan_subcommand()
     def command_subcommand(conan_api, parser, subparser, *args):
-        pass
+        """
+        subcommand information. This info will appear on ``conan command subcommand -h``.
+
+        :param conan_api: <object conan.api.conan_api.ConanAPIV2> instance
+        :param parser: root <object argparse.ArgumentParser> instance (coming from main command)
+        :param subparser: <object argparse.ArgumentParser> instance for sub-command
+        :param args: ``list`` of all the arguments passed after sub-command call
+        :return: (optional) whatever is returned will be passed to formatters functions (if declared)
+        """
+        # ...
+
 
     @conan_command(group="Custom commands")
     def command(conan_api, parser, *args):
-        pass
+        """
+        command information. This info will appear on ``conan command -h``.
+
+        :param conan_api: <object conan.api.conan_api.ConanAPIV2> instance
+        :param parser: root <object argparse.ArgumentParser> instance
+        :param args: ``list`` of all the arguments passed after command call
+        :return: (optional) whatever is returned will be passed to formatters functions (if declared)
+        """
+        # ...
 
 
-* ``conan_api``: instance of ``ConanAPIV2`` class. See more about it in :ref:`ConanAPIV2 section<reference_python_api_conan_api_v2>`
-* ``parser``: root instance of Python ``argparse.ArgumentParser`` class to be used by the root command. See more information in `argparse official website<https://docs.python.org/3/library/argparse.html>`_.
-* ``subparser`` (only for sub-commands): child instance of Python ``argparse.ArgumentParser`` class for each sub-command.
-* ``*args``: all the arguments passed via command line. Normally, they'll be parsed as ``args = parser.parse_args(*args)``.
+* ``conan_api``: instance of ``ConanAPIV2`` class. See more about it in :ref:`conan.api.conan_api.ConanAPIV2 section<reference_python_api_conan_api_v2>`
+* ``parser``: root instance of Python ``argparse.ArgumentParser`` class to be used by the main command function. See more information
+  in `argparse official website <https://docs.python.org/3/library/argparse.html>`_.
+* ``subparser`` (only for sub-commands): child instance of Python ``argparse.ArgumentParser`` class for each sub-command function.
+* ``*args``: list of all the arguments passed via command line to be parsed and used inside the command function.
+  Normally, they'll be parsed as ``args = parser.parse_args(*args)``. For instance, running :command:`conan mycommand arg1 arg2 arg3`,
+  the command function will receive them as a Python list-like ``["arg1", "arg2", "arg3"]``.
 
 
 Read more
 ---------
 
-- :ref:`Custom command to remove recipe and package revisions but the latest package revision from the latest recipe revision<examples_extensions_commands_clean_revisions>`.
+- :ref:`Custom command to remove recipe and package revisions but the latest package one from the latest recipe one<examples_extensions_commands_clean_revisions>`.
