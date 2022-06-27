@@ -101,7 +101,7 @@ folder:
             if self.settings_build.os != "Windows":
                 self.run("echo MY_VAR=$MY_VAR")
             else:
-                self.run("echo MY_VAR=%MY_VAR%")
+                self.run("set MY_VAR")
 
 
 In this simple recipe we are declaring a ``tool_require`` to ``secure_scanner/1.0`` and we are calling directly the packaged
