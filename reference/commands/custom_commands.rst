@@ -71,7 +71,7 @@ Main decorator to declare a function as a new Conan command. Where the parameter
         return json.dumps({"greet": msg})
 
 
-    @conan_command(group="custom commands", formatters={"json": output_json})
+    @conan_command(group="Custom commands", formatters={"json": output_json})
     def hello(conan_api: ConanAPIV2, parser, *args):
         """
         Simple command to print "Hello World!" line
@@ -118,7 +118,7 @@ The command call looks like :command:`conan hello moon`.
 
 .. note::
 
-    Notice that to declare a sub-command is needed an empty Python function acting like the root command.
+    Notice that to declare a sub-command is needed an empty Python function acting like the main command.
 
 
 Command function arguments
