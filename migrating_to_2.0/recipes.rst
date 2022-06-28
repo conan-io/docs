@@ -167,6 +167,7 @@ The special value ``ANY`` has to be declared in a list:
 
 
 
+
 The layout() method
 -------------------
 
@@ -312,7 +313,6 @@ to mimic the same behavior:
 
 
 Please **check the full example** on the :ref:`conan.tools.scm.Git section <conan_tools_scm_git>`.
-
 
 
 The generate() method
@@ -556,6 +556,28 @@ To be prepared for Conan 2.0:
   to a subfolder ``cmake`` and assing it: ``self.cpp_info.builddirs = ["cmake"]``
 - If you are not assigning any ``self.cpp_info.builddirs`` assign an empty list: ``self.cpp_info.builddirs = []``.
 - Instead of appending new values to the default list, assign it: ``self.cpp_info.builddirs = ["cmake"]``
+
+
+The package_id() method
+-----------------------
+
+The ``self.info.header_only()`` method has been replaced with ``self.info.clear()``
+
+
+.. code-block:: python
+   :caption: **From:**
+
+        def package_id(self):
+            self.info.header_only()
+
+
+.. code-block:: python
+   :caption: **To:**
+
+        def package_id(self):
+            self.info.clear()
+
+
 
 
 .. _conanv2_properties_model:
