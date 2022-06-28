@@ -9,7 +9,7 @@ Please, first of all, clone the sources to recreate this project. You can find t
 .. code-block:: bash
 
     $ git clone https://github.com/conan-io/examples2.git
-    $ cd examples2/extensions/commands/clean
+    $ cd examples2/examples/extensions/commands/clean
 
 
 In this example we are going to see how to create/use a custom command: :command:`conan clean`. It removes
