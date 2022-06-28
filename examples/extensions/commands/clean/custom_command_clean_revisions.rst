@@ -1,7 +1,7 @@
 .. _examples_extensions_commands_clean_revisions:
 
 Custom command: Clean old recipe and package revisions
-========================================================
+======================================================
 
 Please, first of all, clone the sources to recreate this project. You can find them in the
 `examples2.0 repository <https://github.com/conan-io/examples2>`_ in GitHub:
@@ -22,14 +22,14 @@ the latest recipe one.
 
 
 Locate the command
--------------------
+------------------
 
 Copy the command file ``cmd_clean.py`` into your ``[YOUR_CONAN_HOME]/extensions/commands/`` folder (create it if it's not there).
 If you don't know where ``[YOUR_CONAN_HOME]`` is located, you can run :command:`conan config home` to check it.
 
 
 Run it
---------
+------
 
 Now, you should be able to see the new command in your command prompt:
 
@@ -78,27 +78,65 @@ Nothing should happen if you run it again:
     hello/1.0
     libcxx/0.1
 
+Code tour
+---------
+
+User input and user output
+++++++++++++++++++++++++++
+
+Important classes to manage user input and user output:
+
+.. code-block:: python
+
+    ui = UserInput(non_interactive=False)
+    out = ConanOutput()
+
+
+* ``UserInput(non_interactive)``: class to manage user inputs. In this example we're using ``ui.request_boolean("Do you want to proceed?")``,
+  so it'll be automatically translated to ``Do you want to proceed? (yes/no):`` in the command prompt.
+  **Note**: you can use ``UserInput(non_interactive=conan_api.config.get("core:non_interactive"))`` too.
+* ``ConanOutput()``: class to manage user outputs. In this example, we're using only ``out.writeln(message, fg=None, bg=None)``
+  where ``fg`` is the font foreground, and ``bg`` is the font background. Apart from that, you have some predefined methods
+  like ``out.info()``, ``out.success()``, ``out.error()``, etc.
+
 
 Conan public API
------------------
+++++++++++++++++
 
 The most important part of this example is the usage of the Conan API. These are some examples which are being used in
 this custom command:
 
 .. code-block:: python
 
-    # [RemotesAPI] Returns a RemoteRegistry given the remote name
     conan_api.remotes.get(args.remote)
-    # [SearchAPI] Returns a list with all the recipes matching the given pattern
     conan_api.search.recipes("*/*", remote=remote)
-    # [ListAPI] Returns a list with all the recipe revisions given a recipe reference
     conan_api.list.recipe_revisions(recipe, remote=remote)
-    # [RemoveAPI] Remove the given recipe revision
     conan_api.remove.recipe(rrev, remote=remote)
-    # [SearchAPI] Returns the list of package revisions for a given recipe revision
     conan_api.search.package_revisions(f"{rrev.repr_notime()}:*#*", remote=remote)
-    # [RemoveAPI] Remove the given package revision
     conan_api.remove.package(prev, remote=remote)
 
 
-If you want to know more about it, visit the :ref:`ConanAPIV2 section<reference_python_api_conan_api_v2>`
+
+* ``conan_api.remotes.get(...)``: ``[RemotesAPI]`` Returns a RemoteRegistry given the remote name.
+* ``conan_api.search.recipes(...)``: ``[SearchAPI]`` Returns a list with all the recipes matching the given pattern.
+* ``conan_api.list.recipe_revisions(...)``: ``[ListAPI]`` Returns a list with all the recipe revisions given a recipe reference.
+* ``conan_api.remove.recipe(...)``: ``[RemoveAPI]`` Removes the given recipe revision.
+* ``conan_api.search.package_revisions(...)``: ``[SearchAPI]`` Returns the list of package revisions for a given recipe revision.
+* ``conan_api.remove.package(...)``: ``[RemoveAPI]`` Removes the given package revision.
+
+Besides that, it deserves especial attention these lines:
+
+.. code-block:: python
+
+    all_rrevs = conan_api.list.recipe_revisions(recipe, remote=remote)
+    latest_rrev = all_rrevs[0] if all_rrevs else None
+    # .......
+    all_prevs = conan_api.search.package_revisions(f"{rrev.repr_notime()}:*#*", remote=remote)
+    latest_prev = all_prevs[0] if all_prevs else None
+
+Basically, these API calls are returning a list of recipe revisions and package ones respectively, but we're saving the
+first element as the latest one because these calls are getting an ordered list always. Take into account that it's using
+``rrev.repr_notime()`` because it represents the recipe revision as a string and pruning the timestamps.
+
+
+If you want to know more about the Conan API, visit the :ref:`ConanAPIV2 section<reference_python_api_conan_api_v2>`
