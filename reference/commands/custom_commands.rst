@@ -118,7 +118,7 @@ The command call looks like :command:`conan hello moon`.
 
 .. note::
 
-    Notice that to declare a sub-command is needed an empty Python function acting like the main command.
+    Notice that to declare a sub-command is required an empty Python function acts as the main command.
 
 
 Command function arguments
