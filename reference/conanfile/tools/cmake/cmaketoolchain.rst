@@ -153,7 +153,7 @@ Will generate the sentences: ``set(FOO ON ...)`` and ``set(VAR OFF ...)``.
 cache_variables
 +++++++++++++++
 
-This attribute allows defining CMake cache-variables. This variables, unlike the ``variables`` are single-config. They
+This attribute allows defining CMake cache-variables. These variables, unlike the ``variables``, are single-config. They
 will be stored in the ``CMakePresets.json`` file (at the `cacheVariables` in the `configurePreset`) and will be
 applied with ``-D`` arguments when calling ``cmake.configure`` using the :ref:`CMake() build helper<conan-cmake-build-helper>`.
 
