@@ -23,7 +23,7 @@ Parameters:
 
 
 conan.tools.build.can_run()
-----------------------------------
+---------------------------
 
 .. code-block:: python
 
@@ -38,3 +38,90 @@ It's an useful feature for the case your architecture can run more than one targ
 Parameters:
 
 - **conanfile**: Conanfile object, use always ``self``.
+
+
+conan.tools.build.check_min_cppstd
+----------------------------------
+
+
+.. code-block:: python
+
+    def check_min_cppstd(conanfile, cppstd, gnu_extensions=False)
+
+
+
+Check if current cppstd fits the minimal version required. In case the current cppstd doesn't fit the minimal version required
+by cppstd, a ``ConanInvalidConfiguration`` exception will be raised.
+
+        1. If settings.compiler.cppstd, the tool will use settings.compiler.cppstd to compare
+        2. It not settings.compiler.cppstd, the tool will use compiler to compare (reading the
+           default from cppstd_default)
+        3. If not settings.compiler is present (not declared in settings) will raise because it
+           cannot compare.
+        4. If can not detect the default cppstd for settings.compiler, a exception will be raised.
+
+Parameters:
+
+- **conanfile**: The current recipe object. Always use ``self``.
+- **cppstd**: Minimal cppstd version required.
+- **gnu_extensions**: GNU extension is required (e.g gnu17).
+
+
+conan.tools.build.valid_min_cppstd
+----------------------------------
+
+
+.. code-block:: python
+
+    def valid_min_cppstd(conanfile, cppstd, gnu_extensions=False)
+
+
+Validate if current cppstd fits the minimal version required. Return ``True``, if current cppstd matches the required
+cppstd version. Otherwise, ``False``.
+
+Parameters:
+
+- **conanfile**: The current recipe object. Always use ``self``.
+- **cppstd**: Minimal cppstd version required
+- **gnu_extensions**: GNU extension is required (e.g gnu17). This option ONLY works on Linux.
+
+
+conan.tools.build.default_cppstd
+----------------------------------
+
+.. code-block:: python
+
+    def default_cppstd(conanfile, compiler=None, compiler_version=None):
+
+
+
+Get the default ``compiler.cppstd`` for the "conanfile.settings.compiler" and "conanfile
+settings.compiler_version" or for the parameters "compiler" and "compiler_version" if specified.
+Returns the default ``compiler.cppstd`` for the specified compiler.
+
+Parameters:
+
+- **conanfile**: The current recipe object. Always use ``self``.
+- **compiler**: Name of the compiler e.g. gcc
+- **compiler_version**: Version of the compiler e.g. 12
+
+
+conan.tools.build.supported_cppstd
+----------------------------------
+
+.. code-block:: python
+
+    def supported_cppstd(conanfile, compiler=None, compiler_version=None):
+
+
+
+Get the a list of supported ``compiler.cppstd`` for the "conanfile.settings.compiler" and
+"conanfile.settings.compiler_version" or for the parameters "compiler" and "compiler_version"
+if specified. Returns a list of supported ``cppstd`` values.
+
+
+Parameters:
+
+- **conanfile**: The current recipe object. Always use ``self``.
+- **compiler**: Name of the compiler e.g: gcc
+- **compiler_version**: Version of the compiler e.g: 12
