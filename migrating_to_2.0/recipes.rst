@@ -117,6 +117,9 @@ Settings
 Options
 -------
 
+default_options
+^^^^^^^^^^^^^^^
+
 The definition of the ``default_options`` attribute has changed when referring to a dependency. It is related to the
 :ref:`unified patterns in the command line<conan_v2_unified_arguments>`.
 
@@ -138,6 +141,31 @@ The definition of the ``default_options`` attribute has changed when referring t
     class Pkg(Conanfile):
         # "pkg/*:some_option" or ""pkg/1.0:some_option" or "pkg*:some_option" would be valid
         default_options = {"pkg/*:some_option": "value"}
+
+
+ANY special value
+^^^^^^^^^^^^^^^^^
+
+The special value ``ANY`` has to be declared in a list:
+
+.. code-block:: python
+   :caption: **From:**
+
+    from conans import ConanFile
+
+    class Pkg(Conanfile):
+        options = {"opt": "ANY"}
+
+
+.. code-block:: python
+   :caption: **To:**
+
+    from conan import ConanFile
+
+    class Pkg(Conanfile):
+        options = {"opt": ["ANY"]}
+
+
 
 
 The layout() method

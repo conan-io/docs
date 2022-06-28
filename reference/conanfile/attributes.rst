@@ -344,7 +344,7 @@ options that can take any value.
         options = {
             "shared": [True, False],
             "option1": ["value1", "value2"],
-            "option2": "ANY",
+            "option2": ["ANY]",
             "option3": [None, "value1", "value2"],
             "option4": [True, False, "value"],
         }
@@ -387,7 +387,7 @@ go over all of them for the example recipe ``mypkg`` defined above:
             options = {
                 "shared": [True, False],
                 "option1": ["value1", "value2"],
-                "option2": "ANY",
+                "option2": ["ANY"],
             }
 
             def configure(self):
@@ -527,7 +527,7 @@ not define them. This attribute should be defined as a python dictionary:
         ...
         options = {"build_tests": [True, False],
                    "option1": ["value1", "value2"],
-                   "option2": "ANY"}
+                   "option2": ["ANY"]}
         default_options = {"build_tests": True,
                            "option1": "value1",
                            "option2": 42}
