@@ -154,7 +154,7 @@ cache_variables
 +++++++++++++++
 
 This attribute allows defining CMake cache-variables. This variables, unlike the ``variables`` are single-config. They
-will be stored in the ``CMakePresets.cmake`` file (at the `cacheVariables` in the `configurePreset`) and will be
+will be stored in the ``CMakePresets.json`` file (at the `cacheVariables` in the `configurePreset`) and will be
 applied with ``-D`` arguments when calling ``cmake.configure`` using the :ref:`CMake() build helper<conan-cmake-build-helper>`.
 
 
