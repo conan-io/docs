@@ -138,6 +138,31 @@ Parameters:
     - **encoding** (Optional, Defaulted to ``utf-8``): Specifies the input and output files text encoding.
 
 
+conan.tools.files.rm()
+----------------------
+
+.. code-block:: python
+
+    def rm(conanfile, pattern, folder, recursive=False)
+
+
+Remove the files following the ``pattern`` (fnmatch) from the specified ``folder``.
+
+.. code-block:: python
+
+    from conan.tools.files import rm
+
+    rm(self, "*.tmp", self.build_folder, recursive=True)
+
+
+Parameters:
+    - **conanfile**: Conanfile object.
+    - **pattern** (Required): Pattern that the files to be removed have to match (fnmatch).
+    - **folder**: Folder to search/remove the files.
+    - **recursive**: If ``recursive`` is specified it will search in the subfolders.
+
+
+
 conan.tools.files.mkdir()
 -------------------------
 
