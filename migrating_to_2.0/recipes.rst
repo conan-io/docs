@@ -426,32 +426,27 @@ The ``self.copy`` has been replaced by the explicit tool :ref:`copy<conan_tools_
         copy(self, "*.lib", self.build_folder, join(self.package_folder, "lib"), keep_path=False)
         copy(self, "*.dll", self.build_folder, join(self.package_folder, "bin"), keep_path=False)
 
-
+.. _conan2_migration_guide_recipes_package_info:
 
 The package_info() method
 -------------------------
 
-Removed cpp_info defaults in components
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Changed cpp_info default values
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-There are some defaults in the general ``self.cpp_info`` object:
+There are some defaults in ``self.cpp_info`` object that are not the same in Conan 2.X than in Conan 1.X (except
+for ``Conan >= 1.50`` if the ``layout()`` method is declared):
 
 .. code-block:: text
 
     self.cpp_info.includedirs => ["include"]
     self.cpp_info.libdirs => ["lib"]
-    self.cpp_info.resdirs => ["res"]
+    self.cpp_info.resdirs => []
     self.cpp_info.bindirs => ["bin"]
     self.cpp_info.builddirs => []
-    self.cpp_info.frameworkdirs => ["Frameworks"]
+    self.cpp_info.frameworkdirs => []
 
-If you declare components, you need to explicitly specify these directories, because by default are empty:
-
-.. code-block:: python
-
-    def cpp_info(self):
-        self.cpp_info.components["mycomponent"].includedirs = ["my_include"]
-        self.cpp_info.components["myothercomponent"].bindirs = ["myother_bin"]
+If you declare components, the defaults are the same, so you only need to change the defaults if they are not correct.
 
 
 .. note::
