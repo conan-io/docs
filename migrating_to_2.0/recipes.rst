@@ -94,7 +94,7 @@ Settings
           ...
 
           def validate(self):
-              if self.settings.os == "Macos":
+              if self.info.settings.os == "Macos":
                   raise ConanInvalidConfiguration("Macos not supported")
 
 
@@ -165,6 +165,32 @@ The special value ``ANY`` has to be declared in a list:
     class Pkg(Conanfile):
         options = {"opt": ["ANY"]}
 
+
+The validate() method
+---------------------
+
+Use always the ``self.info.settings`` instead of ``self.settings`` and ``self.info.options`` instead of ``self.options``.
+Otherwise, the compatibility mechanism won't be able to verify if the configurations of potential ``compatible`` packages
+are valid.
+
+.. code-block:: python
+    :caption: **From:**
+
+    class Pkg(Conanfile):
+
+        def validate(self):
+            if self.settings.os == "Windows":
+                raise ConanInvalidConfiguration("This package is not compatible with Windows")
+
+
+.. code-block:: python
+    :caption: **To:**
+
+    class Pkg(Conanfile):
+
+        def validate(self):
+            if self.info.settings.os == "Windows":
+                raise ConanInvalidConfiguration("This package is not compatible with Windows")
 
 
 
