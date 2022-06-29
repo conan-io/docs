@@ -154,9 +154,9 @@ As you can see Conan generated two package ID's:
 * Package *3d27635e4dd04a258d180fe03cfa07ae1186a828* for Debug
 
 These two Package ID's are calculated taking the set of settings, options and some
-information about the direct and transitive requirements (we will explain this later in
-the documentation) and calculating a hash with them. So, for example, in this case they
-are the result of the information depicted in the diagram below.
+information about the requirements (we will explain this later in the documentation) and
+calculating a hash with them. So, for example, in this case they are the result of the
+information depicted in the diagram below.
 
 .. image:: /images/conan-package_id.png
    :width: 680 px
@@ -174,15 +174,63 @@ to install a package, Conan will:
 
 * If that calculated Package ID is not found in the local cache and remotes, Conan will
   try to build that package from sources (this actually depends on the value of the
-  --build argument). This build will generate a new Package ID that was not already stored.
+  ``--build`` argument). This build will generate a new Package ID that was not already stored.
 
-This flow is very simplified, because there are other things not taken into account here,
-like that we can have different recipe and package revisions and that there's also a
-built-in mechanism in Conan to declare that some packages with a certain Package ID are
-compatible with other. But let's get that aside to explain what the concept of the Package
-ID is.
+This flow is simplified, there is far more to Package ID calculation than what is
+shown here, recipes themselves can even adjust their own package id calculations, we can
+have different recipe and package revisions besides Package ID's and there's also a
+built-in mechanism in Conan that can be configured to declare that some packages with a
+certain Package ID are compatible with other. But let's get that aside to explain what the
+concept of the Package ID is.
 
-Que quiere decir borrar un setting o una opción?
+Maybe you have now the intuituion of why we delete settings or options in Conan recipes.
+If you do that, those values will not be added to the computation of the Package ID, so
+even if you define them the resulting package will be the same. You can check this
+behaviour, for example with the fPIC option that is deleted when we build with with the
+option shared=True. Regardless the value you pass for the fPIC option the generated
+Package ID will be the same for the **hello/1.0** binary:
+
+.. code-block:: bash
+    
+    $ conan conan create . --build=missing -s compiler.cppstd=gnu11 -o shared=True -o fPIC=True -tf=None
+    ...
+    hello/1.0 package(): Packaged 1 '.h' file: hello.h
+    hello/1.0 package(): Packaged 1 '.dylib' file: libhello.dylib
+    hello/1.0: Package '2a899fd0da3125064bf9328b8db681cd82899d56' created
+    hello/1.0: Created package revision f0d1385f4f90ae465341c15740552d7e
+    hello/1.0: Full package reference: hello/1.0#e6b11fb0cb64e3777f8d62f4543cd6b3:2a899fd0da3125064bf9328b8db681cd82899d56#f0d1385f4f90ae465341c15740552d7e
+    hello/1.0: Package folder /Users/carlosz/.conan2/p/8a55286c6595f662/p
+
+    $ conan conan create . --build=missing -s compiler.cppstd=gnu11 -o shared=True -o fPIC=True -tf=None
+    ...
+    -------- Computing dependency graph --------
+    Graph root
+        virtual
+    Requirements
+        fmt/8.1.1#601209640bd378c906638a8de90070f7 - Cache
+        hello/1.0#e6b11fb0cb64e3777f8d62f4543cd6b3 - Cache
+
+    -------- Computing necessary packages --------
+    Requirements
+        fmt/8.1.1#601209640bd378c906638a8de90070f7:d1b3f3666400710fec06446a697f9eeddd1235aa#24a2edf207deeed4151bd87bca4af51c - Skip
+        hello/1.0#e6b11fb0cb64e3777f8d62f4543cd6b3:2a899fd0da3125064bf9328b8db681cd82899d56#f0d1385f4f90ae465341c15740552d7e - Cache
+
+    -------- Installing packages --------
+
+    -------- Installing (downloading, building) binaries... --------
+    hello/1.0: Already installed!
+
+As you can see, the first run created the `2a899fd0da3125064bf9328b8db681cd82899d56`
+package, and the second one, regardless of the different value of the fPIC option, said we
+already had the `2a899fd0da3125064bf9328b8db681cd82899d56` package installed.
+
+This is more evident for some packages like the ones that package header only libraries.
+In that case, there's no binary code we need to link with, but just some header files to
+add to our project. In this cases the Package ID of the Conan package should not be
+affected by settings or options.
+
+- Poner el ejemplo de borrarle el compiler a la librería?
+- Que quiere decir borrar un setting o una opción?
 
 
 Read more
