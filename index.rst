@@ -30,7 +30,7 @@ commitment to stability, with no breaking changes across all Conan 1.X versions.
    :maxdepth: 2
 
    introduction
-   cheatsheet
+   conan_v2
    training_courses
    installation
    getting_started
@@ -47,8 +47,8 @@ commitment to stability, with no breaking changes across all Conan 1.X versions.
    configuration
    howtos
    reference
+   cheatsheet
    videos
    faq
    glossary
    changelog
-   conan_v2
