@@ -28,6 +28,7 @@ You will notice some changes in the `conanfile.py` file from the previous recipe
 Let's check the relevant parts:
 
 .. code-block:: python
+    :emphasize-lines: 25
 
     ...
     from conan.tools.build import check_min_cppstd
@@ -83,7 +84,7 @@ but it will just have no effect.
 
 As you have noticed, both in the ``configure()`` and ``config_options()`` methods we are
 **deleting** an option if certain conditions meet. But, why are we doing that and what are
-the implications of removing that options? This is related to how Conan identify packages
+the implications of removing that option? This is related to how Conan identify packages
 that are binary compatible with the configuration set in the profile. Let's get a bit
 deeper into this topic:
 
@@ -95,97 +96,14 @@ example for *Debug* and *Release*. When you build one package for each of those
 configurations, Conan will create a new binary. Each of those binaries are related to a
 generated hash called the *Package ID*. The *Package ID* is just a way to convert a set of
 settings, options and information about the requirements of the package to a unique
-identifier. Let's build our package for *Release* and *Debug* configurations and what's the
-generated binaries *Package ID*.
+identifier. Let's build our package for *Release* and *Debug* configurations and checks
+the generated binaries *Package ID*.
 
 .. code-block:: bash
+    :emphasize-lines: 6,19,29,42
     
-    $ conan create . --build=missing -s compiler.cppstd=gnu11 -s build_type=Release -tf=None # -tf=None will skip buildint the test_package
-    Exporting the recipe
-    hello/1.0: Exporting package recipe
-    hello/1.0: Using the exported files summary hash as the recipe revision: e6b11fb0cb64e3777f8d62f4543cd6b3 
-    hello/1.0: A new conanfile.py version was exported
-    hello/1.0: Folder: /Users/carlosz/.conan2/p/4032f82fc586cb59/e
-    hello/1.0: Exported revision: e6b11fb0cb64e3777f8d62f4543cd6b3
-
-    -------- Input profiles --------
-    Profile host:
-    [settings]
-    arch=x86_64
-    build_type=Release
-    compiler=apple-clang
-    compiler.cppstd=gnu11
-    compiler.libcxx=libc++
-    compiler.version=13
-    os=Macos
-    [options]
-    [tool_requires]
-    [env]
-
-    Profile build:
-    [settings]
-    arch=x86_64
-    build_type=Release
-    compiler=apple-clang
-    compiler.cppstd=14
-    compiler.libcxx=libc++
-    compiler.version=13
-    os=Macos
-    [options]
-    [tool_requires]
-    [env]
-
-
-    -------- Computing dependency graph --------
-    Graph root
-        virtual
-    Requirements
-        fmt/8.1.1#601209640bd378c906638a8de90070f7 - Cache
-        hello/1.0#e6b11fb0cb64e3777f8d62f4543cd6b3 - Cache
-
-    -------- Computing necessary packages --------
-    hello/1.0: Forced build from source
-    Requirements
-        fmt/8.1.1#601209640bd378c906638a8de90070f7:d1b3f3666400710fec06446a697f9eeddd1235aa#b8e44285c03c783bd9ee49c0841815e1 - Cache
-        hello/1.0#e6b11fb0cb64e3777f8d62f4543cd6b3:738feca714b7251063cc51448da0cf4811424e7c - Build
-
-    -------- Installing packages --------
-
-    -------- Installing (downloading, building) binaries... --------
-    fmt/8.1.1: Already installed!
-    hello/1.0: Calling source() in /Users/carlosz/.conan2/p/4032f82fc586cb59/s/.
-    hello/1.0: Cloning git repo
-    hello/1.0: Checkout: optional_fmt
-    hello/1.0: Copying sources to build folder
-    hello/1.0: Building your package in /Users/carlosz/.conan2/p/tmp/7fe7f5af0ef27552/b
-    hello/1.0: Generator 'CMakeDeps' calling 'generate()'
-    hello/1.0: Calling generate()
-    hello/1.0: Aggregating env generators
-    hello/1.0: Calling build()
-    hello/1.0: CMake command: cmake -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE="/Users/carlosz/.conan2/p/tmp/7fe7f5af0ef27552/b/build/generators/conan_toolchain.cmake" -DCMAKE_INSTALL_PREFIX="/Users/carlosz/.conan2/p/tmp/7fe7f5af0ef27552/p" -DCMAKE_POLICY_DEFAULT_CMP0091="NEW" -DCMAKE_BUILD_TYPE="Release" "/Users/carlosz/.conan2/p/tmp/7fe7f5af0ef27552/b/."
-    hello/1.0: RUN: cmake -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE="/Users/carlosz/.conan2/p/tmp/7fe7f5af0ef27552/b/build/generators/conan_toolchain.cmake" -DCMAKE_INSTALL_PREFIX="/Users/carlosz/.conan2/p/tmp/7fe7f5af0ef27552/p" -DCMAKE_POLICY_DEFAULT_CMP0091="NEW" -DCMAKE_BUILD_TYPE="Release" "/Users/carlosz/.conan2/p/tmp/7fe7f5af0ef27552/b/."
-    -- Using Conan toolchain: /Users/carlosz/.conan2/p/tmp/7fe7f5af0ef27552/b/build/generators/conan_toolchain.cmake
-    -- Conan toolchain: Setting CMAKE_POSITION_INDEPENDENT_CODE=ON (options.fPIC)
-    -- Conan toolchain: C++ Standard 11 with extensions ON
-    -- Conan toolchain: Setting BUILD_SHARED_LIBS = OFF
-    -- The CXX compiler identification is AppleClang 13.1.6.13160021
-    -- Detecting CXX compiler ABI info
-    -- Detecting CXX compiler ABI info - done
-    -- Check for working CXX compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ - skipped
-    -- Detecting CXX compile features
-    -- Detecting CXX compile features - done
-    -- Conan: Target declared 'fmt::fmt'
-    -- Configuring done
-    -- Generating done
-    CMake Warning:
-    Manually-specified variables were not used by the project:
-
-        CMAKE_POLICY_DEFAULT_CMP0091
-
-
-    -- Build files have been written to: /Users/carlosz/.conan2/p/tmp/7fe7f5af0ef27552/b/build/Release
-    hello/1.0: CMake command: cmake --build "/Users/carlosz/.conan2/p/tmp/7fe7f5af0ef27552/b/build/Release" '--' '-j16'
-    hello/1.0: RUN: cmake --build "/Users/carlosz/.conan2/p/tmp/7fe7f5af0ef27552/b/build/Release" '--' '-j16'
+    $ conan create . --build=missing -s compiler.cppstd=gnu11 -s build_type=Release -tf=None # -tf=None will skip buildiing the test_package
+    ...
     [ 50%] Building CXX object CMakeFiles/hello.dir/src/hello.cpp.o
     [100%] Linking CXX static library libhello.a
     [100%] Built target hello
@@ -203,19 +121,72 @@ generated binaries *Package ID*.
     hello/1.0 package(): Packaged 1 '.h' file: hello.h
     hello/1.0 package(): Packaged 1 '.a' file: libhello.a
     hello/1.0: Package '738feca714b7251063cc51448da0cf4811424e7c' created
-    hello/1.0: Created package revision f9110f8892090e94a1ab892f216cc5bb
-    hello/1.0: Full package reference: hello/1.0#e6b11fb0cb64e3777f8d62f4543cd6b3:738feca714b7251063cc51448da0cf4811424e7c#f9110f8892090e94a1ab892f216cc5bb
-    hello/1.0: Package folder /Users/carlosz/.conan2/p/a5f69282294cd2ea/p
+    hello/1.0: Created package revision 3bd9faedc711cbb4fdf10b295268246e
+    hello/1.0: Full package reference: hello/1.0#e6b11fb0cb64e3777f8d62f4543cd6b3:738feca714b7251063cc51448da0cf4811424e7c#3bd9faedc711cbb4fdf10b295268246e
+    hello/1.0: Package folder /Users/carlosz/.conan2/p/5c497cbb5421cbda/p
 
+    $ conan create . --build=missing -s compiler.cppstd=gnu11 -s build_type=Debug -tf=None # -tf=None will skip buildiing the test_package
+    ...
+    [ 50%] Building CXX object CMakeFiles/hello.dir/src/hello.cpp.o
+    [100%] Linking CXX static library libhello.a
+    [100%] Built target hello
+    hello/1.0: Package '3d27635e4dd04a258d180fe03cfa07ae1186a828' built
+    hello/1.0: Build folder /Users/carlosz/.conan2/p/tmp/19a2e552db727a2b/b/build/Debug
+    hello/1.0: Generated conaninfo.txt
+    hello/1.0: Generating the package
+    hello/1.0: Temporary package folder /Users/carlosz/.conan2/p/tmp/19a2e552db727a2b/p
+    hello/1.0: Calling package()
+    hello/1.0: CMake command: cmake --install "/Users/carlosz/.conan2/p/tmp/19a2e552db727a2b/b/build/Debug" --prefix "/Users/carlosz/.conan2/p/tmp/19a2e552db727a2b/p"
+    hello/1.0: RUN: cmake --install "/Users/carlosz/.conan2/p/tmp/19a2e552db727a2b/b/build/Debug" --prefix "/Users/carlosz/.conan2/p/tmp/19a2e552db727a2b/p"
+    -- Install configuration: "Debug"
+    -- Installing: /Users/carlosz/.conan2/p/tmp/19a2e552db727a2b/p/lib/libhello.a
+    -- Installing: /Users/carlosz/.conan2/p/tmp/19a2e552db727a2b/p/include/hello.h
+    hello/1.0 package(): Packaged 1 '.h' file: hello.h
+    hello/1.0 package(): Packaged 1 '.a' file: libhello.a
+    hello/1.0: Package '3d27635e4dd04a258d180fe03cfa07ae1186a828' created
+    hello/1.0: Created package revision 67b887a0805c2a535b58be404529c1fe
+    hello/1.0: Full package reference: hello/1.0#e6b11fb0cb64e3777f8d62f4543cd6b3:3d27635e4dd04a258d180fe03cfa07ae1186a828#67b887a0805c2a535b58be404529c1fe
+    hello/1.0: Package folder /Users/carlosz/.conan2/p/c7796386fcad5369/p
 
+As you can see Conan generated two package ID's:
 
+* Package *738feca714b7251063cc51448da0cf4811424e7c* for Release
+* Package *3d27635e4dd04a258d180fe03cfa07ae1186a828* for Debug
 
-- Que quiere decir borrar un setting o una opción?
+These two Package ID's are calculated taking the set of settings, options and some
+information about the direct and transitive requirements (we will explain this later in
+the documentation) and calculating a hash with them. So, for example, in this case they
+are the result of the information depicted in the diagram below.
 
+.. image:: /images/conan-package_id.png
+   :width: 680 px
+   :align: center
 
+Those Package ID's are different because the build_type is different. Now, when you want
+to install a package, Conan will:
+
+* Collect the settings and options applied, along with some information about the
+  requirements and calculate the hash for the corresponding Package ID.
+
+* If that Package ID matches one of the packages stored in the local Conan cache it will
+  use that. If not, and we have any Conan remote configured, it will search for a package
+  with that Package ID in the remotes.
+
+* If that calculated Package ID is not found in the local cache and remotes, Conan will
+  try to build that package from sources (this actually depends on the value of the
+  --build argument). This build will generate a new Package ID that was not already stored.
+
+This flow is very simplified, because there are other things not taken into account here,
+like that we can have different recipe and package revisions and that there's also a
+built-in mechanism in Conan to declare that some packages with a certain Package ID are
+compatible with other. But let's get that aside to explain what the concept of the Package
+ID is.
+
+Que quiere decir borrar un setting o una opción?
 
 
 Read more
 ---------
 
-- 
+- compatibililty.py
+- packge id modes
