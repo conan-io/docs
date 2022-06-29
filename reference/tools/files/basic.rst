@@ -101,6 +101,24 @@ Usage:
     replace_in_file(self, os.path.join(self.source_folder, "folder", "file.txt"), "foo", "bar")
 
 
+conan.tools.files.rm()
+----------------------
+
+.. currentmodule:: conan.tools.files.files
+
+.. autofunction:: rm
+
+
+Usage:
+
+.. code-block:: python
+
+    from conan.tools.files import rm
+
+    rm(self, "*.tmp", self.build_folder, recursive=True)
+
+
+
 conan.tools.files.mkdir()
 -------------------------
 
