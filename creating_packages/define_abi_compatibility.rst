@@ -693,7 +693,7 @@ as default in *conan.conf*, but if a recipe declare that it is header-only, with
   .. code-block:: python
 
     def package_id(self):
-      self.info.header_only() # clears requires, but also settings if existing
+      self.info.clear() # clears requires, but also settings if existing
       # or if there are no settings/options, this would be equivalent
       self.info.requires.clear() # or self.info.requires.unrelated_mode()
 
@@ -734,17 +734,17 @@ Enabling full transitivity in package_id modes
 
 
 When a package declares in its ``package_id()`` method that it is not affected by its dependencies, that will propagate down
-to the indirect consumers of that package. There are several ways this can be done, ``self.info.header_only()``, ``self.info.requires.clear()``,
+to the indirect consumers of that package. There are several ways this can be done, ``self.info.clear()``, ``self.info.requires.clear()``,
 ``self.info.requires.remove["dep"]`` and ``self.info.requires.unrelated_mode()``, for example.
 
-Let's assume for the discussion that it is a header only library, using the ``self.info.header_only()`` helper. This header only package has
+Let's assume for the discussion that it is a header only library, using the ``self.info.clear()`` helper. This header only package has
 a single dependency, which is a static library. Then, downstream
 consumers of the header only library that uses a package mode different from the default, should be also affected by the upstream
 transitivity dependency. Lets say that we have the following scenario:
 
 - ``app/1.0`` depends on ``pkgc/1.0`` and ``pkga/1.0``
 - ``pkgc/1.0`` depends only on ``pkgb/1.0``
-- ``pkgb/1.0`` depends on ``pkga/1.0``, and defines ``self.info.header_only()`` in its ``package_id()``
+- ``pkgb/1.0`` depends on ``pkga/1.0``, and defines ``self.info.clear()`` in its ``package_id()``
 - We are using ``full_version_mode``
 - Now we create a new ``pkga/2.0`` that has some changes in its header, that would require to rebuild ``pkgc/1.0`` against it.
 - ``app/1.0`` now depends on ```pkgc/1.0`` and ``pkga/2.0``

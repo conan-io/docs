@@ -39,7 +39,7 @@ instead of the ``exports_sources`` fields.
 .. code-block:: python
 
     def package_id(self):
-        self.info.header_only()
+        self.info.clear()
 
 Package is created with:
 
@@ -73,7 +73,7 @@ If you want to run the library unit test while packaging, you would need this re
             self.copy("*.h")
 
         def package_id(self):
-            self.info.header_only()
+            self.info.clear()
 
 
 .. tip::

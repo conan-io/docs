@@ -94,7 +94,7 @@ Settings
           ...
 
           def validate(self):
-              if self.settings.os == "Macos":
+              if self.info.settings.os == "Macos":
                   raise ConanInvalidConfiguration("Macos not supported")
 
 
@@ -116,6 +116,9 @@ Settings
 
 Options
 -------
+
+default_options
+^^^^^^^^^^^^^^^
 
 The definition of the ``default_options`` attribute has changed when referring to a dependency. It is related to the
 :ref:`unified patterns in the command line<conan_v2_unified_arguments>`.
@@ -139,6 +142,55 @@ The definition of the ``default_options`` attribute has changed when referring t
         # "pkg/*:some_option" or ""pkg/1.0:some_option" or "pkg*:some_option" would be valid
         default_options = {"pkg/*:some_option": "value"}
 
+
+ANY special value
+^^^^^^^^^^^^^^^^^
+
+The special value ``ANY`` has to be declared in a list:
+
+.. code-block:: python
+   :caption: **From:**
+
+    from conans import ConanFile
+
+    class Pkg(Conanfile):
+        options = {"opt": "ANY"}
+
+
+.. code-block:: python
+   :caption: **To:**
+
+    from conan import ConanFile
+
+    class Pkg(Conanfile):
+        options = {"opt": ["ANY"]}
+
+
+The validate() method
+---------------------
+
+Use always the ``self.info.settings`` instead of ``self.settings`` and ``self.info.options`` instead of ``self.options``.
+Otherwise, the compatibility mechanism won't be able to verify if the configurations of potential ``compatible`` packages
+are valid.
+
+.. code-block:: python
+    :caption: **From:**
+
+    class Pkg(Conanfile):
+
+        def validate(self):
+            if self.settings.os == "Windows":
+                raise ConanInvalidConfiguration("This package is not compatible with Windows")
+
+
+.. code-block:: python
+    :caption: **To:**
+
+    class Pkg(Conanfile):
+
+        def validate(self):
+            if self.info.settings.os == "Windows":
+                raise ConanInvalidConfiguration("This package is not compatible with Windows")
 
 
 
@@ -289,7 +341,6 @@ to mimic the same behavior:
 Please **check the full example** on the :ref:`conan.tools.scm.Git section <conan_tools_scm_git>`.
 
 
-
 The generate() method
 ---------------------
 
@@ -401,32 +452,27 @@ The ``self.copy`` has been replaced by the explicit tool :ref:`copy<conan_tools_
         copy(self, "*.lib", self.build_folder, join(self.package_folder, "lib"), keep_path=False)
         copy(self, "*.dll", self.build_folder, join(self.package_folder, "bin"), keep_path=False)
 
-
+.. _conan2_migration_guide_recipes_package_info:
 
 The package_info() method
 -------------------------
 
-Removed cpp_info defaults in components
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Changed cpp_info default values
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-There are some defaults in the general ``self.cpp_info`` object:
+There are some defaults in ``self.cpp_info`` object that are not the same in Conan 2.X than in Conan 1.X (except
+for ``Conan >= 1.50`` if the ``layout()`` method is declared):
 
 .. code-block:: text
 
     self.cpp_info.includedirs => ["include"]
     self.cpp_info.libdirs => ["lib"]
-    self.cpp_info.resdirs => ["res"]
+    self.cpp_info.resdirs => []
     self.cpp_info.bindirs => ["bin"]
     self.cpp_info.builddirs => []
-    self.cpp_info.frameworkdirs => ["Frameworks"]
+    self.cpp_info.frameworkdirs => []
 
-If you declare components, you need to explicitly specify these directories, because by default are empty:
-
-.. code-block:: python
-
-    def cpp_info(self):
-        self.cpp_info.components["mycomponent"].includedirs = ["my_include"]
-        self.cpp_info.components["myothercomponent"].bindirs = ["myother_bin"]
+If you declare components, the defaults are the same, so you only need to change the defaults if they are not correct.
 
 
 .. note::
@@ -531,6 +577,28 @@ To be prepared for Conan 2.0:
   to a subfolder ``cmake`` and assing it: ``self.cpp_info.builddirs = ["cmake"]``
 - If you are not assigning any ``self.cpp_info.builddirs`` assign an empty list: ``self.cpp_info.builddirs = []``.
 - Instead of appending new values to the default list, assign it: ``self.cpp_info.builddirs = ["cmake"]``
+
+
+The package_id() method
+-----------------------
+
+The ``self.info.header_only()`` method has been replaced with ``self.info.clear()``
+
+
+.. code-block:: python
+   :caption: **From:**
+
+        def package_id(self):
+            self.info.header_only()
+
+
+.. code-block:: python
+   :caption: **To:**
+
+        def package_id(self):
+            self.info.clear()
+
+
 
 
 .. _conanv2_properties_model:

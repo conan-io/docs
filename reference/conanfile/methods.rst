@@ -984,15 +984,15 @@ any setting or option:
         del self.info.settings.compiler
         del self.info.options.shared
 
-self.info.header_only()
-^^^^^^^^^^^^^^^^^^^^^^^
+self.info.clear()
+^^^^^^^^^^^^^^^^^
 
 The package will always be the same, irrespective of the settings (OS, compiler or architecture), options and dependencies.
 
 .. code-block:: python
 
     def package_id(self):
-        self.info.header_only()
+        self.info.clear()
 
 
 self.info.shared_library_package_id()

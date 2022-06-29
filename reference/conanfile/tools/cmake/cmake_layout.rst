@@ -36,7 +36,7 @@ These are the values assigned by the ``cmake_layout``:
 - ``conanfile.folders.source``: *src_folder* argument or ``.`` if not specified.
 - ``conanfile.folders.build``:
     - ``build``: if the cmake generator is multi-configuration.
-    - ``cmake-build-debug`` or ``cmake-build-debug``: if the cmake generator is single-configuration, depending on the
+    - ``build/Debug`` or ``build/Release``: if the cmake generator is single-configuration, depending on the
       build_type.
 - ``conanfile.folders.generators``: ``build/generators``
 - ``conanfile.cpp.source.includedirs``: ``["include"]``
@@ -68,9 +68,9 @@ For the previous example, the values assigned by the ``cmake_layout`` (installin
 configuration) would be:
 
 - ``conanfile.folders.build``:
-    - ``build-apple-clang-shared_false``: if the cmake generator is multi-configuration.
-    - ``cmake-build-debug-apple-clang-shared_false``: if the cmake generator is single-configuration.
-- ``conanfile.folders.generators``: ``build-apple-clang-shared_false/generators``
+    - ``build/apple-clang-shared_false``: if the cmake generator is multi-configuration.
+    - ``build/apple-clang-shared_false/Debug``: if the cmake generator is single-configuration.
+- ``conanfile.folders.generators``: ``build/generators``
 
 If we repeat the previous install with a different configuration:
 
@@ -81,8 +81,8 @@ If we repeat the previous install with a different configuration:
 The values assigned by the ``cmake_layout`` (installing the Release/shared configuration) would be:
 
 - ``conanfile.folders.build``:
-    - ``build-apple-clang-shared_true``: if the cmake generator is multi-configuration.
-    - ``cmake-build-debug-apple-clang-shared_true``: if the cmake generator is single-configuration.
+    - ``build/apple-clang-shared_true``: if the cmake generator is multi-configuration.
+    - ``build/apple-clang-shared_true/Debug``: if the cmake generator is single-configuration.
 - ``conanfile.folders.generators``: ``build-apple-clang-shared_true/generators``
 
 
@@ -92,3 +92,8 @@ The ``CMakePresets.json`` file generated at the :ref:`CMakeToolchain<conan-cmake
 generator, will also take this ``tools.cmake.cmake_layout:build_folder_vars`` config into account to generate different
 names for the presets, being very handy to install N configurations and building our project for any of them by
 selecting the chosen preset.
+
+.. note::
+
+    The ``settings.build_type`` value is forbidden in ``tools.cmake.cmake_layout:build_folder_vars`` because the
+    build_type is already managed automatically with multi-config support in ``CMakeDeps`` and ``CMakeToolchain``.

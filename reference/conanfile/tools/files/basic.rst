@@ -20,14 +20,14 @@ Copy the files matching the ``pattern`` (fnmatch) at the ``src`` folder to a ``d
 
 Parameters:
     - **conanfile**: Conanfile object.
-    - **pattern** (Required): An fnmatch file pattern of the files that should be copied. It must not start with ``..`` relative path or an exception will be raised.
-    - **src** (Required): Source folder in which those files will be searched. This folder will be stripped from the
+    - **pattern**: An fnmatch file pattern of the files that should be copied. It must not start with ``..`` relative path or an exception will be raised.
+    - **src**: Source folder in which those files will be searched. This folder will be stripped from the
       dst parameter. E.g., `lib/Debug/x86`.
-    - **dst** (Required): Destination local folder. It must be different from ``src`` value or an exception will be raised.
-    - **keep_path** (Optional, defaulted to ``True``): Means if you want to keep the relative path when you copy the files from the **src**
+    - **dst**: Destination local folder. It must be different from ``src`` value or an exception will be raised.
+    - **keep_path**: Means if you want to keep the relative path when you copy the files from the **src**
       folder to the **dst** one.
-    - **excludes** (Optional, defaulted to ``None``): A tuple/list of fnmatch patterns or even a single one to be excluded from the copy.
-    - **ignore_case** (Optional, defaulted to ``True``): If enabled, it will do a case-insensitive pattern matching.
+    - **excludes**: A tuple/list of fnmatch patterns or even a single one to be excluded from the copy.
+    - **ignore_case**: If enabled, it will do a case-insensitive pattern matching.
 
 .. note::
 
@@ -59,8 +59,8 @@ the file.
 
 Parameters:
     - **conanfile**: Conanfile object.
-    - **path** (Required): Path to the file.
-    - **encoding** (Optional, Defaulted to ``utf-8``): Specifies the input file text encoding.
+    - **path**: Path to the file.
+    - **encoding**: Specifies the input file text encoding.
 
 
 conan.tools.files.save()
@@ -82,10 +82,10 @@ Utility function to save files in one line. It will manage the open and close of
 
 Parameters:
     - **conanfile**: Conanfile object.
-    - **path** (Required): Path to the file.
-    - **content** (Required): Content that should be saved into the file.
-    - **append** (Optional, Defaulted to ``False``): If ``True``, it will append the content.
-    - **encoding** (Optional, Defaulted to ``utf-8``): Specifies the output file text encoding.
+    - **path**: Path to the file.
+    - **content**: Content that should be saved into the file.
+    - **append**: If ``True``, it will append the content.
+    - **encoding**: Specifies the output file text encoding.
 
 
 
@@ -107,8 +107,8 @@ Utility function to rename a file or folder *src* to *dst*. On Windows, it is ve
 
 Parameters:
     - **conanfile**: Conanfile object.
-    - **src** (Required): Path to be renamed.
-    - **dst** (Required): Path to be renamed to.
+    - **src**: Path to be renamed.
+    - **dst**: Path to be renamed to.
 
 
 conan.tools.files.replace_in_file()
@@ -130,12 +130,37 @@ Replace a string ``search`` in the contents of the file ``file_path`` with the s
 
 Parameters:
     - **conanfile**: Conanfile object.
-    - **file_path** (Required): File path of the file to perform the replace in.
-    - **search** (Required): String you want to be replaced.
-    - **replace** (Required): String to replace the searched string.
-    - **strict** (Optional, Defaulted to ``True``): If ``True``, it raises an error if the searched string is not found, so nothing is
+    - **file_path**: File path of the file to perform the replace in.
+    - **search**: String you want to be replaced.
+    - **replace**: String to replace the searched string.
+    - **strict**: If ``True``, it raises an error if the searched string is not found, so nothing is
       actually replaced.
-    - **encoding** (Optional, Defaulted to ``utf-8``): Specifies the input and output files text encoding.
+    - **encoding**: Specifies the input and output files text encoding.
+
+
+conan.tools.files.rm()
+----------------------
+
+.. code-block:: python
+
+    def rm(conanfile, pattern, folder, recursive=False)
+
+
+Remove the files following the ``pattern`` (fnmatch) from the specified ``folder``.
+
+.. code-block:: python
+
+    from conan.tools.files import rm
+
+    rm(self, "*.tmp", self.build_folder, recursive=True)
+
+
+Parameters:
+    - **conanfile**: Conanfile object.
+    - **pattern**: Pattern that the files to be removed have to match (fnmatch).
+    - **folder**: Folder to search/remove the files.
+    - **recursive**: If ``recursive`` is specified it will search in the subfolders.
+
 
 
 conan.tools.files.mkdir()
@@ -158,7 +183,7 @@ directory already exists.
 
 Parameters:
     - **conanfile**: Conanfile object.
-    - **path** (Required): Path to the directory.
+    - **path**: Path to the directory.
 
 
 conan.tools.files.rmdir()
@@ -181,7 +206,7 @@ directory doesn't exists.
 
 Parameters:
     - **conanfile**: Conanfile object.
-    - **path** (Required): Path to the directory.
+    - **path**: Path to the directory.
 
 
 conan.tools.files.chdir()
@@ -203,7 +228,7 @@ This is a context manager that allows to temporary change the current directory 
 
 Parameters:
     - **conanfile**: Conanfile object.
-    - **newdir** (Required): Directory path name to change the current directory.
+    - **newdir**: Directory path name to change the current directory.
 
 
 conan.tools.files.unzip()
@@ -250,14 +275,14 @@ Use the ``pattern`` argument if you want to filter specific files and paths to d
 
 Parameters:
     - **conanfile**: Conanfile object.
-    - **filename** (Required): File to be unzipped.
-    - **destination** (Optional, Defaulted to ``"."``): Destination folder for unzipped files.
-    - **keep_permissions** (Optional, Defaulted to ``False``): Keep permissions of files. **WARNING:** Can be dangerous if the zip
+    - **filename**: File to be unzipped.
+    - **destination**: Destination folder for unzipped files.
+    - **keep_permissions**: Keep permissions of files. **WARNING:** Can be dangerous if the zip
       was not created in a NIX system, the bits could produce undefined permission schema. Use only this option if you are sure that
       the zip was created correctly.
-    - **pattern** (Optional, Defaulted to ``None``): Extract from the archive only paths matching the pattern. This should be a Unix
+    - **pattern**: Extract from the archive only paths matching the pattern. This should be a Unix
       shell-style wildcard. See `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_ documentation for more details.
-    - **strip_root** (Optional, Defaulted to ``False``): When ``True`` and the ZIP file contains one folder containing all the contents,
+    - **strip_root**: When ``True`` and the ZIP file contains one folder containing all the contents,
       it will strip the root folder moving all its contents to the root. E.g: *mylib-1.2.8/main.c* will be extracted as *main.c*. If the compressed
       file contains more than one folder or only a file it will raise a ``ConanException``.
 
@@ -272,7 +297,7 @@ conan.tools.files.update_conandata()
 Parameters:
 
 - **conanfile**: Conanfile object.
-- **data** (Required): A dictionary (can be nested), of values to update
+- **data**: A dictionary (can be nested), of values to update
 
 
 This function reads the ``conandata.yml`` inside the exported folder in the conan cache, if it exists.
