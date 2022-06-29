@@ -49,41 +49,14 @@ conan.tools.build.check_min_cppstd
     def check_min_cppstd(conanfile, cppstd, gnu_extensions=False)
 
 
-
-Check if current cppstd fits the minimal version required. In case the current cppstd doesn't fit the minimal version required
-by cppstd, a ``ConanInvalidConfiguration`` exception will be raised.
-
-        1. If settings.compiler.cppstd, the tool will use settings.compiler.cppstd to compare
-        2. It not settings.compiler.cppstd, the tool will use compiler to compare (reading the
-           default from cppstd_default)
-        3. If not settings.compiler is present (not declared in settings) will raise because it
-           cannot compare.
-        4. If can not detect the default cppstd for settings.compiler, a exception will be raised.
+Check if provided ``conanfile.settings.compiler.cppstd`` fits the minimal version required (specified in the argument ``cppstd``).
+In case it doesn't, a ``ConanInvalidConfiguration`` exception will be raised.
 
 Parameters:
 
 - **conanfile**: The current recipe object. Always use ``self``.
 - **cppstd**: Minimal cppstd version required.
 - **gnu_extensions**: GNU extension is required (e.g gnu17).
-
-
-conan.tools.build.valid_min_cppstd
-----------------------------------
-
-
-.. code-block:: python
-
-    def valid_min_cppstd(conanfile, cppstd, gnu_extensions=False)
-
-
-Validate if current cppstd fits the minimal version required. Return ``True``, if current cppstd matches the required
-cppstd version. Otherwise, ``False``.
-
-Parameters:
-
-- **conanfile**: The current recipe object. Always use ``self``.
-- **cppstd**: Minimal cppstd version required
-- **gnu_extensions**: GNU extension is required (e.g gnu17). This option ONLY works on Linux.
 
 
 conan.tools.build.default_cppstd
