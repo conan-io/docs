@@ -318,6 +318,11 @@ it to perform checks of the input settings. If, for example, your project does n
 make Conan return with a special error code. This will indicate that the configuration
 used for settings or options is not supported.
 
+Use the objects ``self.info.settings`` and ``self.info.options`` to read the configuration,
+otherwise, the "compatible" packages (method ``compatibility()`` and plugin ``compatibility.py`` won't be able to
+verify if the potentially compatible configurations are valid or not.
+
+
 .. code-block:: python
     :caption: conanfile.py
 
@@ -328,7 +333,7 @@ used for settings or options is not supported.
         ...
 
         def validate(self):
-            if self.settings.os == "Macos" and self.settings.arch == "armv8":
+            if self.info.settings.os == "Macos" and self.info.settings.arch == "armv8":
                 raise ConanInvalidConfiguration("ARM v8 not supported")
 
 
