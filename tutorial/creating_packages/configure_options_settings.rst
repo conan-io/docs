@@ -224,9 +224,6 @@ As you can see, the first run created the `2a899fd0da3125064bf9328b8db681cd82899
 package, and the second one, regardless of the different value of the fPIC option, said we
 already had the `2a899fd0da3125064bf9328b8db681cd82899d56` package installed.
 
-Packaging C libraries
----------------------
-
 There are other typical cases where you want to delete certain settings. Imagine that you
 are packaging a C library. When you build this library, there are settings like the
 compiler C++ standard (`settings.compiler.cppstd`) or the standard library used
@@ -240,23 +237,27 @@ to delete them in the configure() method:
         del self.settings.compiler.cppstd
         del self.settings.compiler.libcxx
 
+A similar case happens with packages that package header only libraries. In that case,
+there's no binary code we need to link with, but just some header files to add to our
+project. In this cases the Package ID of the Conan package should not be affected by
+settings or options. For that case, there's a simplified way of declaring that the
+generated Package ID should not take into account settings, options or any information
+from the requirement which is using the `self.info.clear()`` method inside another recipe
+method called `package_id()`:
 
-Packaging header-only libraries
--------------------------------
+.. code-block:: python
+    
+    def package_id(self):
+      self.info.clear()
 
-
-
-This is more evident for some packages like the ones that package header only libraries.
-In that case, there's no binary code we need to link with, but just some header files to
-add to our project. In this cases the Package ID of the Conan package should not be
-affected by settings or options.
-
-- Poner el ejemplo de borrarle el compiler a la librería?
-- Que quiere decir borrar un setting o una opción?
-
+We will explain the package_id method and how you can customize the generated Package ID's
+depending on your package later. You can also check the Conanfile's methods reference if
+you want to know how this method works in more detail.
 
 Read more
 ---------
 
 - compatibililty.py
-- packge id modes
+- package types
+- package id modes
+- ...
