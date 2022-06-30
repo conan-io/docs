@@ -24,7 +24,7 @@ Please, first clone the sources to recreate this project. You can find them in t
     $ git clone https://github.com/conan-io/examples2.git
     $ cd examples2/tutorial/creating_packages/configure_options_settings
 
-You will notice some changes in the `conanfile.py` file from the previous recipe.
+You will notice some changes in the **conanfile.py** file from the previous recipe.
 Let's check the relevant parts:
 
 .. code-block:: python
@@ -88,16 +88,16 @@ the implications of removing that option? This is related to how Conan identify 
 that are binary compatible with the configuration set in the profile. Let's get a bit
 deeper into this topic:
 
-Conan packages binary compatibililty: the *Package ID*
-------------------------------------------------------
+Conan packages binary compatibililty: the **package ID**
+--------------------------------------------------------
 
 We already used Conan in previous examples to build for different configurations, for
 example for *Debug* and *Release*. When you build one package for each of those
 configurations, Conan will create a new binary. Each of those binaries are related to a
-generated hash called the *Package ID*. The *Package ID* is just a way to convert a set of
+generated hash called **the package ID**. The package ID is just a way to convert a set of
 settings, options and information about the requirements of the package to a unique
 identifier. Let's build our package for *Release* and *Debug* configurations and checks
-the generated binaries *Package ID*.
+the generated binaries package ID.
 
 .. code-block:: bash
     :emphasize-lines: 6,19,29,42
@@ -148,12 +148,12 @@ the generated binaries *Package ID*.
     hello/1.0: Full package reference: hello/1.0#e6b11fb0cb64e3777f8d62f4543cd6b3:3d27635e4dd04a258d180fe03cfa07ae1186a828#67b887a0805c2a535b58be404529c1fe
     hello/1.0: Package folder /Users/carlosz/.conan2/p/c7796386fcad5369/p
 
-As you can see Conan generated two package ID's:
+As you can see Conan generated two *Package ID's*:
 
 * Package *738feca714b7251063cc51448da0cf4811424e7c* for Release
 * Package *3d27635e4dd04a258d180fe03cfa07ae1186a828* for Debug
 
-These two Package ID's are calculated taking the set of settings, options and some
+These two *Package ID's* are calculated taking the set of settings, options and some
 information about the requirements (we will explain this later in the documentation) and
 calculating a hash with them. So, for example, in this case they are the result of the
 information depicted in the diagram below.
@@ -162,33 +162,33 @@ information depicted in the diagram below.
    :width: 680 px
    :align: center
 
-Those Package ID's are different because the build_type is different. Now, when you want
+Those *Package ID's* are different because the build_type is different. Now, when you want
 to install a package, Conan will:
 
 * Collect the settings and options applied, along with some information about the
-  requirements and calculate the hash for the corresponding Package ID.
+  requirements and calculate the hash for the corresponding package ID.
 
-* If that Package ID matches one of the packages stored in the local Conan cache it will
+* If that package ID matches one of the packages stored in the local Conan cache it will
   use that. If not, and we have any Conan remote configured, it will search for a package
-  with that Package ID in the remotes.
+  with that package ID in the remotes.
 
-* If that calculated Package ID is not found in the local cache and remotes, Conan will
+* If that calculated package ID is not found in the local cache and remotes, Conan will
   try to build that package from sources (this actually depends on the value of the
-  ``--build`` argument). This build will generate a new Package ID that was not already stored.
+  ``--build`` argument). This build will generate a new package ID that was not already stored.
 
-This flow is simplified, there is far more to Package ID calculation than what is
-shown here, recipes themselves can even adjust their own package id calculations, we can
-have different recipe and package revisions besides Package ID's and there's also a
+This flow is simplified, there is far more to package ID calculation than what is
+shown here, recipes themselves can even adjust their own package ID calculations, we can
+have different recipe and package revisions besides *Package ID's* and there's also a
 built-in mechanism in Conan that can be configured to declare that some packages with a
-certain Package ID are compatible with other. But let's get that aside to explain what the
-concept of the Package ID is.
+certain package ID are compatible with other. But let's get that aside to explain what the
+concept of the package ID is.
 
 Maybe you have now the intuituion of why we delete settings or options in Conan recipes.
-If you do that, those values will not be added to the computation of the Package ID, so
-even if you define them, the resulting Package ID will be the same. You can check this
+If you do that, those values will not be added to the computation of the package ID, so
+even if you define them, the resulting package ID will be the same. You can check this
 behaviour, for example with the fPIC option that is deleted when we build with with the
 option shared=True. Regardless the value you pass for the fPIC option the generated
-Package ID will be the same for the **hello/1.0** binary:
+package ID will be the same for the **hello/1.0** binary:
 
 .. code-block:: bash
     
@@ -220,15 +220,15 @@ Package ID will be the same for the **hello/1.0** binary:
     -------- Installing (downloading, building) binaries... --------
     hello/1.0: Already installed!
 
-As you can see, the first run created the `2a899fd0da3125064bf9328b8db681cd82899d56`
+As you can see, the first run created the ``2a899fd0da3125064bf9328b8db681cd82899d56``
 package, and the second one, regardless of the different value of the fPIC option, said we
-already had the `2a899fd0da3125064bf9328b8db681cd82899d56` package installed.
+already had the ``2a899fd0da3125064bf9328b8db681cd82899d56`` package installed.
 
 There are other typical cases where you want to delete certain settings. Imagine that you
 are packaging a C library. When you build this library, there are settings like the
-compiler C++ standard (`settings.compiler.cppstd`) or the standard library used
-(`self.settings.compiler.libcxx`) that won't affect the resulting binary at all. Then it
-does no make sense that they affect to the Package ID computation, so a typical pattern is
+compiler C++ standard (``settings.compiler.cppstd``) or the standard library used
+(``self.settings.compiler.libcxx``) that won't affect the resulting binary at all. Then it
+does no make sense that they affect to the package ID computation, so a typical pattern is
 to delete them in the configure() method:
 
 .. code-block:: python
@@ -239,20 +239,21 @@ to delete them in the configure() method:
 
 A similar case happens with packages that package header only libraries. In that case,
 there's no binary code we need to link with, but just some header files to add to our
-project. In this cases the Package ID of the Conan package should not be affected by
+project. In this cases the package ID of the Conan package should not be affected by
 settings or options. For that case, there's a simplified way of declaring that the
-generated Package ID should not take into account settings, options or any information
-from the requirement which is using the `self.info.clear()`` method inside another recipe
-method called `package_id()`:
+generated package ID should not take into account settings, options or any information
+from the requirement which is using the ``self.info.clear()`` method inside another recipe
+method called ``package_id()``:
 
 .. code-block:: python
     
     def package_id(self):
       self.info.clear()
 
-We will explain the package_id method and how you can customize the generated Package ID's
-depending on your package later. You can also check the Conanfile's methods reference if
-you want to know how this method works in more detail.
+We will explain the ``package_id()`` method later and explain how you can customize the way
+the package ID for the package is calculated. You can also check the :ref:`Conanfile's
+methods reference<conan_conanfile_methods>` if you want to know how this method works in
+more detail.
 
 Read more
 ---------
