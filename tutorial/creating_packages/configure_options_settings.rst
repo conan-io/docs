@@ -185,7 +185,7 @@ concept of the Package ID is.
 
 Maybe you have now the intuituion of why we delete settings or options in Conan recipes.
 If you do that, those values will not be added to the computation of the Package ID, so
-even if you define them the resulting package will be the same. You can check this
+even if you define them, the resulting Package ID will be the same. You can check this
 behaviour, for example with the fPIC option that is deleted when we build with with the
 option shared=True. Regardless the value you pass for the fPIC option the generated
 Package ID will be the same for the **hello/1.0** binary:
@@ -223,6 +223,28 @@ Package ID will be the same for the **hello/1.0** binary:
 As you can see, the first run created the `2a899fd0da3125064bf9328b8db681cd82899d56`
 package, and the second one, regardless of the different value of the fPIC option, said we
 already had the `2a899fd0da3125064bf9328b8db681cd82899d56` package installed.
+
+Packaging C libraries
+---------------------
+
+There are other typical cases where you want to delete certain settings. Imagine that you
+are packaging a C library. When you build this library, there are settings like the
+compiler C++ standard (`settings.compiler.cppstd`) or the standard library used
+(`self.settings.compiler.libcxx`) that won't affect the resulting binary at all. Then it
+does no make sense that they affect to the Package ID computation, so a typical pattern is
+to delete them in the configure() method:
+
+.. code-block:: python
+    
+    def configure(self):
+        del self.settings.compiler.cppstd
+        del self.settings.compiler.libcxx
+
+
+Packaging header-only libraries
+-------------------------------
+
+
 
 This is more evident for some packages like the ones that package header only libraries.
 In that case, there's no binary code we need to link with, but just some header files to
