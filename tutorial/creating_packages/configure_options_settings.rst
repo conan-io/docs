@@ -8,13 +8,12 @@ Configure settings and options in recipes
     remote to your Conan configuration (if did not already do it) doing:
     ``conan remote add conanv2 https://conanv2beta.jfrog.io/artifactory/api/conan/conan --index 0``
 
-We already explained what :ref:`Conan settings and options
-are<settings_and_options_difference>` and how to use them to build your projects for
+We already talked about :ref:`Conan settings and options
+are<settings_and_options_difference>`, and how to use them to build your projects for
 different configurations like Debug, Release, with static or shared libraries, etc. In
-this section, we explain how to configure these settings and options for example, in the
-case that a certain setting or option does not apply to a Conan recipe. We will also give a
-short introduction on how Conan models binary compatibility and how that relates to
-options and settings.
+this section, we explain how to configure these settings and options in the case that one
+of them does not apply to a Conan package. We will introduce briefly how Conan models
+binary compatibility and how that relates to options and settings.
 
 Please, first clone the sources to recreate this project. You can find them in the
 `examples2.0 repository <https://github.com/conan-io/examples2>`_ on GitHub:
@@ -62,42 +61,43 @@ Let's check the relevant parts:
 
 You can see that we added a ``configure()`` method to the recipe. Let's explain what's the
 objective of this method and how it's different from the ``config_options()`` method we
-already had defined in our recipe:
+already had defined in the recipe:
 
 * ``configure()``: this method is useful to modify the available options or settings of
   the recipe. For example, in this case, we **delete the fPIC option**, because it should
-  only be True if we are building the library as shared. In fact, some build systems will
+  only be **True** if we are building the library as shared. In fact, some build systems will
   add this flag automatically when building a shared library.
 
 
 * ``config_options()``: this method is executed before the ``configure()`` method. In
   fact, options are not given a value yet in this method. This method is used to
-  **constraint** the available options in a package, before they are given a value. So when a
-  value is tried to be assigned it will raise an error. In this case we are **deleting the
+  **constraint** the available options in a package, before they are given a value. So
+  when a value is assigned, Conan will raise an error. In this case we are **deleting the
   fPIC option** in Windows because that option does not exist for that operating system.
 
 Be aware that deleting an option in the ``config_options()`` or in the ``configure()`` has
-not the same result. Deleting it in the ``config_options()`` is like if we never had
-declared it in the recipe and it will raise an exception saying that the option does not
-exist. Nevertheless, if we delete it in the ``configure()`` method we can pass the option
-but it will just have no effect.
+not the same result. Deleting it in the ``config_options()`` is like if we never declared
+it in the recipe and it will raise an exception saying that the option does not exist.
+Nevertheless, if we delete it in the ``configure()`` method we can pass the option but it
+will have no effect.
 
-As you have noticed, both in the ``configure()`` and ``config_options()`` methods we are
-**deleting** an option if certain conditions meet. But, why are we doing that and what are
-the implications of removing that option? This is related to how Conan identify packages
+As you have noticed, both the ``configure()`` and ``config_options()`` methods **delete**
+an option if certain conditions meet. But why are we doing that, and what are the
+implications of removing that option? This is related to how Conan identifies packages
 that are binary compatible with the configuration set in the profile. Let's get a bit
-deeper into this topic:
+deeper into this topic.
 
 Conan packages binary compatibililty: the **package ID**
 --------------------------------------------------------
 
-We already used Conan in previous examples to build for different configurations, for
-example for *Debug* and *Release*. When you build one package for each of those
-configurations, Conan will create a new binary. Each of those binaries are related to a
-generated hash called **the package ID**. The package ID is just a way to convert a set of
-settings, options and information about the requirements of the package to a unique
-identifier. Let's build our package for *Release* and *Debug* configurations and checks
-the generated binaries package ID.
+We already used Conan in previous examples to build for different configurations like
+*Debug* and *Release*. Each time you create the package for one of those configurations,
+Conan will build a new binary. Each of those binaries are related to a generated hash
+called **the package ID**. The package ID is just a way to convert a set of settings,
+options and information about the requirements of the package to a unique identifier. 
+
+Let's build our package for *Release* and *Debug* configurations and check
+the generated binaries package IDs.
 
 .. code-block:: bash
     :emphasize-lines: 6,19,29,42
@@ -148,21 +148,21 @@ the generated binaries package ID.
     hello/1.0: Full package reference: hello/1.0#e6b11fb0cb64e3777f8d62f4543cd6b3:3d27635e4dd04a258d180fe03cfa07ae1186a828#67b887a0805c2a535b58be404529c1fe
     hello/1.0: Package folder /Users/carlosz/.conan2/p/c7796386fcad5369/p
 
-As you can see Conan generated two *Package ID's*:
+As you can see Conan generated two package IDs:
 
 * Package *738feca714b7251063cc51448da0cf4811424e7c* for Release
 * Package *3d27635e4dd04a258d180fe03cfa07ae1186a828* for Debug
 
-These two *Package ID's* are calculated taking the set of settings, options and some
+These two package IDs are calculated by taking the set of settings, options and some
 information about the requirements (we will explain this later in the documentation) and
-calculating a hash with them. So, for example, in this case they are the result of the
+calculating a hash with them. So, for example, in this case, they are the result of the
 information depicted in the diagram below.
 
 .. image:: /images/conan-package_id.png
    :width: 680 px
    :align: center
 
-Those *Package ID's* are different because the build_type is different. Now, when you want
+Those package IDs are different because the build_type is different. Now, when you want
 to install a package, Conan will:
 
 * Collect the settings and options applied, along with some information about the
@@ -172,22 +172,21 @@ to install a package, Conan will:
   use that. If not, and we have any Conan remote configured, it will search for a package
   with that package ID in the remotes.
 
-* If that calculated package ID is not found in the local cache and remotes, Conan will
-  try to build that package from sources (this actually depends on the value of the
-  ``--build`` argument). This build will generate a new package ID that was not already stored.
+* If that calculated package ID does not exist in the local cache and remotes, Conan will
+  try to build that package from sources (this depends on the value of the ``--build``
+  argument). This build will generate a new package ID in the local cache.
 
-This flow is simplified, there is far more to package ID calculation than what is
-shown here, recipes themselves can even adjust their own package ID calculations, we can
-have different recipe and package revisions besides *Package ID's* and there's also a
+This steps are simplified, there is far more to package ID calculation than what we
+explain here, recipes themselves can even adjust their package ID calculations, we can
+have different recipe and package revisions besides package IDs and there's also a
 built-in mechanism in Conan that can be configured to declare that some packages with a
-certain package ID are compatible with other. But let's get that aside to explain what the
-concept of the package ID is.
+certain package ID are compatible with other.
 
-Maybe you have now the intuituion of why we delete settings or options in Conan recipes.
+Maybe you have now the intuition of why we delete settings or options in Conan recipes.
 If you do that, those values will not be added to the computation of the package ID, so
 even if you define them, the resulting package ID will be the same. You can check this
-behaviour, for example with the fPIC option that is deleted when we build with with the
-option shared=True. Regardless the value you pass for the fPIC option the generated
+behaviour, for example with the fPIC option that is deleted when we build with the
+option ``shared=True``. Regardless of the value you pass for the fPIC option the generated
 package ID will be the same for the **hello/1.0** binary:
 
 .. code-block:: bash
