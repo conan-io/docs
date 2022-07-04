@@ -1,8 +1,7 @@
-
+.. _examples_tools_files_patches:
 
 Patching sources
 ================
-
 
 In this example we are going to see how to patch the source code. This is necessary sometimes, specially when you are
 creating a package for a third party library. A patch might be required in the build system scripts or even in the
@@ -18,15 +17,15 @@ Please, first clone the sources to recreate this project. You can find them in t
 
 
 Patching using 'replace_in_file'
-================================
+--------------------------------
 
 The simplest way to patch a file is using the ``replace_in_file`` tool in your recipe. It searches in a file the specified
-string and replace it with other string.
+string and replaces it with another string.
 
 in source() method
 ^^^^^^^^^^^^^^^^^^
 
-The source() method is called only once for all the configurations (different calls to ``conan create`` for different settings/options)
+The source() method is called only once for all the configurations (different calls to :command:`conan create` for different settings/options)
 so you should patch only in the ``source()`` method if the changes are common for all the configurations.
 
 Look at the ``source()`` method at the ``conanfile.py``:
@@ -109,7 +108,7 @@ If we call ``conan create`` with different ``option.shared`` we can check the ou
 
 
 Patching using "patch" tool
-===========================
+---------------------------
 
 If you have a patch file (diff between two versions of a file), you can use the ``conan.tools.files.patch`` tool to apply it.
 The rules about where to apply the patch (``source()`` or ``build()`` methods) are the same.
@@ -208,7 +207,7 @@ And there are the changes we introduce in the ``source()`` method:
 Check :ref:`patch <conan_tools_files_patch>` for more details.
 
 
-If we run the "conan create", the patch is also applied:
+If we run the :command:`conan create`, the patch is also applied:
 
 .. code-block:: bash
 
@@ -219,7 +218,7 @@ If we run the "conan create", the patch is also applied:
     ...
 
 Patching using "apply_conandata_patches" tool
-=============================================
+---------------------------------------------
 
 The example above works but it is a bit complex. If you follow the same yml structure (check the
 :ref:`apply_conandata_patches <conan_tools_files_apply_conandata_patches>` to see the full supported yml) you

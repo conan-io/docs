@@ -234,7 +234,7 @@ zip file has the correct ``sha256``. So we could modify the source method to thi
 Read more
 ---------
 
-- Patching sources
+- :ref:`Patching sources<examples_tools_files_patches>`
 - Advanced git repository handling (implement the "scm feature")
 - ...
 
