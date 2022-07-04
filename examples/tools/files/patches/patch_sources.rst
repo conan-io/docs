@@ -55,8 +55,8 @@ Look at the ``source()`` method at the ``conanfile.py``:
 
         ...
 
-We are replacing the ``"Hello World"`` string with "Hello Friends!". We can run ``conan create .`` and verify that
-if the replace was done:
+We are replacing the ``"Hello World"`` string with "Hello Friends!".
+We can run ``conan create .`` and verify that if the replace was done:
 
 .. code-block:: bash
 
@@ -111,8 +111,145 @@ If we call ``conan create`` with different ``option.shared`` we can check the ou
 Patching using "patch" tool
 ===========================
 
+If you have a patch file (diff between two versions of a file), you can use the ``conan.tools.files.patch`` tool to apply it.
+The rules about where to apply the patch (``source()`` or ``build()`` methods) are the same.
 
+We have this patch file, where we are changing again the message to say "Hello Patched World Release!":
+
+
+.. code-block:: text
+
+    --- a/src/hello.cpp
+    +++ b/src/hello.cpp
+    @@ -3,9 +3,9 @@
+
+     void hello(){
+         #ifdef NDEBUG
+    -    std::cout << "hello/1.0: Hello World Release!\n";
+    +    std::cout << "hello/1.0: Hello Patched World Release!\n";
+         #else
+    -    std::cout << "hello/1.0: Hello World Debug!\n";
+    +    std::cout << "hello/1.0: Hello Patched World Debug!\n";
+         #endif
+
+         // ARCHITECTURES
+
+
+Edit the ``conanfile.py`` to:
+
+1. Import the ``patch`` tool.
+2. Add ``exports_sources`` to the patch file so we have it available in the cache.
+3. Call the ``patch`` tool.
+
+
+.. code-block:: python
+    :emphasize-lines: 4, 15, 19, 20
+
+    import os
+    from conan import ConanFile
+    from conan.tools.cmake import CMakeToolchain, CMake, cmake_layout
+    from conan.tools.files import get, replace_in_file, patch
+
+
+    class helloRecipe(ConanFile):
+        name = "hello"
+        version = "1.0"
+
+        # Binary configuration
+        settings = "os", "compiler", "build_type", "arch"
+        options = {"shared": [True, False], "fPIC": [True, False]}
+        default_options = {"shared": False, "fPIC": True}
+        exports_sources = "*.patch"
+
+        def source(self):
+            get(self, "https://github.com/conan-io/libhello/archive/refs/heads/main.zip", strip_root=True)
+            patch_file = os.path.join(self.export_sources_folder, "hello_patched.patch")
+            patch(self, patch_file=patch_file)
+
+        ...
+
+We can run "conan create" and see that the patch worked:
+
+.. code-block:: bash
+
+    $ conan create .
+    ...
+    -------- Testing the package: Running test() --------
+    hello/1.0: Hello Patched World Release!
+    ...
+
+
+We can also use the ``conandata.yml`` :ref:`introduced in the tutorial<creating_packages_handle_sources_in_packages_conandata>` so we
+can declare the patches to apply for each version:
+
+
+.. code-block:: yaml
+
+    patches:
+      "1.0":
+        - patch_file: "hello_patched.patch"
+
+
+And there are the changes we introduce in the ``source()`` method:
+
+
+.. code-block:: python
+
+    .. code-block:: python
+
+        def source(self):
+            get(self, "https://github.com/conan-io/libhello/archive/refs/heads/main.zip", strip_root=True)
+            patches = self.conan_data["patches"][self.version]
+            for p in patches:
+                patch_file = os.path.join(self.export_sources_folder, p["patch_file"])
+                patch(self, patch_file=patch_file)
+
+
+Check :ref:`patch <conan_tools_files_patch>` for more details.
+
+
+If we run the "conan create", the patch is also applied:
+
+.. code-block:: bash
+
+    $ conan create .
+    ...
+    -------- Testing the package: Running test() --------
+    hello/1.0: Hello Patched World Release!
+    ...
 
 Patching using "apply_conandata_patches" tool
 =============================================
 
+The example above works but it is a bit complex. If you follow the same yml structure (check the
+:ref:`apply_conandata_patches <conan_tools_files_apply_conandata_patches>` to see the full supported yml) you
+only need to call ``apply_conandata_patches``:
+
+
+.. code-block:: python
+
+    from conan import ConanFile
+    from conan.tools.cmake import CMakeToolchain, CMake, cmake_layout
+    from conan.tools.files import get, apply_conandata_patches
+
+
+    class helloRecipe(ConanFile):
+        name = "hello"
+        version = "1.0"
+
+        ...
+
+        def source(self):
+            get(self, "https://github.com/conan-io/libhello/archive/refs/heads/main.zip", strip_root=True)
+            apply_conandata_patches(self)
+
+
+Let's check if the patch is also applied:
+
+.. code-block:: bash
+
+    $ conan create .
+    ...
+    -------- Testing the package: Running test() --------
+    hello/1.0: Hello Patched World Release!
+    ...

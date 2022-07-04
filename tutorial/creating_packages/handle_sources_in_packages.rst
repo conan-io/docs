@@ -194,6 +194,7 @@ For more information about the ``Git`` class methods, please check the
 :ref:`conan.tools.scm.Git()<reference>` reference.
 
 
+.. _creating_packages_handle_sources_in_packages_conandata:
 
 Using the conandata.yml file
 ----------------------------

@@ -22,6 +22,8 @@ Usage:
             patch(self, **it)
 
 
+.. _conan_tools_files_apply_conandata_patches:
+
 conan.tools.files.apply_conandata_patches()
 -------------------------------------------
 
