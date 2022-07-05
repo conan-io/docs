@@ -85,8 +85,8 @@ implications of removing that option? This is related to how Conan identifies pa
 that are binary compatible with the configuration set in the profile. Let's get a bit
 deeper into this topic.
 
-Conan packages binary compatibililty: the **package ID**
---------------------------------------------------------
+Conan packages binary compatibility: the **package ID**
+-------------------------------------------------------
 
 We used Conan in previous examples to build for different configurations like *Debug* and
 *Release*. Each time you create the package for one of those configurations, Conan will
