@@ -241,7 +241,7 @@ Header-only libraries
 ^^^^^^^^^^^^^^^^^^^^^
 
 A similar case happens with packages that package :ref:`header-only
-libraries<creating_packages_other_types_of_packages_header_only_packages>`. In that case,
+libraries<creating_packages_other_header_only>`. In that case,
 there's no binary code we need to link with, but just some header files to add to our
 project. In this cases the package ID of the Conan package should not be affected by
 settings or options. For that case, there's a simplified way of declaring that the
@@ -254,15 +254,15 @@ method called ``package_id()``:
     def package_id(self):
       self.info.clear()
 
-We will explain the ``package_id()`` method later and explain how you can customize the way
-the package ID for the package is calculated. You can also check the :ref:`Conanfile's
+We will explain the ``package_id()`` method later and explain how you can customize the
+way the package ID for the package is calculated. You can also check the :ref:`Conanfile's
 methods reference<conan_conanfile_methods>` if you want to know how this method works in
 more detail.
 
 Read more
 ---------
 
-- :ref:`Header-only packages<creating_packages_other_types_of_packages_header_only_packages>`
+- :ref:`Header-only packages<creating_packages_other_header_only>`
 - compatibililty.py
 - package types
 - package id modes
