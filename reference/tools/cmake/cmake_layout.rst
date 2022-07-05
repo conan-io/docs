@@ -48,7 +48,7 @@ These are the values assigned by the ``cmake_layout``:
 
 
 Multi-setting/option cmake_layout
-=================================
+---------------------------------
 
 
 The ``folders.build`` and ``conanfile.folders.generators`` can be customized to take into account the ``settings``
