@@ -50,8 +50,6 @@ Let's check the relevant parts:
         def config_options(self):
             if self.settings.os == "Windows":
                 del self.options.fPIC
-            #del self.settings.compiler.cppstd
-            #del self.settings.compiler.libcxx
 
         def configure(self):
             if self.options.shared:
