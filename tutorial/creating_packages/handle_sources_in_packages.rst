@@ -193,12 +193,48 @@ method of the Git tool:
 For more information about the ``Git`` class methods, please check the
 :ref:`conan.tools.scm.Git()<reference>` reference.
 
-TODO: briefly explain the conandata.yml ?
+
+.. _creating_packages_handle_sources_in_packages_conandata:
+
+Using the conandata.yml file
+----------------------------
+
+We can write a file named ``conandata.yml`` in the same folder of the ``conanfile.py``.
+This file will be automatically exported and parsed by Conan and we can read that information from the recipe.
+This is handy for example to extract the URLs of the external sources repositories, zip files etc.
+This is an example of ``conandata.yml``:
+
+.. code-block:: yaml
+
+    sources:
+      "1.0":
+        url: "https://github.com/conan-io/libhello/archive/refs/heads/main.zip"
+        sha256: "7bc71c682895758a996ccf33b70b91611f51252832b01ef3b4675371510ee466"
+        strip_root: true
+      "1.1":
+        url: ...
+        sha256: ...
+
+
+The recipe doesn't need to be modified for each version of the code. We can pass all the ``keys`` of the specified version
+(``url``, ``sha256``, and ``strip_root``) as arguments to the ``get`` function, that, in this case, allow us to verify that the downloaded
+zip file has the correct ``sha256``. So we could modify the source method to this:
+
+
+.. code-block:: python
+
+    def source(self):
+        get(self, **self.conan_data["sources"][self.version])
+        # Similar to:
+        # data = self.conan_data["sources"][self.version]
+        # get(self, data["url"], sha256=data["sha256"], strip_root=data["strip_root"])
+
+
 
 Read more
 ---------
 
-- Patching sources
+- :ref:`Patching sources<examples_tools_files_patches>`
 - Advanced git repository handling (implement the "scm feature")
 - ...
 

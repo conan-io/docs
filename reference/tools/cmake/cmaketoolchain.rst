@@ -109,7 +109,6 @@ This will be translated to:
 - One ``add_definitions()`` definition, using a cmake generator expression in ``conan_toolchain.cmake`` file,
   using the different values for different configurations.
 
-
 variables
 ^^^^^^^^^
 
@@ -142,6 +141,24 @@ The booleans assigned to a variable will be translated to ``ON`` and ``OFF`` sym
 
 
 Will generate the sentences: ``set(FOO ON ...)`` and ``set(VAR OFF ...)``.
+
+cache_variables
+^^^^^^^^^^^^^^^
+
+This attribute allows defining CMake cache-variables. These variables, unlike the ``variables``, are single-config. They
+will be stored in the ``CMakePresets.json`` file (at the `cacheVariables` in the `configurePreset`) and will be
+applied with ``-D`` arguments when calling ``cmake.configure`` using the :ref:`CMake() build helper<conan-cmake-build-helper>`.
+
+
+.. code:: python
+
+    def generate(self):
+        tc = CMakeToolchain(self)
+        tc.cache_variables["foo"] = True
+        tc.cache_variables["foo2"] = False
+        tc.cache_variables["var"] = "23"
+
+The booleans assigned to a cache_variable will be translated to ``ON`` and ``OFF`` symbols in CMake.
 
 
 Using a custom toolchain file

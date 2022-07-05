@@ -9,3 +9,4 @@ Examples
 
    examples/extensions/commands/custom_commands
    examples/tools/cmake/cmake
+   examples/tools/files/files
