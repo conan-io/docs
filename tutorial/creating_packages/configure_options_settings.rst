@@ -90,9 +90,9 @@ Conan packages binary compatibility: the **package ID**
 
 We used Conan in previous examples to build for different configurations like *Debug* and
 *Release*. Each time you create the package for one of those configurations, Conan will
-build a new binary. Each of them is related to a generated hash called **the package ID**.
-The package ID is just a way to convert a set of settings, options and information about
-the requirements of the package to a unique identifier. 
+build a new binary. Each of them is related to a **generated hash** called **the package
+ID**. The package ID is just a way to convert a set of settings, options and information
+about the requirements of the package to a unique identifier. 
 
 Let's build our package for *Release* and *Debug* configurations and check
 the generated binaries package IDs.
@@ -198,7 +198,7 @@ package ID will be the same for the **hello/1.0** binary:
     hello/1.0: Full package reference: hello/1.0#e6b11fb0cb64e3777f8d62f4543cd6b3:2a899fd0da3125064bf9328b8db681cd82899d56#f0d1385f4f90ae465341c15740552d7e
     hello/1.0: Package folder /Users/carlosz/.conan2/p/8a55286c6595f662/p
 
-    $ conan conan create . --build=missing -s compiler.cppstd=gnu11 -o shared=True -o fPIC=True -tf=None
+    $ conan conan create . --build=missing -s compiler.cppstd=gnu11 -o shared=True -o fPIC=False -tf=None
     ...
     -------- Computing dependency graph --------
     Graph root
