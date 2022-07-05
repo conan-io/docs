@@ -79,11 +79,11 @@ it in the recipe** and it will raise an exception saying that the option does no
 Nevertheless, if we delete it in the ``configure()`` method we can pass the option but it
 will have no effect.
 
-As you have noticed, the ``configure()`` and ``config_options()`` methods **delete** an
-option if certain conditions meet. But why are we doing that, and what are the
-implications of removing that option? This is related to how Conan identifies packages
-that are binary compatible with the configuration set in the profile. Let's get a bit
-deeper into this topic.
+As you have noticed, the ``configure()`` and ``config_options()`` methods **delete an
+option** if certain conditions meet. Let's explain why we are doing this and the
+implications of removing that option. It is related to how Conan identifies packages that
+are binary compatible with the configuration set in the profile. In the next section, we
+introduce the concept of the **Conan package ID**.
 
 Conan packages binary compatibility: the **package ID**
 -------------------------------------------------------
