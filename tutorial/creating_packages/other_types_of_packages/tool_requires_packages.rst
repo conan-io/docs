@@ -168,6 +168,56 @@ It also printed the "23" value assigned to ``MY_VAR`` but, why are these automat
   and the enviornment variable "MYVAR" has the value declared in the tool-require.
 
 
+
+Removing settings in package_id()
+---------------------------------
+
+With the previous recipe, if we call :command:`conan create` with different setting like different compiler versions, we will get
+different binary packages with a different ``package ID``. This might be convenient to, for example, keep better traceability of
+our tools. In this case, the <MISSING PAGE> compatibility.py plugin can help to locate the best matching binary in case Conan doesn't find the
+binary for our specific compiler version.
+
+But in some cases we might want to just generate a binary taking into account only the ``os``, ``arch`` or at most
+adding the ``build_type`` to know if the application is built for Debug or Release. We can add a ``package_id()`` method
+to remove them:
+
+
+.. code-block:: python
+    :caption: conanfile.py
+
+    import os
+    from conan import ConanFile
+    from conan.tools.cmake import CMakeToolchain, CMake, cmake_layout
+    from conan.tools.files import copy
+
+
+    class secure_scannerRecipe(ConanFile):
+        name = "secure_scanner"
+        version = "1.0"
+        settings = "os", "compiler", "build_type", "arch"
+        ...
+
+        def package_id(self):
+            del self.info.settings.compiler
+            del self.info.settings.build_type
+
+
+So, if we call :command:`conan create` with different ``build_type`` we will get exactly the same binary.
+
+
+.. code-block:: bash
+
+    $ conan create .
+    ...
+    Package '82339cc4d6db7990c1830d274cd12e7c91ab18a1' created
+
+    $ conan create . -s build_type=Debug
+    ...
+    Package '82339cc4d6db7990c1830d274cd12e7c91ab18a1' created
+
+We got the same binary package.
+
+
 Read more
 ---------
 
