@@ -238,9 +238,9 @@ to delete them in the ``configure()`` method:
         del self.settings.compiler.cppstd
         del self.settings.compiler.libcxx
 
-Please, note deleting these settings in the ``configure()`` method will modify the package
-ID calculation but will also affect how the toolchain, and the build system integrations
-work because the C++ settings do not exist.
+Please, note that deleting these settings in the ``configure()`` method will modify the
+package ID calculation but will also affect how the toolchain, and the build system
+integrations work because the C++ settings do not exist.
 
 Header-only libraries
 ^^^^^^^^^^^^^^^^^^^^^
