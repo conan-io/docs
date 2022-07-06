@@ -171,8 +171,7 @@ to install a package, Conan will:
   package with that package ID in the remotes.
 
 * If that calculated package ID does not exist in the local cache and remotes, Conan will
-  try to build that package from sources (this depends on the value of the ``--build``
-  argument). This build will generate a new package ID in the local cache.
+  fail with a "missing binary" error message, or will try to build that package from sources (this depends on the value of the ``--build`` argument). This build will generate a new package ID in the local cache.
 
 This steps are simplified, there is far more to package ID calculation than what we
 explain here, recipes themselves can even adjust their package ID calculations, we can
