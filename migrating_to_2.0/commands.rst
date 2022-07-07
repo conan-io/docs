@@ -20,6 +20,7 @@ Remember that in Conan 1.X you have to specify the build profile or activate the
 
     $ conan install . [--name=mylib] [--version=1.0] [-pr:b=build_profile] [-pr:h=host_profile]
 
+In addition the ``--install-folder`` has been replaced with ``--output-folder``. You might need to provide both arguments in Conan 1.X as some legacy generated files (``conaninfo.txt``, ``conanbuildinfo.txt``, etc) are not affected by ``--output-folder``.
 
 conan create
 ^^^^^^^^^^^^
