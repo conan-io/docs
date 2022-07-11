@@ -218,8 +218,8 @@ Read more
 
 .. container:: examples
 
+    - :ref:`Cross building to Android with the NDK<examples_cross_build_android_ndk>`
     - Cross-build using a tool_requires
     - How to require test frameworks like gtest: using ``test_requires``
-    - Using Conan to build for Android
     - Using Conan to build for iOS
     - Link to the VirtualBuildEnv reference
