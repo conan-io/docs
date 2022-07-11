@@ -1,2 +1,0 @@
-Packaging an application
-========================
