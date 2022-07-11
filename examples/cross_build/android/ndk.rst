@@ -70,5 +70,6 @@ directly so it is more common to build an Android application that uses the ``he
 Read more
 ---------
 
-Check the example :ref:`Integrating Conan in Android Studio<examples_cross_build_android_studio>` to know how to use your
-c++ libraries in a native Android application.
+- Check the example :ref:`Integrating Conan in Android Studio<examples_cross_build_android_studio>` to know how to use your
+  c++ libraries in a native Android application.
+- Check the tutorial :ref:`How to cross-compile your applications using Conan<consuming_packages_cross_building_with_conan>`.
