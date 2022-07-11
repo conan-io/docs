@@ -106,22 +106,22 @@ the generated binaries package IDs.
     [100%] Linking CXX static library libhello.a
     [100%] Built target hello
     hello/1.0: Package '738feca714b7251063cc51448da0cf4811424e7c' built
-    hello/1.0: Build folder /Users/carlosz/.conan2/p/tmp/7fe7f5af0ef27552/b/build/Release
+    hello/1.0: Build folder /Users/user/.conan2/p/tmp/7fe7f5af0ef27552/b/build/Release
     hello/1.0: Generated conaninfo.txt
     hello/1.0: Generating the package
-    hello/1.0: Temporary package folder /Users/carlosz/.conan2/p/tmp/7fe7f5af0ef27552/p
+    hello/1.0: Temporary package folder /Users/user/.conan2/p/tmp/7fe7f5af0ef27552/p
     hello/1.0: Calling package()
-    hello/1.0: CMake command: cmake --install "/Users/carlosz/.conan2/p/tmp/7fe7f5af0ef27552/b/build/Release" --prefix "/Users/carlosz/.conan2/p/tmp/7fe7f5af0ef27552/p"
-    hello/1.0: RUN: cmake --install "/Users/carlosz/.conan2/p/tmp/7fe7f5af0ef27552/b/build/Release" --prefix "/Users/carlosz/.conan2/p/tmp/7fe7f5af0ef27552/p"
+    hello/1.0: CMake command: cmake --install "/Users/user/.conan2/p/tmp/7fe7f5af0ef27552/b/build/Release" --prefix "/Users/user/.conan2/p/tmp/7fe7f5af0ef27552/p"
+    hello/1.0: RUN: cmake --install "/Users/user/.conan2/p/tmp/7fe7f5af0ef27552/b/build/Release" --prefix "/Users/user/.conan2/p/tmp/7fe7f5af0ef27552/p"
     -- Install configuration: "Release"
-    -- Installing: /Users/carlosz/.conan2/p/tmp/7fe7f5af0ef27552/p/lib/libhello.a
-    -- Installing: /Users/carlosz/.conan2/p/tmp/7fe7f5af0ef27552/p/include/hello.h
+    -- Installing: /Users/user/.conan2/p/tmp/7fe7f5af0ef27552/p/lib/libhello.a
+    -- Installing: /Users/user/.conan2/p/tmp/7fe7f5af0ef27552/p/include/hello.h
     hello/1.0 package(): Packaged 1 '.h' file: hello.h
     hello/1.0 package(): Packaged 1 '.a' file: libhello.a
     hello/1.0: Package '738feca714b7251063cc51448da0cf4811424e7c' created
     hello/1.0: Created package revision 3bd9faedc711cbb4fdf10b295268246e
     hello/1.0: Full package reference: hello/1.0#e6b11fb0cb64e3777f8d62f4543cd6b3:738feca714b7251063cc51448da0cf4811424e7c#3bd9faedc711cbb4fdf10b295268246e
-    hello/1.0: Package folder /Users/carlosz/.conan2/p/5c497cbb5421cbda/p
+    hello/1.0: Package folder /Users/user/.conan2/p/5c497cbb5421cbda/p
 
     $ conan create . --build=missing -s compiler.cppstd=gnu11 -s build_type=Debug -tf=None # -tf=None will skip buildiing the test_package
     ...
@@ -129,22 +129,22 @@ the generated binaries package IDs.
     [100%] Linking CXX static library libhello.a
     [100%] Built target hello
     hello/1.0: Package '3d27635e4dd04a258d180fe03cfa07ae1186a828' built
-    hello/1.0: Build folder /Users/carlosz/.conan2/p/tmp/19a2e552db727a2b/b/build/Debug
+    hello/1.0: Build folder /Users/user/.conan2/p/tmp/19a2e552db727a2b/b/build/Debug
     hello/1.0: Generated conaninfo.txt
     hello/1.0: Generating the package
-    hello/1.0: Temporary package folder /Users/carlosz/.conan2/p/tmp/19a2e552db727a2b/p
+    hello/1.0: Temporary package folder /Users/user/.conan2/p/tmp/19a2e552db727a2b/p
     hello/1.0: Calling package()
-    hello/1.0: CMake command: cmake --install "/Users/carlosz/.conan2/p/tmp/19a2e552db727a2b/b/build/Debug" --prefix "/Users/carlosz/.conan2/p/tmp/19a2e552db727a2b/p"
-    hello/1.0: RUN: cmake --install "/Users/carlosz/.conan2/p/tmp/19a2e552db727a2b/b/build/Debug" --prefix "/Users/carlosz/.conan2/p/tmp/19a2e552db727a2b/p"
+    hello/1.0: CMake command: cmake --install "/Users/user/.conan2/p/tmp/19a2e552db727a2b/b/build/Debug" --prefix "/Users/user/.conan2/p/tmp/19a2e552db727a2b/p"
+    hello/1.0: RUN: cmake --install "/Users/user/.conan2/p/tmp/19a2e552db727a2b/b/build/Debug" --prefix "/Users/user/.conan2/p/tmp/19a2e552db727a2b/p"
     -- Install configuration: "Debug"
-    -- Installing: /Users/carlosz/.conan2/p/tmp/19a2e552db727a2b/p/lib/libhello.a
-    -- Installing: /Users/carlosz/.conan2/p/tmp/19a2e552db727a2b/p/include/hello.h
+    -- Installing: /Users/user/.conan2/p/tmp/19a2e552db727a2b/p/lib/libhello.a
+    -- Installing: /Users/user/.conan2/p/tmp/19a2e552db727a2b/p/include/hello.h
     hello/1.0 package(): Packaged 1 '.h' file: hello.h
     hello/1.0 package(): Packaged 1 '.a' file: libhello.a
     hello/1.0: Package '3d27635e4dd04a258d180fe03cfa07ae1186a828' created
     hello/1.0: Created package revision 67b887a0805c2a535b58be404529c1fe
     hello/1.0: Full package reference: hello/1.0#e6b11fb0cb64e3777f8d62f4543cd6b3:3d27635e4dd04a258d180fe03cfa07ae1186a828#67b887a0805c2a535b58be404529c1fe
-    hello/1.0: Package folder /Users/carlosz/.conan2/p/c7796386fcad5369/p
+    hello/1.0: Package folder /Users/user/.conan2/p/c7796386fcad5369/p
 
 As you can see Conan generated two package IDs:
 
@@ -197,7 +197,7 @@ package ID will be the same for the **hello/1.0** binary:
     hello/1.0: Package '2a899fd0da3125064bf9328b8db681cd82899d56' created
     hello/1.0: Created package revision f0d1385f4f90ae465341c15740552d7e
     hello/1.0: Full package reference: hello/1.0#e6b11fb0cb64e3777f8d62f4543cd6b3:2a899fd0da3125064bf9328b8db681cd82899d56#f0d1385f4f90ae465341c15740552d7e
-    hello/1.0: Package folder /Users/carlosz/.conan2/p/8a55286c6595f662/p
+    hello/1.0: Package folder /Users/user/.conan2/p/8a55286c6595f662/p
 
     $ conan conan create . --build=missing -s compiler.cppstd=gnu11 -o shared=True -o fPIC=False -tf=None
     ...
