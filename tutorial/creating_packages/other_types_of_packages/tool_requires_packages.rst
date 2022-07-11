@@ -202,7 +202,7 @@ to remove them:
             del self.info.settings.build_type
 
 
-So, if we call :command:`conan create` with different ``build_type`` we will get exactly the same binary.
+So, if we call :command:`conan create` with different ``build_type`` we will get exactly the same ``package_id``.
 
 
 .. code-block:: bash
