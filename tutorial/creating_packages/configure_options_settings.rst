@@ -73,7 +73,18 @@ Be aware that deleting an option in the ``config_options()`` or in the ``configu
 not the same result. Deleting it in the ``config_options()`` **is like if we never declared
 it in the recipe** and it will raise an exception saying that the option does not exist.
 Nevertheless, if we delete it in the ``configure()`` method we can pass the option but it
-will have no effect.
+will have no effect. For example, if you try to pass a value to the ``fPIC`` option in
+Windows, Conan will raise an error warning that the option does not exist:
+
+.. code-block:: bash
+    :caption: Windows
+
+    $ conan create . --build=missing -o fPIC=True
+    ...
+    -------- Computing dependency graph --------
+    ERROR: option 'fPIC' doesn't exist
+    Possible options are ['shared', 'with_fmt']
+
 
 As you have noticed, the ``configure()`` and ``config_options()`` methods **delete an
 option** if certain conditions meet. Let's explain why we are doing this and the
