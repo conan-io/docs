@@ -244,7 +244,7 @@ Building the application
 If we build our project we can see that `conan install` is called multiple times building the different configurations
 of ``zlib``.
 
-Then if we run the application in a Virtual Device or in a real device pairing ir with the QR code we can see:
+Then if we run the application in a Virtual Device or in a real device pairing it with the QR code we can see:
 
 |zlib1.2.11|
 
