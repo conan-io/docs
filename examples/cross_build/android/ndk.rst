@@ -9,7 +9,7 @@ In this example, we are going to see how to cross-build a Conan package to Andro
 First of all, download the Android NDK from `the download page <https://developer.android.com/ndk/downloads>`_
 and unzip it. In MacOS you can also install it with ``brew install android-ndk``.
 
-Then `go to the ``profiles`` folder in the conan config home directory (check it running :command:`conan config home`)
+Then go to the ``profiles`` folder in the conan config home directory (check it running :command:`conan config home`)
 and create a file named ``android`` with the following contents:
 
 .. code-block:: text
