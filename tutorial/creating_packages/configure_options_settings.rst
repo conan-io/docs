@@ -27,11 +27,7 @@ You will notice some changes in the **conanfile.py** file from the previous reci
 Let's check the relevant parts:
 
 .. code-block:: python
-    :emphasize-lines: 25
-
-    ...
-    from conan.tools.build import check_min_cppstd
-    ...
+    :emphasize-lines: 21
 
     class helloRecipe(ConanFile):
         name = "hello"
