@@ -47,7 +47,7 @@ Let's check the relevant parts:
     :emphasize-lines: 12,16,20,27,30,35
 
     ...
-    from conan.tools.build import check_min_cppstd
+    from conan.tools.build import check_max_cppstd, check_min_cppstd
     ...
 
     class helloRecipe(ConanFile):
@@ -67,6 +67,7 @@ Let's check the relevant parts:
         def validate(self):
             if self.info.options.with_fmt:
                 check_min_cppstd(self, "11")
+                check_max_cppstd(self, "14")
 
         def source(self):
             git = Git(self)
@@ -93,7 +94,8 @@ As you can see:
 * Based on the value of the ``with_fmt`` option:
 
     - We install or not the ``fmt/8.1.1`` Conan package.
-    - We require or not a minimum C++ standard as the *fmt* library requires at least C++11.
+    - We require or not a minimum and a maximum C++ standard as the *fmt* library requires at least C++11 and our
+      settings support at most C++14.
     - We inject the ``WITH_FMT`` variable with the value ``True`` to the :ref:`CMakeToolchain<conan-cmake-toolchain>` so that we
       can use it in the *CMakeLists.txt* of the **hello** library to add the CMake **fmt::fmt** target
       conditionally.

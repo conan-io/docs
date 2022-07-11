@@ -31,9 +31,9 @@ You will notice some changes in the `conanfile.py` file from the previous recipe
 Let's check the relevant parts:
 
 .. code-block:: python
-    
+
     ...
-    from conan.tools.build import check_min_cppstd
+    from conan.tools.build import check_max_cppstd, check_min_cppstd
     ...
 
     class helloRecipe(ConanFile):
@@ -46,6 +46,7 @@ Let's check the relevant parts:
 
         def validate(self):
             check_min_cppstd(self, "11")
+            check_max_cppstd(self, "14")
 
         def requirements(self):
             self.requires("fmt/8.1.1")
@@ -74,8 +75,9 @@ Let's check the relevant parts:
   recipe. We already used this method in the :ref:`consuming packages
   section<consuming_packages_flexibility_of_conanfile_py>` to raise an error for
   non-supported configurations. Here, we call the
-  :ref:`check_min_cppstd()<conan_tools_build_check_min_cppstd>` to check that we are at
-  least using C++11 standard in our settings.
+  :ref:`check_min_cppstd()<conan_tools_build_check_min_cppstd>` and
+  :ref:`check_max_cppstd()<conan_tools_build_check_max_cppstd>` to check that we are using at
+  least C++11 and at most C++14 standards in our settings.
 
 
 You can check the new sources, using the fmt library in the
