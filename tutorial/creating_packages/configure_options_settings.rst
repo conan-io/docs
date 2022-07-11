@@ -76,7 +76,7 @@ Nevertheless, if we delete it in the ``configure()`` method we can pass the opti
 will have no effect. For example, if you try to pass a value to the ``fPIC`` option in
 Windows, Conan will raise an error warning that the option does not exist:
 
-.. code-block:: bash
+.. code-block:: text
     :caption: Windows
 
     $ conan create . --build=missing -o fPIC=True
