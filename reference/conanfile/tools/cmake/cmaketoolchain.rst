@@ -302,7 +302,7 @@ conf
 
 ``CMakeToolchain`` is affected by these :ref:`[conf]<global_conf>` variables:
 
-- ``tools.cmake.cmaketoolchain:generator`` CMake generator to be used by cmake CLI. See all the CMake generators `here <https://cmake.org/cmake/help/latest/manual/cmake-generators.7.html#cmake-generators>`_.
+- ``tools.cmake.cmaketoolchain:generator`` CMake generator to be used by cmake CLI. See all the CMake generators `here <https://cmake.org/cmake/help/latest/manual/cmake-generators.7.html#cmake-generators>`__.
 - ``tools.cmake.cmaketoolchain:toolchain_file`` user toolchain file to replace the ``conan_toolchain.cmake`` one.
 - ``tools.cmake.cmaketoolchain:user_toolchain`` list of user toolchains to be included from the ``conan_toolchain.cmake`` file.
 - ``tools.android:ndk_path`` value for ``ANDROID_NDK_PATH``.
