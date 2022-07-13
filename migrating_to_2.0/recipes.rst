@@ -241,7 +241,6 @@ A typical anti-pattern in the recipes that can be solved with a ``layout()`` dec
 
      class Pkg(Conanfile):
 
-        @property
         def layout(self):
             basic_layout(self, src_folder="source")
 
