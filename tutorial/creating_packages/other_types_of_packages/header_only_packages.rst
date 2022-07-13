@@ -1,3 +1,5 @@
+.. _creating_packages_other_header_only:
+
 Header-only packages
 ====================
 
