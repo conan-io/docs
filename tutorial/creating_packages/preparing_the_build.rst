@@ -6,7 +6,7 @@ Preparing the build
 
 .. important::
 
-    In this example, we retrieve the CMake Conan package from a Conan repository with
+    In this example, we retrieve the *fmt* Conan package from a Conan repository with
     packages compatible with Conan 2.0. To run this example successfully you should add this
     remote to your Conan configuration (if did not already do it) doing:
     ``conan remote add conanv2 https://conanv2beta.jfrog.io/artifactory/api/conan/conan --index 0``
@@ -71,6 +71,8 @@ Let's check the relevant parts:
         def source(self):
             git = Git(self)
             git.clone(url="https://github.com/conan-io/libhello.git", target=".")
+            # Please, be aware that using the head of the branch instead of an inmutable tag
+            # or commit is not a good practice in general
             git.checkout("optional_fmt")
 
         def requirements(self):

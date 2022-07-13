@@ -1,2 +1,0 @@
-Validate and configure packages
-===============================

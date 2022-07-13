@@ -15,7 +15,8 @@ define inside a Conan recipe and the things you can do inside them:
 
 * Use the ``generate()`` method to prepare the package build, and customize the toolchain.
 
-* Mark some configurations as not supported for your packages using the ``validate()`` method.
+* Configure settings and options in the ``configure()`` and ``config_options()``
+  methods and how they affect the packages' binary compatibility.
 
 * Use the ``build()`` method to customize the build process and launch the tests for the
   library you are packaging. 
@@ -38,7 +39,7 @@ packaging your own applications.
    creating_packages/handle_sources_in_packages
    creating_packages/add_dependencies_to_packages
    creating_packages/preparing_the_build
-   creating_packages/validate_and_configure_packages
+   creating_packages/configure_options_settings
    creating_packages/build_packages
    creating_packages/install_packages
    creating_packages/define_package_information
