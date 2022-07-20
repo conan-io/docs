@@ -156,7 +156,7 @@ Notice that it needs a ``layout`` to be able to initialize those ``self.cpp.pack
 
 .. note::
 
-    All of them are saved only if they have any value. If the values is ``None``, they won't be mentioned
+    All of them are saved only if they have any value. If the values are``None``, they won't be mentioned
     in ``[project options]`` section.
 
 
