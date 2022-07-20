@@ -251,7 +251,7 @@ Objective-C arguments
 
 Since Conan 1.51, it's been introduced some specific Objective-C arguments: ``objc``, ``objcpp``, ``objc_args``,
 ``objc_link_args``, ``objcpp_args``, and ``objcpp_link_args``, as public attributes of the ``MesonToolchain`` class, where
-``objc = "clang"`` and ``objcpp = "clang++"`` by default.
+the variables ``objc`` and ``objcpp`` are initialized as ``clang`` and ``clang++`` respectively by default.
 
 .. note::
 
