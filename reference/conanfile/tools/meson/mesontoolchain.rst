@@ -150,7 +150,7 @@ Notice that it needs a ``layout`` to be able to initialize those ``self.cpp.pack
 
         def generate(self):
             tc = MesonToolchain(self)
-            print(tc.project_options["datadir"])  # Will print '["res"]'
+            self.output.info(tc.project_options["datadir"])  # Will print '["res"]'
             tc.generate()
 
 
