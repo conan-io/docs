@@ -119,8 +119,8 @@ Please, do not use other generators, as they can have overlapping definitions th
 Default directories
 +++++++++++++++++++++
 
-Since Conan 1.51, ``MesonToolchain`` manages some of the directories used by Meson. They are `conan_meson_*.ini`
-variables declared under the ``[project options]`` section
+Since Conan 1.51, ``MesonToolchain`` manages some of the directories used by Meson. They are `conan_meson_native.ini`
+and `conan_meson_cross.ini` variables declared under the ``[project options]`` section
 (see more information about `Meson directories <https://mesonbuild.com/Builtin-options.html#directories>`__):
 
 
