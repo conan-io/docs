@@ -312,10 +312,13 @@ Some notes about migrating recipes that used SystemPackageTool to these new tool
 ---------------------------------------------------------------------------------
 
 There are some changes you should be aware of if you are migrating from
-:ref:`systempackagetool` to these new tools:
+:ref:`systempackagetool` to these new tools to prepare the recipe to be ready for Conan
+2.0:
 
 * Unlike in :ref:`systempackagetool` that uses ``CONAN_SYSREQUIRES_SUDO`` and is set as ``True``
   as default, the ``tools.system.package_manager:sudo`` configuration is ``False`` by default.
 * :ref:`systempackagetool` is initialized with ``default_mode='enabled'`` but for these new
   tools ``tools.system.package_manager:mode='check'`` by default.
 
+For more tips on how to make your recipes compatible with Conan 2.0, please check the
+:ref:`migration guide<conan2_migration_guide>`.
