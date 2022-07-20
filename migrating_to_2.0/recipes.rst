@@ -841,7 +841,14 @@ If any manipulation to the symlinks is required, the package :ref:`conan.tools.f
 contains some tools to help with that.
 
 
+New tools for managing system package managers
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+There are some changes you should be aware of if you are migrating from
+:ref:`systempackagetool` to the new :ref:`conan_tools_system_package_manager` to prepare
+the recipe to be ready for Conan 2.0:
 
-
-
+* Unlike in :ref:`systempackagetool` that uses ``CONAN_SYSREQUIRES_SUDO`` and is set as ``True``
+  as default, the ``tools.system.package_manager:sudo`` configuration is ``False`` by default.
+* :ref:`systempackagetool` is initialized with ``default_mode='enabled'`` but for these new
+  tools ``tools.system.package_manager:mode='check'`` by default.
