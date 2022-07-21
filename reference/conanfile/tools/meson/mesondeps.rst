@@ -13,7 +13,7 @@ but sometimes we need to gather some flags coming from ``Autotools`` tool so tha
 when Meson cannot find a dependency using the already known `detection mechanisms <https://mesonbuild.com/Dependencies.html>`__ like: `pkg-config`, `cmake`, `config-tool`, etc.
 For instance, if we'd have these lines in your `meson.build` file, you might need ``MesonDeps`` to find that dependency and inject the correct flags to the compiler:
 
-.. code-block::
+.. code-block:: text
     :caption: **meson.build**
 
     project('tutorial', 'cpp')
