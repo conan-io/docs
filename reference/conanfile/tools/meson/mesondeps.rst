@@ -16,7 +16,8 @@ For instance, if we'd have these lines in your `meson.build` file, you might nee
 .. code-block::
     :caption: **meson.build**
 
-    # ...
+    project('tutorial', 'cpp')
+    cxx = meson.get_compiler('cpp')
     mylib = cxx.find_library('mylib', required: true)
     executable('app', 'main.cpp', dependencies: mylib)
 
