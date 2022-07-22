@@ -3,6 +3,8 @@
 MesonToolchain
 ==============
 
+.. _MesonToolchain:
+
 The ``MesonToolchain`` is the toolchain generator for Meson and it can be used in the ``generate()`` method
 as follows:
 
