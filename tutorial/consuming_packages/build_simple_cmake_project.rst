@@ -260,6 +260,6 @@ Now we are ready to build and run our **compressor** app:
 Read more
 ---------
 
+- :ref:`Getting started with Meson<examples_tools_meson_toolchain_build_simple_meson_project>`
 - Getting started with Autotools
-- Getting started with Meson
 - ...
