@@ -286,15 +286,15 @@ so you can use the ``--preset`` argument from ``cmake >= 3.23`` or use an IDE:
     $ conan install . -s build_type=Debug
 
     # For single-configuration generator
-    $ cmake --preset Debug
-    $ cmake --build --preset Debug
-    $ cmake --preset Release
-    $ cmake --build --preset Release
+    $ cmake --preset debug
+    $ cmake --build --preset debug
+    $ cmake --preset release
+    $ cmake --build --preset release
 
     # For multi-configuration generator
     $ cmake --preset default
-    $ cmake --build --preset Debug
-    $ cmake --build --preset Release
+    $ cmake --build --preset debug
+    $ cmake --build --preset release
 
 
 conf
