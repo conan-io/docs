@@ -62,7 +62,7 @@ conf to declare a list of settings or options:
 
 .. code:: bash
 
-    conan install . -c tools.cmake.cmake_layout:build_folder_vars='["settings.compiler", "options.shared"]'
+    conan install . -c tools.cmake.cmake_layout:build_folder_vars="['settings.compiler', 'options.shared']"
 
 For the previous example, the values assigned by the ``cmake_layout`` (installing the Release/static default
 configuration) would be:
@@ -76,7 +76,7 @@ If we repeat the previous install with a different configuration:
 
 .. code:: bash
 
-    conan install . -o shared=True -c tools.cmake.cmake_layout:build_folder_vars='["settings.compiler", "options.shared"]'
+    conan install . -o shared=True -c tools.cmake.cmake_layout:build_folder_vars="['settings.compiler', 'options.shared']"
 
 The values assigned by the ``cmake_layout`` (installing the Release/shared configuration) would be:
 
