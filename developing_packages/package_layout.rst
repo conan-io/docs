@@ -547,7 +547,7 @@ Lets say that we have a project that contains multiple subprojects, and some of 
 to access some information that is at their same level (sibling folders). Each subproject would be 
 a Conan package.
 
-Lets say we have the following folders and files:
+So we have the following folders and files:
 
 .. code-block:: text
 
