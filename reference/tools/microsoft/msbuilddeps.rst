@@ -41,6 +41,9 @@ And it can also be fully instantiated in the conanfile ``generate()`` method:
             ms.generate()
 
 
+Generated files
+---------------
+
 The ``MSBuildDeps`` generator is a multi-configuration generator, and generates different files for any different
 Debug/Release configuration. For instance, running these commands:
 
@@ -69,6 +72,27 @@ Add the *conandeps.props* to your solution project files if you want to depend o
 dependencies. For single project solutions, this is probably the way to go. For multi-project solutions, you might
 be more efficient and add properties files per project. You could add *conan_zlib.props* properties to "project1"
 in the solution and *conan_bzip2.props* to "project2" in the solution for example.
+
+The above files are generated when the package doesn't have components. If the package has defined components, the following files
+will be generated:
+
+- *conan_pkgname_compname_vars_release_x64.props*: Definition of variables for the component ``compname`` of the package ``pkgname``
+- *conan_pkgname_compname_release_x64.props*: Activation of the above variables into VS effective variables to be used in the build
+- *conan_pkgname_compname.props*: Properties file for component ``compname`` of package ``pkgname``. It conditionally includes, depending on the configuration,
+  the specific activation property files.
+- *conan_pkgname.props*: Properties file for package ``pkgname``. It includes and aggregates all the components of the package.
+- *conandeps.props*: Same as above, aggregates all the direct dependencies property files for the packages (like ``conan_pkgname.props``)
+
+If your project depends only on certain components, the specific ``conan_pkgname_compname.props`` files can be added to the project instead of the global or
+the package ones.
+
+Requirement traits support
+++++++++++++++++++++++++++
+
+The above generated files, more specifically the files containing the variables (``conan_pkgname_vars_release_x64.props/conan_pkgname_compname_vars_release_x64.props``),
+will not contain all the information if the requirement traits have excluded them. For example, by default, the ``includedirs`` of transitive dependencies
+will be empty, as those headers shouldn't be included by the user unless a specific ``requires`` to that package is defined.
+
 
 Configurations
 ---------------

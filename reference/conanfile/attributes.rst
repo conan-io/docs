@@ -672,6 +672,8 @@ The ``folders`` attribute has to be set only in the ``layout()`` method.
    - **self.folders.root**: To specify the relative path from the ``conanfile.py`` to the root of the project, in case
      the ``conanfile.py`` is in a subfolder and not in the project root. If defined, all the other paths will be relative to
      the project root, not to the location of the ``conanfile.py``.
+   - **self.folders.subproject**: To use together with ``self.folders.root``, in case such a subproject needs to access some
+     files that are located in a sibling folder.
 
    .. seealso::
 
