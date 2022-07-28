@@ -204,7 +204,7 @@ The following properties affect the CMakeDeps generator:
 - **cmake_module_file_name**: Same as **cmake_file_name** but when generating modules with ``cmake_find_mode=module/both``. If not specified it will default to **cmake_file_name**.
 - **cmake_module_target_name**: Same as **cmake_target_name**  but when generating modules with ``cmake_find_mode=module/both``.  If not specified it will default to **cmake_target_name**.
 - **cmake_build_modules**: List of ``.cmake`` files (route relative to root package folder) that are automatically
-  included when the consumer run the ``find_package()``.
+  included when the consumer run the ``find_package()``. This property cannot be set in the components, only in the root ``self.cpp_info``.
 - **cmake_set_interface_link_directories**: boolean value that should be only used by dependencies that don't declare `self.cpp_info.libs` but have ``#pragma comment(lib, "foo")`` (automatic link) declared at the public headers. Those dependencies should
   add this property to their *conanfile.py* files at root ``cpp_info`` level (components not supported for now).
 - **nosoname**: boolean value that should be used only by dependencies that are defined as ``SHARED`` and represent a library built without the ``soname`` flag option.
@@ -219,13 +219,14 @@ Example:
         self.cpp_info.set_property("cmake_file_name", "MyFileName")
         # Names for targets are absolute, Conan won't add any namespace to the target names automatically
         self.cpp_info.set_property("cmake_target_name", "Foo::Foo")
+        # Automatically include the lib/mypkg.cmake file when calling find_package()
+        # This property cannot be set in a component.
+        self.cpp_info.set_property("cmake_build_modules", [os.path.join("lib", "mypkg.cmake")])
 
         # Create a new target "MyFooAlias" that is an alias to the "Foo::Foo" target
         self.cpp_info.set_property("cmake_target_aliases", ["MyFooAlias"])
 
         self.cpp_info.components["mycomponent"].set_property("cmake_target_name", "Foo::Var")
-        # Automatically include the lib/mypkg.cmake file when calling find_package()
-        self.cpp_info.components["mycomponent"].set_property("cmake_build_modules", [os.path.join("lib", "mypkg.cmake")])
 
         # Create a new target "VarComponent" that is an alias to the "Foo::Var" component target
         self.cpp_info.components["mycomponent"].set_property("cmake_target_aliases", ["VarComponent"])
