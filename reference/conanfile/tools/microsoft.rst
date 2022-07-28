@@ -83,10 +83,22 @@ configuration. The above commands the following files will be generated:
 - *conandeps.props*: Properties files including all direct dependencies, in this case, it includes ``conan_zlib.props``
   and ``conan_bzip2.props``
 
+The above files are generated when the package doesn't have components. If the package has defined components, the following files
+will be generated:
+
+- *conan_pkgname_compname_vars_release_x64.props*: Definition of variables for the component ``compname`` of the package ``pkgname``
+- *conan_pkgname_compname_release_x64.props*: Activation of the above variables into VS effective variables to be used in the build
+- *conan_pkgname_compname.props*: Properties file for component ``compname`` of package ``pkgname``. It conditionally includes, depending on the configuration,
+  the specific activation property files.
+- *conan_pkgname.props*: Properties file for package ``pkgname``. It includes and aggregates all the components of the package.
+- *conandeps.props*: Same as above, aggregates all the direct dependencies property files for the packages (like ``conan_pkgname.props``)
+
+
 You will be adding the *conandeps.props* to your solution project files if you want to depend on all the declared
 dependencies. For single project solutions, this is probably the way to go. For multi-project solutions, you might
 be more efficient and add properties files per project. You could add *conan_zlib.props* properties to "project1"
-in the solution and *conan_bzip2.props* to "project2" in the solution for example.
+in the solution and *conan_bzip2.props* to "project2" in the solution for example. If the package has components, you
+can also add to your solution the specific components you depend on, and not all of them.
 
 Custom configurations
 +++++++++++++++++++++
