@@ -673,7 +673,7 @@ New properties defined for *CMake* generators family, used by :ref:`CMakeDeps<CM
 - **cmake_target_name** property will define the absolute target name in ``CMakeDeps``
 - **cmake_module_file_name** property defines the generated filename for modules (``Findxxxx.cmake``)
 - **cmake_module_target_name** defines the absolute target name for find modules.
-- **cmake_build_modules** property replaces the ``build_modules`` property.
+- **cmake_build_modules** property replaces the ``build_modules`` property. It can't be declared in a component, do it in ``self.cpp_info``.
 - **cmake_find_mode** will tell :ref:`CMakeDeps<CMakeDeps>` to generate config
   files, modules files, both or none of them, depending on the value set (``config``,
   ``module``, ``both`` or ``none``)
