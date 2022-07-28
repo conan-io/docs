@@ -193,6 +193,35 @@ are valid.
                 raise ConanInvalidConfiguration("This package is not compatible with Windows")
 
 
+If you are not checking if the resulting binary is valid for the current configuration but need to check if a package
+can be built or not for a specific configuration you must use the ``validate_build()`` method instead using ``self.settings``
+and ``self.options`` to perform the checks:
+
+
+.. code-block:: python
+
+    from conan import ConanFile
+    from conan.errors import ConanInvalidConfiguration
+
+    class myConan(ConanFile):
+        name = "foo"
+        version = "1.0"
+        settings = "os", "arch", "compiler"
+
+        def package_id(self):
+            # For this package, it doesn't matter the compiler used for the binary package
+            del self.info.settings.compiler
+
+        def validate_build(self):
+            # But we know this cannot be build with "gcc"
+            if self.settings.compiler == "gcc":
+                raise ConanInvalidConfiguration("This doesn't build in GCC")
+
+        def validate(self):
+            # We shouldn't check here if the self.info.settings.compiler because it has been removed in the package_id()
+            # so it doesn't make sense to check if the binary is compatible with gcc because the compiler doesn't matter
+            pass
+
 
 The layout() method
 -------------------
