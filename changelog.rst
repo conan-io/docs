@@ -21,6 +21,11 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.50 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
     a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.50.1 (28-Jul-2022)
+--------------------
+
+- Bugfix: Port #11614. CMakeToolchain avoid setting CMAKE_INSTALL_XXX variables if the values are not defined. `#11719 <https://github.com/conan-io/conan/pull/11719>`_
+
 1.50.0 (29-Jun-2022)
 --------------------
 
