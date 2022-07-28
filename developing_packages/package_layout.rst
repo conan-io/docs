@@ -558,7 +558,7 @@ So we have the following folders and files:
     ├── common
     │    ├── myutils.cmake
     │    └── myheader.h
-    ├── othersubproject
+    └── othersubproject
 
 
 The ``pkg`` subproject needs to use some of the files located inside the ``common`` folder (that might be
