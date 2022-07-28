@@ -193,6 +193,35 @@ are valid.
                 raise ConanInvalidConfiguration("This package is not compatible with Windows")
 
 
+If you are not checking if the resulting binary is valid for the current configuration but need to check if a package
+can be built or not for a specific configuration you must use the ``validate_build()`` method instead using ``self.settings``
+and ``self.options`` to perform the checks:
+
+
+.. code-block:: python
+
+    from conan import ConanFile
+    from conan.errors import ConanInvalidConfiguration
+
+    class myConan(ConanFile):
+        name = "foo"
+        version = "1.0"
+        settings = "os", "arch", "compiler"
+
+        def package_id(self):
+            # For this package, it doesn't matter the compiler used for the binary package
+            del self.info.settings.compiler
+
+        def validate_build(self):
+            # But we know this cannot be build with "gcc"
+            if self.settings.compiler == "gcc":
+                raise ConanInvalidConfiguration("This doesn't build in GCC")
+
+        def validate(self):
+            # We shouldn't check here if the self.info.settings.compiler because it has been removed in the package_id()
+            # so it doesn't make sense to check if the binary is compatible with gcc because the compiler doesn't matter
+            pass
+
 
 The layout() method
 -------------------
@@ -643,7 +672,7 @@ New properties defined for *CMake* generators family, used by :ref:`CMakeDeps<CM
 - **cmake_target_name** property will define the absolute target name in ``CMakeDeps``
 - **cmake_module_file_name** property defines the generated filename for modules (``Findxxxx.cmake``)
 - **cmake_module_target_name** defines the absolute target name for find modules.
-- **cmake_build_modules** property replaces the ``build_modules`` property.
+- **cmake_build_modules** property replaces the ``build_modules`` property. It can't be declared in a component, do it in ``self.cpp_info``.
 - **cmake_find_mode** will tell :ref:`CMakeDeps<CMakeDeps>` to generate config
   files, modules files, both or none of them, depending on the value set (``config``,
   ``module``, ``both`` or ``none``)

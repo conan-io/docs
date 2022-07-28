@@ -161,7 +161,8 @@ Could be declared like this with the properties model:
     def package_info(self):
         ...
         self.cpp_info.components["mycomponent"].set_property("cmake_target_name", "component_namespace::mycomponent-name")
-        self.cpp_info.components["mycomponent"].set_property("cmake_build_modules", [os.path.join("lib", "mypkg_bm.cmake")])
+        # The property "cmake_build_modules" can't be declared in a component, do it in self.cpp_info
+        self.cpp_info.set_property("cmake_build_modules", [os.path.join("lib", "mypkg_bm.cmake")])
         self.cpp_info.components["mycomponent"].set_property("pkg_config_name", "mypkg-config-name")
         self.cpp_info.components["mycomponent"].set_property("custom_name", "mycomponent-name", "custom_generator")
         ...

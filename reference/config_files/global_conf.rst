@@ -44,6 +44,7 @@ To list all possible configurations available, run :command:`conan config list`.
 .. code-block:: text
 
     $ conan config list
+
     core:required_conan_version: Raise if current version does not match the defined range.
     core.package_id:msvc_visual_incompatible: Allows opting-out the fallback from the new msvc compiler to the Visual Studio compiler existing binaries
     core:default_profile: Defines the default host profile ('default' by default)
@@ -59,8 +60,9 @@ To list all possible configurations available, run :command:`conan config list`.
     tools.cmake.cmaketoolchain:system_name: Define CMAKE_SYSTEM_NAME in CMakeToolchain
     tools.cmake.cmaketoolchain:system_version: Define CMAKE_SYSTEM_VERSION in CMakeToolchain
     tools.cmake.cmaketoolchain:system_processor: Define CMAKE_SYSTEM_PROCESSOR in CMakeToolchain
+    tools.cmake.cmaketoolchain.presets:max_schema_version: Generate CMakeUserPreset.json compatible with the supplied schema version
     tools.env.virtualenv:auto_use: Automatically activate virtualenv file generation
-    tools.cmake.cmake_layout.build_folder_vars: Settings and Options that will produce a different build folder and different CMake presets names
+    tools.cmake.cmake_layout:build_folder_vars: Settings and Options that will produce a different build folder and different CMake presets names
     tools.files.download:retry: Number of retries in case of failure when downloading
     tools.files.download:retry_wait: Seconds to wait between download attempts
     tools.gnu:make_program: Indicate path to make program
