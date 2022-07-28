@@ -13,7 +13,7 @@ It can be declared as:
 
 .. code-block:: python
 
-    from conans import ConanFile
+    from conan import ConanFile
 
     class Pkg(ConanFile):
         generators = "CMakeToolchain"
@@ -22,7 +22,7 @@ Or fully instantiated in the ``generate()`` method:
 
 .. code-block:: python
 
-    from conans import ConanFile
+    from conan import ConanFile
     from conan.tools.cmake import CMakeToolchain
 
     class App(ConanFile):
@@ -178,7 +178,7 @@ There are two ways of providing custom CMake toolchain files:
     .. code:: python
 
         import os
-        from conans import ConanFile
+        from conan import ConanFile
         class MyToolchainPackage(ConanFile):
             ...
             def package_info(self):
@@ -193,7 +193,7 @@ There are two ways of providing custom CMake toolchain files:
     .. code:: python
 
         import os
-        from conans import ConanFile
+        from conan import ConanFile
         class MyToolRequire(ConanFile):
             ...
             def package_info(self):
@@ -206,7 +206,7 @@ There are two ways of providing custom CMake toolchain files:
 
     .. code:: python
 
-        from conans import ConanFile
+        from conan import ConanFile
         from conan.tools.cmake import CMake
         class Pkg(ConanFile):
             settings = "os", "compiler", "arch", "build_type"

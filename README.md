@@ -112,7 +112,7 @@ indentation. Documentation makes an extensive use of bash, python, txt and cmake
 ```
 .. code-block:: python
 
-    from conans import ConanFile
+    from conan import ConanFile
 
     class EigenConan(ConanFile)
         name = "eigen"

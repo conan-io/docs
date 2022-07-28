@@ -161,7 +161,7 @@ user, channel
 
    .. code-block:: python
 
-       from conans import ConanFile
+       from conan import ConanFile
 
        class HelloConan(ConanFile):
            name = "hello"
@@ -871,7 +871,7 @@ Its basic syntax is:
 
 .. code-block:: python
 
-    from conans import ConanFile
+    from conan import ConanFile
 
     class Pkg(ConanFile):
         python_requires = "pyreq/0.1@user/channel"  # recipe to reuse code from
@@ -896,7 +896,7 @@ to use.
 
 .. code-block:: python
 
-    from conans import ConanFile
+    from conan import ConanFile
 
     class Pkg(ConanFile):
         python_requires = "pyreq/0.1@user/channel", "utils/0.1@user/channel"
@@ -940,7 +940,7 @@ deprecated
 
       .. code-block:: python
 
-          from conans import ConanFile
+          from conan import ConanFile
 
           class Pkg(ConanFile):
               name = "cpp-taskflow"
@@ -957,7 +957,7 @@ deprecated
 
       .. code-block:: python
 
-          from conans import ConanFile
+          from conan import ConanFile
 
           class Pkg(ConanFile):
               name = "cpp-taskflow"
@@ -992,7 +992,7 @@ provides
 
       .. code-block:: python
 
-          from conans import ConanFile
+          from conan import ConanFile
 
           class LibJpegTurbo(ConanFile):
               name = "libjpeg-turbo"
@@ -1004,7 +1004,7 @@ provides
 
       .. code-block:: python
 
-          from conans import ConanFile
+          from conan import ConanFile
 
           class OpenBLAS(ConanFile):
               name = "openblas"
@@ -1024,7 +1024,7 @@ win_bash
 
       .. code-block:: python
 
-          from conans import ConanFile
+          from conan import ConanFile
 
           class FooRecipe(ConanFile):
               ...
@@ -1035,7 +1035,7 @@ win_bash
 
       .. code-block:: python
 
-          from conans import ConanFile
+          from conan import ConanFile
 
           class FooRecipe(ConanFile):
               ...
