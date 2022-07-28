@@ -45,7 +45,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Fix: Get the cpu count for cgroup2 from `/sys/fs/cgroup/cpu.max`. `#11667 <https://github.com/conan-io/conan/pull/11667>`_ . Docs `here <https://github.com/conan-io/docs/pull/2658>`__
 - Fix: Improve opensuse detection in `tool.system.package_manager`. `#11660 <https://github.com/conan-io/conan/pull/11660>`_
 - Fix: Add raspbian to default `tools.system.package_manager` package manager mapping. `#11654 <https://github.com/conan-io/conan/pull/11654>`_ . Docs `here <https://github.com/conan-io/docs/pull/2663>`__
-- Fix: Allow templates for :command:`conan new` to contain _Readme.md_ and _LICENSE.txt files_. `#11645 <https://github.com/conan-io/conan/pull/11645>`_
+- Fix: Allow templates for :command:`conan new` to contain `Readme.md` and `LICENSE.txt` files. `#11645 <https://github.com/conan-io/conan/pull/11645>`_
 - Fix: Remove ``conan_message()`` in ``CMakeDeps``. `#11625 <https://github.com/conan-io/conan/pull/11625>`_
 - Fix: In `conans.tools.collect_libs` and `conan.tools.files.collect_libs`, avoids to list other flavors (version, soversion) of the same `dylib` on macOS, so that behavior is consistent on Linux & macOS. `#11527 <https://github.com/conan-io/conan/pull/11527>`_ . Docs `here <https://github.com/conan-io/docs/pull/2610>`__
 - Bugfix: The `AutotoolsToolchain` now clears `None` values from the attributes `.cxxflags`, `.cflags`, `.ldflags` and `.defines`. `#11678 <https://github.com/conan-io/conan/pull/11678>`_ . Docs `here <https://github.com/conan-io/docs/pull/2660>`__
