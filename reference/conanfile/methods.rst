@@ -672,6 +672,10 @@ The ``validate_build()`` method has to use always the ``self.settings`` and ``se
             if self.settings.compiler == "gcc":
                 raise ConanInvalidConfiguration("This doesn't build in GCC")
 
+        def validate(self):
+            # We shouldn't check here the self.info.settings.compiler because it has been removed in the package_id()
+            # so it doesn't make sense to check if the binary is compatible with gcc because the compiler doesn't matter
+            pass
 
 
 
