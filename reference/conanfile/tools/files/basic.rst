@@ -191,7 +191,7 @@ conan.tools.files.rmdir()
 
 .. code-block:: python
 
-    def rmdir(path)
+    def rmdir(conanfile, path)
 
 Utility functions to remove a directory. The existence of the specified directory is checked, so ``rmdir()`` will do nothing if the
 directory doesn't exists.
@@ -207,6 +207,10 @@ directory doesn't exists.
 Parameters:
     - **conanfile**: Conanfile object.
     - **path**: Path to the directory.
+
+The behavior regarding the path is the same as Python ``shutil.rmtree``. The provided path can be
+relative to the current folder (the current folder depends in which method this tool is used), or
+it can be an absolute path.
 
 
 conan.tools.files.chdir()

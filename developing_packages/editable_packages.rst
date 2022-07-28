@@ -73,15 +73,15 @@ Now the ``say/0.1@user/channel`` package is in editable mode, lets build it loca
     # windows, we will build 2 configurations to show multi-config
     $ conan install . -s build_type=Release
     $ conan install . -s build_type=Debug
-    $ mkdir build && cd build
-    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan/conan_toolchain.cmake
+    $ cd build
+    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake
     $ cmake --build . --config Release
     $ cmake --build . --config Debug
 
     # Linux, we will only build 1 configuration
     $ conan install .
-    $ mkdir cmake-build-release && cd cmake-build-release
-    $ cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=conan/conan_toolchain.cmake
+    $ cd build/Release
+    $ cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake
     $ cmake --build .
 
 
@@ -98,8 +98,8 @@ In this case we can build the ``hello`` application as usual:
     # windows, we will build 2 configurations to show multi-config
     $ conan install . -s build_type=Release
     $ conan install . -s build_type=Debug
-    $ mkdir build && cd build
-    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
+    $ cd build
+    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake
     $ cmake --build . --config Release
     $ cmake --build . --config Debug
     $ Release\hello.exe
@@ -109,8 +109,8 @@ In this case we can build the ``hello`` application as usual:
 
     # Linux, we will only build 1 configuration
     $ conan install .
-    $ mkdir cmake-build-release && cd cmake-build-release
-    $ cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
+    $ cd build/Release
+    $ cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake
     $ cmake --build .
     $ ./hello
     say/0.1: Hello World Release!
@@ -134,7 +134,7 @@ Lets see it, lets start by doing a change in the ``say`` source code:
     $ cmake --build . --config Debug
 
     # Linux, we will only build 1 configuration
-    $ cd cmake-build-release
+    $ cd build/Release
     $ cmake --build .
 
 
@@ -154,7 +154,7 @@ And build and run the "hello" project:
     say/0.1: Bye World Debug!
 
     # Linux
-    $ cd cmake-build-release
+    $ cd build/Release
     $ cmake --build .
     $ ./hello
     say/0.1: Bye World Release!

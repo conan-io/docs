@@ -297,15 +297,15 @@ so you can use the ``--preset`` argument from ``cmake >= 3.23`` or use an IDE:
     $ conan install . -s build_type=Debug
 
     # For single-configuration generator
-    $ cmake --preset Debug
-    $ cmake --build --preset Debug
-    $ cmake --preset Release
-    $ cmake --build --preset Release
+    $ cmake --preset debug
+    $ cmake --build --preset debug
+    $ cmake --preset release
+    $ cmake --build --preset release
 
     # For multi-configuration generator
     $ cmake --preset default
-    $ cmake --build --preset Debug
-    $ cmake --build --preset Release
+    $ cmake --build --preset debug
+    $ cmake --build --preset release
 
 
 conf
@@ -313,6 +313,7 @@ conf
 
 ``CMakeToolchain`` is affected by these :ref:`[conf]<global_conf>` variables:
 
+- ``tools.cmake.cmaketoolchain:generator`` CMake generator to be used by cmake CLI. See all the CMake generators `here <https://cmake.org/cmake/help/latest/manual/cmake-generators.7.html#cmake-generators>`__.
 - ``tools.cmake.cmaketoolchain:toolchain_file`` user toolchain file to replace the ``conan_toolchain.cmake`` one.
 - ``tools.cmake.cmaketoolchain:user_toolchain`` list of user toolchains to be included from the ``conan_toolchain.cmake`` file.
 - ``tools.android:ndk_path`` value for ``ANDROID_NDK_PATH``.

@@ -270,7 +270,6 @@ A typical anti-pattern in the recipes that can be solved with a ``layout()`` dec
 
      class Pkg(Conanfile):
 
-        @property
         def layout(self):
             basic_layout(self, src_folder="source")
 
@@ -871,7 +870,14 @@ If any manipulation to the symlinks is required, the package :ref:`conan.tools.f
 contains some tools to help with that.
 
 
+New tools for managing system package managers
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+There are some changes you should be aware of if you are migrating from
+:ref:`systempackagetool` to the new :ref:`conan_tools_system_package_manager` to prepare
+the recipe for Conan 2.0:
 
-
-
+* Unlike in ``SystemPackageTool`` that uses ``CONAN_SYSREQUIRES_SUDO`` and is set to ``True``
+  as default, the ``tools.system.package_manager:sudo`` configuration is ``False`` by default.
+* :ref:`systempackagetool` is initialized with ``default_mode='enabled'`` but for these new
+  tools ``tools.system.package_manager:mode='check'`` by default.
