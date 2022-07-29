@@ -15,7 +15,7 @@ when a package is being built directly by Conan (create, install)
 
 .. code-block:: python
 
-    from conans import ConanFile
+    from conan import ConanFile
     from conan.tools.cmake import CMake, CMakeToolchain, CMakeDeps
 
     class App(ConanFile):

@@ -63,9 +63,8 @@ Main decorator to declare a function as a new Conan command. Where the parameter
     import json
 
     from conan.api.conan_api import ConanAPIV2
-    from conans.cli.command import conan_command
-    from conans.cli.output import ConanOutput
-
+    from conan.api.output import ConanOutput
+    from conan.cli.command import conan_command
 
     def output_json(msg):
         return json.dumps({"greet": msg})
@@ -96,8 +95,8 @@ Similar to ``conan_command``, but this one is declaring a sub-command of an exis
     :caption: cmd_hello.py
 
     from conan.api.conan_api import ConanAPIV2
-    from conans.cli.command import conan_command, conan_subcommand
-    from conans.cli.output import ConanOutput
+    from conan.api.output import ConanOutput
+    from conan.cli.command import conan_command, conan_subcommand
 
 
     @conan_subcommand()
@@ -129,7 +128,7 @@ These are the passed arguments to any custom command and its sub-commands functi
 .. code-block:: python
     :caption: cmd_command.py
 
-    from conans.cli.command import conan_command, conan_subcommand
+    from conan.cli.command import conan_command, conan_subcommand
 
 
     @conan_subcommand()
