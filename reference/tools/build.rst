@@ -45,12 +45,30 @@ conan.tools.build.check_min_cppstd()
 .. autofunction:: check_min_cppstd
 
 
+.. _conan_tools_build_check_max_cppstd:
+
+conan.tools.build.check_max_cppstd()
+""""""""""""""""""""""""""""""""""""
+
+.. currentmodule:: conan.tools.build.cppstd
+
+.. autofunction:: check_max_cppstd
+
+
 conan.tools.build.valid_min_cppstd()
 """"""""""""""""""""""""""""""""""""
 
 .. currentmodule:: conan.tools.build.cppstd
 
 .. autofunction:: valid_min_cppstd
+
+
+conan.tools.build.valid_max_cppstd()
+""""""""""""""""""""""""""""""""""""
+
+.. currentmodule:: conan.tools.build.cppstd
+
+.. autofunction:: valid_max_cppstd
 
 
 conan.tools.build.default_cppstd()
