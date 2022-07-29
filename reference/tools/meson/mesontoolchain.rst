@@ -92,6 +92,7 @@ the ``[project options]`` section of the files `conan_meson_native.ini` and `con
 Notice that it needs a ``layout`` to be able to initialize those ``self.cpp.package.xxxxx`` variables. For instance:
 
 .. code:: python
+
     from conan import ConanFile
     from conan.tools.meson import MesonToolchain
     class App(ConanFile):
@@ -103,6 +104,7 @@ Notice that it needs a ``layout`` to be able to initialize those ``self.cpp.pack
             tc = MesonToolchain(self)
             self.output.info(tc.project_options["datadir"])  # Will print '["res"]'
             tc.generate()
+
 .. note::
 
     All of them are saved only if they have any value. If the values are``None``, they won't be mentioned
