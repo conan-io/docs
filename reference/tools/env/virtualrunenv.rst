@@ -32,7 +32,7 @@ And it can also be fully instantiated in the conanfile ``generate()`` method:
 .. code-block:: python
     :caption: conanfile.py
 
-    from conans import ConanFile
+    from conan import ConanFile
     from conan.tools.env import VirtualRunEnv
 
     class Pkg(ConanFile):
