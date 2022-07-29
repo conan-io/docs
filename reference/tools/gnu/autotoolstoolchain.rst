@@ -99,9 +99,10 @@ values:
 * **make_args** (Defaulted to ``[]``): Additional arguments to be passed to he make script.
 * **autoreconf_args** (Defaulted to ``["--force", "--install"]``): Additional arguments to be passed to he make script.
 * **defines** (Defaulted to ``[]``): Additional defines.
-* **cxxflags** (Defaulted to ``[]``): Additional cxxflags.
-* **cflags** (Defaulted to ``[]``): Additional cflags.
-* **ldflags** (Defaulted to ``[]``): Additional ldflags.
+* **extra_defines** (Defaulted to ``[]``): Additional defines.
+* **extra_cxxflags** (Defaulted to ``[]``): Additional cxxflags.
+* **extra_cflags** (Defaulted to ``[]``): Additional cflags.
+* **extra_ldflags** (Defaulted to ``[]``): Additional ldflags.
 * **ndebug**: "NDEBUG" if the ``settings.build_type`` != `Debug`.
 * **gcc_cxx11_abi**: "_GLIBCXX_USE_CXX11_ABI" if ``gcc/libstdc++``.
 * **libcxx**: Flag calculated from ``settings.compiler.libcxx``.
@@ -123,6 +124,31 @@ values:
    * ``--oldincludedir=${prefix}/include``
    * ``--datarootdir=${prefix}/res``
 
+The following attributes are ready-only and will contain the calculated values for the current configuration and customized
+attributes. Some recipes might need to read them to generate custom build files (not strictly Autotools) with the configuration:
+
+* **defines**
+* **cxxflags**
+* **cflags**
+* **ldflags**
+
+
+.. code:: python
+
+    from conan import ConanFile
+    from conan.tools.gnu import AutotoolsToolchain
+
+    class App(ConanFile):
+        settings = "os", "arch", "compiler", "build_type"
+        def generate(self):
+            tc = AutotoolsToolchain(self)
+            # Customize the flags
+            tc.extra_cxxflags = ["MyFlag"]
+            # Read the computed flags and use them (write custom files etc)
+            tc.defines
+            tc.cxxflags
+            tc.cflags
+            tc.ldflags
 
 
 If you want to change the default values for ``configure_args``, adjust the ``cpp.package`` object at the ``layout()`` method:
