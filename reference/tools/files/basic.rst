@@ -290,5 +290,6 @@ among files below, this tool will select *libmath.dylib* file and therefore only
 *math* in the returned list: 
 
 .. code-block:: shell
+
     -rwxr-xr-x libmath.1.0.0.dylib lrwxr-xr-x libmath.1.dylib -> libmath.1.0.0.dylib
     lrwxr-xr-x libmath.dylib -> libmath.1.dylib
