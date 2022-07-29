@@ -33,8 +33,8 @@ System name. In the example above, if we are running on Ubuntu Linux, Conan will
 all the calls except for the ``Apt()`` one and will only try to install the packages using the
 ``apt-get`` tool. Conan uses the following mapping by default:
 
-* *Apt* for **Linux** with distribution names: *ubuntu*, *debian*
-* *Yum* for **Linux** with distribution names: *pidora*, *scientific*, *xenserver*, *amazon*, *oracle*, *amzn*, *almalinux*
+* *Apt* for **Linux** with distribution names: *ubuntu*, *debian* or *raspbian*
+* *Yum* for **Linux** with distribution names: *pidora*, *scientific*, *xenserver*, *amazon*, *oracle*, *amzn*, *almalinux* or *rocky*
 * *Dnf* for **Linux** with distribution names: *fedora*, *rhel*, *centos*, *mageia*
 * *Brew* for **macOS**
 * *PacMan* for **Linux** with distribution names: *arch*, *manjaro* and when using **Windows** with *msys2*
@@ -91,8 +91,9 @@ affect how these tools are invoked:
 * ``tools.system.package_manager:mode``: mode to use when invoking the package manager
   tool. There are two possible values:
 
-  * ``"check"``: will not try to update the package manager database or install any
-    packages in any case. This is the default value.
+  * ``"check"``: it will just check for missing packages at most and will not try to
+    update the package manager database or install any packages in any case. This is the
+    default value.
 
   * ``"install"``: it will allow Conan to perform update or install operations.
 
