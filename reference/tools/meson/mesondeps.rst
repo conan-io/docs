@@ -8,7 +8,7 @@ MesonDeps
     These tools are still **experimental** (so subject to breaking changes) but with very stable syntax.
     We encourage the usage of it to be prepared for Conan 2.0.
 
-:ref:`MesonToolchain<conan-meson-toolchain>` normally works together with :ref:`PkgConfigDeps<PkgConfigDeps>` to manage all the dependencies,
+:ref:`MesonToolchain<conan_tools_meson_mesontoolchain>` normally works together with :ref:`PkgConfigDeps<PkgConfigDeps>` to manage all the dependencies,
 but sometimes we need to gather some flags coming from ``Autotools`` tool so that's what ``MesonDeps`` is meant for. In other words, it is typically used
 when Meson cannot find a dependency using the already known `detection mechanisms <https://mesonbuild.com/Dependencies.html>`__ like: `pkg-config`, `cmake`, `config-tool`, etc.
 For instance, if we'd have these lines in your `meson.build` file, you might need ``MesonDeps`` to find that dependency and inject the correct flags to the compiler:
