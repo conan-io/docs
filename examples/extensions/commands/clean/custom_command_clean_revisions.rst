@@ -87,8 +87,8 @@ The ``conan clean`` command has the following code:
     :caption: cmd_clean.py
 
     from conan.api.conan_api import ConanAPIV2
-    from conans.cli.command import conan_command, OnceArgument
-    from conans.cli.output import Color, ConanOutput
+    from conan.api.output import ConanOutput, Color
+    from conan.cli.command import OnceArgument, conan_command
     from conans.client.userio import UserInput
 
     recipe_color = Color.BRIGHT_BLUE

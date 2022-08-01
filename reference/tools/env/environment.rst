@@ -95,7 +95,7 @@ are objects of ``Environment()`` class.
 
 .. code:: python
 
-    from conans import ConanFile
+    from conan import ConanFile
 
     class App(ConanFile):
         name = "mypkg"

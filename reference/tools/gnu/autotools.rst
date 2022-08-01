@@ -11,7 +11,7 @@ Usage:
 
 .. code:: python
 
-    from conans import conanfile
+    from conan import ConanFile
     from conan.tools.gnu import Autotools
 
     class App(ConanFile):
