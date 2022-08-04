@@ -10,10 +10,11 @@ Build packages: the build() method
     https://conanv2beta.jfrog.io/artifactory/api/conan/conan --index 0``
 
 
-We have already used a Conan recipe that has a ``build()`` method that invokes a build
-system to build our packages. In this tutorial, we will modify that method and explain how
-you can use it recipe to do things like building and running tests, conditional patching
-of source code or select the build system you want to use conditionally.
+We already used a Conan recipe that has a ``build()`` method and learned how to use that
+to invoke a build system and build our packages. In this tutorial, we will modify that
+method and explain how you can use it to do things like building and running tests,
+conditional patching the source code or select the build system you want to use
+conditionally.
 
 Please, first clone the sources to recreate this project. You can find them in the
 `examples2.0 repository <https://github.com/conan-io/examples2>`_ on GitHub:
@@ -22,6 +23,10 @@ Please, first clone the sources to recreate this project. You can find them in t
 
     $ git clone https://github.com/conan-io/examples2.git
     $ cd examples2/tutorial/creating_packages/build_method
+
+
+Build and run tests for your project
+------------------------------------
 
 You will notice some changes in the **conanfile.py** file from the previous recipe.
 Let's check the relevant parts:
@@ -69,8 +74,8 @@ Let's check the relevant parts:
         ...
 
 
-Changes introduced in the library
----------------------------------
+Changes introduced in the library sources
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 First, please note that we are using `another branch
 <https://github.com/conan-io/libhello/tree/with_tests>`_ from the **libhello** library. This
@@ -121,9 +126,6 @@ With basic tests on the functionality of the ``compose_message()`` function:
 .. code-block:: cpp
 
     #include "../include/hello.h"
-
-    #include <limits.h>
-
     #include "gtest/gtest.h"
 
     namespace {
@@ -135,14 +137,20 @@ With basic tests on the functionality of the ``compose_message()`` function:
 
 
 Changes introduced in the recipe
---------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 * We added the *gtest/1.11.0* requirement to the recipe as a ``test_requires()``. This is
-  a special type of requirement intended for testing libraries like Catch2 or gtest.
+  a special type of requirement intended for testing libraries like **Catch2** or **gtest**.
 
-* We use the `tools.build:skip_test` configuration, to tell CMake wether to build and run
-  the tests or not. This configuration controls the execution of ``CMake.test()`` and
+* We use the ``tools.build:skip_test`` configuration, to tell CMake wether to build and
+  run the tests or not. This configuration controls the execution of ``CMake.test()`` and
   ``Meson.test()`` but can also be used for other testing environments like in this case.
+  We use that variable in the ``generate()`` method to inject the BUILD_TESTS variable to
+  CMake and also in the ``build()`` method after building the pckage and the tests to run
+  the tests.
+
+
+
 
 
 Read more
