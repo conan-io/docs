@@ -6,6 +6,8 @@ conan.tools.files patches
 conan.tools.files.patch()
 -------------------------
 
+Available since: `1.35.0 <https://github.com/conan-io/conan/releases/tag/1.35.0>`_
+
 .. code-block:: python
 
     def patch(conanfile, base_path=None, patch_file=None, patch_string=None, strip=0, fuzz=False, **kwargs):
@@ -38,6 +40,8 @@ Parameters:
 
 conan.tools.files.apply_conandata_patches()
 -------------------------------------------
+
+Available since: `1.35.0 <https://github.com/conan-io/conan/releases/tag/1.35.0>`_
 
 .. code-block:: python
 

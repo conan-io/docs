@@ -7,6 +7,7 @@ Version
 
     This tool is **experimental** and subject to breaking changes.
 
+Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>`_
 
 constructor
 -----------

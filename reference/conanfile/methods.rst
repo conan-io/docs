@@ -643,7 +643,7 @@ validate_build()
 
     This is an **experimental** feature subject to breaking changes in future releases.
 
-Available since: `1.51.0 <https://github.com/conan-io/conan/releases/tag/1.41.0>`_
+Available since: `1.51.0 <https://github.com/conan-io/conan/releases/tag/1.51.0>`_
 
 The ``validate_build()`` method is used to verify if a configuration is valid for building a package. It is different
 from the ``validate()`` method that checks if the binary package is "impossible" or invalid for a given configuration.
@@ -1516,7 +1516,7 @@ layout()
     (:ref:`in the conan.tools space <conan_tools>`). If you are using other integrations, they
     might not fully support this feature.
 
-Available since: `1.37.0 <https://github.com/conan-io/conan/releases>`_
+Available since: `1.37.0 <https://github.com/conan-io/conan/releases/tag/1.37.0>`_
 
 Read about the feature :ref:`here<package_layout>`.
 

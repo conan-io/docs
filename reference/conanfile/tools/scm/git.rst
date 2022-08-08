@@ -7,6 +7,7 @@ Git
 
     This tool is **experimental** and subject to breaking changes. This tool is intended to replace the current ``conans.tools.Git`` and the current ``scm`` attribute, that will be removed in Conan 2.0.
 
+Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>`_
 
 constructor
 -----------

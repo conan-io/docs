@@ -13,7 +13,7 @@ conan.tools.apple
 XcodeDeps
 ---------
 
-Available since: `1.42.0 <https://github.com/conan-io/conan/releases>`_
+Available since: `1.42.0 <https://github.com/conan-io/conan/releases/tag/1.42.0>`_
 
 The ``XcodeDeps`` tool is the dependency information generator for *Xcode*. It will generate multiple
 *.xcconfig* configuration files, the can be used by consumers using *xcodebuild* or *Xcode*. To use
@@ -104,7 +104,7 @@ If you want to add this dependencies to you Xcode project, you just have to add 
 Components support
 ++++++++++++++++++
 
-Since Conan version `1.49.0 <https://github.com/conan-io/conan/releases>`_, this generator
+Since Conan version `1.49.0 <https://github.com/conan-io/conan/releases/tag/1.49.0>`_, this generator
 supports packages with components. That means that:
 
 * If a **dependency** ``package_info()`` declares ``cpp_info.requires`` on some
@@ -151,7 +151,7 @@ want to link with shared or static libraries.
 XcodeToolchain
 --------------
 
-Available since: `1.46.0 <https://github.com/conan-io/conan/releases>`_
+Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>`_
 
 The ``XcodeToolchain`` is the toolchain generator for Xcode. It will generate *.xcconfig*
 configuration files that can be added to Xcode projects. This generator translates the
@@ -260,7 +260,7 @@ file.
 XcodeBuild
 ----------
 
-Available since: `1.46.0 <https://github.com/conan-io/conan/releases>`_
+Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>`_
 
 The ``Xcode`` build helper is a wrapper around the command line invocation of Xcode. It
 will abstract the calls like ``xcodebuild -project app.xcodeproj -configuration <config>
@@ -327,6 +327,8 @@ conf
 
 conan.tools.apple.fix_apple_shared_install_name()
 -------------------------------------------------
+
+Available since: `1.49.0 <https://github.com/conan-io/conan/releases/tag/1.49.0>`_
 
 .. code-block:: python
 

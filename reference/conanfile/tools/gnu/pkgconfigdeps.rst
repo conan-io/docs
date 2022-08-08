@@ -15,8 +15,7 @@ PkgConfigDeps
 PkgConfigDeps
 -------------
 
-Available since: `1.38.0 <https://github.com/conan-io/conan/releases>`_
-
+Available since: `1.38.0 <https://github.com/conan-io/conan/releases/tag/1.38.0>`_
 
 The ``PkgConfigDeps`` is the dependencies generator for pkg-config. Generates pkg-config files named *<PKG-NAME>.pc*
 (where ``<PKG-NAME`` is the name declared by dependencies in ``cpp_info.names["pkg_config"]`` if specified),
@@ -128,7 +127,7 @@ Example:
 Names and aliases
 ++++++++++++++++++
 
-Aliases are available since: `1.43.0 <https://github.com/conan-io/conan/releases>`_
+Aliases are available since: `1.43.0 <https://github.com/conan-io/conan/releases/tag/1.43.0>`_
 
 By default, the ``*.pc`` files will be named following these rules:
 
