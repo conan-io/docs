@@ -21,6 +21,22 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.51 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
     a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.51.1 (09-Aug-2022)
+--------------------
+
+- Feature: The `self.info.settings` and `self.info.options` now allow the `get_safe("foo")` as it is available in `self.settings` and `self.options`. `#11803 <https://github.com/conan-io/conan/pull/11803>`_
+- Fix: Add `conan.errors` to hidden pyinstaller imports. `#11817 <https://github.com/conan-io/conan/pull/11817>`_
+- Fix: Fix choco install invokation. `#11810 <https://github.com/conan-io/conan/pull/11810>`_
+- Fix: Add `conan.tools.system.package_manager` to hidden pyinstaller imports. `#11806 <https://github.com/conan-io/conan/pull/11806>`_
+- Fix: Add `conan.tools.system` as hidden-import to `pyinstaller.py`, so it is bundled with the installer. `#11805 <https://github.com/conan-io/conan/pull/11805>`_
+- Bugfix: Update cmake_layout build and generators folders to honor os path format. `#11809 <https://github.com/conan-io/conan/pull/11809>`_
+- Bugfix: `create -kb` wasn't setting up `conanfile.generators_folder` correctly. `#11804 <https://github.com/conan-io/conan/pull/11804>`_
+- Bugfix: Legacy `cpp_info` for consumers was losing information in case of depending on a package with a layout. `#11790 <https://github.com/conan-io/conan/pull/11790>`_
+- Bugfix: Refactored CMakeDep using always targets instead of lists. `#11788 <https://github.com/conan-io/conan/pull/11788>`_
+- Bugfix: Fix toolchainFile key not found with CMake presets. `#11759 <https://github.com/conan-io/conan/pull/11759>`_
+- Bugfix: The CMakeDeps generator failed for consumers with CMake projects doing an `add_subdirectory` with two different `find_package` calls to the same package, one in the main `CMakeLists.txt` and the other in the subdirectory. `#11756 <https://github.com/conan-io/conan/pull/11756>`_
+- Bugfix: The CMakeDeps generator stopped to fill the `XXX_LIBRARIES` CMake variable, especially when using components. `#11756 <https://github.com/conan-io/conan/pull/11756>`_
+
 1.51.0 (28-Jul-2022)
 --------------------
 
