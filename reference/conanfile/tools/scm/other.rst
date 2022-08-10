@@ -44,7 +44,6 @@ Get all the main digits.
 
     @property
     def main(self):
-        return self._items
 
 For instance:
 
@@ -63,10 +62,7 @@ Get the major digit.
 
     @property
     def major(self):
-        try:
-            return self.main[0]
-        except IndexError:
-            return None
+
 
 For instance:
 
@@ -86,10 +82,7 @@ Get the minor digit.
 
     @property
     def minor(self):
-        try:
-            return self.main[1]
-        except IndexError:
-            return None
+
 
 For instance:
 
@@ -108,10 +101,7 @@ Get the patch digit.
 
     @property
     def patch(self):
-        try:
-            return self.main[2]
-        except IndexError:
-            return None
+
 
 For instance:
 
@@ -130,10 +120,7 @@ Get the micro digit.
 
     @property
     def micro(self):
-        try:
-            return self.main[3]
-        except IndexError:
-            return None
+
 
 For instance:
 
@@ -152,7 +139,6 @@ Get the pre-release digit.
 
     @property
     def pre(self):
-        return self._pre
 
 For instance:
 
@@ -172,7 +158,6 @@ Get the build digit.
 
     @property
     def build(self):
-        return self._build
 
 For instance:
 
