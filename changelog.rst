@@ -21,6 +21,11 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.50 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
     a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.50.2 (11-Aug-2022)
+--------------------
+
+- Bugfix: The `tool.scm.Version` model has been ported from 2.X to keep the same behavior in Conan 1.X `#11830 <https://github.com/conan-io/conan/pull/11830>`_
+
 1.50.1 (28-Jul-2022)
 --------------------
 
