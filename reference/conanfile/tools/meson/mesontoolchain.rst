@@ -116,6 +116,50 @@ The ``MesonToolchain`` only works with the ``PkgConfigDeps`` generator.
 Please, do not use other generators, as they can have overlapping definitions that can conflict.
 
 
+Default directories
++++++++++++++++++++++
+
+Since Conan 1.51, ``MesonToolchain`` manages some of the directories used by Meson. These are variables declared under
+the ``[project options]`` section of the files `conan_meson_native.ini` and `conan_meson_cross.ini`
+(see more information about `Meson directories <https://mesonbuild.com/Builtin-options.html#directories>`__):
+
+
+``bindir``: value coming from ``self.cpp.package.bindirs``. Defaulted to None.
+``sbindir``: value coming from ``self.cpp.package.bindirs``. Defaulted to None.
+``libexecdir``: value coming from ``self.cpp.package.bindirs``. Defaulted to None.
+``datadir``: value coming from ``self.cpp.package.resdirs``. Defaulted to None.
+``localedir``: value coming from ``self.cpp.package.resdirs``. Defaulted to None.
+``mandir``: value coming from ``self.cpp.package.resdirs``. Defaulted to None.
+``infodir``: value coming from ``self.cpp.package.resdirs``. Defaulted to None.
+``includedir``: value coming from ``self.cpp.package.includedirs``. Defaulted to None.
+``libdir``: value coming from ``self.cpp.package.libdirs``. Defaulted to None.
+
+Notice that it needs a ``layout`` to be able to initialize those ``self.cpp.package.xxxxx`` variables. For instance:
+
+.. code:: python
+
+    from conan import ConanFile
+    from conan.tools.meson import MesonToolchain
+
+    class App(ConanFile):
+        settings = "os", "arch", "compiler", "build_type"
+
+        def layout(self):
+            self.folders.build = "build"
+            self.cpp.package.resdirs = ["res"]
+
+        def generate(self):
+            tc = MesonToolchain(self)
+            self.output.info(tc.project_options["datadir"])  # Will print '["res"]'
+            tc.generate()
+
+
+.. note::
+
+    All of them are saved only if they have any value. If the values are``None``, they won't be mentioned
+    in ``[project options]`` section.
+
+
 Using the toolchain in developer flow
 +++++++++++++++++++++++++++++++++++++
 
@@ -200,3 +244,15 @@ to the ``MesonToolchain`` class interface. For instance:
             tc = MesonToolchain(self)
             tc.cpp = "/path/to/other/compiler"
             tc.generate()
+
+
+Objective-C arguments
+++++++++++++++++++++++
+
+Since Conan 1.51, it's been introduced some specific Objective-C/Objective-C++ arguments: ``objc``, ``objcpp``, ``objc_args``,
+``objc_link_args``, ``objcpp_args``, and ``objcpp_link_args``, as public attributes of the ``MesonToolchain`` class, where
+the variables ``objc`` and ``objcpp`` are initialized as ``clang`` and ``clang++`` respectively by default.
+
+.. note::
+
+    They will be only initialized if the OS used belongs to any of the Apple ones.

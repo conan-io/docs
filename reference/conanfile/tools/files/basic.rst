@@ -11,6 +11,8 @@ conan.tools.files basic operations
 conan.tools.files.copy()
 ------------------------
 
+Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>`_
+
 .. code-block:: python
 
     def copy(conanfile, pattern, src, dst, keep_path=True, excludes=None, ignore_case=True)
@@ -44,6 +46,8 @@ Parameters:
 conan.tools.files.load()
 ------------------------
 
+Available since: `1.35.0 <https://github.com/conan-io/conan/releases/tag/1.35.0>`_
+
 .. code-block:: python
 
     def load(conanfile, path, encoding="utf-8")
@@ -65,6 +69,8 @@ Parameters:
 
 conan.tools.files.save()
 ------------------------
+
+Available since: `1.35.0 <https://github.com/conan-io/conan/releases/tag/1.35.0>`_
 
 .. code-block:: python
 
@@ -92,6 +98,8 @@ Parameters:
 conan.tools.files.rename()
 --------------------------
 
+Available since: `1.37.0 <https://github.com/conan-io/conan/releases/tag/1.37.0>`_
+
 .. code-block:: python
 
     def rename(conanfile, src, dst)
@@ -113,6 +121,8 @@ Parameters:
 
 conan.tools.files.replace_in_file()
 -----------------------------------
+
+Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>`_
 
 .. code-block:: python
 
@@ -141,6 +151,8 @@ Parameters:
 conan.tools.files.rm()
 ----------------------
 
+Available since: `1.50.0 <https://github.com/conan-io/conan/releases/tag/1.50.0>`_
+
 .. code-block:: python
 
     def rm(conanfile, pattern, folder, recursive=False)
@@ -166,6 +178,8 @@ Parameters:
 conan.tools.files.mkdir()
 -------------------------
 
+Available since: `1.35.0 <https://github.com/conan-io/conan/releases/tag/1.35.0>`_
+
 .. code-block:: python
 
     def mkdir(path)
@@ -189,9 +203,11 @@ Parameters:
 conan.tools.files.rmdir()
 -------------------------
 
+Available since: `1.47.0 <https://github.com/conan-io/conan/releases/tag/1.47.0>`_
+
 .. code-block:: python
 
-    def rmdir(path)
+    def rmdir(conanfile, path)
 
 Utility functions to remove a directory. The existence of the specified directory is checked, so ``rmdir()`` will do nothing if the
 directory doesn't exists.
@@ -208,9 +224,15 @@ Parameters:
     - **conanfile**: Conanfile object.
     - **path**: Path to the directory.
 
+The behavior regarding the path is the same as Python ``shutil.rmtree``. The provided path can be
+relative to the current folder (the current folder depends in which method this tool is used), or
+it can be an absolute path.
+
 
 conan.tools.files.chdir()
 -------------------------
+
+Available since: `1.40.0 <https://github.com/conan-io/conan/releases/tag/1.40.0>`_
 
 .. code-block:: python
 
@@ -233,6 +255,8 @@ Parameters:
 
 conan.tools.files.unzip()
 -------------------------
+
+Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>`_
 
 .. code-block:: python
 
@@ -289,6 +313,8 @@ Parameters:
 
 conan.tools.files.update_conandata()
 ------------------------------------
+
+Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>`_
 
 .. code-block:: python
 

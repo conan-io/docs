@@ -7,6 +7,7 @@ Git
 
     This tool is **experimental** and subject to breaking changes. This tool is intended to replace the current ``conans.tools.Git`` and the current ``scm`` attribute, that will be removed in Conan 2.0.
 
+Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>`_
 
 constructor
 -----------
@@ -39,6 +40,12 @@ get_remote_url()
 
 
 Obtains the URL of the ``remote`` git remote repository, with ``git remote -v``
+
+.. warning::
+
+    This method will get the output from ``git remote -v``. If you added tokens or credentials to the remote in the URL, they will be
+    exposed. Credentials shouldn't be added to git remotes definitions, but using a credentials manager or similar mechanism.
+    If you still want to use this approach, it is your responsibility to strip the credentials from the result.
 
 
 commit_in_remote()
@@ -104,6 +111,14 @@ get_url_and_commit()
 .. code-block:: python
     
     def get_url_and_commit(self, remote="origin")
+        # returns a (url, commit) tuple
+
+
+.. warning::
+
+    This method will get the output from ``git remote -v``. If you added tokens or credentials to the remote in the URL, they will be
+    exposed. Credentials shouldn't be added to git remotes definitions, but using a credentials manager or similar mechanism.
+    If you still want to use this approach, it is your responsibility to strip the credentials from the result.
 
 
 This is an advanced method, that returns both the current commit, and the remote repository url.

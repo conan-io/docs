@@ -8,6 +8,7 @@ cmake_layout
     These tools are still **experimental** (so subject to breaking changes) but with very stable syntax.
     We encourage the usage of it to be prepared for Conan 2.0.
 
+Available since: `1.45.0 <https://github.com/conan-io/conan/releases/tag/1.45.0>`_
 
 For example, this would implement the standard CMake project layout:
 
@@ -62,7 +63,7 @@ conf to declare a list of settings or options:
 
 .. code:: bash
 
-    conan install . -c tools.cmake.cmake_layout:build_folder_vars='["settings.compiler", "options.shared"]'
+    conan install . -c tools.cmake.cmake_layout:build_folder_vars="['settings.compiler', 'options.shared']"
 
 For the previous example, the values assigned by the ``cmake_layout`` (installing the Release/static default
 configuration) would be:
@@ -76,7 +77,7 @@ If we repeat the previous install with a different configuration:
 
 .. code:: bash
 
-    conan install . -o shared=True -c tools.cmake.cmake_layout:build_folder_vars='["settings.compiler", "options.shared"]'
+    conan install . -o shared=True -c tools.cmake.cmake_layout:build_folder_vars="['settings.compiler', 'options.shared']"
 
 The values assigned by the ``cmake_layout`` (installing the Release/shared configuration) would be:
 

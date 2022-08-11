@@ -6,6 +6,8 @@ conan.tools.build
 conan.tools.build.cross_building()
 ----------------------------------
 
+Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>`_
+
 .. code-block:: python
 
     def cross_building(conanfile=None, skip_x64_x86=False):
@@ -25,6 +27,8 @@ Parameters:
 conan.tools.build.can_run()
 ---------------------------
 
+Available since: `1.49.0 <https://github.com/conan-io/conan/releases/tag/1.49.0>`_
+
 .. code-block:: python
 
     def can_run(conanfile):
@@ -43,6 +47,7 @@ Parameters:
 conan.tools.build.check_min_cppstd
 ----------------------------------
 
+Available since: `1.50.0 <https://github.com/conan-io/conan/releases/tag/1.50.0>`_
 
 .. code-block:: python
 
@@ -61,6 +66,8 @@ Parameters:
 
 conan.tools.build.default_cppstd
 ----------------------------------
+
+Available since: `1.50.0 <https://github.com/conan-io/conan/releases/tag/1.50.0>`_
 
 .. code-block:: python
 
@@ -82,6 +89,8 @@ Parameters:
 conan.tools.build.supported_cppstd
 ----------------------------------
 
+Available since: `1.50.0 <https://github.com/conan-io/conan/releases/tag/1.50.0>`_
+
 .. code-block:: python
 
     def supported_cppstd(conanfile, compiler=None, compiler_version=None):
@@ -98,3 +107,32 @@ Parameters:
 - **conanfile**: The current recipe object. Always use ``self``.
 - **compiler**: Name of the compiler e.g: gcc
 - **compiler_version**: Version of the compiler e.g: 12
+
+
+conan.tools.build.build_jobs()
+------------------------------
+
+Available since: `1.43.0 <https://github.com/conan-io/conan/releases/tag/1.43.0>`_
+
+.. code-block:: python
+
+    def build_jobs(conanfile):
+
+
+
+Returns the number of CPUs available for parallel builds.
+It returns the configuration value for ``tools.build:jobs`` if exists, otherwise,
+it defaults to the helper function ``_cpu_count()``.
+``_cpu_count()`` reads cgroup to detect the configured number of CPUs.
+Currently, there are two versions of cgroup available.
+
+In the case of cgroup v1, if the data in cgroup is invalid, processor detection comes into play.
+Whenever processor detection is not enabled, ``build_jobs()`` will safely return 1.
+
+In the case of cgroup v2, if no limit is set, processor detection is used. When the limit is set,
+the behavior is as described in cgroup v1.
+
+
+Parameters:
+
+- **conanfile**: The current recipe object. Always use ``self``.
