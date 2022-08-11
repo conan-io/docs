@@ -1559,7 +1559,7 @@ Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>
 
 Available since: `1.51.0 <https://github.com/conan-io/conan/releases/tag/1.51.0>`_
 
-- **self.folders.subproject** (Defaulted to None): Specifies a subfolder where the ``conanfile.py`` is relative to the project root. This is particularly useful for :ref:`package_layout<example_multiple_subprojects>`.
+- **self.folders.subproject** (Defaulted to None): Specifies a subfolder where the ``conanfile.py`` is relative to the project root. This is particularly useful for :ref:`layouts with multiple subprojects<package_layout_example_multiple_subprojects>`
 
 
 self.cpp
