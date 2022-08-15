@@ -220,7 +220,7 @@ Example:
 .. _Disable CMakeDeps For Installed CMake imports:
 
 _Disable CMakeDeps For Installed CMake configuration files
-++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Some projects way want to disable the ``CMakeDeps`` generator for downstream consumers. This can be done by settings ``cmake_find_mode`` to ``none``.
 If the project wants to provide it's own configuration targets, it should append them to the ``buildirs`` attribute of ``cpp_info``.
