@@ -96,7 +96,7 @@ Parameters:
 
 - **conanfile** (Required): Conanfile object, use ``self`` always
 - **url** (Required): URL to download. It can be a list, which only the first one will be downloaded, and the follow URLs will be used as mirror in case of download error.
-                      Files accessible in the local filesystem can be referenced with a URL starting with ``file:///`` followed by an absolute path to a file
+                      Since Conan `1.51.0 <https://github.com/conan-io/conan/releases/tag/1.51.0>`_, files accessible in the local filesystem can be referenced with a URL starting with ``file:///`` followed by an absolute path to a file
                       (where the third ``/`` implies ``localhost``).
 - **filename** (Required): Name of the file to be created in the local storage
 - **verify** (Optional, Defaulted to ``True``): When False, disables https certificate validation.

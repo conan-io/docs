@@ -1032,6 +1032,8 @@ any setting or option:
 self.info.clear()
 ^^^^^^^^^^^^^^^^^
 
+Available since: `1.50.0 <https://github.com/conan-io/conan/releases/tag/1.50.0>`_
+
 The package will always be the same, irrespective of the settings (OS, compiler or architecture), options and dependencies.
 
 .. code-block:: python
@@ -1042,6 +1044,8 @@ The package will always be the same, irrespective of the settings (OS, compiler 
 
 self.info.shared_library_package_id()
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Available since: `1.19.2 <https://github.com/conan-io/conan/releases/tag/1.19.2>`_
 
 When a shared library links with a static library, the binary code of the later one is "embedded" or copied into the shared library.
 That means that any change in the static library basically requires a new binary re-build of the shared one to integrate those changes.

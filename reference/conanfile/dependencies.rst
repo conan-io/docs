@@ -3,11 +3,11 @@
 Dependencies
 ============
 
-Introduced in Conan 1.38.
-
 .. warning::
 
     These tools are **experimental** and subject to breaking changes.
+
+Available since: `1.38.0 <https://github.com/conan-io/conan/releases/tag/1.38.0>`_
 
 .. note::
 
