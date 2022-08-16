@@ -258,15 +258,41 @@ The ``MSBuild.build()`` method internally implements a call to ``msbuild`` like:
 
 .. code:: bash
 
-    $ <vcvars-cmd> && msbuild "MyProject.sln" /p:Configuration=<conf> /p:Platform=<platform>
+    $ <vcvars-cmd> && msbuild "MyProject.sln" /p:Configuration=<configuration> /p:Platform=<platform>
 
 Where:
 
 - ``vcvars-cmd`` is calling the Visual Studio prompt that matches the current recipe ``settings``
-- ``conf`` is the configuration, typically Release, Debug, which will be obtained from ``settings.build_type``
-  but this will be configurable. Please open a `Github issue <https://github.com/conan-io/conan/issues>`_ if you want to define custom configurations.
+- ``configuration``, typically Release, Debug, which will be obtained from ``settings.build_type``
+  but this will be configurable with ``msbuild.build_type``.
 - ``platform`` is the architecture, a mapping from the ``settings.arch`` to the common 'x86', 'x64', 'ARM', 'ARM64'.
-  If your platform is unsupported, please report in `Github issues <https://github.com/conan-io/conan/issues>`_ as well.
+  This is configurable with ``msbuild.platform``.
+
+
+attributes
+++++++++++
+
+You can customize the following attributes in case you need to change them:
+
+- **build_type** (default ``settings.build_type``): Value for the ``/p:Configuration``.
+- **platform** (default based on ``settings.arch`` to select one of these values: (``'x86', 'x64', 'ARM', 'ARM64'``):
+  Value for the ``/p:Platform``.
+
+Example:
+
+.. code:: python
+
+    from conan import ConanFile
+    from conan.tools.microsoft import MSBuild
+
+    class App(ConanFile):
+        settings = "os", "arch", "compiler", "build_type"
+
+        def build(self):
+            msbuild = MSBuild(self)
+            msbuild.build_type = "MyRelease"
+            msbuild.platform = "MyPlatform"
+            msbuild.build("MyProject.sln")
 
 
 conf
