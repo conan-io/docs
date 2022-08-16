@@ -356,3 +356,46 @@ Example:
     
         def source(self):
             data = self.conan_data["sources"]["mydata"]
+
+
+conan.tools.files.collect_libs()
+--------------------------------
+
+Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>`_
+
+.. code-block:: python
+
+    def collect_libs(conanfile, folder=None)
+
+Returns a sorted list of library names from the libraries (files with extensions *.so*, *.lib*, *.a* and *.dylib*) located inside the
+``conanfile.cpp_info.libdirs`` (by default) or the **folder** directory relative to the package folder. Useful to collect not
+inter-dependent libraries or with complex names like ``libmylib-x86-debug-en.lib``.
+
+.. code-block:: python
+
+    from conan.tools.files import collect_libs
+
+    def package_info(self):
+        self.cpp_info.libdirs = ["lib", "other_libdir"]  # Default value is 'lib'
+        self.cpp_info.libs = collect_libs(self)
+
+For UNIX libraries starting with **lib**, like *libmath.a*, this tool will collect the library name **math**.
+
+Regarding symlinks, this tool will keep only the "most generic" file among the resolved real file and all symlinks pointing to this real file.
+For example among files below, this tool will select *libmath.dylib* file and therefore only append *math* in the returned list:
+
+.. code-block:: shell
+
+    -rwxr-xr-x libmath.1.0.0.dylib
+    lrwxr-xr-x libmath.1.dylib -> libmath.1.0.0.dylib
+    lrwxr-xr-x libmath.dylib -> libmath.1.dylib
+
+**Parameters:**
+    - **conanfile** (Required): A ``ConanFile`` object to get the ``package_folder`` and ``cpp_info``.
+    - **folder** (Optional, Defaulted to ``None``): String indicating the subfolder name inside ``conanfile.package_folder`` where
+      the library files are.
+
+.. warning::
+
+    This tool collects the libraries searching directly inside the package folder and returns them in no specific order. If libraries are
+    inter-dependent, then ``package_info()`` method should order them to achieve correct linking order.
