@@ -33,7 +33,7 @@ account integers when possible.
 Attributes
 ----------
 
-Available public properties since: `1.52.0 <https://github.com/conan-io/conan/releases/tag/1.52.0>`_
+Available public properties since: `1.50.2 <https://github.com/conan-io/conan/releases/tag/1.50.2>`_
 
 main
 +++++

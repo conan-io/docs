@@ -378,3 +378,18 @@ tool, if needed, in the conanfile's ``package()`` method like:
           autotools = Autotools(self)
           autotools.install()
           fix_apple_shared_install_name(self)
+
+.. _conan_tools_apple_is_apple_os:
+
+is_apple_os()
+-------------
+
+.. code-block:: python
+
+    def is_apple_os(conanfile):
+
+Parameters:
+
+- **conanfile**: Conanfile instance.
+
+This tool returns ``True`` if the OS is from Apple (Macos, iOS, watchOS or tvOS)
