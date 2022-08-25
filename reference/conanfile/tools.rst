@@ -29,7 +29,7 @@ The import path is always like:
 
 The main guidelines are:
 
-- Imports must be in the form ``from conan.tools.xxx import yyy``, with exactly 1 level for ``xxx``, no more. 
+- Imports must be in the form ``from conan.tools.xxx import yyy``, with exactly 1 level for ``xxx``. 
   Do not use ``from conan import tools`` neither ``from conan.tools import xxx`` nor ``from conan.tools.xxx.yyy import zzz``.
 - Everything that recipes can import belong to ``from conan.tools``. Any other thing is private implementation
   and shouldn't be used in recipes (except ``from conan import ConanFile`` and ``from conan.errors``)
