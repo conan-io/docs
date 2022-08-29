@@ -381,7 +381,7 @@ Available since: `1.45.0 <https://github.com/conan-io/conan/releases/tag/1.45.0>
 
 .. code-block:: python
 
-    def is_msvc(conanfile):
+    def is_msvc(conanfile, build_context=False):
 
 Validate ``self.settings.compiler`` for which compiler is being used.
 It returns ``True`` when the host compiler is ``Visual Studio`` or ``msvc``, otherwise, returns ``False``.
@@ -390,6 +390,8 @@ When the ``compiler`` is empty, it returns ``False``.
 Parameters:
 
 - **conanfile**: ConanFile instance.
+- **build_context**: (default=False). If this argument is ``True``, the method will check the compiler of the
+  ``build`` context, not the ``host`` one. 
 
 .. code-block:: python
 
