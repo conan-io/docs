@@ -58,7 +58,7 @@ Some **important** points:
 - At the moment, this information should only be used in ``generate()`` and ``validate()`` methods.
   Any other use, please submit a Github issue.
 
-Not all fields of the dependency conanfile are exposed, the current fields are:
+The exposed fields of the dependency conanfile are:
 
 - package_folder: The folder location of the dependency package binary
 - recipe_folder: The folder containing the ``conanfile.py`` (and other exported files) of the dependency
