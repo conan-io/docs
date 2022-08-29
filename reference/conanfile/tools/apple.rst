@@ -101,6 +101,15 @@ If you want to add this dependencies to you Xcode project, you just have to add 
 *conan_config.xcconfig* configuration file for all of the configurations you want to use
 (usually *Debug* and *Release*).
 
+Additional variables defined
+++++++++++++++++++++++++++++
+
+Besides the variables that define the *Xcode* build settings mentioned above, there are
+additional variables declared that may be useful to use in your *Xcode* project:
+
+* `PACKAGE_ROOT_<package_name>`: Set to the location of the :ref:`package_folder attribute
+  <attribute_package_folder>`.
+
 Components support
 ++++++++++++++++++
 
