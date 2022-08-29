@@ -2,7 +2,7 @@
 
 .. warning::
 
-    This tool are **experimental** and subject to breaking changes.
+    This tools are **experimental** and subject to breaking changes.
 
 conan_version
 =============
