@@ -74,6 +74,9 @@ Requirements
               self.test_requires("gtest/0.1")
 
 
+The ``self.requires()`` method allows in 1.X any ``**kwargs``, so something like ``self.requires(..., transitive_headers=True)`` is possible in
+Conan 1.X. These ``**kwargs`` don't have any effect at all in Conan 1.X, they are not even checked for correctness. But they are allowed to exist,
+so if new requirement traits are used in Conan 2.0, they will not error.
 
 
 Settings
