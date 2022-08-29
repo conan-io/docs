@@ -129,25 +129,25 @@ user has in the local machine will be deleted.
 
 All the configuration files will be copied to the Conan home directory. These are the special files and the rules applied to merge them:
 
-+--------------------------------+--------------------------------------------------------------------------+
-| File                           | How it is applied                                                        |
-+================================+==========================================================================+
-| profiles/MyProfile             | Overrides the local ~/.conan/profiles/MyProfile if already exists        |
-+--------------------------------+--------------------------------------------------------------------------+
-| settings.yml                   | Overrides the local ~/.conan/settings.yml                                |
-+--------------------------------+--------------------------------------------------------------------------+
-| remotes.txt                    | Overrides remotes. Will remove remotes that are not present in file      |
-+--------------------------------+--------------------------------------------------------------------------+
-| remotes.json (**Since 1.52**)  | | Overrides remotes. Will remove remotes that are not present in file.   |
-|                                | | Please, note that **only one of remotes.json or remotes.txt** should be|
-|                                | | installed. If you have both .txt and .json in the folder, repo, etc.   |
-|                                | | that you are installing from, it can have undefined behaviour as the   |
-|                                | | order of the install is not deterministic                              |
-+--------------------------------+--------------------------------------------------------------------------+
-| config/conan.conf              | Merges the variables, overriding only the declared variables             |
-+--------------------------------+--------------------------------------------------------------------------+
-| hooks/my_hook.py               | Overrides the local ~/.conan/hooks/my_hook.py if already exists          |
-+--------------------------------+--------------------------------------------------------------------------+
++--------------------------------+-----------------------------------------------------------------------------+
+| File                           | How it is applied                                                           |
++================================+=============================================================================+
+| profiles/MyProfile             | Overrides the local ~/.conan/profiles/MyProfile if already exists           |
++--------------------------------+-----------------------------------------------------------------------------+
+| settings.yml                   | Overrides the local ~/.conan/settings.yml                                   |
++--------------------------------+-----------------------------------------------------------------------------+
+| remotes.txt                    | Overrides remotes. Will remove remotes that are not present in file         |
++--------------------------------+-----------------------------------------------------------------------------+
+| remotes.json (**Since 1.52**)  | | Overrides remotes. Will remove remotes that are not present in file.      |
+|                                | | Please, note that **only one of remotes.json or remotes.txt** should be   |
+|                                | | installed. If you have both .txt and .json in the folder, repo, etc.      |
+|                                | | that you are installing from, it can lead to undefined behaviour as the   |
+|                                | | order of the install is not deterministic                                 |
++--------------------------------+-----------------------------------------------------------------------------+
+| config/conan.conf              | Merges the variables, overriding only the declared variables                |
++--------------------------------+-----------------------------------------------------------------------------+
+| hooks/my_hook.py               | Overrides the local ~/.conan/hooks/my_hook.py if already exists             |
++--------------------------------+-----------------------------------------------------------------------------+
 
 The file *remotes.txt* is the only file listed above which does not have a direct counterpart in
 the *~/.conan* folder. Its format is a list of entries, one on each line, with the form of
