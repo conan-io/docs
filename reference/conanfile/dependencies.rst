@@ -58,9 +58,10 @@ Some **important** points:
 - At the moment, this information should only be used in ``generate()`` and ``validate()`` methods.
   Any other use, please submit a Github issue.
 
-Not all fields of the dependency conanfile are exposed, the current fields are:
+The exposed fields of the dependency conanfile are:
 
 - package_folder: The folder location of the dependency package binary
+- recipe_folder: The folder containing the ``conanfile.py`` (and other exported files) of the dependency
 - ref: an object that contains ``name``, ``version``, ``user``, ``channel`` and ``revision`` (recipe revision)
 - pref: an object that contains ``ref``, ``package_id`` and ``revision`` (package revision)
 - buildenv_info: ``Environment`` object with the information of the environment necessary to build
@@ -73,6 +74,12 @@ Not all fields of the dependency conanfile are exposed, the current fields are:
 - conf_info: Configuration information of this dependency, intended to be applied to consumers.
 - dependencies: The transitive dependencies of this dependency
 - is_build_context: Return ``True`` if ``context == "build"``.
+- conan_data: The ``conan_data`` attribute of the dependency that comes from its ``conandata.yml`` file
+- license: The ``license`` attribute of the dependency
+- description: The ``description`` attribute of the dependency
+- homepage: The ``homepage`` attribute of the dependency
+- url: The ``url`` attribute of the dependency
+
 
 
 Iterating dependencies
