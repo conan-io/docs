@@ -53,9 +53,12 @@ These are the values assigned by the ``cmake_layout``:
         cmake_layout(self, src_folder="subfolder", build_folder="build")
 
 
-Arguments:
-- ``src_folder``: (default ``"."``) internally defines ``self.folders.source=src_folder`` if ``conanfile.folders.subproject``
-  is not defined, otherwise it will define the value relative to ``conanfile.folders.subproject``
+**Arguments:**
+
+- ``src_folder``: (default ``"."``) internally defines ``self.folders.source=src_folder``
+  if ``conanfile.folders.subproject`` is not defined, otherwise it will define the value
+  relative to ``conanfile.folders.subproject``
+
 - ``build_folder``: (default ``"build"``) defines the base name for the folder containing the build artifacts.
 
 
