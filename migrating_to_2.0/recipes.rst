@@ -375,7 +375,7 @@ The export_sources() method
 ---------------------------
 
 The ``self.copy`` has been replaced by the explicit tool
-:ref:`copy<conan_tools_files_copy>`. Tipically you would copy from the
+:ref:`copy<conan_tools_files_copy>`. Typically you would copy from the
 ``conanfile.recipe_folder`` to the ``conafile.export_sources_folder``:
 
 .. code-block:: bash
