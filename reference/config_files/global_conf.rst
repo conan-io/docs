@@ -239,7 +239,7 @@ configuration lines above:
     *:tools.cmake.cmaketoolchain:generator=Ninja
 
 The result is that you're specifying a general `generator` for all your packages, and that's it. The `zlib` line has no
-effect because it's the first one evaluated, and after that Conan is overriding that specific pattern with the most
+effect because it's the first one evaluated, and after that, Conan is overriding that specific pattern with the most
 general one, so it deserves to pay special attention to the order.
 
 
