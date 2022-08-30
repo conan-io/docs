@@ -148,6 +148,12 @@ This is a special case because the consumer conanfile might not declare a `name`
 
 Available since: `1.35.0 <https://github.com/conan-io/conan/releases/tag/1.35.0>`_
 
+.. important::
+
+    The use of this ``[buildenv]`` section requires using the ``VirtualBuildEnv`` generator in your recipe,
+    or putting the configuration ``tools.env.virtualenv:auto_use=True`` in your profile.
+
+
 This profile section is aimed to be the replacement of the legacy ``[env]`` one. It's more powerful, and it is able to
 apply some additional operators to each variable declared when you're composing profiles or even local variables:
 
