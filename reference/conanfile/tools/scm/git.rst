@@ -88,10 +88,10 @@ clone()
 
 .. code-block:: python
     
-    def clone(self, url, target="")
+    def clone(self, url, target="", args=None)
 
 
-Does a ``git clone <url> <target>`` 
+Does a ``git clone <url> <args> <target>`` 
 
 
 checkout()
