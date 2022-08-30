@@ -101,7 +101,7 @@ Example of ``conandata.yml`` with different patches for different versions:
 
 
 conan.tools.files.export_conandata_patches()
--------------------------------------------
+--------------------------------------------
 
 Available since: `1.52.0 <https://github.com/conan-io/conan/releases/tag/1.52.0>`_
 
