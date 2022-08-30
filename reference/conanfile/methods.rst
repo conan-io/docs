@@ -1245,6 +1245,32 @@ in any other OS will be the standard one, as if the ``build_id()`` method was no
 the build folder will be wiped at each :command:`conan create` command and a clean build will
 be done.
 
+.. _method_compatibility:
+
+compatibility()
+---------------
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+Available since Conan `1.47.0 <https://github.com/conan-io/conan/releases/tag/1.47.0>`_
+
+This method can be used in a *conanfile.py* to define packages that are compatible between
+each other. If there are not binaries available for the requested settings and options
+this mechanism will retrieve the compatible packages' binaries if they exist.  The method
+should return a list of compatible configurations. For example, if we want that binaries
+built with gcc versions 4.8, 4.7 and 4.6 are considered compatible with the ones compiled
+with 4.9 we could declare the ``compatibility()`` like this:
+
+..  code-block:: python
+
+    def compatibility(self):
+        if self.settings.compiler == "gcc" and self.settings.compiler.version == "4.9":
+            return [{"settings": [("compiler.version", v)]}
+                    for v in ("4.8", "4.7", "4.6")]
+
+
 .. _method_deploy:
 
 deploy()

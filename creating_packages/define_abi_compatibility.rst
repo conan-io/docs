@@ -241,6 +241,17 @@ based on this compatibility model, it only applies to use-cases where the binari
 
 Check the :ref:`Compatible Compilers<compatible_compilers>` section to see another example of how to take benefit of compatible packages.
 
+Besides declaring the ``compatible_packages`` in the ``package_id()`` method, there's a
+new experimental method where you can declare this compatibility in a similar way:
+
+..  code-block:: python
+
+    def compatibility(self):
+        if self.settings.compiler == "gcc" and self.settings.compiler.version == "4.9":
+            return [{"settings": [("compiler.version", v)]}
+                    for v in ("4.8", "4.7", "4.6")]
+
+Please, check the :ref:`method_compatibility` reference for more information.
 
 .. _compatible_compilers:
 
