@@ -258,13 +258,13 @@ The ``MSBuild`` helper can be used like:
 
         def build(self):
             msbuild = MSBuild(self)
-            msbuild.build("MyProject.sln")
+            msbuild.build("MyProject.sln", targets=["mytarget"])
 
 The ``MSBuild.build()`` method internally implements a call to ``msbuild`` like:
 
 .. code:: bash
 
-    $ <vcvars-cmd> && msbuild "MyProject.sln" /p:Configuration=<configuration> /p:Platform=<platform>
+    $ <vcvars-cmd> && msbuild "MyProject.sln" /p:Configuration=<configuration> /p:Platform=<platform> /target=mytarget
 
 Where:
 
@@ -273,6 +273,7 @@ Where:
   but this will be configurable with ``msbuild.build_type``.
 - ``platform`` is the architecture, a mapping from the ``settings.arch`` to the common 'x86', 'x64', 'ARM', 'ARM64'.
   This is configurable with ``msbuild.platform``.
+- ``targets`` is an optional argument, defaults to ``None``, and otherwise it is a list of targets to build
 
 
 attributes
