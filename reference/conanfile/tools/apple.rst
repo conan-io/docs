@@ -402,3 +402,19 @@ Parameters:
 - **conanfile**: Conanfile instance.
 
 This tool returns ``True`` if the OS is from Apple (Macos, iOS, watchOS or tvOS)
+
+.. _conan_tools_apple_to_apple_arch:
+
+to_apple_arch()
+---------------
+
+.. code-block:: python
+
+    def to_apple_arch(conanfile):
+
+Parameters:
+
+- **conanfile**: Conanfile instance.
+
+Converts the current Conan-style `arch` setting (in the _host_ context) to a value
+understood by different Apple build tools (e.g. `armv8` -> `arm64`).
