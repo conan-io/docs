@@ -168,7 +168,7 @@ conan.tools.files.mkdir()
 
 .. code-block:: python
 
-    def mkdir(path)
+    def mkdir(conanfile, path)
 
 Utility functions to create a directory. The existence of the specified directory is checked, so ``mkdir()`` will do nothing if the
 directory already exists.
