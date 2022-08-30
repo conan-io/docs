@@ -241,7 +241,7 @@ This example illustrates all of these methods:
 .. code-block:: python
 
     import os
-    from conans import ConanFile
+    from conan import ConanFile
 
     class Pkg(ConanFile):
         name = "pkg"
@@ -291,7 +291,7 @@ configuration as:
 .. code-block:: python
 
     import os
-    from conans import ConanFile
+    from conan import ConanFile
 
     class Pkg(ConanFile):
         name = "android_ndk"
