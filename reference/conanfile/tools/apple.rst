@@ -406,7 +406,7 @@ This tool returns ``True`` if the OS is from Apple (Macos, iOS, watchOS or tvOS)
 .. _conan_tools_apple_to_apple_arch:
 
 to_apple_arch()
--------------
+---------------
 
 .. code-block:: python
 
