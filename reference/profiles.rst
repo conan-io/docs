@@ -141,8 +141,10 @@ This is a special case because the consumer conanfile might not declare a `name`
         [env]
         PATH=[/some/path/to/my/tool]
 
-buildenv
-+++++++++
+.. _profiles_buildenv:
+
+[buildenv]
+++++++++++
 
 Available since: `1.35.0 <https://github.com/conan-io/conan/releases/tag/1.35.0>`_
 
