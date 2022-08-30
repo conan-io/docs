@@ -371,6 +371,30 @@ to mimic the same behavior:
 
 Please **check the full example** on the :ref:`conan.tools.scm.Git section <conan_tools_scm_git>`.
 
+The export_sources() method
+---------------------------
+
+The ``self.copy`` has been replaced by the explicit tool
+:ref:`copy<conan_tools_files_copy>`. Typically you would copy from the
+``conanfile.recipe_folder`` to the ``conafile.export_sources_folder``:
+
+.. code-block:: bash
+    :caption: **From:**
+
+    def export_sources(self):
+        ...
+        self.copy("CMakeLists.txt")
+
+
+.. code-block:: bash
+    :caption: **To:**
+
+    from conan.tools.files import copy
+
+    def export_sources(self):
+        ...
+        copy(self, "CMakeLists.txt", self.recipe_folder, self.export_sources_folder)
+
 
 The generate() method
 ---------------------
