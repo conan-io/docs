@@ -92,10 +92,15 @@ To list all possible configurations available, run :command:`conan config list`.
     tools.build:exelinkflags: List of extra flags used by CMakeToolchain for CMAKE_EXE_LINKER_FLAGS_INIT variable
 
 
+.. important::
+
+    This list may be outdated. Please, run the command :command:`conan config list` to check the latest configurations.
+
+
 Configuration file template
 ---------------------------
 
-Available since: `1.46.0 <https://github.com/conan-io/conan/releases>`_
+Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>`_
 
 It is possible to use **jinja2** template engine for *global.conf*. When Conan loads this file, immediately parses
 and renders the template, which must result in a standard tools-configuration text.
@@ -116,7 +121,7 @@ and renders the template, which must result in a standard tools-configuration te
 Configuration data types
 ------------------------
 
-Available since: `1.46.0 <https://github.com/conan-io/conan/releases>`_
+Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>`_
 
 All the values will be interpreted by Conan as the result of the python built-in `eval()` function:
 
@@ -137,7 +142,7 @@ All the values will be interpreted by Conan as the result of the python built-in
 Configuration data operators
 ----------------------------
 
-Available since: `1.46.0 <https://github.com/conan-io/conan/releases>`_
+Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>`_
 
 It's also possible to use some extra operators when you're composing tool configurations in your *global.conf* or
 any of your profiles:
@@ -212,6 +217,32 @@ Running, for instance, :command:`conan install . -pr myprofile`, the configurati
     ...
 
 
+Configuration patterns
+----------------------
+
+You can use package patterns to apply the configuration in those dependencies which are matching:
+
+.. code-block:: text
+
+    *:tools.cmake.cmaketoolchain:generator=Ninja
+    zlib:tools.cmake.cmaketoolchain:generator=Visual Studio 16 2019
+
+This example shows you how to specify a general `generator` for all your packages, but for `zlib` one. `zlib` is defining
+`Visual Studio 16 2019` as its own generator.
+
+Besides that, it's quite relevant to say that **the order matters**. So, if we change the order of the
+configuration lines above:
+
+.. code-block:: text
+
+    zlib:tools.cmake.cmaketoolchain:generator=Visual Studio 16 2019
+    *:tools.cmake.cmaketoolchain:generator=Ninja
+
+The result is that you're specifying a general `generator` for all your packages, and that's it. The `zlib` line has no
+effect because it's the first one evaluated, and after that, Conan is overriding that specific pattern with the most
+general one, so it deserves to pay special attention to the order.
+
+
 .. _conf_in_recipes:
 
 Configuration in your recipes
@@ -241,7 +272,7 @@ This example illustrates all of these methods:
 .. code-block:: python
 
     import os
-    from conans import ConanFile
+    from conan import ConanFile
 
     class Pkg(ConanFile):
         name = "pkg"
@@ -291,7 +322,7 @@ configuration as:
 .. code-block:: python
 
     import os
-    from conans import ConanFile
+    from conan import ConanFile
 
     class Pkg(ConanFile):
         name = "android_ndk"

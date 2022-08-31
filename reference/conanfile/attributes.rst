@@ -1693,7 +1693,11 @@ If the attribute is omitted, the value of the attribute is assumed to be equal t
 conf
 ----
 
-This is an **experimental** feature introduced in Conan 1.47.
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+Available since: `1.47.0 <https://github.com/conan-io/conan/releases/tag/1.47.0>`_
 
 In the ``self.conf`` attribute we can find all the conf entries declared in the :ref:`[conf] section of the profiles<profiles_tools_conf>`
 in addition of the declared :ref:`self.conf_info<conf_in_recipes>` entries from the first level tool requirements. The profile entries have priority.
@@ -1764,7 +1768,11 @@ Without the profile:
 win_bash
 --------
 
-This is an **experimental** feature introduced in Conan 1.39.
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+Available since: `1.39.0 <https://github.com/conan-io/conan/releases/tag/1.39.0>`_
 
 When ``True`` it enables the new run in a subsystem bash in Windows mechanism. :ref:`Read more here<conanfile_win_bash>`.
 

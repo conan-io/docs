@@ -13,7 +13,7 @@ conan.tools.apple
 XcodeDeps
 ---------
 
-Available since: `1.42.0 <https://github.com/conan-io/conan/releases>`_
+Available since: `1.42.0 <https://github.com/conan-io/conan/releases/tag/1.42.0>`_
 
 The ``XcodeDeps`` tool is the dependency information generator for *Xcode*. It will generate multiple
 *.xcconfig* configuration files, the can be used by consumers using *xcodebuild* or *Xcode*. To use
@@ -101,10 +101,19 @@ If you want to add this dependencies to you Xcode project, you just have to add 
 *conan_config.xcconfig* configuration file for all of the configurations you want to use
 (usually *Debug* and *Release*).
 
+Additional variables defined
+++++++++++++++++++++++++++++
+
+Besides the variables that define the *Xcode* build settings mentioned above, there are
+additional variables declared that may be useful to use in your *Xcode* project:
+
+* `PACKAGE_ROOT_<package_name>`: Set to the location of the :ref:`package_folder attribute
+  <attribute_package_folder>`.
+
 Components support
 ++++++++++++++++++
 
-Since Conan version `1.49.0 <https://github.com/conan-io/conan/releases>`_, this generator
+Since Conan version `1.49.0 <https://github.com/conan-io/conan/releases/tag/1.49.0>`_, this generator
 supports packages with components. That means that:
 
 * If a **dependency** ``package_info()`` declares ``cpp_info.requires`` on some
@@ -151,7 +160,7 @@ want to link with shared or static libraries.
 XcodeToolchain
 --------------
 
-Available since: `1.46.0 <https://github.com/conan-io/conan/releases>`_
+Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>`_
 
 The ``XcodeToolchain`` is the toolchain generator for Xcode. It will generate *.xcconfig*
 configuration files that can be added to Xcode projects. This generator translates the
@@ -260,7 +269,7 @@ file.
 XcodeBuild
 ----------
 
-Available since: `1.46.0 <https://github.com/conan-io/conan/releases>`_
+Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>`_
 
 The ``Xcode`` build helper is a wrapper around the command line invocation of Xcode. It
 will abstract the calls like ``xcodebuild -project app.xcodeproj -configuration <config>
@@ -328,6 +337,8 @@ conf
 conan.tools.apple.fix_apple_shared_install_name()
 -------------------------------------------------
 
+Available since: `1.49.0 <https://github.com/conan-io/conan/releases/tag/1.49.0>`_
+
 .. code-block:: python
 
     def fix_apple_shared_install_name(conanfile):
@@ -391,3 +402,19 @@ Parameters:
 - **conanfile**: Conanfile instance.
 
 This tool returns ``True`` if the OS is from Apple (Macos, iOS, watchOS or tvOS)
+
+.. _conan_tools_apple_to_apple_arch:
+
+to_apple_arch()
+---------------
+
+.. code-block:: python
+
+    def to_apple_arch(conanfile):
+
+Parameters:
+
+- **conanfile**: Conanfile instance.
+
+Converts the current Conan-style `arch` setting (in the _host_ context) to a value
+understood by different Apple build tools (e.g. `armv8` -> `arm64`).

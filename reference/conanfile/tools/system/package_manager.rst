@@ -110,6 +110,8 @@ There are some specific arguments for each of these tools. Here is the complete 
 conan.tools.system.package_manager.Apt
 --------------------------------------
 
+Available since: `1.45.0 <https://github.com/conan-io/conan/releases/tag/1.45.0>`_
+
 Will invoke the *apt-get* command. Enabled by default for **Linux** with distribution
 names: *ubuntu* and *debian*.
 
@@ -174,6 +176,8 @@ Methods
 conan.tools.system.package_manager.Yum
 --------------------------------------
 
+Available since: `1.45.0 <https://github.com/conan-io/conan/releases/tag/1.45.0>`_
+
 Will invoke the *yum* command. Enabled by default for **Linux** with distribution names:
 *pidora*, *scientific*, *xenserver*, *amazon*, *oracle*, *amzn* and *almalinux*.
 
@@ -208,12 +212,16 @@ The default mapping Conan uses for *Yum* packages architecture is:
 conan.tools.system.package_manager.Dnf
 --------------------------------------
 
+Available since: `1.45.0 <https://github.com/conan-io/conan/releases/tag/1.45.0>`_
+
 Will invoke the *dnf* command. Enabled by default for **Linux** with distribution names:
 *fedora*, *rhel*, *centos* and *mageia*. This tool has exactly the same default values,
 constructor and methods than the :ref:`Yum<conan_tools_system_package_manager_yum>` tool.
 
 conan.tools.system.package_manager.PacMan
 -----------------------------------------
+
+Available since: `1.45.0 <https://github.com/conan-io/conan/releases/tag/1.45.0>`_
 
 Will invoke the *pacman* command. Enabled by default for **Linux** with distribution
 names: *arch*, *manjaro* and when using **Windows** with *msys2*
@@ -241,6 +249,8 @@ The default mapping Conan uses for *PacMan* packages architecture is:
 conan.tools.system.package_manager.Zypper
 -----------------------------------------
 
+Available since: `1.45.0 <https://github.com/conan-io/conan/releases/tag/1.45.0>`_
+
 Will invoke the *zypper* command. Enabled by default for **Linux** with distribution
 names: *opensuse*, *sles*.
 
@@ -256,6 +266,8 @@ Constructor
 conan.tools.system.package_manager.Brew
 ---------------------------------------
 
+Available since: `1.45.0 <https://github.com/conan-io/conan/releases/tag/1.45.0>`_
+
 Will invoke the *brew* command. Enabled by default for **macOS**.
 
 Constructor
@@ -269,6 +281,8 @@ Constructor
 
 conan.tools.system.package_manager.Pkg
 --------------------------------------
+
+Available since: `1.45.0 <https://github.com/conan-io/conan/releases/tag/1.45.0>`_
 
 Will invoke the *pkg* command. Enabled by default for **Linux** with distribution names: *freebsd*.
 
@@ -284,6 +298,8 @@ Constructor
 conan.tools.system.package_manager.PkgUtil
 ------------------------------------------
 
+Available since: `1.45.0 <https://github.com/conan-io/conan/releases/tag/1.45.0>`_
+
 Will invoke the *pkgutil* command. Enabled by default for **Solaris**.
 
 Constructor
@@ -297,6 +313,8 @@ Constructor
 
 conan.tools.system.package_manager.Chocolatey
 ---------------------------------------------
+
+Available since: `1.45.0 <https://github.com/conan-io/conan/releases/tag/1.45.0>`_
 
 Will invoke the *choco* command. Enabled by default for **Windows**.
 

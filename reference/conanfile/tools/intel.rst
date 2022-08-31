@@ -8,7 +8,7 @@ conan.tools.intel
 IntelCC
 --------
 
-Available since: `1.41.0 <https://github.com/conan-io/conan/releases>`_
+Available since: `1.41.0 <https://github.com/conan-io/conan/releases/tag/1.41.0>`_
 
 This tool helps you to manage the new Intel oneAPI `DPC++/C++ <https://software.intel.com/content/www/us/en/develop/documentation/oneapi-dpcpp-cpp-compiler-dev-guide-and-reference/top.html>`_ and
 `Classic <https://software.intel.com/content/www/us/en/develop/documentation/cpp-compiler-developer-guide-and-reference/top.html>`_ ecosystem in Conan.

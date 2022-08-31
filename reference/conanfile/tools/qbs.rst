@@ -73,6 +73,8 @@ etc. This includes the following:
 Qbs
 ---
 
+Available since: `1.33.0 <https://github.com/conan-io/conan/releases/tag/1.33.0>`_
+
 If you are using **Qbs** as your build system, you can use the **Qbs** build helper.
 
 .. code-block:: python

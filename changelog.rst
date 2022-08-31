@@ -18,8 +18,40 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-    Conan 1.51 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
+    Conan 1.52 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
     a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
+
+1.52.0 (31-Aug-2022)
+--------------------
+
+- Feature: Added mechanism to create .pc files for build requirements. `#11979 <https://github.com/conan-io/conan/pull/11979>`_ . Docs `here <https://github.com/conan-io/docs/pull/2725>`__
+- Feature: Add ``MSBuild().build(.., targets=["target1"])`` argument to new ``MSBuild``. `#11968 <https://github.com/conan-io/conan/pull/11968>`_ . Docs `here <https://github.com/conan-io/docs/pull/2724>`__
+- Feature: Refactored `PkgConfigDeps` code. `#11955 <https://github.com/conan-io/conan/pull/11955>`_
+- Feature: Removed warning messages from `PkgConfigDeps` if any duplicated `*.pc` file. `#11955 <https://github.com/conan-io/conan/pull/11955>`_
+- Feature: Add ``is_msvc(..., build_context=False)`` argument. `#11949 <https://github.com/conan-io/conan/pull/11949>`_ . Docs `here <https://github.com/conan-io/docs/pull/2712>`__
+- Feature: Support remotes.json in Conan 1.X. `#11936 <https://github.com/conan-io/conan/pull/11936>`_ . Docs `here <https://github.com/conan-io/docs/pull/2718>`__
+- Feature: Add `BUILD_TESTING=OFF` to CMakeToolchain presets if `tools.build:skip_test`. `#11935 <https://github.com/conan-io/conan/pull/11935>`_ . Docs `here <https://github.com/conan-io/docs/pull/2713>`__
+- Feature: Allow traits in `self.requires()` for 2.0 compatibility. `#11934 <https://github.com/conan-io/conan/pull/11934>`_ . Docs `here <https://github.com/conan-io/docs/pull/2714>`__
+- Feature: Make the version of the Conan client available under `conan` and make it a `Version` object so it can be compared. `#11928 <https://github.com/conan-io/conan/pull/11928>`_ . Docs `here <https://github.com/conan-io/docs/pull/2719>`__
+- Feature: Add ability to pass additional arguments to `conan.tools.scm.Git.clone()`. `#11921 <https://github.com/conan-io/conan/pull/11921>`_ . Docs `here <https://github.com/conan-io/docs/pull/2721>`__
+- Feature: Promote `to_apple_arch` in the new `conan.tools.apple` module. `#11915 <https://github.com/conan-io/conan/pull/11915>`_ . Docs `here <https://github.com/conan-io/docs/pull/2722>`__
+- Feature: Add `export_conandata_patches` tool. `#11911 <https://github.com/conan-io/conan/pull/11911>`_ . Docs `here <https://github.com/conan-io/docs/pull/2720>`__
+- Feature: Fail sooner and with a meaningful error if the specified required version is not satisfied. `#11908 <https://github.com/conan-io/conan/pull/11908>`_
+- Feature: Implement ``cmake_layout(..., build_folder="build)`` build folder argument. `#11889 <https://github.com/conan-io/conan/pull/11889>`_ . Docs `here <https://github.com/conan-io/docs/pull/2715>`__
+- Feature: Add new members to ``ConanFileInterface`` for ``self.dependencies`` access. `#11868 <https://github.com/conan-io/conan/pull/11868>`_ . Docs `here <https://github.com/conan-io/docs/pull/2716>`__
+- Feature: Defines the `PACKAGE_ROOT_<package>` variable in XcodeDeps generated files. `#11818 <https://github.com/conan-io/conan/pull/11818>`_ . Docs `here <https://github.com/conan-io/docs/pull/2717>`__
+- Feature: Added clang 16 to settings. `#11780 <https://github.com/conan-io/conan/pull/11780>`_
+- Feature: Allow the authorization process in conan_server to be customized, just like authentication. `#11776 <https://github.com/conan-io/conan/pull/11776>`_ . Docs `here <https://github.com/conan-io/docs/pull/2684>`__
+- Fix: Change `conan.tools.files.get/download` default checksums to `None`, instead of empty string. `#11939 <https://github.com/conan-io/conan/pull/11939>`_
+- Fix: When the `layout()` is declared in the recipe, the files such as `conainfo.txt`, `conanbuildinfo.txt` were written in the `test_package` folder, now there are written in the `generators_folder`. `#11820 <https://github.com/conan-io/conan/pull/11820>`_
+- Bugfix: Fix conversion if `options` passed in `compatibility()` method. `#11991 <https://github.com/conan-io/conan/pull/11991>`_ . Docs `here <https://github.com/conan-io/docs/pull/2727>`__
+- Bugfix: Prevent mutation of loaded data from conanfile.yml if accesses multiple times during the same run when calling `apply_conandata_patches()`. `#11860 <https://github.com/conan-io/conan/pull/11860>`_
+- Bugfix: Do not skip __pycache__ folder if `CONAN_KEEP_PYTHON_FILES`. `#11828 <https://github.com/conan-io/conan/pull/11828>`_
+- Bugfix: Added `+` and `-` symbols to be replaced by `_` in XML element names. `#11826 <https://github.com/conan-io/conan/pull/11826>`_
+- Bugfix: The `tool.scm.Version` model has been ported from 2.X to keep the same behavior in Conan 1.X. `#11823 <https://github.com/conan-io/conan/pull/11823>`_
+- Bugfix: Fixed `cpp_std` flags when using C++20. `#11819 <https://github.com/conan-io/conan/pull/11819>`_
+- Bugfix: Use "android-<level>" format for the ANDROID_PLATFORM argument to be compatible with old NDK versions. `#11799 <https://github.com/conan-io/conan/pull/11799>`_
+- Bugfix: Fix XcodeDeps component handling in transitive dependencies `#11772 <https://github.com/conan-io/conan/pull/11772>`_
 
 1.51.3 (18-Aug-2022)
 --------------------

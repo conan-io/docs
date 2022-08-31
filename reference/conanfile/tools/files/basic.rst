@@ -11,6 +11,8 @@ conan.tools.files basic operations
 conan.tools.files.copy()
 ------------------------
 
+Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>`_
+
 .. code-block:: python
 
     def copy(conanfile, pattern, src, dst, keep_path=True, excludes=None, ignore_case=True)
@@ -44,6 +46,8 @@ Parameters:
 conan.tools.files.load()
 ------------------------
 
+Available since: `1.35.0 <https://github.com/conan-io/conan/releases/tag/1.35.0>`_
+
 .. code-block:: python
 
     def load(conanfile, path, encoding="utf-8")
@@ -65,6 +69,8 @@ Parameters:
 
 conan.tools.files.save()
 ------------------------
+
+Available since: `1.35.0 <https://github.com/conan-io/conan/releases/tag/1.35.0>`_
 
 .. code-block:: python
 
@@ -92,6 +98,8 @@ Parameters:
 conan.tools.files.rename()
 --------------------------
 
+Available since: `1.37.0 <https://github.com/conan-io/conan/releases/tag/1.37.0>`_
+
 .. code-block:: python
 
     def rename(conanfile, src, dst)
@@ -113,6 +121,8 @@ Parameters:
 
 conan.tools.files.replace_in_file()
 -----------------------------------
+
+Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>`_
 
 .. code-block:: python
 
@@ -141,6 +151,8 @@ Parameters:
 conan.tools.files.rm()
 ----------------------
 
+Available since: `1.50.0 <https://github.com/conan-io/conan/releases/tag/1.50.0>`_
+
 .. code-block:: python
 
     def rm(conanfile, pattern, folder, recursive=False)
@@ -166,6 +178,8 @@ Parameters:
 conan.tools.files.mkdir()
 -------------------------
 
+Available since: `1.35.0 <https://github.com/conan-io/conan/releases/tag/1.35.0>`_
+
 .. code-block:: python
 
     def mkdir(conanfile, path)
@@ -188,6 +202,8 @@ Parameters:
 
 conan.tools.files.rmdir()
 -------------------------
+
+Available since: `1.47.0 <https://github.com/conan-io/conan/releases/tag/1.47.0>`_
 
 .. code-block:: python
 
@@ -216,6 +232,8 @@ it can be an absolute path.
 conan.tools.files.chdir()
 -------------------------
 
+Available since: `1.40.0 <https://github.com/conan-io/conan/releases/tag/1.40.0>`_
+
 .. code-block:: python
 
     def chdir(conanfile, newdir):
@@ -237,6 +255,8 @@ Parameters:
 
 conan.tools.files.unzip()
 -------------------------
+
+Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>`_
 
 .. code-block:: python
 
@@ -294,6 +314,8 @@ Parameters:
 conan.tools.files.update_conandata()
 ------------------------------------
 
+Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>`_
+
 .. code-block:: python
 
     def update_conandata(conanfile, data)
@@ -334,3 +356,46 @@ Example:
     
         def source(self):
             data = self.conan_data["sources"]["mydata"]
+
+
+conan.tools.files.collect_libs()
+--------------------------------
+
+Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>`_
+
+.. code-block:: python
+
+    def collect_libs(conanfile, folder=None)
+
+Returns a sorted list of library names from the libraries (files with extensions *.so*, *.lib*, *.a* and *.dylib*) located inside the
+``conanfile.cpp_info.libdirs`` (by default) or the **folder** argument (see below) relative to the package folder. Useful to collect not
+inter-dependent libraries or with complex names like ``libmylib-x86-debug-en.lib``.
+
+.. code-block:: python
+
+    from conan.tools.files import collect_libs
+
+    def package_info(self):
+        self.cpp_info.libdirs = ["lib", "other_libdir"]  # Default value is 'lib'
+        self.cpp_info.libs = collect_libs(self)
+
+For UNIX libraries starting with **lib**, like *libmath.a*, this tool will collect the library name **math**.
+
+Regarding symlinks, this tool will keep only the "most generic" file among the resolved real file and all symlinks pointing to this real file.
+For example among files below, this tool will select *libmath.dylib* file and therefore only append *math* in the returned list:
+
+.. code-block:: shell
+
+    -rwxr-xr-x libmath.1.0.0.dylib
+    lrwxr-xr-x libmath.1.dylib -> libmath.1.0.0.dylib
+    lrwxr-xr-x libmath.dylib -> libmath.1.dylib
+
+**Parameters:**
+    - **conanfile** (Required): A ``ConanFile`` object to get the ``package_folder`` and ``cpp_info``.
+    - **folder** (Optional, Defaulted to ``None``): String indicating the subfolder name inside ``conanfile.package_folder`` where
+      the library files are.
+
+.. warning::
+
+    This tool collects the libraries searching directly inside the package folder and returns them in no specific order. If libraries are
+    inter-dependent, then ``package_info()`` method should order them to achieve correct linking order.
