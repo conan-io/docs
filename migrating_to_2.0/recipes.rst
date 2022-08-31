@@ -755,6 +755,35 @@ dependencies you can do it in the ``generate(self)`` method with the new ``copy`
 
 
 
+Migrate conanfile.compatible_packages to the new compatibility() method
+-----------------------------------------------------------------------
+
+To declare compatible packages in a valid way for both Conan 1.X and 2.0, you should migrate
+the use of the :ref:`compatible_packages` to the :ref:`method_compatibility`.
+
+
+.. code-block:: python
+   :caption: **From:**
+
+        def package_id(self):
+            if self.settings.compiler == "gcc" and self.settings.compiler.version == "4.9":
+                for version in ("4.8", "4.7", "4.6"):
+                    compatible_pkg = self.info.clone()
+                    compatible_pkg.settings.compiler.version = version
+                    self.compatible_packages.append(compatible_pkg)
+
+
+.. code-block:: python
+   :caption: **To:**
+
+        def compatibility(self):
+            if self.settings.compiler == "gcc" and self.settings.compiler.version == "4.9":
+                return [{"settings": [("compiler.version", v)]}
+                        for v in ("4.8", "4.7", "4.6")]
+
+
+
+
 Changes in the test_package recipe
 ----------------------------------
 
