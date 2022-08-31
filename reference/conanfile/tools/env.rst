@@ -1,3 +1,5 @@
+.. _conan_tools_env:
+
 conan.tools.env
 ===============
 
