@@ -758,7 +758,7 @@ dependencies you can do it in the ``generate(self)`` method with the new ``copy`
 Migrate conanfile.compatible_packages to the new compatibility() method
 -----------------------------------------------------------------------
 
-To declare compatible packages in valid way for both Conan 1.X and 2.0 you should migrate
+To declare compatible packages in a valid way for both Conan 1.X and 2.0, you should migrate
 the use of the :ref:`compatible_packages` to the :ref:`method_compatibility`.
 
 
