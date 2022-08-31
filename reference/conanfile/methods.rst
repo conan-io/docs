@@ -1270,6 +1270,22 @@ with 4.9 we could declare the ``compatibility()`` like this:
             return [{"settings": [("compiler.version", v)]}
                     for v in ("4.8", "4.7", "4.6")]
 
+The format of the list returned is as shown below:
+
+..  code-block:: python
+
+        [
+            {
+                "settings": [(<setting>, <value>), (<setting>, <value>), ...], 
+                "options": [(<option>, <value>), (<option>, <value>), ...]
+            },
+            {
+                "settings": [(<setting>, <value>), (<setting>, <value>), ...], 
+                "options": [(<option>, <value>), (<option>, <value>), ...]
+            },
+            ...
+        ]
+
 
 .. _method_deploy:
 

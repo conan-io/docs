@@ -241,8 +241,11 @@ based on this compatibility model, it only applies to use-cases where the binari
 
 Check the :ref:`Compatible Compilers<compatible_compilers>` section to see another example of how to take benefit of compatible packages.
 
-Besides declaring the ``compatible_packages`` in the ``package_id()`` method, there's a
-new experimental method where you can declare this compatibility in a similar way:
+**New conanfile.compatibility() method**
+
+The *conanfile.compatible_packages* will be substituted by the new
+:ref:`method_compatibility` experimental method in Conan 2.0. This method allows you to
+declare compatibility in a similar way:
 
 ..  code-block:: python
 
