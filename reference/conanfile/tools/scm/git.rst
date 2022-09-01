@@ -7,6 +7,7 @@ Git
 
     This tool is **experimental** and subject to breaking changes. This tool is intended to replace the current ``conans.tools.Git`` and the current ``scm`` attribute, that will be removed in Conan 2.0.
 
+Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>`_
 
 constructor
 -----------
@@ -87,12 +88,28 @@ clone()
 
 .. code-block:: python
     
-    def clone(self, url, target="")
+    def clone(self, url, target="", args=None)
 
 
-Does a ``git clone <url> <target>`` 
+Performs a ``git clone <url> <args> <target>`` operation,
+where `target` is the target directory.
 
+Optional arguments can be passed as a list, for example:
 
+.. code-block:: python
+
+    from conan import ConanFile
+    from conan.tools.scm import Git
+
+    class App(ConanFile):
+        version = "1.2.3"
+
+        def source(self):
+            git = Git(self)
+            clone_args = ['--depth', '1', '--branch', self.version]
+            git.clone(url="https://path/to/repo.git", args=clone_args)
+
+    
 checkout()
 ----------
 

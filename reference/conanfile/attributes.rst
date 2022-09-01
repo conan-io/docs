@@ -295,7 +295,7 @@ It is possible to check the settings to implement conditional logic, with attrib
         elif self.settings.arch == "x86_64":
             # Other different commands
 
-Those comparisons do content checking, for example if you do a typo like ``self.settings.os == "Windos"``,
+Those comparisons do content checking, for example if you do a typo like ``self.settings.os == "Windows"``,
 Conan will fail and tell you that is not a valid ``settings.os`` value, and the possible range of values.
 
 Likewise, if you try to access some setting that doesn't exist, like ``self.settings.compiler.libcxx``
@@ -1693,7 +1693,11 @@ If the attribute is omitted, the value of the attribute is assumed to be equal t
 conf
 ----
 
-This is an **experimental** feature introduced in Conan 1.47.
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+Available since: `1.47.0 <https://github.com/conan-io/conan/releases/tag/1.47.0>`_
 
 In the ``self.conf`` attribute we can find all the conf entries declared in the :ref:`[conf] section of the profiles<profiles_tools_conf>`
 in addition of the declared :ref:`self.conf_info<conf_in_recipes>` entries from the first level tool requirements. The profile entries have priority.
@@ -1764,7 +1768,11 @@ Without the profile:
 win_bash
 --------
 
-This is an **experimental** feature introduced in Conan 1.39.
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+Available since: `1.39.0 <https://github.com/conan-io/conan/releases/tag/1.39.0>`_
 
 When ``True`` it enables the new run in a subsystem bash in Windows mechanism. :ref:`Read more here<conanfile_win_bash>`.
 

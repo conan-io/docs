@@ -8,6 +8,7 @@ cmake_layout
     These tools are still **experimental** (so subject to breaking changes) but with very stable syntax.
     We encourage the usage of it to be prepared for Conan 2.0.
 
+Available since: `1.45.0 <https://github.com/conan-io/conan/releases/tag/1.45.0>`_
 
 For example, this would implement the standard CMake project layout:
 
@@ -38,6 +39,7 @@ These are the values assigned by the ``cmake_layout``:
     - ``build``: if the cmake generator is multi-configuration.
     - ``build/Debug`` or ``build/Release``: if the cmake generator is single-configuration, depending on the
       build_type.
+    - The ``"build"`` string, can be defined to other value by the ``build_folder`` argument.
 - ``conanfile.folders.generators``: ``build/generators``
 - ``conanfile.cpp.source.includedirs``: ``["include"]``
 - ``conanfile.cpp.build.libdirs`` and ``conanfile.cpp.build.bindirs``:
@@ -48,8 +50,16 @@ These are the values assigned by the ``cmake_layout``:
 .. code:: python
 
     def layout(self):
-        cmake_layout(self, src_folder="subfolder")
+        cmake_layout(self, src_folder="subfolder", build_folder="build")
 
+
+**Arguments:**
+
+- ``src_folder``: (default ``"."``) internally defines ``self.folders.source=src_folder``
+  if ``conanfile.folders.subproject`` is not defined, otherwise it will define the value
+  relative to ``conanfile.folders.subproject``
+
+- ``build_folder``: (default ``"build"``) defines the base name for the folder containing the build artifacts.
 
 
 Multi-setting/option cmake_layout

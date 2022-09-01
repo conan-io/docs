@@ -8,6 +8,7 @@ Meson
 
     This is an **experimental** feature subject to breaking changes in future releases.
 
+Available since: `1.33.0 <https://github.com/conan-io/conan/releases/tag/1.33.0>`_
 
 The ``Meson()`` build helper that works with the ``MesonToolchain`` is also experimental,
 and subject to breaking change in the future. It will evolve to adapt and complement the
