@@ -21,7 +21,7 @@ If you want to migrate to 2.0, there are several things you will need to change:
     the more relevant changes.
   - **General changes** not related to the recipes nor the Conan commands, "build profiles", lowercase references... etc.
 
-If you are looking for precompiled binaires, there is a very short list in a seperate remote which can be added
+If you are looking for precompiled binaries, there is a very short list in a separate remote which can be added
 
     .. code-block:: bash
 
