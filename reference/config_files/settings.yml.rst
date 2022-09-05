@@ -243,7 +243,7 @@ the final release. It will be considered as **experimental** in case of incompat
 intel-cc
 ++++++++
 
-Available since: `1.41.0 <https://github.com/conan-io/conan/releases>`_
+Available since: `1.41.0 <https://github.com/conan-io/conan/releases/tag/1.41.0>`_
 
 This compiler is a new, **experimental** one, aimed to handle the new Intel oneAPI DPC++/C++/Classic compilers. Instead of having *n* different compilers, you have 3 different **modes** of working:
 

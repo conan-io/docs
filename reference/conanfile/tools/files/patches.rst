@@ -6,6 +6,8 @@ conan.tools.files patches
 conan.tools.files.patch()
 -------------------------
 
+Available since: `1.35.0 <https://github.com/conan-io/conan/releases/tag/1.35.0>`_
+
 .. code-block:: python
 
     def patch(conanfile, base_path=None, patch_file=None, patch_string=None, strip=0, fuzz=False, **kwargs):
@@ -38,6 +40,8 @@ Parameters:
 
 conan.tools.files.apply_conandata_patches()
 -------------------------------------------
+
+Available since: `1.35.0 <https://github.com/conan-io/conan/releases/tag/1.35.0>`_
 
 .. code-block:: python
 
@@ -94,3 +98,28 @@ Example of ``conandata.yml`` with different patches for different versions:
 
             ret = g_test_run ();
         - patch_file: "patches/0003-fix-content-length-calculation.patch"
+
+
+conan.tools.files.export_conandata_patches()
+--------------------------------------------
+
+Available since: `1.52.0 <https://github.com/conan-io/conan/releases/tag/1.52.0>`_
+
+.. code-block:: python
+
+    def export_conandata_patches(conanfile):
+
+Exports (copies from ``conanfile.recipe_folder`` to ``conanfile.exports_sources_folder``)
+patches stored in ``conanfile.conan_data`` (read from ``conandata.yml`` file). It will
+export all the patches under ``patches`` entry that matches the given
+``conanfile.version``. If versions are not defined in ``conandata.yml`` it will export all
+the patches directly under ``patches`` keyword.
+
+Example of ``conandata.yml`` without versions defined:
+
+.. code-block:: python
+
+    from conan.tools.files import export_conandata_patches
+
+    def export_sources(self):
+        export_conandata_patches(self)

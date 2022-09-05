@@ -3,6 +3,8 @@
 conan.tools.files.AutoPackager
 ------------------------------
 
+Available since: `1.42.0 <https://github.com/conan-io/conan/releases/tag/1.42.0>`_
+
 The ``AutoPackager`` together with the :ref:`package layouts<package_layout>` feature, allow to automatically
 package the files following the declared information in the ``layout()`` method:
 

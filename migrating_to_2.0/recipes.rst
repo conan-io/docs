@@ -74,6 +74,9 @@ Requirements
               self.test_requires("gtest/0.1")
 
 
+The ``self.requires()`` method allows in 1.X any ``**kwargs``, so something like ``self.requires(..., transitive_headers=True)`` is possible in
+Conan 1.X. These ``**kwargs`` don't have any effect at all in Conan 1.X, they are not even checked for correctness. But they are allowed to exist,
+so if new requirement traits are used in Conan 2.0, they will not error.
 
 
 Settings
@@ -367,6 +370,30 @@ to mimic the same behavior:
 
 
 Please **check the full example** on the :ref:`conan.tools.scm.Git section <conan_tools_scm_git>`.
+
+The export_sources() method
+---------------------------
+
+The ``self.copy`` has been replaced by the explicit tool
+:ref:`copy<conan_tools_files_copy>`. Typically you would copy from the
+``conanfile.recipe_folder`` to the ``conafile.export_sources_folder``:
+
+.. code-block:: bash
+    :caption: **From:**
+
+    def export_sources(self):
+        ...
+        self.copy("CMakeLists.txt")
+
+
+.. code-block:: bash
+    :caption: **To:**
+
+    from conan.tools.files import copy
+
+    def export_sources(self):
+        ...
+        copy(self, "CMakeLists.txt", self.recipe_folder, self.export_sources_folder)
 
 
 The generate() method
@@ -725,6 +752,35 @@ dependencies you can do it in the ``generate(self)`` method with the new ``copy`
         for dep in self.dependencies.values():
             copy(self, "*.dylib", dep.cpp_info.libdirs[0], self.build_folder)
             copy(self, "*.dll", dep.cpp_info.libdirs[0], self.build_folder)
+
+
+
+Migrate conanfile.compatible_packages to the new compatibility() method
+-----------------------------------------------------------------------
+
+To declare compatible packages in a valid way for both Conan 1.X and 2.0, you should migrate
+the use of the :ref:`compatible_packages` to the :ref:`method_compatibility`.
+
+
+.. code-block:: python
+   :caption: **From:**
+
+        def package_id(self):
+            if self.settings.compiler == "gcc" and self.settings.compiler.version == "4.9":
+                for version in ("4.8", "4.7", "4.6"):
+                    compatible_pkg = self.info.clone()
+                    compatible_pkg.settings.compiler.version = version
+                    self.compatible_packages.append(compatible_pkg)
+
+
+.. code-block:: python
+   :caption: **To:**
+
+        def compatibility(self):
+            if self.settings.compiler == "gcc" and self.settings.compiler.version == "4.9":
+                return [{"settings": [("compiler.version", v)]}
+                        for v in ("4.8", "4.7", "4.6")]
+
 
 
 

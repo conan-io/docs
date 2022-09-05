@@ -15,6 +15,7 @@ requirements** in a file. They have this structure:
     MyLib:shared=True
 
     [env]
+    # [env] is deprecated! Use [buildenv] instead
     env_var=value
 
     [tool_requires]
@@ -139,6 +140,63 @@ This is a special case because the consumer conanfile might not declare a `name`
 
         [env]
         PATH=[/some/path/to/my/tool]
+
+.. _profiles_buildenv:
+
+[buildenv]
+++++++++++
+
+Available since: `1.35.0 <https://github.com/conan-io/conan/releases/tag/1.35.0>`_
+
+.. important::
+
+    The use of this ``[buildenv]`` section requires using the ``VirtualBuildEnv`` generator in your recipe,
+    or putting the configuration ``tools.env.virtualenv:auto_use=True`` in your profile.
+
+
+This profile section is aimed to be the replacement of the legacy ``[env]`` one. It's more powerful, and it is able to
+apply some additional operators to each variable declared when you're composing profiles or even local variables:
+
+* ``+=`` == ``append``: appends values at the end of the existing value.
+* ``=+`` == ``prepend``: puts values at the beginning of the existing value.
+* ``=!`` == ``unset``: gets rid of any variable value.
+
+Another essential point to mention is the possibility of defining variables as `PATH` ones by simply putting ``(path)`` as
+the prefix of the variable. It is useful to automatically get the append/prepend of the `PATH` in different systems
+(Windows uses ``;`` as separation, and UNIX ``:``).
+
+
+.. code-block:: text
+    :caption: *.conan/profiles/myprofile*
+
+    [buildenv]
+    # Define a variable "MyVar1"
+    MyVar1=My Value; other
+
+    # Append another value to "MyVar1"
+    MyVar1+=MyValue12
+
+    # Define a PATH variable "MyPath1"
+    MyPath1=(path)/some/path11
+
+    # Prepend another PATH to "MyPath1"
+    MyPath1=+(path)/other path/path12
+
+    # Unset the variable "PATH" for all the packages matching the pattern "mypkg*"
+    mypkg*:PATH=!
+
+
+Then, the result of applying this profile is:
+
+* ``MyVar1``: ``My Value; other MyValue12``
+* ``MyPath1``:
+    * Unix: ``/other path/path12:/some/path11``
+    * Windows: ``/other path/path12;/some/path11``
+* ``mypkg*:PATH``: ``None``
+
+
+See more information about the new environments in the :ref:`conan_tools_env` reference.
+
 
 .. _profiles_tools_conf:
 

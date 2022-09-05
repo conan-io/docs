@@ -11,7 +11,7 @@ Package layout
     might not fully support this feature.
 
 
-Available since: `1.37.0 <https://github.com/conan-io/conan/releases>`_
+Available since: `1.37.0 <https://github.com/conan-io/conan/releases/tag/1.37.0>`_
 
 Before starting
 ---------------
@@ -539,6 +539,7 @@ The ``conanfile.py`` would look like this:
               path = os.path.join(self.source_folder, "CMakeLists.txt")
               cmake = load(self, path)
 
+.. _package_layout_example_multiple_subprojects:
 
 Example: Multiple subprojects
 -----------------------------

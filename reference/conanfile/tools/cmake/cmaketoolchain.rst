@@ -8,6 +8,7 @@ CMakeToolchain
     These tools are still **experimental** (so subject to breaking changes) but with very stable syntax.
     We encourage the usage of it to be prepared for Conan 2.0.
 
+Available since: `1.32.0 <https://github.com/conan-io/conan/releases/tag/1.32.0>`_
 
 The ``CMakeToolchain`` is the toolchain generator for CMake. It will generate toolchain files that can be used in the
 command line invocation of CMake with the ``-DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake``. This generator translates
@@ -76,6 +77,7 @@ translated from the current ``settings``:
      - The path to the generated ``conan_toolchain.cmake`` file.
      - Some cache variables corresponding to the specified settings cannot work if specified in the toolchain.
      - The ``CMAKE_BUILD_TYPE`` variable when using single-configuration generators.
+     - The ``BUILD_TESTING`` variable set to ``OFF``, when configuration ``tools.build:skip_test`` is true.
 
 - *CMakeUserPresets.json*:  If you declare a ``layout()`` in the recipe and your ``CMakeLists.txt`` file is found in
   the ``conanfile.source_folder`` folder, Conan will place a ``CMakeUserPresets.json`` to include the ``CMakePresets.json`` 
@@ -163,6 +165,8 @@ Will generate the sentences: ``set(FOO ON ...)`` and ``set(VAR OFF ...)``.
 
 cache_variables
 +++++++++++++++
+
+Available since: `1.50.0 <https://github.com/conan-io/conan/releases/tag/1.50.0>`_
 
 This attribute allows defining CMake cache-variables. These variables, unlike the ``variables``, are single-config. They
 will be stored in the ``CMakePresets.json`` file (at the `cacheVariables` in the `configurePreset`) and will be

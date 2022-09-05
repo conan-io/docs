@@ -8,6 +8,7 @@ Environment
     These tools are still **experimental** (so subject to breaking changes) but with very stable syntax.
     We encourage the usage of it to be prepared for Conan 2.0.
 
+Available since: `1.35.0 <https://github.com/conan-io/conan/releases/tag/1.35.0>`_
 
 ``Environment`` is a generic class that helps defining modifications to the environment variables.
 This class is used by other tools like the :ref:`conan.tools.gnu<conan_tools_gnu>` autotools helpers and
@@ -92,7 +93,7 @@ There are some other places where ``Environment`` can be defined and used:
   depending on this recipe.
 - In generators like ``AutootoolsDeps``, ``AutotoolsToolchain``, that need to define environment for the
   current recipe.
-- In profiles new ``[buildenv]`` section.
+- In profiles new :ref:`profiles_buildenv` section.
 
 
 The definition in ``package_info()`` is as follow, taking into account that both ``self.buildenv_info`` and ``self.runenv_info``

@@ -8,6 +8,7 @@ AutotoolsToolchain
     These tools are still **experimental** (so subject to breaking changes) but with very stable syntax.
     We encourage the usage of it to be prepared for Conan 2.0.
 
+Available since: `1.35.0 <https://github.com/conan-io/conan/releases/tag/1.35.0>`_
 
 The ``AutotoolsToolchain`` is the toolchain generator for Autotools. It will generate shell scripts containing
 environment variable definitions that the autotools build system can understand.

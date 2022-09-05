@@ -15,8 +15,7 @@ PkgConfigDeps
 PkgConfigDeps
 -------------
 
-Available since: `1.38.0 <https://github.com/conan-io/conan/releases>`_
-
+Available since: `1.38.0 <https://github.com/conan-io/conan/releases/tag/1.38.0>`_
 
 The ``PkgConfigDeps`` is the dependencies generator for pkg-config. Generates pkg-config files named *<PKG-NAME>.pc*
 (where ``<PKG-NAME`` is the name declared by dependencies in ``cpp_info.names["pkg_config"]`` if specified),
@@ -87,6 +86,69 @@ Now, running this command using the previous ``conanfile.py``, you can check the
     Cflags: -I"${includedir}"
 
 
+build_context_activated
++++++++++++++++++++++++
+
+Available since: `1.52.0 <https://github.com/conan-io/conan/releases/tag/1.52.0>`_
+
+
+When you have a **build-require**, by default, the ``*.pc`` files are not generated.
+But you can activate it using the **build_context_activated** attribute:
+
+.. code-block:: python
+
+    tool_requires = ["my_tool/0.0.1"]
+
+    def generate(self):
+        pc = PkgConfigDeps(self)
+        # generate the *.pc file for the tool require
+        pc.build_context_activated = ["my_tool"]
+        pc.generate()
+
+.. warning::
+
+    The ``build_context_activated`` feature will fail if no "build" profile is used. This feature only work when using
+    the two host and build profiles.
+
+
+build_context_suffix
+++++++++++++++++++++
+
+Available since: `1.52.0 <https://github.com/conan-io/conan/releases/tag/1.52.0>`_
+
+When you have the same package as a **build-require** and as a **regular require** it will cause a conflict in the generator
+because the file names of the ``*.pc`` files will collide as well as the names, requires names, etc.
+
+For example, this is a typical situation with some requirements (capnproto, protobuf...) that contain
+a tool used to generate source code at build time (so it is a **build_require**),
+but also providing a library to link to the final application, so you also have a **regular require**.
+Solving this conflict is specially important when we are cross-building because the tool
+(that will run in the building machine) belongs to a different binary package than the library, that will "run" in the
+host machine.
+
+You can use the **build_context_suffix** attribute to specify a suffix for a requirement,
+so the files/requires/names of the requirement in the build context (tool require) will be renamed:
+
+.. code-block:: python
+
+    tool_requires = ["my_tool/0.0.1"]
+    requires = ["my_tool/0.0.1"]
+
+    def generate(self):
+        pc = PkgConfigDeps(self)
+        # generate the *.pc file for the tool require
+        pc.build_context_activated = ["my_tool"]
+        # disambiguate the files, requires, names, etc
+        pc.build_context_suffix = {"my_tool": "_BUILD"}
+        pc.generate()
+
+
+.. warning::
+
+    The ``build_context_suffix`` feature will fail if no "build" profile is used. This feature only work when using
+    the two host and build profiles.
+
+
 Components
 ++++++++++
 
@@ -128,7 +190,7 @@ Example:
 Names and aliases
 ++++++++++++++++++
 
-Aliases are available since: `1.43.0 <https://github.com/conan-io/conan/releases>`_
+Aliases are available since: `1.43.0 <https://github.com/conan-io/conan/releases/tag/1.43.0>`_
 
 By default, the ``*.pc`` files will be named following these rules:
 

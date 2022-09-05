@@ -52,6 +52,8 @@ check the :ref:`package layout<package_layout>` section.
 basic_layout
 ------------
 
+Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>`_
+
 Usage:
 
 .. code:: python
