@@ -3,6 +3,8 @@
 MesonToolchain
 ==============
 
+.. _MesonToolchain:
+
 The ``MesonToolchain`` is the toolchain generator for Meson and it can be used in the ``generate()`` method
 as follows:
 
@@ -220,6 +222,12 @@ in this example of host profile:
 
     [conf]
     tools.android:ndk_path=/my/path/to/NDK
+
+
+Read more
+---------
+
+- :ref:`Getting started with Meson<examples_tools_meson_toolchain_build_simple_meson_project>`
 
 
 .. _MesonToolchain Reference:
