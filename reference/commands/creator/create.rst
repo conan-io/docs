@@ -186,15 +186,15 @@ Methods execution order
 
 :command:`conan create` executes methods of a *conanfile.py* in the following order:
 
-01. ``export_sources()```
-02. ``config_options()``
-03. ``configure()``
-04. ``layout()```
-05. ``requirements()``
-06. ``package_id()``
-07. ``validate()``
-08. ``validate_build()``
-09. ``build_requirements()``
+1. ``export_sources()``
+2. ``config_options()``
+3. ``configure()``
+4. ``layout()``
+5. ``requirements()``
+6. ``package_id()``
+7. ``validate()``
+8. ``validate_build()``
+9. ``build_requirements()``
 10. ``build_id()``
 11. ``system_requirements()``
 12. ``source()``
