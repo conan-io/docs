@@ -258,13 +258,13 @@ The ``MSBuild`` helper can be used like:
 
         def build(self):
             msbuild = MSBuild(self)
-            msbuild.build("MyProject.sln")
+            msbuild.build("MyProject.sln", targets=["mytarget"])
 
 The ``MSBuild.build()`` method internally implements a call to ``msbuild`` like:
 
 .. code:: bash
 
-    $ <vcvars-cmd> && msbuild "MyProject.sln" /p:Configuration=<configuration> /p:Platform=<platform>
+    $ <vcvars-cmd> && msbuild "MyProject.sln" /p:Configuration=<configuration> /p:Platform=<platform> /target=mytarget
 
 Where:
 
@@ -273,6 +273,7 @@ Where:
   but this will be configurable with ``msbuild.build_type``.
 - ``platform`` is the architecture, a mapping from the ``settings.arch`` to the common 'x86', 'x64', 'ARM', 'ARM64'.
   This is configurable with ``msbuild.platform``.
+- ``targets`` is an optional argument, defaults to ``None``, and otherwise it is a list of targets to build
 
 
 attributes
@@ -381,7 +382,7 @@ Available since: `1.45.0 <https://github.com/conan-io/conan/releases/tag/1.45.0>
 
 .. code-block:: python
 
-    def is_msvc(conanfile):
+    def is_msvc(conanfile, build_context=False):
 
 Validate ``self.settings.compiler`` for which compiler is being used.
 It returns ``True`` when the host compiler is ``Visual Studio`` or ``msvc``, otherwise, returns ``False``.
@@ -390,6 +391,8 @@ When the ``compiler`` is empty, it returns ``False``.
 Parameters:
 
 - **conanfile**: ConanFile instance.
+- **build_context**: (default=False). If this argument is ``True``, the method will check the compiler of the
+  ``build`` context, not the ``host`` one. 
 
 .. code-block:: python
 

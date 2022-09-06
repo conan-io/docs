@@ -29,9 +29,12 @@ The import path is always like:
 
 The main guidelines are:
 
-- Everything that recipes can import belong to ``from conan.tools``. Any other thing is private implementation
-  and shouldn't be used in recipes.
-- Only documented, public (not preceded by ``_``) tools can be used in recipes.
+- Imports must be in the form ``from conan.tools.xxx import yyy``, or ``from conan.tools import xxx``.
+  Do not use ``from conan import tools`` nor ``from conan.tools.xxx.yyy import zzz``.
+- Everything that recipes can use belong to ``from conan.tools``. Any other import is private implementation
+  and shouldn't be used in recipes (except ``from conan import ConanFile`` and ``from conan.errors``)
+- Only documented tools with explicitly documented imports can be used in recipes. Do not use any other import not found
+  in this section of the documentation, even if they are in the ``from conan.tools`` namespace.
 
 
 Contents:

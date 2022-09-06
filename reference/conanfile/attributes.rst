@@ -295,7 +295,7 @@ It is possible to check the settings to implement conditional logic, with attrib
         elif self.settings.arch == "x86_64":
             # Other different commands
 
-Those comparisons do content checking, for example if you do a typo like ``self.settings.os == "Windos"``,
+Those comparisons do content checking, for example if you do a typo like ``self.settings.os == "Windows"``,
 Conan will fail and tell you that is not a valid ``settings.os`` value, and the possible range of values.
 
 Likewise, if you try to access some setting that doesn't exist, like ``self.settings.compiler.libcxx``

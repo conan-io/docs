@@ -1,11 +1,32 @@
 .. _conan_tools_scm_version:
 
-Version
-=======
-
 .. warning::
 
-    This tool is **experimental** and subject to breaking changes.
+    This tools are **experimental** and subject to breaking changes.
+
+conan_version
+=============
+
+Available since: `1.52.0 <https://github.com/conan-io/conan/releases/tag/1.52.0>`_
+
+Variable of type ``Version`` (see below) that defines the version of the Conan client. You can
+use it in your recipes like:
+
+
+.. code-block:: python
+    
+        from conan import ConanFile
+        from conan import conan_version
+
+        class pkg(ConanFile):
+            ...
+            def generate(self):
+                if conan_version.major == "1":
+                    print("Running Conan 1.X")
+
+
+Version
+=======
 
 Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>`_
 
