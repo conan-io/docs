@@ -183,18 +183,23 @@ to know more about 'test_folder' project.
 
 :command:`conan create` executes methods of a *conanfile.py* in the following order:
 
-1. ``config_options()``
-2. ``configure()``
-3. ``requirements()``
-4. ``package_id()``
-5. ``build_requirements()``
-6. ``build_id()``
-7. ``system_requirements()``
-8. ``source()``
-9. ``imports()``
-10. ``build()``
-11. ``package()``
-12. ``package_info()``
+01. ``export_sources()```
+02. ``config_options()``
+03. ``configure()``
+04. ``layout()```
+05. ``requirements()``
+06. ``package_id()``
+07. ``validate()``
+08. ``validate_build()``
+09. ``build_requirements()``
+10. ``build_id()``
+11. ``system_requirements()``
+12. ``source()``
+13. ``generate()``
+14. ``imports()``
+15. ``build()``
+16. ``package()``
+17. ``package_info()``
 
 In case of installing a pre-built binary, steps from 5 to 11 will be skipped. Note that ``deploy()`` method is only used in
 :command:`conan install`.
