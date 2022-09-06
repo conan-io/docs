@@ -204,7 +204,7 @@ Methods execution order
 16. ``package()``
 17. ``package_info()``
 
-In case of installing a pre-built binary, steps from 5 to 11 will be skipped. Note that ``deploy()`` method is only used in
+In case of installing a pre-built binary, steps from 8 to 16 will be skipped. Note that ``deploy()`` method is only used in
 :command:`conan install`.
 
 .. note::
