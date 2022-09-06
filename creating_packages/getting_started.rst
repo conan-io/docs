@@ -152,7 +152,8 @@ If "Hello world Release!" is displayed, it worked. This is what has happened:
 - A new build from source for the ``hello/0.1@demo/testing`` package starts, calling the ``generate()``, ``build()`` and
   ``package()`` methods. This creates the binary package in the Conan cache.
 - Moves to the *test_package* folder and executes a ``conan install`` + ``conan build`` + ``test()`` method, to check if
-  the package was correctly created.
+  the package was correctly created. This happens automatically whenever a ``test_package`` folder is supplied next to 
+  the ``conanfile.py`` being processed.
 
 We can now validate that the recipe and the package binary are in the cache:
 
