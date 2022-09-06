@@ -82,12 +82,12 @@ First, please note that we are using `another branch
 branch has two novelties on the library side:
 
 * We added a new function called ``compose_message()`` to the `library sources
-  <https://github.com/conan-io/libhello/blob/with_tests/src/hello.cpp>`_ so we can add
+  <https://github.com/conan-io/libhello/blob/with_tests/src/hello.cpp#L9-L12>`_ so we can add
   some unit tests over this function. This function is just creating an output message
   based on the arguments passed.
 
 * The `CMakeLists.txt
-  <https://github.com/conan-io/libhello/blob/with_tests/CMakeLists.txt>`_ uses a
+  <https://github.com/conan-io/libhello/blob/with_tests/CMakeLists.txt#L15-L17>`_ uses a
   ``BUILD_TEST`` CMake variable that conditionally adds the *tests* directory.
 
 .. code-block:: cmake
@@ -106,7 +106,7 @@ branch has two novelties on the library side:
 
 * We have a `CMakeLists.txt
   <https://github.com/conan-io/libhello/blob/with_tests/tests/CMakeLists.txt>`_ in the
-  *tests* folder using `googletest <https://github.com/google/googletest>`_ as for
+  *tests* folder using `googletest <https://github.com/google/googletest>`_ for
   testing.
 
 .. code-block:: cmake
