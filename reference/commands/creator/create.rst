@@ -181,6 +181,9 @@ to know more about 'test_folder' project.
 
         $ conan create . demo/testing --test-folder=None
 
+Methods execution order
+-----------------------
+
 :command:`conan create` executes methods of a *conanfile.py* in the following order:
 
 01. ``export_sources()```
