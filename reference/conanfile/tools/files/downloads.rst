@@ -10,6 +10,8 @@ conan.tools.files downloads
 conan.tools.files.get()
 -----------------------
 
+Available since: `1.35.0 <https://github.com/conan-io/conan/releases/tag/1.35.0>`_
+
 .. code-block:: python
 
     def get(conanfile, url, md5='', sha1='', sha256='', destination=".", filename="",
@@ -42,6 +44,8 @@ Examples:
 conan.tools.files.ftp_download()
 --------------------------------
 
+Available since: `1.35.0 <https://github.com/conan-io/conan/releases/tag/1.35.0>`_
+
 .. code-block:: python
 
     def ftp_download(conanfile, ip, filename, login='', password='')
@@ -72,6 +76,8 @@ Examples:
 conan.tools.files.download()
 ----------------------------
 
+Available since: `1.35.0 <https://github.com/conan-io/conan/releases/tag/1.35.0>`_
+
 Download a file
 
 .. code-block:: python
@@ -90,6 +96,8 @@ Parameters:
 
 - **conanfile** (Required): Conanfile object, use ``self`` always
 - **url** (Required): URL to download. It can be a list, which only the first one will be downloaded, and the follow URLs will be used as mirror in case of download error.
+                      Since Conan `1.51.0 <https://github.com/conan-io/conan/releases/tag/1.51.0>`_, files accessible in the local filesystem can be referenced with a URL starting with ``file:///`` followed by an absolute path to a file
+                      (where the third ``/`` implies ``localhost``).
 - **filename** (Required): Name of the file to be created in the local storage
 - **verify** (Optional, Defaulted to ``True``): When False, disables https certificate validation.
 - **retry** (Optional, Defaulted to ``1``): Number of retries in case of failure.
@@ -127,13 +135,13 @@ Examples:
     # Download and check file checksum
     download(self, "http://someurl/somefile.zip", "myfilename.zip", md5="e5d695597e9fa520209d1b41edad2a27")
 
+    # Retrieve file that is visible in the local filesystem
+    tools.download("file:///C:/Users/MyUser/Downloads/somefile.zip", "myfilename.zip", md5="e5d695597e9fa520209d1b41edad2a27")
+    tools.download("file:///home/myuser/downloads/somefile.zip", "myfilename.zip", md5="e5d695597e9fa520209d1b41edad2a27")
+
     # to add mirrors
     download(self, ["https://ftp.gnu.org/gnu/gcc/gcc-9.3.0/gcc-9.3.0.tar.gz",
-                    "http://mirror.linux-ia64.org/gnu/gcc/releases/gcc-9.3.0/gcc-9.3.0.tar.gz"],
+                    "http://mirror.linux-ia64.org/gnu/gcc/releases/gcc-9.3.0/gcc-9.3.0.tar.gz",
+                    "file:///home/myuser/localmirror/gcc-9.3.0/gcc-9.3.0.tar.gz"],
                     "gcc-9.3.0.tar.gz",
                    sha256="5258a9b6afe9463c2e56b9e8355b1a4bee125ca828b8078f910303bc2ef91fa6")
-
-
-
-Available since: `1.42.0 <https://github.com/conan-io/conan/releases>`_
-

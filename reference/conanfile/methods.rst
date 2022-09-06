@@ -636,6 +636,51 @@ raise an error, but in the best case it will be wasted resources (compatible pac
 strongly recommended to properly define the ``package_id()`` method to no include incompatible configurations.
 
 
+validate_build()
+----------------
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+Available since: `1.51.0 <https://github.com/conan-io/conan/releases/tag/1.51.0>`_
+
+The ``validate_build()`` method is used to verify if a configuration is valid for building a package. It is different
+from the ``validate()`` method that checks if the binary package is "impossible" or invalid for a given configuration.
+
+In Conan 2.0, the ``validate()`` method should do the checks of the settings and options using the ``self.info.settings``
+and ``self.info.options``.
+
+The ``validate_build()`` method has to use always the ``self.settings`` and ``self.options``:
+
+.. code-block:: python
+
+    from conan import ConanFile
+    from conan.errors import ConanInvalidConfiguration
+
+    class myConan(ConanFile):
+        name = "foo"
+        version = "1.0"
+        settings = "os", "arch", "compiler"
+
+        def package_id(self):
+            # For this package, it doesn't matter the compiler used for the binary package
+            del self.info.settings.compiler
+
+        def validate_build(self):
+            # But we know this cannot be build with "gcc"
+            if self.settings.compiler == "gcc":
+                raise ConanInvalidConfiguration("This doesn't build in GCC")
+
+        def validate(self):
+            # We shouldn't check here the self.info.settings.compiler because it has been removed in the package_id()
+            # so it doesn't make sense to check if the binary is compatible with gcc because the compiler doesn't matter
+            pass
+
+
+
+
+
 .. _method_requirements:
 
 requirements()
@@ -984,19 +1029,23 @@ any setting or option:
         del self.info.settings.compiler
         del self.info.options.shared
 
-self.info.header_only()
-^^^^^^^^^^^^^^^^^^^^^^^
+self.info.clear()
+^^^^^^^^^^^^^^^^^
+
+Available since: `1.50.0 <https://github.com/conan-io/conan/releases/tag/1.50.0>`_
 
 The package will always be the same, irrespective of the settings (OS, compiler or architecture), options and dependencies.
 
 .. code-block:: python
 
     def package_id(self):
-        self.info.header_only()
+        self.info.clear()
 
 
 self.info.shared_library_package_id()
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Available since: `1.19.2 <https://github.com/conan-io/conan/releases/tag/1.19.2>`_
 
 When a shared library links with a static library, the binary code of the later one is "embedded" or copied into the shared library.
 That means that any change in the static library basically requires a new binary re-build of the shared one to integrate those changes.
@@ -1054,6 +1103,10 @@ This is the relation of Visual Studio versions and the compatible toolchain:
 +-----------------------+--------------------+
 | Visual Studio Version | Compatible toolset |
 +=======================+====================+
+| 17                    | v143               |
++-----------------------+--------------------+
+| 16                    | v142               |
++-----------------------+--------------------+
 | 15                    | v141               |
 +-----------------------+--------------------+
 | 14                    | v140               |
@@ -1195,6 +1248,48 @@ This will only produce a build ID different if the package is for Windows. So th
 in any other OS will be the standard one, as if the ``build_id()`` method was not defined:
 the build folder will be wiped at each :command:`conan create` command and a clean build will
 be done.
+
+.. _method_compatibility:
+
+compatibility()
+---------------
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+Available since Conan `1.47.0 <https://github.com/conan-io/conan/releases/tag/1.47.0>`_
+
+This method can be used in a *conanfile.py* to define packages that are compatible between
+each other. If there are not binaries available for the requested settings and options
+this mechanism will retrieve the compatible packages' binaries if they exist.  The method
+should return a list of compatible configurations. For example, if we want that binaries
+built with gcc versions 4.8, 4.7 and 4.6 are considered compatible with the ones compiled
+with 4.9 we could declare the ``compatibility()`` like this:
+
+..  code-block:: python
+
+    def compatibility(self):
+        if self.settings.compiler == "gcc" and self.settings.compiler.version == "4.9":
+            return [{"settings": [("compiler.version", v)]}
+                    for v in ("4.8", "4.7", "4.6")]
+
+The format of the list returned is as shown below:
+
+..  code-block:: python
+
+        [
+            {
+                "settings": [(<setting>, <value>), (<setting>, <value>), ...], 
+                "options": [(<option>, <value>), (<option>, <value>), ...]
+            },
+            {
+                "settings": [(<setting>, <value>), (<setting>, <value>), ...], 
+                "options": [(<option>, <value>), (<option>, <value>), ...]
+            },
+            ...
+        ]
+
 
 .. _method_deploy:
 
@@ -1471,7 +1566,7 @@ layout()
     (:ref:`in the conan.tools space <conan_tools>`). If you are using other integrations, they
     might not fully support this feature.
 
-Available since: `1.37.0 <https://github.com/conan-io/conan/releases>`_
+Available since: `1.37.0 <https://github.com/conan-io/conan/releases/tag/1.37.0>`_
 
 Read about the feature :ref:`here<package_layout>`.
 
@@ -1507,6 +1602,14 @@ self.folders
 - **self.folders.imports** (Defaulted to ""): Specifies a subfolder where to write the files copied when using the ``imports(self)``
   method in a ``conanfile.py``. In the cache, when running the :command:`conan create`, this subfolder will be relative to the root
   build folder and when running the :command:`conan imports` command it will be relative to the current working directory.
+
+Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>`_
+
+- **self.folders.root** (Defaulted to None): Specifies a parent directory where the sources, generators, etc., are located specifically when the ``conanfile.py`` is located in a separated subdirectory.
+
+Available since: `1.51.0 <https://github.com/conan-io/conan/releases/tag/1.51.0>`_
+
+- **self.folders.subproject** (Defaulted to None): Specifies a subfolder where the ``conanfile.py`` is relative to the project root. This is particularly useful for :ref:`layouts with multiple subprojects<package_layout_example_multiple_subprojects>`
 
 
 self.cpp

@@ -11,7 +11,7 @@ conan.tools.google
 BazelDeps
 ---------
 
-Available since: `1.37.0 <https://github.com/conan-io/conan/releases>`_
+Available since: `1.37.0 <https://github.com/conan-io/conan/releases/tag/1.37.0>`_
 
 The ``BazelDeps`` helper will generate one **conandeps/xxxx/BUILD** file per dependency. This dependencies will be
 automatically added to the project if you add the following lines to the project's **WORKSPACE** file:
@@ -36,6 +36,8 @@ The dependencies should be added to the **conanfile.py** file as usual:
 
 BazelToolchain
 --------------
+
+Available since: `1.37.0 <https://github.com/conan-io/conan/releases/tag/1.37.0>`_
 
 The ``BazelToolchain`` is the toolchain generator for Bazel. It will generate a file called
 ``conanbuild.conf`` containing two keys:
@@ -89,6 +91,9 @@ constructor
 
 Bazel
 -----
+
+Available since: `1.37.0 <https://github.com/conan-io/conan/releases/tag/1.37.0>`_
+
 The ``Bazel`` build helper is a wrapper around the command line invocation of bazel. It will abstract the
 calls like ``bazel build //main:hello-world`` into Python method calls.
 

@@ -5,8 +5,9 @@ Git
 
 .. warning::
 
-    This tool is **experimental** and subject to breaking changes.
+    This tool is **experimental** and subject to breaking changes. This tool is intended to replace the current ``conans.tools.Git`` and the current ``scm`` attribute, that will be removed in Conan 2.0.
 
+Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>`_
 
 constructor
 -----------
@@ -39,6 +40,12 @@ get_remote_url()
 
 
 Obtains the URL of the ``remote`` git remote repository, with ``git remote -v``
+
+.. warning::
+
+    This method will get the output from ``git remote -v``. If you added tokens or credentials to the remote in the URL, they will be
+    exposed. Credentials shouldn't be added to git remotes definitions, but using a credentials manager or similar mechanism.
+    If you still want to use this approach, it is your responsibility to strip the credentials from the result.
 
 
 commit_in_remote()
@@ -81,12 +88,28 @@ clone()
 
 .. code-block:: python
     
-    def clone(self, url, target="")
+    def clone(self, url, target="", args=None)
 
 
-Does a ``git clone <url> <target>`` 
+Performs a ``git clone <url> <args> <target>`` operation,
+where `target` is the target directory.
 
+Optional arguments can be passed as a list, for example:
 
+.. code-block:: python
+
+    from conan import ConanFile
+    from conan.tools.scm import Git
+
+    class App(ConanFile):
+        version = "1.2.3"
+
+        def source(self):
+            git = Git(self)
+            clone_args = ['--depth', '1', '--branch', self.version]
+            git.clone(url="https://path/to/repo.git", args=clone_args)
+
+    
 checkout()
 ----------
 
@@ -104,6 +127,14 @@ get_url_and_commit()
 .. code-block:: python
     
     def get_url_and_commit(self, remote="origin")
+        # returns a (url, commit) tuple
+
+
+.. warning::
+
+    This method will get the output from ``git remote -v``. If you added tokens or credentials to the remote in the URL, they will be
+    exposed. Credentials shouldn't be added to git remotes definitions, but using a credentials manager or similar mechanism.
+    If you still want to use this approach, it is your responsibility to strip the credentials from the result.
 
 
 This is an advanced method, that returns both the current commit, and the remote repository url.
@@ -123,7 +154,7 @@ again from sources from the same commit. This is the behavior:
 Example: Implementing the ``scm`` feature 
 -----------------------------------------
 
-This example is the new way to implement the ``scm`` feature (to be removed in Conan 2.0), using this new ``Git`` capabilities.
+This example is the new way to implement the ``scm`` feature (the ``scm`` attribute will be removed in Conan 2.0, and the way it will survive is the one described in this section), using this new ``Git`` capabilities.
 
 Assume we have this project with this layout, in a git repository:
 

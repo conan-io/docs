@@ -16,4 +16,5 @@ to try this Meson integration.
    :maxdepth: 2
 
    meson/mesontoolchain
+   meson/mesondeps
    meson/meson

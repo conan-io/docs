@@ -8,7 +8,7 @@ repository follow these steps:
 
 1. **Create an Artifactory Free-Tier account**
 
-   Browse to https://jfrog.com/artifactory/start-free/?isConan=true and submit the form to create your account. Note that
+   Browse to https://jfrog.com/community/start-free/ and submit the form to create your account. Note that
    you don't have to use the same username that you use for your Conan account.
 
    .. image:: ../../images/artifactory/conan-artifactory_create_account.png

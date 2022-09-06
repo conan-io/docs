@@ -95,7 +95,7 @@ This is a very simple example for a header only library:
             self.copy("LICENSE.txt", dst="licenses")
 
         def package_id(self):
-            self.info.header_only()
+            self.info.clear()
 
 Custom definitions
 ------------------
@@ -123,7 +123,7 @@ it's desired to have ``description`` and ``homepage`` to be templated as well:
             self.copy("LICENSE.txt", dst="licenses")
 
         def package_id(self):
-            self.info.header_only()
+            self.info.clear()
 
 With the above template it's now easy to overwrite such extra keywords with values from the command line:
 

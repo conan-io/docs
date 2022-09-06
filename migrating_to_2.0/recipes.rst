@@ -74,6 +74,9 @@ Requirements
               self.test_requires("gtest/0.1")
 
 
+The ``self.requires()`` method allows in 1.X any ``**kwargs``, so something like ``self.requires(..., transitive_headers=True)`` is possible in
+Conan 1.X. These ``**kwargs`` don't have any effect at all in Conan 1.X, they are not even checked for correctness. But they are allowed to exist,
+so if new requirement traits are used in Conan 2.0, they will not error.
 
 
 Settings
@@ -94,7 +97,7 @@ Settings
           ...
 
           def validate(self):
-              if self.settings.os == "Macos":
+              if self.info.settings.os == "Macos":
                   raise ConanInvalidConfiguration("Macos not supported")
 
 
@@ -116,6 +119,9 @@ Settings
 
 Options
 -------
+
+default_options
+^^^^^^^^^^^^^^^
 
 The definition of the ``default_options`` attribute has changed when referring to a dependency. It is related to the
 :ref:`unified patterns in the command line<conan_v2_unified_arguments>`.
@@ -140,6 +146,84 @@ The definition of the ``default_options`` attribute has changed when referring t
         default_options = {"pkg/*:some_option": "value"}
 
 
+ANY special value
+^^^^^^^^^^^^^^^^^
+
+The special value ``ANY`` has to be declared in a list:
+
+.. code-block:: python
+   :caption: **From:**
+
+    from conans import ConanFile
+
+    class Pkg(Conanfile):
+        options = {"opt": "ANY"}
+
+
+.. code-block:: python
+   :caption: **To:**
+
+    from conan import ConanFile
+
+    class Pkg(Conanfile):
+        options = {"opt": ["ANY"]}
+
+
+The validate() method
+---------------------
+
+Use always the ``self.info.settings`` instead of ``self.settings`` and ``self.info.options`` instead of ``self.options``.
+Otherwise, the compatibility mechanism won't be able to verify if the configurations of potential ``compatible`` packages
+are valid.
+
+.. code-block:: python
+    :caption: **From:**
+
+    class Pkg(Conanfile):
+
+        def validate(self):
+            if self.settings.os == "Windows":
+                raise ConanInvalidConfiguration("This package is not compatible with Windows")
+
+
+.. code-block:: python
+    :caption: **To:**
+
+    class Pkg(Conanfile):
+
+        def validate(self):
+            if self.info.settings.os == "Windows":
+                raise ConanInvalidConfiguration("This package is not compatible with Windows")
+
+
+If you are not checking if the resulting binary is valid for the current configuration but need to check if a package
+can be built or not for a specific configuration you must use the ``validate_build()`` method instead using ``self.settings``
+and ``self.options`` to perform the checks:
+
+
+.. code-block:: python
+
+    from conan import ConanFile
+    from conan.errors import ConanInvalidConfiguration
+
+    class myConan(ConanFile):
+        name = "foo"
+        version = "1.0"
+        settings = "os", "arch", "compiler"
+
+        def package_id(self):
+            # For this package, it doesn't matter the compiler used for the binary package
+            del self.info.settings.compiler
+
+        def validate_build(self):
+            # But we know this cannot be build with "gcc"
+            if self.settings.compiler == "gcc":
+                raise ConanInvalidConfiguration("This doesn't build in GCC")
+
+        def validate(self):
+            # We shouldn't check here if the self.info.settings.compiler because it has been removed in the package_id()
+            # so it doesn't make sense to check if the binary is compatible with gcc because the compiler doesn't matter
+            pass
 
 
 The layout() method
@@ -189,7 +273,6 @@ A typical anti-pattern in the recipes that can be solved with a ``layout()`` dec
 
      class Pkg(Conanfile):
 
-        @property
         def layout(self):
             basic_layout(self, src_folder="source")
 
@@ -288,6 +371,29 @@ to mimic the same behavior:
 
 Please **check the full example** on the :ref:`conan.tools.scm.Git section <conan_tools_scm_git>`.
 
+The export_sources() method
+---------------------------
+
+The ``self.copy`` has been replaced by the explicit tool
+:ref:`copy<conan_tools_files_copy>`. Typically you would copy from the
+``conanfile.recipe_folder`` to the ``conafile.export_sources_folder``:
+
+.. code-block:: bash
+    :caption: **From:**
+
+    def export_sources(self):
+        ...
+        self.copy("CMakeLists.txt")
+
+
+.. code-block:: bash
+    :caption: **To:**
+
+    from conan.tools.files import copy
+
+    def export_sources(self):
+        ...
+        copy(self, "CMakeLists.txt", self.recipe_folder, self.export_sources_folder)
 
 
 The generate() method
@@ -401,32 +507,27 @@ The ``self.copy`` has been replaced by the explicit tool :ref:`copy<conan_tools_
         copy(self, "*.lib", self.build_folder, join(self.package_folder, "lib"), keep_path=False)
         copy(self, "*.dll", self.build_folder, join(self.package_folder, "bin"), keep_path=False)
 
-
+.. _conan2_migration_guide_recipes_package_info:
 
 The package_info() method
 -------------------------
 
-Removed cpp_info defaults in components
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Changed cpp_info default values
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-There are some defaults in the general ``self.cpp_info`` object:
+There are some defaults in ``self.cpp_info`` object that are not the same in Conan 2.X than in Conan 1.X (except
+for ``Conan >= 1.50`` if the ``layout()`` method is declared):
 
 .. code-block:: text
 
     self.cpp_info.includedirs => ["include"]
     self.cpp_info.libdirs => ["lib"]
-    self.cpp_info.resdirs => ["res"]
+    self.cpp_info.resdirs => []
     self.cpp_info.bindirs => ["bin"]
     self.cpp_info.builddirs => []
-    self.cpp_info.frameworkdirs => ["Frameworks"]
+    self.cpp_info.frameworkdirs => []
 
-If you declare components, you need to explicitly specify these directories, because by default are empty:
-
-.. code-block:: python
-
-    def cpp_info(self):
-        self.cpp_info.components["mycomponent"].includedirs = ["my_include"]
-        self.cpp_info.components["myothercomponent"].bindirs = ["myother_bin"]
+If you declare components, the defaults are the same, so you only need to change the defaults if they are not correct.
 
 
 .. note::
@@ -533,6 +634,28 @@ To be prepared for Conan 2.0:
 - Instead of appending new values to the default list, assign it: ``self.cpp_info.builddirs = ["cmake"]``
 
 
+The package_id() method
+-----------------------
+
+The ``self.info.header_only()`` method has been replaced with ``self.info.clear()``
+
+
+.. code-block:: python
+   :caption: **From:**
+
+        def package_id(self):
+            self.info.header_only()
+
+
+.. code-block:: python
+   :caption: **To:**
+
+        def package_id(self):
+            self.info.clear()
+
+
+
+
 .. _conanv2_properties_model:
 
 New properties model
@@ -576,7 +699,7 @@ New properties defined for *CMake* generators family, used by :ref:`CMakeDeps<CM
 - **cmake_target_name** property will define the absolute target name in ``CMakeDeps``
 - **cmake_module_file_name** property defines the generated filename for modules (``Findxxxx.cmake``)
 - **cmake_module_target_name** defines the absolute target name for find modules.
-- **cmake_build_modules** property replaces the ``build_modules`` property.
+- **cmake_build_modules** property replaces the ``build_modules`` property. It can't be declared in a component, do it in ``self.cpp_info``.
 - **cmake_find_mode** will tell :ref:`CMakeDeps<CMakeDeps>` to generate config
   files, modules files, both or none of them, depending on the value set (``config``,
   ``module``, ``both`` or ``none``)
@@ -629,6 +752,35 @@ dependencies you can do it in the ``generate(self)`` method with the new ``copy`
         for dep in self.dependencies.values():
             copy(self, "*.dylib", dep.cpp_info.libdirs[0], self.build_folder)
             copy(self, "*.dll", dep.cpp_info.libdirs[0], self.build_folder)
+
+
+
+Migrate conanfile.compatible_packages to the new compatibility() method
+-----------------------------------------------------------------------
+
+To declare compatible packages in a valid way for both Conan 1.X and 2.0, you should migrate
+the use of the :ref:`compatible_packages` to the :ref:`method_compatibility`.
+
+
+.. code-block:: python
+   :caption: **From:**
+
+        def package_id(self):
+            if self.settings.compiler == "gcc" and self.settings.compiler.version == "4.9":
+                for version in ("4.8", "4.7", "4.6"):
+                    compatible_pkg = self.info.clone()
+                    compatible_pkg.settings.compiler.version = version
+                    self.compatible_packages.append(compatible_pkg)
+
+
+.. code-block:: python
+   :caption: **To:**
+
+        def compatibility(self):
+            if self.settings.compiler == "gcc" and self.settings.compiler.version == "4.9":
+                return [{"settings": [("compiler.version", v)]}
+                        for v in ("4.8", "4.7", "4.6")]
+
 
 
 
@@ -774,7 +926,14 @@ If any manipulation to the symlinks is required, the package :ref:`conan.tools.f
 contains some tools to help with that.
 
 
+New tools for managing system package managers
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+There are some changes you should be aware of if you are migrating from
+:ref:`systempackagetool` to the new :ref:`conan_tools_system_package_manager` to prepare
+the recipe for Conan 2.0:
 
-
-
+* Unlike in ``SystemPackageTool`` that uses ``CONAN_SYSREQUIRES_SUDO`` and is set to ``True``
+  as default, the ``tools.system.package_manager:sudo`` configuration is ``False`` by default.
+* :ref:`systempackagetool` is initialized with ``default_mode='enabled'`` but for these new
+  tools ``tools.system.package_manager:mode='check'`` by default.

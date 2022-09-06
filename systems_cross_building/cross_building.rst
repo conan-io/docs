@@ -231,7 +231,7 @@ With previous attributes, a draft for a recipe that packages a cross compiler co
         name = "my_compiler"
 
         settings = "os", "arch", "compiler", "build_type"
-        options = {"target": "ANY"}
+        options = {"target": ["ANY"]}
         default_options = {"shared": False, "target": None}
 
         def validate(self):

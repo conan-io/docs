@@ -10,6 +10,8 @@ conan.tools.files checksums
 conan.tools.files.check_md5()
 -----------------------------
 
+Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>`_
+
 .. code-block:: python
 
     def check_md5(conanfile, file_path, signature)
@@ -27,6 +29,7 @@ Parameters:
 conan.tools.files.check_sha1()
 ------------------------------
 
+Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>`_
 
 .. code-block:: python
 
@@ -44,6 +47,8 @@ Parameters:
 
 conan.tools.files.check_sha256()
 --------------------------------
+
+Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>`_
 
 .. code-block:: python
 
