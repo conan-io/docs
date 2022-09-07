@@ -145,15 +145,76 @@ Changes introduced in the recipe
 * We use the ``tools.build:skip_test`` configuration, to tell CMake wether to build and
   run the tests or not. This configuration controls the execution of ``CMake.test()`` and
   ``Meson.test()`` but can also be used for other testing environments like in this case.
-  We use that variable in the ``generate()`` method to inject the BUILD_TESTS variable to
-  CMake and also in the ``build()`` method after building the pckage and the tests to run
-  the tests.
+  We use that variable in the ``generate()`` method to inject the ``BUILD_TESTS`` variable
+  to CMake and also in the ``build()`` method after building the package and the tests to
+  run the tests.
 
 
+Conditionally patching the source code
+--------------------------------------
 
+You can also use the ``build()`` method to apply patches to the source code before
+launching the build based on the value of settings or options. There are several ways to
+do this in Conan. One of them would be using the :ref:`replace_in_file
+<conan_tools_files_replace_in_file>` tool:
+
+.. code-block:: python
+
+    import os
+    from conan import ConanFile
+    from conan.tools.files import replace_in_file
+
+
+    class helloRecipe(ConanFile):
+        name = "hello"
+        version = "1.0"
+
+        # Binary configuration
+        settings = "os", "compiler", "build_type", "arch"
+        options = {"shared": [True, False], "fPIC": [True, False]}
+        default_options = {"shared": False, "fPIC": True}
+
+        def build(self):
+            replace_in_file(self, os.path.join(self.source_folder, "src", "hello.cpp"), 
+                            "Hello World", 
+                            "Hello {} Friends".format("Shared" if self.options.shared else "Static"))
+
+
+Conditionally select your build system
+--------------------------------------
+
+It's not uncommon that some packages need one build system or other depending on the
+platform we are building. For example, the hello library could build in Windows using
+CMake and using Autotools for Linux and MacOS. This can be easily handled in the
+``build()`` method like this:
+
+
+.. code-block:: python
+
+    ...
+
+    class helloRecipe(ConanFile):
+        name = "hello"
+        version = "1.0"
+
+        # Binary configuration
+        settings = "os", "compiler", "build_type", "arch"
+        options = {"shared": [True, False], "fPIC": [True, False]}
+        default_options = {"shared": False, "fPIC": True}
+
+        def build(self):
+            if self.settings.os == "Windows":
+                cmake = CMake(self)
+                cmake.configure()
+                cmake.build()
+            else:
+                autotools = Autotools(self)
+                autotools.autoreconf()
+                autotools.configure()
+                autotools.make()
 
 
 Read more
 ---------
 
-- ...
+- :ref:`Patching sources <examples_tools_files_patches>`
