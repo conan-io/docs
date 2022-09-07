@@ -86,12 +86,11 @@ branch has two novelties on the library side:
   some unit tests over this function. This function is just creating an output message
   based on the arguments passed.
 
-* The `CMakeLists.txt
+* The `CMakeLists.txt for the library
   <https://github.com/conan-io/libhello/blob/with_tests/CMakeLists.txt#L15-L17>`_ uses a
   ``BUILD_TEST`` CMake variable that conditionally adds the *tests* directory.
 
-.. code-block:: cmake
-    :emphasize-lines: 12, 19, 27-28, 35-36
+.. code-block:: text
 
     cmake_minimum_required(VERSION 3.15)
     project(hello CXX)
