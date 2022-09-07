@@ -2,7 +2,7 @@ Using recipe revisions and lockfiles
 ====================================
 
 If you don't want to deploy and maintain your own Artifactory instance, you can isolate your project from
-changes in upstream remotes, for example ConanCenter, using :ref:`recipe revisions<versioning_package_revisions>`
+changes in upstream remotes, for example ConanCenter, using :ref:`recipe revisions<package_revisions>`
 and :ref:`lockfiles<versioning_lockfiles>` (please, read linked Conan documentation for more detailed
 explanation).
 
