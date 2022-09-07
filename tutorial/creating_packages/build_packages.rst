@@ -12,9 +12,11 @@ Build packages: the build() method
 
 We already used a Conan recipe that has a ``build()`` method and learned how to use that
 to invoke a build system and build our packages. In this tutorial, we will modify that
-method and explain how you can use it to do things like building and running tests,
-conditional patching the source code or select the build system you want to use
-conditionally.
+method and explain how you can use it to do things like:
+
+* Building and running tests
+* Conditional patching of the source code
+* Select the build system you want to use conditionally
 
 Please, first clone the sources to recreate this project. You can find them in the
 `examples2.0 repository <https://github.com/conan-io/examples2>`_ on GitHub:
