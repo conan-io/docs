@@ -56,6 +56,12 @@ dependencies for your project once you are happy with them, and use that same lo
 with every Conan command. Conan will always build the same graph (the locked one) and
 will always retrieve the same recipes and binaries.
 
+
+.. warning::
+
+   Lockfiles have a few known limition that can not be fixed in Conan 1.x, there are exciting improvements
+   coming with Conan 2.0. Please read the documenation linked below for more details.
+
 Then, it would be up to you to generate a new lockfile if you want to introduce new revisions
 for existing references.
 
