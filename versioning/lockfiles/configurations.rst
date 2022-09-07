@@ -57,6 +57,7 @@ But, what if a new ``pkga/0.2@user/testing`` version was created in the time bet
 example, because everything is local. However, it could happen that ``pkga`` was in a server and the CI uploads a new ``pkga/0.2@user/testing``
 version while we are running the above commands.
 
+.. _versioning_lockfiles_configurations_base_lockfiles:
 
 Base lockfiles
 --------------
