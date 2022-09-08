@@ -416,8 +416,8 @@ could be needed while running the build step. That means things like:
 
 - Write information about the configuration (settings, options...). This is done by what
   we call "toolchains", that are tools like :ref:`CMakeToolchain<conan-cmake-toolchain>`,
-  :ref:`AutotoolsToolchain<conan_tools_gnu_autotools_toolchain>`, :ref:`MSBuildToolchain
-  here<conan_tools_microsoft_msbuildtoolchain>`,
+  :ref:`AutotoolsToolchain<conan_tools_gnu_autotools_toolchain>`,
+  :ref:`MSBuildToolchain<conan_tools_microsoft_msbuildtoolchain>`,
   :ref:`XcodeToolchain<conan_tools_apple_xcodetoolchain>`, etc.
 
 - Write other files to be used in the build step, like scripts that inject environment
