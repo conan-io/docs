@@ -140,10 +140,10 @@ With basic tests on the functionality of the ``compose_message()`` function:
 Changes introduced in the recipe
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-* We added the *gtest/1.11.0* requirement to the recipe as a ``test_requires()``. This is
-  a special type of requirement intended for testing libraries like **Catch2** or **gtest**.
+* We added the *gtest/1.11.0* requirement to the recipe as a ``test_requires()``. It's a
+  requirement type intended for testing libraries like **Catch2** or **gtest**.
 
-* We use the ``tools.build:skip_test`` configuration, to tell CMake wether to build and
+* We use the ``tools.build:skip_test`` configuration, to tell CMake whether to build and
   run the tests or not. This configuration controls the execution of ``CMake.test()`` and
   ``Meson.test()`` but can also be used for other testing environments like in this case.
   We use that variable in the ``generate()`` method to inject the ``BUILD_TESTS`` variable
@@ -184,9 +184,9 @@ do this in Conan. One of them would be using the :ref:`replace_in_file
 Conditionally select your build system
 --------------------------------------
 
-It's not uncommon that some packages need one build system or other depending on the
+It's not uncommon that some packages need one build system or another depending on the
 platform we are building. For example, the hello library could build in Windows using
-CMake and using Autotools for Linux and MacOS. This can be easily handled in the
+CMake and in Linux and MacOS using Autotools. This can be easily handled in the
 ``build()`` method like this:
 
 
