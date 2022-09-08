@@ -402,7 +402,7 @@ The generate() method
 ---------------------
 
 This is a key method to understand how Conan 2.0 works. This method is called during the
-"install" process, before calling the :ref:`build()<conan2_migration_guide_build>` method.
+Conan "install" step, before calling the :ref:`build()<conan2_migration_guide_build>` method.
 All the information needed to build the current package has to be calculated and written in
 disk (in the ``self.generators_folder``) by the ``generate()`` method. The goal of the
 ``generate()`` method is to **prepare the build** generating all the information that
