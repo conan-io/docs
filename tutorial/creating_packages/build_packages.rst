@@ -37,7 +37,8 @@ Changes introduced in the recipe
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: python
-    :emphasize-lines: 12, 19, 27-28, 35-36
+    :caption: *conanfile.py*
+    :emphasize-lines: 12, 19, 33-34
 
     class helloRecipe(ConanFile):
         name = "hello"
@@ -112,6 +113,7 @@ branch has two novelties on the library side:
   ``BUILD_TESTING`` CMake variable that conditionally adds the *tests* directory.
 
 .. code-block:: text
+    :caption: *CMakeLists.txt*
 
     cmake_minimum_required(VERSION 3.15)
     project(hello CXX)
@@ -124,12 +126,12 @@ branch has two novelties on the library side:
 
     ...
 
-This `CMake variable <https://cmake.org/cmake/help/latest/module/CTest.html>`_ is declared
-and set to ``OFF`` by Conan (if not already defined) whenever the
-``tools.build:skip_test`` configuration is set to value ``True``. This variable is
-tipically declared by CMake when you use CTest but using the ``tools.build:skip_test``
-configuration you can use it in your *CMakeListst.txt* even if you are using another
-testing framework.
+The ``BUILD_TESTING`` `CMake variable
+<https://cmake.org/cmake/help/latest/module/CTest.html>`_ is declared and set to ``OFF``
+by Conan (if not already defined) whenever the ``tools.build:skip_test`` configuration is
+set to value ``True``. This variable is tipically declared by CMake when you use CTest but
+using the ``tools.build:skip_test`` configuration you can use it in your *CMakeListst.txt*
+even if you are using another testing framework.
 
 * We have a `CMakeLists.txt
   <https://github.com/conan-io/libhello/blob/with_tests/tests/CMakeLists.txt>`_ in the
@@ -137,6 +139,7 @@ testing framework.
   testing.
 
 .. code-block:: cmake
+    :caption: *tests/CMakeLists.txt*
 
     cmake_minimum_required(VERSION 3.15)
     project(PackageTest CXX)
@@ -151,6 +154,7 @@ With basic tests on the functionality of the ``compose_message()`` function:
 
 
 .. code-block:: cpp
+    :caption: *tests/test.cpp*
 
     #include "../include/hello.h"
     #include "gtest/gtest.h"
@@ -193,7 +197,7 @@ Now that we have gone through all the changes in the code, let's try them out:
     ...
 
 As you can see, the tests were built and run. Let's use now the ``tools.build:skip_test``
-configuration to skip the test building and running:
+configuration in the commnand line to skip the test building and running:
 
 .. code-block:: bash
 
