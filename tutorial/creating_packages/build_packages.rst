@@ -280,7 +280,7 @@ CMake and in Linux and MacOS using Autotools. This can be easily handled in the
         ... 
 
         def generate(self):
-            if self.settings.os == "Windows":
+            if self.info.settings.os == "Windows":
                 tc = CMakeToolchain(self)
                 tc.generate()
                 deps = CMakeDeps(self)
@@ -294,7 +294,7 @@ CMake and in Linux and MacOS using Autotools. This can be easily handled in the
         ...
 
         def build(self):
-            if self.settings.os == "Windows":
+            if self.info.settings.os == "Windows":
                 cmake = CMake(self)
                 cmake.configure()
                 cmake.build()
