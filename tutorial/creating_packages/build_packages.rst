@@ -73,7 +73,10 @@ Changes introduced in the recipe
             cmake.configure()
             cmake.build()
             if not self.conf.get("tools.build:skip_test", default=False):
-                self.run(os.path.join(self.cpp.build.bindirs[0], "tests", "test_hello"))
+                test_folder = os.path.join("tests")
+                if self.info.settings.os == "Windows":
+                    test_folder = os.path.join("tests", str(self.info.settings.build_type))
+                self.run(os.path.join(test_folder, "test_hello"))
 
         ...
 
@@ -274,10 +277,6 @@ CMake and in Linux and MacOS using Autotools. This can be easily handled in the
         default_options = {"shared": False, "fPIC": True}
 
         ...
-
-        generators = "CMakeDeps", "PkgConfigDeps"
-
-        ... 
 
         def generate(self):
             if self.info.settings.os == "Windows":
