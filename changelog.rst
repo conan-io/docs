@@ -3,7 +3,7 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2.0 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
-2.0.0-beta3 (09-Sept-2022)
+2.0.0-beta3 (12-Sept-2022)
 --------------------------
 
 - Feature: Decouple test_package from create. `#12046 <https://github.com/conan-io/conan/pull/12046>`_
