@@ -251,14 +251,14 @@ tool:
 
 Please, note that patching in ``build()`` should avoided if possible and only be done for
 very particular cases as it will make more difficult to develop your packages locally (we
-will explain more about this in the local developement flow section of the tutorial)
+will explain more about this in the local developement flow section later <MISSING REFERENCE>)
 
 
 Conditionally select your build system
 --------------------------------------
 
 It's not uncommon that some packages need one build system or another depending on the
-platform we are building. For example, the hello library could build in Windows using
+platform we are building. For example, the *hello* library could build in Windows using
 CMake and in Linux and MacOS using Autotools. This can be easily handled in the
 ``build()`` method like this:
 
@@ -310,3 +310,4 @@ Read more
 ---------
 
 - :ref:`Patching sources <examples_tools_files_patches>`
+- ...
