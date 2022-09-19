@@ -3,7 +3,7 @@
 Command wrapper
 ---------------
 
-The ``cmd_wrapper.py`` extension plugin is a Python scripts that receive the command line
+The ``cmd_wrapper.py`` extension plugin is a Python script that receives the command line
 argument provided by ``self.run()`` recipe calls, and allows intercepting them and returning
 a new one. 
 
