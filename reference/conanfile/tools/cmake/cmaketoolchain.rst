@@ -136,9 +136,12 @@ cache_variables
 
 Available since: `1.50.0 <https://github.com/conan-io/conan/releases/tag/1.50.0>`_
 
-This attribute allows defining CMake cache-variables. These variables, unlike the ``variables``, are single-config. They
-will be stored in the ``CMakePresets.json`` file (at the `cacheVariables` in the `configurePreset`) and will be
-applied with ``-D`` arguments when calling ``cmake.configure`` using the :ref:`CMake() build helper<conan-cmake-build-helper>`.
+This attribute allows defining CMake cache-variables. These variables, unlike the
+``variables``, are single-config. They will be stored in the `CMakePresets.json
+<https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html#format>`_ file (at the
+`cacheVariables` in the `configurePreset`) and will be applied with ``-D`` arguments when
+calling ``cmake.configure`` using the :ref:`CMake() build
+helper<conan-cmake-build-helper>`.
 
 
 .. code:: python
@@ -155,11 +158,12 @@ variables
 +++++++++
 
 This attribute allows defining CMake variables, for multiple configurations (Debug,
-Release, etc). This variables should be use to define things related with the toolchain,
-for the majority of cases :ref:`cache_variables<conan-cmake-toolchain-cache_variables>` is
-what you probably want to use. Also, take into account that as these variables are defined
-inside the *conan_toolchain.cmake* file, and the toolchain is loaded several times the
-definition of these variables will also be.
+Release, etc). This variables should be use to define things related with the toolchain
+and for the majority of cases
+:ref:`cache_variables<conan-cmake-toolchain-cache_variables>` is what you probably want to
+use. Also, take into account that as these variables are defined inside the
+*conan_toolchain.cmake* file, and the toolchain is loaded several times by CMake the
+definition of these variables will be done at those points as well.
 
 .. code:: python
 
