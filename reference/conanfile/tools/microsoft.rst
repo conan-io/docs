@@ -12,6 +12,8 @@ but using directly Visual Studio solutions, projects and property files).
     These tools are still **experimental** (so subject to breaking changes) but with very stable syntax.
     We encourage the usage of it to be prepared for Conan 2.0.
 
+.. _conan_tools_microsoft_msbuilddeps:
+
 MSBuildDeps
 -----------
 
@@ -149,6 +151,8 @@ dependencies will be translated to properties files:
   allows to define custom build commands, invoke code generation tools, with the ``<CustomBuild>`` and
   ``<Command>`` elements.
 
+
+.. _conan_tools_microsoft_msbuildtoolchain:
 
 MSBuildToolchain
 ----------------

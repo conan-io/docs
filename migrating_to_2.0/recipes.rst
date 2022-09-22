@@ -396,19 +396,34 @@ The ``self.copy`` has been replaced by the explicit tool
         copy(self, "CMakeLists.txt", self.recipe_folder, self.export_sources_folder)
 
 
+.. _conan2_migration_guide_generate:
+
 The generate() method
 ---------------------
 
-This is a key method to understand how Conan 2.0 works. This method is called during the "install" process, before
-calling the "build()" method.
-All information needed to build the current package has to be calculated and written in disk (in the ``self.generators_folder``)
-by the ``generate()`` method. That information is about:
+This is a key method to understand how Conan 2.0 works. This method is called during the
+Conan "install" step, before calling the :ref:`build()<conan2_migration_guide_build>` method.
+All the information needed to build the current package has to be calculated and written in
+disk (in the ``self.generators_folder``) by the ``generate()`` method. The goal of the
+``generate()`` method is to **prepare the build** generating all the information that
+could be needed while running the build step. That means things like:
 
-- The dependencies of the recipe: Typically called "generators".
-- The configuration (settings, options...): Typically called "toolchains".
+- Write information about the dependencies for the build sytem. This is done by
+  what we call "generators", that are tools like :ref:`CMakeDeps<CMakeDeps>`,
+  :ref:`PkgConfigDeps<PkgConfigDeps>`, :ref:`MSBuildDeps
+  <conan_tools_microsoft_msbuilddeps>`, :ref:`XcodeDeps<conan_tools_apple_xcodedeps>`,
+  etc.
 
-The goal of the ``generate()`` method is to have a very simple build process (the more dummy, the better),
-calling the build system passing some files or arguments and activating some environment launchers.
+- Write information about the configuration (settings, options...). This is done by what
+  we call "toolchains", that are tools like :ref:`CMakeToolchain<conan-cmake-toolchain>`,
+  :ref:`AutotoolsToolchain<conan_tools_gnu_autotools_toolchain>`,
+  :ref:`MSBuildToolchain<conan_tools_microsoft_msbuildtoolchain>`,
+  :ref:`XcodeToolchain<conan_tools_apple_xcodetoolchain>`, etc.
+
+- Write other files to be used in the build step, like scripts that inject environment
+  variables (check the part on how to :ref:`migrate the
+  environment<migration_guide_environment>` on this guide), files to pass to the build
+  system, etc. 
 
 This improves a lot the local development, a simple ``conan install`` will generate everything we need to build our
 project in the IDE or just call the build system. This example is using the ``CMake`` integration, but if you use
@@ -474,12 +489,16 @@ Do not use ``self.deps_cpp_info``, ``self.deps_env_info`` or ``self.deps_user_in
             generators = "CMakeToolchain", "CMakeDeps"
             ...
 
+.. _conan2_migration_guide_build:
 
 The build() method
 ------------------
 
-There is nothing special in the ``build()`` method, just emphasize the concept of ``dummy build`` explained before.
-
+There are no relevant changes in how the ``build()`` method works in Conan v2 compared to
+v1. Just be aware that the ``generate()`` method should be used to **prepare the build**,
+generating information used in the ``build()`` step. Please, learn how to do that in the
+section of this guide about the :ref:`generate()<conan2_migration_guide_generate>`
+method.
 
 The package() method
 --------------------
