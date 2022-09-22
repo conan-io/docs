@@ -102,19 +102,17 @@ Settings
 
 
 
-
-
-- In Conan 2, removing a setting, for example, ``del self.settings.compiler.libcxx`` in the ``configure()`` method, will
-  raise an exception if the setting doesn't exist. It has to be protected with try/except:
+- In Conan 2, removing a setting, for example, ``del self.settings.compiler.libcxx`` in
+  the ``configure()`` method, will raise an exception if the setting doesn't exist. It has
+  to be protected with try/except. The ``self.settings.rm_safe()`` method already
+  implements the try/except clause internally. Use it like:
 
   .. code-block:: python
 
     def configure(self):
-        try:
-           # In windows, with msvc, the compiler.libcxx doesn't exist, so it will raise.
-           del self.settings.compiler.libcxx
-        except Exception:
-           pass
+        # it's a C library
+        self.settings.rm_safe("compiler.libcxx")
+        self.settings.rm_safe("compiler.cppstd")
 
 
 Options
