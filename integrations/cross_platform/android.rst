@@ -5,6 +5,10 @@ ____________________________
 
 There are several ways to cross-compile packages for `Android <https://www.android.com>`__ platform via conan.
 
+.. warning::
+
+    Always use :ref:`build context <build_requires_context>` when cross building.
+
 Using android-ndk package (tool require)
 ========================================
 
@@ -28,11 +32,11 @@ For instance, in order to cross-compile for ``ARMv8``, the following conan profi
   build_type=Release
   compiler=clang
   compiler.libcxx=libc++
-  compiler.version=11
+  compiler.version=14
   os=Android
   os.api_level=21
   [tool_requires]
-  android-ndk/r22b
+  android-ndk/r25
   [options]
   [env]
 
@@ -51,11 +55,11 @@ Similar profile might be used to cross-compile for ``ARMv7`` (notice the ``arch`
   build_type=Release
   compiler=clang
   compiler.libcxx=libc++
-  compiler.version=11
+  compiler.version=14
   os=Android
   os.api_level=21
   [tool_requires]
-  android-ndk/r22b
+  android-ndk/r25
   [options]
   [env]
 
@@ -66,6 +70,13 @@ By adjusting ``arch`` setting, you may cross-compile for ``x86`` and ``x86_64`` 
   ``os.api_level`` is an important setting which affects compatibility - it defines the **minimum** Android version supported.
   In other words, it is the same meaning as `minSdkVersion <https://developer.android.com/guide/topics/manifest/uses-sdk-element>`_.
 
+Also, do not forget to use build context when cross building to Android:
+
+.. code-block:: bash
+
+  conan install conanfile.txt -pr:h=default -pr:b=android
+
+Where ``android`` is one of the profiles listed above.
 
 .. _conan-cmake-toolchain-android:
 
@@ -90,7 +101,7 @@ Use a regular profile for the *host* context:
    os.api_level=23
    arch=x86_64
    compiler=clang
-   compiler.version=9
+   compiler.version=14
    compiler.libcxx=c++_shared
    build_type=Release
 
@@ -128,13 +139,24 @@ If you're using `Docker <https://www.docker.com>`_ for builds, you may consider 
 
 Currently, Conan Docker Tools provide the following Android images:
 
-- conanio/android-clang8
-- conanio/android-clang8-x86
-- conanio/android-clang8-armv7
-- conanio/android-clang8-armv8
+- conanio/android-clang14
+- conanio/android-clang14-x86
+- conanio/android-clang14-armv7
+- conanio/android-clang14-armv8
 
-All above mentioned images have corresponding `Android NDK <https://developer.android.com/ndk>`_ installed, with required environment variables
-set and with default conan profile configured for android cross-building. Therefore, these images might be especially useful for CI systems.
+All above mentioned images have corresponding `Android NDK <https://developer.android.com/ndk>`_ installed as Conan package.
+For more information how to build Android docker images, visit `Docker build section <https://github.com/conan-io/conan-docker-tools#build-test-and-deploy>`_.
+Once you have a docker image installed property, you can run direclty on your machine and cross-compile to Android:
+
+.. code-block:: bash
+
+  % docker run --rm -ti -v${PWD}:/home/conan/project conanio/android-clang14-armv8
+  # running into docker container
+  $ conan install project/conanfile.txt -pr:b=default -pr:h=android --build
+
+.. note::
+
+  If you are running on Mac M1, you need to pass ``--platform=linux/amd64`` as command argument to :command:`docker run`.
 
 Using existing NDK
 ==================
