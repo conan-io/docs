@@ -491,7 +491,7 @@ you can use the ``get_safe()`` method:
 The ``get_safe()`` method will return ``None`` if that option doesn't exist and there is no default value assigned.
 
 If you want to do a safe deletion of options, you could use the ``rm_safe()`` method. For
-example, in the ``config_options()`` method a typicall pattern for Windows library would be:
+example, in the ``config_options()`` method a typical pattern for Windows library would be:
 
 .. code-block:: python
 
