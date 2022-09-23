@@ -84,6 +84,8 @@ Usage:
         rename(self, "lib-sources-abe2h9fe", "sources")  # renaming a folder
 
 
+.. _conan_tools_files_replace_in_file:
+
 conan.tools.files.replace_in_file()
 -----------------------------------
 
