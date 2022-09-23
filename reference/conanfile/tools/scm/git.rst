@@ -150,6 +150,34 @@ again from sources from the same commit. This is the behavior:
 - If the repository is not dirty, and the commit exists in the specified remote, it will return that commit and the url of the
   remote. 
 
+run()
+-----
+
+.. code-block:: python
+    
+    def run(self, cmd)
+
+
+Executes `git <cmd>` and returns the console output of the command.
+
+For example, if you want to print the git version, just pass ``cmd="--version"`` as
+argument:
+
+.. code-block:: python
+
+    import os
+    from conan import ConanFile
+    from conan.tools.scm import Git
+
+    class Pkg(ConanFile):
+        name = "pkg"
+        version = "0.1"
+
+        def export(self):
+            git = Git(self)
+            self.output.info(git.run("--version"))
+
+
 
 Example: Implementing the ``scm`` feature 
 -----------------------------------------
