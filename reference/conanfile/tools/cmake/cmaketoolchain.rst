@@ -80,8 +80,8 @@ translated from the current ``settings``:
      - The ``BUILD_TESTING`` variable set to ``OFF``, when configuration ``tools.build:skip_test`` is true.
 
 - *CMakeUserPresets.json*:  If you declare a ``layout()`` in the recipe and your ``CMakeLists.txt`` file is found in
-  the ``conanfile.source_folder`` folder, Conan will place a ``CMakeUserPresets.json`` to include the ``CMakePresets.json`` 
-  generated with the above specification. This will allow your IDE to allow your IDE (Visual Studio, Visual Studio Code, CLion...) 
+  the ``conanfile.source_folder`` folder, Conan will place a ``CMakeUserPresets.json`` to include the ``CMakePresets.json``
+  generated with the above specification. This will allow your IDE to allow your IDE (Visual Studio, Visual Studio Code, CLion...)
   or ``cmake`` tool to locate the  Conan-generated ``CMakePresets.json``.
 
   Note: Conan will skip the generation of the ``CMakeUserPresets.json`` if it already exists and was not
@@ -104,9 +104,10 @@ constructor
 
 .. code:: python
 
-    def __init__(self, conanfile):
+    def __init__(self, conanfile, generator=None):
 
 - ``conanfile``: the current recipe object. Always use ``self``.
+- ``generator``: CMake generator to be used by cmake CLI (e.g. "Ninja"). By default it will use ``tools.cmake.cmaketoolchain:generator`` conf.
 
 
 preprocessor_definitions
