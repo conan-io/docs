@@ -335,7 +335,7 @@ A very common one is the option ``shared`` with allowed values of ``[True, False
 build system to produce a static library or a shared library.
 
 Values for each option can be typed or plain strings (``"value"``, ``True``, ``None``, ``42``,...) and there is a special value, ``"ANY"``, for
-options that can take any value.
+options that can take any value. When an option uses ``"ANY"``, but its default value is ``None``, then it should be added to the possible option values too.
 
 .. code-block:: python
 
@@ -344,9 +344,10 @@ options that can take any value.
         options = {
             "shared": [True, False],
             "option1": ["value1", "value2"],
-            "option2": ["ANY]",
+            "option2": ["ANY"],
             "option3": [None, "value1", "value2"],
             "option4": [True, False, "value"],
+            "option5": [None, "ANY"],
         }
 
 Every option in a recipe needs to be assigned a value from the ones declared in the ``options`` attribute. The
@@ -527,10 +528,14 @@ not define them. This attribute should be defined as a python dictionary:
         ...
         options = {"build_tests": [True, False],
                    "option1": ["value1", "value2"],
-                   "option2": ["ANY"]}
+                   "option2": ["ANY"],
+                   "option3": [None, "ANY"],
+                   }
         default_options = {"build_tests": True,
                            "option1": "value1",
-                           "option2": 42}
+                           "option2": 42,
+                           "option3": None,
+                           }
 
         def build(self):
             cmake = CMake(self)
