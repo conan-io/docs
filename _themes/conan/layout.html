@@ -20,6 +20,9 @@
   <title>{{ title|striptags|e }}{{ titlesuffix }}</title>
   {% endblock %}
 
+  {# canonical URL for sitemap #}
+  <link rel="canonical" href="{{ 'https://docs.conan.io/en/latest/' + pagename + '.html' }}"/>
+
   {# FAVICON #}
   {% if favicon %}
     <link rel="shortcut icon" href="{{ pathto('_static/' + favicon, 1) }}"/>
