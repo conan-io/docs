@@ -529,7 +529,7 @@ not define them. This attribute should be defined as a python dictionary:
         options = {"build_tests": [True, False],
                    "option1": ["value1", "value2"],
                    "option2": ["ANY"],
-                   "option3": [None, "ANY"]}
+                   "option3": [None, "ANY"],
                    }
         default_options = {"build_tests": True,
                            "option1": "value1",
