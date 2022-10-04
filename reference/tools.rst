@@ -311,6 +311,7 @@ tools.get()
             pattern=None, requester=None, output=None, verify=True, retry=None, retry_wait=None,
             overwrite=False, auth=None, headers=None, strip_root=False)
 
+High level download and decompressing of a tgz, zip or other compressed format file.
 Just a high level wrapper for download, unzip, and remove the temporary zip file once unzipped. You can pass hash checking parameters:
 ``md5``, ``sha1``, ``sha256``. All the specified algorithms will be checked. If any of them doesn't match, it will raise a
 ``ConanException``.

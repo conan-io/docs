@@ -315,6 +315,17 @@ If you want to do a safe check of settings values, you could use the ``get_safe(
 
 The ``get_safe()`` method will return ``None`` if that setting or subsetting doesn't exist and there is no default value assigned.
 
+If you want to do a safe deletion of settings, you could use the ``rm_safe()``
+method. For example, in the ``configure()`` method a typical pattern for a C library would
+be:
+
+.. code-block:: python
+
+    def configure(self):
+        self.settings.rm_safe("compiler.libcxx")
+        self.settings.rm_safe("compiler.cppstd")
+
+
 .. _conanfile_options:
 
 options
@@ -479,6 +490,15 @@ you can use the ``get_safe()`` method:
         shared = self.options.get_safe("shared", default=False)
 
 The ``get_safe()`` method will return ``None`` if that option doesn't exist and there is no default value assigned.
+
+If you want to do a safe deletion of options, you could use the ``rm_safe()`` method. For
+example, in the ``config_options()`` method a typical pattern for Windows library would be:
+
+.. code-block:: python
+
+    def config_options(self):
+        if self.settings.os == "Windows":
+            self.options.rm_safe("fPIC")
 
 **Evaluate options**
 
