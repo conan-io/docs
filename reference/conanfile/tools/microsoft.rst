@@ -537,7 +537,7 @@ Example:
 
 
 conan.tools.microsoft.is_clang_cl()
--------------------------------
+-----------------------------------
 
 Available since: `1.53.0 <https://github.com/conan-io/conan/releases/tag/1.53.0>`_
 
