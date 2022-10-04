@@ -313,7 +313,13 @@ that is being developed in a local directory):
         self.cpp.source.includedirs = ["."]
 
 
+cpp_info libdir, bindir, includedir accessors when using layout() in Conan 1.X
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Since `Conan 1.53.0 <https://github.com/conan-io/conan/releases/tag/1.53.0>`_ you can
+access access ``cpp_info.libdirs[0]``, ``cpp_info.bindirs[0]`` and
+``cpp_info.includedirs[0]`` using ``cpp_info.libdir``, ``cpp_info.bindir`` and
+``cpp_info.includedir``
 
 
 The scm attribute
