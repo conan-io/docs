@@ -18,8 +18,38 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-    Conan 1.52 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
+    Conan 1.53 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
     a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
+
+
+1.53.0 (04-Oct-2022)
+--------------------
+
+- Feature: Implement a new ``[runenv]`` section in the Profile, to define the runtime environment. `#12230 <https://github.com/conan-io/conan/pull/12230>`_ . Docs `here <https://github.com/conan-io/docs/pull/2771>`__
+- Feature: Add `compiler.version` 11.3 for GCC in settings. `#12215 <https://github.com/conan-io/conan/pull/12215>`_
+- Feature: Make `conan.tools.apple.XCRun()` public. `#12172 <https://github.com/conan-io/conan/pull/12172>`_ . Docs `here <https://github.com/conan-io/docs/pull/2761>`__
+- Feature: Add message to help users that have old CMake versions invoking CMake manually with the same information stored in the CMakePresets. `#12169 <https://github.com/conan-io/conan/pull/12169>`_
+- Feature: Make `conan.tools.scmGit.run()` public. `#12165 <https://github.com/conan-io/conan/pull/12165>`_ . Docs `here <https://github.com/conan-io/docs/pull/2762>`__
+- Feature: Add ``MSBuildToolchain.properties`` to define extra properties. `#12147 <https://github.com/conan-io/conan/pull/12147>`_ . Docs `here <https://github.com/conan-io/docs/pull/2772>`__
+- Feature: Update requirements.txt to use distro package version <=1.7.0. `#12140 <https://github.com/conan-io/conan/pull/12140>`_
+- Feature: Added method `rm_safe` to `settings` and `options`. `#12094 <https://github.com/conan-io/conan/pull/12094>`_ . Docs `here <https://github.com/conan-io/docs/pull/2764>`__
+- Feature: Add missing configurations for `conan config list` and show the results ordered by key. `#12087 <https://github.com/conan-io/conan/pull/12087>`_ . Docs `here <https://github.com/conan-io/docs/pull/2763>`__
+- Feature: Define ``source_folder`` in test_package when ``layout()`` is defined. `#12075 <https://github.com/conan-io/conan/pull/12075>`_
+- Feature: Support for Xcode 14 and new iOS, watchOS, tvOS and macOS versions. `#12064 <https://github.com/conan-io/conan/pull/12064>`_
+- Feature: Add ``cpp_info.libdir|bindir|includedir`` interface to access ``cpp_info.libdirs[0]`` in recipes `#12030 <https://github.com/conan-io/conan/pull/12030>`_ . Docs `here <https://github.com/conan-io/docs/pull/2773>`__
+- Feature: Improve Clang support in Windows. `#11492 <https://github.com/conan-io/conan/pull/11492>`_
+- Fix: Fix missing binary ``conan search dep/1.0 --table`` message when a binary is missing. `#12184 <https://github.com/conan-io/conan/pull/12184>`_
+- Fix: Remove too noisy messages from environment files `#12168 <https://github.com/conan-io/conan/pull/12168>`_
+- Fix: Add support for windows on ARM64 native platform. `#12145 <https://github.com/conan-io/conan/pull/12145>`_
+- Fix: Avoid changing MSBuildDeps filenames with ``-`` while trying to avoid wrong XML formats. `#12141 <https://github.com/conan-io/conan/pull/12141>`_
+- Fix: Fix XcodeDeps using full package reference in case of package with components. `#12097 <https://github.com/conan-io/conan/pull/12097>`_
+- Fix: Fixed a bug when getting the values from the `self.conf` in the conanfile of a `test_package` with build_requirements declaring the `self.conf_info`. `#12095 <https://github.com/conan-io/conan/pull/12095>`_
+- Fix: `CMakeToolchain.cache_variables` parse option value as expected. `#12086 <https://github.com/conan-io/conan/pull/12086>`_
+- Fix: Fix XcodeDeps handle hyphen in component requirements. `#12084 <https://github.com/conan-io/conan/pull/12084>`_
+- Fix: Add the ``test_requires`` to ``CMakeToolchain`` directories/folders to find cmake files inside them. `#12081 <https://github.com/conan-io/conan/pull/12081>`_
+- Fix: Set gnu17 as clang 16 cppstd default. `#12067 <https://github.com/conan-io/conan/pull/12067>`_
+- Bugfix: Implement correct ``libcxx`` support in ``MesonToolchain``. `#12156 <https://github.com/conan-io/conan/pull/12156>`_
+- Bugfix: Add "endeavouros" to the list of distros with pacman. `#11971 <https://github.com/conan-io/conan/pull/11971>`_
 
 1.52.0 (31-Aug-2022)
 --------------------
