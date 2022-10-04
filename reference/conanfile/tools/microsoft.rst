@@ -396,7 +396,7 @@ Parameters:
 
 - **conanfile**: ConanFile instance.
 - **build_context**: (default=False). If this argument is ``True``, the method will check the compiler of the
-  ``build`` context, not the ``host`` one. 
+  ``build`` context, not the ``host`` one.
 
 .. code-block:: python
 
@@ -534,3 +534,31 @@ Example:
 
     def validate(self):
         check_min_vs(self, "192")
+
+
+conan.tools.microsoft.is_clang_cl()
+-------------------------------
+
+Available since: `1.53.0 <https://github.com/conan-io/conan/releases/tag/1.53.0>`_
+
+.. code-block:: python
+
+    def is_clang_cl(conanfile, build_context=False):
+
+Validate ``self.settings.compiler`` for which compiler is being used.
+It returns ``True`` when the host compiler is ``clang`` and host OS is ``Windows``, or, host compiler toolset is ``ClangCL``, otherwise, returns ``False``.
+When the ``compiler`` is empty, it returns ``False``.
+
+Parameters:
+
+- **conanfile**: ConanFile instance.
+- **build_context**: (default=False). If this argument is ``True``, the method will check the compiler of the
+  ``build`` context, not the ``host`` one.
+
+.. code-block:: python
+
+    from conan.tools.microsoft import is_clang_cl
+
+    def validate(self):
+        if is_clang_cl(self):
+            raise ConanInvalidConfiguration(f"Not supported by Clang compiler on Windows.")
