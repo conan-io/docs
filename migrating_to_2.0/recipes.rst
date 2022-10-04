@@ -167,6 +167,18 @@ The special value ``ANY`` has to be declared in a list:
         options = {"opt": ["ANY"]}
 
 
+In case the default value is ``None``, then it should be added as possible value to that option:
+
+.. code-block:: python
+   :caption: **To:**
+
+    from conan import ConanFile
+
+    class Pkg(Conanfile):
+        options = {"opt": [None, "ANY"]}
+        default_options = {"opt": None}
+
+
 The validate() method
 ---------------------
 
@@ -427,7 +439,7 @@ could be needed while running the build step. That means things like:
 - Write other files to be used in the build step, like scripts that inject environment
   variables (check the part on how to :ref:`migrate the
   environment<migration_guide_environment>` on this guide), files to pass to the build
-  system, etc. 
+  system, etc.
 
 This improves a lot the local development, a simple ``conan install`` will generate everything we need to build our
 project in the IDE or just call the build system. This example is using the ``CMake`` integration, but if you use

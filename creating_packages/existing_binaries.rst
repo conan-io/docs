@@ -52,7 +52,7 @@ This package recipe can be also extended to provide support for more configurati
 adding options: shared/static, or using different settings), adding dependencies (``requires``),
 and more.
 
-Based on the above, We can assume that our current directory contains a *lib* folder with a number binaries for this
+Based on the above, we can assume that our current directory contains a *lib* folder with a number binaries for this
 "hello" library *libhello.a*, compatible for example with Windows MinGW (gcc) version 4.9:
 
 .. code-block:: bash
