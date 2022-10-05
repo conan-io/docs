@@ -315,6 +315,17 @@ If you want to do a safe check of settings values, you could use the ``get_safe(
 
 The ``get_safe()`` method will return ``None`` if that setting or subsetting doesn't exist and there is no default value assigned.
 
+If you want to do a safe deletion of settings, you could use the ``rm_safe()``
+method. For example, in the ``configure()`` method a typical pattern for a C library would
+be:
+
+.. code-block:: python
+
+    def configure(self):
+        self.settings.rm_safe("compiler.libcxx")
+        self.settings.rm_safe("compiler.cppstd")
+
+
 .. _conanfile_options:
 
 options
@@ -335,7 +346,7 @@ A very common one is the option ``shared`` with allowed values of ``[True, False
 build system to produce a static library or a shared library.
 
 Values for each option can be typed or plain strings (``"value"``, ``True``, ``None``, ``42``,...) and there is a special value, ``"ANY"``, for
-options that can take any value.
+options that can take any value. When an option uses ``"ANY"``, but its default value is ``None``, then it should be added to the possible option values too.
 
 .. code-block:: python
 
@@ -344,9 +355,10 @@ options that can take any value.
         options = {
             "shared": [True, False],
             "option1": ["value1", "value2"],
-            "option2": ["ANY]",
+            "option2": ["ANY"],
             "option3": [None, "value1", "value2"],
             "option4": [True, False, "value"],
+            "option5": [None, "ANY"],
         }
 
 Every option in a recipe needs to be assigned a value from the ones declared in the ``options`` attribute. The
@@ -479,6 +491,15 @@ you can use the ``get_safe()`` method:
 
 The ``get_safe()`` method will return ``None`` if that option doesn't exist and there is no default value assigned.
 
+If you want to do a safe deletion of options, you could use the ``rm_safe()`` method. For
+example, in the ``config_options()`` method a typical pattern for Windows library would be:
+
+.. code-block:: python
+
+    def config_options(self):
+        if self.settings.os == "Windows":
+            self.options.rm_safe("fPIC")
+
 **Evaluate options**
 
 It is very important to know how the options are evaluated in conditional expressions and how the
@@ -527,10 +548,14 @@ not define them. This attribute should be defined as a python dictionary:
         ...
         options = {"build_tests": [True, False],
                    "option1": ["value1", "value2"],
-                   "option2": ["ANY"]}
+                   "option2": ["ANY"],
+                   "option3": [None, "ANY"],
+                   }
         default_options = {"build_tests": True,
                            "option1": "value1",
-                           "option2": 42}
+                           "option2": 42,
+                           "option3": None,
+                           }
 
         def build(self):
             cmake = CMake(self)

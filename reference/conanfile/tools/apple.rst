@@ -418,3 +418,32 @@ Parameters:
 
 Converts the current Conan-style `arch` setting (in the _host_ context) to a value
 understood by different Apple build tools (e.g. `armv8` -> `arm64`).
+
+
+XCRun()
+-------
+
+.. code-block:: python
+
+    class XCRun(object):
+
+        def __init__(self, conanfile, sdk=None):
+
+Parameters:
+
+- **conanfile**: Conanfile instance.
+- **sdk**: Will skip the flag when ``False`` is passed and will try to adjust the sdk it
+  automatically if ``None`` is passed.
+
+XCRun is a wrapper for the Apple **xcrun** tool used to get information for building. It
+has these properties:
+
+  - **sdk_path**: Obtain SDK path (a.k.a. Apple sysroot or -isysroot).
+  - **sdk_version**: Obtain SDK version.
+  - **sdk_platform_path**: Obtain SDK platform path.
+  - **sdk_platform_version**: Obtain SDK platform version.
+  - **cc**: Path to C compiler (CC).
+  - **cxx**: Path to C++ compiler (CXX).
+  - **ar**: Path to archiver (AR).
+  - **ranlib**: Path to archive indexer (RANLIB).
+  - **strip**: Path to symbol removal utility (STRIP).

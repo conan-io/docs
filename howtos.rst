@@ -28,4 +28,5 @@ This section shows common solutions and different approaches to typical problems
    howtos/use_tls_certificates
    howtos/check_conan_version_in_conanfile
    howtos/generic_ci_artifactory
+   howtos/using_rrev_and_lockfiles
    howtos/sanitizers
