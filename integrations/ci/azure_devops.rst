@@ -139,7 +139,7 @@ in Artifactory.
 .. |azure_logo| image:: ../../images/conan-azure_logo.png
                 :width: 100 px
                 :alt: Azure DevOps
-.. _`Microsoft’s Azure DevOps`: `
+.. _`Microsoft’s Azure DevOps`: https://azure.microsoft.com/en-us/products/devops/
 .. _`JFrog Artifactory Extension for Azure DevOps and TFS`: https://marketplace.visualstudio.com/items?itemName=JFrog.jfrog-artifactory-vsts-extension
 .. _`Artifactory binary repository manager`: https://jfrog.com/artifactory/
 .. _`configure a self-hosted agent`: https://docs.microsoft.com/en-us/azure/devops/pipelines/agents/agents?view=azure-devops
