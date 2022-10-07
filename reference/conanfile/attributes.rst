@@ -390,7 +390,7 @@ go over all of them for the example recipe ``mypkg`` defined above:
   + In the ``config_options()`` method of the recipe.
 
   + In the ``configure()`` method of the recipe itself (**this one has the highest precedence**, this
-    value can't be overriden)
+    value can't be overridden)
 
     .. code-block:: python
 

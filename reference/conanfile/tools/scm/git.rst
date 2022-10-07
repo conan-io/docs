@@ -28,7 +28,7 @@ get_commit()
     def get_commit(self)
 
 
-Returns the current commit, with ``git rev-list HEAD -n 1 -- <folder>``. The latest commit is returned, irrespective of local not commmited changes.
+Returns the current commit, with ``git rev-list HEAD -n 1 -- <folder>``. The latest commit is returned, irrespective of local not committed changes.
 
 
 get_remote_url()
@@ -56,7 +56,7 @@ commit_in_remote()
     def commit_in_remote(self, commit, remote="origin")
 
 
-Checks that the given commit exists in the remote, with ``branch -r --contains <commit>`` and checking an occurence of a branch in that remote exists.
+Checks that the given commit exists in the remote, with ``branch -r --contains <commit>`` and checking an occurrence of a branch in that remote exists.
 
 
 is_dirty()

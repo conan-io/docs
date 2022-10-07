@@ -18,7 +18,7 @@ There are several ways to download and run Artifactory CE. The simplest one migh
 designated zip file, though other installers, including also installing from a Docker image.
 When the file is unzipped, launch Artifactory by double clicking the artifactory.bat(Windows) or artifactory.sh script in the *app/bin*
 subfolder, depending on the OS.
-Artifactory comes with JDK bundled, please `read Artifactory requirments <https://www.jfrog.com/confluence/display/JFROG/System+Requirements>`_.
+Artifactory comes with JDK bundled, please `read Artifactory requirements <https://www.jfrog.com/confluence/display/JFROG/System+Requirements>`_.
 
 
 .. image:: ../../images/artifactory/conan-artifactory_ce.png

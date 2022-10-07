@@ -124,7 +124,7 @@ be linked to the generated library or other executable we want to deploy to the 
             self.test_requires("gtest/0.1")
 
 Note: The ``test_requires()``, available from Conan 1.43, is equivalent to the previous ``self.build_requires(, force_host_context=True)``
-syntax. As the later is going to dissapear in Conan 2.0, the former ``test_requires()`` form is recommended.
+syntax. As the later is going to disappear in Conan 2.0, the former ``test_requires()`` form is recommended.
 
 
 .. image:: ../images/xbuild/conan-cross-build-variables.png
@@ -246,7 +246,7 @@ then the install command will retrieve the ``cmake_turbo`` and use it:
 
 Although the previous line would work it is preferred to use the feature from Conan v1.24 and provide
 two profiles to the command line, that way the tool requirements in the ``build`` context won't
-interfer with the ``host`` graph if they share common requirements (see :ref:`section about dev tools <create_installer_packages>`).
+interfere with the ``host`` graph if they share common requirements (see :ref:`section about dev tools <create_installer_packages>`).
 It can also be needed if cross compiling (see :ref:`section about cross compiling <cross_building_build_requires>`).
 
 .. code-block:: bash

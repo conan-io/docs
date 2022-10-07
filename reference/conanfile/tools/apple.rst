@@ -91,7 +91,7 @@ The first ``conan install`` with the default *Release* and *x86_64* configuratio
 The second ``conan install -s build_type=Debug`` generates: 
 
 - *conan_libpng_libpng_debug_x86_64.xcconfig*: same variables as the one below for *Debug* configuration.
-- *conan_libpng_libpng.xcconfig*: this file has been already creted by the previous command, now it's modified to add the include for *conan_libpng_debug_x86_64.xcconfig*.
+- *conan_libpng_libpng.xcconfig*: this file has been already created by the previous command, now it's modified to add the include for *conan_libpng_debug_x86_64.xcconfig*.
 - *conan_libpng.xcconfig*: this file will remain the same.
 - Like in the previous command the same 3 files will be generated for each dependency in the graph. In this case, as *zlib* is a dependency of *libpng* it will generate: *conan_zlib_zlib_debug_x86_64.xcconfig*, *conan_zlib_zlib.xcconfig* and *conan_zlib.xcconfig*.
 - *conandeps.xcconfig*: configuration files including all direct dependencies, in this case, it just includes ``conan_libpng.xcconfig``.
