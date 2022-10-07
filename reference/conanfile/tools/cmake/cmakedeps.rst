@@ -210,7 +210,7 @@ Example:
         self.cpp_info.components["mycomponent"].set_property("cmake_target_aliases", ["VarComponent"])
 
         # Skip this package when generating the files for the whole dependency tree in the consumer
-        # note: it will make useless the previous adjustements.
+        # note: it will make useless the previous adjustments.
         # self.cpp_info.set_property("cmake_find_mode", "none")
 
         # Generate both MyFileNameConfig.cmake and FindMyFileName.cmake

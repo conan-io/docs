@@ -352,10 +352,10 @@ e.g. it applies to *clang*, *apple-clang* and *gcc*, but doesn't apply to *Visua
   (package name could be different in various distros) in order to use the standard library.
 
 - **c++_shared** (clang, Android only): use `LLVM libc++ <https://libcxx.llvm.org/>`__ as a shared library. Refer to the `C++ Library Support <https://developer.android.com/ndk/guides/cpp-support>`__ for the
-  additiona details.
+  additional details.
 
 - **c++_static** (clang, Android only): use `LLVM libc++ <https://libcxx.llvm.org/>`__ as a static library. Refer to the `C++ Library Support <https://developer.android.com/ndk/guides/cpp-support>`__ for the
-  additiona details.
+  additional details.
 
 - **libCstd** (sun-cc): Rogue Wave's stdlib. See `Comparing C++ Standard Libraries libCstd, libstlport, and libstdcxx <https://www.oracle.com/solaris/technologies/cmp-stlport-libcstd.html>`__.
 

@@ -48,7 +48,7 @@ etc. This includes but is not limited to the following:
 
 * Detection of ``default_library`` from Conan settings
 
-  * Based on existance/value of a option named ``shared``
+  * Based on existence/value of a option named ``shared``
 
 * Detection of ``buildtype`` from Conan settings
 

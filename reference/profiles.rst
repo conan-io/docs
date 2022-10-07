@@ -356,7 +356,7 @@ All the commands that take a profile as an argument, from Conan v1.24 are starti
 command line arguments ``-pr:h``/``--profile:host`` and ``-pr:b``/``--profile:build``. If both profiles are
 provided, Conan will build a graph with some packages associated with the ``host`` platform and some build
 requirements associated to the ``build`` platform. There are two scenarios where this feature is
-extremly useful:
+extremely useful:
 
 * :ref:`create_installer_packages`
 * :ref:`cross_building`

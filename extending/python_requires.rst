@@ -187,9 +187,9 @@ There are a few limitations that should be taken into account:
   might be used.
 - ``short_paths`` cannot be inherited from a ``python_requires``. Make sure to specify it directly
   in the recipes that need the paths shortened in Windows.
-- ``exports``, ``exports_sources`` shouldn't be inherited from a base class, but explictly defined
+- ``exports``, ``exports_sources`` shouldn't be inherited from a base class, but explicitly defined
   directly in the recipes. A reusable alternative might be using the ``SCM`` component.
-- ``build_policy`` shouldn't be inherited from a base class, but explictly defined
+- ``build_policy`` shouldn't be inherited from a base class, but explicitly defined
   directly in the recipes.
 - Mixing Python inheritance with ``python_requires_extend`` should be avoided, because 
   the inheritance order can be different than the expected one. Multiple level ``python_requires_extend``

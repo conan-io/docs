@@ -424,7 +424,7 @@ disk (in the ``self.generators_folder``) by the ``generate()`` method. The goal 
 ``generate()`` method is to **prepare the build** generating all the information that
 could be needed while running the build step. That means things like:
 
-- Write information about the dependencies for the build sytem. This is done by
+- Write information about the dependencies for the build system. This is done by
   what we call "generators", that are tools like :ref:`CMakeDeps<CMakeDeps>`,
   :ref:`PkgConfigDeps<PkgConfigDeps>`, :ref:`MSBuildDeps
   <conan_tools_microsoft_msbuilddeps>`, :ref:`XcodeDeps<conan_tools_apple_xcodedeps>`,
@@ -645,12 +645,12 @@ Removed self.env_info
 
 The attribute ``self.env_info`` has been replaced by:
 
-- ``self.buildenv_info``: For the dependant recipes, the environment variables will be present during the build process.
-- ``self.runenv_info``: For the dependant recipes, environment variables will be present during the runtime.
+- ``self.buildenv_info``: For the dependent recipes, the environment variables will be present during the build process.
+- ``self.runenv_info``: For the dependent recipes, environment variables will be present during the runtime.
 
 Read more about how to use them in the :ref:`environment management<conan_tools_env_environment_model>` of Conan 2.0.
 
-Remember that if you want to pass general information to the dependant recipes, you should use the ``self.conf_info``
+Remember that if you want to pass general information to the dependent recipes, you should use the ``self.conf_info``
 and not environment variables if they are not supposed to be reused as environment variables in the dependent recipes.
 
 
@@ -664,7 +664,7 @@ Also assigning it will be discouraged because it affects how :ref:`CMakeToolchai
 To be prepared for Conan 2.0:
 
 - If you have *cmake modules* or *cmake config files* at the root of the package, it is strongly recommended to move them
-  to a subfolder ``cmake`` and assing it: ``self.cpp_info.builddirs = ["cmake"]``
+  to a subfolder ``cmake`` and assign it: ``self.cpp_info.builddirs = ["cmake"]``
 - If you are not assigning any ``self.cpp_info.builddirs`` assign an empty list: ``self.cpp_info.builddirs = []``.
 - Instead of appending new values to the default list, assign it: ``self.cpp_info.builddirs = ["cmake"]``
 

@@ -475,7 +475,7 @@ The ``conanfile.py`` would look like this:
           def source(self):
               # we are inside a "src" subfolder, as defined by layout
               # download something, that will be inside the "src" subfolder
-              # access to paches and CMakeLists, to apply them, replace files is done with:
+              # access to patches and CMakeLists, to apply them, replace files is done with:
               mypatch_path = os.path.join(self.export_sources_folder, "patches/mypatch")
               cmake_path = os.path.join(self.export_sources_folder, "CMakeLists.txt")
               # patching, replacing, happens here

@@ -198,7 +198,7 @@ Adjusts each `CMAKE_RUNTIME_OUTPUT_DIRECTORY` variable to be ``${CMAKE_CURRENT_B
 and each ``CMAKE_ARCHIVE_OUTPUT_DIRECTORY`` and ``CMAKE_LIBRARY_OUTPUT_DIRECTORY`` variable to be
 ``${CMAKE_CURRENT_BINARY_DIR}/lib``.
 
-Calling this method makes writing the ``package()`` method for recipies easier. All artifacts will
+Calling this method makes writing the ``package()`` method for recipes easier. All artifacts will
 always be found in the same location. Otherwise, they may be found in different locations depending
 on your build environment (eg Linux vs Windows).
 

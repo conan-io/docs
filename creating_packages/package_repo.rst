@@ -156,7 +156,7 @@ parameter :ref:`scm_to_conandata<conan_conf>`.
  * If ``scm_to_conandata`` is activated, the value of these fields (except ``username`` and ``password``) will
    be stored in the :ref:`conandata_yml` file that will be automatically exported with the recipe.
 
-Whichever option you choose, the data resolved will be asigned by Conan to the corresponding field when the recipe
+Whichever option you choose, the data resolved will be assigned by Conan to the corresponding field when the recipe
 file is loaded, and they will be available for all the methods defined in the recipe. Also, if building the package
 from sources, Conan will fetch the code in the captured url/commit before running the method ``source()`` in the
 recipe (if defined).
