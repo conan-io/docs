@@ -79,3 +79,18 @@ With different patches for different versions:
 
             ret = g_test_run ();
         - patch_file: "patches/0003-fix-content-length-calculation.patch"
+
+conan.tools.files.export_conandata_patches()
+-------------------------------------------
+
+.. currentmodule:: conan.tools.files.patches
+
+.. autofunction:: export_conandata_patches
+
+Example of ``conandata.yml`` without versions defined:
+
+.. code-block:: python
+
+    from conan.tools.files import export_conandata_patches
+    def export_sources(self):
+        export_conandata_patches(self)
