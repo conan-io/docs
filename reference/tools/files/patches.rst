@@ -81,7 +81,7 @@ With different patches for different versions:
         - patch_file: "patches/0003-fix-content-length-calculation.patch"
 
 conan.tools.files.export_conandata_patches()
--------------------------------------------
+--------------------------------------------
 
 .. currentmodule:: conan.tools.files.patches
 
