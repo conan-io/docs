@@ -44,7 +44,7 @@ tool, if needed, in the conanfile's ``package()`` method like:
           autotools.install()
           fix_apple_shared_install_name(self)
 
-.. _conan_tools_apple_fix_apple_shared_install_name:
+.. _conan_tools_apple_is_apple_os:
 
 conan.tools.apple.is_apple_os()
 -------------------------------------------------
