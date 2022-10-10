@@ -47,7 +47,7 @@ tool, if needed, in the conanfile's ``package()`` method like:
 .. _conan_tools_apple_is_apple_os:
 
 conan.tools.apple.is_apple_os()
--------------------------------------------------
+-------------------------------
 
 .. currentmodule:: conan.tools.apple
 
@@ -56,7 +56,7 @@ conan.tools.apple.is_apple_os()
 .. _conan_tools_apple_to_apple_arch:
 
 conan.tools.apple.to_apple_arch()
--------------------------------------------------
+---------------------------------
 
 .. currentmodule:: conan.tools.apple
 
@@ -65,7 +65,7 @@ conan.tools.apple.to_apple_arch()
 .. _conan_tools_apple_XCRun:
 
 conan.tools.apple.XCRun()
--------------------------------------------------
+-------------------------
 
 .. currentmodule:: conan.tools.apple
 
