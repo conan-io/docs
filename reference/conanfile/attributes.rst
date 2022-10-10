@@ -226,8 +226,18 @@ settings
            # Will be the default version if the return is None
            build_type = self.settings.get_safe("build_type", default="Release")
 
-   The ``get_safe()`` method will return ``None`` if that setting or sub-setting doesn't exist and there is no default
-   value assigned.
+    The ``get_safe()`` method will return ``None`` if that setting or sub-setting doesn't exist and there is no default
+    value assigned.
+   
+    If you want to do a safe deletion of settings, you could use the ``rm_safe()``
+    method. For example, in the ``configure()`` method a typical pattern for a C library would
+    be:
+
+    .. code-block:: python
+        def configure(self):
+            self.settings.rm_safe("compiler.libcxx")
+            self.settings.rm_safe("compiler.cppstd")
+
 
    .. seealso::
 
