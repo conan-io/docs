@@ -212,6 +212,9 @@ are valid.
 
     .. code-block:: python
 
+        def package_id(self):
+            self.info.clear()
+
         def validate(self):
             if self.settings.get_safe("compiler.cppstd"):
                 check_min_cppstd(self, 17)
