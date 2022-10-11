@@ -95,7 +95,7 @@ Besides the variables that define the *Xcode* build settings mentioned above, th
 additional variables declared that may be useful to use in your *Xcode* project:
 
 * `PACKAGE_ROOT_<package_name>`: Set to the location of the :ref:`package_folder attribute
-  <attribute_package_folder>`.
+  <conan_conanfile_properties_package_folder>`.
 
 Components support
 ++++++++++++++++++
