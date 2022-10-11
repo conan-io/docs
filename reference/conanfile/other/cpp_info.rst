@@ -94,6 +94,9 @@ Attributes
 |                                      | | Only supported by :ref:`CMakeDeps<conan_tools_cmake>` generator                                       |
 +--------------------------------------+---------------------------------------------------------------------------------------------------------+
 
+**Simplified accessors to libdirs, bindirs, includedirs:** you can access
+``cpp_info.libdirs[0]``, ``cpp_info.bindirs[0]`` and ``cpp_info.includedirs[0]`` using
+``cpp_info.libdir``, ``cpp_info.bindir`` and ``cpp_info.includedir``
 
 Properties
 ^^^^^^^^^^

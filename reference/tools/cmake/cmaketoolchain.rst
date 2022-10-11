@@ -75,6 +75,7 @@ translated from the current ``settings``:
      - The path to the ``conan_toolchain.cmake``.
      - Some cache variables corresponding to the specified settings cannot work if specified in the toolchain.
      - The ``CMAKE_BUILD_TYPE`` variable when using a single-configuration generators.
+     - The ``BUILD_TESTING`` variable set to ``OFF``, when configuration ``tools.build:skip_test`` is true.
      - If you run several ``conan install`` with different ``-s build_type`` values, it will generate the corresponding
        ``buildPresets`` and ``configurePresets``.
 

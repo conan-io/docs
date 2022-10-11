@@ -87,7 +87,8 @@ There are some other places where ``Environment`` can be defined and used:
   depending on this recipe.
 - In generators like ``AutootoolsDeps``, ``AutotoolsToolchain``, that need to define environment for the
   current recipe.
-- In profiles new ``[buildenv]`` section.
+- In profiles ``[buildenv]`` section.
+- In profiles ``[runenv]`` section.
 
 
 The definition in ``package_info()`` is as follow, taking into account that both ``self.buildenv_info`` and ``self.runenv_info``

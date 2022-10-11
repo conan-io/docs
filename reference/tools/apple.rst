@@ -9,3 +9,4 @@ conan.tools.apple
    apple/xcodedeps
    apple/xcodetoolchain
    apple/xcodebuild
+   apple/other

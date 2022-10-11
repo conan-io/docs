@@ -61,7 +61,6 @@ The ``prefix`` variable is automatically adjusted to the ``package_folder``:
 Customization
 -------------
 
-
 Naming
 ++++++
 
@@ -81,7 +80,6 @@ Additionally, a ``<PKG-NAME>.pc`` is generated to maintain compatibility for con
 the propagation of flags coming from the components ``<[PKG-NAME]-[COMP-NAME]>.pc`` files.
 
 
-
 Reference
 ---------
 
@@ -91,7 +89,54 @@ Reference
 .. autoclass:: PkgConfigDeps
     :members:
 
+Attributes
+++++++++++
 
+build_context_activated
+^^^^^^^^^^^^^^^^^^^^^^^
+
+When you have a **build-require**, by default, the ``*.pc`` files are not generated. But
+you can activate it using the **build_context_activated** attribute:
+
+.. code-block:: python
+
+    tool_requires = ["my_tool/0.0.1"]
+    def generate(self):
+        pc = PkgConfigDeps(self)
+        # generate the *.pc file for the tool require
+        pc.build_context_activated = ["my_tool"]
+        pc.generate()
+
+
+build_context_suffix
+^^^^^^^^^^^^^^^^^^^^
+
+When you have the same package as a **build-require** and as a **regular require** it will
+cause a conflict in the generator because the file names of the ``*.pc`` files will
+collide as well as the names, requires names, etc.
+
+For example, this is a typical situation with some requirements (capnproto, protobuf...)
+that contain a tool used to generate source code at build time (so it is a
+**build_require**), but also providing a library to link to the final application, so you
+also have a **regular require**. Solving this conflict is specially important when we are
+cross-building because the tool (that will run in the building machine) belongs to a
+different binary package than the library, that will "run" in the host machine.
+
+You can use the **build_context_suffix** attribute to specify a suffix for a requirement,
+so the files/requires/names of the requirement in the build context (tool require) will be
+renamed:
+
+.. code-block:: python
+
+    tool_requires = ["my_tool/0.0.1"]
+    requires = ["my_tool/0.0.1"]
+    def generate(self):
+        pc = PkgConfigDeps(self)
+        # generate the *.pc file for the tool require
+        pc.build_context_activated = ["my_tool"]
+        # disambiguate the files, requires, names, etc
+        pc.build_context_suffix = {"my_tool": "_BUILD"}
+        pc.generate()
 
 
 .. _PkgConfigDeps Properties:
