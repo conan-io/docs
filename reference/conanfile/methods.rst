@@ -522,9 +522,9 @@ Invalid configuration
 +++++++++++++++++++++
 
 Conan allows the recipe creator to declare invalid configurations, those that are known not to work
-with the library being packaged. There is an especial kind of exception that can be raised from
-the ``validate()`` method to state this situation: ``conans.errors.ConanInvalidConfiguration``. Here
-it is an example of a recipe for a library that doesn't support Windows operating system:
+with the library being packaged. There is a special kind of exception that can be raised from
+the ``validate()`` method to state this situation: ``conan.errors.ConanInvalidConfiguration``. Here
+is an example of a recipe for a library that supports only Windows operating system:
 
 .. code-block:: python
 
