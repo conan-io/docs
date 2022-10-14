@@ -6,7 +6,7 @@ AutotoolsToolchain
 .. warning::
 
     These tools are still **experimental** (so subject to breaking changes) but with very stable syntax.
-    We encourage the usage of it to be prepared for Conan 2.0.
+    We encourage their usage to be prepared for Conan 2.0.
 
 Available since: `1.35.0 <https://github.com/conan-io/conan/releases/tag/1.35.0>`_
 
@@ -122,8 +122,8 @@ values:
         * ``--enable-shared``, ``--disable-static`` if ``shared==True``
         * ``--disable-shared``, ``--enable-static`` if ``shared==False``
 
-* **make_args** (Defaulted to ``[]``): Additional arguments to be passed to he make script.
-* **autoreconf_args** (Defaulted to ``["--force", "--install"]``): Additional arguments to be passed to he make script.
+* **make_args** (Defaulted to ``[]``): Additional arguments to be passed to the make script.
+* **autoreconf_args** (Defaulted to ``["--force", "--install"]``): Additional arguments to be passed to autoreconf.
 * **extra_defines** (Defaulted to ``[]``): Additional defines.
 * **extra_cxxflags** (Defaulted to ``[]``): Additional cxxflags.
 * **extra_cflags** (Defaulted to ``[]``): Additional cflags.
