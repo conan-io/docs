@@ -89,3 +89,41 @@ Reference
 
 .. autoclass:: MSBuildToolchain
     :members: generate
+
+Attributes
+++++++++++
+
+* **properties**: Additional properties added to the generated ``.props`` files. You can
+  define the properties in a key-value syntax like:
+
+.. code:: python
+
+    from conan import ConanFile
+    from conan.tools.microsoft import MSBuildToolchain
+
+    class App(ConanFile):
+        settings = "os", "arch", "compiler", "build_type"
+
+        def generate(self):
+            msbuild = MSBuildToolchain(self)
+            msbuild.properties["IncludeExternals"] = "true"
+            msbuild.generate()
+
+Then, the generated *conantoolchain_<config>.props* file will contain the defined property
+in its contents:
+
+
+.. code-block:: xml
+    :emphasize-lines: 8
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <ItemDefinitionGroup>
+    ...
+    </ItemDefinitionGroup>
+    <PropertyGroup Label="Configuration">
+        ...
+        <IncludeExternals>true</IncludeExternals>
+        ...
+    </PropertyGroup>
+    </Project>
