@@ -37,9 +37,9 @@ functionality of extracting the artifacts (headers, libraries, binaries) from th
 and source folder to a predetermined place and maybe do some post-processing of those
 artifacts. This will work without changes in your `CMakeLists.txt` because Conan will set
 the ``CMAKE_INSTALL_PREFIX`` CMake variable to the recipe :ref:`package_folder
-<conan_conanfile_properties_package_folder>` attribute. Then, just calling install over
-the created target is enough for Conan to move the built artifacts to the correct location
-in the Conan local cache.
+<conan_conanfile_properties_package_folder>` attribute. Then, just calling `install()` in
+the `CMakeLists.txt` over the created target is enough for Conan to move the built
+artifacts to the correct location in the Conan local cache.
 
 .. code-block:: text
     :caption: *CMakeLists.txt*
