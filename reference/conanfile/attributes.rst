@@ -315,9 +315,9 @@ If you want to do a safe check of settings values, you could use the ``get_safe(
 
 The ``get_safe()`` method will return ``None`` if that setting or subsetting doesn't exist and there is no default value assigned.
 
-If you want to do a safe deletion of settings, you could use the ``rm_safe()``
-method. For example, in the ``configure()`` method a typical pattern for a C library would
-be:
+If you want to do a safe deletion of settings, you could use the ``rm_safe()`` method (available since
+`1.53.0 <https://github.com/conan-io/conan/releases/tag/1.53.0>`_). For example, in the ``configure()`` method
+a typical pattern for a C library would be:
 
 .. code-block:: python
 
@@ -491,8 +491,9 @@ you can use the ``get_safe()`` method:
 
 The ``get_safe()`` method will return ``None`` if that option doesn't exist and there is no default value assigned.
 
-If you want to do a safe deletion of options, you could use the ``rm_safe()`` method. For
-example, in the ``config_options()`` method a typical pattern for Windows library would be:
+If you want to do a safe deletion of options, you could use the ``rm_safe()`` method (available since
+`1.53.0 <https://github.com/conan-io/conan/releases/tag/1.53.0>`_). For example, in the ``config_options()`` method
+a typical pattern for Windows library would be:
 
 .. code-block:: python
 

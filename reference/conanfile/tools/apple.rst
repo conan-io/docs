@@ -393,6 +393,8 @@ tool, if needed, in the conanfile's ``package()`` method like:
 is_apple_os()
 -------------
 
+Available since: `1.51.3 <https://github.com/conan-io/conan/releases/tag/1.51.3>`_
+
 .. code-block:: python
 
     def is_apple_os(conanfile):
@@ -408,6 +410,8 @@ This tool returns ``True`` if the OS is from Apple (Macos, iOS, watchOS or tvOS)
 to_apple_arch()
 ---------------
 
+Available since: `1.52.0 <https://github.com/conan-io/conan/releases/tag/1.52.0>`_
+
 .. code-block:: python
 
     def to_apple_arch(conanfile):
@@ -422,6 +426,8 @@ understood by different Apple build tools (e.g. `armv8` -> `arm64`).
 
 XCRun()
 -------
+
+Available since: `1.53.0 <https://github.com/conan-io/conan/releases/tag/1.53.0>`_
 
 .. code-block:: python
 

@@ -153,6 +153,8 @@ again from sources from the same commit. This is the behavior:
 run()
 -----
 
+Available since: `1.53.0 <https://github.com/conan-io/conan/releases/tag/1.53.0>`_
+
 .. code-block:: python
     
     def run(self, cmd)
