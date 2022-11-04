@@ -150,6 +150,31 @@ again from sources from the same commit. This is the behavior:
 - If the repository is not dirty, and the commit exists in the specified remote, it will return that commit and the url of the
   remote. 
 
+
+included_files()
+----------------
+
+Returns the list of files not ignored by ``.gitignore``
+
+.. code-block:: python
+
+    def included_files(self):
+
+
+This method runs ``git ls-files --full-name --others --cached --exclude-standard`` and returns the result as a list.
+It can be used for implementing a controlled ``export`` of files not gitignored, something like:
+
+.. code-block:: python
+
+    def export_sources(self):
+        git = Git(self)
+        included = git.included_files()
+        for i in included:
+            dst =  os.path.join(self.export_sources_folder, i)
+            os.makedirs(os.path.dirname(dst), exist_ok=True)
+            shutil.copy2(i, dst)
+
+
 run()
 -----
 
