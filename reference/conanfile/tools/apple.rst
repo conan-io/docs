@@ -427,13 +427,16 @@ XCRun()
 
     class XCRun(object):
 
-        def __init__(self, conanfile, sdk=None):
+        def __init__(self, conanfile, sdk=None, use_settings_target=False):
 
 Parameters:
 
 - **conanfile**: Conanfile instance.
 - **sdk**: Will skip the flag when ``False`` is passed and will try to adjust the sdk it
   automatically if ``None`` is passed.
+- **use_settings_target**: If ``True`` it will try to use the settings from the target.
+  When ``False`` it will use the settings from the active context. Read more about the
+  ``settings_target`` in the :ref:`cross-building section<cross_building>`.
 
 XCRun is a wrapper for the Apple **xcrun** tool used to get information for building. It
 has these properties:
