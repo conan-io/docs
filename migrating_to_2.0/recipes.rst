@@ -954,7 +954,7 @@ You need to configure how to run the commands with two config variables:
 Any command run with ``self.run``, if ``self.win_bash == True`` will run the command inside the specified shell.
 Any command run with ``self.run(..., scope="run")`` if ``self.win_bash_run == True`` will run that command inside the shell.
 In both cases running explicitly in the bash shell only happens if ``tools.microsoft.bash:active`` is not True, because
-when it is True, it means that COnan is already running inside the shell.
+when it is True, it means that Conan is already running inside the shell.
 
 
 Symlinks
