@@ -198,6 +198,22 @@ Then, the result of applying this profile is:
 See more information about the new environments in the :ref:`conan_tools_env` reference.
 
 
+.. _profiles_runenv:
+
+[runenv]
+++++++++++
+
+Available since: `1.53.0 <https://github.com/conan-io/conan/releases/tag/1.53.0>`_
+
+.. important::
+
+    The use of this ``[runenv]`` section requires using the ``VirtualRunEnv`` generator in your recipe.
+
+This profile section allows defining environment variables that will be injected to the
+environment every time the ConanFile ``run(cmd, env="conanrun")`` method is invoked. You can use the same
+operators explained for the :ref:`profiles_buildenv` section and also define `PATH`
+variables.
+
 .. _profiles_tools_conf:
 
 Tools configurations

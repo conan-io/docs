@@ -215,3 +215,26 @@ Example:
 
         # Generate both MyFileNameConfig.cmake and FindMyFileName.cmake
         self.cpp_info.set_property("cmake_find_mode", "both")
+        
+
+.. _Disable CMakeDeps For Installed CMake imports:
+
+Disable CMakeDeps For Installed CMake configuration files
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Some projects may want to disable the ``CMakeDeps`` generator for downstream consumers. This can be done by settings ``cmake_find_mode`` to ``none``.
+If the project wants to provide it's own configuration targets, it should append them to the ``buildirs`` attribute of ``cpp_info``.
+
+This method is intended to work with downstream consumers using the ``CMakeToolchain`` generator, which will be populated with the ``builddirs`` attribute.
+
+Example:
+
+.. code-block:: python
+
+    def package(self):
+        ...
+        cmake.install()
+
+    def package_info(self):
+        self.cpp_info.set_property("cmake_find_mode", "none") # Do NOT generate anyfiles
+        self.cpp_info.builddirs.append(os.path.join("lib", "cmake", "foo"))

@@ -102,19 +102,17 @@ Settings
 
 
 
-
-
-- In Conan 2, removing a setting, for example, ``del self.settings.compiler.libcxx`` in the ``configure()`` method, will
-  raise an exception if the setting doesn't exist. It has to be protected with try/except:
+- In Conan 2, removing a setting, for example, ``del self.settings.compiler.libcxx`` in
+  the ``configure()`` method, will raise an exception if the setting doesn't exist. It has
+  to be protected with try/except. The ``self.settings.rm_safe()`` method already
+  implements the try/except clause internally. Use it like:
 
   .. code-block:: python
 
     def configure(self):
-        try:
-           # In windows, with msvc, the compiler.libcxx doesn't exist, so it will raise.
-           del self.settings.compiler.libcxx
-        except Exception:
-           pass
+        # it's a C library
+        self.settings.rm_safe("compiler.libcxx")
+        self.settings.rm_safe("compiler.cppstd")
 
 
 Options
@@ -167,6 +165,18 @@ The special value ``ANY`` has to be declared in a list:
 
     class Pkg(Conanfile):
         options = {"opt": ["ANY"]}
+
+
+In case the default value is ``None``, then it should be added as possible value to that option:
+
+.. code-block:: python
+   :caption: **To:**
+
+    from conan import ConanFile
+
+    class Pkg(Conanfile):
+        options = {"opt": [None, "ANY"]}
+        default_options = {"opt": None}
 
 
 The validate() method
@@ -315,7 +325,13 @@ that is being developed in a local directory):
         self.cpp.source.includedirs = ["."]
 
 
+cpp_info libdir, bindir, includedir accessors when using layout() in Conan 1.X
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Since `Conan 1.53.0 <https://github.com/conan-io/conan/releases/tag/1.53.0>`_ you can
+access access ``cpp_info.libdirs[0]``, ``cpp_info.bindirs[0]`` and
+``cpp_info.includedirs[0]`` using ``cpp_info.libdir``, ``cpp_info.bindir`` and
+``cpp_info.includedir``
 
 
 The scm attribute
@@ -423,7 +439,7 @@ could be needed while running the build step. That means things like:
 - Write other files to be used in the build step, like scripts that inject environment
   variables (check the part on how to :ref:`migrate the
   environment<migration_guide_environment>` on this guide), files to pass to the build
-  system, etc. 
+  system, etc.
 
 This improves a lot the local development, a simple ``conan install`` will generate everything we need to build our
 project in the IDE or just call the build system. This example is using the ``CMake`` integration, but if you use
