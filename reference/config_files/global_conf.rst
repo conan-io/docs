@@ -142,7 +142,7 @@ and renders the template, which must result in a standard tools-configuration te
 
 .. note::
 
-    The Python packages passed to render the template are only ``os`` and ``platform``.
+    The Python packages passed to render the template are ``os`` and ``platform`` for all platforms and ``distro`` in Linux platforms.
 
 
 Configuration data types
