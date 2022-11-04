@@ -111,7 +111,7 @@ values:
 
 * **configure_args**: Additional arguments to be passed to the configure script.
     - By default the following arguments are passed:
-        * ``--prefix``: With the self.package_folder value.
+        * ``--prefix``: Takes ``/`` as default value.
         * ``--bindir=${prefix}/bin``
         * ``--sbindir=${prefix}/bin``
         * ``--libdir=${prefix}/lib``
