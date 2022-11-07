@@ -949,8 +949,12 @@ You need to configure how to run the commands with two config variables:
 
     - **tools.microsoft.bash:subsystem**:  Possible values: 'msys2', 'msys', 'cygwin', 'wsl' and 'sfu'
     - **tools.microsoft.bash:path** (Default "bash"): Path to the shell executable.
+    - **tools.microsoft.bash:active** (Default "None"): Used to define if Conan is already running inside a subsystem (Msys2) terminal.
 
 Any command run with ``self.run``, if ``self.win_bash == True`` will run the command inside the specified shell.
+Any command run with ``self.run(..., scope="run")`` if ``self.win_bash_run == True`` will run that command inside the shell.
+In both cases running explicitly in the bash shell only happens if ``tools.microsoft.bash:active`` is not True, because
+when it is True, it means that Conan is already running inside the shell.
 
 
 Symlinks

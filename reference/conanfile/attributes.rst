@@ -1831,6 +1831,32 @@ When ``True`` it enables the new run in a subsystem bash in Windows mechanism. :
         ...
         win_bash = True
 
+        def build(self):
+            self.run(cmd)  # will run <cmd> inside bash
+
+
+win_bash_run
+------------
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+Available since: `1.54.0 <https://github.com/conan-io/conan/releases/tag/1.54.0>`_
+
+When ``True`` it enables running commands in the ``"run"`` scope, to run them inside a bash shell.
+
+.. code-block:: python
+
+    from conan import ConanFile
+
+    class FooRecipe(ConanFile):
+        ...
+        win_bash_run = True
+
+        def build(self):
+            self.run(cmd, scope="run")  # will run <cmd> inside bash
+
 .. _test_type:
 
 test_type
