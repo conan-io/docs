@@ -317,7 +317,8 @@ Where:
   but this will be configurable with ``msbuild.build_type``.
 - ``platform`` is the architecture, a mapping from the ``settings.arch`` to the common 'x86', 'x64', 'ARM', 'ARM64'.
   This is configurable with ``msbuild.platform``.
-- ``targets`` is an optional argument, defaults to ``None``, and otherwise it is a list of targets to build
+- ``targets`` (since `1.52.0 <https://github.com/conan-io/conan/releases/tag/1.52.0>`_) is an optional argument,
+  defaults to ``None``, and otherwise it is a list of targets to build
 
 
 attributes
@@ -435,8 +436,8 @@ When the ``compiler`` is empty, it returns ``False``.
 Parameters:
 
 - **conanfile**: ConanFile instance.
-- **build_context**: (default=False). If this argument is ``True``, the method will check the compiler of the
-  ``build`` context, not the ``host`` one. 
+- **build_context** (since `1.52.0 <https://github.com/conan-io/conan/releases/tag/1.52.0>`_): (default=False). If this
+  argument is ``True``, the method will check the compiler of the ``build`` context, not the ``host`` one. 
 
 .. code-block:: python
 

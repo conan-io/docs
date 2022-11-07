@@ -178,6 +178,8 @@ It can be used for implementing a controlled ``export`` of files not gitignored,
 run()
 -----
 
+Available since: `1.53.0 <https://github.com/conan-io/conan/releases/tag/1.53.0>`_
+
 .. code-block:: python
     
     def run(self, cmd)
