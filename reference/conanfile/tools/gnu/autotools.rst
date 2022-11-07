@@ -174,8 +174,9 @@ tool to search for the built ``.dylib`` files and patch them by running the
           fix_apple_shared_install_name(self)
 
 
-This will change the value of the ``LC_ID_DYLIB`` and ``LC_LOAD_DYLIB`` sections in the
-``.dylib`` file to:
+This will change the value of the ``LC_ID_DYLIB`` of shared libraries (``.dylib``)
+and the ``LC_LOAD_DYLIB`` sections for libraries and executables that depend on
+other libraries within the package. For example:
 
 
 .. code-block:: text
