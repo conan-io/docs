@@ -49,7 +49,7 @@ To list all possible configurations available, run :command:`conan config list`.
     core.download:parallel: Number of concurrent threads to download packages
     core.download:retry: Number of retries in case of failure when downloading from Conan server
     core.download:retry_wait: Seconds to wait between download attempts from Conan server
-    core.gzip:compresslevel: The Gzip compresion level for Conan artifacts (default=9)
+    core.gzip:compresslevel: The Gzip compression level for Conan artifacts (default=9)
     core.net.http:cacert_path: Path containing a custom Cacert file
     core.net.http:clean_system_proxy: If defined, the proxies system env-vars will be discarded
     core.net.http:client_cert: Path or tuple of files containing a client cert (and key)
@@ -142,7 +142,7 @@ and renders the template, which must result in a standard tools-configuration te
 
 .. note::
 
-    The Python packages passed to render the template are only ``os`` and ``platform``.
+    The Python packages passed to render the template are ``os`` and ``platform`` for all platforms and ``distro`` in Linux platforms.
 
 
 Configuration data types

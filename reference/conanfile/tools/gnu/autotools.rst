@@ -106,8 +106,8 @@ This is just an "alias" of ``self.make(target="install")``
 
 Parameters:
     - **args** (Optional, Defaulted to ``None``): List of arguments to use for the
-      ``make install`` call. By default an argument ``DESTDIR=self.package_folder`` is added to the
-      call if the passed value is ``None``.
+      ``make install`` call. By default an argument ``DESTDIR=unix_path(self, self.package_folder)`` is added to the
+      call if the passed value is ``None``. See more information about :ref:`tools.microsoft.unix_path() function<conan_tools_microsoft_unix_path>`.
 
 
 A note about relocatable shared libraries in macOS built the  Autotools build helper
@@ -153,8 +153,8 @@ pointing to a folder that does not exist in your current machine so you would ge
 errors when building. 
 
 
-How to adress this problem in Conan
-+++++++++++++++++++++++++++++++++++
+How to address this problem in Conan
+++++++++++++++++++++++++++++++++++++
 
 The only thing Conan can do to make these shared libraries relocatable is to patch the
 built binaries after installation. To do this, when using the ``Autotools`` build helper
@@ -174,8 +174,9 @@ tool to search for the built ``.dylib`` files and patch them by running the
           fix_apple_shared_install_name(self)
 
 
-This will change the value of the ``LC_ID_DYLIB`` and ``LC_LOAD_DYLIB`` sections in the
-``.dylib`` file to:
+This will change the value of the ``LC_ID_DYLIB`` of shared libraries (``.dylib``)
+and the ``LC_LOAD_DYLIB`` sections for libraries and executables that depend on
+other libraries within the package. For example:
 
 
 .. code-block:: text

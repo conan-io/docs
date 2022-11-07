@@ -119,7 +119,7 @@ requirement with one from another user or channel.
 .. note::
 
     You can use environment variable :ref:`CONAN_ERROR_ON_OVERRIDE<env_vars_conan_error_on_override>`
-    to raise an error for every overriden requirement not marked explicitly with the ``override`` keyword.
+    to raise an error for every overridden requirement not marked explicitly with the ``override`` keyword.
 
 
 .. _generators:

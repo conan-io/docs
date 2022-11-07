@@ -514,7 +514,7 @@ the command :command:`conan install -o pkg:shared=True` will raise an exception 
 package.
 
 These methods can also be used to assign values to options as seen in :ref:`conanfile_options`. Values assigned
-in the ``configure()`` method cannot be overriden, while values assigned in ``config_options()`` can.
+in the ``configure()`` method cannot be overridden, while values assigned in ``config_options()`` can.
 
 .. _invalid_configuration:
 
@@ -818,7 +818,7 @@ SystemPackageTool
 
 .. warning::
 
-    SystemPackageTool will dissapear in Conan 2.0, there's already a new implementation of
+    SystemPackageTool will disappear in Conan 2.0, there's already a new implementation of
     these wrappers in :ref:`conan_tools_system_package_manager` that will be the default
     in Conan 2.0.
 
@@ -902,7 +902,7 @@ To install more than one package at once:
             installer.install_packages(packages)
             # e.g. apt-get install -y --no-recommends vim firefox chromium
 
-The ``install_packages`` will install the first text editor available (only one) following the tupple order, while it will install both web browsers.
+The ``install_packages`` will install the first text editor available (only one) following the tuple order, while it will install both web browsers.
 
 
 .. _method_imports:

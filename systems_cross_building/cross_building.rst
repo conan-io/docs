@@ -196,7 +196,7 @@ The profile ``profile_build`` will contain just the settings related to your ``b
 running the command, and the ``profile_host`` will list the settings for the ``host`` platform (and eventually
 the ``my_toolchain/0.1`` as ``tool_requires`` if it is not listed in the recipe itself).
 
-Conan will apply the appropiate profile to each recipe, and will inject the environment of all the tool requirements
+Conan will apply the appropriate profile to each recipe, and will inject the environment of all the tool requirements
 that belong to the ``build`` context before running the ``build()`` method of the libraries being compiled.
 That way, the environment variables ``CC``, ``CXX`` and ``SYSROOT`` from ``my_toolchain/0.1`` will be available
 and also the path to the ``bindirs`` directory from that package.
@@ -317,7 +317,7 @@ Host settings ``os_build``, ``arch_build``, ``os_target`` and ``arch_target``
 Before Conan v1.24 the recommended way to deal with cross building was to use some extra settings like
 ``os_build``, ``arch_build`` and ``os_target`` and ``arch_target``. These settings have a special meaning
 for some Conan tools and build helpers, but they also need to be listed in the recipes themselves creating
-a dedicated set of recipes for *installers* and *tools* in general. This approach should be superseeded with
+a dedicated set of recipes for *installers* and *tools* in general. This approach should be superseded with
 the introduction in Conan 1.24 of the command line arguments ``--profile:host`` and ``--profile:build``
 that allow to declare two different profiles with all the information needed for the corresponding platforms
 (see section above this one).

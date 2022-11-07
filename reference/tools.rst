@@ -336,9 +336,9 @@ Parameters:
     - **requester** (Optional, Defaulted to ``None``): HTTP requests instance
     - **output** (Optional, Defaulted to ``None``): Stream object.
     - **verify** (Optional, Defaulted to ``True``): When False, disables https certificate validation.
-    - **retry** (Optional, Defaulted to ``2``): Number of retries in case of failure. Default is overriden by ``general.retry``
+    - **retry** (Optional, Defaulted to ``2``): Number of retries in case of failure. Default is overridden by ``general.retry``
       in the *conan.conf* file or an env variable ``CONAN_RETRY``.
-    - **retry_wait** (Optional, Defaulted to ``5``): Seconds to wait between download attempts. Default is overriden by ``general.retry_wait``
+    - **retry_wait** (Optional, Defaulted to ``5``): Seconds to wait between download attempts. Default is overridden by ``general.retry_wait``
       in the *conan.conf* file or an env variable ``CONAN_RETRY_WAIT``.
     - **overwrite**: (Optional, Defaulted to ``False``): When ``True`` Conan will overwrite the destination file if it exists. Otherwise it
       will raise.
@@ -435,9 +435,9 @@ Parameters:
     - **verify** (Optional, Defaulted to ``True``): When False, disables https certificate validation.
     - **out**: (Optional, Defaulted to ``None``): An object with a ``write()`` method can be passed to get the output. ``stdout`` will use
       if not specified.
-    - **retry** (Optional, Defaulted to ``1``): Number of retries in case of failure. Default is overriden by ``general.retry``
+    - **retry** (Optional, Defaulted to ``1``): Number of retries in case of failure. Default is overridden by ``general.retry``
       in the *conan.conf* file or an env variable ``CONAN_RETRY``.
-    - **retry_wait** (Optional, Defaulted to ``5``): Seconds to wait between download attempts. Default is overriden by ``general.retry_wait``
+    - **retry_wait** (Optional, Defaulted to ``5``): Seconds to wait between download attempts. Default is overridden by ``general.retry_wait``
       in the *conan.conf* file or an env variable ``CONAN_RETRY_WAIT``.
     - **overwrite**: (Optional, Defaulted to ``False``): When ``True``, Conan will overwrite the destination file if exists. Otherwise it
       will raise an exception.
@@ -901,7 +901,7 @@ tools.run_in_windows_bash()
     def run_in_windows_bash(conanfile, bashcmd, cwd=None, subsystem=None, msys_mingw=True, env=None, with_login=True)
 
 Runs a UNIX command inside a bash shell. It requires to have "bash" in the path.
-Useful to build libraries using ``configure`` and ``make`` in Windows. Check :ref:`Windows subsytems <windows_subsystems>` section.
+Useful to build libraries using ``configure`` and ``make`` in Windows. Check :ref:`Windows subsystems <windows_subsystems>` section.
 
 You can customize the path of the bash executable using the environment variable ``CONAN_BASH_PATH`` or the :ref:`conan_conf` ``bash_path``
 variable to change the default bash location.
@@ -1646,7 +1646,7 @@ Parameters:
     - **os_** (Required): OS of the settings. Usually ``self.settings.os``.
     - **os_version** (Required): OS version. Usually ``self.settings.os.version``.
     - **os_sdk** (Optional, Defaulted to ``None``): OS SDK. Usually ``self.settings.os.sdk``. Otherwise, check :command:`xcodebuild -sdk -version`. for available SDKs.
-    - **os_subsystem** Optional, Defaulted to ``None``): OS sybsystem. Usually ``self.settings.os.subsystem``. The only subsystem supported right now is Catalyst.
+    - **os_subsystem** Optional, Defaulted to ``None``): OS subsystem. Usually ``self.settings.os.subsystem``. The only subsystem supported right now is Catalyst.
     - **arch** (Optional, Defaulted to ``None``): Architecture of the settings. Usually ``self.settings.arch``.
 
 .. _tools_xcrun:

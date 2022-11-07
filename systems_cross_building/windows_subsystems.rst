@@ -58,10 +58,18 @@ to check if you are in Windows), it will run the ``self.run()`` commands inside 
 
     - ``tools.microsoft.bash:subsystem``: Values can be ``msys2``, ``cygwin``, ``msys`` and ``wsl``.
     - ``tools.microsoft.bash:path``: Path to the ``bash.exe``
+    - ``tools.microsoft.bash:active``: Define if Conan is already running inside the specific subsystem.
+
 
 The new :ref:`Autotools, AutotoolsToolchain, AutotoolsDeps and PkgConfigDeps<conan_tools_gnu>` will work automatically
 when ``self.win_bash`` is set.
 
+
+self.win_bash_run
+_________________
+
+This is identical to the above ``self.win_bash``, but applies to execution of commands in the "run" scope,
+so ``self.run(cmd, scope="run")`` will run such ``<cmd>`` inside a bash shell if ``win_bash_run==True``.
 
 
 self.run()
