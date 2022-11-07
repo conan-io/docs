@@ -18,9 +18,32 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-    Conan 1.53 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
+    Conan 1.54 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
     a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
+
+1.54.0 (07-Nov-2022)
+--------------------
+
+- Feature: Make `conanfile.build_folder` available in `generate()` for test_package. `#12443 <https://github.com/conan-io/conan/pull/12443>`_
+- Feature: Add `libcxx` settings to meson `cpp_link_args`. `#12397 <https://github.com/conan-io/conan/pull/12397>`_
+- Feature: Do not add architecture to system packages by default, only when cross-compiling. `#12349 <https://github.com/conan-io/conan/pull/12349>`_
+- Feature: Added distro to `global.conf` Jinja rendering. `#12311 <https://github.com/conan-io/conan/pull/12311>`_ . Docs `here <https://github.com/conan-io/docs/pull/2798>`__
+- Feature: New ``included_files()`` method in ``from conan.tools.scm import Git``. `#12295 <https://github.com/conan-io/conan/pull/12295>`_ . Docs `here <https://github.com/conan-io/docs/pull/2799>`__
+- Feature: Add `stdcpp_library` to `conan.tools.build` to get name of C++ standard library to be linked. `#12269 <https://github.com/conan-io/conan/pull/12269>`_ . Docs `here <https://github.com/conan-io/docs/pull/2804>`__
+- Feature: New `upload_policy='skip'` that not upload binaries (without raising an Exception, simply skip the binaries). `#12253 <https://github.com/conan-io/conan/pull/12253>`_ . Docs `here <https://github.com/conan-io/docs/pull/2802>`__
+- Feature: The tool `fix_apple_shared_install_name` now also patches the `<package_id>/bin` executables found to point to the libraries at `../lib/xxx.dylib`. `#12249 <https://github.com/conan-io/conan/pull/12249>`_ . Docs `here <https://github.com/conan-io/docs/pull/2806>`__
+- Feature: New ``conanfile.win_bash_run`` and ``tools.microsoft.bash:active`` config for better Windows bash management. `#12178 <https://github.com/conan-io/conan/pull/12178>`_ . Docs `here <https://github.com/conan-io/docs/pull/2803>`__
+- Fix: Improve description for `verify_ssl` parameter in CLI. `#12359 <https://github.com/conan-io/conan/pull/12359>`_ . Docs `here <https://github.com/conan-io/docs/pull/2788>`__
+- Fix: Overwrite deactivate script to unset only the last activated virtual environment. `#12353 <https://github.com/conan-io/conan/pull/12353>`_
+- Fix: Use `settings_target` in XCRun instead of settings as default and provide argument `use_settings_target ` to select using the active context settings. `#12319 <https://github.com/conan-io/conan/pull/12319>`_ . Docs `here <https://github.com/conan-io/docs/pull/2797>`__
+- Bugfix: Fix issue where find_program does not work for a tool requirement in the build context, when the dependency is also a regular requirement in the host context. `#12464 <https://github.com/conan-io/conan/pull/12464>`_
+- Bugfix: Fix ``default_cppstd()`` import error `#12446 <https://github.com/conan-io/conan/pull/12446>`_
+- Bugfix: When recipes have `shared` and `fPIC` as options, define `BUILD_SHARED_LIBS` and `CMAKE_POSITION_INDEPENDENT_CODE` as CACHE variables in the generated `cmake_toolchain.cmake` instead of regular variables, so that they are not masked by further calls to `options()`. `#12401 <https://github.com/conan-io/conan/pull/12401>`_
+- Bugfix: Avoid Conan crash when ``tools.env.environment:auto_use=True`` is enabled and no ``generate()`` method. `#12386 <https://github.com/conan-io/conan/pull/12386>`_
+- Bugfix: Fix MSBuildDeps xml component names. `#12365 <https://github.com/conan-io/conan/pull/12365>`_
+- Bugfix: Fix new ``VirtualBuildEnv`` and ``VirtualRunEnv`` generators problems with dots in architecture or config. `#12294 <https://github.com/conan-io/conan/pull/12294>`_
+- Bugfix: Fix Autotools install on Windows. The default argument passed is `DESTDIR=unix_path(self, self.package_folder)`. `#12193 <https://github.com/conan-io/conan/pull/12193>`_ . Docs `here <https://github.com/conan-io/docs/pull/2801>`__
 
 1.53.0 (04-Oct-2022)
 --------------------
