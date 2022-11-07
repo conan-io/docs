@@ -853,13 +853,35 @@ With the ``build_policy`` attribute the package creator can change conan's build
 The allowed ``build_policy`` values are:
 
 - ``missing``: If this package is not found as a binary package, Conan will build it from source.
-- ``always``: This package will always be built from source, also **retrieving the source code each time** by executing the "source" method.
+- ``always``: (deprecated, will be removed in 2.0) This package will always be built from source, also **retrieving the source code each time** by executing the "source" method.
 
 .. code-block:: python
    :emphasize-lines: 2
 
     class PocoTimerConan(ConanFile):
         build_policy = "always" # "missing"
+
+
+upload_policy
+-------------
+
+The ``upload_policy`` class attribute, generally not defined, can be assigned the value ``skip``, to indicate that binaries
+created from this recipe will never be uploaded to the servers with ``conan upload``, without failing or warning.
+This will typically be used together with a ``build_policy = "missing"``.
+
+This can be useful for:
+
+- Binaries that are built by downloading and unzipping some large pre-compiled binaries from elsewhere, like binary tools (android-ndk or similar),
+  that repackaging it into a .tgz in Conan package would only use extra space without adding much value. This would be the most common case.
+- Binaries that for some reason only work when re-compiled from source in the machine. This shouldn't be common, but some extreme cases of low-level,
+  close to the hardware, binaries, might be difficult to have reusable binaries between different machines. This would be a very unusual case.
+
+.. code-block:: python
+   :emphasize-lines: 2
+
+    class Pkg(ConanFile):
+        upload_policy = "skip"
+
 
 .. _short_paths_reference:
 
