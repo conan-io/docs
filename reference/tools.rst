@@ -34,3 +34,4 @@ Contents:
    tools/meson
    tools/system
    tools/microsoft
+   tools/scm
