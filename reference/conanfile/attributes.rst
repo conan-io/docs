@@ -581,6 +581,17 @@ build_policy
            build_policy = "always" # "missing"
 
 
+upload_policy
+-------------
+
+.. autoattribute:: ConanFile.upload_policy
+
+    .. code-block:: python
+        :emphasize-lines: 2
+
+        class Pkg(ConanFile):
+            upload_policy = "skip"
+
 .. _conan_conanfile_properties_no_copy_source:
 
 no_copy_source
