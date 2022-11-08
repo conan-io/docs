@@ -1078,4 +1078,20 @@ win_bash
               def win_bash(self):
                   return self.settings.arch == "armv8"
 
+win_bash_run
+------------
 
+.. autoattribute:: ConanFile.win_bash_run
+
+
+.. code-block:: python
+
+    from conan import ConanFile
+
+    class FooRecipe(ConanFile):
+
+        ...
+
+        win_bash_run = True
+        def build(self):
+            self.run(cmd, scope="run")  # will run <cmd> inside bash
