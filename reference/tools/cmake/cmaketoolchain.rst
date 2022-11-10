@@ -150,7 +150,7 @@ variables
 ^^^^^^^^^
 
 This attribute allows defining CMake variables, for multiple configurations (Debug,
-Release, etc). This variables should be use to define things related with the toolchain
+Release, etc). These variables should be used to define things related to the toolchain
 and for the majority of cases
 :ref:`cache_variables<conan-cmake-toolchain-cache_variables>` is what you probably want to
 use. Also, take into account that as these variables are defined inside the
