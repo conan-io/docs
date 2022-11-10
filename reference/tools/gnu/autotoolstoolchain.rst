@@ -85,7 +85,7 @@ values:
 
 * **configure_args**: Additional arguments to be passed to the configure script.
     - By default the following arguments are passed:
-        * ``--prefix``: With the self.package_folder value.
+        * ``--prefix``: Takes ``/`` as default value.
         * ``--bindir=${prefix}/bin``
         * ``--sbindir=${prefix}/bin``
         * ``--libdir=${prefix}/lib``
@@ -98,7 +98,6 @@ values:
 
 * **make_args** (Defaulted to ``[]``): Additional arguments to be passed to he make script.
 * **autoreconf_args** (Defaulted to ``["--force", "--install"]``): Additional arguments to be passed to he make script.
-* **defines** (Defaulted to ``[]``): Additional defines.
 * **extra_defines** (Defaulted to ``[]``): Additional defines.
 * **extra_cxxflags** (Defaulted to ``[]``): Additional cxxflags.
 * **extra_cflags** (Defaulted to ``[]``): Additional cflags.
@@ -110,19 +109,11 @@ values:
 * **cppstd**: Flag from ``settings.compiler.cppstd``
 * **arch_flag**: Flag from ``settings.arch``
 * **build_type_flags**: Flags from ``settings.build_type``
+* **sysroot_flag**: To pass the ``--sysroot`` flag to the compiler.
 * **apple_arch_flag**: Only when cross-building with Apple systems. Flags from ``settings.arch``.
 * **apple_isysroot_flag**: Only when cross-building with Apple systems. Path to the root sdk.
 * **msvc_runtime_flag**: Flag from ``settings.compiler.runtime_type`` when compiler is ``msvc`` or
   ``settings.compiler.runtime`` when using the deprecated ``Visual Studio``.
-* **default_configure_install_args** (Defaulted to ``True``): If True it will pass automatically the following flags to the configure script:
-
-   * ``--prefix``: With the self.package_folder value.
-   * ``--bindir=${prefix}/bin``
-   * ``--sbindir=${prefix}/bin``
-   * ``--libdir=${prefix}/lib``
-   * ``--includedir=${prefix}/include``
-   * ``--oldincludedir=${prefix}/include``
-   * ``--datarootdir=${prefix}/res``
 
 The following attributes are ready-only and will contain the calculated values for the current configuration and customized
 attributes. Some recipes might need to read them to generate custom build files (not strictly Autotools) with the configuration:
