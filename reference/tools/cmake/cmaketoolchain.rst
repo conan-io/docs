@@ -154,7 +154,7 @@ Release, etc). These variables should be used to define things related to the to
 and for the majority of cases
 :ref:`cache_variables<conan-cmake-toolchain-cache_variables>` is what you probably want to
 use. Also, take into account that as these variables are defined inside the
-*conan_toolchain.cmake* file, and the toolchain is loaded several times by CMake the
+*conan_toolchain.cmake* file, and the toolchain is loaded several times by CMake, the
 definition of these variables will be done at those points as well.
 
 .. code:: python
