@@ -30,6 +30,7 @@ Contents:
    extensions/python_requires
    extensions/hooks
    extensions/binary_compatibility
+   extensions/profile_plugin
    extensions/command_wrapper
    extensions/package_signing
    
