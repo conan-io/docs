@@ -226,12 +226,22 @@ settings
            # Will be the default version if the return is None
            build_type = self.settings.get_safe("build_type", default="Release")
 
-   The ``get_safe()`` method will return ``None`` if that setting or sub-setting doesn't exist and there is no default
-   value assigned.
+   The ``get_safe()`` method will return ``None`` if that setting or sub-setting doesn't
+   exist and there is no default value assigned.
 
-   .. seealso::
+   If you want to do a safe deletion of settings, you could use the ``rm_safe()`` method.
+   For example, in the ``configure()`` method a typical pattern for a C library would be:
 
-      - Removing settings in the ``package_id()`` method. <MISSING PAGE>
+    .. code-block:: python
+
+        def configure(self):
+            self.settings.rm_safe("compiler.libcxx")
+            self.settings.rm_safe("compiler.cppstd")
+
+
+.. seealso::
+
+    - Removing settings in the ``package_id()`` method. <MISSING PAGE>
 
 
 .. _conan_conanfile_properties_options:
@@ -286,6 +296,16 @@ options
 
    Notice that a comparison using ``is`` is always ``False`` because the types would be different as it is encapsulated
    inside a Python class.
+
+   If you want to do a safe deletion of options, you could use the ``rm_safe()`` method.
+   For example, in the ``config_options()`` method a typical pattern for Windows library
+   would be:
+
+    .. code-block:: python
+
+        def config_options(self):
+            if self.settings.os == "Windows":
+                self.options.rm_safe("fPIC")
 
    .. seealso::
 
@@ -560,6 +580,17 @@ build_policy
        class PocoTimerConan(ConanFile):
            build_policy = "always" # "missing"
 
+
+upload_policy
+-------------
+
+.. autoattribute:: ConanFile.upload_policy
+
+    .. code-block:: python
+        :emphasize-lines: 2
+
+        class Pkg(ConanFile):
+            upload_policy = "skip"
 
 .. _conan_conanfile_properties_no_copy_source:
 
@@ -1047,4 +1078,20 @@ win_bash
               def win_bash(self):
                   return self.settings.arch == "armv8"
 
+win_bash_run
+------------
 
+.. autoattribute:: ConanFile.win_bash_run
+
+
+.. code-block:: python
+
+    from conan import ConanFile
+
+    class FooRecipe(ConanFile):
+
+        ...
+
+        win_bash_run = True
+        def build(self):
+            self.run(cmd, scope="run")  # will run <cmd> inside bash

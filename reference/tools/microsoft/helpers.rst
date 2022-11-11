@@ -54,6 +54,8 @@ is_msvc_static_runtime
 conan.tools.microsoft.subsystems
 ==================================
 
+.. _conan_tools_microsoft_unix_path:
+
 unix_path
 ----------
 
