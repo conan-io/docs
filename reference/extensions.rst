@@ -28,6 +28,8 @@ Contents:
    :maxdepth: 2
 
    extensions/python_requires
+   extensions/custom_commands
+   extensions/python_api
    extensions/hooks
    extensions/binary_compatibility
    extensions/profile_plugin
