@@ -1,7 +1,13 @@
 .. _reference_commands:
 
-Conan commands
-==============
+Commands
+========
+
+This section describe the Conan built-in commmands, like ``conan install`` or ``conan search``.
+
+It is also possible to create user custom commands, visit :ref:`custom commands reference <reference_commands_custom_commands>` 
+and these :ref:`custom command examples <examples_extensions_custom_commands>`
+
 
 
 .. toctree::
@@ -17,12 +23,3 @@ Creator commands
 ----------------
 
 
-
-Custom commands
-----------------
-
-.. toctree::
-   :caption: Custom commands
-   :maxdepth: 2
-
-   commands/custom_commands

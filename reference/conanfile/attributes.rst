@@ -916,7 +916,7 @@ Its basic syntax is:
             self.python_requires["pyreq"].path # access to the folder where the reused file is
 
 
-Read more about this attribute in <MISSING PAGE>
+Read more about this attribute in :ref:`reference_extensions_python_requires`
 
 
 python_requires_extend
