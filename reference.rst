@@ -8,7 +8,7 @@ Reference
    :maxdepth: 2
 
 
-   reference/conanfile
    reference/commands
-   reference/python_api
+   reference/conanfile
    reference/tools
+   reference/extensions
