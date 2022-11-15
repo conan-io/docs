@@ -126,10 +126,36 @@ This will be translated to:
 - One ``add_definitions()`` definition, using a cmake generator expression in ``conan_toolchain.cmake`` file,
   using the different values for different configurations.
 
+.. _conan-cmake-toolchain-cache_variables:
+
+cache_variables
+^^^^^^^^^^^^^^^
+
+This attribute allows defining CMake cache-variables. These variables, unlike the ``variables``, are single-config. They
+will be stored in the ``CMakePresets.json`` file (at the `cacheVariables` in the `configurePreset`) and will be
+applied with ``-D`` arguments when calling ``cmake.configure`` using the :ref:`CMake() build helper<conan-cmake-build-helper>`.
+
+
+.. code:: python
+
+    def generate(self):
+        tc = CMakeToolchain(self)
+        tc.cache_variables["foo"] = True
+        tc.cache_variables["foo2"] = False
+        tc.cache_variables["var"] = "23"
+
+The booleans assigned to a cache_variable will be translated to ``ON`` and ``OFF`` symbols in CMake.
+
 variables
 ^^^^^^^^^
 
-This attribute allows defining CMake variables, for multiple configurations (Debug, Release, etc).
+This attribute allows defining CMake variables, for multiple configurations (Debug,
+Release, etc). These variables should be used to define things related to the toolchain
+and for the majority of cases
+:ref:`cache_variables<conan-cmake-toolchain-cache_variables>` is what you probably want to
+use. Also, take into account that as these variables are defined inside the
+*conan_toolchain.cmake* file, and the toolchain is loaded several times by CMake, the
+definition of these variables will be done at those points as well.
 
 .. code:: python
 
@@ -158,25 +184,6 @@ The booleans assigned to a variable will be translated to ``ON`` and ``OFF`` sym
 
 
 Will generate the sentences: ``set(FOO ON ...)`` and ``set(VAR OFF ...)``.
-
-cache_variables
-^^^^^^^^^^^^^^^
-
-This attribute allows defining CMake cache-variables. These variables, unlike the ``variables``, are single-config. They
-will be stored in the ``CMakePresets.json`` file (at the `cacheVariables` in the `configurePreset`) and will be
-applied with ``-D`` arguments when calling ``cmake.configure`` using the :ref:`CMake() build helper<conan-cmake-build-helper>`.
-
-
-.. code:: python
-
-    def generate(self):
-        tc = CMakeToolchain(self)
-        tc.cache_variables["foo"] = True
-        tc.cache_variables["foo2"] = False
-        tc.cache_variables["var"] = "23"
-
-The booleans assigned to a cache_variable will be translated to ``ON`` and ``OFF`` symbols in CMake.
-
 
 Using a custom toolchain file
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

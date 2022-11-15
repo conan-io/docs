@@ -581,6 +581,17 @@ build_policy
            build_policy = "always" # "missing"
 
 
+upload_policy
+-------------
+
+.. autoattribute:: ConanFile.upload_policy
+
+    .. code-block:: python
+        :emphasize-lines: 2
+
+        class Pkg(ConanFile):
+            upload_policy = "skip"
+
 .. _conan_conanfile_properties_no_copy_source:
 
 no_copy_source
@@ -905,7 +916,7 @@ Its basic syntax is:
             self.python_requires["pyreq"].path # access to the folder where the reused file is
 
 
-Read more about this attribute in <MISSING PAGE>
+Read more about this attribute in :ref:`reference_extensions_python_requires`
 
 
 python_requires_extend
@@ -1067,4 +1078,20 @@ win_bash
               def win_bash(self):
                   return self.settings.arch == "armv8"
 
+win_bash_run
+------------
 
+.. autoattribute:: ConanFile.win_bash_run
+
+
+.. code-block:: python
+
+    from conan import ConanFile
+
+    class FooRecipe(ConanFile):
+
+        ...
+
+        win_bash_run = True
+        def build(self):
+            self.run(cmd, scope="run")  # will run <cmd> inside bash

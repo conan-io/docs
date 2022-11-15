@@ -1,6 +1,6 @@
 .. _conan_tools:
 
-tools
+Tools
 =====
 
 Tools are all things that can be imported and used in Conan recipes.
@@ -34,3 +34,4 @@ Contents:
    tools/meson
    tools/system
    tools/microsoft
+   tools/scm
