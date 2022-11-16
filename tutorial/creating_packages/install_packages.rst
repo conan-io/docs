@@ -36,7 +36,7 @@ This is the simplest choice when you have already defined in your `CMakeLists.tx
 functionality of extracting the artifacts (headers, libraries, binaries) from the build
 and source folder to a predetermined place and maybe do some post-processing of those
 artifacts. This will work without changes in your `CMakeLists.txt` because Conan will set
-the ``CMAKE_INSTALL_PREFIX`` CMake variable to the recipe :ref:`package_folder
+the ``CMAKE_INSTALL_PREFIX`` CMake variable to point to the recipe's :ref:`package_folder
 <conan_conanfile_properties_package_folder>` attribute. Then, just calling `install()` in
 the `CMakeLists.txt` over the created target is enough for Conan to move the built
 artifacts to the correct location in the Conan local cache.
@@ -58,107 +58,94 @@ artifacts to the correct location in the Conan local cache.
 
 .. code-block:: python
     :caption: *conanfile.py*
-    :emphasize-lines: 10
-
-    cmake_minimum_required(VERSION 3.15)
-    project(hello CXX)
-
-    add_library(hello src/hello.cpp)
-    target_include_directories(hello PUBLIC include)
-    set_target_properties(hello PROPERTIES PUBLIC_HEADER "include/hello.h")
-
-    ...
-
-    install(TARGETS hello)
-
-
-Use conan.tools.files.copy in the package() method
---------------------------------------------------
-
-
-
-
-
-
-
-licenses
---------
+    :emphasize-lines: 3
 
     def package(self):
-        self.copy(pattern="LICENSE", dst="licenses", src=self._source_subfolder)
-        cmake = self._configure_cmake()
+        cmake = CMake(self)
         cmake.install()
 
+Let's build our package again and pay attention to the lines regarding the
+packaging of files in the Conan local cache:
 
-        tools.rmdir(os.path.join(self.package_folder, "lib", "pkgconfig"))
-        tools.rmdir(os.path.join(self.package_folder, "lib", "cmake"))
-        tools.rmdir(os.path.join(self.package_folder, "share"))
-        tools.remove_files_by_mask(os.path.join(self.package_folder, "lib"), "*.pdb")
-        tools.remove_files_by_mask(os.path.join(self.package_folder, "bin"), "*.pdb")
+.. code-block:: bash
+    :emphasize-lines: 7-14
+
+    $ conan create . --build=missing -s compiler.cppstd=gnu11 -tf=None
+    ...
+    hello/1.0: Build folder /Users/user/.conan2/p/tmp/b5857f2e70d1b2fd/b/build/Release
+    hello/1.0: Generated conaninfo.txt
+    hello/1.0: Generating the package
+    hello/1.0: Temporary package folder /Users/user/.conan2/p/tmp/b5857f2e70d1b2fd/p
+    hello/1.0: Calling package()
+    hello/1.0: CMake command: cmake --install "/Users/user/.conan2/p/tmp/b5857f2e70d1b2fd/b/build/Release" --prefix "/Users/user/.conan2/p/tmp/b5857f2e70d1b2fd/p"
+    hello/1.0: RUN: cmake --install "/Users/user/.conan2/p/tmp/b5857f2e70d1b2fd/b/build/Release" --prefix "/Users/user/.conan2/p/tmp/b5857f2e70d1b2fd/p"
+    -- Install configuration: "Release"
+    -- Installing: /Users/user/.conan2/p/tmp/b5857f2e70d1b2fd/p/lib/libhello.a
+    -- Installing: /Users/user/.conan2/p/tmp/b5857f2e70d1b2fd/p/include/hello.h
+    hello/1.0 package(): Packaged 1 '.h' file: hello.h
+    hello/1.0 package(): Packaged 1 '.a' file: libhello.a
+    hello/1.0: Package 'fd7c4113dad406f7d8211b3470c16627b54ff3af' created
+    hello/1.0: Created package revision bf7f5b9a3bb2c957742be4be216dfcbb
+    hello/1.0: Full package reference: hello/1.0#25e0b5c00ae41ef9fbfbbb1e5ac86e1e:fd7c4113dad406f7d8211b3470c16627b54ff3af#bf7f5b9a3bb2c957742be4be216dfcbb
+    hello/1.0: Package folder /Users/user/.conan2/p/47b4c4c61c8616e5/p
+
+As you can see both the *include* and *library* files were copied to the package folder after
+calling to the ``cmake.install()`` method.
+
+
+Use conan.tools.files.copy() in the package() method and packaging licenses
+---------------------------------------------------------------------------
+
+For the cases that you don't want to rely on CMake's install functionality or that you are
+using another build-system, Conan provides the tools to copy the selected files to the
+:ref:`package_folder <conan_conanfile_properties_package_folder>`. Using the
+:ref:`tools.files.copy <conan_tools_files_copy>` function you can easily set how the built
+binaries and headers should be packaged. We can replace the previous ``cmake.install()``
+step with a custom copy of the files and the result would be the same.
+
+Note that we are also packaging the ``LICENSE`` file from the library sources in the
+*licenses* folder. This is a common pattern in Conan packages and could also be added to
+the previous example using ``cmake.install()`` as the *CMakeLists.txt* will not copy this
+file to the *package folder*.
+
+.. code-block:: python
+    :caption: *conanfile.py*
 
     def package(self):
-        self.copy("DOC/License.txt", src="", dst="licenses")
-        self.copy("DOC/unRarLicense.txt", src="", dst="licenses")
-        if self.settings.os == "Windows":
-            self.copy("*.exe", src="CPP/7zip", dst="bin", keep_path=False)
-            self.copy("*.dll", src="CPP/7zip", dst="bin", keep_path=False)
+        copy(self, "LICENSE", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
+        copy(self, pattern="*.h", src=os.path.join(self.source_folder, "include"), dst=os.path.join(self.package_folder, "include"))
+        copy(self, pattern="*.a", src=self.build_folder, dst=os.path.join(self.package_folder, "lib"), keep_path=False)
+        copy(self, pattern="*.so", src=self.build_folder, dst=os.path.join(self.package_folder, "lib"), keep_path=False)
+        copy(self, pattern="*.lib", src=self.build_folder, dst=os.path.join(self.package_folder, "lib"), keep_path=False)
+        copy(self, pattern="*.dll", src=self.build_folder, dst=os.path.join(self.package_folder, "bin"), keep_path=False)
+        copy(self, pattern="*.dylib", src=self.build_folder, dst=os.path.join(self.package_folder, "lib"), keep_path=False)
 
+Let's build our package one more time and pay attention to the lines regarding the
+packaging of files in the Conan local cache:
 
-other packaging patterns
-------------------------
+.. code-block:: bash
+    :emphasize-lines: 7-13
 
-    def package(self):
-        ags_lib_path = os.path.join(self.source_folder, self._source_subfolder, "ags_lib")
-        self.copy("LICENSE.txt", dst="licenses", src=ags_lib_path)
-        self.copy("*.h", dst="include", src=os.path.join(ags_lib_path, "inc"))
+    $ conan create . --build=missing -s compiler.cppstd=gnu11 -tf=None
+    ...
+    hello/1.0: Build folder /Users/user/.conan2/p/tmp/222db0532bba7cbc/b/build/Release
+    hello/1.0: Generated conaninfo.txt
+    hello/1.0: Generating the package
+    hello/1.0: Temporary package folder /Users/user/.conan2/p/tmp/222db0532bba7cbc/p
+    hello/1.0: Calling package()
+    hello/1.0: Copied 1 file: LICENSE
+    hello/1.0: Copied 1 '.h' file: hello.h
+    hello/1.0: Copied 1 '.a' file: libhello.a
+    hello/1.0 package(): Packaged 1 file: LICENSE
+    hello/1.0 package(): Packaged 1 '.h' file: hello.h
+    hello/1.0 package(): Packaged 1 '.a' file: libhello.a
+    hello/1.0: Package 'fd7c4113dad406f7d8211b3470c16627b54ff3af' created
+    hello/1.0: Created package revision 50f91e204d09b64b24b29df3b87a2f3a
+    hello/1.0: Full package reference: hello/1.0#96ed9fb1f78bc96708b1abf4841523b0:fd7c4113dad406f7d8211b3470c16627b54ff3af#50f91e204d09b64b24b29df3b87a2f3a
+    hello/1.0: Package folder /Users/user/.conan2/p/21ec37b931782de8/p
 
-        if self.settings.compiler == "Visual Studio":
-            win_arch = self._convert_arch_to_win_arch(self.settings.arch)
-            if self.options.shared:
-                shared_lib = "amd_ags_{arch}.dll".format(arch=win_arch)
-                symbol_lib = "amd_ags_{arch}.lib".format(arch=win_arch)
-                self.copy(shared_lib, dst="bin", src=os.path.join(ags_lib_path, "lib"))
-                self.copy(symbol_lib, dst="lib", src=os.path.join(ags_lib_path, "lib"))
-            else:
-                vs_version = self._convert_msvc_version_to_vs_version(self.settings.compiler.version)
-                static_lib = "amd_ags_{arch}_{vs_version}_{runtime}.lib".format(arch=win_arch, vs_version=vs_version, runtime=self.settings.compiler.runtime)
-                self.copy(static_lib, dst="lib", src=os.path.join(ags_lib_path, "lib"))
-
-fix symlinks, fix _fix_permissions, fix library names, fix install dirs!!!!
-----------------------------------------------------------------------------
-
-
-    def package(self):
-        copy(self, "*", src=self._source_subfolder, dst=self.package_folder, keep_path=True)
-        copy(self, "*NOTICE", src=self._source_subfolder, dst=os.path.join(self.package_folder, "licenses"))
-        copy(self, "*NOTICE.toolchain", src=self._source_subfolder, dst=os.path.join(self.package_folder, "licenses"))
-        copy(self, "cmake-wrapper.cmd", src=self.build_folder, dst=self.package_folder)
-        copy(self, "cmake-wrapper", src=self.build_folder, dst=self.package_folder)
-        self._fix_broken_links()
-        self._fix_permissions()
-
-Build and run tests for your project
-------------------------------------
-
-#######################
-
-Links to 1.x docs:
-
-- https://docs.conan.io/en/latest/reference/conanfile/methods.html#package
-- https://docs.conan.io/en/latest/howtos/cmake_install.html#reuse-cmake-install
-
-To be covered here:
-
-- copy/autotools.install/cmake.install…
-- copiado de licencias
-- Symlink management? fix _fix_permissions, fix library names, fix install dirs!!!!
-- Autotools install case for shared!!!
-
-#######################
-
-
-
-
+You can check that this time we did not call to ``cmake.install()`` but the *include* and
+*library* files were also packaged. The LICENSE file is also copied as we explained above.
 
 
 Read more
