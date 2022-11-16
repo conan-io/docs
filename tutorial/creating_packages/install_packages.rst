@@ -147,6 +147,10 @@ packaging of files in the Conan local cache:
 You can check that this time we did not call to ``cmake.install()`` but the *include* and
 *library* files were also packaged. The LICENSE file is also copied as we explained above.
 
+Managing symlinks in the package() method
+---------------------------------------
+
+
 
 Read more
 ---------
