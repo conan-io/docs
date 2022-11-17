@@ -148,8 +148,31 @@ You can check that this time we did not call to ``cmake.install()`` but the *inc
 *library* files were also packaged. The LICENSE file is also copied as we explained above.
 
 Managing symlinks in the package() method
----------------------------------------
+-----------------------------------------
 
+Another thing you can do in the package method is managing how symlinks are packaged.
+Conan won't manipulate symlinks in any way so we provide several :ref:`tools
+<conan_tools_files_symlinks>` to manipulate these symlinks to do things like for example
+converting absolute symlinks to relative ones and removing external or broken symlinks.
+
+Imagine that some of the files packaged in the latest example were symlinks that point to
+an absolute location inside the Conan cache. Then, calling to
+``conan.tools.files.symlinks.absolute_to_relative_symlinks()`` would convert those
+absolute links into relative paths thus making the package relocatable.
+
+
+.. code-block:: python
+    :caption: *conanfile.py*
+
+    from conan.tools.files.symlinks import absolute_to_relative_symlinks
+
+    def package(self):
+        copy(self, "LICENSE", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
+        copy(self, pattern="*.h", src=os.path.join(self.source_folder, "include"), dst=os.path.join(self.package_folder, "include"))
+        copy(self, pattern="*.a", src=self.build_folder, dst=os.path.join(self.package_folder, "lib"), keep_path=False)
+        ...
+
+        absolute_to_relative_symlinks(self, self.package_folder)
 
 
 Read more
