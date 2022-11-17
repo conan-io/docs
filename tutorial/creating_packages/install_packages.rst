@@ -12,13 +12,13 @@ Package files: the package() method
 
 We already used the ``package()`` method in our `hello` package to invoke CMake's install
 step. In this tutorial, we will explain the use of the :ref:`CMake.install()
-<conan-cmake-build-helper>` with more detail and also how to modify this method do things
+<conan-cmake-build-helper>` in more detail and also how to modify this method do things
 like:
 
 - Using :ref:`conan.tools.files <conan_tools_files>` utilities to copy the generated
   artifacts from the build folder to the package folder
 - Copying package licenses
-- Manage how symlinks are packaged
+- Manage how to package symlinks
 
 Please, first clone the sources to recreate this project. You can find them in the
 `examples2.0 repository <https://github.com/conan-io/examples2>`_ on GitHub:
@@ -98,10 +98,10 @@ Use conan.tools.files.copy() in the package() method and packaging licenses
 
 For the cases that you don't want to rely on CMake's install functionality or that you are
 using another build-system, Conan provides the tools to copy the selected files to the
-:ref:`package_folder <conan_conanfile_properties_package_folder>`. Using the
-:ref:`tools.files.copy <conan_tools_files_copy>` function you can easily set how the built
-binaries and headers should be packaged. We can replace the previous ``cmake.install()``
-step with a custom copy of the files and the result would be the same.
+:ref:`package_folder <conan_conanfile_properties_package_folder>`. In this case, you can
+use the :ref:`tools.files.copy <conan_tools_files_copy>` function to make that copy. We
+can replace the previous ``cmake.install()`` step with a custom copy of the files and the
+result would be the same.
 
 Note that we are also packaging the ``LICENSE`` file from the library sources in the
 *licenses* folder. This is a common pattern in Conan packages and could also be added to
@@ -144,21 +144,21 @@ packaging of files in the Conan local cache:
     hello/1.0: Full package reference: hello/1.0#96ed9fb1f78bc96708b1abf4841523b0:fd7c4113dad406f7d8211b3470c16627b54ff3af#50f91e204d09b64b24b29df3b87a2f3a
     hello/1.0: Package folder /Users/user/.conan2/p/21ec37b931782de8/p
 
-You can check that this time we did not call to ``cmake.install()`` but the *include* and
-*library* files were also packaged. The LICENSE file is also copied as we explained above.
+Check how the *include* and *library* files are packaged. The LICENSE file is also copied
+as we explained above.
 
 Managing symlinks in the package() method
 -----------------------------------------
 
-Another thing you can do in the package method is managing how symlinks are packaged.
-Conan won't manipulate symlinks in any way so we provide several :ref:`tools
-<conan_tools_files_symlinks>` to manipulate these symlinks to do things like for example
-converting absolute symlinks to relative ones and removing external or broken symlinks.
+Another thing you can do in the package method is managing how to package symlinks. Conan
+won’t manipulate symlinks by default, so we provide several :ref:`tools
+<conan_tools_files_symlinks>` to convert absolute symlinks to relative ones and removing
+external or broken symlinks.
 
 Imagine that some of the files packaged in the latest example were symlinks that point to
 an absolute location inside the Conan cache. Then, calling to
 ``conan.tools.files.symlinks.absolute_to_relative_symlinks()`` would convert those
-absolute links into relative paths thus making the package relocatable.
+absolute links into relative paths and make the package relocatable.
 
 
 .. code-block:: python
