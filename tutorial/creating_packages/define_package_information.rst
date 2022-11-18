@@ -34,23 +34,39 @@ method of our *hello/1.0* Conan package:
 
 .. code-block:: python
     :caption: *conanfile.py*
-    :emphasize-lines: 3
 
     def package_info(self):
         self.cpp_info.libs = ["hello"]
 
+We can see a couple of things:
 
-As you can see, we are just defining 
+- We are adding a *hello* library to the ``libs`` property of the ``cpp_info`` to tell
+  consumers that they should link the libraries with the that appear in this list.
+
+- We are not adding anything specific for the *lib* or *include* folders where the library
+  and headers files are packaged. The ``cpp_info`` object has the ``.includedirs`` and
+  ``.libdirs`` properties to set those locations but Conan sets their value as *lib* and
+  *include* by default so it's not needed to add those in this case. The declaration of
+  the ``package_info`` method in our Conan package would be completely equivalent to this
+  one:
+
+.. code-block:: python
+    :caption: *conanfile.py*
+
+    def package_info(self):
+        self.cpp_info.libs = ["hello"]
+        # conan sets libdirs = ["lib"] and includedirs = ["include"] by default
+        self.cpp_info.libdirs = ["lib"]
+        self.cpp_info.includedirs = ["include"]
 
 
 Providing environment information
 ---------------------------------
 
-asdasd
-
+buildenv_info and runenv_info
 
 
 Read more
 ---------
 
-- ...
+- Using components
