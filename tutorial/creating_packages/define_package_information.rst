@@ -41,11 +41,11 @@ method of our *hello/1.0* Conan package:
 We can see a couple of things:
 
 - We are adding a *hello* library to the ``libs`` property of the ``cpp_info`` to tell
-  consumers that they should link the libraries with the that appear in this list.
+  consumers that they should link the libraries from that list.
 
 - We are not adding anything specific for the *lib* or *include* folders where the library
   and headers files are packaged. The ``cpp_info`` object has the ``.includedirs`` and
-  ``.libdirs`` properties to set those locations but Conan sets their value as *lib* and
+  ``.libdirs`` properties to define those locations but Conan sets their value as *lib* and
   *include* by default so it's not needed to add those in this case. The declaration of
   the ``package_info`` method in our Conan package would be completely equivalent to this
   one:
@@ -60,6 +60,13 @@ We can see a couple of things:
         self.cpp_info.includedirs = ["include"]
 
 
+
+- Package to another place. Imagine that we are packaging our library files in other place... let's see how to change that...
+Add flags, defines, system_libs...
+- Add a system_lib dependency ? add flags ? 
+- Set target names for libraries ?
+- Introduce properties ?
+
 Providing environment information
 ---------------------------------
 
@@ -70,3 +77,4 @@ Read more
 ---------
 
 - Using components
+- 
