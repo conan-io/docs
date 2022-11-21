@@ -240,7 +240,7 @@ The :ref:`cpp_info_attributes_reference` attribute has the following properties 
 
       def package_info(self):
           if not self.settings.os == "Windows":
-              self.cpp_info.libs = ["libzmq-static.a"] if self.options.static else ["libzmq.so"]
+              self.cpp_info.libs = ["zmq-static"] if self.options.static else ["zmq"]
           else:
               ...
 
