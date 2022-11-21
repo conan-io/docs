@@ -77,11 +77,10 @@ Let's clone our project sources again. You can find them in the `examples2.0 rep
     $ cd examples2/tutorial/creating_packages/package_information
 
 
-
-
-
 - Package to another place. Imagine that we are packaging our library files in other place... let's see how to change that...
 Add flags, defines, system_libs...
+- Different library names for debug/release
+- Use options to propagate information conditionally
 - Add a system_lib dependency ? add flags ? 
 - Set target names for libraries ?
 - Introduce properties ?
