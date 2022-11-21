@@ -45,10 +45,11 @@ We can see a couple of things:
 
 - We are not adding anything specific for the *lib* or *include* folders where the library
   and headers files are packaged. The ``cpp_info`` object has the ``.includedirs`` and
-  ``.libdirs`` properties to define those locations but Conan sets their value as *lib* and
-  *include* by default so it's not needed to add those in this case. The declaration of
-  the ``package_info`` method in our Conan package would be completely equivalent to this
-  one:
+  ``.libdirs`` properties to define those locations but Conan sets their value as *lib*
+  and *include* by default so it's not needed to add those in this case. If you were
+  copying the package files to a different location then you should set those explicitly.
+  The declaration of the ``package_info`` method in our Conan package would be completely
+  equivalent to this one:
 
 .. code-block:: python
     :caption: *conanfile.py*
@@ -60,12 +61,31 @@ We can see a couple of things:
         self.cpp_info.includedirs = ["include"]
 
 
+Types of information you can set in the package_info() method
+-------------------------------------------------------------
+
+Defining the names for the library files and locations for the packaged files are not the
+only things you can do in the ``package_info()`` method. Let's see some typical
+information that a Conan package could define for its consumers.
+
+Let's clone our project sources again. You can find them in the `examples2.0 repository
+<https://github.com/conan-io/examples2>`_ on GitHub:
+
+.. code-block:: bash
+
+    $ git clone https://github.com/conan-io/examples2.git
+    $ cd examples2/tutorial/creating_packages/package_information
+
+
+
+
 
 - Package to another place. Imagine that we are packaging our library files in other place... let's see how to change that...
 Add flags, defines, system_libs...
 - Add a system_lib dependency ? add flags ? 
 - Set target names for libraries ?
 - Introduce properties ?
+- Talk about self.conf_info...
 
 Providing environment information
 ---------------------------------
