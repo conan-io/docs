@@ -61,20 +61,53 @@ We can see a couple of things:
         self.cpp_info.includedirs = ["include"]
 
 
-Types of information you can set in the package_info() method
--------------------------------------------------------------
+Setting information in the package_info() method
+------------------------------------------------
 
-Defining the names for the library files and locations for the packaged files are not the
-only things you can do in the ``package_info()`` method. Let's see some typical
-information that a Conan package could define for its consumers.
+Besides what we already learned to do in the ``package_info()`` method there are
+also other typical use cases, like for examples:
 
-Let's clone our project sources again. You can find them in the `examples2.0 repository
-<https://github.com/conan-io/examples2>`_ on GitHub:
+- Define library name information depending on settings or options
+- Customizing certain the information that generators produce for consumers, things like
+  the target names for CMake or the generated files names for pkg-config
+- Propagating configuration values to consumers
+- Propagating environment information to consumers
+
+Let's see some of those. First, clone the project sources again. You can find them in the
+`examples2.0 repository <https://github.com/conan-io/examples2>`_ on GitHub:
 
 .. code-block:: bash
 
     $ git clone https://github.com/conan-io/examples2.git
     $ cd examples2/tutorial/creating_packages/package_information
+
+
+For this section of the tutorial we introduced some changes in the library and recipe.
+Let's check the relevant parts:
+
+Changes introduced in the recipe
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: python
+    :caption: *conanfile.py*
+    :emphasize-lines: 6,8
+
+    ...
+
+    def package_info(self):
+        if self.options.shared:
+            self.cpp_info.libs = ["hello-shared"]
+        else:
+            self.cpp_info.libs = ["hello-static"]
+
+
+
+Changes introduced in the library sources
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+First, please note that we are using `another branch
+<https://github.com/conan-io/libhello/tree/with_tests>`_ from the **libhello** library. This
+branch has two novelties on the library side:
 
 
 - Package to another place. Imagine that we are packaging our library files in other place... let's see how to change that...
