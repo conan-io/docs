@@ -67,7 +67,7 @@ Setting information in the package_info() method
 Besides what we already learned to do in the ``package_info()`` method there are
 also other typical use cases, like for examples:
 
-- Define library name information depending on settings or options
+- Define information for consumers depending on settings or options
 - Customizing certain the information that generators produce for consumers, things like
   the target names for CMake or the generated files names for pkg-config
 - Propagating configuration values to consumers
@@ -85,25 +85,71 @@ Let's see some of those. First, clone the project sources again. You can find th
 For this section of the tutorial we introduced some changes in the library and recipe.
 Let's check the relevant parts:
 
+
+Changes introduced in the library sources
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+First, please note that we are using `another branch
+<https://github.com/conan-io/libhello/tree/package_info>`_ from the **libhello** library.
+Let's check the *CMakeLists.txt* to build the library:
+
+
+.. code-block:: text
+    :caption: *CMakeLists.txt*
+    :emphasize-lines: 8,12
+
+    cmake_minimum_required(VERSION 3.15)
+    project(hello CXX)
+
+    ...
+
+    add_library(hello src/hello.cpp)
+
+    if (BUILD_SHARED_LIBS)
+        set_target_properties(hello PROPERTIES OUTPUT_NAME hello-shared)
+    else()
+        set_target_properties(hello PROPERTIES OUTPUT_NAME hello-static)
+    endif()
+
+    ...
+
+As you can see, now we are setting the output name for the library depending on if the
+library is static or shared. Now let's see how these changes affect the information that
+we have to set in the Conan recipe for consumers.
+
+
 Changes introduced in the recipe
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: python
     :caption: *conanfile.py*
-    :emphasize-lines: 6,8
+    :emphasize-lines: 9, 14-17
 
-    ...
+    class helloRecipe(ConanFile):
+        ...
 
-    def package_info(self):
-        if self.options.shared:
-            self.cpp_info.libs = ["hello-shared"]
-        else:
-            self.cpp_info.libs = ["hello-static"]
+        def source(self):
+            git = Git(self)
+            git.clone(url="https://github.com/conan-io/libhello.git", target=".")
+            # Please, be aware that using the head of the branch instead of an inmutable tag
+            # or commit is not a good practice in general
+            git.checkout("package_info")
+
+        ...
+
+        def package_info(self):
+            if self.options.shared:
+                self.cpp_info.libs = ["hello-shared"]
+            else:
+                self.cpp_info.libs = ["hello-static"]
 
 
 
-Changes introduced in the library sources
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Properties model: setting information for specific generators
+-------------------------------------------------------------
+
+
 
 First, please note that we are using `another branch
 <https://github.com/conan-io/libhello/tree/with_tests>`_ from the **libhello** library. This
