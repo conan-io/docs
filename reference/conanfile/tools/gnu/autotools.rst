@@ -95,12 +95,12 @@ Parameters:
     - **args** (Optional, Defaulted to ``None``): List of arguments to use for the
       ``make`` call.
 
-install(self, args=None):
-+++++++++++++++++++++++++
+install(self, args=None, target="install"):
++++++++++++++++++++++++++++++++++++++++++++
 
 .. code-block:: python
 
-    def install(self, args=None)
+    def install(self, args=None, target="install")
 
 This is just an "alias" of ``self.make(target="install")``
 
@@ -108,6 +108,7 @@ Parameters:
     - **args** (Optional, Defaulted to ``None``): List of arguments to use for the
       ``make install`` call. By default an argument ``DESTDIR=unix_path(self, self.package_folder)`` is added to the
       call if the passed value is ``None``. See more information about :ref:`tools.microsoft.unix_path() function<conan_tools_microsoft_unix_path>`.
+    - **target** (Optional, Defaulted to ``install``): Target name to use when calling to ``make <target>``.
 
 
 A note about relocatable shared libraries in macOS built the  Autotools build helper
