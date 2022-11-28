@@ -31,7 +31,7 @@ and these :ref:`custom command examples <examples_extensions_custom_commands>`
 - :doc:`conan cache <commands/cache>`: Return the path of recipes and packages in the cache
 - :doc:`conan config <commands/cache>`: Manage Conan configuration (remotes, settings, plugins, etc)
 - :doc:`conan graph <commands/cache>`: Obtain information about the dependency graph without fetching binaries
-- :doc:`conan inspect <commands/inspect>`: 
+- :doc:`conan inspect <commands/inspect>`: Inspect a conanfile.py to return the public fields
 - :doc:`conan install <commands/install>`: Install dependencies
 - :doc:`conan list <commands/list>`: List recipes, revisions and packages in the local cache or in remotes
 - :doc:`conan lock <commands/lock>`: Create and manage lockfiles
