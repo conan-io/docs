@@ -44,5 +44,8 @@ and these :ref:`custom command examples <examples_extensions_custom_commands>`
 .. toctree::
    :caption: Creator commands
    :maxdepth: 1
+   :hidden:
 
-   :conan upload: Upload packages from the local cache to a specified remote <commands/upload>
+   commands/upload
+
+- :doc:`conan upload <commands/upload>`: Upload packages from the local cache to a specified remote
