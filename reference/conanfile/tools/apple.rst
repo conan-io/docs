@@ -464,7 +464,9 @@ Public attributes and properties
 
 Public attributes:
 
-  - **settings**: Set of settings used to get the sdk.
+  - **settings**: Set of settings used to get the sdk. They can be the settings from the
+    target if ``use_settings_target=True`` or the settings from the active context if
+    ``use_settings_target=False``.
 
 Public properties:
 
