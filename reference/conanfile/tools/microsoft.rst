@@ -609,6 +609,7 @@ This generator can be used as:
 The generator will create a ``conannmakedeps.bat`` environment script that defines
 ``CL``, ``LIB`` and ``_LINK_`` environment variables, injecting necessary flags 
 to locate and link the dependencies declared in ``requires``.
+This generator should most likely be used together with ``NMakeToolchain`` one.
 
 
 NMaketoolchain
