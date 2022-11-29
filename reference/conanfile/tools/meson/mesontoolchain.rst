@@ -8,6 +8,11 @@ MesonToolchain
     This is an **experimental** feature subject to breaking changes in future releases.
 
 
+.. important::
+
+    This class will generate files that are only compatible with Meson versions >= 0.55.0
+
+
 Available since: `1.33.0 <https://github.com/conan-io/conan/releases/tag/1.33.0>`_
 
 
