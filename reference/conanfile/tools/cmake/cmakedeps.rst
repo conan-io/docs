@@ -173,12 +173,12 @@ Since `Conan 1.55.0 <https://github.com/conan-io/conan/releases>`_ .
 
     def set_property(self, dep, prop, value, build_context=False):
 
-- ``dep``: Name of the dependency to set the property to. To set the property for a
-  component of the dependency use the syntax: ``dep_name::component_name``.
+- ``dep``: Name of the dependency to set the :ref:`property<CMakeDeps Properties>`. For
+  components use the syntax: ``dep_name::component_name``.
 - ``prop``: Name of the :ref:`property<CMakeDeps Properties>`.
 - ``value``: Value of the property. Use ``None`` to invalidate any value set by the
   upstream recipe.
-- ``build_context``: Set to ``True`` if you want to set the property for a dependendy that
+- ``build_context``: Set to ``True`` if you want to set the property for a dependency that
   belongs to the build context (``False`` by default).
 
 Using this method you can overwrite the property values set by the Conan recipes from the
@@ -205,8 +205,8 @@ defines some properties:
             ...
 
 This recipe defines several properties. For example the ``cmake_find_mode`` property is
-set to ``both`` so that module and config files are generated for Zlib but maybe we need
-to alter this behaviour and just generate config files. You could do that in the
+set to ``both``. That means that module and config files are generated for Zlib. Maybe we
+need to alter this behaviour and just generate config files. You could do that in the
 compressor recipe using the ``CMakeDeps.set_property()`` method:
 
 
@@ -246,7 +246,6 @@ value ``None`` to the property like this:
 
 After doing this the generated target name for the Zlib library will be ``zlib::zlib``
 instead of ``ZLIB::ZLIB``
-
 
 .. _CMakeDeps Properties:
 
