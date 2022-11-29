@@ -163,6 +163,91 @@ Use the **build_context_build_modules** attribute to specify require names to in
     The ``build_context_build_modules`` feature will fail if no "build" profile is used. This feature only work when using
     the two host and build profiles.
 
+
+set_property()
+++++++++++++++
+
+Since `Conan 1.55.0 <https://github.com/conan-io/conan/releases>`_ .
+
+.. code:: python
+
+    def set_property(self, dep, prop, value, build_context=False):
+
+- ``dep``: Name of the dependency to set the property to. To set the property for a
+  component of the dependency use the syntax: ``dep_name::component_name``.
+- ``prop``: Name of the :ref:`property<CMakeDeps Properties>`.
+- ``value``: Value of the property. Use ``None`` to invalidate any value set by the
+  upstream recipe.
+- ``build_context``: Set to ``True`` if you want to set the property for a dependendy that
+  belongs to the build context (``False`` by default).
+
+Using this method you can overwrite the property values set by the Conan recipes from the
+consumer. This can be done for `cmake_file_name`, `cmake_target_name`, `cmake_find_mode`,
+`cmake_module_file_name` and `cmake_module_target_name` properties. Let's see an example
+of how this works:
+
+Imagine we have a *compressor/1.0* package that depends on *zlib/1.2.11*. The *zlib* recipe
+defines some properties:
+
+
+.. code-block:: python
+    :caption: Zlib conanfile.py
+
+    class ZlibConan(ConanFile):
+        name = "zlib"
+
+        ...
+
+        def package_info(self):
+            self.cpp_info.set_property("cmake_find_mode", "both")
+            self.cpp_info.set_property("cmake_file_name", "ZLIB")
+            self.cpp_info.set_property("cmake_target_name", "ZLIB::ZLIB")
+            ...
+
+This recipe defines several properties. For example the ``cmake_find_mode`` property is
+set to ``both`` so that module and config files are generated for Zlib but maybe we need
+to alter this behaviour and just generate config files. You could do that in the
+compressor recipe using the ``CMakeDeps.set_property()`` method:
+
+
+.. code-block:: python
+    :caption: compressor conanfile.py
+
+    class Compressor(ConanFile):
+        name = "compressor"
+
+        requires = "zlib/1.2.11"
+        ...
+
+        def generate(self):
+            deps = CMakeDeps(self)
+            deps.set_property("zlib", "cmake_find_mode", "config")
+            deps.generate()
+            ...
+
+You can also use the ``set_property()`` method to invalidate the property values set by
+the upstream recipe and use the values that Conan assigns by default. To do so, set the
+value ``None`` to the property like this:
+
+.. code-block:: python
+    :caption: compressor conanfile.py
+
+    class Compressor(ConanFile):
+        name = "compressor"
+
+        requires = "zlib/1.2.11"
+        ...
+
+        def generate(self):
+            deps = CMakeDeps(self)
+            deps.set_property("zlib", "cmake_target_name", None)
+            deps.generate()
+            ...
+
+After doing this the generated target name for the Zlib library will be ``zlib::zlib``
+instead of ``ZLIB::ZLIB``
+
+
 .. _CMakeDeps Properties:
 
 Properties
