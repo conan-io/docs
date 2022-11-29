@@ -460,11 +460,11 @@ Parameters:
   ``settings_target`` in the :ref:`cross-building section<cross_building>`.
 
 Public attributes and properties
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+++++++++++++++++++++++++++++++++
 
 Public attributes:
 
-  - **settings**: set of settings used to get the sdk.
+  - **settings**: Set of settings used to get the sdk.
 
 Public properties:
 
