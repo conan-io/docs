@@ -78,7 +78,7 @@ constructor
 
 .. code:: python
 
-    def __init__(self, conanfile, namespace=None):
+    def __init__(self, conanfile, namespace=None, prefix="/"):
 
 - ``conanfile``: the current recipe object. Always use ``self``.
 - ``namespace``: this argument avoids collisions when you have multiple toolchain calls in the same
@@ -87,6 +87,7 @@ constructor
   the name of the generated file is *conanbuild.conf*. This namespace must be also set with the same
   value in the constructor of the :ref:`Autotools build helper<conan_tools_gnu_build_helper>` so that
   it reads the information from the proper file.
+- ``prefix``: Folder to use for ``--prefix`` argument ("/" by default).
 
 
 Attributes
