@@ -322,3 +322,21 @@ Example:
     def package_info(self):
         self.cpp_info.set_property("cmake_find_mode", "none") # Do NOT generate anyfiles
         self.cpp_info.builddirs.append(os.path.join("lib", "cmake", "foo"))
+
+Map from project configuration to imported target's configuration
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+As mentioned above, ``CMakeDeps`` provides support for multiple configuration environments (Debug, Release, etc.)
+This is achieved by populating properties on the imported targets according to the ``build_type`` setting
+when installing dependencies. When a consumer project is configured with a single-configuration CMake generator, however, 
+it is necessary to define the ``CMAKE_BUILD_TYPE`` with a value that matches that of the installed dependencies.
+
+If the consumer CMake project is configured with a different build type than the dependencies, it is necessary to
+tell CMake how to map the configurations from the current project to the imported targets by setting the 
+``CMAKE_MAP_IMPORTED_CONFIG_<CONFIG>`` CMake variable. 
+
+.. code-block:: bash
+
+    cd build-coverage/
+    conan install .. -s build_type=Debug
+    cmake .. -DCMAKE_BUILD_TYPE=Coverage -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_MAP_IMPORTED_CONFIG_COVERAGE=Debug
