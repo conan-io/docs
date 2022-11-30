@@ -607,3 +607,51 @@ of the ``pkg`` and ``common`` folders, both in the local developer flow in the c
 when those sources are copied to the Conan cache, to be built there with ``conan create`` or ``conan install --build=pkg``.
 This is one of the design principles of the ``layout()``, the relative location of things must be consistent in the user
 folder and in the cache.
+
+
+Environment variables and configuration
+---------------------------------------
+
+There are some packages that might define some environment variables in their
+``package_info()`` method via ``self.buildenv_info``, ``self.runenv_info``. Other 
+packages can also use ``self.conf_info`` to pass configuration to their consumers.
+
+This is not an issue as long as thee value of those environment variables or configuration
+do not require using the ``self.package_folder``. If they do, then their values will
+not be correct for the "source" and "build" layouts. Something like this will be **broken**
+when used in ``editable`` mode:
+
+.. code-block:: python
+
+    import os
+    from conan import ConanFile
+
+    class SayConan(ConanFile):
+        ...
+        def package_info(self):
+            # This is BROKEN if we put this package in editable mode
+            self.runenv_info.define_path("MYDATA_PATH",
+                                         os.path.join(self.package_folder, "my/data/path"))
+
+When the package is in editable mode, for example, ``self.package_folder`` is ``None``, as 
+obviously there is no package yet. 
+The solution is to define it in the ``layout()`` method, in the same way the ``cpp_info`` can
+be defined there:
+
+.. code-block:: python
+
+    from conan import ConanFile
+
+    class SayConan(ConanFile):
+        ...
+        def layout(self):
+            # The final path will be relative to the self.source_folder
+            self.layouts.source.buildenv_info.define_path("MYDATA_PATH", "my/source/data/path")
+            # The final path will be relative to the self.build_folder
+            self.layouts.build.buildenv_info.define_path("MYDATA_PATH2", "my/build/data/path")
+            # The final path will be relative to the self.build_folder
+            self.layouts.build.conf_info.define_path("MYCONF", "my_conf_folder")
+
+
+The ``layouts`` object contains ``source``, ``build`` and ``package`` scopes, and each one contains
+one instance of ``buildenv_info``, ``runenv_info`` and ``conf_info``.
