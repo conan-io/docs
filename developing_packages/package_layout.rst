@@ -184,8 +184,9 @@ So, this workflow in the cache works flawlessly but:
 - What if I want to use my project as an :ref:`editable package<editable_packages>`?
 
   If you want to keep developing your package but let the consumers link with the artifacts in your project instead of
-  the files in the Conan cache, you would need to declare a yml file describing where the headers, libraries and
-  executables are in your application.
+  the files in the Conan cache, this will not work, because it only declares the location of headers and libraries in 
+  the final packaged layout, but during development the files are typically in other locations.
+
 
 So, just as we describe the package folder in the ``package_info()`` method, we can use ``layout()`` to describe the
 ``source`` and ``build`` folders (both in a local project and in the cache):
@@ -228,6 +229,10 @@ In the ``layout()`` method, you can set:
       The **self.cpp_info** object will be populated with the information declared in the ``self.cpp.package``
       object, so you can complete it or modify it later in the ``package_info(self)`` method.
 
+    - **self.layouts.source**, **self.layouts.build** and **self.layouts.package**, each one containing one instance of
+      ``buildenv_info``, ``runenv_info`` and ``conf_info``. If the environment or configuration needs to define values 
+      that depend on the current folders, it is necessary to define them in the ``layout()`` method.
+  
 
 Example: Everything together
 ----------------------------
@@ -607,3 +612,51 @@ of the ``pkg`` and ``common`` folders, both in the local developer flow in the c
 when those sources are copied to the Conan cache, to be built there with ``conan create`` or ``conan install --build=pkg``.
 This is one of the design principles of the ``layout()``, the relative location of things must be consistent in the user
 folder and in the cache.
+
+
+Environment variables and configuration
+---------------------------------------
+
+There are some packages that might define some environment variables in their
+``package_info()`` method via ``self.buildenv_info``, ``self.runenv_info``. Other 
+packages can also use ``self.conf_info`` to pass configuration to their consumers.
+
+This is not an issue as long as the value of those environment variables or configuration
+do not require using the ``self.package_folder``. If they do, then their values will
+not be correct for the "source" and "build" layouts. Something like this will be **broken**
+when used in ``editable`` mode:
+
+.. code-block:: python
+
+    import os
+    from conan import ConanFile
+
+    class SayConan(ConanFile):
+        ...
+        def package_info(self):
+            # This is BROKEN if we put this package in editable mode
+            self.runenv_info.define_path("MYDATA_PATH",
+                                         os.path.join(self.package_folder, "my/data/path"))
+
+When the package is in editable mode, for example, ``self.package_folder`` is ``None``, as 
+obviously there is no package yet. 
+The solution is to define it in the ``layout()`` method, in the same way the ``cpp_info`` can
+be defined there:
+
+.. code-block:: python
+
+    from conan import ConanFile
+
+    class SayConan(ConanFile):
+        ...
+        def layout(self):
+            # The final path will be relative to the self.source_folder
+            self.layouts.source.buildenv_info.define_path("MYDATA_PATH", "my/source/data/path")
+            # The final path will be relative to the self.build_folder
+            self.layouts.build.buildenv_info.define_path("MYDATA_PATH2", "my/build/data/path")
+            # The final path will be relative to the self.build_folder
+            self.layouts.build.conf_info.define_path("MYCONF", "my_conf_folder")
+
+
+The ``layouts`` object contains ``source``, ``build`` and ``package`` scopes, and each one contains
+one instance of ``buildenv_info``, ``runenv_info`` and ``conf_info``.
