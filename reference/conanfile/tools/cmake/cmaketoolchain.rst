@@ -63,6 +63,9 @@ translated from the current ``settings``:
   - Definition of the C++ standard as necessary
   - Definition of the standard library used for C++
   - Deactivation of rpaths in OSX
+  - Since Conan 1.55, set of the ``PKG_CONFIG_PATH`` environment variable
+    to where the Conan generators are located. If user has already defined ``PKG_CONFIG_PATH``, that Conan folder
+    will automatically be prepended.
 
 - *conanvcvars.bat*: In some cases, the Visual Studio environment needs to be defined correctly for building,
   like when using the Ninja or NMake generators. If necessary, the ``CMakeToolchain`` will generate this script,
@@ -367,6 +370,7 @@ conf
 - ``tools.build:tools.apple:enable_arc`` boolean value to enable/disable ARC Apple Clang flags, e.g., ``CMAKE_XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC``.
 - ``tools.build:tools.apple:enable_visibility`` boolean value to enable/disable Visibility Apple Clang flags, e.g., ``CMAKE_XCODE_ATTRIBUTE_GCC_SYMBOLS_PRIVATE_EXTERN``.
 - ``tools.build:sysroot`` defines the value of ``CMAKE_SYSROOT``.
+- ``tools.gnu:pkg_config`` Since Conan 1.55, the path to the `pkg-config` executable to set the CMake variable ``PKG_CONFIG_EXECUTABLE``.
 
 Extending and customizing CMakeToolchain
 ++++++++++++++++++++++++++++++++++++++++
