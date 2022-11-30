@@ -184,8 +184,9 @@ So, this workflow in the cache works flawlessly but:
 - What if I want to use my project as an :ref:`editable package<editable_packages>`?
 
   If you want to keep developing your package but let the consumers link with the artifacts in your project instead of
-  the files in the Conan cache, you would need to declare a yml file describing where the headers, libraries and
-  executables are in your application.
+  the files in the Conan cache, this will not work, because it only declares the location of headers and libraries in 
+  the final packaged layout, but during development the files are typically in other locations.
+
 
 So, just as we describe the package folder in the ``package_info()`` method, we can use ``layout()`` to describe the
 ``source`` and ``build`` folders (both in a local project and in the cache):
@@ -228,6 +229,10 @@ In the ``layout()`` method, you can set:
       The **self.cpp_info** object will be populated with the information declared in the ``self.cpp.package``
       object, so you can complete it or modify it later in the ``package_info(self)`` method.
 
+    - **self.layouts.source**, **self.layouts.build** and **self.layouts.package**, each one containing one instance of
+      ``buildenv_info``, ``runenv_info`` and ``conf_info``. If the environment or configuration needs to define values 
+      that depend on the current folders, it is necessary to define them in the ``layout()`` method.
+  
 
 Example: Everything together
 ----------------------------

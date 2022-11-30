@@ -58,8 +58,10 @@ That is it. Now, every usage of ``say/0.1@user/channel``, by any other Conan pac
 will be redirected to the ``examples/features/editable/cmake/say`` user folder instead of using the package
 from the conan cache.
 
-Note that the key of editable packages is a correct definition of the ``layout()`` of the package. In this
-example, the ``say`` ``conanfile.py`` recipe is using the predefined ``cmake_layout()`` which defines the
+Note that the key of editable packages is a correct definition of the ``layout()`` of the package. Read the
+:ref:`package layout() section <package_layout>` to learn more about this method. 
+
+In this example, the ``say`` ``conanfile.py`` recipe is using the predefined ``cmake_layout()`` which defines the
 typical CMake project layout, which can be different in the different platforms. Take also into account that
 only using the new build system integrations like ``CMakeDeps`` and ``CMakeToolchain`` will correctly follow
 the layout definition.
