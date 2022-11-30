@@ -616,7 +616,7 @@ There are some packages that might define some environment variables in their
 ``package_info()`` method via ``self.buildenv_info``, ``self.runenv_info``. Other 
 packages can also use ``self.conf_info`` to pass configuration to their consumers.
 
-This is not an issue as long as thee value of those environment variables or configuration
+This is not an issue as long as the value of those environment variables or configuration
 do not require using the ``self.package_folder``. If they do, then their values will
 not be correct for the "source" and "build" layouts. Something like this will be **broken**
 when used in ``editable`` mode:
