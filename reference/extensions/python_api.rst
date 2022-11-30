@@ -6,7 +6,7 @@ Python API
 .. toctree::
    :maxdepth: 2
 
-   python_api/ConanAPIV2
+   python_api/ConanAPI
    python_api/RemotesAPI
    python_api/SearchAPI
    python_api/ListAPI

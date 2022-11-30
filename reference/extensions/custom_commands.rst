@@ -62,7 +62,7 @@ Main decorator to declare a function as a new Conan command. Where the parameter
 
     import json
 
-    from conan.api.conan_api import ConanAPIV2
+    from conan.api.conan_api import ConanAPI
     from conan.api.output import ConanOutput
     from conan.cli.command import conan_command
 
@@ -71,7 +71,7 @@ Main decorator to declare a function as a new Conan command. Where the parameter
 
 
     @conan_command(group="Custom commands", formatters={"json": output_json})
-    def hello(conan_api: ConanAPIV2, parser, *args):
+    def hello(conan_api: ConanAPI, parser, *args):
         """
         Simple command to print "Hello World!" line
         """
@@ -94,7 +94,7 @@ Similar to ``conan_command``, but this one is declaring a sub-command of an exis
 .. code-block:: python
     :caption: cmd_hello.py
 
-    from conan.api.conan_api import ConanAPIV2
+    from conan.api.conan_api import ConanAPI
     from conan.api.output import ConanOutput
     from conan.cli.command import conan_command, conan_subcommand
 
@@ -108,7 +108,7 @@ Similar to ``conan_command``, but this one is declaring a sub-command of an exis
 
 
     @conan_command(group="Custom commands")
-    def hello(conan_api: ConanAPIV2, parser, *args):
+    def hello(conan_api: ConanAPI, parser, *args):
         """
         Simple command "hello"
         """
@@ -136,7 +136,7 @@ These are the passed arguments to any custom command and its sub-commands functi
         """
         subcommand information. This info will appear on ``conan command subcommand -h``.
 
-        :param conan_api: <object conan.api.conan_api.ConanAPIV2> instance
+        :param conan_api: <object conan.api.conan_api.ConanAPI> instance
         :param parser: root <object argparse.ArgumentParser> instance (coming from main command)
         :param subparser: <object argparse.ArgumentParser> instance for sub-command
         :param args: ``list`` of all the arguments passed after sub-command call
@@ -150,7 +150,7 @@ These are the passed arguments to any custom command and its sub-commands functi
         """
         command information. This info will appear on ``conan command -h``.
 
-        :param conan_api: <object conan.api.conan_api.ConanAPIV2> instance
+        :param conan_api: <object conan.api.conan_api.ConanAPI> instance
         :param parser: root <object argparse.ArgumentParser> instance
         :param args: ``list`` of all the arguments passed after command call
         :return: (optional) whatever is returned will be passed to formatters functions (if declared)
@@ -158,7 +158,7 @@ These are the passed arguments to any custom command and its sub-commands functi
         # ...
 
 
-* ``conan_api``: instance of ``ConanAPIV2`` class. See more about it in :ref:`conan.api.conan_api.ConanAPIV2 section<reference_python_api_conan_api_v2>`
+* ``conan_api``: instance of ``ConanAPI`` class. See more about it in :ref:`conan.api.conan_api.ConanAPI section<reference_python_api_conan_api>`
 * ``parser``: root instance of Python ``argparse.ArgumentParser`` class to be used by the main command function. See more information
   in `argparse official website <https://docs.python.org/3/library/argparse.html>`_.
 * ``subparser`` (only for sub-commands): child instance of Python ``argparse.ArgumentParser`` class for each sub-command function.
