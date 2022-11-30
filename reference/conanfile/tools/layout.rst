@@ -6,7 +6,7 @@ conan.tools.layout
 .. warning::
 
     These tools are still **experimental** (so subject to breaking changes) but with very stable syntax.
-    We encourage the usage of it to be prepared for Conan 2.0.
+    We encourage their usage to be prepared for Conan 2.0.
     The ``layout()`` feature will be fully functional only in the new build system integrations
     (:ref:`in the conan.tools space <conan_tools>`). If you are using other integrations, they
     might not fully support this feature.

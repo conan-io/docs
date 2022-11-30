@@ -6,7 +6,7 @@ conan.tools.apple
 .. warning::
 
     These tools are still **experimental** (so subject to breaking changes) but with very stable syntax.
-    We encourage the usage of it to be prepared for Conan 2.0.
+    We encourage their usage to be prepared for Conan 2.0.
 
 .. _conan_tools_apple_xcodedeps:
 
@@ -442,6 +442,8 @@ XCRun()
 
 Available since: `1.53.0 <https://github.com/conan-io/conan/releases/tag/1.53.0>`_
 
+XCRun is a wrapper for the Apple **xcrun** tool used to get information for building. 
+
 .. code-block:: python
 
     class XCRun(object):
@@ -457,8 +459,16 @@ Parameters:
   When ``False`` it will use the settings from the active context. Read more about the
   ``settings_target`` in the :ref:`cross-building section<cross_building>`.
 
-XCRun is a wrapper for the Apple **xcrun** tool used to get information for building. It
-has these properties:
+Public attributes and properties
+++++++++++++++++++++++++++++++++
+
+Public attributes:
+
+  - **settings**: Set of settings used to get the sdk. They can be the settings from the
+    target if ``use_settings_target=True`` or the settings from the active context if
+    ``use_settings_target=False``.
+
+Public properties:
 
   - **sdk_path**: Obtain SDK path (a.k.a. Apple sysroot or -isysroot).
   - **sdk_version**: Obtain SDK version.

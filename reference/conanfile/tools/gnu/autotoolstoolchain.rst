@@ -6,7 +6,7 @@ AutotoolsToolchain
 .. warning::
 
     These tools are still **experimental** (so subject to breaking changes) but with very stable syntax.
-    We encourage the usage of it to be prepared for Conan 2.0.
+    We encourage their usage to be prepared for Conan 2.0.
 
 Available since: `1.35.0 <https://github.com/conan-io/conan/releases/tag/1.35.0>`_
 
@@ -78,7 +78,7 @@ constructor
 
 .. code:: python
 
-    def __init__(self, conanfile, namespace=None):
+    def __init__(self, conanfile, namespace=None, prefix="/"):
 
 - ``conanfile``: the current recipe object. Always use ``self``.
 - ``namespace``: this argument avoids collisions when you have multiple toolchain calls in the same
@@ -87,6 +87,7 @@ constructor
   the name of the generated file is *conanbuild.conf*. This namespace must be also set with the same
   value in the constructor of the :ref:`Autotools build helper<conan_tools_gnu_build_helper>` so that
   it reads the information from the proper file.
+- ``prefix``: Folder to use for ``--prefix`` argument ("/" by default).
 
 
 Attributes
@@ -122,8 +123,8 @@ values:
         * ``--enable-shared``, ``--disable-static`` if ``shared==True``
         * ``--disable-shared``, ``--enable-static`` if ``shared==False``
 
-* **make_args** (Defaulted to ``[]``): Additional arguments to be passed to he make script.
-* **autoreconf_args** (Defaulted to ``["--force", "--install"]``): Additional arguments to be passed to he make script.
+* **make_args** (Defaulted to ``[]``): Additional arguments to be passed to the make script.
+* **autoreconf_args** (Defaulted to ``["--force", "--install"]``): Additional arguments to be passed to autoreconf.
 * **extra_defines** (Defaulted to ``[]``): Additional defines.
 * **extra_cxxflags** (Defaulted to ``[]``): Additional cxxflags.
 * **extra_cflags** (Defaulted to ``[]``): Additional cflags.
@@ -200,6 +201,13 @@ conf
 - ``tools.build:exelinkflags`` list of extra linker flags that will be used by by ``LDFLAGS``.
 - ``tools.build:defines`` list of preprocessor definitions that will be used by ``CPPFLAGS``.
 - ``tools.build:sysroot`` defines the ``--sysroot`` flag to the compiler.
+- ``tools.build:compiler_executables`` (new in version 1.55) dict-like Python object which specifies the compiler as key
+  and the compiler executable path as value. Those keys will be mapped as follows:
+
+  * ``c``: will set ``CC`` in *conanautotoolstoolchain.sh|bat* script.
+  * ``cpp``: will set ``CXX`` in *conanautotoolstoolchain.sh|bat* script.
+  * ``cuda``: will set ``NVCC`` in *conanautotoolstoolchain.sh|bat* script.
+  * ``fortran``: will set ``FC`` in *conanautotoolstoolchain.sh|bat* script.
 
 
 Customizing the environment
