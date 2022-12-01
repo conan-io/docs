@@ -1,16 +1,16 @@
 Define the package information for consumers
 ============================================
 
-In the previous tutorial section we explained how to store the
-headers and binaries of a library in a Conan package. These files are reused by consumers
-that depend on the package but we have to provide some additional information so that
-Conan can pass that to the build system and consumers can compile and link against our
-package.
+In the previous tutorial section, we explained how to store the headers and binaries of a
+library in a Conan package. These files are reused by consumers that depend on the package
+but we have to provide some additional information so that Conan can pass that to the
+build system and consumers can compile and link against our package.
 
-For instance, in our example we are building a static library with name *hello* that once
-it's built will result in a *libhello.a* in Linux and MacOS or *hello.lib* in Windows.
-Also, we are packaging a header file *hello.h* with the declaration of the library
-functions. The Conan package ends up with the following structure in the Conan local cache:
+For instance, in our example, we are building a static library named *hello* that once
+it's built will result in a *libhello.a* file in Linux and macOS or a *hello.lib* file in
+Windows. Also, we are packaging a header file *hello.h* with the declaration of the
+library functions. The Conan package ends up with the following structure in the Conan
+local cache:
 
 .. code-block:: text
 
@@ -20,14 +20,15 @@ functions. The Conan package ends up with the following structure in the Conan l
     └── lib
         └── libhello.a
 
-Then, consumers that want to link against this library will need to have some information:
+Then, consumers that want to link against this library will need some information:
 
-- Add the *include* folder in the Conan local cache to the locations to search for the
-  *hello.h* file
-- We have to link agains a library named *libhello.a*
-- That library is in a folder named *lib* in the Conan local cache.
+- The location of the *include* folder in the Conan local cache to search for the
+  *hello.h* file.
+- The name of the library file to link against it (*libhello.a* or *hello.lib*)
+- The location of the *lib* folder in the Conan local cache to search for the library
+  file.
 
-Conan provides an abstraction over all this information with the
+Conan provides an abstraction over all the information consumers may need in the
 :ref:`cpp_info<conan_conanfile_model_cppinfo>` attribute of the ConanFile. This attribute
 is set in the ``package_info()`` method. Let's have a look at the ``package_info()``
 method of our *hello/1.0* Conan package:
@@ -43,13 +44,13 @@ We can see a couple of things:
 - We are adding a *hello* library to the ``libs`` property of the ``cpp_info`` to tell
   consumers that they should link the libraries from that list.
 
-- We are not adding anything specific for the *lib* or *include* folders where the library
-  and headers files are packaged. The ``cpp_info`` object has the ``.includedirs`` and
-  ``.libdirs`` properties to define those locations but Conan sets their value as *lib*
-  and *include* by default so it's not needed to add those in this case. If you were
-  copying the package files to a different location then you should set those explicitly.
-  The declaration of the ``package_info`` method in our Conan package would be completely
-  equivalent to this one:
+- We are **not adding** information about the *lib* or *include* folders where the
+  library and headers files are packaged. The ``cpp_info`` object provides the
+  ``.includedirs`` and ``.libdirs`` properties to define those locations but Conan sets
+  their value as ``lib`` and ``include`` by default so it's not needed to add those in this
+  case. If you were copying the package files to a different location then you have to set
+  those explicitly. The declaration of the ``package_info`` method in our Conan package
+  would be equivalent to this one:
 
 .. code-block:: python
     :caption: *conanfile.py*
@@ -65,13 +66,14 @@ Setting information in the package_info() method
 ------------------------------------------------
 
 Besides what we already learned to do in the ``package_info()`` method there are
-also other typical use cases, like for examples:
+also other typical use cases, for example:
 
 - Define information for consumers depending on settings or options
-- Customizing certain the information that generators produce for consumers, things like
+- Customizing certain information that generators produce for consumers, things like
   the target names for CMake or the generated files names for pkg-config
 - Propagating configuration values to consumers
 - Propagating environment information to consumers
+- Define components for Conan packages that provide multiple libraries
 
 Let's see some of those. First, clone the project sources again. You can find them in the
 `examples2.0 repository <https://github.com/conan-io/examples2>`_ on GitHub:
@@ -89,14 +91,14 @@ Let's check the relevant parts:
 Changes introduced in the library sources
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-First, please note that we are using `another branch
-<https://github.com/conan-io/libhello/tree/package_info>`_ from the **libhello** library.
+First, please note that we are using `other branch
+<https://github.com/czoido/libhello/tree/package_info>`_ from the **libhello** library.
 Let's check the *CMakeLists.txt* to build the library:
 
 
 .. code-block:: text
     :caption: *CMakeLists.txt*
-    :emphasize-lines: 8,12
+    :emphasize-lines: 9,11
 
     cmake_minimum_required(VERSION 3.15)
     project(hello CXX)
@@ -113,13 +115,16 @@ Let's check the *CMakeLists.txt* to build the library:
 
     ...
 
-As you can see, now we are setting the output name for the library depending on if the
-library is static or shared. Now let's see how these changes affect the information that
-we have to set in the Conan recipe for consumers.
+As you can see, now we are setting the output name for the library depending if we are
+building the library as static or shared. Now let's see how to translate these changes to
+the Conan recipe.
 
 
 Changes introduced in the recipe
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+First we have to conditionally set the library nanme depending on the
+``self.options.shared`` option.
 
 .. code-block:: python
     :caption: *conanfile.py*
@@ -144,20 +149,23 @@ Changes introduced in the recipe
                 self.cpp_info.libs = ["hello-static"]
 
 
+Now, let's create the Conan package with shared=False for example and check that we are
+packaging the correct library (*libhello-static.a* or *hello-static.lib*) and that we are
+linking that library in the test_package.
+
+
+
 
 
 Properties model: setting information for specific generators
 -------------------------------------------------------------
 
-
-
 First, please note that we are using `another branch
 <https://github.com/conan-io/libhello/tree/with_tests>`_ from the **libhello** library. This
 branch has two novelties on the library side:
 
-
-- Package to another place. Imagine that we are packaging our library files in other place... let's see how to change that...
-Add flags, defines, system_libs...
+- Package to another place. Imagine that we are packaging our library files in other
+  place... let's see how to change that... Add flags, defines, system_libs...
 - Different library names for debug/release
 - Use options to propagate information conditionally
 - Add a system_lib dependency ? add flags ? 
