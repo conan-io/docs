@@ -1,4 +1,4 @@
-.. _reference_python_api_conan_api_v2:
+.. _reference_python_api_conan_api:
 
 Conan API Reference
 ===================
@@ -7,7 +7,7 @@ Conan API Reference
 
 .. currentmodule:: conan.api.conan_api
 
-.. autoclass:: ConanAPIV2
+.. autoclass:: ConanAPI
     :members:
 
 
