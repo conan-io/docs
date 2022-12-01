@@ -5,6 +5,11 @@ MesonToolchain
 
 .. _MesonToolchain:
 
+.. important::
+
+    This class will generate files that are only compatible with Meson versions >= 0.55.0
+
+
 The ``MesonToolchain`` is the toolchain generator for Meson and it can be used in the ``generate()`` method
 as follows:
 
@@ -167,7 +172,14 @@ conf
 - ``tools.build:cflags`` list of extra of pure C flags that is used by ``c_args``.
 - ``tools.build:sharedlinkflags`` list of extra linker flags that is used by ``c_link_args`` and ``cpp_link_args``.
 - ``tools.build:exelinkflags`` list of extra linker flags that is used by ``c_link_args`` and ``cpp_link_args``.
+- ``tools.build:compiler_executables`` dict-like Python object which specifies the compiler as key
+  and the compiler executable path as value. Those keys will be mapped as follows:
 
+  * ``c``: will set ``c`` in ``[binaries]`` section from *conan_meson_xxxx.ini*.
+  * ``cpp``: will set ``cpp`` in ``[binaries]`` section from *conan_meson_xxxx.ini*.
+  * ``objc``: will set ``objc`` in ``[binaries]`` section from *conan_meson_xxxx.ini*.
+  * ``objcpp``: will set ``objcpp`` in ``[binaries]`` section from *conan_meson_xxxx.ini*.
+  
 
 Cross-building for Apple and Android
 -------------------------------------
