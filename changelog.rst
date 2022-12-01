@@ -18,9 +18,38 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-    Conan 1.54 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
+    Conan 1.55 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
     a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.55.0 (30-Nov-2022)
+--------------------
+
+- Feature: Add `prefix` argument to `AutotoolsToolchain`. `#12620 <https://github.com/conan-io/conan/pull/12620>`_ . Docs `here <https://github.com/conan-io/docs/pull/2824>`__
+- Feature: Provide the ability to set CMakeDeps properties from consumer side. `#12609 <https://github.com/conan-io/conan/pull/12609>`_ . Docs `here <https://github.com/conan-io/docs/pull/2827>`__
+- Feature: New ``NMakeDeps`` generator. `#12599 <https://github.com/conan-io/conan/pull/12599>`_ . Docs `here <https://github.com/conan-io/docs/pull/2828>`__
+- Feature: Implement ``editable`` env-vars via ``layouts.xxx.buildenv_info`` and ``layouts.xxx.runenv_info`` and conf via ``layouts.xxx.conf_info``. `#12598 <https://github.com/conan-io/conan/pull/12598>`_ . Docs `here <https://github.com/conan-io/docs/pull/2834>`__
+- Feature: Add gcc 12.1 and 12.2 to `settings.yml`. `#12562 <https://github.com/conan-io/conan/pull/12562>`_ . Docs `here <https://github.com/conan-io/docs/pull/2821>`__
+- Feature: Add `tools.build:compiler_executables` configuration to set compilers variables in CMakeToolchain, MesonToolchain, and AutoToolsToolchain, e.g., `CMAKE_<LANG>_COMPILER` in `CMakeToolchain`. `#12556 <https://github.com/conan-io/conan/pull/12556>`_ . Docs `here <https://github.com/conan-io/docs/pull/2833>`__
+- Feature: Allow placeholders in `EnvVars`. `#12517 <https://github.com/conan-io/conan/pull/12517>`_ . Docs `here <https://github.com/conan-io/docs/pull/2835>`__
+- Feature: New `NMakeToolchain`. `#12516 <https://github.com/conan-io/conan/pull/12516>`_ . Docs `here <https://github.com/conan-io/docs/pull/2828>`__
+- Feature: Added generators folder to `PKG_CONFIG_PATH` environment variable in `CMakeToolchain`. `#12513 <https://github.com/conan-io/conan/pull/12513>`_ . Docs `here <https://github.com/conan-io/docs/pull/2832>`__
+- Feature: Ensure that `CMakeToolchain` will enforce usage of `pkg-config` executable set in `tools.gnu:pkg_config` config. `#12513 <https://github.com/conan-io/conan/pull/12513>`_ . Docs `here <https://github.com/conan-io/docs/pull/2832>`__
+- Feature: Add `cli_args` argument to CMake build helper configure method. `#12509 <https://github.com/conan-io/conan/pull/12509>`_ . Docs `here <https://github.com/conan-io/docs/pull/2822>`__
+- Feature: Add `target` argument to `Autotools.install()`. `#12491 <https://github.com/conan-io/conan/pull/12491>`_ . Docs `here <https://github.com/conan-io/docs/pull/2823>`__
+- Feature: Make available ``XCRun().settings`` read attribute. `#12486 <https://github.com/conan-io/conan/pull/12486>`_ . Docs `here <https://github.com/conan-io/docs/pull/2829>`__
+- Feature: Automatically add the msys2 ``usr/bin`` folder where ``bash.exe`` is to the PATH. `#12457 <https://github.com/conan-io/conan/pull/12457>`_
+- Feature: Add `tools.meson.mesontoolchain:extra_machine_files=["FILENAMES"]` to `Meson` build helper to append machine files to the the ones created by Conan. `#12117 <https://github.com/conan-io/conan/pull/12117>`_ . Docs `here <https://github.com/conan-io/docs/pull/2831>`__
+- Feature: Add `.user_presets_path` attribute to `CMakeToolchain` to customize the location of `CMakeUserPresets.json` or to skip generating it. `#11917 <https://github.com/conan-io/conan/pull/11917>`_ . Docs `here <https://github.com/conan-io/docs/pull/2825>`__
+- Fix: Raise a clear error if ``settings.compiler`` is not defined for ``MesonToolchain``. `#12623 <https://github.com/conan-io/conan/pull/12623>`_
+- Fix: Fix `runenv` for `cmake.test()`. `#12580 <https://github.com/conan-io/conan/pull/12580>`_
+- Fix: Remove hardcoded definitions of `CMAKE_CXX_COMPILER` in `CMakeToolchain`. `#12556 <https://github.com/conan-io/conan/pull/12556>`_ . Docs `here <https://github.com/conan-io/docs/pull/2833>`__
+- Fix: Remove the extra ``-s`` from default build_type compiler flags, added to modern ``AutotoolsToolchain``. `#12518 <https://github.com/conan-io/conan/pull/12518>`_
+- Fix: Give priority to `-j` argument set by user in recipe over the default set by conan in `Autotools` build helper. `#12505 <https://github.com/conan-io/conan/pull/12505>`_
+- Bugfix: Make `conan lock update` raise a suitable exception. `#12601 <https://github.com/conan-io/conan/pull/12601>`_
+- Bugfix: Do not include build-context dependencies in Bazel BUILD file. `#12543 <https://github.com/conan-io/conan/pull/12543>`_
+- Bugfix: Do not fallback to a compatible binary if a package is requested to be built from source for a given configuration. `#12536 <https://github.com/conan-io/conan/pull/12536>`_
+- Bugfix: Fixing when ``package_folder=None`` for ``MSBuildDeps`` in editable mode. `#12529 <https://github.com/conan-io/conan/pull/12529>`_
+- Bugfix: The `CMakeDeps` generator was not working properly when the consumer maps configurations of the dependencies using `CMAKE_MAP_IMPORTED_CONFIG_XXX`. `#12049 <https://github.com/conan-io/conan/pull/12049>`_ . Docs `here <https://github.com/conan-io/docs/pull/2826>`__
 
 1.54.0 (07-Nov-2022)
 --------------------
