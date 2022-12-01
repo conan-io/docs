@@ -204,6 +204,7 @@ For example, we can prevent the generator from creating ``CMakeUserPresets.json`
 following way:
 
 .. code:: python
+
     def generate(self):
         tc = CMakeToolchain(self)
         tc.user_presets_path = False
