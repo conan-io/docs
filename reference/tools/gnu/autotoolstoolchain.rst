@@ -210,3 +210,11 @@ conf
 - ``tools.build:exelinkflags`` list of extra linker flags that will be used by by ``LDFLAGS``.
 - ``tools.build:defines`` list of preprocessor definitions that will be used by ``CPPFLAGS``.
 - ``tools.build:sysroot`` defines the ``--sysroot`` flag to the compiler.
+- ``tools.build:compiler_executables`` dict-like Python object which specifies the
+  compiler as key and the compiler executable path as value. Those keys will be mapped as
+  follows:
+
+  * ``c``: will set ``CC`` in *conanautotoolstoolchain.sh|bat* script.
+  * ``cpp``: will set ``CXX`` in *conanautotoolstoolchain.sh|bat* script.
+  * ``cuda``: will set ``NVCC`` in *conanautotoolstoolchain.sh|bat* script.
+  * ``fortran``: will set ``FC`` in *conanautotoolstoolchain.sh|bat* script.

@@ -430,3 +430,17 @@ CMakeToolchain is affected by these ``[conf]`` variables:
 - **tools.build:tools.apple:enable_arc** boolean value to enable/disable ARC Apple Clang flags, e.g., ``CMAKE_XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC``.
 - **tools.build:tools.apple:enable_visibility** boolean value to enable/disable Visibility Apple Clang flags, e.g., ``CMAKE_XCODE_ATTRIBUTE_GCC_SYMBOLS_PRIVATE_EXTERN``.
 - **tools.build:sysroot** defines the value of ``CMAKE_SYSROOT``.
+- **tools.build:compiler_executables** dict-like Python object which specifies the
+  compiler as key and the compiler executable path as value. Those keys will be mapped as
+  follows:
+
+  * ``c``: will set ``CMAKE_C_COMPILER`` in *conan_toolchain.cmake*.
+  * ``cpp``: will set ``CMAKE_CXX_COMPILER`` in *conan_toolchain.cmake*.
+  * ``RC``: will set ``CMAKE_RC_COMPILER`` in *conan_toolchain.cmake*.
+  * ``objc``: will set ``CMAKE_OBJC_COMPILER`` in *conan_toolchain.cmake*.
+  * ``objcpp``: will set ``CMAKE_OBJCXX_COMPILER`` in *conan_toolchain.cmake*.
+  * ``cuda``: will set ``CMAKE_CUDA_COMPILER`` in *conan_toolchain.cmake*.
+  * ``fortran``: will set ``CMAKE_Fortran_COMPILER`` in *conan_toolchain.cmake*.
+  * ``asm``: will set ``CMAKE_ASM_COMPILER`` in *conan_toolchain.cmake*.
+  * ``hip``: will set ``CMAKE_HIP_COMPILER`` in *conan_toolchain.cmake*.
+  * ``ispc``: will set ``CMAKE_ISPC_COMPILER`` in *conan_toolchain.cmake*.
