@@ -149,13 +149,44 @@ First we have to conditionally set the library nanme depending on the
                 self.cpp_info.libs = ["hello-static"]
 
 
-Now, let's create the Conan package with shared=False for example and check that we are
-packaging the correct library (*libhello-static.a* or *hello-static.lib*) and that we are
-linking that library in the test_package.
+Now, let's create the Conan package with ``shared=False`` for example and check that we
+are packaging the correct library (*libhello-static.a* or *hello-static.lib*) and that we
+are linking the correct library in the *test_package*.
 
+.. code-block:: bash
+    :emphasize-lines: 4,14,22
 
+    $ conan create . -s compiler.cppstd=gnu11 --build=missing
+    ...
+    -- Install configuration: "Release"
+    -- Installing: /Users/carlosz/.conan2/p/tmp/a311fcf8a63f3206/p/lib/libhello-static.a
+    -- Installing: /Users/carlosz/.conan2/p/tmp/a311fcf8a63f3206/p/include/hello.h
+    hello/1.0 package(): Packaged 1 '.h' file: hello.h
+    hello/1.0 package(): Packaged 1 '.a' file: libhello-static.a
+    hello/1.0: Package 'fd7c4113dad406f7d8211b3470c16627b54ff3af' created
+    ...
+    -- Build files have been written to: /Users/carlosz/.conan2/p/tmp/a311fcf8a63f3206/b/build/Release
+    hello/1.0: CMake command: cmake --build "/Users/carlosz/.conan2/p/tmp/a311fcf8a63f3206/b/build/Release" -- -j16
+    hello/1.0: RUN: cmake --build "/Users/carlosz/.conan2/p/tmp/a311fcf8a63f3206/b/build/Release" -- -j16
+    [ 25%] Building CXX object CMakeFiles/hello.dir/src/hello.cpp.o
+    [ 50%] Linking CXX static library libhello-static.a
+    [ 50%] Built target hello
+    [ 75%] Building CXX object tests/CMakeFiles/test_hello.dir/test.cpp.o
+    [100%] Linking CXX executable test_hello
+    [100%] Built target test_hello
+    hello/1.0: RUN: tests/test_hello
+    ...
+    [ 50%] Building CXX object CMakeFiles/example.dir/src/example.cpp.o
+    [100%] Linking CXX executable example
+    [100%] Built target example
 
+    -------- Testing the package: Running test() --------
+    hello/1.0 (test package): Running test()
+    hello/1.0 (test package): RUN: ./example
+    hello/1.0: Hello World Release! (with color!)
 
+As you can see both the tests and the Conan test_package linked against the
+*libhello-static.a* library successfully.
 
 Properties model: setting information for specific generators
 -------------------------------------------------------------
