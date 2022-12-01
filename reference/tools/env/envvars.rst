@@ -111,6 +111,20 @@ You can iterate the environment variables of an ``EnvVars`` object like this:
         assert value == "var var2"
 
 
+The current value of the environment variable in the system is replaced in the returned
+value. This happens when variables are appended or prepended. If a placeholder is desired
+instead of the actual value, it is possible to use the ``variable_reference`` argument
+with a jinja template syntax, so a string with that resolved template will be returned
+instead:
+
+.. code:: python
+    env1 = Environment()
+    env1.append("foo", "var")
+    envvars = env1.vars(self)
+    for name, value in envvars.items(variable_reference="$penv{{{name}}}""):
+        assert name == "foo":
+        assert value == "$penv{{foo}} var"
+
 .. warning::
 
     In Windows, there is a limit to the size of environment variables, a total of 32K for the whole environment,
