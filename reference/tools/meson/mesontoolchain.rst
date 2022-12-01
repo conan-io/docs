@@ -5,6 +5,11 @@ MesonToolchain
 
 .. _MesonToolchain:
 
+.. important::
+
+    This class will generate files that are only compatible with Meson versions >= 0.55.0
+
+
 The ``MesonToolchain`` is the toolchain generator for Meson and it can be used in the ``generate()`` method
 as follows:
 
