@@ -11,5 +11,6 @@ conan.tools.microsoft
    microsoft/msbuilddeps
    microsoft/msbuildtoolchain
    microsoft/vcvars
+   microsoft/nmake
    microsoft/visual_layout
    microsoft/helpers
