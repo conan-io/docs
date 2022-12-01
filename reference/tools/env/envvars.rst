@@ -118,6 +118,7 @@ with a jinja template syntax, so a string with that resolved template will be re
 instead:
 
 .. code:: python
+
     env1 = Environment()
     env1.append("foo", "var")
     envvars = env1.vars(self)
