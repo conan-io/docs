@@ -3,6 +3,18 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2.0 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.0.0-beta6 (02-Dec-2022)
+-------------------------
+
+- Feature: Use ``--confirm`` to not request confirmation when removing instead of ``--force`` `#12636 <https://github.com/conan-io/conan/pull/12636>`_
+- Feature: Simplify loading conaninfo.txt for search results `#12616 <https://github.com/conan-io/conan/pull/12616>`_
+- Feature: Renamed ConanAPIV2 to ConanAPI `#12615 <https://github.com/conan-io/conan/pull/12615>`_
+- Feature: Refactor ConanAPI `#12615 <https://github.com/conan-io/conan/pull/12615>`_
+- Feature: Improve conan cache path command `#12554 <https://github.com/conan-io/conan/pull/12554>`_
+- Feature: Improve #latest and pattern selection from remove/upload/download `#12572 <https://github.com/conan-io/conan/pull/12572>`_
+- Feature: Add build_modules to provided deprecated warning to allow migration from 1.x `#12578 <https://github.com/conan-io/conan/pull/12578>`_
+- Feature: Lockfiles alias support `#12525 <https://github.com/conan-io/conan/pull/12525>`_
+
 2.0.0-beta5 (11-Nov-2022)
 -------------------------
 
@@ -18,7 +30,6 @@ For a more detailed description of the major changes that Conan 2.0 brings, comp
 - Fix: Fix transitive propagation of transitive_headers=True `#12508 <https://github.com/conan-io/conan/pull/12508>`_
 - Fix: Fix transitive propagation of transitive_libs=False for static libraries `#12508 <https://github.com/conan-io/conan/pull/12508>`_
 - Fix: Fix test_package for python_requires `#12508 <https://github.com/conan-io/conan/pull/12508>`_
-
 
 2.0.0-beta4 (11-Oct-2022)
 -------------------------
