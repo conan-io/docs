@@ -271,7 +271,8 @@ And re-create the package:
     hello/1.0 (test package): RUN: ./example
     hello/1.0: Hello World Release! (with color!)
 
-
+You can see how Conan declares now the ``hellotarget`` instead of the default
+``hello::hello`` and the *test_package* builds successfully.
 
 
 First, please note that we are using `another branch
