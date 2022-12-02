@@ -123,13 +123,13 @@ same as before.
     -------- Installing packages ----------
 
     Installing (downloading, building) binaries...
-    hello/1.0: Calling source() in /Users/carlosz/.conan2/p/0fcb5ffd11025446/s/.
+    hello/1.0: Calling source() in /Users/user/.conan2/p/0fcb5ffd11025446/s/.
     Downloading update_source.zip
 
     hello/1.0: Unzipping 3.7KB
     Unzipping 100 %                                                       
     hello/1.0: Copying sources to build folder
-    hello/1.0: Building your package in /Users/carlosz/.conan2/p/tmp/369786d0fb355069/b
+    hello/1.0: Building your package in /Users/user/.conan2/p/tmp/369786d0fb355069/b
 
     ...
 

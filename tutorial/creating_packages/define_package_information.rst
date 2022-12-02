@@ -4,7 +4,7 @@ Define the package information for consumers
 In the previous tutorial section, we explained how to store the headers and binaries of a
 library in a Conan package. These files are reused by consumers that depend on the package
 but we have to provide some additional information so that Conan can pass that to the
-build system and consumers can compile and link against our package.
+build system and consumers can build the package.
 
 For instance, in our example, we are building a static library named *hello* that once
 it's built will result in a *libhello.a* file in Linux and macOS or a *hello.lib* file in
@@ -149,9 +149,9 @@ First we have to conditionally set the library nanme depending on the
                 self.cpp_info.libs = ["hello-static"]
 
 
-Now, let's create the Conan package with ``shared=False`` for example and check that we
-are packaging the correct library (*libhello-static.a* or *hello-static.lib*) and that we
-are linking the correct library in the *test_package*.
+Now, let's create the Conan package with ``shared=False`` (that's the default) and check
+that we are packaging the correct library (*libhello-static.a* or *hello-static.lib*) and
+that we are linking the correct library in the *test_package*.
 
 .. code-block:: bash
     :emphasize-lines: 4,14,22
@@ -159,15 +159,15 @@ are linking the correct library in the *test_package*.
     $ conan create . -s compiler.cppstd=gnu11 --build=missing
     ...
     -- Install configuration: "Release"
-    -- Installing: /Users/carlosz/.conan2/p/tmp/a311fcf8a63f3206/p/lib/libhello-static.a
-    -- Installing: /Users/carlosz/.conan2/p/tmp/a311fcf8a63f3206/p/include/hello.h
+    -- Installing: /Users/user/.conan2/p/tmp/a311fcf8a63f3206/p/lib/libhello-static.a
+    -- Installing: /Users/user/.conan2/p/tmp/a311fcf8a63f3206/p/include/hello.h
     hello/1.0 package(): Packaged 1 '.h' file: hello.h
     hello/1.0 package(): Packaged 1 '.a' file: libhello-static.a
     hello/1.0: Package 'fd7c4113dad406f7d8211b3470c16627b54ff3af' created
     ...
-    -- Build files have been written to: /Users/carlosz/.conan2/p/tmp/a311fcf8a63f3206/b/build/Release
-    hello/1.0: CMake command: cmake --build "/Users/carlosz/.conan2/p/tmp/a311fcf8a63f3206/b/build/Release" -- -j16
-    hello/1.0: RUN: cmake --build "/Users/carlosz/.conan2/p/tmp/a311fcf8a63f3206/b/build/Release" -- -j16
+    -- Build files have been written to: /Users/user/.conan2/p/tmp/a311fcf8a63f3206/b/build/Release
+    hello/1.0: CMake command: cmake --build "/Users/user/.conan2/p/tmp/a311fcf8a63f3206/b/build/Release" -- -j16
+    hello/1.0: RUN: cmake --build "/Users/user/.conan2/p/tmp/a311fcf8a63f3206/b/build/Release" -- -j16
     [ 25%] Building CXX object CMakeFiles/hello.dir/src/hello.cpp.o
     [ 50%] Linking CXX static library libhello-static.a
     [ 50%] Built target hello
@@ -190,6 +190,89 @@ As you can see both the tests and the Conan test_package linked against the
 
 Properties model: setting information for specific generators
 -------------------------------------------------------------
+
+The CppInfo object provides one method to set information specific to each generator. For
+example, in this tutorial we are using the :ref:`CMakeDeps<CMakeDeps>` generator to create
+all the information that CMake needs to build a project that requires our library. ``CMakeDeps``,
+by default, will generate a target name for the library using the same name as the Conan
+package. If you have a look at that *CMakeLists.txt* from the *test_package*:
+
+.. code-block:: cmake
+    :caption: test_package *CMakeLists.txt*
+    :emphasize-lines: 7
+
+    cmake_minimum_required(VERSION 3.15)
+    project(PackageTest CXX)
+
+    find_package(hello CONFIG REQUIRED)
+
+    add_executable(example src/example.cpp)
+    target_link_libraries(example hello::hello)
+
+You can see that we are using the target name ``hello::hello``. This is the target name
+that Conan creates by default, but we can change it using the properties model. Let's try
+to change it to the name ``hellotarget``. To do this, we have to set the property
+``cmake_target_name`` in the package_info method of our *hello/1.0* Conan package:
+
+
+.. code-block:: python
+    :caption: *conanfile.py*
+    :emphasize-lines: 10
+
+    class helloRecipe(ConanFile):
+        ...
+
+        def package_info(self):
+            if self.options.shared:
+                self.cpp_info.libs = ["hello-shared"]
+            else:
+                self.cpp_info.libs = ["hello-static"]
+
+            self.cpp_info.set_property("cmake_target_name", "hellotarget")
+
+
+Then, change the target name we are using in the *CMakeLists.txt* in the *test_package*
+folder to ``hellotarget``:
+
+.. code-block:: cmake
+    :caption: test_package *CMakeLists.txt*
+    :emphasize-lines: 4
+
+    cmake_minimum_required(VERSION 3.15)
+    project(PackageTest CXX)
+    # ...
+    target_link_libraries(example hellotarget)
+
+And re-create the package:
+
+.. code-block:: bash
+    :emphasize-lines: 14
+
+    $ conan create . -s compiler.cppstd=gnu11 --build=missing
+    Exporting the recipe
+    hello/1.0: Exporting package recipe
+    hello/1.0: Using the exported files summary hash as the recipe revision: 44d78a68b16b25c5e6d7e8884b8f58b8 
+    hello/1.0: A new conanfile.py version was exported
+    hello/1.0: Folder: /Users/user/.conan2/p/a8cb81b31dc10d96/e
+    hello/1.0: Exported revision: 44d78a68b16b25c5e6d7e8884b8f58b8
+    ...
+    -------- Testing the package: Building --------
+    hello/1.0 (test package): Calling build()
+    ...
+    -- Detecting CXX compile features
+    -- Detecting CXX compile features - done
+    -- Conan: Target declared 'hellotarget'
+    ...
+    [100%] Linking CXX executable example
+    [100%] Built target example
+
+    -------- Testing the package: Running test() --------
+    hello/1.0 (test package): Running test()
+    hello/1.0 (test package): RUN: ./example
+    hello/1.0: Hello World Release! (with color!)
+
+
+
 
 First, please note that we are using `another branch
 <https://github.com/conan-io/libhello/tree/with_tests>`_ from the **libhello** library. This
