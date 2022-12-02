@@ -155,27 +155,33 @@ generators.
 
 1. ``config_options()``
 2. ``configure()``
-3. ``requirements()``
-4. ``package_id()``
-5. ``package_info()``
-6. ``deploy()``
+3. ``layout()``
+4. ``requirements()``
+5. ``package_id()``
+6. ``validate()``
+7. ``package_info()``
+8. ``deploy()``
 
 Note this describes the process of installing a pre-built binary package. If the package has to be built, :command:`conan install --build`
 executes the following:
 
 1. ``config_options()``
 2. ``configure()``
-3. ``requirements()``
-4. ``package_id()``
-5. ``build_requirements()``
-6. ``build_id()``
-7. ``system_requirements()``
-8. ``source()``
-9. ``imports()``
-10. ``build()``
-11. ``package()``
-12. ``package_info()``
-13. ``deploy()``
+3. ``layout()``
+4. ``requirements()``
+5. ``package_id()``
+6. ``validate()``
+7. ``validate_build()``
+8. ``build_requirements()``
+9. ``build_id()``
+10. ``system_requirements()``
+11. ``source()``
+12. ``generate()``
+13. ``imports()``
+14. ``build()``
+15. ``package()``
+16. ``package_info()``
+17. ``deploy()``
 
 **Examples**
 

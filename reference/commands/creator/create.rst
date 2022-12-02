@@ -186,25 +186,26 @@ Methods execution order
 
 :command:`conan create` executes methods of a *conanfile.py* in the following order:
 
-1. ``export_sources()``
-2. ``config_options()``
-3. ``configure()``
-4. ``layout()``
-5. ``requirements()``
-6. ``package_id()``
-7. ``validate()``
-8. ``validate_build()``
-9. ``build_requirements()``
-10. ``build_id()``
-11. ``system_requirements()``
-12. ``source()``
-13. ``generate()``
-14. ``imports()``
-15. ``build()``
-16. ``package()``
-17. ``package_info()``
+1. ``export()``
+2. ``export_sources()``
+3. ``config_options()``
+4. ``configure()``
+5. ``layout()``
+6. ``requirements()``
+7. ``package_id()``
+8. ``validate()``
+9. ``validate_build()``
+10. ``build_requirements()``
+11. ``build_id()``
+12. ``system_requirements()``
+13. ``source()``
+14. ``generate()``
+15. ``imports()``
+16. ``build()``
+17. ``package()``
+18. ``package_info()``
 
-In case of installing a pre-built binary, steps from 8 to 16 will be skipped. Note that ``deploy()`` method is only used in
+In case of installing a pre-built binary, steps from 9 to 17 will be skipped. Note that ``deploy()`` method is only used in
 :command:`conan install`.
 
 .. note::
