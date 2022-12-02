@@ -41,7 +41,7 @@ packaging your own applications.
    creating_packages/preparing_the_build
    creating_packages/configure_options_settings
    creating_packages/build_packages
-   creating_packages/install_packages
+   creating_packages/package_method
    creating_packages/define_package_information
    creating_packages/test_conan_packages
    creating_packages/other_types_of_packages
