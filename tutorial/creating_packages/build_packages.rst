@@ -183,9 +183,9 @@ Now that we have gone through all the changes in the code, let's try them out:
     [100%] Linking CXX executable test_hello
     [100%] Built target test_hello
     hello/1.0: RUN: ./tests/test_hello
-    Capturing current environment in /Users/carlosz/.conan2/p/tmp/c51d80ef47661865/b/build/generators/deactivate_conanbuildenv-release-x86_64.sh
+    Capturing current environment in /Users/user/.conan2/p/tmp/c51d80ef47661865/b/build/generators/deactivate_conanbuildenv-release-x86_64.sh
     Configuring environment variables
-    Running main() from /Users/carlosz/.conan2/p/tmp/3ad4c6873a47059c/b/googletest/src/gtest_main.cc
+    Running main() from /Users/user/.conan2/p/tmp/3ad4c6873a47059c/b/googletest/src/gtest_main.cc
     [==========] Running 1 test from 1 test suite.
     [----------] Global test environment set-up.
     [----------] 1 test from HelloTest
