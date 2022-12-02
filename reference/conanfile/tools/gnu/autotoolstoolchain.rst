@@ -204,10 +204,14 @@ conf
 - ``tools.build:compiler_executables`` (new in version 1.55) dict-like Python object which specifies the compiler as key
   and the compiler executable path as value. Those keys will be mapped as follows:
 
+  * ``asm``: will set ``CCAS`` in *conanautotoolstoolchain.sh|bat* script.
   * ``c``: will set ``CC`` in *conanautotoolstoolchain.sh|bat* script.
   * ``cpp``: will set ``CXX`` in *conanautotoolstoolchain.sh|bat* script.
   * ``cuda``: will set ``NVCC`` in *conanautotoolstoolchain.sh|bat* script.
   * ``fortran``: will set ``FC`` in *conanautotoolstoolchain.sh|bat* script.
+
+  Moreover if build machine is Windows and values are paths, they will be curated during this mapping
+  (ie converted to unix path, and spaces removed if possible by converting folders to short names).
 
 
 Customizing the environment
