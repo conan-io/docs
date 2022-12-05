@@ -151,8 +151,8 @@ The syntax of ``self.copy`` inside ``package()`` is as follows:
 Returns: A list with absolute paths of the files copied in the destination folder.
 
 Parameters:
-    - **pattern** (Required): A pattern following fnmatch syntax of the files you want to copy, from the build to the package folders.
-      Typically something like ``*.lib`` or ``*.h``.
+    - **pattern** (Required): A pattern following `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_ syntax of the files
+      you want to copy, from the build to the package folders. Typically something like ``*.lib`` or ``*.h``.
     - **src** (Optional, Defaulted to ``""``): The folder where you want to search the files in the build folder. If you know that your
       libraries when you build your package will be in *build/lib*, you will typically use ``build/lib`` in this parameter. Leaving it empty
       means the root build folder in local cache.
@@ -935,14 +935,14 @@ The ``self.copy()`` method inside ``imports()`` supports the following arguments
     def copy(pattern, dst="", src="", root_package=None, folder=False, ignore_case=True, excludes=None, keep_path=True)
 
 Parameters:
-    - **pattern** (Required): An fnmatch file pattern of the files that should be copied.
+    - **pattern** (Required): An `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_ file pattern of the files that should be copied.
     - **dst** (Optional, Defaulted to ``""``): Destination local folder, with reference to current directory, to which the files will be
       copied.
     - **src** (Optional, Defaulted to ``""``): Source folder in which those files will be searched. This folder will be stripped from the
       dst parameter. E.g., `lib/Debug/x86`. It accepts symbolic folder names like ``@bindirs`` and ``@libdirs`` which will map to the
       ``self.cpp_info.bindirs`` and ``self.cpp_info.libdirs`` of the source package, instead of a hardcoded name.
-    - **root_package** (Optional, Defaulted to *all packages in deps*): An fnmatch pattern of the package name ("OpenCV", "Boost") from
-      which files will be copied.
+    - **root_package** (Optional, Defaulted to *all packages in deps*): An `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_
+      pattern of the package name ("OpenCV", "Boost") from which files will be copied.
     - **folder** (Optional, Defaulted to ``False``): If enabled, it will copy the files from the local cache to a subfolder named as the
       package containing the files. Useful to avoid conflicting imports of files with the same name (e.g. License).
     - **ignore_case** (Optional, Defaulted to ``True``): If enabled, it will do a case-insensitive pattern matching.

@@ -249,7 +249,8 @@ Possible values are:
 * :command:`--build=cascade`: Conan selects packages for the build where at least one of its
   dependencies is selected for the build. This is useful to rebuild packages that, directly or
   indirectly, depend on changed packages.
-* :command:`--build=[pattern]`: A fnmatch case-sensitive pattern of a package reference or only the package name.
+* :command:`--build=[pattern]`: A `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_ case-sensitive pattern
+  of a package reference or only the package name.
   Conan will force the build of the packages whose reference matches the given
   **pattern**. Several patterns can be specified, chaining multiple options:
 
@@ -257,7 +258,8 @@ Possible values are:
    - e.g., :command:`--build=zlib` will match any package named ``zlib`` (same as ``zlib/*``).
    - e.g., :command:`--build=z*@conan/stable` will match any package starting with ``z`` with ``conan/stable`` as user/channel.
 
-* :command:`--build=![pattern]`: A fnmatch case-sensitive pattern of a package reference or only the package name.
+* :command:`--build=![pattern]`: A `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_ case-sensitive pattern
+  of a package reference or only the package name.
   Conan will exclude the build of the packages whose reference matches the given
   **pattern**. Several patterns can be specified, chaining multiple options:
 

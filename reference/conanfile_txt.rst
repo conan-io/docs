@@ -113,8 +113,8 @@ The ``[imports]`` section also support the same arguments as the equivalent ``im
     e.g: ``lib, * -> /home/jenkins/workspace/conan_test@2/g/install/lib @``
 
 
-- **root_package** (Optional, Defaulted to *all packages in deps*): fnmatch pattern of the package name ("OpenCV", "Boost") from which files
-  will be copied.
+- **root_package** (Optional, Defaulted to *all packages in deps*): `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_ pattern
+  of the package name ("OpenCV", "Boost") from which files will be copied.
 - **folder**: (Optional, Defaulted to ``False``). If enabled, it will copy the files from the local cache to a subfolder named as the
   package containing the files. Useful to avoid conflicting imports of files with the same name (e.g. License).
 - **ignore_case**: (Optional, Defaulted to ``False``). If enabled will do a case-insensitive pattern matching.
