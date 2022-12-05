@@ -18,17 +18,20 @@ Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>
     def copy(conanfile, pattern, src, dst, keep_path=True, excludes=None, ignore_case=True)
 
 
-Copy the files matching the ``pattern`` (fnmatch) at the ``src`` folder to a ``dst`` folder.
+Copy the files matching the ``pattern`` (`fnmatch <https://docs.python.org/3/library/fnmatch.html>`_)
+at the ``src`` folder to a ``dst`` folder.
 
 Parameters:
     - **conanfile**: Conanfile object.
-    - **pattern**: An fnmatch file pattern of the files that should be copied. It must not start with ``..`` relative path or an exception will be raised.
+    - **pattern**: An `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_ file pattern of the files that should be copied.
+      It must not start with ``..`` relative path or an exception will be raised.
     - **src**: Source folder in which those files will be searched. This folder will be stripped from the
       dst parameter. E.g., `lib/Debug/x86`.
     - **dst**: Destination local folder. It must be different from ``src`` value or an exception will be raised.
     - **keep_path**: Means if you want to keep the relative path when you copy the files from the **src**
       folder to the **dst** one.
-    - **excludes**: A tuple/list of fnmatch patterns or even a single one to be excluded from the copy.
+    - **excludes**: A tuple/list of `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_ patterns or even a single one
+      to be excluded from the copy.
     - **ignore_case**: If enabled, it will do a case-insensitive pattern matching.
 
 .. note::
@@ -158,7 +161,7 @@ Available since: `1.50.0 <https://github.com/conan-io/conan/releases/tag/1.50.0>
     def rm(conanfile, pattern, folder, recursive=False)
 
 
-Remove the files following the ``pattern`` (fnmatch) from the specified ``folder``.
+Remove the files following the ``pattern`` (`fnmatch <https://docs.python.org/3/library/fnmatch.html>`_) from the specified ``folder``.
 
 .. code-block:: python
 
@@ -169,7 +172,7 @@ Remove the files following the ``pattern`` (fnmatch) from the specified ``folder
 
 Parameters:
     - **conanfile**: Conanfile object.
-    - **pattern**: Pattern that the files to be removed have to match (fnmatch).
+    - **pattern**: Pattern that the files to be removed have to match (`fnmatch <https://docs.python.org/3/library/fnmatch.html>`_).
     - **folder**: Folder to search/remove the files.
     - **recursive**: If ``recursive`` is specified it will search in the subfolders.
 
@@ -307,8 +310,8 @@ Parameters:
     - **pattern**: Extract from the archive only paths matching the pattern. This should be a Unix
       shell-style wildcard. See `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_ documentation for more details.
     - **strip_root**: When ``True`` and the ZIP file contains one folder containing all the contents,
-      it will strip the root folder moving all its contents to the root. E.g: *mylib-1.2.8/main.c* will be extracted as *main.c*. If the compressed
-      file contains more than one folder or only a file it will raise a ``ConanException``.
+      it will strip the root folder moving all its contents to the root. E.g: *mylib-1.2.8/main.c* will be extracted as *main.c*.
+      If the compressed file contains more than one folder or only a file it will raise a ``ConanException``.
 
 
 conan.tools.files.update_conandata()
