@@ -306,7 +306,7 @@ as a ``tool_requires`` or ``test_requires``:
             self.test_requires(self.tested_reference_str)
 
 
-If for some reason, it is necessary to test the same package both as a regular require and a tool_require,
+If for some reason, it is necessary to test the same package both as a regular require and a ``tool_require``,
 then it is possible to specify:
 
 .. code-block:: python
