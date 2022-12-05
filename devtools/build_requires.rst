@@ -159,10 +159,10 @@ in the ``build`` context, with different package IDs. Conan will propagate the p
 Properties of tool requirements
 --------------------------------
 
-The behavior of ``tool_requires`` is the same irrespective if they are defined in the profile or if defined in the package recipe.
+The behavior of ``tool_requires`` is the same irrespective of whether they are defined in the profile or in the package recipe.
 
-- They will only be retrieved and installed if some package that has to be built from sources and matches the declared pattern. Otherwise,
-  they will not even be checked for existence.
+- They will only be retrieved and installed if there is some package that has to be built from sources and matches the declared pattern.
+  Otherwise, they will not even be checked for existence.
 - Options and environment variables declared in the profile as well as in the command line will affect the tool requirements for packages.
   In that way, you can define, for example, for the ``cmake/3.16.3`` package which CMake version will be installed.
 - Tool requirements will be activated for matching packages, see the section above about :ref:`tool requires context <build_requires_context>`
@@ -181,7 +181,7 @@ The behavior of ``tool_requires`` is the same irrespective if they are defined i
 Example: testing framework and build tool
 -----------------------------------------
 
-One example of tool requirement is a testing framework implemented as a library, another good example is a build tool used
+One example of a tool requirement is a testing framework implemented as a library, another good example is a build tool used
 in the compile process. Let's call them ``mytest_framework`` and ``cmake_turbo``, and imagine we already have a package available
 for both of them.
 
@@ -262,7 +262,7 @@ Making tool_requires affect the consumers package-ID
     This subsection should be considered a workaround, not a feature, and it might have other side effects, that will not be fixed
     as this is not recommended production code.
 
-As discussed above, the ``tool_requires`` do not affect at all the package ID. As they will not be present at all when the ``package_id``
+As discussed above, the ``tool_requires`` does not affect at all the package ID. As they will not be present at all when the ``package_id``
 is computed, it cannot be part of it. It is possible that this might change in the future in Conan 2.0, but at the moment it is not.
 In the meantime, there is a possible workaround that might be used if this is very needed: using ``python_requires`` to point to the
 same ``tool_requires`` package. Something like:
@@ -306,7 +306,7 @@ as a ``tool_requires`` or ``test_requires``:
             self.test_requires(self.tested_reference_str)
 
 
-If for some reason, it is necessary to test the same package both as a regular require and a build_require,
+If for some reason, it is necessary to test the same package both as a regular require and a tool_require,
 then it is possible to specify:
 
 .. code-block:: python

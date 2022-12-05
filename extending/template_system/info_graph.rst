@@ -6,8 +6,8 @@ Graph output for :command:`conan info` command
 
 .. warning::
 
-    This has to be an considered as an **experimental** feature, we might
-    change the context provided to this templates once we have more exmpales
+    This has to be considered as an **experimental** feature, we might
+    change the context provided to these templates once we have more examples
     from the community.
 
 
@@ -54,11 +54,11 @@ The ``Node`` objects in the context provide all the required information about e
 Examples
 --------
 
-This is are two examples of templates Conan is currently using for the basic functionality,
-you can refer to the `Jinja2 documentation <https://palletsprojects.com/p/jinja/>`_ for more
-information about the logic and filters your can use in these templates. 
+These are two examples of templates that Conan is currently using for the basic functionality.
+You can refer to the `Jinja2 documentation <https://palletsprojects.com/p/jinja/>`_ for more
+information about the logic and filters you can use in these templates.
 
-Let's us know if you have a cool template you want to share with the Conan community.
+Let us know if you have a cool template you want to share with the Conan community.
 
 
 Dot files:
@@ -117,7 +117,7 @@ In this example we assume you have distributed the following files to your cache
     <cache>/templates/output/info_graph.html
 
 
-Our template will we the *info_graph.html* file, and it will use the assets from the
+Our template will be the *info_graph.html* file, and it will use the assets from the
 local files provided in the cache (most use cases will use files from the internet using
 the full URL).
 

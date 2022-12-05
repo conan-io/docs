@@ -31,7 +31,7 @@ To make any contribution to Conan documentation fork this repository and open a 
 Style Guidelines
 ----------------
 
-This guidelines are just general good practices for the formatting and structure of the whole documentation and do not pretend to be a
+These guidelines are just general good practices for the formatting and structure of the whole documentation and do not pretend to be a
 stopper for any helpful contribution. Any contribution that may include relevant information for Conan users will always be welcomed.
 
 Conan documentation is written in [reStructuredText](http://docutils.sourceforge.net/rst.html) and
