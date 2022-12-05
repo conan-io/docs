@@ -262,7 +262,7 @@ Making tool_requires affect the consumers package-ID
     This subsection should be considered a workaround, not a feature, and it might have other side effects, that will not be fixed
     as this is not recommended production code.
 
-As discussed above, the ``tool_requires`` does not affect at all the package ID. As they will not be present at all when the ``package_id``
+As discussed above, the ``tool_requires`` do not affect at all the package ID. As they will not be present at all when the ``package_id``
 is computed, it cannot be part of it. It is possible that this might change in the future in Conan 2.0, but at the moment it is not.
 In the meantime, there is a possible workaround that might be used if this is very needed: using ``python_requires`` to point to the
 same ``tool_requires`` package. Something like:
