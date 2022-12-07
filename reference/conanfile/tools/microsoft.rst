@@ -650,8 +650,8 @@ Or it can be fully instantiated in the conanfile ``generate()`` method:
 NMakeToolchain generator will create a ``conannmaketoolchain.bat`` environment script injecting flags
 deduced from profile (build_type, runtime, cppstd, build flags from conf) into environment variables
 NMake can understand: ``CL``, ``_LINK_``, ``CFLAGS``, ``CPPFLAGS`` and ``CXXFLAGS``.
-It will also generate a ``conanvcvars.bat`` script that activates the correct VS prompt
-matching the Conan settings ``compiler`` and ``compiler.version``.
+It will also generate a ``conanvcvars.bat`` script that activates the correct VS prompt matching the
+Conan host settings ``arch``, ``compiler`` and ``compiler.version``, and build settings ``arch``.
 
 constructor
 +++++++++++
