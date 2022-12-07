@@ -628,7 +628,7 @@ This generator can be used as:
         generators = "NMakeToolchain"
 
         def build(self):
-            self.run(f"nmake /f makefile")
+            self.run("nmake /f makefile")
 
 Or it can be fully instantiated in the conanfile ``generate()`` method:
 
@@ -645,7 +645,7 @@ Or it can be fully instantiated in the conanfile ``generate()`` method:
             tc.generate()
 
         def build(self):
-            self.run(f"nmake /f makefile")
+            self.run("nmake /f makefile")
 
 The generator will create a ``conannmaketoolchain.bat`` environment script injecting flags
 deduced from profile (build_type, runtime, cppstd, build flags from conf) into environment variables
