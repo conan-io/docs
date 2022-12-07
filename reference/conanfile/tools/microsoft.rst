@@ -612,7 +612,7 @@ to locate and link the dependencies declared in ``requires``.
 This generator should most likely be used together with ``NMakeToolchain`` one.
 
 
-NMaketoolchain
+NMakeToolchain
 --------------
 
 Available since: `1.55.0 <https://github.com/conan-io/conan/releases/tag/1.55.0>`_
@@ -647,7 +647,7 @@ Or it can be fully instantiated in the conanfile ``generate()`` method:
         def build(self):
             self.run("nmake /f makefile")
 
-The generator will create a ``conannmaketoolchain.bat`` environment script injecting flags
+NMakeToolchain generator will create a ``conannmaketoolchain.bat`` environment script injecting flags
 deduced from profile (build_type, runtime, cppstd, build flags from conf) into environment variables
 NMake can understand: ``CL``, ``_LINK_``, ``CFLAGS``, ``CPPFLAGS`` and ``CXXFLAGS``.
 It will also generate a ``conanvcvars.bat`` script that activates the correct VS prompt
