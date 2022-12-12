@@ -65,18 +65,19 @@ We can see a couple of things:
 Setting information in the package_info() method
 ------------------------------------------------
 
-Besides what we already learned to do in the ``package_info()`` method there are
-also other typical use cases, for example:
+Besides what we already learned to do in the ``package_info()`` method, there are
+also other typical use cases:
 
 - Define information for consumers depending on settings or options
-- Customizing certain information that generators produce for consumers, things like
-  the target names for CMake or the generated files names for pkg-config
+- Customizing certain information that generators provide to consumers, like the target
+  names for CMake or the generated files names for pkg-config for example
 - Propagating configuration values to consumers
 - Propagating environment information to consumers
 - Define components for Conan packages that provide multiple libraries
 
-Let's see some of those. First, clone the project sources again. You can find them in the
-`examples2.0 repository <https://github.com/conan-io/examples2>`_ on GitHub:
+Let's see some of those. First, clone the project sources if you already didn't. You can
+find them in the `examples2.0 repository <https://github.com/conan-io/examples2>`_ on
+GitHub:
 
 .. code-block:: bash
 
@@ -93,7 +94,7 @@ Changes introduced in the library sources
 
 First, please note that we are using `other branch
 <https://github.com/czoido/libhello/tree/package_info>`_ from the **libhello** library.
-Let's check the *CMakeLists.txt* to build the library:
+Let's check the library's *CMakeLists.txt*:
 
 
 .. code-block:: text
