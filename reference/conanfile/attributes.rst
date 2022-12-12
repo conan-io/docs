@@ -378,7 +378,7 @@ requires
     .. code-block:: python
 
         class MyLibConan(ConanFile):
-            requires = "hello/1.0", "OtherLib/2.1@otheruser/testing"
+            requires = "hello/1.0", "otherlib/2.1@otheruser/testing"
 
 
   You can specify version ranges, the syntax is using brackets:

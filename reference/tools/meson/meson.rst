@@ -29,3 +29,15 @@ Reference
 
 .. autoclass:: Meson
     :members:
+
+
+conf
+----
+
+The ``Meson`` build helper is affected by these ``[conf]`` variables:
+
+- ``tools.meson.mesontoolchain:extra_machine_files=[<FILENAME>]`` configuration to add
+  your machine files at the end of the command using the correct parameter depending on
+  native or cross builds. See `this Meson reference
+  <https://mesonbuild.com/Machine-files.html#loading-multiple-machine-files>`_ for more
+  information.

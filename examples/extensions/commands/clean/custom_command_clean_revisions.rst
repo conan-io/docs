@@ -86,17 +86,18 @@ The ``conan clean`` command has the following code:
 .. code-block:: python
     :caption: cmd_clean.py
 
-    from conan.api.conan_api import ConanAPIV2
+    from conan.api.conan_api import ConanAPI
     from conan.api.output import ConanOutput, Color
     from conan.cli.command import OnceArgument, conan_command
     from conans.client.userio import UserInput
+
 
     recipe_color = Color.BRIGHT_BLUE
     removed_color = Color.BRIGHT_YELLOW
 
 
     @conan_command(group="Custom commands")
-    def clean(conan_api: ConanAPIV2, parser, *args):
+    def clean(conan_api: ConanAPI, parser, *args):
         """
         Deletes (from local cache or remotes) all recipe and package revisions but
         the latest package revision from the latest recipe revision.
@@ -130,12 +131,15 @@ The ``conan clean`` command has the following code:
                     out.writeln(f"Removed recipe revision: {rrev.repr_notime()} "
                                 f"and all its package revisions [{output_remote}]", fg=removed_color)
                 else:
-                    all_prevs = conan_api.search.package_revisions(f"{rrev.repr_notime()}:*#*", remote=remote)
-                    latest_prev = all_prevs[0] if all_prevs else None
-                    for prev in all_prevs:
+                    packages = conan_api.list.packages_configurations(rrev, remote=remote)
+                    for package_ref in packages:
+                        all_prevs = conan_api.list.package_revisions(package_ref, remote=remote)
+                        latest_prev = all_prevs[0] if all_prevs else None
+                        for prev in all_prevs:
                         if prev != latest_prev:
                             conan_api.remove.package(prev, remote=remote)
                             out.writeln(f"Removed package revision: {prev.repr_notime()} [{output_remote}]", fg=removed_color)
+
 
 
 Let's analize the most important parts.
@@ -178,7 +182,8 @@ which are being used in this custom command:
     conan_api.search.recipes("*/*", remote=remote)
     conan_api.list.recipe_revisions(recipe, remote=remote)
     conan_api.remove.recipe(rrev, remote=remote)
-    conan_api.search.package_revisions(f"{rrev.repr_notime()}:*#*", remote=remote)
+    conan_api.list.packages_configurations(rrev, remote=remote)
+    conan_api.list.package_revisions(package_ref, remote=remote)
     conan_api.remove.package(prev, remote=remote)
 
 
@@ -186,8 +191,9 @@ which are being used in this custom command:
 * ``conan_api.remotes.get(...)``: ``[RemotesAPI]`` Returns a RemoteRegistry given the remote name.
 * ``conan_api.search.recipes(...)``: ``[SearchAPI]`` Returns a list with all the recipes matching the given pattern.
 * ``conan_api.list.recipe_revisions(...)``: ``[ListAPI]`` Returns a list with all the recipe revisions given a recipe reference.
+* ``conan_api.list.packages_configurations(...)``: ``[ListAPI]`` Returns the list of different configurations (package_id's) for a recipe revision.
+* ``conan_api.list.package_revisions(...)``: ``[ListAPI]`` Returns the list of package revisions for a given recipe revision.
 * ``conan_api.remove.recipe(...)``: ``[RemoveAPI]`` Removes the given recipe revision.
-* ``conan_api.search.package_revisions(...)``: ``[SearchAPI]`` Returns the list of package revisions for a given recipe revision.
 * ``conan_api.remove.package(...)``: ``[RemoveAPI]`` Removes the given package revision.
 
 Besides that, it deserves especial attention these lines:
@@ -196,13 +202,19 @@ Besides that, it deserves especial attention these lines:
 
     all_rrevs = conan_api.list.recipe_revisions(recipe, remote=remote)
     latest_rrev = all_rrevs[0] if all_rrevs else None
-    # .......
-    all_prevs = conan_api.search.package_revisions(f"{rrev.repr_notime()}:*#*", remote=remote)
+
+    ...
+
+    packages = conan_api.list.packages_configurations(rrev, remote=remote)
+
+    ...
+
+    all_prevs = conan_api.list.package_revisions(package_ref, remote=remote)
     latest_prev = all_prevs[0] if all_prevs else None
 
-Basically, these API calls are returning a list of recipe revisions and package ones respectively, but we're saving the
-first element as the latest one because these calls are getting an ordered list always. Take into account that it's using
-``rrev.repr_notime()`` because it represents the recipe revision as a string and pruning the timestamps.
+Basically, these API calls are returning a list of recipe revisions and package ones
+respectively, but we're saving the first element as the latest one because these calls are
+getting an ordered list always.
 
 
-If you want to know more about the Conan API, visit the :ref:`ConanAPIV2 section<reference_python_api_conan_api_v2>`
+If you want to know more about the Conan API, visit the :ref:`ConanAPI section<reference_python_api_conan_api>`
