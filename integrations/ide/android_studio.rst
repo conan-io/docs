@@ -104,6 +104,7 @@ that will call :command:`conan install` to install the requirements:
    preBuild.dependsOn conanInstall
 
 10. Finally open the default example cpp library in ``app/src/main/cpp/native-lib.cpp`` and include some lines using your library.
+
    Be careful with the JNICALL name if you used another app name in the wizard:
 
 
