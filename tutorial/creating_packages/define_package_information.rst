@@ -192,11 +192,12 @@ As you can see both the tests and the Conan test_package linked against the
 Properties model: setting information for specific generators
 -------------------------------------------------------------
 
-The CppInfo object provides one method to set information specific to each generator. For
-example, in this tutorial we are using the :ref:`CMakeDeps<CMakeDeps>` generator to create
-all the information that CMake needs to build a project that requires our library. ``CMakeDeps``,
-by default, will generate a target name for the library using the same name as the Conan
-package. If you have a look at that *CMakeLists.txt* from the *test_package*:
+The ``CppInfo`` object provides the ``set_property`` method to set information specific to
+each generator. For example, in this tutorial we are using the :ref:`CMakeDeps<CMakeDeps>`
+generator to create all the information that CMake needs to build a project that requires
+our library. ``CMakeDeps``, by default, will generate a target name for the library using
+the same name as the Conan package. If you have a look at that *CMakeLists.txt* from the
+*test_package*:
 
 .. code-block:: cmake
     :caption: test_package *CMakeLists.txt*
@@ -210,9 +211,9 @@ package. If you have a look at that *CMakeLists.txt* from the *test_package*:
     add_executable(example src/example.cpp)
     target_link_libraries(example hello::hello)
 
-You can see that we are using the target name ``hello::hello``. This is the target name
-that Conan creates by default, but we can change it using the properties model. Let's try
-to change it to the name ``hellotarget``. To do this, we have to set the property
+You can see that we are linking with the target name ``hello::hello``. This is the target
+name that Conan creates by default, but we can change it using the properties model. Let's
+try to change it to the name ``hellotarget``. To do this, we have to set the property
 ``cmake_target_name`` in the package_info method of our *hello/1.0* Conan package:
 
 
