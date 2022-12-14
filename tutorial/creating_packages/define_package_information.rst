@@ -65,8 +65,8 @@ We can see a couple of things:
 Setting information in the package_info() method
 ------------------------------------------------
 
-Besides what we already learned to do in the ``package_info()`` method, there are
-also other typical use cases:
+Besides what we explained above about the information you can set in the
+``package_info()`` method, there are some typical use cases:
 
 - Define information for consumers depending on settings or options
 - Customizing certain information that generators provide to consumers, like the target
@@ -84,6 +84,9 @@ GitHub:
     $ git clone https://github.com/conan-io/examples2.git
     $ cd examples2/tutorial/creating_packages/package_information
 
+
+Define information for consumers depending on settings or options
+-----------------------------------------------------------------
 
 For this section of the tutorial we introduced some changes in the library and recipe.
 Let's check the relevant parts:
@@ -116,7 +119,7 @@ Let's check the library's *CMakeLists.txt*:
 
     ...
 
-As you can see, we are setting the output name for the library depending if we are
+As you can see, we are setting the output name for the library depending on if we are
 building the library as static (*hello-static*) or shared (*hello-shared*). Now let's see
 how to translate these changes to the Conan recipe.
 
@@ -125,7 +128,7 @@ Changes introduced in the recipe
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 First we have to conditionally set the library name depending on the
-``self.options.shared`` option.
+``self.options.shared`` option in the ``package_info()`` method.
 
 .. code-block:: python
     :caption: *conanfile.py*
@@ -150,9 +153,10 @@ First we have to conditionally set the library name depending on the
                 self.cpp_info.libs = ["hello-static"]
 
 
-Now, let's create the Conan package with ``shared=False`` (that's the default) and check
-that we are packaging the correct library (*libhello-static.a* or *hello-static.lib*) and
-that we are linking the correct library in the *test_package*.
+Now, let's create the Conan package with ``shared=False`` (that's the default so no need
+to set it explicitly) and check that we are packaging the correct library
+(*libhello-static.a* or *hello-static.lib*) and that we are linking the correct library in
+the *test_package*.
 
 .. code-block:: bash
     :emphasize-lines: 4,14,22
@@ -186,8 +190,8 @@ that we are linking the correct library in the *test_package*.
     hello/1.0 (test package): RUN: ./example
     hello/1.0: Hello World Release! (with color!)
 
-As you can see both the tests and the Conan test_package linked against the
-*libhello-static.a* library successfully.
+As you can see both the tests for the library and the Conan *test_package* linked against
+the *libhello-static.a* library successfully.
 
 Properties model: setting information for specific generators
 -------------------------------------------------------------
@@ -276,28 +280,15 @@ And re-create the package:
 You can see how Conan declares now the ``hellotarget`` instead of the default
 ``hello::hello`` and the *test_package* builds successfully.
 
+Propagating configuration or environment information to consumers
+-----------------------------------------------------------------
 
-First, please note that we are using `another branch
-<https://github.com/conan-io/libhello/tree/with_tests>`_ from the **libhello** library. This
-branch has two novelties on the library side:
+conf_info, buildenv_info and runenv_info
+
+
+Define components for Conan packages that provide multiple libraries
+--------------------------------------------------------------------
 
 - Package to another place. Imagine that we are packaging our library files in other
   place... let's see how to change that... Add flags, defines, system_libs...
-- Different library names for debug/release
-- Use options to propagate information conditionally
 - Add a system_lib dependency ? add flags ? 
-- Set target names for libraries ?
-- Introduce properties ?
-- Talk about self.conf_info...
-
-Providing environment information
----------------------------------
-
-buildenv_info and runenv_info
-
-
-Read more
----------
-
-- Using components
-- 
