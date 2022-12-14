@@ -262,9 +262,9 @@ we can see them with:
           arch=x86_64
           build_type=Release
           compiler=apple-clang
-          compiler.cppstd=gnu98
+          compiler.cppstd=gnu11
           compiler.libcxx=libc++
-          compiler.version=13
+          compiler.version=14
           os=Macos
         options:
           fPIC=True
@@ -274,9 +274,9 @@ we can see them with:
           arch=x86_64
           build_type=Debug
           compiler=apple-clang
-          compiler.cppstd=gnu98
+          compiler.cppstd=gnu11
           compiler.libcxx=libc++
-          compiler.version=13
+          compiler.version=14
           os=Macos
         options:
           fPIC=True
@@ -286,9 +286,9 @@ we can see them with:
           arch=x86_64
           build_type=Release
           compiler=apple-clang
-          compiler.cppstd=gnu98
+          compiler.cppstd=gnu11
           compiler.libcxx=libc++
-          compiler.version=13
+          compiler.version=14
           os=Macos
         options:
           fPIC=True
