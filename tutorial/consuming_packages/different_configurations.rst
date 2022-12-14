@@ -43,9 +43,9 @@ folder:
     os=Macos
     arch=x86_64
     compiler=apple-clang
-    compiler.version=13.0
+    compiler.version=14.0
     compiler.libcxx=libc++
-    compiler.cppstd=gnu98
+    compiler.cppstd=gnu11
     build_type=Release
     [options]
     [tool_requires]
@@ -77,9 +77,9 @@ with that profile. One example of a *debug* profile could be:
     os=Macos
     arch=x86_64
     compiler=apple-clang
-    compiler.version=13.0
+    compiler.version=14.0
     compiler.libcxx=libc++
-    compiler.cppstd=gnu98
+    compiler.cppstd=gnu11
     build_type=Debug
 
 

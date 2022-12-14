@@ -109,7 +109,7 @@ colour now:
 
 .. code-block:: bash
 
-    $ conan create . --build=missing -s compiler.cppstd=gnu11
+    $ conan create . --build=missing
     -------- Exporting the recipe ----------
     ...
     -------- Testing the package: Running test() ----------
@@ -123,10 +123,6 @@ colour now:
       hello/1.0: __clang_major__ 13
       hello/1.0: __clang_minor__ 1
       hello/1.0: __apple_build_version__ 13160021
-
-Note that we passed the ``-s compiler.cppstd=11`` argument to the :command:`conan
-create` command to override the C++ standard used in the default profile. You can set the
-C++ standard of your choice or leave the default one as long as it is higher than C++11.
 
 Read more
 ---------

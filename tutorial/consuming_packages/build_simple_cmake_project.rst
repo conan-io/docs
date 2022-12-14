@@ -137,29 +137,39 @@ This will detect the operating system, build architecture and compiler settings 
 the environment. It will also set the build configuration as *Release* by default. The
 generated profile will be stored in the Conan home folder with name *default* and will be
 used by Conan in all commands by default unless another profile is specified via the command
-line. After executing the command you should see some output similar to this but for your
-configuration:
+line. An example of the output of this command for MacOS would be:
 
 .. code-block:: ini
 
     $ conan profile detect --force
-    CC and CXX: /usr/bin/gcc, /usr/bin/g++ 
-    Found gcc 10
-    gcc>=5, using the major as version
-    gcc C++ standard library: libstdc++11
+    Found apple-clang 14.0
+    apple-clang>=13, using the major as version
     Detected profile:
     [settings]
-    os=Linux
     arch=x86_64
-    compiler=gcc
-    compiler.version=10
-    compiler.libcxx=libstdc++11
-    compiler.cppstd=gnu14
     build_type=Release
-    [options]
-    [tool_requires]
-    [env]
-    ...
+    compiler=apple-clang
+    compiler.cppstd=gnu98
+    compiler.libcxx=libc++
+    compiler.version=14
+    os=Macos
+
+.. note:: **A note about the detected C++ standard by Conan**
+
+    Conan will always set the default C++ standard as the one that the detected compiler
+    version uses by default. In this case, for apple-clang 14, it sets
+    ``compiler.cppstd=gnu98`` but as we are going to use libraries through the tutorial that
+    require a higher C++ standard, we have to update our profile to use at least C++ 11. To do
+    that, you can edit the default profile file directly. First, get the location of the
+    default profile using:
+
+    .. code-block:: bash
+
+        $ conan profile path default
+        /Users/user/.conan2/profiles/default
+
+    Then open and edit the file and set ``compiler.cppstd`` to at least C++ 11, by setting
+    ``compiler.cppstd=gnu11`` or ``compiler.cppstd=11``
 
 We will use Conan to install **Zlib** and generate the files that CMake needs to
 find this library and build our project. We will generate those files in the folder
