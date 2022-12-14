@@ -280,11 +280,21 @@ And re-create the package:
 You can see how Conan declares now the ``hellotarget`` instead of the default
 ``hello::hello`` and the *test_package* builds successfully.
 
-Propagating configuration or environment information to consumers
+Propagating environment information to consumers
+------------------------------------------------
+
+You can provide environment information to consumers in the ``package_info()``. To do so
+you can use the ConanFile's :ref:`runenv_info<conan_conanfile_attributes_runenv_info>` and
+:ref:`buildenv_info<conan_conanfile_attributes_buildenv_info>` properties:
+
+* ``runenv_info`` 
+* ``buildenv_info`` 
+
+
+Propagating configuration information to consumers
 -----------------------------------------------------------------
 
-conf_info, buildenv_info and runenv_info
-
+conf_info
 
 Define components for Conan packages that provide multiple libraries
 --------------------------------------------------------------------
@@ -292,3 +302,10 @@ Define components for Conan packages that provide multiple libraries
 - Package to another place. Imagine that we are packaging our library files in other
   place... let's see how to change that... Add flags, defines, system_libs...
 - Add a system_lib dependency ? add flags ? 
+
+
+Read more
+---------
+
+- Example on runenv_info and buildend_info
+- ...
