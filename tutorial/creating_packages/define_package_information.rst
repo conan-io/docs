@@ -280,32 +280,43 @@ And re-create the package:
 You can see how Conan declares now the ``hellotarget`` instead of the default
 ``hello::hello`` and the *test_package* builds successfully.
 
-Propagating environment information to consumers
-------------------------------------------------
+Propagating environment or configuration information to consumers
+-----------------------------------------------------------------
 
 You can provide environment information to consumers in the ``package_info()``. To do so
 you can use the ConanFile's :ref:`runenv_info<conan_conanfile_attributes_runenv_info>` and
 :ref:`buildenv_info<conan_conanfile_attributes_buildenv_info>` properties:
 
-* ``runenv_info`` 
-* ``buildenv_info`` 
+* ``runenv_info`` :ref:`Environment<conan_tools_env_environment_model>` object
+  with information that may be necessary to **run** the consumers that use the package.
 
+* ``buildenv_info`` :ref:`Environment<conan_tools_env_environment_model>` object
+  with information that may be necessary to **build** the consumers that use the package.
 
-Propagating configuration information to consumers
------------------------------------------------------------------
+You can also define configuration values in the ``package_info()`` so that consumers can
+use that information. This is done using the
+:ref:`conf_info<conan_conanfile_model_conf_info>` property of the ConanFile.
 
-conf_info
+To know more about this use case, please check the :ref:`corresponding
+example<examples_conanfile_package_info_conf_and_env>`.
 
 Define components for Conan packages that provide multiple libraries
 --------------------------------------------------------------------
 
-- Package to another place. Imagine that we are packaging our library files in other
-  place... let's see how to change that... Add flags, defines, system_libs...
-- Add a system_lib dependency ? add flags ? 
+There are cases in which a Conan package may provide multiple libraries, for these cases
+you can set the separate information for each of those libraries using the components
+attribute from the :ref:`CppInfo<conan_conanfile_model_cppinfo_attributes>` object.
+
+To know more about this use case, please check the :ref:`corresponding
+example<examples_conanfile_package_info_components>`.
 
 
 Read more
 ---------
 
-- Example on runenv_info and buildend_info
+.. container:: examples
+
+    - :ref:`Propagating environment and configuration information to consumers example<examples_conanfile_package_info_conf_and_env>`
+    - :ref:`Define components for Conan packages that provide multiple libraries example<examples_conanfile_package_info_components>`
+
 - ...
