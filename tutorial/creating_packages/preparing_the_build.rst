@@ -163,7 +163,7 @@ on the value of the option.
 
 .. code-block:: bash
 
-    $ conan create . --build=missing -s compiler.cppstd=gnu11 -o with_fmt=True
+    $ conan create . --build=missing -o with_fmt=True
     -------- Exporting the recipe ----------
     ...
 
