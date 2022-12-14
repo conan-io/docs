@@ -116,15 +116,15 @@ Let's check the library's *CMakeLists.txt*:
 
     ...
 
-As you can see, now we are setting the output name for the library depending if we are
-building the library as static or shared. Now let's see how to translate these changes to
-the Conan recipe.
+As you can see, we are setting the output name for the library depending if we are
+building the library as static (*hello-static*) or shared (*hello-shared*). Now let's see
+how to translate these changes to the Conan recipe.
 
 
 Changes introduced in the recipe
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-First we have to conditionally set the library nanme depending on the
+First we have to conditionally set the library name depending on the
 ``self.options.shared`` option.
 
 .. code-block:: python
