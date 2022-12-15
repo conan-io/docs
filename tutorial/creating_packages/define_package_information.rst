@@ -1,16 +1,24 @@
 Define the package information for consumers
 ============================================
 
-In the previous tutorial section, we explained how to store the headers and binaries of a
-library in a Conan package. These files are reused by consumers that depend on the package
-but we have to provide some additional information so that Conan can pass that to the
-build system and consumers can build the package.
+.. important::
 
-For instance, in our example, we are building a static library named *hello* that once
-it's built will result in a *libhello.a* file in Linux and macOS or a *hello.lib* file in
-Windows. Also, we are packaging a header file *hello.h* with the declaration of the
-library functions. The Conan package ends up with the following structure in the Conan
-local cache:
+    In this example, we retrieve the *fmt* Conan package from a Conan repository with
+    packages compatible with Conan 2.0. To run this example successfully you should add this
+    remote to your Conan configuration (if did not already do it) doing:
+    ``conan remote add conanv2 https://conanv2beta.jfrog.io/artifactory/api/conan/conan --index 0``
+
+
+In the previous tutorial section, we explained how to store the headers and binaries of a
+library in a Conan package using the :ref:`package
+method<creating_packages_package_method>`. Consumers that depend on that package will
+reuse those files, but we have to provide some additional information so that Conan can
+pass that to the build system and consumers can build the package.
+
+For instance, in our example, we are building a static library named *hello* that will
+result in a *libhello.a* file in Linux and macOS or a *hello.lib* file in Windows. Also,
+we are packaging a header file *hello.h* with the declaration of the library functions.
+The Conan package ends up with the following structure in the Conan local cache:
 
 .. code-block:: text
 
@@ -29,15 +37,23 @@ Then, consumers that want to link against this library will need some informatio
   file.
 
 Conan provides an abstraction over all the information consumers may need in the
-:ref:`cpp_info<conan_conanfile_model_cppinfo>` attribute of the ConanFile. This attribute
-is set in the ``package_info()`` method. Let's have a look at the ``package_info()``
-method of our *hello/1.0* Conan package:
+:ref:`cpp_info<conan_conanfile_model_cppinfo>` attribute of the ConanFile. The information
+for this attribute must be set in the ``package_info()`` method. Let's have a look at the
+``package_info()`` method of our *hello/1.0* Conan package:
 
 .. code-block:: python
     :caption: *conanfile.py*
 
-    def package_info(self):
-        self.cpp_info.libs = ["hello"]
+    ...
+
+    class helloRecipe(ConanFile):
+        name = "hello"
+        version = "1.0"    
+
+        ...
+
+        def package_info(self):
+            self.cpp_info.libs = ["hello"]
 
 We can see a couple of things:
 
@@ -55,11 +71,19 @@ We can see a couple of things:
 .. code-block:: python
     :caption: *conanfile.py*
 
-    def package_info(self):
-        self.cpp_info.libs = ["hello"]
-        # conan sets libdirs = ["lib"] and includedirs = ["include"] by default
-        self.cpp_info.libdirs = ["lib"]
-        self.cpp_info.includedirs = ["include"]
+    ...
+    
+    class helloRecipe(ConanFile):
+        name = "hello"
+        version = "1.0"    
+
+        ...
+
+        def package_info(self):
+            self.cpp_info.libs = ["hello"]
+            # conan sets libdirs = ["lib"] and includedirs = ["include"] by default
+            self.cpp_info.libdirs = ["lib"]
+            self.cpp_info.includedirs = ["include"]
 
 
 Setting information in the package_info() method
@@ -127,8 +151,9 @@ how to translate these changes to the Conan recipe.
 Changes introduced in the recipe
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-First we have to conditionally set the library name depending on the
-``self.options.shared`` option in the ``package_info()`` method.
+To update our recipe according to the changes in the library's *CMakeLists.txt* we have to
+conditionally set the library name depending on the ``self.options.shared`` option in the
+``package_info()`` method:
 
 .. code-block:: python
     :caption: *conanfile.py*
@@ -161,7 +186,7 @@ the *test_package*.
 .. code-block:: bash
     :emphasize-lines: 4,14,22
 
-    $ conan create . -s compiler.cppstd=gnu11 --build=missing
+    $ conan create . --build=missing
     ...
     -- Install configuration: "Release"
     -- Installing: /Users/user/.conan2/p/tmp/a311fcf8a63f3206/p/lib/libhello-static.a
@@ -254,7 +279,7 @@ And re-create the package:
 .. code-block:: bash
     :emphasize-lines: 14
 
-    $ conan create . -s compiler.cppstd=gnu11 --build=missing
+    $ conan create . --build=missing
     Exporting the recipe
     hello/1.0: Exporting package recipe
     hello/1.0: Using the exported files summary hash as the recipe revision: 44d78a68b16b25c5e6d7e8884b8f58b8 
