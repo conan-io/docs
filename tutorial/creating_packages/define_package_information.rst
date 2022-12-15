@@ -120,7 +120,7 @@ Changes introduced in the library sources
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 First, please note that we are using `other branch
-<https://github.com/czoido/libhello/tree/package_info>`_ from the **libhello** library.
+<https://github.com/conan-io/libhello/tree/package_info>`_ from the **libhello** library.
 Let's check the library's *CMakeLists.txt*:
 
 
