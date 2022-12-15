@@ -1,5 +1,5 @@
-Define the package information for consumers
-============================================
+Define information for consumers: the package_info() method
+===========================================================
 
 .. important::
 
