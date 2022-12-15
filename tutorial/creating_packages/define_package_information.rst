@@ -221,12 +221,12 @@ the *libhello-static.a* library successfully.
 Properties model: setting information for specific generators
 -------------------------------------------------------------
 
-The ``CppInfo`` object provides the ``set_property`` method to set information specific to
-each generator. For example, in this tutorial we are using the :ref:`CMakeDeps<CMakeDeps>`
-generator to create all the information that CMake needs to build a project that requires
-our library. ``CMakeDeps``, by default, will generate a target name for the library using
-the same name as the Conan package. If you have a look at that *CMakeLists.txt* from the
-*test_package*:
+The :ref:`CppInfo<conan_conanfile_model_cppinfo_attributes>` object provides the
+``set_property`` method to set information specific to each generator. For example, in
+this tutorial, we use the :ref:`CMakeDeps<CMakeDeps>` generator to generate the
+information that CMake needs to build a project that requires our library. ``CMakeDeps``,
+by default, will set a target name for the library using the same name as the Conan
+package. If you have a look at that *CMakeLists.txt* from the *test_package*:
 
 .. code-block:: cmake
     :caption: test_package *CMakeLists.txt*
@@ -240,9 +240,9 @@ the same name as the Conan package. If you have a look at that *CMakeLists.txt* 
     add_executable(example src/example.cpp)
     target_link_libraries(example hello::hello)
 
-You can see that we are linking with the target name ``hello::hello``. This is the target
-name that Conan creates by default, but we can change it using the properties model. Let's
-try to change it to the name ``hellotarget``. To do this, we have to set the property
+You can see that we are linking with the target name ``hello::hello``. Conan sets this
+target name by default, but we can change it using the *properties model*. Let's try to
+change it to the name ``hellotarget``. To do this, we have to set the property
 ``cmake_target_name`` in the package_info method of our *hello/1.0* Conan package:
 
 
@@ -305,21 +305,27 @@ And re-create the package:
 You can see how Conan declares now the ``hellotarget`` instead of the default
 ``hello::hello`` and the *test_package* builds successfully.
 
+The target name is not the only property you can set in the CMakeDeps generator. For a
+complete list of properties that affect the CMakeDeps generator behaviour, please check
+the :ref:`reference<CMakeDeps Properties>`. 
+
 Propagating environment or configuration information to consumers
 -----------------------------------------------------------------
 
-You can provide environment information to consumers in the ``package_info()``. To do so
+You can provide environment information to consumers in the ``package_info()``. To do so,
 you can use the ConanFile's :ref:`runenv_info<conan_conanfile_attributes_runenv_info>` and
 :ref:`buildenv_info<conan_conanfile_attributes_buildenv_info>` properties:
 
-* ``runenv_info`` :ref:`Environment<conan_tools_env_environment_model>` object
-  with information that may be necessary to **run** the consumers that use the package.
+* ``runenv_info`` :ref:`Environment<conan_tools_env_environment_model>` object that
+  defines environment information that consumers that use the package may need when
+  **running**. 
 
-* ``buildenv_info`` :ref:`Environment<conan_tools_env_environment_model>` object
-  with information that may be necessary to **build** the consumers that use the package.
+* ``buildenv_info`` :ref:`Environment<conan_tools_env_environment_model>` object that
+  defines environment information that consumers that use the package may need when
+  **building**. 
 
 You can also define configuration values in the ``package_info()`` so that consumers can
-use that information. This is done using the
+use that information. To do this, set the
 :ref:`conf_info<conan_conanfile_model_conf_info>` property of the ConanFile.
 
 To know more about this use case, please check the :ref:`corresponding
@@ -332,8 +338,8 @@ There are cases in which a Conan package may provide multiple libraries, for the
 you can set the separate information for each of those libraries using the components
 attribute from the :ref:`CppInfo<conan_conanfile_model_cppinfo_attributes>` object.
 
-To know more about this use case, please check the :ref:`corresponding
-example<examples_conanfile_package_info_components>`.
+To know more about this use case, please check the :ref:`components
+example<examples_conanfile_package_info_components>` in the examples section.
 
 
 Read more
