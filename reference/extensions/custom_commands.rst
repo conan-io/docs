@@ -120,6 +120,46 @@ The command call looks like :command:`conan hello moon`.
     Notice that to declare a sub-command is required an empty Python function acts as the main command.
 
 
+Formatters
+++++++++++
+
+The formatters are functions that receive the returned result from the command as argument, as seen above.
+A command can have as many formatters as desired, but if these formatters need different parameters, then it can become
+a bit messy. For that purpose, the ``CommandResult`` class can be used as:
+
+.. code-block:: python
+
+    from conan.cli.command import conan_subcommand, CommandResult
+
+    def format_graph_info(graph, field_filter, package_filter):
+        ...
+
+    def format_graph_html(graph, conan_api):
+        ...
+
+    def format_graph_dot(graph, conan_api):
+        ...
+
+    def format_graph_json(graph):
+        ...
+
+    @conan_subcommand(formatters={"text": format_graph_info,
+                                  "html": format_graph_html,
+                                  "json": format_graph_json,
+                                  "dot": format_graph_dot})
+    def graph_info(conan_api, parser, subparser, *args):
+        ...
+        deps_graph = conan_api.graph.load_graph(...)
+        return CommandResult({"graph": deps_graph,
+                              "field_filter": args.filter,
+                              "package_filter": args.package_filter})
+
+
+The Conan command will manage to pass the necessary parameters, and omit those that are not used, based on the
+parameters names. It will always also inject the ``conan_api`` parameter if requested.
+
+
+
 Command function arguments
 ----------------------------
 
