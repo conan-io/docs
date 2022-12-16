@@ -13,6 +13,7 @@ conan.tools.build.build_jobs()
 
 .. autofunction:: build_jobs
 
+.. _conan_tools_build_cross_building:
 
 conan.tools.build.cross_building()
 """"""""""""""""""""""""""""""""""
