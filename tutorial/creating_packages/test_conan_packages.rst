@@ -21,7 +21,7 @@ Please, first clone the sources to recreate this project. You can find them in t
 .. code-block:: bash
 
     $ git clone https://github.com/conan-io/examples2.git
-    $ cd examples2/tutorial/creating_packages/test_package
+    $ cd examples2/tutorial/creating_packages/testing_packages
 
 
 Some important notes to have in mind about the *test_package*:
