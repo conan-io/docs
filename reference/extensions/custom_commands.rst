@@ -157,6 +157,8 @@ a bit messy. For that purpose, the ``CommandResult`` class can be used as:
 
 The Conan command will manage to pass the necessary parameters, and omit those that are not used, based on the
 parameters names. It will always also inject the ``conan_api`` parameter if requested.
+If you return ``CommandResult`` it is necessary to implement at least your own ``text`` formatter,
+because it will be called by default and raise an error if not implemented.
 
 
 
