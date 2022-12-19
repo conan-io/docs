@@ -120,6 +120,38 @@ The command call looks like :command:`conan hello moon`.
     Notice that to declare a sub-command is required an empty Python function acts as the main command.
 
 
+Formatters arguments
+++++++++++++++++++++
+
+The return of the command will be passed as argument to the formatters. If there are different formatters that 
+require different arguments, the approach is to return a dictionary, and let the formatters chose the 
+arguments they need. For example, the ``graph info`` command uses several formatters like:
+
+.. code-block:: python
+
+    def format_graph_html(result):
+        graph = result["graph"]
+        conan_api = result["conan_api"]
+        ...
+
+    def format_graph_info(result):
+        graph = result["graph"]
+        field_filter = result["field_filter"]
+        package_filter = result["package_filter"]
+        ...
+
+    @conan_subcommand(formatters={"text": format_graph_info,
+                                  "html": format_graph_html,
+                                  "json": format_graph_json,
+                                  "dot": format_graph_dot})
+    def graph_info(conan_api, parser, subparser, *args):
+        ...
+        return {"graph": deps_graph,
+                "field_filter": args.filter,
+                "package_filter": args.package_filter,
+                "conan_api": conan_api}
+
+
 Command function arguments
 ----------------------------
 
