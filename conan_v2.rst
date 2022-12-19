@@ -31,5 +31,6 @@ If you are looking for precompiled binaries, there is a very short list in a sep
    :maxdepth: 2
 
    migrating_to_2.0/recipes
+   migrating_to_2.0/properties
    migrating_to_2.0/commands
    migrating_to_2.0/general
