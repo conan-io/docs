@@ -168,7 +168,7 @@ Python 2 Removal Notice
 
 From version 1.49, Conan will not work with Python 2. This is because security vulnerabilities of Conan dependencies that haven't been addressed in Python 2, so the only alternative moving forward is to finally remove Python 2 support.
 
-Python 2 was officially declared End Of Life 2 years and a half now, and Conan 1.22 already declared Python 2 as not supported. Extra blockers have been added in previous Conan releases to make everyone aware. Now the security vulnerabilities that are out of our scope, makes impossible to move forward support for Python 2. Please upgrade to Python>=3.6 to continue using Conan>=1.49. 
+Python 2 was officially declared End Of Life in January 2020, and Conan 1.22 already declared Python 2 as not supported. Extra blockers have been added in previous Conan releases to make everyone aware. Now the security vulnerabilities that are out of our scope, makes impossible to move forward support for Python 2. Please upgrade to Python>=3.6 to continue using Conan>=1.49.
 
 
 

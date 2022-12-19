@@ -3,7 +3,7 @@
 Migrating legacy cpp_info attributes to set_property()
 ------------------------------------------------------
 
-Migrating from `.names`, `.filenams` and `.build_modules` to ``set_property()`` is easy,
+Migrating from `.names`, `.filenames` and `.build_modules` to ``set_property()`` is easy,
 but there are some details to take into account for properties like ``cmake_target_name``
 and ``cmake_file_name``. Let's see some examples.
 

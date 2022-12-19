@@ -13,7 +13,7 @@ Most common commands overview
 conan install
 ^^^^^^^^^^^^^
 
-Almost the same command, the major change is the way to specify (or compete if not defined) the fields of the reference.
+Almost the same command, the major change is the way to specify (or complete if not defined) the fields of the reference.
 Remember that in Conan 1.X you have to specify the build profile or activate the conf ``core:default_build_profile=default``.
 
 .. code-block:: shell
