@@ -193,6 +193,8 @@ method of the Git tool:
 For more information about the ``Git`` class methods, please check the
 :ref:`conan.tools.scm.Git()<reference>` reference.
 
+Note that it's also possible to run other commands by invoking the ``self.run()`` method.
+
 
 .. _creating_packages_handle_sources_in_packages_conandata:
 
