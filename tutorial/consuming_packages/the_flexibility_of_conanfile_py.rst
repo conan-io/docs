@@ -75,7 +75,7 @@ consume those packages. In the case of using this file to create packages, it ca
 (among other things) how to download the package’s source code, how to build the binaries
 from those sources, how to package the binaries, and information for future consumers on
 how to consume the package. We will explain how to use Conan recipes to create
-packages in the :ref:`Creating Packages<creating_packages>` section later.
+packages in the :ref:`Creating Packages<tutorial_creating_packages>` section later.
 
 The equivalent of the *conanfile.txt* in form of Conan recipe could look like this:
 
