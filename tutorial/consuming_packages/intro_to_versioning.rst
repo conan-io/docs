@@ -20,7 +20,7 @@ Version ranges
 --------------
 
 A ``requires`` can express a dependency to a certain range of versions for a given package, with the syntax ``pkgname/[version-range-expression]``.
-Lets see an example, please, first clone the sources to recreate this project. You can find them in the
+Let's see an example, please, first clone the sources to recreate this project. You can find them in the
 `examples2.0 repository <https://github.com/conan-io/examples2>`_ in GitHub:
 
 .. code-block:: bash
@@ -153,10 +153,10 @@ specifying the exact version and exact revision. So, for example, a lockfile wil
 but only pinned dependencies. 
 
 A lockfile can be seen as a snapshot of a given dependency graph at some point in time.
-Such snapshot must be "realizable", that is, it needs to be a state that can be actually reproduce from the conanfile recipes.
+Such snapshot must be "realizable", that is, it needs to be a state that can be actually reproduced from the conanfile recipes.
 And this lockfile can be used at a later point in time to force that same state, even if there are new created package versions.
 
-Lets see lockfiles in action. First, lets pin the dependency to ``zlib/1.2.11`` in our example:
+Let's see lockfiles in action. First, let's pin the dependency to ``zlib/1.2.11`` in our example:
 
 
 .. code-block:: python
@@ -164,7 +164,7 @@ Lets see lockfiles in action. First, lets pin the dependency to ``zlib/1.2.11`` 
     def requirements(self):
         self.requires("zlib/1.2.11")
 
-And lets capture a lockfile:
+And let's capture a lockfile:
 
 .. code-block:: bash
 
@@ -178,7 +178,7 @@ And lets capture a lockfile:
 
     Generated lockfile: .../conan.lock
 
-Lets see what the lockfile ``conan.lock`` contains:
+Let's see what the lockfile ``conan.lock`` contains:
 
 .. code-block:: json
 
@@ -191,7 +191,7 @@ Lets see what the lockfile ``conan.lock`` contains:
         "python_requires": []
     }
 
-Now, lets restore the original ``requires`` version range:
+Now, let's restore the original ``requires`` version range:
 
 .. code-block:: python
 

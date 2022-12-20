@@ -63,7 +63,7 @@ You can run Conan directly from source code. First, you need to install Python a
 
 Clone (or download and unzip) the git repository and install it.
 
-Conan 2 is still in alpha stage, so you must check the `develop2` branch of the repository:
+Conan 2 is still in beta stage, so you must check the `develop2` branch of the repository:
 
 .. code-block:: bash
 
