@@ -3,6 +3,12 @@
 Creating conan packages to install dev tools
 ============================================
 
+.. caution::
+
+    We are actively working to finalize the *Conan 2.0 Release*. Some of the information on this page references
+    deprecated features which will not be carried forward with the new release. It's important to check the 
+    :ref:`Migration Guidelines<conan2_migration_guide>` to ensure you are using the most up to date features.
+
 One of the most useful features of Conan is to package executables like compilers or build tools and
 distribute them in a controlled way to the team of developers. This way Conan helps not only with the
 graph of dependencies of the application itself, but also with all the ecosystem needed to generate the
@@ -82,10 +88,10 @@ This two simple declarations are enough to reuse this tool in the scenarios we a
 Using the tool packages in other recipes
 ----------------------------------------
 
-.. warning::
+.. note::
 
-    This section refers to the **experimental feature** that is activated when using ``--profile:build`` and ``--profile:host``
-    in the command-line. It is currently under development, features can be added or removed in the following versions.
+    This section refers to the feature that is activated when using ``--profile:build`` and ``--profile:host``
+    in the command-line.
 
 
 These kind of tools are not usually part of the application graph itself, they are needed only to build the library, so

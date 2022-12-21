@@ -61,11 +61,6 @@ Where:
 Optional user/channel
 _____________________
 
-
-.. warning::
-
-    This is an **experimental** feature subject to breaking changes in future releases.
-
 If the package was created and uploaded without specifying
 the ``user`` and ``channel`` you can omit the ``user/channel`` when specifying a reference:
 

@@ -4,7 +4,7 @@
 CONAN_V2_MODE
 =============
 
-If defined in the environment, this variable will raise errors whenever a :ref:`Conan 2.0 <conan_v2>` deprecated feature
+If defined in the environment, this variable will raise errors whenever a :ref:`Conan 2.0 <conan2_migration_guide>` deprecated feature
 is used. It is a good mechanism to check the recipes future Conan 2.0 "compliance". Activating it should
 not change behavior in any way, just raise error for deprecated things, but if it works, the same
 result should be achieved. The number of deprecated features will increase in future Conan 1.X releases,

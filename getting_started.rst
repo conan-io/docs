@@ -3,6 +3,12 @@
 Getting Started
 ===============
 
+.. caution::
+
+    We are actively working to finalize the *Conan 2.0 Release*. Some of the information on this page references
+    deprecated features which will not be carried forward with the new release. It's important to check the 
+    :ref:`Migration Guidelines<conan2_migration_guide>` to ensure you are using the most up to date features.
+
 Let's get started with an example: We are going to create an MD5 hash calculator app that uses one of the
 most popular C++ libraries: Poco_.
 
@@ -178,16 +184,19 @@ An MD5 hash calculator using the Poco Libraries
 
    .. warning::
 
-    There are prebuilt binaries for several mainstream compilers and versions available in Conan Center repository,
-    such as Visual Studio 14, 15, Linux GCC 4.9 and Apple Clang 3.5. Up to >130 different binaries for different
-    configurations can be available in ConanCenter.
-    But if your current configuration is not pre-built in ConanCenter, Conan will raise a "BinaryMissing" error. Please
+    There are prebuilt binaries for several mainstream compilers and versions available in ConanCenter repository,
+    a list is keep in `the repository's documentation <https://github.com/conan-io/conan-center-index/blob/master/docs/supported_platforms_and_configurations.md>`_
+    If your current configuration is not pre-built in ConanCenter, Conan will raise a "Binary Missing" error. Please
     read carefully the error messages. You can build the binary package from sources using :command:`conan install .. --build=missing`,
     it will succeed if your configuration is supported by the recipe (it is possible that some ConanCenter recipes fail to
     build for some platforms). You will find more info in the :ref:`getting_started_other_configurations` section.
 
 
 6. Now let's create our build file. To inject the Conan information, include the generated *conanbuildinfo.cmake* file like this:
+
+    .. caution:: 
+
+        The :ref:`Creating Packages's Getting Started<packaging_getting_started>` is a more up-to-date version of this section.
 
     .. code-block:: cmake
        :caption: **CMakeLists.txt**

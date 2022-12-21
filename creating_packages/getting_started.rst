@@ -14,9 +14,9 @@ packages from sources in your computer.
     It is not strictly required by Conan to create packages, you can use
     other build systems (as VS, Meson, Autotools and even your own) to do that, without any dependency
     to CMake.
-    Some of the features used in this section are **experimental**, like ``CMakeToolchain`` or ``cmake_layout()``,
-    and they might change in future releases. There are other alternative tools that are stable, please check
-    the :ref:`reference section<references>` for more information.
+
+    Some of the features used in this section are **under development**, like ``CMakeToolchain`` or ``cmake_layout()``,
+    and they might change in future releases as we finalize the *Conan 2.0 release*.
 
 
 Using the :command:`conan new` command will create a "Hello World" C++ library example project for us:

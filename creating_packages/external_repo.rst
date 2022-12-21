@@ -39,7 +39,8 @@ You can also use the :ref:`tools.Git <tools_git>` class:
 
 .. warning::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+    This is an **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replace this one.
 
 .. code-block:: python
 

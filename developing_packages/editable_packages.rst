@@ -6,8 +6,8 @@ Packages in editable mode
 .. important::
 
     This is a **tutorial** section. You are encouraged to execute these commands.
-    Some of the features used in this section are **experimental**, like ``layout()`` or ``CMakeToolchain``,
-    and they might change in future releases. Check the :ref:`reference section<references>` for more information.
+    Some of the features used in this section are **under development**, like ``layout()`` or ``CMakeToolchain``,
+    and they might change in future releases as we finalize the *Conan 2.0 release*.. Check the :ref:`reference section<references>` for more information.
 
 When working in big projects with several functionalities interconnected it is recommended to avoid
 the one-and-only huge project approach in favor of several libraries, each one specialized

@@ -95,10 +95,10 @@ profile, it will overwrite the tool requirements defined in package recipes that
 Build and Host contexts
 -----------------------
 
-.. warning::
+.. note::
 
-    This section refers to the **experimental feature** that is activated when using ``--profile:build`` and ``--profile:host``
-    in the command-line. It is currently under development, features can be added or removed in the following versions.
+    This section refers to the feature that is activated when using ``--profile:build`` and ``--profile:host``
+    in the command-line.
 
 
 Conan v1.24 differentiates between the ``build`` context and the ``host`` context in the dependency graph (read more about
@@ -269,7 +269,8 @@ same ``tool_requires`` package. Something like:
 
 .. code-block:: python
 
-    from conans import ConanFile
+    from conan import ConanFile
+
     class Pkg(ConanFile):
         python_requires ="tool/[>=0.0]"
         tool_requires ="tool/[>=0.0]"
@@ -286,7 +287,7 @@ Testing tool_requires
 
 .. warning::
 
-    This is an **experimental** feature, subject to future breaking changes
+    This is an **experimental** feature, subject to future breaking changes (not changed in 20 months TBD)
 
 Available since: `1.44.0 <https://github.com/conan-io/conan/releases>`_
 
@@ -297,7 +298,7 @@ as a ``tool_requires`` or ``test_requires``:
 
 .. code-block:: python
 
-    from conans import ConanFile
+    from conan import ConanFile
 
     class Pkg(ConanFile):
         test_type = "explicit"
@@ -311,7 +312,7 @@ then it is possible to specify:
 
 .. code-block:: python
 
-    from conans import ConanFile
+    from conan import ConanFile
 
     class Pkg(ConanFile):
         test_type = "explicit"
