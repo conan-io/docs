@@ -3,7 +3,7 @@
 Artifactory Community Edition for C/C++
 =======================================
 
-Artifactory Community Edition (CE) for C/C++ is the recommended server for development and hosting private
+`Artifactory Community Edition (CE) for C/C++ <https://jfrog.com/community/open-source/>`_ is the recommended server for development and hosting private
 packages for a team or company. It is completely free, and it features a WebUI, advanced authentication and permissions, great performance
 and scalability, a REST API, a generic CLI tool and generic repositories to host any kind of source or binary
 artifact.
@@ -15,7 +15,7 @@ Running Artifactory CE
 ----------------------
 
 There are several ways to download and run Artifactory CE. The simplest one might be to download and unzip the
-designated zip file, though other installers, including also installing from a Docker image.
+designated zip file, though other installers, including also installing from a Docker image. The _`Download Page <https://conan.io/downloads.html>`_ has a link for you to follow.
 When the file is unzipped, launch Artifactory by double clicking the artifactory.bat(Windows) or artifactory.sh script in the *app/bin*
 subfolder, depending on the OS.
 Artifactory comes with JDK bundled, please `read Artifactory requirements <https://www.jfrog.com/confluence/display/JFROG/System+Requirements>`_.
