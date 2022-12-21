@@ -117,9 +117,7 @@ node('Linux') {
                         sh "cp -a latest/_themes/. ${folderName}/_themes/"
                     }
                     if (folderName == '2.0') {
-                        // Needed for autodocs in 2.0 docs
-                        // FIXME: cloning develop2 but should be the release branch
-                        def conanBranch = 'develop2'
+                        def conanBranch = 'release/2.0-beta'
                         def conan_repo_url = 'https://github.com/conan-io/conan.git'
                         stage('Clone sources') {
                             def cloneConan = "git clone --single-branch -b ${conanBranch} --depth 1 ${conan_repo_url} 2.0/conan_sources"
