@@ -3,7 +3,7 @@
 Artifactory Community Edition for C/C++
 =======================================
 
-`Artifactory Community Edition (CE) for C/C++ <https://jfrog.com/community/open-source/>`_ is the recommended server for development and hosting private
+Artifactory Community Edition (CE) for C/C++ is the recommended server for development and hosting private
 packages for a team or company. It is completely free, and it features a WebUI, advanced authentication and permissions, great performance
 and scalability, a REST API, a generic CLI tool and generic repositories to host any kind of source or binary
 artifact.
