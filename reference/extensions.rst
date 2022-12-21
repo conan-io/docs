@@ -30,6 +30,7 @@ Contents:
    extensions/python_requires
    extensions/custom_commands
    extensions/python_api
+   extensions/deployers
    extensions/hooks
    extensions/binary_compatibility
    extensions/profile_plugin
