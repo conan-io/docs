@@ -267,7 +267,7 @@ We are using the following **CMakeLists.txt**:
    set_target_properties(my_tool PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 
 
-Let’s see how we describe our project in the ``layout()`` method:
+Let's see how we describe our project in the ``layout()`` method:
 
 .. code-block:: python
     :caption: conanfile.py
@@ -408,7 +408,7 @@ completely transparent way, even locating the correct **Release**/**Debug** arti
     $ conan editable add . say/0.1
 
 .. note:: When working with editable packages, the information set in ``self.cpp.source`` and ``self.cpp.build`` will be merged with the
-          information set in ``self.cpp.package`` so that we don’t have to declare again something like ``self.cpp.build.libs = ["say"]`` that is
+          information set in ``self.cpp.package`` so that we don't have to declare again something like ``self.cpp.build.libs = ["say"]`` that is
           the same for the consumers, independently of whether the package is in editable mode or not.
 
 

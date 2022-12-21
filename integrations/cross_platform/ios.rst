@@ -47,7 +47,7 @@ Use built-in Conan toolchain
 
 Conan will generate a toolchain for iOS if the recipe is using a :ref:`conan-cmake-toolchain`. This
 toolchain provides a minimal implementation supporting only the CMake XCode generator. It will be
-extended in the future but at the current version (1.31.0) is just for testing purpouses.
+extended in the future but at the current version (1.31.0) is just for testing purposes.
 
 For using it, create a regular profile for the *host* context:
 
