@@ -82,7 +82,7 @@ Finally, the recipe for the *test_package* that consumes the *hello/1.0* Conan p
 
     from conan import ConanFile
     from conan.tools.cmake import CMake, cmake_layout
-    from conan.tools.build import cross_building
+    from conan.tools.build import can_run
 
 
     class helloTestConan(ConanFile):
