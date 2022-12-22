@@ -242,7 +242,7 @@ package. If you have a look at that *CMakeLists.txt* from the *test_package*:
 
 You can see that we are linking with the target name ``hello::hello``. Conan sets this
 target name by default, but we can change it using the *properties model*. Let's try to
-change it to the name ``hellotarget``. To do this, we have to set the property
+change it to the name ``hello::myhello``. To do this, we have to set the property
 ``cmake_target_name`` in the package_info method of our *hello/1.0* Conan package:
 
 
@@ -259,11 +259,11 @@ change it to the name ``hellotarget``. To do this, we have to set the property
             else:
                 self.cpp_info.libs = ["hello-static"]
 
-            self.cpp_info.set_property("cmake_target_name", "hellotarget")
+            self.cpp_info.set_property("cmake_target_name", "hello::myhello")
 
 
 Then, change the target name we are using in the *CMakeLists.txt* in the *test_package*
-folder to ``hellotarget``:
+folder to ``hello::myhello``:
 
 .. code-block:: cmake
     :caption: test_package *CMakeLists.txt*
@@ -272,7 +272,7 @@ folder to ``hellotarget``:
     cmake_minimum_required(VERSION 3.15)
     project(PackageTest CXX)
     # ...
-    target_link_libraries(example hellotarget)
+    target_link_libraries(example hello::myhello)
 
 And re-create the package:
 
@@ -292,7 +292,7 @@ And re-create the package:
     ...
     -- Detecting CXX compile features
     -- Detecting CXX compile features - done
-    -- Conan: Target declared 'hellotarget'
+    -- Conan: Target declared 'hello::myhello'
     ...
     [100%] Linking CXX executable example
     [100%] Built target example
@@ -302,7 +302,7 @@ And re-create the package:
     hello/1.0 (test package): RUN: ./example
     hello/1.0: Hello World Release! (with color!)
 
-You can see how Conan now declares the ``hellotarget`` instead of the default
+You can see how Conan now declares the ``hello::myhello`` instead of the default
 ``hello::hello`` and the *test_package* builds successfully.
 
 The target name is not the only property you can set in the CMakeDeps generator. For a
@@ -323,6 +323,11 @@ you can use the ConanFile's :ref:`runenv_info<conan_conanfile_attributes_runenv_
 * ``buildenv_info`` :ref:`Environment<conan_tools_env_environment_model>` object that
   defines environment information that consumers that use the package may need when
   **building**. 
+
+Please note that it's not necessary to add ``cpp_info.bindirs`` to ``PATH`` or
+``cpp_info.libdirs`` to ``LD_LIBRARY_PATH``, those are automatically added by the
+:ref:`VirtualBuildEnv<conan_tools_env_virtualbuildenv>` and
+:ref:`VirtualRunEnv<conan_tools_env_virtualrunenv>`.
 
 You can also define configuration values in the ``package_info()`` so that consumers can
 use that information. To do this, set the
