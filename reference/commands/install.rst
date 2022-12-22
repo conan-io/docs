@@ -105,7 +105,7 @@ This command does the following:
   dependency version is desired, it should be explicitly required.
 - Download precompiled binaries, or build binaries from sources in the local cache, in the right order for the dependency graph.
 - Create the necessary files as requested by the "generators", so build systems and other tools can locate the locally installed dependencies
-- Optionally, execute desired ``deployers``.
+- Optionally, execute the desired ``deployers``.
 
 
 Conanfile path or --requires
