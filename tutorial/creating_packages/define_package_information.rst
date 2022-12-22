@@ -302,7 +302,7 @@ And re-create the package:
     hello/1.0 (test package): RUN: ./example
     hello/1.0: Hello World Release! (with color!)
 
-You can see how Conan declares now the ``hellotarget`` instead of the default
+You can see how Conan now declares the ``hellotarget`` instead of the default
 ``hello::hello`` and the *test_package* builds successfully.
 
 The target name is not the only property you can set in the CMakeDeps generator. For a
