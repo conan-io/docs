@@ -289,7 +289,7 @@ Testing tool_requires
 
     This is an **experimental** feature, subject to future breaking changes (not changed in 20 months TBD)
 
-Available since: `1.44.0 <https://github.com/conan-io/conan/releases>`_
+Available since: `1.44.0 <https://github.com/conan-io/conan/releases/tag/1.44.0>`_
 
 From Conan 1.44, it is possible to test ``tool_requires`` with the ``test_package`` functionality.
 In the ``test_package/conanfile.py``, specify the ``test_type = "explicit"`` and use the variable
