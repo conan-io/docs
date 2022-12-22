@@ -14,7 +14,7 @@ for more information about this.
 [requires]
 ----------
 
-List of requirements, specifying the full reference. Equivalent to ``self.requires(<ref>)`` in the ``conanfile.py``. 
+List of requirements, specifying the full reference. Equivalent to ``self.requires(<ref>)`` in ``conanfile.py``. 
 
 .. code-block:: text
 
