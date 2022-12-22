@@ -99,7 +99,7 @@ This command does the following:
 
 - Compute the whole dependency graph, for the current configuration defined by settings, options, profiles and configuration.
   It resolves version ranges, transitive dependencies, conditional requirements, etc, to build the dependency graph.
-- Evaluate the existence of binaries for every package in the graph, if there are precompiled binaries to download, or if
+- Evaluate the existence of binaries for every package in the graph, whether or not there are precompiled binaries to download, or if
   they should be built from sources (as directed by ``--build`` argument). If binaries are missing, it will not recompute
   the dependency graph to try to fallback to previous versions that contain binaries for that configuration. If a certain
   dependency version is desired, it should be explicitly required.
