@@ -3,7 +3,7 @@
 conanfile.txt
 =============
 
-The ``conanfile.txt`` is a simplified version of ``conanfile.py``, aimed at simple consumption of dependencies, but it
+The ``conanfile.txt`` file is a simplified version of ``conanfile.py``, aimed at simple consumption of dependencies, but it
 cannot be used to create a package. Also, it is not necessary to have a ``conanfile.txt`` for consuming dependencies, 
 a ``conanfile.py`` can be perfectly use for simple consumption of dependencies.
 
