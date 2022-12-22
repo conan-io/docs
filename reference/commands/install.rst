@@ -176,7 +176,7 @@ not matter what the order of arguments is.
 Generators and deployers
 ------------------------
 
-The ``-g`` argument allows to define in command line the different built-in generators to be used:
+The ``-g`` argument allows to define in the command line the different built-in generators to be used:
 
 .. code-block:: bash
 
