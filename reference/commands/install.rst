@@ -159,7 +159,7 @@ highest priority)
 
 .. code-block:: bash
 
-    # The values of myprofile 3 will have higher priority
+    # The values of myprofile3 will have higher priority
     $ conan install . -pr=myprofile1 -pr=myprofile2 -pr=myprofile3
 
 If values of ``settings``, ``options`` and ``conf`` are provided in the command line, they create a profile that
