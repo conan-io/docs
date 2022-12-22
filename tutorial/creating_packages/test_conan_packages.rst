@@ -60,7 +60,7 @@ packaging:
         hello();
     }
 
-Then the *CMakeLists.txt* to tell CMake how to build the example:
+Then the *CMakeLists.txt* file to tell CMake how to build the example:
 
 .. code-block:: cpp
     :caption: *test_package/src/example.cpp*
