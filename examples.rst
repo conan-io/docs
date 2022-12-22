@@ -7,6 +7,7 @@ Examples
 .. toctree::
    :maxdepth: 2
 
+   examples/conanfile/conanfile
    examples/extensions/commands/custom_commands
    examples/tools/cmake/cmake
    examples/tools/files/files

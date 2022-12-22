@@ -744,6 +744,7 @@ cpp_info
        This attribute is only defined inside ``package_info()`` method being `None` elsewhere.
 
 
+.. _conan_conanfile_attributes_buildenv_info:
 
 buildenv_info
 -------------
@@ -766,6 +767,8 @@ buildenv_info
     Check the reference of the :ref:`Environment<conan_tools_env_environment_model>` object to know how to fill
     the ``self.buildenv_info``.
 
+
+.. _conan_conanfile_attributes_runenv_info:
 
 runenv_info
 -----------

@@ -1,3 +1,5 @@
+.. _creating_packages_package_method:
+
 Package files: the package() method
 ===================================
 
@@ -70,7 +72,7 @@ packaging of files in the Conan local cache:
 .. code-block:: bash
     :emphasize-lines: 7-14
 
-    $ conan create . --build=missing -s compiler.cppstd=gnu11 -tf=None
+    $ conan create . --build=missing -tf=None
     ...
     hello/1.0: Build folder /Users/user/.conan2/p/tmp/b5857f2e70d1b2fd/b/build/Release
     hello/1.0: Generated conaninfo.txt
@@ -126,7 +128,7 @@ packaging of files in the Conan local cache:
 .. code-block:: bash
     :emphasize-lines: 7-13
 
-    $ conan create . --build=missing -s compiler.cppstd=gnu11 -tf=None
+    $ conan create . --build=missing -tf=None
     ...
     hello/1.0: Build folder /Users/user/.conan2/p/tmp/222db0532bba7cbc/b/build/Release
     hello/1.0: Generated conaninfo.txt
