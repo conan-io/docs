@@ -248,7 +248,7 @@ if no path is provided, will be used as an input lockfile.
 Lockfiles are strict by default, that means that
 if there is some ``requires`` and it cannot find a matching locked reference in the lockfile, it will error
 and stop. For cases where it is expected that the lockfile will not be complete, as there might be new
-dependencies, the ``--lockfile-partial`` can be used.
+dependencies, the ``--lockfile-partial`` argument can be used.
 
 By default, ``conan install`` will not generate an output lockfile, but if the ``--lockfile-out`` argument
 is provided, pointing to a filename, like ``--lockfile-out=result.lock``, then a lockfile will be generated
