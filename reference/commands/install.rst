@@ -164,7 +164,7 @@ highest priority)
 
 If values for any of ``settings``, ``options`` and ``conf`` are provided in the command line, they create a profile that
 is composed with the other provided ``-pr`` (or the "default" one if not specified) profiles, with higher priority,
-not matter what is the order of arguments).
+not matter what the order of arguments is.
 
 .. code-block:: bash
 
