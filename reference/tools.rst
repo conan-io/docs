@@ -1,7 +1,7 @@
 .. _conan_tools:
 
-Tools
-=====
+Recipe tools
+============
 
 Tools are all things that can be imported and used in Conan recipes.
 
