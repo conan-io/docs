@@ -1,5 +1,5 @@
-Testing Conan packages: the test() method
-=========================================
+Testing Conan packages
+======================
 
 .. important::
 
@@ -101,8 +101,8 @@ Finally, the recipe for the *test_package* that consumes the *hello/1.0* Conan p
             cmake_layout(self)
 
         def test(self):
-            if not cross_building(self):
-                cmd = os.path.join(self.cpp.build.bindirs[0], "example")
+            if not can_run(self):
+                cmd = os.path.join(self.cpp.build.bindir, "example")
                 self.run(cmd, env="conanrun")
 
 Let's go through the most relevant parts:
@@ -118,16 +118,17 @@ Let's go through the most relevant parts:
   executable or tests on binaries to prove the package is correctly created. A couple of
   comments about the contents of our ``test()`` method:
   
-  - We are using the
-    :ref:`conan.tools.build.cross_building<conan_tools_build_cross_building>` tool to
-    check if we are cross-building or not because the built binary won't be able to run in
-    the build machine in that case.
+  - We are using the :ref:`conan.tools.build.cross_building<conan_tools_build_can_run>`
+    tool to check if we can run the built executable in our platform. This tool will
+    return the value of the ``tools.build.cross_building:can_run`` in case it's set.
+    Otherwise it will return if we are cross-building or not. It’s an useful feature for
+    the case your architecture can run more than one target. For instance, Mac M1 machines
+    can run both *armv8* and *x86_64*.
 
-  - We run the example binary, that was generated in the ``self.cpp.build.bindirs[0]``
-    folder using the environment information that Conan put in the run environment. Conan
-    will then invoke a launcher containing the runtime environment information, anything
-    that is necessary for the environment to run the compiled executables and
-    applications.
+  - We run the example binary, that was generated in the ``self.cpp.build.bindir`` folder
+    using the environment information that Conan put in the run environment. Conan will
+    then invoke a launcher containing the runtime environment information, anything that
+    is necessary for the environment to run the compiled executables and applications.
 
 Now that we have gone through all the important bits of the code, let's try our
 *test_package*. Although we already learned that the *test_package* is invoked when we

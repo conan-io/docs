@@ -23,6 +23,8 @@ conan.tools.build.cross_building()
 .. autofunction:: cross_building
 
 
+.. _conan_tools_build_can_run:
+
 conan.tools.build.can_run()
 """"""""""""""""""""""""""""""
 
