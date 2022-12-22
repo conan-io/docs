@@ -1,7 +1,7 @@
 Toolchains
 ==========
 
-Toolchains are the new, way to integrate with build systems in Conan.
+Toolchains are the new way to integrate with build systems in Conan.
 Recipes can define a ``generate()`` method that will return an object which
 can generate files from the current configuration that can be used by the build systems.
 Conan *generators* provide information about dependencies, while toolchains provide a
