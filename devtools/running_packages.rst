@@ -6,7 +6,7 @@ Running and deploying packages
 .. caution::
 
     We are actively working to finalize the *Conan 2.0 Release*. Some of the information on this page references
-    deprecated features which will not be carried forward with the new release. It's important to check the 
+    **deprecated** features which will not be carried forward with the new release. It's important to check the 
     :ref:`Migration Guidelines<conan2_migration_guide>` to ensure you are using the most up to date features.
 
 Executables and applications including shared libraries can also be distributed, deployed and run with Conan. This might have
