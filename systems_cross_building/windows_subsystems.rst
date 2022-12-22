@@ -43,7 +43,14 @@ Running commands inside the subsystem
 self.win_bash
 _____________
 
-This is an experimental feature introduced in Conan 1.39. It supersedes the ``run(..., win_bash=True)`` argument but
+Available since: `1.39.0 <https://github.com/conan-io/conan/releases/tag/1.39.0>`_
+
+.. important::
+
+    This feature is still **under development**, while it is recommended and usable and we will try not to break them in future releases,
+    some breaking changes might still happen if necessary to prepare for the *Conan 2.0 release*.
+
+This is a feature that supersedes the ``run(..., win_bash=True)`` argument but
 if the ``run(..., win_bash=True)`` is used, it will have priority so the compatibility with the previous behavior is
 guaranteed.
 
@@ -100,6 +107,11 @@ run the ``configure`` and ``make`` commands inside a bash.
 
 Controlling the build environment
 ---------------------------------
+
+.. warning::
+
+    Some parts of this section are **deprecated**. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that will carry over. 
 
 Building software in a Windows subsystem for a different compiler than MinGW can sometimes be painful.
 The reason is how the subsystem finds your compiler/tools in your system.
