@@ -147,7 +147,7 @@ In the general case, it is recommended to use a ``conanfile`` instead of definin
 Profiles, Settings, Options, Conf
 ---------------------------------
 
-There are several arguments that are used to define the effective profiles that will be used, both for "build"
+There are several arguments that are used to define the effective profiles that will be used, both for the "build"
 and "host" contexts.
 
 By default the arguments refer to the "host" context, so ``--settings:host, -s:h`` is totally equivalent to
