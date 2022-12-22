@@ -242,7 +242,7 @@ Lockfiles
 ---------
 
 The ``conan install`` command has several arguments to load and produce lockfiles. 
-By default, if a ``conan.lock`` file is located besides the recipe or in the current working directory
+By default, if a ``conan.lock`` file is located beside the recipe or in the current working directory
 if no path is provided, will be used as an input lockfile. 
 
 Lockfiles are strict by default, that means that
