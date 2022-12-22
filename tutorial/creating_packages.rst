@@ -26,6 +26,8 @@ define inside a Conan recipe and the things you can do inside them:
 * Define the package information in the ``package_info()`` method so that consumers
   of this package can use it.
 
+* Use a *test_package* to test that the Conan package can be consumed correctly.
+
 After this walkthrough around some Conan recipe methods, we will explain some
 peculiarities of different types of Conan packages like, for example, header-only
 libraries, packages for pre-built binaries, packaging tools for building other packages or

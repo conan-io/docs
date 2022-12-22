@@ -156,7 +156,7 @@ We have the same header-only library that sums two numbers, but now we have this
                 cmake = CMake(self)
                 cmake.configure(build_script_folder="test")
                 cmake.build()
-                self.run(os.path.join(self.cpp.build.bindirs[0], "test_sum"))
+                self.run(os.path.join(self.cpp.build.bindir, "test_sum"))
 
         def package(self):
             # This will also copy the "include" folder
