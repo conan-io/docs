@@ -171,8 +171,8 @@ Compatible packages
 
 .. warning::
 
-    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
-    to find the feature that replace this one.
+    Some parts of this feature are **deprecated**. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that will carry over. The :ref:`method_compatibility` documented below is the current recommendation.
 
 The above approach defined 1 package ID for different input configurations. For example, all ``gcc`` versions
 in the range ``(v >= "4.5" and v < "5.0")`` will have exactly the same package ID, no matter what was the gcc version
