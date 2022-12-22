@@ -245,7 +245,7 @@ Check the :ref:`Compatible Compilers<compatible_compilers>` section to see anoth
 **New conanfile.compatibility() method**
 
 The *conanfile.compatible_packages* will be substituted by the new
-:ref:`method_compatibility` experimental method in Conan 2.0. This method allows you to
+:ref:`method_compatibility` method in Conan 2.0. This method allows you to
 declare compatibility in a similar way:
 
 ..  code-block:: python

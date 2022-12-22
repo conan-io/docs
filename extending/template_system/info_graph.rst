@@ -6,9 +6,8 @@ Graph output for :command:`conan info` command
 
 .. warning::
 
-    This has to be considered as an **experimental** feature, we might
-    change the context provided to these templates once we have more examples
-    from the community.
+    This is a **migrated** feature. Please refer to :ref:`conan_v2_graph_info` learn about the changes.
+    Most of the functionality remains intact the main changes are to the command line.
 
 
 The :ref:`conan_info` command can generate a visualization of the dependency graph, it

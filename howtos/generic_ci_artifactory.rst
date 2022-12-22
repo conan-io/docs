@@ -77,7 +77,7 @@ Generating build info from lockfiles information
 
 .. warning::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+    This is an **experimental** feature subject to breaking changes in future releases. (TBD no clue)
     
 To maintain compatibility with the current implementation of the ``conan_build_info`` command, this
 version must be invoked using the argument ``--v2`` before any subcommand.

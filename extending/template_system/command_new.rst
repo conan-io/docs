@@ -6,7 +6,7 @@ Package scaffolding for :command:`conan new` command
 
 .. warning::
 
-    This functionality has to be considered as an **experimental** feature. We might
+    This functionality has to be considered as an **experimental** feature. We might (TBD should be reviewed)
     change the context provided for these templates once we have more examples
     from the community.
 

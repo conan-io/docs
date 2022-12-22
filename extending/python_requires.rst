@@ -5,7 +5,7 @@ Python requires
 
 .. warning::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+    This is an **experimental** feature subject to breaking changes in future releases. (TBD seems stable?)
 
 
 .. note::
