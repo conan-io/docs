@@ -107,7 +107,7 @@ Finally, the recipe for the *test_package* that consumes the *hello/1.0* Conan p
 
 Let's go through the most relevant parts:
 
-* We add the requirements in the ``requirements()`` method but in this case, we use the
+* We add the requirements in the ``requirements()`` method, but in this case we use the
   ``tested_reference_str`` attribute that Conan sets to pass to the test_package. This is
   a convenience attribute to avoid hardcoding the package name in the test_package so that
   we can reuse the same test_package for several versions of the same Conan package. In
