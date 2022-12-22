@@ -112,7 +112,7 @@ Conanfile path or --requires
 ----------------------------
 
 The ``conan install`` command can use 2 different origins for information. The first one is using a local ``conanfile.py`` 
-or ``conanfile.txt``, containing definitions of dependencies, generators to be used.
+or ``conanfile.txt``, containing definitions of the dependencies and generators to be used.
 
 .. code-block:: bash
 
