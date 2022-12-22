@@ -186,7 +186,7 @@ Note that in the general case, the recommended approach is to have the ``generat
 and only for the ``--requires`` use case, it would be more necessary as command line argument.
 
 Generators are intended to create files for the build systems to locate the dependencies, while the ``deployers``
-main use case is copy files from the Conan cache to user space, and other custom operations over the dependency graph,
+main use case is to copy files from the Conan cache to user space, and performing any other custom operations over the dependency graph,
 like collecting licenses, generating reports, deploying binaries to the system, etc. The syntax for deployers is:
 
 .. code-block:: bash
