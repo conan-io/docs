@@ -12,7 +12,7 @@ Testing Conan packages
 
 In all the previous sections of the tutorial, we used the *test_package*. It was invoked
 automatically at the end of the ``conan create`` command after building our package
-verifying that the package is created correctly. Let’s explain the *test_package* in more
+verifying that the package is created correctly. Let's explain the *test_package* in more
 detail in this section:
 
 Please, first clone the sources to recreate this project. You can find them in the
@@ -37,7 +37,7 @@ Some important notes to have in mind about the *test_package*:
 * It doesn’t belong to the package. It only exist in the source repository, not in the
   package.
 
-The *test_package* folder for for our hello/1.0 Conan package has the following contents:
+The *test_package* folder for our hello/1.0 Conan package has the following contents:
 
 .. code-block:: text
 
@@ -47,7 +47,7 @@ The *test_package* folder for for our hello/1.0 Conan package has the following 
     └── src
         └── example.cpp
 
-Let's have a look at the different files that are part of the *test_package*. First, the
+Let's have a look at the different files that are part of the *test_package*. First,
 *example.cpp* is just a minimal example of how to use the *libhello* library that we are
 packaging:
 
@@ -60,7 +60,7 @@ packaging:
         hello();
     }
 
-Then the *CMakeLists.txt* to tell CMake how to build the example:
+Then the *CMakeLists.txt* file to tell CMake how to build the example:
 
 .. code-block:: cpp
     :caption: *test_package/src/example.cpp*
@@ -107,7 +107,7 @@ Finally, the recipe for the *test_package* that consumes the *hello/1.0* Conan p
 
 Let's go through the most relevant parts:
 
-* We add the requirements in the ``requirements()`` method but in this case, we use the
+* We add the requirements in the ``requirements()`` method, but in this case we use the
   ``tested_reference_str`` attribute that Conan sets to pass to the test_package. This is
   a convenience attribute to avoid hardcoding the package name in the test_package so that
   we can reuse the same test_package for several versions of the same Conan package. In
@@ -161,7 +161,7 @@ test<reference_commands>` command:
     hello/1.0 (test package): RUN: ./example
     hello/1.0: Hello World Release! (with color!)
 
-As you can see in the output, our test_package builds successfully testing that the
+As you can see in the output, our *test_package* builds successfully testing that the
 *hello/1.0* Conan package can be consumed with no problem.
 
 
