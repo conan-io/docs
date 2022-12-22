@@ -143,8 +143,8 @@ Let's check the library's *CMakeLists.txt*:
 
     ...
 
-As you can see, we are setting the output name for the library depending on if we are
-building the library as static (*hello-static*) or shared (*hello-shared*). Now let's see
+As you can see, we are setting the output name for the library depending on whether we are
+building the library as static (*hello-static*) or as shared (*hello-shared*). Now let's see
 how to translate these changes to the Conan recipe.
 
 
