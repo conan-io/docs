@@ -249,32 +249,34 @@ so we can check we have one package for each precompiled library:
         $ conan export-pkg . -s os="Windows" -s arch="x86_64"
         $ conan export-pkg . -s os="Windows" -s arch="armv8"
 
-        $ conan list packages hello/0.1#latest
+        $ conan list hello/0.1#:*
         Local Cache:
-          hello/0.1#a7068582757c24d362aac7d92f6a4a92:522dcea5982a3f8a5b624c16477e47195da2f84f
-            settings:
-              arch=x86_64
-              os=Windows
-          hello/0.1#a7068582757c24d362aac7d92f6a4a92:63fead0844576fc02943e16909f08fcdddd6f44b
-            settings:
-              arch=x86_64
-              os=Linux
-          hello/0.1#a7068582757c24d362aac7d92f6a4a92:82339cc4d6db7990c1830d274cd12e7c91ab18a1
-            settings:
-              arch=x86_64
-              os=Macos
-          hello/0.1#a7068582757c24d362aac7d92f6a4a92:a0cd51c51fe9010370187244af885b0efcc5b69b
-            settings:
-              arch=armv8
-              os=Windows
-          hello/0.1#a7068582757c24d362aac7d92f6a4a92:c93719558cf197f1df5a7f1d071093e26f0e44a0
-            settings:
-              arch=armv8
-              os=Linux
-          hello/0.1#a7068582757c24d362aac7d92f6a4a92:dcf68e932572755309a5f69f3cee1bede410e907
-            settings:
-              arch=armv8
-              os=Macos
+          hello
+            hello/0.1#9c7634dfe0369907f569c4e583f9bc50 (2022-12-22 17:36:39 UTC)
+              PID: 522dcea5982a3f8a5b624c16477e47195da2f84f (2022-12-22 17:36:36 UTC)
+                settings:
+                  arch=x86_64
+                  os=Windows
+              PID: 63fead0844576fc02943e16909f08fcdddd6f44b (2022-12-22 17:36:19 UTC)
+                settings:
+                  arch=x86_64
+                  os=Linux
+              PID: 82339cc4d6db7990c1830d274cd12e7c91ab18a1 (2022-12-22 17:36:28 UTC)
+                settings:
+                  arch=x86_64
+                  os=Macos
+              PID: a0cd51c51fe9010370187244af885b0efcc5b69b (2022-12-22 17:36:39 UTC)
+                settings:
+                  arch=armv8
+                  os=Windows
+              PID: c93719558cf197f1df5a7f1d071093e26f0e44a0 (2022-12-22 17:36:24 UTC)
+                settings:
+                  arch=armv8
+                  os=Linux
+              PID: dcf68e932572755309a5f69f3cee1bede410e907 (2022-12-22 17:36:32 UTC)
+                settings:
+                  arch=armv8
+                  os=Macos
 
 
 In this example, we don't have a ``test_package/`` folder but you can provide one to test the packages like in the
@@ -343,33 +345,34 @@ We only need to call :command:`conan create` with different settings to generate
         $ conan create . -s os="Windows" -s arch="x86_64"
         $ conan create . -s os="Windows" -s arch="armv8"
 
-        $ conan list packages hello/0.1#latest
-
+        $ conan list packages hello/0.1#:*
         Local Cache:
-          hello/0.1#a7068582757c24d362aac7d92f6a4a92:522dcea5982a3f8a5b624c16477e47195da2f84f
-            settings:
-              arch=x86_64
-              os=Windows
-          hello/0.1#a7068582757c24d362aac7d92f6a4a92:63fead0844576fc02943e16909f08fcdddd6f44b
-            settings:
-              arch=x86_64
-              os=Linux
-          hello/0.1#a7068582757c24d362aac7d92f6a4a92:82339cc4d6db7990c1830d274cd12e7c91ab18a1
-            settings:
-              arch=x86_64
-              os=Macos
-          hello/0.1#a7068582757c24d362aac7d92f6a4a92:a0cd51c51fe9010370187244af885b0efcc5b69b
-            settings:
-              arch=armv8
-              os=Windows
-          hello/0.1#a7068582757c24d362aac7d92f6a4a92:c93719558cf197f1df5a7f1d071093e26f0e44a0
-            settings:
-              arch=armv8
-              os=Linux
-          hello/0.1#a7068582757c24d362aac7d92f6a4a92:dcf68e932572755309a5f69f3cee1bede410e907
-            settings:
-              arch=armv8
-              os=Macos
+          hello
+            hello/0.1#d8e4debf31f0b7b5ec7ff910f76f1e2a (2022-12-22 17:38:35 UTC)
+              PID: 522dcea5982a3f8a5b624c16477e47195da2f84f (2022-12-22 17:38:33 UTC)
+                settings:
+                  arch=x86_64
+                  os=Windows
+              PID: 63fead0844576fc02943e16909f08fcdddd6f44b (2022-12-22 17:38:19 UTC)
+                settings:
+                  arch=x86_64
+                  os=Linux
+              PID: 82339cc4d6db7990c1830d274cd12e7c91ab18a1 (2022-12-22 17:38:27 UTC)
+                settings:
+                  arch=x86_64
+                  os=Macos
+              PID: a0cd51c51fe9010370187244af885b0efcc5b69b (2022-12-22 17:38:36 UTC)
+                settings:
+                  arch=armv8
+                  os=Windows
+              PID: c93719558cf197f1df5a7f1d071093e26f0e44a0 (2022-12-22 17:38:23 UTC)
+                settings:
+                  arch=armv8
+                  os=Linux
+              PID: dcf68e932572755309a5f69f3cee1bede410e907 (2022-12-22 17:38:30 UTC)
+                settings:
+                  arch=armv8
+                  os=Macos
 
 
 It is recommended to include also a small consuming project in a ``test_package`` folder to verify the package is correctly
