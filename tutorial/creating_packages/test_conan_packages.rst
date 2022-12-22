@@ -37,7 +37,7 @@ Some important notes to have in mind about the *test_package*:
 * It doesn’t belong to the package. It only exist in the source repository, not in the
   package.
 
-The *test_package* folder for for our hello/1.0 Conan package has the following contents:
+The *test_package* folder for our hello/1.0 Conan package has the following contents:
 
 .. code-block:: text
 
