@@ -101,7 +101,7 @@ Finally, the recipe for the *test_package* that consumes the *hello/1.0* Conan p
             cmake_layout(self)
 
         def test(self):
-            if not can_run(self):
+            if can_run(self):
                 cmd = os.path.join(self.cpp.build.bindir, "example")
                 self.run(cmd, env="conanrun")
 
