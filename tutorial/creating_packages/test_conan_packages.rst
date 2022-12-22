@@ -160,7 +160,7 @@ test<reference_commands>` command:
     hello/1.0 (test package): RUN: ./example
     hello/1.0: Hello World Release! (with color!)
 
-As you can see in the output, our test_package builds successfully testing that the
+As you can see in the output, our *test_package* builds successfully testing that the
 *hello/1.0* Conan package can be consumed with no problem.
 
 
