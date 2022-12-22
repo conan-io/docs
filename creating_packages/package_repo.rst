@@ -107,7 +107,7 @@ Capturing the Remote and Commit: ``scm``
 
 .. warning::
 
-    This is an **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
     to find the feature that replace this one.
 
 You can use the :ref:`scm attribute <scm_attribute>` with the ``url`` and ``revision`` field set to ``auto``.

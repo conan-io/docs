@@ -171,7 +171,7 @@ Compatible packages
 
 .. warning::
 
-    This is an **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
     to find the feature that replace this one.
 
 The above approach defined 1 package ID for different input configurations. For example, all ``gcc`` versions
