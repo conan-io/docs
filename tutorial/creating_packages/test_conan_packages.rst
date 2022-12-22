@@ -47,7 +47,7 @@ The *test_package* folder for for our hello/1.0 Conan package has the following 
     └── src
         └── example.cpp
 
-Let's have a look at the different files that are part of the *test_package*. First, the
+Let's have a look at the different files that are part of the *test_package*. First,
 *example.cpp* is just a minimal example of how to use the *libhello* library that we are
 packaging:
 
