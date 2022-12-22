@@ -81,7 +81,7 @@ irrelevant. It is provided to maintain the equivalence with ``conanfile.py``
 [generators]
 ------------
 
-List of built-in generators to be used, equivalent to ``conanfile.py`` ``generators = "CMakeDeps", ...`` attribute.
+List of built-in generators to be used, equivalent to the ``conanfile.py`` ``generators = "CMakeDeps", ...`` attribute.
 
 .. code-block:: text
 
