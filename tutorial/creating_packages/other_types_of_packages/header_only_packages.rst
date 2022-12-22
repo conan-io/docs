@@ -79,9 +79,12 @@ We can list the binary packages created running this command:
 
 .. code-block:: bash
 
-    $ conan list packages sum/0.1#latest
+    $ conan list sum/0.1#:*
     Local Cache:
-        sum/0.1#154c10cda76635e3ca85bcd7e21c2de9:da39a3ee5e6b4b0d3255bfef95601890afd80709
+    sum
+        sum/0.1#8d9f1fb3655adcb348befcd8374c5292 (2022-12-22 17:33:45 UTC)
+        PID: da39a3ee5e6b4b0d3255bfef95601890afd80709 (2022-12-22 17:33:45 UTC)
+            No package info/revision was found.
 
 We get one package with the package ID ``da39a3ee5e6b4b0d3255bfef95601890afd80709``.
 Let's see what happen if we run the ``conan create`` but specifying ``-s build_type=Debug``:
@@ -89,9 +92,12 @@ Let's see what happen if we run the ``conan create`` but specifying ``-s build_t
 .. code-block:: bash
 
     $ conan create . -s build_type=Debug
-    $ conan list packages sum/0.1#latest
+    $ conan list sum/0.1#:*
     Local Cache:
-        sum/0.1#154c10cda76635e3ca85bcd7e21c2de9:da39a3ee5e6b4b0d3255bfef95601890afd80709
+    sum
+        sum/0.1#8d9f1fb3655adcb348befcd8374c5292 (2022-12-22 17:34:23 UTC)
+        PID: da39a3ee5e6b4b0d3255bfef95601890afd80709 (2022-12-22 17:34:23 UTC)
+            No package info/revision was found.
 
 Even in the ``test_package`` executable is built for Debug, we get the same binary package for the header-only library.
 This is because we didn't specify the ``settings`` attribute in the recipe, so the changes in the input settings (``-s build_type=Debug``)

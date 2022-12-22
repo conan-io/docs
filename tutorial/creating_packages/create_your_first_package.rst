@@ -227,7 +227,7 @@ We can now validate that the recipe and the package binary are in the cache:
 
 .. code-block:: bash
 
-    $ conan list recipes hello
+    $ conan list hello
     Local Cache:
       hello
         hello/1.0
@@ -255,44 +255,46 @@ we can see them with:
 
     # list the binary built for the hello/1.0 package
     # latest is a placeholder to show the package that is the latest created
-    $ conan list packages hello/1.0#latest
+    $ conan list hello/1.0#:*
     Local Cache:
-      hello/1.0#a778356a93c60fe1f687dc2c2ed1449f:46d0e61c1613f12c0e46d007c90dfda85a76a954
-        settings:
-          arch=x86_64
-          build_type=Release
-          compiler=apple-clang
-          compiler.cppstd=gnu11
-          compiler.libcxx=libc++
-          compiler.version=14
-          os=Macos
-        options:
-          fPIC=True
-          shared=True
-      hello/1.0#a778356a93c60fe1f687dc2c2ed1449f:65b76cd1e932112820b979ce174c2c96968f51fb
-        settings:
-          arch=x86_64
-          build_type=Debug
-          compiler=apple-clang
-          compiler.cppstd=gnu11
-          compiler.libcxx=libc++
-          compiler.version=14
-          os=Macos
-        options:
-          fPIC=True
-          shared=False
-      hello/1.0#a778356a93c60fe1f687dc2c2ed1449f:bde82464870a3362a84c3c5d1dd4094fdd4b1bfd
-        settings:
-          arch=x86_64
-          build_type=Release
-          compiler=apple-clang
-          compiler.cppstd=gnu11
-          compiler.libcxx=libc++
-          compiler.version=14
-          os=Macos
-        options:
-          fPIC=True
-          shared=False
+    hello
+      hello/1.0#fa5f6b17d0adc4de6030c9ab71cdbede (2022-12-22 17:32:19 UTC)
+        PID: 6679492451b5d0750f14f9024fdbf84e19d2941b (2022-12-22 17:32:20 UTC)
+          settings:
+            arch=x86_64
+            build_type=Release
+            compiler=apple-clang
+            compiler.cppstd=gnu11
+            compiler.libcxx=libc++
+            compiler.version=14
+            os=Macos
+          options:
+            fPIC=True
+            shared=True
+        PID: b1d267f77ddd5d10d06d2ecf5a6bc433fbb7eeed (2022-12-22 17:31:59 UTC)
+          settings:
+            arch=x86_64
+            build_type=Release
+            compiler=apple-clang
+            compiler.cppstd=gnu11
+            compiler.libcxx=libc++
+            compiler.version=14
+            os=Macos
+          options:
+            fPIC=True
+            shared=False
+        PID: d15c4f81b5de757b13ca26b636246edff7bdbf24 (2022-12-22 17:32:14 UTC)
+          settings:
+            arch=x86_64
+            build_type=Debug
+            compiler=apple-clang
+            compiler.cppstd=gnu11
+            compiler.libcxx=libc++
+            compiler.version=14
+            os=Macos
+          options:
+            fPIC=True
+
 
 Now that we have created a simple Conan package, we will explain each of the methods of
 the Conanfile in more detail. You will learn how to modify those methods to achieve things
@@ -308,13 +310,7 @@ place in your local folder but in other folder inside the *Conan cache*. This ca
 located in the user home folder under the ``.conan2`` folder. Conan will use the
 ``~/.conan2`` folder to store the built packages and also different configuration files.
 You already used the :command:`conan list` command to list the recipes and binaries stored
-in the local cache. There are different subcommands for this command that we will explain
-in more detail through this tutorial:
-
-* :command:`conan list recipes`: Search available recipes in the local cache or in the remotes.
-* :command:`conan list recipe-revisions`: List all the revisions of a recipe reference.
-* :command:`conan list packages`: List all the different packages for a given recipe reference.
-* :command:`conan list package-revisions`: List all the revisions of a package.
+in the local cache. 
 
 TODO: add note about Conan references, recipe/package references.
 
