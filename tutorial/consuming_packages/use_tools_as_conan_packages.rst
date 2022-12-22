@@ -91,7 +91,7 @@ You can check the output:
     Downloading conanfile.py
     cmake/3.19.8: Downloaded recipe revision 3e3d8f3a848b2a60afafbe7a0955085a
     Graph root
-        conanfile.txt: /Users/carlosz/Documents/developer/conan/examples2/tutorial/consuming_packages/tool_requires/conanfile.txt
+        conanfile.txt: /Users/user/Documents/developer/conan/examples2/tutorial/consuming_packages/tool_requires/conanfile.txt
     Requirements
         zlib/1.2.11#f1fadf0d3b196dc0332750354ad8ab7b - Cache
     Build requirements

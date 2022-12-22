@@ -1,3 +1,5 @@
+.. _creating_packages_package_method:
+
 Package files: the package() method
 ===================================
 

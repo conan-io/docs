@@ -45,6 +45,8 @@ There are four instances available, only while running the following methods:
                 self.cpp_info.libs = ["foo"]
 
 
+.. _conan_conanfile_model_cppinfo_attributes:
+
 Attributes
 ^^^^^^^^^^
 
