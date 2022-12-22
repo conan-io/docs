@@ -99,7 +99,7 @@ Besides what we explained above about the information you can set in the
 - Propagating environment information to consumers
 - Define components for Conan packages that provide multiple libraries
 
-Let's see some of those. First, clone the project sources if you already didn't. You can
+Let's see some of those in action. First, clone the project sources if you haven't done so yet. You can
 find them in the `examples2.0 repository <https://github.com/conan-io/examples2>`_ on
 GitHub:
 
