@@ -207,7 +207,7 @@ Some generators might have the capability of redefining the target "package fold
 generator like ``CMakeDeps`` is used that is pointing to the packages, it will be pointing to the local deployed
 copy, and not to the original packages in the Conan cache.
 
-It is also possible, and it is a powerful extension point, to write user custom deployers.
+It is also possible, and it is a powerful extension point, to write custom user deployers.
 Read more about custom deployers in :ref:`reference_extensions_deployers`.
 
 
