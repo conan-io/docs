@@ -12,7 +12,7 @@ Testing Conan packages: the test() method
 
 In all the previous sections of the tutorial, we used the *test_package*. It was invoked
 automatically at the end of the ``conan create`` command after building our package
-verifying that the package is created correctly. Let’s explain the *test_package* in more
+verifying that the package is created correctly. Let's explain the *test_package* in more
 detail in this section:
 
 Please, first clone the sources to recreate this project. You can find them in the
