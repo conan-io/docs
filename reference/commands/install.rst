@@ -255,7 +255,7 @@ is provided, pointing to a filename, like ``--lockfile-out=result.lock``, then a
 from the current dependency graph. If ``--lockfile-clean`` argument is provided, all versions and revisions
 not used in the current dependency graph will be dropped from the resulting lockfile.
 
-Let`s say that we already have a ``conan.lock`` input lockfile, but we just added a new ``requires = "newpkg/1.0"``
+Let's say that we already have a ``conan.lock`` input lockfile, but we just added a new ``requires = "newpkg/1.0"``
 to a new dependency. We could resolve the dependencies, locking all the previously locked versions, while allowing
 to resolve the new one, which was not previously present in the lockfile, and store it in a new location, or overwrite the existing lockfile:
 
