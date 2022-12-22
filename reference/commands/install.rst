@@ -264,7 +264,7 @@ to resolve the new one, which was not previously present in the lockfile, and st
     # --locfile=conan.lock is the default, not necessary
     $ conan install . --lockfile=conan.lock --lockfile-partial --lockfile-out=conan.lock 
 
-The ``--lockfile-packages`` allows to create lockfiles that also contain down to the package revision, but 
+The ``--lockfile-packages`` argument allows to create lockfiles that also lock down to the package revision, but 
 it should not be necessary in the vast majority of cases, so it is discouraged in the general case.
 
 Also, it is likely that the majority of lockfile operations are better managed by the ``conan lock`` command.
