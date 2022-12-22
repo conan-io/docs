@@ -257,7 +257,7 @@ not used in the current dependency graph will be dropped from the resulting lock
 
 Let`s say that we already have a ``conan.lock`` input lockfile, but we just added a new ``requires = "newpkg/1.0"``
 to a new dependency. We could resolve the dependencies, locking all the previously locked versions, while allowing
-to resolve the new one, not previously in the lockfile, and store it in a new or overwrite the existing lockfile:
+to resolve the new one, which was not previously present in the lockfile, and store it in a new location, or overwrite the existing lockfile:
 
 .. code-block:: bash
 
