@@ -119,7 +119,7 @@ Let's check the relevant parts:
 Changes introduced in the library sources
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-First, please note that we are using `other branch
+First, please note that we are using `another branch
 <https://github.com/conan-io/libhello/tree/package_info>`_ from the **libhello** library.
 Let's check the library's *CMakeLists.txt*:
 
