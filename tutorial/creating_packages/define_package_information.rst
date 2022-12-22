@@ -13,7 +13,7 @@ In the previous tutorial section, we explained how to store the headers and bina
 library in a Conan package using the :ref:`package
 method<creating_packages_package_method>`. Consumers that depend on that package will
 reuse those files, but we have to provide some additional information so that Conan can
-pass that to the build system and consumers can build the package.
+pass that to the build system and consumers can use the package.
 
 For instance, in our example, we are building a static library named *hello* that will
 result in a *libhello.a* file in Linux and macOS or a *hello.lib* file in Windows. Also,
