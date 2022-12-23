@@ -40,7 +40,7 @@ You can also use the :ref:`tools.Git <tools_git>` class:
 .. warning::
 
     This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
-    to find the feature that replace this one.
+    to find the feature that replaces this one.
 
 .. code-block:: python
 
