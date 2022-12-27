@@ -32,7 +32,7 @@ from the local cache or from any specified remotes. Depending on the patterns sp
 account that a complete Conan reference looks like this ``name/version@use/channel#rrev:pkgid#prev``,
 it is possible to list:
 
-* Recipe references (``name/version@use/channel```.
+* Recipe references (``name/version@user/channel``).
 * Recipe revisions (``#rrev``).
 * Package IDs and their configurations (``:pkgids``).
 * Package revisions (``#prev``).
