@@ -28,13 +28,15 @@ conan list
 
 
 The ``conan list`` command is an in-depth-oriented command, and it can list recipes and packages
-from the local cache or from any specified remotes. Depending on the patterns specified as argument,
+from the local cache or from any specified remotes. Depending on the patterns specified as argument and taking into
+account that a complete Conan reference looks like this ``name/version@use/channel#rrev:pkgid#prev``,
 it is possible to list:
 
-* Recipe references.
-* Recipe revisions.
-* Package IDs and their configurations.
-* Package revisions.
+* Recipe references (``name/version@use/channel```.
+* Recipe revisions (``#rrev``).
+* Package IDs and their configurations (``:pkgids``).
+* Package revisions (``#prev``).
+
 
 Use cases
 ---------
