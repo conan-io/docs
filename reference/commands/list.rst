@@ -27,7 +27,7 @@ conan list
       -c, --cache           Search in the local cache
 
 
-The ``conan list`` command is a in-depth-oriented command, and it can lists recipes and packages
+The ``conan list`` command is an in-depth-oriented command, and it can list recipes and packages
 from the local cache or from any specified remotes. Depending on the patterns specified as argument,
 it is possible to list:
 
