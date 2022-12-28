@@ -5,7 +5,7 @@ Download cache
 
 .. warning::
 
-    This is an **experimental** feature subject to breaking changes in future releases. (TBD)
+    This is an **experimental** feature subject to breaking changes in future releases.
 
 
 Conan implements a shared download cache that can be used to reduce the time needed to populate the Conan package cache
