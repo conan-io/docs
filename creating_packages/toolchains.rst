@@ -1,23 +1,7 @@
 Toolchains
 ==========
 
-.. warning:
-
-    This is a very **EXPERIMENTAL** feature, introduced in Conan 1.26, with limited functionality,
-    and subject to breaking changes in the future.
-    The current goal is to gather experience and feedback
-    to evolve it, while adding more build systems.
-
-    Please try it and provide feedback at: https://github.com/conan-io/conan/issues
-
-.. warning:
-
-    Starting in Conan 1.32 ``toolchain()`` method and ``toolchain`` attribute have been
-    deprecated. They will be removed in Conan 1.33, please use ``generate()`` instead of
-    ``toolchain()`` and ``generators = "ToolChainClassName"`` instead of
-    ``toolchain`` attribute.
-
-Toolchains are the new, experimental way to integrate with build systems in Conan.
+Toolchains are the new way to integrate with build systems in Conan.
 Recipes can define a ``generate()`` method that will return an object which
 can generate files from the current configuration that can be used by the build systems.
 Conan *generators* provide information about dependencies, while toolchains provide a
@@ -38,10 +22,9 @@ For example, for using the CMake toolchain this should be declared in the recipe
 
     generators = "CMakeToolchain"
 
-.. note::
+.. tip::
 
-    At the moment (Conan 1.32), the available built-in toolchains are ``CMakeToolchain``,
-    ``MSBuildToolchain`` and ``MesonToolchain``.
+    You can explore available toolchains in the :ref:`new tools section<conan_tools>`
 
 But in the more general case, and if it needs any specific configuration beyond the default
 one:
@@ -62,7 +45,7 @@ deduced from the current configuration of ``self.settings`` and ``self.options``
 
 .. code:: python
 
-    from conans.tools import save
+    from conan.tools.files import save
 
     def generate(self):
         # Based on the self.settings, self.options, the user
@@ -104,6 +87,3 @@ the documentation of each toolchain to check the associated build helper availab
         # NOTE: This is a simplified helper
         # Not all arguments attributes and methods might be available
         cmake = CMake(self)
-
-
-To learn more about existing built-in toolchains, read the reference in :ref:`conan_tools`.

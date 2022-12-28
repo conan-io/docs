@@ -3,9 +3,14 @@
 Package layout
 ==============
 
-.. warning::
+.. important::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+    Some of the features used in this section are still **under development**, while they are
+    recommended and usable and we will try not to break them in future releases, some breaking
+    changes might still happen if necessary to prepare for the *Conan 2.0 release*.
+
+.. tip::
+
     The ``layout()`` feature will be fully functional only in the new build system integrations
     (:ref:`in the conan.tools space <conan_tools>`). If you are using other integrations, they
     might not fully support this feature.
@@ -146,7 +151,7 @@ When we call ``conan create``, this is a simplified description of what happens:
        :caption: conanfile.py
 
        import os
-       from conans import ConanFile
+       from conan import ConanFile
        from conan.tools.cmake import CMake
 
 
@@ -273,7 +278,7 @@ Let's see how we describe our project in the ``layout()`` method:
     :caption: conanfile.py
 
     import os
-    from conans import ConanFile
+    from conan import ConanFile
     from conan.tools.cmake import CMake
 
 

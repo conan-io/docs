@@ -62,6 +62,12 @@ the ``host`` platform when we are using it to build binaries.
 Cross building with Conan
 -------------------------
 
+.. caution::
+
+    We are actively working to finalize the *Conan 2.0 Release*. Some of the information on this page references
+    **deprecated** features which will not be carried forward with the new release. It's important to check the 
+    :ref:`Migration Guidelines<conan2_migration_guide>` to ensure you are using the most up to date features.
+
 If you want to cross build a Conan package (for example using your Linux machine) to build the ``zlib``
 Conan package for Windows, you need to tell Conan where to find your toolchain/cross compiler.
 
@@ -138,8 +144,8 @@ Using tool requires
 
 .. warning::
 
-    This section refers to the **experimental feature** that is activated when using ``--profile:build`` and ``--profile:host``
-    in the command-line. It is currently under development, features can be added or removed in the following versions.
+    This section refers to the feature that is activated when using ``--profile:build`` and ``--profile:host``
+    in the command-line.
 
 
 Instead of manually downloading the toolchain and creating a profile, you can create a Conan package
@@ -149,6 +155,12 @@ this should be a regular recipe, for older versions some more work is needed.
 
 Conan v1.24 and newer
 .....................
+
+.. caution::
+
+    We are actively working to finalize the *Conan 2.0 Release*. Some of the information on this page references
+    **deprecated** features which will not be carried forward with the new release. It's important to check the 
+    :ref:`Migration Guidelines<conan2_migration_guide>` to ensure you are using the most up to date features.
 
 A recipe with a toolchain is like any other recipe with a binary executable:
 
@@ -306,12 +318,11 @@ if the tool requirements has other Conan dependencies.
 
 Host settings ``os_build``, ``arch_build``, ``os_target`` and ``arch_target``
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+.. caution::
 
-.. warning::
-
-    **These settings are being reviewed and might be deprecated in the future**, we encourage you to try not to use
-    them. If you need help with your use case, please `open an issue in the Conan repository <https://github.com/conan-io/conan/issues>`_
-    and we will help you.
+    We are actively working to finalize the *Conan 2.0 Release*. Some of the information on this page references
+    **deprecated** features which will not be carried forward with the new release. It's important to check the 
+    :ref:`Migration Guidelines<conan2_migration_guide>` to ensure you are using the most up to date features.
 
 
 Before Conan v1.24 the recommended way to deal with cross building was to use some extra settings like
@@ -546,6 +557,12 @@ Example of an Windows CE conan profile:
 
 Linux/Windows/macOS to Android
 ..............................
+
+.. caution::
+
+    We are actively working to finalize the *Conan 2.0 Release*. Some of the information on this page references
+    **deprecated** features which will not be carried forward with the new release. It's important to check the 
+    :ref:`Migration Guidelines<conan2_migration_guide>` to ensure you are using the most up to date features.
 
 Cross-building a library for Android is very similar to the previous examples, except the complexity of managing different
 architectures (armeabi, armeabi-v7a, x86, arm64-v8a) and the Android API levels.

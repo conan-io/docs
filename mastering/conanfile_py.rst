@@ -1,10 +1,11 @@
-.. spelling::
-
-  mytimer
-
-
 Use conanfile.py for consumers
 ===============================
+
+.. caution::
+
+    We are actively working to finalize the *Conan 2.0 Release*. Some of the information on this page references
+    **deprecated** features which will not be carried forward with the new release. It's important to check the 
+    :ref:`Migration Guidelines<conan2_migration_guide>` to ensure you are using the most up to date features.
 
 You can use a ``conanfile.py`` for installing/consuming packages, even if you are not creating a package with it. You can also use the existing ``conanfile.py`` in a given package while developing it to install dependencies. There's no need to have a separate ``conanfile.txt``.
 

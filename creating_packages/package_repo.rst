@@ -3,6 +3,12 @@
 Recipe and Sources in the Same Repo
 ===================================
 
+.. caution::
+
+    We are actively working to finalize the *Conan 2.0 Release*. Some of the information on this page references
+    **deprecated** features which will not be carried forward with the new release. It's important to check the 
+    :ref:`Migration Guidelines<conan2_migration_guide>` to ensure you are using the most up to date features.
+
 Sometimes it is more convenient to have the recipe and source code together in the same repository.
 This is true especially if you are developing and packaging your own library, and not one from a third-party.
 
@@ -101,9 +107,8 @@ Capturing the Remote and Commit: ``scm``
 
 .. warning::
 
-    This is an **experimental** feature subject to breaking changes in future releases. Although this
-    is an experimental feature, the use of the feature using ``scm_to_conandata`` is considered
-    stable.
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaces this one.
 
 You can use the :ref:`scm attribute <scm_attribute>` with the ``url`` and ``revision`` field set to ``auto``.
 When you export the recipe (or when :command:`conan create` is called) the exported recipe will capture the

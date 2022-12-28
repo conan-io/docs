@@ -1,4 +1,3 @@
-.. _conan_v2:
 .. _conan2_migration_guide:
 
 
