@@ -41,8 +41,8 @@ it is possible to list:
 Use cases
 ^^^^^^^^^
 
-Show only recipe references (name/version@use/channel)
-*******************************************************
+Show only recipe references (``name/version@use/channel``)
+**********************************************************
 
 All the existing recipe references (using different patterns)
 -------------------------------------------------------------
@@ -77,8 +77,8 @@ All the existing recipe references (using different patterns)
         hello/1.2.11@user/channel_2
 
 
-Show only recipe revisions (name/version@use/channel#rrev)
-**********************************************************
+Show only recipe revisions (``name/version@use/channel#rrev``)
+**************************************************************
 
 Only the latest recipe revision
 -------------------------------
@@ -127,8 +127,8 @@ All the latest recipe revisions for all the recipe references
         zlib/1.2.11#d77ee68739fcbe5bf37b8a4690eea6ea (2022-08-05 17:17:30 UTC)
 
 
-Show only package IDs (name/version@use/channel#rrev:pkgid)
-***********************************************************
+Show only package IDs (``name/version@use/channel#rrev:pkgid``)
+***************************************************************
 
 All the package IDs for the latest recipe revision
 --------------------------------------------------
@@ -191,8 +191,8 @@ All the package IDs for all recipe revisions
     Here the ``#latest`` is implicit, i.e., that search is the same as put ``conan list zlib/1.2.11#latest:*``
 
 
-Show only package revisions (name/version@use/channel#rrev:pkgid#prev)
-**********************************************************************
+Show only package revisions (``name/version@use/channel#rrev:pkgid#prev``)
+**************************************************************************
 
 
 Only the latest package revision of a given a full package ID
