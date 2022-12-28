@@ -39,7 +39,7 @@ Conan Package Tools
 
 .. caution::
 
-    According to projects README, there is no planned support for the upcoming *Conan 2.0 release*.
+    According to the project's README, there is no planned support for the upcoming *Conan 2.0 release*.
 
 We have developed another FOSS tool for package creators, the **Conan Package Tools** to help you generate multiple binary packages from a package recipe.
 It offers a simple way to define the different configurations and to call :command:`conan test`.

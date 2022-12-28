@@ -250,7 +250,7 @@ Imports
 .. warning::
 
     This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
-    to find the feature that replace this one.
+    to find the feature that replaces this one.
 
 There are some differences between shared libraries on Linux (\*.so), Windows (\*.dll) and MacOS
 (\*.dylib). The shared libraries must be located in a folder where they can be found, either by

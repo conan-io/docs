@@ -287,7 +287,7 @@ Testing tool_requires
 
 .. warning::
 
-    This is an **experimental** feature, subject to future breaking changes (not changed in 20 months TBD)
+    This is an **experimental** feature, subject to future breaking changes
 
 Available since: `1.44.0 <https://github.com/conan-io/conan/releases/tag/1.44.0>`_
 

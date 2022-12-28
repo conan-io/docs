@@ -108,7 +108,7 @@ Capturing the Remote and Commit: ``scm``
 .. warning::
 
     This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
-    to find the feature that replace this one.
+    to find the feature that replaces this one.
 
 You can use the :ref:`scm attribute <scm_attribute>` with the ``url`` and ``revision`` field set to ``auto``.
 When you export the recipe (or when :command:`conan create` is called) the exported recipe will capture the

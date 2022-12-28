@@ -1581,11 +1581,9 @@ self.folders
 
 
 - **self.folders.source** (Defaulted to ""): Specifies a subfolder where the sources are. The ``self.source_folder`` attribute
-  inside the ``source(self)`` and ``build(self)`` methods will be set with this subfolder. But the *current working directory*
-  in the ``source(self)`` method will not include this subfolder, because it is intended to describe where the sources are after
-  downloading (zip, git...) them, not to force where the sources should be. As well, the `export_sources`, `exports` and `scm` sources
-  will be copied to the root source directory, being the **self.folders.source** variable the way to describe if the fetched sources
-  are still in a subfolder.
+  inside the ``source(self)`` and ``build(self)`` methods will be set with this subfolder. The *current working directory*
+  in the ``source(self)`` method will include this subfolder. The `export_sources`, `exports` and `scm` sources
+  will also be copied to the root source directory.
   It is used in the cache when running
   :command:`conan create` (relative to the cache source folder) as well as in a local folder when running :command:`conan build`
   (relative to the local current folder).
