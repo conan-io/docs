@@ -5,7 +5,7 @@ Hooks
 
 .. warning::
 
-    This is an **experimental** feature subject to breaking changes in future releases. (TDB should carry over?)
+    This is an **experimental** feature subject to breaking changes in future releases.
 
 The Conan hooks are Python functions that are intended to extend the Conan functionalities and let users customize the client behavior at
 determined execution points. Check the :ref:`hooks section in extending Conan <hooks>` to see

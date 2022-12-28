@@ -6,7 +6,7 @@ conan inspect
 
 .. warning::
 
-      This is an **experimental** feature subject to breaking changes in future releases. (TDB hasnt changed in forever)
+      This is an **experimental** feature subject to breaking changes in future releases.
 
 
 .. code-block:: bash

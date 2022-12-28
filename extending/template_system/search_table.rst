@@ -6,7 +6,7 @@ HTML output for :command:`conan search` table
 
 .. warning::
 
-    This has to be an considered as an **experimental** feature, we might (TDB hasnt changed in a while)
+    This has to be an considered as an **experimental** feature, we might
     change the context provided to this templates once we have more examples
     from the community.
 

@@ -225,8 +225,4 @@ There is no need to provide it in the command line, :ref:`check "testing tool re
 
 Available since: `1.39.0 <https://github.com/conan-io/conan/releases/tag/1.39.0>`_
 
-.. warning::
-
-    This is an **experimental** feature subject to breaking changes in future releases.
-
 This argument is the same, and has the same behavior as the :ref:`conan install command<cli_arg_require_override>`.

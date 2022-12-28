@@ -438,11 +438,8 @@ as necessary without needing to change the profiles at all.
 --require-override
 ------------------
 
-.. warning::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
-
-New from **Conan 1.39**
+Available since: `1.39.0 <https://github.com/conan-io/conan/releases/tag/1.39.0>`_
 
 The ``--require-override`` argument allows to inject an override requirement to the consumer conanfile being called
 by this command, that would be equivalent to:

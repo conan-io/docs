@@ -120,7 +120,7 @@ They accept patterns too, like ``-s *@myuser/*``, which means that packages that
     compiler.version=4.9
     compiler.libcxx=libstdc++11
 
-Also, as a **experimental** feature, `&` can be specified as the package name. It will apply only to the consumer conanfile (.py or .txt).
+Also `&` can be specified as the package name. It will apply only to the consumer conanfile (.py or .txt).
 This is a special case because the consumer conanfile might not declare a `name` so it would be impossible to reference it.
 
 .. code-block:: text

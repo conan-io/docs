@@ -5,7 +5,7 @@ Download cache
 
 .. warning::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+    This is an **experimental** feature subject to breaking changes in future releases. (TBD)
 
 
 Conan implements a shared download cache that can be used to reduce the time needed to populate the Conan package cache
@@ -66,7 +66,7 @@ Concurrency, multiple caches and CI
 
 The downloads cache implements exclusive locks for concurrency, so it can be shared among different concurrent Conan instances.
 This is a typical scenario in CI servers, in which each job uses a different Conan package cache (defined by ``CONAN_USER_HOME`` environment
-variable). Every different Conan instance could configure its download cache to share the same storage. The download cache implements interprocess
+variable). Every different Conan instance could configure its download cache to share the same storage. The download cache implements inter-process
 exclusive locks, so only 1 process will access at a time to a given cached artifact. If other processes needs the same artifact, they will wait
 until it is released, avoiding multiple downloads of the same file, even if they were requested almost simultaneously.
 

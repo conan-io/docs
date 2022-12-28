@@ -5,7 +5,7 @@ Hooks
 
 .. warning::
 
-    This is an **experimental** feature subject to breaking changes in future releases. (TDB No docs?)
+    This is an **experimental** feature subject to breaking changes in future releases.
 
 The Conan hooks is a feature intended to extend the Conan functionalities and let users customize the client behavior at determined
 points.
