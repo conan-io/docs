@@ -95,10 +95,10 @@ profile, it will overwrite the tool requirements defined in package recipes that
 Build and Host contexts
 -----------------------
 
-.. warning::
+.. note::
 
-    This section refers to the **experimental feature** that is activated when using ``--profile:build`` and ``--profile:host``
-    in the command-line. It is currently under development, features can be added or removed in the following versions.
+    This section refers to the feature that is activated when using ``--profile:build`` and ``--profile:host``
+    in the command-line.
 
 
 Conan v1.24 differentiates between the ``build`` context and the ``host`` context in the dependency graph (read more about
@@ -269,7 +269,8 @@ same ``tool_requires`` package. Something like:
 
 .. code-block:: python
 
-    from conans import ConanFile
+    from conan import ConanFile
+
     class Pkg(ConanFile):
         python_requires ="tool/[>=0.0]"
         tool_requires ="tool/[>=0.0]"
@@ -288,7 +289,7 @@ Testing tool_requires
 
     This is an **experimental** feature, subject to future breaking changes
 
-Available since: `1.44.0 <https://github.com/conan-io/conan/releases>`_
+Available since: `1.44.0 <https://github.com/conan-io/conan/releases/tag/1.44.0>`_
 
 From Conan 1.44, it is possible to test ``tool_requires`` with the ``test_package`` functionality.
 In the ``test_package/conanfile.py``, specify the ``test_type = "explicit"`` and use the variable
@@ -297,7 +298,7 @@ as a ``tool_requires`` or ``test_requires``:
 
 .. code-block:: python
 
-    from conans import ConanFile
+    from conan import ConanFile
 
     class Pkg(ConanFile):
         test_type = "explicit"
@@ -311,7 +312,7 @@ then it is possible to specify:
 
 .. code-block:: python
 
-    from conans import ConanFile
+    from conan import ConanFile
 
     class Pkg(ConanFile):
         test_type = "explicit"
