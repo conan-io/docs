@@ -121,9 +121,12 @@ You can list existing revisions with the :command:`conan list` command:
 
 .. code-block:: bash
 
-    conan list recipe-revisions zlib/1.2.12 -r=conanv2
+    conan list zlib/1.2.12#* -r=conanv2
 
     conanv2:
+    zlib
+        zlib/1.2.12#0de8ff7f99079cd07341311c9ead89a2 (2022-12-12 11:39:43 UTC)
+        zlib/1.2.12#6758146baf425dc62ecc5246a1e955e4 (2022-08-25 07:45:24 UTC)
         zlib/1.2.12#87a7211557b6690ef5bf7fc599dd8349 (2022-04-21 11:01:59 UTC)
 
 
