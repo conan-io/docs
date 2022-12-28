@@ -39,10 +39,13 @@ it is possible to list:
 
 
 Use cases
----------
+^^^^^^^^^
 
-Show recipe references
-**********************
+Show only recipe references (``name/version@use/channel``)
+**********************************************************
+
+All the existing recipe references (using different patterns)
+-------------------------------------------------------------
 
 .. code-block:: bash
 
@@ -64,21 +67,71 @@ Show recipe references
       zlib
         zlib/1.2.11
 
-Show recipe revisions
-*********************
+
+.. code-block:: bash
+
+    $ conan list hello/1.2.11@user/*
+    Local Cache:
+      hello
+        hello/1.2.11@user/channel_1
+        hello/1.2.11@user/channel_2
+
+
+Show only recipe revisions (``name/version@use/channel#rrev``)
+**************************************************************
+
+Only the latest recipe revision
+-------------------------------
+
+.. code-block:: bash
+
+    $ conan list zlib/1.2.11
+    Local Cache:
+      zlib
+        zlib/1.2.11#ffa77daf83a57094149707928bdce823 (2022-11-02 13:46:53 UTC)
+
+
+.. note::
+
+    Here the ``#latest`` is implicit, i.e., that search is the same as put ``conan list zlib/1.2.11#latest``
+
+
+All the recipe revisions
+------------------------
 
 .. code-block:: bash
 
     $ conan list zlib/1.2.11#*
     Local Cache:
       zlib
+        zlib/1.2.11#ffa77daf83a57094149707928bdce823 (2022-11-02 13:46:53 UTC)
+        zlib/1.2.11#8b23adc7acd6f1d6e220338a78e3a19e (2022-10-19 09:19:10 UTC)
+        zlib/1.2.11#ce3665ce19f82598aa0f7ac0b71ee966 (2022-10-14 11:42:21 UTC)
+        zlib/1.2.11#31ee767cb2828e539c42913a471e821a (2022-10-12 05:49:39 UTC)
         zlib/1.2.11#d77ee68739fcbe5bf37b8a4690eea6ea (2022-08-05 17:17:30 UTC)
 
 
-Show package IDs
-****************
+All the latest recipe revisions for all the recipe references
+-------------------------------------------------------------
 
-If recipe revision is not specified, even with a pattern, it assumes the LATEST one.
+.. code-block:: bash
+
+    $ conan list *#latest
+    Local Cache:
+      hello
+        hello/1.0#fa5f6b17d0adc4de6030c9ab71cdbede (2022-12-23 14:38:31 UTC)
+        hello/2.0#e1879dd51f0e775dbe816cb527d3f26d (2022-12-23 10:57:48 UTC)
+      string-view-lite
+        string-view-lite/1.6.0#5e4595946a0836fff9e8e376977f6715 (2022-08-25 22:38:53 UTC)
+      zlib
+        zlib/1.2.11#d77ee68739fcbe5bf37b8a4690eea6ea (2022-08-05 17:17:30 UTC)
+
+
+Show only package IDs (``name/version@use/channel#rrev:pkgid``)
+***************************************************************
+
+All the package IDs for the latest recipe revision
+--------------------------------------------------
 
 .. code-block:: bash
 
@@ -97,8 +150,66 @@ If recipe revision is not specified, even with a pattern, it assumes the LATEST 
               fPIC=True
               shared=False
 
-Show package revisions
-**********************
+.. note::
+
+    Here the ``#latest`` is implicit, i.e., that search is the same as put ``conan list zlib/1.2.11#latest:*``
+
+
+All the package IDs for all recipe revisions
+-------------------------------------------------
+
+.. code-block:: bash
+
+    $ conan list zlib/1.2.11#*:*
+    Local Cache:
+      zlib
+        zlib/1.2.11#d77ee68739fcbe5bf37b8a4690eea6ea (2022-08-05 17:17:30 UTC)
+          PID: d0599452a426a161e02a297c6e0c5070f99b4909 (2022-11-18 12:33:31 UTC)
+            settings:
+              arch=x86_64
+              build_type=Release
+              compiler=apple-clang
+              compiler.version=12.0
+              os=Macos
+            options:
+              fPIC=True
+              shared=False
+        zlib/1.2.11#8b23adc7acd6f1d6e220338a78e3a19e (2022-08-05 17:17:30 UTC)
+          PID: fdb823f07bc228621617c6397210a5c6c4c8807b (2022-11-18 12:33:31 UTC)
+            settings:
+              arch=x86_64
+              build_type=Debug
+              compiler=apple-clang
+              compiler.version=12.0
+              os=Macos
+            options:
+              fPIC=True
+              shared=True
+
+.. note::
+
+    Here the ``#latest`` is implicit, i.e., that search is the same as put ``conan list zlib/1.2.11#latest:*``
+
+
+Show only package revisions (``name/version@use/channel#rrev:pkgid#prev``)
+**************************************************************************
+
+
+Only the latest package revision of a given a full package ID
+-------------------------------------------------------------
+
+.. code-block:: bash
+
+    $ conan list zlib/1.2.11#8b23adc7acd6f1d6e220338a78e3a19e:fdb823f07bc228621617c6397210a5c6c4c8807b#*
+    Local Cache:
+      zlib
+        zlib/1.2.11#d77ee68739fcbe5bf37b8a4690eea6ea (2022-08-05 17:17:30 UTC)
+          PID: d0599452a426a161e02a297c6e0c5070f99b4909
+            PREV: 4834a9b0d050d7cf58c3ab391fe32e25 (2022-11-18 12:33:31 UTC)
+
+
+All the package revisions for the latest recipe revision
+--------------------------------------------------------
 
 .. code-block:: bash
 
@@ -106,6 +217,36 @@ Show package revisions
     Local Cache:
       zlib
         zlib/1.2.11#d77ee68739fcbe5bf37b8a4690eea6ea (2022-08-05 17:17:30 UTC)
-          PID: d0599452a426a161e02a297c6e0c5070f99b4909 (2022-11-18 12:33:31 UTC)
-            PREV: 4834a9b0d050d7cf58c3ab391fe32e25
+          PID: d0599452a426a161e02a297c6e0c5070f99b4909
+            PREV: 4834a9b0d050d7cf58c3ab391fe32e25 (2022-11-18 12:33:31 UTC)
 
+.. note::
+
+    Here the ``#latest`` is implicit, i.e., that search is the same as put ``conan list zlib/1.2.11#latest:*#*``
+
+
+All the latest package revisions for all the package IDs and latest recipe revisions
+------------------------------------------------------------------------------------
+
+.. code-block:: bash
+
+    $ conan list *:*#latest
+    Local Cache:
+      hello
+        hello/1.0#fa5f6b17d0adc4de6030c9ab71cdbede (2022-12-23 14:38:31 UTC)
+          PID: fdb823f07bc228621617c6397210a5c6c4c8807b
+            PREV: 8267c08c7268887f4a066c87941e9d34 (2022-12-23 14:38:32 UTC)
+        hello/2.0#e1879dd51f0e775dbe816cb527d3f26d (2022-12-23 10:57:48 UTC)
+          There are no packages for this revision.
+      string-view-lite
+        string-view-lite/1.6.0#5e4595946a0836fff9e8e376977f6715 (2022-08-25 22:38:53 UTC)
+          PID: da39a3ee5e6b4b0d3255bfef95601890afd80709
+            PREV: f069d90b5936d963a9d06c2586e959d6 (2022-11-18 11:54:58 UTC)
+      zlib
+        zlib/1.2.11#d77ee68739fcbe5bf37b8a4690eea6ea (2022-08-05 17:17:30 UTC)
+          PID: d0599452a426a161e02a297c6e0c5070f99b4909
+            PREV: 4834a9b0d050d7cf58c3ab391fe32e25 (2022-11-18 12:33:31 UTC)
+
+.. note::
+
+    Here the ``#latest`` is implicit, i.e., that search is the same as put ``conan list *#latest:*#latest``
