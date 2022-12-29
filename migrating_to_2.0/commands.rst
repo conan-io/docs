@@ -31,7 +31,7 @@ Same changes as `conan install`:
 
     $ conan create . [--name=mylib] [--version=1.0] [-pr:b=build_profile] [-pr:h=host_profile]
 
-
+.. _conan_v2_graph_info:
 
 conan graph info
 ^^^^^^^^^^^^^^^^

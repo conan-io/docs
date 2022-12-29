@@ -285,9 +285,10 @@ be used to compute the ``package_id`` following the ``default_python_requires_id
 Testing tool_requires
 ----------------------
 
-.. warning::
+.. important::
 
-    This is an **experimental** feature, subject to future breaking changes
+    This feature is still **under development**, while it is recommended and usable and we will try not to break them in future releases,
+    some breaking changes might still happen if necessary to prepare for the *Conan 2.0 release*.
 
 Available since: `1.44.0 <https://github.com/conan-io/conan/releases/tag/1.44.0>`_
 

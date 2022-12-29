@@ -148,7 +148,7 @@ There are different scenarios where this command could look like useful:
 
 Packages created with ``conan export-pkg`` cannot be rebuilt from sources in the cache with the ``--build``
 command line argument. It is possible to specify the class attribute ``build_policy="never"`` in this recipes
-(this is an experimental feature, available from Conan 1.37) to avoid the ``--build=*`` or ``--build`` argument to try to rebuild them from sources
+(this is an feature, available from Conan 1.37) to avoid the ``--build=*`` or ``--build`` argument to try to rebuild them from sources
 as part of a dependency graph.
 
 

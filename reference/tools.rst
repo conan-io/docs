@@ -8,6 +8,12 @@
 Tools
 =====
 
+.. caution::
+
+    We are actively working to finalize the *Conan 2.0 Release*. Some of the information on this page references
+    **deprecated** features which will not be carried forward with the new release. It's important to check the 
+    :ref:`Migration Guidelines<conan2_migration_guide>` to ensure you are using the most up to date features.
+
 Under the tools module there are several functions and utilities that can be used in Conan package recipes:
 
 .. code-block:: python
@@ -1472,7 +1478,8 @@ tools.Git()
 
 .. warning::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
 
 .. code-block:: python
 
@@ -1522,7 +1529,8 @@ tools.SVN()
 
 .. warning::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
 
 .. code-block:: python
 
@@ -1847,7 +1855,8 @@ tools.intel_compilervars_command()
 
 .. warning::
 
-      This is an **experimental** feature subject to breaking changes in future releases.
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
 
 .. code-block:: python
 
@@ -1890,7 +1899,8 @@ tools.intel_compilervars_dict()
 
 .. warning::
 
-      This is an **experimental** feature subject to breaking changes in future releases.
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
 
 .. code-block:: python
 
@@ -1925,7 +1935,8 @@ tools.intel_compilervars()
 
 .. warning::
 
-      This is an **experimental** feature subject to breaking changes in future releases.
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
 
 .. code-block:: python
 
@@ -1949,7 +1960,8 @@ tools.intel_installation_path()
 
 .. warning::
 
-      This is an **experimental** feature subject to breaking changes in future releases.
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
 
 .. code-block:: python
 
@@ -2010,7 +2022,8 @@ tools.fix_symlinks():
 
 .. warning::
 
-      This is an **experimental** feature subject to breaking changes in future releases.
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
 
 .. code-block:: python
 
