@@ -113,7 +113,7 @@ targets for that.
           # rest of the requirements specific to the build
         : # default-build
         : # usage-requirements
-          <include>/abolute/path/to/conan/package/include
+          <include>/absolute/path/to/conan/package/include
           <define>...
           <cflags>...
           <cxxflags>...
@@ -204,7 +204,7 @@ name in lower case. For example:
 .. code-block:: python
 
     class MyLibConan(ConanFile):
-        name = "MyLib"
+        name = "mylib"
         version = "1.6.0"
 
         # ...
@@ -212,7 +212,7 @@ name in lower case. For example:
         def package_info(self):
             self.user_info.var1 = 2
 
-When other library requires ``MyLib`` and uses the ``b2`` generator:
+When other library requires ``mylib`` and uses the ``b2`` generator:
 
 .. code-block:: text
    :caption: *conanbuildinfo-XXX.jam*

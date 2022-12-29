@@ -3,8 +3,14 @@
 Creating conan packages to install dev tools
 ============================================
 
+.. caution::
+
+    We are actively working to finalize the *Conan 2.0 Release*. Some of the information on this page references
+    **deprecated** features which will not be carried forward with the new release. It's important to check the 
+    :ref:`Migration Guidelines<conan2_migration_guide>` to ensure you are using the most up to date features.
+
 One of the most useful features of Conan is to package executables like compilers or build tools and
-distribute them in a controlled way to the team of developers. This way Conan helps not only with the 
+distribute them in a controlled way to the team of developers. This way Conan helps not only with the
 graph of dependencies of the application itself, but also with all the ecosystem needed to generate the
 project, making it really easy to control everything involved in the deployed application.
 
@@ -38,11 +44,11 @@ the ``nasm`` tool for building assembler:
        name = "nasm"
        version = "2.13.02"
        license = "BSD-2-Clause"
-       url = "https://github.com/conan-community/conan-nasm-installer"
+       url = "https://github.com/conan-io/conan-center-index"
        settings = "os", "arch"
        description="Nasm for windows. Useful as a build_require."
 
-       def configure(self):
+       def validate(self):
            if self.settings.os != "Windows":
                raise ConanInvalidConfiguration("Only windows supported for nasm")
 
@@ -82,18 +88,18 @@ This two simple declarations are enough to reuse this tool in the scenarios we a
 Using the tool packages in other recipes
 ----------------------------------------
 
-.. warning::
+.. note::
 
-    This section refers to the **experimental feature** that is activated when using ``--profile:build`` and ``--profile:host``
-    in the command-line. It is currently under development, features can be added or removed in the following versions.
+    This section refers to the feature that is activated when using ``--profile:build`` and ``--profile:host``
+    in the command-line.
 
 
 These kind of tools are not usually part of the application graph itself, they are needed only to build the library, so
-you should usually declare them as :ref:`build requirements <build_requires>`, in the recipe itself or in a profile.
+you should usually declare them as :ref:`tool requirements <build_requires>`, in the recipe itself or in a profile.
 
-For example, there are many recipes that can take advantage of the ``nasm`` package we've seen above, like 
+For example, there are many recipes that can take advantage of the ``nasm`` package we've seen above, like
 `flac <https://conan.io/center/flac?tab=recipe>`_ or `libx264 <https://conan.io/center/libx264?tab=recipe>`_
-that are already available in `ConanCenter <https://conan.io/center/>`_. Those recipes will take advantage of ``nasm`` 
+that are already available in `ConanCenter <https://conan.io/center/>`_. Those recipes will take advantage of ``nasm``
 being in the PATH to run some assembly optimizations.
 
 
@@ -103,11 +109,11 @@ being in the PATH to run some assembly optimizations.
     class LibX264Conan(ConanFile):
         name = "libx264"
         ...
-        build_requires = "nasm/2.13.02"
+        tool_requires = "nasm/2.13.02"
 
         def build(self):
             ... # ``nasm.exe`` will be in the PATH here
-        
+
         def package_info(self):
             self.cpp_info.libs = [...]
 
@@ -125,18 +131,18 @@ of adding the required paths to the corresponding environment variables:
     conan create path/to/libx264 --profile:build=windows --profile:host=profile_host
 
 Here we are telling Conan to create the package for the ``libx264`` for the ``host`` platform defined
-in the profile ``profile_host`` file and to use the profile ``windows`` for all the build requirements
-that are in the ``build`` context. In other words: in this example we are running a Windows machine 
+in the profile ``profile_host`` file and to use the profile ``windows`` for all the tool requirements
+that are in the ``build`` context. In other words: in this example we are running a Windows machine
 and we need a version of ``nasm`` compatible with this machine, so we are providing a ``windows`` profile
 for the ``build`` context, and we are generating the library for the ``host`` platform which is declared
-in the ``profile_host`` profile (read more about :ref:`build requires context <build_requires_context>`).
+in the ``profile_host`` profile (read more about :ref:`tool requires context <build_requires_context>`).
 
 Using two profiles forces Conan to make this distinction between recipes in the ``build`` context and those
 in the ``host`` context. It has several advantages:
 
 * Recipes for these tools are regular recipes, no need to adapt them (before 1.24 they require special
   settings and some package ID customization).
-* We provide a full profile for the ``build`` machine, so Conan is able to compile those build requirements
+* We provide a full profile for the ``build`` machine, so Conan is able to compile those tool requirements
   from sources if they are not already available.
 * Conan will add to the environment not only the path to the ``bin`` folder, but also it will populate
   the ``DYLD_LIBRARY_PATH`` and ``LD_LIBRARY_PATH`` variables that are needed to find the shared libraries
@@ -173,7 +179,7 @@ For example: Working in Windows with the ``nasm`` package we've already defined:
 
 #. Install them. Here it doesn't matter if you use only the ``host`` profile or the ``build`` one too
    because the environment that is going to be populated includes only the root of the graph and its
-   dependencies, without any build requirement. In any case, the ``profile:host`` needed is the one
+   dependencies, without any tool requirement. In any case, the ``profile:host`` needed is the one
    corresponding to the Windows machine where we are running these tests.
 
    .. code-block:: bash
@@ -195,7 +201,7 @@ For example: Working in Windows with the ``nasm`` package we've already defined:
 
        > NASM version 2.13.02 compiled on Dec 18 2019
 
-       
+
 #. You can deactivate the virtual environment with the *deactivate.bat* script
 
    .. code-block:: bash

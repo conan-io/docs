@@ -63,7 +63,7 @@ The output JSON contains a two first level keys:
                 "downloaded": true,
                 "exported": false,
                 "error": null,
-                "remote": "https://conan.bintray.com",
+                "remote": "https://center.conan.io",
                 "time": "2020-01-30T19:19:21.217923",
                 "dependency": true,
                 "name": "openssl",
@@ -76,7 +76,7 @@ The output JSON contains a two first level keys:
                 "downloaded": true,
                 "exported": false,
                 "error": null,
-                "remote": "https://conan.bintray.com",
+                "remote": "https://center.conan.io",
                 "time": "2020-01-30T19:19:27.662199",
                 "built": false,
                 "cpp_info": {

@@ -1,27 +1,35 @@
 .. _conan_lock:
 
 conan lock
-===========
+==========
 
 .. code-block:: bash
 
-    $ conan lock [-h] {update,build-order,clean-modified,create} ...
+    $ conan lock [-h]
+                 {update,build-order,clean-modified,install,create,bundle}
+                 ...
 
 Generates and manipulates lock files.
 
 .. code-block:: text
 
     positional arguments:
-        {update,build-order,clean-modified,create}
+      {update,build-order,clean-modified,install,create,bundle}
                             sub-command help
-        update              Complete missing information in the first lockfile with information defined in the second lockfile. Both lockfiles must represent the same graph,
-                            and have the same topology with the same identifiers, i.e. the second lockfile must be an evolution based on the first one
+        update              Complete missing information in the first lockfile
+                            with information defined in the second lockfile. Both
+                            lockfiles must represent the same graph, and have the
+                            same topology with the same identifiers, i.e. the
+                            second lockfile must be an evolution based on the
+                            first one
         build-order         Returns build-order
         clean-modified      Clean modified flags
+        install             Install a lockfile
         create              Create a lockfile from a conanfile or a reference
+        bundle              Manages lockfile bundles
 
     optional arguments:
-        -h, --help            show this help message and exit
+      -h, --help            show this help message and exit
 
 
 
@@ -38,6 +46,7 @@ conan lock create
     $ conan lock create [-h] [--name NAME] [--version VERSION] [--user USER] [--channel CHANNEL] [--reference REFERENCE] [-l LOCKFILE] [--base]
                          [--lockfile-out LOCKFILE_OUT] [-b [BUILD]] [-r REMOTE] [-u] [-e ENV_HOST] [-e:b ENV_BUILD] [-e:h ENV_HOST] [-o OPTIONS_HOST] [-o:b OPTIONS_BUILD]
                          [-o:h OPTIONS_HOST] [-pr PROFILE_HOST] [-pr:b PROFILE_BUILD] [-pr:h PROFILE_HOST] [-s SETTINGS_HOST] [-s:b SETTINGS_BUILD] [-s:h SETTINGS_HOST]
+                         [-c CONF_HOST] [-c:b CONF_BUILD] [-c:h CONF_HOST]
                          [path]
 
 
@@ -90,6 +99,16 @@ conan lock create
                             Settings to build the package, overwriting the defaults (build machine). e.g.: -s:b compiler=gcc
       -s:h SETTINGS_HOST, --settings:host SETTINGS_HOST
                             Settings to build the package, overwriting the defaults (host machine). e.g.: -s:h compiler=gcc
+      -c CONF_HOST, --conf CONF_HOST
+                            Configuration to build the package, overwriting the defaults (host machine). e.g.: -c
+                            tools.cmake.cmaketoolchain:generator=Xcode
+      -c:b CONF_BUILD, --conf:build CONF_BUILD
+                            Configuration to build the package, overwriting the defaults (build machine). e.g.: -c:b
+                            tools.cmake.cmaketoolchain:generator=Xcode
+      -c:h CONF_HOST, --conf:host CONF_HOST
+                            Configuration to build the package, overwriting the defaults (host machine). e.g.: -c:h
+                            tools.cmake.cmaketoolchain:generator=Xcode
+
 
 
 conan lock update
@@ -141,3 +160,103 @@ conan lock clean-modified
 
     optional arguments:
         -h, --help  show this help message and exit
+
+conan lock install
+------------------
+
+.. code-block:: bash
+
+    $ conan lock install [-h] [--recipes] [-g GENERATOR] lockfile
+
+.. code-block:: text
+
+    positional arguments:
+    lockfile              Path to the lockfile
+
+    optional arguments:
+    -h, --help            show this help message and exit
+    --recipes             Install only recipes, not binaries
+    -g GENERATOR, --generator GENERATOR
+                            Generators to use
+
+conan lock bundle
+=================
+
+.. code-block:: bash
+
+    $ conan lock bundle [-h] {create,build-order,update,clean-modified} ...
+
+.. code-block:: text
+
+    positional arguments:
+    {create,build-order,update,clean-modified}
+                            sub-command help
+        create              Create lockfile bundle
+        build-order         Returns build-order
+        update              Complete missing information in the first lockfile with information defined in the second lockfile.
+                            Both lockfiles must represent the same graph, and have the same topology with the same identifiers,
+                            i.e. the second lockfile must be an evolution based on the first one
+        clean-modified      Clean modified flag
+
+conan lock bundle create
+------------------------
+
+.. code-block:: bash
+
+    $ conan lock bundle create [-h] [--bundle-out BUNDLE_OUT] lockfiles [lockfiles ...]
+
+.. code-block:: text
+
+    positional arguments:
+    lockfiles             Path to lockfiles
+
+    optional arguments:
+    -h, --help            show this help message and exit
+    --bundle-out BUNDLE_OUT
+                            Filename of the created bundle
+
+conan lock bundle build-order
+-----------------------------
+
+.. code-block:: bash
+
+    $ conan lock bundle build-order [-h] [--json JSON] bundle
+
+.. code-block:: text
+
+    positional arguments:
+    bundle       Path to lockfile bundle
+
+    optional arguments:
+    -h, --help   show this help message and exit
+    --json JSON  generate output file in json format
+
+conan lock bundle update
+------------------------
+
+.. code-block:: bash
+
+    $ conan lock bundle update [-h] bundle
+
+.. code-block:: text
+
+    positional arguments:
+    bundle      Path to lockfile bundle
+
+    optional arguments:
+    -h, --help  show this help message and exit
+
+conan lock bundle clean-modified
+--------------------------------
+
+.. code-block:: bash
+
+    $ conan lock bundle clean-modified [-h] bundle
+
+.. code-block:: text
+
+    positional arguments:
+    bundle      Path to lockfile bundle
+
+    optional arguments:
+    -h, --help  show this help message and exit

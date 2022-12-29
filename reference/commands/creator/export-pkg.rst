@@ -8,12 +8,13 @@ conan export-pkg
 
     $ conan export-pkg [-h] [-bf BUILD_FOLDER] [-f] [-if INSTALL_FOLDER]
                        [-pf PACKAGE_FOLDER] [-sf SOURCE_FOLDER] [-j JSON]
-                       [-l [LOCKFILE]] [--ignore-dirty] [-e ENV_HOST]
-                       [-e:b ENV_BUILD] [-e:h ENV_HOST] [-o OPTIONS_HOST]
-                       [-o:b OPTIONS_BUILD] [-o:h OPTIONS_HOST]
-                       [-pr PROFILE_HOST] [-pr:b PROFILE_BUILD]
-                       [-pr:h PROFILE_HOST] [-s SETTINGS_HOST]
-                       [-s:b SETTINGS_BUILD] [-s:h SETTINGS_HOST]
+                       [-l LOCKFILE] [--lockfile-out LOCKFILE_OUT]
+                       [--ignore-dirty] [-e ENV_HOST] [-e:b ENV_BUILD]
+                       [-e:h ENV_HOST] [-o OPTIONS_HOST] [-o:b OPTIONS_BUILD]
+                       [-o:h OPTIONS_HOST] [-pr PROFILE_HOST]
+                       [-pr:b PROFILE_BUILD] [-pr:h PROFILE_HOST]
+                       [-s SETTINGS_HOST] [-s:b SETTINGS_BUILD] [-s:h SETTINGS_HOST]
+                       [-c CONF_HOST] [-c:b CONF_BUILD] [-c:h CONF_HOST]
                        path [reference]
 
 Exports a recipe, then creates a package from local source and build folders.
@@ -54,10 +55,10 @@ the binary package.
                             directory can also be specified
       -j JSON, --json JSON  Path to a json file where the install information will
                             be written
-      -l [LOCKFILE], --lockfile [LOCKFILE]
-                            Path to a lockfile or folder containing 'conan.lock'
-                            file. Lockfile will be updated with the exported
-                            package
+      -l LOCKFILE, --lockfile LOCKFILE
+                            Path to a lockfile.
+      --lockfile-out LOCKFILE_OUT
+                            Filename of the updated lockfile
       --ignore-dirty        When using the "scm" feature with "auto" values,
                             capture the revision and url even if there are
                             uncommitted changes
@@ -97,6 +98,15 @@ the binary package.
       -s:h SETTINGS_HOST, --settings:host SETTINGS_HOST
                             Settings to build the package, overwriting the
                             defaults (host machine). e.g.: -s:h compiler=gcc
+      -c CONF_HOST, --conf CONF_HOST
+                            Configuration to build the package, overwriting the defaults (host machine). e.g.: -c
+                            tools.cmake.cmaketoolchain:generator=Xcode
+      -c:b CONF_BUILD, --conf:build CONF_BUILD
+                            Configuration to build the package, overwriting the defaults (build machine). e.g.: -c:b
+                            tools.cmake.cmaketoolchain:generator=Xcode
+      -c:h CONF_HOST, --conf:host CONF_HOST
+                            Configuration to build the package, overwriting the defaults (host machine). e.g.: -c:h
+                            tools.cmake.cmaketoolchain:generator=Xcode
 
 
 The :command:`export-pkg` command let you create a package from already existing files
@@ -134,6 +144,12 @@ There are different scenarios where this command could look like useful:
    to create the Conan package, or you can build a working recipe to download and
    package them. These scenarios are described in the documentation section
    :ref:`How to package existing binaries <existing_binaries>`.
+
+
+Packages created with ``conan export-pkg`` cannot be rebuilt from sources in the cache with the ``--build``
+command line argument. It is possible to specify the class attribute ``build_policy="never"`` in this recipes
+(this is an feature, available from Conan 1.37) to avoid the ``--build=*`` or ``--build`` argument to try to rebuild them from sources
+as part of a dependency graph.
 
 
 .. note::

@@ -25,7 +25,8 @@ ___________________________________
 
 
 If you are using `Artifactory`_ you can take advantage of the `Jenkins Artifactory Plugin`_.
-Check `here how to install the plugin`_ and `here you can check the full documentation about the DSL`_.
+Check `here how to install the plugin`_ and `here you can check the full documentation about the DSL`_, search for
+"Conan Builds with Artifactory" in the page.
 
 The Artifactory Jenkins plugin provides a powerful DSL (Domain Specific Language) to call Conan, connect with your Artifactory instance,
 upload and download your packages from Artifactory and manage your `build information`_.
@@ -81,16 +82,18 @@ Create a new Jenkins Pipeline task using this script:
 Example: Build a Conan package and upload it to Artifactory
 ***********************************************************
 
-In this example we will call Conan :ref:`test package<creating_and_testing_packages>` command to create a binary packages
+In this example we will call Conan ``create`` command to create a binary packages
 and then upload it to Artifactory. We also upload the `build information`_:
 
- 
+
 .. code-block:: groovy
 
     def artifactory_name = "artifactory"
     def artifactory_repo = "conan-local"
-    def repo_url = 'https://github.com/conan-community/conan-zlib.git'
-    def repo_branch = "release/1.2.11"
+    def repo_url = 'https://github.com/conan-io/conan-center-index.git'
+    def repo_branch = "master"
+    def recipe_folder = "recipes/zlib/1.2.11"
+    def recipe_version = "1.2.11"
 
     node {
         def server = Artifactory.server artifactory_name
@@ -102,7 +105,9 @@ and then upload it to Artifactory. We also upload the `build information`_:
         }
 
         stage("Test recipe"){
-            client.run(command: "create")
+            dir (recipe_folder) {
+              client.run(command: "create . ${recipe_version}@")
+            }
         }
 
         stage("Upload packages"){
@@ -122,5 +127,5 @@ and then upload it to Artifactory. We also upload the `build information`_:
 .. _`Artifactory`: https://jfrog.com/artifactory/
 .. _`Jenkins Artifactory Plugin`:
 .. _`here how to install the plugin`: https://www.jfrog.com/confluence/display/JFROG/Jenkins+Artifactory+Plug-in
-.. _`here you can check the full documentation about the DSL`: https://www.jfrog.com/confluence/display/JFROG/Working+With+Pipeline+Jobs+in+Jenkins
+.. _`here you can check the full documentation about the DSL`: https://www.jfrog.com/confluence/display/JFROG/Scripted+Pipeline+Syntax
 .. _`build information`: https://www.jfrog.com/confluence/display/JFROG/Build+Integration

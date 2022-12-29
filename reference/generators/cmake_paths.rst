@@ -9,7 +9,7 @@ cmake_paths
     This is the reference page for ``cmake_paths`` generator.
     Go to :ref:`Integrations/CMake<cmake>` if you want to learn how to integrate your project or recipes with CMake.
 
-It generates a file named ``conan_paths.cmake`` and declares two variables:
+It generates a file named ``conan_paths.cmake`` and declares these variables:
 
 .. _conan_paths_cmake_variables:
 
@@ -26,5 +26,4 @@ Variables in *conan_paths.cmake*
 | CONAN_<PKG-NAME>_ROOT | For each dep, the root folder, being XXX the dep name uppercase. Useful when a *.cmake* is patched with :ref:`cmake.patch_config_paths()<patch_config_paths>`  |
 +-----------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
-Where ``<PKG-NAME>`` is the placeholder for the name of the require in uppercase (``ZLIB`` for ``zlib/1.2.11``) or the one
-declared in ``cpp_info.name`` or in ``cpp_info.names["cmake_paths"]`` if specified.
+Where ``<PKG-NAME>`` is the placeholder for the name of the require in uppercase (``ZLIB`` for ``zlib/1.2.11``) or the one declared in ``cpp_info.names["cmake_paths"]`` if specified.

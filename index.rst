@@ -21,7 +21,7 @@ upload and download binaries with the same commands and flows on every platform,
 in development and continuous integration. The binary compatibility can even be configured and customized on a per-package basis.
 
 Conan has  a very large and active community, especially in `Github repositories <https://github.com/conan-io/conan>`_
-and `Slack #conan channel <https://cpplang-inviter.cppalliance.org/>`_. This community also creates and maintains
+and `Slack #conan channel <https://cppalliance.org/slack/>`_. This community also creates and maintains
 packages in ConanCenter. Conan is used in production by thousands of companies, and consequently, it has a
 commitment to stability, with no breaking changes across all Conan 1.X versions.
 
@@ -30,6 +30,7 @@ commitment to stability, with no breaking changes across all Conan 1.X versions.
    :maxdepth: 2
 
    introduction
+   conan_v2
    training_courses
    installation
    getting_started
@@ -46,8 +47,8 @@ commitment to stability, with no breaking changes across all Conan 1.X versions.
    configuration
    howtos
    reference
+   cheatsheet
    videos
    faq
    glossary
    changelog
-   conan_v2

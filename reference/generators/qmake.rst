@@ -39,7 +39,9 @@ For each requirement ``conanbuildinfo.pri`` file declares the following variable
 +--------------------------------+----------------------------------------------------------------------+
 | CONAN_QMAKE_CXXFLAGS_XXX       | CXX flags                                                            |
 +--------------------------------+----------------------------------------------------------------------+
-| CONAN_QMAKE_LFLAGS_XXX         | Shared link flags                                                    |
+| CONAN_QMAKE_LFLAGS_SHLIB_XXX   | Linker flags (shared libs)                                           |
++--------------------------------+----------------------------------------------------------------------+
+| CONAN_QMAKE_LFLAGS_APP_XXX     | Linker flags (executables)                                           |
 +--------------------------------+----------------------------------------------------------------------+
 | CONAN_QMAKE_CFLAGS_XXX         | C flags                                                              |
 +--------------------------------+----------------------------------------------------------------------+
@@ -67,7 +69,9 @@ The values are ordered in the right order according to the dependency tree.
 +--------------------------------+----------------------------------------------------------------------+
 | CONAN_QMAKE_CXXFLAGS           | Aggregated CXX flags                                                 |
 +--------------------------------+----------------------------------------------------------------------+
-| CONAN_QMAKE_LFLAGS             | Aggregated Shared link flags                                         |
+| CONAN_QMAKE_LFLAGS_SHLIB       | Aggregated linker flags (shared libs)                                |
++--------------------------------+----------------------------------------------------------------------+
+| CONAN_QMAKE_LFLAGS_APP         | Aggregated linker flags (executables)                                |
 +--------------------------------+----------------------------------------------------------------------+
 | CONAN_QMAKE_CFLAGS             | Aggregated C flags                                                   |
 +--------------------------------+----------------------------------------------------------------------+

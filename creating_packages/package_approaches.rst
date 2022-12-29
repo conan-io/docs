@@ -1,6 +1,12 @@
 Packaging Approaches
 ====================
 
+.. caution::
+
+    We are actively working to finalize the *Conan 2.0 Release*. Some of the information on this page references
+    **deprecated** features which will not be carried forward with the new release. It's important to check the 
+    :ref:`Migration Guidelines<conan2_migration_guide>` to ensure you are using the most up to date features.
+
 Package recipes have three methods for controlling the package's binary compatibility and for implementing
 different packaging approaches: :ref:`method_package_id`, :ref:`method_build_id` and :ref:`method_package_info`.
 
@@ -63,14 +69,10 @@ If the developer wants to switch configuration of the dependencies, they will us
 These switches will be fast, since all the dependencies are already cached locally.
 
 This process offers a number of advantages:
+
 - It is quite easy to implement and maintain.
-- The packages are of minimal size, so disk space and transfers are faster, and builds from sources are also kept to the
-necessary minimum.
-- The decoupling of configurations might help with isolating issues related to
-mixing different types of artifacts, and also protecting valuable information from deploy and
-distribution mistakes. For example, debug artifacts might contain symbols or source code, which
-could help or directly provide means for reverse engineering. So distributing debug artifacts by
-mistake could be a very risky issue.
+- The packages are of minimal size, so disk space and transfers are faster, and builds from sources are also kept to the necessary minimum.
+- The decoupling of configurations might help with isolating issues related to mixing different types of artifacts, and also protecting valuable information from deploy and distribution mistakes. For example, debug artifacts might contain symbols or source code, which could help or directly provide means for reverse engineering. So distributing debug artifacts by mistake could be a very risky issue.
 
 Read more about this in :ref:`method_package_info`.
 
@@ -78,6 +80,13 @@ Read more about this in :ref:`method_package_info`.
 
 N configs -> 1 package
 ----------------------
+
+.. warning::
+
+    This approach is discouraged. The support for defining multi-configuration packages (``self.cpp_info.release``, ``self.cpp_info.debug``),
+    will be removed in Conan 2.0, as discussed and approved by the Tribe in https://github.com/conan-io/tribe/pull/21. New generators and
+    helpers in ``conan.tools.xxxx``, like ``CMakeDeps`` or ``MSBuildDeps`` already ignore ``cpp_info`` multi-configuration definitions.
+
 
 You may want to package both debug and release artifacts in the same package, so it can be consumed from IDEs like Visual Studio. This will
 change the debug/release configuration from the IDE, without having to specify it in the command line. This type of package can contain
@@ -120,11 +129,11 @@ this meets your needs, we recommend removing the ``compiler.runtime`` subsetting
                 del self.settings.compiler.runtime
 
         def build(self):
-            cmake_release = CMake(self, build_type="Debug")
+            cmake_release = CMake(self, build_type="Release")
             cmake_release.configure()
             cmake_release.build()
 
-            cmake_debug = CMake(self, build_type="Release")
+            cmake_debug = CMake(self, build_type="Debug")
             cmake_debug.configure()
             cmake_debug.build()
 

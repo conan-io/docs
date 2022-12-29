@@ -13,7 +13,7 @@ case. It doesn't aim to present a complete solution or the only possible one, de
 project, the team, the requirements, the constraints, etc., other approaches might be recommended.
 
 In this section we are going to use the same packages than in the previous one, defining this
- dependency graph.
+dependency graph.
 
 .. image:: conan_lock_build_order.png
    :height: 200 px
@@ -48,7 +48,11 @@ need to build a new binary because a new ``package_id`` will be computed.
 
     $ conan config set general.default_package_id_mode=full_version_mode
 
-This example will use version ranges, and it is not necessary to have revisions enabled. It also do not require
+This sets the *default* package ID mode.  Be aware, however, that if any of your packages provide their own 
+`package_id()` implementation, for example explicitly setting a different mode for a dependency, `full_version_mode` 
+might not be used for that package.
+
+This example will use version ranges, and it is not necessary to have revisions enabled. It also does not require
 a server, everything can be reproduced locally, although the usage of different repositories will be introduced.
 
 
@@ -157,9 +161,9 @@ revision doing an export, creating a new *libb_base.lock* lockfile:
 Products pipeline
 -----------------
 There is an important question to be addressed: **when a package changes, what other packages
-consuming it should be rebuild to account for this change?**. The problem might be harder than
+consuming it should be rebuilt to account for this change?**. The problem might be harder than
 it seems at first sight, or from the observation of the graph above. It shows that ``libd/0.1``
-has a dependency to ``libb/0.1``, does it means that a new ``libb/0.2`` should produce a re-build
+has a dependency to ``libb/0.1``, does it mean that a new ``libb/0.2`` should produce a re-build
 of ``libd/0.1`` to link with the new version? Not always, if ``libd`` had a pinned dependency
 and not a version range, it will never resolve to the new version, and then it doesn't and it
 cannot be rebuilt unless some developer makes some changes to ``libd`` and bumps the requirement.
@@ -178,7 +182,7 @@ possible that some developer has already uploaded a ``libd/2.0`` version, with a
 aimed for the next major version of ``app1``.
 
 So the only alternative to be both efficient and have a robust Continuous Integration of changes in
-our core "products" is to explictly define those "products". In our case we will define that our
+our core "products" is to explicitly define those "products". In our case we will define that our
 products are ``app1/0.1@user/testing`` and ``app2/0.1@user/testing``. This product definition could
 change as we keep doing releases of our products to our customers.
 
@@ -249,7 +253,7 @@ The process will be repeated (or it could also run in parallel) for the Debug co
 
 After the ``app1/0.1@user/testing`` product pipeline finishes, then the ``app2/0.2@user/testing`` one will
 be started. With this setup and example, it is very important that the products pipelines are ran sequentially,
-otherwise it is possible that the same binaries are unnecesarily built more than once.
+otherwise it is possible that the same binaries are unnecessarily built more than once.
 
 When the products pipeline finishes it means that the changes proposed by the developer in their Pull Request that
 would result in a new ``libb/0.2@user/testing`` package are safe to be merged and will be integrated in our
@@ -259,3 +263,17 @@ product packages without problems. When the Pull Request is merged there might b
   than the source used in this CI job. Then it is necessary to fire again a new job that will build these packages.
 - If the merge is a clean fast-forward, then the packages that were built in this job would be valid, and could be
   copied from the repository ``conan-build`` to the ``conan-develop``.
+
+After the ``app1`` lockfile is created it could be possible to install all the binaries referenced in
+that lockfile using the :command:`conan lock install`:
+
+.. code:: bash
+
+    $ conan lock install app1_release_updated.lock -g deploy
+
+It is also possible to use this command for just installing the recipes but not the binaries adding
+the ``--recipes`` argument:
+
+.. code:: bash
+
+    $ conan lock install app1_release_updated.lock --recipes

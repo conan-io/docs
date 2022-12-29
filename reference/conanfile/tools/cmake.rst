@@ -1,23 +1,21 @@
+.. _conan_tools_cmake:
+
 conan.tools.cmake
 =================
 
 .. warning::
 
-    These tools are **experimental** and subject to breaking changes.
+    These tools are still **experimental** (so subject to breaking changes) but with very stable syntax.
+    We encourage their usage to be prepared for Conan 2.0.
 
-CMakeDeps
----------
-Not yet available
-
-
-CMakeToolchain
---------------
-The ``CMakeToolchain`` is the toolchain generator for CMake. It will generate toolchain files that can be used in the
-command line invocation of CMake with the ``-DCMAKE_TOOLCHAIN_FILE=conantoolchain.cmake``. This generator translates
-the current package configuration, settings, and options, into CMake toolchain syntax.
+You can use ``conan new hello/0.1 --template=cmake_lib`` and ``conan new hello/0.1 --template=cmake_exe`` templates
+to try this CMake integration.
 
 
-CMake
------
-The ``CMake`` build helper is a wrapper around the command line invocation of cmake. It will abstract the
-calls like ``cmake --build . --config Release`` into Python method calls.
+.. toctree::
+   :maxdepth: 2
+
+   cmake/cmakedeps
+   cmake/cmaketoolchain
+   cmake/cmake
+   cmake/cmake_layout

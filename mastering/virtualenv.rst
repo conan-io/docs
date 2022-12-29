@@ -4,7 +4,13 @@
 Virtual Environments
 ====================
 
-Conan offer three special Conan generators to create virtual environments:
+.. caution::
+
+    We are actively working to finalize the *Conan 2.0 Release*. Some of the information on this page references
+    **deprecated** features which will not be carried forward with the new release. It's important to check the 
+    :ref:`Migration Guidelines<conan2_migration_guide>` to ensure you are using the most up to date features.
+
+Conan offers three special Conan generators to create virtual environments:
 
 - ``virtualenv``:  Declares the :ref:`self.env_info<method_package_info_env_info>` variables of the requirements.
 - ``virtualbuildenv``: Special build environment variables for autotools/visual studio.
@@ -28,12 +34,11 @@ variables declared in the ``package_info()`` method and generate two scripts "ac
 
 The recipe of ``cmake/3.16.3`` appends to the PATH variable the package folder/bin.
 
-You can check existing CMake conan package versions in conan-center with:
+You can check existing CMake Conan package versions in `conancenter` with:
 
 .. code-block:: bash
 
-    $ conan search cmake* -r=conan-center
-
+    $ conan search cmake* -r=conancenter
 
 In the **bin** folder there is a **cmake** executable:
 

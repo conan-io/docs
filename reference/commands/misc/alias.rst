@@ -48,3 +48,7 @@ downstream with ``version-ranges``.
 
 The "alias" package should be uploaded to servers in the same way as regular package recipes, in
 order to enable usage from servers.
+
+From Conan 1.39, a new **experimental** explicit syntax for requiring alias packages has been
+introduced, designed to supersede the current one in Conan 2.0, in the form ````requires = "pkg/(latest)@user/testing"``.
+Read more about it in :ref:`this section<versioning_introduction>`.

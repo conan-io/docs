@@ -28,20 +28,20 @@ This section supports references with :ref:`version ranges<version_ranges>`:
     poco/[>1.0,<1.9]
     zlib/1.2.11
 
-[build_requires]
+[tool_requires]
 ++++++++++++++++
 
-List of build requirements specifying the full reference.
+List of tool requirements specifying the full reference.
 
 .. code-block:: text
 
-    [build_requires]
+    [tool_requires]
     7zip/16.00
 
 This section supports references with :ref:`version ranges<version_ranges>`.
 
-In practice the ``[build_requires]`` will be always installed (same as ``[requires]``) as installing from a *conanfile.txt* means that
-something is going to be built, so the build requirements are indeed needed.
+In practice the ``[tool_requires]`` will be always installed (same as ``[requires]``) as installing from a *conanfile.txt* means that
+something is going to be built, so the tool requirements are indeed needed.
 
 It is useful and conceptually cleaner to have them in separate sections, so users of this *conanfile.txt* might quickly identify some
 dev-tools that they have already installed on their machine, differentiating them from the required libraries to link with.
@@ -129,6 +129,27 @@ Example to collect license files from dependencies into a *licenses* folder, exc
 
     [imports]
     ., license* -> ./licenses @ folder=True, ignore_case=True, excludes=*.html *.jpeg
+
+
+[layout]
+++++++++
+
+This is a feature introduced in Conan 1.49
+
+
+You can specify one name of a predefined layout. The available values are:
+
+- :ref:`cmake_layout<conan_tools_layout_predefined_layouts>`
+- :ref:`vs_layout<conan_tools_layout_predefined_layouts>`
+- :ref:`bazel_layout<conan_tools_layout_predefined_layouts>`
+
+
+.. code-block:: text
+
+    [layout]
+    cmake_layout
+
+
 
 Comments
 ++++++++

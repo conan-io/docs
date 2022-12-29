@@ -17,14 +17,11 @@ There are three ways to install Conan:
 Install with pip (recommended)
 ------------------------------
 
-To install Conan using ``pip``, you need Python >= 3.5 distribution installed on your machine. Python 3.4 support has been dropped and
-:ref:`Python 2<python2>` is being deprecated. Modern Python distros come
-with pip pre-installed. However, if necessary you can install pip by following the instructions in `pip docs`_.
+To install Conan using ``pip``, you need Python>=3.6 distribution installed on your machine.
 
 .. warning::
 
-    **Python 2 has been deprecated on January 1st, 2020 by the Python maintainers** and Conan project will completely stop working with it
-    in the following releases. See :ref:`python2` for details.
+    **Python 2 has been deprecated on January 1st, 2020 by the Python maintainers** and from Conan 1.49 it will not be possible to run Conan with Python 2.7, and at least Python>=3.6 will be required. See :ref:`python2` for details.
 
 Install Conan:
 
@@ -36,22 +33,18 @@ Install Conan:
 
     **Please READ carefully**
 
-    - Make sure that your **pip** installation matches your **Python (2.7 or >= 3.5)** version. Python 3.4 support has been dropped.
+    - Make sure that your **pip** installation matches your **Python>=3.6** version. Lower Python versions will not work.
     - In **Linux**, you may need **sudo** permissions to install Conan globally.
     - We strongly recommend using **virtualenvs** (virtualenvwrapper works great) for everything related to Python.
       (check https://virtualenvwrapper.readthedocs.io/en/stable/, or https://pypi.org/project/virtualenvwrapper-win/ in Windows)
       With Python 3, the built-in module ``venv`` can also be used instead (check https://docs.python.org/3/library/venv.html).
       If not using a **virtualenv** it is possible that conan dependencies will conflict with previously existing dependencies,
       especially if you are using Python for other purposes.
-    - In **Windows** and Python 2.7, you may need to use **32bit** python distribution (which is the Windows default), instead
-      of 64 bit.
     - In **OSX**, especially the latest versions that may have **System Integrity Protection**, pip may fail. Try using virtualenvs, or
       install with another user ``$ pip install --user conan``.
     - Some Linux distros, such as Linux Mint, require a restart (shell restart, or logout/system if not enough) after
       installation, so Conan is found in the path.
-    - In Windows, Python 3 installation can fail installing the ``wrapt`` dependency because of a bug in **pip**. Information about this issue and
-      workarounds is available here: https://github.com/GrahamDumpleton/wrapt/issues/112.
-    - Conan works with Python 2.7, but not all features are available when not using Python 3.x starting with version 1.6
+
 
 Known installation issues with pip
 ++++++++++++++++++++++++++++++++++
@@ -132,29 +125,16 @@ Install from source
 You can run Conan directly from source code. First, you need to install Python and
 pip.
 
-Clone (or download and unzip) the git repository and install its requirements:
+Clone (or download and unzip) the git repository and install it with:
 
 .. code-block:: bash
 
-    $ git clone https://github.com/conan-io/conan.git
-    $ cd conan
-    $ pip install -r conans/requirements.txt
+    # clone folder name matters, to avoid imports issues
+    $ git clone https://github.com/conan-io/conan.git conan_src
+    $ cd conan_src
+    $ python -m pip install -e .
 
-Create a script to run Conan and add it to your ``PATH``.
-
-.. code-block:: text
-
-    #!/usr/bin/env python
-
-    import sys
-
-    conan_repo_path = "/home/your_user/conan" # ABSOLUTE PATH TO CONAN REPOSITORY FOLDER
-
-    sys.path.append(conan_repo_path)
-    from conans.client.command import main
-    main(sys.argv[1:])
-
-Test your ``conan`` script.
+Test your ``conan`` installation.
 
 .. code-block:: bash
 
@@ -183,19 +163,16 @@ The upgrade shouldn't affect the installed packages or cache information. If the
 
 .. _python2:
 
-Python 2 Deprecation Notice
----------------------------
+Python 2 Removal Notice
+-----------------------
 
-All features of Conan until version 1.6 are fully supported in both Python 2 and Python 3. However, new features in upcoming Conan releases
-that are only available in Python 3 or more easily available in Python 3 will be implemented and tested only in Python 3, and versions of
-Conan using Python 2 will not have access to that feature. This will be clearly described in code and documentation.
+From version 1.49, Conan will not work with Python 2. This is because security vulnerabilities of Conan dependencies that haven't been addressed in Python 2, so the only alternative moving forward is to finally remove Python 2 support.
 
-Starting in Conan 1.22, Python 2 is no longer supported and Conan will stop working with it in the following releases.
+Python 2 was officially declared End Of Life in January 2020, and Conan 1.22 already declared Python 2 as not supported. Extra blockers have been added in previous Conan releases to make everyone aware. Now the security vulnerabilities that are out of our scope, makes impossible to move forward support for Python 2. Please upgrade to Python>=3.6 to continue using Conan>=1.49.
 
-Conan 2.x won't support Python 2.
 
-We encourage you to upgrade to Python 3 as soon as possible. However, if this is impossible for you or your team, we would like to know it.
-Please give feedback in the `Conan issue tracker`_ or write us to info@conan.io.
+
+If you have any issue installing Conan, please report in the `Conan issue tracker`_ or write us to info@conan.io.
 
 .. _`pip docs`: https://pip.pypa.io/en/stable/installing/
 

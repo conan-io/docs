@@ -39,7 +39,7 @@ instead of the ``exports_sources`` fields.
 .. code-block:: python
 
     def package_id(self):
-        self.info.header_only()
+        self.info.clear()
 
 Package is created with:
 
@@ -73,7 +73,7 @@ If you want to run the library unit test while packaging, you would need this re
             self.copy("*.h")
 
         def package_id(self):
-            self.info.header_only()
+            self.info.clear()
 
 
 .. tip::
@@ -81,14 +81,9 @@ If you want to run the library unit test while packaging, you would need this re
 
     If you are :ref:`cross-building <cross_building>` your **library** or **app** you'll probably need
     to skip the **unit tests** because your target binary cannot be executed in current building host.
-    To do it you can use :ref:`tools_get_env` in combination with
-    :ref:`env_vars_conan_run_tests` environment variable, defined as **False**
-    in profile for cross-building and replace ``cmake.test()`` with:
-
-    .. code-block:: python
-
-        if tools.get_env("CONAN_RUN_TESTS", True):
-            cmake.test()
+    To do it you can use :ref:`env_vars_conan_run_tests` environment variable, defined as **False**
+    in profile for cross-building in the call to ``cmake.test()`` this variable will be evaluated and
+    the tests will not run.
 
 Which will use a ``CMakeLists.txt`` file in the root folder:
 

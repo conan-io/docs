@@ -89,7 +89,8 @@ test()
 
     def test(args=None, build_dir=None, target=None)
 
-Executes ninja test target, which usually means building and running unit tests.
+Executes ninja test target, which usually means building and running unit tests. When this function
+is called :ref:`env_vars_conan_run_tests` will be evaluated to check if tests should run.
 
 Parameters:
     - **args** (Optional, Defaulted to ``None``): A list of additional arguments to be passed to the ``ninja`` command. Each argument will be escaped
@@ -98,6 +99,7 @@ Parameters:
       If ``build_folder`` from ``configure()`` is ``None``, it will be set to ``conanfile.build_folder``.
     - **targets** (Optional, Defaulted to ``None``): Specifies the targets to be executed. The *test* target will be executed if ``None`` is specified.
 
+This method can be globally skipped by ``tools.build:skip_test`` [conf], or ``CONAN_RUN_TESTS`` environment variable.
 
 install()
 +++++++++

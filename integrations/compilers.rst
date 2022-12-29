@@ -13,6 +13,7 @@ Conan can work with any compiler, the most common ones are already declared in t
 - `apple-clang`
 - `qcc`
 - `intel`
+- `intel-cc`
 
 .. note ::
 
@@ -25,3 +26,7 @@ Conan can work with any compiler, the most common ones are already declared in t
     and ``gcc`` in Linux environments and you are wondering how to manage the compatibility between the packages generated
     with ``intel`` and the generated with the pure base compiler (``gcc`` or ``Visual Studio``) check the
     :ref:`Compatible Packages<compatible_packages>` and :ref:`Compatible Compilers<compatible_compilers>` sections.
+
+.. important::
+
+    If you are working with the new Intel oneAPI compilers, then you should use ``intel-cc`` one and have a look at :ref:`Working with Intel compilers<howto_intel_compiler>` section.

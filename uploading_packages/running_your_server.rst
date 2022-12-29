@@ -7,6 +7,8 @@ The *conan_server* is a free and open source server that implements Conan remote
 bundled with the regular Conan client installation. In most cases, it is recommended to use the free Artifactory
 Community Edition for C/C++ server, check :ref:`artifactory_ce` for more information.
 
+``conan_server`` needs Python>=3.6 for running.
+
 Running the simple open source *conan_server* that comes with the Conan installers (or pip packages) is simple. Just open
 a terminal and type:
 
@@ -36,7 +38,6 @@ First, clone the Conan repository from source and install the requirements:
 
     $ git clone https://github.com/conan-io/conan.git
     $ cd conan
-    $ git checkout master
     $ pip install -r conans/requirements.txt
     $ pip install -r conans/requirements_server.txt
     $ pip install gunicorn
@@ -63,9 +64,7 @@ You can also bind to an IPv6 address or specify both IPv4 and IPv6 addresses:
 
 Server Configuration
 --------------------
-Your server configuration is saved under ``~/.conan_server/server.conf``. You can change values
-there, prior to launching the server. Note that the server is not reloaded when the values are changed. You
-have to stop and restart it manually.
+By default your server configuration is saved under ``~/.conan_server/server.conf``, however you can modify this behaviour by either setting the ``CONAN_SERVER_HOME`` environment variable or launching the server with ``-d`` or ``--server_dir`` command line argument followed by desired path. In case you use one of the options your configuration file will be stored under ``server_directory/server.conf`` Please note that command line argument will override the environment variable. You can change configuration values in ``server.conf``, prior to launching the server. Note that the server does not support hot-reload, and thus in order to see configuration changes you will have to manually relaunch the server.
 
 The server configuration file is by default:
 
@@ -252,11 +251,11 @@ Running Conan Server using Apache
     .. code-block:: text
 
         <VirtualHost *:80>
-            WSGIScriptAlias / /usr/local/lib/python2.7/dist-packages/conans/server/server_launcher.py
+            WSGIScriptAlias / /usr/local/lib/python3.6/dist-packages/conans/server/server_launcher.py
             WSGICallableObject app
             WSGIPassAuthorization On
 
-            <Directory /usr/local/lib/python2.7/dist-packages/conans>
+            <Directory /usr/local/lib/python3.6/dist-packages/conans>
                 Require all granted
             </Directory>
         </VirtualHost>
@@ -349,6 +348,69 @@ The module has to implement:
 
 - A factory function ``get_class()`` that returns a class with a ``valid_user()`` method instance.
 - The class containing the ``valid_user()`` that has to return True if the user and password are valid or False otherwise.
+
+Authorizations
+++++++++++++++
+
+By default, Conan uses the contents of the ``[read_permissions]`` and ``[write_permissions]`` sections
+to authorize or reject a request.
+
+A plugin system is also available to customize the authorization mechanism. The installation of such a plugin
+is a simple two-step process:
+
+1. Copy the authorizer's source file into the ``.conan_server/plugins/authorizer`` folder.
+2. Add ``custom_authorizer: authorizer_name`` to the ``server.conf`` [server] section.
+
+Create Your Own Custom Authorizer
+_________________________________
+
+If you want to create your own Authorizer, create a Python module
+in ``~/.conan_server/plugins/authorizer/my_authorizer.py``
+
+**Example:**
+
+.. code-block:: python
+
+     from conans.errors import AuthenticationException, ForbiddenException
+
+     def get_class():
+         return MyAuthorizer()
+
+     class MyAuthorizer(object):
+         def _check_conan(self, username, ref):
+             if ref.user == username:
+                 return
+
+             if username:
+                 raise ForbiddenException("Permission denied")
+             else:
+                 raise AuthenticationException()
+
+         def _check_package(self, username, pref):
+            self._check(username, pref.ref)
+
+         check_read_conan = _check_conan
+         check_write_conan = _check_conan
+         check_delete_conan = _check_conan
+         check_read_package = _check_package
+         check_write_package = _check_package
+         check_delete_package = _check_package
+
+The module has to implement:
+
+- A factory function ``get_class()`` that returns an instance of a class conforming to the Authorizer's interface.
+- A class that implements all the methods defined in the Authorizer interface:
+    - ``check_read_conan()`` is used to decide whether to allow read access to a recipe.
+    - ``check_write_conan()`` is used to decide whether to allow write access to a recipe.
+    - ``check_delete_conan()`` is used to decide whether to allow a recipe's deletion.
+    - ``check_read_package()`` is used to decide whether to allow read access to a package.
+    - ``check_write_package()`` is used to decide whether to allow write access to a package.
+    - ``check_delete_package()`` is used to decide whether to allow a package's deletion.
+
+The ``check_*_conan()`` methods are called with a username and ``conans.model.ref.ConanFileReference`` instance as their arguments.
+Meanwhile the ``check_*_package()`` methods are passed a username and ``conans.model.ref.PackageReference`` instance as their arguments.
+These methods should raise an exception, unless the user is allowed to perform the requested action.
+
 
 Got any doubts? Please check out our :ref:`FAQ section <faq>` or |write_us|.
 

@@ -199,7 +199,7 @@ The CMake helper will automatically append some definitions based on your settin
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 | CMAKE_SYSROOT                             | Defined if CONAN_CMAKE_SYSROOT is defined as environment variable                                                            |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
-| CMAKE_SYSTEM_VERSION                      | Set to ``self.settings.os_version`` value if cross-building is detected                                                      |
+| CMAKE_SYSTEM_VERSION                      | Set to ``self.settings.os.version`` value if cross-building is detected                                                      |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 | CONAN_CMAKE_CXX_EXTENSIONS                | Set to ``ON`` or ``OFF`` value when GNU extensions for the given C++ standard are enabled                                    |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
@@ -271,7 +271,7 @@ ones:
         def build(self):
             cmake = CMake(self)
             cmake.definitions["CMAKE_SYSTEM_NAME"] = "Generic"
-            cmake.definitions["MY_CUSTOM_DEFINITION"] = True
+            cmake.definitions["MY_CUSTOM_DEFINITION"] = "OFF"
             cmake.configure()
             cmake.build()
             cmake.install()  # Build --target=install
@@ -335,13 +335,17 @@ test()
 
     def test(args=None, build_dir=None, target=None, output_on_failure=False)
 
-Build `CMake` test target (could be RUN_TESTS in multi-config projects or ``test`` in single-config projects), which usually means building and running unit tests
+Build `CMake` test target (could be RUN_TESTS in multi-config projects or ``test`` in single-config
+projects), which usually means building and running unit tests. When this function is called
+:ref:`env_vars_conan_run_tests` will be evaluated to check if tests should run.
 
 Parameters:
     - **args** (Optional, Defaulted to ``None``): A list of additional arguments to be passed to the ``cmake`` command. Each argument will be escaped according to the current shell. No extra arguments will be added if ``args=None``.
     - **build_dir** (Optional, Defaulted to ``None``): CMake's output directory. If ``None`` is specified the ``build_folder`` from ``configure()`` will be used.
     - **target** (Optional, default to ``None``). Alternative target name for running the tests. If not defined RUN_TESTS or ``test`` will be used.
     - **output_on_failure** (Optional, default to ``False``). Enables ctest to show output of failed tests by defining ``CTEST_OUTPUT_ON_FAILURE`` environment variable (same effect as ``ctest --output-on-failure``).
+
+This method can be globally skipped by ``tools.build:skip_test`` [conf], or ``CONAN_RUN_TESTS`` environment variable.
 
 install()
 +++++++++
@@ -360,8 +364,8 @@ Parameters:
 .. _patch_config_paths:
 
 
-patch_config_paths() [EXPERIMENTAL]
-+++++++++++++++++++++++++++++++++++
+patch_config_paths()
+++++++++++++++++++++
 
 .. code-block:: python
 
@@ -369,7 +373,8 @@ patch_config_paths() [EXPERIMENTAL]
 
 .. warning::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
 
 This method changes references to the absolute path of the installed package in exported CMake config files to the appropriate Conan
 variable. Method also changes references to other packages installation paths in export CMake config files to Conan variable
@@ -442,7 +447,7 @@ The following example of ``conanfile.py`` shows you how to manage a project with
     from conans import ConanFile, CMake
 
     class SomePackage(ConanFile):
-        name = "SomePackage"
+        name = "somepkg"
         version = "1.0.0"
         settings = "os", "compiler", "build_type", "arch"
         generators = "cmake"

@@ -7,7 +7,7 @@ Custom integrations
 If you intend to use a build system that does not have a built-in generator, you may still be
 able to do so. There are several options:
 
-- First, search in Bintray for generator packages. Generators can be created and contributed by users as regular packages, so you can depend
+- First, search in ConanCenter for generator packages. Generators can be created and contributed by users as regular packages, so you can depend
   on them as a normal requirement, use versioning and evolve faster without depending on the Conan releases.
 
 - You can use the :ref:`text_generator` or :ref:`json_generator` generators. They will generate a text file, simple to read that you can
@@ -216,17 +216,17 @@ generator to simplify the task for your build system.
             # self.run("basically you can do what you want with your requirements build info)
 
             # Environment variables (from requirements self.env_info objects)
-            # are automatically applied in the python ``os.environ`` but can be accesible as well:
+            # are automatically applied in the python ``os.environ`` but can be accessible as well:
             print("--------- Globally -------------")
             print(self.env)
 
             print("--------- FROM MyLib -------------")
-            print(self.deps_env_info["MyLib"].some_env_var)
+            print(self.deps_env_info["mylib"].some_env_var)
 
             # User declared variables (from requirements self.user_info objects)
             # are available in the self.deps_user_info object
             print("--------- FROM MyLib -------------")
-            print(self.deps_user_info["MyLib"].some_user_var)
+            print(self.deps_user_info["mylib"].some_user_var)
 
 Create your own generator
 -------------------------

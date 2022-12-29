@@ -34,8 +34,7 @@ Creates a new package recipe template with a 'conanfile.py' and optionally,
                             method. Useful in combination with "export-pkg"
                             command
       -m TEMPLATE, --template TEMPLATE
-                            Use the given template from the local cache for
-                            conanfile.py
+                            Use the given template to generate a conan project
       -cis, --ci-shared     Package will have a "shared" option to be used in CI
       -cilg, --ci-travis-gcc
                             Generate travis-ci files for linux gcc
@@ -59,6 +58,9 @@ Creates a new package recipe template with a 'conanfile.py' and optionally,
                             excluded
       -ciu CI_UPLOAD_URL, --ci-upload-url CI_UPLOAD_URL
                             Define URL of the repository to upload
+      -d DEFINE, --define DEFINE
+                            Define additional variables to be processed within
+                            template
 
 
 **Examples**:
@@ -85,7 +87,7 @@ Creates a new package recipe template with a 'conanfile.py' and optionally,
 
   .. code-block:: bash
 
-      $ conan new mypackage/1.0@myuser/stable -t -ciglg -ciglc -ciu https://api.bintray.com/conan/myuser/myrepo
+      $ conan new mypackage/1.0@myuser/stable -t -ciglg -ciglc -ciu https://myrepo.url
 
 - Create files from a custom, predefined, user template recipe or template directory:
 
@@ -93,6 +95,5 @@ Creates a new package recipe template with a 'conanfile.py' and optionally,
 
       $ conan new mypackage/1.0 --template=myconanfile.py  # Single template file
       $ conan new mypackage/1.0 --template=header_only  # Template directory
-
 
   Refer to the section :ref:`template_command_new` for more information about these templates.

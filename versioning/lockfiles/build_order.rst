@@ -30,7 +30,7 @@ In this section we are going to use the following packages, defining this depend
 
 The example in this section uses ``full_version_mode``, that is, if a package changes any part of its version, its consumers will
 need to build a new binary because a new ``package_id`` will be computed. This example will use version ranges, and
-it is not necessary to have revisions enabled. It also do not require a server, everything can be reproduced locally.
+it is not necessary to have revisions enabled. It also does not require a server, everything can be reproduced locally.
 
 
 .. code-block:: bash
@@ -151,7 +151,7 @@ Now that there are binaries for all packages in the cache, let's capture them in
     $ conan lock create --reference=app1/0.1@user/testing --lockfile-out=app1.lock
     # And check which one needs to be built
     $ conan lock build-order app1.lock --json=build_order.json
-    # The build order is emtpy, nothing to build
+    # The build order is empty, nothing to build
     []
 
 The result of this build order is empty. As the :command:`conan lock create` found existing binaries,
@@ -214,7 +214,7 @@ defined. They lock the reference and the package-id, and they can be built from 
 
 
 If we want to check if the new ``libb/0.2`` version affects to the ``app2`` and something needs to
-be rebuild, the process is identical:
+be rebuilt, the process is identical:
 
 .. code-block:: bash
 

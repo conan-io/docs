@@ -30,9 +30,9 @@ List users per remote: :command:`conan user --json user.json`
 
       {
           "error":false,
-          "remotes":[  
+          "remotes":[
               {
-                  "name":"conan-center",
+                  "name":"conancenter",
                   "user_name":"danimtb",
                   "authenticated":true
               },
@@ -40,11 +40,6 @@ List users per remote: :command:`conan user --json user.json`
                   "name":"bincrafters",
                   "user_name":null,
                   "authenticated":false
-              },
-              {
-                  "name":"conan-community",
-                  "user_name":"danimtb",
-                  "authenticated":true
               },
               {
                   "name":"the_remote",

@@ -15,13 +15,13 @@ Running Artifactory CE
 ----------------------
 
 There are several ways to download and run Artifactory CE. The simplest one might be to download and unzip the
-designated zip file, though other installers, including also installing from a Docker image.
-When the file is unzipped, launch Artifactory by double clicking the .bat or .sh script in the *bin*
+designated zip file, though other installers, including also installing from a Docker image. The `Download Page <https://conan.io/downloads.html>`_ has a link for you to follow.
+When the file is unzipped, launch Artifactory by double clicking the artifactory.bat(Windows) or artifactory.sh script in the *app/bin*
 subfolder, depending on the OS.
-Java 8 update 45 or later runtime is required. If you don't have it, please install it first
-(newer Java versions preferred).
+Artifactory comes with JDK bundled, please `read Artifactory requirements <https://www.jfrog.com/confluence/display/JFROG/System+Requirements>`_.
 
-.. image:: ../images/conan-artifactory_ce.png
+
+.. image:: ../../images/artifactory/conan-artifactory_ce.png
 
 Once Artifactory has started, navigate to the default URL `http://localhost:8081`, where the Web UI should be running.
 The default user and password are ``admin:password``.

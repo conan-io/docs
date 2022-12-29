@@ -18,8 +18,8 @@ Variables in *conanbuildinfo.cmake*
 - **Package declared variables**:
 
   For each requirement *conanbuildinfo.cmake* file declares the following variables. Where ``<PKG-NAME>`` is the placeholder for the name of
-  the require in uppercase (``ZLIB`` for ``zlib/1.2.8@lasote/stable``) or the one declared in ``cpp_info.name`` or in 
-  ``cpp_info.names["cmake"]`` if specified:
+  the require in uppercase (``ZLIB`` for ``zlib/1.2.8@lasote/stable``) in
+  ``cpp_info.names["cmake_find_package"]`` or ``cpp_info.names["cmake_find_package_multi"]`` if specified:
 
   +---------------------------------------+----------------------------------------------------------------------+
   | NAME                                  | VALUE                                                                |
@@ -113,7 +113,7 @@ Variables in *conanbuildinfo.cmake*
   .. code-block:: python
 
       class MyLibConan(ConanFile):
-          name = "MyLib"
+          name = "mylib"
           version = "1.6.0"
 
           # ...
@@ -121,7 +121,7 @@ Variables in *conanbuildinfo.cmake*
           def package_info(self):
               self.user_info.var1 = 2
 
-  Other library requiring ``MyLib`` and using this generator will get:
+  Other library requiring ``mylib`` and using this generator will get:
 
   .. code-block:: cmake
      :caption: *conanbuildinfo.cmake*
@@ -194,23 +194,24 @@ This method can be disabled setting the :ref:`conan_disable_check_compiler` vari
 conan_output_dirs_setup()
 +++++++++++++++++++++++++
 
-Adjusts each `CMAKE_RUNTIME_OUTPUT_DIRECTORY` variable to be ``${CMAKE_CURRENT_BINARY_DIR}/bin`` 
-and each ``CMAKE_ARCHIVE_OUTPUT_DIRECTORY`` and ``CMAKE_LIBRARY_OUTPUT_DIRECTORY`` variable to be 
+Adjusts each `CMAKE_RUNTIME_OUTPUT_DIRECTORY` variable to be ``${CMAKE_CURRENT_BINARY_DIR}/bin``
+and each ``CMAKE_ARCHIVE_OUTPUT_DIRECTORY`` and ``CMAKE_LIBRARY_OUTPUT_DIRECTORY`` variable to be
 ``${CMAKE_CURRENT_BINARY_DIR}/lib``.
 
-Calling this method makes writing the ``package()`` method for recipies easier. All artifacts will 
-always be found in the same location. Otherwise, they may be found in different locations depending 
+Calling this method makes writing the ``package()`` method for recipes easier. All artifacts will
+always be found in the same location. Otherwise, they may be found in different locations depending
 on your build environment (eg Linux vs Windows).
 
 conan_set_find_library_paths()
 ++++++++++++++++++++++++++++++
 
-Sets ``CMAKE_INCLUDE_PATH`` and ``CMAKE_INCLUDE_PATH``.
+Sets ``CMAKE_INCLUDE_PATH`` and ``CMAKE_LIBRARY_PATH``.
 
 conan_global_flags()
 ++++++++++++++++++++
 
 Sets the corresponding variables to CMake's ``include_directories()`` and ``link_directories()``.
+You can enable the variable `CONAN_SYSTEM_INCLUDES` in order to get directories included with the `SYSTEM` option.
 
 conan_define_targets()
 ++++++++++++++++++++++

@@ -15,9 +15,10 @@ requirements** in a file. They have this structure:
     MyLib:shared=True
 
     [env]
+    # [env] is deprecated! Use [buildenv] instead
     env_var=value
 
-    [build_requires]
+    [tool_requires]
     tool1/0.1@user/channel
     tool2/0.1@user/channel, tool3/0.1@user/channel
     *: tool4/0.1@user/channel
@@ -39,8 +40,9 @@ relative path:
 
 .. code-block:: bash
 
-    $ conan install . --profile /abs/path/to/profile  # abs path
-    $ conan install . --profile ./relpath/to/profile  # resolved to current dir
+    $ conan install . --profile /abs/path/to/profile   # abs path
+    $ conan install . --profile ./relpath/to/profile   # resolved to current dir
+    $ conan install . --profile ../relpath/to/profile  # resolved to relative dir
     $ conan install . --profile profile  # resolved to user/.conan/profiles/profile
 
 Listing existing profiles in the *profiles* folder can be done like this:
@@ -67,7 +69,7 @@ You can also show profile's content:
     compiler.version=15
     build_type=Release
     [options]
-    [build_requires]
+    [tool_requires]
     [env]
 
 Use ``$PROFILE_DIR`` in your profile and it will be replaced with the absolute path to
@@ -118,6 +120,15 @@ They accept patterns too, like ``-s *@myuser/*``, which means that packages that
     compiler.version=4.9
     compiler.libcxx=libstdc++11
 
+Also `&` can be specified as the package name. It will apply only to the consumer conanfile (.py or .txt).
+This is a special case because the consumer conanfile might not declare a `name` so it would be impossible to reference it.
+
+.. code-block:: text
+
+    [settings]
+    &:compiler=gcc
+    &:compiler.version=4.9
+    &:compiler.libcxx=libstdc++11
 
 .. note::
 
@@ -130,22 +141,123 @@ They accept patterns too, like ``-s *@myuser/*``, which means that packages that
         [env]
         PATH=[/some/path/to/my/tool]
 
+.. _profiles_buildenv:
+
+[buildenv]
+++++++++++
+
+Available since: `1.35.0 <https://github.com/conan-io/conan/releases/tag/1.35.0>`_
+
+.. important::
+
+    The use of this ``[buildenv]`` section requires using the ``VirtualBuildEnv`` generator in your recipe,
+    or putting the configuration ``tools.env.virtualenv:auto_use=True`` in your profile.
+
+
+This profile section is aimed to be the replacement of the legacy ``[env]`` one. It's more powerful, and it is able to
+apply some additional operators to each variable declared when you're composing profiles or even local variables:
+
+* ``+=`` == ``append``: appends values at the end of the existing value.
+* ``=+`` == ``prepend``: puts values at the beginning of the existing value.
+* ``=!`` == ``unset``: gets rid of any variable value.
+
+Another essential point to mention is the possibility of defining variables as `PATH` ones by simply putting ``(path)`` as
+the prefix of the variable. It is useful to automatically get the append/prepend of the `PATH` in different systems
+(Windows uses ``;`` as separation, and UNIX ``:``).
+
+
+.. code-block:: text
+    :caption: *.conan/profiles/myprofile*
+
+    [buildenv]
+    # Define a variable "MyVar1"
+    MyVar1=My Value; other
+
+    # Append another value to "MyVar1"
+    MyVar1+=MyValue12
+
+    # Define a PATH variable "MyPath1"
+    MyPath1=(path)/some/path11
+
+    # Prepend another PATH to "MyPath1"
+    MyPath1=+(path)/other path/path12
+
+    # Unset the variable "PATH" for all the packages matching the pattern "mypkg*"
+    mypkg*:PATH=!
+
+
+Then, the result of applying this profile is:
+
+* ``MyVar1``: ``My Value; other MyValue12``
+* ``MyPath1``:
+    * Unix: ``/other path/path12:/some/path11``
+    * Windows: ``/other path/path12;/some/path11``
+* ``mypkg*:PATH``: ``None``
+
+
+See more information about the new environments in the :ref:`conan_tools_env` reference.
+
+
+.. _profiles_runenv:
+
+[runenv]
+++++++++++
+
+Available since: `1.53.0 <https://github.com/conan-io/conan/releases/tag/1.53.0>`_
+
+.. important::
+
+    The use of this ``[runenv]`` section requires using the ``VirtualRunEnv`` generator in your recipe.
+
+This profile section allows defining environment variables that will be injected to the
+environment every time the ConanFile ``run(cmd, env="conanrun")`` method is invoked. You can use the same
+operators explained for the :ref:`profiles_buildenv` section and also define `PATH`
+variables.
+
+.. _profiles_tools_conf:
+
+Tools configurations
+--------------------
+
+.. important::
+
+    This feature is still **under development**, while it is recommended and usable and we will try not to break them in future releases,
+    some breaking changes might still happen if necessary to prepare for the *Conan 2.0 release*.
+
+Tools configurations can also be used in profile files and *global.conf* one. Profile values will have priority over globally defined ones in *global.conf*, and can be defined as:
+
+.. code-block:: text
+
+    [settings]
+    ...
+
+    [conf]
+    tools.microsoft.msbuild:verbosity=Diagnostic
+    tools.microsoft.msbuild:max_cpu_count=2
+    tools.microsoft.msbuild:vs_version = 16
+    tools.build:jobs=10
+
+.. seealso::
+
+    You can see more information about configurations in :ref:`global.conf section <global_conf>`.
+
+
 Profile composition
 -------------------
 
 You can specify multiple profiles in the command line. The applied configuration will be the composition
 of all the profiles applied in the order they are specified.
 
-If, for example, you want to apply a :ref:`build require<build_requires>`, like a ``cmake`` installer to your dependency tree,
+If, for example, you want to apply a :ref:`tool require<build_requires>`, like a ``cmake`` installer to your dependency tree,
 it won't be very practical adding the `cmake` installer reference, e.g  ``cmake/3.16.3`` to all your profiles where you could
-need to inject ``cmake`` as a build require.
+need to inject ``cmake`` as a tool require.
 
 You can specify both profiles instead:
 
 .. code-block:: text
    :caption: *.conan/profiles/cmake_316*
 
-    [build_requires]
+    [tool_requires]
     cmake/3.16.3
 
 .. code-block:: bash
@@ -236,20 +348,95 @@ variables will be available:
 Build profiles and host profiles
 --------------------------------
 
-.. warning::
-
-    This is an **experimental feature** subject to breaking changes in future releases.
-
 
 All the commands that take a profile as an argument, from Conan v1.24 are starting to accept two profiles with
 command line arguments ``-pr:h``/``--profile:host`` and ``-pr:b``/``--profile:build``. If both profiles are
 provided, Conan will build a graph with some packages associated with the ``host`` platform and some build
 requirements associated to the ``build`` platform. There are two scenarios where this feature is
-extremly useful:
+extremely useful:
 
 * :ref:`create_installer_packages`
 * :ref:`cross_building`
 
+The default build profile in Conan 1.X is not defined by default, and needs to be specified in command line.
+However, it is also possible to define a default one in ``global.conf`` configuration file with:
+
+.. code-block:: text
+   :caption: *global.conf*
+
+    core:default_build_profile=default
+    core:default_profile=linux_armv8
+
+The default host profile can be defaulted as well using this configuration method.
+
+
+Profile templates
+-----------------
+
+.. important::
+
+    This feature is still **under development**, while it is recommended and usable and we will try not to break them in future releases,
+    some breaking changes might still happen if necessary to prepare for the *Conan 2.0 release*.
+
+
+From Conan 1.38 it is possible to use **jinja2** template engine for profiles. This feature is
+enabled by naming the profile file with the ``.jinja`` extension. When Conan loads a profile with
+this extension, immediately parses and renders the template, which must result in a standard
+text profile.
+
+Some of the capabilities of the profile templates are:
+
+- Using the platform information, like obtaining the current OS is possible because the
+  Python ``platform`` module is added to the render context.:
+
+  .. code:: jinja
+
+     [settings]
+     os = {{ {"Darwin": "Macos"}.get(platform.system(), platform.system()) }}
+
+- Reading environment variables can be done because the Python ``os`` module is added
+  to the render context.:
+
+  .. code:: jinja
+
+     [settings]
+     build_type = {{ os.getenv("MY_BUILD_TYPE") }}
+
+- Defining your own variables and using them in the profile:
+
+  .. code:: jinja
+
+     {% set a = "FreeBSD" %}
+     [settings]
+     os = {{ a }}
+
+- Joining and defining paths, including referencing the current profile directory. For
+  example, defining a toolchain which file is located besides the profile can be done.
+  Besides the ``os`` Python module, the variable ``profile_dir`` pointing to the current profile
+  folder is added to the context.
+
+  .. code:: jinja
+
+       [conf]
+       tools.cmake.cmaketoolchain:toolchain_file = {{ os.path.join(profile_dir, "toolchain.cmake") }}
+
+- Including or importing other files from ``profiles`` folder:
+
+  .. code-block:: jinja
+     :caption: profile_vars.jinja
+
+     {% set a = "Debug" %}
+
+  .. code-block:: jinja
+     :caption: profile1.jinja
+
+     {% import "profile_vars.jinja" as vars %}
+     [settings]
+     build_type = {{ vars.a }}
+
+- Any other feature supported by *jinja2* is possible: for loops, if-else, etc. This
+  would be useful to define custom per-package settings or options for multiple packages
+  in a large dependency graph.
 
 Examples
 --------

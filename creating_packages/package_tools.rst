@@ -1,7 +1,7 @@
 .. _package_tools:
 
 Package Creator Tools
-==========================
+=====================
 
 Using Python (or just pure shell or bash) scripting, allows you to easily automate the whole package
 creation and testing process, for many different configurations. For example you could put the
@@ -32,6 +32,14 @@ This is a pure Python script, not related to Conan, and should be run as such:
 .. code:: bash
 
    $ python build.py
+
+
+Conan Package Tools
+-------------------
+
+.. caution::
+
+    According to the project's README, there is no planned support for the upcoming *Conan 2.0 release*.
 
 We have developed another FOSS tool for package creators, the **Conan Package Tools** to help you generate multiple binary packages from a package recipe.
 It offers a simple way to define the different configurations and to call :command:`conan test`.

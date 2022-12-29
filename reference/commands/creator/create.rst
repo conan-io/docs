@@ -11,15 +11,18 @@ conan create
 .. code-block:: bash
 
     $ conan create [-h] [-j JSON] [-k] [-kb] [-ne] [-tbf TEST_BUILD_FOLDER]
-                   [-tf TEST_FOLDER] [--ignore-dirty] [-m [MANIFESTS]]
-                   [-mi [MANIFESTS_INTERACTIVE]] [-v [VERIFY]] [-b [BUILD]]
-                   [-r REMOTE] [-u] [-l [LOCKFILE]] [-e ENV_HOST]
-                   [-e:b ENV_BUILD] [-e:h ENV_HOST] [-o OPTIONS_HOST]
-                   [-o:b OPTIONS_BUILD] [-o:h OPTIONS_HOST]
-                   [-pr PROFILE_HOST] [-pr:b PROFILE_BUILD]
-                   [-pr:h PROFILE_HOST] [-s SETTINGS_HOST]
-                   [-s:b SETTINGS_BUILD] [-s:h SETTINGS_HOST]
-                   path [reference]
+                    [-tf TEST_FOLDER] [--ignore-dirty] [--build-require]
+                    [--require-override REQUIRE_OVERRIDE] [-m [MANIFESTS]]
+                    [-mi [MANIFESTS_INTERACTIVE]] [-v [VERIFY]] [-b [BUILD]]
+                    [-r REMOTE] [-u] [-l LOCKFILE]
+                    [--lockfile-out LOCKFILE_OUT] [-e ENV_HOST]
+                    [-e:b ENV_BUILD] [-e:h ENV_HOST] [-o OPTIONS_HOST]
+                    [-o:b OPTIONS_BUILD] [-o:h OPTIONS_HOST]
+                    [-pr PROFILE_HOST] [-pr:b PROFILE_BUILD]
+                    [-pr:h PROFILE_HOST] [-s SETTINGS_HOST]
+                    [-s:b SETTINGS_BUILD] [-s:h SETTINGS_HOST]
+                    [-c CONF_HOST] [-c:b CONF_BUILD] [-c:h CONF_HOST]
+                    path [reference]
 
 Builds a binary package for a recipe (conanfile.py).
 
@@ -57,6 +60,9 @@ to know more about 'test_folder' project.
       --ignore-dirty        When using the "scm" feature with "auto" values,
                             capture the revision and url even if there are
                             uncommitted changes
+      --build-require       The provided reference is a build-require
+      --require-override REQUIRE_OVERRIDE
+                            Define a requirement override
       -m [MANIFESTS], --manifests [MANIFESTS]
                             Install dependencies manifests in folder for later
                             verify. Default folder is .conan_manifests, but can be
@@ -86,10 +92,13 @@ to know more about 'test_folder' project.
                             built from source. --build=[pattern] Build packages
                             from source whose package reference matches the
                             pattern. The pattern uses 'fnmatch' style wildcards.
-                            Default behavior: If you omit the '--build' option,
-                            the 'build_policy' attribute in conanfile.py will be
-                            used if it exists, otherwise the behavior is like '--
-                            build=package name'.
+                            --build=![pattern] Excluded packages, which will not
+                            be built from the source, whose package reference
+                            matches the pattern. The pattern uses 'fnmatch' style
+                            wildcards. Default behavior: If you omit the '--build'
+                            option, the 'build_policy' attribute in conanfile.py
+                            will be used if it exists, otherwise the behavior is
+                            like '--build=package name'.
       -r REMOTE, --remote REMOTE
                             Look in the specified remote server
       -u, --update          Will check the remote and in case a newer version
@@ -99,9 +108,10 @@ to know more about 'test_folder' project.
                             that satisfies the range. Also, if using revisions, it
                             will update to the latest revision for the resolved
                             version range.
-      -l [LOCKFILE], --lockfile [LOCKFILE]
-                            Path to a lockfile or folder containing 'conan.lock'
-                            file. Lockfile can be updated if packages change
+      -l LOCKFILE, --lockfile LOCKFILE
+                            Path to a lockfile
+      --lockfile-out LOCKFILE_OUT
+                            Filename of the updated lockfile
       -e ENV_HOST, --env ENV_HOST
                             Environment variables that will be set during the
                             package build (host machine). e.g.: -e
@@ -138,6 +148,16 @@ to know more about 'test_folder' project.
       -s:h SETTINGS_HOST, --settings:host SETTINGS_HOST
                             Settings to build the package, overwriting the
                             defaults (host machine). e.g.: -s:h compiler=gcc
+      -c CONF_HOST, --conf CONF_HOST
+                            Configuration to build the package, overwriting the defaults (host machine). e.g.: -c
+                            tools.cmake.cmaketoolchain:generator=Xcode
+      -c:b CONF_BUILD, --conf:build CONF_BUILD
+                            Configuration to build the package, overwriting the defaults (build machine). e.g.: -c:b
+                            tools.cmake.cmaketoolchain:generator=Xcode
+      -c:h CONF_HOST, --conf:host CONF_HOST
+                            Configuration to build the package, overwriting the defaults (host machine). e.g.: -c:h
+                            tools.cmake.cmaketoolchain:generator=Xcode
+
 
 
 :command:`conan create . demo/testing` is equivalent to:
@@ -161,25 +181,48 @@ to know more about 'test_folder' project.
 
         $ conan create . demo/testing --test-folder=None
 
+Methods execution order
+-----------------------
+
 :command:`conan create` executes methods of a *conanfile.py* in the following order:
 
-1. ``config_options()``
-2. ``configure()``
-3. ``requirements()``
-4. ``package_id()``
-5. ``build_requirements()``
-6. ``build_id()``
-7. ``system_requirements()``
-8. ``source()``
-9. ``imports()``
-10. ``build()``
-11. ``package()``
-12. ``package_info()``
+1. ``export_sources()``
+2. ``config_options()``
+3. ``configure()``
+4. ``layout()``
+5. ``requirements()``
+6. ``package_id()``
+7. ``validate()``
+8. ``validate_build()``
+9. ``build_requirements()``
+10. ``build_id()``
+11. ``system_requirements()``
+12. ``source()``
+13. ``generate()``
+14. ``imports()``
+15. ``build()``
+16. ``package()``
+17. ``package_info()``
 
-In case of installing a pre-built binary, steps from 5 to 11 will be skipped. Note that ``deploy()`` method is only used in
+In case of installing a pre-built binary, steps from 8 to 16 will be skipped. Note that ``deploy()`` method is only used in
 :command:`conan install`.
 
 .. note::
 
   Installation of binaries can be accelerated setting up parallel downloads with the ``general.parallel_download``
-  **experimental** configuration in :ref:`conan_conf`.
+  **under development** configuration in :ref:`conan_conf`.
+
+
+The ``--build-require``, new in Conan 1.37, allows to create the package using the
+configuration and settings of the "build" context, as it was a ``build_require``. This feature allows
+to create packages in a way that is consistent to the way they will be used later. When there is a
+``test_package``, it is possible to use there the ``test_type="explicit"`` and ``self.test_requires(self.tested_reference_str)``.
+There is no need to provide it in the command line, :ref:`check "testing tool requires" <testing_build_requires>` to know more.
+
+
+--require-override
+------------------
+
+Available since: `1.39.0 <https://github.com/conan-io/conan/releases/tag/1.39.0>`_
+
+This argument is the same, and has the same behavior as the :ref:`conan install command<cli_arg_require_override>`.

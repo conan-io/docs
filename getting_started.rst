@@ -3,6 +3,12 @@
 Getting Started
 ===============
 
+.. caution::
+
+    We are actively working to finalize the *Conan 2.0 Release*. Some of the information on this page references
+    **deprecated** features which will not be carried forward with the new release. It's important to check the 
+    :ref:`Migration Guidelines<conan2_migration_guide>` to ensure you are using the most up to date features.
+
 Let's get started with an example: We are going to create an MD5 hash calculator app that uses one of the
 most popular C++ libraries: Poco_.
 
@@ -58,7 +64,7 @@ An MD5 hash calculator using the Poco Libraries
    .. note::
 
     The Conan client contains a command to search in remote repositories, and we could
-    try :command:`$ conan search poco --remote=conan-center`. You can perfectly use this command to search in your
+    try :command:`$ conan search poco --remote=conancenter`. You can perfectly use this command to search in your
     own repositories, but note that at the moment this might timeout in ConanCenter. The infrastructure is being
     improved to support this command too, but meanwhile using the `ConanCenter UI <https://conan.io/center/>`_
     is recommended.
@@ -119,7 +125,9 @@ An MD5 hash calculator using the Poco Libraries
     .. important::
 
         If you are using **GCC compiler >= 5.1**, Conan will set the ``compiler.libcxx`` to the old
-        ABI for backwards compatibility. You can change this with the following commands:
+        ABI for backwards compatibility. In the context of this getting started example, this is a bad choice though:
+        Recent gcc versions will compile the example by default with the new ABI and linking will fail without further
+        customization of your cmake configuration. You can avoid this with the following commands:
 
         .. code-block:: bash
 
@@ -134,13 +142,13 @@ An MD5 hash calculator using the Poco Libraries
         $ conan install ..
         ...
         Requirements
-            bzip2/1.0.8 from 'conan-center' - Downloaded
-            expat/2.2.9 from 'conan-center' - Downloaded
-            openssl/1.1.1g from 'conan-center' - Downloaded
-            pcre/8.41 from 'conan-center' - Downloaded
-            poco/1.9.4 from 'conan-center' - Cache
-            sqlite3/3.31.1 from 'conan-center' - Downloaded
-            zlib/1.2.11 from 'conan-center' - Downloaded
+            bzip2/1.0.8 from 'conancenter' - Downloaded
+            expat/2.2.9 from 'conancenter' - Downloaded
+            openssl/1.1.1g from 'conancenter' - Downloaded
+            pcre/8.41 from 'conancenter' - Downloaded
+            poco/1.9.4 from 'conancenter' - Cache
+            sqlite3/3.31.1 from 'conancenter' - Downloaded
+            zlib/1.2.11 from 'conancenter' - Downloaded
         Packages
             bzip2/1.0.8:5be2b7a2110ec8acdbf9a1cea9de5d60747edb34 - Download
             expat/2.2.9:6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7 - Download
@@ -150,7 +158,7 @@ An MD5 hash calculator using the Poco Libraries
             sqlite3/3.31.1:4559c5d4f09161e1edf374b033b1d6464826db16 - Download
             zlib/1.2.11:6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7 - Download
 
-        zlib/1.2.11: Retrieving package f74366f76f700cc6e991285892ad7a23c30e6d47 from remote 'conan-center'
+        zlib/1.2.11: Retrieving package f74366f76f700cc6e991285892ad7a23c30e6d47 from remote 'conancenter'
         Downloading conanmanifest.txt completed [0.25k]
         Downloading conaninfo.txt completed [0.44k]
         Downloading conan_package.tgz completed [83.15k]
@@ -158,7 +166,7 @@ An MD5 hash calculator using the Poco Libraries
         zlib/1.2.11: Package installed f74366f76f700cc6e991285892ad7a23c30e6d47
         zlib/1.2.11: Downloaded package revision 0
         ...
-        poco/1.9.4: Retrieving package 645aaff0a79e6036c77803601e44677556109dd9 from remote 'conan-center'
+        poco/1.9.4: Retrieving package 645aaff0a79e6036c77803601e44677556109dd9 from remote 'conancenter'
         Downloading conanmanifest.txt completed [48.75k]
         Downloading conaninfo.txt completed [2.44k]
         Downloading conan_package.tgz completed [5128.39k]
@@ -176,16 +184,19 @@ An MD5 hash calculator using the Poco Libraries
 
    .. warning::
 
-    There are prebuilt binaries for several mainstream compilers and versions available in Conan Center repository,
-    such as Visual Studio 14, 15, Linux GCC 4.9 and Apple Clang 3.5. Up to >130 different binaries for different
-    configurations can be available in ConanCenter.
-    But if your current configuration is not pre-built in ConanCenter, Conan will raise a "BinaryMissing" error. Please
+    There are prebuilt binaries for several mainstream compilers and versions available in ConanCenter repository,
+    a list is keep in `the repository's documentation <https://github.com/conan-io/conan-center-index/blob/master/docs/supported_platforms_and_configurations.md>`_
+    If your current configuration is not pre-built in ConanCenter, Conan will raise a "Binary Missing" error. Please
     read carefully the error messages. You can build the binary package from sources using :command:`conan install .. --build=missing`,
     it will succeed if your configuration is supported by the recipe (it is possible that some ConanCenter recipes fail to
     build for some platforms). You will find more info in the :ref:`getting_started_other_configurations` section.
 
 
 6. Now let's create our build file. To inject the Conan information, include the generated *conanbuildinfo.cmake* file like this:
+
+    .. caution:: 
+
+        The :ref:`Creating Packages's Getting Started<packaging_getting_started>` is a more up-to-date version of this section.
 
     .. code-block:: cmake
        :caption: **CMakeLists.txt**
@@ -204,7 +215,7 @@ An MD5 hash calculator using the Poco Libraries
     .. note::
 
         There are other integrations with CMake, like the ``cmake_find_package`` generators, that will
-        use the ``find_package()`` CMake syntax.
+        use the ``find_package()`` CMake syntax (see :ref:`cmake` section).
 
 7. Now we are ready to build and run our MD5 app:
 
@@ -249,7 +260,7 @@ For example, the command :command:`conan install .. --settings os="Linux" --sett
 
 - Checks if the package recipe (for ``poco/1.9.4`` package) exists in the local cache. If we are just starting, the
   cache is empty.
-- Looks for the package recipe in the defined remotes. Conan comes with ``conan-center`` remote as the default, but can be changed.
+- Looks for the package recipe in the defined remotes. Conan comes with ``conancenter`` remote as the default, but can be changed.
 - If the recipe exists, the Conan client fetches and stores it in your local Conan cache.
 - With the package recipe and the input settings (Linux, GCC), Conan looks for the corresponding binary in the local cache.
 - As the binary is not found in the cache, Conan looks for it in the remote and fetches it.
@@ -308,7 +319,8 @@ To inspect all your current project's dependencies use the :command:`conan info`
     openssl/1.0.2t
         ID: eb50d18a5a5d59bd0c332464a4c348ab65e353bf
         BuildID: None
-        Remote: conan-center=https://api.bintray.com/conan/conan/conan-center
+        Context: host
+        Remote: conancenter=https://center.conan.io
         URL: https://github.com/conan-io/conan-center-index
         Homepage: https://github.com/openssl/openssl
         License: OpenSSL
@@ -316,7 +328,7 @@ To inspect all your current project's dependencies use the :command:`conan info`
         Topics: conan, openssl, ssl, tls, encryption, security
         Recipe: Cache
         Binary: Cache
-        Binary remote: conan-center
+        Binary remote: conancenter
         Creation date: 2019-11-13 23:14:37
         Required by:
             poco/1.9.4
@@ -325,7 +337,8 @@ To inspect all your current project's dependencies use the :command:`conan info`
     poco/1.9.4
         ID: 645aaff0a79e6036c77803601e44677556109dd9
         BuildID: None
-        Remote: conan-center=https://api.bintray.com/conan/conan/conan-center
+        Context: host
+        Remote: conancenter=https://center.conan.io
         URL: https://github.com/conan-io/conan-center-index
         Homepage: https://pocoproject.org
         License: BSL-1.0
@@ -333,7 +346,7 @@ To inspect all your current project's dependencies use the :command:`conan info`
         Topics: conan, poco, building, networking, server, mobile, embedded
         Recipe: Cache
         Binary: Cache
-        Binary remote: conan-center
+        Binary remote: conancenter
         Creation date: 2020-01-07 17:29:24
         Required by:
             conanfile.txt
@@ -342,14 +355,15 @@ To inspect all your current project's dependencies use the :command:`conan info`
     zlib/1.2.11
         ID: f74366f76f700cc6e991285892ad7a23c30e6d47
         BuildID: None
-        Remote: conan-center=https://api.bintray.com/conan/conan/conan-center
+        Context: host
+        Remote: conancenter=https://center.conan.io
         URL: https://github.com/conan-io/conan-center-index
         Homepage: https://zlib.net
         License: Zlib
         Description: A Massively Spiffy Yet Delicately Unobtrusive Compression Library (Also Free, Not to Mention Unencumbered by Patents)
         Recipe: Cache
         Binary: Cache
-        Binary remote: conan-center
+        Binary remote: conancenter
         Creation date: 2020-01-07 17:01:29
         Required by:
             openssl/1.0.2t
@@ -371,7 +385,7 @@ Searching Packages
 ------------------
 
 The remote repository where packages are installed from is configured by default in Conan. It is called Conan Center
-(configured as `conan-center` remote).
+(configured as `conancenter` remote).
 
 If we search for something like ``open`` in `ConanCenter <https://conan.io/center/>`_ we could find different packages like:
 
@@ -452,8 +466,6 @@ Got any doubts? Check our :ref:`faq`, |write_us| or join the community in `Cppla
 
 .. _`Poco`: https://pocoproject.org/
 
-.. _`conan-center`: https://conan.io/center
-
-.. _`Cpplang Slack`: https://cpplang-inviter.cppalliance.org/
+.. _`Cpplang Slack`: https://cppalliance.org/slack/
 
 .. _`example repository`: https://github.com/conan-io/examples

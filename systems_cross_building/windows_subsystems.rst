@@ -37,6 +37,48 @@ shouldn't specify it.
 Running commands inside the subsystem
 -------------------------------------
 
+
+.. _conanfile_win_bash:
+
+self.win_bash
+_____________
+
+Available since: `1.39.0 <https://github.com/conan-io/conan/releases/tag/1.39.0>`_
+
+.. important::
+
+    This feature is still **under development**, while it is recommended and usable and we will try not to break them in future releases,
+    some breaking changes might still happen if necessary to prepare for the *Conan 2.0 release*.
+
+This is a feature that supersedes the ``run(..., win_bash=True)`` argument but
+if the ``run(..., win_bash=True)`` is used, it will have priority so the compatibility with the previous behavior is
+guaranteed.
+
+The ``self.win_bash`` is an attribute of the conanfile, when set to ``True`` and only when running in Windows (you don't need
+to check if you are in Windows), it will run the ``self.run()`` commands inside a bash shell.
+
+
+.. note::
+
+    The ``bash.exe`` that will run **is not auto-detected** or read from the ``CONAN_BASH_PATH`` anymore, neither the subsystem to be used.
+    These are the config variables used:
+
+    - ``tools.microsoft.bash:subsystem``: Values can be ``msys2``, ``cygwin``, ``msys`` and ``wsl``.
+    - ``tools.microsoft.bash:path``: Path to the ``bash.exe``
+    - ``tools.microsoft.bash:active``: Define if Conan is already running inside the specific subsystem.
+
+
+The new :ref:`Autotools, AutotoolsToolchain, AutotoolsDeps and PkgConfigDeps<conan_tools_gnu>` will work automatically
+when ``self.win_bash`` is set.
+
+
+self.win_bash_run
+_________________
+
+This is identical to the above ``self.win_bash``, but applies to execution of commands in the "run" scope,
+so ``self.run(cmd, scope="run")`` will run such ``<cmd>`` inside a bash shell if ``win_bash_run==True``.
+
+
 self.run()
 __________
 
@@ -54,12 +96,22 @@ run in Windows-native mode, the compiler won't link against the ``msys-2.0.dll``
 AutoToolsBuildEnvironment
 _________________________
 
+.. note::
+
+    From Conan 1.39 the new :ref:`Autotools<conan_tools_gnu_build_helper>` build helper will use the ``self.win_bash``
+    conanfile attribute (see above) to adjust automatically all the paths to the subsystem.
+
 In the constructor of the build helper, you have the ``win_bash`` parameter. Set it to ``True`` to
 run the ``configure`` and ``make`` commands inside a bash.
 
 
 Controlling the build environment
 ---------------------------------
+
+.. warning::
+
+    Some parts of this section are **deprecated**. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that will carry over. 
 
 Building software in a Windows subsystem for a different compiler than MinGW can sometimes be painful.
 The reason is how the subsystem finds your compiler/tools in your system.
@@ -69,14 +121,14 @@ able to build the Makefile. A very common problem and example of the pain is the
 In the Visual Studio suite, ``link.exe`` is the linker, but in the ``MSYS2`` environment the ``link.exe``
 is a tool to manage symbolic links.
 
-Conan is able to prioritize the tools when you use ``build_requires``, and put the tools in the PATH in
+Conan is able to prioritize the tools when you use ``tool_requires``, and put the tools in the PATH in
 the right order.
 
-There are some packages you can use as ``build_requires``:
+There are some packages you can use as ``tool_requires``:
 
-- From Conan-center:
+- From ConanCenter:
 
-    - **mingw_installer/1.0@conan/stable**: MinGW compiler installer as a Conan package.
+    - **mingw-w64/8.1**: MinGW compiler installer as a Conan package.
     - **msys2/20190524@**: MSYS2 subsystem as a Conan package (Conan Center Index).
     - **cygwin_installer/2.9.0@bincrafters/stable**: Cygwin subsystem as a Conan package.
 
@@ -84,7 +136,7 @@ For example, create a profile and name it *msys2_mingw* with the following conte
 
 .. code-block:: text
 
-    [build_requires]
+    [tool_requires]
     mingw_installer/1.0@conan/stable
     msys2/20190524
 

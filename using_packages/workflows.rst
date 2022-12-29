@@ -3,6 +3,12 @@
 Workflows
 =========
 
+.. caution::
+
+    We are actively working to finalize the *Conan 2.0 Release*. Some of the information on this page references
+    **deprecated** features which will not be carried forward with the new release. It's important to check the 
+    :ref:`Migration Guidelines<conan2_migration_guide>` to ensure you are using the most up to date features.
+
 This section summarizes some possible layouts and workflows when using Conan together with other
 tools as an end-user for installing and consuming existing packages. To create your own
 packages, please refer to :ref:`Creating Packages <packaging>`.
@@ -21,7 +27,7 @@ When working with a  single configuration, your conanfile will be quite simple a
 
 .. code-block:: bash
 
-    $ git clone git@github.com:conan-io/examples
+    $ git clone https://github.com/conan-io/examples.git
     $ cd libraries/poco
     $ conan install ./md5 --install-folder=md5_build
 

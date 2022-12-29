@@ -11,6 +11,5 @@ you can use.
 
    uploading_packages/remotes
    uploading_packages/uploading_to_remotes
-   uploading_packages/using_bintray
-   uploading_packages/artifactory_ce
+   uploading_packages/using_artifactory
    uploading_packages/running_your_server

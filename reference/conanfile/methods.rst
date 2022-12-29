@@ -32,6 +32,11 @@ control. But if the source code is available in a repository, you can directly g
             # git.clone("https://github.com/conan-io/hello.git")
 
 
+The current working directory where the ``source()`` method runs is the ``self.source_folder``. Note, however, that this folder
+can be different if the recipe defines the ``layout()`` method and specifies a ``self.folders.source = "src"``. In that case, the
+``self.source_folder`` and the current working directory will be the composition of the base folder (typically where the recipe is)
+and the user specified ``"src"`` subfolder.
+
 This will work, as long as git is in your current path (so in Win you probably want to run things in msysgit, cmder, etc). You can also use
 another VCS or direct download/unzip. For that purpose, we have provided some helpers, but you can use your own code or origin as well. This
 is a snippet of the conanfile of the Poco library:
@@ -208,7 +213,6 @@ The :ref:`cpp_info_attributes_reference` attribute has the following properties 
 
 .. code-block:: python
 
-    self.cpp_info.name = "<PKG_NAME>"
     self.cpp_info.names["generator_name"] = "<PKG_NAME>"
     self.cpp_info.includedirs = ['include']  # Ordered list of include paths
     self.cpp_info.libs = []  # The libs to link against
@@ -217,7 +221,7 @@ The :ref:`cpp_info_attributes_reference` attribute has the following properties 
     self.cpp_info.resdirs = ['res']  # Directories where resources, data, etc. can be found
     self.cpp_info.bindirs = ['bin']  # Directories where executables and shared libs can be found
     self.cpp_info.srcdirs = []  # Directories where sources can be found (debugging, reusing sources)
-    self.cpp_info.build_modules = []  # Build system utility module files
+    self.cpp_info.build_modules = {}  # Build system utility module files
     self.cpp_info.defines = []  # preprocessor definitions
     self.cpp_info.cflags = []  # pure C flags
     self.cpp_info.cxxflags = []  # C++ compilation flags
@@ -226,7 +230,7 @@ The :ref:`cpp_info_attributes_reference` attribute has the following properties 
     self.cpp_info.components  # Dictionary with the different components a package may have
     self.cpp_info.requires = None  # List of components from requirements
 
-- **name**: Alternative name for the package to be used by generators.
+- **names**: Alternative name(s) for the package to be used by generators.
 - **includedirs**: List of relative paths (starting from the package root) of directories where headers can be found. By default it is
   initialized to ``['include']``, and it is rarely changed.
 - **libs**: Ordered list of libs the client should link against. Empty by default, it is common that different configurations produce
@@ -236,7 +240,7 @@ The :ref:`cpp_info_attributes_reference` attribute has the following properties 
 
       def package_info(self):
           if not self.settings.os == "Windows":
-              self.cpp_info.libs = ["libzmq-static.a"] if self.options.static else ["libzmq.so"]
+              self.cpp_info.libs = ["zmq-static"] if self.options.static else ["zmq"]
           else:
               ...
 
@@ -249,8 +253,8 @@ The :ref:`cpp_info_attributes_reference` attribute has the following properties 
 - **srcdirs**: List of relative paths (starting from the package root) of directories in which to find sources (like
   .c, .cpp). By default it is empty. It might be used to store sources (for later debugging of packages, or to reuse those sources building
   them in other packages too).
-- **build_modules**: List of relative paths to build system related utility module files created by the package. Used by CMake generators to
-  include *.cmake* files with functions for consumers. e.g: ``self.cpp_info.build_modules.append("cmake/myfunctions.cmake")``. Those files
+- **build_modules**: Dictionary of lists per generator containing relative paths to build system related utility module files created by the package. Used by CMake generators to
+  include *.cmake* files with functions for consumers. e.g: ``self.cpp_info.build_modules["cmake_find_package"].append("cmake/myfunctions.cmake")``. Those files
   will be included automatically in `cmake`/`cmake_multi` generators when using `conan_basic_setup()` and will be automatically added in
   `cmake_find_package`/`cmake_find_package_multi` generators when `find_package()` is used.
 - **defines**: Ordered list of preprocessor directives. It is common that the consumers have to specify some sort of defines in some cases,
@@ -281,7 +285,6 @@ The :ref:`cpp_info_attributes_reference` attribute has the following properties 
           self.cpp_info.exelinkflags = ["-NODEFAULTLIB:MSVCRT",
                                         "-DEFAULTLIB:LIBCMT"]
 
-- **name**: Alternative name for the package so generators can take into account in order to generate targets or file names.
 - **components**: **[Experimental]** Dictionary with names as keys and a component object as value to model the different components a
   package may have: libraries, executables... Read more about this feature at :ref:`package_information_components`.
 - **requires**: **[Experimental]** List of components from the requirements this package (and its consumers) should link with. It will
@@ -296,10 +299,10 @@ using the ``deps_cpp_info`` object:
     class OtherConan(ConanFile):
         name = "OtherLib"
         version = "1.0"
-        requires = "MyLib/1.6.0@conan/stable"
+        requires = "mylib/1.6.0@conan/stable"
 
         def build(self):
-            self.output.warn(self.deps_cpp_info["MyLib"].libdirs)
+            self.output.warn(self.deps_cpp_info["mylib"].libdirs)
 
 .. note::
 
@@ -344,10 +347,10 @@ If your recipe has requirements, you can access to your requirements ``env_info`
     class OtherConan(ConanFile):
         name = "OtherLib"
         version = "1.0"
-        requires = "MyLib/1.6.0@conan/stable"
+        requires = "mylib/1.6.0@conan/stable"
 
         def build(self):
-            self.output.warn(self.deps_env_info["MyLib"].othervar)
+            self.output.warn(self.deps_env_info["mylib"].othervar)
 
 .. _method_package_info_user_info:
 
@@ -362,7 +365,7 @@ Currently only the ``cmake``, ``cmake_multi`` and ``txt`` generators supports ``
 .. code-block:: python
 
     class MyLibConan(ConanFile):
-        name = "MyLib"
+        name = "mylib"
         version = "1.6.0"
 
         # ...
@@ -376,12 +379,12 @@ recipe has requirements, you can access to your requirements ``user_info`` using
 .. code-block:: python
 
     class OtherConan(ConanFile):
-        name = "OtherLib"
+        name = "otherlib"
         version = "1.0"
-        requires = "MyLib/1.6.0@conan/stable"
+        requires = "mylib/1.6.0@conan/stable"
 
         def build(self):
-            self.out.warn(self.deps_user_info["MyLib"].var1)
+            self.out.warn(self.deps_user_info["mylib"].var1)
 
 .. important::
 
@@ -395,10 +398,8 @@ recipe has requirements, you can access to your requirements ``user_info`` using
         ...
 
         # In the dependent conanfile
-        jars = self.deps_user_info["Pkg"].jars
+        jars = self.deps_user_info["pkg"].jars
         jar_list = jars.replace(" ", "").split(",")
-
-.. _method_configure_config_options:
 
 
 set_name(), set_version()
@@ -445,9 +446,20 @@ To define a relative path to the *conanfile.py*, irrespective of the current wor
             git = tools.Git(folder=self.recipe_folder)
             self.version = "%s_%s" % (git.get_branch(), git.get_revision())
 
+
+.. warning::
+
+    The ``set_name()`` and ``set_version()`` methods are alternatives to the ``name`` and ``version`` attributes. It is
+    not advised or supported to define both a ``name`` attribute and a ``set_name()`` method.  Likewise, it is
+    not advised or supported to define both a ``version`` attribute and a ``set_version()`` method. If you define both,
+    you may experience unexpected behavior.
+
 .. seealso::
 
     See more examples :ref:`in this howto <capture_version>`.
+
+
+.. _method_configure_config_options:
 
 
 configure(), config_options()
@@ -469,7 +481,7 @@ If the package options and settings are related, and you want to configure eithe
             # If header only, the compiler, etc, does not affect the package!
             if self.options.header_only:
                 self.settings.clear()
-                self.options.remove("static")
+                del self.options.static
 
 The package has 2 options set, to be compiled as a static (as opposed to shared) library, and also not to involve any builds, because
 header-only libraries will be used. In this case, the settings that would affect a normal build, and even the other option (static vs
@@ -498,8 +510,11 @@ can be done:
             del self.options.shared
 
 This will be executed before the actual assignment of ``options`` (then, such ``options`` values cannot be used inside this function), so
-the command :command:`conan install -o Pkg:shared=True` will raise an exception in Windows saying that ``shared`` is not an option for such
+the command :command:`conan install -o pkg:shared=True` will raise an exception in Windows saying that ``shared`` is not an option for such
 package.
+
+These methods can also be used to assign values to options as seen in :ref:`conanfile_options`. Values assigned
+in the ``configure()`` method cannot be overridden, while values assigned in ``config_options()`` can.
 
 .. _invalid_configuration:
 
@@ -507,13 +522,13 @@ Invalid configuration
 +++++++++++++++++++++
 
 Conan allows the recipe creator to declare invalid configurations, those that are known not to work
-with the library being packaged. There is an especial kind of exception that can be raised from
-the ``configure()`` method to state this situation: ``conans.errors.ConanInvalidConfiguration``. Here
-it is an example of a recipe for a library that doesn't support Windows operating system:
+with the library being packaged. There is a special kind of exception that can be raised from
+the ``validate()`` method to state this situation: ``conan.errors.ConanInvalidConfiguration``. Here
+is an example of a recipe for a library that supports only Windows operating system:
 
 .. code-block:: python
 
-    def configure(self):
+    def validate(self):
         if self.settings.os != "Windows":
             raise ConanInvalidConfiguration("Library MyLib is only supported for Windows")
 
@@ -532,6 +547,8 @@ validate()
 .. warning::
 
     This is an **experimental** feature subject to breaking changes in future releases.
+
+Available since: `1.32.0 <https://github.com/conan-io/conan/releases/tag/1.32.0>`_
 
 The ``validate()`` method can be used to mark a binary as "impossible" or invalid for a given configuration. For example,
 if a given library does not build or work at all in Windows it can be defined as:
@@ -619,6 +636,51 @@ raise an error, but in the best case it will be wasted resources (compatible pac
 strongly recommended to properly define the ``package_id()`` method to no include incompatible configurations.
 
 
+validate_build()
+----------------
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+Available since: `1.51.0 <https://github.com/conan-io/conan/releases/tag/1.51.0>`_
+
+The ``validate_build()`` method is used to verify if a configuration is valid for building a package. It is different
+from the ``validate()`` method that checks if the binary package is "impossible" or invalid for a given configuration.
+
+In Conan 2.0, the ``validate()`` method should do the checks of the settings and options using the ``self.info.settings``
+and ``self.info.options``.
+
+The ``validate_build()`` method has to use always the ``self.settings`` and ``self.options``:
+
+.. code-block:: python
+
+    from conan import ConanFile
+    from conan.errors import ConanInvalidConfiguration
+
+    class myConan(ConanFile):
+        name = "foo"
+        version = "1.0"
+        settings = "os", "arch", "compiler"
+
+        def package_id(self):
+            # For this package, it doesn't matter the compiler used for the binary package
+            del self.info.settings.compiler
+
+        def validate_build(self):
+            # But we know this cannot be build with "gcc"
+            if self.settings.compiler == "gcc":
+                raise ConanInvalidConfiguration("This doesn't build in GCC")
+
+        def validate(self):
+            # We shouldn't check here the self.info.settings.compiler because it has been removed in the package_id()
+            # so it doesn't make sense to check if the binary is compatible with gcc because the compiler doesn't matter
+            pass
+
+
+
+
+
 .. _method_requirements:
 
 requirements()
@@ -663,10 +725,10 @@ It also has optional parameters that allow defining the special cases, as is sho
 build_requirements()
 --------------------
 
-Build requirements are requirements that are only installed and used when the package is built from sources. If there is an existing
-pre-compiled binary, then the build requirements for this package will not be retrieved.
+The requires specified in this method are only installed and used when the package is built from sources.
+If there is an existing pre-compiled binary, then the tool requirements for this package will not be retrieved.
 
-This method is useful for defining conditional build requirements, for example:
+This method is useful for defining conditional tool requirements, for example:
 
 .. code-block:: python
 
@@ -674,11 +736,11 @@ This method is useful for defining conditional build requirements, for example:
 
         def build_requirements(self):
             if self.settings.os == "Windows":
-                self.build_requires("tool_win/0.1@user/stable")
+                self.tool_requires("tool_win/0.1@user/stable")
 
 .. seealso::
 
-    :ref:`Build requirements <build_requires>`
+    :ref:`Tool requirements <build_requires>`
 
 .. _method_system_requirements:
 
@@ -753,6 +815,12 @@ On Windows, there is no standard package manager, however **choco** can be invok
 
 SystemPackageTool
 +++++++++++++++++
+
+.. warning::
+
+    SystemPackageTool will disappear in Conan 2.0, there's already a new implementation of
+    these wrappers in :ref:`conan_tools_system_package_manager` that will be the default
+    in Conan 2.0.
 
 .. code-block:: python
 
@@ -834,7 +902,7 @@ To install more than one package at once:
             installer.install_packages(packages)
             # e.g. apt-get install -y --no-recommends vim firefox chromium
 
-The ``install_packages`` will install the first text editor available (only one) following the tupple order, while it will install both web browsers.
+The ``install_packages`` will install the first text editor available (only one) following the tuple order, while it will install both web browsers.
 
 
 .. _method_imports:
@@ -961,24 +1029,27 @@ any setting or option:
         del self.info.settings.compiler
         del self.info.options.shared
 
-self.info.header_only()
-^^^^^^^^^^^^^^^^^^^^^^^
+self.info.clear()
+^^^^^^^^^^^^^^^^^
+
+Available since: `1.50.0 <https://github.com/conan-io/conan/releases/tag/1.50.0>`_
 
 The package will always be the same, irrespective of the settings (OS, compiler or architecture), options and dependencies.
 
 .. code-block:: python
 
     def package_id(self):
-        self.info.header_only()
+        self.info.clear()
 
 
 self.info.shared_library_package_id()
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Available since: `1.19.2 <https://github.com/conan-io/conan/releases/tag/1.19.2>`_
+
 When a shared library links with a static library, the binary code of the later one is "embedded" or copied into the shared library.
 That means that any change in the static library basically requires a new binary re-build of the shared one to integrate those changes.
 Note that this doesn't happen in the static-static and shared-shared library dependencies.
-
 
 Use this ``shared_library_package_id()`` helper in the ``package_id()`` method:
 
@@ -998,12 +1069,6 @@ option in command line or profiles, but can also be defined in recipes like:
     def configure(self):
         if self.options.shared:
             self.options["*"].shared = True
-
-Using both ``shared_library_package_id()`` and this ``configure()`` method is necessary for
-`Conan-center packages <https://github.com/conan-io/conan-center-index>`_ that have dependencies
-to compiled libraries and have the ``shared`` option.
-
-
 
 self.info.vs_toolset_compatible() / self.info.vs_toolset_incompatible()
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1038,6 +1103,10 @@ This is the relation of Visual Studio versions and the compatible toolchain:
 +-----------------------+--------------------+
 | Visual Studio Version | Compatible toolset |
 +=======================+====================+
+| 17                    | v143               |
++-----------------------+--------------------+
+| 16                    | v142               |
++-----------------------+--------------------+
 | 15                    | v141               |
 +-----------------------+--------------------+
 | 14                    | v140               |
@@ -1179,6 +1248,48 @@ This will only produce a build ID different if the package is for Windows. So th
 in any other OS will be the standard one, as if the ``build_id()`` method was not defined:
 the build folder will be wiped at each :command:`conan create` command and a clean build will
 be done.
+
+.. _method_compatibility:
+
+compatibility()
+---------------
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+Available since Conan `1.47.0 <https://github.com/conan-io/conan/releases/tag/1.47.0>`_
+
+This method can be used in a *conanfile.py* to define packages that are compatible between
+each other. If there are not binaries available for the requested settings and options
+this mechanism will retrieve the compatible packages' binaries if they exist.  The method
+should return a list of compatible configurations. For example, if we want that binaries
+built with gcc versions 4.8, 4.7 and 4.6 are considered compatible with the ones compiled
+with 4.9 we could declare the ``compatibility()`` like this:
+
+..  code-block:: python
+
+    def compatibility(self):
+        if self.settings.compiler == "gcc" and self.settings.compiler.version == "4.9":
+            return [{"settings": [("compiler.version", v)]}
+                    for v in ("4.8", "4.7", "4.6")]
+
+The format of the list returned is as shown below:
+
+..  code-block:: python
+
+        [
+            {
+                "settings": [(<setting>, <value>), (<setting>, <value>), ...], 
+                "options": [(<option>, <value>), (<option>, <value>), ...]
+            },
+            {
+                "settings": [(<setting>, <value>), (<setting>, <value>), ...], 
+                "options": [(<option>, <value>), (<option>, <value>), ...]
+            },
+            ...
+        ]
+
 
 .. _method_deploy:
 
@@ -1364,6 +1475,8 @@ The current folder (``os.getcwd()``) and the ``self.export_sources_folder`` can 
             content = load(os.path.join(os.getcwd(), "data.txt"))
             save(os.path.join(self.export_sources_folder, "myfile.txt"), content)
 
+Note, if the recipe defines the ``layout()`` method and specifies a ``self.folders.source = "src"`` it won't change the
+current folder in the ``export_sources`` method. The current dir will be the base source folder (``self.export_sources_folder``).
 
 The ``self.copy`` support ``src`` and ``dst`` subfolder arguments. The ``src`` is relative to the
 current folder (the one containing the *conanfile.py*). The ``dst`` is relative to the cache
@@ -1379,3 +1492,151 @@ current folder (the one containing the *conanfile.py*). The ``dst`` is relative 
             self.output.info("Executing export_sources() method")
             # will copy all .txt files from the local "subfolder" folder to the cache "mydata" one
             self.copy("*.txt", src="mysubfolder", dst="mydata")
+
+
+generate()
+----------
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+Available since: `1.32.0 <https://github.com/conan-io/conan/releases/tag/1.32.0>`_
+
+This method will run after the computation and installation of the dependency graph. This means that it will
+run after a :command:`conan install` command, or when a package is being built in the cache, it will be run before
+calling the ``build()`` method.
+
+The purpose of ``generate()`` is to prepare the build, generating the necessary files. These files would typically be:
+
+- Files containing information to locate the dependencies, as ``xxxx-config.cmake`` CMake config scripts, or ``xxxx.props``
+  Visual Studio property files.
+- Environment activation scripts, like ``conanbuildenv.bat`` or ``conanbuildenv.sh``, that define all the necessary environment
+  variables necessary for the build.
+- Toolchain files, like ``conan_toolchain.cmake``, that contains a mapping between the current Conan settings and options, and the
+  build system specific syntax.
+- General purpose build information, as a ``conanbuild.conf`` file that could contain information like the CMake generator or
+  CMake toolchain file to be used in the ``build()`` method.
+- Specific build system files, like ``conanvcvars.bat``, that contains the necessary Visual Studio vcvars.bat call for certain
+  build systems like Ninja when compiling with the Microsoft compiler.
+
+
+The idea is that the ``generate()`` method implements all the necessary logic, making both the user manual builds after a :command:`conan install`
+very straightforward, and also the ``build()`` method logic simpler. The build produced by a user in their local flow should result
+exactly the same one as the build done in the cache with a ``conan create`` without effort.
+
+In many cases, the ``generate()`` method might not be necessary, and declaring the ``generators`` attribute could be enough:
+
+.. code:: python
+
+    from conans import ConanFile
+
+    class Pkg(ConanFile):
+        generators = "CMakeDeps", "CMakeToolchain"
+
+
+But the ``generate()`` method can explicitly instantiate those generators, customize them, or provide a complete custom
+generation. For custom integrations, putting code in a common ``python_require`` would be a good way to avoid repetition in
+multiple recipes.
+
+.. code:: python
+
+    from conans import ConanFile
+    from conan.tools.cmake import CMakeToolchain
+
+    class Pkg(ConanFile):
+
+        def generate(self):
+            tc = CMakeToolchain(self)
+            # customize toolchain "tc"
+            tc.generate()
+            # Or provide your own custom logic
+
+.. _conanfile_layout:
+
+.. _layout_method_reference:
+
+layout()
+--------
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+    The ``layout()`` feature will be fully functional only in the new build system integrations
+    (:ref:`in the conan.tools space <conan_tools>`). If you are using other integrations, they
+    might not fully support this feature.
+
+Available since: `1.37.0 <https://github.com/conan-io/conan/releases/tag/1.37.0>`_
+
+Read about the feature :ref:`here<package_layout>`.
+
+In the layout() method you can adjust ``self.folders`` and ``self.cpp``.
+
+
+.. _layout_folders_reference:
+
+
+self.folders
+++++++++++++
+
+
+- **self.folders.source** (Defaulted to ""): Specifies a subfolder where the sources are. The ``self.source_folder`` attribute
+  inside the ``source(self)`` and ``build(self)`` methods will be set with this subfolder. The *current working directory*
+  in the ``source(self)`` method will include this subfolder. The `export_sources`, `exports` and `scm` sources
+  will also be copied to the root source directory.
+  It is used in the cache when running
+  :command:`conan create` (relative to the cache source folder) as well as in a local folder when running :command:`conan build`
+  (relative to the local current folder).
+
+- **self.folders.build** (Defaulted to ""): Specifies a subfolder where the files from the build are. The ``self.build_folder`` attribute and
+  the *current working directory* inside the ``build(self)`` method will be set with this subfolder. It is used in the cache when running
+  :command:`conan create` (relative to the cache source folder) as well as in a local folder when running :command:`conan build`
+  (relative to the local current folder).
+
+- **self.folders.generators** (Defaulted to ""): Specifies a subfolder where to write the files from the generators and the toolchains.
+  In the cache, when running the :command:`conan create`, this subfolder will be relative to the root build folder and when running
+  the :command:`conan install` command it will be relative to the current working directory.
+
+- **self.folders.imports** (Defaulted to ""): Specifies a subfolder where to write the files copied when using the ``imports(self)``
+  method in a ``conanfile.py``. In the cache, when running the :command:`conan create`, this subfolder will be relative to the root
+  build folder and when running the :command:`conan imports` command it will be relative to the current working directory.
+
+Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>`_
+
+- **self.folders.root** (Defaulted to None): Specifies a parent directory where the sources, generators, etc., are located specifically when the ``conanfile.py`` is located in a separated subdirectory.
+
+Available since: `1.51.0 <https://github.com/conan-io/conan/releases/tag/1.51.0>`_
+
+- **self.folders.subproject** (Defaulted to None): Specifies a subfolder where the ``conanfile.py`` is relative to the project root. This is particularly useful for :ref:`layouts with multiple subprojects<package_layout_example_multiple_subprojects>`
+
+
+self.cpp
+++++++++
+
+The ``layout()`` method allows to declare ``cpp_info`` objects not only for the final package (like the classic approach with
+the ``self.cpp_info`` in the ``package_info(self)`` method) but for the ``self.source_folder`` and ``self.build_folder``.
+
+The fields of the cpp_info objects at ``self.cpp.build`` and ``self.cpp.source`` are the same described :ref:`here<cpp_info_attributes_reference>`.
+Components are also supported.
+
+
+test()
+------
+
+The ``test()`` method is only used for *test_package/conanfile.py* recipes. It will execute immediately after ``build()`` has been called, and its goal is to
+run some executable or tests on binaries to prove the package is correctly created. Note that it is intended to be used as a
+test of the package: the headers are there, the libraries are there, it is possible to link, etc., but not to run unit, integration or functional tests.
+
+It usually takes the form:
+
+.. code:: python
+
+    def test(self):
+        if not tools.cross_building(self):
+            self.run(os.path.sep.join([".", "bin", "example"]))
+
+
+Note the ``tools.cross_building()`` check, as it is not possible to run executables different to the build machine architecture. In this case, it would
+make sense to check the existence of the binary, or inspect it with tools like ``dumpbin``, ``lipo``, etc to do basic checks about it.
+
+The ``self.run()`` might need some environment help, in case the execution needs for example shared libraries location.

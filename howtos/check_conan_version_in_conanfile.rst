@@ -3,7 +3,7 @@ How to check the version of the Conan client inside a conanfile
 ===============================================================
 
 Sometimes it might be useful to check the Conan version that is running in that moment your recipe.
-Although we consider conan-center recipes only forward compatible, this kind of check makes sense to
+Although we consider ConanCenter recipes only forward compatible, this kind of check makes sense to
 update them so they can maintain compatibility with old versions of Conan.
 
 Let's have a look at a basic example of this:
@@ -12,7 +12,7 @@ Let's have a look at a basic example of this:
    :caption: conanfile.py
 
     from conans import ConanFile, CMake, __version__ as conan_version
-    from conans.model.version import Version
+    from conans.tools import Version
 
 
     class MyLibraryConan(ConanFile):
@@ -36,7 +36,7 @@ example:
 .. code-block:: python
 
     from conans import ConanFile, tools, __version__ as conan_version
-    from conans.model.version import Version
+    from conans.tools import Version
 
     class MyPackage(ConanFile):
         name = "package"

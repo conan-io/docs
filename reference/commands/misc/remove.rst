@@ -31,7 +31,7 @@ by default in the local conan cache.
       -f, --force           Remove without requesting a confirmation
       -l, --locks           Remove locks
       -o, --outdated        Remove only outdated from recipe packages. This flag
-                            can only be used with a reference
+                            can only be used with a pattern or a reference
       -p [PACKAGES [PACKAGES ...]], --packages [PACKAGES [PACKAGES ...]]
                             Remove all packages of the specified reference if no
                             specific package ID is provided
@@ -97,3 +97,20 @@ The ``-q`` parameter can't be used along with ``-p`` nor ``-b`` parameters.
   .. code-block:: bash
 
       $ conan remove --system-reqs '*'
+
+- Remove all remote packages only related to a specific recipe revision
+
+  .. code-block:: bash
+
+      $ conan remove -r myremote package/version@user/channel#RREV --packages
+
+- Remove only a single remote package related to a specific recipe revision and its package ID
+
+  .. code-block:: bash
+
+      $ conan remove -r myremote package/version@user/channel#RREV -p package_id
+
+      OR
+
+      $ conan remove -r myremote package/version@user/channel#RREV:PACKAGE_ID
+

@@ -288,11 +288,11 @@ These variables are useful for unattended executions like CI servers or automate
 
 If the remote name contains "-" you have to replace it with "_" in the variable name:
 
-For example: For a remote named "conan-center":
+For example: For a remote named "conancenter":
 
 .. code-block:: bash
 
-    SET CONAN_LOGIN_USERNAME_CONAN_CENTER=MyUser
+    SET CONAN_LOGIN_USERNAME_CONANCENTER=MyUser
 
 .. seealso::
 
@@ -380,11 +380,11 @@ These variables are useful for unattended executions like CI servers or automate
 The remote name is transformed to all uppercase. If the remote name contains "-",
 you have to replace it with "_" in the variable name.
 
-For example, for a remote named "conan-center":
+For example, for a remote named "conancenter":
 
 .. code-block:: bash
 
-    SET CONAN_PASSWORD_CONAN_CENTER=Mypassword
+    SET CONAN_PASSWORD_CONANCENTER=Mypassword
 
 .. seealso::
 
@@ -477,7 +477,7 @@ or declared in command line when invoking :command:`conan install` to reduce the
 See how to retrieve the value with :ref:`tools.get_env() <tools_get_env>` and check a use case
 with :ref:`a header only with unit tests recipe <header_only_unit_tests_tip>` while cross building.
 
-See example of build method in ``conanfile.py`` to enable/disable running tests with CMake:
+This variable is evaluated inside the build helper call to ``test()`` and will not run the tests if set to ``False``.
 
 .. code-block:: python
 
@@ -491,8 +491,7 @@ See example of build method in ``conanfile.py`` to enable/disable running tests 
             cmake = CMake(self)
             cmake.configure()
             cmake.build()
-            if tools.get_env("CONAN_RUN_TESTS", True):
-                cmake.test()
+            cmake.test()
 
 .. _env_vars_conan_skip_vs_project_upgrade:
 

@@ -29,77 +29,28 @@ For private development:
 
 For distribution:
 
-- **Bintray**: Bintray is a cloud platform that gives you full control over how you publish, store,
-  promote, and distribute software. You can create binary repositories in Bintray to share Conan
-  packages or even create an organization. It is free for open source packages, and the recommended
-  server to distribute to the C and C++ communities. Check :ref:`using_bintray` for more information.
-
-.. _bintray_repositories:
+- **Artifactory Cloud-hosted instance**: Artifactory Cloud, where JFrog manages, maintains and scales
+  the infrastructure and provides automated server backups with free updates and guaranteed uptime.
+  It's offered with a free tier designed for individual with reduced usage.
+  Check :ref:`artifactory_cloud` for more information.
 
 .. _conan_center:
 
-Conan-center
--------------
+conancenter
+-----------
 
-**Conan-center** (https://conan.io/center) is the main official repository for open source
+**ConanCenter** (https://conan.io/center) is the main official repository for open source
 Conan packages. It is configured as the default remote in the Conan client, but if you want to add it manually:
 
 .. code-block:: bash
 
-    $ conan remote add conan-center https://conan.bintray.com
+    $ conan remote add conancenter https://center.conan.io
 
+It contains **packages without "user/channel"** that can be used directly as `pkg/version` (`zlib/1.2.11`): These packages are created
+automatically from the central GitHub repository `conan-center-index <https://github.com/conan-io/conan-center-index>`_, with an automated
+build service: C3I (ConanCenter Continuous Integration).
 
-There are 2 different types of packages right now in Conan-center:
+To contribute packages to ConanCenter, read the :ref:`ConanCenter guide <conan_center_flow>` for more information.
 
-- **Packages with full reference**: Packages like `pkg/version@user/channel`. These packages binaries were created by users in their own
-  Bintray repositories, and included here. This flow of contributing packages to Conan-center is deprecated now.
-  These packages are not recommended and should be considered as legacy.
-- **Packages without "user/channel"**: Can be used directly as `pkg/version`: These packages are created
-  automatically from the central Github repository `conan-center-index <https://github.com/conan-io/conan-center-index>`_,
-  with an automated build service: C3I (Conan-Center Continuous Integration). These packages are the recommended
-  ones to use from ConanCenter.
-
-To contribute packages to Conan-center, read the :ref:`conan-center guide <conan_center_flow>` for more information.
-
-
-Bintray Community Repositories
-------------------------------
-
-There are a number of popular community repositories that may be of interest for Conan users for retrieving
-open source packages. These repositories are not affiliated with the Conan team.
-
-Bincrafters
-+++++++++++
-
-**bincrafters** : https://bintray.com/bincrafters/public-conan
-
-.. pull-quote::
-
-    The `Bincrafters <https://bincrafters.github.io>`_ team builds binary software packages for the
-    OSS community. This repository contains a wide and growing variety of Conan packages from
-    contributors.
-
-    Use the following command to add this remote to Conan:
-
-    .. code-block:: bash
-
-        $ conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
-
-Conan Community
-+++++++++++++++
-
-.. warning::
-
-    The conan community repository is deprecated and no longer maintained. Packages in this repository
-    have been moved or are in the process of being added to `conan-center-index <https://github.com/conan-io/conan-center-index>`_
-    and served in `ConanCenter <https://conan.io/center>`_.
-
-.. note::
-
-    If you are working in a team, you probably want to use the same remotes everywhere: developer machines, CI. The ``conan config install``
-    command can automatically define the remotes in a Conan client, as well as other resources as profiles. Have a look at the
-    :ref:`conan_config_install` command.
-
-
-.. _`conan-center`: https://bintray.com/conan/conan-center
+.. _`conancenter`: https://conan.io/center
 .. _Artifactory documentation: https://www.jfrog.com/confluence/display/JFROG/JFrog+Artifactory

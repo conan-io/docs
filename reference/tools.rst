@@ -8,6 +8,12 @@
 Tools
 =====
 
+.. caution::
+
+    We are actively working to finalize the *Conan 2.0 Release*. Some of the information on this page references
+    **deprecated** features which will not be carried forward with the new release. It's important to check the 
+    :ref:`Migration Guidelines<conan2_migration_guide>` to ensure you are using the most up to date features.
+
 Under the tools module there are several functions and utilities that can be used in Conan package recipes:
 
 .. code-block:: python
@@ -218,7 +224,7 @@ tools.unzip()
 
 .. code-block:: python
 
-    def unzip(filename, destination=".", keep_permissions=False, pattern=None)
+    def unzip(filename, destination=".", keep_permissions=False, pattern=None, strip_root=False)
 
 Function mainly used in ``source()``, but could be used in ``build()`` in special cases, as when retrieving pre-built binaries from the
 Internet.
@@ -264,6 +270,9 @@ Parameters:
       the zip was created correctly.
     - **pattern** (Optional, Defaulted to ``None``): Extract from the archive only paths matching the pattern. This should be a Unix
       shell-style wildcard. See `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_ documentation for more details.
+    - **strip_root** (Optional, Defaulted to ``False``): When ``True`` and the ZIP file contains one folder containing all the contents,
+      it will strip the root folder moving all its contents to the root. E.g: *mylib-1.2.8/main.c* will be extracted as *main.c*. If the compressed
+      file contains more than one folder or only a file it will raise a ``ConanException``.
 
 .. _tools_untargz:
 
@@ -272,7 +281,7 @@ tools.untargz()
 
 .. code-block:: python
 
-    def untargz(filename, destination=".", pattern=None)
+    def untargz(filename, destination=".", pattern=None, strip_root=False)
 
 Extract *.tar.gz* files (or in the family). This is the function called by the previous ``unzip()`` for the matching extensions, so
 generally not needed to be called directly, call ``unzip()`` instead unless the file had a different extension.
@@ -292,6 +301,10 @@ Parameters:
     - **destination** (Optional, Defaulted to ``"."``): Destination folder for *untargzed* files.
     - **pattern** (Optional, Defaulted to ``None``): Extract from the archive only paths matching the pattern. This should be a Unix
       shell-style wildcard. See `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_ documentation for more details.
+    - **strip_root** (Optional, Defaulted to ``False``): When ``True`` and the ``tar.gz`` file contains one folder containing all the contents,
+      it will strip the root folder moving all its contents to the root. E.g: *mylib-1.2.8/main.c* will be extracted as *main.c*. If the compressed
+      file contains more than one folder or only a file it will raise a ``ConanException``.
+
 
 .. _tools_get:
 
@@ -302,8 +315,9 @@ tools.get()
 
     def get(url, md5='', sha1='', sha256='', destination=".", filename="", keep_permissions=False,
             pattern=None, requester=None, output=None, verify=True, retry=None, retry_wait=None,
-            overwrite=False, auth=None, headers=None)
+            overwrite=False, auth=None, headers=None, strip_root=False)
 
+High level download and decompressing of a tgz, zip or other compressed format file.
 Just a high level wrapper for download, unzip, and remove the temporary zip file once unzipped. You can pass hash checking parameters:
 ``md5``, ``sha1``, ``sha256``. All the specified algorithms will be checked. If any of them doesn't match, it will raise a
 ``ConanException``.
@@ -328,9 +342,9 @@ Parameters:
     - **requester** (Optional, Defaulted to ``None``): HTTP requests instance
     - **output** (Optional, Defaulted to ``None``): Stream object.
     - **verify** (Optional, Defaulted to ``True``): When False, disables https certificate validation.
-    - **retry** (Optional, Defaulted to ``2``): Number of retries in case of failure. Default is overriden by ``general.retry``
+    - **retry** (Optional, Defaulted to ``2``): Number of retries in case of failure. Default is overridden by ``general.retry``
       in the *conan.conf* file or an env variable ``CONAN_RETRY``.
-    - **retry_wait** (Optional, Defaulted to ``5``): Seconds to wait between download attempts. Default is overriden by ``general.retry_wait``
+    - **retry_wait** (Optional, Defaulted to ``5``): Seconds to wait between download attempts. Default is overridden by ``general.retry_wait``
       in the *conan.conf* file or an env variable ``CONAN_RETRY_WAIT``.
     - **overwrite**: (Optional, Defaulted to ``False``): When ``True`` Conan will overwrite the destination file if it exists. Otherwise it
       will raise.
@@ -338,6 +352,9 @@ Parameters:
       directly to the ``requests`` Python library. Check here other uses of the **auth** parameter:
       https://requests.readthedocs.io/en/master/user/authentication/#basic-authentication
     - **headers** (Optional, Defaulted to ``None``): A dictionary with additional headers.
+    - **strip_root** (Optional, Defaulted to ``False``): When ``True`` and the compressed file contains one folder containing all the contents,
+      it will strip the root folder moving all its contents to the root. E.g: *mylib-1.2.8/main.c* will be extracted as *main.c*. If the compressed
+      file contains more than one folder or only a file it will raise a ``ConanException``.
 
 .. _tools_get_env:
 
@@ -389,7 +406,7 @@ Retrieves a file from a given URL into a file with a given filename. It uses cer
 downloads, but this can be optionally disabled.
 
 You can pass hash checking parameters: ``md5``, ``sha1``, ``sha256``. All the specified algorithms will be checked.
-If any of them doesn't match, it will raise a ``ConanException``.
+If any of them doesn't match, the downloaded file will be removed and it will raise a ``ConanException``.
 
 .. code-block:: python
 
@@ -424,9 +441,9 @@ Parameters:
     - **verify** (Optional, Defaulted to ``True``): When False, disables https certificate validation.
     - **out**: (Optional, Defaulted to ``None``): An object with a ``write()`` method can be passed to get the output. ``stdout`` will use
       if not specified.
-    - **retry** (Optional, Defaulted to ``1``): Number of retries in case of failure. Default is overriden by ``general.retry``
+    - **retry** (Optional, Defaulted to ``1``): Number of retries in case of failure. Default is overridden by ``general.retry``
       in the *conan.conf* file or an env variable ``CONAN_RETRY``.
-    - **retry_wait** (Optional, Defaulted to ``5``): Seconds to wait between download attempts. Default is overriden by ``general.retry_wait``
+    - **retry_wait** (Optional, Defaulted to ``5``): Seconds to wait between download attempts. Default is overridden by ``general.retry_wait``
       in the *conan.conf* file or an env variable ``CONAN_RETRY_WAIT``.
     - **overwrite**: (Optional, Defaulted to ``False``): When ``True``, Conan will overwrite the destination file if exists. Otherwise it
       will raise an exception.
@@ -845,7 +862,7 @@ different sources:
   use settings in that profile (read more about :ref:`build_requires_context`).
 * otherwise, the values for the ``build`` context will come from (in this order of precedence):
   ``self_os`` and ``self_arch`` if they are given to the function, the values for ``os_build``
-  and ``arch_build`` from ``conanfile.settings`` or auto-detected. 
+  and ``arch_build`` from ``conanfile.settings`` or auto-detected.
 
 This tool can be used to run special actions depending on its return value:
 
@@ -890,7 +907,7 @@ tools.run_in_windows_bash()
     def run_in_windows_bash(conanfile, bashcmd, cwd=None, subsystem=None, msys_mingw=True, env=None, with_login=True)
 
 Runs a UNIX command inside a bash shell. It requires to have "bash" in the path.
-Useful to build libraries using ``configure`` and ``make`` in Windows. Check :ref:`Windows subsytems <windows_subsystems>` section.
+Useful to build libraries using ``configure`` and ``make`` in Windows. Check :ref:`Windows subsystems <windows_subsystems>` section.
 
 You can customize the path of the bash executable using the environment variable ``CONAN_BASH_PATH`` or the :ref:`conan_conf` ``bash_path``
 variable to change the default bash location.
@@ -1179,11 +1196,13 @@ Parameters:
 tools.rename()
 ----------------------------
 
+Available since: `1.29.0 <https://github.com/conan-io/conan/releases/tag/1.29.0>`_
+
 .. code-block:: python
 
     def rename(src, dst)
 
-Utility functions to rename a file or folder *src* to *dst* with retrying. ``os.rename()`` frequently raises "Access is denied" exception on windows. This function renames file or folder using robocopy to avoid the exception on windows. 
+Utility functions to rename a file or folder *src* to *dst* with retrying. ``os.rename()`` frequently raises "Access is denied" exception on windows. This function renames file or folder using robocopy to avoid the exception on windows.
 
 .. code-block:: python
 
@@ -1365,10 +1384,19 @@ inter-dependent libraries or with complex names like ``libmylib-x86-debug-en.lib
     from conans import tools
 
     def package_info(self):
-        self.cpp_info.libdirs = ["lib", "other_libdir"]  # Deafult value is 'lib'
+        self.cpp_info.libdirs = ["lib", "other_libdir"]  # Default value is 'lib'
         self.cpp_info.libs = tools.collect_libs(self)
 
-For UNIX libraries staring with **lib**, like *libmath.a*, this tool will collect the library name **math**.
+For UNIX libraries starting with **lib**, like *libmath.a*, this tool will collect the library name **math**.
+
+Regarding symlinks, this tool will keep only the "most generic" file among the resolved real file and all symlinks pointing to this real file.
+For example among files below, this tool will select *libmath.dylib* file and therefore only append *math* in the returned list:
+
+.. code-block:: shell
+
+    -rwxr-xr-x libmath.1.0.0.dylib
+    lrwxr-xr-x libmath.1.dylib -> libmath.1.0.0.dylib
+    lrwxr-xr-x libmath.dylib -> libmath.1.dylib
 
 **Parameters:**
     - **conanfile** (Required): A ``ConanFile`` object to get the ``package_folder`` and ``cpp_info``.
@@ -1450,7 +1478,8 @@ tools.Git()
 
 .. warning::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
 
 .. code-block:: python
 
@@ -1470,6 +1499,7 @@ Parameters of the constructor:
     - **runner** (Optional, Defaulted to ``None``): By default ``subprocess.check_output`` will be used to invoke the ``git`` tool.
 
 Methods:
+    - **version**: (property) Retrieve version from the installed Git client.
     - **run(command)**: Run any "git" command, e.g., ``run("status")``
     - **get_url_with_credentials(url)**: Returns the passed URL but containing the ``username`` and ``password`` in the URL to authenticate
       (only if ``username`` and ``password`` is specified)
@@ -1499,7 +1529,8 @@ tools.SVN()
 
 .. warning::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
 
 .. code-block:: python
 
@@ -1519,7 +1550,7 @@ Parameters of the constructor:
     - **runner** (Optional, Defaulted to ``None``): By default ``subprocess.check_output`` will be used to invoke the ``svn`` tool.
 
 Methods:
-    - **version()**: Retrieve version from the installed SVN client.
+    - **version**: (property) Retrieve version from the installed SVN client.
     - **run(command)**: Run any "svn" command, e.g., ``run("status")``
     - **get_url_with_credentials(url)**: Return the passed url but containing the ``username`` and ``password`` in the URL to authenticate
       (only if ``username`` and ``password`` is specified)
@@ -1585,6 +1616,8 @@ tools.apple_sdk_name()
     def apple_sdk_name(settings)
 
 Returns proper SDK name suitable for OS and architecture you are building for (considering simulators).
+If ``self.settings.os.sdk`` setting is defined, it is used, otherwise the function tries to auto-detect based on
+``self.settings.os`` and ``self.settings.arch``.
 
 Parameters:
     - **settings** (Required): Conanfile settings.
@@ -1613,13 +1646,16 @@ tools.apple_deployment_target_flag()
 
 .. code-block:: python
 
-    def apple_deployment_target_flag(os_, os_version)
+    def apple_deployment_target_flag(os_, os_version, os_sdk=None, os_subsystem=None, arch=None)
 
 Compiler flag name which controls deployment target. For example: ``-mappletvos-version-min=9.0``
 
 Parameters:
     - **os_** (Required): OS of the settings. Usually ``self.settings.os``.
-    - **os_version** (Required): OS version.
+    - **os_version** (Required): OS version. Usually ``self.settings.os.version``.
+    - **os_sdk** (Optional, Defaulted to ``None``): OS SDK. Usually ``self.settings.os.sdk``. Otherwise, check :command:`xcodebuild -sdk -version`. for available SDKs.
+    - **os_subsystem** Optional, Defaulted to ``None``): OS subsystem. Usually ``self.settings.os.subsystem``. The only subsystem supported right now is Catalyst.
+    - **arch** (Optional, Defaulted to ``None``): Architecture of the settings. Usually ``self.settings.arch``.
 
 .. _tools_xcrun:
 
@@ -1735,7 +1771,7 @@ It raises a ``ConanInvalidConfiguration`` when is not supported.
     class Recipe(ConanFile):
         ...
 
-        def configure(self):
+        def validate(self):
             tools.check_min_cppstd(self, "17")
 
 * If the current cppstd does not support C++17, ``check_min_cppstd`` will raise an ``ConanInvalidConfiguration`` error.
@@ -1767,7 +1803,7 @@ It returns ``True`` when is valid, otherwise, ``False``.
     class Recipe(ConanFile):
         ...
 
-        def configure(self):
+        def validate(self):
             if not tools.valid_min_cppstd(self, "17"):
                 self.output.error("C++17 is required.")
 
@@ -1788,7 +1824,7 @@ tools.cppstd_flag():
 
     def cppstd_flag(settings)
 
-Returns the corresponding C++ standard flag based on the settings. For instance, it may return ``-std=c++17`` 
+Returns the corresponding C++ standard flag based on the settings. For instance, it may return ``-std=c++17``
 for ``compiler.cppstd=17``, and so on.
 
 Parameters:
@@ -1819,14 +1855,15 @@ tools.intel_compilervars_command()
 
 .. warning::
 
-      This is an **experimental** feature subject to breaking changes in future releases.
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
 
 .. code-block:: python
 
     def intel_compilervars_command(conanfile, arch=None, compiler_version=None, force=False)
 
 Returns, for given settings of the given ``conanfile``, the command that should be called to load the Intel C++ environment variables for a certain Intel C++
-version. It wraps the functionality of `compilervars <https://software.intel.com/content/www/us/en/develop/documentation/intel-system-studio-cplusplus-compiler-user-and-reference-guide/top/target-platform-build-instructions/using-compilervars-file.html>`_
+version. It wraps the functionality of `compilervars <https://www.intel.com/content/www/us/en/develop/documentation/cpp-compiler-developer-guide-and-reference/top/compiler-setup/using-the-command-line/specifying-the-location-of-compiler-components.html>`_
 but does not execute the command, as that typically have to be done in the same command as the compilation, so the variables are loaded for
 the same subprocess. It will be typically used in the ``build()`` method, like this:
 
@@ -1862,7 +1899,8 @@ tools.intel_compilervars_dict()
 
 .. warning::
 
-      This is an **experimental** feature subject to breaking changes in future releases.
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
 
 .. code-block:: python
 
@@ -1897,7 +1935,8 @@ tools.intel_compilervars()
 
 .. warning::
 
-      This is an **experimental** feature subject to breaking changes in future releases.
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
 
 .. code-block:: python
 
@@ -1921,7 +1960,8 @@ tools.intel_installation_path()
 
 .. warning::
 
-      This is an **experimental** feature subject to breaking changes in future releases.
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
 
 .. code-block:: python
 
@@ -1982,7 +2022,8 @@ tools.fix_symlinks():
 
 .. warning::
 
-      This is an **experimental** feature subject to breaking changes in future releases.
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
 
 .. code-block:: python
 

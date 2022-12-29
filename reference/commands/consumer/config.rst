@@ -10,7 +10,7 @@ conan config
 
 .. code-block:: bash
 
-    $ conan config [-h] {get,home,install,rm,set} ...
+    $ conan config [-h] {get,home,install,rm,set,init,list} ...
 
 Manages Conan configuration.
 
@@ -19,7 +19,7 @@ Used to edit conan.conf, or install config files.
 .. code-block:: text
 
     positional arguments:
-      {get,home,install,rm,set}
+      {get,home,install,rm,set,init,list}
                             sub-command help
         get                 Get the value of configuration item
         home                Retrieve the Conan home directory
@@ -28,6 +28,7 @@ Used to edit conan.conf, or install config files.
         rm                  Remove an existing config element
         set                 Set a value for a configuration item
         init                Initializes Conan configuration files
+        list                List Conan configuration properties
 
     optional arguments:
       -h, --help            show this help message and exit
@@ -66,6 +67,18 @@ Used to edit conan.conf, or install config files.
   .. code-block:: bash
 
       $ conan config init --force
+
+- List all possible properties allowed for :ref:`global.conf<global_conf>`
+
+  .. code-block:: bash
+
+      $ conan config list
+
+- Set config install scheduler for every 1 week:
+
+  .. code-block:: bash
+
+      $ conan config set general.config_install_interval=1w
 
 .. _conan_config_install:
 
@@ -116,19 +129,25 @@ user has in the local machine will be deleted.
 
 All the configuration files will be copied to the Conan home directory. These are the special files and the rules applied to merge them:
 
-+--------------------------------+----------------------------------------------------------------------+
-| File                           | How it is applied                                                    |
-+================================+======================================================================+
-| profiles/MyProfile             | Overrides the local ~/.conan/profiles/MyProfile if already exists    |
-+--------------------------------+----------------------------------------------------------------------+
-| settings.yml                   | Overrides the local ~/.conan/settings.yml                            |
-+--------------------------------+----------------------------------------------------------------------+
-| remotes.txt                    | Overrides remotes. Will remove remotes that are not present in file  |
-+--------------------------------+----------------------------------------------------------------------+
-| config/conan.conf              | Merges the variables, overriding only the declared variables         |
-+--------------------------------+----------------------------------------------------------------------+
-| hooks/my_hook.py               | Overrides the local ~/.conan/hooks/my_hook.py if already exists      |
-+--------------------------------+----------------------------------------------------------------------+
++--------------------------------+-----------------------------------------------------------------------------+
+| File                           | How it is applied                                                           |
++================================+=============================================================================+
+| profiles/MyProfile             | Overrides the local ~/.conan/profiles/MyProfile if already exists           |
++--------------------------------+-----------------------------------------------------------------------------+
+| settings.yml                   | Overrides the local ~/.conan/settings.yml                                   |
++--------------------------------+-----------------------------------------------------------------------------+
+| remotes.txt                    | Overrides remotes. Will remove remotes that are not present in file         |
++--------------------------------+-----------------------------------------------------------------------------+
+| remotes.json (**Since 1.52**)  | | Overrides remotes. Will remove remotes that are not present in file.      |
+|                                | | Please, note that **only one of remotes.json or remotes.txt** should be   |
+|                                | | installed. If you have both .txt and .json in the folder, repo, etc.      |
+|                                | | that you are installing from, it can lead to undefined behaviour as the   |
+|                                | | order of the install is not deterministic                                 |
++--------------------------------+-----------------------------------------------------------------------------+
+| config/conan.conf              | Merges the variables, overriding only the declared variables                |
++--------------------------------+-----------------------------------------------------------------------------+
+| hooks/my_hook.py               | Overrides the local ~/.conan/hooks/my_hook.py if already exists             |
++--------------------------------+-----------------------------------------------------------------------------+
 
 The file *remotes.txt* is the only file listed above which does not have a direct counterpart in
 the *~/.conan* folder. Its format is a list of entries, one on each line, with the form of
@@ -140,6 +159,8 @@ the *~/.conan* folder. Its format is a list of entries, one on each line, with t
 where ``[bool]`` (either ``True`` or ``False``) indicates whether SSL should be used to verify that remote. The remote definitions can be
 found in the *remotes.json* file and it provides a helpful starting point when writing the *remotes.txt* to be packaged in
 a Conan client configuration.
+
+
 
 .. note::
     During the installation, Conan skips any file with the name *README.md* or *LICENSE.txt*.
@@ -204,7 +225,7 @@ Conan runs it based on *config_install.json*, including the timestamp of the las
   .. code-block:: bash
 
       $ conan config install my_settings\settings.yml
-      
+
 - Install the configuration from a local path:
 
   .. code-block:: bash

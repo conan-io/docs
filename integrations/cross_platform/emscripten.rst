@@ -15,7 +15,7 @@ It should be possible to build packages for `Emscripten <https://emscripten.org>
   compiler.version=6.0
   compiler.libcxx=libc++
   [options]
-  [build_requires]
+  [tool_requires]
   emsdk_installer/1.38.29@bincrafters/stable
   [env]
 
@@ -31,7 +31,7 @@ And the following conan profile is required for the `WASM <https://webassembly.o
   compiler.version=6.0
   compiler.libcxx=libc++
   [options]
-  [build_requires]
+  [tool_requires]
   emsdk_installer/1.38.29@bincrafters/stable
   [env]
 
@@ -43,7 +43,7 @@ It will automatically download the `Emscripten SDK <https://github.com/emscripte
 
    .. code-block:: bash
 
-      $ conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
+      $ conan remote add bincrafters https://bincrafters.jfrog.io/artifactory/api/conan/public-conan
 
 .. note::
 
@@ -101,7 +101,7 @@ or (on Windows):
 
    $ ./build.cmd
 
-Please note that running the above command may take a while to download and build required dependencies.
+Please note that running the above command may take a while to download and tool required dependencies.
 This script will execute several conan commands:
 
 .. code-block:: bash
@@ -124,7 +124,7 @@ The following local profile is used (file ``emscripten.profile`` within the curr
   compiler.version=6.0
   compiler.libcxx=libc++
   [options]
-  [build_requires]
+  [tool_requires]
   emsdk_installer/1.38.29@bincrafters/stable
   ninja/1.9.0
   [env]

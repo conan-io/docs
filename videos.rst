@@ -14,6 +14,25 @@
 Videos and links
 =================
 
+- ACCU 2022: Advanced Dependencies Model in Conan 2.0 C, C++ Package Manager by Diego Rodriguez-Losada
+
+  .. raw:: html
+
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/kKGglzm5ous" frameborder="0" allow="autoplay; encrypted-media; allowfullscreen>
+      </iframe>
+
+      <br/><br/>
+
+
+- Conan in Practice: Interactive Exercises of common commands
+
+  .. raw:: html
+
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/TXXT9XZ-vok" frameborder="0" allow="autoplay; encrypted-media; allowfullscreen>
+      </iframe>
+
+      <br/><br/>
+
 
 - NDC TechTown 2019: Using Conan in a real-world complex project by Kristian Jerpetjøn.
 

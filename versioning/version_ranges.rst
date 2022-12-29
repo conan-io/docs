@@ -6,15 +6,15 @@ Version ranges
 
 Version range expressions are supported, both in ``conanfile.txt`` and in ``conanfile.py`` requirements.
 
-The syntax uses brackets. The square brackets are the way to inform Conan that is a version range. Otherwise, versions are plain strings. They can be whatever you want them to be (up to limitations of length and allowed characters). 
+The syntax uses brackets. The square brackets are the way to inform Conan that is a version range. Otherwise, versions are plain strings. They can be whatever you want them to be (up to limitations of length and allowed characters).
 
 ..  code-block:: python
 
    class HelloConan(ConanFile):
-      requires = "Pkg/[>1.0 <1.8]@user/stable"
+      requires = "pkg/[>1.0 <1.8]@user/stable"
 
 
-So when specifying ``Pkg/[expression]@user/stable``, it means that ``expression`` will be evaluated as a version range. Otherwise, it will be understood as plain text, so ``requires = "Pkg/version@user/stable"`` always means to use the version ``version`` literally.
+So when specifying ``pkg/[expression]@user/stable``, it means that ``expression`` will be evaluated as a version range. Otherwise, it will be understood as plain text, so ``requires = "pkg/version@user/stable"`` always means to use the version ``version`` literally.
 
 There are some packages that do not follow semver. A popular one would be the OpenSSL package with versions as ``1.0.2n``. They cannot be used with version-ranges. To require such packages you always have to use explicit versions (without brackets).
 
@@ -27,7 +27,8 @@ Expressions are those defined and implemented by https://pypi.org/project/node-s
 
    [>1.1 <2.1]                # In such range
    [2.8]                      # equivalent to =2.8
-   [~=3.0]                    # compatible, according to semver
+   [~3.1.5]                   # compatible (patch version), according to semver (see https://jubianchi.github.io/semver-check/#/~3.1.5/3.2)
+   [^3.1.5]                   # compatible (minor version), according to semver (see https://jubianchi.github.io/semver-check/#/^3.1.5/3.2)
    [>1.1 || 0.8]              # conditions can be OR'ed
    [1.2.7 || >=1.2.9 <2.0.0]  # This range would match the versions 1.2.7, 1.2.9, and 1.4.6, but not the versions 1.2.8 or 2.0.0.
 
@@ -41,8 +42,8 @@ There are two options for the version range:
 ..  code-block:: python
 
    [>1.1 <2.1, include_prerelease=True]            # Would e.g. accept "2.0.0-pre.1" as match
-   [~1.2.3, loose=False]                           # Would only accept correct Semantic Versioning strings. 
-                                                   # E.g. version "1.2.3.4" would not be accepted. 
+   [~1.2.3, loose=False]                           # Would only accept correct Semantic Versioning strings.
+                                                   # E.g. version "1.2.3.4" would not be accepted.
    [~1.2.3, loose=False, include_prerelease=True]  # Both options can be used for the same version range.
 
 Version range expressions are evaluated at the time of building the dependency graph, from
@@ -66,3 +67,7 @@ The order of search for matching versions is as follows:
 - If the :command:`--update` parameter is used, then the existing packages in the local conan cache will not be used, and the same search of the
   previous steps is carried out in the remotes. If new matching versions are found, they will be retrieved, so subsequent calls to
   :command:`install` will find them locally and use them.
+
+.. note::
+
+   Version ranges are not used in generating ``package_id`` those are always determined by the resolved graph.

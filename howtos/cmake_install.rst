@@ -18,7 +18,7 @@ in ``package()``, since these methods are called independently.
 
     def _configure_cmake(self):
         cmake = CMake(self)
-        cmake.definitions["SOME_DEFINITION"] = True
+        cmake.definitions["SOME_DEFINITION"] = "VALUE"
         cmake.configure()
         return cmake
 

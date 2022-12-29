@@ -8,7 +8,7 @@ When you install or create a package you might have error like the following one
 
 .. code-block:: text
 
-    ERROR: The recipe is constraining settings. Invalid setting 'Linux' is not a valid 'settings.os' value.
+    ERROR: The recipe wtl/10.0.9163 is constraining settings. Invalid setting 'Linux' is not a valid 'settings.os' value.
     Possible values are ['Windows']
     Read "http://docs.conan.io/en/latest/faq/troubleshooting.html#error-the-recipe-is-contraining-settings"
 
@@ -29,10 +29,11 @@ that you get an error like the following one:
     - Requirements: libcurl/7.Y.Z, lz4/1.Y.Z, openssl/1.Y.Z, zeromq/4.Y.Z
     - Package ID: 7a4079899e0893ca670df1f682b4606abe79ee5b
 
-    ERROR: Missing prebuilt package for 'czmq/4.2.0'
-    Try to build it from sources with '--build czmq'
-    Use 'conan search <reference> --table table.html'
-    Or read 'http://docs.conan.io/en/latest/faq/troubleshooting.html#error-missing-prebuilt-package'
+    ERROR: Missing prebuilt package for 'czmq/4.2.0@'
+    Use 'conan search czmq/4.2.0@ --table=table.html -r=remote' and open the table.html file to see available packages
+    Or try to build locally from sources with '--build=czmq'
+
+    More Info at 'https://docs.conan.io/en/latest/faq/troubleshooting.html#error-missing-prebuilt-package'
 
 This means that the package recipe ``czmq/4.2.0@`` exists, but for some reason
 there is no precompiled package for your current settings. Maybe the package creator didn't build
@@ -218,3 +219,56 @@ solve this problem you need to remove existing upper case variant ``OpenSSL``:
 .. code-block:: bash
 
     $ conan remove "OpenSSL/*"
+
+
+ERROR: Incompatible requirements obtained in different evaluations of 'requirements'
+------------------------------------------------------------------------------------
+
+When two different packages require the same package as a dependency, but with different versions, will result in the following error:
+
+.. code-block:: bash
+
+    $ cat conanfile.txt
+
+    [requires]
+    baz/1.0.0
+    foobar/1.0.0
+
+    $ conan install conanfile.txt
+
+    [...]
+    WARN: foobar/1.0.0: requirement foo/1.3.0 overridden by baz/1.0.0 to foo/1.0.0
+    ERROR: baz/1.0.0: Incompatible requirements obtained in different evaluations of 'requirements'
+    Previous requirements: [foo/1.0.0]
+    New requirements: [foo/1.3.0]
+
+As we can see in the following situation: the ``conanfile.txt`` requires 2 packages (``baz/1.0.0`` and ``foobar/1.0.0``) which
+both require the package named ``foo``. However, ``baz`` requires ``foo/1.0.0``, but ``foobar`` requires ``foo/1.3.0``.
+As the required versions are different, it's considered a conflict and Conan will not solve it.
+
+To solve this kind of collision, you have to choose a version for ``foo`` and add it to the ``conanfile.txt`` as an explicit
+requirement:
+
+.. code-block:: text
+
+    [requires]
+    foo/1.3.0
+    baz/1.0.0
+    foobar/1.0.0
+
+Here we choose ``foo/1.3.0`` because is newer. Now we can proceed:
+
+.. code-block:: bash
+
+    $ conan install conanfile.txt
+
+        [...]
+        WARN: baz/1.0.0: requirement foo/1.0.0 overridden by foobar/1.0.0 to foo/1.3.0
+
+Conan still warns us about the conflict, but as we have :ref:`versioning_dependencies_overriding` the ``foo`` version, it's no longer an error.
+
+
+ERROR: HTTPSConnectionPool(host='conan.bintray.com', port=443)
+--------------------------------------------------------------
+
+The ``conan.bintray.com`` has been deprecated and you have to update to ``https://center.conan.io`` now. For more information, please, read `Old Bintray remote EOL <https://blog.conan.io/2021/10/28/conancenter-bintray-remote-eol.html>`_.

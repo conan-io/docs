@@ -6,9 +6,8 @@ Graph output for :command:`conan info` command
 
 .. warning::
 
-    This has to be an considered as an **experimental** feature, we might
-    change the context provided to this templates once we have more exmpales
-    from the community.
+    This is a **migrated** feature. Please refer to :ref:`conan_v2_graph_info` learn about the changes.
+    Most of the functionality remains intact and the main changes are to the command line.
 
 
 The :ref:`conan_info` command can generate a visualization of the dependency graph, it
@@ -25,7 +24,7 @@ Context
 These files should be valid `Jinja2 documentation <https://palletsprojects.com/p/jinja/>`_
 templates and they will be feed with the following context:
 
- * ``base_template_path``: absolute path to the directory where the choosen template file is
+ * ``base_template_path``: absolute path to the directory where the chosen template file is
    located. It is needed if your output file needs to link assets distributed together
    with the template file (see HTML example linking CSS and JS files).
  * ``graph``: this object contains all the information from the graph of dependencies. It
@@ -54,11 +53,11 @@ The ``Node`` objects in the context provide all the required information about e
 Examples
 --------
 
-This is are two examples of templates Conan is currently using for the basic functionality,
-you can refer to the `Jinja2 documentation <https://palletsprojects.com/p/jinja/>`_ for more
-information about the logic and filters your can use in these templates. 
+These are two examples of templates that Conan is currently using for the basic functionality.
+You can refer to the `Jinja2 documentation <https://palletsprojects.com/p/jinja/>`_ for more
+information about the logic and filters you can use in these templates.
 
-Let's us know if you have a cool template you want to share with the Conan community.
+Let us know if you have a cool template you want to share with the Conan community.
 
 
 Dot files:
@@ -117,7 +116,7 @@ In this example we assume you have distributed the following files to your cache
     <cache>/templates/output/info_graph.html
 
 
-Our template will we the *info_graph.html* file, and it will use the assets from the
+Our template will be the *info_graph.html* file, and it will use the assets from the
 local files provided in the cache (most use cases will use files from the internet using
 the full URL).
 
