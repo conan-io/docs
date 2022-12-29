@@ -205,6 +205,19 @@ are valid.
             if self.info.settings.os == "Windows":
                 raise ConanInvalidConfiguration("This package is not compatible with Windows")
 
+.. note::
+
+    For recipes where settings are cleared, using ``self.settings`` is still valid. For example,
+    this applies to header only recipes that check for a specific ``self.settings.cppstd`` like:
+
+    .. code-block:: python
+
+        def package_id(self):
+            self.info.clear()
+
+        def validate(self):
+            if self.settings.get_safe("compiler.cppstd"):
+                check_min_cppstd(self, 17)
 
 If you are not checking if the resulting binary is valid for the current configuration but need to check if a package
 can be built or not for a specific configuration you must use the ``validate_build()`` method instead of using ``self.settings``
