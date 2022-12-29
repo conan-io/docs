@@ -47,10 +47,9 @@ them installed in your system or if they are installed with Conan:
     import requests
     from conan.tools.files import replace_in_file
 
-    def post_export(conanfile):
-        cmakelists_path = os.path.join(conanfile.export_source_folder, "CMakeLists.txt")
-        replace_in_file(conanfile, cmakelists_path, "PROJECT(MyProject)", "PROJECT(MyProject LANGUAGES CXX)")
-        r = requests.get('https://api.github.com/events')
+    def post_package(conanfile):
+        if not os.path.isdir(os.path.join(conanfile.package_folder, "licenses")):
+            response = requests.get('https://api.github.com/repos/company/repository/contents/LICENSE')
 
 You can also import functionalities from a relative module:
 
