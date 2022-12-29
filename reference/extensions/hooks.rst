@@ -17,7 +17,6 @@ Here is an example of a simple hook:
 .. code-block:: python
    :caption: *hook_example.py*
 
-    import os
     from conan.tools.files import load
 
     def pre_export(conanfile):
