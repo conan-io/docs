@@ -146,7 +146,7 @@ All hook methods are filled only with the same single object:
 Storage, activation and sharing
 -------------------------------
 
-Hooks are Python files stored under *~/.conan2/extensions/hooks* folder and **their file name should start with hook_ and end with the
+Hooks are Python files stored under *<conan_home>/extensions/hooks* folder and **their file name should start with hook_ and end with the
 .py extension**.
 
 The activation of the hooks is done automatically once the hook file is stored in the hook folder.
