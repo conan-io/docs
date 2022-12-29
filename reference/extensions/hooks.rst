@@ -42,7 +42,7 @@ Importing from a module
 -----------------------
 
 The hook interface should always be placed inside a Python file with the name of the hook starting by *hook_* and with the extension *.py*.
-It also should be stored in the *~/.conan2/extensions/hooks* folder. However, you can use functionalities from imported modules if you have
+It also should be stored in the *<conan_home>/extensions/hooks* folder. However, you can use functionalities from imported modules if you have
 them installed in your system or if they are installed with Conan:
 
 .. code-block:: python
