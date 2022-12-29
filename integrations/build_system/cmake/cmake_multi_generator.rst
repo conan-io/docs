@@ -3,6 +3,11 @@
 ``cmake_multi`` generator
 =========================
 
+.. caution::
+
+    We are actively working to finalize the *Conan 2.0 Release*. Some of the information on this page references
+    **deprecated** features which will not be carried forward with the new release. It's important to check the 
+    :ref:`Migration Guidelines<conan2_migration_guide>` to ensure you are using the most up to date features.
 
 ``cmake_multi`` generator is intended for CMake multi-configuration environments, like Visual Studio and Xcode IDEs that do not configure for a specific
 ``build_type``, like Debug or Release, but rather can be used for both and switch among Debug and Release configurations with a combo box or similar control.
@@ -37,7 +42,7 @@ switch among configurations:
 
 
 However, end consumers with heavy usage of the IDE, might want a multi-configuration build. The
-``cmake_multi`` **experimental** generator is able to do that. First, both Debug and Release
+``cmake_multi`` generator is able to do that. First, both Debug and Release
 dependencies have to be installed:
 
 .. code-block:: bash
