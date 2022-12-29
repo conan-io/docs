@@ -3,6 +3,12 @@
 Using profiles
 --------------
 
+.. caution::
+
+    We are actively working to finalize the *Conan 2.0 Release*. Some of the information on this page references
+    **deprecated** features which will not be carried forward with the new release. It's important to check the 
+    :ref:`Migration Guidelines<conan2_migration_guide>` to ensure you are using the most up to date features.
+
 So far, we have used the default settings stored in ``~/.conan/profiles/default`` and defined custom values for some of them as command line arguments.
 
 However, in large projects, configurations can get complex, settings can be very different, and we need an easy way to switch between different configurations with different settings, options etc.

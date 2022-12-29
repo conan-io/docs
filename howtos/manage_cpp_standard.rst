@@ -1,13 +1,17 @@
 .. _manage_cpp_standard:
 
-How to manage C++ standard [EXPERIMENTAL]
-=========================================
+How to manage C++ standard
+==========================
 
-.. warning::
+.. caution::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
-    Previously, it was implemented as a first level setting ``cppstd``, we encourage
-    you to adopt the new subsetting and update your recipes if they were including the
+    We are actively working to finalize the *Conan 2.0 Release*. Some of the information on this page references
+    **deprecated** features which will not be carried forward with the new release. It's important to check the 
+    :ref:`Migration Guidelines<conan2_migration_guide>` to ensure you are using the most up to date features.
+
+.. tip::
+
+    We encourage you to adopt the new subsetting and update your recipes if they were including the
     deprecated one in its :ref:`settings_property` attribute.
 
 

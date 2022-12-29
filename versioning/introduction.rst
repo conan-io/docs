@@ -80,12 +80,12 @@ for normal dependencies versions management.**
 
 .. note::
 
-    From Conan 1.39, a new **experimental** syntax for requiring alias packages has been
+    From Conan 1.39, a new syntax for requiring alias packages has been
     introduced, to make explicit its usage and solve several issues with alias:
 
     .. code-block:: python
 
-        from conans import ConanFile
+        from conan import ConanFile
 
         class Pkg(ConanFile):
             # Previous syntax, implicit, nothing in the reference tells it is an alias

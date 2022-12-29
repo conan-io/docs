@@ -3,10 +3,11 @@
 conan.tools.apple
 =================
 
-.. warning::
+.. important::
 
-    These tools are still **experimental** (so subject to breaking changes) but with very stable syntax.
-    We encourage the usage of it to be prepared for Conan 2.0.
+    Some of the features used in this section are still **under development**, while they are
+    recommended and usable and we will try not to break them in future releases, some breaking
+    changes might still happen if necessary to prepare for the *Conan 2.0 release*.
 
 .. _conan_tools_apple_xcodedeps:
 
@@ -91,7 +92,7 @@ The first ``conan install`` with the default *Release* and *x86_64* configuratio
 The second ``conan install -s build_type=Debug`` generates: 
 
 - *conan_libpng_libpng_debug_x86_64.xcconfig*: same variables as the one below for *Debug* configuration.
-- *conan_libpng_libpng.xcconfig*: this file has been already creted by the previous command, now it's modified to add the include for *conan_libpng_debug_x86_64.xcconfig*.
+- *conan_libpng_libpng.xcconfig*: this file has been already created by the previous command, now it's modified to add the include for *conan_libpng_debug_x86_64.xcconfig*.
 - *conan_libpng.xcconfig*: this file will remain the same.
 - Like in the previous command the same 3 files will be generated for each dependency in the graph. In this case, as *zlib* is a dependency of *libpng* it will generate: *conan_zlib_zlib_debug_x86_64.xcconfig*, *conan_zlib_zlib.xcconfig* and *conan_zlib.xcconfig*.
 - *conandeps.xcconfig*: configuration files including all direct dependencies, in this case, it just includes ``conan_libpng.xcconfig``.
@@ -347,14 +348,17 @@ Parameters:
 
 - **conanfile**: Conanfile instance.
 
-This tool will search for all the *dylib* files in the conanfile's *package_folder* and fix
-both the ``LC_ID_DYLIB`` and ``LC_LOAD_DYLIB`` fields on those files using the
-*install_name_tool* utility available in macOS.
+This tool will search for all the *dylib* files in the conanfile's *package_folder* and fix 
+the library *install names* (the ``LC_ID_DYLIB`` header). Libraries and executables
+inside the package folder will also have the ``LC_LOAD_DYLIB`` fields updated to reflect
+the patched install names. Executables inside the package will also get an ``LC_RPATH`` 
+entry pointing to the relative location of the libraries inside the package folder. 
+This is done using the *install_name_tool* utility available in macOS, as outlined below:
 
 * For ``LC_ID_DYLIB`` which is the field containing the install name of the library, it
   will change the install name to one that uses the ``@rpath``. For example, if the
   install name is ``/path/to/lib/libname.dylib``, the new install name will be
-  ``@rpath/libname.dylib``. This is done by executing internally something like: 
+  ``@rpath/libname.dylib``. This is done by internally executing something like: 
   
 .. code-block:: bash
   
@@ -362,13 +366,23 @@ both the ``LC_ID_DYLIB`` and ``LC_LOAD_DYLIB`` fields on those files using the
 
 * For ``LC_LOAD_DYLIB`` which is the field containing the path to the library
   dependencies, it will change the path of the dependencies to one that uses the
-  ``@rpath``. For example, if the path is ``/path/to/lib/dependency.dylib``, the new path
-  will be ``@rpath/dependency.dylib``. This is done by executing internally something
-  like:
+  ``@rpath``. For example, if a binary has a dependency on ``/path/to/lib/dependency.dylib``, 
+  this will be updated to be ``@rpath/dependency.dylib``. This is done for both libraries
+  and executables inside the package folder, invoking `install_name_tool` as below:
 
 .. code-block:: bash
   
   install_name_tool /path/to/lib/libname.dylib -change /path/to/lib/dependency.dylib @rpath/dependency.dylib
+
+* For ``LC_RPATH``, in those cases in which the packages also contain binary executables
+  that depend on libraries within the same package, entries will be added to reflect
+  the location of the libraries relative to the executable. If a package has executables
+  in the `bin` subfolder and libraries in the `lib` subfolder, this can be performed
+  with an invocation like this:
+
+.. code-block:: bash
+
+  install_name_tool /path/to/bin/my_executable -add_rpath @executable_path/../lib
 
 
 This tool is typically needed by recipes that use Autotools as the build system and in the
@@ -393,6 +407,8 @@ tool, if needed, in the conanfile's ``package()`` method like:
 is_apple_os()
 -------------
 
+Available since: `1.51.3 <https://github.com/conan-io/conan/releases/tag/1.51.3>`_
+
 .. code-block:: python
 
     def is_apple_os(conanfile):
@@ -407,6 +423,8 @@ This tool returns ``True`` if the OS is from Apple (Macos, iOS, watchOS or tvOS)
 
 to_apple_arch()
 ---------------
+
+Available since: `1.52.0 <https://github.com/conan-io/conan/releases/tag/1.52.0>`_
 
 .. code-block:: python
 
@@ -423,20 +441,35 @@ understood by different Apple build tools (e.g. `armv8` -> `arm64`).
 XCRun()
 -------
 
+Available since: `1.53.0 <https://github.com/conan-io/conan/releases/tag/1.53.0>`_
+
+XCRun is a wrapper for the Apple **xcrun** tool used to get information for building. 
+
 .. code-block:: python
 
     class XCRun(object):
 
-        def __init__(self, conanfile, sdk=None):
+        def __init__(self, conanfile, sdk=None, use_settings_target=False):
 
 Parameters:
 
 - **conanfile**: Conanfile instance.
 - **sdk**: Will skip the flag when ``False`` is passed and will try to adjust the sdk it
   automatically if ``None`` is passed.
+- **use_settings_target**: If ``True`` it will try to use the settings from the target.
+  When ``False`` it will use the settings from the active context. Read more about the
+  ``settings_target`` in the :ref:`cross-building section<cross_building>`.
 
-XCRun is a wrapper for the Apple **xcrun** tool used to get information for building. It
-has these properties:
+Public attributes and properties
+++++++++++++++++++++++++++++++++
+
+Public attributes:
+
+  - **settings**: Set of settings used to get the sdk. They can be the settings from the
+    target if ``use_settings_target=True`` or the settings from the active context if
+    ``use_settings_target=False``.
+
+Public properties:
 
   - **sdk_path**: Obtain SDK path (a.k.a. Apple sysroot or -isysroot).
   - **sdk_version**: Obtain SDK version.

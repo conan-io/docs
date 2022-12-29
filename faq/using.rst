@@ -30,7 +30,7 @@ Settings are configurable. You can edit, add, remove settings or subsettings in 
 See :ref:`the settings.yml reference <settings_yml>`.
 
 On the other hand, **options** are a package-specific configuration. Static or shared library are not
-settings that apply to all packages. Some can be header only libraries while others packages can be just data,
+settings that apply to all packages. Some can be header only libraries while other packages can be just data,
 or package executables. Packages can contain a mixture of different artifacts. ``shared`` is a common
 option, but packages can define and use any options they want.
 

@@ -22,7 +22,7 @@ any Conan package downloaded or uploaded during your build will be automatically
 the BuildInfo json file, that will be automatically uploaded to the specified Artifactory instance.
 
 However, using the `conan_build_info` command, you can gather and upload that information using other
-CI infrastructure. There are two possible ways of using this commmand:
+CI infrastructure. There are two possible ways of using this command:
 
 Extracting build-info from the Conan trace log
 ##############################################

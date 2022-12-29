@@ -371,7 +371,7 @@ txt
 ubuntu
 uname
 uncompresses
-underlaying
+underlying
 unicode
 uninstall
 unintuitive
