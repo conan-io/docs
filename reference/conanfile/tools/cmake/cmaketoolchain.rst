@@ -109,9 +109,10 @@ constructor
 
 .. code:: python
 
-    def __init__(self, conanfile):
+    def __init__(self, conanfile, generator=None):
 
 - ``conanfile``: the current recipe object. Always use ``self``.
+- ``generator``: CMake generator to be used by cmake CLI (e.g. "Ninja"). By default it will use ``tools.cmake.cmaketoolchain:generator`` conf.
 
 
 preprocessor_definitions
