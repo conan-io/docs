@@ -135,8 +135,6 @@ Functions of the hooks are intended to be self-descriptive regarding to the exec
 is called just before the ``package()`` method of the recipe is executed.
 
 
-Function parameters
--------------------
 
 All hook methods are filled only with the same single object:
 
