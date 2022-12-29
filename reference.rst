@@ -13,4 +13,3 @@ Reference
    reference/conanfile
    reference/tools
    reference/extensions
-   reference/hooks
