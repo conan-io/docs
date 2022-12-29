@@ -83,8 +83,7 @@ And it can be used in the hook importing the module, just like regular Python:
 Hook interface
 --------------
 
-Here you can see a complete example of all the hook functions available and the different parameters for each of them depending on the
-context:
+Here you can see a complete example of all the hook functions available:
 
 .. code-block:: python
    :caption: *hook_full.py*
