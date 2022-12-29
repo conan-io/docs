@@ -9,7 +9,7 @@
 .. warning::
 
     This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
-    to find the feature that replace this one.
+    to find the feature that replaced this one.
 
 This generator is similar to the :ref:`cmake_find_package<cmake_find_package_generator>` generator but it allows working with
 multi-configuration projects like ``Visual Studio`` with both ``Debug`` and ``Release``. But there are some differences:

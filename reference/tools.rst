@@ -1479,7 +1479,7 @@ tools.Git()
 .. warning::
 
     This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
-    to find the feature that replace this one.
+    to find the feature that replaced this one.
 
 .. code-block:: python
 
@@ -1530,7 +1530,7 @@ tools.SVN()
 .. warning::
 
     This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
-    to find the feature that replace this one.
+    to find the feature that replaced this one.
 
 .. code-block:: python
 
@@ -1856,7 +1856,7 @@ tools.intel_compilervars_command()
 .. warning::
 
     This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
-    to find the feature that replace this one.
+    to find the feature that replaced this one.
 
 .. code-block:: python
 
@@ -1900,7 +1900,7 @@ tools.intel_compilervars_dict()
 .. warning::
 
     This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
-    to find the feature that replace this one.
+    to find the feature that replaced this one.
 
 .. code-block:: python
 
@@ -1936,7 +1936,7 @@ tools.intel_compilervars()
 .. warning::
 
     This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
-    to find the feature that replace this one.
+    to find the feature that replaced this one.
 
 .. code-block:: python
 
@@ -1961,7 +1961,7 @@ tools.intel_installation_path()
 .. warning::
 
     This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
-    to find the feature that replace this one.
+    to find the feature that replaced this one.
 
 .. code-block:: python
 
@@ -2023,7 +2023,7 @@ tools.fix_symlinks():
 .. warning::
 
     This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
-    to find the feature that replace this one.
+    to find the feature that replaced this one.
 
 .. code-block:: python
 

@@ -7,7 +7,7 @@ Python requires (legacy)
 
     
     This is a **deprecated** feature by the new :ref:`python_requires`. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
-    to find the feature that replace this one.
+    to find the feature that replaced this one.
     
     The new, **under development** While they are
     recommended and usable and we will try not to break them in future releases, some breaking

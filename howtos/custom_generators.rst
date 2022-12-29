@@ -6,7 +6,7 @@ How to create and share a custom generator with generator packages
 .. warning::
 
     This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
-    to find the feature that replace this one.
+    to find the feature that replaced this one.
 
 There are several built-in generators, like ``cmake``, ``visual_studio``, ``xcode``... But what if your build system is not included or the
 existing built-in ones doesn't satisfy your needs? This **how to** will show you how to create a generator for
@@ -239,7 +239,7 @@ Storing generators in the Conan local cache
 .. warning::
 
     This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
-    to find the feature that replace this one.
+    to find the feature that replaced this one.
 
 In addition to distributing them using Conan packages, custom generators can be stored
 in the generators folder in the Conan local cache (by default ``~/.conan/generators``).

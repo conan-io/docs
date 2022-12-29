@@ -7,7 +7,7 @@
 .. warning::
 
     This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
-    to find the feature that replace this one.
+    to find the feature that replaced this one.
 
     The new, **under development** Using the ``conan.tools.microsoft`` tools: ``MSBuildDeps``, ``MSBuildToolchain`` and
     ``MSBuild`` helpers to generate properties files for your project, containing information about the project dependencies

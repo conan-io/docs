@@ -8,7 +8,7 @@ Conan can be integrated with CMake using different generators, build helpers and
 .. warning::
 
     This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
-    to find the feature that replace this one.
+    to find the feature that replaced this one.
 
     The new, **under development** integration with CMake can be found in :ref:`conan_tools_cmake`. This is the integration that will
     become the standard one in Conan 2.0, and the below generators and integrations will be deprecated and removed. While they are
