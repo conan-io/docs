@@ -3,8 +3,7 @@
 Hooks
 -----
 
-The Conan hooks is a feature intended to extend the Conan functionalities and let users customize the client behavior at determined
-points.
+The Conan hooks is a feature intended to extend the Conan functionalities to perform certain orthogonal operations, like some quality checks, in different stages of a package creation process, like pre-build and post-build.
 
 Hook structure
 --------------
