@@ -1,5 +1,3 @@
-.. _reference_commands_config:
-
 conan config
 ============
 
@@ -245,3 +243,4 @@ Displays all the Conan built-in configurations. There are 2 groups:
     tools.system.package_manager:sudo: Use 'sudo' when invoking the package manager tools in Linux (False by default)
     tools.system.package_manager:sudo_askpass: Use the '-A' argument if using sudo in Linux to invoke the system package manager (False by default)
     tools.system.package_manager:tool: Default package manager tool: 'apt-get', 'yum', 'dnf', 'brew', 'pacman', 'choco', 'zypper', 'pkg' or 'pkgutil'
+    
