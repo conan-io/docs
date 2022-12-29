@@ -3,11 +3,11 @@
 Introduction
 ============
 
-Conan is a dependency and package manager for C and C++ languages. It is `free and open-source <https://github.com/conan-io/conan>`_, and it works in all platforms: Windows, Linux, OSX, FreeBSD, Solaris, etc. and can be used to develop for all targets including embedded, mobile (iOS, Android), bare metal. It also integrates with all build systems like CMake, Visual Studio (MSBuild), Makefiles, SCons, etc., including proprietary ones.
+Conan is a dependency and package manager for C and C++ languages. It is `free and open-source <https://github.com/conan-io/conan>`_, works on all platforms (Windows, Linux, OSX, FreeBSD, Solaris, etc.), and can be used to develop for all targets including embedded, mobile (iOS, Android), and bare metal. It also integrates with all build systems like CMake, Visual Studio (MSBuild), Makefiles, SCons, etc., including proprietary ones.
 
-It is specifically designed and optimized for accelerating the development and Continuous Integration of C and C++ projects. With full binary management, it can create and reuse any number of different binaries (for different configurations, like architectures, compiler versions, etc) for any number of different versions of a package, using exactly the same process in all platforms. As it is decentralized, it is easy to run your own server to host your own packages and binaries privately, without needing to share them. The free `JFrog Artifactory Community Edition (CE) <https://conan.io/downloads.html>`_ is the recommended Conan server to host your own packages privately under your control.
+It is specifically designed and optimized for accelerating the development and Continuous Integration of C and C++ projects. With full binary management, it can create and reuse any number of different binaries (for different configurations like architectures, compiler versions, etc.) for any number of different versions of a package, using exactly the same process in all platforms. As it is decentralized, it is easy to run your own server to host your own packages and binaries privately, without needing to share them. The free `JFrog Artifactory Community Edition (CE) <https://conan.io/downloads.html>`_ is the recommended Conan server to host your own packages privately under your control.
 
-Conan is mature and stable, with a strong commitment to forward compatibility (non-breaking policy), with a complete team dedicated full time to its improvement and support. It is backed and used by a great community, from open source contributors and package creators in `ConanCenter <https://conan.io/center>`_ to thousands of teams and companies using it.
+Conan is mature and stable, with a strong commitment to forward compatibility (non-breaking policy), and has a complete team dedicated full time to its improvement and support. It is backed and used by a great community, from open source contributors and package creators in `ConanCenter <https://conan.io/center>`_ to thousands of teams and companies using it.
 
 
 Open Source
@@ -20,7 +20,7 @@ Decentralized package manager
 
 Conan is a decentralized package manager with a client-server architecture. This means that clients can fetch packages from, as well as upload packages to, different servers (“remotes”), similar to the “git” push-pull model to/from git remotes.
 
-On a high level, the servers are just a package storage. They do not build nor create the packages. The packages are created by the client, and if binaries are built from sources, that compilation is also done by the client application.
+At a high level, the servers are just storing packages. They do not build nor create the packages. The packages are created by the client, and if binaries are built from sources, that compilation is also done by the client application.
 
 
 .. image:: images/conan-systems.png
@@ -32,16 +32,16 @@ On a high level, the servers are just a package storage. They do not build nor c
 The different applications in the image above are:
 
 - The Conan client: this is a console/terminal command-line application, containing the heavy logic for package creation and consumption. Conan client has a local cache for package storage, and so it allows you to fully create and test packages offline. You can also work offline as long as no new packages are needed from remote servers.
-- `JFrog Artifactory Community Edition (CE) <https://conan.io/downloads.html>`_ is the recommended Conan server to host your own packages privately under your control. It is a free community edition of JFrog Artifactory for Conan packages, including a WebUI, multiple auth protocols (LDAP), Virtual and Remote repositories to create advanced topologies, a Rest API and generic repositories to host any artifact.
-- The conan_server is a small server distributed together with the Conan client. It is a simple open-source implementation, it provides the basic functionality but no WebUI or other advanced features.
-- `ConanCenter <https://conan.io/center>`_ is a central public repository where the community contributes packages for popular open-source libraries, like Boost, Zlib, OpenSSL, Poco, etc.
+- `JFrog Artifactory Community Edition (CE) <https://conan.io/downloads.html>`_ is the recommended Conan server to host your own packages privately under your control. It is a free community edition of JFrog Artifactory for Conan packages, including a WebUI, multiple auth protocols (LDAP), Virtual and Remote repositories to create advanced topologies, a Rest API, and generic repositories to host any artifact.
+- The conan_server is a small server distributed together with the Conan client. It is a simple open-source implementation and provides basic functionality, but no WebUI or other advanced features.
+- `ConanCenter <https://conan.io/center>`_ is a central public repository where the community contributes packages for popular open-source libraries like Boost, Zlib, OpenSSL, Poco, etc.
 
 Binary management
 -----------------
 
-One of the most powerful features of Conan is that it can create and manage pre-compiled binaries for any possible platform and configuration. Using pre-compiled binaries and avoiding repeatedly building from source, save a lot of time to developers and Continuous Integration servers, while also improving the reproducibility and traceability of artifacts.
+One of the most powerful features of Conan is that it can create and manage pre-compiled binaries for any possible platform and configuration. By using pre-compiled binaries and avoiding repeated builds from source, it saves significant time for developers and Continuous Integration servers, while also improving the reproducibility and traceability of artifacts.
 
-A package is defined by a "conanfile.py", a file that defines the package dependencies, the sources, how to build the binaries from sources, etc. One package “conanfile.py” recipe can generate any arbitrary number of binaries, one for each different platform and configuration: operating system, architecture, compiler, build type, etc. Those binaries can be created and uploaded to a server with the same commands in all platforms, having a single source of truth for all packages and not requiring a different solution for every different operating system.
+A package is defined by a "conanfile.py". This is a file that defines the package's dependencies, sources, how to build the binaries from sources, etc. One package “conanfile.py” recipe can generate any arbitrary number of binaries, one for each different platform and configuration: operating system, architecture, compiler, build type, etc. These binaries can be created and uploaded to a server with the same commands in all platforms, having a single source of truth for all packages and not requiring a different solution for every different operating system.
 
 
 .. image:: images/conan-binary_mgmt.png
@@ -56,11 +56,11 @@ All platforms, all build systems and compilers
 ----------------------------------------------
 
 Conan works on Windows, Linux (Ubuntu, Debian, RedHat, ArchLinux, Raspbian), OSX, FreeBSD, and SunOS, and, as it is portable, it might work in any other platform that can run 
-Python. It can target any existing platform, from bare metal, to desktop, mobile, embedded, servers, cross-building.
+Python. It can target any existing platform: ranging from bare metal to desktop, mobile, embedded, servers, and cross-building.
 
-Conan works with any build system too. There are built-in integrations with most popular ones, like CMake, Visual Studio (MSBuild), Autotools and Makefiles, SCons, etc. But it is not a requirement to use any of them. It is not even necessary that all packages use the same build system, every package can use their own build system, and depend on other packages using different build systems. It is also possible to integrate with any build system, including proprietary ones.
+Conan works with any build system too. There are built-in integrations to support the most popular ones like CMake, Visual Studio (MSBuild), Autotools and Makefiles, SCons, etc., but it is not a requirement to use any of them. It is not even necessary that all packages use the same build system: each package can use their own build system, and depend on other packages using different build systems. It is also possible to integrate with any build system, including proprietary ones.
 
-Likewise, Conan can manage any compiler and any version. There are defaults definitions for the most popular ones: gcc, cl.exe, clang, apple-clang, intel, with different configurations of versions, runtimes, C++ standard library, etc. This model is also extensible to any custom configuration.
+Likewise, Conan can manage any compiler and any version. There are default definitions for the most popular ones: gcc, cl.exe, clang, apple-clang, intel, with different configurations of versions, runtimes, C++ standard library, etc. This model is also extensible to any custom configuration.
 
 
 
@@ -69,7 +69,7 @@ Likewise, Conan can manage any compiler and any version. There are defaults defi
 Stable
 ------
 
-From Conan 1.0, there is a commitment to stability, not breaking user space while evolving the tool and the platform. This means:
+From Conan 1.0 and onwards, there is a commitment to stability, with the goal of not breaking user space while evolving the tool and the platform. This means:
 
 - Moving forward to following minor versions 1.1, 1.2, …, 1.X should never break existing recipes, packages or command line flows
 - If something is breaking, it will be considered a bug and reverted
@@ -79,9 +79,9 @@ From Conan 1.0, there is a commitment to stability, not breaking user space whil
 
 The compatibility is always considered forward. New APIs, tools, methods, helpers can be added in following 1.X versions. Recipes and packages created with these features will be backwards incompatible with earlier Conan versions.
 
-This means that public repositories, like ConanCenter assume the use of the latest version of the Conan client, and using an older version may result in failure of packages and recipes created with a newer version of the client.
+This means that public repositories, like ConanCenter, assume the use of the latest version of the Conan client, and using an older version may result in failure of packages and recipes created with a newer version of the client.
 
-Conan needs Python 3  to run. It has supported Python 2 until 1 January 2020, when it was officially deprecated by the Python maintainers. From Conan 1.22.0 release, Python 2 support is not guaranteed. See the :ref:`deprecation notice <python2>` for more details
+Conan needs Python 3 to run. It has supported Python 2 until 1 January 2020, when it was officially deprecated by the Python maintainers. From Conan 1.22.0 release, Python 2 support is not guaranteed. See the :ref:`deprecation notice <python2>` for more details
 
 If you have any question regarding Conan updates, stability, or any clarification about this definition of stability, please report in the documentation issue tracker: https://github.com/conan-io/docs.
 

@@ -105,7 +105,7 @@ import the ``python_requires``. The *conanfile.py* of that package could look si
         name = "waf-consumer"
         generators = "Waf"
         requires = "mylib-waf/1.0"
-        build_requires = "WafGen/0.1", "waf/2.0.19"
+        tool_requires = "WafGen/0.1", "waf/2.0.19"
         exports_sources = "wscript", "main.cpp"
 
         def build(self):

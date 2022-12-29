@@ -48,7 +48,8 @@ Running commands
 .. code-block:: python
 
     run(self, command, output=True, cwd=None, win_bash=False, subsystem=None, msys_mingw=True,
-        ignore_errors=False, run_environment=False, with_login=True):
+        ignore_errors=False, run_environment=False, with_login=True, env="conanbuild"):
+
 
 ``self.run()`` is a helper to run system commands and throw exceptions when errors occur,
 so that command errors do not pass unnoticed. It is just a wrapper for
@@ -89,6 +90,9 @@ Optional parameters:
   Allows executables to be easily run using shared libraries from its dependencies.
 - **with_login** (Optional, Defaulted to ``True``): Pass the ``--login`` flag to :command:`bash` command when using ``win_bash`` parameter.
   This might come handy when you don't want to create a fresh user session for running the command.
+- **env** (Optional, Defaulted to ``conanbuild``): the environment or list of environment activations scripts to pre-pend to the given ``command``.
+  If ``None``, no environment will be pre-pended.
+
 
 .. _conanfile_required_version:
 

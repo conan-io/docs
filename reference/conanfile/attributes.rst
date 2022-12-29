@@ -295,7 +295,7 @@ It is possible to check the settings to implement conditional logic, with attrib
         elif self.settings.arch == "x86_64":
             # Other different commands
 
-Those comparisons do content checking, for example if you do a typo like ``self.settings.os == "Windos"``,
+Those comparisons do content checking, for example if you do a typo like ``self.settings.os == "Windows"``,
 Conan will fail and tell you that is not a valid ``settings.os`` value, and the possible range of values.
 
 Likewise, if you try to access some setting that doesn't exist, like ``self.settings.compiler.libcxx``
@@ -314,6 +314,17 @@ If you want to do a safe check of settings values, you could use the ``get_safe(
         build_type = self.settings.get_safe("build_type", default="Release")
 
 The ``get_safe()`` method will return ``None`` if that setting or subsetting doesn't exist and there is no default value assigned.
+
+If you want to do a safe deletion of settings, you could use the ``rm_safe()`` method (available since
+`1.53.0 <https://github.com/conan-io/conan/releases/tag/1.53.0>`_). For example, in the ``configure()`` method
+a typical pattern for a C library would be:
+
+.. code-block:: python
+
+    def configure(self):
+        self.settings.rm_safe("compiler.libcxx")
+        self.settings.rm_safe("compiler.cppstd")
+
 
 .. _conanfile_options:
 
@@ -335,7 +346,7 @@ A very common one is the option ``shared`` with allowed values of ``[True, False
 build system to produce a static library or a shared library.
 
 Values for each option can be typed or plain strings (``"value"``, ``True``, ``None``, ``42``,...) and there is a special value, ``"ANY"``, for
-options that can take any value.
+options that can take any value. When an option uses ``"ANY"``, but its default value is ``None``, then it should be added to the possible option values too.
 
 .. code-block:: python
 
@@ -344,9 +355,10 @@ options that can take any value.
         options = {
             "shared": [True, False],
             "option1": ["value1", "value2"],
-            "option2": "ANY",
+            "option2": ["ANY"],
             "option3": [None, "value1", "value2"],
             "option4": [True, False, "value"],
+            "option5": [None, "ANY"],
         }
 
 Every option in a recipe needs to be assigned a value from the ones declared in the ``options`` attribute. The
@@ -378,7 +390,7 @@ go over all of them for the example recipe ``mypkg`` defined above:
   + In the ``config_options()`` method of the recipe.
 
   + In the ``configure()`` method of the recipe itself (**this one has the highest precedence**, this
-    value can't be overriden)
+    value can't be overridden)
 
     .. code-block:: python
 
@@ -387,7 +399,7 @@ go over all of them for the example recipe ``mypkg`` defined above:
             options = {
                 "shared": [True, False],
                 "option1": ["value1", "value2"],
-                "option2": "ANY",
+                "option2": ["ANY"],
             }
 
             def configure(self):
@@ -479,6 +491,16 @@ you can use the ``get_safe()`` method:
 
 The ``get_safe()`` method will return ``None`` if that option doesn't exist and there is no default value assigned.
 
+If you want to do a safe deletion of options, you could use the ``rm_safe()`` method (available since
+`1.53.0 <https://github.com/conan-io/conan/releases/tag/1.53.0>`_). For example, in the ``config_options()`` method
+a typical pattern for Windows library would be:
+
+.. code-block:: python
+
+    def config_options(self):
+        if self.settings.os == "Windows":
+            self.options.rm_safe("fPIC")
+
 **Evaluate options**
 
 It is very important to know how the options are evaluated in conditional expressions and how the
@@ -527,10 +549,14 @@ not define them. This attribute should be defined as a python dictionary:
         ...
         options = {"build_tests": [True, False],
                    "option1": ["value1", "value2"],
-                   "option2": "ANY"}
+                   "option2": ["ANY"],
+                   "option3": [None, "ANY"],
+                   }
         default_options = {"build_tests": True,
                            "option1": "value1",
-                           "option2": 42}
+                           "option2": 42,
+                           "option3": None,
+                           }
 
         def build(self):
             cmake = CMake(self)
@@ -643,19 +669,19 @@ Expressions are those defined and implemented by [python node-semver](https://py
 
     Go to :ref:`Mastering/Version Ranges<version_ranges>` if you want to learn more about version ranges.
 
-build_requires
+tool_requires
 --------------
 
-Build requirements are requirements that are only installed and used when the package is built from sources. If there is an existing pre-compiled binary, then the build requirements for this package will not be retrieved.
+Tool requirements are requirements that are only installed and used when the package is built from sources. If there is an existing pre-compiled binary, then the tool requirements for this package will not be retrieved.
 
 They can be specified as a comma separated tuple in the package recipe:
 
 .. code-block:: python
 
     class MyPkg(ConanFile):
-        build_requires = "tool_a/0.2@user/testing", "tool_b/0.2@user/testing"
+        tool_requires = "tool_a/0.2@user/testing", "tool_b/0.2@user/testing"
 
-Read more: :ref:`Build requirements <build_requires>`
+Read more: :ref:`Tool requirements <build_requires>`
 
 .. _exports_attribute:
 
@@ -717,6 +743,36 @@ Exclude patterns are also possible, with the ``!`` prefix:
 .. code-block:: python
 
     exports_sources = "include*", "src*", "!src/build/*"
+
+
+Note, if the recipe defines the ``layout()`` method and specifies a ``self.folders.source = "src"`` it won't affect
+where the files (from the ``exports_sources``) are copied. They will be copied to the base source folder. So, if you
+want to replace some file that got into the ``source()`` method, you need to explicitly copy it from the parent folder
+or even better, from ``self.export_sources_folder``.
+
+
+.. code-block:: python
+
+   import os, shutil
+   from conan import ConanFile
+   from conan.tools.files import save, load
+
+   class Pkg(ConanFile):
+      ...
+      exports_sources = "CMakeLists.txt"
+
+      def layout(self):
+          self.folders.source = "src"
+          self.folders.build = "build"
+
+      def source(self):
+          # emulate a download from web site
+          save(self, "CMakeLists.txt", "MISTAKE: Very old CMakeLists to be replaced")
+          # Now I fix it with one of the exported files
+          shutil.copy("../CMakeLists.txt", ".")
+          shutil.copy(os.path.join(self.export_sources_folder, "CMakeLists.txt", "."))
+
+
 
 generators
 ----------
@@ -798,13 +854,35 @@ With the ``build_policy`` attribute the package creator can change conan's build
 The allowed ``build_policy`` values are:
 
 - ``missing``: If this package is not found as a binary package, Conan will build it from source.
-- ``always``: This package will always be built from source, also **retrieving the source code each time** by executing the "source" method.
+- ``always``: (deprecated, will be removed in 2.0) This package will always be built from source, also **retrieving the source code each time** by executing the "source" method.
 
 .. code-block:: python
    :emphasize-lines: 2
 
     class PocoTimerConan(ConanFile):
         build_policy = "always" # "missing"
+
+
+upload_policy
+-------------
+
+The ``upload_policy`` class attribute, generally not defined, can be assigned the value ``skip``, to indicate that binaries
+created from this recipe will never be uploaded to the servers with ``conan upload``, without failing or warning.
+This will typically be used together with a ``build_policy = "missing"``.
+
+This can be useful for:
+
+- Binaries that are built by downloading and unzipping some large pre-compiled binaries from elsewhere, like binary tools (android-ndk or similar),
+  that repackaging it into a .tgz in Conan package would only use extra space without adding much value. This would be the most common case.
+- Binaries that for some reason only work when re-compiled from source in the machine. This shouldn't be common, but some extreme cases of low-level,
+  close to the hardware, binaries, might be difficult to have reusable binaries between different machines. This would be a very unusual case.
+
+.. code-block:: python
+   :emphasize-lines: 2
+
+    class Pkg(ConanFile):
+        upload_policy = "skip"
+
 
 .. _short_paths_reference:
 
@@ -817,7 +895,7 @@ It tells Conan to workaround the limitation of 260 chars in Windows paths.
 .. important::
 
     Since Windows 10 (ver. 10.0.14393), it is possible to `enable long paths at the system level
-    <https://docs.microsoft.com/es-es/windows/win32/fileio/naming-a-file#maximum-path-length-limitation>`_.
+    <https://docs.microsoft.com/en-us/windows/win32/fileio/naming-a-file#maximum-path-length-limitation>`_.
     Latest python 2.x and 3.x installers enable this by default. With the path limit removed both on the OS
     and on Python, the ``short_paths`` functionality becomes unnecessary, and can be disabled explicitly
     through the ``CONAN_USER_HOME_SHORT`` environment variable.
@@ -933,69 +1011,74 @@ library names, library paths... There are some default values that will be appli
 
 This object should be filled in ``package_info()`` method.
 
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| NAME                                 | DESCRIPTION                                                                                             |
-+======================================+=========================================================================================================+
-| self.cpp_info.includedirs            | Ordered list with include paths. Defaulted to ``["include"]``                                           |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.libdirs                | Ordered list with lib paths. Defaulted to ``["lib"]``                                                   |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.resdirs                | Ordered list of resource (data) paths. Defaulted to ``["res"]``                                         |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.bindirs                | Ordered list with paths to binaries (executables, dynamic libraries,...). Defaulted to ``["bin"]``      |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.builddirs              | | Ordered list with build scripts directory paths. Defaulted to ``[""]`` (Package folder directory)     |
-|                                      | | CMake generators will search in these dirs for files like *findXXX.cmake*                             |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.libs                   | Ordered list with the library names, Defaulted to ``[]`` (empty)                                        |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.defines                | Preprocessor definitions. Defaulted to ``[]`` (empty)                                                   |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.cflags                 | Ordered list with pure C flags. Defaulted to ``[]`` (empty)                                             |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.cppflags               | [DEPRECATED: Use cxxflags instead]                                                                      |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.cxxflags               | Ordered list with C++ flags. Defaulted to ``[]`` (empty)                                                |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.sharedlinkflags        | Ordered list with linker flags (shared libs). Defaulted to ``[]`` (empty)                               |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.exelinkflags           | Ordered list with linker flags (executables). Defaulted to ``[]`` (empty)                               |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.frameworks             | Ordered list with the framework names (OSX), Defaulted to ``[]`` (empty)                                |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.frameworkdirs          | Ordered list with frameworks search paths (OSX). Defaulted to ``["Frameworks"]``                        |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.rootpath               | Filled with the root directory of the package, see ``deps_cpp_info``                                    |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.name                   | | Alternative name for the package used by generators to create files or variables.                     |
-|                                      | | Defaulted to the package name. Supported by `cmake`, `cmake_multi`, `cmake_find_package`,             |
-|                                      | | `cmake_find_package_multi`, `cmake_paths` and `pkg_config` generators.                                |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.names["generator"]     | | Alternative name for the package used by an specific generator to create files or variables.          |
-|                                      | | If set for a generator it will overrite the information provided by self.cpp_info.name.               |
-|                                      | | Like the cpp_info.name, this is only supported by `cmake`, `cmake_multi`, `cmake_find_package`,       |
-|                                      | | `cmake_find_package_multi`, `cmake_paths` and `pkg_config` generators.                                |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.filenames["generator"] | | Alternative name for the filename produced by a specific generator. If set for a generator it will    |
-|                                      | | override the "names" value (which itself overrides self.cppinfo.name). This is only supported by      |
-|                                      | | the `cmake_find_package` and `cmake_find_package_multi` generators.                                   |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.system_libs            | Ordered list with the system library names. Defaulted to ``[]`` (empty)                                 |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.build_modules          | | Dictionary of lists per generator containing relative paths to build system related utility module    |
-|                                      | | files created by the package. Used by CMake generators to export *.cmake* files with functions for    |
-|                                      | | consumers. Defaulted to ``{}`` (empty)                                                                |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.components             | | **[Experimental]** Dictionary with different components a package may have: libraries, executables... |
-|                                      | | **Warning**: Using components with other ``cpp_info`` non-default values or configs is not supported  |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.requires               | | **[Experimental]** List of components to consume from requirements (it applies only to                |
-|                                      | | generators that implements components feature).                                                       |
-|                                      | | **Warning**: If declared, only the components listed here will used by the linker and consumers.      |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.objects                | | **[Experimental]** List of object libraries (*.obj* or *.o*). Defaulted to ``[]`` (empty)             |
-|                                      | | Only supported by new :ref:`CMakeDeps<conan_tools_cmake>` generator                                   |
-+--------------------------------------+---------------------------------------------------------------------------------------------------------+
++--------------------------------------+----------------------------------------------------------------------------------------------------------------------+
+| NAME                                 | DESCRIPTION                                                                                                          |
++======================================+======================================================================================================================+
+| self.cpp_info.includedirs            | Ordered list with include paths. Defaulted to ``["include"]``                                                        |
++--------------------------------------+----------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.libdirs                | Ordered list with lib paths. Defaulted to ``["lib"]``                                                                |
++--------------------------------------+----------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.resdirs                | Ordered list of resource (data) paths. Defaulted to ``["res"]``. If layout() is declared, defaulted to ``[]`` \*     |
++--------------------------------------+----------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.bindirs                | Ordered list with paths to binaries (executables, dynamic libraries,...). Defaulted to ``["bin"]``                   |
++--------------------------------------+----------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.builddirs              | | Ordered list with build scripts directory paths. Defaulted to ``[""]`` (Package folder directory)                  |
+|                                      | | CMake generators will search in these dirs for files like *findXXX.cmake*                                          |
++--------------------------------------+----------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.libs                   | Ordered list with the library names, Defaulted to ``[]`` (empty)                                                     |
++--------------------------------------+----------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.defines                | Preprocessor definitions. Defaulted to ``[]`` (empty)                                                                |
++--------------------------------------+----------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.cflags                 | Ordered list with pure C flags. Defaulted to ``[]`` (empty)                                                          |
++--------------------------------------+----------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.cppflags               | [DEPRECATED: Use cxxflags instead]                                                                                   |
++--------------------------------------+----------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.cxxflags               | Ordered list with C++ flags. Defaulted to ``[]`` (empty)                                                             |
++--------------------------------------+----------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.sharedlinkflags        | Ordered list with linker flags (shared libs). Defaulted to ``[]`` (empty)                                            |
++--------------------------------------+----------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.exelinkflags           | Ordered list with linker flags (executables). Defaulted to ``[]`` (empty)                                            |
++--------------------------------------+----------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.frameworks             | Ordered list with the framework names (OSX), Defaulted to ``[]`` (empty)                                             |
++--------------------------------------+----------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.frameworkdirs          | Ordered list with frameworks search paths (OSX). Defaulted to ``["Frameworks"]`` or ``[]`` if layout() is declared \*|
++--------------------------------------+----------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.rootpath               | Filled with the root directory of the package, see ``deps_cpp_info``                                                 |
++--------------------------------------+----------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.name                   | **[DEPRECATED]** Use ``self.cpp_info.names`` instead.                                                                |
++--------------------------------------+----------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.names["generator"]     | | Alternative name for the package used by an specific generator to create files or variables.                       |
+|                                      | | If set for a generator it will override the information provided by self.cpp_info.name.                            |
+|                                      | | Like the cpp_info.name, this is only supported by `cmake`, `cmake_multi`, `cmake_find_package`,                    |
+|                                      | | `cmake_find_package_multi`, `cmake_paths` and `pkg_config` generators.                                             |
++--------------------------------------+----------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.filenames["generator"] | | Alternative name for the filename produced by a specific generator. If set for a generator it will                 |
+|                                      | | override the "names" value. This is only supported by the `cmake_find_package` and                                 |
+|                                      | | `cmake_find_package_multi` generators.                                                                             |
++--------------------------------------+----------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.system_libs            | Ordered list with the system library names. Defaulted to ``[]`` (empty)                                              |
++--------------------------------------+----------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.build_modules          | | Dictionary of lists per generator containing relative paths to build system related utility module                 |
+|                                      | | files created by the package. Used by CMake generators to export *.cmake* files with functions for                 |
+|                                      | | consumers. Defaulted to ``{}`` (empty)                                                                             |
++--------------------------------------+----------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.components             | | **[Experimental]** Dictionary with different components a package may have: libraries, executables...              |
+|                                      | | **Warning**: Using components with other ``cpp_info`` non-default values or configs is not supported               |
++--------------------------------------+----------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.requires               | | **[Experimental]** List of components to consume from requirements (it applies only to                             |
+|                                      | | generators that implements components feature).                                                                    |
+|                                      | | **Warning**: If declared, only the components listed here will used by the linker and consumers.                   |
++--------------------------------------+----------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.objects                | | **[Experimental]** List of object libraries (*.obj* or *.o*). Defaulted to ``[]`` (empty)                          |
+|                                      | | Only supported by new :ref:`CMakeDeps<conan_tools_cmake>` generator                                                |
++--------------------------------------+----------------------------------------------------------------------------------------------------------------------+
+
+.. note::
+
+   (*) If the ``layout()`` is declared, for Conan >= 1.50, the default values for ``self.cpp_info.frameworkdirs`` and ``self.cpp_info.resdirs``
+   change to ``[]``, being a way to migrate to Conan 2.0, where the default values for these field changed. Read more in the
+   :ref:`migration guide<conan2_migration_guide_recipes_package_info>`.
+
 
 The paths of the directories in the directory variables indicated above are relative to the
 :ref:`self.package_folder<folders_attributes_reference>` directory.
@@ -1011,7 +1094,8 @@ them and to components of other packages (the following case is not a real examp
 .. code-block:: python
 
     def package_info(self):
-        self.cpp_info.name = "OpenSSL"
+        self.cpp_info.names["cmake_find_package"] = "OpenSSL"
+        self.cpp_info.names["cmake_find_package_multi"] = "OpenSSL"
         self.cpp_info.components["crypto"].names["cmake_find_package"] = "Crypto"
         self.cpp_info.components["crypto"].libs = ["libcrypto"]
         self.cpp_info.components["crypto"].defines = ["DEFINE_CRYPTO=1"]
@@ -1033,83 +1117,31 @@ has **the same default directories**.
 .. warning::
 
     Using components and global ``cpp_info`` non-default values or release/debug configurations at the same time is not allowed (except for
-    ``self.cpp_info.name`` and ``self.cpp_info.names``).
+    ``self.cpp_info.names``).
 
 Dependencies among components and to components of other requirements can be defined using the ``requires`` attribute and the name
 of the component. The dependency graph for components will be calculated and values will be aggregated in the correct order for each field.
 
-There is a new way of setting and accessing ``filenames``, ``names`` and ``build_modules`` starting
-in Conan 1.36 using new ``set_property`` and ``get_property`` methods of the ``cpp_info`` object:
-
-.. code-block:: python
-
-    def set_property(self, property_name, value, generator=None)
-    def get_property(self, property_name, generator=None):
-
-New properties ``cmake_target_name``, ``cmake_file_name``, ``pkg_config_name`` and
-``cmake_build_modules`` are defined to allow migrating ``names``, ``filenames`` and ``build_modules``
-properties to this model.
-In Conan 2.0 this will be the default way of setting these properties and also passing custom
-properties to generators.
-
-For most cases, it is recommended not to use the ``generator`` argument. The properties are generic for build systems, and different generators that integrate with a given build system could be reading such generic properties.
-For example, setting some cpp_info properties with the current model:
-
-.. code-block:: python
-
-    def package_info(self):
-        ...
-        self.cpp_info.filenames["cmake_find_package"] = "MyFileName"
-        self.cpp_info.filenames["cmake_find_package_multi"] = "MyFileName"
-        self.cpp_info.components["mycomponent"].names["cmake_find_package"] = "mycomponent-name"
-        self.cpp_info.components["mycomponent"].names["cmake_find_package_multi"] = "mycomponent-name"
-        self.cpp_info.components["mycomponent"].build_modules.append(os.path.join("lib", "mypkg_bm.cmake"))
-        ...
-        self.cpp_info.components["mycomponent"].names["pkg_config"] = "mypkg-config-name"
-
-Could be declared like this in the new one:
-
-.. code-block:: python
-
-    def package_info(self):
-        ...
-        self.cpp_info.set_property("cmake_file_name", "MyFileName")
-        self.cpp_info.components["mycomponent"].set_property("cmake_target_name", "mycomponent-name")
-        self.cpp_info.components["mycomponent"].set_property("cmake_build_modules", [os.path.join("lib", "mypkg_bm.cmake")])
-        self.cpp_info.components["mycomponent"].set_property("custom_name", "mycomponent-name", "custom_generator")
-        ...
-        self.cpp_info.components["mycomponent"].set_property("pkg_config_name", "mypkg-config-name")
-
-New properties defined:
-
-- **cmake_file_name** property will affect all cmake generators that accept the ``filenames``
-  property (*cmake_find_package* and *cmake_find_package_multi*).
-- **cmake_target_name** property will affect all cmake generators that accept the ``names`` property
-  (*cmake*, *cmake_multi*, *cmake_find_package*, *cmake_find_package_multi* and *cmake_paths*).
-- **cmake_build_modules** property will replace the ``build_modules`` property.
-- **pkg_config_name** property will set the ``names`` property for *pkg_config* generator.
-
-There's also a new property called ``pkg_config_custom_content`` defined for the *pkg_config*
-generator that will add user defined content to the *.pc* files created by this generator.
-
-.. code-block:: python
-
-    def package_info(self):
-        custom_content = "datadir=${prefix}/share"
-        self.cpp_info.set_property("pkg_config_custom_content", custom_content)
-
-All of these properties, but ``cmake_file_name`` can be defined at global ``cpp_info`` level or at
-component level.
+**New properties model for the cpp_info new tools**
 
 .. warning::
 
     Using ``set_property`` and ``get_property`` methods for ``cpp_info`` is an **experimental**
     feature subject to breaking changes in future releases.
 
+Using ``.names``, ``.filenames`` and ``.build_modules`` will not work any more for new
+generators, like :ref:`CMakeDeps<CMakeDeps>` and :ref:`PkgConfigDeps<PkgConfigDeps>`.
+They have a new way of setting this information using ``set_property`` and
+``get_property`` methods of the ``cpp_info`` object (available since Conan 1.36).
 
-.. seealso::
+.. code-block:: python
 
-    Read :ref:`package_information_components` and :ref:`method_package_info` to learn more.
+    def set_property(self, property_name, value)
+    def get_property(self, property_name):
+
+To read more about the new ``set_property`` and ``get_property`` methods for ``cpp_info``
+please check the dedicated section in the :ref:`Conan 2.0 migration guide <conanv2_properties_model>`.
+
 
 .. _deps_cpp_info_attributes_reference:
 
@@ -1292,7 +1324,7 @@ know more about this feature.
 
     class RecipeConan(ConanFile):
         ...
-        build_requires = "tool/1.0"
+        tool_requires = "tool/1.0"
         ...
 
         def build(self):
@@ -1311,13 +1343,13 @@ object.
 apply_env
 ---------
 
-When ``True`` (Default), the values from ``self.deps_env_info`` (corresponding to the declared ``env_info`` in the ``requires`` and ``build_requires``)
+When ``True`` (Default), the values from ``self.deps_env_info`` (corresponding to the declared ``env_info`` in the ``requires`` and ``tool_requires``)
 will be automatically applied to the ``os.environ``.
 
 Disable it setting ``apply_env`` to False if you want to control by yourself the environment variables
 applied to your recipes.
 
-You can apply manually the environment variables from the requires and build_requires:
+You can apply manually the environment variables from the requires and tool_requires:
 
 .. code-block:: python
    :emphasize-lines: 2
@@ -1706,12 +1738,89 @@ To declare that a recipe provides the functionality of several different recipes
 If the attribute is omitted, the value of the attribute is assumed to be equal to the current package name. Thus, it's redundant for
 ``libjpeg`` recipe to declare that it provides ``libjpeg``, it's already implicitly assumed by Conan.
 
+conf
+----
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+Available since: `1.47.0 <https://github.com/conan-io/conan/releases/tag/1.47.0>`_
+
+In the ``self.conf`` attribute we can find all the conf entries declared in the :ref:`[conf] section of the profiles<profiles_tools_conf>`
+in addition of the declared :ref:`self.conf_info<conf_in_recipes>` entries from the first level tool requirements. The profile entries have priority.
+
+This is an example of a recipe for a tool called ``my_android_ndk`` with the following recipe:
+
+.. code-block:: python
+
+    from conan import ConanFile
+
+    class MyAndroidNDKRecipe(ConanFile):
+
+      name="my_android_ndk"
+      version="1.0"
+
+      def package_info(self):
+          self.conf_info.define("tools.android:ndk_path", "bar")
+
+If we require that tool:
+
+.. code-block:: python
+
+    from conan import ConanFile
+
+    class MyConsumer(ConanFile):
+
+      tool_requires = "my_android_ndk/1.0"
+
+      def generate(self):
+          self.output.info("NDK host: %s" % self.conf.get("tools.android:ndk_path"))
+          self.output.info("Custom var1: %s" % self.conf.get("user.custom.var1"))
+
+
+And we install it applying this profile:
+
+.. code-block:: text
+   :caption: myprofile
+
+   include(default)
+   [conf]
+   tools.android:ndk_path=foo
+   user.custom.var1=hello
+
+.. code-block:: shell
+
+   $ conan install . --profile myprofile
+   ...
+   conanfile.py: Applying build-requirement: my_android_ndk/1.0
+   conanfile.py: Generator txt created conanbuildinfo.txt
+   conanfile.py: Calling generate()
+   conanfile.py: NDK host: foo
+   conanfile.py: Custom var1: hello
+   ...
+
+Without the profile:
+
+.. code-block:: shell
+
+   $ conan install .
+   ...
+   conanfile.py: Applying build-requirement: my_android_ndk/1.0
+   conanfile.py: Generator txt created conanbuildinfo.txt
+   conanfile.py: Calling generate()
+   conanfile.py: NDK host: bar
+   conanfile.py: Custom var1: None
 
 
 win_bash
 --------
 
-This is an **experimental** feature introduced in Conan 1.39.
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+Available since: `1.39.0 <https://github.com/conan-io/conan/releases/tag/1.39.0>`_
 
 When ``True`` it enables the new run in a subsystem bash in Windows mechanism. :ref:`Read more here<conanfile_win_bash>`.
 
@@ -1722,3 +1831,94 @@ When ``True`` it enables the new run in a subsystem bash in Windows mechanism. :
     class FooRecipe(ConanFile):
         ...
         win_bash = True
+
+        def build(self):
+            self.run(cmd)  # will run <cmd> inside bash
+
+
+win_bash_run
+------------
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+Available since: `1.54.0 <https://github.com/conan-io/conan/releases/tag/1.54.0>`_
+
+When ``True`` it enables running commands in the ``"run"`` scope, to run them inside a bash shell.
+
+.. code-block:: python
+
+    from conan import ConanFile
+
+    class FooRecipe(ConanFile):
+        ...
+        win_bash_run = True
+
+        def build(self):
+            self.run(cmd, scope="run")  # will run <cmd> inside bash
+
+.. _test_type:
+
+test_type
+---------
+
+.. warning::
+
+    Test type is an **experimental** feature subject to breaking changes in future releases.
+
+Available since: `1.44.0 <https://github.com/conan-io/conan/releases/tag/1.44.0>`_
+
+This attribute allows testing requirements and build requiments explicitly on test package.
+In Conan 2.0 the ``test_type`` attribute will be ignored, the behavior will be always explicit, so declaring ``test_type="explicit"`` will make the test recipe compatible with Conan 2.0.
+The possible values are:
+
+ - ``requires`` (default): The package being tested will be consumed as a regular requirement automatically.
+ - ``build_requires``: The package being tested will be consumed as a build requirement automatically. It can be combined with ``requires`` to be required in both ways.
+ - ``explicit``: The test package will not solve its dependencies automatically, you need to declare it explicitly using the reference at ``self.tested_reference_str``. This will be the only behavior for Conan 2.0. The additional values ``requires`` and ``build_requires`` (if specified) will be ignored.
+
+To solve build requirements and requirements automatically as regularly on Conan 1.0
+
+ .. code-block:: python
+
+    from conans import ConanFile, CMake
+    import os
+
+    class TestPackage(ConanFile):
+        test_type = "build_requires", "requires"
+
+        def build(self):
+            cmake = CMake(self)
+            cmake.configure()
+            cmake.build()
+
+        def test(self):
+            bin_path = os.path.join("bin", "test_package")
+            self.run(bin_path, run_environment=True)
+
+To explicitly declare the required dependencies as required on Conan 2.0:
+
+ .. code-block:: python
+
+    from conans import ConanFile, CMake
+    import os
+
+    class TestPackage(ConanFile):
+        test_type = "explicit"
+
+        def requirements(self):
+            self.requires(self.tested_reference_str)
+            # and, or
+            self.build_requires(self.tested_reference_str)
+
+        def build(self):
+            cmake = CMake(self)
+            cmake.configure()
+            cmake.build()
+
+        def test(self):
+            bin_path = os.path.join("bin", "test_package")
+            self.run(bin_path, run_environment=True)
+
+
+For more information see :ref:`explicit test package requirement <explicit_test_package_requirement>` and :ref:`testing tool requirements <testing_build_requires>`.

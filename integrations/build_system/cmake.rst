@@ -3,13 +3,17 @@
 |cmake_logo| CMake
 ==================
 
-.. note::
-
-   The new, experimental integration with CMake can be found in :ref:`conan_tools_cmake`. This is the integration that will
-   become the standard one in Conan 2.0, and the below generators and integrations will be deprecated and removed.
-
-
 Conan can be integrated with CMake using different generators, build helpers and custom *findXXX.cmake* files:
+
+.. warning::
+
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
+
+    The new, **under development** integration with CMake can be found in :ref:`conan_tools_cmake`. This is the integration that will
+    become the standard one in Conan 2.0, and the below generators and integrations will be deprecated and removed. While they are
+    recommended and usable and we will try not to break them in future releases, some breaking
+    changes might still happen if necessary to prepare for the *Conan 2.0 release*.
 
 
 .. toctree::

@@ -82,7 +82,7 @@ Let's have a look at the lockfile:
             "revisions_enabled": false
         },
         "version": "0.4",
-        "profile_host": "[settings]\narch=x86_64\narch_build=x86_64\nbuild_type=Release\ncompiler=Visual Studio\ncompiler.runtime=MD\ncompiler.version=15\nos=Windows\nos_build=Windows\n[options]\n[build_requires]\n[env]\n"
+        "profile_host": "[settings]\narch=x86_64\narch_build=x86_64\nbuild_type=Release\ncompiler=Visual Studio\ncompiler.runtime=MD\ncompiler.version=15\nos=Windows\nos_build=Windows\n[options]\n[tool_requires]\n[env]\n"
     }
 
 
@@ -154,7 +154,7 @@ For example, if now we try to do a :command:`conan install` that also builds ``p
     ERROR: Cannot build 'pkga/0.1@user/testing' because it is already locked in the input lockfile
 
 It is an error, because the ``pkga/0.1@user/testing`` dependency was fully locked. When the lockfile was created, the
-``pkga/0.1@user/testing`` was found, including a binary, and that information was stored. Everytime this lockfile is
+``pkga/0.1@user/testing`` was found, including a binary, and that information was stored. Every time this lockfile is
 used, it assumes this package and binary exist and it will try to get them, but it will never allow to re-build, because
 that can violate the integrity of the lockfile. For example, if we were using ``package_revision_mode``, a new binary
 of ``pkga`` would produce new package-ids of all its consumers, that will not match the package-ids stored in the lockfile.

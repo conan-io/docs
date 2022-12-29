@@ -6,20 +6,13 @@ conan install
 
 .. code-block:: bash
 
-    $ conan install [-h] [-g GENERATOR] [-if INSTALL_FOLDER] [-m [MANIFESTS]]
-                     [-mi [MANIFESTS_INTERACTIVE]] [-v [VERIFY]]
-                     [--no-imports] [--build-require] [-j JSON] [-b [BUILD]]
-                     [-r REMOTE] [-u] [-l LOCKFILE]
-                     [--lockfile-out LOCKFILE_OUT] [-e ENV_HOST]
-                     [-e:b ENV_BUILD] [-e:h ENV_HOST] [-o OPTIONS_HOST]
-                     [-o:b OPTIONS_BUILD] [-o:h OPTIONS_HOST]
-                     [-pr PROFILE_HOST] [-pr:b PROFILE_BUILD]
-                     [-pr:h PROFILE_HOST] [-s SETTINGS_HOST]
-                     [-s:b SETTINGS_BUILD] [-s:h SETTINGS_HOST]
-                     [-c CONF_HOST] [-c:b CONF_BUILD] [-c:h CONF_HOST]
-                     [--lockfile-node-id LOCKFILE_NODE_ID]
-                     [--require-override REQUIRE_OVERRIDE]
+     $ conan install [-h] [-g GENERATOR] [-if INSTALL_FOLDER] [-of OUTPUT_FOLDER] [-m [MANIFESTS]] [-mi [MANIFESTS_INTERACTIVE]]
+                     [-v [VERIFY]] [--no-imports] [--build-require] [-j JSON] [-b [BUILD]] [-r REMOTE] [-u] [-l LOCKFILE] [--lockfile-out LOCKFILE_OUT]
+                     [-e ENV_HOST] [-e:b ENV_BUILD] [-e:h ENV_HOST] [-o OPTIONS_HOST] [-o:b OPTIONS_BUILD] [-o:h OPTIONS_HOST] [-pr PROFILE_HOST]
+                     [-pr:b PROFILE_BUILD] [-pr:h PROFILE_HOST] [-s SETTINGS_HOST] [-s:b SETTINGS_BUILD] [-s:h SETTINGS_HOST] [-c CONF_HOST]
+                     [-c:b CONF_BUILD] [-c:h CONF_HOST] [--lockfile-node-id LOCKFILE_NODE_ID] [--require-override REQUIRE_OVERRIDE]
                      path_or_reference [reference]
+
 
 Installs the requirements specified in a recipe (conanfile.py or conanfile.txt).
 
@@ -52,6 +45,8 @@ generators.
       -if INSTALL_FOLDER, --install-folder INSTALL_FOLDER
                             Use this directory as the directory where to put the
                             generatorfiles. e.g., conaninfo/conanbuildinfo.txt
+      -of OUTPUT_FOLDER, --output-folder OUTPUT_FOLDER
+                            The root output folder for generated and build files
       -m [MANIFESTS], --manifests [MANIFESTS]
                             Install dependencies manifests in folder for later
                             verify. Default folder is .conan_manifests, but can be
@@ -333,12 +328,29 @@ because the consumer conanfile might not declare a `name` so it would be impossi
     You can use :ref:`profiles <profiles>` files to create predefined sets of **settings**,
     **options** and **environment variables**.
 
+folders
+-------
+
+.. important::
+
+    This feature is still **under development**, while it is recommended and usable and we will try not to break them in future releases,
+    some breaking changes might still happen if necessary to prepare for the *Conan 2.0 release*.
+
+
+The ``--output-folder`` define together with the ``layout()`` recipe
+method the location of the output files. For example, the files created by build system integrations
+such as ``CMakeToolchain`` or ``PkgConfigDeps`` will be created in the folder defined by the
+``layout()`` ``generators`` folder, inside the defined ``--output-folder``. By default, the
+``--output-folder`` is the folder containing the ``conanfile.py``.
+
+
 conf
 ----
 
-.. warning::
+.. important::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+    This feature is still **under development**, while it is recommended and usable and we will try not to break them in future releases,
+    some breaking changes might still happen if necessary to prepare for the *Conan 2.0 release*.
 
 With the :command:`-c` parameters you can define specific tool configurations.
 
@@ -393,12 +405,14 @@ The ``install`` command accepts several arguments related to :ref:`lockfiles<ver
 .. note::
 
   Installation of binaries can be accelerated setting up parallel downloads with the ``general.parallel_download``
-  **experimental** configuration in :ref:`conan_conf`.
+  **under development** configuration in :ref:`conan_conf`.
 
 --build-require
 ---------------
 
-The ``--build-require``, new in Conan 1.37, is experimental. It allows to install the package using the
+Available since: `1.37.0 <https://github.com/conan-io/conan/releases/tag/1.37.0>`_
+
+The ``--build-require`` allows to install the package using the
 configuration and settings of the "build" context, as it was a ``build_require``. Lets see it with an example:
 
 We have a ``mycmake/1.0`` package, which bundles cmake executable, and we are cross-compiling from Windows
@@ -424,11 +438,8 @@ as necessary without needing to change the profiles at all.
 --require-override
 ------------------
 
-.. warning::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
-
-New from **Conan 1.39**
+Available since: `1.39.0 <https://github.com/conan-io/conan/releases/tag/1.39.0>`_
 
 The ``--require-override`` argument allows to inject an override requirement to the consumer conanfile being called
 by this command, that would be equivalent to:
@@ -448,5 +459,5 @@ If the consumer conanfile already contains a direct requirement to that dependen
 but no ``override=True`` will be added (note that ``override=True`` means that the current package does not depend on that
 other package).
 
-This feature affects only to regular ``requires``, not to ``build_requires`` or ``python_requires``, as those don't have such
+This feature affects only to regular ``requires``, not to ``tool_requires`` or ``python_requires``, as those don't have such
 an overriding mechanism, and they are private to their consumer, not propagating downstream nor upstream.

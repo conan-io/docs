@@ -14,9 +14,10 @@ packages from sources in your computer.
     It is not strictly required by Conan to create packages, you can use
     other build systems (as VS, Meson, Autotools and even your own) to do that, without any dependency
     to CMake.
-    Some of the features used in this section are **experimental**, like ``CMakeToolchain`` or ``cmake_layout()``,
-    and they might change in future releases. There are other alternative tools that are stable, please check
-    the :ref:`reference section<references>` for more information.
+
+    Some of the features used in this section are still **under development**, like ``CMakeToolchain`` or ``cmake_layout()``,
+    while they are recommended and usable and we will try not to break them in future releases, some breaking
+    changes might still happen if necessary to prepare for the *Conan 2.0 release*.
 
 
 Using the :command:`conan new` command will create a "Hello World" C++ library example project for us:
@@ -36,7 +37,7 @@ Using the :command:`conan new` command will create a "Hello World" C++ library e
 
 The generated files are:
 
-- **conanfile.py**: On the root folder, there is a *conanfile.py* which is the main recipe file, responsible for defining how the package is built and consumed. 
+- **conanfile.py**: On the root folder, there is a *conanfile.py* which is the main recipe file, responsible for defining how the package is built and consumed.
 - **CMakeLists.txt**: A simple generic *CMakeLists.txt*, with nothing specific about Conan in it.
 - **src** folder: the *src* folder that contains the simple C++ "hello" library.
 - (optional) **test_package** folder: contains an *example* application that will require and link with the created package.
@@ -47,8 +48,7 @@ Let's have a look at the package recipe *conanfile.py*:
 .. code-block:: python
 
     from conans import ConanFile
-    from conan.tools.cmake import CMakeToolchain, CMake
-    from conan.tools.layout import cmake_layout
+    from conan.tools.cmake import CMakeToolchain, CMake, cmake_layout
 
     class HelloConan(ConanFile):
         name = "hello"
@@ -86,7 +86,7 @@ Let's have a look at the package recipe *conanfile.py*:
             self.cpp_info.libs = ["hello"]
 
 
-Let's explain a little bit this recipe:
+Let's explain a little bit about this recipe:
 
 - The binary configuration is composed by ``settings`` and ``options``. See more in :ref:`this section<settings_vs_options>`.
   When something changes in the configuration, the resulting binary built and packaged will be different:
@@ -109,8 +109,9 @@ Let's explain a little bit this recipe:
   the Conan ``settings`` and ``options`` to CMake syntax.
 
 - The ``build()`` method uses the ``CMake`` wrapper to call CMake commands, it is a thin layer that will manage
-  to pass in this case the ``-DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake`` argument. It will configure the
-  project and build it from source.
+  to pass in this case the ``-DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake`` argument, plus other possible arguments, 
+  like ``-DCMAKE_BUILD_TYPE=<config>`` if necessary. It will configure the project and build it from source. The actual
+  arguments that will be used are obtained from a generated ``CMakePresets.json`` file.
 
 - The ``package()`` method copies artifacts (headers, libs) from the build folder to the final
   package folder. It can be done with bare "copy" commands, but in this case it is leveraging the already
@@ -152,7 +153,8 @@ If "Hello world Release!" is displayed, it worked. This is what has happened:
 - A new build from source for the ``hello/0.1@demo/testing`` package starts, calling the ``generate()``, ``build()`` and
   ``package()`` methods. This creates the binary package in the Conan cache.
 - Moves to the *test_package* folder and executes a ``conan install`` + ``conan build`` + ``test()`` method, to check if
-  the package was correctly created.
+  the package was correctly created. This happens automatically whenever a ``test_package`` folder is supplied next to 
+  the ``conanfile.py`` being processed.
 
 We can now validate that the recipe and the package binary are in the cache:
 

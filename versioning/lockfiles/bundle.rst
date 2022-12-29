@@ -165,7 +165,7 @@ file itself, so we can read it and use it, something like:
             package_ids = bundle[ref]["package_id"]
             for pkg_id, info in package_ids.items():
                 lockfiles = info["lockfiles"]
-                lockfile = next(iter(sorted(lockfiles)))  # Get the first one, all should be valid to build same packag_id
+                lockfile = next(iter(sorted(lockfiles)))  # Get the first one, all should be valid to build same package_id
 
                 os.system("conan install {ref} --build={ref} --lockfile={lockfile} "
                           "--lockfile-out={lockfile}".format(ref=ref, lockfile=lockfile))

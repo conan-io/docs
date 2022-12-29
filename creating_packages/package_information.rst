@@ -3,6 +3,12 @@
 Define the package information
 ==============================
 
+.. caution::
+
+    We are actively working to finalize the *Conan 2.0 Release*. Some of the information on this page references
+    **deprecated** features which will not be carried forward with the new release. It's important to check the 
+    :ref:`Migration Guidelines<conan2_migration_guide>` to ensure you are using the most up to date features.
+
 When creating a recipe to package a library, it is important to define the information about the package so consumers can get the
 information correctly. Conan achieves this by decoupling the information of the package from the format needed using
 :ref:`generators_reference`, that translate the generic information into the appropriate format file.
@@ -21,7 +27,7 @@ like the location of the header files, library names, defines, flags...
         def package_info(self):
             self.cpp_info.includedirs = ["include/cool"]
             self.cpp_info.libs = ["libcool"]
-            self.cpp_info.defines= ["DEFINE_COOL=1"]
+            self.cpp_info.defines = ["DEFINE_COOL=1"]
 
 The package information is done using the attributes of the :ref:`cpp_info_attributes_reference` object. This information will be aggregated
 by Conan and exposed via ``self.deps_cpp_info`` to consumers and generators.
@@ -45,10 +51,6 @@ Using Components
 If your package contains more than one library or you want to define separated components so consumers can have more granular information,
 you can use components in your :ref:`method_package_info` method.
 
-.. warning::
-
-    This is a **experimental** feature subject to breaking changes in future releases.
-
 When you are creating a Conan package, it is recommended to have only one library (*.lib*, *.a*, *.so*, *.dll*...) per package. However,
 especially with third-party projects like Boost, Poco or OpenSSL, they would contain several libraries inside.
 
@@ -60,7 +62,8 @@ executable will be one component inside ``cpp_info`` like this:
 .. code-block:: python
 
     def package_info(self):
-        self.cpp_info.name = "OpenSSL"
+        self.cpp_info.names["cmake_find_package"] = "OpenSSL"
+        self.cpp_info.names["cmake_find_package_multi"] = "OpenSSL"
         self.cpp_info.components["crypto"].names["cmake_find_package"] = "Crypto"
         self.cpp_info.components["crypto"].libs = ["libcrypto"]
         self.cpp_info.components["crypto"].defines = ["DEFINE_CRYPTO=1"]
@@ -132,13 +135,13 @@ Consumers can get this information via ``self.deps_cpp_info`` as usual and use i
             self.deps_cpp_info["openssl"].components["ssl"].include_paths
 
 
-Recipes that require packages that declare components can also take advantage of this granularity, they can declare in the 
+Recipes that require packages that declare components can also take advantage of this granularity, they can declare in the
 ``cpp_info.requires`` attribute the list of components from the requirements they want to link with:
 
 .. code-block:: python
 
     class Library(ConanFile):
-        name = 'library' 
+        name = 'library'
         requires = "openssl/1.0.2u"
 
         def package_info(self):

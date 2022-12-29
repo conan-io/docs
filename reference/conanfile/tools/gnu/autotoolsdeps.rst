@@ -1,10 +1,13 @@
 AutotoolsDeps
 =============
 
-.. warning::
+.. important::
 
-    These tools are **experimental** and subject to breaking changes.
+    Some of the features used in this section are still **under development**, while they are
+    recommended and usable and we will try not to break them in future releases, some breaking
+    changes might still happen if necessary to prepare for the *Conan 2.0 release*.
 
+Available since: `1.35.0 <https://github.com/conan-io/conan/releases/tag/1.35.0>`_
 
 The ``AutotoolsDeps`` is the dependencies generator for Autotools. It will generate shell scripts containing
 environment variable definitions that the autotools build system can understand.
@@ -34,7 +37,7 @@ And it can also be fully instantiated in the conanfile ``generate()`` method:
 
 .. code:: python
 
-    from conans import ConanFile
+    from conan import ConanFile
     from conan.tools.gnu import AutotoolsDeps
 
     class App(ConanFile):
@@ -56,7 +59,7 @@ The ``AutotoolsDeps`` will generate after a ``conan install`` command the *conan
 This generator will define aggregated variables ``CPPFLAGS``, ``LIBS``, ``LDFLAGS``, ``CXXFLAGS``, ``CFLAGS`` that
 accumulate all dependencies information, including transitive dependencies, with flags like ``-I<path>``, ``-L<path>``, etc.
 
-At this moment, only the ``requires`` information is generated, the ``build_requires`` one is not managed by this generator yet.
+At this moment, only the ``requires`` information is generated, the ``tool_requires`` one is not managed by this generator yet.
 
 
 Attributes
@@ -67,7 +70,7 @@ Attributes
 
 .. code:: python
 
-    from conans import ConanFile
+    from conan import ConanFile
     from conan.tools.gnu import AutotoolsDeps
 
     class App(ConanFile):

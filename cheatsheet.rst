@@ -97,7 +97,7 @@ Profiles
 ++++++++
 
 Profiles allow users to set aspects of the build configuration. This includes settings_, options_, environment variables
-and build requirements. They can be installed into ~/.conan/profiles. They can also be stored in project directories,
+and tool requirements. They can be installed into ~/.conan/profiles. They can also be stored in project directories,
 which can be useful for specific compilation cases, for example cross-compiling.
 
 Profiles are stored in text files with no file extension. An example profile:
@@ -115,7 +115,7 @@ Profiles are stored in text files with no file extension. An example profile:
     compiler.libcxx=libstdc++11
     build_type=Release
     arch=armv7
-    os_build=Linus
+    os_build=Linux
     arch_build=x86_64
     OpenSSL:compiler.version=4.8  # Dependency-specific value
 
@@ -126,8 +126,8 @@ Profiles are stored in text files with no file extension. An example profile:
     CC=$CROSS_GCC-gcc             # Strings can be defined and substituted
     CXX=$CROSS_GCC-g++
 
-    [build_requires]              # Requirements for package builds only
-    cmake/3.16.3                  # Specifying build requirements here rather than in the recipe makes them less binding
+    [tool_requires]               # Requirements for package builds only
+    cmake/3.16.3                  # Specifying tool requirements here rather than in the recipe makes them less binding
 
 List profiles:
 
@@ -185,7 +185,7 @@ Using packages in an application
     boost/1.72.0                   # Versions override versions upstream in the dependency graph
     poco/1.9.4
 
-    [build_requires]               # The Conan packages which are used to build the application
+    [tool_requires]                # The Conan packages which are used to build the application
     7zip/16.00
 
     [generators]                   # Generators create build system files that capture the dependency information,
@@ -406,7 +406,7 @@ A package recipe is a Python class, defined in a file called conanfile.py:
 
         default_options = {"shared": False}
         requires = "requiredlib/0.1@user/stable"           # Defines package requirements
-        build_requires = "tool_a/0.2@user/testing"         # Defines requirements that are only used when the package is
+        tool_requires = "tool_a/0.2@user/testing"          # Defines requirements that are only used when the package is
                                                            # built. These should be build and test tools only
         generators = "cmake"                               # Generator for the package: specifies which build system
                                                            # type will be generated
@@ -419,8 +419,8 @@ A package recipe is a Python class, defined in a file called conanfile.py:
                                                                          # See the link below for more information
 
         def build_requirements(self):                                    # Responsible for specifying non-trivial build requirements logic
-            if self.options.myoption1:                                   # Specify a conditional build requirement
-                self.build_requires("zlib/1.2@user/testing")
+            if self.options.myoption1:                                   # Specify a conditional tool requirement
+                self.tool_requires("zlib/1.2@user/testing")
 
         def build(self):                                                 # Responsible for invoking the build system
             cmake = CMake(self)                                          # Helper classes are available for several build systems
@@ -590,7 +590,7 @@ Main application dependencies are set in the [requires] section of `Conanfile.tx
 
 __ #using-conan-packages-in-an-application
 
-Package dependencies - normal requirements, build requirements, conditional requirements - are set in `the package recipe`_.
+Package dependencies - normal requirements, tool requirements, conditional requirements - are set in `the package recipe`_.
 
 Package ID calculation modes
 ############################

@@ -1,9 +1,13 @@
+.. _CMakeDeps:
+
 CMakeDeps
 ---------
 
-.. warning::
+.. important::
 
-    These tools are **experimental** and subject to breaking changes.
+    Some of the features used in this section are still **under development**, while they are
+    recommended and usable and we will try not to break them in future releases, some breaking
+    changes might still happen if necessary to prepare for the *Conan 2.0 release*.
 
 
 Available since: `1.33.0 <https://github.com/conan-io/conan/releases/tag/1.33.0>`_
@@ -14,7 +18,7 @@ like version, flags and directory data or configuration. It can be used like:
 
 .. code-block:: python
 
-    from conans import ConanFile
+    from conan import ConanFile
 
     class App(ConanFile):
         settings = "os", "arch", "compiler", "build_type"
@@ -27,7 +31,7 @@ The full instantiation, that allows custom configuration can be done in the ``ge
 
 .. code-block:: python
 
-    from conans import ConanFile
+    from conan import ConanFile
     from conan.tools.cmake import CMakeDeps
 
     class App(ConanFile):
@@ -46,23 +50,28 @@ The full instantiation, that allows custom configuration can be done in the ``ge
     cross-compile might not work at all if the "build" profile is not provided.
 
 
+The ``CMakeDeps`` is a *multi-configuration* generator, it can correctly create files for Release/Debug configurations
+to be simultaneously used by IDEs like Visual Studio. In single configuration environments, it is necessary to have
+a configuration defined, which must be provided via the ``cmake ... -DCMAKE_BUILD_TYPE=<build-type>`` argument in command line
+(Conan will do it automatically when necessary, in the ``CMake.configure()`` helper).
+
+
 There are some attributes you can adjust in the created ``CMakeDeps`` object to change the default behavior:
 
-configurations
+configuration
 ++++++++++++++
 
-Allows to define custom user CMake configurations besides the standard
-Release, Debug, etc ones. If the **settings.yml** file is customized to add new configurations to the
-``settings.build_type``, then, adding it explicitly to ``.configurations`` is not necessary.
+Allows to define custom user CMake configuration besides the standard Release, Debug, etc ones.
 
 .. code-block:: python
 
     def generate(self):
-        cmake = CMakeDeps(self)
-        cmake.configurations.append("ReleaseShared")
+        deps = CMakeDeps(self)
+        # By default, ``deps.configuration`` will be ``self.settings.build_type``
         if self.options["hello"].shared:
-            cmake.configuration = "ReleaseShared"
-        cmake.generate()
+            # Assuming the current project ``CMakeLists.txt`` defines the ReleasedShared configuration.
+            deps.configuration = "ReleaseShared"
+        deps.generate()
 
 
 build_context_activated
@@ -73,11 +82,11 @@ But you can activate it using the **build_context_activated** attribute:
 
 .. code-block:: python
 
-    build_requires = ["my_tool/0.0.1"]
+    tool_requires = ["my_tool/0.0.1"]
 
     def generate(self):
         cmake = CMakeDeps(self)
-        # generate the config files for the build require
+        # generate the config files for the tool require
         cmake.build_context_activated = ["my_tool"]
         cmake.generate()
 
@@ -101,16 +110,16 @@ Solving this conflict is specially important when we are cross-building because 
 host machine.
 
 You can use the **build_context_suffix** attribute to specify a suffix for a requirement,
-so the files/targets/variables of the requirement in the build context (build require) will be renamed:
+so the files/targets/variables of the requirement in the build context (tool require) will be renamed:
 
 .. code-block:: python
 
-    build_requires = ["my_tool/0.0.1"]
+    tool_requires = ["my_tool/0.0.1"]
     requires = ["my_tool/0.0.1"]
 
     def generate(self):
         cmake = CMakeDeps(self)
-        # generate the config files for the build require
+        # generate the config files for the tool require
         cmake.build_context_activated = ["my_tool"]
         # disambiguate the files, targets, etc
         cmake.build_context_suffix = {"my_tool": "_BUILD"}
@@ -135,15 +144,15 @@ By default, Conan will include only the build modules from the
 ``host`` context (regular requires) to avoid the collision, but you can change the default behavior.
 
 Use the **build_context_build_modules** attribute to specify require names to include the **build_modules** from
-**build_requires**:
+**tool_requires**:
 
 .. code-block:: python
 
-    build_requires = ["my_tool/0.0.1"]
+    tool_requires = ["my_tool/0.0.1"]
 
     def generate(self):
         cmake = CMakeDeps(self)
-        # generate the config files for the build require
+        # generate the config files for the tool require
         cmake.build_context_activated = ["my_tool"]
         # Choose the build modules from "build" context
         cmake.build_context_build_modules = ["my_tool"]
@@ -156,6 +165,91 @@ Use the **build_context_build_modules** attribute to specify require names to in
     the two host and build profiles.
 
 
+set_property()
+++++++++++++++
+
+Since `Conan 1.55.0 <https://github.com/conan-io/conan/releases>`_ .
+
+.. code:: python
+
+    def set_property(self, dep, prop, value, build_context=False):
+
+- ``dep``: Name of the dependency to set the :ref:`property<CMakeDeps Properties>`. For
+  components use the syntax: ``dep_name::component_name``.
+- ``prop``: Name of the :ref:`property<CMakeDeps Properties>`.
+- ``value``: Value of the property. Use ``None`` to invalidate any value set by the
+  upstream recipe.
+- ``build_context``: Set to ``True`` if you want to set the property for a dependency that
+  belongs to the build context (``False`` by default).
+
+Using this method you can overwrite the property values set by the Conan recipes from the
+consumer. This can be done for `cmake_file_name`, `cmake_target_name`, `cmake_find_mode`,
+`cmake_module_file_name` and `cmake_module_target_name` properties. Let's see an example
+of how this works:
+
+Imagine we have a *compressor/1.0* package that depends on *zlib/1.2.11*. The *zlib* recipe
+defines some properties:
+
+
+.. code-block:: python
+    :caption: Zlib conanfile.py
+
+    class ZlibConan(ConanFile):
+        name = "zlib"
+
+        ...
+
+        def package_info(self):
+            self.cpp_info.set_property("cmake_find_mode", "both")
+            self.cpp_info.set_property("cmake_file_name", "ZLIB")
+            self.cpp_info.set_property("cmake_target_name", "ZLIB::ZLIB")
+            ...
+
+This recipe defines several properties. For example the ``cmake_find_mode`` property is
+set to ``both``. That means that module and config files are generated for Zlib. Maybe we
+need to alter this behaviour and just generate config files. You could do that in the
+compressor recipe using the ``CMakeDeps.set_property()`` method:
+
+
+.. code-block:: python
+    :caption: compressor conanfile.py
+
+    class Compressor(ConanFile):
+        name = "compressor"
+
+        requires = "zlib/1.2.11"
+        ...
+
+        def generate(self):
+            deps = CMakeDeps(self)
+            deps.set_property("zlib", "cmake_find_mode", "config")
+            deps.generate()
+            ...
+
+You can also use the ``set_property()`` method to invalidate the property values set by
+the upstream recipe and use the values that Conan assigns by default. To do so, set the
+value ``None`` to the property like this:
+
+.. code-block:: python
+    :caption: compressor conanfile.py
+
+    class Compressor(ConanFile):
+        name = "compressor"
+
+        requires = "zlib/1.2.11"
+        ...
+
+        def generate(self):
+            deps = CMakeDeps(self)
+            deps.set_property("zlib", "cmake_target_name", None)
+            deps.generate()
+            ...
+
+After doing this the generated target name for the Zlib library will be ``zlib::zlib``
+instead of ``ZLIB::ZLIB``
+
+.. _CMakeDeps Properties:
+
 Properties
 ++++++++++
 
@@ -164,7 +258,7 @@ The following properties affect the CMakeDeps generator:
 - **cmake_file_name**: The config file generated for the current package will follow the ``<VALUE>-config.cmake`` pattern,
   so to find the package you write ``find_package(<VALUE>)``.
 - **cmake_target_name**: Name of the target to be consumed.
-- **cmake_target_namespace**: Namespace of the target to be consumed. If not specified, it will use **cmake_target_name**. This is only read when set on the root ``cpp_info`` (see the example below).
+- **cmake_target_aliases**: List of aliases that Conan will create for an already existing target.
 - **cmake_find_mode**: Defaulted to ``config``. Possible values are:
 
   - ``config``: The CMakeDeps generator will create config scripts for the dependency.
@@ -174,9 +268,10 @@ The following properties affect the CMakeDeps generator:
 
 - **cmake_module_file_name**: Same as **cmake_file_name** but when generating modules with ``cmake_find_mode=module/both``. If not specified it will default to **cmake_file_name**.
 - **cmake_module_target_name**: Same as **cmake_target_name**  but when generating modules with ``cmake_find_mode=module/both``.  If not specified it will default to **cmake_target_name**.
-- **cmake_module_target_namespace**: Same as **cmake_target_namespace**  but when generating modules with ``cmake_find_mode=module/both``. This is only read when set on the root ``cpp_info``. If not specified it will default to **cmake_target_namespace**.
 - **cmake_build_modules**: List of ``.cmake`` files (route relative to root package folder) that are automatically
-  included when the consumer run the ``find_package()``.
+  included when the consumer run the ``find_package()``. This property can't be declared in a component, do it in the global ``self.cpp_info``.
+- **cmake_set_interface_link_directories**: boolean value that should be only used by dependencies that don't declare `self.cpp_info.libs` but have ``#pragma comment(lib, "foo")`` (automatic link) declared at the public headers. Those dependencies should
+  add this property to their *conanfile.py* files at root ``cpp_info`` level (components not supported for now).
 
 Example:
 
@@ -186,18 +281,63 @@ Example:
         ...
         # MyFileName-config.cmake
         self.cpp_info.set_property("cmake_file_name", "MyFileName")
-        # Foo:: namespace for the targets (Foo::Foo if no components)
-        self.cpp_info.set_property("cmake_target_name", "Foo")
-        # self.cpp_info.set_property("cmake_target_namespace", "Foo")  # This can be omitted as the value is the same
+        # Names for targets are absolute, Conan won't add any namespace to the target names automatically
+        self.cpp_info.set_property("cmake_target_name", "Foo::Foo")
 
-        # Foo::Var target name for the component "mycomponent"
-        self.cpp_info.components["mycomponent"].set_property("cmake_target_name", "Var")
-        # Automatically include the lib/mypkg.cmake file when calling find_package()
-        self.cpp_info.components["mycomponent"].set_property("cmake_build_modules", [os.path.join("lib", "mypkg.cmake")])
+        # Create a new target "MyFooAlias" that is an alias to the "Foo::Foo" target
+        self.cpp_info.set_property("cmake_target_aliases", ["MyFooAlias"])
+        # The property "cmake_build_modules" can't be declared in a component, do it in self.cpp_info
+        self.cpp_info.set_property("cmake_build_modules", [os.path.join("lib", "mypkg.cmake")])
+
+        self.cpp_info.components["mycomponent"].set_property("cmake_target_name", "Foo::Var")
+
+        # Create a new target "VarComponent" that is an alias to the "Foo::Var" component target
+        self.cpp_info.components["mycomponent"].set_property("cmake_target_aliases", ["VarComponent"])
 
         # Skip this package when generating the files for the whole dependency tree in the consumer
-        # note: it will make useless the previous adjustements.
+        # note: it will make useless the previous adjustments.
         # self.cpp_info.set_property("cmake_find_mode", "none")
 
         # Generate both MyFileNameConfig.cmake and FindMyFileName.cmake
         self.cpp_info.set_property("cmake_find_mode", "both")
+        
+
+.. _Disable CMakeDeps For Installed CMake imports:
+
+Disable CMakeDeps For Installed CMake configuration files
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Some projects may want to disable the ``CMakeDeps`` generator for downstream consumers. This can be done by settings ``cmake_find_mode`` to ``none``.
+If the project wants to provide it's own configuration targets, it should append them to the ``buildirs`` attribute of ``cpp_info``.
+
+This method is intended to work with downstream consumers using the ``CMakeToolchain`` generator, which will be populated with the ``builddirs`` attribute.
+
+Example:
+
+.. code-block:: python
+
+    def package(self):
+        ...
+        cmake.install()
+
+    def package_info(self):
+        self.cpp_info.set_property("cmake_find_mode", "none") # Do NOT generate anyfiles
+        self.cpp_info.builddirs.append(os.path.join("lib", "cmake", "foo"))
+
+Map from project configuration to imported target's configuration
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+As mentioned above, ``CMakeDeps`` provides support for multiple configuration environments (Debug, Release, etc.)
+This is achieved by populating properties on the imported targets according to the ``build_type`` setting
+when installing dependencies. When a consumer project is configured with a single-configuration CMake generator, however, 
+it is necessary to define the ``CMAKE_BUILD_TYPE`` with a value that matches that of the installed dependencies.
+
+If the consumer CMake project is configured with a different build type than the dependencies, it is necessary to
+tell CMake how to map the configurations from the current project to the imported targets by setting the 
+``CMAKE_MAP_IMPORTED_CONFIG_<CONFIG>`` CMake variable. 
+
+.. code-block:: bash
+
+    cd build-coverage/
+    conan install .. -s build_type=Debug
+    cmake .. -DCMAKE_BUILD_TYPE=Coverage -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_MAP_IMPORTED_CONFIG_COVERAGE=Debug

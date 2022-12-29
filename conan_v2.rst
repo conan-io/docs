@@ -1,18 +1,35 @@
-.. _conan_v2:
+.. _conan2_migration_guide:
 
-Road to Conan 2.0
-=================
 
-Conan has started to work on the next major release. We've been gathering feedback
-from the community about our features and we think it's time to break some default
-behaviors, clean the codebase and add space for new developments. Development is
-ongoing and the `Conan 2.0 Tribe <https://conan.io/tribe.html>`_ is having discussions
-about it.
+Conan migration guide to 2.0
+============================
 
-In the future, this section will contain relevant information and changes regarding Conan 2.0,
-there is a lot of work ahead, as you can see in `our backlog <https://github.com/conan-io/conan/milestones>`_.
+Conan 2.0-beta `is already released <https://pypi.org/project/conan/#history>`_, you can install the latest Conan Alpha
+version from PyPI doing:
 
-Meanwhile, in version 1.23 we have introduced an environment variable to raise errors in case of using features
-that will be deprecated in Conan 2.0. Read more about ``CONAN_V2_MODE`` in :ref:`this section <conan_v2_mode>`.
+    .. code-block:: bash
 
-Stay tuned!
+        $ pip install conan --pre
+
+
+If you want to migrate to 2.0, there are several things you will need to change:
+
+  - The **recipes** have to be updated to be compatible with Conan 2.0. There are 2.0 features ported to Conan 1.X
+    so you can get a compatible recipe with 2.0 using Conan 1.X.
+  - The **conan commands** have also changed, but there are no "compatible" commands introduced in Conan 1.X. We will review
+    the more relevant changes.
+  - **General changes** not related to the recipes nor the Conan commands, "build profiles", lowercase references... etc.
+
+If you are looking for precompiled binaries, there is a very short list in a separate remote which can be added (please, check the `Conan 2.0 documentation <https://docs.conan.io/en/2.0/index.html>`_ for more information)
+
+    .. code-block:: bash
+
+      $ conan remote add conanv2 https://conanv2beta.jfrog.io/artifactory/api/conan/conan --index 0
+
+.. toctree::
+   :maxdepth: 2
+
+   migrating_to_2.0/recipes
+   migrating_to_2.0/properties
+   migrating_to_2.0/commands
+   migrating_to_2.0/general

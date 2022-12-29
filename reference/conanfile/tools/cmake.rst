@@ -5,7 +5,11 @@ conan.tools.cmake
 
 .. warning::
 
-    These tools are **experimental** and subject to breaking changes.
+    These tools are still **experimental** (so subject to breaking changes) but with very stable syntax.
+    We encourage their usage to be prepared for Conan 2.0.
+
+You can use ``conan new hello/0.1 --template=cmake_lib`` and ``conan new hello/0.1 --template=cmake_exe`` templates
+to try this CMake integration.
 
 
 .. toctree::
@@ -14,3 +18,4 @@ conan.tools.cmake
    cmake/cmakedeps
    cmake/cmaketoolchain
    cmake/cmake
+   cmake/cmake_layout

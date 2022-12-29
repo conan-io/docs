@@ -18,8 +18,8 @@ Variables in *conanbuildinfo.cmake*
 - **Package declared variables**:
 
   For each requirement *conanbuildinfo.cmake* file declares the following variables. Where ``<PKG-NAME>`` is the placeholder for the name of
-  the require in uppercase (``ZLIB`` for ``zlib/1.2.8@lasote/stable``) or the one declared in ``cpp_info.name`` or in
-  ``cpp_info.names["cmake"]`` if specified:
+  the require in uppercase (``ZLIB`` for ``zlib/1.2.8@lasote/stable``) in
+  ``cpp_info.names["cmake_find_package"]`` or ``cpp_info.names["cmake_find_package_multi"]`` if specified:
 
   +---------------------------------------+----------------------------------------------------------------------+
   | NAME                                  | VALUE                                                                |
@@ -198,7 +198,7 @@ Adjusts each `CMAKE_RUNTIME_OUTPUT_DIRECTORY` variable to be ``${CMAKE_CURRENT_B
 and each ``CMAKE_ARCHIVE_OUTPUT_DIRECTORY`` and ``CMAKE_LIBRARY_OUTPUT_DIRECTORY`` variable to be
 ``${CMAKE_CURRENT_BINARY_DIR}/lib``.
 
-Calling this method makes writing the ``package()`` method for recipies easier. All artifacts will
+Calling this method makes writing the ``package()`` method for recipes easier. All artifacts will
 always be found in the same location. Otherwise, they may be found in different locations depending
 on your build environment (eg Linux vs Windows).
 

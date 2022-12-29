@@ -48,6 +48,10 @@ need to build a new binary because a new ``package_id`` will be computed.
 
     $ conan config set general.default_package_id_mode=full_version_mode
 
+This sets the *default* package ID mode.  Be aware, however, that if any of your packages provide their own 
+`package_id()` implementation, for example explicitly setting a different mode for a dependency, `full_version_mode` 
+might not be used for that package.
+
 This example will use version ranges, and it is not necessary to have revisions enabled. It also does not require
 a server, everything can be reproduced locally, although the usage of different repositories will be introduced.
 
@@ -178,7 +182,7 @@ possible that some developer has already uploaded a ``libd/2.0`` version, with a
 aimed for the next major version of ``app1``.
 
 So the only alternative to be both efficient and have a robust Continuous Integration of changes in
-our core "products" is to explictly define those "products". In our case we will define that our
+our core "products" is to explicitly define those "products". In our case we will define that our
 products are ``app1/0.1@user/testing`` and ``app2/0.1@user/testing``. This product definition could
 change as we keep doing releases of our products to our customers.
 
@@ -249,7 +253,7 @@ The process will be repeated (or it could also run in parallel) for the Debug co
 
 After the ``app1/0.1@user/testing`` product pipeline finishes, then the ``app2/0.2@user/testing`` one will
 be started. With this setup and example, it is very important that the products pipelines are ran sequentially,
-otherwise it is possible that the same binaries are unnecesarily built more than once.
+otherwise it is possible that the same binaries are unnecessarily built more than once.
 
 When the products pipeline finishes it means that the changes proposed by the developer in their Pull Request that
 would result in a new ``libb/0.2@user/testing`` package are safe to be merged and will be integrated in our

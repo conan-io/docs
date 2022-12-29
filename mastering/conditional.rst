@@ -92,7 +92,7 @@ There are two approaches for this situation:
 
 .. note::
 
-    For managing invalid configurations, please check the new experimental ``validate()`` method (:ref:`method_validate`).
+    For managing invalid configurations, please check the new ``validate()`` method (:ref:`method_validate`).
 
 
 - **Constrain settings inside a recipe**:

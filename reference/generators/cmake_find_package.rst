@@ -18,8 +18,7 @@ a ``Findasio.cmake`` file will be generated.
 Variables in Find<PKG-NAME>.cmake
 ---------------------------------
 
-Being ``<PKG-NAME>`` the package name used in the reference (by default) or the one declared in ``cpp_info.name`` or in
-``cpp_info.names["cmake_find_package"]`` if specified:
+Being ``<PKG-NAME>`` the package name used in the reference (by default) or the one declared in ``cpp_info.names["cmake_find_package"]`` if specified:
 
 +------------------------------------+-----------------------------------------------------------------------------------------------------+
 | NAME                               | VALUE                                                                                               |
@@ -51,7 +50,7 @@ Being ``<PKG-NAME>`` the package name used in the reference (by default) or the 
 
 This file uses `<PKG-NAME>_BUILD_MODULES` values to include the files using the `include(...)` CMake directive after the targets are
 created. This makes functions or utilities exported by the package available for consumers just by setting `find_package(<PKG-NAME>)` in the
-*CMakeLists.txt*.
+*CMakeLists.txt*. Specify the modules that you want to be included in attribute ``cpp_info.build_modules`` in function ``package_info()``.
 
 Moreover, this also adjusts `CMAKE_MODULE_PATH` and `CMAKE_PREFIX_PATH` to the values declared by the package in ``cpp_info.buildirs``, so
 modules in those directories can be found.

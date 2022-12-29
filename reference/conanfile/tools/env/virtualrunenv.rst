@@ -3,10 +3,13 @@
 VirtualRunEnv
 ===============
 
-.. warning::
+.. important::
 
-    This is a **very experimental** feature and it will have breaking changes in future releases.
+    Some of the features used in this section are still **under development**, while they are
+    recommended and usable and we will try not to break them in future releases, some breaking
+    changes might still happen if necessary to prepare for the *Conan 2.0 release*.
 
+Available since: `1.39.0 <https://github.com/conan-io/conan/releases/tag/1.39.0>`_
 
 The ``VirtualRunEnv`` generator can be used by name in conanfiles:
 
@@ -27,7 +30,7 @@ And it can also be fully instantiated in the conanfile ``generate()`` method:
 .. code-block:: python
     :caption: conanfile.py
 
-    from conans import ConanFile
+    from conan import ConanFile
     from conan.tools.env import VirtualRunEnv
 
     class Pkg(ConanFile):
@@ -59,6 +62,43 @@ After the execution of one of those files, a new deactivation script will be gen
 environment, so the environment can be restored when desired. The file will be named also following the
 current active configuration, like ``deactivate_conanrunenv-release-x86_64.bat``.
 
+Let's see an example on how to add an environment variable to the ``runenv_info`` and get its value later
+in the consumer side using the ``conanrun`` launcher:
+
+
+.. code-block:: python
+    :caption: conanfile.py
+
+    from conan import ConanFile
+
+    class HelloConan(ConanFile):
+
+        def package_info(self):
+            self.runenv_info.define("MYVAR", "My value!")
+
+
+.. code-block:: python
+    :caption: test_package/conanfile.py
+
+    from conan import ConanFile
+
+    class HelloTestConan(ConanFile):
+        # VirtualBuildEnv and VirtualRunEnv can be avoided if "tools.env.virtualenv:auto_use" is defined
+        # (it will be defined in Conan 2.0)
+        generators = "VirtualRunEnv"
+
+        def test(self):
+            self.run("echo $MYVAR", env="conanrun")  # Unix-style
+
+As we already said above, the ``conanrun`` launcher contains the runtime environment information, so let's run
+a :command:`conan create . hello/1.0@` and check the console output that should show something like this:
+
+.. code-block:: bash
+
+    ....
+    Configuring environment variables
+    My value!
+
 
 Constructor
 +++++++++++
@@ -75,10 +115,10 @@ generate()
 
 .. code:: python
 
-    def generate(self, group="run"):
+    def generate(self, scope="run"):
 
 
 Parameters:
 
-    * **group** (Defaulted to ``run``): Add the launcher automatically to the ``conanrun`` launcher. Read more
+    * **scope** (Defaulted to ``run``): Add the launcher automatically to the ``conanrun`` launcher. Read more
       in the :ref:`Environment documentation <conan_tools_env_environment_model>`.

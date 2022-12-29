@@ -3,6 +3,12 @@
 Running and deploying packages
 ==============================
 
+.. caution::
+
+    We are actively working to finalize the *Conan 2.0 Release*. Some of the information on this page references
+    **deprecated** features which will not be carried forward with the new release. It's important to check the 
+    :ref:`Migration Guidelines<conan2_migration_guide>` to ensure you are using the most up to date features.
+
 Executables and applications including shared libraries can also be distributed, deployed and run with Conan. This might have
 some advantages compared to deploying with other systems:
 
@@ -293,7 +299,7 @@ package also contains a library, and the headers), we could do:
     class HellorunConan(ConanFile):
         name = "hello_run"
         version = "0.1"
-        build_requires = "hello/0.1@user/testing"
+        tool_requires = "hello/0.1@user/testing"
         keep_imports = True
 
         def imports(self):
@@ -304,7 +310,7 @@ package also contains a library, and the headers), we could do:
 
 This recipe has the following characteristics:
 
-- It includes the ``hello/0.1@user/testing`` package as ``build_requires``.
+- It includes the ``hello/0.1@user/testing`` package as ``tool_requires``.
   That means that it will be used to build this `hello_run` package, but once the `hello_run` package is built,
   it will not be necessary to retrieve it.
 - It is using ``imports()`` to copy from the dependencies, in this case, the executable

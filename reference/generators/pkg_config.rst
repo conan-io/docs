@@ -5,7 +5,7 @@ pkg_config
 ==========
 
 Generates pkg-config files named *<PKG-NAME>.pc* (where ``<PKG-NAME`` is the name declared by dependencies in
-``cpp_info.name`` or in ``cpp_info.names["pkg_config"]`` if specified), containing a
+``cpp_info.names["pkg_config"]`` if specified), containing a
 valid pkg-config file syntax. The ``prefix`` variable is automatically adjusted to the ``package_folder``.
 
 Components
@@ -22,3 +22,13 @@ the propagation of flags coming from the components *<COMP-NAME>.pc* files.
 
 Go to :ref:`Integrations/pkg-config and pc files/Use the pkg_config generator<pkg_config_generator_example>`
 if you want to learn how to use this generator.
+
+
+Properties
+++++++++++
+
+The following properties affect the ``pkg_config`` generator:
+
+- **pkg_config_name** property equivalent to the ``names`` attribute.
+- **pkg_config_custom_content** property will add user defined content to the *.pc* files created by this generator.
+- **component_version** property sets a custom version to be used in the ``Version`` field belonging to the created ``*.pc`` file for that component.

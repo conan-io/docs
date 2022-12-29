@@ -15,4 +15,4 @@ or Artifactory Cloud Premium account.
    artifactory/artifactory_ce
    artifactory/conan_center_guide
 
-.. _Free-Tier: https://jfrog.com/artifactory/start-free/?pipelines=true&isConan=true
+.. _Free-Tier: https://jfrog.com/community/start-free/

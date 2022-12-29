@@ -199,7 +199,7 @@ The CMake helper will automatically append some definitions based on your settin
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 | CMAKE_SYSROOT                             | Defined if CONAN_CMAKE_SYSROOT is defined as environment variable                                                            |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
-| CMAKE_SYSTEM_VERSION                      | Set to ``self.settings.os_version`` value if cross-building is detected                                                      |
+| CMAKE_SYSTEM_VERSION                      | Set to ``self.settings.os.version`` value if cross-building is detected                                                      |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 | CONAN_CMAKE_CXX_EXTENSIONS                | Set to ``ON`` or ``OFF`` value when GNU extensions for the given C++ standard are enabled                                    |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
@@ -364,8 +364,8 @@ Parameters:
 .. _patch_config_paths:
 
 
-patch_config_paths() [EXPERIMENTAL]
-+++++++++++++++++++++++++++++++++++
+patch_config_paths()
+++++++++++++++++++++
 
 .. code-block:: python
 
@@ -373,7 +373,8 @@ patch_config_paths() [EXPERIMENTAL]
 
 .. warning::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
 
 This method changes references to the absolute path of the installed package in exported CMake config files to the appropriate Conan
 variable. Method also changes references to other packages installation paths in export CMake config files to Conan variable

@@ -11,10 +11,10 @@ conan.tools.google
 BazelDeps
 ---------
 
-Available since: `1.37.0 <https://github.com/conan-io/conan/releases>`_
+Available since: `1.37.0 <https://github.com/conan-io/conan/releases/tag/1.37.0>`_
 
 The ``BazelDeps`` helper will generate one **conandeps/xxxx/BUILD** file per dependency. This dependencies will be
-automatically added to the project by adding the following to the project's **WORKSPACE** file:
+automatically added to the project if you add the following lines to the project's **WORKSPACE** file:
 
 
 .. code-block:: text
@@ -33,18 +33,43 @@ The dependencies should be added to the **conanfile.py** file as usual:
         generators = "BazelDeps", "BazelToolchain"
         requires = "boost/1.76.0"
 
+
 BazelToolchain
 --------------
+
+Available since: `1.37.0 <https://github.com/conan-io/conan/releases/tag/1.37.0>`_
 
 The ``BazelToolchain`` is the toolchain generator for Bazel. It will generate a file called
 ``conanbuild.conf`` containing two keys:
 
-- **bazel_config**: defining Bazel config file.
-- **bazelrc_path**: defining Bazel rc-path.
+- **bazelrc_path**: defining Bazel rc-path. Can be set using the conf ``tools.google.bazel:bazelrc_path``.
+- **bazel_configs**: defining the configs to be activated in the ``bazelrc_path``.
+  Can be set with the conf ``tools.google.bazel:configs``.
+
+.. code-block:: text
+   :caption: **Example of a custom bazelrc file at '/path/to/mybazelrc':**
+
+   build:Release -c opt
+   build:RelWithDebInfo -c opt --copt=-O3 --copt=-DNDEBUG
+   build:MinSizeRel  -c opt --copt=-Os --copt=-DNDEBUG
+   build --color=yes
+   build:withTimeStamps --show_timestamps
+
+.. code-block:: ini
+   :caption: **Example of a Release profile:**
+
+   [settings]
+   ...
+   build_type=Release
+
+   [conf]
+   tools.google.bazel:bazelrc_path=/path/to/mybazelrc
+   tools.google.bazel:configs=["Release"]
+
 
 The Bazel build helper will use that ``conanbuild.conf`` file to seamlessly call
 the configure and make script using these precalculated arguments. Note that the file can have a
-different name if you set the namespace argument in the constructor as explained bellow.
+different name if you set the namespace argument in the constructor as explained below.
 
 It supports the following methods and attributes:
 
@@ -66,6 +91,9 @@ constructor
 
 Bazel
 -----
+
+Available since: `1.37.0 <https://github.com/conan-io/conan/releases/tag/1.37.0>`_
+
 The ``Bazel`` build helper is a wrapper around the command line invocation of bazel. It will abstract the
 calls like ``bazel build //main:hello-world`` into Python method calls.
 
@@ -75,7 +103,7 @@ when a package is being built directly by Conan (create, install)
 
 .. code-block:: python
 
-    from conans import ConanFile
+    from conan import ConanFile
     from conan.tools.google import Bazel
 
     class App(ConanFile):

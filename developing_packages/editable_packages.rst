@@ -6,8 +6,10 @@ Packages in editable mode
 .. important::
 
     This is a **tutorial** section. You are encouraged to execute these commands.
-    Some of the features used in this section are **experimental**, like ``layout()`` or ``CMakeToolchain``,
-    and they might change in future releases. Check the :ref:`reference section<references>` for more information.
+
+    Some of the features used in this section are still **under development**, like ``layout()`` or ``CMakeToolchain``,
+    while they are recommended and usable and we will try not to break them in future releases, some breaking
+    changes might still happen if necessary to prepare for the *Conan 2.0 release*.
 
 When working in big projects with several functionalities interconnected it is recommended to avoid
 the one-and-only huge project approach in favor of several libraries, each one specialized
@@ -58,8 +60,10 @@ That is it. Now, every usage of ``say/0.1@user/channel``, by any other Conan pac
 will be redirected to the ``examples/features/editable/cmake/say`` user folder instead of using the package
 from the conan cache.
 
-Note that the key of editable packages is a correct definition of the ``layout()`` of the package. In this
-example, the ``say`` ``conanfile.py`` recipe is using the predefined ``cmake_layout()`` which defines the
+Note that the key of editable packages is a correct definition of the ``layout()`` of the package. Read the
+:ref:`package layout() section <package_layout>` to learn more about this method. 
+
+In this example, the ``say`` ``conanfile.py`` recipe is using the predefined ``cmake_layout()`` which defines the
 typical CMake project layout, which can be different in the different platforms. Take also into account that
 only using the new build system integrations like ``CMakeDeps`` and ``CMakeToolchain`` will correctly follow
 the layout definition.
@@ -73,15 +77,15 @@ Now the ``say/0.1@user/channel`` package is in editable mode, lets build it loca
     # windows, we will build 2 configurations to show multi-config
     $ conan install . -s build_type=Release
     $ conan install . -s build_type=Debug
-    $ mkdir build && cd build
-    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan/conan_toolchain.cmake
+    $ cd build
+    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake
     $ cmake --build . --config Release
     $ cmake --build . --config Debug
 
     # Linux, we will only build 1 configuration
     $ conan install .
-    $ mkdir cmake-build-release && cd cmake-build-release
-    $ cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=conan/conan_toolchain.cmake
+    $ cd build/Release
+    $ cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake
     $ cmake --build .
 
 
@@ -98,8 +102,8 @@ In this case we can build the ``hello`` application as usual:
     # windows, we will build 2 configurations to show multi-config
     $ conan install . -s build_type=Release
     $ conan install . -s build_type=Debug
-    $ mkdir build && cd build
-    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
+    $ cd build
+    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake
     $ cmake --build . --config Release
     $ cmake --build . --config Debug
     $ Release\hello.exe
@@ -109,8 +113,8 @@ In this case we can build the ``hello`` application as usual:
 
     # Linux, we will only build 1 configuration
     $ conan install .
-    $ mkdir cmake-build-release && cd cmake-build-release
-    $ cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
+    $ cd build/Release
+    $ cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake
     $ cmake --build .
     $ ./hello
     say/0.1: Hello World Release!
@@ -134,7 +138,7 @@ Lets see it, lets start by doing a change in the ``say`` source code:
     $ cmake --build . --config Debug
 
     # Linux, we will only build 1 configuration
-    $ cd cmake-build-release
+    $ cd build/Release
     $ cmake --build .
 
 
@@ -154,7 +158,7 @@ And build and run the "hello" project:
     say/0.1: Bye World Debug!
 
     # Linux
-    $ cd cmake-build-release
+    $ cd build/Release
     $ cmake --build .
     $ ./hello
     say/0.1: Bye World Release!

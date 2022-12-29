@@ -25,7 +25,8 @@ ___________________________________
 
 
 If you are using `Artifactory`_ you can take advantage of the `Jenkins Artifactory Plugin`_.
-Check `here how to install the plugin`_ and `here you can check the full documentation about the DSL`_.
+Check `here how to install the plugin`_ and `here you can check the full documentation about the DSL`_, search for
+"Conan Builds with Artifactory" in the page.
 
 The Artifactory Jenkins plugin provides a powerful DSL (Domain Specific Language) to call Conan, connect with your Artifactory instance,
 upload and download your packages from Artifactory and manage your `build information`_.
@@ -126,5 +127,5 @@ and then upload it to Artifactory. We also upload the `build information`_:
 .. _`Artifactory`: https://jfrog.com/artifactory/
 .. _`Jenkins Artifactory Plugin`:
 .. _`here how to install the plugin`: https://www.jfrog.com/confluence/display/JFROG/Jenkins+Artifactory+Plug-in
-.. _`here you can check the full documentation about the DSL`: https://www.jfrog.com/confluence/display/JFROG/Working+With+Pipeline+Jobs+in+Jenkins
+.. _`here you can check the full documentation about the DSL`: https://www.jfrog.com/confluence/display/JFROG/Scripted+Pipeline+Syntax
 .. _`build information`: https://www.jfrog.com/confluence/display/JFROG/Build+Integration

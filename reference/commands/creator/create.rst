@@ -181,44 +181,48 @@ to know more about 'test_folder' project.
 
         $ conan create . demo/testing --test-folder=None
 
+Methods execution order
+-----------------------
+
 :command:`conan create` executes methods of a *conanfile.py* in the following order:
 
-1. ``config_options()``
-2. ``configure()``
-3. ``requirements()``
-4. ``package_id()``
-5. ``build_requirements()``
-6. ``build_id()``
-7. ``system_requirements()``
-8. ``source()``
-9. ``imports()``
-10. ``build()``
-11. ``package()``
-12. ``package_info()``
+1. ``export_sources()``
+2. ``config_options()``
+3. ``configure()``
+4. ``layout()``
+5. ``requirements()``
+6. ``package_id()``
+7. ``validate()``
+8. ``validate_build()``
+9. ``build_requirements()``
+10. ``build_id()``
+11. ``system_requirements()``
+12. ``source()``
+13. ``generate()``
+14. ``imports()``
+15. ``build()``
+16. ``package()``
+17. ``package_info()``
 
-In case of installing a pre-built binary, steps from 5 to 11 will be skipped. Note that ``deploy()`` method is only used in
+In case of installing a pre-built binary, steps from 8 to 16 will be skipped. Note that ``deploy()`` method is only used in
 :command:`conan install`.
 
 .. note::
 
   Installation of binaries can be accelerated setting up parallel downloads with the ``general.parallel_download``
-  **experimental** configuration in :ref:`conan_conf`.
+  **under development** configuration in :ref:`conan_conf`.
 
 
-The ``--build-require``, new in Conan 1.37, is experimental. It allows to create the package using the
+The ``--build-require``, new in Conan 1.37, allows to create the package using the
 configuration and settings of the "build" context, as it was a ``build_require``. This feature allows
 to create packages in a way that is consistent to the way they will be used later. When there is a
-``test_package``, then it is possible to specify there the ``test_type`` directly, no need to provide it
-in the command line.
+``test_package``, it is possible to use there the ``test_type="explicit"`` and ``self.test_requires(self.tested_reference_str)``.
+There is no need to provide it in the command line, :ref:`check "testing tool requires" <testing_build_requires>` to know more.
 
 
 --require-override
 ------------------
 
-.. warning::
-
-    This is an **experimental** feature subject to breaking changes in future releases.
-
-New from **Conan 1.39**.
+Available since: `1.39.0 <https://github.com/conan-io/conan/releases/tag/1.39.0>`_
 
 This argument is the same, and has the same behavior as the :ref:`conan install command<cli_arg_require_override>`.

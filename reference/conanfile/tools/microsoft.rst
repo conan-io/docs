@@ -7,12 +7,18 @@ conan.tools.microsoft
 These tools allow a native integration for Microsoft Visual Studio, natively (without using CMake,
 but using directly Visual Studio solutions, projects and property files).
 
-.. warning::
+.. important::
 
-    These tools are **experimental** and subject to breaking changes.
+    Some of the features used in this section are still **under development**, while they are
+    recommended and usable and we will try not to break them in future releases, some breaking
+    changes might still happen if necessary to prepare for the *Conan 2.0 release*.
+
+.. _conan_tools_microsoft_msbuilddeps:
 
 MSBuildDeps
 -----------
+
+Available since: `1.32.0 <https://github.com/conan-io/conan/releases/tag/1.32.0>`_
 
 The ``MSBuildDeps`` is the dependency information generator for Microsoft MSBuild build system.
 It will generate multiple *xxxx.props* properties files one per dependency of a package,
@@ -48,7 +54,7 @@ And it can also be fully instantiated in the conanfile ``generate()`` method:
 .. code-block:: python
     :caption: conanfile.py
 
-    from conans import ConanFile
+    from conan import ConanFile
     from conan.tools.microsoft import MSBuildDeps
 
     class Pkg(ConanFile):
@@ -82,10 +88,22 @@ configuration. The above commands the following files will be generated:
 - *conandeps.props*: Properties files including all direct dependencies, in this case, it includes ``conan_zlib.props``
   and ``conan_bzip2.props``
 
+The above files are generated when the package doesn't have components. If the package has defined components, the following files
+will be generated:
+
+- *conan_pkgname_compname_vars_release_x64.props*: Definition of variables for the component ``compname`` of the package ``pkgname``
+- *conan_pkgname_compname_release_x64.props*: Activation of the above variables into VS effective variables to be used in the build
+- *conan_pkgname_compname.props*: Properties file for component ``compname`` of package ``pkgname``. It conditionally includes, depending on the configuration,
+  the specific activation property files.
+- *conan_pkgname.props*: Properties file for package ``pkgname``. It includes and aggregates all the components of the package.
+- *conandeps.props*: Same as above, aggregates all the direct dependencies property files for the packages (like ``conan_pkgname.props``)
+
+
 You will be adding the *conandeps.props* to your solution project files if you want to depend on all the declared
 dependencies. For single project solutions, this is probably the way to go. For multi-project solutions, you might
 be more efficient and add properties files per project. You could add *conan_zlib.props* properties to "project1"
-in the solution and *conan_bzip2.props* to "project2" in the solution for example.
+in the solution and *conan_bzip2.props* to "project2" in the solution for example. If the package has components, you
+can also add to your solution the specific components you depend on, and not all of them.
 
 Custom configurations
 +++++++++++++++++++++
@@ -98,7 +116,7 @@ option:
 
 .. code-block:: python
 
-    from conans import ConanFile
+    from conan import ConanFile
     from conan.tools.microsoft import MSBuildDeps
 
     class Pkg(ConanFile):
@@ -125,18 +143,22 @@ Included dependencies
 dependencies will be translated to properties files:
 
 - All direct dependencies, that is, the ones declared by the current ``conanfile``, that lives in the
-  host context: all regular ``requires``, plus the ``build_requires`` that are in the host context,
+  host context: all regular ``requires``, plus the ``tool_requires`` that are in the host context,
   for example test frameworks as ``gtest`` or ``catch``.
 - All transitive ``requires`` of those direct dependencies (all in the host context)
-- Build requires, in the build context, that is, application and executables that run in the build
+- Tool requires, in the build context, that is, application and executables that run in the build
   machine irrespective of the destination platform, are added exclusively to the ``<ExecutablePath>``
   property, taking the value from ``$(Conan{{name}}BinaryDirectories)`` defined properties. This
   allows to define custom build commands, invoke code generation tools, with the ``<CustomBuild>`` and
   ``<Command>`` elements.
 
 
+.. _conan_tools_microsoft_msbuildtoolchain:
+
 MSBuildToolchain
 ----------------
+
+Available since: `1.32.0 <https://github.com/conan-io/conan/releases/tag/1.32.0>`_
 
 The ``MSBuildToolchain`` is the toolchain generator for MSBuild. It will generate MSBuild properties files
 that can be added to the Visual Studio solution projects. This generator translates
@@ -167,7 +189,7 @@ And it can also be fully instantiated in the conanfile ``generate()`` method:
 
 .. code:: python
 
-    from conans import ConanFile
+    from conan import ConanFile
     from conan.tools.microsoft import MSBuildToolchain
 
     class App(ConanFile):
@@ -207,9 +229,64 @@ The MSBuildToolchain files can configure:
 One of the advantages of using toolchains is that they can help to achieve the exact same build
 with local development flows, than when the package is created in the cache.
 
+Attributes
+++++++++++
+
+* **properties** (available since `Conan 1.53
+  <https://github.com/conan-io/conan/releases/tag/1.53.0>`_): Additional properties added
+  to the generated ``.props`` files. You can define the properties in a key-value syntax
+  like:
+
+.. code:: python
+
+    from conan import ConanFile
+    from conan.tools.microsoft import MSBuildToolchain
+
+    class App(ConanFile):
+        settings = "os", "arch", "compiler", "build_type"
+
+        def generate(self):
+            msbuild = MSBuildToolchain(self)
+            msbuild.properties["IncludeExternals"] = "true"
+            msbuild.generate()
+
+Then, the generated *conantoolchain_<config>.props* file will contain the defined property
+in its contents:
+
+
+.. code-block:: xml
+    :emphasize-lines: 8
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <ItemDefinitionGroup>
+    ...
+    </ItemDefinitionGroup>
+    <PropertyGroup Label="Configuration">
+        ...
+        <IncludeExternals>true</IncludeExternals>
+        ...
+    </PropertyGroup>
+    </Project>
+
+conf
+++++
+
+``MSBuildToolchain`` is affected by these :ref:`[conf]<global_conf>` variables:
+
+- ``tools.microsoft.msbuildtoolchain:compile_options`` dict-like object of extra compile options to be added to ``<ClCompile>`` section.
+  The dict will be translated as follows: ``<[KEY]>[VALUE]</[KEY]>``.
+- ``tools.build:cxxflags`` list of extra C++ flags that will be appended to ``<AdditionalOptions>`` section from ``<ClCompile>`` and ``<ResourceCompile>`` one.
+- ``tools.build:cflags`` list of extra of pure C flags that will be appended to ``<AdditionalOptions>`` section from ``<ClCompile>`` and ``<ResourceCompile>`` one.
+- ``tools.build:sharedlinkflags`` list of extra linker flags that will be appended to ``<AdditionalOptions>`` section from ``<Link>`` one.
+- ``tools.build:exelinkflags`` list of extra linker flags that will be appended to ``<AdditionalOptions>`` section from ``<Link>`` one.
+- ``tools.build:defines`` list of preprocessor definitions that will be appended to ``<PreprocessorDefinitions>`` section from ``<ResourceCompile>`` one.
+
 
 MSBuild
 -------
+
+Available since: `1.32.0 <https://github.com/conan-io/conan/releases/tag/1.32.0>`_
 
 The ``MSBuild`` build helper is a wrapper around the command line invocation of MSBuild. It will abstract the
 calls like ``msbuild "MyProject.sln" /p:Configuration=<conf> /p:Platform=<platform>`` into Python method calls.
@@ -218,7 +295,7 @@ The ``MSBuild`` helper can be used like:
 
 .. code:: python
 
-    from conans import conanfile
+    from conan import ConanFile
     from conan.tools.microsoft import MSBuild
 
     class App(ConanFile):
@@ -226,25 +303,55 @@ The ``MSBuild`` helper can be used like:
 
         def build(self):
             msbuild = MSBuild(self)
-            msbuild.build("MyProject.sln")
+            msbuild.build("MyProject.sln", targets=["mytarget"])
 
 The ``MSBuild.build()`` method internally implements a call to ``msbuild`` like:
 
 .. code:: bash
 
-    $ <vcvars-cmd> && msbuild "MyProject.sln" /p:Configuration=<conf> /p:Platform=<platform>
+    $ <vcvars-cmd> && msbuild "MyProject.sln" /p:Configuration=<configuration> /p:Platform=<platform> /target=mytarget
 
 Where:
 
 - ``vcvars-cmd`` is calling the Visual Studio prompt that matches the current recipe ``settings``
-- ``conf`` is the configuration, typically Release, Debug, which will be obtained from ``settings.build_type``
-  but this will be configurable. Please open a `Github issue <https://github.com/conan-io/conan/issues>`_ if you want to define custom configurations.
+- ``configuration``, typically Release, Debug, which will be obtained from ``settings.build_type``
+  but this will be configurable with ``msbuild.build_type``.
 - ``platform`` is the architecture, a mapping from the ``settings.arch`` to the common 'x86', 'x64', 'ARM', 'ARM64'.
-  If your platform is unsupported, please report in `Github issues <https://github.com/conan-io/conan/issues>`_ as well.
+  This is configurable with ``msbuild.platform``.
+- ``targets`` (since `1.52.0 <https://github.com/conan-io/conan/releases/tag/1.52.0>`_) is an optional argument,
+  defaults to ``None``, and otherwise it is a list of targets to build
+
+
+attributes
+++++++++++
+
+You can customize the following attributes in case you need to change them:
+
+- **build_type** (default ``settings.build_type``): Value for the ``/p:Configuration``.
+- **platform** (default based on ``settings.arch`` to select one of these values: (``'x86', 'x64', 'ARM', 'ARM64'``):
+  Value for the ``/p:Platform``.
+
+Example:
+
+.. code:: python
+
+    from conan import ConanFile
+    from conan.tools.microsoft import MSBuild
+
+    class App(ConanFile):
+        settings = "os", "arch", "compiler", "build_type"
+
+        def build(self):
+            msbuild = MSBuild(self)
+            msbuild.build_type = "MyRelease"
+            msbuild.platform = "MyPlatform"
+            msbuild.build("MyProject.sln")
 
 
 conf
 ++++
+
+``MSBuild`` is affected by these :ref:`[conf]<global_conf>` variables:
 
 - ``tools.microsoft.msbuild:verbosity`` will accept one of ``"Quiet", "Minimal", "Normal", "Detailed", "Diagnostic"`` to be passed
   to the ``MSBuild.build()`` call as ``msbuild .... /verbosity:XXX``
@@ -253,6 +360,8 @@ conf
 
 VCVars
 ------
+
+Available since: `1.39.0 <https://github.com/conan-io/conan/releases/tag/1.39.0>`_
 
 Generates a file called ``conanvcvars.bat`` that activate the Visual Studio developer command prompt according
 to the current settings by wrapping the `vcvarsall <https://docs.microsoft.com/en-us/cpp/build/building-on-the-command-line?view=vs-2017>`_
@@ -278,7 +387,7 @@ And it can also be fully instantiated in the conanfile ``generate()`` method:
 .. code-block:: python
     :caption: conanfile.py
 
-    from conans import ConanFile
+    from conan import ConanFile
     from conan.tools.microsoft import VCVars
 
     class Pkg(ConanFile):
@@ -304,9 +413,234 @@ generate()
 
 .. code:: python
 
-    def generate(self, group="build"):
+    def generate(self, scope="build"):
 
 Parameters:
 
-    * **group** (Defaulted to ``"build"``): Add the launcher automatically to the ``conanbuild`` launcher. Read more
+    * **scope** (Defaulted to ``"build"``): Add the launcher automatically to the ``conanbuild`` launcher. Read more
       in the :ref:`Environment documentation <conan_tools_env_environment_model>`.
+
+
+conan.tools.microsoft.is_msvc()
+-------------------------------
+
+Available since: `1.45.0 <https://github.com/conan-io/conan/releases/tag/1.45.0>`_
+
+.. code-block:: python
+
+    def is_msvc(conanfile, build_context=False):
+
+Validate ``self.settings.compiler`` for which compiler is being used.
+It returns ``True`` when the host compiler is ``Visual Studio`` or ``msvc``, otherwise, returns ``False``.
+When the ``compiler`` is empty, it returns ``False``.
+
+Parameters:
+
+- **conanfile**: ConanFile instance.
+- **build_context** (since `1.52.0 <https://github.com/conan-io/conan/releases/tag/1.52.0>`_): (default=False). If this
+  argument is ``True``, the method will check the compiler of the ``build`` context, not the ``host`` one. 
+
+.. code-block:: python
+
+    from conan.tools.microsoft import is_msvc
+
+    def validate(self):
+        if not is_msvc(self):
+            raise ConanInvalidConfiguration("Only supported by Visual Studio and msvc.")
+
+
+conan.tools.microsoft.is_msvc_static_runtime()
+----------------------------------------------
+
+Available since: `1.45.0 <https://github.com/conan-io/conan/releases/tag/1.45.0>`_
+
+.. code-block:: python
+
+    def is_msvc_static_runtime(conanfile):
+
+Validate ``self.settings.compiler.runtime`` for which compiler is being used.
+It returns ``True`` when the host compiler is ``Visual Studio`` or ``msvc``, and its runtime is ``MT``, ``MTd`` or ``static``.
+When the ``compiler`` is empty, it returns ``False``.
+
+Parameters:
+
+- **conanfile**: ConanFile instance.
+
+
+.. code-block:: python
+
+    from conan.tools.microsoft import is_msvc_static_runtime
+
+    def validate(self):
+        if is_msvc_static_runtime(self) and self.options.shared(self):
+            raise ConanInvalidConfiguration("This project does not support shared and static runtime together.")
+
+
+.. _conan_tools_microsoft_msvc_runtime_flag:
+
+conan.tools.microsoft.msvc_runtime_flag()
+-----------------------------------------
+
+Available since: `1.33.0 <https://github.com/conan-io/conan/releases/tag/1.33.0>`_
+
+.. code-block:: python
+
+    def msvc_runtime_flag(conanfile):
+
+If the current compiler is ``Visual Studio``, ``msvc``, ``clang `` or ``intel-cc``, then
+detects the runtime type and returns between ``MD``, ``MT``, ``MDd`` or ``MTd``,
+otherwise, returns ``""`` (empty string). When the runtime type is ``static``, it returns
+``MT``, otherwise, ``MD``. The suffix ``d`` is added when running on Debug mode.
+
+Parameters:
+
+- **conanfile**: Conanfile instance.
+
+.. code-block:: python
+
+    from conan.tools.microsoft import msvc_runtime_flag
+
+    def validate(self):
+         if "MT" in msvc_runtime_flag(self):
+            self.output.warning("Runtime MT/MTd is not well tested.")
+
+
+
+.. _conan_tools_microsoft_unix_path:
+
+conan.tools.microsoft.unix_path()
+---------------------------------
+
+Available since: `1.47.0 <https://github.com/conan-io/conan/releases/tag/1.47.0>`_
+
+.. code-block:: python
+
+    def unix_path(conanfile, path):
+
+Transforms the specified path into the correct one according to the subsystem.
+To determine the subsystem:
+
+   - The ``settings_build.os`` is checked to verify that we are running on "Windows" otherwise, the path is returned
+     without changes.
+
+   - If ``settings_build.os.subsystem`` is specified (meaning we are running Conan under that subsystem) it will be
+     returned.
+
+   - If ``conanfile.win_bash==True`` (meaning we have to run the commands inside the subsystem), the conf
+     ``tools.microsoft.bash:subsystem`` has to be declared or it will raise an Exception.
+
+   - Otherwise the path is returned without changes.
+
+Parameters:
+
+- **conanfile**: ConanFile instance.
+
+.. code-block:: python
+
+    from conan.tools.microsoft import unix_path
+
+
+
+    def build(self):
+        adjusted_path = unix_path(self, "C:\\path\\to\\stuff")
+
+
+In the example above, ``adjusted_path`` will be:
+    - ``/c/path/to/stuff`` if msys2 or msys
+    - ``/cygdrive/c/path/to/stuff`` if cygwin
+    - ``/mnt/c/path/to/stuff`` if wsl
+    - ``/dev/fs/C/path/to/stuff`` if sfu
+
+
+check_min_vs()
+--------------
+
+Available since: `1.49.0 <https://github.com/conan-io/conan/releases/tag/1.49.0>`_
+
+Helper method to allow the migration to 2.0 more easily. It will handle internally both ``Visual Studio``
+and ``msvc`` compiler settings, raising a ``ConanInvalidConfiguration`` error if the minimum version
+is not satisfied
+
+
+.. code-block:: python
+
+    def check_min_vs(conanfile, version):
+
+
+- ``conanfile``: Always use ``self``, the current recipe
+- ``version``: Minimum version that will be accepted. Use a version number following the MSVC compiler version (or ``msvc`` setting),
+  that is, ``191``, ``192``, etc (updates like ``193.1`` are also acceptable)
+
+
+Example:
+
+.. code-block:: python
+
+    def validate(self):
+        check_min_vs(self, "192")
+
+
+
+NMakeDeps
+---------
+
+Available since: `1.55.0 <https://github.com/conan-io/conan/releases/tag/1.55.0>`_
+
+This generator can be used as:
+
+.. code-block:: python
+
+    from conan import ConanFile
+
+    class Pkg(ConanFile):
+        settings = "os", "compiler", "build_type", "arch"
+
+        requires = "mydep/1.0"
+        # attribute declaration
+        generators = "NMakeDeps"
+
+        # OR explicit usage in the generate() method
+        def generate(self):
+            deps = NMakeDeps(self)
+            deps.generate()
+
+        def build(self):
+            self.run(f"nmake /f makefile")
+
+The generator will create a ``conannmakedeps.bat`` environment script that defines
+``CL``, ``LIB`` and ``_LINK_`` environment variables, injecting necessary flags 
+to locate and link the dependencies declared in ``requires``.
+This generator should most likely be used together with ``NMakeToolchain`` one.
+
+
+NMaketoolchain
+--------------
+
+Available since: `1.55.0 <https://github.com/conan-io/conan/releases/tag/1.55.0>`_
+
+This generator can be used as:
+
+.. code-block:: python
+
+    from conan import ConanFile
+
+    class Pkg(ConanFile):
+        settings = "os", "compiler", "build_type", "arch"
+
+        # attribute declaration
+        generators = "NMakeToolchain"
+
+        # OR explicit usage in the generate() method
+        def generate(self):
+            toolchain = NMakeToolchain(self)
+            toolchain.generate()
+
+        def build(self):
+            self.run(f"nmake /f makefile")
+
+The generator will create a ``conannmaketoolchain.bat`` environment script that defines
+``CL`` environment variable, injecting necessary flags deduced from the Conan settings 
+like ``compiler.cppstd`` or the Visual Studio runtime.
+It will also generate a ``conanvcvars.bat`` script that activates the correct VS prompt
+matching the Conan settings ``compiler`` and ``compiler.version``.
+

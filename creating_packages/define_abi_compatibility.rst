@@ -171,7 +171,8 @@ Compatible packages
 
 .. warning::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+    Some parts of this feature are **deprecated**. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that will carry over. The :ref:`method_compatibility` documented below is the current recommendation.
 
 The above approach defined 1 package ID for different input configurations. For example, all ``gcc`` versions
 in the range ``(v >= "4.5" and v < "5.0")`` will have exactly the same package ID, no matter what was the gcc version
@@ -241,6 +242,20 @@ based on this compatibility model, it only applies to use-cases where the binari
 
 Check the :ref:`Compatible Compilers<compatible_compilers>` section to see another example of how to take benefit of compatible packages.
 
+**New conanfile.compatibility() method**
+
+The *conanfile.compatible_packages* will be substituted by the new
+:ref:`method_compatibility` method in Conan 2.0. This method allows you to
+declare compatibility in a similar way:
+
+..  code-block:: python
+
+    def compatibility(self):
+        if self.settings.compiler == "gcc" and self.settings.compiler.version == "4.9":
+            return [{"settings": [("compiler.version", v)]}
+                    for v in ("4.8", "4.7", "4.6")]
+
+Please, check the :ref:`method_compatibility` reference for more information.
 
 .. _compatible_compilers:
 
@@ -624,11 +639,10 @@ All the modes can be applied to all dependencies, or to individual ones:
       def package_id(self):
           self.info.requires["mypkg"].package_revision_mode()
 
-  Given that the package ID of consumers depends on the package revision PREV of the dependencies, when
-  one of the upstream dependencies doesn't have a package revision yet (for example it is going to be
-  built from sources, so its PREV cannot be determined yet), the consumers package ID will be unknown and
-  marked as such. These dependency graphs cannot be built in a single invocation, because they are intended
-  for CI systems, in which a package creation/built is called for each package in the graph.
+
+.. note::
+  
+  Version ranges are not used to calculate the ``package_id`` only the resolved version in the graph is used
 
 
 You can also adjust the individual properties manually:
@@ -694,7 +708,7 @@ as default in *conan.conf*, but if a recipe declare that it is header-only, with
   .. code-block:: python
 
     def package_id(self):
-      self.info.header_only() # clears requires, but also settings if existing
+      self.info.clear() # clears requires, but also settings if existing
       # or if there are no settings/options, this would be equivalent
       self.info.requires.clear() # or self.info.requires.unrelated_mode()
 
@@ -728,24 +742,24 @@ generated with the ``recipe_revision_mode`` can be resolved if no package for th
 Enabling full transitivity in package_id modes
 ++++++++++++++++++++++++++++++++++++++++++++++
 
-.. warning::
+.. attention::
 
     This will become the default behavior in the future (Conan 2.0). It is recommended to activate it when possible (it might require rebuilding some packages,
     as their package IDs will change)
 
 
 When a package declares in its ``package_id()`` method that it is not affected by its dependencies, that will propagate down
-to the indirect consumers of that package. There are several ways this can be done, ``self.info.header_only()``, ``self.info.requires.clear()``,
+to the indirect consumers of that package. There are several ways this can be done, ``self.info.clear()``, ``self.info.requires.clear()``,
 ``self.info.requires.remove["dep"]`` and ``self.info.requires.unrelated_mode()``, for example.
 
-Let's assume for the discussion that it is a header only library, using the ``self.info.header_only()`` helper. This header only package has
+Let's assume for the discussion that it is a header only library, using the ``self.info.clear()`` helper. This header only package has
 a single dependency, which is a static library. Then, downstream
 consumers of the header only library that uses a package mode different from the default, should be also affected by the upstream
 transitivity dependency. Lets say that we have the following scenario:
 
 - ``app/1.0`` depends on ``pkgc/1.0`` and ``pkga/1.0``
 - ``pkgc/1.0`` depends only on ``pkgb/1.0``
-- ``pkgb/1.0`` depends on ``pkga/1.0``, and defines ``self.info.header_only()`` in its ``package_id()``
+- ``pkgb/1.0`` depends on ``pkga/1.0``, and defines ``self.info.clear()`` in its ``package_id()``
 - We are using ``full_version_mode``
 - Now we create a new ``pkga/2.0`` that has some changes in its header, that would require to rebuild ``pkgc/1.0`` against it.
 - ``app/1.0`` now depends on ```pkgc/1.0`` and ``pkga/2.0``

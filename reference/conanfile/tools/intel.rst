@@ -8,7 +8,7 @@ conan.tools.intel
 IntelCC
 --------
 
-Available since: `1.41.0 <https://github.com/conan-io/conan/releases>`_
+Available since: `1.41.0 <https://github.com/conan-io/conan/releases/tag/1.41.0>`_
 
 This tool helps you to manage the new Intel oneAPI `DPC++/C++ <https://software.intel.com/content/www/us/en/develop/documentation/oneapi-dpcpp-cpp-compiler-dev-guide-and-reference/top.html>`_ and
 `Classic <https://software.intel.com/content/www/us/en/develop/documentation/cpp-compiler-developer-guide-and-reference/top.html>`_ ecosystem in Conan.
@@ -23,7 +23,7 @@ This tool helps you to manage the new Intel oneAPI `DPC++/C++ <https://software.
 
 .. note::
 
-    Remember, you need to have installed previously the `Intel oneAPI software <https://software.intel.com/content/www/us/en/develop/tools/oneapi/all-toolkits.html#gs.cgeofk>`_.
+    Remember, you need to have installed previously the `Intel oneAPI software <https://www.intel.com/content/www/us/en/developer/tools/oneapi/toolkits.html>`_.
 
 .. note::
 
@@ -59,7 +59,7 @@ At first, ensure you are using a *profile* like this one:
     build_type=Release
     [options]
 
-    [build_requires]
+    [tool_requires]
     [env]
     CC=dpcpp
     CXX=dpcpp
@@ -88,7 +88,7 @@ And it can also be fully instantiated in the conanfile ``generate()`` method:
 .. code-block:: python
     :caption: conanfile.py
 
-    from conans import ConanFile
+    from conan import ConanFile
     from conan.tools.intel import IntelCC
 
     class App(ConanFile):
@@ -120,7 +120,7 @@ You can apply different installation paths and command arguments simply by chang
     build_type=Release
     [options]
 
-    [build_requires]
+    [tool_requires]
     [env]
     CC=dpcpp
     CXX=dpcpp
