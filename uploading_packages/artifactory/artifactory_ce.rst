@@ -15,7 +15,7 @@ Running Artifactory CE
 ----------------------
 
 There are several ways to download and run Artifactory CE. The simplest one might be to download and unzip the
-designated zip file, though other installers, including also installing from a Docker image.
+designated zip file, though other installers, including also installing from a Docker image. The `Download Page <https://conan.io/downloads.html>`_ has a link for you to follow.
 When the file is unzipped, launch Artifactory by double clicking the artifactory.bat(Windows) or artifactory.sh script in the *app/bin*
 subfolder, depending on the OS.
 Artifactory comes with JDK bundled, please `read Artifactory requirements <https://www.jfrog.com/confluence/display/JFROG/System+Requirements>`_.
