@@ -8,6 +8,12 @@
 Tools
 =====
 
+.. caution::
+
+    We are actively working to finalize the *Conan 2.0 Release*. Some of the information on this page references
+    **deprecated** features which will not be carried forward with the new release. It's important to check the 
+    :ref:`Migration Guidelines<conan2_migration_guide>` to ensure you are using the most up to date features.
+
 Under the tools module there are several functions and utilities that can be used in Conan package recipes:
 
 .. code-block:: python
@@ -311,6 +317,7 @@ tools.get()
             pattern=None, requester=None, output=None, verify=True, retry=None, retry_wait=None,
             overwrite=False, auth=None, headers=None, strip_root=False)
 
+High level download and decompressing of a tgz, zip or other compressed format file.
 Just a high level wrapper for download, unzip, and remove the temporary zip file once unzipped. You can pass hash checking parameters:
 ``md5``, ``sha1``, ``sha256``. All the specified algorithms will be checked. If any of them doesn't match, it will raise a
 ``ConanException``.
@@ -335,9 +342,9 @@ Parameters:
     - **requester** (Optional, Defaulted to ``None``): HTTP requests instance
     - **output** (Optional, Defaulted to ``None``): Stream object.
     - **verify** (Optional, Defaulted to ``True``): When False, disables https certificate validation.
-    - **retry** (Optional, Defaulted to ``2``): Number of retries in case of failure. Default is overriden by ``general.retry``
+    - **retry** (Optional, Defaulted to ``2``): Number of retries in case of failure. Default is overridden by ``general.retry``
       in the *conan.conf* file or an env variable ``CONAN_RETRY``.
-    - **retry_wait** (Optional, Defaulted to ``5``): Seconds to wait between download attempts. Default is overriden by ``general.retry_wait``
+    - **retry_wait** (Optional, Defaulted to ``5``): Seconds to wait between download attempts. Default is overridden by ``general.retry_wait``
       in the *conan.conf* file or an env variable ``CONAN_RETRY_WAIT``.
     - **overwrite**: (Optional, Defaulted to ``False``): When ``True`` Conan will overwrite the destination file if it exists. Otherwise it
       will raise.
@@ -434,9 +441,9 @@ Parameters:
     - **verify** (Optional, Defaulted to ``True``): When False, disables https certificate validation.
     - **out**: (Optional, Defaulted to ``None``): An object with a ``write()`` method can be passed to get the output. ``stdout`` will use
       if not specified.
-    - **retry** (Optional, Defaulted to ``1``): Number of retries in case of failure. Default is overriden by ``general.retry``
+    - **retry** (Optional, Defaulted to ``1``): Number of retries in case of failure. Default is overridden by ``general.retry``
       in the *conan.conf* file or an env variable ``CONAN_RETRY``.
-    - **retry_wait** (Optional, Defaulted to ``5``): Seconds to wait between download attempts. Default is overriden by ``general.retry_wait``
+    - **retry_wait** (Optional, Defaulted to ``5``): Seconds to wait between download attempts. Default is overridden by ``general.retry_wait``
       in the *conan.conf* file or an env variable ``CONAN_RETRY_WAIT``.
     - **overwrite**: (Optional, Defaulted to ``False``): When ``True``, Conan will overwrite the destination file if exists. Otherwise it
       will raise an exception.
@@ -900,7 +907,7 @@ tools.run_in_windows_bash()
     def run_in_windows_bash(conanfile, bashcmd, cwd=None, subsystem=None, msys_mingw=True, env=None, with_login=True)
 
 Runs a UNIX command inside a bash shell. It requires to have "bash" in the path.
-Useful to build libraries using ``configure`` and ``make`` in Windows. Check :ref:`Windows subsytems <windows_subsystems>` section.
+Useful to build libraries using ``configure`` and ``make`` in Windows. Check :ref:`Windows subsystems <windows_subsystems>` section.
 
 You can customize the path of the bash executable using the environment variable ``CONAN_BASH_PATH`` or the :ref:`conan_conf` ``bash_path``
 variable to change the default bash location.
@@ -1471,7 +1478,8 @@ tools.Git()
 
 .. warning::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
 
 .. code-block:: python
 
@@ -1521,7 +1529,8 @@ tools.SVN()
 
 .. warning::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
 
 .. code-block:: python
 
@@ -1645,7 +1654,7 @@ Parameters:
     - **os_** (Required): OS of the settings. Usually ``self.settings.os``.
     - **os_version** (Required): OS version. Usually ``self.settings.os.version``.
     - **os_sdk** (Optional, Defaulted to ``None``): OS SDK. Usually ``self.settings.os.sdk``. Otherwise, check :command:`xcodebuild -sdk -version`. for available SDKs.
-    - **os_subsystem** Optional, Defaulted to ``None``): OS sybsystem. Usually ``self.settings.os.subsystem``. The only subsystem supported right now is Catalyst.
+    - **os_subsystem** Optional, Defaulted to ``None``): OS subsystem. Usually ``self.settings.os.subsystem``. The only subsystem supported right now is Catalyst.
     - **arch** (Optional, Defaulted to ``None``): Architecture of the settings. Usually ``self.settings.arch``.
 
 .. _tools_xcrun:
@@ -1846,7 +1855,8 @@ tools.intel_compilervars_command()
 
 .. warning::
 
-      This is an **experimental** feature subject to breaking changes in future releases.
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
 
 .. code-block:: python
 
@@ -1889,7 +1899,8 @@ tools.intel_compilervars_dict()
 
 .. warning::
 
-      This is an **experimental** feature subject to breaking changes in future releases.
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
 
 .. code-block:: python
 
@@ -1924,7 +1935,8 @@ tools.intel_compilervars()
 
 .. warning::
 
-      This is an **experimental** feature subject to breaking changes in future releases.
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
 
 .. code-block:: python
 
@@ -1948,7 +1960,8 @@ tools.intel_installation_path()
 
 .. warning::
 
-      This is an **experimental** feature subject to breaking changes in future releases.
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
 
 .. code-block:: python
 
@@ -2009,7 +2022,8 @@ tools.fix_symlinks():
 
 .. warning::
 
-      This is an **experimental** feature subject to breaking changes in future releases.
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
 
 .. code-block:: python
 

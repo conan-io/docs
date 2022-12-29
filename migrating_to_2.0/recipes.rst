@@ -102,19 +102,17 @@ Settings
 
 
 
-
-
-- In Conan 2, removing a setting, for example, ``del self.settings.compiler.libcxx`` in the ``configure()`` method, will
-  raise an exception if the setting doesn't exist. It has to be protected with try/except:
+- In Conan 2, removing a setting, for example, ``del self.settings.compiler.libcxx`` in
+  the ``configure()`` method, will raise an exception if the setting doesn't exist. It has
+  to be protected with try/except. The ``self.settings.rm_safe()`` method already
+  implements the try/except clause internally. Use it like:
 
   .. code-block:: python
 
     def configure(self):
-        try:
-           # In windows, with msvc, the compiler.libcxx doesn't exist, so it will raise.
-           del self.settings.compiler.libcxx
-        except Exception:
-           pass
+        # it's a C library
+        self.settings.rm_safe("compiler.libcxx")
+        self.settings.rm_safe("compiler.cppstd")
 
 
 Options
@@ -169,6 +167,18 @@ The special value ``ANY`` has to be declared in a list:
         options = {"opt": ["ANY"]}
 
 
+In case the default value is ``None``, then it should be added as possible value to that option:
+
+.. code-block:: python
+   :caption: **To:**
+
+    from conan import ConanFile
+
+    class Pkg(Conanfile):
+        options = {"opt": [None, "ANY"]}
+        default_options = {"opt": None}
+
+
 The validate() method
 ---------------------
 
@@ -195,9 +205,22 @@ are valid.
             if self.info.settings.os == "Windows":
                 raise ConanInvalidConfiguration("This package is not compatible with Windows")
 
+.. note::
+
+    For recipes where settings are cleared, using ``self.settings`` is still valid. For example,
+    this applies to header only recipes that check for a specific ``self.settings.cppstd`` like:
+
+    .. code-block:: python
+
+        def package_id(self):
+            self.info.clear()
+
+        def validate(self):
+            if self.settings.get_safe("compiler.cppstd"):
+                check_min_cppstd(self, 17)
 
 If you are not checking if the resulting binary is valid for the current configuration but need to check if a package
-can be built or not for a specific configuration you must use the ``validate_build()`` method instead using ``self.settings``
+can be built or not for a specific configuration you must use the ``validate_build()`` method instead of using ``self.settings``
 and ``self.options`` to perform the checks:
 
 
@@ -212,16 +235,16 @@ and ``self.options`` to perform the checks:
         settings = "os", "arch", "compiler"
 
         def package_id(self):
-            # For this package, it doesn't matter the compiler used for the binary package
+            # For this package, it doesn't matter what compiler is used for the binary package
             del self.info.settings.compiler
 
         def validate_build(self):
-            # But we know this cannot be build with "gcc"
+            # But we know this cannot be built with "gcc"
             if self.settings.compiler == "gcc":
                 raise ConanInvalidConfiguration("This doesn't build in GCC")
 
         def validate(self):
-            # We shouldn't check here if the self.info.settings.compiler because it has been removed in the package_id()
+            # We shouldn't check self.info.settings.compiler here because it has been removed in the package_id()
             # so it doesn't make sense to check if the binary is compatible with gcc because the compiler doesn't matter
             pass
 
@@ -280,12 +303,12 @@ A typical anti-pattern in the recipes that can be solved with a ``layout()`` dec
             get(self, **self.conan_data["sources"][self.version], strip_root=True)
 
 
-Declaring the layout, the variables ``self.source_folder``, ``self.build_folder`` will point to the correct folder, both in
-the cache or locally when using local methods, it is always recommended to use these when performing disk operations
+When declaring the layout, the variables ``self.source_folder`` and ``self.build_folder`` will point to the correct folder,
+both in the cache or locally when using local methods, it is always recommended to use these when performing disk operations
 (read, write, copy, etc).
 
-If you are using ``editables``, the external template files are going to be removed. Use
-the ``layout()`` method definition instead.
+If you are using ``editables``, the external template files are going to be removed.
+Use the ``layout()`` method definition instead.
 
 Read more about the :ref:`layout feature<package_layout>` and the :ref:`reference of the layout() method<layout_method_reference>`.
 
@@ -315,7 +338,13 @@ that is being developed in a local directory):
         self.cpp.source.includedirs = ["."]
 
 
+cpp_info libdir, bindir, includedir accessors when using layout() in Conan 1.X
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Since `Conan 1.53.0 <https://github.com/conan-io/conan/releases/tag/1.53.0>`_ you can
+access ``cpp_info.libdirs[0]``, ``cpp_info.bindirs[0]`` and
+``cpp_info.includedirs[0]`` using ``cpp_info.libdir``, ``cpp_info.bindir`` and
+``cpp_info.includedir``
 
 
 The scm attribute
@@ -328,7 +357,7 @@ to mimic the same behavior:
   The new ``conan.tools.scm.Git`` can be used for this (do not use the legacy ``Git`` helper but this one)
 - The ``export()`` method, after capturing the coordinates, can store them in the ``conandata.yml`` using
   the ``update_conandata()`` helper function
-- The ``source()`` method can use the information in ``self.conan_data`` coming from exported ``conandata.yml``
+- The ``source()`` method can use the information in ``self.conan_data`` coming from the exported ``conandata.yml``
   file to do a clone and checkout of the matching code. The new ``conan.tools.scm.Git`` can be used for this
   purpose.
 
@@ -374,7 +403,7 @@ Please **check the full example** on the :ref:`conan.tools.scm.Git section <cona
 The export_sources() method
 ---------------------------
 
-The ``self.copy`` has been replaced by the explicit tool
+The ``self.copy`` method has been replaced by the explicit tool
 :ref:`copy<conan_tools_files_copy>`. Typically you would copy from the
 ``conanfile.recipe_folder`` to the ``conafile.export_sources_folder``:
 
@@ -408,14 +437,14 @@ disk (in the ``self.generators_folder``) by the ``generate()`` method. The goal 
 ``generate()`` method is to **prepare the build** generating all the information that
 could be needed while running the build step. That means things like:
 
-- Write information about the dependencies for the build sytem. This is done by
-  what we call "generators", that are tools like :ref:`CMakeDeps<CMakeDeps>`,
+- Write information about the dependencies for the build system. This is done by
+  what we call "generators", which are tools like :ref:`CMakeDeps<CMakeDeps>`,
   :ref:`PkgConfigDeps<PkgConfigDeps>`, :ref:`MSBuildDeps
   <conan_tools_microsoft_msbuilddeps>`, :ref:`XcodeDeps<conan_tools_apple_xcodedeps>`,
   etc.
 
 - Write information about the configuration (settings, options...). This is done by what
-  we call "toolchains", that are tools like :ref:`CMakeToolchain<conan-cmake-toolchain>`,
+  we call "toolchains", which are tools like :ref:`CMakeToolchain<conan-cmake-toolchain>`,
   :ref:`AutotoolsToolchain<conan_tools_gnu_autotools_toolchain>`,
   :ref:`MSBuildToolchain<conan_tools_microsoft_msbuildtoolchain>`,
   :ref:`XcodeToolchain<conan_tools_apple_xcodetoolchain>`, etc.
@@ -423,7 +452,7 @@ could be needed while running the build step. That means things like:
 - Write other files to be used in the build step, like scripts that inject environment
   variables (check the part on how to :ref:`migrate the
   environment<migration_guide_environment>` on this guide), files to pass to the build
-  system, etc. 
+  system, etc.
 
 This improves a lot the local development, a simple ``conan install`` will generate everything we need to build our
 project in the IDE or just call the build system. This example is using the ``CMake`` integration, but if you use
@@ -551,8 +580,8 @@ If you declare components, the defaults are the same, so you only need to change
 
 .. note::
 
-    Remember that now is possible to declare the ``cpp_info`` in the :ref:`layout() method<conanv2_layout_cpp_objects>`
-    using the ``self.cpp.package`` instead of using ``self.cpp_info`` in the ``package_info()``.
+    Remember that it's now possible to declare ``cpp_info`` in the :ref:`layout() method<conanv2_layout_cpp_objects>`
+    using ``self.cpp.package`` instead of using ``self.cpp_info`` in the ``package_info()`` method.
 
 
 Removed self.user_info
@@ -629,26 +658,26 @@ Removed self.env_info
 
 The attribute ``self.env_info`` has been replaced by:
 
-- ``self.buildenv_info``: For the dependant recipes, the environment variables will be present during the build process.
-- ``self.runenv_info``: For the dependant recipes, environment variables will be present during the runtime.
+- ``self.buildenv_info``: For the dependent recipes, the environment variables will be present during the build process.
+- ``self.runenv_info``: For the dependent recipes, environment variables will be present during the runtime.
 
 Read more about how to use them in the :ref:`environment management<conan_tools_env_environment_model>` of Conan 2.0.
 
-Remember that if you want to pass general information to the dependant recipes, you should use the ``self.conf_info``
+Remember that if you want to pass general information to the dependent recipes, you should use the ``self.conf_info``
 and not environment variables if they are not supposed to be reused as environment variables in the dependent recipes.
 
 
 Removed self.cpp_info.builddirs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The default value (pointing to the package root folder) form  ``self.cpp_info.builddirs`` has been removed.
+The default value (pointing to the package root folder) from ``self.cpp_info.builddirs`` has been removed.
 Also assigning it will be discouraged because it affects how :ref:`CMakeToolchain<conan-cmake-toolchain>` and
 :ref:`CMakeDeps<CMakeDeps>` locate executables, libraries, headers... from the right context (host vs build).
 
 To be prepared for Conan 2.0:
 
 - If you have *cmake modules* or *cmake config files* at the root of the package, it is strongly recommended to move them
-  to a subfolder ``cmake`` and assing it: ``self.cpp_info.builddirs = ["cmake"]``
+  to a subfolder ``cmake`` and assign it: ``self.cpp_info.builddirs = ["cmake"]``
 - If you are not assigning any ``self.cpp_info.builddirs`` assign an empty list: ``self.cpp_info.builddirs = []``.
 - Instead of appending new values to the default list, assign it: ``self.cpp_info.builddirs = ["cmake"]``
 
@@ -737,7 +766,7 @@ Properties related to *pkg_config*, only supported by new :ref:`PkgConfigDeps<Pk
 - **pkg_config_aliases** property sets some aliases of any package/component name for the ``PkgConfigDeps`` generator only,
   it doesn't work in ``pkg_config``. This property only accepts list-like Python objects.
 
-All of these properties, but ``cmake_file_name`` and ``cmake_module_file_name`` can be defined at the
+All of these properties, except for ``cmake_file_name`` and ``cmake_module_file_name`` can be defined at the
 global ``cpp_info`` level or at the component level.
 
 The `set/get_property` model is very useful if you are creating a :ref:`custom generator<custom_generator>`.
@@ -778,7 +807,7 @@ Migrate conanfile.compatible_packages to the new compatibility() method
 -----------------------------------------------------------------------
 
 To declare compatible packages in a valid way for both Conan 1.X and 2.0, you should migrate
-the use of the :ref:`compatible_packages` to the :ref:`method_compatibility`.
+from using the :ref:`compatible_packages` method to the :ref:`method_compatibility` method.
 
 
 .. code-block:: python
@@ -933,8 +962,12 @@ You need to configure how to run the commands with two config variables:
 
     - **tools.microsoft.bash:subsystem**:  Possible values: 'msys2', 'msys', 'cygwin', 'wsl' and 'sfu'
     - **tools.microsoft.bash:path** (Default "bash"): Path to the shell executable.
+    - **tools.microsoft.bash:active** (Default "None"): Used to define if Conan is already running inside a subsystem (Msys2) terminal.
 
 Any command run with ``self.run``, if ``self.win_bash == True`` will run the command inside the specified shell.
+Any command run with ``self.run(..., scope="run")`` if ``self.win_bash_run == True`` will run that command inside the shell.
+In both cases running explicitly in the bash shell only happens if ``tools.microsoft.bash:active`` is not True, because
+when it is True, it means that Conan is already running inside the shell.
 
 
 Symlinks
@@ -955,4 +988,4 @@ the recipe for Conan 2.0:
 * Unlike in ``SystemPackageTool`` that uses ``CONAN_SYSREQUIRES_SUDO`` and is set to ``True``
   as default, the ``tools.system.package_manager:sudo`` configuration is ``False`` by default.
 * :ref:`systempackagetool` is initialized with ``default_mode='enabled'`` but for these new
-  tools ``tools.system.package_manager:mode='check'`` by default.
+  tools ``tools.system.package_manager:mode='check'`` is set by default.

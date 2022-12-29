@@ -45,51 +45,63 @@ To list all possible configurations available, run :command:`conan config list`.
 
     $ conan config list
 
-    core:required_conan_version: Raise if current version does not match the defined range.
     core.package_id:msvc_visual_incompatible: Allows opting-out the fallback from the new msvc compiler to the Visual Studio compiler existing binaries
-    core:default_profile: Defines the default host profile ('default' by default)
     core:default_build_profile: Defines the default build profile (None by default)
+    core:default_profile: Defines the default host profile ('default' by default)
+    core:required_conan_version: Raise if current version does not match the defined range
     tools.android:ndk_path: Argument for the CMAKE_ANDROID_NDK
-    tools.build:skip_test: Do not execute CMake.test() and Meson.test() when enabled
+    tools.apple.xcodebuild:verbosity: Verbosity level for xcodebuild: 'verbose' or 'quiet
+    tools.apple:enable_arc: (boolean) Enable/Disable ARC Apple Clang flags
+    tools.apple:enable_bitcode: (boolean) Enable/Disable Bitcode Apple Clang flags
+    tools.apple:enable_visibility: (boolean) Enable/Disable Visibility Apple Clang flags
+    tools.apple:sdk_path: Path for the sdk location. This value will be passed as SDKROOT or -isysroot depending on the generator used
+    tools.build.cross_building:can_run: Set the return value for the 'conan.tools.build.can_run()' tool
+    tools.build:cflags: List of extra C flags used by different toolchains like CMakeToolchain, AutotoolsToolchain and MesonToolchain
+    tools.build:compiler_executables: Defines a Python dict-like with the compilers path to be used. Allowed keys {'c', 'cpp', 'cuda', 'objc', 'objcxx', 'rc', 'fortran', 'asm', 'hip', 'ispc'}
+    tools.build:cxxflags: List of extra CXX flags used by different toolchains like CMakeToolchain, AutotoolsToolchain and MesonToolchain
+    tools.build:defines: List of extra definition flags used by different toolchains like CMakeToolchain and AutotoolsToolchain
+    tools.build:exelinkflags: List of extra flags used by CMakeToolchain for CMAKE_EXE_LINKER_FLAGS_INIT variable
     tools.build:jobs: Default compile jobs number -jX Ninja, Make, /MP VS (default: max CPUs)
+    tools.build:sharedlinkflags: List of extra flags used by CMakeToolchain for CMAKE_SHARED_LINKER_FLAGS_INIT variable
+    tools.build:skip_test: Do not execute CMake.test() and Meson.test() when enabled
     tools.build:sysroot: Pass the --sysroot=<tools.build:sysroot> flag if available. (None by default)
-    tools.cmake.cmaketoolchain:generator: User defined CMake generator to use instead of default
-    tools.cmake.cmaketoolchain:find_package_prefer_config: Argument for the CMAKE_FIND_PACKAGE_PREFER_CONFIG
-    tools.cmake.cmaketoolchain:toolchain_file: Use other existing file rather than conan_toolchain.cmake one
-    tools.cmake.cmaketoolchain:user_toolchain: Inject existing user toolchains at the beginning of conan_toolchain.cmake
-    tools.cmake.cmaketoolchain:system_name: Define CMAKE_SYSTEM_NAME in CMakeToolchain
-    tools.cmake.cmaketoolchain:system_version: Define CMAKE_SYSTEM_VERSION in CMakeToolchain
-    tools.cmake.cmaketoolchain:system_processor: Define CMAKE_SYSTEM_PROCESSOR in CMakeToolchain
-    tools.cmake.cmaketoolchain.presets:max_schema_version: Generate CMakeUserPreset.json compatible with the supplied schema version
-    tools.env.virtualenv:auto_use: Automatically activate virtualenv file generation
     tools.cmake.cmake_layout:build_folder_vars: Settings and Options that will produce a different build folder and different CMake presets names
+    tools.cmake.cmaketoolchain.presets:max_schema_version: Generate CMakeUserPreset.json compatible with the supplied schema version
+    tools.cmake.cmaketoolchain:find_package_prefer_config: Argument for the CMAKE_FIND_PACKAGE_PREFER_CONFIG
+    tools.cmake.cmaketoolchain:generator: User defined CMake generator to use instead of default
+    tools.cmake.cmaketoolchain:system_name: Define CMAKE_SYSTEM_NAME in CMakeToolchain
+    tools.cmake.cmaketoolchain:system_processor: Define CMAKE_SYSTEM_PROCESSOR in CMakeToolchain
+    tools.cmake.cmaketoolchain:system_version: Define CMAKE_SYSTEM_VERSION in CMakeToolchain
+    tools.cmake.cmaketoolchain:toolchain_file: Use other existing file rather than conan_toolchain.cmake one
+    tools.cmake.cmaketoolchain:toolset_arch: Will add the ',host=xxx' specifier in the 'CMAKE_GENERATOR_TOOLSET' variable of 'conan_toolchain.cmake' file
+    tools.cmake.cmaketoolchain:user_toolchain: Inject existing user toolchains at the beginning of conan_toolchain.cmake
+    tools.env.virtualenv:auto_use: Automatically activate virtualenv file generation
+    tools.env.virtualenv:powershell: Opt-in to generate Powershell '.ps1' scripts instead of '.bat'
+    tools.files.download:download_cache: Location for the download cache
     tools.files.download:retry: Number of retries in case of failure when downloading
     tools.files.download:retry_wait: Seconds to wait between download attempts
-    tools.gnu:make_program: Indicate path to make program
     tools.gnu:define_libcxx11_abi: Force definition of GLIBCXX_USE_CXX11_ABI=1 for libstdc++11
-    tools.google.bazel:configs: Define Bazel config file
+    tools.gnu:host_triplet: Custom host triplet to pass to Autotools scripts
+    tools.gnu:make_program: Indicate path to make program
+    tools.gnu:pkg_config: Define the 'pkg_config' executable name or full path
     tools.google.bazel:bazelrc_path: Defines Bazel rc-path
-    tools.microsoft.msbuild:verbosity: Verbosity level for MSBuild: 'Quiet', 'Minimal', 'Normal', 'Detailed', 'Diagnostic'
-    tools.microsoft.msbuild:vs_version: Defines the IDE version when using the new msvc compiler
-    tools.microsoft.msbuild:max_cpu_count: Argument for the /m when running msvc to build parallel projects
-    tools.microsoft.msbuild:installation_path: VS install path, to avoid auto-detect via vswhere, like C:/Program Files (x86)/Microsoft Visual Studio/2019/Community
-    tools.microsoft.msbuilddeps:exclude_code_analysis: Suppress MSBuild code analysis for patterns
-    tools.microsoft.msbuildtoolchain:compile_options: Dictionary with MSBuild compiler options
+    tools.google.bazel:configs: Define Bazel config file
     tools.intel:installation_path: Defines the Intel oneAPI installation root path
     tools.intel:setvars_args: Custom arguments to be passed onto the setvars.sh|bat script from Intel oneAPI
-    tools.system.package_manager:tool: Default package manager tool: 'apt-get', 'yum', 'dnf', 'brew', 'pacman', 'choco', 'zypper', 'pkg' or 'pkgutil'
+    tools.meson.mesontoolchain:backend: Set the Meson backend. Possible values: 'ninja', 'vs', 'vs2010', 'vs2015', 'vs2017', 'vs2019', 'xcode'
+    tools.meson.mesontoolchain:extra_machine_files: List of paths for any additional native/cross file references to be appended to the existing Conan ones
+    tools.microsoft.bash:path: Path to the shell executable. Default: 'bash'
+    tools.microsoft.bash:subsystem: Set subsystem to use for Windows. Possible values: 'msys2', 'msys', 'cygwin', 'wsl' and 'sfu'
+    tools.microsoft.msbuild:installation_path: VS install path, to avoid auto-detect via vswhere, like C:/Program Files (x86)/Microsoft Visual Studio/2019/Community
+    tools.microsoft.msbuild:max_cpu_count: Argument for the /m when running msvc to build parallel projects
+    tools.microsoft.msbuild:verbosity: Verbosity level for MSBuild: 'Quiet', 'Minimal', 'Normal', 'Detailed', 'Diagnostic'
+    tools.microsoft.msbuild:vs_version: Defines the IDE version when using the new msvc compiler
+    tools.microsoft.msbuilddeps:exclude_code_analysis: Suppress MSBuild code analysis for patterns
+    tools.microsoft.msbuildtoolchain:compile_options: Dictionary with MSBuild compiler options
     tools.system.package_manager:mode: Mode for package_manager tools: 'check' or 'install'
     tools.system.package_manager:sudo: Use 'sudo' when invoking the package manager tools in Linux (False by default)
     tools.system.package_manager:sudo_askpass: Use the '-A' argument if using sudo in Linux to invoke the system package manager (False by default)
-    tools.apple.xcodebuild:verbosity: Verbosity level for xcodebuild: 'verbose' or 'quiet
-    tools.apple:enable_bitcode: (boolean) Enable/Disable Bitcode Apple Clang flags
-    tools.apple:enable_arc: (boolean) Enable/Disable ARC Apple Clang flags
-    tools.apple:enable_visibility: (boolean) Enable/Disable Visibility Apple Clang flags
-    tools.build:cxxflags: List of extra CXX flags used by different toolchains like CMakeToolchain, AutotoolsToolchain and MesonToolchain
-    tools.build:cflags: List of extra C flags used by different toolchains like CMakeToolchain, AutotoolsToolchain and MesonToolchain
-    tools.build:defines: List of extra definition flags used by different toolchains like CMakeToolchain and AutotoolsToolchain
-    tools.build:sharedlinkflags: List of extra flags used by CMakeToolchain for CMAKE_SHARED_LINKER_FLAGS_INIT variable
-    tools.build:exelinkflags: List of extra flags used by CMakeToolchain for CMAKE_EXE_LINKER_FLAGS_INIT variable
+    tools.system.package_manager:tool: Default package manager tool: 'apt-get', 'yum', 'dnf', 'brew', 'pacman', 'choco', 'zypper', 'pkg' or 'pkgutil'
 
 
 .. important::
@@ -115,7 +127,7 @@ and renders the template, which must result in a standard tools-configuration te
 
 .. note::
 
-    The Python packages passed to render the template are only ``os`` and ``platform``.
+    The Python packages passed to render the template are ``os`` and ``platform`` for all platforms and ``distro`` in Linux platforms.
 
 
 Configuration data types

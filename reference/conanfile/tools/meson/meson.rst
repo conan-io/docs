@@ -39,15 +39,21 @@ constructor
 
 - ``conanfile``: the current recipe object. Always use ``self``.
 
+
 configure()
 +++++++++++
 
 .. code:: python
 
-    def configure(self):
+    def configure(self, reconfigure=False):
 
 Calls :command:`meson`, with the given generator and passing either :command:`--native-file conan_meson_native.ini`
-(native builds) or :command:`--cross-file conan_meson_cross.ini` (cross builds).
+(native builds) or :command:`--cross-file conan_meson_cross.ini` (cross builds). Use ``tools.meson.mesontoolchain:extra_machine_files=[<FILENAME>]``
+configuration to add your machine files at the end of the command using the correct parameter depending on native or cross builds.
+See `this Meson reference <https://mesonbuild.com/Machine-files.html#loading-multiple-machine-files>`_ for more information.
+
+Parameters:
+    - **reconfigure** (Optional, Defaulted to ``False``): Adds the ``--reconfigure`` parameter to the ``meson setup`` command if ``True``.
 
 
 build()
@@ -78,9 +84,14 @@ test()
 
     def test(self):
 
-Runs project's tests. Equivalent to running :command:`meson test -v -C .` in the build folder..
+Runs project's tests. Equivalent to running :command:`meson test -v -C .` in the build folder. Use ``tools.build:skip_test=False``
+to avoid execute this command and skip the tests.
+
 
 conf
 ++++
 
-- ``tools.build:jobs=10`` argument for the ``--jobs`` parameter when running Ninja.
+- ``tools.build:jobs=10`` (integer) argument for the ``--jobs`` parameter when running Ninja.
+- ``tools.build:skip_test=<bool>``(boolean) if ``True`` running ``meson test``.
+- ``tools.meson.mesontoolchain:extra_machine_files=["<FILENAME>"]`` (list of strings) adds your own extra machine files in
+  ``meson setup`` command, e.g., ``meson setup --native-file "conan_meson_native.ini" --native-file "<FILENAME>"``.

@@ -315,6 +315,17 @@ If you want to do a safe check of settings values, you could use the ``get_safe(
 
 The ``get_safe()`` method will return ``None`` if that setting or subsetting doesn't exist and there is no default value assigned.
 
+If you want to do a safe deletion of settings, you could use the ``rm_safe()`` method (available since
+`1.53.0 <https://github.com/conan-io/conan/releases/tag/1.53.0>`_). For example, in the ``configure()`` method
+a typical pattern for a C library would be:
+
+.. code-block:: python
+
+    def configure(self):
+        self.settings.rm_safe("compiler.libcxx")
+        self.settings.rm_safe("compiler.cppstd")
+
+
 .. _conanfile_options:
 
 options
@@ -335,7 +346,7 @@ A very common one is the option ``shared`` with allowed values of ``[True, False
 build system to produce a static library or a shared library.
 
 Values for each option can be typed or plain strings (``"value"``, ``True``, ``None``, ``42``,...) and there is a special value, ``"ANY"``, for
-options that can take any value.
+options that can take any value. When an option uses ``"ANY"``, but its default value is ``None``, then it should be added to the possible option values too.
 
 .. code-block:: python
 
@@ -344,9 +355,10 @@ options that can take any value.
         options = {
             "shared": [True, False],
             "option1": ["value1", "value2"],
-            "option2": ["ANY]",
+            "option2": ["ANY"],
             "option3": [None, "value1", "value2"],
             "option4": [True, False, "value"],
+            "option5": [None, "ANY"],
         }
 
 Every option in a recipe needs to be assigned a value from the ones declared in the ``options`` attribute. The
@@ -378,7 +390,7 @@ go over all of them for the example recipe ``mypkg`` defined above:
   + In the ``config_options()`` method of the recipe.
 
   + In the ``configure()`` method of the recipe itself (**this one has the highest precedence**, this
-    value can't be overriden)
+    value can't be overridden)
 
     .. code-block:: python
 
@@ -479,6 +491,16 @@ you can use the ``get_safe()`` method:
 
 The ``get_safe()`` method will return ``None`` if that option doesn't exist and there is no default value assigned.
 
+If you want to do a safe deletion of options, you could use the ``rm_safe()`` method (available since
+`1.53.0 <https://github.com/conan-io/conan/releases/tag/1.53.0>`_). For example, in the ``config_options()`` method
+a typical pattern for Windows library would be:
+
+.. code-block:: python
+
+    def config_options(self):
+        if self.settings.os == "Windows":
+            self.options.rm_safe("fPIC")
+
 **Evaluate options**
 
 It is very important to know how the options are evaluated in conditional expressions and how the
@@ -527,10 +549,14 @@ not define them. This attribute should be defined as a python dictionary:
         ...
         options = {"build_tests": [True, False],
                    "option1": ["value1", "value2"],
-                   "option2": ["ANY"]}
+                   "option2": ["ANY"],
+                   "option3": [None, "ANY"],
+                   }
         default_options = {"build_tests": True,
                            "option1": "value1",
-                           "option2": 42}
+                           "option2": 42,
+                           "option3": None,
+                           }
 
         def build(self):
             cmake = CMake(self)
@@ -828,13 +854,35 @@ With the ``build_policy`` attribute the package creator can change conan's build
 The allowed ``build_policy`` values are:
 
 - ``missing``: If this package is not found as a binary package, Conan will build it from source.
-- ``always``: This package will always be built from source, also **retrieving the source code each time** by executing the "source" method.
+- ``always``: (deprecated, will be removed in 2.0) This package will always be built from source, also **retrieving the source code each time** by executing the "source" method.
 
 .. code-block:: python
    :emphasize-lines: 2
 
     class PocoTimerConan(ConanFile):
         build_policy = "always" # "missing"
+
+
+upload_policy
+-------------
+
+The ``upload_policy`` class attribute, generally not defined, can be assigned the value ``skip``, to indicate that binaries
+created from this recipe will never be uploaded to the servers with ``conan upload``, without failing or warning.
+This will typically be used together with a ``build_policy = "missing"``.
+
+This can be useful for:
+
+- Binaries that are built by downloading and unzipping some large pre-compiled binaries from elsewhere, like binary tools (android-ndk or similar),
+  that repackaging it into a .tgz in Conan package would only use extra space without adding much value. This would be the most common case.
+- Binaries that for some reason only work when re-compiled from source in the machine. This shouldn't be common, but some extreme cases of low-level,
+  close to the hardware, binaries, might be difficult to have reusable binaries between different machines. This would be a very unusual case.
+
+.. code-block:: python
+   :emphasize-lines: 2
+
+    class Pkg(ConanFile):
+        upload_policy = "skip"
+
 
 .. _short_paths_reference:
 
@@ -1783,6 +1831,32 @@ When ``True`` it enables the new run in a subsystem bash in Windows mechanism. :
     class FooRecipe(ConanFile):
         ...
         win_bash = True
+
+        def build(self):
+            self.run(cmd)  # will run <cmd> inside bash
+
+
+win_bash_run
+------------
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+Available since: `1.54.0 <https://github.com/conan-io/conan/releases/tag/1.54.0>`_
+
+When ``True`` it enables running commands in the ``"run"`` scope, to run them inside a bash shell.
+
+.. code-block:: python
+
+    from conan import ConanFile
+
+    class FooRecipe(ConanFile):
+        ...
+        win_bash_run = True
+
+        def build(self):
+            self.run(cmd, scope="run")  # will run <cmd> inside bash
 
 .. _test_type:
 

@@ -7,10 +7,11 @@ conan.tools.microsoft
 These tools allow a native integration for Microsoft Visual Studio, natively (without using CMake,
 but using directly Visual Studio solutions, projects and property files).
 
-.. warning::
+.. important::
 
-    These tools are still **experimental** (so subject to breaking changes) but with very stable syntax.
-    We encourage the usage of it to be prepared for Conan 2.0.
+    Some of the features used in this section are still **under development**, while they are
+    recommended and usable and we will try not to break them in future releases, some breaking
+    changes might still happen if necessary to prepare for the *Conan 2.0 release*.
 
 .. _conan_tools_microsoft_msbuilddeps:
 
@@ -228,6 +229,46 @@ The MSBuildToolchain files can configure:
 One of the advantages of using toolchains is that they can help to achieve the exact same build
 with local development flows, than when the package is created in the cache.
 
+Attributes
+++++++++++
+
+* **properties** (available since `Conan 1.53
+  <https://github.com/conan-io/conan/releases/tag/1.53.0>`_): Additional properties added
+  to the generated ``.props`` files. You can define the properties in a key-value syntax
+  like:
+
+.. code:: python
+
+    from conan import ConanFile
+    from conan.tools.microsoft import MSBuildToolchain
+
+    class App(ConanFile):
+        settings = "os", "arch", "compiler", "build_type"
+
+        def generate(self):
+            msbuild = MSBuildToolchain(self)
+            msbuild.properties["IncludeExternals"] = "true"
+            msbuild.generate()
+
+Then, the generated *conantoolchain_<config>.props* file will contain the defined property
+in its contents:
+
+
+.. code-block:: xml
+    :emphasize-lines: 8
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <ItemDefinitionGroup>
+    ...
+    </ItemDefinitionGroup>
+    <PropertyGroup Label="Configuration">
+        ...
+        <IncludeExternals>true</IncludeExternals>
+        ...
+    </PropertyGroup>
+    </Project>
+
 conf
 ++++
 
@@ -277,7 +318,8 @@ Where:
   but this will be configurable with ``msbuild.build_type``.
 - ``platform`` is the architecture, a mapping from the ``settings.arch`` to the common 'x86', 'x64', 'ARM', 'ARM64'.
   This is configurable with ``msbuild.platform``.
-- ``targets`` is an optional argument, defaults to ``None``, and otherwise it is a list of targets to build
+- ``targets`` (since `1.52.0 <https://github.com/conan-io/conan/releases/tag/1.52.0>`_) is an optional argument,
+  defaults to ``None``, and otherwise it is a list of targets to build
 
 
 attributes
@@ -395,8 +437,8 @@ When the ``compiler`` is empty, it returns ``False``.
 Parameters:
 
 - **conanfile**: ConanFile instance.
-- **build_context**: (default=False). If this argument is ``True``, the method will check the compiler of the
-  ``build`` context, not the ``host`` one. 
+- **build_context** (since `1.52.0 <https://github.com/conan-io/conan/releases/tag/1.52.0>`_): (default=False). If this
+  argument is ``True``, the method will check the compiler of the ``build`` context, not the ``host`` one. 
 
 .. code-block:: python
 
@@ -463,6 +505,8 @@ Parameters:
             self.output.warning("Runtime MT/MTd is not well tested.")
 
 
+
+.. _conan_tools_microsoft_unix_path:
 
 conan.tools.microsoft.unix_path()
 ---------------------------------
@@ -534,3 +578,69 @@ Example:
 
     def validate(self):
         check_min_vs(self, "192")
+
+
+
+NMakeDeps
+---------
+
+Available since: `1.55.0 <https://github.com/conan-io/conan/releases/tag/1.55.0>`_
+
+This generator can be used as:
+
+.. code-block:: python
+
+    from conan import ConanFile
+
+    class Pkg(ConanFile):
+        settings = "os", "compiler", "build_type", "arch"
+
+        requires = "mydep/1.0"
+        # attribute declaration
+        generators = "NMakeDeps"
+
+        # OR explicit usage in the generate() method
+        def generate(self):
+            deps = NMakeDeps(self)
+            deps.generate()
+
+        def build(self):
+            self.run(f"nmake /f makefile")
+
+The generator will create a ``conannmakedeps.bat`` environment script that defines
+``CL``, ``LIB`` and ``_LINK_`` environment variables, injecting necessary flags 
+to locate and link the dependencies declared in ``requires``.
+This generator should most likely be used together with ``NMakeToolchain`` one.
+
+
+NMaketoolchain
+--------------
+
+Available since: `1.55.0 <https://github.com/conan-io/conan/releases/tag/1.55.0>`_
+
+This generator can be used as:
+
+.. code-block:: python
+
+    from conan import ConanFile
+
+    class Pkg(ConanFile):
+        settings = "os", "compiler", "build_type", "arch"
+
+        # attribute declaration
+        generators = "NMakeToolchain"
+
+        # OR explicit usage in the generate() method
+        def generate(self):
+            toolchain = NMakeToolchain(self)
+            toolchain.generate()
+
+        def build(self):
+            self.run(f"nmake /f makefile")
+
+The generator will create a ``conannmaketoolchain.bat`` environment script that defines
+``CL`` environment variable, injecting necessary flags deduced from the Conan settings 
+like ``compiler.cppstd`` or the Visual Studio runtime.
+It will also generate a ``conanvcvars.bat`` script that activates the correct VS prompt
+matching the Conan settings ``compiler`` and ``compiler.version``.
+

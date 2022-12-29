@@ -69,7 +69,7 @@ The ``BazelToolchain`` is the toolchain generator for Bazel. It will generate a 
 
 The Bazel build helper will use that ``conanbuild.conf`` file to seamlessly call
 the configure and make script using these precalculated arguments. Note that the file can have a
-different name if you set the namespace argument in the constructor as explained bellow.
+different name if you set the namespace argument in the constructor as explained below.
 
 It supports the following methods and attributes:
 

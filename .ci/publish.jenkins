@@ -3,6 +3,10 @@
 
 // TODO: Move to a file and avoid modifying CI script
 Map<String, String> versions = [
+        'release/1.56.0': '1.56',
+        'release/1.55.0': '1.55',
+        'release/1.54.0': '1.54',
+        'release/1.53.0': '1.53',
         'release/1.52.0': '1.52',
         'release/1.51.3': '1.51',
         'release/1.50.2': '1.50',
@@ -114,9 +118,7 @@ node('Linux') {
                         sh "cp -a latest/_themes/. ${folderName}/_themes/"
                     }
                     if (folderName == '2.0') {
-                        // Needed for autodocs in 2.0 docs
-                        // FIXME: cloning develop2 but should be the release branch
-                        def conanBranch = 'develop2'
+                        def conanBranch = 'release/2.0-beta'
                         def conan_repo_url = 'https://github.com/conan-io/conan.git'
                         stage('Clone sources') {
                             def cloneConan = "git clone --single-branch -b ${conanBranch} --depth 1 ${conan_repo_url} 2.0/conan_sources"

@@ -210,10 +210,10 @@ In case of installing a pre-built binary, steps from 8 to 16 will be skipped. No
 .. note::
 
   Installation of binaries can be accelerated setting up parallel downloads with the ``general.parallel_download``
-  **experimental** configuration in :ref:`conan_conf`.
+  **under development** configuration in :ref:`conan_conf`.
 
 
-The ``--build-require``, new in Conan 1.37, is experimental. It allows to create the package using the
+The ``--build-require``, new in Conan 1.37, allows to create the package using the
 configuration and settings of the "build" context, as it was a ``build_require``. This feature allows
 to create packages in a way that is consistent to the way they will be used later. When there is a
 ``test_package``, it is possible to use there the ``test_type="explicit"`` and ``self.test_requires(self.tested_reference_str)``.
@@ -223,10 +223,6 @@ There is no need to provide it in the command line, :ref:`check "testing tool re
 --require-override
 ------------------
 
-.. warning::
-
-    This is an **experimental** feature subject to breaking changes in future releases.
-
-New from **Conan 1.39**.
+Available since: `1.39.0 <https://github.com/conan-io/conan/releases/tag/1.39.0>`_
 
 This argument is the same, and has the same behavior as the :ref:`conan install command<cli_arg_require_override>`.

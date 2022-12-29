@@ -1,4 +1,3 @@
-.. _conan_v2:
 .. _conan2_migration_guide:
 
 
@@ -21,10 +20,16 @@ If you want to migrate to 2.0, there are several things you will need to change:
     the more relevant changes.
   - **General changes** not related to the recipes nor the Conan commands, "build profiles", lowercase references... etc.
 
+If you are looking for precompiled binaries, there is a very short list in a separate remote which can be added (please, check the `Conan 2.0 documentation <https://docs.conan.io/en/2.0/index.html>`_ for more information)
+
+    .. code-block:: bash
+
+      $ conan remote add conanv2 https://conanv2beta.jfrog.io/artifactory/api/conan/conan --index 0
 
 .. toctree::
    :maxdepth: 2
 
    migrating_to_2.0/recipes
+   migrating_to_2.0/properties
    migrating_to_2.0/commands
    migrating_to_2.0/general

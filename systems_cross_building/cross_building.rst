@@ -62,6 +62,12 @@ the ``host`` platform when we are using it to build binaries.
 Cross building with Conan
 -------------------------
 
+.. caution::
+
+    We are actively working to finalize the *Conan 2.0 Release*. Some of the information on this page references
+    **deprecated** features which will not be carried forward with the new release. It's important to check the 
+    :ref:`Migration Guidelines<conan2_migration_guide>` to ensure you are using the most up to date features.
+
 If you want to cross build a Conan package (for example using your Linux machine) to build the ``zlib``
 Conan package for Windows, you need to tell Conan where to find your toolchain/cross compiler.
 
@@ -138,8 +144,8 @@ Using tool requires
 
 .. warning::
 
-    This section refers to the **experimental feature** that is activated when using ``--profile:build`` and ``--profile:host``
-    in the command-line. It is currently under development, features can be added or removed in the following versions.
+    This section refers to the feature that is activated when using ``--profile:build`` and ``--profile:host``
+    in the command-line.
 
 
 Instead of manually downloading the toolchain and creating a profile, you can create a Conan package
@@ -149,6 +155,12 @@ this should be a regular recipe, for older versions some more work is needed.
 
 Conan v1.24 and newer
 .....................
+
+.. caution::
+
+    We are actively working to finalize the *Conan 2.0 Release*. Some of the information on this page references
+    **deprecated** features which will not be carried forward with the new release. It's important to check the 
+    :ref:`Migration Guidelines<conan2_migration_guide>` to ensure you are using the most up to date features.
 
 A recipe with a toolchain is like any other recipe with a binary executable:
 
@@ -196,7 +208,7 @@ The profile ``profile_build`` will contain just the settings related to your ``b
 running the command, and the ``profile_host`` will list the settings for the ``host`` platform (and eventually
 the ``my_toolchain/0.1`` as ``tool_requires`` if it is not listed in the recipe itself).
 
-Conan will apply the appropiate profile to each recipe, and will inject the environment of all the tool requirements
+Conan will apply the appropriate profile to each recipe, and will inject the environment of all the tool requirements
 that belong to the ``build`` context before running the ``build()`` method of the libraries being compiled.
 That way, the environment variables ``CC``, ``CXX`` and ``SYSROOT`` from ``my_toolchain/0.1`` will be available
 and also the path to the ``bindirs`` directory from that package.
@@ -231,7 +243,7 @@ With previous attributes, a draft for a recipe that packages a cross compiler co
         name = "my_compiler"
 
         settings = "os", "arch", "compiler", "build_type"
-        options = {"target": ["ANY"]}
+        options = {"target": [None, "ANY"]}
         default_options = {"shared": False, "target": None}
 
         def validate(self):
@@ -306,18 +318,17 @@ if the tool requirements has other Conan dependencies.
 
 Host settings ``os_build``, ``arch_build``, ``os_target`` and ``arch_target``
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+.. caution::
 
-.. warning::
-
-    **These settings are being reviewed and might be deprecated in the future**, we encourage you to try not to use
-    them. If you need help with your use case, please `open an issue in the Conan repository <https://github.com/conan-io/conan/issues>`_
-    and we will help you.
+    We are actively working to finalize the *Conan 2.0 Release*. Some of the information on this page references
+    **deprecated** features which will not be carried forward with the new release. It's important to check the 
+    :ref:`Migration Guidelines<conan2_migration_guide>` to ensure you are using the most up to date features.
 
 
 Before Conan v1.24 the recommended way to deal with cross building was to use some extra settings like
 ``os_build``, ``arch_build`` and ``os_target`` and ``arch_target``. These settings have a special meaning
 for some Conan tools and build helpers, but they also need to be listed in the recipes themselves creating
-a dedicated set of recipes for *installers* and *tools* in general. This approach should be superseeded with
+a dedicated set of recipes for *installers* and *tools* in general. This approach should be superseded with
 the introduction in Conan 1.24 of the command line arguments ``--profile:host`` and ``--profile:build``
 that allow to declare two different profiles with all the information needed for the corresponding platforms
 (see section above this one).
@@ -546,6 +557,12 @@ Example of an Windows CE conan profile:
 
 Linux/Windows/macOS to Android
 ..............................
+
+.. caution::
+
+    We are actively working to finalize the *Conan 2.0 Release*. Some of the information on this page references
+    **deprecated** features which will not be carried forward with the new release. It's important to check the 
+    :ref:`Migration Guidelines<conan2_migration_guide>` to ensure you are using the most up to date features.
 
 Cross-building a library for Android is very similar to the previous examples, except the complexity of managing different
 architectures (armeabi, armeabi-v7a, x86, arm64-v8a) and the Android API levels.
