@@ -20,4 +20,3 @@ Contents:
    reference/config_files
    reference/env_vars
    reference/hooks
-   reference/conan_v2_mode

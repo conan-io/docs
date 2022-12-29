@@ -8,6 +8,11 @@ MesonToolchain
     This is an **experimental** feature subject to breaking changes in future releases.
 
 
+.. important::
+
+    This class will generate files that are only compatible with Meson versions >= 0.55.0
+
+
 Available since: `1.33.0 <https://github.com/conan-io/conan/releases/tag/1.33.0>`_
 
 
@@ -48,7 +53,7 @@ etc. This includes but is not limited to the following:
 
 * Detection of ``default_library`` from Conan settings
 
-  * Based on existance/value of a option named ``shared``
+  * Based on existence/value of a option named ``shared``
 
 * Detection of ``buildtype`` from Conan settings
 
@@ -199,6 +204,13 @@ Apart from that, since Conan 1.47, you can inject extra flags thanks to these on
 - ``tools.build:cflags`` list of extra of pure C flags that will be used by ``c_args``.
 - ``tools.build:sharedlinkflags`` list of extra linker flags that will be used by ``c_link_args`` and ``cpp_link_args``.
 - ``tools.build:exelinkflags`` list of extra linker flags that will be used by ``c_link_args`` and ``cpp_link_args``.
+- ``tools.build:compiler_executables`` (new in version 1.55) dict-like Python object which specifies the compiler as key
+  and the compiler executable path as value. Those keys will be mapped as follows:
+
+  * ``c``: will set ``c`` in ``[binaries]`` section from *conan_meson_xxxx.ini*.
+  * ``cpp``: will set ``cpp`` in ``[binaries]`` section from *conan_meson_xxxx.ini*.
+  * ``objc``: will set ``objc`` in ``[binaries]`` section from *conan_meson_xxxx.ini*.
+  * ``objcpp``: will set ``objcpp`` in ``[binaries]`` section from *conan_meson_xxxx.ini*.
 
 
 Cross-building for Apple and Android

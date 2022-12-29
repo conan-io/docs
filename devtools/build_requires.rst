@@ -95,10 +95,10 @@ profile, it will overwrite the tool requirements defined in package recipes that
 Build and Host contexts
 -----------------------
 
-.. warning::
+.. note::
 
-    This section refers to the **experimental feature** that is activated when using ``--profile:build`` and ``--profile:host``
-    in the command-line. It is currently under development, features can be added or removed in the following versions.
+    This section refers to the feature that is activated when using ``--profile:build`` and ``--profile:host``
+    in the command-line.
 
 
 Conan v1.24 differentiates between the ``build`` context and the ``host`` context in the dependency graph (read more about
@@ -124,7 +124,7 @@ be linked to the generated library or other executable we want to deploy to the 
             self.test_requires("gtest/0.1")
 
 Note: The ``test_requires()``, available from Conan 1.43, is equivalent to the previous ``self.build_requires(, force_host_context=True)``
-syntax. As the later is going to dissapear in Conan 2.0, the former ``test_requires()`` form is recommended.
+syntax. As the later is going to disappear in Conan 2.0, the former ``test_requires()`` form is recommended.
 
 
 .. image:: ../images/xbuild/conan-cross-build-variables.png
@@ -159,10 +159,10 @@ in the ``build`` context, with different package IDs. Conan will propagate the p
 Properties of tool requirements
 --------------------------------
 
-The behavior of ``tool_requires`` is the same irrespective if they are defined in the profile or if defined in the package recipe.
+The behavior of ``tool_requires`` is the same irrespective of whether they are defined in the profile or in the package recipe.
 
-- They will only be retrieved and installed if some package that has to be built from sources and matches the declared pattern. Otherwise,
-  they will not even be checked for existence.
+- They will only be retrieved and installed if there is some package that has to be built from sources and matches the declared pattern.
+  Otherwise, they will not even be checked for existence.
 - Options and environment variables declared in the profile as well as in the command line will affect the tool requirements for packages.
   In that way, you can define, for example, for the ``cmake/3.16.3`` package which CMake version will be installed.
 - Tool requirements will be activated for matching packages, see the section above about :ref:`tool requires context <build_requires_context>`
@@ -181,7 +181,7 @@ The behavior of ``tool_requires`` is the same irrespective if they are defined i
 Example: testing framework and build tool
 -----------------------------------------
 
-One example of tool requirement is a testing framework implemented as a library, another good example is a build tool used
+One example of a tool requirement is a testing framework implemented as a library, another good example is a build tool used
 in the compile process. Let's call them ``mytest_framework`` and ``cmake_turbo``, and imagine we already have a package available
 for both of them.
 
@@ -246,7 +246,7 @@ then the install command will retrieve the ``cmake_turbo`` and use it:
 
 Although the previous line would work it is preferred to use the feature from Conan v1.24 and provide
 two profiles to the command line, that way the tool requirements in the ``build`` context won't
-interfer with the ``host`` graph if they share common requirements (see :ref:`section about dev tools <create_installer_packages>`).
+interfere with the ``host`` graph if they share common requirements (see :ref:`section about dev tools <create_installer_packages>`).
 It can also be needed if cross compiling (see :ref:`section about cross compiling <cross_building_build_requires>`).
 
 .. code-block:: bash
@@ -269,7 +269,8 @@ same ``tool_requires`` package. Something like:
 
 .. code-block:: python
 
-    from conans import ConanFile
+    from conan import ConanFile
+
     class Pkg(ConanFile):
         python_requires ="tool/[>=0.0]"
         tool_requires ="tool/[>=0.0]"
@@ -284,11 +285,12 @@ be used to compute the ``package_id`` following the ``default_python_requires_id
 Testing tool_requires
 ----------------------
 
-.. warning::
+.. important::
 
-    This is an **experimental** feature, subject to future breaking changes
+    This feature is still **under development**, while it is recommended and usable and we will try not to break them in future releases,
+    some breaking changes might still happen if necessary to prepare for the *Conan 2.0 release*.
 
-Available since: `1.44.0 <https://github.com/conan-io/conan/releases>`_
+Available since: `1.44.0 <https://github.com/conan-io/conan/releases/tag/1.44.0>`_
 
 From Conan 1.44, it is possible to test ``tool_requires`` with the ``test_package`` functionality.
 In the ``test_package/conanfile.py``, specify the ``test_type = "explicit"`` and use the variable
@@ -297,7 +299,7 @@ as a ``tool_requires`` or ``test_requires``:
 
 .. code-block:: python
 
-    from conans import ConanFile
+    from conan import ConanFile
 
     class Pkg(ConanFile):
         test_type = "explicit"
@@ -306,12 +308,12 @@ as a ``tool_requires`` or ``test_requires``:
             self.test_requires(self.tested_reference_str)
 
 
-If for some reason, it is necessary to test the same package both as a regular require and a build_require,
+If for some reason, it is necessary to test the same package both as a regular require and a ``tool_require``,
 then it is possible to specify:
 
 .. code-block:: python
 
-    from conans import ConanFile
+    from conan import ConanFile
 
     class Pkg(ConanFile):
         test_type = "explicit"

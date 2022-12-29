@@ -146,7 +146,7 @@ Currently, Conan Docker Tools provide the following Android images:
 
 All above mentioned images have corresponding `Android NDK <https://developer.android.com/ndk>`_ installed as Conan package.
 For more information how to build Android docker images, visit `Docker build section <https://github.com/conan-io/conan-docker-tools#build-test-and-deploy>`_.
-Once you have a docker image installed property, you can run direclty on your machine and cross-compile to Android:
+Once you have a docker image installed property, you can run directly on your machine and cross-compile to Android:
 
 .. code-block:: bash
 
@@ -232,7 +232,7 @@ And then, you may use the following profile:
 In the profile, ``CONAN_CMAKE_TOOLCHAIN_FILE`` points to the CMake toolchain file listed above.
 
 
-Using CMake build-in Android NDK support
+Using CMake built-in Android NDK support
 ----------------------------------------
 
 .. warning::

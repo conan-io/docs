@@ -216,7 +216,7 @@ generator to simplify the task for your build system.
             # self.run("basically you can do what you want with your requirements build info)
 
             # Environment variables (from requirements self.env_info objects)
-            # are automatically applied in the python ``os.environ`` but can be accesible as well:
+            # are automatically applied in the python ``os.environ`` but can be accessible as well:
             print("--------- Globally -------------")
             print(self.env)
 

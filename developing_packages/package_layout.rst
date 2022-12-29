@@ -3,9 +3,14 @@
 Package layout
 ==============
 
-.. warning::
+.. important::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+    Some of the features used in this section are still **under development**, while they are
+    recommended and usable and we will try not to break them in future releases, some breaking
+    changes might still happen if necessary to prepare for the *Conan 2.0 release*.
+
+.. tip::
+
     The ``layout()`` feature will be fully functional only in the new build system integrations
     (:ref:`in the conan.tools space <conan_tools>`). If you are using other integrations, they
     might not fully support this feature.
@@ -146,7 +151,7 @@ When we call ``conan create``, this is a simplified description of what happens:
        :caption: conanfile.py
 
        import os
-       from conans import ConanFile
+       from conan import ConanFile
        from conan.tools.cmake import CMake
 
 
@@ -184,8 +189,9 @@ So, this workflow in the cache works flawlessly but:
 - What if I want to use my project as an :ref:`editable package<editable_packages>`?
 
   If you want to keep developing your package but let the consumers link with the artifacts in your project instead of
-  the files in the Conan cache, you would need to declare a yml file describing where the headers, libraries and
-  executables are in your application.
+  the files in the Conan cache, this will not work, because it only declares the location of headers and libraries in 
+  the final packaged layout, but during development the files are typically in other locations.
+
 
 So, just as we describe the package folder in the ``package_info()`` method, we can use ``layout()`` to describe the
 ``source`` and ``build`` folders (both in a local project and in the cache):
@@ -228,6 +234,10 @@ In the ``layout()`` method, you can set:
       The **self.cpp_info** object will be populated with the information declared in the ``self.cpp.package``
       object, so you can complete it or modify it later in the ``package_info(self)`` method.
 
+    - **self.layouts.source**, **self.layouts.build** and **self.layouts.package**, each one containing one instance of
+      ``buildenv_info``, ``runenv_info`` and ``conf_info``. If the environment or configuration needs to define values 
+      that depend on the current folders, it is necessary to define them in the ``layout()`` method.
+  
 
 Example: Everything together
 ----------------------------
@@ -262,13 +272,13 @@ We are using the following **CMakeLists.txt**:
    set_target_properties(my_tool PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 
 
-Let’s see how we describe our project in the ``layout()`` method:
+Let's see how we describe our project in the ``layout()`` method:
 
 .. code-block:: python
     :caption: conanfile.py
 
     import os
-    from conans import ConanFile
+    from conan import ConanFile
     from conan.tools.cmake import CMake
 
 
@@ -403,7 +413,7 @@ completely transparent way, even locating the correct **Release**/**Debug** arti
     $ conan editable add . say/0.1
 
 .. note:: When working with editable packages, the information set in ``self.cpp.source`` and ``self.cpp.build`` will be merged with the
-          information set in ``self.cpp.package`` so that we don’t have to declare again something like ``self.cpp.build.libs = ["say"]`` that is
+          information set in ``self.cpp.package`` so that we don't have to declare again something like ``self.cpp.build.libs = ["say"]`` that is
           the same for the consumers, independently of whether the package is in editable mode or not.
 
 
@@ -475,7 +485,7 @@ The ``conanfile.py`` would look like this:
           def source(self):
               # we are inside a "src" subfolder, as defined by layout
               # download something, that will be inside the "src" subfolder
-              # access to paches and CMakeLists, to apply them, replace files is done with:
+              # access to patches and CMakeLists, to apply them, replace files is done with:
               mypatch_path = os.path.join(self.export_sources_folder, "patches/mypatch")
               cmake_path = os.path.join(self.export_sources_folder, "CMakeLists.txt")
               # patching, replacing, happens here
@@ -607,3 +617,51 @@ of the ``pkg`` and ``common`` folders, both in the local developer flow in the c
 when those sources are copied to the Conan cache, to be built there with ``conan create`` or ``conan install --build=pkg``.
 This is one of the design principles of the ``layout()``, the relative location of things must be consistent in the user
 folder and in the cache.
+
+
+Environment variables and configuration
+---------------------------------------
+
+There are some packages that might define some environment variables in their
+``package_info()`` method via ``self.buildenv_info``, ``self.runenv_info``. Other 
+packages can also use ``self.conf_info`` to pass configuration to their consumers.
+
+This is not an issue as long as the value of those environment variables or configuration
+do not require using the ``self.package_folder``. If they do, then their values will
+not be correct for the "source" and "build" layouts. Something like this will be **broken**
+when used in ``editable`` mode:
+
+.. code-block:: python
+
+    import os
+    from conan import ConanFile
+
+    class SayConan(ConanFile):
+        ...
+        def package_info(self):
+            # This is BROKEN if we put this package in editable mode
+            self.runenv_info.define_path("MYDATA_PATH",
+                                         os.path.join(self.package_folder, "my/data/path"))
+
+When the package is in editable mode, for example, ``self.package_folder`` is ``None``, as 
+obviously there is no package yet. 
+The solution is to define it in the ``layout()`` method, in the same way the ``cpp_info`` can
+be defined there:
+
+.. code-block:: python
+
+    from conan import ConanFile
+
+    class SayConan(ConanFile):
+        ...
+        def layout(self):
+            # The final path will be relative to the self.source_folder
+            self.layouts.source.buildenv_info.define_path("MYDATA_PATH", "my/source/data/path")
+            # The final path will be relative to the self.build_folder
+            self.layouts.build.buildenv_info.define_path("MYDATA_PATH2", "my/build/data/path")
+            # The final path will be relative to the self.build_folder
+            self.layouts.build.conf_info.define_path("MYCONF", "my_conf_folder")
+
+
+The ``layouts`` object contains ``source``, ``build`` and ``package`` scopes, and each one contains
+one instance of ``buildenv_info``, ``runenv_info`` and ``conf_info``.

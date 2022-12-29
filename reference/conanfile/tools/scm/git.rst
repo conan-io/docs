@@ -28,7 +28,7 @@ get_commit()
     def get_commit(self)
 
 
-Returns the current commit, with ``git rev-list HEAD -n 1 -- <folder>``. The latest commit is returned, irrespective of local not commmited changes.
+Returns the current commit, with ``git rev-list HEAD -n 1 -- <folder>``. The latest commit is returned, irrespective of local not committed changes.
 
 
 get_remote_url()
@@ -56,7 +56,7 @@ commit_in_remote()
     def commit_in_remote(self, commit, remote="origin")
 
 
-Checks that the given commit exists in the remote, with ``branch -r --contains <commit>`` and checking an occurence of a branch in that remote exists.
+Checks that the given commit exists in the remote, with ``branch -r --contains <commit>`` and checking an occurrence of a branch in that remote exists.
 
 
 is_dirty()
@@ -150,8 +150,35 @@ again from sources from the same commit. This is the behavior:
 - If the repository is not dirty, and the commit exists in the specified remote, it will return that commit and the url of the
   remote. 
 
+
+included_files()
+----------------
+
+Returns the list of files not ignored by ``.gitignore``
+
+.. code-block:: python
+
+    def included_files(self):
+
+
+This method runs ``git ls-files --full-name --others --cached --exclude-standard`` and returns the result as a list.
+It can be used for implementing a controlled ``export`` of files not gitignored, something like:
+
+.. code-block:: python
+
+    def export_sources(self):
+        git = Git(self)
+        included = git.included_files()
+        for i in included:
+            dst =  os.path.join(self.export_sources_folder, i)
+            os.makedirs(os.path.dirname(dst), exist_ok=True)
+            shutil.copy2(i, dst)
+
+
 run()
 -----
+
+Available since: `1.53.0 <https://github.com/conan-io/conan/releases/tag/1.53.0>`_
 
 .. code-block:: python
     

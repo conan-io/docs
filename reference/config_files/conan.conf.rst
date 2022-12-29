@@ -35,7 +35,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # use_always_short_paths = False      # environment CONAN_USE_ALWAYS_SHORT_PATHS
     # skip_vs_projects_upgrade = False    # environment CONAN_SKIP_VS_PROJECTS_UPGRADE
     # non_interactive = False             # environment CONAN_NON_INTERACTIVE
-    # skip_broken_symlinks_check = False  # enviornment CONAN_SKIP_BROKEN_SYMLINKS_CHECK
+    # skip_broken_symlinks_check = False  # environment CONAN_SKIP_BROKEN_SYMLINKS_CHECK
     # revisions_enabled = False           # environment CONAN_REVISIONS_ENABLED
 
     # conan_make_program = make           # environment CONAN_MAKE_PROGRAM (overrides the make program used in AutoToolsBuildEnvironment.make)

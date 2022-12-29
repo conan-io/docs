@@ -3,9 +3,10 @@
 Python requires
 ===============
 
-.. warning::
+.. important::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+    This feature is still **under development**, while it is recommended and usable and we will try not to break them in future releases,
+    some breaking changes might still happen if necessary to prepare for the *Conan 2.0 release*.
 
 
 .. note::
@@ -187,9 +188,9 @@ There are a few limitations that should be taken into account:
   might be used.
 - ``short_paths`` cannot be inherited from a ``python_requires``. Make sure to specify it directly
   in the recipes that need the paths shortened in Windows.
-- ``exports``, ``exports_sources`` shouldn't be inherited from a base class, but explictly defined
+- ``exports``, ``exports_sources`` shouldn't be inherited from a base class, but explicitly defined
   directly in the recipes. A reusable alternative might be using the ``SCM`` component.
-- ``build_policy`` shouldn't be inherited from a base class, but explictly defined
+- ``build_policy`` shouldn't be inherited from a base class, but explicitly defined
   directly in the recipes.
 - Mixing Python inheritance with ``python_requires_extend`` should be avoided, because 
   the inheritance order can be different than the expected one. Multiple level ``python_requires_extend``
@@ -240,7 +241,7 @@ Note that only ``exports`` work for this case, but not ``exports_sources``.
 PackageID
 ---------
 
-The ``python-requires`` will affect the ``package_id`` of the packages using those dependencies.
+The ``python_requires`` will affect the ``package_id`` of the packages using those dependencies.
 By default, the policy is ``minor_mode``, which means:
 
 - Changes to the **patch** version of a python-require will not affect the package ID. So depending
@@ -262,7 +263,7 @@ global level, modifying the *conan.conf* ``[general]`` variable ``default_python
 
 
 For example, if you want to make the package IDs never be affected by any change in the versions of
-python-requires, you could do:
+``python_requires``, you could do:
 
 .. code-block:: text
    :caption: *conan.conf* configuration file
@@ -286,24 +287,24 @@ method:
             self.info.python_requires.patch_mode()
 
 
-Resolution of python-requires
+Resolution of python_requires
 -----------------------------
 
-There are few things that should be taken into account when using ``python-requires``:
+There are few things that should be taken into account when using ``python_requires``:
 
 - Python requires recipes are loaded by the interpreter just once, and they are common to
-  all consumers. Do not use any global state in the ``python-requires`` recipes.
+  all consumers. Do not use any global state in the ``python_requires`` recipes.
 - Python requires are private to the consumers. They are not transitive. Different consumers
   can require different versions of the same python-require.
-- ``python-requires`` can use version ranges expressions.
-- ``python-requires`` can ``python-require`` other recipes too, but this should probably be limited
+- ``python_requires`` can use version ranges expressions.
+- ``python_requires`` can ``python_requires`` other recipes too, but this should probably be limited
   to very few cases, we recommend to use the simplest possible structure.
-- ``python-requires`` can conflict if they require other recipes and create conflicts in different
+- ``python_requires`` can conflict if they require other recipes and create conflicts in different
   versions.
-- ``python-requires`` cannot use regular ``requires`` or ``tool_requires``.
-- It is possible to use ``python-requires`` without user and channel.
-- ``python-requires`` can use native python ``import`` to other python files, as long as these are
+- ``python_requires`` cannot use regular ``requires`` or ``tool_requires``.
+- It is possible to use ``python_requires`` without user and channel.
+- ``python_requires`` can use native python ``import`` to other python files, as long as these are
   exported together with the recipe.
-- ``python-requires`` should not create packages, but use ``export`` only.
-- ``python-requires`` can be used as editable packages too.
-- ``python-requires`` are locked in lockfiles.
+- ``python_requires`` should not create packages, but use ``export`` only.
+- ``python_requires`` can be used as editable packages too.
+- ``python_requires`` are locked in lockfiles.

@@ -3,8 +3,8 @@
 conan.tools.build
 =================
 
-conan.tools.build.cross_building()
-----------------------------------
+conan.tools.build.cross_building
+--------------------------------
 
 Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>`_
 
@@ -24,8 +24,8 @@ Parameters:
   for example.
 
 
-conan.tools.build.can_run()
----------------------------
+conan.tools.build.can_run
+-------------------------
 
 Available since: `1.49.0 <https://github.com/conan-io/conan/releases/tag/1.49.0>`_
 
@@ -109,8 +109,26 @@ Parameters:
 - **compiler_version**: Version of the compiler e.g: 12
 
 
-conan.tools.build.build_jobs()
-------------------------------
+conan.tools.build.stdcpp_library
+--------------------------------
+
+Available since: `1.54.0 <https://github.com/conan-io/conan/releases/tag/1.54.0>`_
+
+.. code-block:: python
+
+    def stdcpp_library(conanfile):
+
+
+Get the valid name of the C++ standard library for the linker based on the current settings and its
+``compiler.libcxx`` value. Returns ``None`` if ``compiler.libcxx`` value is unknown.
+
+Parameters:
+
+- **conanfile**: The current recipe object. Always use ``self``.
+
+
+conan.tools.build.build_jobs
+----------------------------
 
 Available since: `1.43.0 <https://github.com/conan-io/conan/releases/tag/1.43.0>`_
 
