@@ -27,7 +27,7 @@ conan list
       -c, --cache           Search in the local cache
 
 
-The ``conan list`` command is an wide-area command, and it can list recipes and packages
+The ``conan list`` command is a wide-area command, and it can list recipes and packages
 from the local cache or from any specified remotes. Depending on the patterns specified as argument and taking into
 account that a complete Conan reference looks like this ``name/version@use/channel#rrev:pkgid#prev``,
 it is possible to list:
