@@ -27,7 +27,7 @@ Here is an example of a simple hook:
                 conanfile.output.error(f"[REQUIRED ATTRIBUTES] Conanfile doesn't have '{field}'.
                                           It is recommended to add it as attribute.")
 
-This hook checks the recipe content prior to it being exported and prior to downloading the sources. Basically the
+This hook checks the recipe content prior to it being exported. Basically the
 ``pre_export()`` function checks the attributes of the ``conanfile`` object to see if there is an URL, a license and a description and if missing,
 warns the user with a message through the ``conanfile.output``. This is done **before** the recipe is exported to the local cache.
 
