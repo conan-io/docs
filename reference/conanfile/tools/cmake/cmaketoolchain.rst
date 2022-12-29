@@ -3,10 +3,11 @@
 CMakeToolchain
 --------------
 
-.. warning::
+.. important::
 
-    These tools are still **experimental** (so subject to breaking changes) but with very stable syntax.
-    We encourage their usage to be prepared for Conan 2.0.
+    Some of the features used in this section are still **under development**, while they are
+    recommended and usable and we will try not to break them in future releases, some breaking
+    changes might still happen if necessary to prepare for the *Conan 2.0 release*.
 
 Available since: `1.32.0 <https://github.com/conan-io/conan/releases/tag/1.32.0>`_
 
@@ -515,8 +516,6 @@ Blocks can be customized in different ways:
 
         tc.blocks["mynewblock"] = MyBlock
 
-
-Recall that this is a very **experimental** feature, and these interfaces might change in the following releases.
 
 For more information about these blocks, please have a look at the source code.
 

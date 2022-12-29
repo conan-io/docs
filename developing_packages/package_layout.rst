@@ -3,9 +3,14 @@
 Package layout
 ==============
 
-.. warning::
+.. important::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+    Some of the features used in this section are still **under development**, while they are
+    recommended and usable and we will try not to break them in future releases, some breaking
+    changes might still happen if necessary to prepare for the *Conan 2.0 release*.
+
+.. tip::
+
     The ``layout()`` feature will be fully functional only in the new build system integrations
     (:ref:`in the conan.tools space <conan_tools>`). If you are using other integrations, they
     might not fully support this feature.
@@ -146,7 +151,7 @@ When we call ``conan create``, this is a simplified description of what happens:
        :caption: conanfile.py
 
        import os
-       from conans import ConanFile
+       from conan import ConanFile
        from conan.tools.cmake import CMake
 
 
@@ -267,13 +272,13 @@ We are using the following **CMakeLists.txt**:
    set_target_properties(my_tool PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 
 
-Let’s see how we describe our project in the ``layout()`` method:
+Let's see how we describe our project in the ``layout()`` method:
 
 .. code-block:: python
     :caption: conanfile.py
 
     import os
-    from conans import ConanFile
+    from conan import ConanFile
     from conan.tools.cmake import CMake
 
 
@@ -408,7 +413,7 @@ completely transparent way, even locating the correct **Release**/**Debug** arti
     $ conan editable add . say/0.1
 
 .. note:: When working with editable packages, the information set in ``self.cpp.source`` and ``self.cpp.build`` will be merged with the
-          information set in ``self.cpp.package`` so that we don’t have to declare again something like ``self.cpp.build.libs = ["say"]`` that is
+          information set in ``self.cpp.package`` so that we don't have to declare again something like ``self.cpp.build.libs = ["say"]`` that is
           the same for the consumers, independently of whether the package is in editable mode or not.
 
 

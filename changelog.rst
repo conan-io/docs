@@ -18,8 +18,18 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-    Conan 1.55 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
+    Conan 1.56 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
     a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
+
+1.56.0 (21-Dec-2022)
+--------------------
+
+- Fix: Avoid extra line end while printing files with :command:`conan get`. `#12717 <https://github.com/conan-io/conan/pull/12717>`_
+- Fix: Fix new Environment `.ps1` files when spaces in path `#12653 <https://github.com/conan-io/conan/pull/12653>`_
+- Bugfix: Fix ``CMakeDeps`` when a ``tool_requires`` needs to be built from source and it has transitive dependencies that are regular ``requires``. `#12736 <https://github.com/conan-io/conan/pull/12736>`_
+- Bugfix: Fix issue in `fix_apple_shared_install_name` when libdirs or bindirs have subfolders. `#12732 <https://github.com/conan-io/conan/pull/12732>`_
+- Bugfix: Fix issue with `PkgConfigDeps` not creating `.pc` files in build context. `#12712 <https://github.com/conan-io/conan/pull/12712>`_
+- Bugfix: Fix issue with `CMakeDeps` not creating `xxx-config.cmake` files in build context. `#12675 <https://github.com/conan-io/conan/pull/12675>`_
 
 1.55.0 (30-Nov-2022)
 --------------------

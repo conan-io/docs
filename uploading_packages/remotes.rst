@@ -52,27 +52,5 @@ build service: C3I (ConanCenter Continuous Integration).
 
 To contribute packages to ConanCenter, read the :ref:`ConanCenter guide <conan_center_flow>` for more information.
 
-conan-center [deprecated]
--------------------------
-
-**conan-center** was the official repository but is **no longer a default remote** in the Conan client and **its usage is completely
-discouraged**. This documentation is kept here only for reference purposes.
-
-.. code-block:: bash
-
-    $ conan-center: https://conan.bintray.com [Verify SSL: True]
-
-It contains all the packages that were uploaded to ConanCenter before July 1st (new packages are no longer uploaded to this remote),
-as well as **legacy packages with full reference** (`zlib/1.2.11@conan/stable`). These package binaries were created by users in their own
-Bintray repositories and included in this main repository. This flow of contributing packages to ConanCenter is no longer available and
-packages are **not recommended** and should be considered as **legacy**.
-
-.. important::
-
-    This remote contains packages that are no longer maintained. We strongly encourage users to use `conancenter` and swift to the official
-    package references without **user/channel**
-    (`zlib/1.2.11@conan/stable` -> `zlib/1.2.11`).
-
-
 .. _`conancenter`: https://conan.io/center
 .. _Artifactory documentation: https://www.jfrog.com/confluence/display/JFROG/JFrog+Artifactory

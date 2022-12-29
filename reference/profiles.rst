@@ -120,7 +120,7 @@ They accept patterns too, like ``-s *@myuser/*``, which means that packages that
     compiler.version=4.9
     compiler.libcxx=libstdc++11
 
-Also, as a **experimental** feature, `&` can be specified as the package name. It will apply only to the consumer conanfile (.py or .txt).
+Also `&` can be specified as the package name. It will apply only to the consumer conanfile (.py or .txt).
 This is a special case because the consumer conanfile might not declare a `name` so it would be impossible to reference it.
 
 .. code-block:: text
@@ -219,9 +219,10 @@ variables.
 Tools configurations
 --------------------
 
-.. warning::
+.. important::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+    This feature is still **under development**, while it is recommended and usable and we will try not to break them in future releases,
+    some breaking changes might still happen if necessary to prepare for the *Conan 2.0 release*.
 
 Tools configurations can also be used in profile files and *global.conf* one. Profile values will have priority over globally defined ones in *global.conf*, and can be defined as:
 
@@ -347,10 +348,6 @@ variables will be available:
 Build profiles and host profiles
 --------------------------------
 
-.. warning::
-
-    This is an **experimental feature** subject to breaking changes in future releases.
-
 
 All the commands that take a profile as an argument, from Conan v1.24 are starting to accept two profiles with
 command line arguments ``-pr:h``/``--profile:host`` and ``-pr:b``/``--profile:build``. If both profiles are
@@ -376,9 +373,10 @@ The default host profile can be defaulted as well using this configuration metho
 Profile templates
 -----------------
 
-.. warning::
+.. important::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+    This feature is still **under development**, while it is recommended and usable and we will try not to break them in future releases,
+    some breaking changes might still happen if necessary to prepare for the *Conan 2.0 release*.
 
 
 From Conan 1.38 it is possible to use **jinja2** template engine for profiles. This feature is

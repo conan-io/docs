@@ -5,9 +5,13 @@ Python requires (legacy)
 
 .. warning::
 
-    This feature has been superseded by the new :ref:`python_requires`. Even if this is an **experimental**
-    feature subject to breaking changes in future releases, this legacy ``python_requires`` syntax has not
-    been removed yet, but it will be removed in Conan 2.0.
+    
+    This is a **deprecated** feature by the new :ref:`python_requires`. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
+    
+    The new, **under development** While they are
+    recommended and usable and we will try not to break them in future releases, some breaking
+    changes might still happen if necessary to prepare for the *Conan 2.0 release*.
 
 The ``python_requires()`` feature is a very convenient way to share files and code between
 different recipes. A *Python Requires* is just like any other recipe, it is the way it is

@@ -171,7 +171,8 @@ Compatible packages
 
 .. warning::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+    Some parts of this feature are **deprecated**. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that will carry over. The :ref:`method_compatibility` documented below is the current recommendation.
 
 The above approach defined 1 package ID for different input configurations. For example, all ``gcc`` versions
 in the range ``(v >= "4.5" and v < "5.0")`` will have exactly the same package ID, no matter what was the gcc version
@@ -244,7 +245,7 @@ Check the :ref:`Compatible Compilers<compatible_compilers>` section to see anoth
 **New conanfile.compatibility() method**
 
 The *conanfile.compatible_packages* will be substituted by the new
-:ref:`method_compatibility` experimental method in Conan 2.0. This method allows you to
+:ref:`method_compatibility` method in Conan 2.0. This method allows you to
 declare compatibility in a similar way:
 
 ..  code-block:: python
@@ -741,7 +742,7 @@ generated with the ``recipe_revision_mode`` can be resolved if no package for th
 Enabling full transitivity in package_id modes
 ++++++++++++++++++++++++++++++++++++++++++++++
 
-.. warning::
+.. attention::
 
     This will become the default behavior in the future (Conan 2.0). It is recommended to activate it when possible (it might require rebuilding some packages,
     as their package IDs will change)

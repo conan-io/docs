@@ -5,14 +5,14 @@ tools
 
 Tools are all things that can be imported and used in Conan recipes.
 
-.. warning::
-
-    These tools are **experimental** and subject to breaking changes.
-
 .. important::
 
     This is the current design for Conan 2.0, and these will be the supported tools. Only the tools documented
     in this section will be available in Conan 2.0.
+
+    Some of the features used in this section are still **under development**, while they are
+    recommended and usable and we will try not to break them in future releases, some breaking
+    changes might still happen if necessary to prepare for the *Conan 2.0 release*.
 
     Most of the utilities defined in "conan.tools" will require very soon to define both the "host" and "build" profiles.
     It is very recommended to start defining both profiles immediately to avoid future breaking.
