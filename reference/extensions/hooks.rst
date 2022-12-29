@@ -145,16 +145,6 @@ In case storing in subfolders, it works automatically too.
 
 To deactivate a hook, its file should be removed from the hook folder. There is no configuration which can deactivate but keep the file stored in hooks folder.
 
-Hooks are considered part of the Conan client configuration and can be shared as usual with the `reference_commands_config` command.
-However, they can also be managed in isolated Git repositories cloned into the *~/.conan2/extensions/hooks* folder:
-
-.. code-block:: bash
-
-    $ cd ~/.conan2/extensions/hooks
-    $ git clone https://github.com/myuser/my-conan-hooks.git my_hooks
-
-This way you can easily change from one version to another.
-
 Official Hooks
 --------------
 
