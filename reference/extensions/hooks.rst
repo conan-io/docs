@@ -37,8 +37,6 @@ warns the user with a message through the ``conanfile.output``. This is done **b
 Any kind of Python script can be executed. You can create global functions and call them from different hook functions, import from a
 relative module and warn, error or even raise to abort the Conan client execution.
 
-Other useful task where a hook may come handy are the upload and download actions. There are **pre** and **post** functions for every
-download/upload as a whole and for fine download tasks such as recipe and package downloads/uploads.
 
 Importing from a module
 -----------------------
