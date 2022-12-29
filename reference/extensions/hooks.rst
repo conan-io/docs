@@ -12,9 +12,6 @@ Hook structure
 A hook is a Python function that will be executed at certain points of Conan workflow
 to customize the client behavior without modifying the client sources or the recipe ones.
 
-Hooks can implement any functionality: it could be Conan commands, recipe interactions
-such as exporting or packaging, or interactions with the remotes.
-
 Here is an example of a simple hook:
 
 .. code-block:: python
