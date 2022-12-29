@@ -536,17 +536,13 @@ This exception will be propagated and Conan application will finish with a :ref:
 
 .. note::
 
-    For managing invalid configurations, please check the new experimental ``validate()`` method (:ref:`method_validate`).
+    For managing invalid configurations, please check the new ``validate()`` method (:ref:`method_validate`).
 
 
 .. _method_validate:
 
 validate()
 ----------
-
-.. warning::
-
-    This is an **experimental** feature subject to breaking changes in future releases.
 
 Available since: `1.32.0 <https://github.com/conan-io/conan/releases/tag/1.32.0>`_
 
@@ -1254,9 +1250,10 @@ be done.
 compatibility()
 ---------------
 
-.. warning::
+.. important::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+    This feature is still **under development**, while it is recommended and usable and we will try not to break them in future releases,
+    some breaking changes might still happen if necessary to prepare for the *Conan 2.0 release*.
 
 Available since Conan `1.47.0 <https://github.com/conan-io/conan/releases/tag/1.47.0>`_
 
@@ -1497,9 +1494,10 @@ current folder (the one containing the *conanfile.py*). The ``dst`` is relative 
 generate()
 ----------
 
-.. warning::
+.. important::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+    This feature is still **under development**, while it is recommended and usable and we will try not to break them in future releases,
+    some breaking changes might still happen if necessary to prepare for the *Conan 2.0 release*.
 
 Available since: `1.32.0 <https://github.com/conan-io/conan/releases/tag/1.32.0>`_
 
@@ -1559,9 +1557,11 @@ multiple recipes.
 layout()
 --------
 
-.. warning::
+.. important::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+    This feature is still **under development**, while it is recommended and usable and we will try not to break them in future releases,
+    some breaking changes might still happen if necessary to prepare for the *Conan 2.0 release*.
+
     The ``layout()`` feature will be fully functional only in the new build system integrations
     (:ref:`in the conan.tools space <conan_tools>`). If you are using other integrations, they
     might not fully support this feature.

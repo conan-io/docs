@@ -6,9 +6,10 @@ conan.tools.qbs
 QbsProfile
 ------------
 
-.. warning::
+.. important::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+    This feature is still **under development**, while it is recommended and usable and we will try not to break them in future releases,
+    some breaking changes might still happen if necessary to prepare for the *Conan 2.0 release*.
 
 Available since: `1.33.0 <https://github.com/conan-io/conan/releases/tag/1.33.0>`_
 
