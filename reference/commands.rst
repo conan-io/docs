@@ -46,6 +46,23 @@ and these :ref:`custom command examples <examples_extensions_custom_commands>`
    :maxdepth: 1
    :hidden:
 
+   commands/create
+   commands/export
+   commands/test
    commands/upload
 
+
+- :doc:`conan create <commands/create>`: Create a package from a recipe
+- :doc:`conan export <commands/export>`: Export a recipe to the Conan package cache
+- :doc:`conan test <commands/test>`: Test a package
 - :doc:`conan upload <commands/upload>`: Upload packages from the local cache to a specified remote
+
+
+.. toctree::
+   :caption: Development commands
+   :maxdepth: 1
+   :hidden:
+
+   commands/build
+
+- :doc:`conan build <commands/build>`: Install package and call its build method

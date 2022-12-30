@@ -1,22 +1,21 @@
-conan lock create
-=================
+conan create
+============
 
 .. code-block:: text
 
-    $ conan lock create --help
-    usage: conan lock create [-h] [-v [V]] [--logger] [--name NAME] [--version VERSION]
-                             [--user USER] [--channel CHANNEL] [--requires REQUIRES]
-                             [--tool-requires TOOL_REQUIRES] [-b BUILD] [-r REMOTE | -nr]
-                             [-u] [-o OPTIONS_HOST] [-o:b OPTIONS_BUILD]
-                             [-o:h OPTIONS_HOST] [-pr PROFILE_HOST] [-pr:b PROFILE_BUILD]
-                             [-pr:h PROFILE_HOST] [-s SETTINGS_HOST] [-s:b SETTINGS_BUILD]
-                             [-s:h SETTINGS_HOST] [-c CONF_HOST] [-c:b CONF_BUILD]
-                             [-c:h CONF_HOST] [-l LOCKFILE] [--lockfile-partial]
-                             [--lockfile-out LOCKFILE_OUT] [--lockfile-packages]
-                             [--lockfile-clean]
-                             [path]
+    $ conan build --help
+    usage: conan build [-h] [-v [V]] [--logger] [--name NAME] [--version VERSION]
+                       [--user USER] [--channel CHANNEL] [-of OUTPUT_FOLDER] [-b BUILD]
+                       [-r REMOTE | -nr] [-u] [-o OPTIONS_HOST] [-o:b OPTIONS_BUILD]
+                       [-o:h OPTIONS_HOST] [-pr PROFILE_HOST] [-pr:b PROFILE_BUILD]
+                       [-pr:h PROFILE_HOST] [-s SETTINGS_HOST] [-s:b SETTINGS_BUILD]
+                       [-s:h SETTINGS_HOST] [-c CONF_HOST] [-c:b CONF_BUILD]
+                       [-c:h CONF_HOST] [-l LOCKFILE] [--lockfile-partial]
+                       [--lockfile-out LOCKFILE_OUT] [--lockfile-packages]
+                       [--lockfile-clean]
+                       [path]
 
-    Create a lockfile from a conanfile or a reference
+    Install + calls the build() method
 
     positional arguments:
       path                  Path to a folder containing a recipe (conanfile.py or
@@ -33,9 +32,8 @@ conan lock create
       --version VERSION     Provide a package version if not specified in conanfile
       --user USER           Provide a user if not specified in conanfile
       --channel CHANNEL     Provide a channel if not specified in conanfil
-      --requires REQUIRES   Directly provide requires instead of a conanfile
-      --tool-requires TOOL_REQUIRES
-                            Directly provide tool-requires instead of a conanfile
+      -of OUTPUT_FOLDER, --output-folder OUTPUT_FOLDER
+                            The root output folder for generated and build files
       -b BUILD, --build BUILD
                             Optional, specify which packages to build from source.
                             Combining multiple '--build' options on one command line is
@@ -111,4 +109,5 @@ conan lock create
       --lockfile-packages   Lock package-id and package-revision information
       --lockfile-clean      remove unused
 
-The ``conan lock create`` command creates a lockfile for the recipe or reference specified in ``path``.
+
+The ``conan create`` command creates a package from the recipe specified in ``path``.
