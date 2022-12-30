@@ -53,7 +53,7 @@ and these :ref:`custom command examples <examples_extensions_custom_commands>`
 
 
 - :doc:`conan create <commands/create>`: Create a package from a recipe
-- :doc:`conan export <commands/create>`: Export a recipe to the Conan package cache
+- :doc:`conan export <commands/export>`: Export a recipe to the Conan package cache
 - :doc:`conan test <commands/test>`: Test a package
 - :doc:`conan upload <commands/upload>`: Upload packages from the local cache to a specified remote
 
