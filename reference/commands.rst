@@ -46,6 +46,8 @@ and these :ref:`custom command examples <examples_extensions_custom_commands>`
    :maxdepth: 1
    :hidden:
 
+   commands/new
    commands/upload
 
+- :doc:`conan new <commands/new>`: Create a new recipe from a predefined template
 - :doc:`conan upload <commands/upload>`: Upload packages from the local cache to a specified remote
