@@ -31,13 +31,16 @@ It will generate automatically a ``my_env_file.bat`` for Windows systems or ``my
 In Windows, it is possible to opt-in to generate Powershell ``.ps1`` scripts instead of ``.bat`` ones, using the
 conf ``tools.env.virtualenv:powershell=True``.
 
+It's also possible to generate Fish-compatible ``.fish`` scripts instead of ``.sh`` ones, using the
+conf ``tools.env.virtualenv:fish=True``.
+
 Also, by default, Conan will automatically append that launcher file path to a list that will be used to
-create a ``conanbuild.bat|sh|ps1`` file aggregating all the launchers in order. The ``conanbuild.sh|bat|ps1`` launcher
-will be created after the execution of the ``generate()`` method.
+create a ``conanbuild.bat|sh|ps1|fish`` file aggregating all the launchers in order. The ``conanbuild.sh|bat|ps1|fish``
+launcher will be created after the execution of the ``generate()`` method.
 
 The ``scope`` argument (``"build"`` by default) can be used to define different scope of environment files, to
 aggregate them separately. For example, using a ``scope="run"``, like the ``VirtualRunEnv`` generator does, will
-aggregate and create a ``conanrun.bat|sh|ps1`` script:
+aggregate and create a ``conanrun.bat|sh|ps1|fish`` script:
 
 .. code:: python
 
@@ -45,17 +48,17 @@ aggregate and create a ``conanrun.bat|sh|ps1`` script:
         env1 = Environment(self)
         env1.define("foo", "var")
         envvars = env1.vars(self, scope="run")
-        # Will append "my_env_file" to "conanrun.bat|sh|ps1"
+        # Will append "my_env_file" to "conanrun.bat|sh|ps1|fish"
         envvars.save_script("my_env_file")
 
 
-You can also use ``scope=None`` argument to avoid appending the script to the aggregated ``conanbuild.bat|sh|ps1``:
+You can also use ``scope=None`` argument to avoid appending the script to the aggregated ``conanbuild.bat|sh|ps1|fish``:
 
 .. code:: python
 
     env1 = Environment(self)
     env1.define("foo", "var")
-    # Will not append "my_env_file" to "conanbuild.bat|sh|ps1"
+    # Will not append "my_env_file" to "conanbuild.bat|sh|ps1|fish"
     envvars = env1.vars(self, scope=None)
     envvars.save_script("my_env_file")
 
@@ -63,7 +66,7 @@ You can also use ``scope=None`` argument to avoid appending the script to the ag
 Running with environment files
 ++++++++++++++++++++++++++++++
 
-The ``conanbuild.bat|sh|ps1`` launcher will be executed by default before calling every ``self.run()`` command. This
+The ``conanbuild.bat|sh|ps1|fish`` launcher will be executed by default before calling every ``self.run()`` command. This
 would be typically done in the ``build()`` method.
 
 You can change the default launcher with the ``env`` argument of ``self.run()``:
@@ -76,6 +79,7 @@ You can change the default launcher with the ``env`` argument of ``self.run()``:
         # source my_env_file.sh && foo
         # my_env_file.bat && foo
         # powershell my_env_file.ps1 ; cmd c/ foo
+        # source my_env_file.fish && foo
         self.run("foo", env=["my_env_file"])
 
 

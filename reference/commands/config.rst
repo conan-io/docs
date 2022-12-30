@@ -217,6 +217,7 @@ Displays all the Conan built-in configurations. There are 2 groups:
     tools.cmake.cmaketoolchain:toolset_arch: Toolset architecture to be used as part of CMAKE_GENERATOR_TOOLSET in CMakeToolchain
     tools.cmake.cmaketoolchain:user_toolchain: Inject existing user toolchains at the beginning of conan_toolchain.cmake
     tools.env.virtualenv:powershell: If it is set to True it will generate powershell launchers if os=Windows
+    tools.env.virtualenv:fish: If True, generate Fish-compatible launchers
     tools.files.download:download_cache: Define the cache folder to store downloads from files.download()/get()
     tools.files.download:retry: Number of retries in case of failure when downloading
     tools.files.download:retry_wait: Seconds to wait between download attempts
