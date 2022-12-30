@@ -159,8 +159,9 @@ generators.
 4. ``requirements()``
 5. ``package_id()``
 6. ``validate()``
-7. ``package_info()``
-8. ``deploy()``
+7. ``validate_build()``
+8. ``package_info()``
+9. ``deploy()``
 
 Note this describes the process of installing a pre-built binary package. If the package has to be built, :command:`conan install --build`
 executes the following:
