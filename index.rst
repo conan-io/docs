@@ -6,7 +6,7 @@ Welcome to Conan C/C++ Package Manager Documentation
 Conan is universal and portable. It works in all operating systems including Windows, Linux, OSX, FreeBSD, Solaris,
 and others, and it can target any platform, including desktop, server, and cross-building for embedded and bare metal devices.
 It integrates with other tools like Docker, MinGW, WSL, and with all build systems such as CMake, MSBuild,
-Makefiles, Meson, SCons. It can even integrate with any proprietary build systems.
+Makefiles, Meson, SCons. It can even integrate with proprietary build systems.
 
 Conan is completely `free and open source <https://github.com/conan-io/conan>`_ and fully
 decentralized. It has native integration with JFrog Artifactory, including the free
@@ -21,7 +21,7 @@ upload and download binaries with the same commands and flows on every platform,
 in development and continuous integration. The binary compatibility can even be configured and customized on a per-package basis.
 
 Conan has  a very large and active community, especially in `Github repositories <https://github.com/conan-io/conan>`_
-and `Slack #conan channel <https://cppalliance.org/slack/>`_. This community also creates and maintains
+and the `Slack #conan channel <https://cppalliance.org/slack/>`_. This community also creates and maintains
 packages in ConanCenter. Conan is used in production by thousands of companies, and consequently, it has a
 commitment to stability, with no breaking changes across all Conan 1.X versions.
 
