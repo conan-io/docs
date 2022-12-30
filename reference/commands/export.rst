@@ -4,7 +4,11 @@ conan export
 .. code-block:: text
 
     $ conan export --help
-    usage: conan export [-h] [-f FORMAT] [-v [V]] [--logger] [--name NAME] [--version VERSION] [--user USER] [--channel CHANNEL] [-r REMOTE | -nr] [-l LOCKFILE] [--lockfile-out LOCKFILE_OUT] [--lockfile-partial] [--build-require] path
+    usage: conan export [-h] [-f FORMAT] [-v [V]] [--logger] [--name NAME]
+                        [--version VERSION] [--user USER] [--channel CHANNEL]
+                        [-r REMOTE | -nr] [-l LOCKFILE] [--lockfile-out LOCKFILE_OUT]
+                        [--lockfile-partial] [--build-require]
+                        path
 
     Export recipe to the Conan package cache
 
@@ -15,7 +19,9 @@ conan export
       -h, --help            show this help message and exit
       -f FORMAT, --format FORMAT
                             Select the output format: json
-      -v [V]                Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning, -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
+      -v [V]                Level of detail of the output. Valid options from less verbose
+                            to more verbose: -vquiet, -verror, -vwarning, -vnotice,
+                            -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
       --logger              Show the output with log format, with time, type and message.
       --name NAME           Provide a package name if not specified in conanfile
       --version VERSION     Provide a package version if not specified in conanfile
@@ -28,7 +34,8 @@ conan export
                             Path to a lockfile.
       --lockfile-out LOCKFILE_OUT
                             Filename of the updated lockfile
-      --lockfile-partial    Do not raise an error if some dependency is not found in lockfile
+      --lockfile-partial    Do not raise an error if some dependency is not found in
+                            lockfile
       --build-require       The provided reference is a build-require
 
 
