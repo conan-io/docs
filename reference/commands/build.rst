@@ -69,4 +69,4 @@ conan build
       --lockfile-clean      remove unused
 
 
-The ``conan build`` command installs the recipe specified in ``path`` and calls its ``build`` method
+The ``conan build`` command installs the recipe specified in ``path`` and calls its ``build`` method.
