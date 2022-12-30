@@ -4,9 +4,17 @@ conan graph info
 .. code-block:: text
         
     $ conan graph info --help
-    usage: conan graph info [-h] [-f FORMAT] [-v [V]] [--logger] [--name NAME] [--version VERSION] [--user USER] [--channel CHANNEL] [--requires REQUIRES] [--tool-requires TOOL_REQUIRES] [-b BUILD] [-r REMOTE | -nr] [-u] [-o OPTIONS_HOST] [-o:b OPTIONS_BUILD]
-                            [-o:h OPTIONS_HOST] [-pr PROFILE_HOST] [-pr:b PROFILE_BUILD] [-pr:h PROFILE_HOST] [-s SETTINGS_HOST] [-s:b SETTINGS_BUILD] [-s:h SETTINGS_HOST] [-c CONF_HOST] [-c:b CONF_BUILD] [-c:h CONF_HOST] [-l LOCKFILE] [--lockfile-partial]
-                            [--lockfile-out LOCKFILE_OUT] [--lockfile-packages] [--lockfile-clean] [--check-updates] [--filter FILTER] [--package-filter PACKAGE_FILTER] [--deploy DEPLOY]
+    usage: conan graph info [-h] [-f FORMAT] [-v [V]] [--logger] [--name NAME] [--version VERSION]
+                            [--user USER] [--channel CHANNEL] [--requires REQUIRES]
+                            [--tool-requires TOOL_REQUIRES] [-b BUILD] [-r REMOTE | -nr] [-u]
+                            [-o OPTIONS_HOST] [-o:b OPTIONS_BUILD] [-o:h OPTIONS_HOST]
+                            [-pr PROFILE_HOST] [-pr:b PROFILE_BUILD] [-pr:h PROFILE_HOST]
+                            [-s SETTINGS_HOST] [-s:b SETTINGS_BUILD] [-s:h SETTINGS_HOST]
+                            [-c CONF_HOST] [-c:b CONF_BUILD] [-c:h CONF_HOST]
+                            [-l LOCKFILE] [--lockfile-partial] [--lockfile-out LOCKFILE_OUT]
+                            [--lockfile-packages] [--lockfile-clean]
+                            [--check-updates] [--filter FILTER] [--package-filter PACKAGE_FILTER]
+                            [--deploy DEPLOY]
                             [path]
 
     Computes the dependency graph and shows information about it
@@ -28,16 +36,29 @@ conan graph info
       --tool-requires TOOL_REQUIRES
                             Directly provide tool-requires instead of a conanfile
       -b BUILD, --build BUILD
-                            Optional, specify which packages to build from source. Combining multiple '--build' options on one command line is allowed. For dependencies, the optional 'build_policy' attribute in their conanfile.py takes precedence over the command line
-                            parameter. Possible parameters: --build="*" Force build for all packages, do not use binary packages. --build=never Disallow build for all packages, use binary packages or fail if a binary package is not found. Cannot be combined with other '--
-                            build' options. --build=missing Build packages from source whose binary package is not found. --build=cascade Build packages from source that have at least one dependency being built from source. --build=[pattern] Build packages from source whose
-                            package reference matches the pattern. The pattern uses 'fnmatch' style wildcards. --build=![pattern] Excluded packages, which will not be built from the source, whose package reference matches the pattern. The pattern uses 'fnmatch' style
-                            wildcards. Default behavior: If you omit the '--build' option, the 'build_policy' attribute in conanfile.py will be used if it exists, otherwise the behavior is like '--build=never'.
+                            Optional, specify which packages to build from source.
+                            Combining multiple '--build' options on one command line is allowed.
+                            For dependencies, the optional 'build_policy' attribute in their conanfile.py
+                            takes precedence over the command line parameter.
+                            Possible parameters: --build="*" Force build for all packages, do not use binary packages.
+                            --build=never Disallow build for all packages, use binary packages
+                            or fail if a binary package is not found. Cannot be combined with other '--build' options.
+                            --build=missing Build packages from source whose binary package is not found.
+                            --build=cascade Build packages from source that have at least one dependency being built from source.
+                            --build=[pattern] Build packages from source whose package reference matches the pattern.
+                            The pattern uses 'fnmatch' style wildcards.
+                            --build=![pattern] Excluded packages, which will not be built from the source,
+                            whose package reference matches the pattern.
+                            The pattern uses 'fnmatch' style wildcards.
+                            Default behavior: If you omit the '--build' option, the 'build_policy' attribute
+                            in conanfile.py will be used if it exists, otherwise the behavior is like '--build=never'.
       -r REMOTE, --remote REMOTE
                             Look in the specified remote or remotes server
       -nr, --no-remote      Do not use remote, resolve exclusively in the cache
-      -u, --update          Will check the remote and in case a newer version and/or revision of the dependencies exists there, it will install those in the local cache. When using version ranges, it will install the latest version that satisfies the range. Also, if using
-                            revisions, it will update to the latest revision for the resolved version range.
+      -u, --update          Will check the remote and in case a newer version and/or revision
+                            of the dependencies exists there, it will install those in the local cache.
+                            When using version ranges, it will install the latest version that satisfies the range.
+                            Also, if using revisions, it will update to the latest revision for the resolved version range.
       -o OPTIONS_HOST, --options OPTIONS_HOST
                             Define options values (host machine), e.g.: -o Pkg:with_qt=true
       -o:b OPTIONS_BUILD, --options:build OPTIONS_BUILD
