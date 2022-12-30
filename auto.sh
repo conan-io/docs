@@ -1,1 +1,5 @@
-while true; do make html; sleep 2; done
+watchmedo shell-command \
+    --patterns="*.rst" \
+    --recursive \
+    --command='echo Rebuilding && make html' \
+    .
