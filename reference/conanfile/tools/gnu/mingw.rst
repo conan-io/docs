@@ -3,7 +3,7 @@
 conan.tools.gnu.is_mingw()
 --------------------------
 
-Available since: `1.56.0 <https://github.com/conan-io/conan/releases/tag/1.56.0>`_
+Available since: `1.57.0 <https://github.com/conan-io/conan/releases/tag/1.57.0>`_
 
 .. code-block:: python
 
