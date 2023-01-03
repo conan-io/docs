@@ -14,18 +14,24 @@ conan new
     Create a new recipe (with conanfile.py and other files) from either a predefined or a user-defined template
 
     positional arguments:
-      template              Template name, either a predefined built-in or a user-provided one.
-                            Available built-in templates:
-                            basic, alias, cmake_lib, cmake_exe, meson_lib, meson_exe,
-                            msbuild_lib, msbuild_exe, bazel_lib, bazel_exe, autotools_lib, autotools_exe.
-                            E.g. 'conan new cmake_lib -d name=hello -d version=0.1'.
-                            You can define your own templates too by referencing an absolute path to your template,
-                            or a path relative to your conan home folder.
+      template              Template name, either a predefined built-in or a user-
+                            provided one. Available built-in templates: basic,
+                            cmake_lib, cmake_exe, meson_lib, meson_exe,
+                            msbuild_lib, msbuild_exe, bazel_lib, bazel_exe,
+                            autotools_lib, autotools_exe. E.g. 'conan new
+                            cmake_lib -d name=hello -d version=0.1'. You can
+                            define your own templates too by inputting an absolute
+                            path as your template, or a path relative to your
+                            conan home folder.
 
     optional arguments:
       -h, --help            show this help message and exit
-      -v [V]                Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning, -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
-      --logger              Show the output with log format, with time, type and message.
+      -v [V]                Level of detail of the output. Valid options from less
+                            verbose to more verbose: -vquiet, -verror, -vwarning,
+                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
+                            -vvv or -vtrace
+      --logger              Show the output with log format, with time, type and
+                            message.
       -d DEFINE, --define DEFINE
                             Define a template argument as key=value
       -f, --force           Overwrite file if it already exists
@@ -39,16 +45,16 @@ Each template has some required and some [optional] user-defined variables used 
 
  * ``basic``: [name], [version], [description], [require, require...]
  * ``alias``: name, [version], target
- * ``cmake_lib``: name, version
- * ``cmake_exe``: name, version
- * ``autotools_lib``: name, version
- * ``autotools_exe``: name, version
- * ``bazel_lib``: name, version
- * ``bazel_exe``: name, version
- * ``meson_lib``: name, version
- * ``meson_exe``: name, version
- * ``msbuild_lib``: name, version
- * ``msbuild_exe``: name, version
+ * ``cmake_lib``: name, version, [require, require...]
+ * ``cmake_exe``: name, version, [require, require...]
+ * ``autotools_lib``: name, version, [require, require...]
+ * ``autotools_exe``: name, version, [require, require...]
+ * ``bazel_lib``: name, version, [require, require...]
+ * ``bazel_exe``: name, version, [require, require...]
+ * ``meson_lib``: name, version, [require, require...]
+ * ``meson_exe``: name, version, [require, require...]
+ * ``msbuild_lib``: name, version, [require, require...]
+ * ``msbuild_exe``: name, version, [require, require...]
 
 
 Examples
