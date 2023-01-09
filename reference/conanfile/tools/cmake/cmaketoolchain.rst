@@ -325,7 +325,7 @@ If you are using a single-configuration generator:
 
 It is recommended to use the ``cmake_layout(self)`` in the ``layout()`` method of your ``conanfile.py``. If a layout
 is declared, the ``CMakeUserPresets.json`` file will be generated in the same folder of your ``CMakeLists.txt`` file,
-so you can use the ``--preset`` argument from ``cmake >= 3.23`` or use an IDE:
+so you can use the ``--preset`` argument for configuring, building, and testing from ``cmake >= 3.23`` or use an IDE:
 
 
 .. code:: bash
@@ -337,13 +337,20 @@ so you can use the ``--preset`` argument from ``cmake >= 3.23`` or use an IDE:
     # For single-configuration generator
     $ cmake --preset debug
     $ cmake --build --preset debug
+    $ ctest --preset debug
+
     $ cmake --preset release
     $ cmake --build --preset release
+    $ ctest --preset release
 
     # For multi-configuration generator
     $ cmake --preset default
+
     $ cmake --build --preset debug
+    $ ctest --preset debug
+
     $ cmake --build --preset release
+    $ ctest --preset release
 
 
 conf
