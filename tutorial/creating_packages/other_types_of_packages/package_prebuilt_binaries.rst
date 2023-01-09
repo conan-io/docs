@@ -63,7 +63,7 @@ Now, for every different configuration (different compilers, architectures, buil
 
        $ mkdir -p build/Release
        $ cd build/Release
-       $ cmake ../.. -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=../generators/conan_toolchain.cmake
+       $ cmake ../.. -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=../Release/generators/conan_toolchain.cmake
        $ cmake --build .
 
 
@@ -85,6 +85,7 @@ Now, for every different configuration (different compilers, architectures, buil
 
    .. code-block:: bash
 
+       $ cd ../..
        $ conan export-pkg . -s build_type=Release
        ...
        hello/0.1: Calling package()
