@@ -177,17 +177,17 @@ dependency built for *armv7hf* architecture and a **cmake/3.19.8** version that 
     $ conan install . --build missing -pr:b=default -pr:h=./profiles/raspberry
 
 Then, let's call CMake to build the application. As we did in the previous example we have
-to activate the **build environment** running ``source generators/conanbuild.sh``. That will
+to activate the **build environment** running ``source Release/generators/conanbuild.sh``. That will
 set the environment variables needed to locate the cross-build toolchain and build the
 application.
 
 .. code-block:: bash
 
     $ cd build
-    $ source generators/conanbuild.sh
+    $ source Release/generators/conanbuild.sh
     Capturing current environment in deactivate_conanbuildenv-release-armv7hf.sh
     Configuring environment variables    
-    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
+    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=Release/generators/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
     $ cmake --build .
     ...
     -- Conan toolchain: C++ Standard 14 with extensions ON
@@ -198,7 +198,7 @@ application.
     -- Detecting C compile features
     -- Detecting C compile features - done    [100%] Built target compressor
     ...
-    $ source generators/deactivate_conanbuild.sh
+    $ source Release/generators/deactivate_conanbuild.sh
 
 You could check that we built the application for the correct architecture by running the
 ``file`` Linux utility:
