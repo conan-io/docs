@@ -39,22 +39,88 @@ conan new
 
 The ``conan new`` command creates a new recipe in the current working directory,
 plus extra example files such as *CMakeLists.txt* or the *test_package* folder (as necessary),
-to be used as a basis for your own project.
+to either be used as a basis for your own project or aiding in the debugging process.
 
-Each template has some required and some [optional] user-defined variables used to customize the resulting files. These are:
+Note that each template has some required and some [optional] user-defined variables used to customize the resulting files.
 
- * ``basic``: [name], [version], [description], [require, require...]
- * ``alias``: name, [version], target
- * ``cmake_lib``: name, version, [require, require...]
- * ``cmake_exe``: name, version, [require, require...]
- * ``autotools_lib``: name, version, [require, require...]
- * ``autotools_exe``: name, version, [require, require...]
- * ``bazel_lib``: name, version, [require, require...]
- * ``bazel_exe``: name, version, [require, require...]
- * ``meson_lib``: name, version, [require, require...]
- * ``meson_exe``: name, version, [require, require...]
- * ``msbuild_lib``: name, version, [require, require...]
- * ``msbuild_exe``: name, version, [require, require...]
+The available templates are:
+
+- **basic**:
+  Creates a simple recipe with some example code and helpful comments,
+  and is a good starting point to avoid writing boilerplate code.
+
+  Its variables are: [name], [version], [description], [require, require...]
+
+- **alias**:
+  Creates the minimal recipe needed to define an alias to a target recipe
+
+  Its variables are: name, [version], target
+
+- **cmake_lib**:
+  Creates a cmake library target that defines a function called ``name``,
+  which will print some information about the compilation environment to stdout.
+  You can add requirements to this template in the form of
+
+  ``conan new cmake_lib -d name=ai -d version=1.0 -d requires=math/3.14 -d requires=magic/0.0``
+
+  This will add requirements for both ``math/3.14`` and ``magic/0.0`` to the `requirements()` method,
+  will add the necessary ``find_package``s in CMake, and add a call to ``math()`` and ``magic()``
+  inside the generated ``ai()`` function.
+
+  Its variables are: name, version, [require, require...]
+
+- **cmake_exe**:
+  Creates a cmake executable target that defines a function called ``name``,
+  which will print some information about the compilation environment to stdout.
+  You can add requirements to this template in the form of
+
+  ``conan new cmake_exe -d name=game -d version=1.0 -d requires=math/3.14 -d requires=ai/1.0``
+
+  This will add requirements for both ``math/3.14`` and ``ai/1.0`` to the `requirements()` method,
+  will add the necessary ``find_package``s in CMake, and add a call to ``math()`` and ``ai()``
+  inside the generated ``game()`` function.
+
+  Its variables are: name, version, [require, require...]
+
+- **autotools_lib**:
+  Creates an Autotools library.
+
+  Its variables are: name, version
+
+- **autotools_exe**:
+  Creates an Autotools executable
+
+  Its variables are: name, version
+
+- **bazel_lib**:
+  Creates a Bazel library.
+
+  Its variables are: name, version
+
+- **bazel_exe**:
+  Creates a Bazel executable
+
+  Its variables are: name, version
+
+- **meson_lib**:
+  Creates a Meson library.
+
+  Its variables are: name, version
+
+- **meson_exe**:
+  Creates a Meson executable
+
+  Its variables are: name, version
+
+- **msbuild_lib**:
+  Creates a MSBuild library.
+
+  Its variables are: name, version
+
+- **msbuild_exe**:
+  Creates a MSBuild executable
+
+  Its variables are: name, version
 
 
 Examples
@@ -74,5 +140,18 @@ Generates a basic *conanfile.py* that does not implement any custom functionalit
 Generates a *conanfile.py* for ``mygame`` that depends on the packages ``math/1.0`` and ``ai/1.3``
 
 
+.. code-block:: bash
+
+    $ conan new cmake_exe -d name=game -d version=1.0 -d requires=math/3.14 -d requires=ai/1.0
+
+Generates the necessary files for a CMake executable target.
+This will add requirements for both ``math/3.14`` and ``ai/1.0`` to the `requirements()` method,
+will add the necessary ``find_package`` in CMake, and add a call to ``math()`` and ``ai()``
+inside the generated ``game()`` function.
 
 
+Custom templates
+----------------
+
+There's also the possibility to create your own templates by passing a path to your template file,
+both as an absolute path, or relative to your Conan home folder.
