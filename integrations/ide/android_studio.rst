@@ -86,30 +86,25 @@ that will call :command:`conan install` to install the requirements:
 
 - After the android block:
 
-.. code-block:: text
+.. code-block:: groovy
 
-    task conanInstall {
-        def buildDir = new File("app/conan_build")
-        buildDir.mkdirs()
-        // if you have problems running the command try to specify the absolute
-        // path to conan (Known problem in MacOSX) /usr/local/bin/conan
-        def cmmd = "conan install ../conanfile.txt --profile android_21_arm_clang --build missing "
-        print(">> ${cmmd} \n")
+   task conanInstall(type: Exec) {
+       executable "conan" // on MacOSX may need to specify the absolute path, i.e. `/usr/local/bin/conan`
+       args = ["install", "conanfile.txt",
+               "--profile=android_21_arm_clang",
+               "--install-folder=${new File("conan_build").tap { mkdirs() }}",
+               "--build=missing"]
+       standardInput = System.in
+   }
 
-        def sout = new StringBuilder(), serr = new StringBuilder()
-        def proc = cmmd.execute(null, buildDir)
-        proc.consumeProcessOutput(sout, serr)
-        proc.waitFor()
-        println "$sout $serr"
-        if(proc.exitValue() != 0){
-            throw new Exception("out> $sout err> $serr" + "\nCommand: ${cmmd}")
-        }
-    }
+9. Make your Android build depend on the NDK build, so Conan install is called each time you're building the Android app. In the same *.gradle* file:
 
+.. code-block:: groovy
 
+   preBuild.dependsOn conanInstall
 
+10. Finally open the default example cpp library in ``app/src/main/cpp/native-lib.cpp`` and include some lines using your library.
 
-9. Finally open the default example cpp library in ``app/src/main/cpp/native-lib.cpp`` and include some lines using your library.
    Be careful with the JNICALL name if you used another app name in the wizard:
 
 

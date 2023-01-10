@@ -644,8 +644,8 @@ Available since: `1.51.0 <https://github.com/conan-io/conan/releases/tag/1.51.0>
 The ``validate_build()`` method is used to verify if a configuration is valid for building a package. It is different
 from the ``validate()`` method that checks if the binary package is "impossible" or invalid for a given configuration.
 
-In Conan 2.0, the ``validate()`` method should do the checks of the settings and options using the ``self.info.settings``
-and ``self.info.options``.
+In Conan 2.0, the ``validate()`` method should do the checks of the settings and options using the ``self.settings``
+and ``self.options``.
 
 The ``validate_build()`` method has to use always the ``self.settings`` and ``self.options``:
 
