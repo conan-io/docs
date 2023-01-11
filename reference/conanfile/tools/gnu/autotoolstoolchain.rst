@@ -248,8 +248,8 @@ Where ``updated_flags`` is a dict-like Python object defining all the flags to c
 
 * Key-value are the flags names and their values, e.g., ``{"--enable-tools": no}`` will be translated as ``--enable-tools=no``.
 * If that key has no value, then it will be an empty string, e.g., ``{"--disable-verbose": ""}`` will be translated as ``--disable-verbose``.
-* If the key value is ``None``, it means that you want to remove that flag from the ``xxxxxx_args``, e.g., ``{"--force": None}`` will remove that flag from
-  the final result.
+* If the key value is ``None``, it means that you want to remove that flag from the ``xxxxxx_args`` (notice that it could
+be ``configure_args``, ``make_args`` or ``autoreconf_args``), e.g., ``{"--force": None}`` will remove that flag from the final result.
 
 In a nutshell:
 
