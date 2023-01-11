@@ -251,11 +251,11 @@ Where ``updated_flags`` is a dict-like Python object defining all the flags to c
 * If the key value is ``None``, it means that you want to remove that flag from the ``xxxxxx_args`` (notice that it could
 be ``configure_args``, ``make_args`` or ``autoreconf_args``), e.g., ``{"--force": None}`` will remove that flag from the final result.
 
-In a nutshell:
+In a nutshell, you will:
 
-* **ADD**: if given flag does not exist in ``xxxxxx_args``.
-* **UPDATE**: if given flag exists in ``xxxxxx_args``.
-* **REMOVE**: if given flag exists in ``xxxxxx_args`` and it has ``None`` as value.
+* **ADD**: if given flag in ``updated_flags`` does not already exist in ``xxxxxx_args``.
+* **UPDATE**: if given flag in ``updated_flags`` already exists in attribute ``xxxxxx_args``.
+* **REMOVE**: if given flag in ``updated_flags`` already exists in ``xxxxxx_args`` and it's passed with ``None`` as value.
 
 For instance:
 
