@@ -21,6 +21,27 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.56 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
     a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.57.0 (11-Jan-2023)
+--------------------
+
+- Feature: AutotoolsToolchain helper functions: `update_configure_args`, `update_make_args`, and `update_autoreconf_args` can also add new values `#12889 <https://github.com/conan-io/conan/pull/12889>`_ . Docs `here <https://github.com/conan-io/docs/pull/2895>`__
+- Feature: Add `unix_path_package_info_legacy` function for those cases in which it is used in `package_info` in recipes that require compatibility with Conan 1.x. In Conan 2, path conversions should not be performed in the `package_info` method. `#12887 <https://github.com/conan-io/conan/pull/12887>`_ . Docs `here <https://github.com/conan-io/docs/pull/2894>`__
+- Feature: Added to AutotoolsToolchain helper functions: `update_configure_args`, `update_make_args`, and `update_autoreconf_args` to update/prune flags effortlessly. `#12884 <https://github.com/conan-io/conan/pull/12884>`_ . Docs `here <https://github.com/conan-io/docs/pull/2895>`__
+- Feature: Allow skip the generation of conanvcvars.bat with empty ``tools.microsoft.msbuild:installation_path`` `#12882 <https://github.com/conan-io/conan/pull/12882>`_ . Docs `here <https://github.com/conan-io/docs/pull/2892>`__
+- Feature: Adds new `raise_invalid` argument for `check_min_vs` to avoid raising if the check fails. `#12880 <https://github.com/conan-io/conan/pull/12880>`_ . Docs `here <https://github.com/conan-io/docs/pull/2890>`__
+- Feature: Adds a conf variable for supplying linker scripts to the linker using the `-T` flag. `#12854 <https://github.com/conan-io/conan/pull/12854>`_ . Docs `here <https://github.com/conan-io/docs/pull/2887>`__
+- Feature: CMakeToolchain also write CMake Test Presets. `#12846 <https://github.com/conan-io/conan/pull/12846>`_ . Docs `here <https://github.com/conan-io/docs/pull/2889>`__
+- Feature: Add the ability to provide a `--component` argument with the `cmake.install` function. `#12762 <https://github.com/conan-io/conan/pull/12762>`_ . Docs `here <https://github.com/conan-io/docs/pull/2893>`__
+- Fix: `AutotoolsToolchain.configure_args` are adequately initialized. `#12884 <https://github.com/conan-io/conan/pull/12884>`_ . Docs `here <https://github.com/conan-io/docs/pull/2895>`__
+- Fix: Deprecate ``c++2a`` for gcc 12, replace with ``c++20``. `#12796 <https://github.com/conan-io/conan/pull/12796>`_
+- Bugfix: `AutotoolsToolchain.configure_args` was overwriting Conan's pre-calculated arguments. `#12884 <https://github.com/conan-io/conan/pull/12884>`_ . Docs `here <https://github.com/conan-io/docs/pull/2895>`__
+- Bugfix: Fix ``remove_broken_symlinks`` failing at relative paths symlinks. `#12876 <https://github.com/conan-io/conan/pull/12876>`_
+- Bugfix: Fix KeyError 'buildPresets', the field is optional according to the specification. `#12874 <https://github.com/conan-io/conan/pull/12874>`_
+- Bugfix: Fix bug to pass a valid GNU triplet when using AutotoolsToolchain and cross-building on Windows. `#12870 <https://github.com/conan-io/conan/pull/12870>`_
+- Bugfix: Fix XcodeDeps in "editable" mode root package_folder=None. `#12841 <https://github.com/conan-io/conan/pull/12841>`_
+- Bugfix: Make ``cmake_layout`` to use single-config folder for generated files. `#12829 <https://github.com/conan-io/conan/pull/12829>`_ . Docs `here <https://github.com/conan-io/docs/pull/2891>`__
+- Bugfix: Allow ``compatibility()`` for lockfiles. `#12778 <https://github.com/conan-io/conan/pull/12778>`_
+
 1.56.0 (21-Dec-2022)
 --------------------
 
