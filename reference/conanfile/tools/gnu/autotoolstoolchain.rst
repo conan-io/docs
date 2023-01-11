@@ -240,16 +240,15 @@ Customizing the xxxxxx_args attributes
 ``AutotoolsToolchain`` provides some methods to help users to add/update/remove values defined in ``configure_args``,
 ``make_args`` and ``autoreconf_args`` (all of them lists of strings). Those methods are:
 
-* ``update_configure_args(updated_flags)`` (new since Conan 1.57).
-* ``update_make_args(updated_flags)`` (new since Conan 1.57).
-* ``update_autoreconf_args(updated_flags)`` (new since Conan 1.57).
+* ``update_configure_args(updated_flags)`` (new since Conan 1.57): will change ``AutotoolsToolchain.configure_args``.
+* ``update_make_args(updated_flags)`` (new since Conan 1.57): will change ``AutotoolsToolchain.make_args``.
+* ``update_autoreconf_args(updated_flags)`` (new since Conan 1.57): will change ``AutotoolsToolchain.autoreconf_args``.
 
-These three ones takes one parameter ``updated_flags`` as a dict-like Python object defining all the flags to add/update/remove.
-It follows the next rules:
+Where ``updated_flags`` is a dict-like Python object defining all the flags to change. It follows the next rules:
 
 * Key-value are the flags names and their values, e.g., ``{"--enable-tools": no}`` will be translated as ``--enable-tools=no``.
 * If that key has no value, then it will be an empty string, e.g., ``{"--disable-verbose": ""}`` will be translated as ``--disable-verbose``.
-* If the key value is ``None``, it means that you want to remove that flag from the ``xxxxxx_args`` specified, e.g., ``{"--force": None}`` will drop that flag from
+* If the key value is ``None``, it means that you want to remove that flag from the ``xxxxxx_args``, e.g., ``{"--force": None}`` will remove that flag from
   the final result.
 
 In a nutshell:
