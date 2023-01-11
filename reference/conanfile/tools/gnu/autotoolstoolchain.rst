@@ -234,8 +234,8 @@ The ``environment()`` method returns an :ref:`Environment<conan_tools_env_enviro
             at.generate(env)
 
 
-Customizing the xxxxxx_args attributes
-++++++++++++++++++++++++++++++++++++++
+Managing the configure_args, make_args and autoreconf_args attributes
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 ``AutotoolsToolchain`` provides some help methods so users can add/update/remove values defined in ``configure_args``,
 ``make_args`` and ``autoreconf_args`` (all of them lists of strings). Those methods are:
@@ -253,9 +253,9 @@ be ``configure_args``, ``make_args`` or ``autoreconf_args``), e.g., ``{"--force"
 
 In a nutshell, you will:
 
-* **Add arguments**: if given flag in ``updated_flags`` does not already exist in ``xxxxxx_args``.
-* **Update arguments**: if given flag in ``updated_flags`` already exists in attribute ``xxxxxx_args``.
-* **Remove arguments**: if given flag in ``updated_flags`` already exists in ``xxxxxx_args`` and it's passed with ``None`` as value.
+* **Add arguments**: if the given flag in ``updated_flags`` does not already exist in ``xxxxxx_args``.
+* **Update arguments**: if the given flag in ``updated_flags`` already exists in attribute ``xxxxxx_args``.
+* **Remove arguments**: if the given flag in ``updated_flags`` already exists in ``xxxxxx_args`` and it's passed with ``None`` as value.
 
 For instance:
 
