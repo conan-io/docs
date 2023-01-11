@@ -561,6 +561,47 @@ In the example above, ``adjusted_path`` will be:
     - ``/dev/fs/C/path/to/stuff`` if sfu
 
 
+.. _conan_tools_microsoft_unix_path_package_info_legacy:
+
+conan.tools.microsoft.unix_path_package_info_legacy()
+------------------------------------------------------------
+
+Available since: `1.57.0 <https://github.com/conan-io/conan/releases/tag/1.57.0>`_
+
+.. code-block:: python
+
+    def unix_path_package_info_legacy(conanfile, path, path_flavor=None):
+
+This function is provided for compatibility with the legacy :ref:`tools_unix_path` in those
+cases in which it is used inside the `package_info()` block, and compatibility needs
+to be retained for downstream consumers that are still using Conan 1.x integrations.
+All other uses are discouraged. In Conan 2, this function returns the provided path
+without performing any transformations.
+
+Parameters:
+
+- **conanfile**: ConanFile instance.
+- **path**: Filesystem path in Windows format to transform.
+- **path_flavor**: see :ref:`tools_unix_path` for list of accepted values.
+
+.. code-block:: python
+
+    import os
+    from conan.tools.microsoft import unix_path_package_info_legacy
+
+
+    def package_info(self):
+        package_resources = os.path.join(self.package_folder, "res", "foobar")
+
+        # No path transformation is required for consumers using new integrations
+        self.buildenv_info.define_path("FOOBAR_RESDIR", package_resources)
+
+        # For compatibility with legacy dowstream consumers that are known to
+        # only consume this variable from a bash environment on Windows
+        # Note: env_info is ignored in Conan 2 altogether.
+        self.env_info.FOOBAR_RESDIR = unix_path_package_info_legacy(self, package_resources)
+
+
 check_min_vs()
 --------------
 
