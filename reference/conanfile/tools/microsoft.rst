@@ -563,13 +563,13 @@ is not satisfied, or returning a boolean result with the check result if called 
 
 .. code-block:: python
 
-    def check_min_vs(conanfile, version, throw = True):
+    def check_min_vs(conanfile, version, raise_invalid=True):
 
 
 - ``conanfile``: Always use ``self``, the current recipe
 - ``version``: Minimum version that will be accepted. Use a version number following the MSVC compiler version (or ``msvc`` setting),
   that is, ``191``, ``192``, etc (updates like ``193.1`` are also acceptable)
-- ``throw``: Whether to throw or return False if the version check fails. Defaults to ```True``
+- ``raise_invalid``: Whether to raise or return False if the version check fails. Defaults to ```True``
 
 
 Example:
