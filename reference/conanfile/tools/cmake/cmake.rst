@@ -109,7 +109,7 @@ install()
 
 .. code:: python
 
-    def install(self, build_type=None):
+    def install(self, build_type=None, component=None):
 
 
 Equivalent to run ``cmake --build . --target=install``
@@ -117,6 +117,7 @@ Equivalent to run ``cmake --build . --target=install``
 - ``build_type``: Use it only to override the value defined in the ``settings.build_type``. It
   can fail if the build is single configuration (e.g. Unix Makefiles), as in that case the build
   type must be specified at configure time, not build type.
+- ``component``: Passes the ``--component=<component>`` argument  to the CMake install command.
 
 
 test()
