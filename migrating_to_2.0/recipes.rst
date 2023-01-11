@@ -97,7 +97,7 @@ Settings
           ...
 
           def validate(self):
-              if self.info.settings.os == "Macos":
+              if self.settings.os == "Macos":
                   raise ConanInvalidConfiguration("Macos not supported")
 
 
@@ -182,9 +182,9 @@ In case the default value is ``None``, then it should be added as possible value
 The validate() method
 ---------------------
 
-Use always the ``self.info.settings`` instead of ``self.settings`` and ``self.info.options`` instead of ``self.options``.
-Otherwise, the compatibility mechanism won't be able to verify if the configurations of potential ``compatible`` packages
-are valid.
+Use always the ``self.settings`` instead of ``self.info.settings`` and ``self.options`` instead of ``self.info.options``.
+The compatibility mechanism are not needed to verify if the configurations of potential ``compatible`` packages
+are valid after the graph has been built.
 
 .. code-block:: python
     :caption: **From:**
@@ -192,7 +192,7 @@ are valid.
     class Pkg(Conanfile):
 
         def validate(self):
-            if self.settings.os == "Windows":
+            if self.info.settings.os == "Windows":
                 raise ConanInvalidConfiguration("This package is not compatible with Windows")
 
 
@@ -202,12 +202,25 @@ are valid.
     class Pkg(Conanfile):
 
         def validate(self):
-            if self.info.settings.os == "Windows":
+            if self.settings.os == "Windows":
                 raise ConanInvalidConfiguration("This package is not compatible with Windows")
 
+.. note::
+
+    For recipes where settings are cleared, using ``self.settings`` is still valid. For example,
+    this applies to header only recipes that check for a specific ``self.settings.cppstd`` like:
+
+    .. code-block:: python
+
+        def package_id(self):
+            self.info.clear()
+
+        def validate(self):
+            if self.settings.get_safe("compiler.cppstd"):
+                check_min_cppstd(self, 17)
 
 If you are not checking if the resulting binary is valid for the current configuration but need to check if a package
-can be built or not for a specific configuration you must use the ``validate_build()`` method instead of using ``self.settings``
+can be built or not for a specific configuration you must use the ``validate_build()`` method using ``self.settings``
 and ``self.options`` to perform the checks:
 
 

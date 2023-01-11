@@ -3,6 +3,12 @@
 Installing dependencies
 -----------------------
 
+.. caution::
+
+    We are actively working to finalize the *Conan 2.0 Release*. Some of the information on this page references
+    **deprecated** features which will not be carried forward with the new release. It's important to check the 
+    :ref:`Migration Guidelines<conan2_migration_guide>` to ensure you are using the most up to date features.
+
 In :ref:`Getting started<getting_started>` we used the :command:`conan install` command to download the
 **Poco** library and build an example.
 
@@ -60,11 +66,6 @@ Where:
 
 Optional user/channel
 _____________________
-
-
-.. warning::
-
-    This is an **experimental** feature subject to breaking changes in future releases.
 
 If the package was created and uploaded without specifying
 the ``user`` and ``channel`` you can omit the ``user/channel`` when specifying a reference:
@@ -245,6 +246,11 @@ example, in Linux, we could use the `objdump` tool and see the *Dynamic section*
 
 Imports
 .......
+
+.. warning::
+
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaces this one.
 
 There are some differences between shared libraries on Linux (\*.so), Windows (\*.dll) and MacOS
 (\*.dylib). The shared libraries must be located in a folder where they can be found, either by

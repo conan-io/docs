@@ -4,18 +4,23 @@
 |visual_logo| MSBuild (Visual Studio)
 =====================================
 
+.. warning::
+
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
+
+    The new, **under development** Using the ``conan.tools.microsoft`` tools: ``MSBuildDeps``, ``MSBuildToolchain`` and
+    ``MSBuild`` helpers to generate properties files for your project, containing information about the project dependencies
+    and toolchain. Go to :ref:`conan_tools_microsoft` for more information. While they are recommended and usable and
+    we will try not to break them in future releases, some breaking changes might still happen if necessary to prepare for
+    the *Conan 2.0 release*.
+
 If you are using CMake to generate your Visual Studio projects, this is not the right section, go to :ref:`cmake` instead.
 This section is about native integration with Microsoft MSBuild, using properties files.
 
-Conan can be integrated with **MSBuild** natively, the build system of Visual Studio in different ways:
+Conan can be integrated with **MSBuild** natively, the build system of Visual Studio by:
 
-
-- Using the ``conan.tools.microsoft`` tools: ``MSBuildDeps``, ``MSBuildToolchain`` and ``MSBuild`` helpers to generate properties
-  files for your project, containing information about the project dependencies and toolchain. This is the new integration that is
-  experimental but will become the standard one in Conan 2.0. Go to :ref:`conan_tools_microsoft` for more information.
 - Using the ``visual_studio`` or ``visual_studio_multi`` generators to create a MSBuild properties *conanbuildinfo.props* file.
-  This is the older integration, it is more stable now, but it wil be deprecated and removed in Conan 2.0. Keep reading this page for more information.
-
 
 With *visual_studio* generator
 ------------------------------

@@ -155,27 +155,34 @@ generators.
 
 1. ``config_options()``
 2. ``configure()``
-3. ``requirements()``
-4. ``package_id()``
-5. ``package_info()``
-6. ``deploy()``
+3. ``layout()``
+4. ``requirements()``
+5. ``package_id()``
+6. ``validate()``
+7. ``validate_build()``
+8. ``package_info()``
+9. ``deploy()``
 
 Note this describes the process of installing a pre-built binary package. If the package has to be built, :command:`conan install --build`
 executes the following:
 
 1. ``config_options()``
 2. ``configure()``
-3. ``requirements()``
-4. ``package_id()``
-5. ``build_requirements()``
-6. ``build_id()``
-7. ``system_requirements()``
-8. ``source()``
-9. ``imports()``
-10. ``build()``
-11. ``package()``
-12. ``package_info()``
-13. ``deploy()``
+3. ``layout()``
+4. ``requirements()``
+5. ``package_id()``
+6. ``validate()``
+7. ``validate_build()``
+8. ``build_requirements()``
+9. ``build_id()``
+10. ``system_requirements()``
+11. ``source()``
+12. ``generate()``
+13. ``imports()``
+14. ``build()``
+15. ``package()``
+16. ``package_info()``
+17. ``deploy()``
 
 **Examples**
 
@@ -331,9 +338,10 @@ because the consumer conanfile might not declare a `name` so it would be impossi
 folders
 -------
 
-.. warning::
+.. important::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+    This feature is still **under development**, while it is recommended and usable and we will try not to break them in future releases,
+    some breaking changes might still happen if necessary to prepare for the *Conan 2.0 release*.
 
 
 The ``--output-folder`` define together with the ``layout()`` recipe
@@ -346,9 +354,10 @@ such as ``CMakeToolchain`` or ``PkgConfigDeps`` will be created in the folder de
 conf
 ----
 
-.. warning::
+.. important::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+    This feature is still **under development**, while it is recommended and usable and we will try not to break them in future releases,
+    some breaking changes might still happen if necessary to prepare for the *Conan 2.0 release*.
 
 With the :command:`-c` parameters you can define specific tool configurations.
 
@@ -403,12 +412,14 @@ The ``install`` command accepts several arguments related to :ref:`lockfiles<ver
 .. note::
 
   Installation of binaries can be accelerated setting up parallel downloads with the ``general.parallel_download``
-  **experimental** configuration in :ref:`conan_conf`.
+  **under development** configuration in :ref:`conan_conf`.
 
 --build-require
 ---------------
 
-The ``--build-require``, new in Conan 1.37, is experimental. It allows to install the package using the
+Available since: `1.37.0 <https://github.com/conan-io/conan/releases/tag/1.37.0>`_
+
+The ``--build-require`` allows to install the package using the
 configuration and settings of the "build" context, as it was a ``build_require``. Lets see it with an example:
 
 We have a ``mycmake/1.0`` package, which bundles cmake executable, and we are cross-compiling from Windows
@@ -434,11 +445,8 @@ as necessary without needing to change the profiles at all.
 --require-override
 ------------------
 
-.. warning::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
-
-New from **Conan 1.39**
+Available since: `1.39.0 <https://github.com/conan-io/conan/releases/tag/1.39.0>`_
 
 The ``--require-override`` argument allows to inject an override requirement to the consumer conanfile being called
 by this command, that would be equivalent to:

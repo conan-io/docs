@@ -7,10 +7,11 @@ conan.tools.microsoft
 These tools allow a native integration for Microsoft Visual Studio, natively (without using CMake,
 but using directly Visual Studio solutions, projects and property files).
 
-.. warning::
+.. important::
 
-    These tools are still **experimental** (so subject to breaking changes) but with very stable syntax.
-    We encourage their usage to be prepared for Conan 2.0.
+    Some of the features used in this section are still **under development**, while they are
+    recommended and usable and we will try not to break them in future releases, some breaking
+    changes might still happen if necessary to prepare for the *Conan 2.0 release*.
 
 .. _conan_tools_microsoft_msbuilddeps:
 
