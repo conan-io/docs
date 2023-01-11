@@ -11,7 +11,7 @@ CMakeToolchain
 Available since: `1.32.0 <https://github.com/conan-io/conan/releases/tag/1.32.0>`_
 
 The ``CMakeToolchain`` is the toolchain generator for CMake. It will generate toolchain files that can be used in the
-command line invocation of CMake with the ``-DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake``. This generator translates
+command line invocation of CMake with the ``-DCMAKE_TOOLCHAIN_FILE=<path>/conan_toolchain.cmake``. This generator translates
 the current package configuration, settings, and options, into CMake toolchain syntax.
 
 
@@ -292,19 +292,17 @@ with local development flows, than when the package is created in the cache.
 
 .. code:: bash
 
-    # Lets start in the folder containing the conanfile.py
-    $ mkdir build && cd build
     # Install both debug and release deps and create the toolchain
-    $ conan install ..
-    $ conan install .. -s build_type=Debug
-    # the conan_toolchain.cmake is common for both configurations
+    $ conan install .
+    $ conan install . -s build_type=Debug
 
-If you are using a multi-configuration generator:
+If you are using a multi-configuration generator (e.g. Windows MSVC):
 
 .. code:: bash
 
+    $ cd build
     # Need to pass the generator WITHOUT the platform, that matches your default settings
-    $ cmake .. -G "Visual Studio 15" -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
+    $ cmake .. -G "Visual Studio 15" -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake
     # Now you can open the IDE, select Debug or Release config and build
     # or, in the command line
     $ cmake --build . --config Release
@@ -319,8 +317,9 @@ If you are using a single-configuration generator:
 
 .. code:: bash
 
-    $ cmake ..  -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
-    $ cmake --build
+    $ cd build/Release
+    $ cmake ../..  -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
+    $ cmake --build .
 
 
 It is recommended to use the ``cmake_layout(self)`` in the ``layout()`` method of your ``conanfile.py``. If a layout
