@@ -213,7 +213,8 @@ The ``MSBuildToolchain`` will generate three files after a ``conan install`` com
   *conantoolchain_release_x86.props*
 - A *conanvcvars.bat* file with the necessary ``vcvars`` invocation to define the build environment if necessary
   to build from the command line or from automated tools (might not be necessary if opening the IDE). This file
-  will be automatically called by the ``tools.microsoft.MSBuild`` helper ``build()`` method.
+  will be automatically called by the ``tools.microsoft.MSBuild`` helper ``build()`` method. This file generation
+  can be avoided by defining an empty string ``conf`` item ``tools.microsoft.msbuild:installation_path=""``.
 
 
 Every invocation to ``conan install`` with different configuration will create a new properties ``.props``
@@ -418,6 +419,15 @@ Parameters:
 
     * **scope** (Defaulted to ``"build"``): Add the launcher automatically to the ``conanbuild`` launcher. Read more
       in the :ref:`Environment documentation <conan_tools_env_environment_model>`.
+
+
+conf
+++++
+
+- ``tools.microsoft.msbuild:installation_path`` allows defining a path to the VS installation. In most cases it is not
+  necessary, because it can be automatically obtained calling ``vswhere``, but in case it is necessary to customize it,
+  define it to the full path. If it takes an empty string value, it will disable the generation of the ``conanvcvars.bat``
+  completely, and the environment will not be automatically set by Conan.
 
 
 conan.tools.microsoft.is_msvc()
