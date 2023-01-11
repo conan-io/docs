@@ -253,9 +253,9 @@ be ``configure_args``, ``make_args`` or ``autoreconf_args``), e.g., ``{"--force"
 
 In a nutshell, you will:
 
-* **ADD**: if given flag in ``updated_flags`` does not already exist in ``xxxxxx_args``.
-* **UPDATE**: if given flag in ``updated_flags`` already exists in attribute ``xxxxxx_args``.
-* **REMOVE**: if given flag in ``updated_flags`` already exists in ``xxxxxx_args`` and it's passed with ``None`` as value.
+* **Add arguments**: if given flag in ``updated_flags`` does not already exist in ``xxxxxx_args``.
+* **Update arguments**: if given flag in ``updated_flags`` already exists in attribute ``xxxxxx_args``.
+* **Remove arguments**: if given flag in ``updated_flags`` already exists in ``xxxxxx_args`` and it's passed with ``None`` as value.
 
 For instance:
 
