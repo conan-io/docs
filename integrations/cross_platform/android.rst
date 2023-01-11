@@ -105,7 +105,9 @@ Use a regular profile for the *host* context:
    compiler.libcxx=c++_shared
    build_type=Release
 
-and add Android NDK to the ``PATH`` or populate the ``CONAN_CMAKE_ANDROID_NDK`` environment variable.
+   [conf]
+   tools.android:ndk_path=<path/to/myandroid/ndk>
+
 
 Together with the files created by the generators that make it possible to find and link the
 requirements, :command:`conan install` command will generate a toolchain file like the following one:
@@ -119,7 +121,7 @@ requirements, :command:`conan install` command will generate a toolchain file li
     set(CMAKE_SYSTEM_VERSION 23)
     set(CMAKE_ANDROID_ARCH_ABI x86_64)
     set(CMAKE_ANDROID_STL_TYPE c++_shared)
-    set(CMAKE_ANDROID_NDK <path/provided/via/environment/variable>)
+    set(CMAKE_ANDROID_NDK <path/to/myandroid/ndk>)
 
 
 With this toolchain file you can execute CMake's command to generate the binaries:
@@ -127,8 +129,9 @@ With this toolchain file you can execute CMake's command to generate the binarie
 .. code-block:: bash
 
    conan install <conanfile> --profile:host=profile_host --profile:build=default
-   cmake . -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
-   cmake --build . --config Release
+   cd build/Release
+   cmake ../.. -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
+   cmake --build .
 
 
 Using Docker images
@@ -198,7 +201,11 @@ However, when building CMake projects, there are several approaches available, a
 Using toolchain from Android NDK
 --------------------------------
 
-This is the official way recommended by Android developers.
+.. warning::
+
+   This method is deprecated. Use the one above using ``CMakeToolchain``, the generated ``conan_toolchain.cmake``
+   and the conf ``tools.android:ndk_path=<path/to/myandroid/ndk>``
+
 
 For this, you will need a small CMake toolchain file:
 
@@ -231,47 +238,6 @@ And then, you may use the following profile:
 
 In the profile, ``CONAN_CMAKE_TOOLCHAIN_FILE`` points to the CMake toolchain file listed above.
 
-
-Using CMake built-in Android NDK support
-----------------------------------------
-
-.. warning::
-
-    This workflow is not supported by Android and is often broken with new NDK releases or when using older versions of CMake.
-    This workflow is **strongly discouraged** and will not work with Gradle.
-
-For this approach, you don't need to specify CMake toolchain file at all. It's enough to indicate ``os`` is Android
-and Conan will automatically set up all required CMake
-`variables <https://cmake.org/cmake/help/latest/manual/cmake-toolchains.7.html#cross-compiling-for-android>`__ for you.
-
-Therefore, the following conan profile could be used for ``ARMv8``:
-
-.. code-block:: text
-
-  include(default)
-  [settings]
-  arch=armv8
-  build_type=Release
-  compiler=clang
-  compiler.libcxx=libc++
-  compiler.version=7.0
-  os=Android
-  os.api_level=21
-  [tool_requires]
-  [options]
-  [env]
-  ANDROID_NDK_ROOT=/home/conan/android-ndk-r18b
-
-The only way you have to configure is ``ANDROID_NDK_ROOT`` which is a path to the Android NDK installation.
-
-Once profile is configured, you should see the following output during the CMake build:
-
-.. code-block:: text
-
-  -- Android: Targeting API '21' with architecture 'arm64', ABI 'arm64-v8a', and processor 'aarch64'
-  -- Android: Selected Clang toolchain 'aarch64-linux-android-clang' with GCC toolchain 'aarch64-linux-android-4.9'
-
-It means native CMake integration has successfully found Android NDK and configured the build.
 
 .. |android_logo| image:: ../../images/android_logo.png
                   :width: 180px

@@ -83,7 +83,7 @@ Now the ``say/0.1@user/channel`` package is in editable mode, lets build it loca
     # Linux, we will only build 1 configuration
     $ conan install .
     $ cd build/Release
-    $ cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake
+    $ cmake ../.. -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake
     $ cmake --build .
 
 
@@ -112,7 +112,7 @@ In this case we can build the ``hello`` application as usual:
     # Linux, we will only build 1 configuration
     $ conan install .
     $ cd build/Release
-    $ cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake
+    $ cmake ../.. -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake
     $ cmake --build .
     $ ./hello
     say/0.1: Hello World Release!
