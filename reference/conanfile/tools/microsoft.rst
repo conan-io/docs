@@ -554,7 +554,7 @@ In the example above, ``adjusted_path`` will be:
 .. _conan_tools_microsoft_unix_path_package_info_legacy:
 
 conan.tools.microsoft.unix_path_package_info_legacy()
----------------------------------
+------------------------------------------------------------
 
 Available since: `1.57.0 <https://github.com/conan-io/conan/releases/tag/1.57.0>`_
 
