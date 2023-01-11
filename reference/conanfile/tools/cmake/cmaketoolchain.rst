@@ -372,6 +372,9 @@ conf
 - ``tools.build:sharedlinkflags`` list of extra linker flags that will be appended to ``CMAKE_SHARED_LINKER_FLAGS_INIT``.
 - ``tools.build:exelinkflags`` list of extra linker flags that will be appended to ``CMAKE_EXE_LINKER_FLAGS_INIT``.
 - ``tools.build:defines`` list of preprocessor definitions that will be used by ``add_definitions()``.
+- ``tools.build:linker_scripts`` list of linker scripts, each of which will be prepended with ``-T`` and appended to
+  ``CMAKE_EXE_LINKER_FLAGS_INIT``. Only use this flag with linkers that supports specifying linker scripts with the ``-T`` flag, such as
+  ``ld``, ``gold``, and ``lld``.
 - ``tools.build:tools.apple:enable_bitcode`` boolean value to enable/disable Bitcode Apple Clang flags, e.g., ``CMAKE_XCODE_ATTRIBUTE_ENABLE_BITCODE``.
 - ``tools.build:tools.apple:enable_arc`` boolean value to enable/disable ARC Apple Clang flags, e.g., ``CMAKE_XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC``.
 - ``tools.build:tools.apple:enable_visibility`` boolean value to enable/disable Visibility Apple Clang flags, e.g., ``CMAKE_XCODE_ATTRIBUTE_GCC_SYMBOLS_PRIVATE_EXTERN``.
@@ -410,6 +413,7 @@ The following predefined blocks are available, and added in this order:
 - ``apple_system``: Defines ``CMAKE_OSX_ARCHITECTURES``, ``CMAKE_OSX_SYSROOT`` for Apple systems.
 - ``fpic``: Defines the ``CMAKE_POSITION_INDEPENDENT_CODE`` when there is a ``options.fPIC``
 - ``arch_flags``: Defines C/C++ flags like ``-m32, -m64`` when necessary.
+- ``linker_scripts``: Defines the flags for any provided linker scripts.
 - ``libcxx``: Defines ``-stdlib=libc++`` flag when necessary as well as ``_GLIBCXX_USE_CXX11_ABI``.
 - ``vs_runtime``: Defines the ``CMAKE_MSVC_RUNTIME_LIBRARY`` variable, as a generator expression for multiple configurations.
 - ``cppstd``: defines ``CMAKE_CXX_STANDARD``, ``CMAKE_CXX_EXTENSIONS``
