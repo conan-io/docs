@@ -237,7 +237,7 @@ The ``environment()`` method returns an :ref:`Environment<conan_tools_env_enviro
 Customizing the xxxxxx_args attributes
 ++++++++++++++++++++++++++++++++++++++
 
-``AutotoolsToolchain`` provides some methods to help users to add/update/remove values defined in ``configure_args``,
+``AutotoolsToolchain`` provides some help methods so users can add/update/remove values defined in ``configure_args``,
 ``make_args`` and ``autoreconf_args`` (all of them lists of strings). Those methods are:
 
 * ``update_configure_args(updated_flags)`` (new since Conan 1.57): will change ``AutotoolsToolchain.configure_args``.
