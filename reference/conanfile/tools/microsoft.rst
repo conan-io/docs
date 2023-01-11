@@ -608,18 +608,19 @@ check_min_vs()
 Available since: `1.49.0 <https://github.com/conan-io/conan/releases/tag/1.49.0>`_
 
 Helper method to allow the migration to 2.0 more easily. It will handle internally both ``Visual Studio``
-and ``msvc`` compiler settings, raising a ``ConanInvalidConfiguration`` error if the minimum version
-is not satisfied
+and ``msvc`` compiler settings, by default raising a ``ConanInvalidConfiguration`` error if the minimum version
+is not satisfied, or returning a boolean result with the check result if called with ``throw=False``
 
 
 .. code-block:: python
 
-    def check_min_vs(conanfile, version):
+    def check_min_vs(conanfile, version, raise_invalid=True):
 
 
 - ``conanfile``: Always use ``self``, the current recipe
 - ``version``: Minimum version that will be accepted. Use a version number following the MSVC compiler version (or ``msvc`` setting),
   that is, ``191``, ``192``, etc (updates like ``193.1`` are also acceptable)
+- ``raise_invalid``: Whether to raise or return False if the version check fails. Defaults to ```True``
 
 
 Example:
