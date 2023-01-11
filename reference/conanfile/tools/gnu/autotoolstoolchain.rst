@@ -232,3 +232,47 @@ The ``environment()`` method returns an :ref:`Environment<conan_tools_env_enviro
             env = at.environment()
             env.define("FOO", "BAR")
             at.generate(env)
+
+
+Customizing the xxxxxx_args attributes
+++++++++++++++++++++++++++++++++++++++
+
+``AutotoolsToolchain`` provides some methods to help users to add/update/remove values defined in ``configure_args``,
+``make_args`` and ``autoreconf_args`` (all of them lists of strings). Those methods are:
+
+* ``update_configure_args(updated_flags)`` (new since Conan 1.57).
+* ``update_make_args(updated_flags)`` (new since Conan 1.57).
+* ``update_autoreconf_args(updated_flags)`` (new since Conan 1.57).
+
+These three ones takes one parameter ``updated_flags`` as a dict-like Python object defining all the flags to add/update/remove.
+It follows the next rules:
+
+* Key-value are the flags names and their values, e.g., ``{"--enable-tools": no}`` will be translated as ``--enable-tools=no``.
+* If that key has no value, then it will be an empty string, e.g., ``{"--disable-verbose": ""}`` will be translated as ``--disable-verbose``.
+* If the key value is ``None``, it means that you want to remove that flag from the ``xxxxxx_args`` specified, e.g., ``{"--force": None}`` will drop that flag from
+  the final result.
+
+In a nutshell:
+
+* **ADD**: if given flag does not exist in ``xxxxxx_args``.
+* **UPDATE**: if given flag exists in ``xxxxxx_args``.
+* **REMOVE**: if given flag exists in ``xxxxxx_args`` and it has ``None`` as value.
+
+For instance:
+
+.. code:: python
+
+    from conan import ConanFile
+    from conan.tools.gnu import AutotoolsToolchain
+
+    class App(ConanFile):
+        settings = "os", "arch", "compiler", "build_type"
+
+        def generate(self):
+            at = AutotoolsToolchain(self)
+            at.update_configure_args({
+                "--new-super-flag": "",  # add new flag '--new-super-flag'
+                "--host": "my-gnu-triplet",  # update flag '--host=my-gnu-triplet'
+                "--force": None  # remove existing '--force' flag
+            })
+            at.generate()
