@@ -21,7 +21,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.56 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
     a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
-1.57.0 (11-Jan-2023)
+1.57.0 (12-Jan-2023)
 --------------------
 
 - Feature: AutotoolsToolchain helper functions: `update_configure_args`, `update_make_args`, and `update_autoreconf_args` can also add new values `#12889 <https://github.com/conan-io/conan/pull/12889>`_ . Docs `here <https://github.com/conan-io/docs/pull/2895>`__
