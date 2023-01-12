@@ -189,6 +189,49 @@ The ``AutotoolsToolchain`` also sets ``CXXFLAGS``, ``CFLAGS``, ``LDFLAGS`` and `
 variables from the ``[conf]`` section in the profiles. :ref:`See the conf reference below<conan_tools_gnu_autotools_toolchain_conf>`.
 
 
+Managing the configure_args, make_args and autoreconf_args attributes
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+``AutotoolsToolchain`` provides some help methods so users can add/update/remove values defined in ``configure_args``,
+``make_args`` and ``autoreconf_args`` (all of them lists of strings). Those methods are:
+
+* ``update_configure_args(updated_flags)`` (since Conan 1.57): will change ``AutotoolsToolchain.configure_args``.
+* ``update_make_args(updated_flags)`` (since Conan 1.57): will change ``AutotoolsToolchain.make_args``.
+* ``update_autoreconf_args(updated_flags)`` (since Conan 1.57): will change ``AutotoolsToolchain.autoreconf_args``.
+
+Where ``updated_flags`` is a dict-like Python object defining all the flags to change. It follows the next rules:
+
+* Key-value are the flags names and their values, e.g., ``{"--enable-tools": no}`` will be translated as ``--enable-tools=no``.
+* If that key has no value, then it will be an empty string, e.g., ``{"--disable-verbose": ""}`` will be translated as ``--disable-verbose``.
+* If the key value is ``None``, it means that you want to remove that flag from the ``xxxxxx_args`` (notice that it could
+  be ``configure_args``, ``make_args`` or ``autoreconf_args``), e.g., ``{"--force": None}`` will remove that flag from the final result.
+
+In a nutshell, you will:
+
+* **Add arguments**: if the given flag in ``updated_flags`` does not already exist in ``xxxxxx_args``.
+* **Update arguments**: if the given flag in ``updated_flags`` already exists in attribute ``xxxxxx_args``.
+* **Remove arguments**: if the given flag in ``updated_flags`` already exists in ``xxxxxx_args`` and it's passed with ``None`` as value.
+
+For instance:
+
+.. code:: python
+
+    from conan import ConanFile
+    from conan.tools.gnu import AutotoolsToolchain
+
+    class App(ConanFile):
+        settings = "os", "arch", "compiler", "build_type"
+
+        def generate(self):
+            at = AutotoolsToolchain(self)
+            at.update_configure_args({
+                "--new-super-flag": "",  # add new flag '--new-super-flag'
+                "--host": "my-gnu-triplet",  # update flag '--host=my-gnu-triplet'
+                "--force": None  # remove existing '--force' flag
+            })
+            at.generate()
+
+
 Reference
 ---------
 
