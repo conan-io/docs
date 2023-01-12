@@ -488,10 +488,18 @@ other build systems, even a custom one, remember you should generate everything 
 If we are using that recipe for our project we can build it by typing:
 
 .. code-block:: bash
-
-    $ conan install .
+    
     # This will generate the config files from the dependencies and the toolchain
-    $ cmake . -DCMAKE_TOOLCHAIN_FILE=./cmake-build-release/conan/conan_toolchain.cmake
+    $ conan install .
+    
+    # Windows
+    $ cd build
+    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake
+    $ cmake --build . --config=Release
+
+    # Linux
+    $ cd build/Release
+    $ cmake ../.. -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
     $ cmake --build .
 
 You can check all the generators and toolchains for different build systems in the :ref:`tools reference page<conan_tools>`.
