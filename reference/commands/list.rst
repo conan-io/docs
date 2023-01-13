@@ -34,7 +34,7 @@ structure of this pattern is based on a complete Conan reference that looks like
 ``name/version@user/channel#rrev:pkgid#prev``
 
 This pattern supports using ``*`` as wildcard as well as ``#latest`` to specify the latest revision
-(though that might not be necessaryin most cases, by default Conan will be listing the latest revisions). 
+(though that might not be necessary in most cases, by default Conan will be listing the latest revisions). 
 
 Using it you can list:
 
