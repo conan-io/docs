@@ -9,7 +9,7 @@ Reference
 
 
    reference/commands
-   reference/conanfile_txt
    reference/conanfile
+   reference/conanfile_txt
    reference/tools
    reference/extensions
