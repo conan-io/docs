@@ -74,7 +74,7 @@ Also, do not forget to use build context when cross building to Android:
 
 .. code-block:: bash
 
-  conan install conanfile.txt -pr:h=default -pr:b=android
+  conan install conanfile.txt -pr:b=default -pr:h=android
 
 Where ``android`` is one of the profiles listed above.
 
