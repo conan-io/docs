@@ -8,7 +8,8 @@ and ``visualstudiomulti`` generators.
 
 .. warning::
 
-    This generator is experimental and subject to breaking changes.
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
 
 This is a generator to be used for Visual Studio projects (*.sln* solutions and *.vcxproject* files),
 natively, without using CMake at all. The generator will create Visual Studio properties files

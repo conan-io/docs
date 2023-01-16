@@ -316,6 +316,11 @@ using the ``deps_cpp_info`` object:
 env_info
 ++++++++
 
+.. warning::
+
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
+
 Each package can also define some environment variables that the package needs to be reused. It's specially useful for
 :ref:`installer packages<create_installer_packages>`, to set the path with the "bin" folder of the packaged application. This can be done in
 the ``env_info`` attribute within the ``package_info()`` method.
@@ -356,6 +361,11 @@ If your recipe has requirements, you can access to your requirements ``env_info`
 
 user_info
 +++++++++
+
+.. warning::
+
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
 
 If you need to declare custom variables not related with C/C++ (``cpp_info``) and the variables are not environment variables
 (``env_info``), you can use the ``self.user_info`` object.
@@ -536,17 +546,13 @@ This exception will be propagated and Conan application will finish with a :ref:
 
 .. note::
 
-    For managing invalid configurations, please check the new experimental ``validate()`` method (:ref:`method_validate`).
+    For managing invalid configurations, please check the new ``validate()`` method (:ref:`method_validate`).
 
 
 .. _method_validate:
 
 validate()
 ----------
-
-.. warning::
-
-    This is an **experimental** feature subject to breaking changes in future releases.
 
 Available since: `1.32.0 <https://github.com/conan-io/conan/releases/tag/1.32.0>`_
 
@@ -648,8 +654,8 @@ Available since: `1.51.0 <https://github.com/conan-io/conan/releases/tag/1.51.0>
 The ``validate_build()`` method is used to verify if a configuration is valid for building a package. It is different
 from the ``validate()`` method that checks if the binary package is "impossible" or invalid for a given configuration.
 
-In Conan 2.0, the ``validate()`` method should do the checks of the settings and options using the ``self.info.settings``
-and ``self.info.options``.
+In Conan 2.0, the ``validate()`` method should do the checks of the settings and options using the ``self.settings``
+and ``self.options``.
 
 The ``validate_build()`` method has to use always the ``self.settings`` and ``self.options``:
 
@@ -676,9 +682,6 @@ The ``validate_build()`` method has to use always the ``self.settings`` and ``se
             # We shouldn't check here the self.info.settings.compiler because it has been removed in the package_id()
             # so it doesn't make sense to check if the binary is compatible with gcc because the compiler doesn't matter
             pass
-
-
-
 
 
 .. _method_requirements:
@@ -1254,9 +1257,10 @@ be done.
 compatibility()
 ---------------
 
-.. warning::
+.. important::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+    This feature is still **under development**, while it is recommended and usable and we will try not to break them in future releases,
+    some breaking changes might still happen if necessary to prepare for the *Conan 2.0 release*.
 
 Available since Conan `1.47.0 <https://github.com/conan-io/conan/releases/tag/1.47.0>`_
 
@@ -1497,10 +1501,6 @@ current folder (the one containing the *conanfile.py*). The ``dst`` is relative 
 generate()
 ----------
 
-.. warning::
-
-    This is an **experimental** feature subject to breaking changes in future releases.
-
 Available since: `1.32.0 <https://github.com/conan-io/conan/releases/tag/1.32.0>`_
 
 This method will run after the computation and installation of the dependency graph. This means that it will
@@ -1559,9 +1559,11 @@ multiple recipes.
 layout()
 --------
 
-.. warning::
+.. important::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+    This feature is still **under development**, while it is recommended and usable and we will try not to break them in future releases,
+    some breaking changes might still happen if necessary to prepare for the *Conan 2.0 release*.
+
     The ``layout()`` feature will be fully functional only in the new build system integrations
     (:ref:`in the conan.tools space <conan_tools>`). If you are using other integrations, they
     might not fully support this feature.

@@ -139,7 +139,7 @@ switching dependencies from static to shared libraries.
 Included dependencies
 +++++++++++++++++++++
 
-``MSBuildDeps`` uses the new experimental ``self.dependencies`` access to dependencies. The following
+``MSBuildDeps`` uses the new ``self.dependencies`` access to dependencies. The following
 dependencies will be translated to properties files:
 
 - All direct dependencies, that is, the ones declared by the current ``conanfile``, that lives in the
@@ -214,7 +214,8 @@ The ``MSBuildToolchain`` will generate three files after a ``conan install`` com
   *conantoolchain_release_x86.props*
 - A *conanvcvars.bat* file with the necessary ``vcvars`` invocation to define the build environment if necessary
   to build from the command line or from automated tools (might not be necessary if opening the IDE). This file
-  will be automatically called by the ``tools.microsoft.MSBuild`` helper ``build()`` method.
+  will be automatically called by the ``tools.microsoft.MSBuild`` helper ``build()`` method. This file generation
+  can be avoided by defining an empty string ``conf`` item ``tools.microsoft.msbuild:installation_path=""``.
 
 
 Every invocation to ``conan install`` with different configuration will create a new properties ``.props``
@@ -421,6 +422,15 @@ Parameters:
       in the :ref:`Environment documentation <conan_tools_env_environment_model>`.
 
 
+conf
+++++
+
+- ``tools.microsoft.msbuild:installation_path`` allows defining a path to the VS installation. In most cases it is not
+  necessary, because it can be automatically obtained calling ``vswhere``, but in case it is necessary to customize it,
+  define it to the full path. If it takes an empty string value, it will disable the generation of the ``conanvcvars.bat``
+  completely, and the environment will not be automatically set by Conan.
+
+
 conan.tools.microsoft.is_msvc()
 -------------------------------
 
@@ -552,24 +562,66 @@ In the example above, ``adjusted_path`` will be:
     - ``/dev/fs/C/path/to/stuff`` if sfu
 
 
+.. _conan_tools_microsoft_unix_path_package_info_legacy:
+
+conan.tools.microsoft.unix_path_package_info_legacy()
+------------------------------------------------------------
+
+Available since: `1.57.0 <https://github.com/conan-io/conan/releases/tag/1.57.0>`_
+
+.. code-block:: python
+
+    def unix_path_package_info_legacy(conanfile, path, path_flavor=None):
+
+This function is provided for compatibility with the legacy :ref:`tools_unix_path` in those
+cases in which it is used inside the `package_info()` block, and compatibility needs
+to be retained for downstream consumers that are still using Conan 1.x integrations.
+All other uses are discouraged. In Conan 2, this function returns the provided path
+without performing any transformations.
+
+Parameters:
+
+- **conanfile**: ConanFile instance.
+- **path**: Filesystem path in Windows format to transform.
+- **path_flavor**: see :ref:`tools_unix_path` for list of accepted values.
+
+.. code-block:: python
+
+    import os
+    from conan.tools.microsoft import unix_path_package_info_legacy
+
+
+    def package_info(self):
+        package_resources = os.path.join(self.package_folder, "res", "foobar")
+
+        # No path transformation is required for consumers using new integrations
+        self.buildenv_info.define_path("FOOBAR_RESDIR", package_resources)
+
+        # For compatibility with legacy dowstream consumers that are known to
+        # only consume this variable from a bash environment on Windows
+        # Note: env_info is ignored in Conan 2 altogether.
+        self.env_info.FOOBAR_RESDIR = unix_path_package_info_legacy(self, package_resources)
+
+
 check_min_vs()
 --------------
 
 Available since: `1.49.0 <https://github.com/conan-io/conan/releases/tag/1.49.0>`_
 
 Helper method to allow the migration to 2.0 more easily. It will handle internally both ``Visual Studio``
-and ``msvc`` compiler settings, raising a ``ConanInvalidConfiguration`` error if the minimum version
-is not satisfied
+and ``msvc`` compiler settings, by default raising a ``ConanInvalidConfiguration`` error if the minimum version
+is not satisfied, or returning a boolean result with the check result if called with ``throw=False``
 
 
 .. code-block:: python
 
-    def check_min_vs(conanfile, version):
+    def check_min_vs(conanfile, version, raise_invalid=True):
 
 
 - ``conanfile``: Always use ``self``, the current recipe
 - ``version``: Minimum version that will be accepted. Use a version number following the MSVC compiler version (or ``msvc`` setting),
   that is, ``191``, ``192``, etc (updates like ``193.1`` are also acceptable)
+- ``raise_invalid``: Whether to raise or return False if the version check fails. Defaults to ```True``
 
 
 Example:

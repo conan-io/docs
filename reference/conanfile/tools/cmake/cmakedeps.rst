@@ -340,4 +340,4 @@ tell CMake how to map the configurations from the current project to the importe
 
     cd build-coverage/
     conan install .. -s build_type=Debug
-    cmake .. -DCMAKE_BUILD_TYPE=Coverage -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_MAP_IMPORTED_CONFIG_COVERAGE=Debug
+    cmake .. -DCMAKE_BUILD_TYPE=Coverage -DCMAKE_TOOLCHAIN_FILE=<path>/conan_toolchain.cmake -DCMAKE_MAP_IMPORTED_CONFIG_COVERAGE=Debug

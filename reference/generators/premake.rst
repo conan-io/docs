@@ -9,7 +9,8 @@ premake
 
 .. warning::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
 
 .. container:: out_reference_box
 

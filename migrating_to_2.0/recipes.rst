@@ -97,7 +97,7 @@ Settings
           ...
 
           def validate(self):
-              if self.info.settings.os == "Macos":
+              if self.settings.os == "Macos":
                   raise ConanInvalidConfiguration("Macos not supported")
 
 
@@ -182,9 +182,9 @@ In case the default value is ``None``, then it should be added as possible value
 The validate() method
 ---------------------
 
-Use always the ``self.info.settings`` instead of ``self.settings`` and ``self.info.options`` instead of ``self.options``.
-Otherwise, the compatibility mechanism won't be able to verify if the configurations of potential ``compatible`` packages
-are valid.
+Use always the ``self.settings`` instead of ``self.info.settings`` and ``self.options`` instead of ``self.info.options``.
+The compatibility mechanism are not needed to verify if the configurations of potential ``compatible`` packages
+are valid after the graph has been built.
 
 .. code-block:: python
     :caption: **From:**
@@ -192,7 +192,7 @@ are valid.
     class Pkg(Conanfile):
 
         def validate(self):
-            if self.settings.os == "Windows":
+            if self.info.settings.os == "Windows":
                 raise ConanInvalidConfiguration("This package is not compatible with Windows")
 
 
@@ -202,7 +202,7 @@ are valid.
     class Pkg(Conanfile):
 
         def validate(self):
-            if self.info.settings.os == "Windows":
+            if self.settings.os == "Windows":
                 raise ConanInvalidConfiguration("This package is not compatible with Windows")
 
 .. note::
@@ -220,7 +220,7 @@ are valid.
                 check_min_cppstd(self, 17)
 
 If you are not checking if the resulting binary is valid for the current configuration but need to check if a package
-can be built or not for a specific configuration you must use the ``validate_build()`` method instead of using ``self.settings``
+can be built or not for a specific configuration you must use the ``validate_build()`` method using ``self.settings``
 and ``self.options`` to perform the checks:
 
 
@@ -489,9 +489,17 @@ If we are using that recipe for our project we can build it by typing:
 
 .. code-block:: bash
 
-    $ conan install .
     # This will generate the config files from the dependencies and the toolchain
-    $ cmake . -DCMAKE_TOOLCHAIN_FILE=./cmake-build-release/conan/conan_toolchain.cmake
+    $ conan install .
+
+    # Windows
+    $ cd build
+    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake
+    $ cmake --build . --config=Release
+
+    # Linux
+    $ cd build/Release
+    $ cmake ../.. -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
     $ cmake --build .
 
 You can check all the generators and toolchains for different build systems in the :ref:`tools reference page<conan_tools>`.
@@ -989,3 +997,28 @@ the recipe for Conan 2.0:
   as default, the ``tools.system.package_manager:sudo`` configuration is ``False`` by default.
 * :ref:`systempackagetool` is initialized with ``default_mode='enabled'`` but for these new
   tools ``tools.system.package_manager:mode='check'`` is set by default.
+
+
+New package type attribute
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The new optional attribute ``package_type``, to help Conan package ID to choose a better default ``package_id_mode``.
+
+.. code-block:: python
+
+        from conan import ConanFile
+
+        class FoobarAppConanfile(ConanFile):
+            package_type = "application"
+
+
+The valid values are:
+
+    - **application**: The package is an application.
+    - **library**: The package is a generic library. It will try to determine the type of library (from shared-library, static-library, header-library) reading the self.options.shared (if declared) and the self.options.header_only
+    - **shared-library**: The package is a shared library only.
+    - **static-library**: The package is a static library only.
+    - **header-library**: The package is a header only library.
+    - **build-scripts**: The package only contains build scripts.
+    - **python-require**: The package is a python require.
+    - **unknown**: The type of the package is unknown.
