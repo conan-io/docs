@@ -67,6 +67,16 @@ The ``conan search`` will search, by default, in all the remotes (not in the loc
 If you want to explore the local cache there is a command ``conan list recipes <pattern>``.
 
 
+conan remote login
+^^^^^^^^^^^^^^^^^^
+
+This is the substitute of the old "conan user".
+
+.. code-block:: shell
+
+     $ conan remote login [-h] [-f FORMAT] [-v [V]] [--logger] [-p [PASSWORD]] remote username
+
+
 .. _conan_v2_unified_arguments:
 
 Unified patterns in command arguments
