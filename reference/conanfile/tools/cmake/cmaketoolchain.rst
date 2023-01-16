@@ -12,7 +12,7 @@ CMakeToolchain
 Available since: `1.32.0 <https://github.com/conan-io/conan/releases/tag/1.32.0>`_
 
 The ``CMakeToolchain`` is the toolchain generator for CMake. It will generate toolchain files that can be used in the
-command line invocation of CMake with the ``-DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake``. This generator translates
+command line invocation of CMake with the ``-DCMAKE_TOOLCHAIN_FILE=<path>/conan_toolchain.cmake``. This generator translates
 the current package configuration, settings, and options, into CMake toolchain syntax.
 
 
@@ -294,19 +294,17 @@ with local development flows, than when the package is created in the cache.
 
 .. code:: bash
 
-    # Lets start in the folder containing the conanfile.py
-    $ mkdir build && cd build
     # Install both debug and release deps and create the toolchain
-    $ conan install ..
-    $ conan install .. -s build_type=Debug
-    # the conan_toolchain.cmake is common for both configurations
+    $ conan install .
+    $ conan install . -s build_type=Debug
 
-If you are using a multi-configuration generator:
+If you are using a multi-configuration generator (e.g. Windows MSVC):
 
 .. code:: bash
 
+    $ cd build
     # Need to pass the generator WITHOUT the platform, that matches your default settings
-    $ cmake .. -G "Visual Studio 15" -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
+    $ cmake .. -G "Visual Studio 15" -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake
     # Now you can open the IDE, select Debug or Release config and build
     # or, in the command line
     $ cmake --build . --config Release
@@ -321,13 +319,14 @@ If you are using a single-configuration generator:
 
 .. code:: bash
 
-    $ cmake ..  -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
-    $ cmake --build
+    $ cd build/Release
+    $ cmake ../..  -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
+    $ cmake --build .
 
 
 It is recommended to use the ``cmake_layout(self)`` in the ``layout()`` method of your ``conanfile.py``. If a layout
 is declared, the ``CMakeUserPresets.json`` file will be generated in the same folder of your ``CMakeLists.txt`` file,
-so you can use the ``--preset`` argument from ``cmake >= 3.23`` or use an IDE:
+so you can use the ``--preset`` argument for configuring, building, and testing from ``cmake >= 3.23`` or use an IDE:
 
 
 .. code:: bash
@@ -339,13 +338,20 @@ so you can use the ``--preset`` argument from ``cmake >= 3.23`` or use an IDE:
     # For single-configuration generator
     $ cmake --preset debug
     $ cmake --build --preset debug
+    $ ctest --preset debug
+
     $ cmake --preset release
     $ cmake --build --preset release
+    $ ctest --preset release
 
     # For multi-configuration generator
     $ cmake --preset default
+
     $ cmake --build --preset debug
+    $ ctest --preset debug
+
     $ cmake --build --preset release
+    $ ctest --preset release
 
 
 conf
@@ -368,6 +374,9 @@ conf
 - ``tools.build:sharedlinkflags`` list of extra linker flags that will be appended to ``CMAKE_SHARED_LINKER_FLAGS_INIT``.
 - ``tools.build:exelinkflags`` list of extra linker flags that will be appended to ``CMAKE_EXE_LINKER_FLAGS_INIT``.
 - ``tools.build:defines`` list of preprocessor definitions that will be used by ``add_definitions()``.
+- ``tools.build:linker_scripts`` list of linker scripts, each of which will be prepended with ``-T`` and appended to
+  ``CMAKE_EXE_LINKER_FLAGS_INIT``. Only use this flag with linkers that supports specifying linker scripts with the ``-T`` flag, such as
+  ``ld``, ``gold``, and ``lld``.
 - ``tools.build:tools.apple:enable_bitcode`` boolean value to enable/disable Bitcode Apple Clang flags, e.g., ``CMAKE_XCODE_ATTRIBUTE_ENABLE_BITCODE``.
 - ``tools.build:tools.apple:enable_arc`` boolean value to enable/disable ARC Apple Clang flags, e.g., ``CMAKE_XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC``.
 - ``tools.build:tools.apple:enable_visibility`` boolean value to enable/disable Visibility Apple Clang flags, e.g., ``CMAKE_XCODE_ATTRIBUTE_GCC_SYMBOLS_PRIVATE_EXTERN``.
@@ -406,6 +415,7 @@ The following predefined blocks are available, and added in this order:
 - ``apple_system``: Defines ``CMAKE_OSX_ARCHITECTURES``, ``CMAKE_OSX_SYSROOT`` for Apple systems.
 - ``fpic``: Defines the ``CMAKE_POSITION_INDEPENDENT_CODE`` when there is a ``options.fPIC``
 - ``arch_flags``: Defines C/C++ flags like ``-m32, -m64`` when necessary.
+- ``linker_scripts``: Defines the flags for any provided linker scripts.
 - ``libcxx``: Defines ``-stdlib=libc++`` flag when necessary as well as ``_GLIBCXX_USE_CXX11_ABI``.
 - ``vs_runtime``: Defines the ``CMAKE_MSVC_RUNTIME_LIBRARY`` variable, as a generator expression for multiple configurations.
 - ``cppstd``: defines ``CMAKE_CXX_STANDARD``, ``CMAKE_CXX_EXTENSIONS``

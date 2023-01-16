@@ -63,6 +63,7 @@ To list all possible configurations available, run :command:`conan config list`.
     tools.build:defines: List of extra definition flags used by different toolchains like CMakeToolchain and AutotoolsToolchain
     tools.build:exelinkflags: List of extra flags used by CMakeToolchain for CMAKE_EXE_LINKER_FLAGS_INIT variable
     tools.build:jobs: Default compile jobs number -jX Ninja, Make, /MP VS (default: max CPUs)
+    tools.build:linker_scripts: List of linker scripts used by different toolchains like CMakeToolchain, AutotoolsToolchain and MesonToolchain
     tools.build:sharedlinkflags: List of extra flags used by CMakeToolchain for CMAKE_SHARED_LINKER_FLAGS_INIT variable
     tools.build:skip_test: Do not execute CMake.test() and Meson.test() when enabled
     tools.build:sysroot: Pass the --sysroot=<tools.build:sysroot> flag if available. (None by default)
@@ -93,7 +94,7 @@ To list all possible configurations available, run :command:`conan config list`.
     tools.meson.mesontoolchain:extra_machine_files: List of paths for any additional native/cross file references to be appended to the existing Conan ones
     tools.microsoft.bash:path: Path to the shell executable. Default: 'bash'
     tools.microsoft.bash:subsystem: Set subsystem to use for Windows. Possible values: 'msys2', 'msys', 'cygwin', 'wsl' and 'sfu'
-    tools.microsoft.msbuild:installation_path: VS install path, to avoid auto-detect via vswhere, like C:/Program Files (x86)/Microsoft Visual Studio/2019/Community
+    tools.microsoft.msbuild:installation_path: VS install path, to avoid auto-detect via vswhere, like C:/Program Files (x86)/Microsoft Visual Studio/2019/Community. Use empty string to disable.
     tools.microsoft.msbuild:max_cpu_count: Argument for the /m when running msvc to build parallel projects
     tools.microsoft.msbuild:verbosity: Verbosity level for MSBuild: 'Quiet', 'Minimal', 'Normal', 'Detailed', 'Diagnostic'
     tools.microsoft.msbuild:vs_version: Defines the IDE version when using the new msvc compiler
