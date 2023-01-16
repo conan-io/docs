@@ -488,10 +488,10 @@ other build systems, even a custom one, remember you should generate everything 
 If we are using that recipe for our project we can build it by typing:
 
 .. code-block:: bash
-    
+
     # This will generate the config files from the dependencies and the toolchain
     $ conan install .
-    
+
     # Windows
     $ cd build
     $ cmake .. -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake
@@ -997,3 +997,28 @@ the recipe for Conan 2.0:
   as default, the ``tools.system.package_manager:sudo`` configuration is ``False`` by default.
 * :ref:`systempackagetool` is initialized with ``default_mode='enabled'`` but for these new
   tools ``tools.system.package_manager:mode='check'`` is set by default.
+
+
+New package type attribute
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The new optional attribute ``package_type``, to help Conan package ID to choose a better default ``package_id_mode``.
+
+.. code-block:: python
+
+        from conan import ConanFile
+
+        class FoobarAppConanfile(ConanFile):
+            package_type = "application"
+
+
+The valid values are:
+
+    - **application**: The package is an application.
+    - **library**: The package is a generic library. It will try to determine the type of library (from shared-library, static-library, header-library) reading the self.options.shared (if declared) and the self.options.header_only
+    - **shared-library**: The package is a shared library only.
+    - **static-library**: The package is a static library only.
+    - **header-library**: The package is a header only library.
+    - **build-scripts**: The package only contains build scripts.
+    - **python-require**: The package is a python require.
+    - **unknown**: The type of the package is unknown.
