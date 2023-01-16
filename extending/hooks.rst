@@ -6,7 +6,7 @@ Hooks
 
 .. warning::
 
-    This is a **migrated** feature.  Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>` learn about the changes.
+    This is an **experimental** feature subject to breaking changes in future releases.
     Most of the functionality remains intact and the main changes are adapting to the new features that are introduced.
 
 The Conan hooks is a feature intended to extend the Conan functionalities and let users customize the client behavior at determined
