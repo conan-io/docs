@@ -4,17 +4,14 @@
 Meson
 -----
 
-.. warning::
+.. important::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+    This feature is still **under development**, while it is recommended and usable and we will try not to break them in future releases,
+    some breaking changes might still happen if necessary to prepare for the *Conan 2.0 release*.
 
 Available since: `1.33.0 <https://github.com/conan-io/conan/releases/tag/1.33.0>`_
 
-The ``Meson()`` build helper that works with the ``MesonToolchain`` is also experimental,
-and subject to breaking change in the future. It will evolve to adapt and complement the
-toolchain functionality.
-
-The helper is intended to be used in the ``build()`` method, to call Meson commands automatically
+This helper is intended to be used in the ``build()`` method, to call Meson commands automatically
 when a package is being built directly by Conan (create, install)
 
 .. code:: python
