@@ -89,7 +89,7 @@ This is the substitute of the old "conan user".
 conan upload
 ^^^^^^^^^^^^
 
-The default behavoir has changed from requiring `--all` to include the binary packages to `--recipe-only` for just the recipe 
+The default behavior has changed from requiring `--all` to include the binary packages to `--recipe-only` for just the recipe 
 
 .. code-block:: shell
 
@@ -163,7 +163,7 @@ This has been replaced with :ref:<conan_v2_remote_login>
 Removed "conan config set"
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-we are no longer implmenting file-editing commands in 2.0. A bit overkill `conan config set` to edit one file. Which should very rarely happen,
+we are no longer implementing file-editing commands in 2.0. A bit overkill `conan config set` to edit one file. Which should very rarely happen,
 the file is updated with `conan config install`.
 
 Custom commands
