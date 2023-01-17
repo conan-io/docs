@@ -7,7 +7,7 @@ The Conan hooks is a feature intended to extend the Conan functionalities to per
 like some quality checks, in different stages of a package creation process, like pre-build and post-build.
 
 Hook structure
---------------
+^^^^^^^^^^^^^^
 
 A hook is a Python function that will be executed at certain points of Conan workflow
 to customize the client behavior without modifying the client sources or the recipe ones.
@@ -35,7 +35,7 @@ relative module and warn, error or even raise to abort the Conan client executio
 
 
 Importing from a module
------------------------
+^^^^^^^^^^^^^^^^^^^^^^^
 
 The hook interface should always be placed inside a Python file with the name of the hook starting by *hook_* and with the extension *.py*.
 It also should be stored in the *<conan_home>/extensions/hooks* folder. However, you can use functionalities from imported modules if you have
@@ -80,7 +80,7 @@ And it can be used in the hook importing the module, just like regular Python:
         my_printer(conanfile)
 
 Hook interface
---------------
+^^^^^^^^^^^^^^
 
 Here you can see a complete example of all the hook functions available:
 
@@ -134,7 +134,7 @@ All hook methods are filled only with the same single object:
   and dynamic objects such as ``build_folder``, ``package_folder``, ``output``, ``dependencies``,  ``options`` ...
 
 Storage, activation and sharing
--------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Hooks are Python files stored under *<conan_home>/extensions/hooks* folder and **their file name should start with hook_ and end with the
 .py extension**.
@@ -145,7 +145,7 @@ In case storing in subfolders, it works automatically too.
 To deactivate a hook, its file should be removed from the hook folder. There is no configuration which can deactivate but keep the file stored in hooks folder.
 
 Official Hooks
---------------
+^^^^^^^^^^^^^^
 
 There are some officially maintained hooks in its own repository in `Conan hooks GitHub <https://github.com/conan-io/hooks>`_,
 but mostly are only compatible with Conan 1.x, so please, check first the `README <https://github.com/conan-io/hooks/blob/master/README.md>`_
