@@ -164,7 +164,7 @@ Removed "conan config set"
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 we are no longer implementing file-editing commands in 2.0. A bit overkill `conan config set` to edit one file. Which should very rarely happen,
-the file is updated with `conan config install`.
+the file is updated with `conan config install`. Alternatively, you can use the command line and profiles to pass these values.
 
 Custom commands
 ---------------
