@@ -57,7 +57,7 @@ Work in progress
 Hooks
 ^^^^^
 
-- Hooks folder has been updated to ``~/.conan2.extensions/hook``;
+- Hooks folder has been updated to ``~/.conan2/extensions/hook``;
 - Any hook file must be named with ``hook_`` as prefix and ``.py`` as suffix;
 - Only ``ConanFile`` is passed as parameter;
 - Pre and Post Download are no longer supported in Conan 2.x
