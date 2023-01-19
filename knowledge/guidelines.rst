@@ -12,7 +12,7 @@ Good and bad practices
   Thus, avoiding as much as possible any logic in the ``build()`` method, and moving it to
   the ``generate()`` method helps developers achieve the same build locally as the one that 
   would be produced by a ``conan create`` build in the local cache.
-- Use always your own profiles in production, instead of relying on the auto-detected profile,
+- Always use your own profiles in production, instead of relying on the auto-detected profile,
   as the output of such auto detection can vary over time, resulting in unexpected results.
   Profiles (and many other configuration), can be managed with ``conan config install``.
 - Developers should not be able to upload to "development" and "production" repositories in the server. only
