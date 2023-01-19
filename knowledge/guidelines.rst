@@ -23,8 +23,8 @@ Good and bad practices
   that it has correctly packaged the headers, the libraries, etc, in the right folders), not that
   the functionality of the package is correct. Then, it should be kept as simple as possible, like
   building and running an executable that uses the headers and links against a packaged library
-  should be enough. Such execution should be as simple as possible too. To run any kind of 
-  unit and functional tests, that should be done in the ``build()`` method.
+  should be enough. Such execution should be as simple as possible too. Any kind of 
+  unit and functional tests should be done in the ``build()`` method.
 - Keep ``python_requires`` as simple as possible. Avoid transitive ``python_requires``, keep them
   as reduced as possible, and at most, require them explicitly in a "flat" structure, without
   ``python_requires`` requiring other ``python_requires``. Avoid inheritance (via ``python_requires_extend``)
