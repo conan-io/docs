@@ -7,7 +7,7 @@ Videos
 
     This section presents some conference talks and presentations regarding Conan.
     While they can be very informative and educational, please note that some of them might
-    be outdated. Use always the documentation and reference as the source of truth, not the
+    be outdated. Always use the documentation and reference as the source of truth, not the
     videos.
     
 
