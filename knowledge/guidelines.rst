@@ -1,10 +1,9 @@
 Core guidelines
 ===============
 
-This section summarizes some of the good and bad practices.
 
-Good and bad practices
------------------------
+Good practices
+--------------
 
 - The recipes' ``generate()`` method purpose is to prepare the build as much as possible.
   Users calling ``conan install`` will execute this method, and the generated files should
