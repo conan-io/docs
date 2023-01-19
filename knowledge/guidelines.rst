@@ -3,7 +3,7 @@ Core guidelines
 
 This section summarizes some of the good and bad practices.
 
-Good  and bad practices
+Good and bad practices
 -----------------------
 
 - The recipes ``generate()`` method purpose is to prepare the build as much as possible.
