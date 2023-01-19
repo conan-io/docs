@@ -17,8 +17,8 @@ Good and bad practices
   Profiles (and many other configuration), can be managed with ``conan config install``.
 - Developers should not be able to upload to "development" and "production" repositories in the server.
   Only CI builds have write permissions in the server. Developers should only have read permissions and 
-  at most to some "playground" repositories used to work, share things with colleagues, but that
-  never used, moved, copied to development or production repositories.
+  at most to some "playground" repositories used to work and share things with colleagues,
+  but which packages are never used, moved or copied to the development or production repositories.
 - The ``test_package`` purpose is to check that the package has been correctly created (that is, 
   that it has correctly packaged the headers, the libraries, etc, in the right folders), not that
   the functionality of the package is correct. Then, it should be kept as simple as possible, like
