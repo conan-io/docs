@@ -21,36 +21,30 @@ Videos and links
     be outdated. Always use the documentation and reference as the source of truth, not the
     videos.
 
-- What's New in Conan 2.0 C/C++ Package Manager by Diego Rodriguez-Losada
+
+- CppCon 2022: What's New in Conan 2.0 C/C++ Package Manager by Diego Rodriguez-Losada
 
   .. raw:: html
 
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/NM-xp3tob2Q" frameborder="0" allow="autoplay; encrypted-media; allowfullscreen>
-      </iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/NM-xp3tob2Q" frameborder="0" allow="autoplay; encrypted-media; allowfullscreen></iframe>
 
-      <br/><br/>
+- There's a bug in the website where the second link is always removed ..........
 
+  .. raw:: html
+
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/kKGglzm5ous" frameborder="0" allow="autoplay; encrypted-media; allowfullscreen></iframe>
 
 - ACCU 2022: Advanced Dependencies Model in Conan 2.0 C, C++ Package Manager by Diego Rodriguez-Losada
 
   .. raw:: html
 
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/kKGglzm5ous" frameborder="0" allow="autoplay; encrypted-media; allowfullscreen>
-      </iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/kKGglzm5ous" frameborder="0" allow="autoplay; encrypted-media; allowfullscreen></iframe>
 
-      <br/><br/>
-
-
- - Conan Package Manager for C++ in Practice
+- Conan Package Manager for C++ in Practice
 
   .. raw:: html
 
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/vAe9k0NJkw8" frameborder="0" allow="autoplay; encrypted-media; allowfullscreen>
-      </iframe>
-
-      <br/><br/>     
-      
-
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/vAe9k0NJkw8" frameborder="0" allow="autoplay; encrypted-media; allowfullscreen></iframe>
 
 - Conan in Practice: Interactive Exercises of common commands
 
