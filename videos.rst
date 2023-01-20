@@ -14,6 +14,13 @@
 Videos and links
 =================
 
+.. caution::
+
+    This section presents some conference talks and presentations regarding Conan.
+    While they can be very informative and educational, please note that some of them might
+    be outdated. Always use the documentation and reference as the source of truth, not the
+    videos.
+
 - What's New in Conan 2.0 C/C++ Package Manager by Diego Rodriguez-Losada
 
   .. raw:: html
@@ -23,6 +30,7 @@ Videos and links
 
       <br/><br/>
 
+
 - ACCU 2022: Advanced Dependencies Model in Conan 2.0 C, C++ Package Manager by Diego Rodriguez-Losada
 
   .. raw:: html
@@ -31,7 +39,7 @@ Videos and links
       </iframe>
 
       <br/><br/>
-      
+
 
  - Conan Package Manager for C++ in Practice
 
@@ -73,6 +81,7 @@ Videos and links
 
       <br/><br/>
 
+
 - CppCon 2018: "Git, CMake, Conan - How to ship and reuse our C++ projects" by Mateusz Pusz.
 
   .. raw:: html
@@ -81,6 +90,7 @@ Videos and links
       </iframe>
 
     <br/><br/>
+
 
 - JFrog swampUP 2018: "Managing dependencies and toolchains with Conan and Artifactory" by Tobias Hieta
 
@@ -91,6 +101,7 @@ Videos and links
 
       <br/><br/>
 
+
 - JFrog swampUP 2018: "Cross building... It's almost too easy!" by Théo Delrieu.
 
   .. raw:: html
@@ -100,6 +111,7 @@ Videos and links
 
       <br/><br/>
 
+
 - JFrog Conan Playlist: "Conan - The C/C++ Package Manager"
 
   .. raw:: html
@@ -108,6 +120,7 @@ Videos and links
       </iframe>
 
       <br/><br/>
+
 
 - FOSDEM 2018: "Packaging C/C++ libraries with Conan" by Théo Delrieu.
 
@@ -150,6 +163,7 @@ Videos and links
 
       <br/><br/>
 
+
 - CppRussia 2019: "ABI compatibility is not a MAJOR problem" by Javier Garcia Sogo
 
   .. raw:: html
@@ -159,6 +173,7 @@ Videos and links
 
       <br/><br/>
 
+
 - CppCon 2019: "Building happiness in your life" by Steve Robinson
 
   .. raw:: html
@@ -167,6 +182,7 @@ Videos and links
       </iframe>
 
       <br/><br/>
+
 
 Do you have a video, tutorial, blog post that could be useful for other users and would like to share?
 Please tell us about it or directly send a PR to our docs: https://github.com/conan-io/docs, and we will link it here.
