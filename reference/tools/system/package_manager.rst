@@ -1,4 +1,4 @@
-.. _conan_tools_system_packag---------e_manager:
+.. _conan_tools_system_package_manager:
 
 conan.tools.system.package_manager
 ==================================
