@@ -39,7 +39,6 @@ And specific recipe revisions can be pinned too:
     zlib/1.2.13#revision1
     boost/1.70.0#revision2
 
-
 [tool_requires]
 ---------------
 
