@@ -83,7 +83,7 @@ html_context = {
     "display_github": True, # Integrate GitHub
     "github_user": "conan-io", # Username
     "github_repo": "docs", # Repo name
-    "github_version": "master", # Version
+    "github_version": "develop2", # Version
     "conf_py_path": "/" # Path in the checkout to the docs root
 }
 
