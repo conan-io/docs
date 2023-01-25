@@ -1,14 +1,6 @@
 Introduction to versioning
 ==========================
 
-.. important::
-
-    In this example, we will retrieve Conan packages from a Conan repository with
-    packages compatible with Conan 2.0. To run this example successfully you should add this
-    remote to your Conan configuration (if did not already do it) doing:
-    ``conan remote add conanv2 https://conanv2beta.jfrog.io/artifactory/api/conan/conan --index 0``
-
-
 So far we have been using requires with fixed versions like ``requires = "zlib/1.2.12"``.
 But sometimes dependencies evolve, new versions are released and consumers want to update to those versions as easy as possible.
 

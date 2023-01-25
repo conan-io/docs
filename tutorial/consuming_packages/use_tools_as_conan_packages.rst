@@ -3,13 +3,6 @@
 Using build tools as Conan packages
 ===================================
 
-.. important::
-
-    In this example, we will retrieve the CMake Conan package from a Conan repository with
-    packages compatible with Conan 2.0. To run this example successfully you should add this
-    remote to your Conan configuration (if did not already do it) doing:
-    ``conan remote add conanv2 https://conanv2beta.jfrog.io/artifactory/api/conan/conan --index 0``
-
 In the previous example, we built our CMake project and used Conan to install and locate
 the **Zlib** library. Conan used the CMake version found in the system path to build this
 example. But, what happens if you don’t have CMake installed in your build environment or
