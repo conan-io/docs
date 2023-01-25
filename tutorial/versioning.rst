@@ -17,7 +17,7 @@ be able to provide traceability and reproducibility of those changes.
 
 Lockfiles are a common mechanism in other package managers to be able to reproduce the same
 dependency graph later in time, even when new versions or revisions of dependencies are uploaded.
-Conan also provide lockfiles to be able to guarantee this reproducibility.
+Conan also provides lockfiles to be able to guarantee this reproducibility.
 
 Finally, when different branches of a dependency graph ``requires`` different versions of the
 same package, that is called a "version conflict". The tutorial will also introduce these
