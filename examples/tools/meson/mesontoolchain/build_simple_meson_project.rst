@@ -11,14 +11,6 @@ that uses one of the most popular C++ libraries: `Zlib <https://zlib.net/>`__.
     This example is based on the main :ref:`Build a simple CMake project using Conan<consuming_packages_build_simple_cmake_project>`
     tutorial. So we highly recommend reading it before trying out this one.
 
-.. important::
-
-    We have to retrieve the Zlib Conan package from a Conan repository with
-    packages compatible with Conan 2.0. To run this example successfully you should add this
-    remote to your Conan configuration (if did not already do it) doing:
-    ``conan remote add conanv2 https://conanv2beta.jfrog.io/artifactory/api/conan/conan --index 0``
-
-
 We'll use Meson as build system and pkg-config as helper tool in this case, so you should get them installed
 before going forward with this example.
 

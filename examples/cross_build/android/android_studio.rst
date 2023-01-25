@@ -24,14 +24,6 @@ profile at ``os.api_level```
 Select a "C++ Standard" in the next window, again, remember the choice as later we should use the same in the profile at
 ``compiler.cppstd``.
 
-
-.. important::
-
-    In this example, we will retrieve Conan packages from a Conan repository with
-    packages compatible with Conan 2.0. To run this example successfully you should add this
-    remote to your Conan configuration (if did not already do it) doing:
-    ``conan remote add conanv2 https://conanv2beta.jfrog.io/artifactory/api/conan/conan --index 0``
-
 In the project generated with the wizard we have a folder ``cpp`` with a ``native-lib.cpp``. We are going to modify that
 file to use ``zlib`` and print a message with the used ``zlib`` version. Copy only the highlighted lines, it is important
 to keep the function name.
