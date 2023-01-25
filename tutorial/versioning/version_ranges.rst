@@ -3,7 +3,7 @@
 Version ranges
 ==============
 
-In the previous section, we ended with several version of the ``pkg`` package.
+In the previous section, we ended with several versions of the ``pkg`` package.
 Let's remove them and create the following simple project:
 
 .. code-block:: python
