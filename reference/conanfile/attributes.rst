@@ -394,12 +394,22 @@ requires
 
   Accepted expressions would be:
 
-    ..  code-block:: python
+    .. list-table::
+        :widths: 25 25 50
+        :header-rows: 1
 
-          >1.1 <2.1    # In such range
-          2.8          # equivalent to =2.8
-          ~=3.0        # compatible, according to semver
-          >1.1 || 0.8  # conditions can be OR'ed
+        * - Expression
+          - Versions in range
+          - Versions outside range
+        * - [>=1.0 <2]
+          - 1.0.0, 1.0.1, 1.1, 1.2.3
+          - 0.2, 2.0, 2.1, 3.0
+        * - [<3.2.1]
+          - 0.1, 1.2, 2.4, 3.1.1
+          - 3.2.2
+        * - [>2.0]
+          - 2.1, 2.2, 3.1, 14.2
+          - 1.1, 1.2, 2.0
 
 
   .. seealso::

@@ -21,5 +21,5 @@ libraries and store them in a remote server alongside all the precompiled binari
 
    tutorial/consuming_packages
    tutorial/creating_packages
-   tutorial/versioning_ci
+   tutorial/versioning
 
