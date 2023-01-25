@@ -15,7 +15,7 @@ There are some situations when recipes or source code are changed, but the versi
 package is not increased. For those situations, Conan uses automatic ``revisions`` to 
 be able to provide traceability and reproducibility of those changes.
 
-Lockfiles are a common mechanism in other package managers to be able to reproduce the same
+Lockfiles are a common mechanism in package managers to be able to reproduce the same
 dependency graph later in time, even when new versions or revisions of dependencies are uploaded.
 Conan also provides lockfiles to be able to guarantee this reproducibility.
 
