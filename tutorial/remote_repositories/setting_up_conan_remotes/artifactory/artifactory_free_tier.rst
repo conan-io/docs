@@ -13,6 +13,7 @@ repository follow these steps:
 
    .. image:: ../../../../images/artifactory/free_tier_create_account.png
 
+
 2. **Create a Conan repository**
 
 Navigate to Artifactory -> Repositories, then click on the "Create a Repository" button
@@ -22,6 +23,7 @@ create), for example "conan-local" and click on "Create Local Repository". You c
 multiple repositories to serve different flows, teams, or projects.
 
 .. image:: ../../../../images/artifactory/free_tier_create_repo.png
+
 
 3. **Configure the repository in the Conan client**
 
@@ -36,6 +38,7 @@ multiple repositories to serve different flows, teams, or projects.
 
        $ conan remote add <remote_name> <remote_url>
 
+
 4. **Get your API key**
 
    Your API key is the “password” used to authenticate the Conan client to Artifactory,
@@ -44,6 +47,7 @@ multiple repositories to serve different flows, teams, or projects.
    token" to create a new token.
    
    .. image:: ../../../../images/artifactory/free_tier_token.png
+
 
 5. **Set your user credentials**
 
