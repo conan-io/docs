@@ -22,8 +22,9 @@ There are several options to set-up a Conan remote repository:
   more information.
 
 - :ref:`Conan server <conan_server>`: Simple, free and open source, MIT
-  licensed server that is part of the conan-io project. Check :ref:`conan_server` for more
-  information.
+  licensed server that is part of the `conan-io organization
+  <https://github.com/conan-io>`_ project. Check
+  :ref:`conan_server` for more information.
 
 
 **Enterprise solutions:**
