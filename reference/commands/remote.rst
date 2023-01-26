@@ -263,5 +263,6 @@ conan remote update
 Read more
 ---------
 
+- :ref:`Uploading packages tutorial <uploading_packages>`
 - :ref:`Working with Conan repositories <conan_repositories>`
 - :ref:`Upload Conan packages to remotes using conan upload command <reference_commands_upload>`
