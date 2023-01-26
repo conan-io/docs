@@ -28,17 +28,6 @@ are using our ``my_local_server`` remote, but you could use any other.
 
     $ conan upload hello -r=my_local_server
 
-This command will upload the package recipe plus all the binary packages. Using the
-``--only-recipe`` argument will upload the package recipe *only*. For fine-grained control
-over which binary packages are upload to the server, consider using the
-``--package-query/-p`` argument. ``--package-query`` allows you to explicitly declare
-which package gets uploaded to the server by specifying the package ID.
-``--package-query`` accepts a query parameter, e.g. ``arch=armv8 and os=Linux``, and only
-uploads binary packages which match this query. When using the ``--package-query`` argument, ensure
-that your query string is enclosed in quotes to make the parameter explicit to your shell.
-For example, ``conan upload <package> -p 'arch=x86_64 and os=Linux' ...`` is appropriate
-use of the ``--package-query`` argument.
-
 Now try again to read the information from the remote. We refer to it as remote, even if
 it is running on your local machine, as it could be running on another server in your LAN:
 
