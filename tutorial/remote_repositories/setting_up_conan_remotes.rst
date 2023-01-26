@@ -21,7 +21,7 @@ There are several options to set-up a Conan remote repository:
   designed for individual with reduced usage. Check :ref:`artifactory_free_tier` for more
   information.
 
-- :ref:`Conan server <artifactory_free_tier>`: Simple, free and open source, MIT
+- :ref:`Conan server <conan_server>`: Simple, free and open source, MIT
   licensed server that is part of the conan-io project. Check :ref:`conan_server` for more
   information.
 
