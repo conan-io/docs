@@ -42,7 +42,7 @@ repository you are about to create), for example "conan-local" and click on "Cre
 Repository". You can create multiple repositories to serve different flows, teams, or
 projects.
 
-.. image:: ../../../../images/artifactory/artifactory-local-repository.png
+.. image:: ../../../../images/artifactory/artifactory_local_repository.png
 
 Now, let's configure the Conan client to connect with the "conan-local" repository. First
 add the remote to the Conan remote registry:
