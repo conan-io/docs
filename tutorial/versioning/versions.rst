@@ -3,6 +3,18 @@
 Versions
 ========
 
+This section explains how different versions of a given package can be created, first starting with
+manually changing the version attribute in the ``conanfile.py`` recipe, and then introducing the
+``set_version()`` method as a mechanism to automate the definition of the package version.
+
+.. note::
+
+    This section uses very simple, empty recipes without building any code, so without ``build()``,
+    ``package()``, etc., to illustrate the versioning with the simplest possible recipes, and allowing
+    the examples to run easily and to be very fast and simple. In real life, the recipes would be 
+    full-blown recipes as seen in previous sections of the tutorial, building actual libraries and packages.
+
+
 Let's start with a very simple recipe:
 
 .. code-block:: python
@@ -21,7 +33,7 @@ Let's start with a very simple recipe:
         #    ...
 
 
-That we can create with:
+That we can create ``pkg/1.0`` package with:
 
 .. code-block:: bash
 
@@ -35,8 +47,9 @@ That we can create with:
     pkg
         pkg/1.0
 
-If we now did some changes to the header files of this library,
-this would be a new version, and we could change the ``conanfile.py`` version to ``version = "1.1"`` and:
+If we now did some changes to the source files of this library,
+this would be a new version, and we could change the ``conanfile.py`` version to ``version = "1.1"`` and
+create the new ``pkg/1.1`` version:
 
 .. code-block:: bash
 
@@ -51,6 +64,9 @@ this would be a new version, and we could change the ``conanfile.py`` version to
     pkg
         pkg/1.0
         pkg/1.1
+
+As we can see, now we see in our cache both ``pkg/1.0`` and ``pkg/1.1``. The Conan cache can store
+any number of different versions and configurations for the same ``pkg`` package.
 
 
 Automating versions
@@ -78,9 +94,9 @@ remove the ``version`` attribute from the recipe and do:
 
 
 The other possibility is to use the ``set_version()`` method to define the version dynamically, for example, if
-the version already exist in the source code in a text file, or it should be deduced from the git version.
+the version already exists in the source code or in a text file, or it should be deduced from the git version.
 
-Let's assume that we have a ``version.txt`` in the repo, that contains just the version ``1.3``. 
+Let's assume that we have a ``version.txt`` file in the repo, that contains just the version string ``1.3``. 
 Then, this can be done:
 
 .. code-block:: python
@@ -99,6 +115,7 @@ Then, this can be done:
 
 .. code-block:: bash
 
+    # No need to specify the version in CLI arg or in recipe attribute
     $ conan create .
     ...
     pkg/1.3 .
@@ -113,12 +130,14 @@ Then, this can be done:
         pkg/1.3
 
 It is also possible to combine the command line version definition, falling back to reading from file if the
-command line argument is not provided with:
+command line argument is not provided with the following syntax:
 
 .. code-block:: python
     :caption: conanfile.py
 
     def set_version(self):
+        # if self.version is already defined from CLI --version arg, it will
+        # not load version.txt
         self.version = self.version or load(self, "version.txt")
 
 .. code-block:: bash
@@ -158,10 +177,13 @@ Likewise, it is possible to obtain the version from a Git tag:
 .. code-block:: bash
 
     # assuming this is a git repo, and it was tagged to 1.5
+    $ git init .
+    $ git add .
+    $ git commit -m "initial commit"
     $ git tag 1.5
     $ conan create .
         ...
-        pkg/1.4 .
+        pkg/1.5 .
         ...
 
         $ conan list *
@@ -191,7 +213,7 @@ When a new package version is created, if other package recipes requiring this o
 pinning the exact version like:
 
 .. code-block:: python
-    :caption: conanfile.py
+    :caption: app/conanfile.py
 
     from conan import ConanFile
 
@@ -201,10 +223,10 @@ pinning the exact version like:
         requires = "pkg/1.0"
 
 Then, installing or creating the ``app`` recipe will keep requiring and using the ``pkg/1.0`` version and not 
-the newer ones. To start using the new ``pkg`` versions, it is necessary to update the ``requires`` like:
+the newer ones. To start using the new ``pkg`` versions, it is necessary to explicitly update the ``requires`` like:
 
 .. code-block:: python
-    :caption: conanfile.py
+    :caption: app/conanfile.py
 
     from conan import ConanFile
 

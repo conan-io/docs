@@ -19,7 +19,7 @@ Let's remove them and create the following simple project:
 
     from conan import ConanFile
 
-    class pkgRecipe(ConanFile):
+    class appRecipe(ConanFile):
         name = "app"
         requires = "pkg/1.0"
 
@@ -55,7 +55,7 @@ let's use the following version-range expression (introduced by the ``[expressio
 
     from conan import ConanFile
 
-    class pkgRecipe(ConanFile):
+    class appRecipe(ConanFile):
         name = "app"
         requires = "pkg/[>=1.0 <2.0]"
 
@@ -90,6 +90,14 @@ This holds as long as the newer version lies within the defined range, if we cre
     ...
     Requirements
         pkg/1.2
+
+
+Version ranges can be defined in several places:
+
+- In ``conanfile.py`` recipes ``requires``, ``tool_requires``, ``test_requires``, ``python_requires``
+- In ``conanfile.txt`` files in ``[requires]``, ``[tool_requires]``, ``[test_requires]`` sections
+- In command line arguments like ``--requires=`` and ``--tool_requires``.
+- In profiles ``[tool_requires]`` section
 
 
 Semantic versioning
