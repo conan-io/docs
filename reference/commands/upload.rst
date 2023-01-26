@@ -3,9 +3,9 @@
 conan upload
 ============
 
-Use this command to upload recipes and binaries to remote repositories. For more
-information on how to work with remote repositories, please check the :ref:`dedicated
-section <remote_repositories>`.
+Use this command to upload recipes and binaries to Conan repositories. For more
+information on how to work with Conan repositories, please check the :ref:`dedicated
+section <conan_repositories>`.
 
 .. code-block:: bash
 
@@ -37,5 +37,5 @@ section <remote_repositories>`.
 Read more
 ---------
 
-- :ref:`Working with remote repositories <remote_repositories>`
+- :ref:`Working with Conan repositories <conan_repositories>`
 - :ref:`Managing remotes with conan remote command <reference_commands_remote>`

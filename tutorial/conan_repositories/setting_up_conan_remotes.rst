@@ -3,7 +3,7 @@
 Setting up a Conan remote
 =========================
 
-There are several options to set-up a Conan remote repository:
+There are several options to set-up a Conan repository:
 
 **For private development:**
 
