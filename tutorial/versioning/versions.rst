@@ -214,6 +214,6 @@ the newer ones. To start using the new ``pkg`` versions, it is necessary to upda
         requires = "pkg/1.5"
 
 
-This process, while it achieves very good reproducibility and traceability, it can be a bit tedious if we are
+This process, while it achieves very good reproducibility and traceability, can be a bit tedious if we are
 managing a large dependency graph and we want to move forward to use the latest dependencies versions faster 
 and with less manual intervention. To automate this, the *version-ranges* explained in the next section can be used.
