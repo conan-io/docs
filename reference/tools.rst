@@ -35,3 +35,7 @@ Contents:
    tools/system
    tools/microsoft
    tools/scm
+   tools/google
+   tools/intel
+   tools/qbs
+   tools/layout
