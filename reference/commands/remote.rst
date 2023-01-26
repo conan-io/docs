@@ -4,7 +4,9 @@ conan remote
 ============
 
 Use this command to add, edit and remove remote repositories from the Conan remote
-registry and also manage authentication to those remotes. 
+registry and also manage authentication to those remotes. For more information on how to
+work with remote repositories, please check the :ref:`dedicated section
+<remote_repositories>`.
 
 .. code-block:: bash
 
