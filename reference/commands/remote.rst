@@ -259,3 +259,9 @@ conan remote update
     --secure       Don\'t allow insecure server connections when using SSL
     --insecure     Allow insecure server connections when using SSL
     --index INDEX  Insert the remote at a specific position in the remote list
+
+Read more
+---------
+
+- :ref:`Working with remote repositories <remote_repositories>`
+- :ref:`Upload Conan packages to remotes using conan upload command <reference_commands_upload>`
