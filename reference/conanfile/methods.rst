@@ -160,3 +160,77 @@ The ``validate_build()`` method has to use always the ``self.settings`` and ``se
             # We shouldn't check here the self.info.settings.compiler because it has been removed in the package_id()
             # so it doesn't make sense to check if the binary is compatible with gcc because the compiler doesn't matter
             pass
+
+.. _conanfile_methods_layout:
+
+layout()
+--------
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+    The ``layout()`` feature will be fully functional only in the new build system integrations
+    (:ref:`in the conan.tools space <conan_tools>`). If you are using other integrations, they
+    might not fully support this feature.
+
+
+Read about the feature :ref:`here<package_layout>`.
+
+In the layout() method you can adjust ``self.folders`` and ``self.cpp``.
+
+
+.. _layout_folders_reference:
+
+
+self.folders
+++++++++++++
+
+- **self.folders.source** (Defaulted to ""): Specifies a subfolder where the sources are.
+  The ``self.source_folder`` attribute inside the ``source(self)`` and ``build(self)``
+  methods will be set with this subfolder. The *current working directory* in the
+  ``source(self)`` method will include this subfolder. The `export_sources`, `exports` and
+  `scm` sources will also be copied to the root source directory. It is used in the cache
+  when running :command:`conan create` (relative to the cache source folder) as well as in
+  a local folder when running :command:`conan build` (relative to the local current
+  folder).
+
+- **self.folders.build** (Defaulted to ""): Specifies a subfolder where the files from the
+  build are. The ``self.build_folder`` attribute and the *current working directory*
+  inside the ``build(self)`` method will be set with this subfolder. It is used in the
+  cache when running :command:`conan create` (relative to the cache source folder) as well
+  as in a local folder when running :command:`conan build` (relative to the local current
+  folder).
+
+- **self.folders.generators** (Defaulted to ""): Specifies a subfolder where to write the
+  files from the generators and the toolchains. In the cache, when running the
+  :command:`conan create`, this subfolder will be relative to the root build folder and
+  when running the :command:`conan install` command it will be relative to the current
+  working directory.
+
+- **self.folders.imports** (Defaulted to ""): Specifies a subfolder where to write the
+  files copied when using the ``imports(self)`` method in a ``conanfile.py``. In the
+  cache, when running the :command:`conan create`, this subfolder will be relative to the
+  root build folder and when running the :command:`conan imports` command it will be
+  relative to the current working directory.
+
+- **self.folders.root** (Defaulted to None): Specifies a parent directory where the
+  sources, generators, etc., are located specifically when the ``conanfile.py`` is located
+  in a separated subdirectory.
+
+- **self.folders.subproject** (Defaulted to None): Specifies a subfolder where the
+  ``conanfile.py`` is relative to the project root. This is particularly useful for
+  :ref:`layouts with multiple subprojects<package_layout_example_multiple_subprojects>`
+
+
+self.cpp
+++++++++
+
+The ``layout()`` method allows to declare ``cpp_info`` objects not only for the final
+package (like the classic approach with the ``self.cpp_info`` in the
+``package_info(self)`` method) but for the ``self.source_folder`` and
+``self.build_folder``.
+
+The fields of the cpp_info objects at ``self.cpp.build`` and ``self.cpp.source`` are the
+same described :ref:`here<cpp_info_attributes_reference>`. Components are also supported.
+
+

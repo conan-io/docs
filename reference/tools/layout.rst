@@ -8,7 +8,7 @@ conan.tools.layout
 Predefined layouts
 ------------------
 
-There are some pre-defined common :ref:`layouts<conanfile_layout>`, ready to be simply used in recipes:
+There are some pre-defined common :ref:`layouts<conanfile_methods_layout>`, ready to be simply used in recipes:
 
 - ``cmake_layout()``: :ref:`a layout for a typical CMake project <cmake_layout>`
 - ``vs_layout()``: a layout for a typical Visual Studio project
@@ -16,7 +16,7 @@ There are some pre-defined common :ref:`layouts<conanfile_layout>`, ready to be 
 
 The pre-defined layouts define the Conanfile ``.folders`` and ``.cpp`` attributes with
 typical values. To check which are the values set by these pre-defined layouts please
-check the reference for the :ref:`layout()<conanfile_layout>` method. For example in the
+check the reference for the :ref:`layout()<conanfile_methods_layout>` method. For example in the
 ``cmake_layout()`` the source folder is  called ``"."``, meaning that Conan will expect
 the sources in the same directory where the conanfile is (most likely the project root,
 where a ``CMakeLists.txt`` file will be typically found). If you have a different folder
