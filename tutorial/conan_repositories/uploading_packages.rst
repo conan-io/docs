@@ -35,10 +35,6 @@ it is running on your local machine, as it could be running on another server in
 
     $ conan search hello -r=my_local_server
 
-.. note::
-
-    If package upload fails, you can try to upload it again. Conan keeps track of the
-    upload integrity and will only upload missing files.
 
 Now we can check if we can download and use them in a project. For that purpose, we first
 have to **remove the local copies**, otherwise the remote packages will not be downloaded. Since we
