@@ -8,7 +8,8 @@ from `Conan Center <https://conan.io/center>`_ that is the official repository f
 source Conan packages. We also :ref:`learned how to create our own packages
 <tutorial_creating_packages>` and store them in the Conan local cache for reusing later.
 In this section we cover how you can use the Conan remote repositories to upload your
-recipes and binaries and store them for consuming them later.
+recipes and binaries and store them for later use on another machine, project, or for
+sharing purposes.
 
 First we will cover how you can setup a Conan remote repository locally or cloud-hosted
 (you can skip this part if you already have a Conan remote configured). Then we will
