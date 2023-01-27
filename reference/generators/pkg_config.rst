@@ -4,6 +4,11 @@
 pkg_config
 ==========
 
+.. warning::
+
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
+
 Generates pkg-config files named *<PKG-NAME>.pc* (where ``<PKG-NAME`` is the name declared by dependencies in
 ``cpp_info.names["pkg_config"]`` if specified), containing a
 valid pkg-config file syntax. The ``prefix`` variable is automatically adjusted to the ``package_folder``.

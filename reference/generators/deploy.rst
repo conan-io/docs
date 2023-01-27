@@ -3,6 +3,11 @@
 deploy
 ======
 
+.. warning::
+
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
+
 The deploy generator makes a bulk copy of the packages folders of all dependencies in a graph. It can be used to deploy binaries from the
 local cache to the user space:
 

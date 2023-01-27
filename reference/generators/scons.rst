@@ -3,6 +3,11 @@
 scons
 =====
 
+.. warning::
+
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
+
 Conan provides :ref:`integration with SCons <scons>` with this generator.
 
 The generated ``SConscript_conan`` will generate several dictionaries, like:
