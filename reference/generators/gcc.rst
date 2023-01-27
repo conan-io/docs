@@ -4,4 +4,6 @@
 gcc
 ===
 
-Deprecated, use :ref:`compiler_args <compiler_args_generator>` generator instead.
+.. warning::
+
+    This is a **deprecated** feature. Please refer to the :ref:`compiler_args <compiler_args_generator>` generator instead.
