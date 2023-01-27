@@ -25,7 +25,7 @@ Using the :command:`conan new` command will create a "Hello World" C++ library e
 .. code-block:: bash
 
     $ mkdir hellopkg && cd hellopkg
-    $ conan new hello/0.1 --template=cmake_lib
+    $ conan new -d name=hello -d version=0.1 cmake_lib
     File saved: conanfile.py
     File saved: CMakeLists.txt
     File saved: src/hello.cpp
