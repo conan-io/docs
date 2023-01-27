@@ -120,7 +120,9 @@ Similarly to the semver specification, Conan can manage **prereleases** and **bu
 ``VERSION-prerelease+build``.
 Conan will also order pre-releases and builds according to the same rules, and each one of them can also
 contain an arbitrary number of items, like ``1.2.3-pre.1.2.1+build.45.a``.
-Note that the semver standard does not apply any ordering to builds.
+Note that the semver standard does not apply any ordering to builds, but Conan does, with the same logic that
+is used to order the main version and the pre-releases.
+
 
 .. important::
 
