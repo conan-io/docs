@@ -3,6 +3,11 @@
 visual_studio
 =============
 
+.. warning::
+
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
+
 .. container:: out_reference_box
 
     This is the reference page for ``visual_studio`` generator.
