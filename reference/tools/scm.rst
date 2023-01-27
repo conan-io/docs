@@ -1,9 +1,10 @@
 .. _conan_tools_scm:
 
-Git
-===
+conan.tools.scm
+===============
 
-.. currentmodule:: conan.tools.scm.git
+.. toctree::
+   :maxdepth: 2
 
-.. autoclass:: Git
-    :members:
+   scm/git
+   scm/version
