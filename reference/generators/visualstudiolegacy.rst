@@ -7,6 +7,11 @@
 visual_studio_legacy
 ====================
 
+.. warning::
+
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
+
 Generates a file named *conanbuildinfo.vsprops* containing an XML that can be imported to your *Visual Studio 2008* project. Note that the
 format of this file is different and incompatible with the *conanbuildinfo.props* file generated with the ``visual_studio`` generator for
 newer versions.
