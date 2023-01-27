@@ -9,6 +9,11 @@
 Compilers on command line
 =========================
 
+.. warning::
+
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
+
 The **compiler_args** generator creates a file named ``conanbuildinfo.args`` containing command
 line arguments to invoke ``gcc``, ``clang`` or ``cl`` (Visual Studio) compiler.
 
