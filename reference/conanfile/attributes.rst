@@ -400,7 +400,7 @@ requires
 
         * - Expression
           - Versions in range
-          - Versions outside range
+          - Versions outside of range
         * - [>=1.0 <2]
           - 1.0.0, 1.0.1, 1.1, 1.2.3
           - 0.2, 2.0, 2.1, 3.0
