@@ -27,7 +27,7 @@ Let's create ``pkg/1.0`` and install ``app``, to see it requires ``pkg/1.0``:
 
 .. code-block:: bash
 
-    $ conan remove pkg* -c
+    $ conan remove "pkg*" -c
     $ conan create pkg --version=1.0
     ... pkg/1.0 ...
     $ conan install app
