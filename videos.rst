@@ -14,6 +14,15 @@
 Videos and links
 =================
 
+- What's New in Conan 2.0 C/C++ Package Manager by Diego Rodriguez-Losada
+
+  .. raw:: html
+
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/NM-xp3tob2Q" frameborder="0" allow="autoplay; encrypted-media; allowfullscreen>
+      </iframe>
+
+      <br/><br/>
+
 - ACCU 2022: Advanced Dependencies Model in Conan 2.0 C, C++ Package Manager by Diego Rodriguez-Losada
 
   .. raw:: html
@@ -22,6 +31,17 @@ Videos and links
       </iframe>
 
       <br/><br/>
+      
+
+ - Conan Package Manager for C++ in Practice
+
+  .. raw:: html
+
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/vAe9k0NJkw8" frameborder="0" allow="autoplay; encrypted-media; allowfullscreen>
+      </iframe>
+
+      <br/><br/>     
+      
 
 
 - Conan in Practice: Interactive Exercises of common commands

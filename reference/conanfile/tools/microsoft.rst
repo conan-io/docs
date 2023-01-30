@@ -139,7 +139,7 @@ switching dependencies from static to shared libraries.
 Included dependencies
 +++++++++++++++++++++
 
-``MSBuildDeps`` uses the new experimental ``self.dependencies`` access to dependencies. The following
+``MSBuildDeps`` uses the new ``self.dependencies`` access to dependencies. The following
 dependencies will be translated to properties files:
 
 - All direct dependencies, that is, the ones declared by the current ``conanfile``, that lives in the

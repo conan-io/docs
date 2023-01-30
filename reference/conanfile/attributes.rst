@@ -1122,12 +1122,13 @@ has **the same default directories**.
 Dependencies among components and to components of other requirements can be defined using the ``requires`` attribute and the name
 of the component. The dependency graph for components will be calculated and values will be aggregated in the correct order for each field.
 
-**New properties model for the cpp_info new tools**
+New properties model for the cpp_info new tools
++++++++++++++++++++++++++++++++++++++++++++++++
 
-.. warning::
+.. important::
 
-    Using ``set_property`` and ``get_property`` methods for ``cpp_info`` is an **experimental**
-    feature subject to breaking changes in future releases.
+    This feature is still **under development**, while it is recommended and usable and we will try not to break them in future releases,
+    some breaking changes might still happen if necessary to prepare for the *Conan 2.0 release*.
 
 Using ``.names``, ``.filenames`` and ``.build_modules`` will not work any more for new
 generators, like :ref:`CMakeDeps<CMakeDeps>` and :ref:`PkgConfigDeps<PkgConfigDeps>`.
@@ -1438,9 +1439,8 @@ scm
 
 .. warning::
 
-    This is an **experimental** feature subject to breaking changes in future releases. Although this
-    is an experimental feature, the use of the feature using ``scm_to_conandata`` is considered
-    stable.
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
 
 Used to clone/checkout a repository. It is a dictionary with the following possible values:
 
@@ -1528,9 +1528,7 @@ python_requires (legacy)
 
 .. warning::
 
-    This attribute has been superseded by the new :ref:`python_requires`. Even if this is an **experimental**
-    feature subject to breaking changes in future releases, this legacy ``python_requires`` syntax has not
-    been removed yet, but it will be removed in Conan 2.0.
+   This is a **deprecated** feature by the new :ref:`python_requires`.
 
 Python requires are associated with the ``ConanFile`` declared in the recipe file, data
 from those imported recipes is accessible using the ``python_requires`` attribute in
@@ -1561,9 +1559,10 @@ workspace.:
 python_requires
 ---------------
 
-.. warning::
+.. important::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+    This feature is still **under development**, while it is recommended and usable and we will try not to break them in future releases,
+    some breaking changes might still happen if necessary to prepare for the *Conan 2.0 release*.
 
 This class attribute allows to define a dependency to another Conan recipe and reuse its code.
 Its basic syntax is:
@@ -1588,9 +1587,10 @@ Read more about this attribute in :ref:`python_requires`
 python_requires_extend
 ----------------------
 
-.. warning::
+.. important::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+    This feature is still **under development**, while it is recommended and usable and we will try not to break them in future releases,
+    some breaking changes might still happen if necessary to prepare for the *Conan 2.0 release*.
 
 
 This class attribute defines one or more classes that will be injected in runtime as base classes of
@@ -1741,9 +1741,10 @@ If the attribute is omitted, the value of the attribute is assumed to be equal t
 conf
 ----
 
-.. warning::
+.. important::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+    This feature is still **under development**, while it is recommended and usable and we will try not to break them in future releases,
+    some breaking changes might still happen if necessary to prepare for the *Conan 2.0 release*.
 
 Available since: `1.47.0 <https://github.com/conan-io/conan/releases/tag/1.47.0>`_
 
@@ -1816,9 +1817,10 @@ Without the profile:
 win_bash
 --------
 
-.. warning::
+.. important::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+    This feature is still **under development**, while it is recommended and usable and we will try not to break them in future releases,
+    some breaking changes might still happen if necessary to prepare for the *Conan 2.0 release*.
 
 Available since: `1.39.0 <https://github.com/conan-io/conan/releases/tag/1.39.0>`_
 
@@ -1863,9 +1865,10 @@ When ``True`` it enables running commands in the ``"run"`` scope, to run them in
 test_type
 ---------
 
-.. warning::
+.. important::
 
-    Test type is an **experimental** feature subject to breaking changes in future releases.
+    This feature is still **under development**, while it is recommended and usable and we will try not to break them in future releases,
+    some breaking changes might still happen if necessary to prepare for the *Conan 2.0 release*.
 
 Available since: `1.44.0 <https://github.com/conan-io/conan/releases/tag/1.44.0>`_
 

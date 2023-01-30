@@ -3,6 +3,12 @@
 settings.yml
 ============
 
+.. caution::
+
+    We are actively working to finalize the *Conan 2.0 Release*. Some of the information on this page references
+    **deprecated** features which will not be carried forward with the new release. It's important to check the 
+    :ref:`Migration Guidelines<conan2_migration_guide>` to ensure you are using the most up to date features.
+
 The input ``settings`` for packages in Conan are predefined in ``~/.conan/settings.yml`` file, so only a few like ``os`` or ``compiler``
 are possible. These are the **default** values, but it is possible to customize them, see :ref:`custom_settings`.
 
@@ -195,7 +201,10 @@ Some notes about different compilers:
 msvc
 ++++
 
-The new ``msvc`` compiler is a new, **experimental** one, that is intended to deprecate the ``Visual Studio`` one in Conan 2.0:
+.. important::
+
+    This feature is still **under development**, , that is intended to deprecate the ``Visual Studio``, while it is recommended and usable and
+    we will try not to break them in future releases, some breaking changes might still happen if necessary to prepare for the *Conan 2.0 release*.
 
 - It uses the compiler version, that is 190 (19.0), 191 (19.1), etc, instead of the Visual Studio IDE (15, 16, etc).
 - It is only used by the new build integrations in :ref:`conan_tools_cmake` and :ref:`conan_tools_microsoft`, but not the previous ones.
@@ -239,13 +248,6 @@ control is desired, you can just add the ``update`` part to your profiles:
 
 This will be equivalent to the full version ``1913 (19.13)``. If even further details is desired, you could even add your own digits
 to the ``update`` subsetting in ``settings.yml``.
-
-
-clang
-+++++
-
-The release 13.0.0 will be released officially on September 21, 2021. However, Conan 1.40 will support it in settings.yml before
-the final release. It will be considered as **experimental** in case of incompatibility until the release.
 
 
 intel-cc

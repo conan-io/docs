@@ -5,6 +5,11 @@
 Custom generator
 ================
 
+.. warning::
+
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
+
 Don't see a generator that suit your needs? You can create a custom generator package and use it in your recipes!
 
 Basically a generator is a class that extends ``Generator`` and implements two properties:

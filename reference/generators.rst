@@ -15,6 +15,11 @@ You can specify a generator in:
 
 Available generators:
 
+.. warning::
+
+    These are **deprecated** features. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
+
 .. toctree::
    :maxdepth: 1
 

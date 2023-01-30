@@ -3,6 +3,11 @@
 |premake_logo| Premake
 ======================
 
+.. warning::
+
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
+
 Since Conan 1.9.0 the ``premake`` generator is built-in and works with :command:`premake5`, so the following should be enough to use it:
 
 .. code-block:: text
