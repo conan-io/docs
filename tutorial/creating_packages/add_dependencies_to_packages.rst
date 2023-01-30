@@ -3,13 +3,6 @@
 Add dependencies to packages
 ============================
 
-.. important::
-
-    In this example, we will retrieve the *fmt* Conan package from a Conan repository with
-    packages compatible with Conan 2.0. To run this example successfully you should add this
-    remote to your Conan configuration (if did not already do it) doing:
-    ``conan remote add conanv2 https://conanv2beta.jfrog.io/artifactory/api/conan/conan --index 0``
-
 In the :ref:`previous tutorial section<tutorial_creating_packages>` we created a Conan
 package for a "Hello World" C++ library. We used the
 :ref:`conan.tools.scm.Git()<reference>` tool to retrieve the sources from a git
