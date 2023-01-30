@@ -1,15 +1,6 @@
 Testing Conan packages
 ======================
 
-.. important::
-
-    In this example, we retrieve the *fmt* and *gtest* Conan packages from a Conan
-    repository with packages compatible with Conan 2.0. To run this example successfully
-    you should add this remote to your Conan configuration (if did not already do it)
-    doing: ``conan remote add conanv2
-    https://conanv2beta.jfrog.io/artifactory/api/conan/conan --index 0``
-
-
 In all the previous sections of the tutorial, we used the *test_package*. It was invoked
 automatically at the end of the ``conan create`` command after building our package
 verifying that the package is created correctly. Let's explain the *test_package* in more

@@ -1,14 +1,6 @@
 Define information for consumers: the package_info() method
 ===========================================================
 
-.. important::
-
-    In this example, we retrieve the *fmt* Conan package from a Conan repository with
-    packages compatible with Conan 2.0. To run this example successfully you should add this
-    remote to your Conan configuration (if did not already do it) doing:
-    ``conan remote add conanv2 https://conanv2beta.jfrog.io/artifactory/api/conan/conan --index 0``
-
-
 In the previous tutorial section, we explained how to store the headers and binaries of a
 library in a Conan package using the :ref:`package
 method<creating_packages_package_method>`. Consumers that depend on that package will

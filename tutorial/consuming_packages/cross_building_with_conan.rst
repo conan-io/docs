@@ -3,14 +3,6 @@
 How to cross-compile your applications using Conan: host and build contexts
 ===========================================================================
 
-.. important::
-
-    In this example, we will retrieve Conan packages from a Conan repository with
-    packages compatible with Conan 2.0. To run this example successfully you should add this
-    remote to your Conan configuration (if did not already do it) doing:
-    ``conan remote add conanv2 https://conanv2beta.jfrog.io/artifactory/api/conan/conan --index 0``
-
-
 Please, first clone the sources to recreate this project. You can find them in the
 `examples2.0 repository <https://github.com/conan-io/examples2>`_ on GitHub:
 
