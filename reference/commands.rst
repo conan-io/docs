@@ -9,6 +9,7 @@ It is also possible to create user custom commands, visit :ref:`custom commands 
 and these :ref:`custom command examples <examples_extensions_custom_commands>`
 
 
+**Consumer commands:**
 
 .. toctree::
    :caption: Consumer commands
@@ -27,7 +28,6 @@ and these :ref:`custom command examples <examples_extensions_custom_commands>`
    commands/remote
    commands/search
 
-
 - :doc:`conan cache <commands/cache>`: Return the path of recipes and packages in the cache
 - :doc:`conan config <commands/config>`: Manage Conan configuration (remotes, settings, plugins, etc)
 - :doc:`conan graph <commands/graph>`: Obtain information about the dependency graph without fetching binaries
@@ -41,6 +41,8 @@ and these :ref:`custom command examples <examples_extensions_custom_commands>`
 - :doc:`conan search <commands/search>`: Search packages matching a name
 
 
+**Creator commands:**
+
 .. toctree::
    :caption: Creator commands
    :maxdepth: 1
@@ -52,13 +54,14 @@ and these :ref:`custom command examples <examples_extensions_custom_commands>`
    commands/test
    commands/upload
 
-
 - :doc:`conan create <commands/create>`: Create a package from a recipe
 - :doc:`conan export <commands/export>`: Export a recipe to the Conan package cache
 - :doc:`conan new <commands/new>`: Create a new recipe from a predefined template
 - :doc:`conan test <commands/test>`: Test a package
 - :doc:`conan upload <commands/upload>`: Upload packages from the local cache to a specified remote
 
+
+**Development commands**
 
 .. toctree::
    :caption: Development commands

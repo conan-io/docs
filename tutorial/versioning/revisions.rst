@@ -4,6 +4,12 @@ Revisions
 This sections introduces how doing modifications to a given recipe or source code without explicitly
 creating new versions, will still internally track those changes with a mechanism called revisions.
 
+- How changes in code affect recipe-revision, also in recipes
+- ``revision_mode``
+- Note: Changes => should mean a recipe revision
+- Resolving recipe revisions, explicitly requiring them
+- Package revisions: why shouldn't happen
+
 
 Let's define a simple recipe that could be useful as a header-only library:
 
