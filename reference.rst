@@ -6,10 +6,10 @@ Reference
 
 .. toctree::
    :maxdepth: 2
-
-
+   :titlesonly:
+   
    reference/commands
-   reference/conanfile_txt
    reference/conanfile
+   reference/conanfile_txt
    reference/tools
    reference/extensions

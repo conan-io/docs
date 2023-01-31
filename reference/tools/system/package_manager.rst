@@ -92,8 +92,16 @@ affect how these tools are invoked:
   tool. There are two possible values:
 
   * ``"check"``: it will just check for missing packages at most and will not try to
-    update the package manager database or install any packages in any case. This is the
+    update the package manager database or install any packages in any case. It will raise
+    an error if required packages are not installed in the system. This is the
     default value.
+
+  * ``"report"``: Just capture the ``.install()`` calls to capture packages, but do not
+    check nor install them. Never raises an error. Mostly useful for ``conan graph info``
+    commands.
+
+  * ``"report-installed"``: Report, without failing which packages are needed (same as
+    ``report``) and also check which of them are actually installed in the current system.
 
   * ``"install"``: it will allow Conan to perform update or install operations.
 
@@ -115,7 +123,7 @@ Will invoke the *apt-get* command. Enabled by default for **Linux** with distrib
 names: *ubuntu* and *debian*.
 
 Reference
----------
++++++++++
 
 .. currentmodule:: conan.tools.system.package_manager
 
@@ -156,7 +164,7 @@ Will invoke the *yum* command. Enabled by default for **Linux** with distributio
 *pidora*, *scientific*, *xenserver*, *amazon*, *oracle*, *amzn* and *almalinux*.
 
 Reference
----------
++++++++++
 
 .. currentmodule:: conan.tools.system.package_manager
 
@@ -192,7 +200,7 @@ Will invoke the *pacman* command. Enabled by default for **Linux** with distribu
 names: *arch*, *manjaro* and when using **Windows** with *msys2*
 
 Reference
----------
++++++++++
 
 .. currentmodule:: conan.tools.system.package_manager
 
@@ -213,7 +221,7 @@ Will invoke the *zypper* command. Enabled by default for **Linux** with distribu
 names: *opensuse*, *sles*.
 
 Reference
----------
++++++++++
 
 .. currentmodule:: conan.tools.system.package_manager
 
@@ -227,7 +235,7 @@ conan.tools.system.package_manager.Brew
 Will invoke the *brew* command. Enabled by default for **macOS**.
 
 Reference
----------
++++++++++
 
 .. currentmodule:: conan.tools.system.package_manager
 
@@ -241,7 +249,7 @@ conan.tools.system.package_manager.Pkg
 Will invoke the *pkg* command. Enabled by default for **Linux** with distribution names: *freebsd*.
 
 Reference
----------
++++++++++
 
 .. currentmodule:: conan.tools.system.package_manager
 
@@ -255,7 +263,7 @@ conan.tools.system.package_manager.PkgUtil
 Will invoke the *pkgutil* command. Enabled by default for **Solaris**.
 
 Reference
----------
++++++++++
 
 .. currentmodule:: conan.tools.system.package_manager
 
@@ -269,7 +277,7 @@ conan.tools.system.package_manager.Chocolatey
 Will invoke the *choco* command. Enabled by default for **Windows**.
 
 Reference
----------
++++++++++
 
 .. currentmodule:: conan.tools.system.package_manager
 
