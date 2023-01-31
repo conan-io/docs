@@ -31,7 +31,7 @@ node('Linux') {
         },
         linkcheck: {
             image.inside {
-                def status = sh(returnStatus: true, script: 'make linkcheck > links_output.txt')
+                def status = sh(returnStatus: true, script: 'make linkcheck | tee links_output.txt')
                 sh 'cat links_output.txt'
                 if (status != 0) {
                     def broken_links = sh(returnStdout: true , script: 'cat links_output.txt | grep broken')
