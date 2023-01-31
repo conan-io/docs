@@ -203,6 +203,7 @@ Displays all the Conan built-in configurations. There are 2 groups:
     tools.build:defines: List of extra definition flags used by different toolchains like CMakeToolchain and AutotoolsToolchain
     tools.build:exelinkflags: List of extra flags used by CMakeToolchain for CMAKE_EXE_LINKER_FLAGS_INIT variable
     tools.build:jobs: Default compile jobs number -jX Ninja, Make, /MP VS (default: max CPUs)
+    tools.build:linker_scripts: List of linker scripts used by different toolchains like CMakeToolchain, AutotoolsToolchain and MesonToolchain
     tools.build:sharedlinkflags: List of extra flags used by CMakeToolchain for CMAKE_SHARED_LINKER_FLAGS_INIT variable
     tools.build:skip_test: Do not execute CMake.test() and Meson.test() when enabled
     tools.build:sysroot: Pass the --sysroot=<tools.build:sysroot> flag if available. (None by default)
