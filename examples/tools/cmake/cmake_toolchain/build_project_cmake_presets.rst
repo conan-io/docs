@@ -19,8 +19,8 @@ Generating the toolchain
 The recipe from our project declares the generator "CMakeToolchain".
 
 We can call :command:`conan install` to install both ``Release`` and ``Debug``
-configurations. One ``conan_toolchain.cmake`` is generated for each configuration at
-*build/Debug/generators* and *build/Release/generators* folders:
+configurations. Conan will generate a ``conan_toolchain.cmake`` at the corresponding
+*generators* folder:
 
 .. code:: bash
 
@@ -36,7 +36,7 @@ so you can use the ``--preset`` argument from ``cmake >= 3.23`` or use an IDE th
 
 
 The ``CMakeUserPresets.json`` is including the ``CMakePresets.json`` files located at the
-*build/Debug/generators* and *build/Release/generators* folders.
+corresponding *generators* folder.
 
 
 The ``CMakePresets.json`` contain information about the ``conan_toolchain.cmake`` location
