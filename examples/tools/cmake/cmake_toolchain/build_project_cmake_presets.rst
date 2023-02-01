@@ -83,3 +83,9 @@ is declared by the ``cmake_layout()`` and automatically managed by the CMake Pre
 
 This behavior is also managed automatically by Conan (with CMake >= 3.15) when you build a package in the Conan
 cache (with :command:`conan create` command). The CMake >= 3.23 is not required.
+
+Read More:
+
+- ``cmake_layout()`` :ref:`reference <cmake_layout>`
+- Conanfile :ref:`layout() method reference <conanfile_methods_layout>`
+- Package layout :ref:`tutorial <package_layout>`

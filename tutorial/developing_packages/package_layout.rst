@@ -66,7 +66,8 @@ When we call ``conan create``, this is a simplified description of what happens:
 
     *export*, *export_source* and *source* are not the real names of those folders in the
     Conan cache, we use only the first one or two letters: *e*, *es* and *s* to prevent
-    problems with long paths but we will use the complete names for the sake of clarity
+    problems with long paths but we will use the complete names in this tutorial for the
+    sake of clarity
 
 
 3. Before calling the ``build()`` method, a build folder is created and the **sources** are copied there. Later, we call
