@@ -103,8 +103,3 @@ The ``CMakePresets.json`` file generated at the :ref:`CMakeToolchain<conan-cmake
 generator, will also take this ``tools.cmake.cmake_layout:build_folder_vars`` config into account to generate different
 names for the presets, being very handy to install N configurations and building our project for any of them by
 selecting the chosen preset.
-
-.. note::
-
-    The ``settings.build_type`` value is forbidden in ``tools.cmake.cmake_layout:build_folder_vars`` because the
-    build_type is already managed automatically with multi-config support in ``CMakeDeps`` and ``CMakeToolchain``.
