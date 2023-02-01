@@ -250,7 +250,9 @@ conf
 - ``tools.build:cxxflags`` list of extra C++ flags that will be used by ``CXXFLAGS``.
 - ``tools.build:cflags`` list of extra of pure C flags that will be used by ``CFLAGS``.
 - ``tools.build:sharedlinkflags`` list of extra linker flags that will be used by ``LDFLAGS``.
-- ``tools.build:exelinkflags`` list of extra linker flags that will be used by by ``LDFLAGS``.
+- ``tools.build:exelinkflags`` list of extra linker flags that will be used by ``LDFLAGS``.
+- ``tools.build:linker_scripts`` list of linker scripts, each of which will be prefixed with ``-T`` and added to ``LDFLAGS``.
+  Only use this flag with linkers that supports specifying linker scripts with the ``-T`` flag, such as ``ld``, ``gold``, and ``lld``.
 - ``tools.build:defines`` list of preprocessor definitions that will be used by ``CPPFLAGS``.
 - ``tools.build:sysroot`` defines the ``--sysroot`` flag to the compiler.
 - ``tools.build:compiler_executables`` dict-like Python object which specifies the
