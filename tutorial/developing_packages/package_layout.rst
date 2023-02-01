@@ -195,7 +195,7 @@ So, just as we describe the package folder in the ``package_info()`` method, we 
   - In the cache, the layout (like a build subfolder) is kept, so we can always know where the artifacts are before
     packaging them.
   - It enables tools like the :ref:`AutoPackager<conan_tools_files_packaging>` to automate the **package()** method.
-  - It out-of-the-box enables to use editable packages, because the recipe describes
+  - It out-of-the-box enables to use :ref:`editable packages<editable_packages>`, because the recipe describes
     where the contents will be, even for different configurations, so the consumers can link with the correct built
     artifacts.
 
@@ -406,7 +406,7 @@ completely transparent way, even locating the correct **Release**/**Debug** arti
 
 .. note:: 
 
-    When working with editable packages, the information set in ``self.cpp.source`` and ``self.cpp.build`` will be merged with the
+    When working with :ref:`editable packages<editable_packages>`, the information set in ``self.cpp.source`` and ``self.cpp.build`` will be merged with the
     information set in ``self.cpp.package`` so that we don't have to declare again something like ``self.cpp.build.libs = ["say"]`` that is
     the same for the consumers, independently of whether the package is in editable mode or not.
 
