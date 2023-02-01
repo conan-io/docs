@@ -166,14 +166,6 @@ The ``validate_build()`` method has to use always the ``self.settings`` and ``se
 layout()
 --------
 
-.. warning::
-
-    This is an **experimental** feature subject to breaking changes in future releases.
-    The ``layout()`` feature will be fully functional only in the new build system integrations
-    (:ref:`in the conan.tools space <conan_tools>`). If you are using other integrations, they
-    might not fully support this feature.
-
-
 Read about the feature :ref:`here<package_layout>`.
 
 In the layout() method you can adjust ``self.folders`` and ``self.cpp``.
