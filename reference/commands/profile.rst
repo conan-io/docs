@@ -26,7 +26,7 @@ conan profile
 
 
 conan profile detect
-====================
+--------------------
 
 .. code-block:: bash
 
@@ -45,7 +45,7 @@ conan profile detect
 
 
 conan profile list
-==================
+------------------
 
 .. code-block:: bash
 
@@ -64,7 +64,7 @@ conan profile list
 
 
 conan profile path
-==================
+------------------
 
 .. code-block:: bash
 
@@ -110,7 +110,7 @@ conan profile path
 
 
 conan profile show
-==================
+------------------
 
 .. code-block:: bash
 
