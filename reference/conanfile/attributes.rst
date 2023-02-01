@@ -690,16 +690,12 @@ as the folder from where we copy the files:
 folders
 -------
 
-<MISSING REFERENCE>
-
 The ``folders`` attribute has to be set only in the ``layout()`` method.
 
    - **self.folders.source**: To specify a folder where your sources are.
    - **self.folders.build**: To specify a subfolder where the files from the build are (or will be).
    - **self.folders.generators**: To specify a subfolder where to write the files from the generators and the toolchains
      (e.g. the `xx-config.cmake` files from the ``CMakeDeps`` generator).
-   - **self.folders.imports**: To specify a subfolder where to write the files copied when using the ``imports(self)``
-     method in a ``conanfile.py``.
    - **self.folders.root**: To specify the relative path from the ``conanfile.py`` to the root of the project, in case
      the ``conanfile.py`` is in a subfolder and not in the project root. If defined, all the other paths will be relative to
      the project root, not to the location of the ``conanfile.py``.
@@ -708,7 +704,7 @@ The ``folders`` attribute has to be set only in the ``layout()`` method.
 
    .. seealso::
 
-       Read more about the usage of the ``layout()`` in :ref:`this tutorial<consuming_packages_flexibility_of_conanfile_py_use_layout>`.
+       Read more about the usage of the ``layout()`` in :ref:`this tutorial<developing_packages_layout>`.
 
 
 .. _conan_conanfile_attributes_cpp:

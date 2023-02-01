@@ -199,12 +199,6 @@ self.folders
   when running the :command:`conan install` command it will be relative to the current
   working directory.
 
-- **self.folders.imports** (Defaulted to ""): Specifies a subfolder where to write the
-  files copied when using the ``imports(self)`` method in a ``conanfile.py``. In the
-  cache, when running the :command:`conan create`, this subfolder will be relative to the
-  root build folder and when running the :command:`conan imports` command it will be
-  relative to the current working directory.
-
 - **self.folders.root** (Defaulted to None): Specifies a parent directory where the
   sources, generators, etc., are located specifically when the ``conanfile.py`` is located
   in a separated subdirectory.

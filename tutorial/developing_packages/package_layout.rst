@@ -204,35 +204,10 @@ in the cache):
     consumers can link with the correct built artifacts.
 
 
-Declaring the layout
---------------------
+   .. seealso::
 
-In the ``layout()`` method, you can set:
-
-    - **self.folders**
-
-         - **self.folders.source**: To specify a folder where your sources are.
-         - **self.folders.build**: To specify a subfolder where the files from the build are (or will be).
-         - **self.folders.generators**: To specify a subfolder where to write the files from the generators and the toolchains
-           (e.g. the `xx-config.cmake` files from the ``CMakeDeps`` generator).
-         - **self.folders.imports**: To specify a subfolder where to write the files copied when using the ``imports(self)``
-           method in a ``conanfile.py``.
-         - **self.folders.root**: To specify the relative path from the ``conanfile.py`` to the root of the project, in case 
-           the ``conanfile.py`` is in a subfolder and not in the project root. If defined, all the other paths will be relative to
-           the project root, not to the location of the ``conanfile.py``.
-
-         Check the :ref:`complete reference<layout_folders_reference>` of the **self.folders** attribute.
-
-    - **self.cpp.source** and **self.cpp.build**: The same you set the ``self.cpp.package`` to describe the package folder
-      after calling the ``package()`` method, you can also describe the `source` and `build` folders.
-
-    - **self.cpp.package**: You can use it as you use the **self.cpp_info** at the ``package_info(self)`` method.
-      The **self.cpp_info** object will be populated with the information declared in the ``self.cpp.package``
-      object, so you can complete it or modify it later in the ``package_info(self)`` method.
-
-    - **self.layouts.source**, **self.layouts.build** and **self.layouts.package**, each one containing one instance of
-      ``buildenv_info``, ``runenv_info`` and ``conf_info``. If the environment or configuration needs to define values 
-      that depend on the current folders, it is necessary to define them in the ``layout()`` method.
+       Read more about the ConanFile attributes you can set in the layout() method in the
+       :ref:`conanfile.py attributes <conan_conanfile_attributes>` documentation.
 
 
 .. _developing_packages_layout:
