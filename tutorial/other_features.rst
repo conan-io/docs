@@ -2,3 +2,6 @@
 
 Other important Conan features
 ==============================
+
+- Deployers
+- Conan graph info --format=html
