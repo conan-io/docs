@@ -16,15 +16,14 @@ Multi-configuration lockfiles
 - conan lock augment
 
 
-- failing lockfile
-- lockfile-partial
-- multiconfig lockfiles
-- cleaning
+Evolving lockfiles
+------------------
+
+- force addition of hello/1.1
+- merge lockfiles, but more correct to augment
+- clean
 
 
-Adding to lockfile
---------------------
-
-
-Merge lockfiles
----------------
+Read more
+- lock package binaries: not recommended
+- CI links
