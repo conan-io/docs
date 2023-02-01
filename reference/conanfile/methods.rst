@@ -175,7 +175,7 @@ In the layout() method you can adjust ``self.folders`` and ``self.cpp``.
 
 
 self.folders
-++++++++++++
+^^^^^^^^^^^^
 
 - **self.folders.source** (Defaulted to ""): Specifies a subfolder where the sources are.
   The ``self.source_folder`` attribute inside the ``source(self)`` and ``build(self)``
@@ -215,7 +215,7 @@ self.folders
 
 
 self.cpp
-++++++++
+^^^^^^^^
 
 The ``layout()`` method allows to declare ``cpp_info`` objects not only for the final
 package (like the classic approach with the ``self.cpp_info`` in the
@@ -223,6 +223,4 @@ package (like the classic approach with the ``self.cpp_info`` in the
 ``self.build_folder``.
 
 The fields of the cpp_info objects at ``self.cpp.build`` and ``self.cpp.source`` are the
-same described :ref:`here<cpp_info_attributes_reference>`. Components are also supported.
-
-
+same described :ref:`here<conan_conanfile_model_cppinfo>`. Components are also supported.

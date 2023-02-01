@@ -62,6 +62,12 @@ When we call ``conan create``, this is a simplified description of what happens:
                 └── include
                     └── hello.h
 
+.. note::
+
+    *export*, *export_source* and *source* are not the real names of those folders in the
+    Conan cache, we use only the first one or two letters: *e*, *es* and *s* to prevent
+    problems with long paths but we will use the complete names for the sake of clarity
+
 
 3. Before calling the ``build()`` method, a build folder is created and the **sources** are copied there. Later, we call
    the ``build()`` method so the libraries and executables are built:
@@ -171,7 +177,7 @@ So, this workflow in the cache works flawlessly but:
   files there, so maybe your ``package()`` method is not able to locate the files in there and the **export-pkg** might
   fail.
 
-- What if I want to use my project as an :ref:`editable package<editable_packages>`?
+- What if I want to use my project as an editable package?
 
   If you want to keep developing your package but let the consumers link with the artifacts in your project instead of
   the files in the Conan cache, this will not work, because it only declares the location of headers and libraries in 
@@ -187,8 +193,8 @@ So, just as we describe the package folder in the ``package_info()`` method, we 
     are always in a known place.
   - In the cache, the layout (like a build subfolder) is kept, so we can always know where the artifacts are before
     packaging them.
-  - It enables tools like the :ref:`AutoPackager<conan_tools_files_autopackager>` to automate the **package()** method.
-  - It out-of-the-box enables to use :ref:`editable packages<editable_packages>`, because the recipe describes
+  - It enables tools like the :ref:`AutoPackager<conan_tools_files_packaging>` to automate the **package()** method.
+  - It out-of-the-box enables to use editable packages, because the recipe describes
     where the contents will be, even for different configurations, so the consumers can link with the correct built
     artifacts.
 
@@ -397,9 +403,11 @@ completely transparent way, even locating the correct **Release**/**Debug** arti
 
     $ conan editable add . say/0.1
 
-.. note:: When working with editable packages, the information set in ``self.cpp.source`` and ``self.cpp.build`` will be merged with the
-          information set in ``self.cpp.package`` so that we don't have to declare again something like ``self.cpp.build.libs = ["say"]`` that is
-          the same for the consumers, independently of whether the package is in editable mode or not.
+.. note:: 
+
+    When working with editable packages, the information set in ``self.cpp.source`` and ``self.cpp.build`` will be merged with the
+    information set in ``self.cpp.package`` so that we don't have to declare again something like ``self.cpp.build.libs = ["say"]`` that is
+    the same for the consumers, independently of whether the package is in editable mode or not.
 
 
 And of course, we can run also a ``conan create`` command. When the ``build(self)`` method is run in the conan cache, it is

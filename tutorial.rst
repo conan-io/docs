@@ -23,5 +23,5 @@ libraries and store them in a remote server alongside all the precompiled binari
    tutorial/creating_packages
    tutorial/conan_repositories
    tutorial/versioning_ci
+   tutorial/developing_packages
    tutorial/other_features
-
