@@ -36,7 +36,7 @@ it in a common ``python_require`` if you are going to use it in multiple package
 
 
 To learn more about the layouts and how to use them while developing packages, please
-check the :ref:`package layout<package_layout>` section.
+check the Conan package layout :ref:`tutorial <developing_packages_layout>`.
 
 .. _conan_tools_basic_layout:
 

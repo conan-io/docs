@@ -1,7 +1,7 @@
-.. _package_layout:
+.. _conanfile_conan_package_layout:
 
-Package layout
-==============
+Understanding the Conan Package layout
+======================================
 
 Before starting
 ---------------
@@ -21,13 +21,16 @@ Let's say we are working in a project, using, for example, CMake:
         └── include
             └── hello.h
 
-When we call ``conan create``, this is a simplified description of what happens:
+When we call ``conan create``, Conan moves the recipe and sources declared in the recipe
+to be exported to the local Cache to a recipe folder and after that it will create a
+separate package folder to build the binaries and store the actual package contents. Let's
+go through the whole process:
 
 1. Conan exports the recipe (conanfile.py) and the declared sources (exports_sources) to the cache. The folders in the
    cache would be something like:
 
    .. code-block:: text
-        :caption: .conan2/p/<some_cache_folder>
+        :caption: .conan2/p/<recipe_folder>
 
         ├── export
         │   └── conanfile.py
@@ -39,11 +42,19 @@ When we call ``conan create``, this is a simplified description of what happens:
                 └── include
                     └── hello.h
 
-2. If the method ``source()`` exists, it might retrieve sources from the internet. Also, the ``export_source`` folder
-   is copied to the ``source`` folder.
+.. note::
+
+    *export*, *export_source*, *source*, *build* and *package* are not the actual names of
+    those folders in the Conan cache, we use only the first one or two letters: *e*, *es*,
+    *s*, *b* and *p* to prevent problems with long paths but we will use the complete
+    names in this tutorial for the sake of clarity
+
+
+2. If the method ``source()`` exists, it might retrieve sources from the internet. Also,
+   the contents of the  ``export_source`` folder are copied to the ``source`` folder.
 
    .. code-block:: text
-        :caption: .conan2/p/<some_cache_folder>
+        :caption: .conan2/p/<recipe_folder>
 
         ├── export
         │   └── conanfile.py
@@ -62,19 +73,12 @@ When we call ``conan create``, this is a simplified description of what happens:
                 └── include
                     └── hello.h
 
-.. note::
-
-    *export*, *export_source* and *source* are not the real names of those folders in the
-    Conan cache, we use only the first one or two letters: *e*, *es* and *s* to prevent
-    problems with long paths but we will use the complete names in this tutorial for the
-    sake of clarity
-
-
-3. Before calling the ``build()`` method, a build folder is created and the **sources** are copied there. Later, we call
-   the ``build()`` method so the libraries and executables are built:
+3. Then Conan invokes the ``build()`` method and creates a separate folder to build and
+   store the binaries. Conan copies the sources in the build folder and the package
+   is built:
 
    .. code-block:: text
-        :caption: .conan2/p/<some_cache_folder>
+        :caption: .conan2/p/<recipe_folder>
 
         ├── export
         │   └── conanfile.py
@@ -85,58 +89,78 @@ When we call ``conan create``, this is a simplified description of what happens:
         │       ├── my_tool.cpp
         │       └── include
         │           └── hello.h
-        ├── source
-        │   └── src
-        │       ├── CMakeLists.txt
-        │       ├── hello.cpp
-        │       ├── my_tool.cpp
-        │       └── include
-        │           └── hello.h
-        └── build
-            └── <build_id>
-                ├── say.a
-                └── bin
-                    └── my_app
-
-4. At last, Conan calls the ``package()`` method to copy the built artifacts from the ``source`` (typically includes)
-   and ``build`` folders (libraries and executables) to a **package** folder.
-
-   .. code-block:: text
-        :caption: .conan2/p/<some_cache_folder>
-
-        ├── export
-        │   └── conanfile.py
-        ├── export_source
-        │   └── src
-        │       ├── CMakeLists.txt
-        │       ├── hello.cpp
-        │       ├── my_tool.cpp
-        │       └── include
-        │           └── hello.h
-        ├── source
-        │   └── src
-        │       ├── CMakeLists.txt
-        │       ├── hello.cpp
-        │       ├── my_tool.cpp
-        │       └── include
-        │           └── hello.h
-        ├── build
-        │   └── <build_id>
-        │       ├── say.a
-        │       └── bin
-        │           └── my_app
-        └── package
-            └── <package_id>
-                ├── lib
-                │   └── say.a
-                ├── bin
-                │   └── my_app
+        └── source
+            └── src
+                ├── CMakeLists.txt
+                ├── hello.cpp
+                ├── my_tool.cpp
                 └── include
                     └── hello.h
 
+   .. code-block:: text
+        :caption: .conan2/p/<package_folder>
+
+        └── build
+            ├── Release
+            │   ├── say.a
+            │   └── bin
+            │       └── my_app
+            └── src
+                ├── CMakeLists.txt
+                ├── hello.cpp
+                ├── my_tool.cpp
+                └── include
+                    └── hello.h
+
+4. Finally, Conan calls the ``package()`` method to copy the built artifacts from the
+   ``source`` (typically includes) and ``build`` folders (libraries and executables) to a
+   **package** folder.
+
+   .. code-block:: text
+        :caption: .conan2/p/<recipe_folder>
+
+        ├── export
+        │   └── conanfile.py
+        ├── export_source
+        │   └── src
+        │       ├── CMakeLists.txt
+        │       ├── hello.cpp
+        │       ├── my_tool.cpp
+        │       └── include
+        │           └── hello.h
+        └── source
+            └── src
+                ├── CMakeLists.txt
+                ├── hello.cpp
+                ├── my_tool.cpp
+                └── include
+                    └── hello.h
+
+
+   .. code-block:: text
+        :caption: .conan2/p/<package_folder>
+
+        ├── build
+        │   ├── Release
+        │   │   ├── say.a
+        │   │   └── bin
+        │   │       └── my_app
+        │   └── src
+        │       ├── CMakeLists.txt
+        │       ├── hello.cpp
+        │       ├── my_tool.cpp
+        │       └── include
+        │           └── hello.h
+        └── package
+            ├── lib
+            │   └── say.a
+            ├── bin
+            │   └── my_app
+            └── include
+                └── hello.h
+
 5. The ``package_info(self)`` method will describe with the ``self.cpp_info`` object the contents of the ``package``
-   folder, that is the one the consumers use to link against it. If we call `conan create` with different configurations
-   the base folder in the cache is different and nothing gets messed.
+   folder, that is the one the consumers use to link against it.
 
 
    .. code-block:: python
@@ -162,42 +186,22 @@ When we call ``conan create``, this is a simplified description of what happens:
                self.cpp_info.libs = ["say"]
 
 
-So, this workflow in the cache works flawlessly but:
+So, just as we describe the package folder in the ``package_info()`` method, we can use
+``layout()`` to describe the ``source`` and ``build`` folders (both in a local project and
+in the cache):
 
-- What if I'm developing the recipe in my local project and want to use the local methods (**conan source**, **conan build**) and
-  later call **export-pkg** to create the package?
-
-  If you call **conan build** in your working directory, without specifying a ``--build-folder`` argument, you will end up
-  with a bunch of files polluting your project. Moreover, if you want to build more configurations you will need to create
-  several build folders by hand, this is inconvenient, error-prone, and wouldn't be easy for Conan to locate the correct
-  artifacts if you want to call **export-pkg** later.
-
-- What if I don't even want to call **conan build** but use my CLion IDE to build the project?
-
-  By default, the CLion IDE will create the folders **cmake-build-release** and **cmake-build-debug** to put the build
-  files there, so maybe your ``package()`` method is not able to locate the files in there and the **export-pkg** might
-  fail.
-
-- What if I want to use my project as an editable package?
-
-  If you want to keep developing your package but let the consumers link with the artifacts in your project instead of
-  the files in the Conan cache, this will not work, because it only declares the location of headers and libraries in 
-  the final packaged layout, but during development the files are typically in other locations.
-
-
-So, just as we describe the package folder in the ``package_info()`` method, we can use ``layout()`` to describe the
-``source`` and ``build`` folders (both in a local project and in the cache):
-
-  - We can run the conan local commands (**conan source**, **conan build**, **conan export-pkg**) without taking care of
-    specifying directories, always with the same syntax.
-  - If you are using an IDE, you can describe the build folder naming in the layout, so the libraries and executables
-    are always in a known place.
-  - In the cache, the layout (like a build subfolder) is kept, so we can always know where the artifacts are before
-    packaging them.
-  - It enables tools like the :ref:`AutoPackager<conan_tools_files_packaging>` to automate the **package()** method.
-  - It out-of-the-box enables to use :ref:`editable packages<editable_packages>`, because the recipe describes
-    where the contents will be, even for different configurations, so the consumers can link with the correct built
-    artifacts.
+  - We can run the conan local commands (**conan source**, **conan build**, **conan
+    export-pkg**) without taking care of specifying directories, always with the same
+    syntax.
+  - If you are using an IDE, you can describe the build folder naming in the layout, so
+    the libraries and executables are always in a known place.
+  - In the cache, the layout (like a build subfolder) is kept, so we can always know where
+    the artifacts are before packaging them.
+  - It enables tools like the :ref:`AutoPackager<conan_tools_files_packaging>` to automate
+    the **package()** method.
+  - It enables to use :ref:`editable packages<editable_packages>`, because the recipe
+    describes where the contents will be, even for different configurations, so the
+    consumers can link with the correct built artifacts.
 
 
 Declaring the layout
@@ -229,7 +233,9 @@ In the ``layout()`` method, you can set:
     - **self.layouts.source**, **self.layouts.build** and **self.layouts.package**, each one containing one instance of
       ``buildenv_info``, ``runenv_info`` and ``conf_info``. If the environment or configuration needs to define values 
       that depend on the current folders, it is necessary to define them in the ``layout()`` method.
-  
+
+
+.. _developing_packages_layout:
 
 Example: Everything together
 ----------------------------
@@ -416,7 +422,7 @@ also able to locate the ``my_tool`` correctly, because it is using the same ``fo
 
 
 .. code-block:: text
-     :caption: .conan2/p/<some_cache_folder>
+     :caption: .conan2/p/<recipe_folder>
      :emphasize-lines: 9
 
      ├── source
