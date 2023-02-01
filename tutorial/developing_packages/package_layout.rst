@@ -212,8 +212,8 @@ in the cache):
 
 .. _developing_packages_layout:
 
-Example: Everything together
-----------------------------
+Conan layouts in practice
+-------------------------
 
 Let's say we are working in the project introduced in the section above:
 
