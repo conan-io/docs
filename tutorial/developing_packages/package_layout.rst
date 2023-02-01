@@ -204,10 +204,10 @@ in the cache):
     consumers can link with the correct built artifacts.
 
 
-   .. seealso::
+.. seealso::
 
-       Read more about the ConanFile attributes you can set in the layout() method in the
-       :ref:`conanfile.py attributes <conan_conanfile_attributes>` documentation.
+    Read more about the ConanFile attributes you can set in the layout() method in the
+    :ref:`conanfile.py attributes <conan_conanfile_attributes>` documentation.
 
 
 .. _developing_packages_layout:
@@ -295,7 +295,7 @@ Let's review the ``layout()`` method changes:
 
    Please, note that the values above are for a single-configuration CMake generator. To support multi-configuration generators,
    such as Visual Studio, you should make some changes to this layout. For a complete layout that supports both single-config
-   and multi-config, please check the :ref:`cmake_layout()<conan_tools_layout_predefined_layouts>` in the Conan documentation.
+   and multi-config, please check the :ref:`cmake_layout()<cmake_layout>` in the Conan documentation.
 
 - **self.cpp**
 
