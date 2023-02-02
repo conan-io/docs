@@ -26,6 +26,11 @@ conan list
                             Remote names. Accepts wildcards
       -c, --cache           Search in the local cache
 
+.. warning::
+
+    In some circumstances, `--format html` might produce semantically different results from `--format json`, like
+    showing a different amount of packages. Use it on your own risk.
+
 
 The ``conan list`` command can list recipes and packages from the local cache, from the
 specified remotes or from both. This command uses a *reference pattern* as input. The
