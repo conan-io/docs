@@ -8,8 +8,10 @@ Reference
    :maxdepth: 2
    :titlesonly:
    
-   reference/commands
-   reference/conanfile
-   reference/conanfile_txt
-   reference/tools
-   reference/extensions
+    reference/commands
+    reference/conanfile
+    reference/conanfile_txt
+    reference/tools
+    reference/profiles
+    reference/configuration_files
+    reference/extensions
