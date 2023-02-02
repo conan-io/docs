@@ -28,9 +28,10 @@ conan list
 
 .. warning::
 
-    In some circumstances, `--format html` might produce semantically different results from `--format json`, like
-    showing a different amount of packages (there is a bug `GitHub issue #13022 <https://github.com/conan-io/conan/issues/13022>`_). Use it on your own risk.
-
+    The html formatter (--format=html) is not fully implemented yet, so it will create an empty html file
+    with no packages information. This is `a reported bug
+    <https://github.com/conan-io/conan/issues/13022>`_ that happens in Conan <= 2.0-beta9
+    and is planned to be solved in 2.0-beta10
 
 The ``conan list`` command can list recipes and packages from the local cache, from the
 specified remotes or from both. This command uses a *reference pattern* as input. The
