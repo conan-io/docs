@@ -29,7 +29,7 @@ conan list
 .. warning::
 
     In some circumstances, `--format html` might produce semantically different results from `--format json`, like
-    showing a different amount of packages. Use it on your own risk.
+    showing a different amount of packages (there is a bug `GitHub issue #13022 <https://github.com/conan-io/conan/issues/13022>). Use it on your own risk.
 
 
 The ``conan list`` command can list recipes and packages from the local cache, from the
