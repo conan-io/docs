@@ -75,9 +75,9 @@ Stable
 From Conan 2.0 and onwards, there is a commitment to stability, with the goal of not breaking user space while evolving the tool and the platform. This means:
 
 - Moving forward to following minor versions 2.1, 2.2, …, 2.X should never break existing recipes, packages or command line flows
-- If something is breaking, it will be considered a regression and reverted
+- If something is breaking, it will be considered a regression and reverted.
 - Bug fixes will not be considered breaking, recipes and packages relying on the incorrect behavior of such bugs will be considered already broken.
-- Only documented features are considered part of the public interface of Conan. Private implementation details, and everything not included in the documentation is subject to change.
+- Only documented features in https://docs.conan.io are considered part of the public interface of Conan. Private implementation details, and everything not included in the documentation is subject to change.
 - The compatibility is always considered forward. New APIs, tools, methods, helpers can be added in following 2.X versions. Recipes and packages created with these features will be backwards incompatible with earlier Conan versions.
 - Only the latest released patch (major.minor.patch) of every minor version is supported and stable.
 
@@ -88,7 +88,8 @@ There are some things that are not included in this commitment:
 - Builtin default implementation of extension points as plugins or hooks can also change with every release. Users can provide their own ones for stability.
 - Output of packages templates with ``conan new`` can update at any time to use latest features.
 - The output streams stdout, stderr, i.e. the terminal output can change at any time. Do not parse the terminal output for automation.
-- Anything that is explicitily labeled as ``experimental``, ``alpha``, ``beta`` in the documentation, or in the Conan cli output.
+- Anything that is explicitily labeled as ``experimental`` or ``preview`` in the documentation, or in the Conan cli output.
+- Anything that is labeled as ``deprecated`` in the documentation should not get new usages, as it will not get new fixes and it will be removed in the next major version.
 - Other tools and repositories outside of the Conan client
 
 
@@ -105,10 +106,38 @@ Conan is being used in production by thousands of companies like TomTom, Audi, R
 
 But an essential part of Conan is that many of those users will contribute back, creating an amazing and helpful community:
 
-- The https://github.com/conan-io/conan project has around 6K stars in Github and counts with contributions of almost 300 different users (this is just the client tool).
+- The https://github.com/conan-io/conan project has around 6.5K stars in Github and counts with contributions from more than 300 different users (this is just the client tool).
 - Many other users contribute recipes for ConanCenter via the https://github.com/conan-io/conan-center-index repo, creating packages for popular Open Source libraries, contributing many thousands of Pull Requests per year.
 - More than two thousands Conan users hang around the `CppLang Slack #conan channel <https://cppalliance.org/slack/>`_, and help responding to questions, discussing problems and approaches, making it one of the most active channels in the whole CppLang slack.
 - There is a Conan channel in `#include<cpp> discord <https://www.includecpp.org/discord/>`_.
+
+
+How to read this documentation
+------------------------------
+
+This documentation has very different sections:
+
+- The **tutorial** is an actual hands-on tutorial, with examples and real code, intended to be played sequentially from beginning to end,
+  running the exercises in your own computer. There is a conducting thread and exercises might depend on some previous explanations and code.
+  This is the recommended approach for learning Conan.
+- The **examples** also contains hands-on, fully operational examples with code, aimed to explain some very specific feature, tool or behavior.
+  They do not have a conducting thread, they should be navigated by topic.
+- The **reference** is the ground truth for the interfaces of every public command, class, method, helper, API and configuration file that can
+  be used. It is not designed to be read fully, but to check for individual items when necessary.
+- The **knowledge** base contains things like the FAQ, a very important section about genral guidelines, good practices and bad practices, videos
+  from conference talks, etc.
+
+Features in this documentation might be labeled as:
+
+- **experimental**: This feature is released and can be used, but it is under active development and the interfaces, APIs or behavior might change
+  as a result of evolution, and this will not be considered breaking. If you are interested in these features you are encouraged to try them
+  and give feedback, because that is exactly what allows to stabilize them.
+- **preview**: The feature is release in preview mode, which means it aims to be as final and stable as possible. Users are encouraged to use them,
+  and the maintainers team will try not to break them unless necessary. But if necessary, they might change and break.
+- **deprecated**: This feature should no longer be used, and it will be fully removed in next major release. Other alternatives or approaches should
+  be used instead of it, and if using it, migrating to the other alternatives should be done as soon as possible. They will not be maintained or
+  get fixes.
+
 
 
 Have any questions? Please check out our :ref:`FAQ section <faq>` or |write_us|.
