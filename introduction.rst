@@ -122,7 +122,7 @@ This documentation has very different sections:
   This is the recommended approach for learning Conan.
 - The **examples** also contains hands-on, fully operational examples with code, aimed to explain some very specific feature, tool or behavior.
   They do not have a conducting thread, they should be navigated by topic.
-- The **reference** is the ground truth for the interfaces of every public command, class, method, helper, API and configuration file that can
+- The **reference** is the source of truth for the interfaces of every public command, class, method, helper, API and configuration file that can
   be used. It is not designed to be read fully, but to check for individual items when necessary.
 - The **knowledge** base contains things like the FAQ, a very important section about genral guidelines, good practices and bad practices, videos
   from conference talks, etc.
