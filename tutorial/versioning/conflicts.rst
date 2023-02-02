@@ -50,7 +50,7 @@ Resolving conflicts
 
 Of course, the most direct and straightforward way to solve such a conflict is
 going to the dependencies ``conanfile.py`` and upgrading their ``requirements()``
-so they point now the same version. However this might not be practical in
+so they point now to the same version. However this might not be practical in
 some cases, or it might be even impossible to fix the dependencies conanfiles. 
 
 For that case, it should be the consuming ``conanfile.py`` the one that can resolve
