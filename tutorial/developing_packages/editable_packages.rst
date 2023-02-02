@@ -46,20 +46,21 @@ working directory**:
     $ conan editable add say say/0.1@user/channel
     $ conan editable list
     say/0.1@user/channel
-        Path: ...
+        Path: /Users/.../examples2/tutorial/developing_packages/editable_packages/say/conanfile.py
 
 
-That is it. Now, every usage of ``say/0.1@user/channel``, by any other Conan package or project,
-will be redirected to the ``examples/features/editable/cmake/say`` user folder instead of using the package
-from the conan cache.
+That is it. Now, every usage of ``say/0.1@user/channel``, by any other Conan package or
+project, will be redirected to the
+``/examples2/tutorial/developing_packages/editable_packages/say`` user folder instead of
+using the package from the Conan cache.
 
-Note that the key of editable packages is a correct definition of the ``layout()`` of the package. Read the
-:ref:`package layout() section <package_layout>` to learn more about this method. 
+Note that the key of editable packages is a correct definition of the ``layout()`` of the
+package. Read the :ref:`package layout() section <conanfile_methods_layout>` to learn more
+about this method. 
 
-In this example, the ``say`` ``conanfile.py`` recipe is using the predefined ``cmake_layout()`` which defines the
-typical CMake project layout, which can be different in the different platforms. Take also into account that
-only using the new build system integrations like ``CMakeDeps`` and ``CMakeToolchain`` will correctly follow
-the layout definition.
+In this example, the ``say`` ``conanfile.py`` recipe is using the predefined
+``cmake_layout()`` which defines the typical CMake project layout, which can be different
+in the different platforms.
 
 Now the ``say/0.1@user/channel`` package is in editable mode, lets build it locally:
 
@@ -67,7 +68,7 @@ Now the ``say/0.1@user/channel`` package is in editable mode, lets build it loca
 
     $ cd say
 
-    # windows, we will build 2 configurations to show multi-config
+    # Windows: we will build 2 configurations to show multi-config
     $ conan install . -s build_type=Release
     $ conan install . -s build_type=Debug
     $ cd build
@@ -75,7 +76,7 @@ Now the ``say/0.1@user/channel`` package is in editable mode, lets build it loca
     $ cmake --build . --config Release
     $ cmake --build . --config Debug
 
-    # Linux, we will only build 1 configuration
+    # Linux, MacOS: we will only build 1 configuration
     $ conan install .
     $ cd build/Release
     $ cmake ../.. -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake
@@ -90,9 +91,9 @@ In this case we can build the ``hello`` application as usual:
 
 .. code-block:: bash
 
-    $ cd ../../hello
+    $ cd ../../../hello
 
-    # windows, we will build 2 configurations to show multi-config
+    # Windows: we will build 2 configurations to show multi-config
     $ conan install . -s build_type=Release
     $ conan install . -s build_type=Debug
     $ cd build
@@ -104,7 +105,7 @@ In this case we can build the ``hello`` application as usual:
     $ Debug\hello.exe
     say/0.1: Hello World Debug!
 
-    # Linux, we will only build 1 configuration
+    # Linux, MacOS: we will only build 1 configuration
     $ conan install .
     $ cd build/Release
     $ cmake ../.. -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake
