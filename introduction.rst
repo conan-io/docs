@@ -132,7 +132,7 @@ Features in this documentation might be labeled as:
 - **experimental**: This feature is released and can be used, but it is under active development and the interfaces, APIs or behavior might change
   as a result of evolution, and this will not be considered breaking. If you are interested in these features you are encouraged to try them
   and give feedback, because that is exactly what allows to stabilize them.
-- **preview**: The feature is release in preview mode, which means it aims to be as final and stable as possible. Users are encouraged to use them,
+- **preview**: When a feature is released in preview mode, this means it aims to be as final and stable as possible. Users are encouraged to use them,
   and the maintainers team will try not to break them unless necessary. But if necessary, they might change and break.
 - **deprecated**: This feature should no longer be used, and it will be fully removed in next major release. Other alternatives or approaches should
   be used instead of it, and if using it, migrating to the other alternatives should be done as soon as possible. They will not be maintained or
