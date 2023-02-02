@@ -112,7 +112,7 @@ But an essential part of Conan is that many of those users will contribute back,
 - There is a Conan channel in `#include<cpp> discord <https://www.includecpp.org/discord/>`_.
 
 
-How to read this documentation
+Navigating the documentation
 ------------------------------
 
 This documentation has very different sections:
