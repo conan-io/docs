@@ -67,6 +67,7 @@ To list all possible configurations available, run :command:`conan config list`.
     tools.build:sharedlinkflags: List of extra flags used by CMakeToolchain for CMAKE_SHARED_LINKER_FLAGS_INIT variable
     tools.build:skip_test: Do not execute CMake.test() and Meson.test() when enabled
     tools.build:sysroot: Pass the --sysroot=<tools.build:sysroot> flag if available. (None by default)
+    tools.cmake:path: Path to the CMake executable. Default: 'cmake'
     tools.cmake.cmake_layout:build_folder_vars: Settings and Options that will produce a different build folder and different CMake presets names
     tools.cmake.cmaketoolchain.presets:max_schema_version: Generate CMakeUserPreset.json compatible with the supplied schema version
     tools.cmake.cmaketoolchain:find_package_prefer_config: Argument for the CMAKE_FIND_PACKAGE_PREFER_CONFIG

@@ -14,8 +14,10 @@ Available since: `1.32.0 <https://github.com/conan-io/conan/releases/tag/1.32.0>
 The ``CMake`` build helper is a wrapper around the command line invocation of cmake. It will abstract the
 calls like ``cmake --build . --config Release`` into Python method calls. It will also add the argument
 ``-DCMAKE_TOOLCHAIN_FILE=<path>/conan_toolchain.cmake`` to the ``configure()`` call, as well as other possible
-arguments like ``-DCMAKE_BUILD_TYPE=<config>``. The arguments that will be used are obtained from a 
-generated ``CMakePresets.json`` file.
+arguments like ``-DCMAKE_BUILD_TYPE=<config>``. The arguments that will be used are obtained from a
+generated ``CMakePresets.json`` file. By default, the ``CMake`` build helper, uses the binary path which is
+configured by the environment, using ``cmake`` as command, however, it can be managed by the configuration
+``tools.cmake:path``.
 
 The helper is intended to be used in the ``build()`` method, to call CMake commands automatically
 when a package is being built directly by Conan (create, install)
@@ -43,8 +45,8 @@ when a package is being built directly by Conan (create, install)
             cmake.configure()
             cmake.build()
 
-**Note:** This helper includes the additional flag `-DCMAKE_SH="CMAKE_SH-NOTFOUND"` when using the `MinGW Makefiles` CMake's
-generator, to avoid the error of `sh` being in the PATH (CMake version < 3.17.0).
+**Note:** This helper includes the additional flag ``-DCMAKE_SH="CMAKE_SH-NOTFOUND"`` when using the ``MinGW Makefiles`` CMake's
+generator, to avoid the error of ``sh`` being in the PATH (CMake version < 3.17.0).
 
 It supports the following methods:
 
