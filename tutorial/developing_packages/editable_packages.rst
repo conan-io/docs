@@ -3,19 +3,16 @@
 Packages in editable mode
 =========================
 
-When working in big projects with several functionalities interconnected it is recommended to avoid
-the one-and-only huge project approach in favor of several libraries, each one specialized
-in a set of common tasks, even maintained by dedicated teams. This approach helps to isolate
-and reusing code helps with compiling times and reduces the likelihood of including files that
-not correspond to the API of the required library.
+The regular Conan way of working with packages is to run a ``conan create`` or ``conan
+export-pkg`` to store them in the local cache so that consumers use the packages stored in
+the Cache. In some cases, if you want to consume these packages at the same time that you
+are developing them, it can be a bit tedious to run ``conan create`` each time you make
+changes to the package. For those cases, you can put your package in editable mode and
+tell Conan where to find the headers and the artifacts ready for consumption in your local
+working directory. There is no need to package. 
 
-Nevertheless, in some case, it is useful to work in several libraries at the same time and see how
-the changes in one of them are propagated to the others. With the normal flow, for every source change,
-it is necessary to do ``conan create`` or ``conan export-pkg`` to put the package in the cache and
-make it available to consumers.
-
-With the editable packages, you can tell Conan where to find the headers and the artifacts ready for
-consumption in your local working directory. There is no need to package.
+Let's see how we can put a package in editable mode and consume it from the local working
+directory.
 
 Please, first of all, clone the sources to recreate this project. You can find them in the
 `examples2.0 repository <https://github.com/conan-io/examples2>`_ in GitHub:
@@ -27,19 +24,20 @@ Please, first of all, clone the sources to recreate this project. You can find t
 
 There are 2 folders inside this project:
 
-- A "say" folder containing a fully fledge package, with its ``conanfile.py``, its source code.
-- A "hello" folder containing a simple consumer project with a ``conanfile.txt`` and its source code,
-  which depends on the ``say/1.0@user/testing`` requirement.
+- A "say" folder containing a fully fledge package, with its ``conanfile.py``, its source
+  code.
+- A "hello" folder containing a simple consumer project with a ``conanfile.txt`` and its
+  source code, which depends on the ``say/1.0@user/testing`` requirement.
 
-The goal is to be able to build the "hello" project, without actually having the ``say/1.0@user/testing``
-package in the cache, but directly in this project folder.
+The goal is to be able to build the "hello" project, without actually having the
+``say/1.0@user/testing`` package in the cache, but directly in this project folder.
 
 Put a package in editable mode
 ------------------------------
 
-To avoid creating the package ``say/1.0`` in the cache for every change, we are going
-to put that package in editable mode, creating **a link from the reference in the cache to the local
-working directory**:
+To avoid creating the package ``say/1.0`` in the cache for every change, we are going to
+put that package in editable mode, creating **a link from the reference in the cache to
+the local working directory**:
 
 .. code-block:: bash
 
@@ -49,10 +47,9 @@ working directory**:
         Path: /Users/.../examples2/tutorial/developing_packages/editable_packages/say/conanfile.py
 
 
-That is it. Now, every usage of ``say/1.0``, by any other Conan package or
-project, will be redirected to the
-``/examples2/tutorial/developing_packages/editable_packages/say`` user folder instead of
-using the package from the Conan cache.
+That is it. Now, every usage of ``say/1.0``, by any other Conan package or project, will
+be redirected to the ``/examples2/tutorial/developing_packages/editable_packages/say``
+user folder instead of using the package from the Conan cache.
 
 Note that the key of editable packages is a correct definition of the ``layout()`` of the
 package. Read the :ref:`package layout() section <conanfile_methods_layout>` to learn more
