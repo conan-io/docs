@@ -124,7 +124,7 @@ This documentation has very different sections:
   They do not have a conducting thread, they should be navigated by topic.
 - The **reference** is the source of truth for the interfaces of every public command, class, method, helper, API and configuration file that can
   be used. It is not designed to be read fully, but to check for individual items when necessary.
-- The **knowledge** base contains things like the FAQ, a very important section about genral guidelines, good practices and bad practices, videos
+- The **knowledge** base contains things like the FAQ, a very important section about general guidelines, good practices and bad practices, videos
   from conference talks, etc.
 
 Features in this documentation might be labeled as:
