@@ -645,6 +645,7 @@ Available since: `1.59.0 <https://github.com/conan-io/conan/releases/tag/1.59.0>
 
 Returns the corresponding Visual Studio or msvs platform toolset based on the settings of the given ``conanfile``. For instance, it may return ``v143``
 for ``compiler=Visual Studio`` with ``compiler.version=17``. If ``compiler.toolset`` was set in settings, it has a priority and always returned.
+In case of invalid compiler or invalid version, it return an empty string.
 
 Parameters:
     - ``conanfile``: Always use ``self``, the current recipe
@@ -656,7 +657,9 @@ Example:
     from conan.tools.microsoft import msvs_toolset
 
     def validate(self):
-        msvs_toolset(self)
+        toolset = msvs_toolset(self)
+        if Version(toolset) < "v110":
+            raise ConanInvalidConfiguration(f"{self.ref} requires Microsoft compiler toolset v110 at least.")
 
 
 NMakeDeps
