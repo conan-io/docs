@@ -138,6 +138,9 @@ Features in this documentation might be labeled as:
   be used instead of it, and if using it, migrating to the other alternatives should be done as soon as possible. They will not be maintained or
   get fixes.
 
+Everything else that is not labeled should be considered stable, and won't be broken, unless something that
+is declared a bugfix.
+
 
 
 Have any questions? Please check out our :ref:`FAQ section <faq>` or |write_us|.
