@@ -120,7 +120,7 @@ This documentation has very different sections:
 - The **tutorial** is an actual hands-on tutorial, with examples and real code, intended to be played sequentially from beginning to end,
   running the exercises in your own computer. There is a conducting thread and exercises might depend on some previous explanations and code.
   This is the recommended approach for learning Conan.
-- The **examples** also contains hands-on, fully operational examples with code, aimed to explain some very specific feature, tool or behavior.
+- The **examples** also contain hands-on, fully operational examples with code, aimed to explain some very specific feature, tool or behavior.
   They do not have a conducting thread, they should be navigated by topic.
 - The **reference** is the source of truth for the interfaces of every public command, class, method, helper, API and configuration file that can
   be used. It is not designed to be read fully, but to check for individual items when necessary.
