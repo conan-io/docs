@@ -29,27 +29,27 @@ There are 2 folders inside this project:
 
 - A "say" folder containing a fully fledge package, with its ``conanfile.py``, its source code.
 - A "hello" folder containing a simple consumer project with a ``conanfile.txt`` and its source code,
-  which depends on the ``say/0.1@user/testing`` requirement.
+  which depends on the ``say/1.0@user/testing`` requirement.
 
-The goal is to be able to build the "hello" project, without actually having the ``say/0.1@user/testing``
+The goal is to be able to build the "hello" project, without actually having the ``say/1.0@user/testing``
 package in the cache, but directly in this project folder.
 
 Put a package in editable mode
 ------------------------------
 
-To avoid creating the package ``say/0.1@user/channel`` in the cache for every change, we are going
+To avoid creating the package ``say/1.0`` in the cache for every change, we are going
 to put that package in editable mode, creating **a link from the reference in the cache to the local
 working directory**:
 
 .. code-block:: bash
 
-    $ conan editable add say say/0.1@user/channel
+    $ conan editable add say say/1.0
     $ conan editable list
-    say/0.1@user/channel
+    say/1.0
         Path: /Users/.../examples2/tutorial/developing_packages/editable_packages/say/conanfile.py
 
 
-That is it. Now, every usage of ``say/0.1@user/channel``, by any other Conan package or
+That is it. Now, every usage of ``say/1.0``, by any other Conan package or
 project, will be redirected to the
 ``/examples2/tutorial/developing_packages/editable_packages/say`` user folder instead of
 using the package from the Conan cache.
@@ -62,7 +62,7 @@ In this example, the ``say`` ``conanfile.py`` recipe is using the predefined
 ``cmake_layout()`` which defines the typical CMake project layout, which can be different
 in the different platforms.
 
-Now the ``say/0.1@user/channel`` package is in editable mode, lets build it locally:
+Now the ``say/1.0`` package is in editable mode, lets build it locally:
 
 .. code-block:: bash
 
@@ -71,16 +71,14 @@ Now the ``say/0.1@user/channel`` package is in editable mode, lets build it loca
     # Windows: we will build 2 configurations to show multi-config
     $ conan install . -s build_type=Release
     $ conan install . -s build_type=Debug
-    $ cd build
-    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake
-    $ cmake --build . --config Release
-    $ cmake --build . --config Debug
+    $ cmake --preset default
+    $ cmake --build --preset release
+    $ cmake --build --preset debug
 
     # Linux, MacOS: we will only build 1 configuration
     $ conan install .
-    $ cd build/Release
-    $ cmake ../.. -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake
-    $ cmake --build .
+    $ cmake --preset release
+    $ cmake --build --preset release
 
 
 Using a package in editable mode
@@ -91,80 +89,80 @@ In this case we can build the ``hello`` application as usual:
 
 .. code-block:: bash
 
-    $ cd ../../../hello
+    $ cd ../hello
 
     # Windows: we will build 2 configurations to show multi-config
     $ conan install . -s build_type=Release
     $ conan install . -s build_type=Debug
-    $ cd build
-    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake
-    $ cmake --build . --config Release
-    $ cmake --build . --config Debug
-    $ Release\hello.exe
-    say/0.1: Hello World Release!
-    $ Debug\hello.exe
-    say/0.1: Hello World Debug!
+    $ cmake --preset default
+    $ cmake --build --preset release
+    $ cmake --build --preset debug
+    $ build\Release\hello.exe
+    say/1.0: Hello World Release!
+    ...
+    $ build\Debug\hello.exe
+    say/1.0: Hello World Debug!
+    ...
 
     # Linux, MacOS: we will only build 1 configuration
     $ conan install .
-    $ cd build/Release
-    $ cmake ../.. -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake
-    $ cmake --build .
-    $ ./hello
-    say/0.1: Hello World Release!
+    $ cmake --preset release
+    $ cmake --build --preset release
+    $ ./build/Release/hello
+    say/1.0: Hello World Release!
 
 
 Working with editable packages
 ------------------------------
 
-Once the above steps have been done, we can basically work with our build system or IDE, no Conan involved,
-and do changes in the editable packages and have those changes used by the consumers directly.
-Lets see it, lets start by doing a change in the ``say`` source code:
+Once the above steps have been done, we can basically work with our build system or IDE,
+no Conan involved, and do changes in the editable packages and have those changes used by
+the consumers directly. Lets see it, lets start by doing a change in the ``say`` source
+code:
 
 .. code-block:: bash
 
-    $ cd ../../say
+    $ cd ../say
     # Edit src/say.cpp and change the error message from "Hello" to "Bye"
 
-    # windows, we will build 2 configurations to show multi-config
-    $ cd build
-    $ cmake --build . --config Release
-    $ cmake --build . --config Debug
+    # Windows: we will build 2 configurations to show multi-config
+    $ cmake --build --preset release
+    $ cmake --build --preset debug
 
-    # Linux, we will only build 1 configuration
-    $ cd build/Release
-    $ cmake --build .
+    # Linux, MacOS: we will only build 1 configuration
+    $ cmake --build --preset release
 
 
 And build and run the "hello" project:
 
 .. code-block:: bash
 
-    $ cd ../../hello
+    $ cd ../hello
 
-    # windows,
+    # Windows
     $ cd build
-    $ cmake --build . --config Release
-    $ cmake --build . --config Debug
+    $ cmake --build --preset release
+    $ cmake --build --preset debug
     $ Release\hello.exe
-    say/0.1: Bye World Release!
+    say/1.0: Bye World Release!
     $ Debug\hello.exe
-    say/0.1: Bye World Debug!
+    say/1.0: Bye World Debug!
 
-    # Linux
-    $ cd build/Release
-    $ cmake --build .
+    # Linux, MacOS
+    $ cmake --build --preset release
     $ ./hello
-    say/0.1: Bye World Release!
+    say/1.0: Bye World Release!
 
 
-In that way, it is possible to be developing both the ``say`` library and the ``hello`` application, at the same
-time, without any Conan command. If you had both open in the IDE, it would be just building one after the other.
+In that way, it is possible to be developing both the ``say`` library and the ``hello``
+application, at the same time, without any Conan command. If you had both open in the IDE,
+it would be just building one after the other.
 
 .. note::
 
-    When a package is in editable mode, most of the commands will not work. It is not possible to :command:`conan upload`,
-    :command:`conan export` or :command:`conan create` when a package is in editable mode.
+    When a package is in editable mode, some commands will not work. It is not
+    possible to :command:`conan upload`, :command:`conan export` or :command:`conan
+    create` when a package is in editable mode.
 
 
 Revert the editable mode
@@ -174,13 +172,14 @@ In order to revert the editable mode just remove the link using:
 
 .. code-block:: bash
 
-    $ conan editable remove say/0.1@user/channel
+    $ conan editable remove say/1.0
 
 It will remove the link (the local directory won't be affected) and all the packages consuming this
 requirement will get it from the cache again.
 
 .. warning::
 
-   Packages that are built consuming an editable package in its graph upstreams can generate binaries
-   and packages incompatible with the released version of the editable package. Avoid uploading
-   these packages without re-creating them with the in-cache version of all the libraries.
+   Packages that are built consuming an editable package in its graph upstreams can
+   generate binaries and packages incompatible with the released version of the editable
+   package. Avoid uploading these packages without re-creating them with the in-cache
+   version of all the libraries.
