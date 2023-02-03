@@ -61,6 +61,11 @@ in the different platforms.
 
 Now the ``say/1.0`` package is in editable mode, lets build it locally:
 
+.. graphviz::
+
+   digraph {
+      "From" -> "To";
+   }
 
 .. include:: ../cmake_presets_note.rst
 
