@@ -655,6 +655,8 @@ Example:
 .. code-block:: python
 
     from conan.tools.microsoft import msvs_toolset
+    from conan.tools.scm import Version
+    from conan.errors import ConanInvalidConfiguration
 
     def validate(self):
         toolset = msvs_toolset(self)
