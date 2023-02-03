@@ -8,8 +8,8 @@ export-pkg`` to store them in the local cache so that consumers use the packages
 the Cache. In some cases, if you want to consume these packages at the same time that you
 are developing them, it can be a bit tedious to run ``conan create`` each time you make
 changes to the package. For those cases, you can put your package in editable mode and
-tell Conan where to find the headers and the artifacts ready for consumption in your local
-working directory. There is no need to package. 
+Conan will find the headers and the artifacts ready for consumption in your local working
+directory so there is no need to package. 
 
 Let's see how we can put a package in editable mode and consume it from the local working
 directory.
