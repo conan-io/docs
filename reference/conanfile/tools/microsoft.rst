@@ -448,7 +448,7 @@ Parameters:
 
 - **conanfile**: ConanFile instance.
 - **build_context** (since `1.52.0 <https://github.com/conan-io/conan/releases/tag/1.52.0>`_): (default=False). If this
-  argument is ``True``, the method will check the compiler of the ``build`` context, not the ``host`` one. 
+  argument is ``True``, the method will check the compiler of the ``build`` context, not the ``host`` one.
 
 .. code-block:: python
 
@@ -632,6 +632,32 @@ Example:
         check_min_vs(self, "192")
 
 
+.. _conan_tools_microsoft_msvs_toolset:
+
+msvs_toolset()
+--------------
+
+Available since: `1.59.0 <https://github.com/conan-io/conan/releases/tag/1.59.0>`_
+
+.. code-block:: python
+
+    def msvs_toolset(conanfile)
+
+Returns the corresponding Visual Studio or msvs platform toolset based on the settings of the given ``conanfile``. For instance, it may return ``v143``
+for ``compiler=Visual Studio`` with ``compiler.version=17``. If ``compiler.toolset`` was set in settings, it has a priority and always returned.
+
+Parameters:
+    - ``conanfile``: Always use ``self``, the current recipe
+
+Example:
+
+.. code-block:: python
+
+    from conan.tools.microsoft import msvs_toolset
+
+    def validate(self):
+        msvs_toolset(self)
+
 
 NMakeDeps
 ---------
@@ -660,7 +686,7 @@ This generator can be used as:
             self.run(f"nmake /f makefile")
 
 The generator will create a ``conannmakedeps.bat`` environment script that defines
-``CL``, ``LIB`` and ``_LINK_`` environment variables, injecting necessary flags 
+``CL``, ``LIB`` and ``_LINK_`` environment variables, injecting necessary flags
 to locate and link the dependencies declared in ``requires``.
 This generator should most likely be used together with ``NMakeToolchain`` one.
 
