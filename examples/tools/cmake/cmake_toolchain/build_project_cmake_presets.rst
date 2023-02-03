@@ -43,10 +43,7 @@ The ``CMakePresets.json`` contain information about the ``conan_toolchain.cmake`
 and even the ``binaryDir`` set with the output directory.
 
 
-.. note::
-
-    CMake >= 3.23 is required because the "include" from ``CMakeUserPresets.json`` to ``CMakePresets.json``
-    is only supported since that version.
+.. include:: ../../../../tutorial/cmake_presets_note.rst
 
 
 If you are using a multi-configuration generator:

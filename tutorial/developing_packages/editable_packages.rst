@@ -61,6 +61,10 @@ in the different platforms.
 
 Now the ``say/1.0`` package is in editable mode, lets build it locally:
 
+
+.. include:: ../cmake_presets_note.rst
+
+
 .. code-block:: bash
 
     $ cd say
