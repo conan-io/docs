@@ -26,11 +26,11 @@ There are 2 folders inside this project:
 
 - A "say" folder containing a fully fledge package, with its ``conanfile.py``, its source
   code.
-- A "hello" folder containing a simple consumer project with a ``conanfile.txt`` and its
-  source code, which depends on the ``say/1.0@user/testing`` requirement.
+- A "hello" folder containing a simple consumer project with a ``conanfile.py`` and its
+  source code, which depends on the ``say/1.0`` requirement.
 
 The goal is to be able to build the "hello" project, without actually having the
-``say/1.0@user/testing`` package in the cache, but directly in this project folder.
+``say/1.0`` package in the cache, but directly in this project folder.
 
 Put a package in editable mode
 ------------------------------
