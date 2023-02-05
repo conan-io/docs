@@ -14,8 +14,20 @@ Let's see it with a practical example, start cloning  the `examples2.0 repositor
 
 In this folder we have a small project, consisting in 3 packages: a ``matrix`` package, emulating some mathematical
 library, an ``engine`` package emulating some game engine, and a ``sound32`` package, emulating a sound library for 
-some 32bits systems. These packages are actually most empty, the do not build any code, but they are good to learn
+some 32bits systems. These packages are actually most empty, they do not build any code, but they are good to learn
 the concepts of lockfiles.
+
+.. graphviz::
+    :align: center
+
+    digraph lockfiles {
+        node [fillcolor="lightskyblue", style=filled, shape=box]
+        rankdir="BT"
+        "engine/1.0" -> "matrix/1.0";
+        "engine/1.0" -> "sound32/1.0" [label="if arch==x86"];
+    }
+
+|
 
 We will start by creating the first ``matrix/1.0`` version:
 
@@ -66,6 +78,10 @@ creating a ``conan.lock`` lockfile:
         "python_requires": []
     }
 
+We can see how the created ``conan.lock`` lockfile contains the ``matrix/1.0`` version
+and its revision. But ``sound32/1.0`` is not in the lockfile, because for the default
+configuration profile (not ``x86``), this ``sound32`` is not a dependency.
+
 Now, a new ``matrix/1.1`` version is created:
 
 .. code-block:: bash
@@ -74,7 +90,7 @@ Now, a new ``matrix/1.1`` version is created:
     $ conan create matrix --version=1.1
     $ cd engine
 
-And now lets see what happens when we issue a new ``conan install`` command for the engine:
+And see what happens when we issue a new ``conan install`` command for the engine:
 
 .. code-block:: bash
 
