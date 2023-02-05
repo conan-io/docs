@@ -46,6 +46,7 @@ extensions = [
     'sphinx_sitemap',
     'notfound.extension',
     'sphinx.ext.autodoc',
+    'sphinx.ext.graphviz',
 ]
 
 # autodoc configuration
