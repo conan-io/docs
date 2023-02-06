@@ -261,7 +261,7 @@ method called ``package_id()``:
 
 We will explain the ``package_id()`` method later and explain how you can customize the
 way the package ID for the package is calculated. You can also check the :ref:`Conanfile's
-methods reference<conan_conanfile_methods>` if you want to know how this method works in
+methods reference<reference_conanfile_methods>` if you want to know how this method works in
 more detail.
 
 Read more
