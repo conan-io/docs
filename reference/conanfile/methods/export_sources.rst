@@ -36,7 +36,7 @@ The method might be able to read files in the recipe folder and do something wit
             save(self, os.path.join(self.export_sources_folder, "myfile.txt"), content)
 
 
-The ``export_conandata_patches()`` is a high level help function that does the export of the patches defined
+The ``export_conandata_patches()`` is a high-level helper function that does the export of the patches defined
 in the ``conandata.yml`` file, that could be later applied in ``apply_conandata_patches()`` in the ``source()`` method.
 
 .. code-block:: python
