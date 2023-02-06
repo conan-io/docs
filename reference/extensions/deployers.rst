@@ -43,7 +43,7 @@ Then every dependency will end up in a folder such as:
 direct_deploy
 ^^^^^^^^^^^^^
 
-Same as ``full_deploy```, but only processes your recipe's *direct* dependencies.
+Same as ``full_deploy``, but only processes your recipe's *direct* dependencies.
 
 
 Custom deployers
