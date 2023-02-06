@@ -45,7 +45,7 @@ Conan will look in these locations for the deployer in the following order:
 
 #. Absolute paths
 #. Relative to cwd
-#. In the ``conancache/extensions/deploy`` folder
+#. In the ``[CONAN_HOME]/extensions/deploy`` folder
 #. Built-in deployers
 
 For each installed file, Conan will look for a ``deploy()`` method which to call.
