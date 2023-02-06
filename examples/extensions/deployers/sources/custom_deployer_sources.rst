@@ -26,7 +26,7 @@ Locate the deployer
 -------------------
 
 In this case, the deployer is located in the same directory as our example conanfile,
-but as show in :ref:`Deployers <reference_extensions_deployer_direct_deploy>` reference,
+but as shown in :ref:`Deployers <reference_extensions_deployer_direct_deploy>` reference,
 Conan will look for the specified deployer in a few extra places in order, namely:
 
 #. Absolute paths
