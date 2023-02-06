@@ -76,5 +76,5 @@ deploy()
 ++++++++
 
 The ``deploy()`` method is called by Conan, and gets both a dependency graph and an output folder path as arguments.
-It iterates all the dependencies of our recipe, and copies every source file to their respective folders
+It iterates all the dependencies of our recipe and copies every source file to their respective folders
 under ``dependencies_sources`` using :ref:`conan.tools.copy<conan_tools_files_copy>`.
