@@ -7,42 +7,60 @@ Understanding the Conan Package layout
 
 In the last section, we introduced the concept of the :ref:`editable packages
 <editable_packages>` and mentioned that the reason why packages work flawlesly when put in
-editable mode is because of the current definition of the ``layout()``. Let's see this
-feature in more detail.
+editable mode is because of the current definition of the information in the ``layout()``
+method. Let's see this feature in more detail.
 
-Let's say we are working in the project introduced in the section above:
+In this tutorial we will use a package similar to the ``say/1.0`` package used in the
+:ref:`editable packages <editable_packages>` tutorial.
 
-.. code-block:: text
+Please, first of all, clone the sources to recreate this project. You can find them in the
+`examples2.0 repository <https://github.com/conan-io/examples2>`_ in GitHub:
+
+.. code-block:: bash
+
+    $ git clone https://github.com/conan-io/examples2.git
+    $ cd examples2/tutorial/developing_packages/package_layout
+
+
+As you can see, the main folder structure is the same and the main difference is that it
+also has an application ``hello`` that links with the ``say`` library. 
+
+..  code-block:: text
 
     <my_project_folder>
-    ├── conanfile.py
-    └── src
-        ├── CMakeLists.txt
-        ├── hello.cpp
-        ├── my_tool.cpp
-        └── include
-            └── hello.h
+     .
+     ├── CMakeLists.txt
+     ├── conanfile.py
+     ├── include
+     │   └── say.h
+     └── src
+         ├── hello.cpp
+         └── say.cpp
 
 We are using the following **CMakeLists.txt**:
 
-.. code-block:: cmake
+..  code-block:: cmake
 
-   cmake_minimum_required(VERSION 3.15)
-   project(say CXX)
+    cmake_minimum_required(VERSION 3.15)
+    project(say CXX)
 
-   add_library(say hello.cpp)
-   target_include_directories(say PUBLIC "include")
+    add_library(say src/say.cpp)
+    target_include_directories(say PUBLIC include)
 
-   add_executable(my_tool my_tool.cpp)
-   target_link_libraries(my_tool say)
+    set_target_properties(say PROPERTIES PUBLIC_HEADER "include/say.h")
 
-   # The executables are generated at the "bin" folder
-   set_target_properties(my_tool PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
+    add_executable(hello hello.cpp)
+    target_link_libraries(hello say)
+
+    # The executables are generated at the "bin" folder
+    set_target_properties(hello PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
+
+    install(TARGETS say hello)
 
 
 Let's see how we describe our project in the ``layout()`` method:
 
-.. code-block:: python
+..  code-block:: python
     :caption: conanfile.py
 
     import os
@@ -61,10 +79,14 @@ Let's see how we describe our project in the ``layout()`` method:
             self.folders.build = "cmake-build-{}".format(build_type)
             self.folders.generators = os.path.join(self.folders.build, "conan")
 
+            # cpp.package information is equivalent 
+            # to declaring this information in the package_info() method
             self.cpp.package.libs = ["say"]
             self.cpp.package.includedirs = ["include"] # includedirs is already set to this value by
                                                        # default, but declared for completion
 
+            ## cpp.source and cpp.build information is specifically designed for editable packages:
+            
             # this information is relative to the source folder
             self.cpp.source.includedirs = ["include"]  # maps to ./src/include
 
@@ -113,7 +135,7 @@ Let's review the ``layout()`` method changes:
 
 There is also an interesting line in the ``build(self)`` method:
 
-.. code-block:: python
+..  code-block:: python
     :caption: conanfile.py
 
       def build(self):
@@ -157,7 +179,7 @@ files are or the build files should be, because everything is declared in the la
 
 Our current folder now looks like this:
 
-.. code-block:: text
+..  code-block:: text
 
     <my_project_folder>
     ├── conanfile.py
@@ -191,7 +213,7 @@ And of course, we can run also a ``conan create`` command. When the ``build(self
 also able to locate the ``my_tool`` correctly, because it is using the same ``folders.build``:
 
 
-.. code-block:: text
+..  code-block:: text
      :caption: .conan2/p/<recipe_folder>
      :emphasize-lines: 9
 
@@ -228,7 +250,7 @@ Example: export_sources_folder
 
 If we have this project, intended to create a package for a third-party library which code is located externally:
 
-.. code-block:: text
+..  code-block:: text
 
     ├── conanfile.py
     ├── patches
@@ -238,7 +260,7 @@ If we have this project, intended to create a package for a third-party library 
 
 The ``conanfile.py`` would look like this:
 
-.. code-block:: python
+..  code-block:: python
 
       import os
       from conan import ConanFile
@@ -278,7 +300,7 @@ Example: conanfile in subfolder
 If we have this project, intended to package the code that is in the same repo as the ``conanfile.py``, but
 the ``conanfile.py`` is not in the root of the project:
 
-.. code-block:: text
+..  code-block:: text
 
     ├── CMakeLists.txt
     └── conan
@@ -287,7 +309,7 @@ the ``conanfile.py`` is not in the root of the project:
 
 The ``conanfile.py`` would look like this:
 
-.. code-block:: python
+..  code-block:: python
 
       import os
       from conan import ConanFile
@@ -330,7 +352,7 @@ a Conan package.
 
 So we have the following folders and files:
 
-.. code-block:: text
+..  code-block:: text
 
     ├── pkg
     │    ├── conanfile.py
@@ -353,7 +375,7 @@ current subproject folder, as it would be the one containing the build scripts, 
 so other helpers like ``cmake_layout()`` keep working.
 
 
-.. code-block:: python
+..  code-block:: python
 
     import os
     from conan import ConanFile
@@ -401,7 +423,7 @@ do not require using the ``self.package_folder``. If they do, then their values 
 not be correct for the "source" and "build" layouts. Something like this will be **broken**
 when used in ``editable`` mode:
 
-.. code-block:: python
+..  code-block:: python
 
     import os
     from conan import ConanFile
@@ -418,7 +440,7 @@ obviously there is no package yet.
 The solution is to define it in the ``layout()`` method, in the same way the ``cpp_info`` can
 be defined there:
 
-.. code-block:: python
+..  code-block:: python
 
     from conan import ConanFile
 
@@ -449,7 +471,7 @@ To understand correctly how the ``layout()`` method can help us we need to recal
 
 Let's say we are working in a project, using, for example, CMake:
 
-.. code-block:: text
+..  code-block:: text
 
     <my_project_folder>
     ├── conanfile.py
@@ -468,7 +490,7 @@ go through the whole process:
 1. Conan exports the recipe (conanfile.py) and the declared sources (exports_sources) to the cache. The folders in the
    cache would be something like:
 
-   .. code-block:: text
+   ..  code-block:: text
         :caption: .conan2/p/<recipe_folder>
 
         ├── export
@@ -492,7 +514,7 @@ go through the whole process:
 2. If the method ``source()`` exists, it might retrieve sources from the internet. Also,
    the contents of the  ``export_source`` folder are copied to the ``source`` folder.
 
-   .. code-block:: text
+   ..  code-block:: text
         :caption: .conan2/p/<recipe_folder>
 
         ├── export
@@ -516,7 +538,7 @@ go through the whole process:
    store the binaries. Conan copies the sources in the build folder and the package
    is built:
 
-   .. code-block:: text
+   ..  code-block:: text
         :caption: .conan2/p/<recipe_folder>
 
         ├── export
@@ -536,7 +558,7 @@ go through the whole process:
                 └── include
                     └── hello.h
 
-   .. code-block:: text
+   ..  code-block:: text
         :caption: .conan2/p/<package_folder>
 
         └── build
@@ -555,7 +577,7 @@ go through the whole process:
    ``source`` (typically includes) and ``build`` folders (libraries and executables) to a
    **package** folder.
 
-   .. code-block:: text
+   ..  code-block:: text
         :caption: .conan2/p/<recipe_folder>
 
         ├── export
@@ -576,7 +598,7 @@ go through the whole process:
                     └── hello.h
 
 
-   .. code-block:: text
+   ..  code-block:: text
         :caption: .conan2/p/<package_folder>
 
         ├── build
@@ -602,7 +624,7 @@ go through the whole process:
    folder, that is the one the consumers use to link against it.
 
 
-   .. code-block:: python
+   ..  code-block:: python
        :caption: conanfile.py
 
        import os
