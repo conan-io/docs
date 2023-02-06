@@ -3,13 +3,13 @@
 Packages in editable mode
 =========================
 
-The regular Conan way of working with packages is to run a ``conan create`` or ``conan
+The "normal" Conan way of working with packages is to run a ``conan create`` or ``conan
 export-pkg`` to store them in the local cache so that consumers use the packages stored in
 the Cache. In some cases, if you want to consume these packages at the same time that you
 are developing them, it can be a bit tedious to run ``conan create`` each time you make
 changes to the package. For those cases, you can put your package in editable mode and
-Conan will find the headers and the artifacts ready for consumption in your local working
-directory so there is no need to package. 
+consumers will be able to find the headers and artifacts in your local working directory
+so there is no need to package. 
 
 Let's see how we can put a package in editable mode and consume it from the local working
 directory.
@@ -29,11 +29,11 @@ There are 2 folders inside this project:
 - A "hello" folder containing a simple consumer project with a ``conanfile.py`` and its
   source code, which depends on the ``say/1.0`` requirement.
 
-The goal is to be able to build the "hello" project, without actually having the
-``say/1.0`` package in the cache, but directly in this project folder.
+We will put ``say/1.0`` in editable mode and show how the ``hello`` consumer can find ``say/1.0``
+headers and binaries in its local working directory.
 
-Put a package in editable mode
-------------------------------
+Put say/1.0 package in editable mode
+------------------------------------
 
 To avoid creating the package ``say/1.0`` in the cache for every change, we are going to
 put that package in editable mode, creating **a link from the reference in the cache to
@@ -47,8 +47,9 @@ the local working directory**:
         Path: /Users/.../examples2/tutorial/developing_packages/editable_packages/say/conanfile.py
 
 
-That is it. Now, every usage of ``say/1.0``, by any other Conan package or project, will
-be redirected to the ``/examples2/tutorial/developing_packages/editable_packages/say``
+From now on, every usage of ``say/1.0`` by any other Conan package or project will be
+redirected to the
+``/Users/.../examples2/tutorial/developing_packages/editable_packages/say/conanfile.py``
 user folder instead of using the package from the Conan cache.
 
 Note that the key of editable packages is a correct definition of the ``layout()`` of the
@@ -56,13 +57,12 @@ package. Read the :ref:`package layout() section <conanfile_methods_layout>` to 
 about this method. 
 
 In this example, the ``say`` ``conanfile.py`` recipe is using the predefined
-``cmake_layout()`` which defines the typical CMake project layout, which can be different
-in the different platforms.
+``cmake_layout()`` which defines the typical CMake project layout that can be different
+depending on the platform and generator used.
 
-Now the ``say/1.0`` package is in editable mode, lets build it locally:
+Now that the ``say/1.0`` package is in editable mode, lets build it locally:
 
 .. include:: ../cmake_presets_note.rst
-
 
 .. code-block:: bash
 
@@ -81,8 +81,8 @@ Now the ``say/1.0`` package is in editable mode, lets build it locally:
     $ cmake --build --preset release
 
 
-Using a package in editable mode
---------------------------------
+Using say/1.0 package in editable mode
+--------------------------------------
 
 Consuming a package in editable mode is transparent from the consumer perspective.
 In this case we can build the ``hello`` application as usual:
