@@ -14,10 +14,13 @@ as the destination folder for using ``copy()`` or your custom copy.
 
 .. code-block:: python
 
+    from conan import ConanFile
     from conan.tools.files import copy
 
     class Pkg(ConanFile):
         def export_sources(self):
+            # This LICENSE.md is a source file intended to be part of the final package
+            # it is not the license of the current recipe
             copy(self, "LICENSE.md", self.recipe_folder, self.export_sources_folder)
 
 
