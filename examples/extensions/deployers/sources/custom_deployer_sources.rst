@@ -25,7 +25,7 @@ This deployer copies all the source files from your dependencies and puts them i
 Locate the deployer
 -------------------
 
-In this case, the deployer is located in the same directory than our example conanfile,
+In this case, the deployer is located in the same directory as our example conanfile,
 but as show in :ref:`Deployers <reference_extensions_deployer_direct_deploy>` reference,
 Conan will look for the specified deployer in a few extra places in order, namely:
 
