@@ -23,8 +23,8 @@ Built-in deployers
 
 .. _reference_extensions_deployer_full_deploy:
 
-full_deploy()
-^^^^^^^^^^^^^
+full_deploy
+^^^^^^^^^^^
 
 Deploys each package folder of every dependency to your recipe's ``output_folder`` in a subfolder tree based on:
 
@@ -40,10 +40,10 @@ Then every dependency will end up in a folder such as:
 
 .. _reference_extensions_deployer_direct_deploy:
 
-direct_deploy()
-^^^^^^^^^^^^^^^
+direct_deploy
+^^^^^^^^^^^^^
 
-Same as ``full_deploy()```, but only processes your recipe's *direct* dependencies.
+Same as ``full_deploy```, but only processes your recipe's *direct* dependencies.
 
 
 Custom deployers
