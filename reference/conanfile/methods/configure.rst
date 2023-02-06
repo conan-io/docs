@@ -20,8 +20,10 @@ recipe to remove them so they are not used in the recipe:
     settings = "os", "compiler", "build_type", "arch"
 
     def configure(self):
-        del self.settings.compiler.libcxx
-        del self.settings.compiler.cppstd
+        # Not all compilers have libcxx subsetting, so we use rm_safe
+        # to avoid exceptions
+        self.settings.rm_safe("compiler.libcxx")
+        self.settings.rm_safe("compiler.cppstd")
 
     def package_id(self):
         # No need to delete those settings here, they were already deleted

@@ -104,7 +104,7 @@ force
 
 This ``requires`` will force its version in the dependency graph upstream, overriding
 other existing versions even of transitive dependencies, and also solving potential
-existing conflicts.
+existing conflicts. The downstream consunmers ``force`` trait always have higher priority.
 
 override
 ~~~~~~~~
