@@ -59,7 +59,6 @@ Code tour
 The **source_deploy.py** file has the following code:
 
 
-**sources_deploy.py**
 
 .. code-block:: python
 
