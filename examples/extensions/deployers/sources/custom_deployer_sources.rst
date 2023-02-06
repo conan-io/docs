@@ -38,7 +38,7 @@ Conan will look for the specified deployer in a few extra places in order, namel
 Run it
 ------
 
-For our example, we have a simple recipe that only lists ``zlib`` as a requirement.
+For our example, we have a simple recipe that lists both ``zlib`` and ``mcap`` as requirements.
 With the help of the ``tools.build:download_source=True`` conf, we can force the invocation of its ``source()`` method,
 which will ensure that sources are available even if no build needs to be carried out.
 
@@ -49,9 +49,9 @@ Now, you should be able to use the new deployer in both ``conan install`` and ``
     $ conan graph info . -c tools.build:download_source=True --deploy=sources_deploy
 
 
-
-Inspecting the command output we can see that it copied the sources of all our dependencies (direct and transitive)
-to a ``dependency_sources`` folder. After this, extra preprocessing could be accomplished to more specific needs.
+Inspecting the command output we can see that it copied the sources of our direct dependencies ``zlib`` and ``mcap``,
+**plus** the sources of our transitive dependencies, ``zstd``and ``lz4`` to a ``dependencies_sources`` folder.
+After this is done, extra preprocessing could be done to accomplish more specific needs.
 
 Code tour
 ---------
@@ -77,4 +77,4 @@ deploy()
 
 The ``deploy()`` method is called by Conan, and gets both a dependency graph and an output folder path as arguments.
 It iterates all the dependencies of our recipe, and copies every source file to their respective folders
-under ``dependency_sources`` using :ref:`conan.tools.copy<conan_tools_files_copy>`.
+under ``dependencies_sources`` using :ref:`conan.tools.copy<conan_tools_files_copy>`.
