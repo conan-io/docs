@@ -691,8 +691,8 @@ folders
 -------
 
 The ``folders`` attribute has to be set only in the ``layout()`` method. Please check the
-:ref:`layout() method documentation<layout_folders_reference>`
- to learn more about this attribute.
+:ref:`layout() method documentation<layout_folders_reference>` to learn more about this
+attribute.
 
 
 .. _conan_conanfile_attributes_cpp:
@@ -701,8 +701,8 @@ cpp
 ---
 
 The ``cpp`` attribute has to be set only in the ``layout()`` method. Please check the
-:ref:`layout() method documentation<layout_cpp_reference>`
- to learn more about this attribute.
+:ref:`layout() method documentation<layout_cpp_reference>` to learn more about this
+attribute.
 
 
 cpp_info
