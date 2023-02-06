@@ -27,8 +27,12 @@ Locate the deployer
 
 In this case, the deployer is located in the same directory than our example conanfile,
 but as show in :ref:`Deployers <reference_extensions_deployer_direct_deploy>` reference,
-Conan will look for the specified deployer in a few extra places besides the current working directory,
-including as an absolute path, and in ``[YOUR_CONAN_HOME]/extensions/deploy/``.
+Conan will look for the specified deployer in a few extra places in order, namely:
+
+#. Absolute paths
+#. Relative to cwd
+#. In the ``[CONAN_HOME]/extensions/deploy`` folder
+#. As built-in deployers
 
 
 Run it
@@ -71,6 +75,6 @@ The **source_deploy.py** file has the following code:
 deploy()
 ++++++++
 
-The ``deploy()`` method is called by Conan, and gets both a dependency graph (``conans.client.graph.graph.DepsGraph``)
-and an output folder path as arguments. It iterates all the dependencies of our recipe,
-and copies every source file to their respective folder under ``dependency_sources`` using :ref:`conan.tools.copy<conan_tools_files_copy>`.
+The ``deploy()`` method is called by Conan, and gets both a dependency graph and an output folder path as arguments.
+It iterates all the dependencies of our recipe, and copies every source file to their respective folders
+under ``dependency_sources`` using :ref:`conan.tools.copy<conan_tools_files_copy>`.
