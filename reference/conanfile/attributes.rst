@@ -690,21 +690,9 @@ as the folder from where we copy the files:
 folders
 -------
 
-The ``folders`` attribute has to be set only in the ``layout()`` method.
-
-   - **self.folders.source**: To specify a folder where your sources are.
-   - **self.folders.build**: To specify a subfolder where the files from the build are (or will be).
-   - **self.folders.generators**: To specify a subfolder where to write the files from the generators and the toolchains
-     (e.g. the `xx-config.cmake` files from the ``CMakeDeps`` generator).
-   - **self.folders.root**: To specify the relative path from the ``conanfile.py`` to the root of the project, in case
-     the ``conanfile.py`` is in a subfolder and not in the project root. If defined, all the other paths will be relative to
-     the project root, not to the location of the ``conanfile.py``.
-   - **self.folders.subproject**: To use together with ``self.folders.root``, in case such a subproject needs to access some
-     files that are located in a sibling folder.
-
-   .. seealso::
-
-       Read more about the usage of the ``layout()`` in :ref:`this tutorial<developing_packages_layout>`.
+The ``folders`` attribute has to be set only in the ``layout()`` method. Please check the
+:ref:`layout() method documentation<layout_folders_reference>`
+ to learn more about this attribute.
 
 
 .. _conan_conanfile_attributes_cpp:
@@ -712,16 +700,9 @@ The ``folders`` attribute has to be set only in the ``layout()`` method.
 cpp
 ---
 
-.. autoattribute:: ConanFile.cpp
-
-   .. seealso::
-
-       Read more about the :ref:`CppInfo<conan_conanfile_model_cppinfo>` model.
-
-
-   .. important::
-
-       This attribute should be only filled in the <MISSING METHOD> ``layout()`` method.
+The ``cpp`` attribute has to be set only in the ``layout()`` method. Please check the
+:ref:`layout() method documentation<layout_cpp_reference>`
+ to learn more about this attribute.
 
 
 cpp_info
