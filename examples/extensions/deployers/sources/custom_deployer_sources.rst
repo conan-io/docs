@@ -61,6 +61,7 @@ The **source_deploy.py** file has the following code:
 
 
 .. code-block:: python
+    :caption: **sources_deploy.py**
 
     from conan.tools.files import copy
     import os
