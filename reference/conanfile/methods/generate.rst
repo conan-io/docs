@@ -21,10 +21,10 @@ The purpose of ``generate()`` is to prepare the build, generating the necessary 
 
 
 The idea is that the ``generate()`` method implements all the necessary logic, making both the user manual builds after a :command:`conan install`
-very straightforward, and also the ``build()`` method logic simpler. The build produced by a user in their local flow should result
+very straightforward, and also the ``build()`` method logic simpler. The build produced by a user in their local flow should result in
 exactly the same one as the build done in the cache with a ``conan create`` without effort.
 
-Generation of files happen in the ``generators_folder`` as defined by the current layout.
+Generation of files happens in the ``generators_folder`` as defined by the current layout.
 
 In many cases, the ``generate()`` method might not be necessary, and declaring the ``generators`` attribute could be enough:
 
@@ -74,7 +74,7 @@ multiple recipes:
             mygen.generate()
 
 
-In case it is necessary to collect or copy some file from the dependencies, it is also possible to do it in the ``generate()`` method, accessing ``self.dependencies``.
+In case it is necessary to collect or copy some files from the dependencies, it is also possible to do it in the ``generate()`` method, accessing ``self.dependencies``.
 Listing the different include directories, lib directories from a dependency "mydep" would be possible like this:
 
 .. code:: python

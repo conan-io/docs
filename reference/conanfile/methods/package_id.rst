@@ -4,19 +4,19 @@ package_id()
 ============
 
 Conan computes a unique ``package_id`` reference for each configuration, including ``settings``, ``options`` and ``dependencies`` versions.
-This ``package_id()`` method allows some customizations and changes over the computed ``package_id``, in general with the goal of relax some of the global binary compatibility assumptions.
+This ``package_id()`` method allows some customizations and changes over the computed ``package_id``, in general with the goal to relax some of the global binary compatibility assumptions.
 
-The general rule is that every different value of ``settings``, ``options`` create a different ``package_id``. This rule can be relaxed or expanded following different approaches:
+The general rule is that every different value of ``settings`` and ``options`` creates a different ``package_id``. This rule can be relaxed or expanded following different approaches:
 
-- A given package recipe can decide in its ``package_id()`` that the final binary is independent of some settings, for example if it is a header-only library, that used input settings to build some tests, it might completely clear all configuration, so the resulting ``package_id`` is always the same irrespective of the inputs. Likewise a C library might want to remove the effect of ``compiler.cppstd`` and/or ``compiler.libcxx`` from its binary ``package_id``, because as a C library, its binary will be independent.
-- A given package recipe can implement some partial erasure of information, for example to obtain the same ``package_id`` for a range of compiler versions. This type of binary compatibility it is in general better addressed with the global ``compatibility`` plugin, or with the ``compatibility()`` method if the global plugin is not enough.
+- A given package recipe can decide in its ``package_id()`` that the final binary is independent of some settings, for example if it is a header-only library, that uses input settings to build some tests, it might completely clear all configuration, so the resulting ``package_id`` is always the same irrespective of the inputs. Likewise a C library might want to remove the effect of ``compiler.cppstd`` and/or ``compiler.libcxx`` from its binary ``package_id``, because as a C library, its binary will be independent.
+- A given package recipe can implement some partial erasure of information, for example to obtain the same ``package_id`` for a range of compiler versions. This type of binary compatibility is in general better addressed with the global ``compatibility`` plugin, or with the ``compatibility()`` method if the global plugin is not enough.
 - A package recipe can decide to inject extra variability in its computed ``package_id``, adding ``conf`` items or "target" settings.
 
 
 Information erasure
 -------------------
 
-This is a ``package_id`` relaxing strategy. Let's check the first case: a header-only library, that has input ``settings``, because it still want to use them for some unit-tests in its ``build()`` method. In order to have exactly one final binary for all configurations, because the final artifact should be identical in all cases, just the header files, it would be necessary to do:
+This is a ``package_id`` relaxing strategy. Let's check the first case: a header-only library, that has input ``settings``, because it still wants to use them for some unit-tests in its ``build()`` method. In order to have exactly one final binary for all configurations, because the final artifact should be identical in all cases (just the header files), it would be necessary to do:
 
 .. code-block:: python
 
@@ -28,17 +28,17 @@ This is a ``package_id`` relaxing strategy. Let's check the first case: a header
         cmake.test()  # running unit tests for the current configuration
 
     def package_id(self):
-        # Completely clear all the ``package_id`` information ("info" object)
+        # Completely clear all the settings from the ``package_id`` information ("info" object)
         # All resulting ``package_id`` will be the same, irrespective of configuration 
         self.info.settings.clear()
 
 
 .. warning::
 
-    The modifications of the information happens always over the ``self.info`` object, not on ``self.settings`` or ``self.options``
+    The modifications of the information always happen over the ``self.info`` object, not on ``self.settings`` or ``self.options``
 
 
-If a package is just a C library, but it couldn't remove the ``compiler.cppstd`` and ``compiler.libcxx`` in the ``configure()`` method (the recommended approach for most cases, to guarantee those flags are not used in the build), because there are C++ unit tests to the C library, then, those could be removed with (as the tests are not packaged and the final binary will be independent of C++):
+If a package is just a C library, but it couldn't remove the ``compiler.cppstd`` and ``compiler.libcxx`` in the ``configure()`` method (the recommended approach for most cases, to guarantee those flags are not used in the build), because there are C++ unit tests to the C library, then as the tests are not packaged and the final binary will be independent of C++, those could be removed with:
 
 .. code-block:: python
 
@@ -65,7 +65,7 @@ If a package is building an executable to be used as a tool, and only 1 executab
         del self.info.settings.compiler
         del self.info.settings.build_type
 
-Note that this doesn't mean that the ``compiler`` and ``build_type`` should be removed for every application executable. For other things that tools, but final products to release, the most common situation is that maintaining the different builds for the different compilers, compiler versons, build types, etc. is the best approach.
+Note that this doesn't mean that the ``compiler`` and ``build_type`` should be removed for every application executable. For other things that are not tools, but final products to release, the most common situation is that maintaining the different builds for the different compilers, compiler versions, build types, etc. is the best approach.
 It also means that we are erasing some information. We will not have the information of the compiler and build type that was used for the binary that we are using (it will not be in the ``conan list`` output, and it will not be in the server metadata either). If we compile a new binary with a different compiler or build type, it will create a new package revision under the same ``package_id``.
 
 
@@ -92,7 +92,7 @@ Adding information
 ------------------
 
 There is some information not added by default to the ``package_id``. 
-If we are creating a package for a tool, to be used as a ``tool_require``, and it happens that such package binary will be different for each "target" configuration, like it is the case for some cross-compiler, if the compiler itself might be different for the different architectures that it is targeting, it will be necessary to add the ``settings_target`` to the ``package_id`` with:
+If we are creating a package for a tool, to be used as a ``tool_require``, and it happens that such package binary will be different for each "target" configuration, like it is the case for some cross-compilers, if the compiler itself might be different for the different architectures that it is targeting, it will be necessary to add the ``settings_target`` to the ``package_id`` with:
 
 .. code-block:: python
 
@@ -100,7 +100,7 @@ If we are creating a package for a tool, to be used as a ``tool_require``, and i
         self.info.settings_target = self.settings_target
 
 
-The ``conf`` items do not affect by default the ``package_id``. It is possible to explicitly make them part of it at the recipe level with:
+The ``conf`` items do not affect the ``package_id`` by default. It is possible to explicitly make them part of it at the recipe level with:
 
 .. code-block:: python
 

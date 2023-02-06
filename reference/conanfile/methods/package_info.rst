@@ -4,7 +4,7 @@ package_info()
 ==============
 
 The ``package_info()`` method is the one responsible of defining the information to the consumers of the package, so those consumers can easily and automatically consume this package.
-The ``generate()`` method of the consumers is the place where the information defined in the ``package_info()`` will be mapped to the specific build system of the consumer. Then, if we want a package to be consumed by different build systems (like it happens with ConanCenter recipes for the community), it is very important that this information is complete. This might require
+The ``generate()`` method of the consumers is the place where the information defined in the ``package_info()`` will be mapped to the specific build system of the consumer. Then, if we want a package to be consumed by different build systems (like it happens with ConanCenter recipes for the community), it is very important that this information is complete.
 
 .. important::
 
@@ -57,14 +57,14 @@ Directories:
   initialized to ``['include']``, and it is rarely changed.
 - **libdirs**: List of relative paths (starting from the package root) of directories in which to find library object binaries (\*.lib,
   \*.a, \*.so, \*.dylib). By default it is initialized to ``['lib']``, and it is rarely changed.
-- **bindirs**: List of relative paths (starting from the package root) of directories in which to find library runtime binaries (like exectuables
+- **bindirs**: List of relative paths (starting from the package root) of directories in which to find library runtime binaries (like executable
   Windows .dlls). By default it is initialized to ``['bin']``, and it is rarely changed.
 - **resdirs**: List of relative paths (starting from the package root) of directories in which to find resource files (images, xml, etc). By
   default it is empty.
 - **srcdirs**: List of relative paths (starting from the package root) of directories in which to find sources (like
   .c, .cpp). By default it is empty. It might be used to store sources (for later debugging of packages, or to reuse those sources building
   them in other packages too).
-- **builddirs**: List of relative paths (starting from package root) of directories that can contain build scripts that could be used by the consumers. EMpty by default.
+- **builddirs**: List of relative paths (starting from package root) of directories that can contain build scripts that could be used by the consumers. Empty by default.
 - **frameworkdirs**: List of relative paths (starting from the package root), of directories containing OSX frameworks. 
 
 Flags:
@@ -75,14 +75,14 @@ Flags:
   Rarely used.
 
 Properties:
-- **set_property()** allows to define some built-in and user general properties to be propagated with the ``cpp_info`` model for consumers. They might contain build-system specific information. Some built-in properties are ``cmake_file_name``, ``cmake_target_name``, ``pkg_config_name``, that can define specific behavior for ``CMakeDeps`` or ``PkgConfigDeps`` generators. For more information about these, read the specific build system integration.
+- **set_property()** allows to define some built-in and user general properties to be propagated with the ``cpp_info`` model for consumers. They might contain build-system specific information. Some built-in properties are ``cmake_file_name``, ``cmake_target_name``, ``pkg_config_name``, that can define specific behavior for ``CMakeDeps`` or ``PkgConfigDeps`` generators. For more information about these, read the specific build system integration documentation.
 
 Structure:
 
 - **components**: Dictionary with names as keys and a component object as value to model the different components a
   package may have: libraries, executables...
 - **requires**: **Experimental** List of components from the requirements this package (and its consumers) should link with. It will
-  be used by generators that add support for components features .
+  be used by generators that add support for components features.
 
 
 It is common that different configurations will produce different ``package_info``, for example, the library names might change in different OSs,
@@ -113,7 +113,7 @@ TBD
 buildenv_info, runenv_info
 --------------------------
 
-The ``buildenv_info`` and ``runenv_info`` are ``Environment`` objects that allow to define information for the consumers in form of environment variables.
+The ``buildenv_info`` and ``runenv_info`` attributes are ``Environment`` objects that allow to define information for the consumers in the form of environment variables.
 They can use any of the ``Environment`` methods to define such information:
 
 .. code-block:: python
@@ -148,7 +148,7 @@ Conan ``VirtualBuildEnv`` generator will be used by default in consumers, collec
 conf_info
 ---------
 
-``tool_requires`` packages in the "build" context can transmit some ``conf`` configuration to its immediate consumers, with the ``conf_info``. For example, one Conan
+``tool_requires`` packages in the "build" context can transmit some ``conf`` configuration to its immediate consumers, with the ``conf_info`` attribute. For example, one Conan
 package packaging the AndroidNDK could do:
 
 .. code-block:: python
@@ -163,8 +163,8 @@ package packaging the AndroidNDK could do:
 
     **Best practices**
 
-    - The ``package_info()`` is not strictly necessary if you have other means to propagate information for consumers. For example, if your package creates ``xxx-config.cmake`` files at build time, and they are put in the final package, it might not be necessary to define ``package_info()`` at all, and in the consumer side the ``CMakeDeps`` would not be necessary either, as ``CMakeToolchain`` is able to inject the paths to locate the ``xxx-config.cmake`` files inside the packages. This approach can be good for private usage of Conan, albeit some limitations of CMake, like not being able to manage multi-configuration projects (like Visual Studio switching Debug/Release in the IDE, that ``CMakeDeps`` can provide), limitations in some cross-build scenarios using packages that are both libraries and build tools (like ``protobuf``, that also ``CMakeDeps`` can handle).
+    - The ``package_info()`` method is not strictly necessary if you have other means of propagating information for consumers. For example, if your package creates ``xxx-config.cmake`` files at build time, and they are put in the final package, it might not be necessary to define ``package_info()`` at all, and in the consumer side the ``CMakeDeps`` would not be necessary either, as ``CMakeToolchain`` is able to inject the paths to locate the ``xxx-config.cmake`` files inside the packages. This approach can be good for private usage of Conan, albeit some limitations of CMake, like not being able to manage multi-configuration projects (like Visual Studio switching Debug/Release in the IDE, that ``CMakeDeps`` can provide), limitations in some cross-build scenarios using packages that are both libraries and build tools (like ``protobuf``, that also ``CMakeDeps`` can handle).
     - Providing a ``package_info()`` is very necessary if consumers can use different build systems, like in ConanCenter. In this case, it is necessary a bit of repetition, and coding the ``package_info()`` might feel duplicating the package ``xxx-config.cmake``, but automatically extracting the info from CMake is not feasible at this moment.
-    - If you plan to use editables or the local development flow, need to check the ``layout()`` and defining the information for ``self.cpp.build`` and ``self.cpp.source``
+    - If you plan to use editables or the local development flow, there's a need to check the ``layout()`` and define the information for ``self.cpp.build`` and ``self.cpp.source``.
     - It is not necessary to add ``bindirs`` to the ``PATH`` environment variable, this will be automatically done by the consumer ``VirtualBuildEnv`` and ``VirtualRunEnv`` generators.
-    - The **paths** defined in ``package_info()`` shouldn't be converted in ``package_info()`` to any specific format (like the one required by Windows subsystems). Instead, it is the responsibility of the consumer to translate these paths to the adequate format.
+    - The **paths** defined in ``package_info()`` shouldn't be converted to any specific format (like the one required by Windows subsystems). Instead, it is the responsibility of the consumer to translate these paths to the adequate format.

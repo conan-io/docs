@@ -45,7 +45,7 @@ The final ``Pkg`` conanfile will have both ``os`` and ``arch`` as settings, and 
 
 This method can also be useful if you need to unconditionally initialize class attributes like
 ``license`` or ``description`` or any other from datafiles other than
-`conandata.yml`. For example, you have a `json` file containing the information about the
+`conandata.yml`. For example, you can have a `json` file containing the information about the
 ``license``, ``description`` and ``author`` for the library:
 
 
@@ -79,6 +79,6 @@ Then, you can load that information from the ``init()``  method:
 
     **Best practices**
 
-    - Try to keep your ``python_requires`` as simple as possible, and do not reuse attributes from them (the main need for the ``init()`` method), trying to avoid the complexity of this ``init()`` method. In general inheritance can have more issues than composition (or "use composition over inheritance" general programming good practice), so try to avoid it if possible.
-    - Do not abuse ``init()`` for other purposes other than listed here, neither use the Python private ``ConanFile.__init__`` constructor. 
+    - Try to keep your ``python_requires`` as simple as possible, and do not reuse attributes from them (the main need for the ``init()`` method), trying to avoid the complexity of this ``init()`` method. In general inheritance can have more issues than composition (or in other words "use composition over inheritance" as a general programming good practice), so try to avoid it if possible.
+    - Do not abuse ``init()`` for other purposes other than listed here, nor use the Python private ``ConanFile.__init__`` constructor.
     - The ``init()`` method executes at recipe load time. It cannot contain conditionals on settings, options, conf, or use any dependencies information other than the above ``python_requires``.

@@ -5,10 +5,10 @@ validate_build()
 ================
 
 The ``validate_build()`` method is used to verify if a configuration is valid for building a package. It is different
-from the ``validate()`` method that checks if the binary package is "impossible" or invalid for a given configuration.
+from the ``validate()`` method which checks if the binary package is "impossible" or invalid for a given configuration.
 
 
-The ``validate_build()`` method has to use always the ``self.settings`` and ``self.options``:
+The ``validate_build()`` method has to always use the ``self.settings`` and ``self.options`` attributes:
 
 .. code-block:: python
 
