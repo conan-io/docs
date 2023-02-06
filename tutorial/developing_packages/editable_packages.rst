@@ -111,6 +111,8 @@ In this case we can build the ``hello`` application as usual:
     $ ./build/Release/hello
     say/1.0: Hello World Release!
 
+As you can see, ``hello`` can successfully find ``say/1.0`` header and library files.
+
 
 Working with editable packages
 ------------------------------
@@ -155,8 +157,8 @@ And build and run the "hello" project:
 
 
 In that way, it is possible to be developing both the ``say`` library and the ``hello``
-application, at the same time, without any Conan command. If you had both open in the IDE,
-it would be just building one after the other.
+application, at the same time, without executing any Conan command in between. If you had
+both open in the IDE, it would be just building one after the other.
 
 .. note::
 
