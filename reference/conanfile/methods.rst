@@ -166,8 +166,6 @@ The ``validate_build()`` method has to use always the ``self.settings`` and ``se
 layout()
 --------
 
-Read about the Conan package layout :ref:`here<conanfile_conan_package_layout>`.
-
 In the layout() method you can adjust ``self.folders`` and ``self.cpp``.
 
 
@@ -218,3 +216,5 @@ package (like the classic approach with the ``self.cpp_info`` in the
 
 The fields of the cpp_info objects at ``self.cpp.build`` and ``self.cpp.source`` are the
 same described :ref:`here<conan_conanfile_model_cppinfo>`. Components are also supported.
+
+Read more about the Conan package layout :ref:`here<conanfile_conan_package_layout>`.
