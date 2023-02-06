@@ -15,7 +15,7 @@ require the recipe method for exceptional cases.
 
 This method can be used in a *conanfile.py* to define packages that are compatible between
 each other. If there are no binaries available for the requested settings and options
-this mechanism will retrieve the compatible packages' binaries if they exist.  The method
+this mechanism will retrieve the compatible package's binaries if they exist.  The method
 should return a list of compatible configurations.
 
 For example, if we want that binaries
