@@ -33,7 +33,7 @@ Deploys each package folder of every dependency to your recipe's ``output_folder
 #. The build type
 #. The build arch
 
-Such that every dependency will end up in a folder such as:
+Then every dependency will end up in a folder such as:
 
 ``[OUTPUT_FOLDER]/host/dep/0.1/Release/x86_64``
 
