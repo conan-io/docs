@@ -15,7 +15,7 @@ Please, first of all, clone the sources to recreate this project. You can find t
 
 
 In this example we are going to see how to create and use a custom deployer.
-This deployer copies all the source files from your dependencies and puts them in a specific output folder
+This deployer copies all the source files from your dependencies and puts them into a specific output folder
 
 .. note::
 
