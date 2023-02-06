@@ -44,4 +44,6 @@ Methods
 - :doc:`init <methods/init>`: Special initialization of recipe when extending from ``python_requires``
 - :doc:`layout <methods/layout>`: Defines the relative project layout, source folders, build folders, etc.
 - :doc:`package <methods/package>`: Copies files from build folder to the package folder.
-- :doc:`package_id <methods/package_id>`: Defines special logic for computing the ``package_id``
+- :doc:`package_id <methods/package_id>`: Defines special logic for computing the binary ``package_id`` identifier
+- :doc:`package_info <methods/package_info>`: Provide information for consumers of this package about libraries, folders, etc.
+- :doc:`requirements <methods/requirements>`: Define the dependencies of the package
