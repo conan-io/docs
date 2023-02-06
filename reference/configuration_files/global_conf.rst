@@ -1,4 +1,4 @@
-.. _global_conf:
+.. _conan_global_conf:
 
 global.conf
 ===========
@@ -40,24 +40,46 @@ To list all possible configurations available, run :command:`conan config list`.
 
     $ conan config list
 
-    core.package_id:msvc_visual_incompatible: Allows opting-out the fallback from the new msvc compiler to the Visual Studio compiler existing binaries
+    core.cache:storage_path: Absolute path where the packages and database are stored
+    core.download:download_cache: Define path to a file download cache
+    core.download:parallel: Number of concurrent threads to download packages
+    core.download:retry: Number of retries in case of failure when downloading from Conan server
+    core.download:retry_wait: Seconds to wait between download attempts from Conan server
+    core.gzip:compresslevel: The Gzip compresion level for Conan artifacts (default=9)
+    core.net.http:cacert_path: Path containing a custom Cacert file
+    core.net.http:clean_system_proxy: If defined, the proxies system env-vars will be discarded
+    core.net.http:client_cert: Path or tuple of files containing a client cert (and key)
+    core.net.http:max_retries: Maximum number of connection retries (requests library)
+    core.net.http:no_proxy_match: List of urls to skip from proxies configuration
+    core.net.http:proxies: Dictionary containing the proxy configuration
+    core.net.http:timeout: Number of seconds without response to timeout (requests library)
+    core.package_id:default_build_mode: By default, 'None'
+    core.package_id:default_embed_mode: By default, 'full_mode'
+    core.package_id:default_non_embed_mode: By default, 'minor_mode'
+    core.package_id:default_python_mode: By default, 'minor_mode'
+    core.package_id:default_unknown_mode: By default, 'semver_mode'
+    core.upload:retry: Number of retries in case of failure when uploading to Conan server
+    core.upload:retry_wait: Seconds to wait between upload attempts to Conan server
+    core:allow_uppercase_pkg_names: Temporarily (will be removed in 2.X) allow uppercase names
     core:default_build_profile: Defines the default build profile (None by default)
     core:default_profile: Defines the default host profile ('default' by default)
-    core:required_conan_version: Raise if current version does not match the defined range
+    core:non_interactive: Disable interactive user input, raises error if input necessary
+    core:required_conan_version: Raise if current version does not match the defined range.
     tools.android:ndk_path: Argument for the CMAKE_ANDROID_NDK
     tools.apple.xcodebuild:verbosity: Verbosity level for xcodebuild: 'verbose' or 'quiet
     tools.apple:enable_arc: (boolean) Enable/Disable ARC Apple Clang flags
     tools.apple:enable_bitcode: (boolean) Enable/Disable Bitcode Apple Clang flags
     tools.apple:enable_visibility: (boolean) Enable/Disable Visibility Apple Clang flags
-    tools.apple:sdk_path: Path for the sdk location. This value will be passed as SDKROOT or -isysroot depending on the generator used
-    tools.build.cross_building:can_run: Set the return value for the 'conan.tools.build.can_run()' tool
+    tools.apple:sdk_path: Path to the SDK to be used
+    tools.build.cross_building:can_run: Bool value that indicates whether is possible to run a non-native app on the same architecture. It's used by 'can_run' tool
     tools.build:cflags: List of extra C flags used by different toolchains like CMakeToolchain, AutotoolsToolchain and MesonToolchain
     tools.build:compiler_executables: Defines a Python dict-like with the compilers path to be used. Allowed keys {'c', 'cpp', 'cuda', 'objc', 'objcxx', 'rc', 'fortran', 'asm', 'hip', 'ispc'}
     tools.build:cxxflags: List of extra CXX flags used by different toolchains like CMakeToolchain, AutotoolsToolchain and MesonToolchain
     tools.build:defines: List of extra definition flags used by different toolchains like CMakeToolchain and AutotoolsToolchain
+    tools.build:download_source: Force download of sources for every package
     tools.build:exelinkflags: List of extra flags used by CMakeToolchain for CMAKE_EXE_LINKER_FLAGS_INIT variable
     tools.build:jobs: Default compile jobs number -jX Ninja, Make, /MP VS (default: max CPUs)
-    tools.build:linker_scripts: List of linker scripts used by different toolchains like CMakeToolchain, AutotoolsToolchain and MesonToolchain
+    tools.build:linker_scripts: List of linker script files to pass to the linker used by different toolchains like CMakeToolchain, AutotoolsToolchain, and MesonToolchain
     tools.build:sharedlinkflags: List of extra flags used by CMakeToolchain for CMAKE_SHARED_LINKER_FLAGS_INIT variable
     tools.build:skip_test: Do not execute CMake.test() and Meson.test() when enabled
     tools.build:sysroot: Pass the --sysroot=<tools.build:sysroot> flag if available. (None by default)
@@ -69,26 +91,27 @@ To list all possible configurations available, run :command:`conan config list`.
     tools.cmake.cmaketoolchain:system_processor: Define CMAKE_SYSTEM_PROCESSOR in CMakeToolchain
     tools.cmake.cmaketoolchain:system_version: Define CMAKE_SYSTEM_VERSION in CMakeToolchain
     tools.cmake.cmaketoolchain:toolchain_file: Use other existing file rather than conan_toolchain.cmake one
-    tools.cmake.cmaketoolchain:toolset_arch: Will add the ',host=xxx' specifier in the 'CMAKE_GENERATOR_TOOLSET' variable of 'conan_toolchain.cmake' file
+    tools.cmake.cmaketoolchain:toolset_arch: Toolset architecture to be used as part of CMAKE_GENERATOR_TOOLSET in CMakeToolchain
     tools.cmake.cmaketoolchain:user_toolchain: Inject existing user toolchains at the beginning of conan_toolchain.cmake
-    tools.env.virtualenv:auto_use: Automatically activate virtualenv file generation
-    tools.env.virtualenv:powershell: Opt-in to generate Powershell '.ps1' scripts instead of '.bat'
-    tools.files.download:download_cache: Location for the download cache
+    tools.env.virtualenv:powershell: If it is set to True it will generate powershell launchers if os=Windows
+    tools.files.download:download_cache: Define the cache folder to store downloads from files.download()/get()
     tools.files.download:retry: Number of retries in case of failure when downloading
     tools.files.download:retry_wait: Seconds to wait between download attempts
     tools.gnu:define_libcxx11_abi: Force definition of GLIBCXX_USE_CXX11_ABI=1 for libstdc++11
     tools.gnu:host_triplet: Custom host triplet to pass to Autotools scripts
     tools.gnu:make_program: Indicate path to make program
-    tools.gnu:pkg_config: Define the 'pkg_config' executable name or full path
+    tools.gnu:pkg_config: Path to pkg-config executable used by PkgConfig build helper
     tools.google.bazel:bazelrc_path: Defines Bazel rc-path
     tools.google.bazel:configs: Define Bazel config file
+    tools.info.package_id:confs: List of existing configuration to be part of the package ID
     tools.intel:installation_path: Defines the Intel oneAPI installation root path
     tools.intel:setvars_args: Custom arguments to be passed onto the setvars.sh|bat script from Intel oneAPI
-    tools.meson.mesontoolchain:backend: Set the Meson backend. Possible values: 'ninja', 'vs', 'vs2010', 'vs2015', 'vs2017', 'vs2019', 'xcode'
+    tools.meson.mesontoolchain:backend: Any Meson backend: ninja, vs, vs2010, vs2012, vs2013, vs2015, vs2017, vs2019, xcode
     tools.meson.mesontoolchain:extra_machine_files: List of paths for any additional native/cross file references to be appended to the existing Conan ones
-    tools.microsoft.bash:path: Path to the shell executable. Default: 'bash'
-    tools.microsoft.bash:subsystem: Set subsystem to use for Windows. Possible values: 'msys2', 'msys', 'cygwin', 'wsl' and 'sfu'
-    tools.microsoft.msbuild:installation_path: VS install path, to avoid auto-detect via vswhere, like C:/Program Files (x86)/Microsoft Visual Studio/2019/Community. Use empty string to disable.
+    tools.microsoft.bash:active: If Conan is already running inside bash terminal in Windows
+    tools.microsoft.bash:path: The path to the shell to run when conanfile.win_bash==True
+    tools.microsoft.bash:subsystem: The subsystem to be used when conanfile.win_bash==True. Possible values: msys2, msys, cygwin, wsl, sfu
+    tools.microsoft.msbuild:installation_path: VS install path, to avoid auto-detect via vswhere, like C:/Program Files (x86)/Microsoft Visual Studio/2019/Community. Use empty string to disable
     tools.microsoft.msbuild:max_cpu_count: Argument for the /m when running msvc to build parallel projects
     tools.microsoft.msbuild:verbosity: Verbosity level for MSBuild: 'Quiet', 'Minimal', 'Normal', 'Detailed', 'Diagnostic'
     tools.microsoft.msbuild:vs_version: Defines the IDE version when using the new msvc compiler
@@ -218,7 +241,6 @@ Running, for instance, :command:`conan install . -pr myprofile`, the configurati
     [settings]
     [options]
     [build_requires]
-    [env]
     [conf]
     user.myconf.build:cflags=!
     user.myconf.build:ldflags=['--prefix prefix-value', '--flag1 value1', '--flag2 value2']

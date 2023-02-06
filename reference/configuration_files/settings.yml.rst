@@ -171,7 +171,7 @@ msvc
 - It is only used by the new build integrations in :ref:`conan_tools_cmake` and :ref:`conan_tools_microsoft`, but not the previous ones.
 - At the moment it implements a ``compatible_packages`` fallback to Visual Studio compiled packages, that is, previous existing binaries
   compiled with ``settings.compiler="Visual Studio"`` can be used for the ``msvc`` compiler if no binaries exist for it yet.
-  This behavior can be opted-out with ``core.package_id:msvc_visual_incompatible`` :ref:`global_conf` configuration.
+  This behavior can be opted-out with ``core.package_id:msvc_visual_incompatible`` :ref:`conan_global_conf` configuration.
 
 When using the ``msvc`` compiler, the Visual Studio toolset version (the actual ``vcvars`` activation and ``MSBuild`` location) will be
 defined by the default provide of that compiler version:

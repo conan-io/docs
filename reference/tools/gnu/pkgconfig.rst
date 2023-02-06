@@ -50,5 +50,5 @@ Reference
 conf
 ^^^^
 
-This helper will listen to ``tools.gnu:pkg_config`` `global_conf` to define the ``pkg_config`` executable name or full path.
+This helper will listen to ``tools.gnu:pkg_config`` from the :ref:`conan_global_conf` to define the ``pkg_config`` executable name or full path.
 It will by default it is ``pkg-config``.
