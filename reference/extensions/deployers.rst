@@ -60,7 +60,6 @@ Conan will look in these locations for the deployer in the following order:
 For each installed file, Conan will look for a ``deploy()`` method which to call.
 The function signature of your custom deployers should be as follows:
 
-**my_custom_deployer.py**
 
 .. code-block:: python
 
