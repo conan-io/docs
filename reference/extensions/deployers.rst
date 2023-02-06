@@ -62,6 +62,7 @@ The function signature of your custom deployers should be as follows:
 
 
 .. code-block:: python
+    :caption: **my_custom_deployer.py**
 
     def deploy(graph, output_folder: str):
 
