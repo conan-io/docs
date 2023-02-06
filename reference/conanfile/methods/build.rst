@@ -10,7 +10,7 @@ The ``build()`` method is used to define the build from source of the package. I
 
     from conan.tools.cmake import CMake
 
-    clas Pkg(ConanFile):
+    class Pkg(ConanFile):
 
         def build(self):
             # Either using some of the Conan built-in helpers
