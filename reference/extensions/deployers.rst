@@ -57,7 +57,7 @@ Conan will look in these locations for the deployer in the following order:
 #. In the ``[CONAN_HOME]/extensions/deploy`` folder
 #. As built-in deployers
 
-For each installed file, Conan will look for a ``deploy()`` method which to call.
+Conan will look for a ``deploy()`` method to call for each installed file.
 The function signature of your custom deployers should be as follows:
 
 
