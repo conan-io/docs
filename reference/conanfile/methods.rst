@@ -36,14 +36,21 @@ Methods
 - :doc:`build_id() <methods/build_id>`: Allows reusing the same build to create different package binaries
 - :doc:`build_requirements() <methods/build_requirements>`: Defines ``tool_requires`` and ``test_requires``
 - :doc:`compatibility() <methods/compatibility>`: Defines binary compatibility at the recipe level
-- :doc:`configure <methods/configure>`: Allows configuring settings and options while computing dependencies
-- :doc:`config_options <methods/config_options>`: Configure options while computing dependency graph
-- :doc:`export <methods/export>`: Copies files that are part of the recipe
-- :doc:`export_sources <methods/export_sources>`: Copies files that are part of the recipe sources
-- :doc:`generate <methods/generate>`: Generates the files that are necessary for building the package
-- :doc:`init <methods/init>`: Special initialization of recipe when extending from ``python_requires``
-- :doc:`layout <methods/layout>`: Defines the relative project layout, source folders, build folders, etc.
-- :doc:`package <methods/package>`: Copies files from build folder to the package folder.
-- :doc:`package_id <methods/package_id>`: Defines special logic for computing the binary ``package_id`` identifier
-- :doc:`package_info <methods/package_info>`: Provide information for consumers of this package about libraries, folders, etc.
-- :doc:`requirements <methods/requirements>`: Define the dependencies of the package
+- :doc:`configure() <methods/configure>`: Allows configuring settings and options while computing dependencies
+- :doc:`config_options() <methods/config_options>`: Configure options while computing dependency graph
+- :doc:`export() <methods/export>`: Copies files that are part of the recipe
+- :doc:`export_sources() <methods/export_sources>`: Copies files that are part of the recipe sources
+- :doc:`generate() <methods/generate>`: Generates the files that are necessary for building the package
+- :doc:`init() <methods/init>`: Special initialization of recipe when extending from ``python_requires``
+- :doc:`layout() <methods/layout>`: Defines the relative project layout, source folders, build folders, etc.
+- :doc:`package() <methods/package>`: Copies files from build folder to the package folder.
+- :doc:`package_id() <methods/package_id>`: Defines special logic for computing the binary ``package_id`` identifier
+- :doc:`package_info() <methods/package_info>`: Provide information for consumers of this package about libraries, folders, etc.
+- :doc:`requirements() <methods/requirements>`: Define the dependencies of the package
+- :doc:`set_name() <methods/set_name>`: Dynamically define the name of a package
+- :doc:`set_version() <methods/set_version>`: Dynamically define the version of a package.
+- :doc:`source() <methods/source>`: Define the dependencies of the package
+- :doc:`system_requirements() <methods/system_requirements>`: Call system package managers like Apt to install system packages
+- :doc:`test() <methods/test>`: Run some simple package test (exclusive of ``test_package``)
+- :doc:`validate() <methods/validate>`: Define if the current package is invalid (cannot work) with the current configuration.
+- :doc:`validate_build() <methods/validate_build>`: Define if the current package cannot be created with the current configuration.
