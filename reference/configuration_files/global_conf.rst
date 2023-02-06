@@ -3,38 +3,21 @@
 global.conf
 ===========
 
-The **global.conf** file is located in the Conan user home directory.
+The **global.conf** file is located in the Conan user home directory, e.g., *[CONAN_HOME]/global.conf*.
 
-Global configuration
---------------------
+Introduction to configuration
+-----------------------------
 
-- ``core:required_conan_version = expression`` allows defining a version expression like
-  ``>=1.30``. Conan will raise an error if its current version does not satisfy the
-  condition
-- ``core.package_id:msvc_visual_incompatible`` allows opting-out the fallback from the new
-  ``msvc`` compiler to the ``Visual Studio`` compiler existing binaries
-- ``core:default_profile`` defines the default host profile ('default' by default)
-- ``core:default_build_profile`` defines the default build profile (None by default)
+*global.conf* is aimed to save some core/tools configuration variables that will be used by Conan. For instance:
 
-Tools configurations
---------------------
-
-Tools and user configurations allows them to be defined both in the *global.conf* file and in profile files. Profile values will
-have priority over globally defined ones in *global.conf*, and can be defined as:
-
-.. code-block:: text
-
-    [settings]
-    ...
-
-    [conf]
-    tools.microsoft.msbuild:verbosity=Diagnostic
-    tools.microsoft.msbuild:max_cpu_count=2
-    tools.microsoft.msbuild:vs_version = 16
-    tools.build:jobs=10
+* Package ID modes.
+* General HTTP(python-requests) configuration.
+* Number of retries when downloading/uploading recipes.
+* Related tools configurations (used by toolchains, helpers, etc.)
+* Others (required Conan version, CLI non-interactive, etc.)
 
 
-To list all possible configurations available, run :command:`conan config list`.
+To list all the possible configurations available, run :command:`conan config list`:
 
 .. code-block:: text
 
@@ -125,7 +108,25 @@ To list all possible configurations available, run :command:`conan config list`.
 
 .. important::
 
-    This list may be outdated. Please, run the command :command:`conan config list` to check the latest configurations.
+    Remember to run that command locally to actually see the latest list because this one may be outdated.
+
+
+Tools configurations
+--------------------
+
+Tools and user configurations allows them to be defined both in the *global.conf* file and in profile files. Profile values will
+have priority over globally defined ones in *global.conf*, and can be defined as:
+
+.. code-block:: text
+
+    [settings]
+    ...
+
+    [conf]
+    tools.microsoft.msbuild:verbosity=Diagnostic
+    tools.microsoft.msbuild:max_cpu_count=2
+    tools.microsoft.msbuild:vs_version = 16
+    tools.build:jobs=10
 
 
 Configuration file template
@@ -341,10 +342,10 @@ This example illustrates all of these methods:
     like the example above.
 
 
-Configuration from tool_requires
---------------------------------
+Configuration from build_requires
+---------------------------------
 
-From Conan 1.37, it is possible to define configuration in packages that are ``tool_requires``. For example, assuming
+From Conan 1.37, it is possible to define configuration in packages that are ``build_requires``. For example, assuming
 there is a package that bundles the AndroidNDK, it could define the location of such NDK to the ``tools.android:ndk_path``
 configuration as:
 
@@ -361,4 +362,4 @@ configuration as:
             self.conf_info.define("tools.android:ndk_path", os.path.join(self.package_folder, "ndk"))
 
 
-Note that this only propagates from the immediate, direct ``tool_requires`` of a recipe.
+Note that this only propagates from the immediate, direct ``build_requires`` of a recipe.

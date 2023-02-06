@@ -12,6 +12,5 @@ Reference
     reference/conanfile
     reference/conanfile_txt
     reference/tools
-    reference/profiles
     reference/configuration_files
     reference/extensions

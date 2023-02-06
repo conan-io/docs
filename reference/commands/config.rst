@@ -24,6 +24,8 @@ conan config home
     $ conan config home
 
 
+.. _reference_commands_conan_config_install:
+
 conan config install
 --------------------
 

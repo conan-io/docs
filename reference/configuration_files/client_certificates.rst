@@ -1,14 +1,24 @@
 .. _client_certificates:
 
 
-client.crt / client.key
-=======================
+Client certificates
+===================
 
-Conan support client TLS certificates. Create a *client.crt* with the client certificate in the
-Conan home directory (default *~/[CONAN_HOME]/*) and a *client.key* with the private key.
+Conan supports client TLS certificates. You can configure the path to your existing *Cacert* file and/or your client
+certificate (and the key) using the following configuration variables:
 
-You could also create only the ``client.crt`` file containing both the certificate and the private key
-concatenated.
+* ``core.net.http:cacert_path``: Path containing a custom Cacert file.
+* ``core.net.http:client_cert``: Path or tuple of files containing a client cert (and key).
 
-Alternatively, you can define a path to those files in whichever location using the `client_cert_path` and
-`client_cert_key_path` configuration entries in the :ref:`conan_conf`.
+For instance:
+
+.. code-block::
+    :caption: **[CONAN_HOME]/global.conf**
+
+    core.net.http:cacert_path=/path/to/cacert_file
+    core.net.http:client_cert=/path/to/client_certificate
+
+
+.. seealso::
+
+    You can see more information about configurations in :ref:`global.conf section <conan_global_conf>`.
