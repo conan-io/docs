@@ -12,7 +12,7 @@ The ``source()`` method can implement different strategies for retrieving the so
 
   - Using a ``Git(self).clone()`` to clone a Git repository
   - Executing a ``download()`` + ``unzip()`` or a combined ``get()`` (internally does download + unzip) to download a tarball, tgz, or zip archive.
-- Feching the source code for itself, from its repository, which coordinates have been captured in the ``conandata.yml`` file in the ``export()`` method. This is the strategy that would be use to manage the source code for packages which ``conanfile.py`` lives in the package, but for some reason we don't want to put the source code in the recipe (like not distributing our source code, but being able to distribute our package binaries.)
+- Fetching the source code for itself, from its repository, whose coordinates have been captured in the ``conandata.yml`` file in the ``export()`` method. This is the strategy that would be used to manage the source code for packages in which the ``conanfile.py`` lives in the package itself, but that for some reason we don't want to put the source code in the recipe (like not distributing our source code, but being able to distribute our package binaries).
 
 
 The ``source()`` method executes in the ``self.source_folder``, the current working directory will be equal to that folder (which value is derived from ``layout()`` method).
