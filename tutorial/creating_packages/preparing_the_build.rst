@@ -57,7 +57,7 @@ Let's check the relevant parts:
         ...
 
         def validate(self):
-            if self.info.options.with_fmt:
+            if self.options.with_fmt:
                 check_min_cppstd(self, "11")
                 check_max_cppstd(self, "14")
 

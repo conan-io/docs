@@ -869,15 +869,8 @@ The profile entries have priority.
 info
 ----
 
-Object used in:
+Object used exclusively in ``package_id()`` method:
 
-- The <MISSING PAGE> ``validate(self)`` method to check if a current configuration of the package is correct or not:
-
-    .. code-block:: python
-
-        def validate(self):
-            if self.info.settings.os == "Windows":
-                raise ConanInvalidConfiguration("Package does not work in Windows!")
 
 - The <MISSING PAGE> ``package(self)`` method to control the unique ID for a package:
 

@@ -259,7 +259,7 @@ method called ``package_id()``:
 .. code-block:: python
     
     def package_id(self):
-      self.info.clear()
+        self.info.clear()
 
 We will explain the ``package_id()`` method later and explain how you can customize the
 way the package ID for the package is calculated. You can also check the :ref:`Conanfile's
