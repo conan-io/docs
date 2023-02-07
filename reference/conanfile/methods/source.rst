@@ -58,7 +58,7 @@ It is possible to apply patches with:
 Source caching
 --------------
 
-Once the ``source()`` method has been called, its result will be cached and reuse for any build from source, for any configuration. That means that the ``source()`` source retrieval should be completely indepedent of the configuration. It is not possible to implement conditionals on the ``settings``, and in general, any attempt to apply any conditional logic to the ``source()`` method is wrong.
+Once the ``source()`` method has been called, its result will be cached and reused for any build from source, for any configuration. That means that the retrieval of sources from the ``source()`` method should be completely independent of the configuration. It is not possible to implement conditionals on the ``settings``, and in general, any attempt to apply any conditional logic to the ``source()`` method is wrong.
 
 .. code-block:: python
 
