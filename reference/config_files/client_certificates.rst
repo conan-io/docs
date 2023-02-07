@@ -1,4 +1,4 @@
-.. _client_certificates:
+.. _reference_config_files_client_certificates:
 
 
 Client certificates
@@ -12,7 +12,7 @@ certificate (and the key) using the following configuration variables:
 
 For instance:
 
-.. code-block::
+.. code-block:: text
     :caption: **[CONAN_HOME]/global.conf**
 
     core.net.http:cacert_path=/path/to/cacert_file
@@ -21,4 +21,4 @@ For instance:
 
 .. seealso::
 
-    You can see more information about configurations in :ref:`global.conf section <conan_global_conf>`.
+    You can see more information about configurations in :ref:`global.conf section <reference_config_files_global_conf>`.

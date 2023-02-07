@@ -1,4 +1,4 @@
-.. _conan_global_conf:
+.. _reference_config_files_global_conf:
 
 global.conf
 ===========
@@ -241,7 +241,7 @@ Running, for instance, :command:`conan install . -pr myprofile`, the configurati
     Configuration:
     [settings]
     [options]
-    [build_requires]
+    [tool_requires]
     [conf]
     user.myconf.build:cflags=!
     user.myconf.build:ldflags=['--prefix prefix-value', '--flag1 value1', '--flag2 value2']

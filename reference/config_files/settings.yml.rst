@@ -1,10 +1,10 @@
-.. _settings_yml:
+.. _reference_config_files_settings_yml:
 
 settings.yml
 ============
 
 The input ``settings`` for packages in Conan are predefined in ``~/[CONAN_HOME]/settings.yml`` file, so only a few like ``os`` or ``compiler``
-are possible. These are the **default** values, but it is possible to customize them, see :ref:`custom_settings`.
+are possible. These are the **default** values.
 
 .. code-block:: yaml
 
@@ -133,15 +133,13 @@ spelling as well as defining a common settings model among users and the OSS com
 If a setting is allowed to be set to any value, you can use ``ANY``.
 If a setting is allowed to be set to any value or it can also be unset, you can use ``[None, ANY]``.
 
-However, this configuration file can be modified to any needs, including new settings or subsettings and their values. If you want
-to distribute a unified *settings.yml* file you can use the :ref:`conan config install command<conan_config_install>`.
+However, this configuration file can be modified to any needs, including new settings or sub-settings and their values. If you want
+to distribute a unified *settings.yml* file you can use the :ref:`conan config install command<reference_commands_conan_config_install>`.
 
-.. note::
+.. seealso::
 
-    The *settings.yml* file is not perfect nor definitive and surely incomplete. Please share any suggestion in the Conan issue tracker
-    with any missing settings and values that could make sense for other users.
+    - :ref:`How to customize your settings <examples_config_files_customizing_settings>`
 
-    To force the creation of the *settings.yml* the command ``conan config init`` is available.
 
 Operating systems
 -----------------
@@ -162,16 +160,11 @@ Some notes about different compilers:
 msvc
 ++++
 
-.. important::
-
-    This feature is still **under development**, , that is intended to deprecate the ``Visual Studio``, while it is recommended and usable and
-    we will try not to break them in future releases, some breaking changes might still happen if necessary to prepare for the *Conan 2.0 release*.
-
 - It uses the compiler version, that is 190 (19.0), 191 (19.1), etc, instead of the Visual Studio IDE (15, 16, etc).
 - It is only used by the new build integrations in :ref:`conan_tools_cmake` and :ref:`conan_tools_microsoft`, but not the previous ones.
 - At the moment it implements a ``compatible_packages`` fallback to Visual Studio compiled packages, that is, previous existing binaries
   compiled with ``settings.compiler="Visual Studio"`` can be used for the ``msvc`` compiler if no binaries exist for it yet.
-  This behavior can be opted-out with ``core.package_id:msvc_visual_incompatible`` :ref:`conan_global_conf` configuration.
+  This behavior can be opted-out with ``core.package_id:msvc_visual_incompatible`` :ref:`reference_config_files_global_conf` configuration.
 
 When using the ``msvc`` compiler, the Visual Studio toolset version (the actual ``vcvars`` activation and ``MSBuild`` location) will be
 defined by the default provide of that compiler version:
@@ -216,7 +209,8 @@ intel-cc
 
 Available since: `1.41.0 <https://github.com/conan-io/conan/releases/tag/1.41.0>`_
 
-This compiler is a new, **experimental** one, aimed to handle the new Intel oneAPI DPC++/C++/Classic compilers. Instead of having *n* different compilers, you have 3 different **modes** of working:
+This compiler is a new, **experimental** one, aimed to handle the new Intel oneAPI DPC++/C++/Classic compilers.
+Instead of having *n* different compilers, you have 3 different **modes** of working:
 
 * ``icx`` for Intel oneAPI C++.
 * ``dpcpp`` for Intel oneAPI DPC++.
@@ -226,7 +220,7 @@ Besides that, Intel releases some versions with revisions numbers so the ``updat
 ``compiler.version=2021.1`` and ``compiler.update=311`` mean Intel version is ``2021.1.311``.
 
 
-For more information, you can check the :ref:`IntelCC section <conan_tools_intel>`.
+For more information, you can check the :ref:`IntelCC section <reference_tools_intel>`.
 
 Architectures
 -------------
@@ -310,14 +304,14 @@ C++ standard libraries (aka compiler.libcxx)
 e.g. it applies to *clang*, *apple-clang* and *gcc*, but doesn't apply to *Visual Studio*.
 
 - **libstdc++** (gcc, clang, apple-clang, sun-cc): `The GNU C++ Library <https://gcc.gnu.org/onlinedocs/libstdc++/>`__. NOTE that this implicitly
-  defines **_GLIBCXX_USE_CXX11_ABI=0** to use old ABI. See :ref:`How to manage the GCC >= 5 ABI <manage_gcc_abi>` for the additional details. Might
-  be a wise choice for old systems, such as CentOS 6. On Linux systems, you may need to install `libstdc++-dev <https://packages.debian.org/sid/libstdc++-dev>`_
-  (package name could be different in various distros) in order to use the standard library. NOTE that on Apple systems usage of **libstdc++** has been deprecated.
+  defines **_GLIBCXX_USE_CXX11_ABI=0** to use old ABI. Might be a wise choice for old systems, such as CentOS 6. On Linux systems,
+  you may need to install `libstdc++-dev <https://packages.debian.org/sid/libstdc++-dev>`_ (package name could be different in various distros)
+  in order to use the standard library. NOTE that on Apple systems usage of **libstdc++** has been deprecated.
 
 - **libstdc++11** (gcc, clang, apple-clang): `The GNU C++ Library <https://gcc.gnu.org/onlinedocs/libstdc++/>`__. NOTE that this implicitly
-  defines **_GLIBCXX_USE_CXX11_ABI=1** to use new ABI. See :ref:`How to manage the GCC >= 5 ABI <manage_gcc_abi>` for the additional details. Might
-  be a wise choice for newer systems, such as Ubuntu 20. On Linux systems, you may need to install `libstdc++-dev <https://packages.debian.org/sid/libstdc++-dev>`_
-  (package name could be different in various distros) in order to use the standard library. NOTE that on Apple systems usage of **libstdc++** has been deprecated.
+  defines **_GLIBCXX_USE_CXX11_ABI=1** to use new ABI. Might be a wise choice for newer systems, such as Ubuntu 20. On Linux systems,
+  you may need to install `libstdc++-dev <https://packages.debian.org/sid/libstdc++-dev>`_ (package name could be different in various distros)
+  in order to use the standard library. NOTE that on Apple systems usage of **libstdc++** has been deprecated.
 
 - **libc++** (clang, apple-clang): `LLVM libc++ <https://libcxx.llvm.org/>`__. On Linux systems, you may need to install `libc++-dev <https://packages.debian.org/sid/libc++-dev>`_
   (package name could be different in various distros) in order to use the standard library.

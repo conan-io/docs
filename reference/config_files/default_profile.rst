@@ -1,4 +1,4 @@
-.. _default_profile:
+.. _reference_config_files_default_profile:
 
 profiles/default
 ================
@@ -25,7 +25,7 @@ They have this structure:
     [buildenv]
     env_var=value
 
-    [build_requires]
+    [tool_requires]
     tool1/0.1@user/channel
     tool2/0.1@user/channel, tool3/0.1@user/channel
     *: tool4/0.1@user/channel
@@ -237,7 +237,7 @@ Then, the result of applying this profile is:
 * ``mypkg*:PATH``: ``None``
 
 
-See more information about the new environments in the :ref:`conan_tools_env` reference.
+See more information about the new environments in the :ref:`reference_tools_env` reference.
 
 
 .. _profiles_runenv:
@@ -281,7 +281,7 @@ Tools configurations can also be used in profile files and *global.conf* one. Pr
 
 .. seealso::
 
-    You can see more information about configurations in :ref:`global.conf section <conan_global_conf>`.
+    You can see more information about configurations in :ref:`global.conf section <reference_config_files_global_conf>`.
 
 
 Profile composition
@@ -290,16 +290,16 @@ Profile composition
 You can specify multiple profiles in the command line. The applied configuration will be the composition
 of all the profiles applied in the order they are specified.
 
-If, for example, you want to apply a :ref:`tool require<build_requires>`, like a ``cmake`` installer to your dependency tree,
-it won't be very practical adding the `cmake` installer reference, e.g,  ``cmake/3.16.3`` to all your profiles where you could
-need to inject ``cmake`` as a tool require.
+If, for example, you want to apply a :ref:`tool require<reference_conanfile_attributes_build_requires>`, like a ``cmake``
+installer to your dependency tree, it won't be very practical adding the `cmake` installer reference, e.g,
+``cmake/3.16.3`` to all your profiles where you could need to inject ``cmake`` as a tool require.
 
 You can specify both profiles instead:
 
 .. code-block:: text
    :caption: *[CONAN_HOME]/profiles/cmake_316*
 
-   [build_requires]
+   [tool_requires]
    cmake/3.16.3
 
 .. code-block:: bash
@@ -390,15 +390,14 @@ variables will be available:
 Build profiles and host profiles
 --------------------------------
 
-
 All the commands that take a profile as an argument, from Conan v1.24 are starting to accept two profiles with
 command line arguments ``-pr:h``/``--profile:host`` and ``-pr:b``/``--profile:build``. If both profiles are
 provided, Conan will build a graph with some packages associated with the ``host`` platform and some build
 requirements associated to the ``build`` platform. There are two scenarios where this feature is
 extremely useful:
 
-* :ref:`create_installer_packages`
-* :ref:`cross_building`
+* :ref:`tutorial_other_tool_requires_packages`
+* :ref:`consuming_packages_cross_building_with_conan`
 
 The default build profile in Conan 1.X is not defined by default, and needs to be specified in command line.
 However, it is also possible to define a default one in ``global.conf`` configuration file with:
@@ -414,12 +413,6 @@ The default host profile can be defaulted as well using this configuration metho
 
 Profile templates
 -----------------
-
-.. important::
-
-    This feature is still **under development**, while it is recommended and usable and we will try not to break them in future releases,
-    some breaking changes might still happen if necessary to prepare for the *Conan 2.0 release*.
-
 
 From Conan 1.38 it is possible to use **jinja2** template engine for profiles. This feature is
 enabled by naming the profile file with the ``.jinja`` extension. When Conan loads a profile with
@@ -480,6 +473,7 @@ Some of the capabilities of the profile templates are:
   would be useful to define custom per-package settings or options for multiple packages
   in a large dependency graph.
 
+
 Examples
 --------
 
@@ -522,6 +516,4 @@ A profile can also be used in :command:`conan create` and :command:`conan info`:
 
 .. seealso::
 
-    - Check the section :ref:`build_requires` to read more about its usage in a profile.
-    - Check :ref:`conan_profile` and :ref:`default_profile` for full reference.
-    - Related section: :ref:`cross_building`.
+    - Check the section :ref:`consuming_packages_tool_requires` to read more about its usage in a profile

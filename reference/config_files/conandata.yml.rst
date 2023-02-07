@@ -1,11 +1,11 @@
-.. _conandata_yml:
+.. _reference_config_files_conandata_yml:
 
 conandata.yml
 =============
 
 This YAML file can be used to declare specific information to be used inside the recipe. This file is specific to each
 recipe *conanfile.py* and it should be placed next to it. The file is automatically exported with the recipe (no need to add it to
-:ref:`exports_attribute` attribute) and its content is loaded into the :ref:`conandata_attribute` attribute of the recipe.
+:ref:`exports_attribute` attribute) and its content is loaded into the :ref:`conan_conanfile_properties_conandata` attribute of the recipe.
 
 This file can be used, for example, to declare a list of sources links and checksums for the recipe or a list patches to
 apply to them, but you can use it to store any data you want to extract from the recipe.
