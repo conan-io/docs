@@ -4,11 +4,10 @@
 validate_build()
 ================
 
-The ``validate_build()`` method is used to verify if a configuration is valid for building a package. It is different
-from the ``validate()`` method which checks if the binary package is "impossible" or invalid for a given configuration.
+The ``validate_build()`` method is used to verify if a package binary can be **built** with the current configuration. It is different than the ``validate()`` method which raises when the package cannot be **used** with the current configuration.
 
 
-The ``validate_build()`` method has to always use the ``self.settings`` and ``self.options`` attributes:
+The ``validate_build()`` method can check the ``self.settings`` and ``self.options`` values to raise ``ConanInvalidaConfiguration`` if necessary.
 
 .. code-block:: python
 
@@ -16,7 +15,7 @@ The ``validate_build()`` method has to always use the ``self.settings`` and ``se
     from conan.errors import ConanInvalidConfiguration
 
     class Pkg(ConanFile):
-        name = "foo"
+        name = "pkg"
         version = "1.0"
         settings = "os", "arch", "compiler", "build_type"
 
@@ -28,3 +27,20 @@ The ``validate_build()`` method has to always use the ``self.settings`` and ``se
             # But we know this cannot be build with "gcc"
             if self.settings.compiler == "gcc":
                 raise ConanInvalidConfiguration("This doesn't build in GCC")
+
+This package cannot be created with the ``gcc`` compiler, but it can be created with other:
+
+.. code-block:: text
+
+    $ conan create . -s compiler=gcc
+    ...
+    ERROR: There are invalid packages:
+    pkg/1.0: Cannot build for this configuration: This doesn't build in GCC
+
+    $ conan create . -s compiler=clang  # WORKS!
+
+Once the package has been built, it can be consumed with that compiler:
+
+.. code-block:: bash
+
+    $ conan install --requires=pkg/1.0 -s compiler=gcc # WORKS!
