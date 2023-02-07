@@ -118,7 +118,7 @@ Navigating the documentation
 This documentation has very different sections:
 
 - The **tutorial** is an actual hands-on tutorial, with examples and real code, intended to be played sequentially from beginning to end,
-  running the exercises in your own computer. There is a conducting thread and exercises might depend on some previous explanations and code.
+  running the exercises in your own computer. There is a "narrative" to this section and the exercises might depend on some previous explanations and code - building on the previous example.
   This is the recommended approach for learning Conan.
 - The **examples** also contain hands-on, fully operational examples with code, aimed to explain some very specific feature, tool or behavior.
   They do not have a conducting thread, they should be navigated by topic.
