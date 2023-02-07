@@ -40,7 +40,7 @@ The method might be able to read files in the recipe folder and do something wit
 
 
 The ``export_conandata_patches()`` is a high-level helper function that does the export of the patches defined
-in the ``conandata.yml`` file, that could be later applied in ``apply_conandata_patches()`` in the ``source()`` method.
+in the ``conandata.yml`` file, which could be later applied with ``apply_conandata_patches()`` in the ``source()`` method.
 
 .. code-block:: python
 
@@ -57,6 +57,6 @@ in the ``conandata.yml`` file, that could be later applied in ``apply_conandata_
     **Best practices**
 
     The recipe sources must be configuration independent. Those sources are common for all configurations,
-    then, it is not possible to do conditional ``export_sources()`` to different settings, options, or
+    thus it is not possible to do conditional ``export_sources()`` to different settings, options, or
     platforms. Do not try to do any kind of conditional export. If necessary export all the files necessary for 
     all configurations at once.

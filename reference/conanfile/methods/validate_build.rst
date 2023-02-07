@@ -4,7 +4,7 @@
 validate_build()
 ================
 
-The ``validate_build()`` method is used to verify if a package binary can be **built** with the current configuration. It is different than the ``validate()`` method, that raises when the package cannot be **used** with the current configuration.
+The ``validate_build()`` method is used to verify if a package binary can be **built** with the current configuration. It is different than the ``validate()`` method which raises when the package cannot be **used** with the current configuration.
 
 
 The ``validate_build()`` method can check the ``self.settings`` and ``self.options`` values to raise ``ConanInvalidaConfiguration`` if necessary.

@@ -32,7 +32,7 @@ The second way is to use the ``install`` functionality of some build systems, pr
 
 Also, it is possible to combine both approaches, doing ``cmake.install()`` and also adding some ``copy()`` calls, for example to make sure some "License.txt" file is packaged that was not taken into account by the CMakeLists.txt script.
 
-It is also possible, to use conditionals in the ``package()`` method,
+It is also possible to use conditionals in the ``package()`` method,
 because different platforms might have different artifacts in different locations:
 
 .. code-block:: python
@@ -44,9 +44,9 @@ because different platforms might have different artifacts in different location
         else:
             copy(self, "*.lib", src=os.path.join(self.build_folder, "build", "libs"), ...)
 
-Though in most situations it might not be necessary, because pattern based copy will not likely find wrong artifacts like ``*.dll`` in a non-Windows build.
+Though in most situations it might not be necessary, because pattern based copy will likely not find wrong artifacts like ``*.dll`` in a non-Windows build.
 
-The ``package()`` method is also the one called when packaging precompiled binaries with ``conan export-pkg``. In this case the ``self.source_folder`` and ``self.build_folder`` refer to user space folders, as defined by the ``layout()`` and the only folder in the Conan cache will be ``self.package_folder``.
+The ``package()`` method is also the one called when packaging precompiled binaries with ``conan export-pkg``. In this case the ``self.source_folder`` and ``self.build_folder`` refer to user space folders, as defined by the ``layout()`` method and the only folder in the Conan cache will be ``self.package_folder``.
 
 .. note::
 

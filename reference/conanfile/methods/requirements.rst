@@ -8,7 +8,7 @@ Requirement traits
 
 Traits are properties of a requires clause. They determine how various parts of a
 dependency are treated and propagated by Conan. Values for traits are usually computed by
-Conan based on dependency's :ref:`reference_conanfile_attributes_package_type`, but can
+Conan based on the dependency's :ref:`reference_conanfile_attributes_package_type`, but can
 also be specified manually.
 
 A good introduction to traits is provided in the `Advanced Dependencies Model in Conan 2.0

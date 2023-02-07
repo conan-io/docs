@@ -14,13 +14,13 @@ level. In general, the global compatibility plugin should be good for most cases
 require the recipe method for exceptional cases.
 
 This method can be used in a *conanfile.py* to define packages that are compatible between
-each other. If there are no binaries available for the requested settings and options
-this mechanism will retrieve the compatible package's binaries if they exist.  The method
+each other. If there are no binaries available for the requested settings and options,
+this mechanism will retrieve the compatible package's binaries if they exist. This method
 should return a list of compatible configurations.
 
 For example, if we want that binaries
-built with gcc versions 4.8, 4.7 and 4.6 are considered compatible with the ones compiled
-with 4.9 we could declare the ``compatibility()`` like this:
+built with gcc versions 4.8, 4.7 and 4.6 to be considered compatible with the ones compiled
+with 4.9 we could declare a ``compatibility()`` method like this:
 
 ..  code-block:: python
 
