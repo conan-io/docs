@@ -44,7 +44,7 @@ And if we try to use it in Windows, it will fail again:
     ERROR: There are invalid packages:
     pkg/1.0: Invalid: Windows not supported
 
-When the ``ConanInvalidConfiguration`` causes an error, Conan application exit code will be ``6``-
+When the ``ConanInvalidConfiguration`` causes an error, Conan application exit code will be ``6``
 
 It is possible to check the validity of a given graph without raising errors with the ``conan graph info`` command:
 
