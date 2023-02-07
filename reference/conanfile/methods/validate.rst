@@ -79,4 +79,4 @@ The ``validate()`` method is evaluated after the whole graph has been computed. 
 
     **Best practices**
 
-    ``configure()`` method evaluates before the graph is complete, so it doesn't have the real values of dependencies ``options``. The ``validate()`` method is the one that should be checking those dependencies options values if necessary, not ``configure()``.
+    The ``configure()`` method evaluates before the graph is complete, so it doesn't have the real values of the dependencies ``options``. The ``validate()`` method is the one that should be checking those dependencies options values if necessary, not ``configure()``.
