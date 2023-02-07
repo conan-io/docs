@@ -645,7 +645,7 @@ Available since: `1.59.0 <https://github.com/conan-io/conan/releases/tag/1.59.0>
 
 Returns the corresponding Visual Studio or msvs platform toolset based on the settings of the given ``conanfile``. For instance, it may return ``v143``
 for ``compiler=Visual Studio`` with ``compiler.version=17``. If ``compiler.toolset`` was set in settings, it has a priority and always returned.
-In case of invalid compiler or invalid version, ``msvs_toolset`` returns an empty string.
+In case of invalid compiler or invalid version, ``msvs_toolset`` returns ``None``.
 
 Parameters:
     - ``conanfile``: Always use ``self``, the current recipe
