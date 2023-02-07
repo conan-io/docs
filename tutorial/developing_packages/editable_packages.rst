@@ -24,6 +24,23 @@ Please, first of all, clone the sources to recreate this project. You can find t
 
 There are 2 folders inside this project:
 
+..  code-block:: text
+
+    .
+    ├── hello
+    │   ├── CMakeLists.txt
+    │   ├── conanfile.py
+    │   └── src
+    │       └── hello.cpp
+    └── say
+        ├── CMakeLists.txt
+        ├── conanfile.py
+        ├── include
+        │   └── say.h
+        └── src
+            └── say.cpp
+
+
 - A "say" folder containing a fully fledge package, with its ``conanfile.py``, its source
   code.
 - A "hello" folder containing a simple consumer project with a ``conanfile.py`` and its

@@ -10,8 +10,8 @@ In the last section, we introduced the concept of the :ref:`editable packages
 editable mode is because of the current definition of the information in the ``layout()``
 method. Let's see this feature in more detail.
 
-In this tutorial we will use a package similar to the ``say/1.0`` package used in the
-:ref:`editable packages <editable_packages>` tutorial.
+In this tutorial we will continue working with the  ``say/1.0`` package  and the
+``hello/1.0`` consumer used in the :ref:`editable packages <editable_packages>` tutorial.
 
 Please, first of all, clone the sources to recreate this project. You can find them in the
 `examples2.0 repository <https://github.com/conan-io/examples2>`_ in GitHub:
@@ -22,46 +22,33 @@ Please, first of all, clone the sources to recreate this project. You can find t
     $ cd examples2/tutorial/developing_packages/package_layout
 
 
-As you can see, the main folder structure is the same and the main difference is that it
-also has an application ``hello`` that links with the ``say`` library. 
+As you can see, the main folder structure is the same: 
 
 ..  code-block:: text
 
-    <my_project_folder>
-     .
-     ├── CMakeLists.txt
-     ├── conanfile.py
-     ├── include
-     │   └── say.h
-     └── src
-         ├── hello.cpp
-         └── say.cpp
-
-We are using the following **CMakeLists.txt**:
-
-..  code-block:: cmake
-
-    cmake_minimum_required(VERSION 3.15)
-    project(say CXX)
-
-    add_library(say src/say.cpp)
-    target_include_directories(say PUBLIC include)
-
-    set_target_properties(say PROPERTIES PUBLIC_HEADER "include/say.h")
-
-    add_executable(hello hello.cpp)
-    target_link_libraries(hello say)
-
-    # The executables are generated at the "bin" folder
-    set_target_properties(hello PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
-
-    install(TARGETS say hello)
+    .
+    ├── hello
+    │   ├── CMakeLists.txt
+    │   ├── conanfile.py
+    │   └── src
+    │       └── hello.cpp
+    └── say
+        ├── CMakeLists.txt
+        ├── conanfile.py
+        ├── include
+        │   └── say.h
+        └── src
+            └── say.cpp
 
 
-Let's see how we describe our project in the ``layout()`` method:
+The main difference here is that we are not using the predefined
+:ref:`cmake_layout()<cmake_layout>` in the ``say/1.0`` ConanFile but we are declaring our
+own custom layout. Let's see how we describe the information in the ``layout()`` method so
+that it works when we create the package in the Conan local cache and also when we have
+the package in editable mode:
 
 ..  code-block:: python
-    :caption: conanfile.py
+    :caption: say/conanfile.py
 
     import os
     from conan import ConanFile
@@ -70,86 +57,98 @@ Let's see how we describe our project in the ``layout()`` method:
 
     class SayConan(ConanFile):
         name = "say"
-        version = "0.1"
-        exports_sources = "src/*"
-        ...
-        def layout(self):
-            self.folders.source = "src"
-            build_type = str(self.settings.build_type).lower()
-            self.folders.build = "cmake-build-{}".format(build_type)
-            self.folders.generators = os.path.join(self.folders.build, "conan")
+        version = "1.0"
 
-            # cpp.package information is equivalent 
-            # to declaring this information in the package_info() method
+        exports_sources = "CMakeLists.txt", "src/*", "include/*"
+
+        ...
+
+        def layout(self):
+
+            ## define project folder structure
+
+            self.folders.source = "."
+            self.folders.build = os.path.join("build", str(self.settings.build_type))
+            self.folders.generators = os.path.join(self.folders.build, "generators")
+
+            ## cpp.package information is for consumers to find the package contents in the Conan cache
+
             self.cpp.package.libs = ["say"]
-            self.cpp.package.includedirs = ["include"] # includedirs is already set to this value by
+            self.cpp.package.includedirs = ["include"] # includedirs is already set to 'include' by
+                                                       # default, but declared for completion
+            self.cpp.package.libdirs = ["lib"]         # libdirs is already set to 'lib' by
                                                        # default, but declared for completion
 
             ## cpp.source and cpp.build information is specifically designed for editable packages:
-            
-            # this information is relative to the source folder
-            self.cpp.source.includedirs = ["include"]  # maps to ./src/include
 
-            # this information is relative to the build folder
-            self.cpp.build.libdirs = ["."]             # maps to ./cmake-build-<build_type>
-            self.cpp.build.bindirs = ["bin"]           # maps to ./cmake-build-<build_type>/bin
+            # this information is relative to the source folder that is '.'
+            self.cpp.source.includedirs = ["include"] # maps to ./include
+
+            # this information is relative to the build folder that is './build/<build_type>', so it will 
+            self.cpp.build.libdirs = ["."]  # map to ./build/<build_type> for libdirs
 
         def build(self):
             cmake = CMake(self)
             cmake.configure()
             cmake.build()
-            # we can also know where the executable we are building is
-            self.run(os.path.join(self.build_folder, self.cpp.build.bindirs[0], "my_tool"))
 
 
-Let's review the ``layout()`` method changes:
+Let's review the ``layout()`` method, you can see that we are setting values for
+self.folders and self.cpp, let's explain what those are doing:
 
-- **self.folders**
+**self.folders** 
 
-   - As we have our sources in the ``src`` folder, ``self.folders.source`` is set to "**src**".
-   - We set ``self.folders.build`` to be **cmake-build-release** or **cmake-build-debug** depending on the build_type.
-   - The ``self.folders.generators`` folder is where all files generated by Conan will be stored so they don’t pollute the other folders.
+Defines the ``say`` project structure for the source code and also the folders where the
+Conan generated files and build artifacts will be located, regardless of wether it is in
+editable mode or exported and built in the Conan local cache. This should reflect the
+folder structure of the project:
 
-   Please, note that the values above are for a single-configuration CMake generator. To support multi-configuration generators,
-   such as Visual Studio, you should make some changes to this layout. For a complete layout that supports both single-config
-   and multi-config, please check the :ref:`cmake_layout()<cmake_layout>` in the Conan documentation.
+..  code-block:: text
 
-- **self.cpp**
+     say
+      ├── CMakeLists.txt
+      ├── conanfile.py
+      ├── include
+      │   └── say.h
+      └── src
+          └── say.cpp
 
-   We can set the information about the package that the consumers need to use by setting the conanfile’s ``cpp.package`` attributes values:
+- As we have our ``CMakeLists.txt`` in the ``.`` folder, ``self.folders.source`` is set to
+  "**.**".
+- We set ``self.folders.build`` to be **./build/release** or **./build/debug** depending
+  on the build_type.
+- The ``self.folders.generators`` folder is where all files generated by Conan will be
+  stored so they don’t pollute the other folders.
 
-   - Declaring ``self.cpp.package.libs`` inside the ``layout()`` method is equivalent to the “classic” ``self.cpp_info.libs`` declaration
-     in the ``package_info()`` method.
-   - Also, as you may know, ``self.cpp.package.includedirs`` is set to ``["include"]`` by default, so there’s no need in declaring it but we
-     are leaving it here for completeness.
+Please, note that the values above are for a single-configuration CMake generator. To
+support multi-configuration generators, such as Visual Studio, you should make some
+changes to this layout. For a complete layout that supports both single-config and
+multi-config, please check the :ref:`cmake_layout()<cmake_layout>` in the Conan
+documentation.
 
-   We can also describe the ``source`` and ``build`` folders with the ``cpp.source`` and ``cpp.build`` objects:
+**self.cpp**
 
-   - We are setting ``self.cpp.source.includedirs = ["include"]``. The ``self.folders.source`` information will
-     be automatically prepended to that path for consumers so, for example, when working with an editable package, Conan will try to get the
-     include files from the **./my_project_folder/src/include** folder.
-   - We set the ``self.cpp.build.libdirs`` to **["."]**, so we are declaring that, if we make the package ``editable``,
-     the libraries will be at the **./cmake-build-<build_type>** folder.
-   - We set the ``self.cpp.build.bindirs`` to **["bin"]**, because the ``CMakeLists.txt`` file is changing the ``RUNTIME_OUTPUT_DIRECTORY`` to
-     that directory.
+We can set the information about the package that the consumers need to use by setting
+the conanfile’s ``cpp.package`` attributes values:
 
-There is also an interesting line in the ``build(self)`` method:
+- Declaring ``self.cpp.package.libs`` inside the ``layout()`` method is equivalent to
+    the “classic” ``self.cpp_info.libs`` declaration in the ``package_info()`` method.
 
-..  code-block:: python
-    :caption: conanfile.py
+- Also, as you may know, ``self.cpp.package.includedirs`` is set to ``["include"]`` by
+    default, so there’s no need in declaring it but we are leaving it here for
+    completeness.
 
-      def build(self):
-         ...
-         # we can also know where is the executable we are building
-         self.run(os.path.join(self.build_folder, self.cpp.build.bindirs[0], "my_tool"))
+We can also describe the ``source`` and ``build`` folders with the ``cpp.source`` and
+``cpp.build`` objects with information that will be used for consumers of a package in
+editable mode:
 
-We are using the ``self.cpp.build.bindirs[0]`` folder to locate the ``my_tool``. This is a very recommended
-practice, especially when our layout depends on the build system. For example, when using CMake with Visual Studio,
-the binaries are typically built at **Release/** or **Debug/** (multiconfiguration) but on Linux or macOS, the
-output folder will typically be **"."**, so it is better to declare the layout ``self.cpp.build.bindirs`` following that logic and
-then just access the correct path if we need to know where the resulting files of our build are. If you check the
-:ref:`cmake_layout()<conan_tools_layout_predefined_layouts>`, you can see that the predefined ``cmake_layout`` is doing
-exactly that when using a multiconfiguration build system.
+- We are setting ``self.cpp.source.includedirs = ["include"]``. The
+    ``self.folders.source`` information will be automatically prepended to that path for
+    consumers so, for example, when working with an editable package, Conan will try to
+    get the include files from the **./my_project_folder/include** folder.
+- We set the ``self.cpp.build.libdirs`` to **["."]**, so we are declaring that, if we
+    make the package ``editable``, the libraries will be at the
+    **./build/<build_type>** folder.
 
 So, now we can run the conan local methods without taking much care of the directories where the
 files are or the build files should be, because everything is declared in the layout:
@@ -164,17 +163,6 @@ files are or the build files should be, because everything is declared in the la
 
     # This will build the project using the declared source folder and cmake-build-debug as the build folder
     $ conan build . -if=my_install
-
-.. note::
-
-    Maybe you are wondering why the **install folder** is not parametrized and has to be specified with the ``-if``
-    argument.
-    Currently, Conan generates several files like the ``graph_info.json`` and the ``conanbuildinfo.txt`` that
-    are read to restore the configuration saved (settings, options, etc) to be applied in the local commands.
-    That configuration is needed before running the ``layout()`` method because the folders might depend on the settings
-    like in the previous example. It is a kind of a chicken-egg issue. In Conan 2.0, likely, the
-    configuration won't be stored, and the local methods like :command:`conan build .` will compute the graph
-    from arguments (--profile, -s, -o...) and won't need the ``--if`` argument anymore, being always trivial to run.
 
 
 Our current folder now looks like this:
@@ -207,6 +195,7 @@ completely transparent way, even locating the correct **Release**/**Debug** arti
     When working with :ref:`editable packages<editable_packages>`, the information set in ``self.cpp.source`` and ``self.cpp.build`` will be merged with the
     information set in ``self.cpp.package`` so that we don't have to declare again something like ``self.cpp.build.libs = ["say"]`` that is
     the same for the consumers, independently of whether the package is in editable mode or not.
+    ------>>> ADD A NOTE HERE TO TELL USERS TO ONLY DECLARE THE INFORMATION THAT IS DIFFERENT BETWEEN EDITABLE AND REGULAR PACKAGE
 
 
 And of course, we can run also a ``conan create`` command. When the ``build(self)`` method is run in the conan cache, it is
@@ -236,13 +225,6 @@ also able to locate the ``my_tool`` correctly, because it is using the same ``fo
          │   └── my_app
          └── include
              └── hello.h
-
-
-.. warning:: The ``conan package`` local command has been disabled (will raise an exception) when the ``layout()`` method
-   is declared. If the package can be consumed "locally" in a handy way, the use case for the ``conan package`` method
-   is only testing that the method is correctly coded, but that can also be done with the ``conan export-pkg`` method.
-   Thus, as part of the migration to Conan 2.0, the ``conan package`` method will disappear.
-
 
 
 Example: export_sources_folder
