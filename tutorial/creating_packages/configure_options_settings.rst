@@ -48,7 +48,7 @@ Let's check the relevant parts:
         ...
 
 
-You can see that we added a ``configure()`` method to the recipe. Let's explain what's the
+You can see that we added a :ref:`configure() method<reference_conanfile_methods_configure>` to the recipe. Let's explain what's the
 objective of this method and how it's different from the ``config_options()`` method we
 already had defined in the recipe:
 

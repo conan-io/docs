@@ -195,3 +195,7 @@ Read more
 
 - Use the ``generate()`` method to import files from dependencies.
 - More based on the examples mentioned above ... 
+
+.. seealso::
+
+    - :ref:`generate() method reference<reference_conanfile_methods_generate>`

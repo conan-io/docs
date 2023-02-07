@@ -3,7 +3,7 @@
 Build packages: the build() method
 ==================================
 
-We already used a Conan recipe that has a ``build()`` method and learned how to use that
+We already used a Conan recipe that has a :ref:`build() method<reference_conanfile_methods_build>` and learned how to use that
 to invoke a build system and build our packages. In this tutorial, we will modify that
 method and explain how you can use it to do things like:
 
