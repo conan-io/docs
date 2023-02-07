@@ -47,7 +47,7 @@ It is possible to display the installed system packages (with the default ``tool
 
     # Assuming apt is the default or using explicitly
     #   -c tools.system.package_manager:tool=apt-get 
-    $ install . --format=json
+    $ conan install . --format=json
    "graph": {
         "nodes": [
             {
