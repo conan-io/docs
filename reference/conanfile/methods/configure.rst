@@ -40,7 +40,7 @@ so it should be removed:
 
     def configure(self):
         if self.options.shared:
-            self.options.rm_safe("fPIC")
+            del self.options.fPIC
 
 
 Recipes can suggest values for their dependencies options as ``default_options = {"*:shared": True}``, but
