@@ -68,7 +68,7 @@ It is possible to display the installed system packages (with the default ``tool
 
 
 A similar result can be obtained without even installing binaries, we could use the ``report`` or ``report-installed`` modes. The ``report`` mode displays the ``install``
-packages, those are the packages that are required to be installed, irrespective if they are actually installed or not. The ``report`` mode does not check the system for those package, so it could even be ran in another OS:
+packages, those are the packages that are required to be installed, irrespective of whether they are actually installed or not. The ``report`` mode does not check the system for those package, so it could even be ran in another OS:
 
 .. code-block:: bash
 
