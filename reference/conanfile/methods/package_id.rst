@@ -108,3 +108,8 @@ The ``conf`` items do not affect the ``package_id`` by default. It is possible t
         self.info.conf.define("user.myconf:myitem", self.conf.get("user.myconf:myitem"))
 
 Although this can be achieved for all recipes without the ``package_id()`` method, using the ``tools.info.package_id:confs = ["user.myconf:myitem"]`` configuration.
+
+
+.. seealso::
+    
+    See :ref:`the tutorial about header-only packages<creating_packages_other_header_only>` for explanations about the ``package_id()`` method.

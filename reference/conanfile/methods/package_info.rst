@@ -168,3 +168,8 @@ package packaging the AndroidNDK could do:
     - If you plan to use editables or the local development flow, there's a need to check the ``layout()`` and define the information for ``self.cpp.build`` and ``self.cpp.source``.
     - It is not necessary to add ``bindirs`` to the ``PATH`` environment variable, this will be automatically done by the consumer ``VirtualBuildEnv`` and ``VirtualRunEnv`` generators.
     - The **paths** defined in ``package_info()`` shouldn't be converted to any specific format (like the one required by Windows subsystems). Instead, it is the responsibility of the consumer to translate these paths to the adequate format.
+
+
+.. seealso::
+    
+    See :ref:`the defining package information tutorial<tutorial_creating_define_package_info>` for more information.

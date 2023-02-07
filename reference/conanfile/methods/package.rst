@@ -53,3 +53,8 @@ The ``package()`` method is also the one called when packaging precompiled binar
     **Best practices**
 
     The ``cmake.install()`` functionality should be called in the ``package()`` method, not in the ``build()`` method. It is not necessary to reuse the ``CMake(self)`` object, it shouldn't be reused among methods. Creating a new instance in every method is the recommended approach.
+
+
+.. seealso::
+    
+    See :ref:` the package() method tutorial<creating_packages_package_method>` for more information.

@@ -108,3 +108,8 @@ And copying the shared libraries in Windows and OSX to the current build folder,
     **Best practices**
 
     - Accessing dependencies ``self.dependencies["mydep"].package_folder`` is possible, but it will be ``None`` when the dependency "mydep" is in "editable" mode. If you plan to use editable packages, make sure to always reference the ``cpp_info.xxxdirs`` instead.
+
+
+.. seealso::
+
+    - Follow the :ref:`tutorial about preparing build from source in recipes<creating_packages_preparing_the_build>`.

@@ -50,3 +50,9 @@ It is possible to further modify individual traits of ``tool_requires()`` and ``
 
     - ``tool_requires`` are exclusively for build time **tools**, not for libraries that would be included and linked into the consumer package. For libraries with some special characteristics, use a ``requires()`` with custom trait values.
     - The ``self.test_requires()`` and ``self.tool_requires()`` methods should exclusively be used in the ``build_requirements()`` method, with the only possible exception being the ``requirements()`` method. Using them in any other method is forbidden. To access information about dependencies when necessary in some methods, the :ref:`self.dependencies<conan_conanfile_model_dependencies>` attribute should be used.
+
+
+.. seealso::
+
+    - Follow the :ref:`tutorial about consuming Conan packages as tools<consuming_packages_tool_requires>`.
+    - Read the :ref:`tutorial about creating tool_requires packages<tutorial_creating_other_tool>`.

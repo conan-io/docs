@@ -16,4 +16,6 @@ It usually takes the form:
             self.run(cmd, env="conanrun")
 
 
-See :ref:` the "testing packages" tutorial<tutorial_creating_test>` for more information.
+.. seealso::
+    
+    See :ref:` the "testing packages" tutorial<tutorial_creating_test>` for more information.

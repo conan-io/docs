@@ -60,3 +60,8 @@ it is not possible to do that conditionally. For this purpose, it is also possib
 
     - Recall that it is **not** possible to define ``settings`` or ``conf`` values in recipes, they are read only.
     - The definition of ``options`` values is only a "suggestion", depending on the graph computation, priorities, etc., the final value of ``options`` can be different than the one set by the recipe.
+
+
+.. seealso::
+
+    - Follow the :ref:`tutorial about recipe configuration methods<tutorial_creating_configure>`.

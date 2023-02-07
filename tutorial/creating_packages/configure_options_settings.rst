@@ -1,3 +1,5 @@
+.. _tutorial_creating_configure:
+
 Configure settings and options in recipes
 =========================================
 

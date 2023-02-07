@@ -1,3 +1,5 @@
+.. _tutorial_creating_define_package_info:
+
 Define information for consumers: the package_info() method
 ===========================================================
 

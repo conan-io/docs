@@ -14,3 +14,7 @@ the ``fPIC`` flag doesn't exist in Windows, so it should be removed in this meth
             del self.options.fPIC
 
 The ``config_options()`` method executes before the ``configure()`` method, and before the actual assignment of the ``options`` values, but after settings are already defined.
+
+.. seealso::
+
+    - Follow the :ref:`tutorial about recipe configuration methods<tutorial_creating_configure>`.

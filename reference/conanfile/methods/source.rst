@@ -111,3 +111,8 @@ Likewise, it is possible to retrieve the sources for packages in other ``create`
     - The ``source()`` method should retrieve immutable sources. Using some branch name, HEAD, or a tarball whose URL is not immutable and is being overwritten is a bad practice and will lead to broken packages. Using a Git commit, a frozen Git release tag, or a fixed and versioned release tarballs is the expected input. 
     - Applying patches should be done by default in the ``source()`` method, except if the patches are exclusive for one configuration, in that case they could be applied in ``build()`` method.
     - The ``source()`` method should not access nor manipulate files in other folders different to the ``self.source_folder``. All the "exported" files are copied to the ``self.source_folder`` before calling it.
+
+
+.. seealso::
+    
+    See :ref:`the tutorial about managing recipe sources<creating_packages_handle_sources_in_packages>` for more information.
