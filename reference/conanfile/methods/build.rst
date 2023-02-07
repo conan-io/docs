@@ -45,3 +45,8 @@ The ``build()`` method runs once per unique configuration, so if there are some 
     **Best practices**
 
     - The ``build()`` method should be as simple as possible, the heavy lifting of preparing the build should happen in the ``generate()`` method in order to achieve a good developer experience that can easily build locally with just ``conan install .``, plus directly calling the build system or opening their IDE.
+
+
+.. seealso::
+
+    Follow the :ref:`tutorial about building packages<tutorial_creating_build>` for more information about building from sources.

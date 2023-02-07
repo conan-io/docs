@@ -1,3 +1,5 @@
+.. _tutorial_creating_build:
+
 Build packages: the build() method
 ==================================
 
