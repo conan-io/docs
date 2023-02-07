@@ -19,6 +19,20 @@ the intro credits and functionality for the videogame that depends on ``matrix/1
 ``game`` recipe that depends simultaneously on ``engine/1.0`` and ``intro/1.0``. All these packages
 are actually empty, but they are enough to produce the conflicts.
 
+.. graphviz::
+    :align: center
+
+    digraph conflict {
+        node [fillcolor="lightskyblue", style=filled, shape=box]
+        rankdir="BT"
+        "game/1.0" -> "engine/1.0" -> "matrix/1.0";
+        "game/1.0" -> "intro/1.0" -> "matrix/1.1";
+        "matrix/1.0" [fillcolor="orange"];
+        "matrix/1.1" [fillcolor="orange"];
+    }
+
+|
+
 Let's create the dependencies:
 
 .. code-block:: bash
@@ -85,6 +99,24 @@ upstream packages will now depend on ``matrix/1.1``:
         intro/1.0#d639998c2e55cf36d261ab319801c322 - Cache
         matrix/1.1#905c3f0babc520684c84127378fefdd0 - Cache
 
+.. graphviz::
+    :align: center
+
+    digraph conflict {
+        node [fillcolor="lightskyblue", style=filled, shape=box]
+        rankdir="BT"
+        "game/1.0" -> "engine/1.0" -> "matrix/1.1";
+        "game/1.0" -> "intro/1.0" -> "matrix/1.1";
+        {
+            rank = same;
+            edge[ style=invis];
+            "matrix/1.1" -> "matrix/1.0" ;
+            rankdir = LR;
+        }
+    }
+
+|
+
 .. note::
 
     In this case, a new binary for ``engine/1.0`` was not necessary, but in some situations the above could
@@ -114,6 +146,29 @@ Now lets modify ``game/conanfile.py`` to introduce this as a direct dependency:
             self.requires("engine/1.0")
             self.requires("intro/1.0")
             self.requires("matrix/1.2")
+
+
+.. graphviz::
+    :align: center
+
+    digraph conflict {
+        node [fillcolor="lightskyblue", style=filled, shape=box]
+        rankdir="BT"
+        "game/1.0" -> "engine/1.0" -> "matrix/1.0";
+        "game/1.0" -> "intro/1.0" -> "matrix/1.1";
+        "game/1.0" -> "matrix/1.2";
+        "matrix/1.0" [fillcolor="orange"];
+        "matrix/1.1" [fillcolor="orange"];
+        "matrix/1.2" [fillcolor="orange"];
+        {
+            rank = same;
+            edge[ style=invis];
+            "matrix/1.1" -> "matrix/1.2" ;
+            rankdir = LR;
+        }
+    }
+
+|
 
 So intalling it will raise a conflict error again:
 
@@ -152,6 +207,24 @@ for ``engine/1.0`` and ``intro/1.0`` would be missing, and need to be built to l
         intro/1.0#d639998c2e55cf36d261ab319801c322 - Cache
         matrix/1.2#905c3f0babc520684c84127378fefdd0 - Cache
 
+.. graphviz::
+    :align: center
+
+    digraph conflict {
+        node [fillcolor="lightskyblue", style=filled, shape=box]
+        rankdir="BT"
+        "game/1.0" -> "engine/1.0" -> "matrix/1.2";
+        "game/1.0" -> "intro/1.0" -> "matrix/1.2";
+        "game/1.0" -> "matrix/1.2";
+        {
+            rank = same;
+            edge[ style=invis];
+            "matrix/1.2" -> "matrix/1.0" -> "matrix/1.1" ;
+            rankdir = LR;
+        }
+    }
+
+|
 
 .. note::
 
