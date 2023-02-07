@@ -26,7 +26,7 @@ For full reference of the built-in helpers for different system package managers
 Collecting system requirements
 ------------------------------
 
-When ``system_requirements()`` use some built-in ``package_manager`` helpers, it is possible to collect information about the installed or required system requirements.
+When ``system_requirements()`` uses some built-in ``package_manager`` helpers, it is possible to collect information about the installed or required system requirements.
 If we have the following ``conanfile.py``:
 
 .. code-block:: python
