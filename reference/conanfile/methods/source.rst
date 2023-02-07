@@ -44,7 +44,7 @@ A ``source()`` implementation might use the convenient ``get()`` helper, or use 
 
 
 
-Applying patches to downloaded sources can be done (and shoudl be done) in the ``source()`` if those patches
+Applying patches to downloaded sources can be done (and should be done) in the ``source()`` method if those patches
 apply to all possible configurations. As explained below, it is not possible to introduce conditionals in the
 ``source()`` method. If the patches are in file form, those patches must be exported together with the recipe, so they can be used whenever a build from source is fired.
 
