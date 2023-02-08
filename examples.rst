@@ -9,6 +9,7 @@ Examples
 
    examples/conanfile/conanfile
    examples/extensions/commands/custom_commands
+   examples/extensions/deployers/custom_deployers
    examples/tools/cmake/cmake
    examples/tools/files/files
    examples/tools/meson/meson

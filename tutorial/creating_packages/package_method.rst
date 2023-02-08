@@ -3,15 +3,6 @@
 Package files: the package() method
 ===================================
 
-.. important::
-
-    In this example, we retrieve the *fmt* Conan package from a Conan repository with
-    packages compatible with Conan 2.0. To run this example successfully you should add
-    this remote to your Conan configuration (if did not already do it) doing: ``conan
-    remote add conanv2 https://conanv2beta.jfrog.io/artifactory/api/conan/conan --index
-    0``
-
-
 We already used the ``package()`` method in our `hello` package to invoke CMake's install
 step. In this tutorial, we will explain the use of the :ref:`CMake.install()
 <conan-cmake-build-helper>` in more detail and also how to modify this method to do things

@@ -4,14 +4,6 @@
 Preparing the build
 ===================
 
-.. important::
-
-    In this example, we retrieve the *fmt* Conan package from a Conan repository with
-    packages compatible with Conan 2.0. To run this example successfully you should add this
-    remote to your Conan configuration (if did not already do it) doing:
-    ``conan remote add conanv2 https://conanv2beta.jfrog.io/artifactory/api/conan/conan --index 0``
-
-
 In the :ref:`previous tutorial section<creating_packages_add_dependencies_to_packages>`,
 we added the `fmt <https://conan.io/center/fmt>`__ requirement to our Conan package to
 provide colour output to our "Hello World" C++ library. In this section, we focus on the
@@ -65,7 +57,7 @@ Let's check the relevant parts:
         ...
 
         def validate(self):
-            if self.info.options.with_fmt:
+            if self.options.with_fmt:
                 check_min_cppstd(self, "11")
                 check_max_cppstd(self, "14")
 

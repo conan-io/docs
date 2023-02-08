@@ -1,15 +1,6 @@
 Build packages: the build() method
 ==================================
 
-.. important::
-
-    In this example, we retrieve the *fmt* and *gtest* Conan packages from a Conan
-    repository with packages compatible with Conan 2.0. To run this example successfully
-    you should add this remote to your Conan configuration (if did not already do it)
-    doing: ``conan remote add conanv2
-    https://conanv2beta.jfrog.io/artifactory/api/conan/conan --index 0``
-
-
 We already used a Conan recipe that has a ``build()`` method and learned how to use that
 to invoke a build system and build our packages. In this tutorial, we will modify that
 method and explain how you can use it to do things like:
@@ -74,8 +65,8 @@ Changes introduced in the recipe
             cmake.build()
             if not self.conf.get("tools.build:skip_test", default=False):
                 test_folder = os.path.join("tests")
-                if self.info.settings.os == "Windows":
-                    test_folder = os.path.join("tests", str(self.info.settings.build_type))
+                if self.settings.os == "Windows":
+                    test_folder = os.path.join("tests", str(self.settings.build_type))
                 self.run(os.path.join(test_folder, "test_hello"))
 
         ...
@@ -279,7 +270,7 @@ CMake and in Linux and MacOS using Autotools. This can be easily handled in the
         ...
 
         def generate(self):
-            if self.info.settings.os == "Windows":
+            if self.settings.os == "Windows":
                 tc = CMakeToolchain(self)
                 tc.generate()
                 deps = CMakeDeps(self)
@@ -293,7 +284,7 @@ CMake and in Linux and MacOS using Autotools. This can be easily handled in the
         ...
 
         def build(self):
-            if self.info.settings.os == "Windows":
+            if self.settings.os == "Windows":
                 cmake = CMake(self)
                 cmake.configure()
                 cmake.build()

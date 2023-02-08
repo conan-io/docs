@@ -107,14 +107,6 @@ do not affect the recipe and therefore the generated binary package is always th
 Header-only library with tests
 ------------------------------
 
-.. important::
-
-    In this example, we will retrieve the CMake Conan package from a Conan repository with
-    packages compatible with Conan 2.0. To run this example successfully you should add this
-    remote to your Conan configuration (if did not already do it) doing:
-    ``conan remote add conanv2 https://conanv2beta.jfrog.io/artifactory/api/conan/conan --index 0``
-
-
 In the previous example, we saw why a recipe header-only library shouldn't declare the ``settings`` attribute,
 but sometimes the recipe needs them to build some executable, for example, for testing the library.
 Nonetheless, the binary package of the header-only library should still be unique, so we are going to review how to
