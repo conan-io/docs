@@ -151,7 +151,6 @@ The Python packages passed to render the template are ``os`` and ``platform`` fo
 Configuration data types
 ------------------------
 
-Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>`_
 
 All the values will be interpreted by Conan as the result of the python built-in `eval()` function:
 
