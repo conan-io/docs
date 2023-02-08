@@ -202,7 +202,7 @@ self.folders
 
 - **self.folders.subproject** (Defaulted to None): Specifies a subfolder where the
   ``conanfile.py`` is relative to the project root. This is particularly useful for
-  :ref:`layouts with multiple subprojects<package_layout_example_multiple_subprojects>`
+  :ref:`layouts with multiple subprojects<examples_conanfile_layout_multiple_subprojects>`
 
 
 .. _layout_cpp_reference:
@@ -223,3 +223,51 @@ same described :ref:`here<conan_conanfile_model_cppinfo>`. Components are also s
     Read more about the usage of the ``layout()`` in :ref:`this
     tutorial<developing_packages_layout>` and Conan package layout
     :ref:`here<conanfile_conan_package_layout>`.
+
+
+Environment variables and configuration
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+There are some packages that might define some environment variables in their
+``package_info()`` method via ``self.buildenv_info``, ``self.runenv_info``. Other 
+packages can also use ``self.conf_info`` to pass configuration to their consumers.
+
+This is not an issue as long as the value of those environment variables or configuration
+do not require using the ``self.package_folder``. If they do, then their values will
+not be correct for the "source" and "build" layouts. Something like this will be **broken**
+when used in ``editable`` mode:
+
+..  code-block:: python
+
+    import os
+    from conan import ConanFile
+
+    class SayConan(ConanFile):
+        ...
+        def package_info(self):
+            # This is BROKEN if we put this package in editable mode
+            self.runenv_info.define_path("MYDATA_PATH",
+                                         os.path.join(self.package_folder, "my/data/path"))
+
+When the package is in editable mode, for example, ``self.package_folder`` is ``None``, as 
+obviously there is no package yet. 
+The solution is to define it in the ``layout()`` method, in the same way the ``cpp_info`` can
+be defined there:
+
+..  code-block:: python
+
+    from conan import ConanFile
+
+    class SayConan(ConanFile):
+        ...
+        def layout(self):
+            # The final path will be relative to the self.source_folder
+            self.layouts.source.buildenv_info.define_path("MYDATA_PATH", "my/source/data/path")
+            # The final path will be relative to the self.build_folder
+            self.layouts.build.buildenv_info.define_path("MYDATA_PATH2", "my/build/data/path")
+            # The final path will be relative to the self.build_folder
+            self.layouts.build.conf_info.define_path("MYCONF", "my_conf_folder")
+
+
+The ``layouts`` object contains ``source``, ``build`` and ``package`` scopes, and each one contains
+one instance of ``buildenv_info``, ``runenv_info`` and ``conf_info``.
