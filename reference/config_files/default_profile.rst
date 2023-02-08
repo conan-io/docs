@@ -9,7 +9,7 @@ Introduction to profiles
 ------------------------
 
 Conan profiles allow users to set a complete configuration set for **settings**, **options**,
-**environment variables** (for build time and runtime context), **requirements** (and build requirements), and
+**environment variables** (for build time and runtime context), **requirements** (and tool requirements), and
 **configuration variables** in a file.
 
 They have this structure:
