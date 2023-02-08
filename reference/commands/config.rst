@@ -19,6 +19,11 @@ conan config home
     --logger    Show the output with log format, with time, type and message.
 
 
+The ``conan config home`` command returns the path of the Conan home folder.
+This folder contains the Conan cache under ``p/``, Conan profiles under ``profiles/``,
+Conan extensions under ``extensions/``, and the Conan config files, among others.
+
+
 .. code-block:: bash
 
     $ conan config home
