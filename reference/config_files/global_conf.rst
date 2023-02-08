@@ -132,7 +132,6 @@ have priority over globally defined ones in *global.conf*, and can be defined as
 Configuration file template
 ---------------------------
 
-Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>`_
 
 It is possible to use **jinja2** template engine for *global.conf*. When Conan loads this file, immediately parses
 and renders the template, which must result in a standard tools-configuration text.
