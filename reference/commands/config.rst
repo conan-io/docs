@@ -20,8 +20,7 @@ conan config home
 
 
 The ``conan config home`` command returns the path of the Conan home folder.
-This folder contains the Conan cache under ``p/``, Conan profiles under ``profiles/``,
-Conan extensions under ``extensions/``, and the Conan config files, among others.
+See the config files documentation for more information.
 
 
 .. code-block:: bash
