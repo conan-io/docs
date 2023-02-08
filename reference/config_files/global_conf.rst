@@ -118,6 +118,7 @@ Tools and user configurations allows them to be defined both in the *global.conf
 have priority over globally defined ones in *global.conf*, and can be defined as:
 
 .. code-block:: text
+    :caption: profile (not global.conf)
 
     [settings]
     ...
