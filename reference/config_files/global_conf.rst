@@ -331,11 +331,6 @@ This example illustrates all of these methods:
             self.conf_info.pop("tools.system.package_manager:sudo")
 
 
-.. important::
-
-    Legacy configuration methods to set/get values like ``self.conf_info["xxxxx"] = "yyyyy"`` and ``v = self.conf_info["xxxxx"]`` are
-    deprecated since Conan 1.46 version. Use ``self.conf_info.define("xxxxx", "yyyyy")`` and ``v = self.conf_info.get("xxxxx")`` instead
-    like the example above.
 
 
 Configuration from build_requires
