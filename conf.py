@@ -416,6 +416,9 @@ linkcheck_retries = 2
 # Not Found
 notfound_pagename = 'Page Not Found'
 
+# Graphviz output format, one of png, svg
+graphviz_output_format = 'svg'
+
 
 # copy legacy redirects
 def copy_legacy_redirects(app, docname): # Sphinx expects two arguments
