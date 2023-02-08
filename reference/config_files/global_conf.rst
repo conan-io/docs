@@ -171,7 +171,6 @@ All the values will be interpreted by Conan as the result of the python built-in
 Configuration data operators
 ----------------------------
 
-Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>`_
 
 It's also possible to use some extra operators when you're composing tool configurations in your *global.conf* or
 any of your profiles:
