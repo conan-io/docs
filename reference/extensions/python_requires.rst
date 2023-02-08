@@ -28,11 +28,14 @@ A very simple recipe that we want to reuse could be:
         package_type = "python-require"
 
      
-And then we will make it available to other packages with ``conan create .``
+And then we will make it available to other packages with ``conan create .``. Note that a ``python-require``
+package do not create binaries, it is just the recipe part.
 
 .. code-block:: bash
 
     $ conan create .
+    # It will only export the recipe, but NOT create binaries
+    # python-requires do NOT have binaries
 
 
 We can reuse the above recipe functionality declaring the dependency in the ``python_requires``
@@ -60,30 +63,18 @@ attribute and we can access its members using ``self.python_requires["<name>"].m
     pkg/0.1: 123, 234
 
 
-It is also possible to require more than one python-require, and use the package name
-to address the functionality:
+Python requires can also use version ranges, and this can be recommended in many cases if those ``python-requires``
+need to evolve over time:
 
 .. code-block:: python
     
     from conan import ConanFile
 
     class Pkg(ConanFile):
-        python_requires = "pyreq/0.1", "other/1.2"
-
-        def build(self):  
-            v = self.python_requires["pyreq"].module.myvar  # v will be 123
-            f = self.python_requires["other"].module.otherfunc("some-args")
+        python_requires = "pyreq/[>=1.0 <2]"
 
 
-Python requires can also use version ranges:
-
-.. code-block:: python
-    
-    from conan import ConanFile
-
-    class Pkg(ConanFile):
-        python_requires = "pyreq/[>=0.1 <1]"
-
+It is also possible to require more than 1 ``python-requires`` with ``python_requires = "pyreq/0.1", "other/1.2"``
 
 Extending base classes
 ----------------------
@@ -108,6 +99,8 @@ recipes via inheritance. We'd write this base class in a python-requires package
     class PyReq(ConanFile):
         name = "pyreq"
         version = "0.1"
+        package_type = "python-require"
+
 
 And make it available for reuse with:
 
@@ -135,6 +128,8 @@ class ``MyBase``:
     from conan import ConanFile
 
     class Pkg(ConanFile):
+        name = "pkg"
+        version = "0.1"
         python_requires = "pyreq/0.1"
         python_requires_extend = "pyreq.MyBase"
 
@@ -144,7 +139,7 @@ So creating the package we can see how the methods from the base class are reuse
 
 .. code-block:: bash
 
-    $ conan create . pkg/0.1
+    $ conan create .
     ...
     pkg/0.1: My cool source!
     pkg/0.1: My cool build!
@@ -153,43 +148,9 @@ So creating the package we can see how the methods from the base class are reuse
     ...
 
 
-If there is extra logic needed to extend from a base class, like composing the base class settings
-with the current recipe, the ``init()`` method can be used for it:
-
-.. code-block:: python
-
-    class PkgTest(ConanFile):
-        license = "MIT"
-        settings = "arch", # tuple!
-        python_requires = "base/1.1@user/testing"
-        python_requires_extend = "base.MyConanfileBase"
-
-        def init(self):
-            base = self.python_requires["base"].module.MyConanfileBase
-            self.settings = base.settings + self.settings  # Note, adding 2 tuples = tuple
-            self.license = base.license  # License is overwritten
-
-
-For more information about the ``init()`` method visit :ref:`method_init`
-
-
-Limitations
-+++++++++++
-
-There are a few limitations that should be taken into account:
-
-- ``name`` and ``version`` fields shouldn't be inherited. ``set_name()`` and ``set_version()``
-  might be used.
-- ``short_paths`` cannot be inherited from a ``python_requires``. Make sure to specify it directly
-  in the recipes that need the paths shortened in Windows.
-- ``exports``, ``exports_sources`` shouldn't be inherited from a base class, but explicitly defined
-  directly in the recipes. A reusable alternative might be using the ``SCM`` component.
-- ``build_policy`` shouldn't be inherited from a base class, but explicitly defined
-  directly in the recipes.
-- Mixing Python inheritance with ``python_requires_extend`` should be avoided, because 
-  the inheritance order can be different than the expected one. Multiple level ``python_requires_extend``
-  might be possible, but don't mix both approaches (also in general try to avoid
-  multiple inheritance and multiple level hierarchies, try to keep it simple).
+In general, base class attributes are not inherited, and should be avoided as much as possible.
+There are method alternatives to some of them like ``export()`` or ``set_version()``.
+For exceptional situations, see the ``init()`` method documentation for more information to extend inherited attributes.
 
 
 Reusing files
@@ -203,21 +164,27 @@ We could have this recipe, together with a *myfile.txt* file containing the "Hel
     from conan import ConanFile
 
     class PyReq(ConanFile):
+        name = "pyreq"
+        version = "1.0"
+        package_type = "python-require"
         exports = "*"
+
 
 .. code-block:: bash
 
     $ echo "Hello" > myfile.txt
-    $ conan export . pyreq/0.1
+    $ conan create .
 
 
-Now the recipe has been exported, we can access its path (the place where *myfile.txt* is) with the
+Now the python-require has been created, we can access its path (the place where *myfile.txt* is) with the
 ``path`` attribute:
 
 .. code-block:: python
 
     import os
-    from conan import ConanFile, load
+
+    from conan import ConanFile
+    from conan.tools.files import load
 
     class Pkg(ConanFile):
         python_requires = "pyreq/0.1"
@@ -225,48 +192,76 @@ Now the recipe has been exported, we can access its path (the place where *myfil
         def build(self):
             pyreq_path = self.python_requires["pyreq"].path
             myfile_path = os.path.join(pyreq_path, "myfile.txt")
-            content = load(myfile_path)  # content = "Hello"
+            content = load(self, myfile_path)  # content = "Hello"
             self.output.info(content)
             # we could also copy the file, instead of reading it
 
 
 Note that only ``exports`` work for this case, but not ``exports_sources``.
 
-PackageID
----------
 
-The ``python_requires`` will affect the ``package_id`` of the packages using those dependencies.
+Testing python-requires
+-----------------------
+
+It is possible to test with ``test_package`` a ``python_require``, by adding a ``test_package/conanfile.py``:
+
+.. code-block:: python
+    :caption: conanfile.py
+
+    from conan import ConanFile
+
+    def mynumber():
+        return 42
+
+    class PyReq(ConanFile):
+        name = "pyreq"
+        version = "1.0"
+        package_type = "python-require"
+
+
+.. code-block:: python
+    :caption: test_package/conanfile.py
+
+    from conan import ConanFile
+
+    class Tool(ConanFile):
+        def test(self):
+            pyreq = self.python_requires["common"].module
+            mynumber = pyreq.mynumber()
+            self.output.info("{}!!!".format(mynumber))
+
+
+Note that the ``test_package/conanfile.py`` does not need any type of declaration of the ``python_requires``, this is done
+automatically and implicitly. We can now create and test it with:
+
+.. code-block:: bash
+    
+    $ conan create .
+    ...
+    pyreq/0.1 (test package): 42!!!
+
+
+Effect in package_id
+--------------------
+
+The ``python_requires`` will affect the ``package_id`` of the **consumer packages** using those dependencies.
 By default, the policy is ``minor_mode``, which means:
 
-- Changes to the **patch** version of a python-require will not affect the package ID. So depending
+- Changes to the **patch** version pr the **revision** of a python-require will not affect the package ID. So depending
   on ``"pyreq/1.2.3"`` or ``"pyreq/1.2.4"`` will result in identical package ID (both will be mapped
   to ``"pyreq/1.2.Z"`` in the hash computation). Bump the patch version if you want to change your
   common code, but you don't want the consumers to be affected or to fire a re-build of the dependants.
-- Changes to the **minor** or **major** version will produce a different package ID. So if you depend
+- Changes to the **minor** version will produce a different package ID. So if you depend
   on ``"pyreq/1.2.3"``, and you bump the version to ``"pyreq/1.3.0"``, then, you will need to build
   new binaries that are using that new python-require. Bump the minor or major version if you want to
   make sure that packages requiring this python-require will be built using these changes in the code.
-- Both changing the **minor** and **major** requires a new package ID, and then a build from source.
-  You could use changes in the **minor** to indicate that it should be source compatible, and consumers
-  wouldn't need to do changes, and changes in the **major** for source incompatible changes.
 
-As with the regular ``requires``, this default can be customized. First you can customize it at attribute
-global level, modifying the *conan.conf* ``[general]`` variable ``default_python_requires_id_mode``, which can take the values
-``unrelated_mode``, ``semver_mode``, ``patch_mode``, ``minor_mode``, ``major_mode``, ``full_version_mode``,
-``full_recipe_mode`` and ``recipe_revision_mode``. 
+In most cases using a version-range ``python_requires = "pyreq/[>=1.0 <2.0]"`` is the right approach, because that means
+the **major** version bumps are not included because they would require changes in the consumers themselves. It is then
+possible to release a new major version of the ``pyreq/2.0``, and have consumers gradually change their requirements to
+``python_requires = "pyreq/[>=2.0 <3.0]"``, fix the recipes, and move forward without breaking the whole project.
 
-
-For example, if you want to make the package IDs never be affected by any change in the versions of
-``python_requires``, you could do:
-
-.. code-block:: text
-   :caption: *conan.conf* configuration file
-
-   [general]
-   default_python_requires_id_mode=unrelated_mode
-
-
-Read more about these modes in :ref:`package_id_mode`.
+As with the regular ``requires``, this default can be customized with the ``core.package_id:default_python_mode`` configuration. 
 
 It is also possible to customize the effect of ``python_requires`` per package, using the ``package_id()``
 method:
@@ -281,24 +276,29 @@ method:
             self.info.python_requires.patch_mode()
 
 
+
 Resolution of python_requires
 -----------------------------
 
-There are few things that should be taken into account when using ``python_requires``:
+There are few important things that should be taken into account when using ``python_requires``:
 
 - Python requires recipes are loaded by the interpreter just once, and they are common to
   all consumers. Do not use any global state in the ``python_requires`` recipes.
 - Python requires are private to the consumers. They are not transitive. Different consumers
-  can require different versions of the same python-require.
-- ``python_requires`` can use version ranges expressions.
-- ``python_requires`` can ``python_requires`` other recipes too, but this should probably be limited
-  to very few cases, we recommend to use the simplest possible structure.
-- ``python_requires`` can conflict if they require other recipes and create conflicts in different
-  versions.
+  can require different versions of the same ``python-require``. Being private, they cannot
+  be overriden from downstream in any way.
 - ``python_requires`` cannot use regular ``requires`` or ``tool_requires``.
-- It is possible to use ``python_requires`` without user and channel.
+- ``python_requires`` cannot be "aliased".
 - ``python_requires`` can use native python ``import`` to other python files, as long as these are
   exported together with the recipe.
-- ``python_requires`` should not create packages, but use ``export`` only.
 - ``python_requires`` can be used as editable packages too.
-- ``python_requires`` are locked in lockfiles.
+- ``python_requires`` are locked in lockfiles, to guarantee reproducibility, in the same way that other ``requires`` and ``tool_requires`` are locked.
+
+
+.. note:: 
+
+  **Best practices**
+
+  - Even if ``python-requires`` can ``python_requires`` transitively other ``python-requires`` recipes, this is discouraged. Multiple level inheritance and reuse can become quite complex and difficult to manage, it is recommended to keep hiearchy flat. 
+  - Do not try to mix Python inheritance with ``python_requires_extend`` inheritance mechanisms, they are incompatible and can break.
+  - Do not use multiple inheritance for ``python-requires``
