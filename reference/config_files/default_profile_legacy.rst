@@ -8,8 +8,8 @@ The **default** profile file is located in the Conan user home *profiles* direct
 Introduction to profiles
 ------------------------
 
-Conan profiles allows users to set a complete configuration set for **settings**, **options**,
-**environment variables** (for build time and runtime context), **requirements** (and build requirements), and
+Conan profiles allow users to set a complete configuration set for **settings**, **options**,
+**environment variables** (for build time and runtime context), **requirements** (and tool requirements), and
 **configuration variables** in a file.
 
 They have this structure:
