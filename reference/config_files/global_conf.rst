@@ -118,7 +118,7 @@ Tools and user configurations allows them to be defined both in the *global.conf
 have priority over globally defined ones in *global.conf*, and can be defined as:
 
 .. code-block:: text
-    :caption: profile (not global.conf)
+    :caption: *myprofile*
 
     [settings]
     ...
@@ -270,92 +270,6 @@ effect because it's the first one evaluated, and after that, Conan is overriding
 general one, so it deserves to pay special attention to the order.
 
 
-.. _conf_in_recipes:
-
-Configuration in your recipes
--------------------------------
-
-From Conan 1.46, the user interface to manage the configurations in your recipes has been improved. The ``self.conf_info``
-object has the following methods available:
-
-* ``get(name, default=None, check_type=None)``: gets the value for the given configuration name. Besides that you can pass
-  ``check_type`` to check the Python type matches with the value type returned, e.g., ``check_type=list``. If the configuration
-  does not exist, ``default`` will be returned instead. Notice that this ``default`` value won't be affected by the ``check_type=list`` param.
-* ``pop(name, default=None)``: removes (if exists) the configuration name given. If the configuration does not exist,
-  ``default`` will be returned instead.
-* ``define(name, value)``: sets ``value`` for the given configuration name. If it already exists, the configuration will be
-  overwritten with the new value.
-* ``append(name, value)``: (only available for ``list``) appends ``value`` into the existing list for the given configuration name. If the list does not
-  exist yet, it'll be created with the value given by default. ``value`` can be a list or a single value.
-* ``prepend(name, value)``: (only available for ``list``) prepends ``value`` into the existing list for the given configuration name. If the list does not
-  exist yet, it'll be created with the value given by default. ``value`` can be a list or a single value.
-* ``update(name, value)``: (only available for ``dict``) updates the existing dictionary with ``value`` for the given configuration name. If the dict does not
-  exist yet, it'll be created with the value given by default. ``value`` must be another dictionary.
-* ``remove(name, value)``: (only available for ``dict`` and ``list``) removes ``value`` from the existing value for the given configuration name.
-* ``unset(name)``: removes any existing value for the given configuration name. It's behaving like using ``define(name, None)``.
-
-This example illustrates all of these methods:
-
-.. code-block:: python
-
-    import os
-    from conan import ConanFile
-
-    class Pkg(ConanFile):
-        name = "pkg"
-
-        def package_info(self):
-            # Setting values
-            self.conf_info.define("tools.microsoft.msbuild:verbosity", "Diagnostic")
-            self.conf_info.define("tools.system.package_manager:sudo", True)
-            self.conf_info.define("tools.microsoft.msbuild:max_cpu_count", 2)
-            self.conf_info.define("user.myconf.build:ldflags", ["--flag1", "--flag2"])
-            self.conf_info.define("tools.microsoft.msbuildtoolchain:compile_options", {"ExceptionHandling": "Async"})
-            # Getting values
-            self.conf_info.get("tools.microsoft.msbuild:verbosity")  # == "Diagnostic"
-            # Getting default values from configurations that don't exist yet
-            self.conf_info.get("user.myotherconf.build:cxxflags", default=["--flag3"])  # == ["--flag3"]
-            # Getting values and ensuring the gotten type is the passed one otherwise an exception will be raised
-            self.conf_info.get("tools.system.package_manager:sudo", check_type=bool)  # == True
-            self.conf_info.get("tools.system.package_manager:sudo", check_type=int)  # ERROR! It raises a ConanException
-            # Modifying configuration list-like values
-            self.conf_info.append("user.myconf.build:ldflags", "--flag3")  # == ["--flag1", "--flag2", "--flag3"]
-            self.conf_info.prepend("user.myconf.build:ldflags", "--flag0")  # == ["--flag0", "--flag1", "--flag2", "--flag3"]
-            # Modifying configuration dict-like values
-            self.conf_info.update("tools.microsoft.msbuildtoolchain:compile_options", {"ExpandAttributedSource": "false"})
-            # Unset any value
-            self.conf_info.unset("tools.microsoft.msbuildtoolchain:compile_options")
-            # Remove
-            self.conf_info.remove("user.myconf.build:ldflags", "--flag1")  # == ["--flag0", "--flag2", "--flag3"]
-            # Removing completely the configuration
-            self.conf_info.pop("tools.system.package_manager:sudo")
-
-
-
-
-Configuration from build_requires
----------------------------------
-
-From Conan 1.37, it is possible to define configuration in packages that are ``build_requires``. For example, assuming
-there is a package that bundles the AndroidNDK, it could define the location of such NDK to the ``tools.android:ndk_path``
-configuration as:
-
-
-.. code-block:: python
-
-    import os
-    from conan import ConanFile
-
-    class Pkg(ConanFile):
-        name = "android_ndk"
-
-        def package_info(self):
-            self.conf_info.define("tools.android:ndk_path", os.path.join(self.package_folder, "ndk"))
-
-
-Note that this only propagates from the immediate, direct ``build_requires`` of a recipe.
-
-
 Configuration of client certificates
 ------------------------------------
 
@@ -372,3 +286,8 @@ For instance:
 
     core.net.http:cacert_path=/path/to/cacert_file
     core.net.http:client_cert=/path/to/client_certificate
+
+
+.. seealso::
+
+    * :ref:`Managing configuration in your recipes (self.conf_info) <conan_conanfile_model_conf_info>`

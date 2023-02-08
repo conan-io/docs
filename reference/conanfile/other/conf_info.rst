@@ -86,3 +86,29 @@ Allow to declare, remove and modify configurations that are passed to the depend
         def package_info(self):
             # Unset any value
             self.conf_info.unset("tools.microsoft.msbuildtoolchain:compile_options")
+
+
+
+.. _conan_conanfile_model_conf_info_tool_requires:
+
+self.conf_info in tool_requires
++++++++++++++++++++++++++++++++
+
+It is possible to define configuration in packages that are ``tool_requires``. For example, assuming
+there is a package that bundles the *AndroidNDK*, it could define the location of such NDK to the ``tools.android:ndk_path``
+configuration as:
+
+
+.. code-block:: python
+
+    import os
+    from conan import ConanFile
+
+    class Pkg(ConanFile):
+        name = "android_ndk"
+
+        def package_info(self):
+            self.conf_info.define("tools.android:ndk_path", os.path.join(self.package_folder, "ndk"))
+
+
+Note that this only propagates from the immediate, direct ``tool_requires`` of a recipe.
