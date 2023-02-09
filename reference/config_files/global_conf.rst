@@ -114,7 +114,7 @@ To list all the possible configurations available, run :command:`conan config li
 Tools configurations
 --------------------
 
-Tools and user configurations allows them to be defined both in the *global.conf* file and in profile files. Profile values will
+Tools and user configurations allow them to be defined both in the *global.conf* file and in profile files. Profile values will
 have priority over globally defined ones in *global.conf*, and can be defined as:
 
 .. code-block:: text
