@@ -254,8 +254,8 @@ You can use package patterns to apply the configuration in those dependencies wh
     *:tools.cmake.cmaketoolchain:generator=Ninja
     zlib:tools.cmake.cmaketoolchain:generator=Visual Studio 16 2019
 
-This example shows you how to specify a general `generator` for all your packages, but for `zlib` one. `zlib` is defining
-`Visual Studio 16 2019` as its own generator.
+This example shows you how to specify a general ``generator`` for all your packages except for `zlib` which is defining
+`Visual Studio 16 2019` as its generator.
 
 Besides that, it's quite relevant to say that **the order matters**. So, if we change the order of the
 configuration lines above:
