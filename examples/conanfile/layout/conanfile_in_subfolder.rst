@@ -81,7 +81,7 @@ You can try and create the ``say`` package:
 
 .. seealso::
 
-    - Read more about the :ref:`layout method<conanfile_methods_layout>` and :ref:`how the
+    - Read more about the :ref:`layout method<reference_conanfile_methods_layout>` and :ref:`how the
       package layout works<tutorial_package_layout>`.
 
 

@@ -86,6 +86,6 @@ cache (with :command:`conan create` command). The CMake >= 3.23 is not required.
 Read More:
 
 - ``cmake_layout()`` :ref:`reference <cmake_layout>`
-- Conanfile :ref:`layout() method reference <conanfile_methods_layout>`
+- Conanfile :ref:`layout() method reference <reference_conanfile_methods_layout>`
 - Package layout tutorial :ref:`tutorial <developing_packages_layout>`
 - Understanding :ref:`Conan package layouts <tutorial_package_layout>`

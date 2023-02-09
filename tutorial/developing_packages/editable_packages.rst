@@ -70,7 +70,7 @@ redirected to the
 user folder instead of using the package from the Conan cache.
 
 Note that the key of editable packages is a correct definition of the ``layout()`` of the
-package. Read the :ref:`package layout() section <conanfile_methods_layout>` to learn more
+package. Read the :ref:`package layout() section <reference_conanfile_methods_layout>` to learn more
 about this method. 
 
 In this example, the ``say`` ``conanfile.py`` recipe is using the predefined
