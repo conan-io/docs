@@ -299,6 +299,6 @@ There are few important things that should be taken into account when using ``py
 
   **Best practices**
 
-  - Even if ``python-requires`` can ``python_requires`` transitively other ``python-requires`` recipes, this is discouraged. Multiple level inheritance and reuse can become quite complex and difficult to manage, it is recommended to keep hiearchy flat. 
+  - Even if ``python-requires`` can ``python_requires`` transitively other ``python-requires`` recipes, this is discouraged. Multiple level inheritance and reuse can become quite complex and difficult to manage, it is recommended to keep the hierarchy flat. 
   - Do not try to mix Python inheritance with ``python_requires_extend`` inheritance mechanisms, they are incompatible and can break.
   - Do not use multiple inheritance for ``python-requires``
