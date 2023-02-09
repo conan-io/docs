@@ -155,7 +155,8 @@ Some of the capabilities of the profile templates are:
 - Using the platform information, like obtaining the current OS is possible because the
   Python ``platform`` module is added to the render context:
 
-  .. code:: jinja
+  .. code-block:: jinja
+     :caption: *profile_vars*
 
      [settings]
      os = {{ {"Darwin": "Macos"}.get(platform.system(), platform.system()) }}
@@ -163,14 +164,16 @@ Some of the capabilities of the profile templates are:
 - Reading environment variables can be done because the Python ``os`` module is added
   to the render context.:
 
-  .. code:: jinja
+  .. code-block:: jinja
+     :caption: *profile_vars*
 
      [settings]
      build_type = {{ os.getenv("MY_BUILD_TYPE") }}
 
 - Defining your own variables and using them in the profile:
 
-  .. code:: jinja
+  .. code-block:: jinja
+     :caption: *profile_vars*
 
      {% set os = "FreeBSD" %}
      {% set clang = "my/path/to/clang" %}
@@ -187,22 +190,23 @@ Some of the capabilities of the profile templates are:
   Besides the ``os`` Python module, the variable ``profile_dir`` pointing to the current profile
   folder is added to the context.
 
-  .. code:: jinja
+  .. code-block:: jinja
+     :caption: *profile_vars*
 
-       [conf]
-       tools.cmake.cmaketoolchain:toolchain_file = {{ os.path.join(profile_dir, "toolchain.cmake") }}
+     [conf]
+     tools.cmake.cmaketoolchain:toolchain_file = {{ os.path.join(profile_dir, "toolchain.cmake") }}
 
 - Including or importing other files from ``profiles`` folder:
 
   .. code-block:: jinja
-     :caption: myprofile
+     :caption: *profile_vars*
 
      {% set a = "Debug" %}
 
   .. code-block:: jinja
-     :caption: myotherprofile
+     :caption: *myprofile*
 
-     {% import "profile_vars.jinja" as vars %}
+     {% import "profile_vars" as vars %}
      [settings]
      build_type = {{ vars.a }}
 
@@ -211,8 +215,8 @@ Some of the capabilities of the profile templates are:
   in a large dependency graph.
 
 
-Profiles sections
------------------
+Profile sections
+----------------
 
 These are the available sections in profiles:
 
@@ -409,7 +413,7 @@ Profiles also support patterns definition, so you can override some settings, co
 for some specific packages:
 
 .. code-block:: text
-    :caption: *[CONAN_HOME]/profiles/zlib_with_clang*
+    :caption: *zlib_clang_profile*
 
     [settings]
     # Only for zlib
@@ -438,10 +442,16 @@ for some specific packages:
 Your build tool will locate **clang** compiler only for the **zlib** package and **gcc** (default one)
 for the rest of your dependency tree.
 
+.. important::
+
+    Putting only ``zlib:`` is not going to work, you have to put always a pattern-like expression, e.g., ``zlib*:``, ``zlib/1.*:``, etc.
+
+
 They accept patterns too, like ``-s *@myuser/*``, which means that packages that have the username "myuser" will use
 clang 3.5 as compiler, and gcc otherwise:
 
 .. code-block:: text
+    :caption: *myprofile*
 
     [settings]
     *@myuser/*:compiler=clang
@@ -455,6 +465,7 @@ Also `&` can be specified as the package name. It will apply only to the consume
 This is a special case because the consumer conanfile might not declare a `name` so it would be impossible to reference it.
 
 .. code-block:: text
+    :caption: *myprofile*
 
     [settings]
     &:compiler=gcc
@@ -465,8 +476,8 @@ This is a special case because the consumer conanfile might not declare a `name`
 Profile includes
 ----------------
 
-You can include other profiles using the ``include()`` statement. The path can be relative to the current profile, absolute, or a profile
-name from the default profile location in the local cache.
+You can include other profile files using the ``include()`` statement. The path can be relative
+to the current profile, absolute, or a profile name from the default profile location in the local cache.
 
 The ``include()`` statement has to be at the top of the profile file:
 
