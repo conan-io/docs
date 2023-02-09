@@ -106,9 +106,6 @@ To list all the possible configurations available, run :command:`conan config li
     tools.system.package_manager:tool: Default package manager tool: 'apt-get', 'yum', 'dnf', 'brew', 'pacman', 'choco', 'zypper', 'pkg' or 'pkgutil'
 
 
-.. important::
-
-    Remember to run that command locally to actually see the latest list because this one may be outdated.
 
 
 Tools configurations
