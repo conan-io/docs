@@ -1,15 +1,13 @@
-.. _reference_config_files_profiles_default:
+.. _reference_config_files_profiles:
 
-Profiles: default
-=================
-
-The **default** profile file is located in the Conan user home *profiles* directory, e.g., *[CONAN_HOME]/profiles/default*.
+profiles
+========
 
 Introduction to profiles
 ------------------------
 
 Conan profiles allow users to set a complete configuration set for **settings**, **options**,
-**environment variables** (for build time and runtime context), **requirements** (and tool requirements), and
+**environment variables** (for build time and runtime context), **tool requirements**, and
 **configuration variables** in a file.
 
 They have this structure:
@@ -36,9 +34,30 @@ They have this structure:
 
 
 Profiles can be created with ``detect`` option in :ref:`conan profile <reference_commands_profile>` command,
-and edited later.
+and edited later. If you don't specify a *name*, the command will create the ``default`` profile:
+
 
 .. code-block:: bash
+    :caption: *Creating the Conan default profile*
+
+    $ conan profile detect
+    Found apple-clang 12.0
+    Detected profile:
+    [settings]
+    arch=x86_64
+    build_type=Release
+    compiler=apple-clang
+    compiler.cppstd=gnu98
+    compiler.libcxx=libc++
+    compiler.version=12.0
+    os=Macos
+
+    WARN: This profile is a guess of your environment, please check it.
+    WARN: The output of this command is not guaranteed to be stable and can change in future Conan versions
+    Saving detected profile to [CONAN_HOME]/profiles/default
+
+.. code-block:: bash
+    :caption: *Creating another profile: myprofile*
 
     $ conan profile detect --name myprofile
     Found apple-clang 12.0
@@ -54,19 +73,26 @@ and edited later.
 
     WARN: This profile is a guess of your environment, please check it.
     WARN: The output of this command is not guaranteed to be stable and can change in future Conan versions
-    Saving detected profile to /Users/myuser/.conan2/profiles/myprofile
+    Saving detected profile to [CONAN_HOME]/profiles/myprofile
 
 
 Profile files can be used with ``-pr``/``--profile`` option in many commands like :command:`conan install` or
-:command:`conan create` commands.
+:command:`conan create` commands. If you don't specify any profile at all, the profile ``default`` will be
+always used:
 
 .. code-block:: bash
+    :caption: Using the *default* profile
+
+    $ conan create .
+
+
+.. code-block:: bash
+    :caption: Using a *myprofile* profile
 
     $ conan create . -pr=myprofile
 
 
-Profiles can be located in different folders. For instance, the default *[CONAN_HOME]/profiles* could be referenced by absolute or
-relative path:
+Profiles can be located in different folders:
 
 .. code-block:: bash
 
@@ -90,7 +116,7 @@ You can also show profile's content:
 
 .. code-block:: bash
 
-    $ conan profile show
+    $ conan profile show -pr myprofile
     Host profile:
     [settings]
     arch=x86_64
@@ -115,7 +141,7 @@ You can also show profile's content:
 .. seealso::
 
     - Manage your profiles and share them using :ref:`reference_commands_conan_config_install`.
-    - Check the command :ref:`conan profile <reference_commands_profile>`.
+    - Check the command and its sub-comands of :ref:`conan profile <reference_commands_profile>`.
 
 
 Profile rendering
@@ -169,12 +195,12 @@ Some of the capabilities of the profile templates are:
 - Including or importing other files from ``profiles`` folder:
 
   .. code-block:: jinja
-     :caption: profile_vars.jinja
+     :caption: myprofile
 
      {% set a = "Debug" %}
 
   .. code-block:: jinja
-     :caption: profile1.jinja
+     :caption: myotherprofile
 
      {% import "profile_vars.jinja" as vars %}
      [settings]
@@ -231,8 +257,6 @@ List of ``tool_requires`` required by your recipe or its dependencies:
 
     [tool_requires]
     cmake/3.25.2
-    cmake/3.20.6
-
 
 .. seealso::
 

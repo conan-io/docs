@@ -21,9 +21,9 @@ Let's briefly explain the three types of existing configurations:
 * ``core.*``: aimed to configure values of Conan core behavior (download retries, package ID modes, etc.).
   Only definable in *global.conf* file.
 * ``tools.*``: aimed to configure values of Conan tools (toolchains, build helpers, etc.) used in your recipes.
-  Definable in both *global.conf* and *profiles*.
+  Definable in both *global.conf* and :ref:`profiles <reference_config_files_profiles>`.
 * ``user.*``: aimed to define personal user configurations. They can define whatever user wants.
-  Definable in both *global.conf* and *profiles*.
+  Definable in both *global.conf* and :ref:`profiles <reference_config_files_profiles>`.
 
 
 
