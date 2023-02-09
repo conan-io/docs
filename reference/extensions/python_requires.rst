@@ -197,7 +197,7 @@ Now that the python-require has been created, we can access its path (the place 
             # we could also copy the file, instead of reading it
 
 
-Note that only ``exports`` work for this case, but not ``exports_sources``.
+Note that only ``exports`` works for this case, but not ``exports_sources``.
 
 
 Testing python-requires
