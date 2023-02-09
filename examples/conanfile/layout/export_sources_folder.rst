@@ -48,3 +48,8 @@ We can see that the ``ConanFile.export_sources_folder`` can provide access to th
 - Locally it will be the folder where the ``conanfile.py`` lives
 - In the cache it will be the "source" folder, that will contain a copy of ``CMakeLists.txt`` and ``patches``,
   while the "source/src" folder will contain the actual downloaded sources.
+
+.. seealso::
+
+    - Read more about the :ref:`layout method<conanfile_methods_layout>` and :ref:`how the
+      package layout works<tutorial_package_layout>`.
