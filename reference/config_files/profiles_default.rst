@@ -1,4 +1,4 @@
-.. _reference_config_files_profiles:
+.. _reference_config_files_profiles_default:
 
 Profiles: default
 =================
