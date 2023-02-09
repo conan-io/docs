@@ -134,7 +134,7 @@ Configuration file template
 ---------------------------
 
 
-It is possible to use **jinja2** template engine for *global.conf*. When Conan loads this file, immediately parses
+It is possible to use **jinja2** template engine for *global.conf*. When Conan loads this file, it immediately parses
 and renders the template, which must result in a standard tools-configuration text.
 
   .. code:: jinja
