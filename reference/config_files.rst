@@ -11,3 +11,4 @@ These are the most important configuration files, used to customize conan.
 
     config_files/global_conf
     config_files/profiles_default
+    config_files/settings
