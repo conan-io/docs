@@ -1,4 +1,4 @@
-.. _conanfile_conan_package_layout:
+.. _tutorial_package_layout:
 
 Understanding the Conan Package layout
 ======================================

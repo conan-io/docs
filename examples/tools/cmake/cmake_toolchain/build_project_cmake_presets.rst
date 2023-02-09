@@ -88,4 +88,4 @@ Read More:
 - ``cmake_layout()`` :ref:`reference <cmake_layout>`
 - Conanfile :ref:`layout() method reference <conanfile_methods_layout>`
 - Package layout tutorial :ref:`tutorial <developing_packages_layout>`
-- Understanding :ref:`Conan package layouts <conanfile_conan_package_layout>`
+- Understanding :ref:`Conan package layouts <tutorial_package_layout>`

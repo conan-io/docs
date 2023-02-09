@@ -198,7 +198,9 @@ self.folders
 
 - **self.folders.root** (Defaulted to None): Specifies a parent directory where the
   sources, generators, etc., are located specifically when the ``conanfile.py`` is located
-  in a separated subdirectory.
+  in a separated subdirectory. Check :ref:`this
+  example<examples_conanfile_layout_conanfile_in_subfolder>` on how to use
+  **self.folders.root**.
 
 - **self.folders.subproject** (Defaulted to None): Specifies a subfolder where the
   ``conanfile.py`` is relative to the project root. This is particularly useful for
@@ -222,7 +224,7 @@ same described :ref:`here<conan_conanfile_model_cppinfo>`. Components are also s
 
     Read more about the usage of the ``layout()`` in :ref:`this
     tutorial<developing_packages_layout>` and Conan package layout
-    :ref:`here<conanfile_conan_package_layout>`.
+    :ref:`here<tutorial_package_layout>`.
 
 
 Environment variables and configuration
