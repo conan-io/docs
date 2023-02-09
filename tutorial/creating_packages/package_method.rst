@@ -172,3 +172,7 @@ Read more
 ---------
 
 - ...
+
+.. seealso::
+
+    - :ref:`package() method reference<reference_conanfile_methods_package>`

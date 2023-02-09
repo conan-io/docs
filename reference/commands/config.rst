@@ -19,10 +19,16 @@ conan config home
     --logger    Show the output with log format, with time, type and message.
 
 
+The ``conan config home`` command returns the path of the Conan home folder.
+See the config files documentation for more information.
+
+
 .. code-block:: bash
 
     $ conan config home
 
+
+.. _reference_commands_conan_config_install:
 
 conan config install
 --------------------

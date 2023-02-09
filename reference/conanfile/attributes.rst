@@ -433,6 +433,8 @@ tool_requires
   conanfile.py method to learn a more flexible way to add them.
 
 
+.. _reference_conanfile_attributes_build_requires:
+
 build_requires
 --------------
 
