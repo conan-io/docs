@@ -116,25 +116,26 @@ To list all the possible configurations available, run :command:`conan config li
     tools.system.package_manager:tool: Default package manager tool: 'apt-get', 'yum', 'dnf', 'brew', 'pacman', 'choco', 'zypper', 'pkg' or 'pkgutil'
 
 
+User/Tools configurations
+-------------------------
 
+Tools and user configurations can be defined in both the *global.conf* file and
+:ref:`Conan profiles <reference_config_files_profiles_conf>`. They look like:
 
-Tools configurations
---------------------
-
-Tools and user configurations allow them to be defined both in the *global.conf* file and in profile files. Profile values will
-have priority over globally defined ones in *global.conf*, and can be defined as:
 
 .. code-block:: text
-    :caption: *myprofile*
+    :caption: *global.conf*
 
-    [settings]
-    ...
-
-    [conf]
     tools.microsoft.msbuild:verbosity=Diagnostic
     tools.microsoft.msbuild:max_cpu_count=2
     tools.microsoft.msbuild:vs_version = 16
     tools.build:jobs=10
+    # User conf variable
+    user.confvar:something=False
+
+.. important::
+
+    Profiles values will have priority over globally defined ones in global.conf.
 
 
 Configuration file template
@@ -178,7 +179,6 @@ All the values will be interpreted by Conan as the result of the python built-in
 Configuration data operators
 ----------------------------
 
-
 It's also possible to use some extra operators when you're composing tool configurations in your *global.conf* or
 any of your profiles:
 
@@ -187,12 +187,8 @@ any of your profiles:
 * ``=!`` == ``unset``: gets rid of any configuration value.
 
 .. code-block:: text
-    :caption: *myprofile*
+    :caption: *global.conf*
 
-    [settings]
-    ...
-
-    [conf]
     # Define the value => ["-f1"]
     user.myconf.build:flags=["-f1"]
 
@@ -204,51 +200,6 @@ any of your profiles:
 
     # Unset the value
     user.myconf.build:flags=!
-
-
-Configuration in your profiles
---------------------------------
-
-Let's see a little bit more complex example trying different configurations coming from the *global.conf* and a simple profile:
-
-.. code-block:: text
-    :caption: *global.conf*
-
-    # Defining several lists
-    user.myconf.build:ldflags=["--flag1 value1"]
-    user.myconf.build:cflags=["--flag1 value1"]
-
-
-.. code-block:: text
-    :caption: *myprofile*
-
-    [settings]
-    ...
-
-    [conf]
-    # Appending values into the existing list
-    user.myconf.build:ldflags+=["--flag2 value2"]
-
-    # Unsetting the existing value (it'd be like we define it as an empty value)
-    user.myconf.build:cflags=!
-
-    # Prepending values into the existing list
-    user.myconf.build:ldflags=+["--prefix prefix-value"]
-
-
-Running, for instance, :command:`conan install . -pr myprofile`, the configuration output will be something like:
-
-.. code-block:: bash
-
-    ...
-    Configuration:
-    [settings]
-    [options]
-    [tool_requires]
-    [conf]
-    user.myconf.build:cflags=!
-    user.myconf.build:ldflags=['--prefix prefix-value', '--flag1 value1', '--flag2 value2']
-    ...
 
 
 Configuration patterns

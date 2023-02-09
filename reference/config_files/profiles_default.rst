@@ -310,12 +310,16 @@ All the operators/patterns explained for :ref:`reference_config_files_profiles_b
     MyPath1=+(path)/other path/path12
     MyPath1=!
 
+.. _reference_config_files_profiles_conf:
 
 [conf]
 ++++++
 
-List of user/tools configurations. They can also be used in :ref:`reference_config_files_global_conf` too.
-**Profile values will have priority over globally defined ones in global.conf**, and can be defined as:
+.. note::
+
+    It's recommended to read before the :ref:`reference_config_files_global_conf` section.
+
+List of user/tools configurations:
 
 .. code-block:: text
     :caption: *myprofile*
@@ -325,6 +329,53 @@ List of user/tools configurations. They can also be used in :ref:`reference_conf
     tools.microsoft.msbuild:max_cpu_count=2
     tools.microsoft.msbuild:vs_version = 16
     tools.build:jobs=10
+    # User conf variable
+    user.confvar:something=False
+
+
+They can also be used in :ref:`reference_config_files_global_conf`,
+but **profiles values will have priority over globally defined ones in global.conf**, so let's see a little bit
+more complex example trying different configurations coming from the *global.conf* and another profile *myprofile*:
+
+
+.. code-block:: text
+    :caption: *global.conf*
+
+    # Defining several lists
+    user.myconf.build:ldflags=["--flag1 value1"]
+    user.myconf.build:cflags=["--flag1 value1"]
+
+
+.. code-block:: text
+    :caption: *myprofile*
+
+    [settings]
+    ...
+
+    [conf]
+    # Appending values into the existing list
+    user.myconf.build:ldflags+=["--flag2 value2"]
+
+    # Unsetting the existing value (it'd be like we define it as an empty value)
+    user.myconf.build:cflags=!
+
+    # Prepending values into the existing list
+    user.myconf.build:ldflags=+["--prefix prefix-value"]
+
+
+Running, for instance, :command:`conan install . -pr myprofile`, the configuration output will be something like:
+
+.. code-block:: bash
+
+    ...
+    Configuration:
+    [settings]
+    [options]
+    [tool_requires]
+    [conf]
+    user.myconf.build:cflags=!
+    user.myconf.build:ldflags=['--prefix prefix-value', '--flag1 value1', '--flag2 value2']
+    ...
 
 
 Profile patterns
