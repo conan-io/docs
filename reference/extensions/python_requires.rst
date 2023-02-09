@@ -176,7 +176,7 @@ We could have this recipe, together with a *myfile.txt* file containing the "Hel
     $ conan create .
 
 
-Now the python-require has been created, we can access its path (the place where *myfile.txt* is) with the
+Now that the python-require has been created, we can access its path (the place where *myfile.txt* is) with the
 ``path`` attribute:
 
 .. code-block:: python
