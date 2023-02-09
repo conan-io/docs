@@ -55,4 +55,4 @@ It is possible to further modify individual traits of ``tool_requires()`` and ``
 .. seealso::
 
     - Follow the :ref:`tutorial about consuming Conan packages as tools<consuming_packages_tool_requires>`.
-    - Read the :ref:`tutorial about creating tool_requires packages<tutorial_creating_other_tool>`.
+    - Read the :ref:`tutorial about creating tool_requires packages<tutorial_other_tool_requires_packages>`.
