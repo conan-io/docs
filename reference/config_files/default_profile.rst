@@ -1,7 +1,7 @@
-.. _reference_config_files_default_profile:
+.. _reference_config_files_profiles:
 
-profiles/default
-================
+Profiles: default
+=================
 
 The **default** profile file is located in the Conan user home *profiles* directory, e.g., *[CONAN_HOME]/profiles/default*.
 
