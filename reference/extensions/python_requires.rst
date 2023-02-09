@@ -247,7 +247,7 @@ Effect in package_id
 The ``python_requires`` will affect the ``package_id`` of the **consumer packages** using those dependencies.
 By default, the policy is ``minor_mode``, which means:
 
-- Changes to the **patch** version pr the **revision** of a python-require will not affect the package ID. So depending
+- Changes to the **patch** version of the **revision** of a python-require will not affect the package ID. So depending
   on ``"pyreq/1.2.3"`` or ``"pyreq/1.2.4"`` will result in identical package ID (both will be mapped
   to ``"pyreq/1.2.Z"`` in the hash computation). Bump the patch version if you want to change your
   common code, but you don't want the consumers to be affected or to fire a re-build of the dependants.
