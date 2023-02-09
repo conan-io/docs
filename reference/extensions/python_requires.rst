@@ -8,7 +8,7 @@ Introduction
 ------------
 
 The ``python_requires`` feature is a very convenient way to share files and code between
-different recipes. A python requires is a special recipe that do not create packages and
+different recipes. A python require is a special recipe that does not create packages and
 it is just intended to be reused by other recipes.
 
 A very simple recipe that we want to reuse could be:
