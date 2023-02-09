@@ -15,5 +15,5 @@ package_info()
    package_info/package_info_conf_and_env
    package_info/components
    layout/conanfile_in_subfolder
-   layout/export_sources_folder.rst
+   layout/third_party_libraries
    layout/multiple_subprojects

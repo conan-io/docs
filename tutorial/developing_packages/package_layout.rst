@@ -326,7 +326,7 @@ defined by ``cpp.source`` and ``cpp.build``:
 
 .. seealso::
     
-    - Define the layout() :ref:`when you package third-party libraries<examples_conanfile_layout_export_sources_folder>`
+    - Define the layout() :ref:`when you package third-party libraries<examples_conanfile_layout_third_party_libraries>`
     - Define the layout() :ref:`when you have the conanfile in a subfolder<examples_conanfile_layout_conanfile_in_subfolder>`
     - Define the layout() :ref:`when you want to handle multiple subprojects<examples_conanfile_layout_multiple_subprojects>`
 
