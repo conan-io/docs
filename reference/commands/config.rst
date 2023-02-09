@@ -28,6 +28,8 @@ See the config files documentation for more information.
     $ conan config home
 
 
+.. _reference_commands_conan_config_install:
+
 conan config install
 --------------------
 
