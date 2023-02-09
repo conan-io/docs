@@ -8,13 +8,23 @@ The **global.conf** file is located in the Conan user home directory, e.g., *[CO
 Introduction to configuration
 -----------------------------
 
-*global.conf* is aimed to save some core/tools configuration variables that will be used by Conan. For instance:
+*global.conf* is aimed to save some core/tools/user configuration variables that will be used by Conan. For instance:
 
 * Package ID modes.
 * General HTTP(python-requests) configuration.
 * Number of retries when downloading/uploading recipes.
 * Related tools configurations (used by toolchains, helpers, etc.)
 * Others (required Conan version, CLI non-interactive, etc.)
+
+Let's briefly explain the three types of existing configurations:
+
+* ``core.*``: aimed to configure values of Conan core behavior (download retries, package ID modes, etc.).
+  Only definable in *global.conf* file.
+* ``tools.*``: aimed to configure values of Conan tools (toolchains, build helpers, etc.) used in your recipes.
+  Definable in both *global.conf* and *profiles*.
+* ``user.*``: aimed to define personal user configurations. They can define whatever user wants.
+  Definable in both *global.conf* and *profiles*.
+
 
 
 To list all the possible configurations available, run :command:`conan config list`:
