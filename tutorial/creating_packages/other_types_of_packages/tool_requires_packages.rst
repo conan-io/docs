@@ -1,3 +1,6 @@
+.. _tutorial_other_tool_requires_packages:
+
+
 Tool requires packages
 ======================
 
