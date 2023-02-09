@@ -1,269 +1,56 @@
-.. spelling::
-
-  ing
-  ver
-
-.. _conan_conanfile_methods:
+.. _reference_conanfile_methods:
 
 Methods
 =======
 
 
-requirements()
---------------
-
-Requirement traits
-^^^^^^^^^^^^^^^^^^
-
-Traits are properties of a requires clause. They determine how various parts of a
-dependency are treated and propagated by Conan. Values for traits are usually computed by
-Conan based on dependency's :ref:`reference_conanfile_attributes_package_type`, but can
-also be specified manually.
-
-A good introduction to traits is provided in the `Advanced Dependencies Model in Conan 2.0
-<https://youtu.be/kKGglzm5ous>`_ presentation.
-
-In the example below ``headers`` and ``libs`` are traits.
-
-.. code-block:: python
-
-       self.requires("math/1.0", headers=True, libs=True)
-
-
-headers
-~~~~~~~
-
-Indicates that there are headers that are going to be ``#included`` from this package at
-compile time. The dependency will be in the host context.
-
-libs
-~~~~
-
-The dependency contains some library or artifact that will be used at link time of the
-consumer. This trait will typically be ``True`` for direct shared and static libraries,
-but could be false for indirect static libraries that are consumed via a shared library.
-The dependency will be in the host context.
-
-build
-~~~~~
-
-This dependency is a build tool, an application or executable, like cmake, that is used
-exclusively at build time. It is not linked/embedded into binaries, and will be in the
-build context.
-
-run
-~~~
-
-This dependency contains some executables, either apps or shared libraries that need to be
-available to execute (typically in the path, or other system env-vars). This trait can be
-``True`` for ``build=False``, in that case, the package will contain some executables that
-can run in the host system when installing it, typically like an end-user application.
-This trait can be ``True`` for ``build=True``, the package will contain executables that
-will run in the build context, typically while being used to build other packages.
-
-visible
-~~~~~~~
-
-This ``require`` will be propagated downstream, even if it doesn't propagate ``headers``,
-``libs`` or ``run`` traits. Requirements that propagate downstream can cause version
-conflicts. This is typically ``True``, because in most cases, having 2 different versions of
-the same library in the same dependency graph is at least complicated, if not directly
-violating ODR or causing linking errors. It can be set to ``False`` in advanced scenarios,
-when we want to use different versions of the same package during the build.
-
-transitive_headers
-~~~~~~~~~~~~~~~~~~
-
-If ``True`` the headers of the dependency will be visible downstream.
-
-transitive_libs
-~~~~~~~~~~~~~~~
-
-If ``True`` the libraries to link with of the dependency will be visible downstream.
-
-test
-~~~~
-
-This requirement is a test library or framework, like Catch2 or gtest. It is mostly a
-library that needs to be included and linked, but that will not be propagated downstream.
-
-package_id_mode
-~~~~~~~~~~~~~~~
-
-If the recipe wants to specify how the dependency version affects the current package
-``package_id``, can be directly specified here.
-
-While it could be also done in the ``package_id()`` method, it seems simpler to be able to
-specify it in the ``requires`` while avoiding some ambiguities.
-
-.. code-block:: python
-
-    # We set the package_id_mode so it is part of the package_id
-    self.tool_requires("tool/1.1.1", package_id_mode="minor_mode")
-
-Which would be equivalent to:
-
-.. code-block:: python
-
-    def package_id(self):
-      self.info.requires["tool"].minor_mode()
-
-force
-~~~~~
-
-This ``requires`` will force its version in the dependency graph upstream, overriding
-other existing versions even of transitive dependencies, and also solving potential
-existing conflicts.
-
-override
-~~~~~~~~
-
-The same as the ``force`` trait, but not adding a ``direct`` dependency. If there is no
-transitive dependency to override, this ``require`` will be discarded. This trait only
-exists at the time of defining a ``requires``, but it will not exist as an actual
-``requires`` once the graph is fully evaluated
-
-direct
-~~~~~~
-
-If the dependency is a direct one, that is, it has explicitly been declared by the current
-recipe, or if it is a transitive one.
-
-
-validate_build()
-----------------
-
-The ``validate_build()`` method is used to verify if a configuration is valid for building a package. It is different
-from the ``validate()`` method that checks if the binary package is "impossible" or invalid for a given configuration.
-
-The ``validate_build()`` method has to use always the ``self.settings`` and ``self.options``:
-
-.. code-block:: python
-
-    from conan import ConanFile
-    from conan.errors import ConanInvalidConfiguration
-    class myConan(ConanFile):
-        name = "foo"
-        version = "1.0"
-        settings = "os", "arch", "compiler"
-        def package_id(self):
-            # For this package, it doesn't matter the compiler used for the binary package
-            del self.info.settings.compiler
-        def validate_build(self):
-            # But we know this cannot be build with "gcc"
-            if self.settings.compiler == "gcc":
-                raise ConanInvalidConfiguration("This doesn't build in GCC")
-
-
-.. _conanfile_methods_layout:
-
-layout()
---------
-
-In the layout() method you can adjust ``self.folders`` and ``self.cpp``.
-
-
-.. _layout_folders_reference:
-
-self.folders
-^^^^^^^^^^^^
-
-- **self.folders.source** (Defaulted to ""): Specifies a subfolder where the sources are.
-  The ``self.source_folder`` attribute inside the ``source(self)`` and ``build(self)``
-  methods will be set with this subfolder. The *current working directory* in the
-  ``source(self)`` method will include this subfolder. The `export_sources`, `exports` and
-  `scm` sources will also be copied to the root source directory. It is used in the cache
-  when running :command:`conan create` (relative to the cache source folder) as well as in
-  a local folder when running :command:`conan build` (relative to the local current
-  folder).
-
-- **self.folders.build** (Defaulted to ""): Specifies a subfolder where the files from the
-  build are. The ``self.build_folder`` attribute and the *current working directory*
-  inside the ``build(self)`` method will be set with this subfolder. It is used in the
-  cache when running :command:`conan create` (relative to the cache source folder) as well
-  as in a local folder when running :command:`conan build` (relative to the local current
-  folder).
-
-- **self.folders.generators** (Defaulted to ""): Specifies a subfolder where to write the
-  files from the generators and the toolchains. In the cache, when running the
-  :command:`conan create`, this subfolder will be relative to the root build folder and
-  when running the :command:`conan install` command it will be relative to the current
-  working directory.
-
-- **self.folders.root** (Defaulted to None): Specifies a parent directory where the
-  sources, generators, etc., are located specifically when the ``conanfile.py`` is located
-  in a separated subdirectory. Check :ref:`this
-  example<examples_conanfile_layout_conanfile_in_subfolder>` on how to use
-  **self.folders.root**.
-
-- **self.folders.subproject** (Defaulted to None): Specifies a subfolder where the
-  ``conanfile.py`` is relative to the project root. This is particularly useful for
-  :ref:`layouts with multiple subprojects<examples_conanfile_layout_multiple_subprojects>`
-
-
-.. _layout_cpp_reference:
-
-self.cpp
-^^^^^^^^
-
-The ``layout()`` method allows to declare ``cpp_info`` objects not only for the final
-package (like the classic approach with the ``self.cpp_info`` in the
-``package_info(self)`` method) but for the ``self.source_folder`` and
-``self.build_folder``.
-
-The fields of the cpp_info objects at ``self.cpp.build`` and ``self.cpp.source`` are the
-same described :ref:`here<conan_conanfile_model_cppinfo>`. Components are also supported.
-
-.. seealso::
-
-    Read more about the usage of the ``layout()`` in :ref:`this
-    tutorial<developing_packages_layout>` and Conan package layout
-    :ref:`here<tutorial_package_layout>`.
-
-
-Environment variables and configuration
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-There are some packages that might define some environment variables in their
-``package_info()`` method via ``self.buildenv_info``, ``self.runenv_info``. Other 
-packages can also use ``self.conf_info`` to pass configuration to their consumers.
-
-This is not an issue as long as the value of those environment variables or configuration
-do not require using the ``self.package_folder``. If they do, then their values will
-not be correct for the "source" and "build" layouts. Something like this will be **broken**
-when used in ``editable`` mode:
-
-..  code-block:: python
-
-    import os
-    from conan import ConanFile
-
-    class SayConan(ConanFile):
-        ...
-        def package_info(self):
-            # This is BROKEN if we put this package in editable mode
-            self.runenv_info.define_path("MYDATA_PATH",
-                                         os.path.join(self.package_folder, "my/data/path"))
-
-When the package is in editable mode, for example, ``self.package_folder`` is ``None``, as 
-obviously there is no package yet. 
-The solution is to define it in the ``layout()`` method, in the same way the ``cpp_info`` can
-be defined there:
-
-..  code-block:: python
-
-    from conan import ConanFile
-
-    class SayConan(ConanFile):
-        ...
-        def layout(self):
-            # The final path will be relative to the self.source_folder
-            self.layouts.source.buildenv_info.define_path("MYDATA_PATH", "my/source/data/path")
-            # The final path will be relative to the self.build_folder
-            self.layouts.build.buildenv_info.define_path("MYDATA_PATH2", "my/build/data/path")
-            # The final path will be relative to the self.build_folder
-            self.layouts.build.conf_info.define_path("MYCONF", "my_conf_folder")
-
-
-The ``layouts`` object contains ``source``, ``build`` and ``package`` scopes, and each one contains
-one instance of ``buildenv_info``, ``runenv_info`` and ``conf_info``.
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+   
+   methods/build
+   methods/build_id
+   methods/build_requirements
+   methods/compatibility
+   methods/configure
+   methods/config_options
+   methods/export
+   methods/export_sources
+   methods/generate
+   methods/init
+   methods/layout
+   methods/package
+   methods/package_id
+   methods/package_info
+   methods/requirements
+   methods/set_name
+   methods/set_version
+   methods/source
+   methods/system_requirements
+   methods/test
+   methods/validate
+   methods/validate_build
+
+
+- :doc:`build() <methods/build>`: Contains the build instructions to build a package from source
+- :doc:`build_id() <methods/build_id>`: Allows reusing the same build to create different package binaries
+- :doc:`build_requirements() <methods/build_requirements>`: Defines ``tool_requires`` and ``test_requires``
+- :doc:`compatibility() <methods/compatibility>`: Defines binary compatibility at the recipe level
+- :doc:`configure() <methods/configure>`: Allows configuring settings and options while computing dependencies
+- :doc:`config_options() <methods/config_options>`: Configure options while computing dependency graph
+- :doc:`export() <methods/export>`: Copies files that are part of the recipe
+- :doc:`export_sources() <methods/export_sources>`: Copies files that are part of the recipe sources
+- :doc:`generate() <methods/generate>`: Generates the files that are necessary for building the package
+- :doc:`init() <methods/init>`: Special initialization of recipe when extending from ``python_requires``
+- :doc:`layout() <methods/layout>`: Defines the relative project layout, source folders, build folders, etc.
+- :doc:`package() <methods/package>`: Copies files from build folder to the package folder.
+- :doc:`package_id() <methods/package_id>`: Defines special logic for computing the binary ``package_id`` identifier
+- :doc:`package_info() <methods/package_info>`: Provide information for consumers of this package about libraries, folders, etc.
+- :doc:`requirements() <methods/requirements>`: Define the dependencies of the package
+- :doc:`set_name() <methods/set_name>`: Dynamically define the name of a package
+- :doc:`set_version() <methods/set_version>`: Dynamically define the version of a package.
+- :doc:`source() <methods/source>`: Define the dependencies of the package
+- :doc:`system_requirements() <methods/system_requirements>`: Call system package managers like Apt to install system packages
+- :doc:`test() <methods/test>`: Run some simple package test (exclusive of ``test_package``)
+- :doc:`validate() <methods/validate>`: Define if the current package is invalid (cannot work) with the current configuration.
+- :doc:`validate_build() <methods/validate_build>`: Define if the current package cannot be created with the current configuration.

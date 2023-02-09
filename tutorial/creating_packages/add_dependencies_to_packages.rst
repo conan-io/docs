@@ -57,16 +57,16 @@ Let's check the relevant parts:
   did not have dependencies. ``CMakeDeps`` will generate all the config files CMake needs
   to find the ``fmt`` library.
 
-* Next, we use the :ref:`requires()<conan_conanfile_methods>` method to add the
+* Next, we use the :ref:`requires()<reference_conanfile_methods>` method to add the
   `fmt <https://conan.io/center/fmt>`__  dependency to our package.
 
-* Also, check that we added an extra line in the :ref:`source()<conan_conanfile_methods>`
+* Also, check that we added an extra line in the :ref:`source()<reference_conanfile_methods>`
   method. We use the `Git().checkout` method to checkout the source code in the
   `require_fmt <https://github.com/conan-io/libhello/tree/require_fmt>`__ branch. This
   branch contains the changes in the source code to add colours to the library messages,
   and also in the ``CMakeLists.txt`` to declare that we are using the ``fmt`` library.
 
-* Finally, note we added the :ref:`validate()<conan_conanfile_methods>` method to the
+* Finally, note we added the :ref:`validate()<reference_conanfile_methods>` method to the
   recipe. We already used this method in the :ref:`consuming packages
   section<consuming_packages_flexibility_of_conanfile_py>` to raise an error for
   non-supported configurations. Here, we call the

@@ -1,4 +1,4 @@
-.. _creating_packages_package_info:
+.. _tutorial_creating_define_package_info:
 
 Define information for consumers: the package_info() method
 ===========================================================
@@ -32,7 +32,7 @@ Then, consumers that want to link against this library will need some informatio
 
 Conan provides an abstraction over all the information consumers may need in the
 :ref:`cpp_info<conan_conanfile_model_cppinfo>` attribute of the ConanFile. The information
-for this attribute must be set in the ``package_info()`` method. Let's have a look at the
+for this attribute must be set in the :ref:`package_info() method<reference_conanfile_methods_package_info>`. Let's have a look at the
 ``package_info()`` method of our *hello/1.0* Conan package:
 
 .. code-block:: python
@@ -349,4 +349,7 @@ Read more
     - :ref:`Propagating environment and configuration information to consumers example<examples_conanfile_package_info_conf_and_env>`
     - :ref:`Define components for Conan packages that provide multiple libraries example<examples_conanfile_package_info_components>`
 
-- ...
+
+.. seealso::
+
+    - :ref:`package_info() reference<reference_conanfile_methods_package_info>`

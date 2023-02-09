@@ -1,3 +1,5 @@
+.. _tutorial_creating_test:
+
 Testing Conan packages
 ======================
 
