@@ -3,35 +3,37 @@
 Artifactory
 ============
 
-`JFrog's Artifactory <https://jfrog.com/artifactory/>`_ is the single solution for housing and managing all the
-artifacts, binaries, packages, files, containers, and components for use throughout your software supply chain. This
-pairs nicely with Conan since its power comes from binary management for C/C++. Being able to host these packages for
-your team is an essential part.
+`JFrog's Artifactory <https://jfrog.com/artifactory/>`_ is used to power `ConanCenter`_ and it is the single solution
+for housing and managing all the binaries, packages, and files for use throughout your software supply chain.
 
-- `Artifact management options <https://jfrog.com/artifact-management/>`_
-
-    These artifacts need to be stored and shared with all the developers on a project. Some possible solutions include
-    a shared drive, a source control management tool or an artifact management repository. A shared drive has limitations
-    including limited version control and no artifact deployment capability. A source control management tool is really
-    only designed for managing source code text files and not complex artifacts like large binaries.
+This pairs nicely with Conan whose strength comes from binary management for C/C++. These artifacts need to be stored
+and shared with all the developers on a project. For `artifact management <https://jfrog.com/artifact-management/>`_
+some possible solutions include a shared drive or source control management tool, these other options have limitations
+when dealing with binary packages that evolved through the software development life cycle.
 
 .. _using_artifactory:
 
 Using Artifactory
 -----------------
 
-In Artifactory, you can create and manage as many free, personal Conan repositories as you like.
-On an `Free-Tier`_ account, all packages you *upload are public*, and anyone can use them by simply adding your
-repository to their Conan remotes. You still can create private repositories using :ref:`Artifactory CE<artifactory_ce>`
-or Artifactory Cloud Premium account.
+In Artifactory, you can create and manage as many Conan repositories as you like either on a :ref:`Free-Tier<free_tier>`
+account or using :ref:`Artifactory CE<artifactory_ce>` hosted locally in your network.
 
 .. important::
 
-    Conan 2.0 support in Artifactory starting around v6.9 with recipe revisions however it is **strongly recommended** to have
-    a version above 7.41 which was in use by ConanCenter during the final development and is known to work in the majority of use cases.
+    Conan 2.0 support in Artifactory starting around v6.9 with recipe revisions however it is **strongly recommended**
+    to have a version above 7.41 which was in use by ConanCenter during the final development and is known to work in
+    the majority of use cases.
 
-    Complete support for Conan 2.0 was introduced with 7.52. Please refer to the `Artifactory Changelog <https://www.jfrog.com/confluence/display/JFROG/Artifactory+Release+Notes>`_
-    to ensure no bugfixes appear in more recent versions.
+    Complete support for Conan 2.0 was introduced with 7.52. Please refer to the
+    `Artifactory Changelog <https://www.jfrog.com/confluence/display/JFROG/Artifactory+Release+Notes>`_ to ensure no
+    bugfixes appear in more recent versions.
+
+By creating different repositories you can control the way binaries enter, advance, and are leveraged throughout the
+software supply chain. Using a promote (not rebuild) workflow for binaries as they advance through the SSC to ensure
+integrity. This enables scaling to meet the needs of the largest organizations and systems that simply cannot fail.
+See the `Artifactory's Onboarding Best Practices <https://www.jfrog.com/confluence/display/JFROG/Onboarding+Best+Practices%3A+JFrog+Artifactory>`_
+for more details.
 
 .. _artifactory_ce:
 
@@ -39,26 +41,29 @@ Artifactory Community Edition for C/C++
 ---------------------------------------
 
 Artifactory Community Edition (CE) for C/C++ is the recommended server for development and hosting private
-packages for a team or company. It is completely free, and it features a WebUI, advanced authentication and permissions, great performance
-and scalability, a REST API, a generic CLI tool and generic repositories to host any kind of source or binary
-artifact.
+packages for a team or company. It is completely free, and it features a WebUI, advanced authentication and permissions,
+great performance and scalability, a REST API, a generic CLI tool and generic repositories to host any kind of source
+or binary artifact.
 
-This is a very brief introduction to Artifactory CE. For the complete Artifactory CE documentation,
-visit `Artifactory docs <https://www.jfrog.com/confluence/>`_.
+This is a very brief introduction to Artifactory CE. For the complete documentation, visit the official
+`Artifactory docs <https://www.jfrog.com/confluence/display/JFROG/JFrog+Artifactory>`_.
 
 Running Artifactory CE
 ++++++++++++++++++++++
 
 There are several ways to download and run Artifactory CE. The simplest one might be to download and unzip the
-designated zip file, though other installers, including also installing from a Docker image. The `Download Page <https://conan.io/downloads.html>`_ has a link for you to follow.
-When the file is unzipped, launch Artifactory by double clicking the artifactory.bat(Windows) or artifactory.sh script in the *app/bin*
-subfolder, depending on the OS.
+designated zip file, though other installers, including also installing from a Docker image. The 
+`Download Page <https://conan.io/downloads.html>`_ has a complete list to choice from.
+
+When the file is unzipped, launch Artifactory by double clicking the ``artifactory.bat`` (Windows) or ``artifactory.sh``
+(Unix) script in the ``app/bin`` subfolder, depending on the OS.
+
 Artifactory comes with JDK bundled, please `read Artifactory requirements <https://www.jfrog.com/confluence/display/JFROG/System+Requirements>`_.
 
-.. image:: ../../images/artifactory/conan-artifactory_ce.png
-
 Once Artifactory has started, navigate to the default URL `http://localhost:8081`, where the Web UI should be running.
-The default user and password are ``admin:password``.
+The default user and password are ``admin:password``. 
+
+.. _free_tier:
 
 Starting with Artifactory Cloud Free-Tier
 +++++++++++++++++++++++++++++++++++++++++
@@ -69,7 +74,7 @@ repository follow these steps:
 1. **Create an Artifactory Free-Tier account**
 
    Browse to https://jfrog.com/community/start-free/ and submit the form to create your account. Note that
-   you don't have to use the same username that you use for your Conan account.
+   you don't have to use the same username that you use for your Conan remote.
 
 Creating and Using a Conan Repo
 -------------------------------
@@ -122,7 +127,7 @@ From now, you can upload, download, search, etc. the remote repos similarly to t
 Setting the remotes in this way will cause your Conan client to resolve packages and install them from
 repositories in the following order of priority:
 
-  1. `conancenter`_
+  1. `ConanCenter`_
   2. Your own repository
 
 If you want to have your own repository first, please use the ``--insert`` command line option
@@ -139,8 +144,6 @@ when adding it:
 
     Check the full reference of :ref:`$ conan remote<conan_remote>` command.
 
-
-.. _`conancenter`: https://conan.io/center
 
 Migrating from Other Servers
 ----------------------------
@@ -169,3 +172,6 @@ This Python script might be helpful, given that it already defines the respectiv
         run("conan download %s -r=local" % package)
 
     run("conan upload \"*\" --all --confirm -r=artifactory")
+
+
+.. _`ConanCenter`: https://conan.io/center
