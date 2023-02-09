@@ -118,15 +118,82 @@ You can also show profile's content:
     - Check the command :ref:`conan profile <reference_commands_profile>`.
 
 
-Sections in profiles
---------------------
+Profile rendering
+-----------------
+
+The profiles are rendered as **jinja2** templates by default. When Conan loads a profile, it immediately parses and
+renders the template, which must result in a standard text profile.
+
+Some of the capabilities of the profile templates are:
+
+- Using the platform information, like obtaining the current OS is possible because the
+  Python ``platform`` module is added to the render context:
+
+  .. code:: jinja
+
+     [settings]
+     os = {{ {"Darwin": "Macos"}.get(platform.system(), platform.system()) }}
+
+- Reading environment variables can be done because the Python ``os`` module is added
+  to the render context.:
+
+  .. code:: jinja
+
+     [settings]
+     build_type = {{ os.getenv("MY_BUILD_TYPE") }}
+
+- Defining your own variables and using them in the profile:
+
+  .. code:: jinja
+
+     {% set os = "FreeBSD" %}
+     {% set clang = "my/path/to/clang" %}
+
+     [settings]
+     os = {{ os }}
+
+     [conf]
+     tools.build:compiler_executables={'c': '{{ clang }}', 'cpp': '{{ clang + '++' }}' }
+
+
+- Joining and defining paths, including referencing the current profile directory. For
+  example, defining a toolchain which file is located besides the profile can be done.
+  Besides the ``os`` Python module, the variable ``profile_dir`` pointing to the current profile
+  folder is added to the context.
+
+  .. code:: jinja
+
+       [conf]
+       tools.cmake.cmaketoolchain:toolchain_file = {{ os.path.join(profile_dir, "toolchain.cmake") }}
+
+- Including or importing other files from ``profiles`` folder:
+
+  .. code-block:: jinja
+     :caption: profile_vars.jinja
+
+     {% set a = "Debug" %}
+
+  .. code-block:: jinja
+     :caption: profile1.jinja
+
+     {% import "profile_vars.jinja" as vars %}
+     [settings]
+     build_type = {{ vars.a }}
+
+- Any other feature supported by *jinja2* is possible: for loops, if-else, etc. This
+  would be useful to define custom per-package settings or options for multiple packages
+  in a large dependency graph.
+
+
+Profiles sections
+-----------------
 
 These are the available sections in profiles:
 
 [settings]
 ++++++++++
 
-List of settings available from settings.yml:
+List of settings available from **settings.yml**:
 
 .. code-block:: text
     :caption: *myprofile*
@@ -151,7 +218,7 @@ List of options available from your recipe and its dependencies:
 
     [options]
     my_pkg_option=True
-    zlib:shared=True
+    shared=True
 
 
 [tool_requires]
@@ -164,7 +231,7 @@ List of ``tool_requires`` required by your recipe or its dependencies:
 
     [tool_requires]
     cmake/3.25.2
-    zlib:cmake/3.20.6
+    cmake/3.20.6
 
 
 .. seealso::
@@ -208,8 +275,8 @@ the prefix of the variable. It is useful to automatically get the append/prepend
     # Prepend another PATH to "MyPath1"
     MyPath1=+(path)/other path/path12
 
-    # Unset the variable "PATH" for all the packages matching the pattern "mypkg*"
-    mypkg*:PATH=!
+    # Unset the variable "MyPath1"
+    MyPath1=!
 
 
 Then, the result of applying this profile is:
@@ -241,7 +308,7 @@ All the operators/patterns explained for :ref:`reference_config_files_profiles_b
     MyVar1+=MyValue12
     MyPath1=(path)/some/path11
     MyPath1=+(path)/other path/path12
-    mypkg*:PATH=!
+    MyPath1=!
 
 
 [conf]
@@ -280,6 +347,10 @@ for some specific packages:
     compiler.version=4.9
     compiler.libcxx=libstdc++11
 
+    [options]
+    # shared=True option only for zlib package
+    zlib:shared=True
+
     [buildenv]
     # For the all the dependency tree
     *:MYVAR=my_var
@@ -289,7 +360,7 @@ for some specific packages:
     zlib:tools.build:compiler_executables={'c': '/usr/bin/clang', 'cpp': '/usr/bin/clang++'}
 
 
-Your build tool will locate **clang**/**clang++** compiler only for the **zlib** package and **gcc** (default one)
+Your build tool will locate **clang** compiler only for the **zlib** package and **gcc** (default one)
 for the rest of your dependency tree.
 
 They accept patterns too, like ``-s *@myuser/*``, which means that packages that have the username "myuser" will use
@@ -314,3 +385,49 @@ This is a special case because the consumer conanfile might not declare a `name`
     &:compiler=gcc
     &:compiler.version=4.9
     &:compiler.libcxx=libstdc++11
+
+
+Profile includes
+----------------
+
+You can include other profiles using the ``include()`` statement. The path can be relative to the current profile, absolute, or a profile
+name from the default profile location in the local cache.
+
+The ``include()`` statement has to be at the top of the profile file:
+
+.. code-block:: text
+    :caption: *gcc_49*
+
+    [settings]
+    compiler=gcc
+    compiler.version=4.9
+    compiler.libcxx=libstdc++11
+
+.. code-block:: text
+    :caption: *myprofile*
+
+    include(gcc_49)
+
+    [settings]
+    zlib:compiler=clang
+    zlib:compiler.version=3.5
+    zlib:compiler.libcxx=libstdc++11
+
+
+The final result of using *myprofile* is:
+
+.. code-block:: text
+    :caption: *myprofile (virtual result)*
+
+    [settings]
+    compiler=gcc
+    compiler.libcxx=libstdc++11
+    compiler.version=4.9
+    zlib:compiler=clang
+    zlib:compiler.libcxx=libstdc++11
+    zlib:compiler.version=3.5
+
+
+.. seealso::
+
+    - :ref:`How to compose two or more profiles <reference_commands_install_composition>`
