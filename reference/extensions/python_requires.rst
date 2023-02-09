@@ -29,7 +29,7 @@ A very simple recipe that we want to reuse could be:
 
      
 And then we will make it available to other packages with ``conan create .``. Note that a ``python-require``
-package do not create binaries, it is just the recipe part.
+package does not create binaries, it is just the recipe part.
 
 .. code-block:: bash
 
