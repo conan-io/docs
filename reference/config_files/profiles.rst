@@ -413,9 +413,9 @@ for some specific packages:
 
     [settings]
     # Only for zlib
-    zlib:compiler=clang
-    zlib:compiler.version=3.5
-    zlib:compiler.libcxx=libstdc++11
+    zlib*:compiler=clang
+    zlib*:compiler.version=3.5
+    zlib*:compiler.libcxx=libstdc++11
 
     # For the all the dependency tree
     compiler=gcc
@@ -424,7 +424,7 @@ for some specific packages:
 
     [options]
     # shared=True option only for zlib package
-    zlib:shared=True
+    zlib*:shared=True
 
     [buildenv]
     # For the all the dependency tree
@@ -432,7 +432,7 @@ for some specific packages:
 
     [conf]
     # Only for zlib
-    zlib:tools.build:compiler_executables={'c': '/usr/bin/clang', 'cpp': '/usr/bin/clang++'}
+    zlib*:tools.build:compiler_executables={'c': '/usr/bin/clang', 'cpp': '/usr/bin/clang++'}
 
 
 Your build tool will locate **clang** compiler only for the **zlib** package and **gcc** (default one)
@@ -484,9 +484,9 @@ The ``include()`` statement has to be at the top of the profile file:
     include(gcc_49)
 
     [settings]
-    zlib:compiler=clang
-    zlib:compiler.version=3.5
-    zlib:compiler.libcxx=libstdc++11
+    zlib*:compiler=clang
+    zlib*:compiler.version=3.5
+    zlib*:compiler.libcxx=libstdc++11
 
 
 The final result of using *myprofile* is:
@@ -498,9 +498,9 @@ The final result of using *myprofile* is:
     compiler=gcc
     compiler.libcxx=libstdc++11
     compiler.version=4.9
-    zlib:compiler=clang
-    zlib:compiler.libcxx=libstdc++11
-    zlib:compiler.version=3.5
+    zlib*:compiler=clang
+    zlib*:compiler.libcxx=libstdc++11
+    zlib*:compiler.version=3.5
 
 
 .. seealso::

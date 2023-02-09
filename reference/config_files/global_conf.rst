@@ -188,6 +188,7 @@ any of your profiles:
 
 .. code-block:: text
     :caption: *global.conf*
+
     # Define the value => ["-f1"]
     user.myconf.build:flags=["-f1"]
 
