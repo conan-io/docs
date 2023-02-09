@@ -1,4 +1,5 @@
-.. _tutorial_creating_other_tool:
+.. _tutorial_other_tool_requires_packages:
+
 
 Tool requires packages
 ======================
