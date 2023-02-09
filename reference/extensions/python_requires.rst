@@ -34,7 +34,7 @@ package do not create binaries, it is just the recipe part.
 .. code-block:: bash
 
     $ conan create .
-    # It will only export the recipe, but NOT create binaries
+    # It will only export the recipe, but will NOT create binaries
     # python-requires do NOT have binaries
 
 
