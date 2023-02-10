@@ -291,8 +291,8 @@ List of user/tools configurations:
 
 
 They can also be used in :ref:`reference_config_files_global_conf`,
-but **profiles values will have priority over globally defined ones in global.conf**, so let's see a little bit
-more complex example trying different configurations coming from the *global.conf* and another profile *myprofile*:
+but **profiles values will have priority over globally defined ones in global.conf**, so let's see an example that is a bit more complex,
+trying different configurations coming from the *global.conf* and another profile *myprofile*:
 
 
 .. code-block:: text
