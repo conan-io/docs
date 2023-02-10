@@ -3,8 +3,8 @@
 settings.yml
 ============
 
-The input ``settings`` for packages in Conan are predefined in ``~/[CONAN_HOME]/settings.yml`` file, so only a few like ``os`` or ``compiler``
-are possible. These are the **default** values.
+This configuration file is located in Conan user home, i.e., ``[CONAN_HOME]/settings.yml``.
+It looks like this:
 
 .. code-block:: yaml
 
@@ -128,13 +128,13 @@ are possible. These are the **default** values.
     build_type: [null, Debug, Release, RelWithDebInfo, MinSizeRel]
 
 
-As you can see, the possible values ``settings`` can take are restricted in the same file. This is done to ensure matching naming and
+As you can see, the possible values of ``settings`` are defined in the same file. This is done to ensure matching naming and
 spelling as well as defining a common settings model among users and the OSS community.
 If a setting is allowed to be set to any value, you can use ``ANY``.
-If a setting is allowed to be set to any value or it can also be unset, you can use ``[None, ANY]``.
+If a setting is allowed to be set to any value or it can also be unset, you can use ``[null, ANY]``.
 
 However, this configuration file can be modified to any needs, including new settings or sub-settings and their values. If you want
-to distribute a unified *settings.yml* file you can use the :ref:`conan config install command<reference_commands_conan_config_install>`.
+to distribute an unified *settings.yml* file you can use the :ref:`conan config install command<reference_commands_conan_config_install>`.
 
 .. seealso::
 
@@ -144,12 +144,13 @@ to distribute a unified *settings.yml* file you can use the :ref:`conan config i
 Operating systems
 -----------------
 
-``baremetal`` operating system (introduced in Conan 1.43) is a convention meaning that the binaries run directly on the hardware, without a operating system or equivalent
-layer. This is to differentiate to the ``None`` value, which is associated to the "this value is not defined" semantics.
-The ``baremetal`` is a common name convention for embedded microprocessors and microcontrollers code. It is expected that users might customize the
-space inside the ``baremetal`` setting with further subsettings to specify their specific hardware platforms, boards, families, etc.
-At the moment (Conan 1.43) the ``os=baremetal`` value is still not used by Conan builtin toolchains and helpers, but it is expected that they can
-evolve and start using it.
+``baremetal`` operating system (introduced in Conan 1.43) is a convention meaning that the binaries run directly
+on the hardware, without a operating system or equivalent layer. This is to differentiate to the ``None`` value,
+which is associated to the "this value is not defined" semantics. The ``baremetal`` is a common name convention for
+embedded microprocessors and microcontrollers code. It is expected that users might customize the space inside the
+``baremetal`` setting with further subsettings to specify their specific hardware platforms, boards, families, etc.
+At the moment (Conan 1.43) the ``os=baremetal`` value is still not used by Conan builtin toolchains and helpers,
+but it is expected that they can evolve and start using it.
 
 
 Compilers
@@ -161,17 +162,16 @@ msvc
 ++++
 
 - It uses the compiler version, that is 190 (19.0), 191 (19.1), etc, instead of the Visual Studio IDE (15, 16, etc).
-- It is only used by the new build integrations in :ref:`conan_tools_cmake` and :ref:`conan_tools_microsoft`, but not the previous ones.
-- At the moment it implements a ``compatible_packages`` fallback to Visual Studio compiled packages, that is, previous existing binaries
-  compiled with ``settings.compiler="Visual Studio"`` can be used for the ``msvc`` compiler if no binaries exist for it yet.
-  This behavior can be opted-out with ``core.package_id:msvc_visual_incompatible`` :ref:`reference_config_files_global_conf` configuration.
+- It is only used by the new build integrations in :ref:`conan_tools_cmake` and :ref:`conan_tools_microsoft`,
+  but not the previous ones.
 
-When using the ``msvc`` compiler, the Visual Studio toolset version (the actual ``vcvars`` activation and ``MSBuild`` location) will be
-defined by the default provide of that compiler version:
+When using the ``msvc`` compiler, the Visual Studio toolset version (the actual ``vcvars`` activation
+and ``MSBuild`` location) will be defined by the default provide of that compiler version:
 
 - ``msvc`` compiler version '190': Visual Studio 14 2015
 - ``msvc`` compiler version '191': Visual Studio 15 2017
 - ``msvc`` compiler version '192': Visual Studio 16 2019
+- ``msvc`` compiler version '193': Visual Studio 17 2022
 
 This can be configured in your profiles with the ``tools.microsoft.msbuild:vs_version`` configuration:
 
@@ -207,8 +207,6 @@ to the ``update`` subsetting in ``settings.yml``.
 intel-cc
 ++++++++
 
-Available since: `1.41.0 <https://github.com/conan-io/conan/releases/tag/1.41.0>`_
-
 This compiler is a new, **experimental** one, aimed to handle the new Intel oneAPI DPC++/C++/Classic compilers.
 Instead of having *n* different compilers, you have 3 different **modes** of working:
 
@@ -216,11 +214,10 @@ Instead of having *n* different compilers, you have 3 different **modes** of wor
 * ``dpcpp`` for Intel oneAPI DPC++.
 * ``classic`` for Intel C++ Classic ones.
 
-Besides that, Intel releases some versions with revisions numbers so the ``update`` field it's supposed to be any possible minor number for the Intel compiler version used, e.g,
-``compiler.version=2021.1`` and ``compiler.update=311`` mean Intel version is ``2021.1.311``.
+Besides that, Intel releases some versions with revisions numbers so the ``update`` field it's supposed to be any
+possible minor number for the Intel compiler version used, e.g, ``compiler.version=2021.1`` and
+``compiler.update=311`` mean Intel version is ``2021.1.311``.
 
-
-For more information, you can check the :ref:`IntelCC section <reference_tools_intel>`.
 
 Architectures
 -------------
@@ -228,73 +225,45 @@ Architectures
 Here you can find a brief explanation of each of the architectures defined as ``arch``, ``arch_build`` and ``arch_target`` settings.
 
 - **x86**: The popular 32 bit x86 architecture.
-
 - **x86_64**: The popular 64 bit x64 architecture.
-
 - **ppc64le**: The PowerPC 64 bit Big Endian architecture.
-
 - **ppc32**: The PowerPC 32 bit architecture.
-
 - **ppc64le**: The PowerPC 64 bit Little Endian architecture.
-
 - **ppc64**: The PowerPC 64 bit Big Endian architecture.
-
 - **armv5el**: The ARM 32 bit version 5 architecture, soft-float.
-
 - **armv5hf**: The ARM 32 bit version 5 architecture, hard-float.
-
 - **armv6**: The ARM 32 bit version 6 architecture.
-
 - **armv7**: The ARM 32 bit version 7 architecture.
-
 - **armv7hf**: The ARM 32 bit version 7 hard-float architecture.
-
 - **armv7s**: The ARM 32 bit version 7 *swift* architecture mostly used in Apple's A6 and A6X chips on iPhone 5, iPhone 5C and iPad 4.
-
 - **armv7k**: The ARM 32 bit version 7 *k* architecture mostly used in Apple's WatchOS.
-
 - **armv8**: The ARM 64 bit and 32 bit compatible version 8 architecture. It covers only the ``aarch64`` instruction set.
-
 - **armv8_32**: The ARM 32 bit version 8 architecture. It covers only the ``aarch32`` instruction set (a.k.a. ``ILP32``).
-
 - **armv8.3**: The ARM 64 bit and 32 bit compatible version 8.3 architecture. Also known as ``arm64e``, it is used on the A12 chipset added
   in the latest iPhone models (XS/XS Max/XR).
-
 - **sparc**: The SPARC (Scalable Processor Architecture) originally developed by Sun Microsystems.
-
 - **sparcv9**: The SPARC version 9 architecture.
-
 - **mips**: The 32 bit MIPS (Microprocessor without Interlocked Pipelined Stages) developed by MIPS Technologies (formerly MIPS Computer
   Systems).
-
 - **mips64**: The 64 bit MIPS (Microprocessor without Interlocked Pipelined Stages) developed by MIPS Technologies (formerly MIPS Computer
   Systems).
-
 - **avr**: The 8 bit AVR microcontroller architecture developed by Atmel (Microchip Technology).
-
 - **s390**: The 32 bit address Enterprise Systems Architecture 390 from IBM.
-
 - **s390x**: The 64 bit address Enterprise Systems Architecture 390 from IBM.
-
 - **asm.js**: The subset of JavaScript that can be used as low-level target for compilers, not really a processor architecture, it's produced
   by Emscripten. Conan treats it as an architecture to align with build systems design (e.g. GNU auto tools and CMake).
-
 - **wasm**: The Web Assembly, not really a processor architecture, but byte-code format for Web, it's produced by Emscripten. Conan treats it
   as an architecture to align with build systems design (e.g. GNU auto tools and CMake).
-
 - **sh4le**: The Hitachi SH-4 SuperH architecture.
-
 - **e2k-v2**: The Elbrus 2000 v2 512 bit VLIW (Very Long Instruction Word) architecture (Elbrus 2CM, Elbrus 2C+ CPUs) originally developed by MCST (Moscow Center of SPARC Technologies).
-
 - **e2k-v3**: The Elbrus 2000 v3 512 bit VLIW (Very Long Instruction Word) architecture (Elbrus 2S, aka Elbrus 4C, CPU) originally developed by MCST (Moscow Center of SPARC Technologies).
-
 - **e2k-v4**: The Elbrus 2000 v4 512 bit VLIW (Very Long Instruction Word) architecture (Elbrus 8C, Elbrus 8C1, Elbrus 1C+ and Elbrus 1CK CPUs) originally developed by MCST (Moscow Center of SPARC Technologies).
-
 - **e2k-v5**: The Elbrus 2000 v5 512 bit VLIW (Very Long Instruction Word) architecture (Elbrus 8C2 ,aka Elbrus 8CB, CPU) originally developed by MCST (Moscow Center of SPARC Technologies).
-
 - **e2k-v6**: The Elbrus 2000 v6 512 bit VLIW (Very Long Instruction Word) architecture (Elbrus 2C3, Elbrus 12C and Elbrus 16C CPUs) originally developed by MCST (Moscow Center of SPARC Technologies).
-
 - **e2k-v7**: The Elbrus 2000 v7 512 bit VLIW (Very Long Instruction Word) architecture (Elbrus 32C CPU) originally developed by MCST (Moscow Center of SPARC Technologies).
+- **xtensalx6**: Xtensa LX6 DPU for ESP32 microcontroller.
+- **xtensalx106**: Xtensa LX6 DPU for ESP8266 microcontroller.
+- **xtensalx7**: Xtensa LX7 DPU for ESP32-S2 and ESP32-S3 microcontrollers.
 
 
 C++ standard libraries (aka compiler.libcxx)
