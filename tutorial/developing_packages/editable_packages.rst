@@ -177,13 +177,6 @@ In this manner, you can develop both the ``say`` library and the ``hello`` appli
 simultaneously without executing any Conan command in between. If you have both open in
 your IDE, you can simply build one after the other.
 
-.. note::
-
-    When a package is in editable mode, some commands will not work. It is not
-    possible to :command:`conan upload`, :command:`conan export` or :command:`conan
-    create` when a package is in editable mode.
-
-
 Revert the editable mode
 ------------------------
 
