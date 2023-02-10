@@ -198,7 +198,7 @@ requirement will get it from the cache again.
 
 .. warning::
 
-Packages that are built while consuming an editable package in their upstreams can
+    Packages that are built while consuming an editable package in their upstreams can
     generate binaries and packages that are incompatible with the released version of the
     editable package. Avoid uploading these packages without re-creating them with the
     in-cache version of all the libraries.
