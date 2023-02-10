@@ -377,7 +377,7 @@ Some of the capabilities of the profile templates are:
 
 
 - Joining and defining paths, including referencing the current profile directory. For
-  example, defining a toolchain which file is located besides the profile can be done.
+  example, defining a toolchain whose file is located besides the profile can be done.
   Besides the ``os`` Python module, the variable ``profile_dir`` pointing to the current profile
   folder is added to the context.
 
