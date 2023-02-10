@@ -69,6 +69,26 @@ folder of the sources:
   ``CMakeLists.txt`` and ``patches``, while the "source/src" folder will contain the
   actual downloaded sources.
 
+
+We can check that everything runs fine now:
+
+.. code-block:: bash
+
+    $ conan create .
+    ...
+    Downloading main.zip
+    hello/1.0: Unzipping 3.7KB
+    Unzipping 100 %                                                       
+    ...
+    [ 50%] Building CXX object CMakeFiles/hello.dir/src/hello.cpp.o
+    [100%] Linking CXX static library libhello.a
+    [100%] Built target hello
+    ...
+    $ conan list hello/1.0
+    Local Cache
+    hello
+        hello/1.0
+
 .. seealso::
 
     - Read more about the :ref:`layout method<reference_conanfile_methods_layout>` and :ref:`how the
