@@ -67,7 +67,9 @@ Let's see how the *conanfile.py* of *hello* could look like:
 
         def export_sources(self):
             source_folder = os.path.join(self.recipe_folder, "..")
-            copy(self, "hello*", source_folder, self.export_sources_folder)
+            copy(self, "hello/conanfile.py", source_folder, self.export_sources_folder)
+            copy(self, "hello/CMakeLists.txt", source_folder, self.export_sources_folder)
+            copy(self, "hello/hello.cpp", source_folder, self.export_sources_folder)
             copy(self, "common*", source_folder, self.export_sources_folder)
 
         def build(self):
@@ -88,6 +90,15 @@ common folder.
     conanfile.py (hello/1.0): RUN: ./hello
     hello WORLD
 
+You can also run a :command:`conan create` and check that it works fine too:
+
+..  code-block:: bash
+
+    $ conan create hello
+    ...
+    [100%] Built target hello
+    conanfile.py (hello/1.0): RUN: ./hello
+    hello WORLD
 
 .. note::
 
