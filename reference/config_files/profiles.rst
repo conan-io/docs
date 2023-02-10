@@ -343,7 +343,7 @@ renders the template, which must result in a standard text profile.
 
 Some of the capabilities of the profile templates are:
 
-- Using the platform information, like obtaining the current OS is possible because the
+- Using the platform information, like obtaining the current OS, is possible because the
   Python ``platform`` module is added to the render context:
 
   .. code-block:: jinja
