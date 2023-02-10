@@ -3,13 +3,13 @@
 Packages in editable mode
 =========================
 
-The "normal" Conan way of working with packages is to run a ``conan create`` or ``conan
-export-pkg`` to store them in the local cache so that consumers use the packages stored in
-the Cache. In some cases, if you want to consume these packages at the same time that you
-are developing them, it can be a bit tedious to run ``conan create`` each time you make
-changes to the package. For those cases, you can put your package in editable mode and
-consumers will be able to find the headers and artifacts in your local working directory
-so there is no need to package. 
+The normal way of working with Conan packages is to run a ``conan create`` or ``conan
+export-pkg`` to store them in the local cache, so that consumers use the packages stored
+in the cache. In some cases, when you want to consume these packages while developing
+them, it can be tedious to run ``conan create`` each time you make changes to the package.
+For those cases, you can put your package in editable mode, and consumers will be able to
+find the headers and artifacts in your local working directory, eliminating the need for
+packaging.
 
 Let's see how we can put a package in editable mode and consume it from the local working
 directory.
@@ -134,9 +134,9 @@ As you can see, ``hello`` can successfully find ``say/1.0`` header and library f
 Working with editable packages
 ------------------------------
 
-Once the above steps have been done, we can basically work with our build system or IDE,
-no Conan involved, and do changes in the editable packages and have those changes used by
-the consumers directly. Lets see it, lets start by doing a change in the ``say`` source
+Once the above steps have been completed, you can work with your build system or IDE
+without involving Conan and make changes to the editable packages. The consumers will use
+those changes directly. Let's see how this works by making a change in the ``say`` source
 code:
 
 .. code-block:: bash
@@ -173,9 +173,9 @@ And build and run the "hello" project:
     say/1.0: Bye World Release!
 
 
-In that way, it is possible to be developing both the ``say`` library and the ``hello``
-application, at the same time, without executing any Conan command in between. If you had
-both open in the IDE, it would be just building one after the other.
+In this manner, you can develop both the ``say`` library and the ``hello`` application
+simultaneously without executing any Conan command in between. If you have both open in
+your IDE, you can simply build one after the other.
 
 .. note::
 
@@ -198,7 +198,7 @@ requirement will get it from the cache again.
 
 .. warning::
 
-   Packages that are built consuming an editable package in its graph upstreams can
-   generate binaries and packages incompatible with the released version of the editable
-   package. Avoid uploading these packages without re-creating them with the in-cache
-   version of all the libraries.
+Packages that are built while consuming an editable package in their upstreams can
+    generate binaries and packages that are incompatible with the released version of the
+    editable package. Avoid uploading these packages without re-creating them with the
+    in-cache version of all the libraries.
