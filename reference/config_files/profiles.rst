@@ -444,7 +444,7 @@ for the rest of your dependency tree.
 
 .. important::
 
-    Putting only ``zlib:`` is not going to work, you have to put always a pattern-like expression, e.g., ``zlib*:``, ``zlib/1.*:``, etc.
+    Putting only ``zlib:`` is not going to work, you have to always put a pattern-like expression, e.g., ``zlib*:``, ``zlib/1.*:``, etc.
 
 
 They accept patterns too, like ``-s *@myuser/*``, which means that packages that have the username "myuser" will use
