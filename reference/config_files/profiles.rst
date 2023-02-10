@@ -252,7 +252,7 @@ Then, the result of applying this profile is:
 ++++++++++
 
 List of environment variables that will be injected to the environment every time the ConanFile
-``run(cmd, env="conanrun")`` method is invoked (build time context and automatically run by :ref:`conan_tools_env_virtualrunenv`).
+``run(cmd, env="conanrun")`` method is invoked (runtime context is automatically run by :ref:`conan_tools_env_virtualrunenv`).
 
 
 All the operators/patterns explained for :ref:`reference_config_files_profiles_buildenv` applies to this one in the same way:
