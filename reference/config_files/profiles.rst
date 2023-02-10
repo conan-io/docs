@@ -112,7 +112,7 @@ Listing existing profiles in the *profiles* folder can be done like this:
     myprofile2
     ...
 
-You can also show profile's content:
+You can also show the profile's content per context:
 
 .. code-block:: bash
 
