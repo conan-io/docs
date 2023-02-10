@@ -274,7 +274,7 @@ All the operators/patterns explained for :ref:`reference_config_files_profiles_b
 
 .. note::
 
-    It's recommended to read before the :ref:`reference_config_files_global_conf` section.
+    It's recommended to have previously read the :ref:`reference_config_files_global_conf` section.
 
 List of user/tools configurations:
 
