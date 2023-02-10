@@ -144,77 +144,6 @@ You can also show profile's content:
     - Check the command and its sub-comands of :ref:`conan profile <reference_commands_profile>`.
 
 
-Profile rendering
------------------
-
-The profiles are rendered as **jinja2** templates by default. When Conan loads a profile, it immediately parses and
-renders the template, which must result in a standard text profile.
-
-Some of the capabilities of the profile templates are:
-
-- Using the platform information, like obtaining the current OS is possible because the
-  Python ``platform`` module is added to the render context:
-
-  .. code-block:: jinja
-     :caption: *profile_vars*
-
-     [settings]
-     os = {{ {"Darwin": "Macos"}.get(platform.system(), platform.system()) }}
-
-- Reading environment variables can be done because the Python ``os`` module is added
-  to the render context.:
-
-  .. code-block:: jinja
-     :caption: *profile_vars*
-
-     [settings]
-     build_type = {{ os.getenv("MY_BUILD_TYPE") }}
-
-- Defining your own variables and using them in the profile:
-
-  .. code-block:: jinja
-     :caption: *profile_vars*
-
-     {% set os = "FreeBSD" %}
-     {% set clang = "my/path/to/clang" %}
-
-     [settings]
-     os = {{ os }}
-
-     [conf]
-     tools.build:compiler_executables={'c': '{{ clang }}', 'cpp': '{{ clang + '++' }}' }
-
-
-- Joining and defining paths, including referencing the current profile directory. For
-  example, defining a toolchain which file is located besides the profile can be done.
-  Besides the ``os`` Python module, the variable ``profile_dir`` pointing to the current profile
-  folder is added to the context.
-
-  .. code-block:: jinja
-     :caption: *profile_vars*
-
-     [conf]
-     tools.cmake.cmaketoolchain:toolchain_file = {{ os.path.join(profile_dir, "toolchain.cmake") }}
-
-- Including or importing other files from ``profiles`` folder:
-
-  .. code-block:: jinja
-     :caption: *profile_vars*
-
-     {% set a = "Debug" %}
-
-  .. code-block:: jinja
-     :caption: *myprofile*
-
-     {% import "profile_vars" as vars %}
-     [settings]
-     build_type = {{ vars.a }}
-
-- Any other feature supported by *jinja2* is possible: for loops, if-else, etc. This
-  would be useful to define custom per-package settings or options for multiple packages
-  in a large dependency graph.
-
-
 Profile sections
 ----------------
 
@@ -404,6 +333,77 @@ Running, for instance, :command:`conan install . -pr myprofile`, the configurati
     user.myconf.build:cflags=!
     user.myconf.build:ldflags=['--prefix prefix-value', '--flag1 value1', '--flag2 value2']
     ...
+
+
+Profile rendering
+-----------------
+
+The profiles are rendered as **jinja2** templates by default. When Conan loads a profile, it immediately parses and
+renders the template, which must result in a standard text profile.
+
+Some of the capabilities of the profile templates are:
+
+- Using the platform information, like obtaining the current OS is possible because the
+  Python ``platform`` module is added to the render context:
+
+  .. code-block:: jinja
+     :caption: *profile_vars*
+
+     [settings]
+     os = {{ {"Darwin": "Macos"}.get(platform.system(), platform.system()) }}
+
+- Reading environment variables can be done because the Python ``os`` module is added
+  to the render context.:
+
+  .. code-block:: jinja
+     :caption: *profile_vars*
+
+     [settings]
+     build_type = {{ os.getenv("MY_BUILD_TYPE") }}
+
+- Defining your own variables and using them in the profile:
+
+  .. code-block:: jinja
+     :caption: *profile_vars*
+
+     {% set os = "FreeBSD" %}
+     {% set clang = "my/path/to/clang" %}
+
+     [settings]
+     os = {{ os }}
+
+     [conf]
+     tools.build:compiler_executables={'c': '{{ clang }}', 'cpp': '{{ clang + '++' }}' }
+
+
+- Joining and defining paths, including referencing the current profile directory. For
+  example, defining a toolchain which file is located besides the profile can be done.
+  Besides the ``os`` Python module, the variable ``profile_dir`` pointing to the current profile
+  folder is added to the context.
+
+  .. code-block:: jinja
+     :caption: *profile_vars*
+
+     [conf]
+     tools.cmake.cmaketoolchain:toolchain_file = {{ os.path.join(profile_dir, "toolchain.cmake") }}
+
+- Including or importing other files from ``profiles`` folder:
+
+  .. code-block:: jinja
+     :caption: *profile_vars*
+
+     {% set a = "Debug" %}
+
+  .. code-block:: jinja
+     :caption: *myprofile*
+
+     {% import "profile_vars" as vars %}
+     [settings]
+     build_type = {{ vars.a }}
+
+- Any other feature supported by *jinja2* is possible: for loops, if-else, etc. This
+  would be useful to define custom per-package settings or options for multiple packages
+  in a large dependency graph.
 
 
 Profile patterns
