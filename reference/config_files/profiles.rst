@@ -33,7 +33,7 @@ They have this structure:
     tools.build:jobs=2
 
 
-Profiles can be created with ``detect`` option in :ref:`conan profile <reference_commands_profile>` command,
+Profiles can be created with the ``detect`` option in :ref:`conan profile <reference_commands_profile>` command,
 and edited later. If you don't specify a *name*, the command will create the ``default`` profile:
 
 
