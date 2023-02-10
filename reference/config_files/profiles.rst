@@ -33,7 +33,7 @@ They have this structure:
     tools.build:jobs=2
 
 
-Profiles can be created with ``detect`` option in :ref:`conan profile <reference_commands_profile>` command,
+Profiles can be created with the ``detect`` option in :ref:`conan profile <reference_commands_profile>` command,
 and edited later. If you don't specify a *name*, the command will create the ``default`` profile:
 
 
@@ -77,7 +77,7 @@ and edited later. If you don't specify a *name*, the command will create the ``d
 
 
 Profile files can be used with ``-pr``/``--profile`` option in many commands like :command:`conan install` or
-:command:`conan create` commands. If you don't specify any profile at all, the profile ``default`` will be
+:command:`conan create` commands. If you don't specify any profile at all, the ``default`` profile will be
 always used:
 
 .. code-block:: bash
@@ -112,7 +112,7 @@ Listing existing profiles in the *profiles* folder can be done like this:
     myprofile2
     ...
 
-You can also show profile's content:
+You can also show the profile's content per context:
 
 .. code-block:: bash
 
@@ -202,7 +202,7 @@ List of ``tool_requires`` required by your recipe or its dependencies:
 ++++++++++
 
 List of environment variables that will be injected to the environment every time the ConanFile
-``run(cmd, env="conanbuild")`` method is invoked (build time context and automatically run by :ref:`conan_tools_env_virtualbuildenv`).
+``run(cmd, env="conanbuild")`` method is invoked (build time context is automatically run by :ref:`conan_tools_env_virtualbuildenv`).
 
 Besides that, it is able to apply some additional operators to each variable declared
 when you're composing profiles or even local variables:
@@ -252,7 +252,7 @@ Then, the result of applying this profile is:
 ++++++++++
 
 List of environment variables that will be injected to the environment every time the ConanFile
-``run(cmd, env="conanrun")`` method is invoked (build time context and automatically run by :ref:`conan_tools_env_virtualrunenv`).
+``run(cmd, env="conanrun")`` method is invoked (runtime context is automatically run by :ref:`conan_tools_env_virtualrunenv`).
 
 
 All the operators/patterns explained for :ref:`reference_config_files_profiles_buildenv` applies to this one in the same way:
@@ -274,7 +274,7 @@ All the operators/patterns explained for :ref:`reference_config_files_profiles_b
 
 .. note::
 
-    It's recommended to read before the :ref:`reference_config_files_global_conf` section.
+    It's recommended to have previously read the :ref:`reference_config_files_global_conf` section.
 
 List of user/tools configurations:
 
@@ -291,8 +291,8 @@ List of user/tools configurations:
 
 
 They can also be used in :ref:`reference_config_files_global_conf`,
-but **profiles values will have priority over globally defined ones in global.conf**, so let's see a little bit
-more complex example trying different configurations coming from the *global.conf* and another profile *myprofile*:
+but **profiles values will have priority over globally defined ones in global.conf**, so let's see an example that is a bit more complex,
+trying different configurations coming from the *global.conf* and another profile *myprofile*:
 
 
 .. code-block:: text
@@ -343,7 +343,7 @@ renders the template, which must result in a standard text profile.
 
 Some of the capabilities of the profile templates are:
 
-- Using the platform information, like obtaining the current OS is possible because the
+- Using the platform information, like obtaining the current OS, is possible because the
   Python ``platform`` module is added to the render context:
 
   .. code-block:: jinja
@@ -353,7 +353,7 @@ Some of the capabilities of the profile templates are:
      os = {{ {"Darwin": "Macos"}.get(platform.system(), platform.system()) }}
 
 - Reading environment variables can be done because the Python ``os`` module is added
-  to the render context.:
+  to the render context:
 
   .. code-block:: jinja
      :caption: *profile_vars*
@@ -377,7 +377,7 @@ Some of the capabilities of the profile templates are:
 
 
 - Joining and defining paths, including referencing the current profile directory. For
-  example, defining a toolchain which file is located besides the profile can be done.
+  example, defining a toolchain whose file is located besides the profile can be done.
   Besides the ``os`` Python module, the variable ``profile_dir`` pointing to the current profile
   folder is added to the context.
 
@@ -444,7 +444,7 @@ for the rest of your dependency tree.
 
 .. important::
 
-    Putting only ``zlib:`` is not going to work, you have to put always a pattern-like expression, e.g., ``zlib*:``, ``zlib/1.*:``, etc.
+    Putting only ``zlib:`` is not going to work, you have to always put a pattern-like expression, e.g., ``zlib*:``, ``zlib/1.*:``, etc.
 
 
 They accept patterns too, like ``-s *@myuser/*``, which means that packages that have the username "myuser" will use
