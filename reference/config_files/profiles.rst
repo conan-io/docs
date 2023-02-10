@@ -353,7 +353,7 @@ Some of the capabilities of the profile templates are:
      os = {{ {"Darwin": "Macos"}.get(platform.system(), platform.system()) }}
 
 - Reading environment variables can be done because the Python ``os`` module is added
-  to the render context.:
+  to the render context:
 
   .. code-block:: jinja
      :caption: *profile_vars*
