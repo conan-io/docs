@@ -77,7 +77,7 @@ and edited later. If you don't specify a *name*, the command will create the ``d
 
 
 Profile files can be used with ``-pr``/``--profile`` option in many commands like :command:`conan install` or
-:command:`conan create` commands. If you don't specify any profile at all, the profile ``default`` will be
+:command:`conan create` commands. If you don't specify any profile at all, the ``default`` profile will be
 always used:
 
 .. code-block:: bash
