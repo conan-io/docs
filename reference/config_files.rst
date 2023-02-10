@@ -10,5 +10,5 @@ These are the most important configuration files, used to customize conan.
     :maxdepth: 2
 
     config_files/global_conf
-    config_files/profiles_default
+    config_files/profiles
     config_files/settings

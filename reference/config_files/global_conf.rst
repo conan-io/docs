@@ -8,13 +8,23 @@ The **global.conf** file is located in the Conan user home directory, e.g., *[CO
 Introduction to configuration
 -----------------------------
 
-*global.conf* is aimed to save some core/tools configuration variables that will be used by Conan. For instance:
+*global.conf* is aimed to save some core/tools/user configuration variables that will be used by Conan. For instance:
 
 * Package ID modes.
 * General HTTP(python-requests) configuration.
 * Number of retries when downloading/uploading recipes.
 * Related tools configurations (used by toolchains, helpers, etc.)
 * Others (required Conan version, CLI non-interactive, etc.)
+
+Let's briefly explain the three types of existing configurations:
+
+* ``core.*``: aimed to configure values of Conan core behavior (download retries, package ID modes, etc.).
+  Only definable in *global.conf* file.
+* ``tools.*``: aimed to configure values of Conan tools (toolchains, build helpers, etc.) used in your recipes.
+  Definable in both *global.conf* and :ref:`profiles <reference_config_files_profiles>`.
+* ``user.*``: aimed to define personal user configurations. They can define whatever user wants.
+  Definable in both *global.conf* and :ref:`profiles <reference_config_files_profiles>`.
+
 
 
 To list all the possible configurations available, run :command:`conan config list`:
@@ -106,35 +116,33 @@ To list all the possible configurations available, run :command:`conan config li
     tools.system.package_manager:tool: Default package manager tool: 'apt-get', 'yum', 'dnf', 'brew', 'pacman', 'choco', 'zypper', 'pkg' or 'pkgutil'
 
 
-.. important::
+User/Tools configurations
+-------------------------
 
-    Remember to run that command locally to actually see the latest list because this one may be outdated.
+Tools and user configurations can be defined in both the *global.conf* file and
+:ref:`Conan profiles <reference_config_files_profiles_conf>`. They look like:
 
-
-Tools configurations
---------------------
-
-Tools and user configurations allows them to be defined both in the *global.conf* file and in profile files. Profile values will
-have priority over globally defined ones in *global.conf*, and can be defined as:
 
 .. code-block:: text
-    :caption: *myprofile*
+    :caption: *global.conf*
 
-    [settings]
-    ...
-
-    [conf]
     tools.microsoft.msbuild:verbosity=Diagnostic
     tools.microsoft.msbuild:max_cpu_count=2
     tools.microsoft.msbuild:vs_version = 16
     tools.build:jobs=10
+    # User conf variable
+    user.confvar:something=False
+
+.. important::
+
+    Profiles values will have priority over globally defined ones in global.conf.
 
 
 Configuration file template
 ---------------------------
 
 
-It is possible to use **jinja2** template engine for *global.conf*. When Conan loads this file, immediately parses
+It is possible to use **jinja2** template engine for *global.conf*. When Conan loads this file, it immediately parses
 and renders the template, which must result in a standard tools-configuration text.
 
   .. code:: jinja
@@ -171,7 +179,6 @@ All the values will be interpreted by Conan as the result of the python built-in
 Configuration data operators
 ----------------------------
 
-
 It's also possible to use some extra operators when you're composing tool configurations in your *global.conf* or
 any of your profiles:
 
@@ -180,12 +187,8 @@ any of your profiles:
 * ``=!`` == ``unset``: gets rid of any configuration value.
 
 .. code-block:: text
-    :caption: *myprofile*
+    :caption: *global.conf*
 
-    [settings]
-    ...
-
-    [conf]
     # Define the value => ["-f1"]
     user.myconf.build:flags=["-f1"]
 
@@ -199,51 +202,6 @@ any of your profiles:
     user.myconf.build:flags=!
 
 
-Configuration in your profiles
---------------------------------
-
-Let's see a little bit more complex example trying different configurations coming from the *global.conf* and a simple profile:
-
-.. code-block:: text
-    :caption: *global.conf*
-
-    # Defining several lists
-    user.myconf.build:ldflags=["--flag1 value1"]
-    user.myconf.build:cflags=["--flag1 value1"]
-
-
-.. code-block:: text
-    :caption: *myprofile*
-
-    [settings]
-    ...
-
-    [conf]
-    # Appending values into the existing list
-    user.myconf.build:ldflags+=["--flag2 value2"]
-
-    # Unsetting the existing value (it'd be like we define it as an empty value)
-    user.myconf.build:cflags=!
-
-    # Prepending values into the existing list
-    user.myconf.build:ldflags=+["--prefix prefix-value"]
-
-
-Running, for instance, :command:`conan install . -pr myprofile`, the configuration output will be something like:
-
-.. code-block:: bash
-
-    ...
-    Configuration:
-    [settings]
-    [options]
-    [tool_requires]
-    [conf]
-    user.myconf.build:cflags=!
-    user.myconf.build:ldflags=['--prefix prefix-value', '--flag1 value1', '--flag2 value2']
-    ...
-
-
 Configuration patterns
 ----------------------
 
@@ -254,8 +212,8 @@ You can use package patterns to apply the configuration in those dependencies wh
     *:tools.cmake.cmaketoolchain:generator=Ninja
     zlib:tools.cmake.cmaketoolchain:generator=Visual Studio 16 2019
 
-This example shows you how to specify a general `generator` for all your packages, but for `zlib` one. `zlib` is defining
-`Visual Studio 16 2019` as its own generator.
+This example shows you how to specify a general ``generator`` for all your packages except for `zlib` which is defining
+`Visual Studio 16 2019` as its generator.
 
 Besides that, it's quite relevant to say that **the order matters**. So, if we change the order of the
 configuration lines above:
