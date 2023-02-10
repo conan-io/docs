@@ -6,6 +6,8 @@
 
     .. code-block:: bash
 
-        cmake <path> -G <CMake generator> -DCMAKE_TOOLCHAIN_FILE=<path to conan_toolchain.cmake> -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Release
+        cmake <path> -G <CMake generator> -DCMAKE_TOOLCHAIN_FILE=<path to
+        conan_toolchain.cmake> -DCMAKE_BUILD_TYPE=Release
 
-    Conan will show this CMake command everytime you run ``conan install`` in case you can't use the presets feature.
+    Conan will show the exact CMake command everytime you run ``conan install`` in case
+    you can't use the presets feature.
