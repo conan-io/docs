@@ -20,12 +20,15 @@ conan config home
 
 
 The ``conan config home`` command returns the path of the Conan home folder.
-See the config files documentation for more information.
-
 
 .. code-block:: bash
 
     $ conan config home
+
+
+.. seealso::
+
+    - :ref:`Conan configuration files <reference_config_files>`
 
 
 .. _reference_commands_conan_config_install:

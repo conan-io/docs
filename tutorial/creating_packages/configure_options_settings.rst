@@ -85,6 +85,9 @@ implications of removing that option. It is related to how Conan identifies pack
 are binary compatible with the configuration set in the profile. In the next section, we
 introduce the concept of the **Conan package ID**.
 
+
+.. _creating_packages_configure_options_settings:
+
 Conan packages binary compatibility: the **package ID**
 -------------------------------------------------------
 

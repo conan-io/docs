@@ -129,9 +129,10 @@ It looks like this:
 
 
 As you can see, the possible values of ``settings`` are defined in the same file. This is done to ensure matching naming and
-spelling as well as defining a common settings model among users and the OSS community.
-If a setting is allowed to be set to any value, you can use ``ANY``.
-If a setting is allowed to be set to any value or it can also be unset, you can use ``[null, ANY]``.
+spelling as well as defining a common settings model among users and the OSS community. Some general information about settings:
+
+* If a setting is allowed to be set to any value, you can use ``ANY``.
+* If a setting is allowed to be set to any value or it can also be unset, you can use ``[null, ANY]``.
 
 However, this configuration file can be modified to any needs, including new settings or sub-settings and their values. If you want
 to distribute an unified *settings.yml* file you can use the :ref:`conan config install command<reference_commands_conan_config_install>`.
@@ -139,6 +140,7 @@ to distribute an unified *settings.yml* file you can use the :ref:`conan config 
 .. seealso::
 
     - :ref:`How to customize your settings <examples_config_files_customizing_settings>`
+    - :ref:`creating_packages_configure_options_settings`
 
 
 Operating systems
