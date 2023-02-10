@@ -213,5 +213,5 @@ allowed range ``zlib/[~1.2]``, because the ``conan.lock`` lockfile is forcing it
 Read more
 ---------
 
-- :ref:`Introduction to Versioning and Continuous Integration <tutorial_versioning_ci>`
+- :ref:`Introduction to Versioning<tutorial_versioning>`
 
