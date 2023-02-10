@@ -202,7 +202,7 @@ List of ``tool_requires`` required by your recipe or its dependencies:
 ++++++++++
 
 List of environment variables that will be injected to the environment every time the ConanFile
-``run(cmd, env="conanbuild")`` method is invoked (build time context and automatically run by :ref:`conan_tools_env_virtualbuildenv`).
+``run(cmd, env="conanbuild")`` method is invoked (build time context is automatically run by :ref:`conan_tools_env_virtualbuildenv`).
 
 Besides that, it is able to apply some additional operators to each variable declared
 when you're composing profiles or even local variables:
