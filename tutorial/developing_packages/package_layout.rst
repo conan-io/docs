@@ -183,6 +183,11 @@ separate package folder to build the binaries and store the actual package conte
 you check in the ``[YOUR_CONAN_HOME]/p`` folder, you will find two new folders similar to
 these:
 
+.. tip::
+
+    You could get the exact locations for this folders using the :command:`conan cache`
+    command or checking the output of the :command:`conan create` command.
+
 .. code-block:: text
     :emphasize-lines: 14-18
 
