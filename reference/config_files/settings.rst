@@ -215,7 +215,7 @@ Instead of having *n* different compilers, you have 3 different **modes** of wor
 * ``dpcpp`` for Intel oneAPI DPC++.
 * ``classic`` for Intel C++ Classic ones.
 
-Besides that, Intel releases some versions with revisions numbers so the ``update`` field it's supposed to be any
+Besides that, Intel releases some versions with revisions numbers so the ``update`` field is supposed to be any
 possible minor number for the Intel compiler version used, e.g, ``compiler.version=2021.1`` and
 ``compiler.update=311`` mean Intel version is ``2021.1.311``.
 
