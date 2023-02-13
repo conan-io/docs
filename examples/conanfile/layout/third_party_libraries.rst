@@ -12,7 +12,7 @@ Please, first of all, clone the sources to recreate this project. You can find t
     $ cd examples2/examples/conanfile/layout/third_party_libraries
 
 
-If we have this project, intended to create a package for a third-party library which code
+If we have this project, intended to create a package for a third-party library whose code
 is located externally:
 
 ..  code-block:: text
