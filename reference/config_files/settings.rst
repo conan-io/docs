@@ -189,7 +189,7 @@ This can be configured in your profiles with the ``tools.microsoft.msbuild:vs_ve
 In this case, the ``vcvars`` will activate the Visual Studio 16 installation, but the ``190`` compiler version will still be used
 because the necessary ``toolset=v140`` will be set.
 
-The settings define the last digit ``update: [None, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9]``, which by default is ``None``, means that Conan
+The settings define the last digit ``update: [None, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9]``, which by default is ``None`` and means that Conan
 assumes binary compatibility for the compiler patches, which works in general for the Microsoft compilers. For cases where finer
 control is desired, you can just add the ``update`` part to your profiles:
 
