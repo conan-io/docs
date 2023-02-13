@@ -80,7 +80,7 @@ Read more:
 
 - :ref:`Tutorial introduction to lockfiles <tutorial_consuming_packages_versioning_lockfiles>`
 - https://github.com/conan-io/tribe/blob/main/design/034-new_lockfiles.md
-- :ref:`Tutorial about versioning and lockfiles <tutorial_versioning_ci_lockfiles>`
+- :ref:`Tutorial about versioning and lockfiles <tutorial_versioning_lockfiles>`
 
 
 New configuration and environment management
