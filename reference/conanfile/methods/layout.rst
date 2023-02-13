@@ -53,7 +53,7 @@ package (like the classic approach with the ``self.cpp_info`` in the
 ``package_info(self)`` method) but for the ``self.source_folder`` and
 ``self.build_folder``.
 
-The fields of the cpp_info objects at ``self.cpp.build`` and ``self.cpp.source`` are the
+The fields of the ``cpp_info`` objects at ``self.cpp.build`` and ``self.cpp.source`` are the
 same described :ref:`here<conan_conanfile_model_cppinfo>`. Components are also supported.
 
 .. seealso::
