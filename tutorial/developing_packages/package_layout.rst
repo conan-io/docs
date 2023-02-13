@@ -142,7 +142,7 @@ self.cpp
 --------
 
 This attribute is used to define **where consumers will find the package contents**
-(headers files, libraries, etc.) depending on wether the package is in editable mode or
+(headers files, libraries, etc.) depending on whether the package is in editable mode or
 not.
 
 cpp.package
