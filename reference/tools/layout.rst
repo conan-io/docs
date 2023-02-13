@@ -15,7 +15,7 @@ There are some pre-defined common :ref:`layouts<reference_conanfile_methods_layo
 - ``basic_layout()``: :ref:`a very basic layout for a generic project <conan_tools_basic_layout>`
 
 The pre-defined layouts define the Conanfile ``.folders`` and ``.cpp`` attributes with
-typical values. To check which are the values set by these pre-defined layouts please
+typical values. To check which values are set by these pre-defined layouts please
 check the reference for the :ref:`layout()<reference_conanfile_methods_layout>` method. For example in the
 ``cmake_layout()`` the source folder is  called ``"."``, meaning that Conan will expect
 the sources in the same directory where the conanfile is (most likely the project root,
