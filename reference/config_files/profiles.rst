@@ -152,7 +152,7 @@ These are the available sections in profiles:
 [settings]
 ++++++++++
 
-List of settings available from **settings.yml**:
+List of settings available from :ref:`reference_config_files_settings_yml`:
 
 .. code-block:: text
     :caption: *myprofile*

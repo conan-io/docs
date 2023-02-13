@@ -36,3 +36,4 @@ Contents:
    tools/microsoft
    tools/scm
    tools/layout
+   tools/intel
