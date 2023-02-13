@@ -32,7 +32,7 @@ self.folders
   when running the :command:`conan install` command it will be relative to the current
   working directory.
 
-- **self.folders.root** (Defaulted to None): Specifies a parent directory where the
+- **self.folders.root** (Defaulted to ``None``): Specifies a parent directory where the
   sources, generators, etc., are located specifically when the ``conanfile.py`` is located
   in a separated subdirectory. Check :ref:`this
   example<examples_conanfile_layout_conanfile_in_subfolder>` on how to use
