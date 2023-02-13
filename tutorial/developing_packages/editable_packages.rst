@@ -77,7 +77,7 @@ In this example, the ``say`` ``conanfile.py`` recipe is using the predefined
 ``cmake_layout()`` which defines the typical CMake project layout that can be different
 depending on the platform and generator used.
 
-Now that the ``say/1.0`` package is in editable mode, lets build it locally:
+Now that the ``say/1.0`` package is in editable mode, let's build it locally:
 
 .. include:: ../cmake_presets_note.rst
 
