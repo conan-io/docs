@@ -17,7 +17,7 @@ There are some pre-defined common :ref:`layouts<reference_conanfile_methods_layo
 The pre-defined layouts define the Conanfile ``.folders`` and ``.cpp`` attributes with
 typical values. To check which values are set by these pre-defined layouts please
 check the reference for the :ref:`layout()<reference_conanfile_methods_layout>` method. For example in the
-``cmake_layout()`` the source folder is  called ``"."``, meaning that Conan will expect
+``cmake_layout()`` the source folder is set to ``"."``, meaning that Conan will expect
 the sources in the same directory where the conanfile is (most likely the project root,
 where a ``CMakeLists.txt`` file will be typically found). If you have a different folder
 where the ``CMakeLists.txt`` is located, you can use the ``src_folder`` argument:
