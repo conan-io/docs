@@ -106,51 +106,60 @@ node('Linux') {
         sh 'rm -fr gh-pages/en'
     }
 
-    Map parallelJobs = [:]
-    versions.each { key, value ->
-        String branchName = key
-        String folderName = value
-        parallelJobs[folderName] = {
-            echo "Run parallel job for ${branchName} inside ${folderName}"
-            image.inside {
-                stage('Prepare sources') {
-                    writeJSON json: versions, file: "${folderName}/versions.json"
-                    if (folderName != 'latest') {
-                        sh "rm -fr ${folderName}/_themes/conan"
-                        sh "cp -a latest/_themes/. ${folderName}/_themes/"
-                    }
-                    if (folderName == '2.0') {
-                        def conanBranch = 'release/2.0-beta'
-                        def conan_repo_url = 'https://github.com/conan-io/conan.git'
-                        stage('Clone sources') {
-                            def cloneConan = "git clone --single-branch -b ${conanBranch} --depth 1 ${conan_repo_url} 2.0/conan_sources"
-                            sh(script: cloneConan)
-                        }
-                        // for some reason even adding this to autodoc_mock_imports
-                        // does not work, se we have to install the real dependency
-                        sh(script: 'pip3 install colorama')
-                    }
-                }
-                stage('HTML') {
-                    sh "sphinx-build -W -b html -d ${folderName}/_build/.doctrees ${folderName}/ gh-pages/en/${folderName}"
-                }
+    // FIXME: we have to generate the docs in parallel in a maximum of a certain concurrency
+    // size or the docs generation will fail
+    // in the near future we should only have to generate the branches that must be published
+    def number_of_parallel_blocks = 3
+    def versions_blocks = versions.keySet().collate( versions.size().intdiv( number_of_parallel_blocks ) )
 
-                stage('PDF') {
-                    sh "sphinx-build -W -b latex -d ${folderName}/_build/.doctrees ${folderName}/ ${folderName}/_build/latex"
-                    sh "make -C ${folderName}/_build/latex all-pdf"
-                    sh "cp ${folderName}/_build/latex/conan.pdf gh-pages/en/${folderName}/conan.pdf"
-                }
-                if (folderName=='2.0') {
-                    sh 'rm -fr 2.0/conan_sources'
+    for (version_block in versions_blocks) {
+        Map parallelJobs = [:]
+        def map_block = versions.subMap(version_block)
+        map_block.each { key, value ->
+            String branchName = key
+            String folderName = value
+            parallelJobs[folderName] = {
+                echo "Run parallel job for ${branchName} inside ${folderName}"
+                image.inside {
+                    stage('Prepare sources') {
+                        writeJSON json: versions, file: "${folderName}/versions.json"
+                        if (folderName != 'latest') {
+                            sh "rm -fr ${folderName}/_themes/conan"
+                            sh "cp -a latest/_themes/. ${folderName}/_themes/"
+                        }
+                        if (folderName == '2.0') {
+                            def conanBranch = 'release/2.0-beta'
+                            def conan_repo_url = 'https://github.com/conan-io/conan.git'
+                            stage('Clone sources') {
+                                def cloneConan = "git clone --single-branch -b ${conanBranch} --depth 1 ${conan_repo_url} 2.0/conan_sources"
+                                sh(script: cloneConan)
+                            }
+                            // for some reason even adding this to autodoc_mock_imports
+                            // does not work, se we have to install the real dependency
+                            sh(script: 'pip3 install colorama')
+                        }
+                    }
+                    stage('HTML') {
+                        sh "sphinx-build -W -b html -d ${folderName}/_build/.doctrees ${folderName}/ gh-pages/en/${folderName}"
+                    }
+
+                    stage('PDF') {
+                        sh "sphinx-build -W -b latex -d ${folderName}/_build/.doctrees ${folderName}/ ${folderName}/_build/latex"
+                        sh "make -C ${folderName}/_build/latex all-pdf"
+                        sh "cp ${folderName}/_build/latex/conan.pdf gh-pages/en/${folderName}/conan.pdf"
+                    }
+                    if (folderName=='2.0') {
+                        sh 'rm -fr 2.0/conan_sources'
+                    }
                 }
             }
         }
+        stage('Generate docs parallel block') {
+            parallelJobs.failFast = true
+            parallel parallelJobs
+        }
     }
 
-    stage('Generate all releases') {
-        parallelJobs.failFast = true
-        parallel parallelJobs
-    }
 
     stage('Prepare gh-branch') {
         dir('gh-pages') {
