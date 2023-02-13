@@ -14,3 +14,4 @@ Examples
    examples/tools/files/files
    examples/tools/meson/meson
    examples/cross_build/android
+   examples/config_files/settings/settings_user
