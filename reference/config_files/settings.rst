@@ -201,7 +201,7 @@ control is desired, you can just add the ``update`` part to your profiles:
     compiler.version.update=3
 
 
-This will be equivalent to the full version ``1913 (19.13)``. If even further details is desired, you could even add your own digits
+This will be equivalent to the full version ``1913 (19.13)``. If even further details are desired, you could even add your own digits
 to the ``update`` subsetting in ``settings.yml``.
 
 
