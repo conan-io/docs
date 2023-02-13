@@ -102,7 +102,7 @@ You can also run a :command:`conan create` and check that it works fine too:
 
 .. note::
 
-    Note it is very important the ``export_sources()`` method, that is able to maintain the
+    Note the importance of the ``export_sources()`` method, which is able to maintain the
     same relative layout of the ``hello`` and ``common`` folders, both in the local developer
     flow in the current folder, but also when those sources are copied to the Conan cache, to
     be built there with ``conan create`` or ``conan install --build=hello``. This is one of the
