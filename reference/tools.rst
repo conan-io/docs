@@ -1917,7 +1917,7 @@ The values of the variables ``INCLUDE``, ``LIB``, ``LIBPATH`` and ``PATH`` will 
     from conans import tools
 
     def build(self):
-        env_vars = tools.intel_compilervars_dict(self.settings)
+        env_vars = tools.intel_compilervars_dict(self)
         with tools.environment_append(env_vars):
             # Do something
 
@@ -1950,7 +1950,7 @@ This is a context manager that allows to append to the environment all the varia
     from conans import tools
 
     def build(self):
-        with tools.intel_compilervars(self.settings):
+        with tools.intel_compilervars(self):
             do_something()
 
 .. tools_intel_installation_path:
@@ -1968,7 +1968,7 @@ tools.intel_installation_path()
     def intel_installation_path(version, arch)
 
 Returns the Intel Compiler installation path for the given version and target arch. If the tool is not able to return the path it will raise a
-``ConanException``.
+``ConanException``. Will return the value of the the environment variable :ref:`env_vars_conan_intel_installation_path` if set.
 
 .. code-block:: python
 

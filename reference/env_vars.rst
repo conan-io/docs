@@ -707,3 +707,13 @@ CONAN_KEEP_PYTHON_FILES
 
 This environment variable will allow Python *.pyc* files to be packaged. If not set as ``True``/``1``,
 all the generated *.pyc* files will be filtered when packaging.
+
+.. _env_vars_conan_intel_installation_path:
+
+CONAN_INTEL_INSTALLATION_PATH
+--------------------------------
+
+**Defaulted to**: Not defined
+
+If this environment variable is set, Conan will use this path for the Intel compiler installation 
+instead of trying to find it at default locations.
