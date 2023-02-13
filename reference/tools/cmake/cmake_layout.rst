@@ -17,7 +17,7 @@ The ``cmake_layout()`` sets the :ref:`folders<conan_conanfile_attributes_folders
 
 .. note::
 
-    To try it you can use the ``conan new hello/0.1 --template=cmake_lib`` template.
+    To try it you can use the ``conan new -d name=hello -d version=1.0 cmake_lib`` template.
 
 
 
@@ -31,8 +31,9 @@ These are the values assigned by the ``cmake_layout``:
 - ``conanfile.folders.source``: *src_folder* argument or ``.`` if not specified.
 - ``conanfile.folders.build``:
     - ``build``: if the cmake generator is multi-configuration.
-    - ``build/Release`` or ``build/Debug``: if the cmake generator is single-configuration, depending on the
+    - ``build/Debug`` or ``build/Release``: if the cmake generator is single-configuration, depending on the
       build_type.
+    - The ``"build"`` string, can be defined to other value by the ``build_folder`` argument.
 - ``conanfile.folders.generators``: ``build/generators``
 - ``conanfile.cpp.source.includedirs``: ``["include"]``
 - ``conanfile.cpp.build.libdirs`` and ``conanfile.cpp.build.bindirs``:
@@ -40,11 +41,13 @@ These are the values assigned by the ``cmake_layout``:
     - ``.`` for a single-configuration cmake generator.
 
 
-.. code:: python
+Reference
+---------
 
-    def layout(self):
-        cmake_layout(self, src_folder="subfolder")
 
+.. currentmodule:: conan.tools.cmake.layout
+
+.. autofunction:: cmake_layout
 
 
 Multi-setting/option cmake_layout
@@ -87,18 +90,3 @@ The ``CMakePresets.json`` file generated at the :ref:`CMakeToolchain<conan-cmake
 generator, will also take this ``tools.cmake.cmake_layout:build_folder_vars`` config into account to generate different
 names for the presets, being very handy to install N configurations and building our project for any of them by
 selecting the chosen preset.
-
-
-.. note::
-
-    The ``settings.build_type`` value is forbidden in ``tools.cmake.cmake_layout:build_folder_vars`` because the
-    build_type is already managed automatically with multi-config support in ``CMakeDeps`` and ``CMakeToolchain``.
-
-
-Reference
----------
-
-
-.. currentmodule:: conan.tools.cmake.layout
-
-.. autofunction:: cmake_layout

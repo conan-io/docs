@@ -4,7 +4,7 @@ self.cpp and self.cpp_info
 --------------------------
 
 Properties to declare all the information needed by the consumers of a package: include directories,
-library names, library paths... Used both for editable packages and regular packages in the cache.
+library names, library paths... Used both for :ref:`editable packages<editable_packages>` and regular packages in the cache.
 
 
 Usage
