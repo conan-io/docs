@@ -11,7 +11,7 @@ Please, first of all, clone the sources to recreate this project. You can find t
     $ git clone https://github.com/conan-io/examples2.git
     $ cd examples2/examples/conanfile/layout/multiple_subprojects
 
-Lets say that we have a project that contains two subprojects: *hello* and *bye*, that need to
+Let's say that we have a project that contains two subprojects: *hello* and *bye*, that need to
 access some information that is at their same level (sibling folders). Each subproject
 would be a Conan package. The structure could be something similar to this:
 
