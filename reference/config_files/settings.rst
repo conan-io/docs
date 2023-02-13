@@ -148,7 +148,7 @@ Operating systems
 ``baremetal`` operating system is a convention meaning that the binaries run directly
 on the hardware, without an operating system or equivalent layer. This is to differentiate to the ``None`` value,
 which is associated to the "this value is not defined" semantics. ``baremetal`` is a common name convention for
-embedded microprocessors and microcontrollers code. It is expected that users might customize the space inside the
+embedded microprocessors and microcontrollers' code. It is expected that users might customize the space inside the
 ``baremetal`` setting with further subsettings to specify their specific hardware platforms, boards, families, etc.
 At the moment the ``os=baremetal`` value is still not used by Conan builtin toolchains and helpers,
 but it is expected that they can evolve and start using it.
