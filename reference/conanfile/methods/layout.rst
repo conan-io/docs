@@ -38,7 +38,7 @@ self.folders
   example<examples_conanfile_layout_conanfile_in_subfolder>` on how to use
   **self.folders.root**.
 
-- **self.folders.subproject** (Defaulted to None): Specifies a subfolder where the
+- **self.folders.subproject** (Defaulted to ``None``): Specifies a subfolder where the
   ``conanfile.py`` is relative to the project root. This is particularly useful for
   :ref:`layouts with multiple subprojects<examples_conanfile_layout_multiple_subprojects>`
 
