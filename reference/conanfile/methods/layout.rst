@@ -19,7 +19,7 @@ self.folders
   a local folder when running :command:`conan build` (relative to the local current
   folder).
 
-- **self.folders.build** (Defaulted to ""): Specifies a subfolder where the files from the
+- **self.folders.build** (Defaulted to ``""``): Specifies a subfolder where the files from the
   build are. The ``self.build_folder`` attribute and the *current working directory*
   inside the ``build(self)`` method will be set with this subfolder. It is used in the
   cache when running :command:`conan create` (relative to the cache source folder) as well
