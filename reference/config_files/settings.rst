@@ -145,7 +145,7 @@ to distribute an unified *settings.yml* file you can use the :ref:`conan config 
 Operating systems
 -----------------
 
-``baremetal`` operating system (introduced in Conan 1.43) is a convention meaning that the binaries run directly
+``baremetal`` operating system is a convention meaning that the binaries run directly
 on the hardware, without a operating system or equivalent layer. This is to differentiate to the ``None`` value,
 which is associated to the "this value is not defined" semantics. The ``baremetal`` is a common name convention for
 embedded microprocessors and microcontrollers code. It is expected that users might customize the space inside the
