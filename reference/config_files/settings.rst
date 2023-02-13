@@ -3,7 +3,7 @@
 settings.yml
 ============
 
-This configuration file is located in Conan user home, i.e., ``[CONAN_HOME]/settings.yml``.
+This configuration file is located in the Conan user home, i.e., ``[CONAN_HOME]/settings.yml``.
 It looks like this:
 
 .. code-block:: yaml
