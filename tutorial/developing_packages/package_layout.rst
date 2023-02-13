@@ -158,7 +158,7 @@ the `package_info()` method. This is the information we defined:
   ``package_info()`` method.
 
 - ``self.cpp.package.libdirs``: we add the ``lib`` folder so that consumers know that they
-  should should search there for the libraries. This is equivalent to declaring
+  should search there for the libraries. This is equivalent to declaring
   ``self.cpp_info.libdirs`` in the ``package_info()`` method. Note that the default value
   for ``libdirs`` in both the ``cpp_info`` and ``cpp.package`` is ``["lib"]`` so we could
   have omitted that declaration.
