@@ -26,7 +26,7 @@ self.folders
   as in a local folder when running :command:`conan build` (relative to the local current
   folder).
 
-- **self.folders.generators** (Defaulted to ""): Specifies a subfolder where to write the
+- **self.folders.generators** (Defaulted to ``""``): Specifies a subfolder in which to write the
   files from the generators and the toolchains. In the cache, when running the
   :command:`conan create`, this subfolder will be relative to the root build folder and
   when running the :command:`conan install` command it will be relative to the current
