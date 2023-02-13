@@ -153,7 +153,7 @@ structure we want to follow and also to add some logic using Conan settings and 
 Conditional requirements using a conanfile.py
 ---------------------------------------------
 
-You could add some logic to the `requirements()` method to add or remove requirements
+You could add some logic to the :ref:`requirements() method<reference_conanfile_methods_requirements>` to add or remove requirements
 conditionally. Imagine, for example, that you want to add an additional dependency in
 Windows or that you want to use the system's CMake installation instead of using the Conan
 `tool_requires`:
@@ -304,7 +304,7 @@ CMake case, there's a :ref:`cmake_layout()<cmake_layout>` already defined in Con
 Use the validate() method to raise an error for non-supported configurations
 ----------------------------------------------------------------------------
 
-The `validate()` method is evaluated when Conan loads the *conanfile.py* and you can use
+The :ref:`validate() method<reference_conanfile_methods_validate>` is evaluated when Conan loads the *conanfile.py* and you can use
 it to perform checks of the input settings. If, for example, your project does not support
 *armv8* architecture on macOS you can raise the `ConanInvalidConfiguration` exception to
 make Conan return with a special error code. This will indicate that the configuration
