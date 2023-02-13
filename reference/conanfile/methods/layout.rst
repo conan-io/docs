@@ -11,7 +11,7 @@ In the layout() method you can adjust ``self.folders`` and ``self.cpp``.
 self.folders
 ^^^^^^^^^^^^
 
-- **self.folders.source** (Defaulted to ""): Specifies a subfolder where the sources are.
+- **self.folders.source** (Defaulted to ``""``): Specifies a subfolder where the sources are.
   The ``self.source_folder`` attribute inside the ``source(self)`` and ``build(self)``
   methods will be set with this subfolder. The *current working directory* in the
   ``source(self)`` method will include this subfolder. The `export_sources`, `exports` and
