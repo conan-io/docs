@@ -164,7 +164,7 @@ the `package_info()` method. This is the information we defined:
   have omitted that declaration.
 
 - ``self.cpp.package.includedirs``: we add the ``include`` folder so that consumers know
-  that they should should search there for the library headers. This is equivalent to
+  that they should search there for the library headers. This is equivalent to
   declaring ``self.cpp_info.includedirs`` in the ``package_info()`` method. Note that the
   default value for ``includedirs`` in both the ``cpp_info`` and ``cpp.package`` is
   ``["include"]`` so we could have omitted that declaration.
