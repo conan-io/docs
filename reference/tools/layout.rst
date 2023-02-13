@@ -54,7 +54,7 @@ Usage:
 
 
 The current layout implementation is very simple, basically sets a different build folder for different build_types
-and set the generators output folder inside the build folder. This way we avoid to clutter our project
+and sets the generators output folder inside the build folder. This way we avoid to clutter our project
 while working locally.
 
 
