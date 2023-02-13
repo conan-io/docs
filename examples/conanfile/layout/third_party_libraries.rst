@@ -61,7 +61,7 @@ The ``conanfile.py`` would look like this:
             ...
 
 
-We can see that the ``ConanFile.export_sources_folder`` can provide access to the root
+We can see that the ``ConanFile.export_sources_folder`` attribute can provide access to the root
 folder of the sources:
 
 - Locally it will be the folder where the ``conanfile.py`` lives
