@@ -167,7 +167,7 @@ msvc
   but not the previous ones.
 
 When using the ``msvc`` compiler, the Visual Studio toolset version (the actual ``vcvars`` activation
-and ``MSBuild`` location) will be defined by the default provide of that compiler version:
+and ``MSBuild`` location) will be defined by the default provided by that compiler version:
 
 - ``msvc`` compiler version '190': Visual Studio 14 2015
 - ``msvc`` compiler version '191': Visual Studio 15 2017
