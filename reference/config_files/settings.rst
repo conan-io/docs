@@ -150,7 +150,7 @@ on the hardware, without a operating system or equivalent layer. This is to diff
 which is associated to the "this value is not defined" semantics. The ``baremetal`` is a common name convention for
 embedded microprocessors and microcontrollers code. It is expected that users might customize the space inside the
 ``baremetal`` setting with further subsettings to specify their specific hardware platforms, boards, families, etc.
-At the moment (Conan 1.43) the ``os=baremetal`` value is still not used by Conan builtin toolchains and helpers,
+At the moment the ``os=baremetal`` value is still not used by Conan builtin toolchains and helpers,
 but it is expected that they can evolve and start using it.
 
 
