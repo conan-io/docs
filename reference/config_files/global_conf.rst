@@ -228,6 +228,8 @@ effect because it's the first one evaluated, and after that, Conan is overriding
 general one, so it deserves to pay special attention to the order.
 
 
+.. _reference_config_files_global_conf_ssl_certificates:
+
 Configuration of client certificates
 ------------------------------------
 
@@ -235,15 +237,16 @@ Conan supports client TLS certificates. You can configure the path to your exist
 certificate (and the key) using the following configuration variables:
 
 * ``core.net.http:cacert_path``: Path containing a custom Cacert file.
-* ``core.net.http:client_cert``: Path or tuple of files containing a client cert (and key).
+* ``core.net.http:client_cert``: Path or tuple of files containing a client certificate (and the key). See more details in
+  `Python requests and Client Side Certificates <https://requests.readthedocs.io/en/latest/user/advanced/#client-side-certificates>`_
 
 For instance:
 
 .. code-block:: text
     :caption: **[CONAN_HOME]/global.conf**
 
-    core.net.http:cacert_path=/path/to/cacert_file
-    core.net.http:client_cert=/path/to/client_certificate
+    core.net.http:cacert_path=/path/to/cacert.pem
+    core.net.http:client_cert=('/path/client.cert', '/path/client.key')
 
 
 .. seealso::
