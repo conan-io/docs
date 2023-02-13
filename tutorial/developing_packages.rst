@@ -24,6 +24,6 @@ any changes.
 .. toctree::
    :maxdepth: 1
 
-   developing_packages/local_package_developement_flow
+   developing_packages/local_package_development_flow
    developing_packages/editable_packages
    developing_packages/package_layout
