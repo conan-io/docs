@@ -1,3 +1,5 @@
+.. _reference_commands_install:
+
 conan install
 =============
 
@@ -180,6 +182,8 @@ command line:
 
 In the general case, it is recommended to use a ``conanfile`` instead of defining things in the command line.
 
+
+.. _reference_commands_install_composition:
 
 Profiles, Settings, Options, Conf
 ---------------------------------

@@ -35,3 +35,5 @@ Contents:
    tools/system
    tools/microsoft
    tools/scm
+   tools/layout
+   tools/intel

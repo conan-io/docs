@@ -394,12 +394,22 @@ requires
 
   Accepted expressions would be:
 
-    ..  code-block:: python
+    .. list-table::
+        :widths: 25 25 50
+        :header-rows: 1
 
-          >1.1 <2.1    # In such range
-          2.8          # equivalent to =2.8
-          ~=3.0        # compatible, according to semver
-          >1.1 || 0.8  # conditions can be OR'ed
+        * - Expression
+          - Versions in range
+          - Versions outside of range
+        * - [>=1.0 <2]
+          - 1.0.0, 1.0.1, 1.1, 1.2.3
+          - 0.2, 2.0, 2.1, 3.0
+        * - [<3.2.1]
+          - 0.1, 1.2, 2.4, 3.1.1
+          - 3.2.2
+        * - [>2.0]
+          - 2.1, 2.2, 3.1, 14.2
+          - 1.1, 1.2, 2.0
 
 
   .. seealso::
@@ -422,6 +432,8 @@ tool_requires
   This is the declarative way to add ``tool_requires``. Check the <MISSING PAGE> tool_requires()
   conanfile.py method to learn a more flexible way to add them.
 
+
+.. _reference_conanfile_attributes_build_requires:
 
 build_requires
 --------------
@@ -690,25 +702,9 @@ as the folder from where we copy the files:
 folders
 -------
 
-<MISSING REFERENCE>
-
-The ``folders`` attribute has to be set only in the ``layout()`` method.
-
-   - **self.folders.source**: To specify a folder where your sources are.
-   - **self.folders.build**: To specify a subfolder where the files from the build are (or will be).
-   - **self.folders.generators**: To specify a subfolder where to write the files from the generators and the toolchains
-     (e.g. the `xx-config.cmake` files from the ``CMakeDeps`` generator).
-   - **self.folders.imports**: To specify a subfolder where to write the files copied when using the ``imports(self)``
-     method in a ``conanfile.py``.
-   - **self.folders.root**: To specify the relative path from the ``conanfile.py`` to the root of the project, in case
-     the ``conanfile.py`` is in a subfolder and not in the project root. If defined, all the other paths will be relative to
-     the project root, not to the location of the ``conanfile.py``.
-   - **self.folders.subproject**: To use together with ``self.folders.root``, in case such a subproject needs to access some
-     files that are located in a sibling folder.
-
-   .. seealso::
-
-       Read more about the usage of the ``layout()`` in :ref:`this tutorial<consuming_packages_flexibility_of_conanfile_py_use_layout>`.
+The ``folders`` attribute has to be set only in the ``layout()`` method. Please check the
+:ref:`layout() method documentation<layout_folders_reference>` to learn more about this
+attribute.
 
 
 .. _conan_conanfile_attributes_cpp:
@@ -716,16 +712,9 @@ The ``folders`` attribute has to be set only in the ``layout()`` method.
 cpp
 ---
 
-.. autoattribute:: ConanFile.cpp
-
-   .. seealso::
-
-       Read more about the :ref:`CppInfo<conan_conanfile_model_cppinfo>` model.
-
-
-   .. important::
-
-       This attribute should be only filled in the <MISSING METHOD> ``layout()`` method.
+The ``cpp`` attribute has to be set only in the ``layout()`` method. Please check the
+:ref:`layout() method documentation<layout_cpp_reference>` to learn more about this
+attribute.
 
 
 cpp_info
@@ -869,15 +858,8 @@ The profile entries have priority.
 info
 ----
 
-Object used in:
+Object used exclusively in ``package_id()`` method:
 
-- The <MISSING PAGE> ``validate(self)`` method to check if a current configuration of the package is correct or not:
-
-    .. code-block:: python
-
-        def validate(self):
-            if self.info.settings.os == "Windows":
-                raise ConanInvalidConfiguration("Package does not work in Windows!")
 
 - The <MISSING PAGE> ``package(self)`` method to control the unique ID for a package:
 

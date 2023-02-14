@@ -57,7 +57,7 @@ Let's check the relevant parts:
         ...
 
         def validate(self):
-            if self.info.options.with_fmt:
+            if self.options.with_fmt:
                 check_min_cppstd(self, "11")
                 check_max_cppstd(self, "14")
 
@@ -195,3 +195,7 @@ Read more
 
 - Use the ``generate()`` method to import files from dependencies.
 - More based on the examples mentioned above ... 
+
+.. seealso::
+
+    - :ref:`generate() method reference<reference_conanfile_methods_generate>`

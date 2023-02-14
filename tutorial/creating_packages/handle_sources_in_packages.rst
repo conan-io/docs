@@ -240,3 +240,6 @@ Read more
 - Advanced git repository handling (implement the "scm feature")
 - ...
 
+.. seealso::
+
+    - :ref:`source() method reference<reference_conanfile_methods_source>`

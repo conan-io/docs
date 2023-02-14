@@ -1,3 +1,5 @@
+.. _tutorial_creating_configure:
+
 Configure settings and options in recipes
 =========================================
 
@@ -46,7 +48,7 @@ Let's check the relevant parts:
         ...
 
 
-You can see that we added a ``configure()`` method to the recipe. Let's explain what's the
+You can see that we added a :ref:`configure() method<reference_conanfile_methods_configure>` to the recipe. Let's explain what's the
 objective of this method and how it's different from the ``config_options()`` method we
 already had defined in the recipe:
 
@@ -84,6 +86,9 @@ option** if certain conditions meet. Let's explain why we are doing this and the
 implications of removing that option. It is related to how Conan identifies packages that
 are binary compatible with the configuration set in the profile. In the next section, we
 introduce the concept of the **Conan package ID**.
+
+
+.. _creating_packages_configure_options_settings:
 
 Conan packages binary compatibility: the **package ID**
 -------------------------------------------------------
@@ -257,11 +262,11 @@ method called ``package_id()``:
 .. code-block:: python
     
     def package_id(self):
-      self.info.clear()
+        self.info.clear()
 
 We will explain the ``package_id()`` method later and explain how you can customize the
 way the package ID for the package is calculated. You can also check the :ref:`Conanfile's
-methods reference<conan_conanfile_methods>` if you want to know how this method works in
+methods reference<reference_conanfile_methods>` if you want to know how this method works in
 more detail.
 
 Read more

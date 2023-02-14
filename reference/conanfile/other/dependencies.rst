@@ -147,7 +147,7 @@ folders:
 
 
 All the paths declared in the ``cppinfo`` object (like ``cpp_info.includedirs``) are absolute paths and works whether
-the dependency is in the cache or is an editable package.
+the dependency is in the cache or is an :ref:`editable package<editable_packages>`.
 
 .. seealso::
 

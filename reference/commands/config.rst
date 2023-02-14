@@ -19,10 +19,14 @@ conan config home
     --logger    Show the output with log format, with time, type and message.
 
 
+The ``conan config home`` command returns the path of the Conan home folder.
+
 .. code-block:: bash
 
     $ conan config home
 
+
+.. _reference_commands_conan_config_install:
 
 conan config install
 --------------------
@@ -244,4 +248,9 @@ Displays all the Conan built-in configurations. There are 2 groups:
     tools.system.package_manager:sudo: Use 'sudo' when invoking the package manager tools in Linux (False by default)
     tools.system.package_manager:sudo_askpass: Use the '-A' argument if using sudo in Linux to invoke the system package manager (False by default)
     tools.system.package_manager:tool: Default package manager tool: 'apt-get', 'yum', 'dnf', 'brew', 'pacman', 'choco', 'zypper', 'pkg' or 'pkgutil'
-    
+
+
+
+.. seealso::
+
+    - :ref:`Conan configuration files <reference_config_files>`
