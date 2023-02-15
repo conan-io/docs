@@ -35,7 +35,7 @@ You can check the contents of the folder:
         └── src
             └── example.cpp
 
-Conan Source
+conan source
 ------------
 
 You will generally want to start with the :command:`conan source` command. The strategy
@@ -98,7 +98,7 @@ right and it contains the files you expect, you can move on to testing the vario
 attributes and methods related to downloading dependencies.
 
 conan install
-^^^^^^^^^^^^^
+-------------
 
 After running the :command:`conan source` command, you can run the :command:`conan
 install` command. This command will install all the recipe requirements if needed and
@@ -180,7 +180,7 @@ Now that all the files necessary for building are generated, you can move on to 
 the `build()` method. 
 
 conan build
-^^^^^^^^^^^
+-----------
 
 Running the After :command:`conan build` command will invoke the `build()` method:
 
@@ -238,7 +238,7 @@ got using the :command:`conan build` command.
 .. include:: ../cmake_presets_note.rst
 
 conan export-pkg
-^^^^^^^^^^^^^^^^
+----------------
 
 Now that we built the package binaries locally we can also package those artifacts in the
 Conan local cache using the :command:`conan export-pkg` command.
@@ -266,7 +266,7 @@ was created.
 
 
 conan test
-^^^^^^^^^^
+----------
 
 The final step to test the package for consumers is the test command. You just have to
 provide the folder where the `test package` is (``./test_package``) and the reference you
