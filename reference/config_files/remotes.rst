@@ -28,8 +28,9 @@ The fields for each remote are:
   like :ref:`reference_commands_list`, e.g., :command:`conan list zlib/1.2.11 --remote my_remote_name`.
 * ``url`` (Required, ``string`` value): indicates the URL to be used by Conan to search for the recipes/binaries.
 * ``verify_ssl`` (Required, ``bool`` value): Verify SSL certificate of the specified url.
-* ``disabled`` (Optional, ``bool`` value, ``false`` by default): If the remote is enabled or not to avoid for using it
-  by any Conan command.
+* ``disabled`` (Optional, ``bool`` value, ``false`` by default): If the remote is enabled or not to be used by commands
+  like search, list, download and upload. Notice that a disabled remote can be used to authenticate against it even
+  if it's disabled.
 
 
 .. seealso::
