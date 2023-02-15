@@ -44,6 +44,12 @@ temporary sub-folder relative to the `conanfile.py`. This relative folder is def
 the `self.folders.source` property in the `layout()` method. In this case, as we are using
 the pre-defined `cmake_layout` we set the value with the `src_folder` argument.
 
+.. note::
+
+    In this example we are packaging a third-party library from a remote repository. In the
+    case you have your sources beside your recipe in the same repository, running
+    :command:`conan source` will not be necessary for most of the cases.
+
 Let's have a look at the recipe's `source()` and `layout()` method:
 
 ..  code-block:: python
