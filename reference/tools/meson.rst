@@ -7,5 +7,4 @@ conan.tools.meson
     :maxdepth: 2
 
     meson/mesontoolchain
-    meson/mesondeps
     meson/meson
