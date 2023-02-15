@@ -31,7 +31,6 @@ You can check the contents of the folder:
     ├── conanfile.py
     └── test_package
         ├── CMakeLists.txt
-        ├── CMakeUserPresets.json
         ├── conanfile.py
         └── src
             └── example.cpp
