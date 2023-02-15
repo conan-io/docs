@@ -241,7 +241,9 @@ conan export-pkg
 ----------------
 
 Now that we built the package binaries locally we can also package those artifacts in the
-Conan local cache using the :command:`conan export-pkg` command.
+Conan local cache using the :command:`conan export-pkg` command. Please note that this
+command will create the package in the Conan cache and test it running the `test_package`
+after that.
 
 ..  code-block:: bash
 
@@ -253,29 +255,6 @@ Conan local cache using the :command:`conan export-pkg` command.
     ...
     conanfile.py (hello/1.0): Package folder /Users/...
     conanfile.py (hello/1.0): Exported package binary
-
-Now you can list the packages in the local cache and check that the ``hello/1.0`` package
-was created.
-
-..  code-block:: bash
-
-    $ conan list hello/1.0
-    Local Cache
-    hello
-        hello/1.0
-
-
-conan test
-----------
-
-The final step to test the package for consumers is the test command. You just have to
-provide the folder where the `test package` is (``./test_package``) and the reference you
-are testing (``hello/1.0``):
-
-.. code-block:: bash
-
-    $ conan test test_package hello/1.0
-
     ...
     [ 50%] Building CXX object CMakeFiles/example.dir/src/example.cpp.o
     [100%] Linking CXX executable example
@@ -292,6 +271,15 @@ are testing (``hello/1.0``):
     hello/1.0: __clang_major__14
     hello/1.0: __apple_build_version__14000029
 
+Now you can list the packages in the local cache and check that the ``hello/1.0`` package
+was created.
+
+..  code-block:: bash
+
+    $ conan list hello/1.0
+    Local Cache
+    hello
+        hello/1.0
 
 .. seealso::
     
