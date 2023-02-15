@@ -225,7 +225,7 @@ preset. Let's try:
 You can check that the results invoking CMake directly are equivalent to the ones we got
 using the :command:`conan build` command.
 
-.. include:: ../../../../tutorial/cmake_presets_note.rst
+.. include:: ../cmake_presets_note.rst
 
 conan export-pkg
 ^^^^^^^^^^^^^^^^
@@ -284,9 +284,9 @@ straight-forward. You just have to provide the folder where the `test package` i
 
 
 .. seealso::
-
-    - Reference for conan source, install, build, export-pkg and test commands.
-    - cpp and folders Reference
-    - cmake_layout reference
-    - package prebuilt binaries example
-    - link all the commands.
+    
+    - Reference for conan :ref:`source<reference_commands_source>`,
+      :ref:`install<reference_commands_install>`, :ref:`build<reference_commands_build>`,
+      :ref:`export-pkg<reference_commands_export-pkg>` and
+      :ref:`test<reference_commands_test>` commands.
+    - Packaging prebuilt binaries :ref:`example<creating_packages_other_prebuilt>`

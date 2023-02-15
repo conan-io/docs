@@ -43,31 +43,29 @@ and these :ref:`custom command examples <examples_extensions_custom_commands>`
 
 **Creator commands:**
 
-.. toctree::
-   :caption: Creator commands
-   :maxdepth: 1
-   :hidden:
+..  toctree::
+    :caption: Creator commands
+    :maxdepth: 1
+    :hidden:
 
-   commands/create
-   commands/export
-   commands/new
-   commands/test
-   commands/upload
-
-- :doc:`conan create <commands/create>`: Create a package from a recipe
-- :doc:`conan export <commands/export>`: Export a recipe to the Conan package cache
-- :doc:`conan new <commands/new>`: Create a new recipe from a predefined template
-- :doc:`conan test <commands/test>`: Test a package
-- :doc:`conan upload <commands/upload>`: Upload packages from the local cache to a specified remote
-
-
-**Development commands**
-
-.. toctree::
-   :caption: Development commands
-   :maxdepth: 1
-   :hidden:
-
-   commands/build
+    commands/build
+    commands/create
+    commands/download
+    commands/editable
+    commands/export
+    commands/export-pkg
+    commands/new
+    commands/source
+    commands/test
+    commands/upload
 
 - :doc:`conan build <commands/build>`: Install package and call its build method
+- :doc:`conan create <commands/create>`: Create a package from a recipe
+- :doc:`conan download <commands/download>`: Download (without install) a single conan package from a remote server.
+- :doc:`conan editable <commands/editable>`: Allows working with a package in user folder
+- :doc:`conan export <commands/export>`: Export a recipe to the Conan package cache
+- :doc:`conan export-pkg <commands/export-pkg>`: Create a package directly from pre-compiled binaries
+- :doc:`conan new <commands/new>`: Create a new recipe from a predefined template
+- :doc:`conan source <commands/source>`: Calls the source() method
+- :doc:`conan test <commands/test>`: Test a package
+- :doc:`conan upload <commands/upload>`: Upload packages from the local cache to a specified remote
