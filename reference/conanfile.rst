@@ -33,4 +33,3 @@ Contents:
 
    conanfile/attributes
    conanfile/methods
-   conanfile/other
