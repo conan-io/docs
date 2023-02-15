@@ -128,13 +128,25 @@ We can check all the parts from our recipe that are involved in this step:
 
         ...
 
+Now run the :command:`conan install` command and check the results:
+
+.. code-block:: bash
+
+    $ conan install .
+    ...
+    -------- Finalizing install (deploy, generators) --------
+    conanfile.py (hello/1.0): Writing generators to ...
+    conanfile.py (hello/1.0): Generator 'CMakeDeps' calling 'generate()'
+    conanfile.py (hello/1.0): Calling generate()
+    ...
+    conanfile.py (hello/1.0): Aggregating env generators 
+
 You can see that a new `build` folder appeared with all the files that Conan needs for
 building the library like a toolchain for `CMake` and several environment configuration
 files.
 
 ..  code-block:: text
     :emphasize-lines: 3-10
-
 
     .
     ├── build
