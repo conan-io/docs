@@ -37,7 +37,7 @@ settings
 --------
 
 List of strings with the first level settings (from ``settings.yml``) that the recipe
-need, because:
+needs, because:
 - They are read for building (e.g: `if self.settings.compiler == "gcc"`)
 - They affect the ``package_id``. If a value of the declared setting changes, the ``package_id`` has to be different.
 
