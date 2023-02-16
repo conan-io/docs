@@ -52,7 +52,7 @@ By default, Conan doesn't build packages from sources. There are several possibi
 overcome this error:
 
 - You can try to build the package for your settings from sources, indicating some build
-  policy as argument, like :command:`--build zlib` or :command:`--build missing`. If the
+  policy as argument, like :command:`--build zlib*` or :command:`--build missing`. If the
   package recipe and the source code work for your settings you will have your binaries
   built locally and ready for use.
 
