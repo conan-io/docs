@@ -159,7 +159,7 @@ Some **important** points:
   ``build_requirements()``, ``system_requirements()``, ``source()``, ``init()``, ``layout()``.
   Any attempt to use it in these methods can raise an error at any time.
 - At the moment, this information should only be used in ``generate()`` and ``validate()`` methods.
-  Any other use, please submit a Github issue.
+  For any other use, please submit a Github issue.
 
 Not all fields of the dependency conanfile are exposed, the current fields are:
 
