@@ -707,3 +707,21 @@ CONAN_KEEP_PYTHON_FILES
 
 This environment variable will allow Python *.pyc* files to be packaged. If not set as ``True``/``1``,
 all the generated *.pyc* files will be filtered when packaging.
+
+CONAN_DISABLE_STRICT_MODE
+-------------------------
+
+**Defaulted to**: ``False``
+
+This environment variable overrides some sanity checks of newer Conan clients to be able to
+build old packages. These sanity checks were initially added to make sure that Conan is used in
+the way it is meant to be used.
+
+If not set as ``True``/``1``, the above mentioned checks remain in place.
+
+.. warning::
+
+    This environment variable should be used with care and only in situations where the recipe itself
+    cannot be fixed in retrospect. If you need to set this environment variable to build
+    your package, you should really be fixing the recipe instead. Problems resulting from overriding
+    the sanity checks will not be seen as bugs.
