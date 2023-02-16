@@ -41,7 +41,7 @@ that you get an error like the following one:
     More Info at 'https://docs.conan.io/en/2/knowledge/faq.html#error-missing-prebuilt-package'
 
 This means that the package recipe ``zlib/1.2.11`` exists, but for some reason there is no
-precompiled package for your current settings. Maybe the package creator didn't build and
+precompiled package for your current settings or options. Maybe the package creator didn't build and
 shared pre-built packages at all and only uploaded the package recipe, or they are only
 providing packages for some platforms or compilers. E.g. the package creator built
 packages from the recipe for apple-clang 11, but you are using apple-clang 14.
