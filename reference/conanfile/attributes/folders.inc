@@ -98,7 +98,7 @@ the ``source_folder`` to the ``build_folder``. This is mostly an optimization fo
 with large source codebases or header-only, to avoid extra copies.
 
 
-If you activate it (``no_copy_source=True``), is **mandatory** that the source code must not be modified at all by
+If you activate ``no_copy_source=True``, it is **mandatory** that the source code must not be modified at all by
 the configure or build scripts, as the source code will be shared among all builds.
 
 The recipes should always use ``self.source_folder`` attribute, which will point to the ``build``
