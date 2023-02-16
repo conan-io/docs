@@ -9,7 +9,7 @@ Please, first of all, clone the sources to recreate this project. You can find t
 .. code-block:: bash
 
     $ git clone https://github.com/conan-io/examples2.git
-    $ cd examples2/examples/config_files/settings
+    $ cd examples2/examples/config_files/settings_user
 
 
 In this example we are going to see how to customize your settings without overwriting the original **settings.yml** file.
@@ -242,7 +242,62 @@ that it's working correctly:
 
 
 As you could observe, each command has created a different package. That was completely right because we were using
-different settings for each one. Try any other custom setting!
+different settings for each one. If you want to see all the packages created, you can use the :ref:`reference_commands_list` command:
+
+
+.. code-block:: bash
+    :caption: List all the *pkg/1.0*'s packages
+
+    $ conan list pkg/1.0:*
+    Local Cache
+      pkg
+        pkg/1.0
+          revisions
+            637fc1c7080faaa7e2cdccde1bcde118 (2023-02-16 06:42:10 UTC)
+              packages
+                19cf3cb5842b18dc78e5b0c574c1e71e7b0e17fc
+                  info
+                    settings
+                      arch: cortexa15t2hf
+                      build_type: Release
+                      compiler: apple-clang
+                      compiler.cppstd: gnu98
+                      compiler.libcxx: libc++
+                      compiler.version: 12.0
+                      os: webOS
+                20496b332552131b67fb99bf425f95f64d0d0818
+                  info
+                    settings
+                      arch: x86_64
+                      build_type: Release
+                      compiler: apple-clang
+                      compiler.cppstd: gnu98
+                      compiler.libcxx: libc++
+                      compiler.version: 12.0
+                      os: Macos
+                44a4588d3fe63ccc6e7480565d35be38d405718e
+                  info
+                    settings
+                      arch: x86_64
+                      build_type: Release
+                      compiler: gcc
+                      compiler.libcxx: libstdc++11
+                      compiler.version: 13.0-rc
+                      os: Macos
+                a0d37d10fdb83a0414d7f4a1fb73da2c210211c6
+                  info
+                    settings
+                      arch: x86_64
+                      build_type: Release
+                      compiler: apple-clang
+                      compiler.cppstd: gnu98
+                      compiler.libcxx: libc++
+                      compiler.version: 12.0
+                      os: webOS
+                      os.sdk_version: 7.0.0
+
+
+Try any other custom setting!
 
 .. seealso::
 
