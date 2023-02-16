@@ -18,7 +18,7 @@ Available since: 1.59.0
 This function might not be necessary when using Conan built-in integrations, as they already manage it, 
 but can be useful if developing your own build system integration.
 
-``android_abi()`` functon returns the Android standard ABI name based on Conan ``settings.arch`` value, something like:
+``android_abi()`` function returns the Android standard ABI name based on Conan ``settings.arch`` value, something like:
 
 .. code-block:: python
 
