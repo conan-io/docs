@@ -37,7 +37,7 @@ The allowed values are:
 - ``"missing"``: Conan builds it from source if there is no binary available.
 - ``"never"``: This package cannot be built from sources, it is always created with
   ``conan export-pkg``
-- ``None`` (default value): This package won't be build unless the policy is specified
+- ``None`` (default value): This package won't be built unless the policy is specified
   in the command line (e.g ``--build=foo*``)
 
    .. code-block:: python
