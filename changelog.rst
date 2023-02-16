@@ -18,8 +18,21 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-    Conan 1.58 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
+    Conan 1.59 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
     a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
+
+1.59.0 (16-Feb-2023)
+--------------------
+
+- Feature: Update `requirements.txt` to use distro package version <=1.8.0. `#13124 <https://github.com/conan-io/conan/pull/13124>`_
+- Feature: Add new ``Git.fetch_commit`` method, for a faster alternative than clone. `#13096 <https://github.com/conan-io/conan/pull/13096>`_ . Docs `here <https://github.com/conan-io/docs/pull/2974>`__
+- Feature: Add `msvs_toolset` method to `conan.tools.microsoft.visual` to identify which toolset version is associated to the compiler version. `#13041 <https://github.com/conan-io/conan/pull/13041>`_ . Docs `here <https://github.com/conan-io/docs/pull/2951>`__
+- Feature: Add a `CONAN_DISABLE_STRICT_MODE`  environment variable as a workaround to be able to build old packages which used CMakeDeps or MSBuildDeps without switching to the new CMakeToolchain or MSBuildToolchain generator as well. `#13039 <https://github.com/conan-io/conan/pull/13039>`_ . Docs `here <https://github.com/conan-io/docs/pull/2950>`__
+- Feature: Show meaningful message if CMakePresets.txt does not exist (normally, when CMakeToolchain was not added as a generator). `#13019 <https://github.com/conan-io/conan/pull/13019>`_
+- Feature: Add `conan.tools.android.android_abi()` function to return the Android standard ABI name based on Conan. `#12873 <https://github.com/conan-io/conan/pull/12873>`_ . Docs `here <https://github.com/conan-io/docs/pull/2975>`__
+- Bugfix: Local build was not adding default dirs in MesonToolchain (only in Linux). `#13132 <https://github.com/conan-io/conan/pull/13132>`_
+- Bugfix: Solve 500 error in :command:`conan search` to conan_server with revisions enabled of a missing package. `#13070 <https://github.com/conan-io/conan/pull/13070>`_
+- Bugfix: Fix issue in `fix_apple_shared_install_name` handling dylib files with multiple architectures (universal). `#13034 <https://github.com/conan-io/conan/pull/13034>`_
 
 1.58.0 (30-Jan-2023)
 --------------------
