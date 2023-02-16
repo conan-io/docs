@@ -56,3 +56,4 @@ Contents:
    tools/layout
    tools/scm
    tools/build
+   tools/android
