@@ -41,7 +41,7 @@ exports_sources
 List or tuple of strings with file names or
 `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_ patterns that should be exported
 and will be available to generate the package. Unlike the ``exports`` attribute, these files
-shouldn’t be used by the ``conanfile.py`` Python code, but to compile the library or generate
+shouldn't be used by the ``conanfile.py`` Python code, but to compile the library or generate
 the final package. And, due to its purpose, these files will only be retrieved if requested
 binaries are not available or the user forces Conan to compile from sources.
 
