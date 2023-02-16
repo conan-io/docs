@@ -140,14 +140,9 @@ Reference
 conf
 ++++
 
-These are the two different configuration entries for ``IntelCC``:
+``IntelCC`` uses these :ref:`configuration entries <reference_config_files_global_conf>`:
 
 - ``tools.intel:installation_path``: **(required)** argument to tells Conan the installation path, if it's not defined,
   Conan will try to find it out automatically.
 - ``tools.intel:setvars_args``: **(optional)** it is used to pass whatever we want as arguments to our `setvars.sh|bat` file.
   You can check out all the possible ones from the Intel official documentation.
-
-
-.. seealso::
-
-    - :ref:`[conf] section in profiles <reference_config_files_profiles_conf>`.

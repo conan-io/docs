@@ -68,8 +68,7 @@ Usage:
 
 conf
 ^^^^
+It uses these :ref:`configuration entries <reference_config_files_global_conf>`:
 
 - ``tools.files.download:retry``: number of retries in case some error occurs.
 - ``tools.files.download:retry_wait``: seconds to wait between retries.
-
-
