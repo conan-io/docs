@@ -1,3 +1,5 @@
+.. _reference_commands_test:
+
 conan test
 ===========
 

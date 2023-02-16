@@ -1,3 +1,5 @@
+.. _reference_commands_build:
+
 conan build
 ===========
 
