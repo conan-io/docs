@@ -63,30 +63,31 @@ Map<String, String> versions = [
         'release/2.0.0-beta': '2.0'
         ]
 
+def latest_v1_branch = 'master'
+def latest_v1_folder = '1'
+
+def latest_to_v1_redirect = """\
+    <!DOCTYPE HTML>
+    <html lang="en-US">
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="refresh" content="0; url=https://docs.conan.io/en/${latest_v1_folder}">
+            <script type="text/javascript">
+                window.location.href = "https://docs.conan.io/en/${latest_v1_folder}"
+            </script>
+            <title>Page Redirection</title>
+        </head>
+        <body>
+            If you are not redirected automatically, follow this <a href='https://docs.conan.io/en/${latest_v1_folder}'>link to https://docs.conan.io/en/${latest_v1_folder}</a>.
+        </body>
+    </html>
+    """.stripIndent()
+
+
 node('Linux') {
 
     String prefix = params.prefix ?: "${BUILD_URL}artifact/gh-pages/"
     stage('Check params') {
-
-        def latest_v1_branch = 'master'
-        def latest_v1_folder = '1'
-
-        def latest_to_v1_redirect = """\
-            <!DOCTYPE HTML>
-            <html lang="en-US">
-                <head>
-                    <meta charset="UTF-8">
-                    <meta http-equiv="refresh" content="0; url=https://docs.conan.io/en/${latest_v1_folder}">
-                    <script type="text/javascript">
-                        window.location.href = "https://docs.conan.io/en/${latest_v1_folder}"
-                    </script>
-                    <title>Page Redirection</title>
-                </head>
-                <body>
-                    If you are not redirected automatically, follow this <a href='https://docs.conan.io/en/${latest_v1_folder}'>link to https://docs.conan.io/en/${latest_v1_folder}</a>.
-                </body>
-            </html>
-            """.stripIndent()
 
         echo """
             Generate Conan docs webpage
