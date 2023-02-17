@@ -50,12 +50,12 @@ If you are using a multi-configuration generator:
 
 .. code:: bash
 
-    $ cmake --preset default
-    $ cmake --build --preset debug
+    $ cmake --preset conan-default
+    $ cmake --build --preset conan-debug
     $ build\Debug\foo.exe
     foo/1.0: Hello World Release!
 
-    $ cmake --build --preset release
+    $ cmake --build --preset conan-release
     $ build\Release\foo.exe
     foo/1.0: Hello World Release!
 
@@ -64,14 +64,14 @@ If you are using a single-configuration generator:
 
 .. code:: bash
 
-    $ cmake --preset debug
-    $ cmake --build --preset debug
+    $ cmake --preset conan-debug
+    $ cmake --build --preset conan-debug
     $ ./build/Debug/foo
     foo/1.0: Hello World Debug!
 
 
-    $ cmake --preset release
-    $ cmake --build --preset release
+    $ cmake --preset conan-release
+    $ cmake --build --preset conan-release
     $ ./build/Release/foo
     foo/1.0: Hello World Release!
 

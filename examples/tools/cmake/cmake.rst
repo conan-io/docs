@@ -10,3 +10,4 @@ tools.cmake
 
 
    cmake_toolchain/build_project_cmake_presets
+   cmake_toolchain/extend_own_cmake_presets
