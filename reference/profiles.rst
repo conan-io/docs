@@ -263,6 +263,8 @@ You can specify both profiles instead:
 .. code-block:: bash
 
    $ conan install . --profile clang --profile cmake_316
+   
+**Note:** `[tool_requires]` from conanfiles are preferred over `[tool_requires]` from profiles.
 
 Profile includes
 ----------------
