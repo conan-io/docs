@@ -21,7 +21,7 @@ imported from ``conan.tools.gnu``. The most relevant tools are:
   `pkg-config` files for all the required dependencies of a package.
 
 For the full list of tools under ``conan.tools.gnu`` please check the :ref:`reference
-<conan_tools_gnu>`. 
+<conan_tools_gnu>` section. 
 
 .. seealso::
 
