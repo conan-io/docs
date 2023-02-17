@@ -3,9 +3,9 @@
 |cmake_logo| CMake
 ==================
 
-Conan provides different tools to integrate with CMake in a transparent way. Using this
-tools the consuming ``CMakeLists.txt`` doesn’t need to be aware at all about Conan. The
-CMake tools provide also better IDE integration via cmake-presets.
+Conan provides different tools to integrate with CMake in a transparent way. Using these
+tools, the consuming ``CMakeLists.txt`` file does not need to be aware of Conan at all. The
+CMake tools also provide better IDE integration via cmake-presets.
 
 
 Read more:
