@@ -195,9 +195,9 @@ Managing the configure_args, make_args and autoreconf_args attributes
 ``AutotoolsToolchain`` provides some help methods so users can add/update/remove values defined in ``configure_args``,
 ``make_args`` and ``autoreconf_args`` (all of them lists of strings). Those methods are:
 
-* ``update_configure_args(updated_flags)`` (since Conan 1.57): will change ``AutotoolsToolchain.configure_args``.
-* ``update_make_args(updated_flags)`` (since Conan 1.57): will change ``AutotoolsToolchain.make_args``.
-* ``update_autoreconf_args(updated_flags)`` (since Conan 1.57): will change ``AutotoolsToolchain.autoreconf_args``.
+* ``update_configure_args(updated_flags)``: will change ``AutotoolsToolchain.configure_args``.
+* ``update_make_args(updated_flags)``: will change ``AutotoolsToolchain.make_args``.
+* ``update_autoreconf_args(updated_flags)``: will change ``AutotoolsToolchain.autoreconf_args``.
 
 Where ``updated_flags`` is a dict-like Python object defining all the flags to change. It follows the next rules:
 
