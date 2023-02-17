@@ -41,4 +41,6 @@ When a profile is computed, it will display something like:
     OrderedDict([('arch', 'x86_64'), ('build_type', 'Release'), ('compiler', 'msvc'), ('compiler.cppstd', '14'), ('compiler.runtime', 'dynamic'), ('compiler.runtime_type', 'Release'), ('compiler.version', '192'), ('os', 'Windows')])
 
 
-TBD: Document the whole ``profile`` object
+.. seealso::
+
+    - See the documentation about the :ref:`Conan profiles <reference_config_files_profiles>`.
