@@ -10,7 +10,7 @@
         <dt>{{ _('Versions') }}</dt>
         {% for slug, the_version in versions.items() %}
           {% if slug == "master" %}
-            <dd><a href="/en/latest/index.html">{{ the_version }}</a></dd>
+            <dd><a href="/en/1/index.html">{{ the_version }}</a></dd>
           {% else %}
             <dd><a href="/en/{{ the_version }}/index.html">{{ the_version }}</a></dd>
           {% endif %}
@@ -19,7 +19,7 @@
       <dl>
         <dt>Downloads</dt>
         {% if versions["master"] == current_version %}
-          <dd><a href="/en/latest/conan.pdf">PDF</a></dd>
+          <dd><a href="/en/1/conan.pdf">PDF</a></dd>
         {% else %}
           <dd><a href="/en/{{ current_version }}/conan.pdf">PDF</a></dd>
         {% endif %}
