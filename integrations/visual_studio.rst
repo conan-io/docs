@@ -9,12 +9,12 @@ integration with Microsoft Visual Studio, without the need to use CMake and inst
 directly using Visual Studio solutions, projects, and property files. The most relevant
 tools are:
 
-- `MSBuildDeps`, the dependency information generator for Microsoft MSBuild build system.
-  It will generate multiple ``xxxx.props`` properties files one per dependency of a package,
-  to be used by consumers using MSBuild or Visual Studio, just adding the generated
-  properties files to the solution and projects.
+- `MSBuildDeps`: the dependency information generator for Microsoft MSBuild build system.
+  It will generate multiple ``xxxx.props`` properties files, one per dependency of a
+  package, to be used by consumers using MSBuild or Visual Studio, just by adding the
+  generated properties files to the solution and projects.
 
-- `MSBuildToolchain`, the toolchain generator for MSBuild. It will generate MSBuild
+- `MSBuildToolchain`: the toolchain generator for MSBuild. It will generate MSBuild
   properties files that can be added to the Visual Studio solution projects. This
   generator translates the current package configuration, settings, and options, into
   MSBuild properties files syntax.
@@ -23,8 +23,9 @@ tools are:
   will abstract the calls like ``msbuild "MyProject.sln" /p:Configuration=<conf>
   /p:Platform=<platform>`` into Python method calls.
 
-For the full list of tools under ``conan.tools.microsoft`` please check the :ref:`reference
-<conan_tools_microsoft>` section. 
+For the full list of tools under ``conan.tools.microsoft`` please check the
+:ref:`reference <conan_tools_microsoft>` section.
+
 
 .. seealso::
 
