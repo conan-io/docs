@@ -3,8 +3,10 @@
 CMakeToolchain: Extending your CMakePresets with Conan generated ones
 =====================================================================
 
-In this example we are going to see how to use ``CMakeToolchain``, predefined layouts like ``cmake_layout`` and the
-``CMakePresets`` CMake feature.
+In this example we are going to see how to extend your own CMakePresets to include Conan
+generated ones.
+
+.. include:: ../../../../tutorial/cmake_presets_note.rst
 
 Let's create a basic project based on the template ``cmake_exe`` as an example of a C++ project:
 
@@ -76,9 +78,11 @@ And provide our own ``CMakePresets.json``, besides the ``CMakeLists.txt``:
     ]
     }
 
-Note how it ``include("ConanPresets.json")`` and every preset ``inherits`` a Conan generated one.
+Note how the ``"include": ["./ConanPresets.json"],`` and that every preset ``inherits`` a
+Conan generated one.
 
-We can now install for both Release and Debug (and other configurations also, with the help of ``build_folder_vars`` if we want):
+We can now install for both Release and Debug (and other configurations also, with the
+help of ``build_folder_vars`` if we want):
 
 .. code-block:: bash
 
