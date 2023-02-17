@@ -67,19 +67,36 @@ node('Linux') {
 
     String prefix = params.prefix ?: "${BUILD_URL}artifact/gh-pages/"
     stage('Check params') {
-        assert params.latest, 'Provide a name to the "latest" branch'
-        if (params.publish) {
-            assert params.prefix, 'Provide the prefix (base URL) if you are going to publish'
-        }
+
+        def latest_v1_branch = 'master'
+        def latest_v1_folder = '1'
+
+        def latest_to_v1_redirect = """\
+            <!DOCTYPE HTML>
+            <html lang="en-US">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta http-equiv="refresh" content="0; url=https://docs.conan.io/en/${latest_v1_folder}">
+                    <script type="text/javascript">
+                        window.location.href = "https://docs.conan.io/en/${latest_v1_folder}"
+                    </script>
+                    <title>Page Redirection</title>
+                </head>
+                <body>
+                    If you are not redirected automatically, follow this <a href='https://docs.conan.io/en/${latest_v1_folder}'>link to https://docs.conan.io/en/${latest_v1_folder}</a>.
+                </body>
+            </html>
+            """.stripIndent()
 
         echo """
             Generate Conan docs webpage
-             - params.latest: ${params.latest}
+             - latest_v1_branch: ${latest_v1_branch}
+             - latest_v1_folder: ${latest_v1_folder}
              - params.publish: ${params.publish}
              - prefix: ${prefix}
-             - versions: latest (${params.latest}), ${versions.collect({key, value -> value }).join(', ')}
+             - versions: latest (${latest_v1_branch}), ${versions.collect({key, value -> value }).join(', ')}
         """
-        versions[params.latest] = 'latest'
+        versions[latest_v1_branch] = latest_v1_folder
     }
 
     def image = null
@@ -124,9 +141,9 @@ node('Linux') {
                 image.inside {
                     stage('Prepare sources') {
                         writeJSON json: versions, file: "${folderName}/versions.json"
-                        if (folderName != 'latest') {
+                        if (folderName != latest_v1_folder) {
                             sh "rm -fr ${folderName}/_themes/conan"
-                            sh "cp -a latest/_themes/. ${folderName}/_themes/"
+                            sh "cp -a ${latest_v1_folder}/_themes/. ${folderName}/_themes/"
                         }
                         if (folderName == '2.0') {
                             def conanBranch = 'release/2.0-beta'
@@ -164,11 +181,13 @@ node('Linux') {
 
     stage('Prepare gh-branch') {
         dir('gh-pages') {
-            // sh 'cp src/versions.json versions.json'  // TODO: File is not used, remove from 'gh-pages' branch
-            sh 'cp en/latest/404.html 404.html'
+            // write redirection from /latest to /1
+            writeFile(file: 'en/latest/index.html', text: latest_to_v1_redirect)
 
+            // sh 'cp src/versions.json versions.json'  // TODO: File is not used, remove from 'gh-pages' branch
+            sh "cp en/${latest_v1_folder}/404.html 404.html"
             String content = readFile('404.html')
-            String prefixLatest = "${prefix}en/latest"
+            String prefixLatest = "${prefix}en/${latest_v1_folder}"
             content = content.replaceAll('href="_', "href=\"${prefixLatest}/_")
             content = content.replaceAll('src="_', "src=\"${prefixLatest}/_")
             content = content.replaceAll('alt="_', "alt=\"${prefixLatest}/_")
