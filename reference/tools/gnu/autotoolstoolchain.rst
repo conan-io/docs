@@ -1,4 +1,4 @@
-.. _conan_tools_gnu_autotools_toolchain:
+.. _conan_tools_gnu_autotoolstoolchain:
 
 AutotoolsToolchain
 ==================
@@ -186,7 +186,7 @@ The ``environment()`` method returns an :ref:`Environment<conan_tools_env_enviro
 
 
 The ``AutotoolsToolchain`` also sets ``CXXFLAGS``, ``CFLAGS``, ``LDFLAGS`` and ``CPPFLAGS`` reading
-variables from the ``[conf]`` section in the profiles. :ref:`See the conf reference below<conan_tools_gnu_autotools_toolchain_conf>`.
+variables from the ``[conf]`` section in the profiles. :ref:`See the conf reference below<conan_tools_gnu_autotoolstoolchain_conf>`.
 
 
 Managing the configure_args, make_args and autoreconf_args attributes
@@ -245,7 +245,7 @@ Reference
 conf
 ^^^^
 
-.. _conan_tools_gnu_autotools_toolchain_conf:
+.. _conan_tools_gnu_autotoolstoolchain_conf:
 
 - ``tools.build:cxxflags`` list of extra C++ flags that will be used by ``CXXFLAGS``.
 - ``tools.build:cflags`` list of extra of pure C flags that will be used by ``CFLAGS``.

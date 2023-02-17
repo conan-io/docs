@@ -32,6 +32,7 @@ Please also check the reference for the CMakeDeps, CMakeToolchain, and CMake too
     - Referece for :ref:`CMakeDeps <conan_tools_cmakedeps>`, :ref:`CMakeToolchain
       <conan_tools_cmaketoolchain>` and :ref:`CMake build helper
       <conan_tools_cmake_helper>`
+    - :ref:`Conan tutorial <tutorial>`
 
 
 .. |cmake_logo| image:: ../images/integrations/conan-cmake-logo.png

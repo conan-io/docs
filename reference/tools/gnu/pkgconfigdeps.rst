@@ -1,5 +1,4 @@
-.. _conan_tools_pkgconfigdeps:
-
+.. _conan_tools_gnu_pkgconfigdeps:
 
 PkgConfigDeps
 =============
