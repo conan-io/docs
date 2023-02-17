@@ -3,10 +3,11 @@
 |visual_studio_logo| Visual Studio
 ==================================
 
-Conan provides different tools to help manage your projects using Microsoft Visual Studio.
-They can be imported from ``conan.tools.microsoft``. These tools allow a native
-integration for Microsoft Visual Studio, natively (without using CMake, but using directly
-Visual Studio solutions, projects and property files). The most relevant tools are:
+Conan provides several tools to help manage your projects using Microsoft Visual Studio.
+These tools can be imported from ``conan.tools.microsoft`` and allow for native
+integration with Microsoft Visual Studio, without the need to use CMake and instead
+directly using Visual Studio solutions, projects, and property files. The most relevant
+tools are:
 
 - 
 
