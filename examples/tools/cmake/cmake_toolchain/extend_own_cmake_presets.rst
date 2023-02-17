@@ -8,14 +8,17 @@ generated ones.
 
 .. include:: ../../../../tutorial/cmake_presets_note.rst
 
-Let's create a basic project based on the template ``cmake_exe`` as an example of a C++ project:
+Please, first of all, clone the sources to recreate this project. You can find them in the
+`examples2.0 repository <https://github.com/conan-io/examples2>`_ in GitHub:
 
-.. code:: bash
+.. code-block:: bash
 
-    $ conan new -d name=foo -d version=1.0 cmake_exe
+    $ git clone https://github.com/conan-io/examples2.git
+    $ cd examples2/examples/tools/cmake/cmake_toolchain/local_flow_cmake_presets
 
-
-And now modify its ``conanfile.py`` to define a different output ``user_preset_path``:
+Please open the `conanfile.py` and check how it sets ``tc.user_presets_path =
+'ConanPresets.json'``. By modifying this attribute of `CMakeToolchain`, you can change the
+default filename of the generated preset.
 
 .. code:: python
 
