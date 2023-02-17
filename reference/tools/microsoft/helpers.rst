@@ -49,6 +49,13 @@ is_msvc_static_runtime
 
 .. autofunction:: is_msvc_static_runtime
 
+msvs_toolset
+------------
+
+
+.. currentmodule:: conan.tools.microsoft.visual
+
+.. autofunction:: msvs_toolset
 
 
 conan.tools.microsoft.subsystems
