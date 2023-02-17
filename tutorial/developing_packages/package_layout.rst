@@ -260,7 +260,7 @@ package in editable mode and build it locally.
 .. code-block:: bash
 
     $ cd ../say
-    $ conan editable add . say/1.0
+    $ conan editable add . --name=say --version=1.0
     $ conan install . -s build_type=Release
     $ cmake --preset release
     $ cmake --build --preset release
@@ -316,7 +316,7 @@ defined by ``cpp.source`` and ``cpp.build``:
     [100%] Linking CXX executable hello
     [100%] Built target hello
 
-    $ conan editable remove say/1.0
+    $ conan editable remove --refs=say/1.0
 
 
 .. note:: 

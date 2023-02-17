@@ -42,6 +42,9 @@ self.folders
   ``conanfile.py`` is relative to the project root. This is particularly useful for
   :ref:`layouts with multiple subprojects<examples_conanfile_layout_multiple_subprojects>`
 
+- **self.folders.build_folder_vars** (Defaulted to ``None``): Use settings and options to
+  produce a different build folder and different CMake presets names.
+
 
 .. _layout_cpp_reference:
 

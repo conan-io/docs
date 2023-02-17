@@ -58,7 +58,7 @@ the local working directory**:
 
 .. code-block:: bash
 
-    $ conan editable add say say/1.0
+    $ conan editable add say --name=say --version=1.0
     $ conan editable list
     say/1.0
         Path: /Users/.../examples2/tutorial/developing_packages/editable_packages/say/conanfile.py
@@ -184,7 +184,7 @@ In order to revert the editable mode just remove the link using:
 
 .. code-block:: bash
 
-    $ conan editable remove say/1.0
+    $ conan editable remove --refs=say/1.0
 
 It will remove the link (the local directory won't be affected) and all the packages consuming this
 requirement will get it from the cache again.
