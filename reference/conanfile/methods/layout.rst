@@ -56,6 +56,34 @@ package (like the classic approach with the ``self.cpp_info`` in the
 The fields of the ``cpp_info`` objects at ``self.cpp.build`` and ``self.cpp.source`` are the
 same described :ref:`here<conan_conanfile_model_cppinfo>`. Components are also supported.
 
+Properties to declare all the information needed by the consumers of a package: include directories,
+library names, library paths... Used both for :ref:`editable packages<editable_packages>` and regular packages in the cache.
+
+
+There are four instances available, only while running the following methods:
+
+- At ``layout(self)`` method:
+    - **self.cpp.package**: For a regular package being used from the Conan cache.
+    - **self.cpp.source**: For "editable" packages, to describe the artifacts under ``self.source_folder``.
+    - **self.cpp.build**: For "editable" packages, to describe the artifacts under ``self.build_folder``.
+
+        .. code-block:: python
+
+            def layout(self):
+                ...
+                self.folders.source = "src"
+                self.folders.build = "build"
+
+                # In the local folder (before a conan create) the artifacts can be found:
+                self.cpp.source.includedirs = ["my_includes"]
+                self.cpp.build.libdirs = ["lib/x86_64"]
+                self.cpp.build.libs = ["foo"]
+
+                # In the Conan cache, we packaged everything at the default standard directories, the library to link
+                # is "foo"
+                self.cpp.package.libs = ["foo"]
+
+
 .. seealso::
 
     Read more about the usage of the ``layout()`` in :ref:`this
