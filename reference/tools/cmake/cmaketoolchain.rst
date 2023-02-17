@@ -1,4 +1,5 @@
 .. _conan-cmake-toolchain:
+.. _conan_tools_cmaketoolchain:
 
 CMakeToolchain
 ==============
@@ -137,7 +138,7 @@ cache_variables
 
 This attribute allows defining CMake cache-variables. These variables, unlike the ``variables``, are single-config. They
 will be stored in the ``CMakePresets.json`` file (at the `cacheVariables` in the `configurePreset`) and will be
-applied with ``-D`` arguments when calling ``cmake.configure`` using the :ref:`CMake() build helper<conan-cmake-build-helper>`.
+applied with ``-D`` arguments when calling ``cmake.configure`` using the :ref:`CMake() build helper<conan_tools_cmake>`.
 
 
 .. code:: python
