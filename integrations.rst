@@ -16,6 +16,6 @@ Xcode.
 
    integrations/cmake
    integrations/visual_studio
-   integrations/meson
    integrations/autotools
    integrations/xcode
+   integrations/meson
