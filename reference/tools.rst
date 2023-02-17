@@ -37,3 +37,4 @@ Contents:
    tools/scm
    tools/layout
    tools/intel
+   tools/android
