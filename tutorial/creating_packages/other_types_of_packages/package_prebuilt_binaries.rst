@@ -1,3 +1,5 @@
+.. _creating_packages_other_prebuilt:
+
 Package prebuilt binaries
 =========================
 
