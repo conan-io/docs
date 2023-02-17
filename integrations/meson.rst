@@ -22,4 +22,4 @@ imported from ``conan.tools.meson``. The most relevant tools are:
 
 Build a simple Meson project using Conan
 
-.. |meson_logo| image:: ../images/integrations/conan-meson-logo.svg
+.. |meson_logo| image:: ../images/integrations/conan-meson-logo.png
