@@ -42,7 +42,7 @@ conan remote add
 .. code-block:: bash
 
     $ conan remote add --help
-    usage: conan remote add [-h] [-v [V]] [--logger] [--insecure] [--index INDEX] name url
+    usage: conan remote add [-h] [-v [V]] [--logger] [--insecure] [--index INDEX] [-f] name url
 
     Add a remote
 
@@ -52,10 +52,12 @@ conan remote add
 
     optional arguments:
     -h, --help     show this help message and exit
-    -v [V]         Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning, -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
+    -v [V]         Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning,
+                    -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
     --logger       Show the output with log format, with time, type and message.
     --insecure     Allow insecure server connections when using SSL
-    --index INDEX  Insert the remote at a specific position in the remote list 
+    --index INDEX  Insert the remote at a specific position in the remote list
+    -f, --force    Force the definition of the remote even if duplicated
 
 
 conan remote disable
