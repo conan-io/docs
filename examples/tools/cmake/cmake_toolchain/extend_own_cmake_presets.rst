@@ -28,7 +28,7 @@ default filename of the generated preset.
         tc.generate()
         ...
 
-And provide our own ``CMakePresets.json``, besides the ``CMakeLists.txt``:
+Now you can provide your own ``CMakePresets.json``, besides the ``CMakeLists.txt``:
 
 .. code-block:: json
     :caption: CMakePresets.json
