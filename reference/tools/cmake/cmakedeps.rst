@@ -1,4 +1,4 @@
-.. _CMakeDeps:
+.. _conan_tools_cmakedeps:
 
 CMakeDeps
 =========

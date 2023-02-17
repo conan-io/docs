@@ -53,7 +53,7 @@ Let's check the relevant parts:
 
 
 * First, we set the ``generators`` class attribute to make Conan invoke the
-  :ref:`CMakeDeps<CMakeDeps>` generator. This was not needed in the previous recipe as we
+  :ref:`CMakeDeps<conan_tools_cmakedeps>` generator. This was not needed in the previous recipe as we
   did not have dependencies. ``CMakeDeps`` will generate all the config files CMake needs
   to find the ``fmt`` library.
 

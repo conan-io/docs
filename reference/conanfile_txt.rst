@@ -57,7 +57,7 @@ In practice the ``[tool_requires]`` will be always installed (same as ``[require
 something is going to be built, so the tool requirements are indeed needed.
 Note however, that by default ``tool_requires`` live in the "build" context, they cannot be libraries to built with, just executable
 tools, and for example, using the ``CMakeDeps`` generator, they will not create CMake config files for them (an exception is possible,
-but it requires using a ``conanfile.py``, read the :ref:`CMakeDeps reference<CMakeDeps>` for more information).
+but it requires using a ``conanfile.py``, read the :ref:`CMakeDeps reference<conan_tools_cmakedeps>` for more information).
 
 
 [test_requires]

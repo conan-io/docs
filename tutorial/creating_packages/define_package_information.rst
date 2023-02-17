@@ -217,7 +217,7 @@ Properties model: setting information for specific generators
 
 The :ref:`CppInfo<conan_conanfile_model_cppinfo_attributes>` object provides the
 ``set_property`` method to set information specific to each generator. For example, in
-this tutorial, we use the :ref:`CMakeDeps<CMakeDeps>` generator to generate the
+this tutorial, we use the :ref:`CMakeDeps<conan_tools_cmakedeps>` generator to generate the
 information that CMake needs to build a project that requires our library. ``CMakeDeps``,
 by default, will set a target name for the library using the same name as the Conan
 package. If you have a look at that *CMakeLists.txt* from the *test_package*:
