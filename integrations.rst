@@ -19,3 +19,12 @@ Xcode.
    integrations/autotools
    integrations/xcode
    integrations/meson
+   integrations/android
+
+.. warning::
+
+    Even though there's a plugin for Visual Studio IDE and another for CLion, it's not
+    recommended to use them right now because they're not updated for the 2.0 version yet.
+    However, we intend to resume working on these plugins and enhance their functionality
+    once Conan 2.0 is released.
+    
