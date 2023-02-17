@@ -12,10 +12,10 @@ To learn how to integrate Conan with your current CMake project you can follow t
 
 Please also check the reference for the CMakeDeps, CMakeToolchain, and CMake tools:
 
-- `CMakeDeps`, responsible for generating the CMake config files for all the required
+- `CMakeDeps`: responsible for generating the CMake config files for all the required
   dependencies of a package.
 
-- `CMakeToolchain`, generates all the information needed for CMake to build the packages
+- `CMakeToolchain`: generates all the information needed for CMake to build the packages
   according to the information passed to Conan about things like the operating system, the
   compiler to use, architecture, etc. It will also generate `cmake-presets` files for easy
   integration with some IDEs that support this CMake feature off-the-shelf.

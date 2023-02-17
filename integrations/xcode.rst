@@ -9,11 +9,11 @@ Xcode in recipes. They can be imported from ``conan.tools.apple``. The most rele
 
 Please also check the reference for the CMakeDeps, CMakeToolchain, and CMake tools:
 
-- `XcodeDeps`, the dependency information generator for Xcode. It will generate multiple
+- `XcodeDeps`: the dependency information generator for Xcode. It will generate multiple
   `.xcconfig` configuration files, that can be used by consumers using xcodebuild in the
   command line or adding them to the Xcode IDE.
 
-- `XcodeToolchain`, the toolchain generator for Xcode. It will generate .xcconfig
+- `XcodeToolchain`: the toolchain generator for Xcode. It will generate .xcconfig
   configuration files that can be added to Xcode projects. This generator translates the
   current package configuration, settings, and options, into Xcode .xcconfig files syntax.
 
