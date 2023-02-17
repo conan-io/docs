@@ -180,6 +180,8 @@ List of options available from your recipe and its dependencies:
     shared=True
 
 
+.. _reference_config_files_profiles_tool_requires:
+
 [tool_requires]
 +++++++++++++++
 
@@ -194,6 +196,115 @@ List of ``tool_requires`` required by your recipe or its dependencies:
 .. seealso::
 
     Read more about tool requires in this section: :ref:`consuming_packages_tool_requires`.
+
+
+.. _reference_config_files_profiles_system_tools:
+
+[system_tools]
++++++++++++++++
+
+.. include:: ./system_tools_warning.rst
+
+This section is similar to the previous one, **[tool_requires]**, but it's intended to list only the tool requires
+that are already in your own system and you don't want Conan to search them remotely or locally.
+
+For instance, you have already installed ``cmake==3.24.2`` in your system:
+
+.. code-block:: bash
+
+    $ cmake --version
+    cmake version 3.24.2
+
+    CMake suite maintained and supported by Kitware (kitware.com/cmake).
+
+Now, you have in your recipe (or the transitive dependencies) declared a **tool_requires**, i.e., something like this:
+
+.. code-block:: python
+    :caption: **conanfile.py**
+
+    from conan import ConanFile
+
+    class PkgConan(ConanFile):
+        name = "pkg"
+        version = "2.0"
+        # ....
+
+        def build_requirements(self):
+            self.tool_requires("cmake/3.24.2")
+
+Given this situation, it could make sense to want to use your already installed CMake version, so it's enough to declare
+it as a ``system_tools`` in your profile (``default`` one or any other in use):
+
+.. code-block:: text
+    :caption: *myprofile*
+
+    ...
+
+    [system_tools]
+    cmake/3.24.2
+
+Whenever you want to create the package, you'll see that build requirement is already satisfied because of the system tool
+declaration:
+
+.. code-block:: bash
+    :emphasize-lines: 9,18
+
+    $ conan create . -pr myprofile --build=missing
+    ...
+    -------- Computing dependency graph --------
+    Graph root
+        virtual
+    Requirements
+        pkg/2.0#3488ec5c2829b44387152a6c4b013767 - Cache
+    Build requirements
+        cmake/3.24.2 - System tool
+
+    -------- Computing necessary packages --------
+
+    -------- Computing necessary packages --------
+    pkg/2.0: Forced build from source
+    Requirements
+        pkg/2.0#3488ec5c2829b44387152a6c4b013767:20496b332552131b67fb99bf425f95f64d0d0818 - Build
+    Build requirements
+        cmake/3.24.2 - System tool
+
+
+Notice that if the ``system_tools`` declared does not make a strict match with the ``tool_requires`` one (version or
+version range), then Conan will try to bring them remotely or locally as usual. Given the previous example, changing the
+profile as follows:
+
+.. code-block:: text
+    :caption: *myprofile*
+
+    ...
+
+    [system_tools]
+    cmake/3.20.0
+
+The result will be different when calling the :command:`conan create`, because Conan will download remotely and build
+from source if necessary:
+
+.. code-block:: bash
+    :emphasize-lines: 9,18
+
+    $ conan create . -pr myprofile --build=missing
+    ...
+    -------- Computing dependency graph --------
+    Graph root
+        virtual
+    Requirements
+        pkg/2.0#3488ec5c2829b44387152a6c4b013767 - Cache
+    Build requirements
+        cmake/3.24.2#e35bc44b3fcbcd661e0af0dc5b5b1ad4 - Downloaded (conancenter)
+
+    -------- Computing necessary packages --------
+
+    -------- Computing necessary packages --------
+    pkg/2.0: Forced build from source
+    Requirements
+        pkg/2.0#3488ec5c2829b44387152a6c4b013767:20496b332552131b67fb99bf425f95f64d0d0818 - Build
+    Build requirements
+        cmake/3.24.2#e35bc44b3fcbcd661e0af0dc5b5b1ad4:d0599452a426a161e02a297c6e0c5070f99b4909 - Build
 
 
 .. _reference_config_files_profiles_buildenv:
