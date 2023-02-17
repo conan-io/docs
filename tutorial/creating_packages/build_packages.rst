@@ -125,7 +125,7 @@ branch has two novelties on the library side:
 The ``BUILD_TESTING`` `CMake variable
 <https://cmake.org/cmake/help/latest/module/CTest.html>`_ is declared and set to ``OFF``
 by Conan (if not already defined) whenever the ``tools.build:skip_test`` configuration is
-set to value ``True``. This variable is tipically declared by CMake when you use CTest but
+set to value ``True``. This variable is typically declared by CMake when you use CTest but
 using the ``tools.build:skip_test`` configuration you can use it in your *CMakeListst.txt*
 even if you are using another testing framework.
 
@@ -193,7 +193,7 @@ Now that we have gone through all the changes in the code, let's try them out:
     ...
 
 As you can see, the tests were built and run. Let's use now the ``tools.build:skip_test``
-configuration in the commnand line to skip the test building and running:
+configuration in the command line to skip the test building and running:
 
 .. code-block:: bash
 
