@@ -4,21 +4,21 @@
 ==========================
 
 Conan provides different tools to help manage your projects using Autotools. They can be
-imported from ``conan.tools.gnu``. The most relevant are:
+imported from ``conan.tools.gnu``. The most relevant tools are:
 
-- `AutotoolsDeps` is the dependencies generator for Autotools. It will generate shell
-  scripts containing environment variable definitions that the autotools build system can
+- `AutotoolsDeps`, the dependencies generator for Autotools, which generates shell scripts
+  containing environment variable definitions that the Autotools build system can
   understand.
 
-- `AutotoolsToolchain` is the toolchain generator for Autotools. It will generate shell
-  scripts containing environment variable definitions that the autotools build system can
+- `AutotoolsToolchain`, the toolchain generator for Autotools, which generates shell
+  scripts containing environment variable definitions that the Autotools build system can
   understand.
 
-- `Autotools` build helper is a wrapper around the command line invocation of autotools.
-  It abstracts calls like `./configure` or `make` into Python method calls.
+- `Autotools` build helper, a wrapper around the command line invocation of autotools that
+  abstracts calls like `./configure` or `make` into Python method calls.
 
-- `PkgConfigDeps` is the dependencies generator for `pkg-config`. Generates `pkg-config`
-  files for all the required dependencies of a package.
+- `PkgConfigDeps`, the dependencies generator for `pkg-config` which generates
+  `pkg-config` files for all the required dependencies of a package.
 
 For the full list of tools under ``conan.tools.gnu`` please check the :ref:`reference
 <conan_tools_gnu>`. 
