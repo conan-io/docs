@@ -27,9 +27,11 @@ Please also check the reference for the CMakeDeps, CMakeToolchain, and CMake too
 
 .. seealso::
 
-    - Check the :ref:`examples section <examples_cmake>` about CMake tools
+    - Check the :ref:`Building your project using CMakePresets
+      <examples-tools-cmake-toolchain-build-project-presets>` example
     - Referece for :ref:`CMakeDeps <conan_tools_cmakedeps>`, :ref:`CMakeToolchain
-      <conan_tools_cmaketoolchain>` and :ref:`CMake build helper <conan_tools_cmake_helper>`
+      <conan_tools_cmaketoolchain>` and :ref:`CMake build helper
+      <conan_tools_cmake_helper>`
 
 
 .. |cmake_logo| image:: ../images/integrations/conan-cmake-logo.png
