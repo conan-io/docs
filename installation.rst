@@ -6,12 +6,10 @@ Install
 Conan can be installed in many Operating Systems. It has been extensively used and tested in Windows, Linux (different distros), OSX, and is
 also actively used in FreeBSD and Solaris SunOS. There are also several additional operating systems on which it has been reported to work.
 
-There are three ways to install Conan:
+There are different ways to install Conan:
 
 1. The preferred and **strongly recommended way to install Conan** is from PyPI, the Python Package Index, using the ``pip`` command.
-2. There are other available installers for different systems, which might come with a bundled python interpreter, so that you don't have to
-   install python first. Note that some of **these installers might have some limitations**, especially those created with pyinstaller
-   (such as Windows exe & Linux deb).
+2. Use a system installer, or create your own self contained Conan executable, to not require Python in your system.
 3. Running Conan from sources.
 
 Install with pip (recommended)
@@ -48,13 +46,50 @@ Install Conan:
 Known installation issues with pip
 ++++++++++++++++++++++++++++++++++
 
-- When Conan is installed with :command:`pip install --user <username>`, usually a new directory is created for it. However, the directory
-  is not appended automatically to the `PATH` and the :command:`conan` commands do not work. This can usually be solved restarting the session of
-  the terminal or running the following command:
+When Conan is installed with :command:`pip install --user <username>`, usually a new directory is created for it. However, the directory is not appended automatically to the `PATH` and the :command:`conan` commands do not work. This can usually be solved restarting the session of the terminal or running the following command:
 
   .. code-block:: bash
 
       $ source ~/.profile
+
+
+.. _conan_update:
+
+Update
+++++++
+
+If installed via ``pip``, Conan version can be updated with:
+
+.. code-block:: bash
+
+    $ pip install conan --pre --upgrade  # Might need sudo or --user
+
+The upgrade shouldn't affect the installed packages or cache information. If the cache becomes inconsistent somehow, you may want to remove its content by deleting it (``<userhome>/.conan2``).
+
+
+Use system installer or create a self contained executable
+----------------------------------------------------------
+
+There are existing installers in `Conan downloads`_ for OSX Brew, Debian, Windows, Linux Arch, that will not require Python first.
+
+If there is no installer for your platform, you can create your own Conan executable, with the ``pyinstaller.py`` utility in the repo. This proces is able to create a self contained Conan executable that contains all it needs,
+including the Python interpreter, so it wouldnt be necessary to have Python installed in the system.
+
+You can do it with: 
+
+.. code-block:: bash
+
+  $ git clone https://github.com/conan-io/conan conan_src
+  $ cd conan_src
+  $ git checkout develop2 # or to the specific tag you want to
+  $ pip install -e . 
+  $ python pyinstaller.py
+
+
+It is important to install the dependencies and the project first with ``pip install -e .`` which configures the project as "editable", that is, to run from the current source folder. After creating the executable, it can be pip uninstalled.
+
+This has to run in the same platform that will be using the executable, pyinstaller does not cross-build. The resulting executable can be just copied and put in the system PATH of the running machine to be able to run Conan.
+
 
 Install from source
 -------------------
@@ -82,22 +117,6 @@ And test your ``conan`` installation:
 
 You should see the Conan commands help.
 
-.. _conan_update:
-
-Update
-------
-
-If installed via ``pip``, Conan 2.0 pre-release version can be easily updated:
-
-.. code-block:: bash
-
-    $ pip install conan --pre --upgrade  # Might need sudo or --user
-
-The default ``<userhome>/.conan/settings.yml`` file, containing the definition of compiler versions, etc.,
-will be upgraded if Conan does not detect local changes, otherwise it will create a ``settings.yml.new`` with the new settings.
-If you want to regenerate the settings, you can remove the ``settings.yml`` file manually and it will be created with the new information the first time it is required.
-
-The upgrade shouldn't affect the installed packages or cache information. If the cache becomes inconsistent somehow, you may want to remove its content by deleting it (``<userhome>/.conan``).
-
 
 .. _`pip docs`: https://pip.pypa.io/en/stable/installing/
+.. _`Conan downloads`: https://conan.io/downloads
