@@ -65,3 +65,9 @@ conan export-pkg
     -c:h CONF_HOST, --conf:host CONF_HOST
                             Configuration to build the package, overwriting the defaults (host machine). e.g.: -c:h
                             tools.cmake.cmaketoolchain:generator=Xcode
+
+
+.. warning::
+
+  The json output of the ``conan export-pkg --format=json`` is **experimental** and subject to
+  change.

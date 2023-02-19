@@ -3,6 +3,12 @@
 Python API
 ==========
 
+.. warning::
+
+  The full Python API is **experimental**.
+  See :ref:`the Conan stability<stability>` section for more information.
+
+
 .. toctree::
    :maxdepth: 2
 

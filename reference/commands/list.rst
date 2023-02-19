@@ -44,6 +44,12 @@ Using it you can list:
 * Package IDs and their configurations (``name/version@user/channel#rrev:pkgids``).
 * Package revisions (``name/version@user/channel#rrev:pkgids#prev``).
 
+.. warning::
+
+  The json output of the ``conan list --format=json`` is in **preview**.
+  See :ref:`the Conan stability<stability>` section for more information.
+
+
 Let's see some examples on how to use this pattern:
 
 Listing recipe references
