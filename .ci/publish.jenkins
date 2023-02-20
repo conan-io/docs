@@ -66,6 +66,23 @@ Map<String, String> versions = [
 def latest_v1_branch = 'master'
 def latest_v1_folder = '1'
 
+def entry_point = """\
+    <!DOCTYPE HTML>
+    <html lang="en-US">
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="refresh" content="0; url=https://docs.conan.io/${latest_v1_folder}">
+            <script type="text/javascript">
+                window.location.href = "https://docs.conan.io/${latest_v1_folder}"
+            </script>
+            <title>Page Redirection</title>
+        </head>
+        <body>
+            If you are not redirected automatically, follow this <a href='https://docs.conan.io/${latest_v1_folder}'>link to https://docs.conan.io/${latest_v1_folder}</a>.
+        </body>
+    </html>
+    """.stripIndent()
+
 node('Linux') {
 
     String prefix = 'https://docs.conan.io/' //params.prefix ?: "${BUILD_URL}artifact/gh-pages/"
@@ -104,6 +121,7 @@ node('Linux') {
             sh 'git worktree add ../gh-pages gh-pages'
         }
         sh 'rm -fr gh-pages/.git'
+        sh 'rm -fr gh-pages/en || true'
         versions.each { branchName, folderName ->
             sh "rm -fr gh-pages/${branchName} || true"
         }
@@ -166,13 +184,17 @@ node('Linux') {
 
     stage('Prepare gh-branch') {
         dir('gh-pages') {
+            // this is the main index.html that redirects to the main branch
+            // when we release 2.0 we have to change this to point to 2.0 docs
+            writeFile(file: 'index.html', text: entry_point)
+
             // FIXME: this is to not break all links from https://docs.conan.io/en/latest/
             // we copy all the /1 folder to /en/latest and then replace all html files
             // there with redirects to https://docs.conan.io/en/latest/1
             // remove when most of the traffic in the docs is for 2.X docs
             sh 'mkdir -p en/latest'
             sh "cp -R ${latest_v1_folder}/* en/latest"
-            sh "python ../1/create_redirects.py ../gh-pages/latest --old=en/latest --new=1"
+            sh "python ../1/create_redirects.py ../gh-pages/en/latest --old=en/latest --new=1"
 
             // sh 'cp src/versions.json versions.json'  // TODO: File is not used, remove from 'gh-pages' branch
             sh "cp ${latest_v1_folder}/404.html 404.html"
