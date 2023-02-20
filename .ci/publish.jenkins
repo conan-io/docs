@@ -169,6 +169,7 @@ node('Linux') {
             // FIXME: this is to not break all links from https://docs.conan.io/en/latest/
             // we copy all the /1 folder to /en/latest and then replace all html files
             // there with redirects to https://docs.conan.io/en/latest/1
+            // remove when most of the traffic in the docs is for 2.X docs
             sh 'mkdir -p en/latest'
             sh "cp -R ${latest_v1_folder}/* en/latest"
             sh "python ../1/create_redirects.py ../gh-pages/latest --old=en/latest --new=1"
