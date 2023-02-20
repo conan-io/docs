@@ -206,7 +206,7 @@ List of ``tool_requires`` required by your recipe or its dependencies:
 .. include:: ../../common/experimental_warning.rst
 
 This section is similar to the previous one, **[tool_requires]**, but it's intended to list only the tool requires
-that are already in your own system and you don't want Conan to search them remotely or locally.
+that are already in your own system and you don't want Conan to search for, neither remotely nor locally.
 
 For instance, you have already installed ``cmake==3.24.2`` in your system:
 
