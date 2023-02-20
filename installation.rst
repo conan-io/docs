@@ -74,7 +74,7 @@ There will be a number of existing installers in `Conan downloads`_ for OSX Brew
 
 .. note::
 
-  These installer are not available at the moment of the 2.0 launch, but we will work to make them available after the launch.
+  These installers are not available at the moment of the 2.0 launch, but we will work to make them available after the launch.
   Please use the ``pip install`` or create your own self-contained executable using this instructions in the meantime.
 
 
