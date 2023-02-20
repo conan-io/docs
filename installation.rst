@@ -86,7 +86,7 @@ You can do it with:
   $ python pyinstaller.py
 
 
-It is important to install the dependencies and the project first with ``pip install -e .`` which configures the project as "editable", that is, to run from the current source folder. After creating the executable, it can be pip uninstalled.
+It is important to install the dependencies and the project first with ``pip install -e .`` which configures the project as "editable", that is, to run from the current source folder. After creating the executable, it can be uninstalled with pip.
 
 This has to run in the same platform that will be using the executable, pyinstaller does not cross-build. The resulting executable can be just copied and put in the system PATH of the running machine to be able to run Conan.
 
