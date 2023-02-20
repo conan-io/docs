@@ -229,8 +229,14 @@ Now, you have in your recipe (or the transitive dependencies) declared a **tool_
         version = "2.0"
         # ....
 
+        # Exact version
         def build_requirements(self):
             self.tool_requires("cmake/3.24.2")
+
+        # Or even version ranges
+        def build_requirements(self):
+            self.tool_requires("cmake/[>=3.20.0]")
+
 
 Given this situation, it could make sense to want to use your already installed CMake version, so it's enough to declare
 it as a ``system_tools`` in your profile (``default`` one or any other in use):
