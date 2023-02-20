@@ -3,15 +3,17 @@
 conan new
 =========
 
+Create a new recipe (with a conanfile.py and other associated files) from either a predefined or a user-defined template.
+
 conan new
 ---------
 
 .. code-block:: text
 
-    $ conan new --help
+    $ conan new -h
     usage: conan new [-h] [-v [V]] [--logger] [-d DEFINE] [-f] template
 
-    Create a new recipe (with conanfile.py and other files) from either a predefined or a user-defined template
+    Create a new example recipe and source files from a template.
 
     positional arguments:
       template              Template name, either a predefined built-in or a user-
@@ -33,7 +35,8 @@ conan new
       --logger              Show the output with log format, with time, type and
                             message.
       -d DEFINE, --define DEFINE
-                            Define a template argument as key=value
+                            Define a template argument as key=value, e.g., -d
+                            name=mypkg
       -f, --force           Overwrite file if it already exists
 
 
@@ -85,42 +88,42 @@ The available templates are:
 - **autotools_lib**:
   Creates an Autotools library.
 
-  Its variables are: name, version
+  Its variables are: ``name``, ``version``
 
 - **autotools_exe**:
   Creates an Autotools executable
 
-  Its variables are: name, version
+  Its variables are: ``name``, ``version``
 
 - **bazel_lib**:
   Creates a Bazel library.
 
-  Its variables are: name, version
+  Its variables are: ``name``, ``version``
 
 - **bazel_exe**:
   Creates a Bazel executable
 
-  Its variables are: name, version
+  Its variables are: ``name``, ``version``
 
 - **meson_lib**:
   Creates a Meson library.
 
-  Its variables are: name, version
+  Its variables are: ``name``, ``version``
 
 - **meson_exe**:
   Creates a Meson executable
 
-  Its variables are: name, version
+  Its variables are: ``name``, ``version``
 
 - **msbuild_lib**:
   Creates a MSBuild library.
 
-  Its variables are: name, version
+  Its variables are: ``name``, ``version``
 
 - **msbuild_exe**:
   Creates a MSBuild executable
 
-  Its variables are: name, version
+  Its variables are: ``name``, ``version``
 
 
 Examples
@@ -145,7 +148,7 @@ Generates a *conanfile.py* for ``mygame`` that depends on the packages ``math/1.
     $ conan new cmake_exe -d name=game -d version=1.0 -d requires=math/3.14 -d requires=ai/1.0
 
 Generates the necessary files for a CMake executable target.
-This will add requirements for both ``math/3.14`` and ``ai/1.0`` to the `requirements()` method,
+This will add requirements for both ``math/3.14`` and ``ai/1.0`` to the ``requirements()`` method,
 will add the necessary ``find_package`` in CMake, and add a call to ``math()`` and ``ai()``
 inside the generated ``game()`` function.
 
@@ -153,5 +156,7 @@ inside the generated ``game()`` function.
 Custom templates
 ----------------
 
-There's also the possibility to create your own templates by passing a path to your template file,
-both as an absolute path, or relative to your Conan home folder.
+There's also the possibility to create your own templates by passing a path to your template directory,
+both as an absolute path, or relative to your Conan home folder. This directory should contain Jinja2 templates,
+which will produce your desired template structure. You can use custom variables that will be needed to be passed
+as ``name`` and ```version`` does, or use your custom variables.

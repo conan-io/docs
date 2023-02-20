@@ -6,26 +6,33 @@ conan list
 .. code-block:: bash
 
     $ conan list -h
-    usage: conan list [-h] [-f FORMAT] [-v [V]] [--logger] [-p PACKAGE_QUERY] [-r REMOTE] [-c] reference
+    usage: conan list [-h] [-f FORMAT] [-v [V]] [--logger] [-p PACKAGE_QUERY]
+                      [-r REMOTE] [-c]
+                      reference
 
-    Lists existing recipes, revisions or packages in the cache or in remotes given a complete
-    reference or a pattern.
+    List existing recipes, revisions, or packages in the cache (by default) or the remotes.
 
     positional arguments:
-      reference             Recipe reference or package reference. Both can contain * as wildcard at any reference field. If revision is not specified, it is assumed latest
-                            one.
+      reference             Recipe reference or package reference. Both can
+                            contain * as wildcard at any reference field. If
+                            revision is not specified, it is assumed latest one.
 
     optional arguments:
       -h, --help            show this help message and exit
       -f FORMAT, --format FORMAT
                             Select the output format: json, html
-      -v [V]                Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning, -vnotice, -vstatus, -v or -vverbose,
-                            -vv or -vdebug, -vvv or -vtrace
-      --logger              Show the output with log format, with time, type and message.
+      -v [V]                Level of detail of the output. Valid options from less
+                            verbose to more verbose: -vquiet, -verror, -vwarning,
+                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
+                            -vvv or -vtrace
+      --logger              Show the output with log format, with time, type and
+                            message.
       -p PACKAGE_QUERY, --package-query PACKAGE_QUERY
-                            Only list packages matching a specific query. e.g: os=Windows AND (arch=x86 OR compiler=gcc)
+                            List only the packages matching a specific query, e.g,
+                            os=Windows AND (arch=x86 OR compiler=gcc)
       -r REMOTE, --remote REMOTE
-                            Remote names. Accepts wildcards
+                            Remote names. Accepts wildcards ('*' means all the
+                            remotes available)
       -c, --cache           Search in the local cache
 
 .. warning::

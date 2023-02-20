@@ -3,6 +3,9 @@
 conan cache
 ===========
 
+Perform file operations in the local cache (of recipes and/or packages).
+
+
 conan cache path
 ----------------
 
@@ -13,20 +16,22 @@ conan cache path
                             [--folder {export_source,source,build}]
                             reference
 
-    Shows the path in the Conan cache af a given reference
+    Show the path to the Conan cache for a given reference.
 
     positional arguments:
-    reference             Recipe reference or Package reference
+      reference             Recipe reference or Package reference
 
     optional arguments:
-    -h, --help            show this help message and exit
-    -v [V]                Level of detail of the output. Valid options from less verbose to more
-                            verbose: -vquiet, -verror, -vwarning, -vnotice, -vstatus, -v or
-                            -vverbose, -vv or -vdebug, -vvv or -vtrace
-    --logger              Show the output with log format, with time, type and message.
-    --folder {exports,exports_sources,sources,build,package}
-                            Show the path to the specified element. The 'build' and 'package'
-                            requires a package reference. If not specified it shows 'exports' path
+      -h, --help            show this help message and exit
+      -v [V]                Level of detail of the output. Valid options from less
+                            verbose to more verbose: -vquiet, -verror, -vwarning,
+                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
+                            -vvv or -vtrace
+      --logger              Show the output with log format, with time, type and
+                            message.
+      --folder {export_source,source,build}
+                            Path to show. The 'build' requires a package
+                            reference. If not specified it shows 'exports' path
 
 
 The ``conan cache path`` returns the path in the cache of a given reference. Depending on the reference, it
@@ -149,3 +154,35 @@ Again, the "build" folder will only exist if the package was built from source.
       package storage must be considered **read-only**. Do not modify, change, remove or add files from the cache.
     - If you are using this command to obtain the path to artifacts and then copying them, consider the usage of a ``deployer``
       instead. In the general case, extracting artifacts from the cache manually is discouraged.
+
+
+conan cache clean
+-----------------
+
+.. code-block:: bash
+
+    $ conan cache clean -h
+    usage: conan cache clean [-h] [-v [V]] [--logger] [-s] [-b] [-d]
+                             [-p PACKAGE_QUERY]
+                             pattern
+
+    Remove non-critical folders from the cache, like source, build and/or download
+    (.tgz store) ones.
+
+    positional arguments:
+      pattern               Selection pattern for references to clean
+
+    optional arguments:
+      -h, --help            show this help message and exit
+      -v [V]                Level of detail of the output. Valid options from less
+                            verbose to more verbose: -vquiet, -verror, -vwarning,
+                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
+                            -vvv or -vtrace
+      --logger              Show the output with log format, with time, type and
+                            message.
+      -s, --source          Clean source folders
+      -b, --build           Clean build folders
+      -d, --download        Clean download folders
+      -p PACKAGE_QUERY, --package-query PACKAGE_QUERY
+                            Remove only the packages matching a specific query,
+                            e.g., os=Windows AND (arch=x86 OR compiler=gcc)
