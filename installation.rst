@@ -70,7 +70,13 @@ The upgrade shouldn't affect the installed packages or cache information. If the
 Use a system installer or create a self-contained executable
 ------------------------------------------------------------
 
-There are a number of existing installers in `Conan downloads`_ for OSX Brew, Debian, Windows, Linux Arch, that will not require Python first.
+There will be a number of existing installers in `Conan downloads`_ for OSX Brew, Debian, Windows, Linux Arch, that will not require Python first.
+
+.. note::
+
+  These installer are not available at the moment of the 2.0 launch, but we will work to make them available after the launch.
+  Please use the ``pip install`` or create your own self-contained executable using this instructions in the meantime.
+
 
 If there is no installer for your platform, you can create your own Conan executable, with the ``pyinstaller.py`` utility in the repo. This process is able to create a self-contained Conan executable that contains all it needs,
 including the Python interpreter, so it wouldn't be necessary to have Python installed in the system.
