@@ -3,27 +3,35 @@
 conan cache
 ===========
 
+Perform file operations in the local cache (of recipes and/or packages).
+
+
 conan cache path
 ----------------
 
 .. code-block:: bash
 
-    $ conan cache path --help
-    usage: conan cache path [-h] [-v [V]] [--logger] [--folder {export_source,source,build}] reference
+   $ conan cache path --help
+    usage: conan cache path [-h] [-v [V]] [--logger]
+                            [--folder {export_source,source,build}]
+                            reference
 
-    Shows the path in the Conan cache af a given reference
+    Show the path to the Conan cache for a given reference.
 
     positional arguments:
-    reference             Recipe reference or Package reference
+      reference             Recipe reference or Package reference
 
     optional arguments:
-    -h, --help            show this help message and exit
-    -v [V]                Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning,
-                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
-    --logger              Show the output with log format, with time, type and message.
-    --folder {export_source,source,build}
-                            Show the path to the specified element. The 'build' requires a package reference. If not specified it shows
-                            'exports' path
+      -h, --help            show this help message and exit
+      -v [V]                Level of detail of the output. Valid options from less
+                            verbose to more verbose: -vquiet, -verror, -vwarning,
+                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
+                            -vvv or -vtrace
+      --logger              Show the output with log format, with time, type and
+                            message.
+      --folder {export_source,source,build}
+                            Path to show. The 'build' requires a package
+                            reference. If not specified it shows 'exports' path
 
 
 The ``conan cache path`` returns the path in the cache of a given reference. Depending on the reference, it
@@ -152,21 +160,28 @@ conan cache clean
 
 .. code-block:: bash
 
-    $ conan cache clean --help
-    usage: conan cache clean [-h] [-v [V]] [--logger] [-s] [-b] [-d] [-p PACKAGE_QUERY] pattern
+    $ conan cache clean -h
+    usage: conan cache clean [-h] [-v [V]] [--logger] [-s] [-b] [-d]
+                             [-p PACKAGE_QUERY]
+                             pattern
 
-    Shows the path in the Conan cache af a given reference
+    Remove non-critical folders from the cache, like source, build and/or download
+    (.tgz store) ones.
 
     positional arguments:
-    pattern               selection pattern for references to clean
+      pattern               Selection pattern for references to clean
 
     optional arguments:
-    -h, --help            show this help message and exit
-    -v [V]                Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning,
-                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
-    --logger              Show the output with log format, with time, type and message.
-    -s, --source          Clean source folders
-    -b, --build           Clean source folders
-    -d, --download        Clean download folders
-    -p PACKAGE_QUERY, --package-query PACKAGE_QUERY
-                            Remove all packages (empty) or provide a query: os=Windows AND (arch=x86 OR compiler=gcc)
+      -h, --help            show this help message and exit
+      -v [V]                Level of detail of the output. Valid options from less
+                            verbose to more verbose: -vquiet, -verror, -vwarning,
+                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
+                            -vvv or -vtrace
+      --logger              Show the output with log format, with time, type and
+                            message.
+      -s, --source          Clean source folders
+      -b, --build           Clean build folders
+      -d, --download        Clean download folders
+      -p PACKAGE_QUERY, --package-query PACKAGE_QUERY
+                            Remove only the packages matching a specific query,
+                            e.g., os=Windows AND (arch=x86 OR compiler=gcc)

@@ -10,30 +10,38 @@ work with Conan repositories, please check the :ref:`dedicated section
 
 .. code-block:: bash
 
-    $ conan remote --help
-    usage: conan remote [-h] [-v [V]] [--logger] {add,disable,enable,list,list-users,login,logout,remove,rename,set-user,update} ...
+    $ conan remote -h
+    usage: conan remote [-h] [-v [V]] [--logger]
+                        {add,disable,enable,list,list-users,login,logout,remove,rename,set-user,update}
+                        ...
 
-    Manages the remote list and the users authenticated on them.
+    Manage the remote list and the users authenticated on them.
 
     positional arguments:
-    {add,disable,enable,list,list-users,login,logout,remove,rename,set-user,update}
+      {add,disable,enable,list,list-users,login,logout,remove,rename,set-user,update}
                             sub-command help
-        add                 Add a remote
-        disable             Disable all the remotes matching a pattern
-        enable              Enable all the remotes matching a pattern
-        list                List current remotes
-        list-users          List the users logged into the remotes
-        login               Login into the specified remotes
-        logout              Clear the existing credentials for the specified remotes
-        remove              Remove a remote
-        rename              Rename a remote
-        set-user            Associates a username with a remote without performing the authentication
-        update              Update the remote
+        add                 Add a remote.
+        disable             Disable all the remotes matching a pattern.
+        enable              Enable all the remotes matching a pattern.
+        list                List current remotes.
+        list-users          List the users logged into all the remotes.
+        login               Login into the specified remotes matching a pattern.
+        logout              Clear the existing credentials for the specified
+                            remotes matching a pattern.
+        remove              Remove a remote.
+        rename              Rename a remote.
+        set-user            Associate a username with a remote matching a pattern
+                            without performing the authentication.
+        update              Update a remote.
 
     optional arguments:
-    -h, --help            show this help message and exit
-    -v [V]                Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning, -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
-    --logger              Show the output with log format, with time, type and message.
+      -h, --help            show this help message and exit
+      -v [V]                Level of detail of the output. Valid options from less
+                            verbose to more verbose: -vquiet, -verror, -vwarning,
+                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
+                            -vvv or -vtrace
+      --logger              Show the output with log format, with time, type and
+                            message.
 
 
 conan remote add
@@ -41,23 +49,27 @@ conan remote add
 
 .. code-block:: bash
 
-    $ conan remote add --help
-    usage: conan remote add [-h] [-v [V]] [--logger] [--insecure] [--index INDEX] [-f] name url
+    $ conan remote add -h
+    usage: conan remote add [-h] [-v [V]] [--logger] [--insecure] [--index INDEX]
+                            [-f]
+                            name url
 
-    Add a remote
+    Add a remote.
 
     positional arguments:
-    name           Name of the remote to add
-    url            Url of the remote
+      name           Name of the remote to add
+      url            Url of the remote
 
     optional arguments:
-    -h, --help     show this help message and exit
-    -v [V]         Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning,
-                    -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
-    --logger       Show the output with log format, with time, type and message.
-    --insecure     Allow insecure server connections when using SSL
-    --index INDEX  Insert the remote at a specific position in the remote list
-    -f, --force    Force the definition of the remote even if duplicated
+      -h, --help     show this help message and exit
+      -v [V]         Level of detail of the output. Valid options from less
+                     verbose to more verbose: -vquiet, -verror, -vwarning,
+                     -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or
+                     -vtrace
+      --logger       Show the output with log format, with time, type and message.
+      --insecure     Allow insecure server connections when using SSL
+      --index INDEX  Insert the remote at a specific position in the remote list
+      -f, --force    Force the definition of the remote even if duplicated
 
 
 conan remote disable
@@ -65,18 +77,21 @@ conan remote disable
 
 .. code-block:: bash
 
-    $ conan remote disable --help
+    $ conan remote disable -h
     usage: conan remote disable [-h] [-v [V]] [--logger] remote
 
-    Disable all the remotes matching a pattern
+    Disable all the remotes matching a pattern.
 
     positional arguments:
-    remote      Pattern of the remote/s to disable. The pattern uses 'fnmatch' style wildcards.
+      remote      Pattern of the remote/s to disable. The pattern uses 'fnmatch'
+                  style wildcards.
 
     optional arguments:
-    -h, --help  show this help message and exit
-    -v [V]      Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning, -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
-    --logger    Show the output with log format, with time, type and message.
+      -h, --help  show this help message and exit
+      -v [V]      Level of detail of the output. Valid options from less verbose
+                  to more verbose: -vquiet, -verror, -vwarning, -vnotice,
+                  -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
+      --logger    Show the output with log format, with time, type and message.
 
 
 conan remote enable
@@ -84,18 +99,21 @@ conan remote enable
 
 .. code-block:: bash
 
-    $ conan remote enable --help 
+    $ conan remote enable -h
     usage: conan remote enable [-h] [-v [V]] [--logger] remote
 
-    Enable all the remotes matching a pattern
+    Enable all the remotes matching a pattern.
 
     positional arguments:
-    remote      Pattern of the remote/s to enable. The pattern uses 'fnmatch' style wildcards.
+      remote      Pattern of the remote/s to enable. The pattern uses 'fnmatch'
+                  style wildcards.
 
     optional arguments:
-    -h, --help  show this help message and exit
-    -v [V]      Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning, -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
-    --logger    Show the output with log format, with time, type and message.
+      -h, --help  show this help message and exit
+      -v [V]      Level of detail of the output. Valid options from less verbose
+                  to more verbose: -vquiet, -verror, -vwarning, -vnotice,
+                  -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
+      --logger    Show the output with log format, with time, type and message.
 
 
 conan remote list
@@ -103,17 +121,21 @@ conan remote list
 
 .. code-block:: bash
 
-    $ conan remote list --help  
+    $ conan remote list -h
     usage: conan remote list [-h] [-f FORMAT] [-v [V]] [--logger]
 
-    List current remotes
+    List current remotes.
 
     optional arguments:
-    -h, --help            show this help message and exit
-    -f FORMAT, --format FORMAT
+      -h, --help            show this help message and exit
+      -f FORMAT, --format FORMAT
                             Select the output format: json
-    -v [V]                Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning, -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
-    --logger              Show the output with log format, with time, type and message.
+      -v [V]                Level of detail of the output. Valid options from less
+                            verbose to more verbose: -vquiet, -verror, -vwarning,
+                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
+                            -vvv or -vtrace
+      --logger              Show the output with log format, with time, type and
+                            message.
 
 
 conan remote list-users
@@ -121,17 +143,21 @@ conan remote list-users
 
 .. code-block:: bash
 
-    $ conan remote list-users --help
+    $ conan remote list-users -h
     usage: conan remote list-users [-h] [-f FORMAT] [-v [V]] [--logger]
 
-    List the users logged into the remotes
+    List the users logged into all the remotes.
 
     optional arguments:
-    -h, --help            show this help message and exit
-    -f FORMAT, --format FORMAT
+      -h, --help            show this help message and exit
+      -f FORMAT, --format FORMAT
                             Select the output format: json
-    -v [V]                Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning, -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
-    --logger              Show the output with log format, with time, type and message.
+      -v [V]                Level of detail of the output. Valid options from less
+                            verbose to more verbose: -vquiet, -verror, -vwarning,
+                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
+                            -vvv or -vtrace
+      --logger              Show the output with log format, with time, type and
+                            message.
 
 
 conan remote login
@@ -139,23 +165,31 @@ conan remote login
 
 .. code-block:: bash
 
-    $ conan remote login --help     
-    usage: conan remote login [-h] [-f FORMAT] [-v [V]] [--logger] [-p [PASSWORD]] remote username
+    $ conan remote login -h
+    usage: conan remote login [-h] [-f FORMAT] [-v [V]] [--logger] [-p [PASSWORD]]
+                              remote username
 
-    Login into the specified remotes
+    Login into the specified remotes matching a pattern.
 
     positional arguments:
-    remote                Pattern or name of the remote to login into. The pattern uses 'fnmatch' style wildcards.
-    username              Username
+      remote                Pattern or name of the remote to login into. The
+                            pattern uses 'fnmatch' style wildcards.
+      username              Username
 
     optional arguments:
-    -h, --help            show this help message and exit
-    -f FORMAT, --format FORMAT
+      -h, --help            show this help message and exit
+      -f FORMAT, --format FORMAT
                             Select the output format: json
-    -v [V]                Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning, -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
-    --logger              Show the output with log format, with time, type and message.
-    -p [PASSWORD], --password [PASSWORD]
-                            User password. Use double quotes if password with spacing, and escape quotes if existing. If empty, the password is requested interactively (not exposed)
+      -v [V]                Level of detail of the output. Valid options from less
+                            verbose to more verbose: -vquiet, -verror, -vwarning,
+                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
+                            -vvv or -vtrace
+      --logger              Show the output with log format, with time, type and
+                            message.
+      -p [PASSWORD], --password [PASSWORD]
+                            User password. Use double quotes if password with
+                            spacing, and escape quotes if existing. If empty, the
+                            password is requested interactively (not exposed)
 
 
 conan remote logout
@@ -163,20 +197,25 @@ conan remote logout
 
 .. code-block:: bash
 
-    $ conan remote logout --help
+    $ conan remote logout -h
     usage: conan remote logout [-h] [-f FORMAT] [-v [V]] [--logger] remote
 
-    Clear the existing credentials for the specified remotes
+    Clear the existing credentials for the specified remotes matching a pattern.
 
     positional arguments:
-    remote                Pattern or name of the remote to logout. The pattern uses 'fnmatch' style wildcards.
+      remote                Pattern or name of the remote to logout. The pattern
+                            uses 'fnmatch' style wildcards.
 
     optional arguments:
-    -h, --help            show this help message and exit
-    -f FORMAT, --format FORMAT
+      -h, --help            show this help message and exit
+      -f FORMAT, --format FORMAT
                             Select the output format: json
-    -v [V]                Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning, -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
-    --logger              Show the output with log format, with time, type and message.
+      -v [V]                Level of detail of the output. Valid options from less
+                            verbose to more verbose: -vquiet, -verror, -vwarning,
+                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
+                            -vvv or -vtrace
+      --logger              Show the output with log format, with time, type and
+                            message.
 
 
 conan remote remove
@@ -184,18 +223,20 @@ conan remote remove
 
 .. code-block:: bash
 
-    $ conan remote remove --help
+    $ conan remote remove -h
     usage: conan remote remove [-h] [-v [V]] [--logger] remote
 
-    Remove a remote
+    Remove a remote.
 
     positional arguments:
-    remote      Name of the remote to remove. Accepts 'fnmatch' style wildcards.
+      remote      Name of the remote to remove. Accepts 'fnmatch' style wildcards.
 
     optional arguments:
-    -h, --help  show this help message and exit
-    -v [V]      Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning, -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
-    --logger    Show the output with log format, with time, type and message.
+      -h, --help  show this help message and exit
+      -v [V]      Level of detail of the output. Valid options from less verbose
+                  to more verbose: -vquiet, -verror, -vwarning, -vnotice,
+                  -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
+      --logger    Show the output with log format, with time, type and message.
 
 
 conan remote rename
@@ -203,19 +244,21 @@ conan remote rename
 
 .. code-block:: bash
 
-    $ conan remote rename --help
+     $ conan remote rename -h
     usage: conan remote rename [-h] [-v [V]] [--logger] remote new_name
 
-    Rename a remote
+    Rename a remote.
 
     positional arguments:
-    remote      Current name of the remote
-    new_name    New name for the remote
+      remote      Current name of the remote
+      new_name    New name for the remote
 
     optional arguments:
-    -h, --help  show this help message and exit
-    -v [V]      Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning, -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
-    --logger    Show the output with log format, with time, type and message.
+      -h, --help  show this help message and exit
+      -v [V]      Level of detail of the output. Valid options from less verbose
+                  to more verbose: -vquiet, -verror, -vwarning, -vnotice,
+                  -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
+      --logger    Show the output with log format, with time, type and message.
 
 
 conan remote set-user
@@ -223,21 +266,28 @@ conan remote set-user
 
 .. code-block:: bash
 
-    $ conan remote set-user --help
-    usage: conan remote set-user [-h] [-f FORMAT] [-v [V]] [--logger] remote username
+    $ conan remote set-user -h
+    usage: conan remote set-user [-h] [-f FORMAT] [-v [V]] [--logger]
+                                 remote username
 
-    Associates a username with a remote without performing the authentication
+    Associate a username with a remote matching a pattern without performing the
+    authentication.
 
     positional arguments:
-    remote                Pattern or name of the remote. The pattern uses 'fnmatch' style wildcards.
-    username              Username
+      remote                Pattern or name of the remote. The pattern uses
+                            'fnmatch' style wildcards.
+      username              Username
 
     optional arguments:
-    -h, --help            show this help message and exit
-    -f FORMAT, --format FORMAT
+      -h, --help            show this help message and exit
+      -f FORMAT, --format FORMAT
                             Select the output format: json
-    -v [V]                Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning, -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
-    --logger              Show the output with log format, with time, type and message.
+      -v [V]                Level of detail of the output. Valid options from less
+                            verbose to more verbose: -vquiet, -verror, -vwarning,
+                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
+                            -vvv or -vtrace
+      --logger              Show the output with log format, with time, type and
+                            message.
 
 
 conan remote update
@@ -245,22 +295,27 @@ conan remote update
 
 .. code-block:: bash
 
-    $ conan remote update --help  
-    usage: conan remote update [-h] [-v [V]] [--logger] [--url URL] [--secure] [--insecure] [--index INDEX] remote
+    $ conan remote update -h
+    usage: conan remote update [-h] [-v [V]] [--logger] [--url URL] [--secure]
+                               [--insecure] [--index INDEX]
+                               remote
 
-    Update the remote
+    Update a remote.
 
     positional arguments:
-    remote         Name of the remote to update
+      remote         Name of the remote to update
 
     optional arguments:
-    -h, --help     show this help message and exit
-    -v [V]         Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning, -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
-    --logger       Show the output with log format, with time, type and message.
-    --url URL      New url for the remote
-    --secure       Don\'t allow insecure server connections when using SSL
-    --insecure     Allow insecure server connections when using SSL
-    --index INDEX  Insert the remote at a specific position in the remote list
+      -h, --help     show this help message and exit
+      -v [V]         Level of detail of the output. Valid options from less
+                     verbose to more verbose: -vquiet, -verror, -vwarning,
+                     -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or
+                     -vtrace
+      --logger       Show the output with log format, with time, type and message.
+      --url URL      New url for the remote
+      --secure       Don't allow insecure server connections when using SSL
+      --insecure     Allow insecure server connections when using SSL
+      --index INDEX  Insert the remote at a specific position in the remote list
 
 Read more
 ---------
