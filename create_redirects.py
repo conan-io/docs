@@ -21,6 +21,14 @@ if not path_html.exists():
     raise SystemExit(1)
 
 
+"""
+Redirect every html page found in sources_path from being located under the old_slug
+subfolder to the new location in new_slug. For example if old_slug=en/latest and new_slug=1
+
+docs.conan.io/en/latest/index.html --> redirects to --> docs.conan.io/1/index.html
+"""
+
+
 def replace_html_files(sources_path: Path, old_slug: str, new_slug: str):
 
     redirect_template = textwrap.dedent("""
