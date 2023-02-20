@@ -68,7 +68,7 @@ def latest_v1_folder = '1'
 
 node('Linux') {
 
-    String prefix = params.prefix ?: "${BUILD_URL}artifact/gh-pages/"
+    String prefix = 'https://docs.conan.io/' //params.prefix ?: "${BUILD_URL}artifact/gh-pages/"
     stage('Check params') {
 
         echo """
@@ -192,20 +192,20 @@ node('Linux') {
         echo "Inspect generated webpage at ${BUILD_URL}artifact/gh-pages/index.html"
     }
 
-    if (params.publish) {
-        stage('Publish to gh-pages') {
-            dir('gh-pages') {
-                sh 'git init .'
-                sh 'git checkout -b gh-pages'
-                sh 'git add .'
-                sh 'git config user.email "conanci@jfrog.com"'
-                sh 'git config user.name "ConanCI bot"'
-                sh "git commit -m \"Automatic deploy (build number ${BUILD_NUMBER})\""
-                withCredentials([usernamePassword(credentialsId: 'conanci-gh-token', usernameVariable: 'GH_USER', passwordVariable: 'GH_PASS')]) {
-                    sh "git remote add origin-pages https://$GH_USER:$GH_PASS@github.com/conan-io/docs.git"
-                    sh 'git push --quiet --force origin-pages gh-pages'
-                }
-            }
-        }
-    }
+    // if (params.publish) {
+    //     stage('Publish to gh-pages') {
+    //         dir('gh-pages') {
+    //             sh 'git init .'
+    //             sh 'git checkout -b gh-pages'
+    //             sh 'git add .'
+    //             sh 'git config user.email "conanci@jfrog.com"'
+    //             sh 'git config user.name "ConanCI bot"'
+    //             sh "git commit -m \"Automatic deploy (build number ${BUILD_NUMBER})\""
+    //             withCredentials([usernamePassword(credentialsId: 'conanci-gh-token', usernameVariable: 'GH_USER', passwordVariable: 'GH_PASS')]) {
+    //                 sh "git remote add origin-pages https://$GH_USER:$GH_PASS@github.com/conan-io/docs.git"
+    //                 sh 'git push --quiet --force origin-pages gh-pages'
+    //             }
+    //         }
+    //     }
+    // }
 }
