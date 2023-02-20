@@ -121,3 +121,9 @@ conan graph info
       --deploy DEPLOY       Deploy using the provided deployer to the output folder
 
 The ``conan graph info`` command shows information about the dependency graph for the recipe specified in ``path``.
+
+
+.. warning::
+
+  The json output of the ``conan graph --format=json`` is **experimental** and subject to
+  change.

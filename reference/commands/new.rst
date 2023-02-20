@@ -123,6 +123,12 @@ The available templates are:
   Its variables are: name, version
 
 
+.. warning::
+
+  The output of the predefined built-in templates is **not stable**. It might
+  change in future releases to adapt to the latest tools or good practices.
+
+
 Examples
 --------
 
