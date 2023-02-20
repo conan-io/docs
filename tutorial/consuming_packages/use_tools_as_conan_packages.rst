@@ -30,7 +30,7 @@ The structure of the project is the same as the one of the previous example:
         └── main.c
 
 
-The main difference is the addition of the **[tool_requires]** section in the
+The main difference is the addition of the :ref:`reference_config_files_profiles_tool_requires` section in the
 **conanfile.txt** file. In this section, we declare that we want to build our application
 using CMake **v3.19.8**.
 
@@ -207,6 +207,7 @@ the environment activation:
 Read more
 ---------
 
+- :ref:`Using [system_tools] in your profiles <reference_config_files_profiles_system_tools>`.
 - Using MinGW as tool_requires
 - Using tool_requires in profiles
 - Using conf to set a toolchain from a tool requires
