@@ -9,7 +9,7 @@ also actively used in FreeBSD and Solaris SunOS. There are also several addition
 There are different ways to install Conan:
 
 1. The preferred and **strongly recommended way to install Conan** is from PyPI, the Python Package Index, using the ``pip`` command.
-2. Use a system installer, or create your own self contained Conan executable, to not require Python in your system.
+2. Use a system installer, or create your own self-contained Conan executable, to not require Python in your system.
 3. Running Conan from sources.
 
 Install with pip (recommended)
