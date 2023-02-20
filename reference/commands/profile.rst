@@ -14,7 +14,7 @@ conan profile detect
     $ conan profile detect -h
     usage: conan profile detect [-h] [-v [V]] [--logger] [--name NAME] [-f]
 
-    Generate a default profile using auto-detected values.
+    Generate a profile using auto-detected values.
 
     optional arguments:
       -h, --help   show this help message and exit
