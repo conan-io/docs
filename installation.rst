@@ -68,7 +68,7 @@ The upgrade shouldn't affect the installed packages or cache information. If the
 
 
 Use a system installer or create a self-contained executable
-----------------------------------------------------------
+------------------------------------------------------------
 
 There are a number of existing installers in `Conan downloads`_ for OSX Brew, Debian, Windows, Linux Arch, that will not require Python first.
 
