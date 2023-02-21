@@ -142,7 +142,7 @@ line. An example of the output of this command for MacOS would be:
     arch=x86_64
     build_type=Release
     compiler=apple-clang
-    compiler.cppstd=gnu98
+    compiler.cppstd=gnu17
     compiler.libcxx=libc++
     compiler.version=14
     os=Macos
@@ -150,19 +150,18 @@ line. An example of the output of this command for MacOS would be:
 .. note:: **A note about the detected C++ standard by Conan**
 
     Conan will always set the default C++ standard as the one that the detected compiler
-    version uses by default. In this case, for apple-clang 14, it sets
-    ``compiler.cppstd=gnu98`` but as we are going to use libraries through the tutorial that
-    require a higher C++ standard, we have to update our profile to use at least C++ 11. To do
-    that, you can edit the default profile file directly. First, get the location of the
-    default profile using:
+    version uses by default, except for the case of macOS using apple-clang. In this case,
+    for apple-clang>=11, it sets ``compiler.cppstd=gnu17``. If you want to use a different
+    C++ standard, you can edit the default profile file directly. First, get the location
+    of the default profile using:
 
     .. code-block:: bash
 
         $ conan profile path default
         /Users/user/.conan2/profiles/default
 
-    Then open and edit the file and set ``compiler.cppstd`` to at least C++ 11, by setting
-    ``compiler.cppstd=gnu11`` or ``compiler.cppstd=11``
+    Then open and edit the file and set ``compiler.cppstd`` to the C++ standard you want
+    to use.
 
 We will use Conan to install **Zlib** and generate the files that CMake needs to
 find this library and build our project. We will generate those files in the folder
