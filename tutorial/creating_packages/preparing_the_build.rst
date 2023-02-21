@@ -89,7 +89,7 @@ As you can see:
 
     - We install or not the ``fmt/8.1.1`` Conan package.
     - We require or not a minimum and a maximum C++ standard as the *fmt* library requires at least C++11 and it will not compile if we try to use a standard above C++14 (just an example, *fmt* can build with more modern standards)
-    - We inject the ``WITH_FMT`` variable with the value ``True`` to the :ref:`CMakeToolchain<conan-cmake-toolchain>` so that we
+    - We inject the ``WITH_FMT`` variable with the value ``True`` to the :ref:`CMakeToolchain<conan_tools_cmaketoolchain>` so that we
       can use it in the *CMakeLists.txt* of the **hello** library to add the CMake **fmt::fmt** target
       conditionally.
 
@@ -116,7 +116,7 @@ As you can see:
     install(TARGETS hello)
 
 As you can see, we use the ``WITH_FMT`` we injected in the
-:ref:`CMakeToolchain<conan-cmake-toolchain>`. Depending on the value we will try to find
+:ref:`CMakeToolchain<conan_tools_cmaketoolchain>`. Depending on the value we will try to find
 the fmt library and link our hello library with it. Also, check that we add the
 ``USING_FMT=1`` compile definition that we use in the source code depending on whether we
 choose to add support for ``fmt`` or not.

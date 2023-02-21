@@ -46,7 +46,7 @@ work with Conan repositories, please check the :ref:`dedicated section <conan_re
 conan remote add
 ----------------
 
-.. code-block:: text
+..  code-block:: text
 
     $ conan remote add -h
     usage: conan remote add [-h] [-i [INSERT]] [-f] remote url [verify_ssl]
@@ -65,7 +65,7 @@ conan remote add
 conan remote disable
 --------------------
 
-.. code-block:: text
+..  code-block:: text
 
     $ conan remote disable -h
     usage: conan remote disable [-h] [-v [V]] [--logger] remote
@@ -109,7 +109,7 @@ conan remote enable
 conan remote list
 -----------------
 
-.. code-block:: text
+..  code-block:: text
 
     $ conan remote list -h
     usage: conan remote list [-h] [-f FORMAT] [-v [V]] [--logger]

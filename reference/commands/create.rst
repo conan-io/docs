@@ -119,3 +119,9 @@ conan create
 
 
 The ``conan create`` command creates a package from the recipe specified in ``path``.
+
+
+.. warning::
+
+  The json output of the ``conan create --format=json`` is **experimental** and subject to
+  change.

@@ -1,4 +1,4 @@
-.. _conan-cmake-build-helper:
+.. _conan_tools_cmake_helper:
 
 CMake
 =====

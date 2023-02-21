@@ -35,13 +35,6 @@ conan list
                             remotes available)
       -c, --cache           Search in the local cache
 
-.. warning::
-
-    The html formatter (--format=html) is not fully implemented yet, so it will create an empty html file
-    with no packages information. This is `a reported bug
-    <https://github.com/conan-io/conan/issues/13022>`_ that happens in Conan <= 2.0-beta9
-    and is planned to be solved in 2.0-beta10
-
 The ``conan list`` command can list recipes and packages from the local cache, from the
 specified remotes or from both. This command uses a *reference pattern* as input. The
 structure of this pattern is based on a complete Conan reference that looks like: 
@@ -57,6 +50,12 @@ Using it you can list:
 * Recipe revisions (``name/version@user/channel#rrev``).
 * Package IDs and their configurations (``name/version@user/channel#rrev:pkgids``).
 * Package revisions (``name/version@user/channel#rrev:pkgids#prev``).
+
+.. warning::
+
+  The json output of the ``conan list --format=json`` is in **preview**.
+  See :ref:`the Conan stability<stability>` section for more information.
+
 
 Let's see some examples on how to use this pattern:
 

@@ -1,4 +1,4 @@
-.. _conan_tools_gnu_autotools_toolchain:
+.. _conan_tools_gnu_autotoolstoolchain:
 
 AutotoolsToolchain
 ==================
@@ -186,7 +186,7 @@ The ``environment()`` method returns an :ref:`Environment<conan_tools_env_enviro
 
 
 The ``AutotoolsToolchain`` also sets ``CXXFLAGS``, ``CFLAGS``, ``LDFLAGS`` and ``CPPFLAGS`` reading
-variables from the ``[conf]`` section in the profiles. :ref:`See the conf reference below<conan_tools_gnu_autotools_toolchain_conf>`.
+variables from the ``[conf]`` section in the profiles. :ref:`See the conf reference below<conan_tools_gnu_autotoolstoolchain_conf>`.
 
 
 Managing the configure_args, make_args and autoreconf_args attributes
@@ -195,9 +195,9 @@ Managing the configure_args, make_args and autoreconf_args attributes
 ``AutotoolsToolchain`` provides some help methods so users can add/update/remove values defined in ``configure_args``,
 ``make_args`` and ``autoreconf_args`` (all of them lists of strings). Those methods are:
 
-* ``update_configure_args(updated_flags)`` (since Conan 1.57): will change ``AutotoolsToolchain.configure_args``.
-* ``update_make_args(updated_flags)`` (since Conan 1.57): will change ``AutotoolsToolchain.make_args``.
-* ``update_autoreconf_args(updated_flags)`` (since Conan 1.57): will change ``AutotoolsToolchain.autoreconf_args``.
+* ``update_configure_args(updated_flags)``: will change ``AutotoolsToolchain.configure_args``.
+* ``update_make_args(updated_flags)``: will change ``AutotoolsToolchain.make_args``.
+* ``update_autoreconf_args(updated_flags)``: will change ``AutotoolsToolchain.autoreconf_args``.
 
 Where ``updated_flags`` is a dict-like Python object defining all the flags to change. It follows the next rules:
 
@@ -245,7 +245,7 @@ Reference
 conf
 ^^^^
 
-.. _conan_tools_gnu_autotools_toolchain_conf:
+.. _conan_tools_gnu_autotoolstoolchain_conf:
 
 - ``tools.build:cxxflags`` list of extra C++ flags that will be used by ``CXXFLAGS``.
 - ``tools.build:cflags`` list of extra of pure C flags that will be used by ``CFLAGS``.

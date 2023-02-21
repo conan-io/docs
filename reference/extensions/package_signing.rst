@@ -3,6 +3,12 @@
 Package signing
 ---------------
 
+.. warning::
+
+  The package signing plugin is in **preview**.
+  See :ref:`the Conan stability<stability>` section for more information.
+
+
 This plugin, which must be located in the cache ``extensions/plugins/sign/sign.py`` file contains 2 methods:
 
 - The ``sign(ref, artifacts_folder, signature_folder)`` executes for every recipe and package that is to

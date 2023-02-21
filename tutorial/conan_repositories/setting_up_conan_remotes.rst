@@ -7,12 +7,6 @@ There are several options to set-up a Conan repository:
 
 **For private development:**
 
-- :ref:`Artifactory Cloud-hosted instance <artifactory_free_tier>`: Artifactory Cloud,
-  where JFrog manages, maintains and scales the infrastructure and provides automated
-  server backups with free updates and guaranteed uptime. It's offered with a free tier
-  designed for individual with reduced usage. Check :ref:`artifactory_free_tier` for more
-  information.
-
 - :ref:`Artifactory Community Edition for C/C++ <artifactory_ce_cpp>`: Artifactory
   Community Edition (CE) for C/C++ is a completely free Artifactory server that implements 
   both Conan and generic repositories. It is the recommended server for companies and
@@ -42,5 +36,4 @@ There are several options to set-up a Conan repository:
    :hidden:
    
    setting_up_conan_remotes/artifactory/artifactory_ce_cpp.rst
-   setting_up_conan_remotes/artifactory/artifactory_free_tier.rst
    setting_up_conan_remotes/conan_server.rst

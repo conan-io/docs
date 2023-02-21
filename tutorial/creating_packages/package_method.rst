@@ -5,7 +5,7 @@ Package files: the package() method
 
 We already used the ``package()`` method in our `hello` package to invoke CMake's install
 step. In this tutorial, we will explain the use of the :ref:`CMake.install()
-<conan-cmake-build-helper>` in more detail and also how to modify this method to do things
+<conan_tools_cmake_helper>` in more detail and also how to modify this method to do things
 like:
 
 - Using :ref:`conan.tools.files <conan_tools_files>` utilities to copy the generated

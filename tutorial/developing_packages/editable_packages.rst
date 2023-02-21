@@ -58,7 +58,7 @@ the local working directory**:
 
 .. code-block:: bash
 
-    $ conan editable add say say/1.0
+    $ conan editable add say --name=say --version=1.0
     $ conan editable list
     say/1.0
         Path: /Users/.../examples2/tutorial/developing_packages/editable_packages/say/conanfile.py
@@ -88,14 +88,14 @@ Now that the ``say/1.0`` package is in editable mode, let's build it locally:
     # Windows: we will build 2 configurations to show multi-config
     $ conan install . -s build_type=Release
     $ conan install . -s build_type=Debug
-    $ cmake --preset default
-    $ cmake --build --preset release
-    $ cmake --build --preset debug
+    $ cmake --preset conan-default
+    $ cmake --build --preset conan-release
+    $ cmake --build --preset conan-debug
 
     # Linux, MacOS: we will only build 1 configuration
     $ conan install .
-    $ cmake --preset release
-    $ cmake --build --preset release
+    $ cmake --preset conan-release
+    $ cmake --build --preset conan-release
 
 
 Using say/1.0 package in editable mode
@@ -111,9 +111,9 @@ In this case we can build the ``hello`` application as usual:
     # Windows: we will build 2 configurations to show multi-config
     $ conan install . -s build_type=Release
     $ conan install . -s build_type=Debug
-    $ cmake --preset default
-    $ cmake --build --preset release
-    $ cmake --build --preset debug
+    $ cmake --preset conan-default
+    $ cmake --build --preset conan-release
+    $ cmake --build --preset conan-debug
     $ build\Release\hello.exe
     say/1.0: Hello World Release!
     ...
@@ -123,8 +123,8 @@ In this case we can build the ``hello`` application as usual:
 
     # Linux, MacOS: we will only build 1 configuration
     $ conan install .
-    $ cmake --preset release
-    $ cmake --build --preset release
+    $ cmake --preset conan-release
+    $ cmake --build --preset conan-release
     $ ./build/Release/hello
     say/1.0: Hello World Release!
 
@@ -145,11 +145,11 @@ code:
     # Edit src/say.cpp and change the error message from "Hello" to "Bye"
 
     # Windows: we will build 2 configurations to show multi-config
-    $ cmake --build --preset release
-    $ cmake --build --preset debug
+    $ cmake --build --preset conan-release
+    $ cmake --build --preset conan-debug
 
     # Linux, MacOS: we will only build 1 configuration
-    $ cmake --build --preset release
+    $ cmake --build --preset conan-release
 
 
 And build and run the "hello" project:
@@ -160,15 +160,15 @@ And build and run the "hello" project:
 
     # Windows
     $ cd build
-    $ cmake --build --preset release
-    $ cmake --build --preset debug
+    $ cmake --build --preset conan-release
+    $ cmake --build --preset conan-debug
     $ Release\hello.exe
     say/1.0: Bye World Release!
     $ Debug\hello.exe
     say/1.0: Bye World Debug!
 
     # Linux, MacOS
-    $ cmake --build --preset release
+    $ cmake --build --preset conan-release
     $ ./hello
     say/1.0: Bye World Release!
 
@@ -184,7 +184,7 @@ In order to revert the editable mode just remove the link using:
 
 .. code-block:: bash
 
-    $ conan editable remove say/1.0
+    $ conan editable remove --refs=say/1.0
 
 It will remove the link (the local directory won't be affected) and all the packages consuming this
 requirement will get it from the cache again.

@@ -208,8 +208,10 @@ to the ``update`` subsetting in ``settings.yml``.
 intel-cc
 ++++++++
 
-This compiler is a new, **experimental** one, aimed to handle the new Intel oneAPI DPC++/C++/Classic compilers.
-Instead of having *n* different compilers, you have 3 different **modes** of working:
+.. include:: ../../common/experimental_warning.rst
+
+This compiler is aimed to handle the new Intel oneAPI DPC++/C++/Classic compilers. Instead of having *n* different compilers,
+you have 3 different **modes** of working:
 
 * ``icx`` for Intel oneAPI C++.
 * ``dpcpp`` for Intel oneAPI DPC++.

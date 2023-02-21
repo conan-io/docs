@@ -1,7 +1,7 @@
 Export API
 ==========
 
-.. include:: api_warning.rst
+.. include:: ../../../common/experimental_warning.rst
 
 .. currentmodule:: conan.api.subapi.export
 

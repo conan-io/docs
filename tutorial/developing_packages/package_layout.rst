@@ -221,9 +221,9 @@ the ``hello`` consumer project now, it will search for all the headers and libra
     $ conan install . -s build_type=Release
 
     # Linux, MacOS
-    $ cmake --preset release --log-level=VERBOSE
+    $ cmake --preset conan-release --log-level=VERBOSE
     # Windows
-    $ cmake --preset default --log-level=VERBOSE
+    $ cmake --preset conan-default --log-level=VERBOSE
 
     ...
     -- Conan: Target declared 'say::say'
@@ -233,7 +233,7 @@ the ``hello`` consumer project now, it will search for all the headers and libra
     -- Configuring done
     ...
 
-    $ cmake --build --preset release
+    $ cmake --build --preset conan-release
     [ 50%] Building CXX object CMakeFiles/hello.dir/src/hello.cpp.o
     [100%] Linking CXX executable hello
     [100%] Built target hello
@@ -260,10 +260,10 @@ package in editable mode and build it locally.
 .. code-block:: bash
 
     $ cd ../say
-    $ conan editable add . say/1.0
+    $ conan editable add . --name=say --version=1.0
     $ conan install . -s build_type=Release
-    $ cmake --preset release
-    $ cmake --build --preset release
+    $ cmake --preset conan-release
+    $ cmake --build --preset conan-release
 
 You can check the contents of the say project's folder now, you can see that the output
 folders match the ones we defined with ``self.folders``:
@@ -300,9 +300,9 @@ defined by ``cpp.source`` and ``cpp.build``:
     $ conan install . -s build_type=Release
 
     # Linux, MacOS
-    $ cmake --preset release --log-level=VERBOSE
+    $ cmake --preset conan-release --log-level=VERBOSE
     # Windows
-    $ cmake --preset default --log-level=VERBOSE
+    $ cmake --preset conan-default --log-level=VERBOSE
 
     ...
     -- Conan: Target declared 'say::say'
@@ -311,12 +311,12 @@ defined by ``cpp.source`` and ``cpp.build``:
     -- Configuring done
     ...
 
-    $ cmake --build --preset release
+    $ cmake --build --preset conan-release
     [ 50%] Building CXX object CMakeFiles/hello.dir/src/hello.cpp.o
     [100%] Linking CXX executable hello
     [100%] Built target hello
 
-    $ conan editable remove say/1.0
+    $ conan editable remove --refs=say/1.0
 
 
 .. note:: 

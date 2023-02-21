@@ -9,27 +9,25 @@ Perform file operations in the local cache (of recipes and/or packages).
 conan cache path
 ----------------
 
-.. code-block:: text
+..  code-block:: text
 
-    $ conan cache path -h
-    usage: conan cache path [-h] [-v [V]] [--logger]
-                            [--folder {export_source,source,build}]
-                            reference
+    $ conan cache path --help
+    usage: conan cache path [-h] [-v [V]] [--logger] [--folder {export_source,source,build}] reference
 
     Show the path to the Conan cache for a given reference.
 
     positional arguments:
-      reference             Recipe reference or Package reference
+        reference             Recipe reference or Package reference
 
     optional arguments:
-      -h, --help            show this help message and exit
-      -v [V]                Level of detail of the output. Valid options from less
+        -h, --help            show this help message and exit
+        -v [V]                Level of detail of the output. Valid options from less
                             verbose to more verbose: -vquiet, -verror, -vwarning,
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
                             -vvv or -vtrace
-      --logger              Show the output with log format, with time, type and
+        --logger              Show the output with log format, with time, type and
                             message.
-      --folder {export_source,source,build}
+        --folder {export_source,source,build}
                             Path to show. The 'build' requires a package
                             reference. If not specified it shows 'exports' path
 

@@ -26,6 +26,21 @@ conan profile detect
       -f, --force  Overwrite if exists
 
 
+.. warning::
+
+  The output of ``conan profile detect`` is **not stable**. It can change at any time in future Conan releases
+  to adapt to latest tools, latest versions, or other changes in the environment.
+  See :ref:`the Conan stability<stability>` section for more information.
+
+.. note::
+
+    **Best practices**
+    It is not recommended to use ``conan profile detect`` in production. To guarantee reproducibility,
+    it is recommended to define your own profiles, store them in a git repo or in a zip in a server,
+    and distribute it to your team and CI machines with ``conan config install``, together with other
+    configuration like custom settings, custom remotes definition, etc.
+
+
 conan profile list
 ------------------
 

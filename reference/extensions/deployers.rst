@@ -46,6 +46,12 @@ direct_deploy
 Same as ``full_deploy``, but only processes your recipe's *direct* dependencies.
 
 
+.. warning::
+
+  The built-in deployers are in **preview**.
+  See :ref:`the Conan stability<stability>` section for more information.
+
+
 Custom deployers
 ----------------
 
