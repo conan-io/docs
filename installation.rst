@@ -24,7 +24,7 @@ Install Conan:
 
 .. code-block:: bash
 
-    $ pip install conan --pre
+    $ pip install conan
 
 .. important::
 
@@ -62,7 +62,7 @@ If installed via ``pip``, Conan version can be updated with:
 
 .. code-block:: bash
 
-    $ pip install conan --pre --upgrade  # Might need sudo or --user
+    $ pip install conan --upgrade  # Might need sudo or --user
 
 The upgrade shouldn't affect the installed packages or cache information. If the cache becomes inconsistent somehow, you may want to remove its content by deleting it (``<userhome>/.conan2``).
 

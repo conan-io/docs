@@ -62,7 +62,7 @@ autodoc_mock_imports = ["PyJWT", "requests", "urllib3", "PyYAML",
 # The short X.Y version.
 version = "2.0"
 # The full version, including alpha/beta/rc tags.
-release = u'2.0.0-beta'
+release = u'2.0.0'
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 if not os.path.exists(os.path.join(dir_path, "versions.json")):
@@ -181,7 +181,7 @@ html_baseurl = html_theme_options['base_url']
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
-html_logo = "_static/conan-logo-2.0.png"
+html_logo = "_static/logo_docs_v2.png"
 
 # The name of an image file (relative to this directory) to use as a favicon of
 # the docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
