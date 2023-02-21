@@ -3,10 +3,10 @@
 node('Linux') {
 
     boolean publishDocs = env.BRANCH_NAME.startsWith("release/2.")
-    def targetBranch = env.CHANGE_BRANCH
+    def targetBranch = env.CHANGE_BRANCH ? env.CHANGE_BRANCH : env.BRANCH_NAME
     
     // We also have to clone conan sources for the sphinx autodoc extension
-    def conanBranch = (targetBranch.startsWith("release/2.")) ? targetBranch : 'develop2'
+    def conanBranch = targetBranch.startsWith("release/2.") ? targetBranch : 'develop2'
     def conan_repo_url = 'https://github.com/conan-io/conan.git'
 
     echo "Docs target branch: ${targetBranch}"
