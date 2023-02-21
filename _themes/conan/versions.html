@@ -9,11 +9,7 @@
       <dl>
         <dt>{{ _('Versions') }}</dt>
         {% for the_version, slug in versions.items() %}
-          {% if slug == "master" %}
-            <dd><a href="/1/index.html">{{ the_version }}</a></dd>
-          {% else %}
             <dd><a href="/{{ the_version }}/index.html">{{ the_version.replace("en/", "") }}</a></dd>
-          {% endif %}
         {% endfor %}
       </dl>
       <dl>
