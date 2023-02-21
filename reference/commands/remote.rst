@@ -7,40 +7,35 @@ Use this command to add, edit and remove Conan repositories from the Conan remot
 registry and also manage authentication to those remotes. For more information on how to
 work with Conan repositories, please check the :ref:`dedicated section <conan_repositories>`.
 
-.. code-block:: text
+..  code-block:: text
 
     $ conan remote -h
-    usage: conan remote [-h] [-v [V]] [--logger]
-                        {add,disable,enable,list,list-users,login,logout,remove,rename,set-user,update}
-                        ...
+    usage: conan remote [-h] [-v [V]] [--logger] {add,auth,disable,enable,list,list-users,login,logout,remove,rename,set-user,update} ...
 
     Manage the remote list and the users authenticated on them.
 
     positional arguments:
-      {add,disable,enable,list,list-users,login,logout,remove,rename,set-user,update}
+    {add,auth,disable,enable,list,list-users,login,logout,remove,rename,set-user,update}
                             sub-command help
         add                 Add a remote.
+        auth                Authenticate in the defined remotes
         disable             Disable all the remotes matching a pattern.
         enable              Enable all the remotes matching a pattern.
         list                List current remotes.
         list-users          List the users logged into all the remotes.
         login               Login into the specified remotes matching a pattern.
-        logout              Clear the existing credentials for the specified
-                            remotes matching a pattern.
+        logout              Clear the existing credentials for the specified remotes matching a pattern.
         remove              Remove a remote.
         rename              Rename a remote.
-        set-user            Associate a username with a remote matching a pattern
-                            without performing the authentication.
+        set-user            Associate a username with a remote matching a pattern without performing the authentication.
         update              Update a remote.
 
     optional arguments:
-      -h, --help            show this help message and exit
-      -v [V]                Level of detail of the output. Valid options from less
-                            verbose to more verbose: -vquiet, -verror, -vwarning,
-                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
-                            -vvv or -vtrace
-      --logger              Show the output with log format, with time, type and
-                            message.
+    -h, --help            show this help message and exit
+    -v [V]                Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning,
+                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
+    --logger              Show the output with log format, with time, type and message.
+
 
 
 conan remote add
@@ -61,6 +56,28 @@ conan remote add
       -i [INSERT], --insert [INSERT]
                             insert remote at specific index
       -f, --force           Force addition, will update if existing
+
+
+conan remote auth
+-----------------
+
+..  code-block:: text
+
+    $ conan remote auth -h
+    usage: conan remote auth [-h] [-v [V]] [--logger] [--with-user] remote
+
+    Authenticate in the defined remotes
+
+    positional arguments:
+    remote       Pattern of the remote/s to disable. The pattern uses 'fnmatch' style wildcards.
+
+    optional arguments:
+    -h, --help   show this help message and exit
+    -v [V]       Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning, -vnotice,
+                -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
+    --logger     Show the output with log format, with time, type and message.
+    --with-user  Only try to auth in those remotes that already have a username or a CONAN_LOGIN_ env-var defined
+
 
 conan remote disable
 --------------------
