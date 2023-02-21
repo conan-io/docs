@@ -3,30 +3,35 @@
 conan cache
 ===========
 
+Perform file operations in the local cache (of recipes and/or packages).
+
+
 conan cache path
 ----------------
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan cache path -h
     usage: conan cache path [-h] [-v [V]] [--logger]
                             [--folder {export_source,source,build}]
                             reference
 
-    Shows the path in the Conan cache af a given reference
+    Show the path to the Conan cache for a given reference.
 
     positional arguments:
-    reference             Recipe reference or Package reference
+      reference             Recipe reference or Package reference
 
     optional arguments:
-    -h, --help            show this help message and exit
-    -v [V]                Level of detail of the output. Valid options from less verbose to more
-                            verbose: -vquiet, -verror, -vwarning, -vnotice, -vstatus, -v or
-                            -vverbose, -vv or -vdebug, -vvv or -vtrace
-    --logger              Show the output with log format, with time, type and message.
-    --folder {exports,exports_sources,sources,build,package}
-                            Show the path to the specified element. The 'build' and 'package'
-                            requires a package reference. If not specified it shows 'exports' path
+      -h, --help            show this help message and exit
+      -v [V]                Level of detail of the output. Valid options from less
+                            verbose to more verbose: -vquiet, -verror, -vwarning,
+                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
+                            -vvv or -vtrace
+      --logger              Show the output with log format, with time, type and
+                            message.
+      --folder {export_source,source,build}
+                            Path to show. The 'build' requires a package
+                            reference. If not specified it shows 'exports' path
 
 
 The ``conan cache path`` returns the path in the cache of a given reference. Depending on the reference, it
@@ -34,7 +39,7 @@ could return the path of a recipe, or the path to a package binary.
 
 Let's say that we have created a package in our current cache with:
 
-.. code-block:: bash
+.. code-block:: text
     
     $ conan new cmake_lib -d name=pkg -d version=0.1
     $ conan create .
@@ -48,7 +53,7 @@ Let's say that we have created a package in our current cache with:
 
 And now we are interested in obtaining the path where our ``pkg/0.1`` recipe ``conanfile.py`` has been exported:
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan cache path pkg/0.1
     <path to conan cache>/p/5cb229164ec1d245/e
@@ -60,7 +65,7 @@ By default, if the recipe revision is not specified, it means the "latest" revis
 also be made explicit by the literal ``#latest``, and also any recipe revision can be explicitly defined,
 these commands are equivalent to the above:
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan cache path pkg/0.1#latest
     <path to conan cache>/p/5cb229164ec1d245/e
@@ -75,7 +80,7 @@ Together with the recipe folder, there are a two other folders that are common t
 produced with this recipe: the "export_source" folder and the "source" folder. Both can be
 obtained with:
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan cache path pkg/0.1 --folder=export_source
     <path to conan cache>/p/5cb229164ec1d245/es
@@ -102,7 +107,7 @@ binary is retrieve from a server.
 
 It is also possible to obtain the folders of the binary packages providing the ``package_id``:
 
-.. code-block:: bash
+.. code-block:: text
 
     # Your package_id might be different, it depends on the platform
     # Check the "conan create" output to obtain yours
@@ -116,7 +121,7 @@ As above, by default it will resolve to the "latest" recipe revision and package
 The command above is equal to explicitly defining ``#latest`` or the exact revisions.
 All the commands below are equivalent to the above one:
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan cache path pkg/0.1#latest:2401fa1d188d289bb25c37cfa3317e13e377a351
     <path to conan cache>/p/1cae77d6250c23b7/p
@@ -130,7 +135,7 @@ All the commands below are equivalent to the above one:
 
 It is possible to access the "build" folder with all the temporary build artifacts:
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan cache path pkg/0.1:2401fa1d188d289bb25c37cfa3317e13e377a351 --folder=build
     <path to conan cache>/p/1cae77d6250c23b7/b
@@ -149,3 +154,35 @@ Again, the "build" folder will only exist if the package was built from source.
       package storage must be considered **read-only**. Do not modify, change, remove or add files from the cache.
     - If you are using this command to obtain the path to artifacts and then copying them, consider the usage of a ``deployer``
       instead. In the general case, extracting artifacts from the cache manually is discouraged.
+
+
+conan cache clean
+-----------------
+
+.. code-block:: text
+
+    $ conan cache clean -h
+    usage: conan cache clean [-h] [-v [V]] [--logger] [-s] [-b] [-d]
+                             [-p PACKAGE_QUERY]
+                             pattern
+
+    Remove non-critical folders from the cache, like source, build and/or download
+    (.tgz store) ones.
+
+    positional arguments:
+      pattern               Selection pattern for references to clean
+
+    optional arguments:
+      -h, --help            show this help message and exit
+      -v [V]                Level of detail of the output. Valid options from less
+                            verbose to more verbose: -vquiet, -verror, -vwarning,
+                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
+                            -vvv or -vtrace
+      --logger              Show the output with log format, with time, type and
+                            message.
+      -s, --source          Clean source folders
+      -b, --build           Clean build folders
+      -d, --download        Clean download folders
+      -p PACKAGE_QUERY, --package-query PACKAGE_QUERY
+                            Remove only the packages matching a specific query,
+                            e.g., os=Windows AND (arch=x86 OR compiler=gcc)

@@ -6,26 +6,34 @@ conan search
 Search existing recipes in remotes.
 This command is equivalent to ``conan list recipes <query> -r=*``, and is provided for simpler UX.
 
-.. code-block:: bash
+.. code-block:: text
 
-    conan search -h
-    usage: conan search [-h] [-f {cli,json}] [-r REMOTE] query
+    $ conan search -h
+    usage: conan search [-h] [-f FORMAT] [-v [V]] [--logger] [-r REMOTE] reference
 
-    Searches for package recipes in a remote or remotes
+    Search for package recipes in all the remotes (by default), or a remote.
 
     positional arguments:
-    query                 Search query to find package recipe reference, e.g., 'boost', 'lib*'
+      reference             Recipe reference to search for.It can contain * as
+                            wildcard at any reference field.
 
     optional arguments:
-    -h, --help            show this help message and exit
-    -f {cli,json}, --format {cli,json}
-                            Select the output format: cli, json. 'cli' is the default output.
-    -r REMOTE, --remote REMOTE
-                            Remote names. Accepts wildcards. If not specified it searches in all remotes
+      -h, --help            show this help message and exit
+      -f FORMAT, --format FORMAT
+                            Select the output format: json
+      -v [V]                Level of detail of the output. Valid options from less
+                            verbose to more verbose: -vquiet, -verror, -vwarning,
+                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
+                            -vvv or -vtrace
+      --logger              Show the output with log format, with time, type and
+                            message.
+      -r REMOTE, --remote REMOTE
+                            Remote names. Accepts wildcards. If not specified it
+                            searches in all the remotes
 
 
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan search zlib
     conancenter:

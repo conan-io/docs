@@ -5,21 +5,22 @@ conan install
 
 .. code-block:: text
 
-    $ conan install --help
+    $ conan install -h
     usage: conan install [-h] [-f FORMAT] [-v [V]] [--logger] [--name NAME]
                          [--version VERSION] [--user USER] [--channel CHANNEL]
-                         [--requires REQUIRES] [--tool-requires TOOL_REQUIRES] [-b BUILD]
-                         [-r REMOTE | -nr] [-u] [-o OPTIONS_HOST] [-o:b OPTIONS_BUILD]
-                         [-o:h OPTIONS_HOST] [-pr PROFILE_HOST] [-pr:b PROFILE_BUILD]
-                         [-pr:h PROFILE_HOST] [-s SETTINGS_HOST] [-s:b SETTINGS_BUILD]
-                         [-s:h SETTINGS_HOST] [-c CONF_HOST] [-c:b CONF_BUILD]
-                         [-c:h CONF_HOST] [-l LOCKFILE] [--lockfile-partial]
-                         [--lockfile-out LOCKFILE_OUT] [--lockfile-packages]
-                         [--lockfile-clean] [-g GENERATOR] [-of OUTPUT_FOLDER]
-                         [--deploy DEPLOY]
+                         [--requires REQUIRES] [--tool-requires TOOL_REQUIRES]
+                         [-b BUILD] [-r REMOTE | -nr] [-u] [-o OPTIONS_HOST]
+                         [-o:b OPTIONS_BUILD] [-o:h OPTIONS_HOST]
+                         [-pr PROFILE_HOST] [-pr:b PROFILE_BUILD]
+                         [-pr:h PROFILE_HOST] [-s SETTINGS_HOST]
+                         [-s:b SETTINGS_BUILD] [-s:h SETTINGS_HOST] [-c CONF_HOST]
+                         [-c:b CONF_BUILD] [-c:h CONF_HOST] [-l LOCKFILE]
+                         [--lockfile-partial] [--lockfile-out LOCKFILE_OUT]
+                         [--lockfile-packages] [--lockfile-clean] [-g GENERATOR]
+                         [-of OUTPUT_FOLDER] [--deploy DEPLOY]
                          [path]
 
-    Installs the requirements specified in a recipe (conanfile.py or conanfile.txt).
+    Install the requirements specified in a recipe (conanfile.py or conanfile.txt).
 
     It can also be used to install a concrete package specifying a
     reference. If any requirement is not found in the local cache, it will
@@ -40,47 +41,50 @@ conan install
       -h, --help            show this help message and exit
       -f FORMAT, --format FORMAT
                             Select the output format: json
-      -v [V]                Level of detail of the output. Valid options from less verbose
-                            to more verbose: -vquiet, -verror, -vwarning, -vnotice,
-                            -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
-      --logger              Show the output with log format, with time, type and message.
+      -v [V]                Level of detail of the output. Valid options from less
+                            verbose to more verbose: -vquiet, -verror, -vwarning,
+                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
+                            -vvv or -vtrace
+      --logger              Show the output with log format, with time, type and
+                            message.
       --name NAME           Provide a package name if not specified in conanfile
-      --version VERSION     Provide a package version if not specified in conanfile
+      --version VERSION     Provide a package version if not specified in
+                            conanfile
       --user USER           Provide a user if not specified in conanfile
-      --channel CHANNEL     Provide a channel if not specified in conanfil
+      --channel CHANNEL     Provide a channel if not specified in conanfile
       --requires REQUIRES   Directly provide requires instead of a conanfile
       --tool-requires TOOL_REQUIRES
                             Directly provide tool-requires instead of a conanfile
       -b BUILD, --build BUILD
                             Optional, specify which packages to build from source.
-                            Combining multiple '--build' options on one command line is
-                            allowed. For dependencies, the optional 'build_policy'
-                            attribute in their conanfile.py takes precedence over the
-                            command line parameter. Possible parameters: --build="*" Force
-                            build for all packages, do not use binary packages.
-                            --build=never Disallow build for all packages, use binary
-                            packages or fail if a binary package is not found. Cannot be
-                            combined with other '--build' options. --build=missing Build
-                            packages from source whose binary package is not found.
-                            --build=cascade Build packages from source that have at least
-                            one dependency being built from source. --build=[pattern]
-                            Build packages from source whose package reference matches the
-                            pattern. The pattern uses 'fnmatch' style wildcards.
-                            --build=![pattern] Excluded packages, which will not be built
-                            from the source, whose package reference matches the pattern.
-                            The pattern uses 'fnmatch' style wildcards. Default behavior:
-                            If you omit the '--build' option, the 'build_policy' attribute
-                            in conanfile.py will be used if it exists, otherwise the
-                            behavior is like '--build=never'.
+                            Combining multiple '--build' options on one command
+                            line is allowed. Possible values: --build="*" Force
+                            build from source for all packages. --build=never
+                            Disallow build for all packages, use binary packages
+                            or fail if a binary package is not found. Cannot be
+                            combined with other '--build' options. --build=missing
+                            Build packages from source whose binary package is not
+                            found. --build=cascade Build packages from source that
+                            have at least one dependency being built from source.
+                            --build=[pattern] Build packages from source whose
+                            package reference matches the pattern. The pattern
+                            uses 'fnmatch' style wildcards. --build=![pattern]
+                            Excluded packages, which will not be built from the
+                            source, whose package reference matches the pattern.
+                            The pattern uses 'fnmatch' style wildcards.
+                            --build=missing:[pattern] Build from source if a
+                            compatible binary does not exist, only for packages
+                            matching pattern.
       -r REMOTE, --remote REMOTE
                             Look in the specified remote or remotes server
       -nr, --no-remote      Do not use remote, resolve exclusively in the cache
-      -u, --update          Will check the remote and in case a newer version and/or
-                            revision of the dependencies exists there, it will install
-                            those in the local cache. When using version ranges, it will
-                            install the latest version that satisfies the range. Also, if
-                            using revisions, it will update to the latest revision for the
-                            resolved version range.
+      -u, --update          Will check the remote and in case a newer version
+                            and/or revision of the dependencies exists there, it
+                            will install those in the local cache. When using
+                            version ranges, it will install the latest version
+                            that satisfies the range. Also, if using revisions, it
+                            will update to the latest revision for the resolved
+                            version range.
       -o OPTIONS_HOST, --options OPTIONS_HOST
                             Define options values (host machine), e.g.: -o
                             Pkg:with_qt=true
@@ -97,39 +101,41 @@ conan install
       -pr:h PROFILE_HOST, --profile:host PROFILE_HOST
                             Apply the specified profile to the host machine
       -s SETTINGS_HOST, --settings SETTINGS_HOST
-                            Settings to build the package, overwriting the defaults (host
-                            machine). e.g.: -s compiler=gcc
+                            Settings to build the package, overwriting the
+                            defaults (host machine). e.g.: -s compiler=gcc
       -s:b SETTINGS_BUILD, --settings:build SETTINGS_BUILD
-                            Settings to build the package, overwriting the defaults (build
-                            machine). e.g.: -s:b compiler=gcc
+                            Settings to build the package, overwriting the
+                            defaults (build machine). e.g.: -s:b compiler=gcc
       -s:h SETTINGS_HOST, --settings:host SETTINGS_HOST
-                            Settings to build the package, overwriting the defaults (host
-                            machine). e.g.: -s:h compiler=gcc
+                            Settings to build the package, overwriting the
+                            defaults (host machine). e.g.: -s:h compiler=gcc
       -c CONF_HOST, --conf CONF_HOST
-                            Configuration to build the package, overwriting the defaults
-                            (host machine). e.g.: -c
+                            Configuration to build the package, overwriting the
+                            defaults (host machine). e.g.: -c
                             tools.cmake.cmaketoolchain:generator=Xcode
       -c:b CONF_BUILD, --conf:build CONF_BUILD
-                            Configuration to build the package, overwriting the defaults
-                            (build machine). e.g.: -c:b
+                            Configuration to build the package, overwriting the
+                            defaults (build machine). e.g.: -c:b
                             tools.cmake.cmaketoolchain:generator=Xcode
       -c:h CONF_HOST, --conf:host CONF_HOST
-                            Configuration to build the package, overwriting the defaults
-                            (host machine). e.g.: -c:h
+                            Configuration to build the package, overwriting the
+                            defaults (host machine). e.g.: -c:h
                             tools.cmake.cmaketoolchain:generator=Xcode
       -l LOCKFILE, --lockfile LOCKFILE
-                            Path to a lockfile.
-      --lockfile-partial    Do not raise an error if some dependency is not found in
-                            lockfile
+                            Path to a lockfile. Use --lockfile="" to avoid
+                            automatic use of existing 'conan.lock' file
+      --lockfile-partial    Do not raise an error if some dependency is not found
+                            in lockfile
       --lockfile-out LOCKFILE_OUT
                             Filename of the updated lockfile
       --lockfile-packages   Lock package-id and package-revision information
-      --lockfile-clean      remove unused
+      --lockfile-clean      Remove unused entries from the lockfile
       -g GENERATOR, --generator GENERATOR
                             Generators to use
       -of OUTPUT_FOLDER, --output-folder OUTPUT_FOLDER
                             The root output folder for generated and build files
-      --deploy DEPLOY       Deploy using the provided deployer to the output folder
+      --deploy DEPLOY       Deploy using the provided deployer to the output
+                            folder
 
 
 The ``conan install`` command is one of the main Conan commands, and it is used to resolve and install dependencies.
@@ -153,7 +159,7 @@ Conanfile path or --requires
 The ``conan install`` command can use 2 different origins for information. The first one is using a local ``conanfile.py`` 
 or ``conanfile.txt``, containing definitions of the dependencies and generators to be used.
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan install .  # there is a conanfile.txt or a conanfile.py in the cwd
     $ conan install conanfile.py  # also works, direct reference file
@@ -168,7 +174,7 @@ name, located in the repository root, so users can do a straightforward ``git cl
 The other possibility is to not have a ``conanfile`` at all, and define the requirements to be installed directly in the
 command line:
 
-.. code-block:: bash
+.. code-block:: text
 
     # Install the zlib/1.2.13 library
     $ conan install --requires=zlib/1.2.13
@@ -198,7 +204,7 @@ By default the arguments refer to the "host" context, so ``--settings:host, -s:h
 Multiple definitions of profiles can be passed as arguments, and they will compound from left to right (right has the
 highest priority)
 
-.. code-block:: bash
+.. code-block:: text
 
     # The values of myprofile3 will have higher priority
     $ conan install . -pr=myprofile1 -pr=myprofile2 -pr=myprofile3
@@ -207,7 +213,7 @@ If values for any of ``settings``, ``options`` and ``conf`` are provided in the 
 is composed with the other provided ``-pr`` (or the "default" one if not specified) profiles, with higher priority,
 not matter what the order of arguments is.
 
-.. code-block:: bash
+.. code-block:: text
 
     # the final "host" profile will always be build_type=Debug, even if "myprofile"
     # says "build_type=Release"
@@ -219,7 +225,7 @@ Generators and deployers
 
 The ``-g`` argument allows to define in the command line the different built-in generators to be used:
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan install --requires=zlib/1.2.13 -g CMakeDeps -g CMakeToolchain
 
@@ -230,7 +236,7 @@ Generators are intended to create files for the build systems to locate the depe
 main use case is to copy files from the Conan cache to user space, and performing any other custom operations over the dependency graph,
 like collecting licenses, generating reports, deploying binaries to the system, etc. The syntax for deployers is:
 
-.. code-block:: bash
+.. code-block:: text
 
     # does a full copy of the dependencies binaries to the current user folder
     $ conan install . --deploy=full_deploy
@@ -273,7 +279,7 @@ only in the case that they are not defined in the recipe:
                 
     
 
-.. code-block:: bash
+.. code-block:: text
 
     # If we don't specify ``--version``, it will be None and it will fail
     $ conan install . --version=3.24
@@ -300,9 +306,9 @@ Let's say that we already have a ``conan.lock`` input lockfile, but we just adde
 to a new dependency. We could resolve the dependencies, locking all the previously locked versions, while allowing
 to resolve the new one, which was not previously present in the lockfile, and store it in a new location, or overwrite the existing lockfile:
 
-.. code-block:: bash
+.. code-block:: text
 
-    # --locfile=conan.lock is the default, not necessary
+    # --lockfile=conan.lock is the default, not necessary
     $ conan install . --lockfile=conan.lock --lockfile-partial --lockfile-out=conan.lock 
 
 The ``--lockfile-packages`` argument allows to create lockfiles that also lock down to the package revision, but 

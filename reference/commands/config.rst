@@ -1,27 +1,30 @@
 conan config
 ============
 
+Manage the Conan configuration in the Conan home.
+
+
 conan config home
 -----------------
 
-.. code-block:: bash
+.. code-block:: text
 
-    $  conan config home -h
+    $ conan config home --help
     usage: conan config home [-h] [-v [V]] [--logger]
 
-    Gets the Conan home folder
+    Show the Conan home folder.
 
     optional arguments:
-    -h, --help  show this help message and exit
-    -v [V]      Level of detail of the output. Valid options from less verbose to more verbose:
-                -vquiet, -verror, -vwarning, -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
-                -vvv or -vtrace
-    --logger    Show the output with log format, with time, type and message.
+      -h, --help  show this help message and exit
+      -v [V]      Level of detail of the output. Valid options from less verbose
+                  to more verbose: -vquiet, -verror, -vwarning, -vnotice,
+                  -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
+      --logger    Show the output with log format, with time, type and message.
 
 
 The ``conan config home`` command returns the path of the Conan home folder.
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan config home
 
@@ -31,34 +34,39 @@ The ``conan config home`` command returns the path of the Conan home folder.
 conan config install
 --------------------
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan config install -h
-    usage: conan config install [-h] [-v [V]] [--logger] [--verify-ssl [VERIFY_SSL]]
-                                [-t {git,dir,file,url}] [-a ARGS] [-sf SOURCE_FOLDER]
-                                [-tf TARGET_FOLDER]
+    usage: conan config install [-h] [-v [V]] [--logger]
+                                [--verify-ssl [VERIFY_SSL]]
+                                [-t {git,dir,file,url}] [-a ARGS]
+                                [-sf SOURCE_FOLDER] [-tf TARGET_FOLDER]
                                 item
 
-    Installs the configuration (remotes, profiles, conf), from git, http or folder
+    Install the configuration (remotes, profiles, conf), from git, http or a
+    folder, into the Conan home folder.
 
     positional arguments:
-    item                  git repository, local file or folder or zip file (local or http) where
-                            the configuration is stored
+      item                  git repository, local file or folder or zip file
+                            (local or http) where the configuration is stored
 
     optional arguments:
-    -h, --help            show this help message and exit
-    -v [V]                Level of detail of the output. Valid options from less verbose to more
-                            verbose: -vquiet, -verror, -vwarning, -vnotice, -vstatus, -v or
-                            -vverbose, -vv or -vdebug, -vvv or -vtrace
-    --logger              Show the output with log format, with time, type and message.
-    --verify-ssl [VERIFY_SSL]
+      -h, --help            show this help message and exit
+      -v [V]                Level of detail of the output. Valid options from less
+                            verbose to more verbose: -vquiet, -verror, -vwarning,
+                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
+                            -vvv or -vtrace
+      --logger              Show the output with log format, with time, type and
+                            message.
+      --verify-ssl [VERIFY_SSL]
                             Verify SSL connection when downloading file
-    -t {git,dir,file,url}, --type {git,dir,file,url}
+      -t {git,dir,file,url}, --type {git,dir,file,url}
                             Type of remote config
-    -a ARGS, --args ARGS  String with extra arguments for "git clone"
-    -sf SOURCE_FOLDER, --source-folder SOURCE_FOLDER
-                            Install files only from a source subfolder from the specified origin
-    -tf TARGET_FOLDER, --target-folder TARGET_FOLDER
+      -a ARGS, --args ARGS  String with extra arguments for "git clone"
+      -sf SOURCE_FOLDER, --source-folder SOURCE_FOLDER
+                            Install files only from a source subfolder from the
+                            specified origin
+      -tf TARGET_FOLDER, --target-folder TARGET_FOLDER
                             Install to that path in the conan cache
 
 
@@ -88,7 +96,7 @@ All the configuration files can be shared and installed this way:
 
 - Install the configuration from a URL:
 
-  .. code-block:: bash
+  .. code-block:: text
 
       $ conan config install http://url/to/some/config.zip
 
@@ -96,14 +104,14 @@ All the configuration files can be shared and installed this way:
 - Install the configuration from a URL, but only getting the files inside a *origin* folder
   inside the zip file, and putting them inside a *target* folder in the local cache:
 
-  .. code-block:: bash
+  .. code-block:: text
 
       $ conan config install http://url/to/some/config.zip -sf=origin -tf=target
 
 - Install configuration from 2 different zip files from 2 different urls, using different source
   and target folders for each one, then update all:
 
-  .. code-block:: bash
+  .. code-block:: text
 
       $ conan config install http://url/to/some/config.zip -sf=origin -tf=target
       $ conan config install http://url/to/some/config.zip -sf=origin2 -tf=target2
@@ -111,19 +119,19 @@ All the configuration files can be shared and installed this way:
 
 - Install the configuration from a Git repository with submodules:
 
-  .. code-block:: bash
+  .. code-block:: text
 
       $ conan config install http://github.com/user/conan_config/.git --args "--recursive"
 
   You can also force the git download by using :command:`--type git` (in case it is not deduced from the URL automatically):
 
-  .. code-block:: bash
+  .. code-block:: text
 
       $ conan config install http://github.com/user/conan_config/.git --type git
 
 - Install from a URL skipping SSL verification:
 
-  .. code-block:: bash
+  .. code-block:: text
 
       $ conan config install http://url/to/some/config.zip --verify-ssl=False
 
@@ -131,34 +139,36 @@ All the configuration files can be shared and installed this way:
 
 - Install a specific file from a local path:
 
-  .. code-block:: bash
+  .. code-block:: text
 
       $ conan config install my_settings/settings.yml
 
 - Install the configuration from a local path:
 
-  .. code-block:: bash
+  .. code-block:: text
 
       $ conan config install /path/to/some/config.zip
 
 
 conan config list
 -----------------
-.. code-block:: bash
+.. code-block:: text
 
     $ conan config list -h
     usage: conan config list [-h] [-f FORMAT] [-v [V]] [--logger]
 
-    Prints all the Conan available configurations: core and tools.
+    Show all the Conan available configurations: core and tools.
 
     optional arguments:
-    -h, --help            show this help message and exit
-    -f FORMAT, --format FORMAT
+      -h, --help            show this help message and exit
+      -f FORMAT, --format FORMAT
                             Select the output format: json
-    -v [V]                Level of detail of the output. Valid options from less verbose to more
-                            verbose: -vquiet, -verror, -vwarning, -vnotice, -vstatus, -v or
-                            -vverbose, -vv or -vdebug, -vvv or -vtrace
-    --logger              Show the output with log format, with time, type and message.
+      -v [V]                Level of detail of the output. Valid options from less
+                            verbose to more verbose: -vquiet, -verror, -vwarning,
+                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
+                            -vvv or -vtrace
+      --logger              Show the output with log format, with time, type and
+                            message.
 
 
 Displays all the Conan built-in configurations. There are 2 groups:
@@ -168,7 +178,7 @@ Displays all the Conan built-in configurations. There are 2 groups:
   recipes and tools used within recipes, like ``CMakeToolchain``
 
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan config list
     core.cache:storage_path: Absolute path where the packages and database are stored

@@ -1,31 +1,39 @@
 conan remove
 ============
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan remove -h
-    usage: conan remove [-h] [-v [V]] [--logger] [-f] [-p PACKAGE_QUERY] [-r REMOTE] reference
+    usage: conan remove [-h] [-v [V]] [--logger] [-c] [-p PACKAGE_QUERY]
+                        [-r REMOTE]
+                        reference
 
-    Removes recipes or packages from local cache or a remote.
+    Remove recipes or packages from local cache or a remote.
+
     - If no remote is specified (-r), the removal will be done in the local conan cache.
     - If a recipe reference is specified, it will remove the recipe and all the packages, unless -p
-    is specified, in that case, only the packages matching the specified query (and not the recipe)
-    will be removed.
+      is specified, in that case, only the packages matching the specified query (and not the recipe)
+      will be removed.
     - If a package reference is specified, it will remove only the package.
 
     positional arguments:
-    reference             Recipe reference or package reference, can contain * aswildcard at any reference field. e.g: lib/*
+      reference             Recipe reference or package reference, can contain *
+                            aswildcard at any reference field. e.g: lib/*
 
     optional arguments:
-    -h, --help            show this help message and exit
-    -v [V]                Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning, -vnotice, -vstatus, -v
-                            or -vverbose, -vv or -vdebug, -vvv or -vtrace
-    --logger              Show the output with log format, with time, type and message.
-    -f, --force           Remove without requesting a confirmation
-    -p PACKAGE_QUERY, --package-query PACKAGE_QUERY
-                            Remove all packages (empty) or provide a query: os=Windows AND (arch=x86 OR compiler=gcc)
-    -r REMOTE, --remote REMOTE
-                            Will remove from the specified remote    
+      -h, --help            show this help message and exit
+      -v [V]                Level of detail of the output. Valid options from less
+                            verbose to more verbose: -vquiet, -verror, -vwarning,
+                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
+                            -vvv or -vtrace
+      --logger              Show the output with log format, with time, type and
+                            message.
+      -c, --confirm         Remove without requesting a confirmation
+      -p PACKAGE_QUERY, --package-query PACKAGE_QUERY
+                            Remove all packages (empty) or provide a query:
+                            os=Windows AND (arch=x86 OR compiler=gcc)
+      -r REMOTE, --remote REMOTE
+                            Will remove from the specified remote
 
 
 The ``conan remove`` command removes recipes and packages from the local cache or from a
@@ -35,7 +43,7 @@ remove a complete package, or just remove the binaries, leaving still the recipe
 To remove recipes and their associated package binaries from the local cache:
 
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan remove "*"
     # Removes everything from the cache
@@ -58,7 +66,7 @@ To remove recipes and their associated package binaries from the local cache:
 To remove only package binaries, but leaving the recipes, it is necessary to specify the
 pattern including the ``:`` separator of the ``package_id``:
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan remove zlib/1.2.11:*
     # Removes all the zlib/1.2.11 package binaries from all the recipe revisions
@@ -82,7 +90,7 @@ pattern including the ``:`` separator of the ``package_id``:
 All the above commands, by default operate in the Conan cache.
 To remove artifacts from a server, use the ``-r=myremote`` argument:
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan remove zlib/1.2.11:* -r=myremote
     # Removes all the zlib/1.2.11 package binaries from all the recipe revisions in 
