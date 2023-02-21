@@ -7,34 +7,34 @@ Use this command to add, edit and remove Conan repositories from the Conan remot
 registry and also manage authentication to those remotes. For more information on how to
 work with Conan repositories, please check the :ref:`dedicated section <conan_repositories>`.
 
-.. code-block:: text
+..  code-block:: text
 
     $ conan remote -h
     usage: conan remote [-h] [-v [V]] [--logger] {add,auth,disable,enable,list,list-users,login,logout,remove,rename,set-user,update} ...
 
-Manage the remote list and the users authenticated on them.
+    Manage the remote list and the users authenticated on them.
 
-positional arguments:
-  {add,auth,disable,enable,list,list-users,login,logout,remove,rename,set-user,update}
-                        sub-command help
-    add                 Add a remote.
-    auth                Authenticate in the defined remotes
-    disable             Disable all the remotes matching a pattern.
-    enable              Enable all the remotes matching a pattern.
-    list                List current remotes.
-    list-users          List the users logged into all the remotes.
-    login               Login into the specified remotes matching a pattern.
-    logout              Clear the existing credentials for the specified remotes matching a pattern.
-    remove              Remove a remote.
-    rename              Rename a remote.
-    set-user            Associate a username with a remote matching a pattern without performing the authentication.
-    update              Update a remote.
+    positional arguments:
+    {add,auth,disable,enable,list,list-users,login,logout,remove,rename,set-user,update}
+                            sub-command help
+        add                 Add a remote.
+        auth                Authenticate in the defined remotes
+        disable             Disable all the remotes matching a pattern.
+        enable              Enable all the remotes matching a pattern.
+        list                List current remotes.
+        list-users          List the users logged into all the remotes.
+        login               Login into the specified remotes matching a pattern.
+        logout              Clear the existing credentials for the specified remotes matching a pattern.
+        remove              Remove a remote.
+        rename              Rename a remote.
+        set-user            Associate a username with a remote matching a pattern without performing the authentication.
+        update              Update a remote.
 
-optional arguments:
-  -h, --help            show this help message and exit
-  -v [V]                Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning,
-                        -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
-  --logger              Show the output with log format, with time, type and message.
+    optional arguments:
+    -h, --help            show this help message and exit
+    -v [V]                Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning,
+                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
+    --logger              Show the output with log format, with time, type and message.
 
 
 
