@@ -1,85 +1,110 @@
 #!groovy​
 
 
-// TODO: Move to a file and avoid modifying CI script
+// this is the folder where master is cloned
+// and base for the theme, the theme in this folder
+// is the one used for the rest of the docs
+def latest_v1_folder = '1'
+def latest_v2_folder = '2'
+def latest_v2_version = '2.0'
+
+// <folder>: <branch in docs>
 Map<String, String> versions = [
-        'release/1.59.0': '1.59',
-        'release/1.58.0': '1.58',
-        'release/1.57.0': '1.57',
-        'release/1.56.0': '1.56',
-        'release/1.55.0': '1.55',
-        'release/1.54.0': '1.54',
-        'release/1.53.0': '1.53',
-        'release/1.52.0': '1.52',
-        'release/1.51.3': '1.51',
-        'release/1.50.2': '1.50',
-        'release/1.49.0': '1.49',
-        'release/1.48.2': '1.48',
-        'release/1.47.0': '1.47',
-        'release/1.46.2': '1.46',
-        'release/1.45.0': '1.45',
-        'release/1.44.1': '1.44',
-        'release/1.43.4': '1.43',
-        'release/1.42.2': '1.42',
-        'release/1.41.0': '1.41',
-        'release/1.40.4': '1.40',
-        'release/1.39.0': '1.39',
-        'release/1.38.0': '1.38',
-        'release/1.37.2': '1.37',
-        'release/1.36.0': '1.36',
-        'release/1.35.2': '1.35',
-        'release/1.34.1': '1.34',
-        'release/1.33.1': '1.33',
-        'release/1.32.1': '1.32',
-        'release/1.31.4': '1.31',
-        'release/1.30.2': '1.30',
-        'release/1.29.2': '1.29',
-        'release/1.28.2': '1.28',
-        'release/1.27.1': '1.27',
-        'release/1.26.1': '1.26',
-        'release/1.25.2': '1.25',
-        'release/1.24.1': '1.24',
-        'release/1.23.0': '1.23',
-        'release/1.22.3': '1.22',
-        'release/1.21.3': '1.21',
-        'release/1.20.5': '1.20',
-        'release/1.19.3': '1.19',
-        'release/1.18.5': '1.18',
-        'release/1.17.2': '1.17',
-        'release/1.16.1': '1.16',
-        'release/1.15.2': '1.15',
-        'release/1.14.5': '1.14',
-        'release/1.13.3': '1.13',
-        'release/1.12.3': '1.12',
-        'release/1.11.2': '1.11',
-        'release/1.10.2': '1.10',
-        'release/1.9.4': '1.9',
-        'release/1.8.4': '1.8',
-        'release/1.7.4': '1.7',
-        'release/1.6.1': '1.6',
-        'release/1.5.2': '1.5',
-        'release/1.4.5': '1.4',
-        'release/1.3.3': '1.3',
-        'release/2.0.0-beta': '2.0'
+        '2.0': 'release/2.0',
+        'en/1.59': 'release/1.59.0',
+        'en/1.58': 'release/1.58.0',
+        'en/1.57': 'release/1.57.0',
+        'en/1.56': 'release/1.56.0',
+        'en/1.55': 'release/1.55.0',
+        'en/1.54': 'release/1.54.0',
+        'en/1.53': 'release/1.53.0',
+        'en/1.52': 'release/1.52.0',
+        'en/1.51': 'release/1.51.3',
+        'en/1.50': 'release/1.50.2',
+        'en/1.49': 'release/1.49.0',
+        'en/1.48': 'release/1.48.2',
+        'en/1.47': 'release/1.47.0',
+        'en/1.46': 'release/1.46.2',
+        'en/1.45': 'release/1.45.0',
+        'en/1.44': 'release/1.44.1',
+        'en/1.43': 'release/1.43.4',
+        'en/1.42': 'release/1.42.2',
+        'en/1.41': 'release/1.41.0',
+        'en/1.40': 'release/1.40.4',
+        'en/1.39': 'release/1.39.0',
+        'en/1.38': 'release/1.38.0',
+        'en/1.37': 'release/1.37.2',
+        'en/1.36': 'release/1.36.0',
+        'en/1.35': 'release/1.35.2',
+        'en/1.34': 'release/1.34.1',
+        'en/1.33': 'release/1.33.1',
+        'en/1.32': 'release/1.32.1',
+        'en/1.31': 'release/1.31.4',
+        'en/1.30': 'release/1.30.2',
+        'en/1.29': 'release/1.29.2',
+        'en/1.28': 'release/1.28.2',
+        'en/1.27': 'release/1.27.1',
+        'en/1.26': 'release/1.26.1',
+        'en/1.25': 'release/1.25.2',
+        'en/1.24': 'release/1.24.1',
+        'en/1.23': 'release/1.23.0',
+        'en/1.22': 'release/1.22.3',
+        'en/1.21': 'release/1.21.3',
+        'en/1.20': 'release/1.20.5',
+        'en/1.19': 'release/1.19.3',
+        'en/1.18': 'release/1.18.5',
+        'en/1.17': 'release/1.17.2',
+        'en/1.16': 'release/1.16.1',
+        'en/1.15': 'release/1.15.2',
+        'en/1.14': 'release/1.14.5',
+        'en/1.13': 'release/1.13.3',
+        'en/1.12': 'release/1.12.3',
+        'en/1.11': 'release/1.11.2',
+        'en/1.10': 'release/1.10.2',
+        'en/1.9' : 'release/1.9.4' ,
+        'en/1.8' : 'release/1.8.4' ,
+        'en/1.7' : 'release/1.7.4' ,
+        'en/1.6' : 'release/1.6.1' ,
+        'en/1.5' : 'release/1.5.2' ,
+        'en/1.4' : 'release/1.4.5' ,
+        'en/1.3' : 'release/1.3.3' ,
+        '1'      : 'master'
         ]
+
+
+// change to '2' once Conan 2.0 is released
+def entry_point_folder = latest_v1_folder
+
+def entry_point = """\
+    <!DOCTYPE HTML>
+    <html lang="en-US">
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="refresh" content="0; url=https://docs.conan.io/${entry_point_folder}">
+            <script type="text/javascript">
+                window.location.href = "https://docs.conan.io/${entry_point_folder}"
+            </script>
+            <title>Page Redirection</title>
+        </head>
+        <body>
+            If you are not redirected automatically, follow this <a href='https://docs.conan.io/${entry_point_folder}'>link to https://docs.conan.io/${entry_point_folder}</a>.
+        </body>
+    </html>
+    """.stripIndent()
 
 node('Linux') {
 
-    String prefix = params.prefix ?: "${BUILD_URL}artifact/gh-pages/"
+    String prefix = 'https://docs.conan.io/' //params.prefix ?: "${BUILD_URL}artifact/gh-pages/"
     stage('Check params') {
-        assert params.latest, 'Provide a name to the "latest" branch'
-        if (params.publish) {
-            assert params.prefix, 'Provide the prefix (base URL) if you are going to publish'
-        }
 
         echo """
             Generate Conan docs webpage
-             - params.latest: ${params.latest}
+             - latest_v1_folder: ${latest_v1_folder}
+             - entry_point_folder: ${entry_point_folder}
              - params.publish: ${params.publish}
              - prefix: ${prefix}
-             - versions: latest (${params.latest}), ${versions.collect({key, value -> value }).join(', ')}
+             - versions: ${versions.collect({key, value -> value }).join(', ')}
         """
-        versions[params.latest] = 'latest'
     }
 
     def image = null
@@ -95,7 +120,7 @@ node('Linux') {
     stage('Prepare sources as worktrees') { // Do this sequentially
         sh 'git clone --bare https://github.com/conan-io/docs.git src'
         dir('src') {
-            versions.each { branchName, folderName ->
+            versions.each { folderName, branchName ->
                 sh "git fetch origin ${branchName}:${branchName}"
                 sh "git worktree add ../${folderName} ${branchName}"
             }
@@ -104,7 +129,11 @@ node('Linux') {
             sh 'git worktree add ../gh-pages gh-pages'
         }
         sh 'rm -fr gh-pages/.git'
-        sh 'rm -fr gh-pages/en'
+        sh 'rm -fr gh-pages/en || true'
+        versions.each { folderName, branchName ->
+            sh "rm -fr gh-pages/${branchName} || true"
+        }
+        sh "rm -fr gh-pages/${latest_v2_folder} || true"
     }
 
     // FIXME: we have to generate the docs in parallel in a maximum of a certain concurrency
@@ -117,19 +146,22 @@ node('Linux') {
         Map parallelJobs = [:]
         def map_block = versions.subMap(version_block)
         map_block.each { key, value ->
-            String branchName = key
-            String folderName = value
+            String folderName = key
+            String branchName = value
             parallelJobs[folderName] = {
                 echo "Run parallel job for ${branchName} inside ${folderName}"
                 image.inside {
                     stage('Prepare sources') {
+                        // TODO: FIXME
+                        versions[latest_v2_folder] = versions[latest_v2_version]
                         writeJSON json: versions, file: "${folderName}/versions.json"
-                        if (folderName != 'latest') {
+                        if (folderName != latest_v1_folder) {
                             sh "rm -fr ${folderName}/_themes/conan"
-                            sh "cp -a latest/_themes/. ${folderName}/_themes/"
+                            sh "cp -a ${latest_v1_folder}/_themes/. ${folderName}/_themes/"
                         }
-                        if (folderName == '2.0') {
-                            def conanBranch = 'release/2.0-beta'
+                        if (folderName.startsWith("2")) {
+                            // the branch in the docs for 2.0 has the same name that the one in Conan
+                            def conanBranch = branchName
                             def conan_repo_url = 'https://github.com/conan-io/conan.git'
                             stage('Clone sources') {
                                 def cloneConan = "git clone --single-branch -b ${conanBranch} --depth 1 ${conan_repo_url} 2.0/conan_sources"
@@ -141,15 +173,15 @@ node('Linux') {
                         }
                     }
                     stage('HTML') {
-                        sh "sphinx-build -W -b html -d ${folderName}/_build/.doctrees ${folderName}/ gh-pages/en/${folderName}"
+                        sh "sphinx-build -W -b html -d ${folderName}/_build/.doctrees ${folderName}/ gh-pages/${folderName}"
                     }
 
                     stage('PDF') {
                         sh "sphinx-build -W -b latex -d ${folderName}/_build/.doctrees ${folderName}/ ${folderName}/_build/latex"
                         sh "make -C ${folderName}/_build/latex all-pdf"
-                        sh "cp ${folderName}/_build/latex/conan.pdf gh-pages/en/${folderName}/conan.pdf"
+                        sh "cp ${folderName}/_build/latex/conan.pdf gh-pages/${folderName}/conan.pdf"
                     }
-                    if (folderName=='2.0') {
+                    if (folderName.startsWith("2")) {
                         sh 'rm -fr 2.0/conan_sources'
                     }
                 }
@@ -164,11 +196,25 @@ node('Linux') {
 
     stage('Prepare gh-branch') {
         dir('gh-pages') {
-            // sh 'cp src/versions.json versions.json'  // TODO: File is not used, remove from 'gh-pages' branch
-            sh 'cp en/latest/404.html 404.html'
+            // this is the main index.html that redirects to the main branch
+            // when we release 2.0 we have to change this to point to 2.0 docs
+            writeFile(file: 'index.html', text: entry_point)
 
+            // FIXME: this is to not break all links from https://docs.conan.io/en/latest/
+            // we copy all the /1 folder to /en/latest and then replace all html files
+            // there with redirects to https://docs.conan.io/en/latest/1
+            // remove when most of the traffic in the docs is for 2.X docs
+            sh 'mkdir -p en/latest'
+            sh "cp -R ${latest_v1_folder}/* en/latest"
+            sh "python ../1/create_redirects.py ../gh-pages/en/latest --old=en/latest --new=1"
+
+            // 2 folder is the same as the latest 2.X, copy the generated html files to 2 folder
+            sh "cp -R ${latest_v2_version} ${latest_v2_folder}"
+
+            // sh 'cp src/versions.json versions.json'  // TODO: File is not used, remove from 'gh-pages' branch
+            sh "cp ${latest_v1_folder}/404.html 404.html"
             String content = readFile('404.html')
-            String prefixLatest = "${prefix}en/latest"
+            String prefixLatest = "${prefix}/${latest_v1_folder}"
             content = content.replaceAll('href="_', "href=\"${prefixLatest}/_")
             content = content.replaceAll('src="_', "src=\"${prefixLatest}/_")
             content = content.replaceAll('alt="_', "alt=\"${prefixLatest}/_")
