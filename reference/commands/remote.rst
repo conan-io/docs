@@ -5,8 +5,7 @@ conan remote
 
 Use this command to add, edit and remove Conan repositories from the Conan remote
 registry and also manage authentication to those remotes. For more information on how to
-work with Conan repositories, please check the :ref:`dedicated section
-<conan_repositories>`.
+work with Conan repositories, please check the :ref:`dedicated section <conan_repositories>`.
 
 .. code-block:: bash
 
@@ -235,7 +234,7 @@ conan remote rename
 
 .. code-block:: bash
 
-     $ conan remote rename -h
+    $ conan remote rename -h
     usage: conan remote rename [-h] [-v [V]] [--logger] remote new_name
 
     Rename a remote.
@@ -304,7 +303,7 @@ conan remote update
                      -vtrace
       --logger       Show the output with log format, with time, type and message.
       --url URL      New url for the remote
-      --secure       Don't allow insecure server connections when using SSL
+      --secure       Do not allow insecure server connections when using SSL
       --insecure     Allow insecure server connections when using SSL
       --index INDEX  Insert the remote at a specific position in the remote list
 
