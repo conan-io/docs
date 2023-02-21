@@ -64,8 +64,7 @@ and edited later. If you don't specify a *name*, the command will create the ``d
     Conan will always set the default C++ standard as the one that the detected compiler
     version uses by default, except for the case of macOS using apple-clang. In this case,
     for apple-clang>=11, it sets ``compiler.cppstd=gnu17``. If you want to use a different
-    C++ standard, you can edit the default profile file directly. First, get the location
-    of the default profile using:
+    C++ standard, you can edit the default profile file directly.
 
 
 .. code-block:: bash
