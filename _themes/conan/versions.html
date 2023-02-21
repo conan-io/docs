@@ -8,7 +8,7 @@
     <div class="rst-other-versions">
       <dl>
         <dt>{{ _('Versions') }}</dt>
-        {% for slug, the_version in versions.items() %}
+        {% for the_version, slug in versions.items() %}
           {% if slug == "master" %}
             <dd><a href="/1/index.html">{{ the_version }}</a></dd>
           {% else %}
@@ -18,15 +18,11 @@
       </dl>
       <dl>
         <dt>Downloads</dt>
-        {% if versions["master"] == current_version %}
-          <dd><a href="/1/conan.pdf">PDF</a></dd>
-        {% else %}
-            {% if "1." in current_version%}
-                <dd><a href="/en/{{ current_version }}/conan.pdf">PDF</a></dd>
-            {% else%}
-                <dd><a href="/{{ current_version }}/conan.pdf">PDF</a></dd> 
-            {% endif %}       
-        {% endif %}
+        {% if "1." in current_version%}
+            <dd><a href="/en/{{ current_version }}/conan.pdf">PDF</a></dd>
+        {% else%}
+            <dd><a href="/{{ current_version }}/conan.pdf">PDF</a></dd> 
+        {% endif %}       
       </dl>
     </div>
   </div>
