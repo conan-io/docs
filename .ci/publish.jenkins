@@ -1,10 +1,16 @@
 #!groovy​
 
 
+// this is the folder where master is cloned
+// and base for the theme, the theme in this folder
+// is the one used for the rest of the docs
+def latest_v1_folder = '1'
+def latest_v2_folder = '2'
+def latest_v2_version = '2.0'
+
 // <folder>: <branch in docs>
 Map<String, String> versions = [
         '2.0': 'release/2.0',
-        '2': 'release/2.0',
         'en/1.59': 'release/1.59.0',
         'en/1.58': 'release/1.58.0',
         'en/1.57': 'release/1.57.0',
@@ -65,10 +71,6 @@ Map<String, String> versions = [
         '1'      : 'master'
         ]
 
-// this is the folder where master is cloned
-// and base for the theme, the theme in this folder
-// is the one used for the rest of the docs
-def latest_v1_folder = '1'
 
 // change to '2' once Conan 2.0 is released
 def entry_point_folder = latest_v1_folder
@@ -131,6 +133,7 @@ node('Linux') {
         versions.each { folderName, branchName ->
             sh "rm -fr gh-pages/${branchName} || true"
         }
+        sh "rm -fr gh-pages/${latest_v2_folder} || true"
     }
 
     // FIXME: we have to generate the docs in parallel in a maximum of a certain concurrency
@@ -149,6 +152,8 @@ node('Linux') {
                 echo "Run parallel job for ${branchName} inside ${folderName}"
                 image.inside {
                     stage('Prepare sources') {
+                        // TODO: FIXME
+                        versions[latest_v2_folder] = versions[latest_v2_version]
                         writeJSON json: versions, file: "${folderName}/versions.json"
                         if (folderName != latest_v1_folder) {
                             sh "rm -fr ${folderName}/_themes/conan"
@@ -202,6 +207,9 @@ node('Linux') {
             sh 'mkdir -p en/latest'
             sh "cp -R ${latest_v1_folder}/* en/latest"
             sh "python ../1/create_redirects.py ../gh-pages/en/latest --old=en/latest --new=1"
+
+            // 2 folder is the same as the latest 2.X, copy the generated html files to 2 folder
+            sh "cp -R ${latest_v2_version} ${latest_v2_folder}"
 
             // sh 'cp src/versions.json versions.json'  // TODO: File is not used, remove from 'gh-pages' branch
             sh "cp ${latest_v1_folder}/404.html 404.html"
