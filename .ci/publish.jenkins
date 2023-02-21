@@ -3,7 +3,8 @@
 
 // <folder>: <branch in docs>
 Map<String, String> versions = [
-        '2.0': 'release/2.0.0-beta',
+        '2.0': 'release/2.0',
+        '2': 'release/2.0',
         'en/1.59': 'release/1.59.0',
         'en/1.58': 'release/1.58.0',
         'en/1.57': 'release/1.57.0',
@@ -60,25 +61,31 @@ Map<String, String> versions = [
         'en/1.6' : 'release/1.6.1' ,
         'en/1.5' : 'release/1.5.2' ,
         'en/1.4' : 'release/1.4.5' ,
-        'en/1.3' : 'release/1.3.3' 
+        'en/1.3' : 'release/1.3.3' ,
+        '1'      : 'master'
         ]
 
-def latest_v1_branch = 'master'
+// this is the folder where master is cloned
+// and base for the theme, the theme in this folder
+// is the one used for the rest of the docs
 def latest_v1_folder = '1'
+
+// change to '2' once Conan 2.0 is released
+def entry_point_folder = latest_v1_folder
 
 def entry_point = """\
     <!DOCTYPE HTML>
     <html lang="en-US">
         <head>
             <meta charset="UTF-8">
-            <meta http-equiv="refresh" content="0; url=https://docs.conan.io/${latest_v1_folder}">
+            <meta http-equiv="refresh" content="0; url=https://docs.conan.io/${entry_point_folder}">
             <script type="text/javascript">
-                window.location.href = "https://docs.conan.io/${latest_v1_folder}"
+                window.location.href = "https://docs.conan.io/${entry_point_folder}"
             </script>
             <title>Page Redirection</title>
         </head>
         <body>
-            If you are not redirected automatically, follow this <a href='https://docs.conan.io/${latest_v1_folder}'>link to https://docs.conan.io/${latest_v1_folder}</a>.
+            If you are not redirected automatically, follow this <a href='https://docs.conan.io/${entry_point_folder}'>link to https://docs.conan.io/${entry_point_folder}</a>.
         </body>
     </html>
     """.stripIndent()
@@ -90,13 +97,12 @@ node('Linux') {
 
         echo """
             Generate Conan docs webpage
-             - latest_v1_branch: ${latest_v1_branch}
              - latest_v1_folder: ${latest_v1_folder}
+             - entry_point_folder: ${entry_point_folder}
              - params.publish: ${params.publish}
              - prefix: ${prefix}
-             - versions: latest (${latest_v1_branch}), ${versions.collect({key, value -> value }).join(', ')}
+             - versions: ${versions.collect({key, value -> value }).join(', ')}
         """
-        versions[latest_v1_folder] = latest_v1_branch
     }
 
     def image = null
@@ -149,7 +155,8 @@ node('Linux') {
                             sh "cp -a ${latest_v1_folder}/_themes/. ${folderName}/_themes/"
                         }
                         if (folderName.startsWith("2")) {
-                            def conanBranch = 'release/2.0-beta'
+                            // the branch in the docs for 2.0 has the same name that the one in Conan
+                            def conanBranch = branchName
                             def conan_repo_url = 'https://github.com/conan-io/conan.git'
                             stage('Clone sources') {
                                 def cloneConan = "git clone --single-branch -b ${conanBranch} --depth 1 ${conan_repo_url} 2.0/conan_sources"
