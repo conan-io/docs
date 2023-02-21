@@ -25,8 +25,6 @@ Let's briefly explain the three types of existing configurations:
 * ``user.*``: aimed to define personal user configurations. They can define whatever user wants.
   Definable in both *global.conf* and :ref:`profiles <reference_config_files_profiles>`.
 
-
-
 To list all the possible configurations available, run :command:`conan config list`:
 
 .. code-block:: text
