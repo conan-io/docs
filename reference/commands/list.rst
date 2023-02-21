@@ -37,12 +37,12 @@ conan list
 
 The ``conan list`` command can list recipes and packages from the local cache, from the
 specified remotes or from both. This command uses a *reference pattern* as input. The
-structure of this pattern is based on a complete Conan reference that looks like: 
+structure of this pattern is based on a complete Conan reference that looks like:
 
 ``name/version@user/channel#rrev:pkgid#prev``
 
 This pattern supports using ``*`` as wildcard as well as ``#latest`` to specify the latest revision
-(though that might not be necessary in most cases, by default Conan will be listing the latest revisions). 
+(though that might not be necessary in most cases, by default Conan will be listing the latest revisions).
 
 Using it you can list:
 
@@ -296,12 +296,12 @@ List json output
 .. note::
 
     **Best practices**
-    
+
     The text output in the terminal should never be parsed or relied on for automation, and
     it is intended for human reading only. For any automation, the recommended way is using
     the formatted output as *json*
 
-The ``conan list ... --format=json`` will return a json output in ``stdout`` (can be redirected to file)
+The ``conan list ... --format=json`` will return a json output in ``stdout`` (which can be redirected to a file)
 with the following structure:
 
 
@@ -345,3 +345,43 @@ with the following structure:
       }
     }
   }
+
+List html output
+----------------
+
+The ``conan list ... --format=html`` will return a html output in ``stdout`` (which can be redirected to a file)
+with the following structure:
+
+.. code-block:: text
+
+  $ conan list "zlib/1.2.12#*:*" --format=html
+
+Here is the rendered generated HTML.
+
+.. raw:: html
+
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <title>conan list results</title>
+      <script>
+        var list_results = {"Local Cache": {"zlib/1.2.12": {"revisions": {"c2cd5ec484e443e4f01b51ff5370fd11": {"timestamp": 1665747741.12, "packages": {"6fe7fa69f760aee504e0be85c12b2327c716f9e7": {"info": {"settings": {"arch": "x86_64", "build_type": "Release", "compiler": "apple-clang", "compiler.version": "14", "os": "Macos"}, "options": {"fPIC": "True", "shared": "False"}}}}}, "0de8ff7f99079cd07341311c9ead89a2": {"timestamp": 1676913747.767964, "packages": {"6fe7fa69f760aee504e0be85c12b2327c716f9e7": {"info": {"settings": {"arch": "x86_64", "build_type": "Release", "compiler": "apple-clang", "compiler.version": "14", "os": "Macos"}, "options": {"fPIC": "True", "shared": "False"}}}}}}}}};
+        document.addEventListener("DOMContentLoaded", function () {
+          var divContainer = document.getElementById("showResults");
+          divContainer.innerHTML = JSON.stringify(list_results, null, 2);
+        });
+      </script>
+    </head>
+    <body>
+    <pre id="showResults"></pre>
+    </body>
+    <footer>
+      <p>
+        Conan <b>2.0.0</b>
+        <script>
+          document.write(new Date().getFullYear());
+        </script>
+        JFrog LTD. <a href="https://conan.io">https://conan.io</a>
+      </p>
+    </footer>
+  </html>
