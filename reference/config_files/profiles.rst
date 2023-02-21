@@ -41,38 +41,52 @@ and edited later. If you don't specify a *name*, the command will create the ``d
     :caption: *Creating the Conan default profile*
 
     $ conan profile detect
-    Found apple-clang 12.0
+    apple-clang>=13, using the major as version
     Detected profile:
     [settings]
     arch=x86_64
     build_type=Release
     compiler=apple-clang
-    compiler.cppstd=gnu98
+    compiler.cppstd=gnu17
     compiler.libcxx=libc++
-    compiler.version=12.0
+    compiler.version=14
     os=Macos
 
     WARN: This profile is a guess of your environment, please check it.
-    WARN: The output of this command is not guaranteed to be stable and can change in future Conan versions
+    WARN: Defaulted to cppstd='gnu17' for apple-clang.
+    WARN: The output of this command is not guaranteed to be stable and can change in future Conan versions.
+    WARN: Use your own profile files for stability.
     Saving detected profile to [CONAN_HOME]/profiles/default
+
+
+.. note:: **A note about the detected C++ standard by Conan**
+
+    Conan will always set the default C++ standard as the one that the detected compiler
+    version uses by default, except for the case of macOS using apple-clang. In this case,
+    for apple-clang>=11, it sets ``compiler.cppstd=gnu17``. If you want to use a different
+    C++ standard, you can edit the default profile file directly.
+
 
 .. code-block:: bash
     :caption: *Creating another profile: myprofile*
 
     $ conan profile detect --name myprofile
-    Found apple-clang 12.0
+    Found apple-clang 14.0
+    apple-clang>=13, using the major as version
     Detected profile:
     [settings]
     arch=x86_64
     build_type=Release
     compiler=apple-clang
-    compiler.cppstd=gnu98
+    compiler.cppstd=gnu17
     compiler.libcxx=libc++
-    compiler.version=12.0
+    compiler.version=14
     os=Macos
 
     WARN: This profile is a guess of your environment, please check it.
-    WARN: The output of this command is not guaranteed to be stable and can change in future Conan versions
+    WARN: Defaulted to cppstd='gnu17' for apple-clang.
+    WARN: The output of this command is not guaranteed to be stable and can change in future Conan versions.
+    WARN: Use your own profile files for stability.
     Saving detected profile to [CONAN_HOME]/profiles/myprofile
 
 
@@ -122,9 +136,9 @@ You can also show the profile's content per context:
     arch=x86_64
     build_type=Release
     compiler=apple-clang
-    compiler.cppstd=gnu98
+    compiler.cppstd=gnu17
     compiler.libcxx=libc++
-    compiler.version=12.0
+    compiler.version=14
     os=Macos
 
     Build profile:
@@ -132,9 +146,9 @@ You can also show the profile's content per context:
     arch=x86_64
     build_type=Release
     compiler=apple-clang
-    compiler.cppstd=gnu98
+    compiler.cppstd=gnu17
     compiler.libcxx=libc++
-    compiler.version=12.0
+    compiler.version=14
     os=Macos
 
 
@@ -161,9 +175,9 @@ List of settings available from :ref:`reference_config_files_settings_yml`:
     arch=x86_64
     build_type=Release
     compiler=apple-clang
-    compiler.cppstd=gnu98
+    compiler.cppstd=gnu17
     compiler.libcxx=libc++
-    compiler.version=12.0
+    compiler.version=14
     os=Macos
 
 
