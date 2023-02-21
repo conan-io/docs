@@ -17,6 +17,7 @@ Conan can be extended in a few ways, with custom user code:
   parallelization tools
 - The package signing extension allows to sign and verify packages at upload and install time
   respectively
+- Deployers, a mechanism to facilitate copying files from one folder, usually the Conan cache, to user folders
 
 
 TODO: Put commands here?
