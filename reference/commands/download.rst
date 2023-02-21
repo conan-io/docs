@@ -3,7 +3,7 @@
 conan download
 ==============
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan download -h
     usage: conan download [-h] [-v [V]] [--logger] [--only-recipe]

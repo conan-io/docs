@@ -129,21 +129,21 @@ The available templates are:
 Examples
 --------
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan new basic
 
 
 Generates a basic *conanfile.py* that does not implement any custom functionality
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan new basic -d name=mygame -d requires=math/1.0 -d requires=ai/1.3
 
 Generates a *conanfile.py* for ``mygame`` that depends on the packages ``math/1.0`` and ``ai/1.3``
 
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan new cmake_exe -d name=game -d version=1.0 -d requires=math/3.14 -d requires=ai/1.0
 

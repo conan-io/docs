@@ -159,7 +159,7 @@ Conanfile path or --requires
 The ``conan install`` command can use 2 different origins for information. The first one is using a local ``conanfile.py`` 
 or ``conanfile.txt``, containing definitions of the dependencies and generators to be used.
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan install .  # there is a conanfile.txt or a conanfile.py in the cwd
     $ conan install conanfile.py  # also works, direct reference file
@@ -174,7 +174,7 @@ name, located in the repository root, so users can do a straightforward ``git cl
 The other possibility is to not have a ``conanfile`` at all, and define the requirements to be installed directly in the
 command line:
 
-.. code-block:: bash
+.. code-block:: text
 
     # Install the zlib/1.2.13 library
     $ conan install --requires=zlib/1.2.13
@@ -204,7 +204,7 @@ By default the arguments refer to the "host" context, so ``--settings:host, -s:h
 Multiple definitions of profiles can be passed as arguments, and they will compound from left to right (right has the
 highest priority)
 
-.. code-block:: bash
+.. code-block:: text
 
     # The values of myprofile3 will have higher priority
     $ conan install . -pr=myprofile1 -pr=myprofile2 -pr=myprofile3
@@ -213,7 +213,7 @@ If values for any of ``settings``, ``options`` and ``conf`` are provided in the 
 is composed with the other provided ``-pr`` (or the "default" one if not specified) profiles, with higher priority,
 not matter what the order of arguments is.
 
-.. code-block:: bash
+.. code-block:: text
 
     # the final "host" profile will always be build_type=Debug, even if "myprofile"
     # says "build_type=Release"
@@ -225,7 +225,7 @@ Generators and deployers
 
 The ``-g`` argument allows to define in the command line the different built-in generators to be used:
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan install --requires=zlib/1.2.13 -g CMakeDeps -g CMakeToolchain
 
@@ -236,7 +236,7 @@ Generators are intended to create files for the build systems to locate the depe
 main use case is to copy files from the Conan cache to user space, and performing any other custom operations over the dependency graph,
 like collecting licenses, generating reports, deploying binaries to the system, etc. The syntax for deployers is:
 
-.. code-block:: bash
+.. code-block:: text
 
     # does a full copy of the dependencies binaries to the current user folder
     $ conan install . --deploy=full_deploy
@@ -279,7 +279,7 @@ only in the case that they are not defined in the recipe:
                 
     
 
-.. code-block:: bash
+.. code-block:: text
 
     # If we don't specify ``--version``, it will be None and it will fail
     $ conan install . --version=3.24
@@ -306,7 +306,7 @@ Let's say that we already have a ``conan.lock`` input lockfile, but we just adde
 to a new dependency. We could resolve the dependencies, locking all the previously locked versions, while allowing
 to resolve the new one, which was not previously present in the lockfile, and store it in a new location, or overwrite the existing lockfile:
 
-.. code-block:: bash
+.. code-block:: text
 
     # --lockfile=conan.lock is the default, not necessary
     $ conan install . --lockfile=conan.lock --lockfile-partial --lockfile-out=conan.lock 

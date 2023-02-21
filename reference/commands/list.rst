@@ -3,7 +3,7 @@
 conan list
 ==========
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan list -h
     usage: conan list [-h] [-f FORMAT] [-v [V]] [--logger] [-p PACKAGE_QUERY]
@@ -63,7 +63,7 @@ Let's see some examples on how to use this pattern:
 Listing recipe references
 -------------------------
 
-.. code-block:: bash
+.. code-block:: text
   :caption: *list all references on local cache*
 
     $ conan list *
@@ -80,7 +80,7 @@ Listing recipe references
         zlib/1.2.11
 
 
-.. code-block:: bash
+.. code-block:: text
   :caption: *list all versions of a reference*
 
     $ conan list zlib
@@ -93,7 +93,7 @@ Listing recipe references
 As we commented, you can also use the ``*`` wildcard inside the reference you want to
 search.
 
-.. code-block:: bash
+.. code-block:: text
     :caption: *list all versions of a reference, equivalent to the previous one*
 
     $ conan list zlib/*
@@ -104,7 +104,7 @@ search.
 
 Use the pattern for searching only references matching a specific channel:
 
-.. code-block:: bash
+.. code-block:: text
     :caption: *list references with 'stable' channel*
 
     $ conan list */*@*/stable
@@ -120,7 +120,7 @@ Listing recipe revisions
 The shortest way of listing the latest recipe revision for a recipe is using the
 ``name/version@user/channel`` as the pattern:
 
-.. code-block:: bash
+.. code-block:: text
     :caption: *list latest recipe revision*
 
     $ conan list zlib/1.2.11
@@ -133,7 +133,7 @@ The shortest way of listing the latest recipe revision for a recipe is using the
 This is equivalent to specify explicitly that you want to list the latest recipe revision
 using the ``#latest`` placeholder:
 
-.. code-block:: bash
+.. code-block:: text
     :caption: *list latest recipe revision*
 
     $ conan list zlib/1.2.11#latest
@@ -145,7 +145,7 @@ using the ``#latest`` placeholder:
 
 To list all recipe revisions use the ``*`` wildcard:
 
-.. code-block:: bash
+.. code-block:: text
   :caption: *list all recipe revisions*
 
     $ conan list zlib/1.2.11#*
@@ -166,7 +166,7 @@ Listing package IDs
 The shortest way of listing all the package IDs belonging to the latest recipe revision is
 using ``name/version@user/channel:*`` as the pattern:
 
-.. code-block:: bash
+.. code-block:: text
   :caption: *list all package IDs for latest recipe revision*
 
     $ conan list zlib/1.2.11:*
@@ -208,7 +208,7 @@ using ``name/version@user/channel:*`` as the pattern:
 To list all the package IDs for all the recipe revisions use the ``*`` wildcard in the
 revision ``#`` part:
 
-.. code-block:: bash
+.. code-block:: text
   :caption: *list all the package IDs for all the recipe revisions*
 
     $ conan list zlib/1.2.11#*:*
@@ -249,7 +249,7 @@ Listing package revisions
 The shortest way of listing the latest package revision for a specific recipe revision and
 package ID is using the pattern ``name/version@user/channel#rrev:pkgid``
 
-.. code-block:: bash
+.. code-block:: text
   :caption: *list latest package revision for a specific recipe revision and package ID*
 
     $ conan list zlib/1.2.11#8b23adc7acd6f1d6e220338a78e3a19e:fdb823f07bc228621617c6397210a5c6c4c8807b
@@ -266,7 +266,7 @@ package ID is using the pattern ``name/version@user/channel#rrev:pkgid``
 
 To list all the package revisions for for the latest recipe revision:
 
-.. code-block:: bash
+.. code-block:: text
   :caption: *list all the package revisions for all package-ids the latest recipe revision*
 
     $ conan list zlib/1.2.11:*#*
@@ -306,7 +306,7 @@ The ``conan list ... --format=json`` will return a json output in ``stdout`` (ca
 with the following structure:
 
 
-.. code-block:: bash
+.. code-block:: text
 
   $ conan list zlib/1.2.11:*#* --format=json
   {

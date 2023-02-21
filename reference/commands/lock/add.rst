@@ -1,7 +1,7 @@
 conan lock add
 ==============
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan lock add -h
     usage: conan lock add [-h] [-v [V]] [--logger] [--requires REQUIRES]

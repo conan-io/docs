@@ -3,7 +3,7 @@
 conan inspect
 =============
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan inspect -h
     usage: conan inspect [-h] [-f FORMAT] [-v [V]] [--logger] path

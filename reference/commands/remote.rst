@@ -7,7 +7,7 @@ Use this command to add, edit and remove Conan repositories from the Conan remot
 registry and also manage authentication to those remotes. For more information on how to
 work with Conan repositories, please check the :ref:`dedicated section <conan_repositories>`.
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan remote -h
     usage: conan remote [-h] [-v [V]] [--logger]
@@ -46,7 +46,7 @@ work with Conan repositories, please check the :ref:`dedicated section <conan_re
 conan remote add
 ----------------
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan remote add -h
     usage: conan remote add [-h] [-i [INSERT]] [-f] remote url [verify_ssl]
@@ -65,7 +65,7 @@ conan remote add
 conan remote disable
 --------------------
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan remote disable -h
     usage: conan remote disable [-h] [-v [V]] [--logger] remote
@@ -87,7 +87,7 @@ conan remote disable
 conan remote enable
 -------------------
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan remote enable -h
     usage: conan remote enable [-h] [-v [V]] [--logger] remote
@@ -109,7 +109,7 @@ conan remote enable
 conan remote list
 -----------------
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan remote list -h
     usage: conan remote list [-h] [-f FORMAT] [-v [V]] [--logger]
@@ -131,7 +131,7 @@ conan remote list
 conan remote list-users
 -----------------------
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan remote list-users -h
     usage: conan remote list-users [-h] [-f FORMAT] [-v [V]] [--logger]
@@ -153,7 +153,7 @@ conan remote list-users
 conan remote login
 ------------------
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan remote login -h
     usage: conan remote login [-h] [-f FORMAT] [-v [V]] [--logger] [-p [PASSWORD]]
@@ -185,7 +185,7 @@ conan remote login
 conan remote logout
 -------------------
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan remote logout -h
     usage: conan remote logout [-h] [-f FORMAT] [-v [V]] [--logger] remote
@@ -211,7 +211,7 @@ conan remote logout
 conan remote remove
 -------------------
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan remote remove -h
     usage: conan remote remove [-h] [-v [V]] [--logger] remote
@@ -232,7 +232,7 @@ conan remote remove
 conan remote rename
 -------------------
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan remote rename -h
     usage: conan remote rename [-h] [-v [V]] [--logger] remote new_name
@@ -254,7 +254,7 @@ conan remote rename
 conan remote set-user
 ---------------------
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan remote set-user -h
     usage: conan remote set-user [-h] [-f FORMAT] [-v [V]] [--logger]
@@ -283,7 +283,7 @@ conan remote set-user
 conan remote update
 -------------------
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan remote update -h
     usage: conan remote update [-h] [-v [V]] [--logger] [--url URL] [--secure]
@@ -303,7 +303,7 @@ conan remote update
                      -vtrace
       --logger       Show the output with log format, with time, type and message.
       --url URL      New url for the remote
-      --secure       Do not allow insecure server connections when using SSL
+      --secure       Don't allow insecure server connections when using SSL
       --insecure     Allow insecure server connections when using SSL
       --index INDEX  Insert the remote at a specific position in the remote list
 

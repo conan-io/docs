@@ -6,7 +6,7 @@ conan search
 Search existing recipes in remotes.
 This command is equivalent to ``conan list recipes <query> -r=*``, and is provided for simpler UX.
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan search -h
     usage: conan search [-h] [-f FORMAT] [-v [V]] [--logger] [-r REMOTE] reference
@@ -33,7 +33,7 @@ This command is equivalent to ``conan list recipes <query> -r=*``, and is provid
 
 
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan search zlib
     conancenter:

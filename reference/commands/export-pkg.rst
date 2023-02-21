@@ -3,7 +3,7 @@
 conan export-pkg
 ================
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan export-pkg -h
     usage: conan export-pkg [-h] [-f FORMAT] [-v [V]] [--logger]

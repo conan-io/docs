@@ -3,7 +3,7 @@
 conan source
 ============
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan source -h
     usage: conan source [-h] [-v [V]] [--logger] [--name NAME] [--version VERSION]

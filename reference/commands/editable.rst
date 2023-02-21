@@ -8,7 +8,7 @@ Allow working with a package that resides in user folder.
 conan editable add
 ------------------
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan editable add -h
     usage: conan editable add [-h] [-v [V]] [--logger] [--name NAME]
@@ -42,7 +42,7 @@ conan editable add
 conan editable remove
 ---------------------
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan editable remove -h
     usage: conan editable remove [-h] [-v [V]] [--logger] [-r REFS] [path]

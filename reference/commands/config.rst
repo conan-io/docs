@@ -7,7 +7,7 @@ Manage the Conan configuration in the Conan home.
 conan config home
 -----------------
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan config home --help
     usage: conan config home [-h] [-v [V]] [--logger]
@@ -24,7 +24,7 @@ conan config home
 
 The ``conan config home`` command returns the path of the Conan home folder.
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan config home
 
@@ -34,7 +34,7 @@ The ``conan config home`` command returns the path of the Conan home folder.
 conan config install
 --------------------
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan config install -h
     usage: conan config install [-h] [-v [V]] [--logger]
@@ -96,7 +96,7 @@ All the configuration files can be shared and installed this way:
 
 - Install the configuration from a URL:
 
-  .. code-block:: bash
+  .. code-block:: text
 
       $ conan config install http://url/to/some/config.zip
 
@@ -104,14 +104,14 @@ All the configuration files can be shared and installed this way:
 - Install the configuration from a URL, but only getting the files inside a *origin* folder
   inside the zip file, and putting them inside a *target* folder in the local cache:
 
-  .. code-block:: bash
+  .. code-block:: text
 
       $ conan config install http://url/to/some/config.zip -sf=origin -tf=target
 
 - Install configuration from 2 different zip files from 2 different urls, using different source
   and target folders for each one, then update all:
 
-  .. code-block:: bash
+  .. code-block:: text
 
       $ conan config install http://url/to/some/config.zip -sf=origin -tf=target
       $ conan config install http://url/to/some/config.zip -sf=origin2 -tf=target2
@@ -119,19 +119,19 @@ All the configuration files can be shared and installed this way:
 
 - Install the configuration from a Git repository with submodules:
 
-  .. code-block:: bash
+  .. code-block:: text
 
       $ conan config install http://github.com/user/conan_config/.git --args "--recursive"
 
   You can also force the git download by using :command:`--type git` (in case it is not deduced from the URL automatically):
 
-  .. code-block:: bash
+  .. code-block:: text
 
       $ conan config install http://github.com/user/conan_config/.git --type git
 
 - Install from a URL skipping SSL verification:
 
-  .. code-block:: bash
+  .. code-block:: text
 
       $ conan config install http://url/to/some/config.zip --verify-ssl=False
 
@@ -139,20 +139,20 @@ All the configuration files can be shared and installed this way:
 
 - Install a specific file from a local path:
 
-  .. code-block:: bash
+  .. code-block:: text
 
       $ conan config install my_settings/settings.yml
 
 - Install the configuration from a local path:
 
-  .. code-block:: bash
+  .. code-block:: text
 
       $ conan config install /path/to/some/config.zip
 
 
 conan config list
 -----------------
-.. code-block:: bash
+.. code-block:: text
 
     $ conan config list -h
     usage: conan config list [-h] [-f FORMAT] [-v [V]] [--logger]
@@ -178,7 +178,7 @@ Displays all the Conan built-in configurations. There are 2 groups:
   recipes and tools used within recipes, like ``CMakeToolchain``
 
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan config list
     core.cache:storage_path: Absolute path where the packages and database are stored

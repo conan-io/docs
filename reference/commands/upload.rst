@@ -7,7 +7,7 @@ Use this command to upload recipes and binaries to Conan repositories. For more
 information on how to work with Conan repositories, please check the :ref:`dedicated
 section <conan_repositories>`.
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan upload -h
     usage: conan upload [-h] [-v [V]] [--logger] [-p PACKAGE_QUERY] -r REMOTE

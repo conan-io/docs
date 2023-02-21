@@ -9,7 +9,7 @@ Manage profiles
 conan profile detect
 --------------------
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan profile detect -h
     usage: conan profile detect [-h] [-v [V]] [--logger] [--name NAME] [-f]
@@ -29,7 +29,7 @@ conan profile detect
 conan profile list
 ------------------
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan profile list -h
     usage: conan profile list [-h] [-f FORMAT] [-v [V]] [--logger]
@@ -51,7 +51,7 @@ conan profile list
 conan profile path
 ------------------
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan profile path -h
     usage: conan profile path [-h] [-v [V]] [--logger] [-o OPTIONS_HOST]
@@ -116,7 +116,7 @@ conan profile path
 conan profile show
 ------------------
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan profile show -h
     usage: conan profile show [-h] [-v [V]] [--logger] [-o OPTIONS_HOST]

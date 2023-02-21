@@ -1,7 +1,7 @@
 conan remove
 ============
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan remove -h
     usage: conan remove [-h] [-v [V]] [--logger] [-c] [-p PACKAGE_QUERY]
@@ -43,7 +43,7 @@ remove a complete package, or just remove the binaries, leaving still the recipe
 To remove recipes and their associated package binaries from the local cache:
 
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan remove "*"
     # Removes everything from the cache
@@ -66,7 +66,7 @@ To remove recipes and their associated package binaries from the local cache:
 To remove only package binaries, but leaving the recipes, it is necessary to specify the
 pattern including the ``:`` separator of the ``package_id``:
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan remove zlib/1.2.11:*
     # Removes all the zlib/1.2.11 package binaries from all the recipe revisions
@@ -90,7 +90,7 @@ pattern including the ``:`` separator of the ``package_id``:
 All the above commands, by default operate in the Conan cache.
 To remove artifacts from a server, use the ``-r=myremote`` argument:
 
-.. code-block:: bash
+.. code-block:: text
 
     $ conan remove zlib/1.2.11:* -r=myremote
     # Removes all the zlib/1.2.11 package binaries from all the recipe revisions in 
