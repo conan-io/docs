@@ -3,7 +3,7 @@
 Conan API Reference
 ===================
 
-.. include:: ../../../common/experimental_warning.rst
+.. include:: ../../../common/experimental_warning.inc
 
 .. currentmodule:: conan.api.conan_api
 

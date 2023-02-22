@@ -208,7 +208,7 @@ to the ``update`` subsetting in ``settings.yml``.
 intel-cc
 ++++++++
 
-.. include:: ../../common/experimental_warning.rst
+.. include:: ../../common/experimental_warning.inc
 
 This compiler is aimed to handle the new Intel oneAPI DPC++/C++/Classic compilers. Instead of having *n* different compilers,
 you have 3 different **modes** of working:
