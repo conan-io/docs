@@ -14,7 +14,7 @@
       </dl>
       <dl>
         <dt>Downloads</dt>
-        {% if "1." in current_version%}
+        {% if current_version.startswith("1.") %}
             <dd><a href="/en/{{ current_version }}/conan.pdf">PDF</a></dd>
         {% else%}
             <dd><a href="/{{ current_version }}/conan.pdf">PDF</a></dd> 
