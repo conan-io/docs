@@ -73,7 +73,7 @@ Map<String, String> versions = [
 
 
 // change to '2' once Conan 2.0 is released
-def entry_point_folder = latest_v1_folder
+def entry_point_folder = latest_v2_folder
 
 def entry_point = """\
     <!DOCTYPE HTML>
