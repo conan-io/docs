@@ -6,7 +6,7 @@ CMakeToolchain: Extending your CMakePresets with Conan generated ones
 In this example we are going to see how to extend your own CMakePresets to include Conan
 generated ones.
 
-.. include:: ../../../../tutorial/cmake_presets_note.rst
+.. include:: ../../../../tutorial/cmake_presets_note.inc
 
 Please, first of all, clone the sources to recreate this project. You can find them in the
 `examples2.0 repository <https://github.com/conan-io/examples2>`_ in GitHub:

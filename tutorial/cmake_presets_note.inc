@@ -1,5 +1,3 @@
-:orphan:
-
 .. note::
 
     We use CMake presets in this example. This requires CMake >= 3.23 because the

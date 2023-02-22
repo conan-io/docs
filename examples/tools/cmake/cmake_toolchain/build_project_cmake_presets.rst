@@ -43,7 +43,7 @@ The ``CMakePresets.json`` contain information about the ``conan_toolchain.cmake`
 and even the ``binaryDir`` set with the output directory.
 
 
-.. include:: ../../../../tutorial/cmake_presets_note.rst
+.. include:: ../../../../tutorial/cmake_presets_note.inc
 
 
 If you are using a multi-configuration generator:

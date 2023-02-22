@@ -21,7 +21,7 @@ Please, first of all, clone the sources to recreate this project. You can find t
     $ git clone https://github.com/conan-io/examples2.git
     $ cd examples2/tutorial/developing_packages/package_layout
 
-.. include:: ../cmake_presets_note.rst
+.. include:: ../cmake_presets_note.inc
 
 As you can see, the main folder structure is the same: 
 
