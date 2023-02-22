@@ -79,7 +79,7 @@ depending on the platform and generator used.
 
 Now that the ``say/1.0`` package is in editable mode, let's build it locally:
 
-.. include:: ../cmake_presets_note.rst
+.. include:: ../cmake_presets_note.inc
 
 .. code-block:: bash
 

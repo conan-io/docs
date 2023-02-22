@@ -241,7 +241,7 @@ preset. Let's try it:
 You can check that the results of invoking CMake directly are equivalent to the ones we
 got using the :command:`conan build` command.
 
-.. include:: ../cmake_presets_note.rst
+.. include:: ../cmake_presets_note.inc
 
 conan export-pkg
 ----------------
