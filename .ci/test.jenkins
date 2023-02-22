@@ -3,7 +3,7 @@
 node('Linux') {
 
     boolean publishDocs = env.BRANCH_NAME.startsWith("release/2.")
-    def targetBranch = env.CHANGE_BRANCH ? env.CHANGE_BRANCH : env.BRANCH_NAME
+    def targetBranch = env.CHANGE_TARGET ? env.CHANGE_TARGET : env.BRANCH_NAME
     
     // We also have to clone conan sources for the sphinx autodoc extension
     def conanBranch = targetBranch.startsWith("release/2.") ? targetBranch : 'develop2'
