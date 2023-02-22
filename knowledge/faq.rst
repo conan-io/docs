@@ -61,4 +61,38 @@ overcome this error:
   <https://github.com/conan-io/conan-center-index>`_
 
 
+
+.. _error_invalid_setting:
+
+ERROR: Invalid setting
+^^^^^^^^^^^^^^^^^^^^^^
+
+It might happen sometimes, when you specify a setting not present in the defaults
+that you receive a message like this:
+
+.. code-block:: bash
+
+    $ conan install . -s compiler.version=4.19 ...
+
+    ERROR: Invalid setting '4.19' is not a valid 'settings.compiler.version' value.
+    Possible values are ['4.4', '4.5', '4.6', '4.7', '4.8', '4.9', '5.1', '5.2', '5.3', '5.4', '6.1', '6.2']
+
+
+This doesn't mean that such compiler version is not supported by Conan, it is just that it is not present in the actual
+defaults settings. You can find in your user home folder ``~/.conan2/settings.yml`` a settings file that you
+can modify, edit, add any setting or any value, with any nesting if necessary. See :ref:`reference_config_files_settings_yml` to learn
+how you can customize your settings to model your binaries at your will.
+
+As long as your team or users have the same settings (``settings.yml`` and ``settings_user.yml`` an be easily shared with the
+``conan config install`` command), everything will work. The *settings.yml* file is just a
+mechanism so users agree on a common spelling for typical settings. Also, if you think that some settings would
+be useful for many other conan users, please submit it as an issue or a pull request, so it is included in future
+releases.
+
+It is possible that some built-in helper or integrations, like ``CMake`` or ``CMakeToolchain`` will not understand the new added settings,
+don't use them or even fail if you added some new unexpected value to existing settings. 
+Such helpers as ``CMake`` are simple utilities to translate from conan settings to the respective
+build system syntax and command line arguments, so they can be extended or replaced with your own
+one that would handle your own private settings.
+
 .. _`Cpplang Slack`: https://cppalliance.org/slack/
