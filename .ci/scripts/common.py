@@ -14,39 +14,6 @@ def chdir(dir_path):
         os.chdir(current)
 
 
-def run(cmd):
-    process = subprocess.Popen(
-        cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-    out, err = process.communicate()
-    out = out.decode("utf-8")
-    err = err.decode("utf-8")
-    ret = process.returncode
-
-    output = err + out
-    print("Running: {}".format(cmd))
-    print("----- OUTPUT -------")
-    print(output)
-    print("----END OUTPUT------")
-    if ret != 0:
-        raise Exception("Failed cmd: {}\n{}".format(cmd, output))
-    return output
-
-
-def replace(file_path, text, replace):
-    with open(file_path, "r") as f:
-        content = f.read()
-    content2 = content.replace(text, replace)
-    assert content != content2
-    with open(file_path, "w") as f:
-        f.write(content2)
-
-
-def load(file_path):
-    with open(file_path, "r") as f:
-        content = f.read()
-    return content
-
-
 latest_v2_folder = "2"
 latest_v1_folder = "1"
 latest_v1_branch = "master"

@@ -1,6 +1,8 @@
+import os
 import argparse
 from pathlib import Path
-from common import run, chdir, conan_versions, latest_v2_folder, latest_v1_folder, latest_v1_branch
+
+from common import chdir, conan_versions, latest_v1_branch
 
 parser = argparse.ArgumentParser()
 
@@ -19,14 +21,11 @@ branches.append(latest_v1_branch)
 
 # Prepare sources as worktrees
 if not Path(f"{sources_folder}/tmp").is_dir():
-    run(
+    os.system(
         f"git clone --bare https://github.com/conan-io/docs.git {sources_folder}/tmp")
 
 with chdir(f"{sources_folder}/tmp"):
     for folder, branch in conan_versions.items():
         if branch in branches and not Path(f"../{folder}").is_dir():
-            run(f"git fetch origin {branch}:{branch}")
-            run(f"git worktree add ../{folder} {branch}")
-    if not Path(f"../gh-pages").is_dir():
-        run(f"git fetch origin gh-pages:gh-pages")
-        run(f"git worktree add ../gh-pages gh-pages")
+            os.system(f"git fetch origin {branch}:{branch}")
+            os.system(f"git worktree add ../{folder} {branch}")
