@@ -3,7 +3,7 @@
 conan inspect
 =============
 
-.. include:: ../../common/experimental_warning.rst
+.. include:: ../../common/experimental_warning.inc
 
 .. code-block:: text
 

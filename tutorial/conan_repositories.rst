@@ -11,11 +11,11 @@ In this section we cover how you can use the Conan repositories to upload your
 recipes and binaries and store them for later use on another machine, project, or for
 sharing purposes.
 
-First we will cover how you can setup a Conan repository locally or cloud-hosted
-(you can skip this part if you already have a Conan remote configured). Then we will
-explain how to upload packages to your own repositories and how to operate when you have
-multiple Conan remotes configured. Finally, we will briefly cover how you can contribute
-to the Conan Center central repository. 
+First we will cover how you can setup a Conan repository locally (you can skip this part
+if you already have a Conan remote configured). Then we will explain how to upload
+packages to your own repositories and how to operate when you have multiple Conan remotes
+configured. Finally, we will briefly cover how you can contribute to the Conan Center
+central repository. 
 
 .. toctree::
    :maxdepth: 2

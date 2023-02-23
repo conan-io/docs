@@ -1,7 +1,7 @@
 New API
 =======
 
-.. include:: ../../../common/experimental_warning.rst
+.. include:: ../../../common/experimental_warning.inc
 
 .. currentmodule:: conan.api.subapi.new
 
