@@ -40,7 +40,7 @@ challenge. That means that for some remote servers configured to allow anonymous
 used, and the user will remain as an unauthenticated user, unless a ``conan remote login`` or ``conan remote auth``
 is done first.
 
-When the Conan CLI is about to ask the user for the remote passowrd, it will check the variable ``CONAN_LOGIN_USERNAME_{REMOTE_NAME}``
+When the Conan CLI is about to ask the user for the remote password, it will check the variable ``CONAN_LOGIN_USERNAME_{REMOTE_NAME}``
 or ``CONAN_PASSWORD_{REMOTE_NAME}`` first, if the variable is not declared Conan will try to use the variable 
 ``CONAN_LOGIN_USERNAME`` and ``CONAN_PASSWORD`` respectively, if the variable is not declared either,
 Conan will request to the user to input a password or fail.
