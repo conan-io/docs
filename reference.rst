@@ -14,3 +14,4 @@ Reference
    reference/tools
    reference/config_files
    reference/extensions
+   reference/environment
