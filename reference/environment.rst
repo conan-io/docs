@@ -4,7 +4,7 @@ Environment variables
 =====================
 
 These are very few environment variables that can be used to configure some of the Conan behavior.
-These variables are the exception, for customizacion and configuration control, Conan uses the 
+These variables are the exception, for customization and configuration control, Conan uses the 
 :ref:`global.conf configuration<reference_config_files_global_conf>` and the :ref:`profile [conf] section<reference_config_files_profiles>`
 
 
