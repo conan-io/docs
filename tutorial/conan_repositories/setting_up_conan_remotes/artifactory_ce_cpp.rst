@@ -1,21 +1,15 @@
-.. _artifactory_ce_cpp:
+.. _tutorial_artifactory_ce_cpp:
 
 Artifactory Community Edition for C/C++
 =======================================
 
-Artifactory Community Edition (CE) for C/C++ is the recommended server for development and
-hosting private packages for a team or company. It is completely free, and it features a
-WebUI, advanced authentication and permissions, great performance and scalability, a REST
-API, a generic CLI tool and generic repositories to host any kind of source or binary
-artifact.
-
-This is a very brief introduction to Artifactory CE. For the complete Artifactory CE
-documentation, visit `Artifactory docs <https://www.jfrog.com/confluence/>`_.
+:ref:`Artifactory CE<integrations_artifactory_ce>` for C/C++ is the recommended server for trying Conan and hosting packages
+for private development. This tutorial section will cover setting up Artifactory with a Conan repository.
 
 Running Artifactory CE
 ----------------------
 
-There are several ways to run Artifactory CE:
+There are several ways to run :ref:`Artifactory CE<integrations_artifactory_ce>`:
 
 * **Running from a docker image**. Just run:
 
@@ -24,8 +18,8 @@ There are several ways to run Artifactory CE:
     $ docker run --name artifactory -d -p 8081:8081 -p 8082:8082 docker.bintray.io/jfrog/artifactory-cpp-ce:latest
 
 * **Download and run from zip file**. The `Download Page <https://conan.io/downloads.html>`_ has
-  a link for you to follow. When the file is unzipped, launch Artifactory by double clicking
-  the artifactory.bat(Windows) or artifactory.sh script in the *app/bin* subfolder,
+  a link for you to follow. When the file is unzipped, launch Artifactory by double clicking the
+  ``artifactory.bat`` (Windows) or ``artifactory.sh`` (Unix) script in the ``app/bin`` subfolder,
   depending on the OS. Artifactory comes with JDK bundled, please `read Artifactory
   requirements <https://www.jfrog.com/confluence/display/JFROG/System+Requirements>`_.
 
@@ -35,14 +29,14 @@ the Web UI should be running. The default user and password are ``admin:password
 Creating and Using a Conan Repo
 -------------------------------
 
-Navigate to Administration -> Repositories -> Repositories, then click on the "Add
+Navigate to ``Administration -> Repositories -> Repositories``, then click on the "Add
 Repositories" button and select "Local Repository". A dialog for selecting the package
 type will appear, select **Conan**, then type a "Repository Key" (the name of the
 repository you are about to create), for example "conan-local" and click on "Create Local
 Repository". You can create multiple repositories to serve different flows, teams, or
 projects.
 
-.. image:: ../../../../images/artifactory/artifactory_local_repository.png
+.. image:: ../../../images/artifactory/artifactory_local_repository.png
 
 Now, let's configure the Conan client to connect with the "conan-local" repository. First
 add the remote to the Conan remote registry:
@@ -56,6 +50,15 @@ Then configure the credentials for the remote:
 .. code-block:: bash
 
     $ conan remote login artifactory <user> -p <password>
+
+
+Your API key is the “password” used to authenticate the Conan client to Artifactory, NOT your Artifactory
+password. To get your API key, go to “Set Me Up” and enter your account password. Your API key will
+appear on conan user command line listed on "Set Me Up" box:
+
+.. tip::
+
+    Check the full reference of :ref:`$ conan remote<_reference_commands_remote>` command.
 
 From now, you can upload, download, search, etc. the remote repos similarly to the other
 repo types.
