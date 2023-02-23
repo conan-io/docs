@@ -36,7 +36,7 @@ Remote login variables
 
 These environment variables are just a substitute of the interactive input of the username or password when Conan CLI
 requests it. They do not perform any kind of authentication unless the remote server throws an authentication
-challenge. That means that for some remote servers configured allowing anonymous usage, these will not be
+challenge. That means that for some remote servers configured to allow anonymous usage, these will not be
 used, and the user will remain as not authenticated user, unless a ``conan remote login`` or ``conan remote auth``
 is done first.
 
