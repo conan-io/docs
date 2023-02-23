@@ -1,8 +1,61 @@
-{
-    "2"      : "release/2.0",
-    "2.0"    : "release/2.0",
+import os
+import subprocess
+from contextlib import contextmanager
 
-    "1"      : "master",
+
+@contextmanager
+def chdir(dir_path):
+    current = os.getcwd()
+    os.makedirs(dir_path, exist_ok=True)
+    os.chdir(dir_path)
+    try:
+        yield
+    finally:
+        os.chdir(current)
+
+
+def run(cmd):
+    process = subprocess.Popen(
+        cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+    out, err = process.communicate()
+    out = out.decode("utf-8")
+    err = err.decode("utf-8")
+    ret = process.returncode
+
+    output = err + out
+    print("Running: {}".format(cmd))
+    print("----- OUTPUT -------")
+    print(output)
+    print("----END OUTPUT------")
+    if ret != 0:
+        raise Exception("Failed cmd: {}\n{}".format(cmd, output))
+    return output
+
+
+def replace(file_path, text, replace):
+    with open(file_path, "r") as f:
+        content = f.read()
+    content2 = content.replace(text, replace)
+    assert content != content2
+    with open(file_path, "w") as f:
+        f.write(content2)
+
+
+def load(file_path):
+    with open(file_path, "r") as f:
+        content = f.read()
+    return content
+
+
+latest_v2_folder = "2"
+latest_v1_folder = "1"
+latest_v1_branch = "master"
+
+conan_versions = {
+    # the first of the dictionary
+    # must be always the latest version
+    "2.0": "release/2.0",
+    latest_v1_folder: latest_v1_branch,
     "en/1.59": "release/1.59.0",
     "en/1.58": "release/1.58.0",
     "en/1.57": "release/1.57.0",
@@ -53,11 +106,13 @@
     "en/1.12": "release/1.12.3",
     "en/1.11": "release/1.11.2",
     "en/1.10": "release/1.10.2",
-    "en/1.9" : "release/1.9.4" ,
-    "en/1.8" : "release/1.8.4" ,
-    "en/1.7" : "release/1.7.4" ,
-    "en/1.6" : "release/1.6.1" ,
-    "en/1.5" : "release/1.5.2" ,
-    "en/1.4" : "release/1.4.5" ,
-    "en/1.3" : "release/1.3.3"
+    "en/1.9": "release/1.9.4",
+    "en/1.8": "release/1.8.4",
+    "en/1.7": "release/1.7.4",
+    "en/1.6": "release/1.6.1",
+    "en/1.5": "release/1.5.2",
+    "en/1.4": "release/1.4.5",
+    "en/1.3": "release/1.3.3",
 }
+
+latest_v2_branch = list(conan_versions.values())[0]
