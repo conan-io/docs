@@ -55,3 +55,14 @@ you have to replace it with "_" in the variable name.
     - Recall that these variables do not perform authentication unless the remote server requests it.
     - The ``core:non_interactive`` conf can be defined in ``global.conf`` to force Conan to fail if any interactive prompt is requested, 
       to avoid CI process being stuck.
+
+Terminal color variables
+------------------------
+
+Conan default behavior is try to autodetect the output. If the output is redirected to a file, or other support not ``tty``, 
+that cannot print colors, it will disable colored output. For regular terminals, it will try to do colored output, unless some
+of the following change that behavior: 
+
+- ``CLICOLOR_FORCE`` Forces the generation of terminal color escape characters, no matter what the autodetection of terminal is.
+- ``NO_COLOR`` disables the generation of color escape characters. This will be ignored if ``CLICOLOR_FORCE`` is activated.
+- ``CONAN_COLOR_DARK`` will revert the color scheme for white/light background terminals (default assumes dark background).
