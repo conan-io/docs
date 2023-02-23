@@ -19,8 +19,8 @@ Using Artifactory
 -----------------
 
 In Artifactory, you can create and manage as many Conan repositories as you like using :ref:`Artifactory CE
-<integrations_artifactory_ce>` hosted locally in your network or with `Artifactory Pro or Enterprise
-<integrations_artifactory_pro_e>.
+<integrations_artifactory_ce>` hosted locally in your network or with :ref:`Artifactory Pro or Enterprise
+<integrations_artifactory_pro_e>`.
 
 .. important::
 
@@ -54,7 +54,7 @@ documentation <https://www.jfrog.com/confluence/>`_.
 Running Artifactory CE
 ++++++++++++++++++++++
 
-Please visit the :ref:`Artifactory CE Tutorial<_tutorial_artifactory_ce_cpp>` for a step by
+Please visit the :ref:`Artifactory CE Tutorial<tutorial_artifactory_ce_cpp>` for a step by
 step guide
 
 .. _integrations_artifactory_pro_e:
@@ -62,9 +62,7 @@ step guide
 Artifactory Pro and Enterprise
 ------------------------------
 
- Check the `Artifactory Documentation
-<https://www.jfrog.com/confluence/display/JFROG/JFrog+Artifactory>`_ for more information. For a
-comparison between Artifactory editions, check the `Artifactory Comparison Matrix
+For a comparison between Artifactory editions, check the `Artifactory Comparison Matrix
 <https://www.jfrog.com/confluence/display/JFROG/Artifactory+Comparison+Matrix>`_.
 
 

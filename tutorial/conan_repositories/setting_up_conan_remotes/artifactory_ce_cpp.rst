@@ -58,7 +58,7 @@ appear on conan user command line listed on "Set Me Up" box:
 
 .. tip::
 
-    Check the full reference of :ref:`$ conan remote<_reference_commands_remote>` command.
+    Check the full reference of :ref:`$ conan remote<reference_commands_remote>` command.
 
 From now, you can upload, download, search, etc. the remote repos similarly to the other
 repo types.

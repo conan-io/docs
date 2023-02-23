@@ -6,8 +6,8 @@ Setting-up a Conan Server
 .. important::
 
     This server is mainly used for testing (though it might work fine for small teams). We
-    recommend using the free :ref:`Artifactory Community Edition for C/C++ <artifactory_ce_cpp>`
-    for private development or **Artifactory Pro** as Enterprise solution.
+    recommend using :ref:`Artifactory<integrations_artifactory>` for private development or
+    enterprise solution.
 
 The **Conan Server** is a free and open source server that implements Conan remote
 repositories. It is a very simple application, used for testing inside the Conan client
