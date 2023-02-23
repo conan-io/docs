@@ -152,6 +152,11 @@
       </script>
       <div class="wy-nav-content">
         <div class="rst-content">
+          {% if current_version.startswith("1") %}
+          <div class="admonition important wy-text-center">
+            <p>This document is for a <b>"1.X"</b> Conan version. <a href="https://docs.conan.io/2/">Click here to see the Conan 2.0 documentation</a></p>
+          </div>
+          {% endif %}       
           {% include "breadcrumbs.html" %}
           <!--<select id="search" name="state" multiple="true" onchange="window.location = reldir + this.value;" style="width:90%"></select>
           <hr/>-->

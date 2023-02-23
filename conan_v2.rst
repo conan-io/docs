@@ -4,12 +4,12 @@
 Conan migration guide to 2.0
 ============================
 
-Conan 2.0-beta `is already released <https://pypi.org/project/conan/#history>`_, you can install the latest Conan Alpha
-version from PyPI doing:
+Conan 2.0.0 `is already released <https://pypi.org/project/conan/#history>`_, you can
+install the latest Conan version from PyPI doing:
 
     .. code-block:: bash
 
-        $ pip install conan --pre
+        $ pip install conan
 
 
 If you want to migrate to 2.0, there are several things you will need to change:
