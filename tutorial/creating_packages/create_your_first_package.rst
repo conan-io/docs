@@ -157,10 +157,11 @@ Then, several methods are declared:
   to pass in this case the ``-DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake`` argument. It will configure the
   project and build it from source.
 
-* The ``package()`` method copies artifacts (headers, libs) from the build folder to the final
-  package folder. It can be done with bare "copy" commands, but in this case, it is leveraging the already
-  existing CMake install functionality (if the CMakeLists.txt didn't implement it, it is easy to write ``self.copy()``
-  commands in this ``package()`` method.
+* The ``package()`` method copies artifacts (headers, libs) from the build folder to the
+  final package folder. It can be done with bare "copy" commands, but in this case, it is
+  leveraging the already existing CMake install functionality (if the CMakeLists.txt
+  didn't implement it, it is easy to write an equivalent using the :ref:`copy()
+  tool<conan_tools_files_copy>` in the ``package()`` method.
 
 * Finally, the ``package_info()`` method defines that consumers must link with a "hello" library
   when using this package. Other information as include or lib paths can be defined as well. This
