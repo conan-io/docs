@@ -94,7 +94,7 @@ def entry_point = """\
 
 node('Linux') {
 
-    String prefix = 'https://docs.conan.io/' //params.prefix ?: "${BUILD_URL}artifact/gh-pages/"
+    String prefix = 'https://docs.conan.io' //params.prefix ?: "${BUILD_URL}artifact/gh-pages/"
     stage('Check params') {
 
         echo """
@@ -212,9 +212,9 @@ node('Linux') {
             sh "cp -R ${latest_v2_version} ${latest_v2_folder}"
 
             // sh 'cp src/versions.json versions.json'  // TODO: File is not used, remove from 'gh-pages' branch
-            sh "cp ${latest_v1_folder}/404.html 404.html"
+            sh "cp ${latest_v2_folder}/404.html 404.html"
             String content = readFile('404.html')
-            String prefixLatest = "${prefix}/${latest_v1_folder}"
+            String prefixLatest = "${prefix}/${latest_v2_folder}"
             content = content.replaceAll('href="_', "href=\"${prefixLatest}/_")
             content = content.replaceAll('src="_', "src=\"${prefixLatest}/_")
             content = content.replaceAll('alt="_', "alt=\"${prefixLatest}/_")
