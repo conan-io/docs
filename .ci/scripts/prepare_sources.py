@@ -26,12 +26,12 @@ branches = list(conan_versions.values())
 
 print(f"Prepare docs for: {branches}")
 
-# # Prepare sources as worktrees
-# if not Path(f"{sources_folder}/tmp").is_dir():
-#     run(f"git clone --bare https://github.com/conan-io/docs.git {sources_folder}/tmp")
+# Prepare sources as worktrees
+if not Path(f"{sources_folder}/tmp").is_dir():
+    run(f"git clone --bare https://github.com/conan-io/docs.git {sources_folder}/tmp")
 
-# with chdir(f"{sources_folder}/tmp"):
-#     for folder, branch in conan_versions.items():
-#         if branch in branches and not Path(f"../{folder}").is_dir():
-#             run(f"git fetch origin {branch}:{branch}")
-#             run(f"git worktree add ../{folder} {branch}")
+with chdir(f"{sources_folder}/tmp"):
+    for folder, branch in conan_versions.items():
+        if branch in branches and not Path(f"../{folder}").is_dir():
+            run(f"git fetch origin {branch}:{branch}")
+            run(f"git worktree add ../{folder} {branch}")
