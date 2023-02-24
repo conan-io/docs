@@ -25,13 +25,16 @@ conan_versions[latest_v2_folder] = latest_v2_branch
 
 branch_folder = [k for k, v in conan_versions.items() if v == branch][0]
 
+print(f"branch_folder: {branch_folder}")
+
 with chdir(f"{sources_folder}"):
 
     with open(os.path.join(branch_folder, 'versions.json'), 'w') as versions_json:
         json.dump(conan_versions, versions_json, indent=4)
 
-    run(f"rm -fr {branch_folder}/_themes/conan")
-    run(f"cp -a {latest_v1_folder}/_themes/. {branch_folder}/_themes/")
+    if branch_folder != latest_v1_folder:
+        run(f"rm -fr {branch_folder}/_themes/conan")
+        run(f"cp -a {latest_v1_folder}/_themes/. {branch_folder}/_themes/")
 
     # clone conan sources for autodoc
     if branch_folder.startswith("2"):
