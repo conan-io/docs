@@ -1,6 +1,6 @@
 import os
 
-from common import run
+from common import run, conan_versions
 
 
 """
@@ -25,4 +25,7 @@ changed_ci = any([line.startswith(".ci") for line in diff.splitlines()])
 changed_theme = any([line.startswith("_themes") for line in diff.splitlines()])
 
 if not changed_ci and not (changed_theme and current_branch == "master"):
-    print(f"--branches={current_branch}")
+    print(current_branch)
+else:
+    for branch in conan_versions.values():
+        print(branch)
