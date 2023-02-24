@@ -2,7 +2,16 @@ import os
 import subprocess
 from contextlib import contextmanager
 
-
+def run(cmd, capture=False):
+    stdout = subprocess.PIPE if capture else None
+    stderr = subprocess.PIPE if capture else None
+    result = subprocess.run(cmd, stdout=stdout, stderr=stderr, shell=True)
+    if result.returncode != 0:
+        if capture:
+            print(result.stdout.decode("utf-8"), result.stderr.decode("utf-8"))
+        raise Exception(f"Failed cmd: {cmd}\n")
+    return (result.stdout.decode("utf-8"), result.stderr.decode("utf-8")) if capture else (None, None
+)
 @contextmanager
 def chdir(dir_path):
     current = os.getcwd()
