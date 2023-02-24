@@ -2,16 +2,22 @@ import os
 import subprocess
 from contextlib import contextmanager
 
+
 def run(cmd, capture=False):
     stdout = subprocess.PIPE if capture else None
     stderr = subprocess.PIPE if capture else None
-    result = subprocess.run(cmd, stdout=stdout, stderr=stderr, shell=True)
-    if result.returncode != 0:
-        if capture:
-            print(result.stdout.decode("utf-8"), result.stderr.decode("utf-8"))
-        raise Exception(f"Failed cmd: {cmd}\n")
-    return (result.stdout.decode("utf-8"), result.stderr.decode("utf-8")) if capture else (None, None
-)
+    process = subprocess.Popen(
+        cmd, stdout=stdout, stderr=stderr, shell=True)
+    out, err = process.communicate()
+    out = out.decode("utf-8") if capture else ""
+    err = err.decode("utf-8") if capture else ""
+    ret = process.returncode
+    output = err + out
+    if ret != 0:
+        raise Exception("Failed cmd: {}\n{}".format(cmd, output))
+    return output
+
+
 @contextmanager
 def chdir(dir_path):
     current = os.getcwd()
@@ -21,6 +27,39 @@ def chdir(dir_path):
         yield
     finally:
         os.chdir(current)
+
+
+def branches_to_build():
+    """
+        get the branches we have to build the docs for, there are two scenarios:
+
+        1. We changed something in the .ci scripts or change the _themes folder in the master
+        branch -> regenerate every branch of the docs.
+
+        2. If we did not touch those folders just regenerate the branch we pushed
+
+        returns None if we have to build all branches or the branch name that we have to build
+    """
+    current_branch = os.getenv("BRANCH_NAME")
+    print(f"current_branch: {current_branch}")
+
+    current_commit = run("git rev-parse HEAD", capture=True).strip()
+    print(f"current_commit: {current_commit}")
+
+    previous_commit = run("git rev-parse HEAD^1", capture=True).strip()
+    print(f"previous_commit: {previous_commit}")
+
+    diff = run(
+        f"git diff --name-only {previous_commit}..{current_commit}", capture=True)
+
+    changed_ci = any([line.startswith(".ci") for line in diff.splitlines()])
+    changed_theme = any([line.startswith("_themes")
+                        for line in diff.splitlines()])
+
+    if changed_ci or (changed_theme and current_branch == "master"):
+        return None
+    else:
+        return current_branch
 
 
 latest_v2_folder = "2"
