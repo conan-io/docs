@@ -37,7 +37,7 @@ from create_redirects import create_redirects
 parser = argparse.ArgumentParser()
 
 parser.add_argument('--sources-folder',
-                    help='Folder to copy the generated docs to', required=True)
+                    help='Folder where the docs were created', required=True)
 
 parser.add_argument('--gh-pages-folder',
                     help='Folder to clone the gh-pages branch to', required=True)

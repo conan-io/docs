@@ -48,6 +48,11 @@ try {
             }
         }
 
+        stage('Prepare gh-pages') {
+            sh(script: 'python .ci/scripts/prepare_gh_pages.py --sources-folder=${sources_folder} --gh-pages-folder=gh_pages_out')
+        }
+
+
         stage('Archive generated folder') {
             archiveArtifacts artifacts: '${output_contents}/**/*.*'
             echo "Inspect generated webpage at ${BUILD_URL}artifact/${output_contents}/index.html"
