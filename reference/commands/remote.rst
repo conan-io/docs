@@ -43,19 +43,25 @@ conan remote add
 
 ..  code-block:: text
 
-    $ conan remote add -h
-    usage: conan remote add [-h] [-i [INSERT]] [-f] remote url [verify_ssl]
+    $ conan remote add -h     
+    usage: conan remote add [-h] [-v [V]] [--logger] [--insecure] [--index INDEX] [-f] name url
+
+    Add a remote.
 
     positional arguments:
-      remote                Name of the remote
-      url                   URL of the remote
-      verify_ssl            Verify SSL certificate. Defaulted to True
+      name           Name of the remote to add
+      url            Url of the remote
 
-    optional arguments:
-      -h, --help            show this help message and exit
-      -i [INSERT], --insert [INSERT]
-                            insert remote at specific index
-      -f, --force           Force addition, will update if existing
+    options:
+      -h, --help     show this help message and exit
+      -v [V]         Level of detail of the output. Valid options from less verbose to more verbose:
+                     -vquiet, -verror, -vwarning, -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug, -vvv
+                     or -vtrace
+      --logger       Show the output with log format, with time, type and message.
+      --insecure     Allow insecure server connections when using SSL
+      --index INDEX  Insert the remote at a specific position in the remote list
+      -f, --force    Force the definition of the remote even if duplicated
+
 
 
 conan remote auth
