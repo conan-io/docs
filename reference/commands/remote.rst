@@ -15,7 +15,7 @@ work with Conan repositories, please check the :ref:`dedicated section <conan_re
     Manage the remote list and the users authenticated on them.
 
     positional arguments:
-    {add,auth,disable,enable,list,list-users,login,logout,remove,rename,set-user,update}
+      {add,auth,disable,enable,list,list-users,login,logout,remove,rename,set-user,update}
                             sub-command help
         add                 Add a remote.
         auth                Authenticate in the defined remotes
@@ -31,10 +31,10 @@ work with Conan repositories, please check the :ref:`dedicated section <conan_re
         update              Update a remote.
 
     optional arguments:
-    -h, --help            show this help message and exit
-    -v [V]                Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning,
+      -h, --help            show this help message and exit
+      -v [V]                Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning,
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
-    --logger              Show the output with log format, with time, type and message.
+      --logger              Show the output with log format, with time, type and message.
 
 
 
@@ -75,14 +75,14 @@ conan remote auth
     Authenticate in the defined remotes
 
     positional arguments:
-    remote       Pattern of the remote/s to disable. The pattern uses 'fnmatch' style wildcards.
+      remote       Pattern of the remote/s to disable. The pattern uses 'fnmatch' style wildcards.
 
     optional arguments:
-    -h, --help   show this help message and exit
-    -v [V]       Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning, -vnotice,
-                -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
-    --logger     Show the output with log format, with time, type and message.
-    --with-user  Only try to auth in those remotes that already have a username or a CONAN_LOGIN_ env-var defined
+      -h, --help   show this help message and exit
+      -v [V]       Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning, -vnotice,
+                   -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
+      --logger     Show the output with log format, with time, type and message.
+      --with-user  Only try to auth in those remotes that already have a username or a CONAN_LOGIN_ env-var defined
 
 
 conan remote disable
