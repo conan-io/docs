@@ -4,9 +4,9 @@
 node('Linux') {
 
 try {
-        String output_contents = "output_contents"
-        String sources_folder = "sources_folder"
-        String gh_pages_out = "gh_pages_out"
+        String output_contents = 'output_contents'
+        String sources_folder = 'sources_folder'
+        String gh_pages_out = 'gh_pages_out'
 
         checkout scm
         def image = null
@@ -23,7 +23,7 @@ try {
                 branch_argument = branch_argument + " --branches=${branch}"
             } 
             // clone sources to generate docs
-            sh(script: 'python .ci/scripts/prepare_sources.py --sources-folder=${sources_folder} ${branch_argument}')
+            sh(script: "python .ci/scripts/prepare_sources.py --sources-folder=${sources_folder} ${branch_argument}")
         }
 
         // we have to divide the parallel blocks because if we have to generate all branches documentation
