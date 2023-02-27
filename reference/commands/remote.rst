@@ -15,7 +15,7 @@ work with Conan repositories, please check the :ref:`dedicated section <conan_re
     Manage the remote list and the users authenticated on them.
 
     positional arguments:
-    {add,auth,disable,enable,list,list-users,login,logout,remove,rename,set-user,update}
+      {add,auth,disable,enable,list,list-users,login,logout,remove,rename,set-user,update}
                             sub-command help
         add                 Add a remote.
         auth                Authenticate in the defined remotes
@@ -30,11 +30,11 @@ work with Conan repositories, please check the :ref:`dedicated section <conan_re
         set-user            Associate a username with a remote matching a pattern without performing the authentication.
         update              Update a remote.
 
-    optional arguments:
-    -h, --help            show this help message and exit
-    -v [V]                Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning,
+    options:
+      -h, --help            show this help message and exit
+      -v [V]                Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning,
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
-    --logger              Show the output with log format, with time, type and message.
+      --logger              Show the output with log format, with time, type and message.
 
 
 
@@ -43,19 +43,25 @@ conan remote add
 
 ..  code-block:: text
 
-    $ conan remote add -h
-    usage: conan remote add [-h] [-i [INSERT]] [-f] remote url [verify_ssl]
+    $ conan remote add -h     
+    usage: conan remote add [-h] [-v [V]] [--logger] [--insecure] [--index INDEX] [-f] name url
+
+    Add a remote.
 
     positional arguments:
-      remote                Name of the remote
-      url                   URL of the remote
-      verify_ssl            Verify SSL certificate. Defaulted to True
+      name           Name of the remote to add
+      url            Url of the remote
 
-    optional arguments:
-      -h, --help            show this help message and exit
-      -i [INSERT], --insert [INSERT]
-                            insert remote at specific index
-      -f, --force           Force addition, will update if existing
+    options:
+      -h, --help     show this help message and exit
+      -v [V]         Level of detail of the output. Valid options from less verbose to more verbose:
+                     -vquiet, -verror, -vwarning, -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug, -vvv
+                     or -vtrace
+      --logger       Show the output with log format, with time, type and message.
+      --insecure     Allow insecure server connections when using SSL
+      --index INDEX  Insert the remote at a specific position in the remote list
+      -f, --force    Force the definition of the remote even if duplicated
+
 
 
 conan remote auth
@@ -69,14 +75,14 @@ conan remote auth
     Authenticate in the defined remotes
 
     positional arguments:
-    remote       Pattern of the remote/s to disable. The pattern uses 'fnmatch' style wildcards.
+      remote       Pattern of the remote/s to disable. The pattern uses 'fnmatch' style wildcards.
 
-    optional arguments:
-    -h, --help   show this help message and exit
-    -v [V]       Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning, -vnotice,
-                -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
-    --logger     Show the output with log format, with time, type and message.
-    --with-user  Only try to auth in those remotes that already have a username or a CONAN_LOGIN_ env-var defined
+    options:
+      -h, --help   show this help message and exit
+      -v [V]       Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning, -vnotice,
+                   -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
+      --logger     Show the output with log format, with time, type and message.
+      --with-user  Only try to auth in those remotes that already have a username or a CONAN_LOGIN_ env-var defined
 
 
 conan remote disable
@@ -93,7 +99,7 @@ conan remote disable
       remote      Pattern of the remote/s to disable. The pattern uses 'fnmatch'
                   style wildcards.
 
-    optional arguments:
+    options:
       -h, --help  show this help message and exit
       -v [V]      Level of detail of the output. Valid options from less verbose
                   to more verbose: -vquiet, -verror, -vwarning, -vnotice,
@@ -115,7 +121,7 @@ conan remote enable
       remote      Pattern of the remote/s to enable. The pattern uses 'fnmatch'
                   style wildcards.
 
-    optional arguments:
+    options:
       -h, --help  show this help message and exit
       -v [V]      Level of detail of the output. Valid options from less verbose
                   to more verbose: -vquiet, -verror, -vwarning, -vnotice,
@@ -133,7 +139,7 @@ conan remote list
 
     List current remotes.
 
-    optional arguments:
+    options:
       -h, --help            show this help message and exit
       -f FORMAT, --format FORMAT
                             Select the output format: json
@@ -155,7 +161,7 @@ conan remote list-users
 
     List the users logged into all the remotes.
 
-    optional arguments:
+    options:
       -h, --help            show this help message and exit
       -f FORMAT, --format FORMAT
                             Select the output format: json
@@ -183,7 +189,7 @@ conan remote login
                             pattern uses 'fnmatch' style wildcards.
       username              Username
 
-    optional arguments:
+    options:
       -h, --help            show this help message and exit
       -f FORMAT, --format FORMAT
                             Select the output format: json
@@ -213,7 +219,7 @@ conan remote logout
       remote                Pattern or name of the remote to logout. The pattern
                             uses 'fnmatch' style wildcards.
 
-    optional arguments:
+    options:
       -h, --help            show this help message and exit
       -f FORMAT, --format FORMAT
                             Select the output format: json
@@ -238,7 +244,7 @@ conan remote remove
     positional arguments:
       remote      Name of the remote to remove. Accepts 'fnmatch' style wildcards.
 
-    optional arguments:
+    options:
       -h, --help  show this help message and exit
       -v [V]      Level of detail of the output. Valid options from less verbose
                   to more verbose: -vquiet, -verror, -vwarning, -vnotice,
@@ -260,7 +266,7 @@ conan remote rename
       remote      Current name of the remote
       new_name    New name for the remote
 
-    optional arguments:
+    options:
       -h, --help  show this help message and exit
       -v [V]      Level of detail of the output. Valid options from less verbose
                   to more verbose: -vquiet, -verror, -vwarning, -vnotice,
@@ -285,7 +291,7 @@ conan remote set-user
                             'fnmatch' style wildcards.
       username              Username
 
-    optional arguments:
+    options:
       -h, --help            show this help message and exit
       -f FORMAT, --format FORMAT
                             Select the output format: json
@@ -312,7 +318,7 @@ conan remote update
     positional arguments:
       remote         Name of the remote to update
 
-    optional arguments:
+    options:
       -h, --help     show this help message and exit
       -v [V]         Level of detail of the output. Valid options from less
                      verbose to more verbose: -vquiet, -verror, -vwarning,
