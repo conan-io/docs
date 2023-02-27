@@ -83,6 +83,8 @@ The equivalent of the *conanfile.txt* in form of Conan recipe could look like th
 
         def requirements(self):
             self.requires("zlib/1.2.11")
+        
+        def build_requirements(self):
             self.tool_requires("cmake/3.19.8")
 
 
@@ -171,11 +173,14 @@ Windows or that you want to use the system's CMake installation instead of using
 
         def requirements(self):
             self.requires("zlib/1.2.11")
-            # Use the system's CMake for Windows
-            # and add base64 dependency
+            
+            # Add base64 dependency for Windows
             if self.settings.os == "Windows":
                 self.requires("base64/0.4.0")
-            else:
+
+        def build_requirements(self):
+            # Use the system's CMake for Windows
+            if self.settings.os != "Windows":
                 self.tool_requires("cmake/3.19.8")
 
 
@@ -203,6 +208,8 @@ for every platform without adding more changes:
 
         def requirements(self):
             self.requires("zlib/1.2.11")
+
+        def build_requirements(self):
             self.tool_requires("cmake/3.19.8")
 
         def layout(self):
@@ -295,6 +302,8 @@ CMake case, there's a :ref:`cmake_layout()<cmake_layout>` already defined in Con
 
         def requirements(self):
             self.requires("zlib/1.2.11")
+
+        def build_requirements(self):
             self.tool_requires("cmake/3.19.8")
 
         def layout(self):

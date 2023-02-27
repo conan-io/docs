@@ -78,6 +78,8 @@ If we add now to the recipe:
 
         def requirements(self):
             self.requires("zlib/[~1.2]")
+        
+        def build_requirements(self):
             self.tool_requires("cmake/[>3.10]")
 
 
