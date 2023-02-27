@@ -30,7 +30,7 @@ work with Conan repositories, please check the :ref:`dedicated section <conan_re
         set-user            Associate a username with a remote matching a pattern without performing the authentication.
         update              Update a remote.
 
-    optional arguments:
+    options:
       -h, --help            show this help message and exit
       -v [V]                Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning,
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
@@ -77,7 +77,7 @@ conan remote auth
     positional arguments:
       remote       Pattern of the remote/s to disable. The pattern uses 'fnmatch' style wildcards.
 
-    optional arguments:
+    options:
       -h, --help   show this help message and exit
       -v [V]       Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning, -vnotice,
                    -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
@@ -99,7 +99,7 @@ conan remote disable
       remote      Pattern of the remote/s to disable. The pattern uses 'fnmatch'
                   style wildcards.
 
-    optional arguments:
+    options:
       -h, --help  show this help message and exit
       -v [V]      Level of detail of the output. Valid options from less verbose
                   to more verbose: -vquiet, -verror, -vwarning, -vnotice,
@@ -121,7 +121,7 @@ conan remote enable
       remote      Pattern of the remote/s to enable. The pattern uses 'fnmatch'
                   style wildcards.
 
-    optional arguments:
+    options:
       -h, --help  show this help message and exit
       -v [V]      Level of detail of the output. Valid options from less verbose
                   to more verbose: -vquiet, -verror, -vwarning, -vnotice,
@@ -139,7 +139,7 @@ conan remote list
 
     List current remotes.
 
-    optional arguments:
+    options:
       -h, --help            show this help message and exit
       -f FORMAT, --format FORMAT
                             Select the output format: json
@@ -161,7 +161,7 @@ conan remote list-users
 
     List the users logged into all the remotes.
 
-    optional arguments:
+    options:
       -h, --help            show this help message and exit
       -f FORMAT, --format FORMAT
                             Select the output format: json
@@ -189,7 +189,7 @@ conan remote login
                             pattern uses 'fnmatch' style wildcards.
       username              Username
 
-    optional arguments:
+    options:
       -h, --help            show this help message and exit
       -f FORMAT, --format FORMAT
                             Select the output format: json
@@ -219,7 +219,7 @@ conan remote logout
       remote                Pattern or name of the remote to logout. The pattern
                             uses 'fnmatch' style wildcards.
 
-    optional arguments:
+    options:
       -h, --help            show this help message and exit
       -f FORMAT, --format FORMAT
                             Select the output format: json
@@ -244,7 +244,7 @@ conan remote remove
     positional arguments:
       remote      Name of the remote to remove. Accepts 'fnmatch' style wildcards.
 
-    optional arguments:
+    options:
       -h, --help  show this help message and exit
       -v [V]      Level of detail of the output. Valid options from less verbose
                   to more verbose: -vquiet, -verror, -vwarning, -vnotice,
@@ -266,7 +266,7 @@ conan remote rename
       remote      Current name of the remote
       new_name    New name for the remote
 
-    optional arguments:
+    options:
       -h, --help  show this help message and exit
       -v [V]      Level of detail of the output. Valid options from less verbose
                   to more verbose: -vquiet, -verror, -vwarning, -vnotice,
@@ -291,7 +291,7 @@ conan remote set-user
                             'fnmatch' style wildcards.
       username              Username
 
-    optional arguments:
+    options:
       -h, --help            show this help message and exit
       -f FORMAT, --format FORMAT
                             Select the output format: json
@@ -318,7 +318,7 @@ conan remote update
     positional arguments:
       remote         Name of the remote to update
 
-    optional arguments:
+    options:
       -h, --help     show this help message and exit
       -v [V]         Level of detail of the output. Valid options from less
                      verbose to more verbose: -vquiet, -verror, -vwarning,
