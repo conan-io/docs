@@ -9,8 +9,6 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--branch", help="Docs branch to generate docs for", required=True)
 parser.add_argument('--sources-folder',
                     help='Folder where the docs branches are cloned', required=True)
-parser.add_argument('--output-folder',
-                    help='Folder to copy the generated docs to', required=True)
 parser.add_argument('--with-pdf', default=False, action='store_true')
 
 args = parser.parse_args()
@@ -18,7 +16,7 @@ args = parser.parse_args()
 branch = args.branch
 with_pdf = args.with_pdf
 sources_folder = args.sources_folder
-output_folder = args.output_folder
+output_folder = "output"
 
 conan_versions[latest_v2_folder] = latest_v2_branch
 

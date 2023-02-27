@@ -131,3 +131,4 @@ conan_versions = {
 }
 
 latest_v2_branch = list(conan_versions.values())[0]
+latest_v2_version = list(conan_versions.keys())[0]
