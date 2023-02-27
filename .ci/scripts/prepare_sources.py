@@ -22,8 +22,6 @@ branches = args.branches
 if latest_v1_branch not in branches:
     branches.append(latest_v1_branch)
 
-branches = list(conan_versions.values())
-
 print(f"Prepare docs for: {branches}")
 
 # Prepare sources as worktrees
