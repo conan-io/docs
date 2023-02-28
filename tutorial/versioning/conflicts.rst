@@ -284,7 +284,7 @@ In the examples2 repository, go to the "options" folder, and create the differen
 
     $ cd ../options
     $ conan create matrix
-    $ conan create matrix -o matrix*:shared=True
+    $ conan create matrix -o matrix/*:shared=True
     $ conan create engine
     $ conan create intro
     $ conan install game  # FAILS!
