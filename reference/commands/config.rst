@@ -95,7 +95,7 @@ This command reads a ``.conanignore`` file which, if present, filters which file
 are copied over to the user's Conan home folder.
 This file uses `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_ patterns
 to match over the folder contents, excluding those entries that match from the config installation.
-See `conan-io/command-extensions's .conanignore <https://github.com/conan-io/command-extensions/blob/main/.conanignore>`_ for an example of such a file
+See `conan-io/command-extensions's .conanignore <https://github.com/conan-io/command-extensions/blob/main/.conanignore>`_ for an example of such a file.
 
 
 **Examples**:
