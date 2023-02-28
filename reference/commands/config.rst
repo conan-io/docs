@@ -38,7 +38,7 @@ conan config install
 
     $ conan config install -h
     usage: conan config install [-h] [-v [V]] [--logger]
-                                [--verify-ssl [VERIFY_SSL]]
+                                [--verify-ssl [VERIFY_SSL] | --insecure]
                                 [-t {git,dir,file,url}] [-a ARGS]
                                 [-sf SOURCE_FOLDER] [-tf TARGET_FOLDER]
                                 item
@@ -60,6 +60,8 @@ conan config install
                             message.
       --verify-ssl [VERIFY_SSL]
                             Verify SSL connection when downloading file
+      --insecure            Allow insecure server connections when using SSL.
+                            Equivalent to --verify-ssl=False
       -t {git,dir,file,url}, --type {git,dir,file,url}
                             Type of remote config
       -a ARGS, --args ARGS  String with extra arguments for "git clone"
