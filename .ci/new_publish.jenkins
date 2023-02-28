@@ -8,14 +8,17 @@ try {
         String sources_folder = 'sources_folder'
         String gh_pages_out = 'gh_pages_out'
 
+        assert params.branches, 'Provide a list of branches to publish, separated by ","'
+
+        List branches = params.branches.split(',')
+        echo "Generating docs for ${branches}"
+
         checkout scm
         def image = null
         stage('Build docker image') {
             // Build the docker image using the same commit as the current 'publish.jenkins' file
             image = docker.build('conan-docs', '-f .ci/Dockerfile .')  // It should cache the image
         }
-
-        List branches = sh(script: 'python .ci/scripts/get_branches.py', returnStdout: true).trim().readLines()
 
         stage('Prepare sources as worktrees') {        
             String branch_argument = ""
@@ -35,7 +38,7 @@ try {
         for (branches_block in branches_blocks) {
             Map parallelJobs = [:]
             println("New block ${branches_block}")
-            for (branch in branches_block) {
+            branches_block.each { branch ->
                 parallelJobs[branch] = {
                     echo "Run parallel job for ${branch}"
                     image.inside {
@@ -61,7 +64,7 @@ try {
 
         if (params.publish) {
             stage('Publish to gh-pages') {
-                dir("${gh_pages_out}") {
+                dir(gh_pages_out) {
                     sh 'ls'
                 }
             }
