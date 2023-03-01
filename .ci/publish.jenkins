@@ -4,6 +4,19 @@
 node('Linux') {
 
 try {
+        // To generate the docs locally run the following, better redirect sources_folder and gh_pages_out
+        // to folders outside this repo. Add --branches arguments for the branches you want to regenerate
+
+        // python .ci/scripts/prepare_sources.py --sources-folder=../cloned_sources --branches=release/2.0 --branches=master
+
+        // python .ci/scripts/generate_documentation.py --sources-folder=../cloned_sources --branch=$release/2.0 --with-pdf
+        // python .ci/scripts/generate_documentation.py --sources-folder=../cloned_sources --branch=master --with-pdf
+
+        // python .ci/scripts/prepare_gh_pages.py --sources-folder=../cloned_sources --gh-pages-folder=../gh_pages_out
+
+        // Then go to ../gh_pages_out and test the docs using a local server like: 'python -m http.server 8000'
+        // and open: 'http://localhost:8000/2.0/index.html'
+
         String output_contents = 'output_contents'
         String sources_folder = 'sources_folder'
         String gh_pages_out = 'gh_pages_out'
