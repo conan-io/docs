@@ -9,7 +9,15 @@
       <dl>
         <dt>{{ _('Versions') }}</dt>
         {% for the_version, slug in versions.items() %}
-            <dd><a href="/{{ the_version }}/index.html">{{ the_version.replace("en/", "") }}</a></dd>
+            {% if the_version.startswith("2") %}
+                <dd><a href="/{{ the_version }}/index.html">{{ the_version }}</a></dd>
+            {% endif %}       
+        {% endfor %}
+        <br>
+        {% for the_version, slug in versions.items() %}
+            {% if the_version.startswith("en/1.") or the_version.startswith("1") %}
+                <dd><a href="/{{ the_version }}/index.html">{{ the_version.replace("en/", "") }}</a></dd>
+            {% endif %}       
         {% endfor %}
       </dl>
       <dl>
