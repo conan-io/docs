@@ -71,7 +71,7 @@ conan remote auth
 
     $ conan remote auth -h
     usage: conan remote auth [-h] [-v [V]] [--logger] [--with-user] remote
-    
+
     Authenticate in the defined remotes
 
     positional arguments:
