@@ -127,6 +127,8 @@ Now that we have our two profiles prepared, let's have a look at our *conanfile.
 
         def requirements(self):
             self.requires("zlib/1.2.11")
+
+        def build_requirements(self):
             self.tool_requires("cmake/3.19.8")
 
         def layout(self):

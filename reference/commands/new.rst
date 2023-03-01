@@ -96,11 +96,13 @@ The available templates are:
   Its variables are: ``name``, ``version``
 
 - **bazel_lib**:
+  **Bazel integration BazelDeps, BazelToolchain, Bazel is experimental**. 
   Creates a Bazel library.
 
   Its variables are: ``name``, ``version``
 
 - **bazel_exe**:
+  **Bazel integration BazelDeps, BazelToolchain, Bazel is experimental**.
   Creates a Bazel executable
 
   Its variables are: ``name``, ``version``

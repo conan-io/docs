@@ -101,3 +101,24 @@ Controls when the current package built binaries are uploaded or not
 
         class Pkg(ConanFile):
             upload_policy = "skip"
+
+
+required_conan_version
+----------------------
+
+Recipes can define a module level ``required_conan_version`` that defines a valid version range of
+Conan versions that can load and understand the current ``conanfile.py``. The syntax is:
+
+.. code-block:: python
+    
+    from conan import ConanFile
+    
+    required_conan_version = ">=2.0"
+    
+    class Pkg(ConanFile):
+        pass
+
+Version ranges as in ``requires`` are allowed. 
+Also there is a ``global.conf`` file ``core:required_conan_version`` configuration that can
+define a global minimum, maximum or exact Conan version to run, which can be very convenient
+to maintain teams of developers and CI machines to use the desired range of versions.

@@ -125,7 +125,7 @@ You can specify one name of a predefined layout. The available values are:
 
 - cmake_layout
 - vs_layout
-- bazel_layout
+- bazel_layout (experimental)
 
 
 .. code-block:: text

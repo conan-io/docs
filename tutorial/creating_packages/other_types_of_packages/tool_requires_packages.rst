@@ -99,7 +99,7 @@ Let's review the ``test_package/conanfile.py``:
     class secure_scannerTestConan(ConanFile):
         settings = "os", "compiler", "build_type", "arch"
 
-        def requirements(self):
+        def build_requirements(self):
             self.tool_requires(self.tested_reference_str)
 
         def test(self):

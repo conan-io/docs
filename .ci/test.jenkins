@@ -59,8 +59,10 @@ node('Linux') {
     // this will republish all the docs including the updated release/2.0.0-beta
     // latest parameter still has to be 'master'
     if (publishDocs) {
+        String branches = env.BRANCH_NAME
+        echo "Will generate docs for ${branches}"
         build(job: 'Conan-Docs-Publish', propagate: true, wait: true, parameters: [
-            [$class: 'StringParameterValue', name: 'prefix', value: 'https://docs.conan.io/'],
+            [$class: 'StringParameterValue', name: 'branches', value: branches],
             [$class: 'BooleanParameterValue', name: 'publish', value: true]
         ])
     }
