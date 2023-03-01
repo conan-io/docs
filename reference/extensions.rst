@@ -20,7 +20,14 @@ Conan can be extended in a few ways, with custom user code:
 - Deployers, a mechanism to facilitate copying files from one folder, usually the Conan cache, to user folders
 
 
-TODO: Put commands here?
+..  note::
+
+    Besides the built-in Conan extensions listed in this document, there is a repository
+    that contains extensions for Conan, such as custom commands and deployers, useful for
+    different purposes like artifactory tasks, Conan Center Index, etc.
+
+    You can find more information on how to use those extensions in `the GitHub repository
+    <https://github.com/conan-io/conan-extensions>`_.
 
 
 Contents:
