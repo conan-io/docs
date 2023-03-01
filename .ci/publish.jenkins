@@ -1,249 +1,98 @@
 #!groovy​
 
 
-// this is the folder where master is cloned
-// and base for the theme, the theme in this folder
-// is the one used for the rest of the docs
-def latest_v1_folder = '1'
-def latest_v2_folder = '2'
-def latest_v2_version = '2.0'
-
-// <folder>: <branch in docs>
-Map<String, String> versions = [
-        '2.0': 'release/2.0',
-        'en/1.59': 'release/1.59.0',
-        'en/1.58': 'release/1.58.0',
-        'en/1.57': 'release/1.57.0',
-        'en/1.56': 'release/1.56.0',
-        'en/1.55': 'release/1.55.0',
-        'en/1.54': 'release/1.54.0',
-        'en/1.53': 'release/1.53.0',
-        'en/1.52': 'release/1.52.0',
-        'en/1.51': 'release/1.51.3',
-        'en/1.50': 'release/1.50.2',
-        'en/1.49': 'release/1.49.0',
-        'en/1.48': 'release/1.48.2',
-        'en/1.47': 'release/1.47.0',
-        'en/1.46': 'release/1.46.2',
-        'en/1.45': 'release/1.45.0',
-        'en/1.44': 'release/1.44.1',
-        'en/1.43': 'release/1.43.4',
-        'en/1.42': 'release/1.42.2',
-        'en/1.41': 'release/1.41.0',
-        'en/1.40': 'release/1.40.4',
-        'en/1.39': 'release/1.39.0',
-        'en/1.38': 'release/1.38.0',
-        'en/1.37': 'release/1.37.2',
-        'en/1.36': 'release/1.36.0',
-        'en/1.35': 'release/1.35.2',
-        'en/1.34': 'release/1.34.1',
-        'en/1.33': 'release/1.33.1',
-        'en/1.32': 'release/1.32.1',
-        'en/1.31': 'release/1.31.4',
-        'en/1.30': 'release/1.30.2',
-        'en/1.29': 'release/1.29.2',
-        'en/1.28': 'release/1.28.2',
-        'en/1.27': 'release/1.27.1',
-        'en/1.26': 'release/1.26.1',
-        'en/1.25': 'release/1.25.2',
-        'en/1.24': 'release/1.24.1',
-        'en/1.23': 'release/1.23.0',
-        'en/1.22': 'release/1.22.3',
-        'en/1.21': 'release/1.21.3',
-        'en/1.20': 'release/1.20.5',
-        'en/1.19': 'release/1.19.3',
-        'en/1.18': 'release/1.18.5',
-        'en/1.17': 'release/1.17.2',
-        'en/1.16': 'release/1.16.1',
-        'en/1.15': 'release/1.15.2',
-        'en/1.14': 'release/1.14.5',
-        'en/1.13': 'release/1.13.3',
-        'en/1.12': 'release/1.12.3',
-        'en/1.11': 'release/1.11.2',
-        'en/1.10': 'release/1.10.2',
-        'en/1.9' : 'release/1.9.4' ,
-        'en/1.8' : 'release/1.8.4' ,
-        'en/1.7' : 'release/1.7.4' ,
-        'en/1.6' : 'release/1.6.1' ,
-        'en/1.5' : 'release/1.5.2' ,
-        'en/1.4' : 'release/1.4.5' ,
-        'en/1.3' : 'release/1.3.3' ,
-        '1'      : 'master'
-        ]
-
-
-// change to '2' once Conan 2.0 is released
-def entry_point_folder = latest_v2_folder
-
-def entry_point = """\
-    <!DOCTYPE HTML>
-    <html lang="en-US">
-        <head>
-            <meta charset="UTF-8">
-            <meta http-equiv="refresh" content="0; url=https://docs.conan.io/${entry_point_folder}">
-            <script type="text/javascript">
-                window.location.href = "https://docs.conan.io/${entry_point_folder}"
-            </script>
-            <title>Page Redirection</title>
-        </head>
-        <body>
-            If you are not redirected automatically, follow this <a href='https://docs.conan.io/${entry_point_folder}'>link to https://docs.conan.io/${entry_point_folder}</a>.
-        </body>
-    </html>
-    """.stripIndent()
-
 node('Linux') {
 
-    String prefix = 'https://docs.conan.io/' //params.prefix ?: "${BUILD_URL}artifact/gh-pages/"
-    stage('Check params') {
+try {
+        // To generate the docs locally run the following, better redirect sources_folder and gh_pages_out
+        // to folders outside this repo. Add --branches arguments for the branches you want to regenerate
 
-        echo """
-            Generate Conan docs webpage
-             - latest_v1_folder: ${latest_v1_folder}
-             - entry_point_folder: ${entry_point_folder}
-             - params.publish: ${params.publish}
-             - prefix: ${prefix}
-             - versions: ${versions.collect({key, value -> value }).join(', ')}
-        """
-    }
+        // python .ci/scripts/prepare_sources.py --sources-folder=../cloned_sources --branches=release/2.0 --branches=master
 
-    def image = null
-    stage('Build docker image') {
-        // Build the docker image using the same commit as the current 'publish.jenkins' file
-        dir('tmp') {
-            checkout scm
+        // python .ci/scripts/generate_documentation.py --sources-folder=../cloned_sources --branch=$release/2.0 --with-pdf
+        // python .ci/scripts/generate_documentation.py --sources-folder=../cloned_sources --branch=master --with-pdf
+
+        // python .ci/scripts/prepare_gh_pages.py --sources-folder=../cloned_sources --gh-pages-folder=../gh_pages_out
+
+        // Then go to ../gh_pages_out and test the docs using a local server like: 'python -m http.server 8000'
+        // and open: 'http://localhost:8000/2.0/index.html'
+
+        String output_contents = 'output_contents'
+        String sources_folder = 'sources_folder'
+        String gh_pages_out = 'gh_pages_out'
+
+        assert params.branches, 'Provide a list of branches to publish, separated by ","'
+
+        List branches = params.branches.split(',')
+        echo "Generating docs for ${branches}"
+
+        checkout scm
+        def image = null
+        stage('Build docker image') {
+            // Build the docker image using the same commit as the current 'publish.jenkins' file
             image = docker.build('conan-docs', '-f .ci/Dockerfile .')  // It should cache the image
-            deleteDir()
         }
-    }
 
-    stage('Prepare sources as worktrees') { // Do this sequentially
-        sh 'git clone --bare https://github.com/conan-io/docs.git src'
-        dir('src') {
-            versions.each { folderName, branchName ->
-                sh "git fetch origin ${branchName}:${branchName}"
-                sh "git worktree add ../${folderName} ${branchName}"
+        stage('Prepare sources as worktrees') {        
+            String branch_argument = ""
+            for (branch in branches) {
+                branch_argument = branch_argument + " --branches=${branch}"
+            } 
+            // clone sources to generate docs
+            sh(script: "python .ci/scripts/prepare_sources.py --sources-folder=${sources_folder} ${branch_argument}")
+        }
+
+        // we have to divide the parallel blocks because if we have to generate all branches documentation
+        // it will fail
+
+        def number_of_parallel_blocks = (branches.size()<10) ? 1 : 2
+        def branches_blocks = branches.collate(branches.size().intdiv(number_of_parallel_blocks))
+
+        for (branches_block in branches_blocks) {
+            Map parallelJobs = [:]
+            println("New block ${branches_block}")
+            branches_block.each { branch ->
+                parallelJobs[branch] = {
+                    echo "Run parallel job for ${branch}"
+                    image.inside {
+                        sh(script: "python .ci/scripts/generate_documentation.py --sources-folder=${sources_folder} --branch=${branch} --with-pdf")
+                    }
+                }
             }
-            // Prepare the worktree for gh-pages too
-            sh 'git fetch origin gh-pages:gh-pages'  // TODO: This is a very bad idea, we are retrieving something (100s Mb) we are going to remove
-            sh 'git worktree add ../gh-pages gh-pages'
+            stage('Generate docs parallel block') {
+                parallelJobs.failFast = true
+                parallel parallelJobs
+            }
         }
-        sh 'rm -fr gh-pages/.git'
-        sh 'rm -fr gh-pages/en || true'
-        versions.each { folderName, branchName ->
-            sh "rm -fr gh-pages/${branchName} || true"
+
+        stage('Prepare gh-pages') {
+            sh(script: "python .ci/scripts/prepare_gh_pages.py --sources-folder=${sources_folder} --gh-pages-folder=${gh_pages_out}")
         }
-        sh "rm -fr gh-pages/${latest_v2_folder} || true"
-    }
 
-    // FIXME: we have to generate the docs in parallel in a maximum of a certain concurrency
-    // size or the docs generation will fail
-    // in the near future we should only have to generate the branches that must be published
-    def number_of_parallel_blocks = 3
-    def versions_blocks = versions.keySet().collate( versions.size().intdiv( number_of_parallel_blocks ) )
 
-    for (version_block in versions_blocks) {
-        Map parallelJobs = [:]
-        def map_block = versions.subMap(version_block)
-        map_block.each { key, value ->
-            String folderName = key
-            String branchName = value
-            parallelJobs[folderName] = {
-                echo "Run parallel job for ${branchName} inside ${folderName}"
-                image.inside {
-                    stage('Prepare sources') {
-                        // TODO: FIXME
-                        versions[latest_v2_folder] = versions[latest_v2_version]
-                        writeJSON json: versions, file: "${folderName}/versions.json"
-                        if (folderName != latest_v1_folder) {
-                            sh "rm -fr ${folderName}/_themes/conan"
-                            sh "cp -a ${latest_v1_folder}/_themes/. ${folderName}/_themes/"
-                        }
-                        if (folderName.startsWith("2")) {
-                            // the branch in the docs for 2.0 has the same name that the one in Conan
-                            def conanBranch = branchName
-                            def conan_repo_url = 'https://github.com/conan-io/conan.git'
-                            stage('Clone sources') {
-                                def cloneConan = "git clone --single-branch -b ${conanBranch} --depth 1 ${conan_repo_url} 2.0/conan_sources"
-                                sh(script: cloneConan)
-                            }
-                            // for some reason even adding this to autodoc_mock_imports
-                            // does not work, se we have to install the real dependency
-                            sh(script: 'pip3 install colorama')
-                        }
-                    }
-                    stage('HTML') {
-                        sh "sphinx-build -W -b html -d ${folderName}/_build/.doctrees ${folderName}/ gh-pages/${folderName}"
-                    }
+        stage('Archive generated folder') {
+            archiveArtifacts artifacts: "${gh_pages_out}/**/*.*"
+            echo "Inspect generated webpage at ${BUILD_URL}artifact/${gh_pages_out}/index.html"
+        }
 
-                    stage('PDF') {
-                        sh "sphinx-build -W -b latex -d ${folderName}/_build/.doctrees ${folderName}/ ${folderName}/_build/latex"
-                        sh "make -C ${folderName}/_build/latex all-pdf"
-                        sh "cp ${folderName}/_build/latex/conan.pdf gh-pages/${folderName}/conan.pdf"
-                    }
-                    if (folderName.startsWith("2")) {
-                        sh 'rm -fr 2.0/conan_sources'
+        if (params.publish) {
+            stage('Publish to gh-pages') {
+                dir(gh_pages_out) {
+                    sh 'git add .'
+                    sh 'git config user.email "conanci@jfrog.com"'
+                    sh 'git config user.name "ConanCI bot"'
+                    sh "git commit -m \"Automatic deploy (build number ${BUILD_NUMBER})\""
+                    withCredentials([usernamePassword(credentialsId: 'conanci-gh-token', usernameVariable: 'GH_USER', passwordVariable: 'GH_PASS')]) {
+                        sh "git remote add origin-pages https://$GH_USER:$GH_PASS@github.com/conan-io/docs.git"
+                        sh 'git push origin-pages gh-pages'
                     }
                 }
             }
         }
-        stage('Generate docs parallel block') {
-            parallelJobs.failFast = true
-            parallel parallelJobs
-        }
     }
-
-
-    stage('Prepare gh-branch') {
-        dir('gh-pages') {
-            // this is the main index.html that redirects to the main branch
-            // when we release 2.0 we have to change this to point to 2.0 docs
-            writeFile(file: 'index.html', text: entry_point)
-
-            // FIXME: this is to not break all links from https://docs.conan.io/en/latest/
-            // we copy all the /1 folder to /en/latest and then replace all html files
-            // there with redirects to https://docs.conan.io/en/latest/1
-            // remove when most of the traffic in the docs is for 2.X docs
-            sh 'mkdir -p en/latest'
-            sh "cp -R ${latest_v1_folder}/* en/latest"
-            sh "python ../1/create_redirects.py ../gh-pages/en/latest --old=en/latest --new=1"
-
-            // 2 folder is the same as the latest 2.X, copy the generated html files to 2 folder
-            sh "cp -R ${latest_v2_version} ${latest_v2_folder}"
-
-            // sh 'cp src/versions.json versions.json'  // TODO: File is not used, remove from 'gh-pages' branch
-            sh "cp ${latest_v1_folder}/404.html 404.html"
-            String content = readFile('404.html')
-            String prefixLatest = "${prefix}/${latest_v1_folder}"
-            content = content.replaceAll('href="_', "href=\"${prefixLatest}/_")
-            content = content.replaceAll('src="_', "src=\"${prefixLatest}/_")
-            content = content.replaceAll('alt="_', "alt=\"${prefixLatest}/_")
-            content = content.replaceAll('internal" href="', "internal\" href=\"${prefixLatest}/")
-            content = content.replaceAll('"search.html"', "\"${prefixLatest}/search.html\"")
-            content = content.replaceAll('"genindex.html"', "\"${prefixLatest}/genindex.html\"")
-            writeFile(file: '404.html', text: content)
-        }
-    }
-
-    stage('Archive generated folder') {
-        archiveArtifacts artifacts: 'gh-pages/**/*.*'
-        echo "Inspect generated webpage at ${BUILD_URL}artifact/gh-pages/index.html"
-    }
-
-    if (params.publish) {
-        stage('Publish to gh-pages') {
-            dir('gh-pages') {
-                sh 'git init .'
-                sh 'git checkout -b gh-pages'
-                sh 'git add .'
-                sh 'git config user.email "conanci@jfrog.com"'
-                sh 'git config user.name "ConanCI bot"'
-                sh "git commit -m \"Automatic deploy (build number ${BUILD_NUMBER})\""
-                withCredentials([usernamePassword(credentialsId: 'conanci-gh-token', usernameVariable: 'GH_USER', passwordVariable: 'GH_PASS')]) {
-                    sh "git remote add origin-pages https://$GH_USER:$GH_PASS@github.com/conan-io/docs.git"
-                    sh 'git push --quiet --force origin-pages gh-pages'
-                }
-            }
-        }
+    finally {
+        cleanWs(cleanWhenAborted: true, cleanWhenFailure: true, cleanWhenNotBuilt: true,
+                cleanWhenSuccess: true, cleanWhenUnstable: true, disableDeferredWipeout: true, deleteDirs: true,
+                notFailBuild: true)
     }
 }

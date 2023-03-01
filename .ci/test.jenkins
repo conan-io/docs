@@ -2,7 +2,8 @@
 
 node('Linux') {
     String masterBranch = 'master'
-    boolean isMaster = env.BRANCH_NAME == masterBranch
+    String branch = env.BRANCH_NAME
+    boolean publishDocs = (branch == masterBranch) || (branch.startsWith("release/"))
 
     stage('Clone sources') {
         checkout scm
@@ -44,11 +45,11 @@ node('Linux') {
         }
     }
 
-    // 'master' branch is published to GH pages
-    if (isMaster) {
+    if (publishDocs) {
+        String branches = sh(script: 'python .ci/scripts/get_branches.py', returnStdout: true).trim().readLines().join(',')
+        echo "Will generate docs for ${branches}"
         build(job: 'Conan-Docs-Publish', propagate: true, wait: true, parameters: [
-            [$class: 'StringParameterValue', name: 'latest', value: masterBranch],
-            [$class: 'StringParameterValue', name: 'prefix', value: 'https://docs.conan.io/'],
+            [$class: 'StringParameterValue', name: 'branches', value: branches],
             [$class: 'BooleanParameterValue', name: 'publish', value: true]
         ])
     }
