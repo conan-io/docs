@@ -75,14 +75,18 @@ conan remote auth
     Authenticate in the defined remotes
 
     positional arguments:
-      remote       Pattern of the remote/s to disable. The pattern uses 'fnmatch' style wildcards.
+      remote       Pattern or name of the remote/s to authenticate against. The
+                   pattern uses 'fnmatch' style wildcards.
 
-    options:
+    optional arguments:
       -h, --help   show this help message and exit
-      -v [V]       Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning, -vnotice,
+      -v [V]       Level of detail of the output. Valid options from less verbose
+                   to more verbose: -vquiet, -verror, -vwarning, -vnotice,
                    -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
       --logger     Show the output with log format, with time, type and message.
-      --with-user  Only try to auth in those remotes that already have a username or a CONAN_LOGIN_ env-var defined
+      --with-user  Only try to auth in those remotes that already have a username
+                   or a CONAN_LOGIN_ env-var defined
+
 
 
 conan remote disable
