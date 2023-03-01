@@ -283,7 +283,7 @@ Usage:
 
     def package_info(self):
         self.cpp_info.libdirs = ["lib", "other_libdir"]  # Default value is 'lib'
-        self.cpp_info.libs = tools.collect_libs(self)
+        self.cpp_info.libs = collect_libs(self)
 
 For UNIX libraries starting with **lib**, like *libmath.a*, this tool will collect the
 library name **math**. Regarding symlinks, this tool will keep only the "most generic"
