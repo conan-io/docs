@@ -82,11 +82,10 @@ try {
                     sh 'git config user.email "conanci@jfrog.com"'
                     sh 'git config user.name "ConanCI bot"'
                     sh "git commit -m \"Automatic deploy (build number ${BUILD_NUMBER})\""
-                    sh 'git log'
-                    // withCredentials([usernamePassword(credentialsId: 'conanci-gh-token', usernameVariable: 'GH_USER', passwordVariable: 'GH_PASS')]) {
-                    //     sh "git remote add origin-pages https://$GH_USER:$GH_PASS@github.com/conan-io/docs.git"
-                    //     sh 'git push origin-pages gh-pages'
-                    // }
+                    withCredentials([usernamePassword(credentialsId: 'conanci-gh-token', usernameVariable: 'GH_USER', passwordVariable: 'GH_PASS')]) {
+                        sh "git remote add origin-pages https://$GH_USER:$GH_PASS@github.com/conan-io/docs.git"
+                        sh 'git push origin-pages gh-pages'
+                    }
                 }
             }
         }
