@@ -8,7 +8,7 @@ conan inspect
 .. code-block:: text
 
     $ conan inspect -h
-    usage: conan inspect [-h] [-f FORMAT] [-v [V]] [--logger] path
+    usage: conan inspect [-h] [-f FORMAT] [-v [V]] path
 
     Inspect a conanfile.py to return its public fields.
 
@@ -23,8 +23,6 @@ conan inspect
                             verbose to more verbose: -vquiet, -verror, -vwarning,
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
                             -vvv or -vtrace
-      --logger              Show the output with log format, with time, type and
-                            message.
 
 .. note::
 

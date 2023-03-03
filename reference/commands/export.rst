@@ -4,7 +4,7 @@ conan export
 .. code-block:: text
 
     $ conan export -h
-    usage: conan export [-h] [-f FORMAT] [-v [V]] [--logger] [--name NAME]
+    usage: conan export [-h] [-f FORMAT] [-v [V]] [--name NAME]
                         [--version VERSION] [--user USER] [--channel CHANNEL]
                         [-r REMOTE | -nr] [-l LOCKFILE]
                         [--lockfile-out LOCKFILE_OUT] [--lockfile-partial]
@@ -24,8 +24,6 @@ conan export
                             verbose to more verbose: -vquiet, -verror, -vwarning,
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
                             -vvv or -vtrace
-      --logger              Show the output with log format, with time, type and
-                            message.
       --name NAME           Provide a package name if not specified in conanfile
       --version VERSION     Provide a package version if not specified in
                             conanfile

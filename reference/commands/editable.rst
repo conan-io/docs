@@ -11,7 +11,7 @@ conan editable add
 ..  code-block:: text
 
     $ conan editable add -h
-    usage: conan editable add [-h] [-v [V]] [--logger] [--name NAME]
+    usage: conan editable add [-h] [-v [V]] [--name NAME]
                               [--version VERSION] [--user USER]
                               [--channel CHANNEL] [-of OUTPUT_FOLDER]
                               path
@@ -29,8 +29,6 @@ conan editable add
                             verbose to more verbose: -vquiet, -verror, -vwarning,
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
                             -vvv or -vtrace
-      --logger              Show the output with log format, with time, type and
-                            message.
       --name NAME           Provide a package name if not specified in conanfile
       --version VERSION     Provide a package version if not specified in
                             conanfile
@@ -45,7 +43,7 @@ conan editable remove
 ..  code-block:: text
 
     $ conan editable remove -h
-    usage: conan editable remove [-h] [-v [V]] [--logger] [-r REFS] [path]
+    usage: conan editable remove [-h] [-v [V]] [-r REFS] [path]
 
     Remove the "editable" mode for this reference.
 
@@ -60,6 +58,4 @@ conan editable remove
                             verbose to more verbose: -vquiet, -verror, -vwarning,
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
                             -vvv or -vtrace
-      --logger              Show the output with log format, with time, type and
-                            message.
       -r REFS, --refs REFS  Directly provide reference patterns

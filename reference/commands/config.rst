@@ -10,8 +10,7 @@ conan config home
 .. code-block:: text
 
     $ conan config home --help
-    usage: conan config home [-h] [-v [V]] [--logger]
-
+    usage: conan config home [-h] [-v [V]]
     Show the Conan home folder.
 
     optional arguments:
@@ -19,7 +18,6 @@ conan config home
       -v [V]      Level of detail of the output. Valid options from less verbose
                   to more verbose: -vquiet, -verror, -vwarning, -vnotice,
                   -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
-      --logger    Show the output with log format, with time, type and message.
 
 
 The ``conan config home`` command returns the path of the Conan home folder.
@@ -37,8 +35,8 @@ conan config install
 .. code-block:: text
 
     $ conan config install -h
-    usage: conan config install [-h] [-v [V]] [--logger]
-                                [--verify-ssl [VERIFY_SSL]]
+    usage: conan config install [-h] [-v [V]]
+                                [--verify-ssl [VERIFY_SSL] | --insecure]
                                 [-t {git,dir,file,url}] [-a ARGS]
                                 [-sf SOURCE_FOLDER] [-tf TARGET_FOLDER]
                                 item
@@ -56,10 +54,10 @@ conan config install
                             verbose to more verbose: -vquiet, -verror, -vwarning,
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
                             -vvv or -vtrace
-      --logger              Show the output with log format, with time, type and
-                            message.
       --verify-ssl [VERIFY_SSL]
                             Verify SSL connection when downloading file
+      --insecure            Allow insecure server connections when using SSL.
+                            Equivalent to --verify-ssl=False
       -t {git,dir,file,url}, --type {git,dir,file,url}
                             Type of remote config
       -a ARGS, --args ARGS  String with extra arguments for "git clone"
@@ -90,6 +88,12 @@ All the configuration files can be shared and installed this way:
 - Custom ``global.conf``
 - All the extensions, including plugins, hooks.
 - Custom user commands.
+
+This command reads a ``.conanignore`` file which, if present, filters which files and folders
+are copied over to the user's Conan home folder.
+This file uses `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_ patterns
+to match over the folder contents, excluding those entries that match from the config installation.
+See `conan-io/command-extensions's .conanignore <https://github.com/conan-io/command-extensions/blob/main/.conanignore>`_ for an example of such a file.
 
 
 **Examples**:
@@ -155,7 +159,7 @@ conan config list
 .. code-block:: text
 
     $ conan config list -h
-    usage: conan config list [-h] [-f FORMAT] [-v [V]] [--logger]
+    usage: conan config list [-h] [-f FORMAT] [-v [V]]
 
     Show all the Conan available configurations: core and tools.
 
@@ -167,8 +171,7 @@ conan config list
                             verbose to more verbose: -vquiet, -verror, -vwarning,
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
                             -vvv or -vtrace
-      --logger              Show the output with log format, with time, type and
-                            message.
+
 
 
 Displays all the Conan built-in configurations. There are 2 groups:
@@ -224,7 +227,6 @@ Displays all the Conan built-in configurations. There are 2 groups:
     tools.build:skip_test: Do not execute CMake.test() and Meson.test() when enabled
     tools.build:sysroot: Pass the --sysroot=<tools.build:sysroot> flag if available. (None by default)
     tools.cmake.cmake_layout:build_folder_vars: Settings and Options that will produce a different build folder and different CMake presets names
-    tools.cmake.cmaketoolchain.presets:max_schema_version: Generate CMakeUserPreset.json compatible with the supplied schema version
     tools.cmake.cmaketoolchain:find_package_prefer_config: Argument for the CMAKE_FIND_PACKAGE_PREFER_CONFIG
     tools.cmake.cmaketoolchain:generator: User defined CMake generator to use instead of default
     tools.cmake.cmaketoolchain:system_name: Define CMAKE_SYSTEM_NAME in CMakeToolchain

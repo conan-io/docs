@@ -4,7 +4,7 @@ conan lock create
 .. code-block:: text
 
     $ conan lock create -h
-    usage: conan lock create [-h] [-v [V]] [--logger] [--name NAME]
+    usage: conan lock create [-h] [-v [V]] [--name NAME]
                              [--version VERSION] [--user USER] [--channel CHANNEL]
                              [--requires REQUIRES] [--tool-requires TOOL_REQUIRES]
                              [-b BUILD] [-r REMOTE | -nr] [-u] [-o OPTIONS_HOST]
@@ -31,8 +31,6 @@ conan lock create
                             verbose to more verbose: -vquiet, -verror, -vwarning,
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
                             -vvv or -vtrace
-      --logger              Show the output with log format, with time, type and
-                            message.
       --name NAME           Provide a package name if not specified in conanfile
       --version VERSION     Provide a package version if not specified in
                             conanfile

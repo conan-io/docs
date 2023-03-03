@@ -6,7 +6,7 @@ conan export-pkg
 .. code-block:: text
 
     $ conan export-pkg -h
-    usage: conan export-pkg [-h] [-f FORMAT] [-v [V]] [--logger]
+    usage: conan export-pkg [-h] [-f FORMAT] [-v [V]]
                             [-of OUTPUT_FOLDER] [--build-require]
                             [-tf TEST_FOLDER] [--name NAME] [--version VERSION]
                             [--user USER] [--channel CHANNEL] [-l LOCKFILE]
@@ -33,8 +33,6 @@ conan export-pkg
                             verbose to more verbose: -vquiet, -verror, -vwarning,
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
                             -vvv or -vtrace
-      --logger              Show the output with log format, with time, type and
-                            message.
       -of OUTPUT_FOLDER, --output-folder OUTPUT_FOLDER
                             The root output folder for generated and build files
       --build-require       Whether the provided reference is a build-require

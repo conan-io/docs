@@ -5,7 +5,7 @@ conan graph build-order-merge
 .. code-block:: text
 
     $ conan graph build-order-merge -h
-    usage: conan graph build-order-merge [-h] [-f FORMAT] [-v [V]] [--logger]
+    usage: conan graph build-order-merge [-h] [-f FORMAT] [-v [V]]
                                          [--file [FILE]]
 
     Merge more than 1 build-order file.
@@ -18,6 +18,4 @@ conan graph build-order-merge
                             verbose to more verbose: -vquiet, -verror, -vwarning,
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
                             -vvv or -vtrace
-      --logger              Show the output with log format, with time, type and
-                            message.
       --file [FILE]         Files to be merged

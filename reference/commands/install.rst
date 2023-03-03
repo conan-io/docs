@@ -6,7 +6,7 @@ conan install
 .. code-block:: text
 
     $ conan install -h
-    usage: conan install [-h] [-f FORMAT] [-v [V]] [--logger] [--name NAME]
+    usage: conan install [-h] [-f FORMAT] [-v [V]] [--name NAME]
                          [--version VERSION] [--user USER] [--channel CHANNEL]
                          [--requires REQUIRES] [--tool-requires TOOL_REQUIRES]
                          [-b BUILD] [-r REMOTE | -nr] [-u] [-o OPTIONS_HOST]
@@ -45,8 +45,6 @@ conan install
                             verbose to more verbose: -vquiet, -verror, -vwarning,
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
                             -vvv or -vtrace
-      --logger              Show the output with log format, with time, type and
-                            message.
       --name NAME           Provide a package name if not specified in conanfile
       --version VERSION     Provide a package version if not specified in
                             conanfile

@@ -6,7 +6,7 @@ conan build
 .. code-block:: text
 
     $ conan build -h
-    usage: conan build [-h] [-v [V]] [--logger] [--name NAME] [--version VERSION]
+    usage: conan build [-h] [-v [V]] [--name NAME] [--version VERSION]
                        [--user USER] [--channel CHANNEL] [-of OUTPUT_FOLDER]
                        [-b BUILD] [-r REMOTE | -nr] [-u] [-o OPTIONS_HOST]
                        [-o:b OPTIONS_BUILD] [-o:h OPTIONS_HOST] [-pr PROFILE_HOST]
@@ -21,9 +21,9 @@ conan build
     Install dependencies and call the build() method.
 
     positional arguments:
-      path                  Path to a folder containing a recipe (conanfile.py or
-                            conanfile.txt) or to a recipe file. e.g.,
-                            ./my_project/conanfile.txt.
+      path                  Path to a python-based recipe file or a folder
+                            containing a conanfile.py recipe. conanfile.txt cannot
+                            be used with conan build.
 
     optional arguments:
       -h, --help            show this help message and exit
@@ -31,8 +31,6 @@ conan build
                             verbose to more verbose: -vquiet, -verror, -vwarning,
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
                             -vvv or -vtrace
-      --logger              Show the output with log format, with time, type and
-                            message.
       --name NAME           Provide a package name if not specified in conanfile
       --version VERSION     Provide a package version if not specified in
                             conanfile
