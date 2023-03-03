@@ -38,5 +38,5 @@ items in the ``global.conf`` file.
 remotes.txt
 ===========
 
-This file has been removed in Conan 2.0 has a definition of remotes. The ``remotes.json`` file is the
+This file has been removed in Conan 2.0 as a definition of remotes. The ``remotes.json`` file is the
 one to be used in 2.0 (remotes.txt will be completely ignored).
