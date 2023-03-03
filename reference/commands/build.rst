@@ -21,9 +21,9 @@ conan build
     Install dependencies and call the build() method.
 
     positional arguments:
-      path                  Path to a folder containing a recipe (conanfile.py or
-                            conanfile.txt) or to a recipe file. e.g.,
-                            ./my_project/conanfile.txt.
+      path                  Path to a python-based recipe file or a folder
+                            containing a conanfile.py recipe. conanfile.txt cannot
+                            be used with conan build.
 
     optional arguments:
       -h, --help            show this help message and exit
