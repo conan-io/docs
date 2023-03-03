@@ -10,7 +10,7 @@ The import path is always like:
 .. code-block:: python
 
     from conan.tools.cmake import CMakeToolchain, CMakeDeps, CMake
-    form conan.tools.microsoft import MSBuildToolchain, MSBuildDeps, MSBuild
+    from conan.tools.microsoft import MSBuildToolchain, MSBuildDeps, MSBuild
 
 
 The main guidelines are:
