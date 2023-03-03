@@ -5,7 +5,7 @@ Configuration files
 Profiles
 ========
 
-Profiles in Conan 2.0 drop the textual replacement of variables
+Profiles in Conan 2.0 drop the textual replacement of variables.
 
 This profile will not work in 2.0:
 
