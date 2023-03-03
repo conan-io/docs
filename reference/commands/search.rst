@@ -9,7 +9,7 @@ This command is equivalent to ``conan list recipes <query> -r=*``, and is provid
 .. code-block:: text
 
     $ conan search -h
-    usage: conan search [-h] [-f FORMAT] [-v [V]] [--logger] [-r REMOTE] reference
+    usage: conan search [-h] [-f FORMAT] [-v [V]] [-r REMOTE] reference
 
     Search for package recipes in all the remotes (by default), or a remote.
 
@@ -25,8 +25,6 @@ This command is equivalent to ``conan list recipes <query> -r=*``, and is provid
                             verbose to more verbose: -vquiet, -verror, -vwarning,
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
                             -vvv or -vtrace
-      --logger              Show the output with log format, with time, type and
-                            message.
       -r REMOTE, --remote REMOTE
                             Remote names. Accepts wildcards. If not specified it
                             searches in all the remotes

@@ -11,7 +11,7 @@ conan new
 .. code-block:: text
 
     $ conan new -h
-    usage: conan new [-h] [-v [V]] [--logger] [-d DEFINE] [-f] template
+    usage: conan new [-h] [-v [V]] [-d DEFINE] [-f] template
 
     Create a new example recipe and source files from a template.
 
@@ -32,8 +32,6 @@ conan new
                             verbose to more verbose: -vquiet, -verror, -vwarning,
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
                             -vvv or -vtrace
-      --logger              Show the output with log format, with time, type and
-                            message.
       -d DEFINE, --define DEFINE
                             Define a template argument as key=value, e.g., -d
                             name=mypkg

@@ -12,7 +12,7 @@ conan profile detect
 .. code-block:: text
 
     $ conan profile detect -h
-    usage: conan profile detect [-h] [-v [V]] [--logger] [--name NAME] [-f]
+    usage: conan profile detect [-h] [-v [V]] [--name NAME] [-f]
 
     Generate a profile using auto-detected values.
 
@@ -21,7 +21,6 @@ conan profile detect
       -v [V]       Level of detail of the output. Valid options from less verbose
                    to more verbose: -vquiet, -verror, -vwarning, -vnotice,
                    -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
-      --logger     Show the output with log format, with time, type and message.
       --name NAME  Profile name, 'default' if not specified
       -f, --force  Overwrite if exists
 
@@ -47,7 +46,7 @@ conan profile list
 .. code-block:: text
 
     $ conan profile list -h
-    usage: conan profile list [-h] [-f FORMAT] [-v [V]] [--logger]
+    usage: conan profile list [-h] [-f FORMAT] [-v [V]]
 
     List all profiles in the cache.
 
@@ -59,8 +58,6 @@ conan profile list
                             verbose to more verbose: -vquiet, -verror, -vwarning,
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
                             -vvv or -vtrace
-      --logger              Show the output with log format, with time, type and
-                            message.
 
 
 conan profile path
@@ -69,7 +66,7 @@ conan profile path
 .. code-block:: text
 
     $ conan profile path -h
-    usage: conan profile path [-h] [-v [V]] [--logger] [-o OPTIONS_HOST]
+    usage: conan profile path [-h] [-v [V]] [-o OPTIONS_HOST]
                               [-o:b OPTIONS_BUILD] [-o:h OPTIONS_HOST]
                               [-pr PROFILE_HOST] [-pr:b PROFILE_BUILD]
                               [-pr:h PROFILE_HOST] [-s SETTINGS_HOST]
@@ -88,8 +85,6 @@ conan profile path
                             verbose to more verbose: -vquiet, -verror, -vwarning,
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
                             -vvv or -vtrace
-      --logger              Show the output with log format, with time, type and
-                            message.
       -o OPTIONS_HOST, --options OPTIONS_HOST
                             Define options values (host machine), e.g.: -o
                             Pkg:with_qt=true
@@ -134,7 +129,7 @@ conan profile show
 .. code-block:: text
 
     $ conan profile show -h
-    usage: conan profile show [-h] [-v [V]] [--logger] [-o OPTIONS_HOST]
+    usage: conan profile show [-h] [-v [V]] [-o OPTIONS_HOST]
                               [-o:b OPTIONS_BUILD] [-o:h OPTIONS_HOST]
                               [-pr PROFILE_HOST] [-pr:b PROFILE_BUILD]
                               [-pr:h PROFILE_HOST] [-s SETTINGS_HOST]
@@ -149,8 +144,6 @@ conan profile show
                             verbose to more verbose: -vquiet, -verror, -vwarning,
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
                             -vvv or -vtrace
-      --logger              Show the output with log format, with time, type and
-                            message.
       -o OPTIONS_HOST, --options OPTIONS_HOST
                             Define options values (host machine), e.g.: -o
                             Pkg:with_qt=true

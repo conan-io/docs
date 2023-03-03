@@ -6,7 +6,7 @@ conan download
 .. code-block:: text
 
     $ conan download -h
-    usage: conan download [-h] [-v [V]] [--logger] [--only-recipe]
+    usage: conan download [-h] [-v [V]] [--only-recipe]
                           [-p PACKAGE_QUERY] -r REMOTE
                           reference
 
@@ -28,8 +28,6 @@ conan download
                             verbose to more verbose: -vquiet, -verror, -vwarning,
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
                             -vvv or -vtrace
-      --logger              Show the output with log format, with time, type and
-                            message.
       --only-recipe         Download only the recipe/s, not the binary packages.
       -p PACKAGE_QUERY, --package-query PACKAGE_QUERY
                             Only upload packages matching a specific query. e.g:

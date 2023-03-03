@@ -4,7 +4,7 @@ conan remove
 .. code-block:: text
 
     $ conan remove -h
-    usage: conan remove [-h] [-v [V]] [--logger] [-c] [-p PACKAGE_QUERY]
+    usage: conan remove [-h] [-v [V]] [-c] [-p PACKAGE_QUERY]
                         [-r REMOTE]
                         reference
 
@@ -26,8 +26,6 @@ conan remove
                             verbose to more verbose: -vquiet, -verror, -vwarning,
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
                             -vvv or -vtrace
-      --logger              Show the output with log format, with time, type and
-                            message.
       -c, --confirm         Remove without requesting a confirmation
       -p PACKAGE_QUERY, --package-query PACKAGE_QUERY
                             Remove all packages (empty) or provide a query:
