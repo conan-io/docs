@@ -25,7 +25,7 @@ This profile will not work in 2.0:
     os = {{ a }}
 
 
-The ``.jinja`` extension int he profile nameis necessary in 1.X, but it will not be necessary in 2.0
+The ``.jinja`` extension in the profile name is necessary in 1.X but will not be necessary in 2.0
 
 
 conan.conf
