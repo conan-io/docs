@@ -1,5 +1,5 @@
-Conan 2.0 C and C++ Package Manager Documentation
-=================================================
+Conan 2.0 - C and C++ Package Manager Documentation
+===================================================
 
 Welcome! This is the user documentation for Conan, an open source, decentralized C/C++ package manager that works in all platforms and with all build systems and compilers. Other relevant resources:
 
