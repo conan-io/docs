@@ -33,3 +33,4 @@ If you are looking for precompiled binaries, there is a very short list in a sep
    migrating_to_2.0/properties
    migrating_to_2.0/commands
    migrating_to_2.0/general
+   migrating_to_2.0/config_files

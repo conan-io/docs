@@ -46,7 +46,8 @@ Work in progress
 Compatible packages
 -------------------
 
-Work in progress
+Do not use ``compatible_packages`` definition inside ``package_id()``.
+Use instead the new ``compatibility()`` method.
 
 
 Extensions
