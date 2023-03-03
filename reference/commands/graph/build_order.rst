@@ -4,7 +4,7 @@ conan graph build-order
 .. code-block:: text
 
     $ conan graph build-order -h
-    usage: conan graph build-order [-h] [-f FORMAT] [-v [V]] [--logger]
+    usage: conan graph build-order [-h] [-f FORMAT] [-v [V]]
                                    [--name NAME] [--version VERSION] [--user USER]
                                    [--channel CHANNEL] [--requires REQUIRES]
                                    [--tool-requires TOOL_REQUIRES] [-b BUILD]
@@ -35,8 +35,6 @@ conan graph build-order
                             verbose to more verbose: -vquiet, -verror, -vwarning,
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
                             -vvv or -vtrace
-      --logger              Show the output with log format, with time, type and
-                            message.
       --name NAME           Provide a package name if not specified in conanfile
       --version VERSION     Provide a package version if not specified in
                             conanfile

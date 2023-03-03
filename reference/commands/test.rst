@@ -6,7 +6,7 @@ conan test
 .. code-block:: text
 
     $ conan test -h
-    usage: conan test [-h] [-v [V]] [--logger] [-b BUILD] [-r REMOTE | -nr] [-u]
+    usage: conan test [-h] [-v [V]] [-b BUILD] [-r REMOTE | -nr] [-u]
                       [-o OPTIONS_HOST] [-o:b OPTIONS_BUILD] [-o:h OPTIONS_HOST]
                       [-pr PROFILE_HOST] [-pr:b PROFILE_BUILD]
                       [-pr:h PROFILE_HOST] [-s SETTINGS_HOST]
@@ -29,8 +29,6 @@ conan test
                             verbose to more verbose: -vquiet, -verror, -vwarning,
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
                             -vvv or -vtrace
-      --logger              Show the output with log format, with time, type and
-                            message.
       -b BUILD, --build BUILD
                             Optional, specify which packages to build from source.
                             Combining multiple '--build' options on one command

@@ -6,7 +6,7 @@ conan list
 .. code-block:: text
 
     $ conan list -h
-    usage: conan list [-h] [-f FORMAT] [-v [V]] [--logger] [-p PACKAGE_QUERY]
+    usage: conan list [-h] [-f FORMAT] [-v [V]] [-p PACKAGE_QUERY]
                       [-r REMOTE] [-c]
                       reference
 
@@ -25,8 +25,6 @@ conan list
                             verbose to more verbose: -vquiet, -verror, -vwarning,
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
                             -vvv or -vtrace
-      --logger              Show the output with log format, with time, type and
-                            message.
       -p PACKAGE_QUERY, --package-query PACKAGE_QUERY
                             List only the packages matching a specific query, e.g,
                             os=Windows AND (arch=x86 OR compiler=gcc)

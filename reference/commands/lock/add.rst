@@ -4,7 +4,7 @@ conan lock add
 .. code-block:: text
 
     $ conan lock add -h
-    usage: conan lock add [-h] [-v [V]] [--logger] [--requires REQUIRES]
+    usage: conan lock add [-h] [-v [V]] [--requires REQUIRES]
                           [--build-requires BUILD_REQUIRES]
                           [--python-requires PYTHON_REQUIRES]
                           [--lockfile-out LOCKFILE_OUT] [--lockfile LOCKFILE]
@@ -21,8 +21,6 @@ conan lock add
                             verbose to more verbose: -vquiet, -verror, -vwarning,
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
                             -vvv or -vtrace
-      --logger              Show the output with log format, with time, type and
-                            message.
       --requires REQUIRES   Add references to lockfile.
       --build-requires BUILD_REQUIRES
                             Add build-requires to lockfile

@@ -10,8 +10,7 @@ conan config home
 .. code-block:: text
 
     $ conan config home --help
-    usage: conan config home [-h] [-v [V]] [--logger]
-
+    usage: conan config home [-h] [-v [V]]
     Show the Conan home folder.
 
     optional arguments:
@@ -19,7 +18,6 @@ conan config home
       -v [V]      Level of detail of the output. Valid options from less verbose
                   to more verbose: -vquiet, -verror, -vwarning, -vnotice,
                   -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
-      --logger    Show the output with log format, with time, type and message.
 
 
 The ``conan config home`` command returns the path of the Conan home folder.
@@ -37,7 +35,7 @@ conan config install
 .. code-block:: text
 
     $ conan config install -h
-    usage: conan config install [-h] [-v [V]] [--logger]
+    usage: conan config install [-h] [-v [V]]
                                 [--verify-ssl [VERIFY_SSL] | --insecure]
                                 [-t {git,dir,file,url}] [-a ARGS]
                                 [-sf SOURCE_FOLDER] [-tf TARGET_FOLDER]
@@ -56,8 +54,6 @@ conan config install
                             verbose to more verbose: -vquiet, -verror, -vwarning,
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
                             -vvv or -vtrace
-      --logger              Show the output with log format, with time, type and
-                            message.
       --verify-ssl [VERIFY_SSL]
                             Verify SSL connection when downloading file
       --insecure            Allow insecure server connections when using SSL.
@@ -163,7 +159,7 @@ conan config list
 .. code-block:: text
 
     $ conan config list -h
-    usage: conan config list [-h] [-f FORMAT] [-v [V]] [--logger]
+    usage: conan config list [-h] [-f FORMAT] [-v [V]]
 
     Show all the Conan available configurations: core and tools.
 
@@ -175,8 +171,7 @@ conan config list
                             verbose to more verbose: -vquiet, -verror, -vwarning,
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
                             -vvv or -vtrace
-      --logger              Show the output with log format, with time, type and
-                            message.
+
 
 
 Displays all the Conan built-in configurations. There are 2 groups:

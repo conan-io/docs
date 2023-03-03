@@ -6,7 +6,7 @@ conan source
 .. code-block:: text
 
     $ conan source -h
-    usage: conan source [-h] [-v [V]] [--logger] [--name NAME] [--version VERSION]
+    usage: conan source [-h] [-v [V]] [--name NAME] [--version VERSION]
                         [--user USER] [--channel CHANNEL]
                         [path]
 
@@ -23,8 +23,6 @@ conan source
                          verbose to more verbose: -vquiet, -verror, -vwarning,
                          -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug, -vvv
                          or -vtrace
-      --logger           Show the output with log format, with time, type and
-                         message.
       --name NAME        Provide a package name if not specified in conanfile
       --version VERSION  Provide a package version if not specified in conanfile
       --user USER        Provide a user if not specified in conanfile

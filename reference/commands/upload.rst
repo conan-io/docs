@@ -10,7 +10,7 @@ section <conan_repositories>`.
 .. code-block:: text
 
     $ conan upload -h
-    usage: conan upload [-h] [-v [V]] [--logger] [-p PACKAGE_QUERY] -r REMOTE
+    usage: conan upload [-h] [-v [V]] [-p PACKAGE_QUERY] -r REMOTE
                         [--only-recipe] [--force] [--check] [-c]
                         reference
 
@@ -32,8 +32,6 @@ section <conan_repositories>`.
                             verbose to more verbose: -vquiet, -verror, -vwarning,
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
                             -vvv or -vtrace
-      --logger              Show the output with log format, with time, type and
-                            message.
       -p PACKAGE_QUERY, --package-query PACKAGE_QUERY
                             Only upload packages matching a specific query. e.g:
                             os=Windows AND (arch=x86 OR compiler=gcc)

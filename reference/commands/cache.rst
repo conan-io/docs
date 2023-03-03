@@ -12,7 +12,7 @@ conan cache path
 ..  code-block:: text
 
     $ conan cache path --help
-    usage: conan cache path [-h] [-v [V]] [--logger] [--folder {export_source,source,build}] reference
+    usage: conan cache path [-h] [-v [V]] [--folder {export_source,source,build}] reference
 
     Show the path to the Conan cache for a given reference.
 
@@ -25,8 +25,6 @@ conan cache path
                             verbose to more verbose: -vquiet, -verror, -vwarning,
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
                             -vvv or -vtrace
-        --logger              Show the output with log format, with time, type and
-                            message.
         --folder {export_source,source,build}
                             Path to show. The 'build' requires a package
                             reference. If not specified it shows 'exports' path
@@ -160,7 +158,7 @@ conan cache clean
 .. code-block:: text
 
     $ conan cache clean -h
-    usage: conan cache clean [-h] [-v [V]] [--logger] [-s] [-b] [-d]
+    usage: conan cache clean [-h] [-v [V]] [-s] [-b] [-d]
                              [-p PACKAGE_QUERY]
                              pattern
 
@@ -176,8 +174,7 @@ conan cache clean
                             verbose to more verbose: -vquiet, -verror, -vwarning,
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
                             -vvv or -vtrace
-      --logger              Show the output with log format, with time, type and
-                            message.
+
       -s, --source          Clean source folders
       -b, --build           Clean build folders
       -d, --download        Clean download folders
