@@ -35,12 +35,13 @@ so it should be removed:
 
 ..  code-block:: python
 
-    options = {"shared": [True, False]
-    default_options = {"shared": False}
+    options = {"shared": [True, False], "fPIC": [True, False]}
+    default_options = {"shared": False, "fPIC": True}
 
     def configure(self):
         if self.options.shared:
-            del self.options.fPIC
+            # fPIC might have been removed in config_options(), so we use rm_safe
+            self.options.rm_safe("fPIC")
 
 
 Recipes can suggest values for their dependencies options as ``default_options = {"*:shared": True}``, but
@@ -59,7 +60,7 @@ it is not possible to do that conditionally. For this purpose, it is also possib
     **Best practices**
 
     - Recall that it is **not** possible to define ``settings`` or ``conf`` values in recipes, they are read only.
-    - The definition of ``options`` values is only a "suggestion", depending on the graph computation, priorities, etc., the final value of ``options`` can be different than the one set by the recipe.
+    - The definition of ``options`` values is only a "suggestion", depending on the graph computation, priorities, etc., the final value of ``options`` can be different from the one set by the recipe.
 
 
 .. seealso::
