@@ -95,3 +95,7 @@ conan export-pkg
 
   The json output of the ``conan export-pkg --format=json`` is **experimental** and subject to
   change.
+
+.. seealso::
+
+    - Read the tutorial about the :ref:`local package developement flow <local_package_development_flow>`.

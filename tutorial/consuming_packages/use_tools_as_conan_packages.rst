@@ -208,7 +208,7 @@ Read more
 ---------
 
 - :ref:`Using [system_tools] in your profiles <reference_config_files_profiles_system_tools>`.
+- :ref:`Creating recipes for tool_requires: packaging build tools <tutorial_other_tool_requires_packages>`.
 - Using MinGW as tool_requires
 - Using tool_requires in profiles
 - Using conf to set a toolchain from a tool requires
-- Creating recipes for tool_requires: packaging build tools
