@@ -286,8 +286,8 @@ Read more
 ---------
 
 - :ref:`VirtualRunEnv reference <conan_tools_env_virtualrunenv>`
+- :ref:`Cross-compiling using --profile:build and --profile:host <consuming_packages_cross_building_with_conan>`
 - Installing configurations with conan config install
 - VS Multi-config
 - Example about how settings and options influence the package id
-- Cross-compiling using --profile:build and --profile:host
 - Using patterns for settings and options
