@@ -313,12 +313,10 @@ located in the user home folder under the ``.conan2`` folder. Conan will use the
 You already used the :command:`conan list` command to list the recipes and binaries stored
 in the local cache. 
 
-TODO: add note about Conan references, recipe/package references.
-
-
 Read more
 ---------
 
+- :ref:`Conan list command reference<reference_commands_list>`.
 - Create your first Conan package with Autotools.
 - Create your first Conan package with Meson.
 - Create your first Conan package with Visual Studio.
