@@ -476,16 +476,33 @@ You can generate a graph of your dependencies, in ``dot`` or ``html`` formats:
 
 .. code-block:: bash
 
-    $ conan graph info .. --format=html > index.html
+    $ conan graph info --require=binutils/2.38 -r=conancenter --format=dot
+
+    ...
+
+    digraph {
+            "cli" -> "binutils/2.38"
+            "binutils/2.38" -> "zlib/1.2.13"
+    }
 
 
-The generated *index.html* output file contains links to a third-party resource, the *vis.js* library (2 files: *vis.min.js*, *vis.min.css*).
-By default they are retrieved from Cloudfare. However, for environments without internet connection, these files
-could be also used from the local cache and installed with :command:`conan config install` by putting those
-files in the root of the configuration folder:
+.. graphviz::
 
-- *vis.min.js*: Default link to "https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js"
-- *vis.min.css*: Default link to "https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.css"
+    digraph {
+            "cli" -> "binutils/2.38"
+            "binutils/2.38" -> "zlib/1.2.13"
+    }
 
-It is not necessary to modify the generated html file. Conan will automatically use the local paths to the cache files if
-present, or the internet ones if not.
+
+
+.. note::
+    The generated *index.html* output file contains links to a third-party resource, the *vis.js* library (2 files: *vis.min.js*, *vis.min.css*).
+    By default they are retrieved from Cloudfare. However, for environments without internet connection, these files
+    could be also used from the local cache and installed with :command:`conan config install` by putting those
+    files in the root of the configuration folder:
+
+    - *vis.min.js*: Default link to "https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js"
+    - *vis.min.css*: Default link to "https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.css"
+
+    It is not necessary to modify the generated html file. Conan will automatically use the local paths to the cache files if
+    present, or the internet ones if not.
