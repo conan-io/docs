@@ -472,20 +472,14 @@ For example, to get the options of zlib, the following command could be run:
         shared: False
 
 
-You can generate a graph of your dependencies, in dot or html formats:
+You can generate a graph of your dependencies, in ``dot`` or ``html`` formats:
 
 .. code-block:: bash
 
-    $ conan graph info .. --graph=file.html
-    $ file.html # or open the file, double-click
-
-.. image:: /images/conan-info_deps_html_graph.png
-    :height: 250 px
-    :width: 300 px
-    :align: center
+    $ conan graph info .. --format=html > index.html
 
 
-The generated html output contains links to third party resources, the *vis.js* library (2 files: *vis.min.js*, *vis.min.css*).
+The generated *index.html* output file contains links to a third-party resource, the *vis.js* library (2 files: *vis.min.js*, *vis.min.css*).
 By default they are retrieved from Cloudfare. However, for environments without internet connection, these files
 could be also used from the local cache and installed with :command:`conan config install` by putting those
 files in the root of the configuration folder:
