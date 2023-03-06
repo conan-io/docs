@@ -1,3 +1,5 @@
+.. _consuming_packages_intro_versioning:
+
 Introduction to versioning
 ==========================
 

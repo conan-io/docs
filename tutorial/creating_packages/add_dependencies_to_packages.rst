@@ -120,6 +120,5 @@ colour now:
 Read more
 ---------
 
-- Version ranges
-- Requirement traits
-- ...
+- :ref:`Reference for requirements() method <reference_conanfile_methods_requirements>`.
+- :ref:`Introduction to versioning <consuming_packages_intro_versioning>`.

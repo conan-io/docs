@@ -78,6 +78,8 @@ test
 This requirement is a test library or framework, like Catch2 or gtest. It is mostly a
 library that needs to be included and linked, but that will not be propagated downstream.
 
+.. _reference_conanfile_methods_requirements_package_id_mode:
+
 package_id_mode
 ~~~~~~~~~~~~~~~
 
