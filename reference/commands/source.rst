@@ -27,3 +27,7 @@ conan source
       --version VERSION  Provide a package version if not specified in conanfile
       --user USER        Provide a user if not specified in conanfile
       --channel CHANNEL  Provide a channel if not specified in conanfile
+
+.. seealso::
+
+    - Read the tutorial about the :ref:`local package developement flow <local_package_development_flow>`.

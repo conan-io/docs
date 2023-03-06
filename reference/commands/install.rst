@@ -322,3 +322,7 @@ Also, it is likely that the majority of lockfile operations are better managed b
 
 
 Read more about lockfiles in :ref:`tutorial_consuming_packages_versioning_lockfiles`.
+
+.. seealso::
+
+    - Read the tutorial about the :ref:`local package developement flow <local_package_development_flow>`.

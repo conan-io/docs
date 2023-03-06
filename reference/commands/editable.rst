@@ -59,3 +59,7 @@ conan editable remove
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
                             -vvv or -vtrace
       -r REFS, --refs REFS  Directly provide reference patterns
+
+.. seealso::
+
+    - Read the tutorial about editable packages :ref:`editable package<editable_packages>`.
