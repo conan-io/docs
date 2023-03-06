@@ -44,7 +44,9 @@ Let's check the relevant parts:
 
         def configure(self):
             if self.options.shared:
-                del self.options.fPIC
+                # If os=Windows, fPIC will have been removed in config_options()
+                # use rm_safe to avoid double delete errors
+                self.options.rm_safe("fPIC")
         ...
 
 
