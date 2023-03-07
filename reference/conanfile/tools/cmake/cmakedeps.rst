@@ -189,7 +189,7 @@ required components exist and raise an error otherwise. You can set this attribu
 Then, when consuming Boost the ``find_package()`` will raise an error as `fakecomp` does
 not exist:
 
-..  code-block:: cmake
+..  code-block:: text
 
     cmake_minimum_required(VERSION 3.15)
     ...
