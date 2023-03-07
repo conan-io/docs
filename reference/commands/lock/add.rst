@@ -54,7 +54,8 @@ For example, the following is able to create a lockfile (by default, named ``con
   }
 
 
-If an input profile is provided, the command will add the arguments to the existing lockfile, and maintain the
+The ``conan lock add`` command also allows to provide an existing lockfile as an input,
+and it will add the arguments to the existing lockfile, maintaining the
 package versions sorted:
 
 .. code-block:: bash
@@ -84,12 +85,14 @@ the existence of package versions, or the existence of those packages in a given
 When that lockfile is applied to resolve a dependency graph, it is possible that the added versions do not exist,
 or do not resolve for the ``conanfile.py`` recipes defined version ranges.
 
-Moreover, the list of versions is still sorted. Adding an older version like ``tool/2.1`` won't make that version being used
-automatically if the recipes contain the version range ``tool/[>=2.0 <3]``, if the ``tool/2.2`` is listed there.
+Moreover, the list of versions is still sorted. Adding an older version like ``tool/2.1`` to the previous lockfile
+won't make that version being used automatically if the recipes contain the version range ``tool/[>=2.0 <3]``, because
+the ``tool/2.2`` version is listed there and the range will resolve to it, not to the older ``tool/2.1``.
 
-Note that a lockfile created with ``conan lock add`` might be incomplete if it doesn't define all possible versions in a dependency graph.
-For those cases, recall that the ``--lockfile-partial`` argument can be applied. Note also that if a ``conan.lock`` file exist in the
-current folder, Conan commands like ``conan install`` will try to automatically use it.
+Note that a lockfile created with ``conan lock add`` can be incomplete and not contain all necessary locked versions
+that a full dependency graph would need. For those cases, recall that the ``--lockfile-partial`` argument can be applied. 
+Note also that if a ``conan.lock`` file exist in the current folder, Conan commands like ``conan install`` will automatically use it.
+Please have a look to the :ref:`lockfiles tutorial<tutorial_versioning_lockfiles>`.
 
 If explicitly adding revisions, please recall that the revisions are timestamp sorted. If more than one revision exists in the lockfile,
 it is mandatory to provide the timestamps of those revisions, so the sorting makes sense, which can be done with:

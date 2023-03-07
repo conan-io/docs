@@ -81,6 +81,11 @@ Similar to the ``conan lock add`` command, the ``conan lock merge``:
   - Recall that it is not possible to ``conan lock add`` a version range. The version might be not fully complete (like not providing
     the revision), but it must be an exact version.
 
+.. seealso::
+
+  To better understand ``conan lock merge``, it is recommended to first understand lockfiles in general,
+  visit the :ref:`lockfiles tutorial<tutorial_versioning_lockfiles>` for a practical introduction to lockfiles.
+
 
 This ``conan lock merge`` command can be useful to consolidate in a single lockfile when for some reasons there are several lockfiles
 that have diverged. A use case would be to create a multi-configuration lockfile that contains all necessary locked versions for
