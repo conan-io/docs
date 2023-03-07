@@ -168,6 +168,10 @@ Use the **build_context_build_modules** attribute to specify require names to in
 check_components_exist
 ++++++++++++++++++++++
 
+.. important::
+
+    This attribute is experimental and subject to breaking changes.
+
 This property is ``False`` by default. Use this property if you want to add a check when
 you require specifying components in the consumers' ``find_package()``. For example, if we
 are consuming a Conan package like Boost that declares several components. If we set the
