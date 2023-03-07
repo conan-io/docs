@@ -138,147 +138,12 @@ The ``conan graph info`` command shows information about the dependency graph fo
 
 .. code-block:: bash
 
-    $ conan info .
-    $ conan info myproject_folder
-    $ conan info myproject_folder/conanfile.py
-    $ conan info hello/1.0@user/channel
+    $ conan graph info .
+    $ conan graph info myproject_folder
+    $ conan graph info myproject_folder/conanfile.py
+    $ conan graph info --requires=hello/1.0@user/channel
 
 The output will look like:
-
-.. code-block:: text
-
-    $ conan graph info recipes/binutils/all/conanfile.py --version=2.38
-
-    ...
-
-    ======== Basic graph information ========
-    binutils/2.38:
-      ref: binutils/2.38
-      id: 0
-      recipe: Consumer
-      package_id: 477fd4770fc5cb8ad1e6274f5cf4ef9f9fb055b1
-      prev: None
-      build_id: None
-      binary: None
-      invalid_build: False
-      url: https://github.com/conan-io/conan-center-index/
-      license: GPL-2.0-or-later
-      description: The GNU Binutils are a collection of binary tools.
-      topics: ('gnu', 'ld', 'linker', 'as', 'assembler', 'objcopy', 'objdump')
-      homepage: https://www.gnu.org/software/binutils
-      revision_mode: hash
-      package_type: application
-      settings:
-        os: Macos
-        arch: x86_64
-        compiler: apple-clang
-        compiler.version: 14
-        build_type: Release
-      system_requires:
-      options:
-        multilib: True
-        prefix: x86_64-apple-darwin-
-        target_arch: x86_64
-        target_os: Macos
-        target_triplet: x86_64-apple-darwin
-        with_libquadmath: True
-      recipe_folder: /Users/barbarian/recipes/binutils/all
-      source_folder: None
-      build_folder: None
-      package_folder: None
-      cpp_info:
-        root:
-          includedirs: ['include']
-          srcdirs: None
-          libdirs: ['lib']
-          resdirs: None
-          bindirs: ['bin']
-          builddirs: None
-          frameworkdirs: None
-          system_libs: None
-          frameworks: None
-          libs: None
-          defines: None
-          cflags: None
-          cxxflags: None
-          sharedlinkflags: None
-          exelinkflags: None
-          objects: None
-          sysroot: None
-          requires: None
-          properties: None
-      label: conanfile.py (binutils/2.38)
-      context: host
-      test: False
-      requires:
-        1: zlib/1.2.13#13c96f538b52e1600c40b88994de240f
-    zlib/1.2.13#13c96f538b52e1600c40b88994de240f:
-      ref: zlib/1.2.13#13c96f538b52e1600c40b88994de240f
-      id: 1
-      recipe: Cache
-      package_id: 6fe7fa69f760aee504e0be85c12b2327c716f9e7
-      prev: None
-      build_id: None
-      binary: Missing
-      invalid_build: False
-      url: https://github.com/conan-io/conan-center-index
-      license: Zlib
-      description: A Massively Spiffy Yet Delicately Unobtrusive Compression Library (Also Free, Not to Mention Unencumbered by Patents)
-      topics: ('zlib', 'compression')
-      homepage: https://zlib.net
-      revision_mode: hash
-      package_type: static-library
-      settings:
-        os: Macos
-        arch: x86_64
-        compiler: apple-clang
-        compiler.version: 14
-        build_type: Release
-      system_requires:
-      options:
-        fPIC: True
-        shared: False
-      recipe_folder: /Users/barbarian/.conan2/p/zlib9f370ca971ddf/e
-      source_folder: None
-      build_folder: None
-      package_folder: None
-      cpp_info:
-        root:
-          includedirs: ['include']
-          srcdirs: None
-          libdirs: ['lib']
-          resdirs: None
-          bindirs: ['bin']
-          builddirs: None
-          frameworkdirs: None
-          system_libs: None
-          frameworks: None
-          libs: None
-          defines: None
-          cflags: None
-          cxxflags: None
-          sharedlinkflags: None
-          exelinkflags: None
-          objects: None
-          sysroot: None
-          requires: None
-          properties: None
-      label: zlib/1.2.13
-      context: host
-      test: False
-      requires:
-
-:command:`conan graph info` builds the complete dependency graph, like :command:`conan install` does.
-The main difference is that it doesn't try to install or build the binaries, but the package recipes
-will be retrieved from remotes if necessary.
-
-It is very important to note that the :command:`conan graph info` command outputs the dependency graph for a
-given configuration (settings, options), as the dependency graph can be different for different
-configurations. This means that the input to the :command:`conan graph info` command
-is the same as :command:`conan install`, the configuration can be specified directly with settings and options, or using profiles.
-
-This allows to query the graph of a specific recipe by using the ``--requires`` flag.
-
 
 .. code-block:: text
 
@@ -455,6 +320,17 @@ This allows to query the graph of a specific recipe by using the ``--requires`` 
       requires:
 
 
+:command:`conan graph info` builds the complete dependency graph, like :command:`conan install` does.
+The main difference is that it doesn't try to install or build the binaries, but the package recipes
+will be retrieved from remotes if necessary.
+
+It is very important to note that the :command:`conan graph info` command outputs the dependency graph for a
+given configuration (settings, options), as the dependency graph can be different for different
+configurations. This means that the input to the :command:`conan graph info` command
+is the same as :command:`conan install`, the configuration can be specified directly with settings and options,
+or using profiles,and querying the graph of a specific recipe is possible by using the ``--requires`` flag as shown above.
+
+
 You can additionally filter the output, both by filtering by fields (``--filter``) and by package (``--filter-package``).
 For example, to get the options of zlib, the following command could be run:
 
@@ -472,19 +348,21 @@ For example, to get the options of zlib, the following command could be run:
         shared: False
 
 
-You can generate a graph of your dependencies, in ``dot`` or ``html`` formats:
+You can generate a graph of your dependencies in ``dot`` or ``html`` formats:
 
 .. code-block:: bash
 
-    $ conan graph info --require=binutils/2.38 -r=conancenter --format=dot
+    $ conan graph info --require=binutils/2.38 -r=conancenter --format=dot > graph.dot
 
-    ...
+Which generates the following file:
+
+.. code-block:: dot
+    :caption: **graph.dot**
 
     digraph {
             "cli" -> "binutils/2.38"
             "binutils/2.38" -> "zlib/1.2.13"
     }
-
 
 .. graphviz::
 
@@ -494,15 +372,12 @@ You can generate a graph of your dependencies, in ``dot`` or ``html`` formats:
     }
 
 
-
 .. note::
-    The generated *index.html* output file contains links to a third-party resource, the *vis.js* library (2 files: *vis.min.js*, *vis.min.css*).
-    By default they are retrieved from Cloudfare. However, for environments without internet connection, these files
-    could be also used from the local cache and installed with :command:`conan config install` by putting those
-    files in the root of the configuration folder:
+    If using ``format=html``, the generated html contains links to a third-party resource,
+    the *vis.js* library with 2 files: *vis.min.js*, *vis.min.css*.
+    By default they are retrieved from Cloudfare. However, for environments without internet connection,
+    you'll need to modify the template found in ``cli/formatters/graph/info_graph.html``
+    to point to a local version of these files:
 
-    - *vis.min.js*: Default link to "https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js"
-    - *vis.min.css*: Default link to "https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.css"
-
-    It is not necessary to modify the generated html file. Conan will automatically use the local paths to the cache files if
-    present, or the internet ones if not.
+    - *vis.min.js*: "https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js"
+    - *vis.min.css*: "https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.css"
