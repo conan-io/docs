@@ -188,7 +188,8 @@ remove unused versions or packages from it:
   }
 
 This behavior is very important to be able to capture multiple different configurations (Linux/Windows, shared/static,
-Debug/Release, etc) that might have different dependency graphs.
+Debug/Release, etc) that might have different dependency graphs. See the :ref:`lockfiles tutorial<tutorial_versioning_lockfiles>`,
+to read more about lockfiles for multiple configurations.
 
 If we want to trim unused versions and packages we can force it with the ``--lockfile-clean`` argument:
 
