@@ -3,24 +3,87 @@
 Define components for Conan packages that provide multiple libraries
 ====================================================================
 
-At the :ref:`section of the tutorial about the package_info()
-method<creating_packages_package_info>` we learned how to define the information in a
-package for consumers. Information like the library names or the include and library
-folders. For the tutorial we were creating a package with only one library, that was the
-one that consumers linked against. For some cases, libraries provide their functionalities
-separated into different *components*. Those components could be consumed indenpendently
-and in some cases they may require other components from the same library or others. Think
-for example in a library like OpenSSL that provides *libcrypto* and *libssl* and *libssl*
-depends on *libcrypto*.
+At the :ref:`section of the tutorial about the package_info() method
+<tutorial_creating_define_package_info>`, we learned how to define information in a package for
+consumers, such as library names or include and library folders. In the tutorial, we
+created a package with only one library that consumers linked to. However, in some cases,
+libraries provide their functionalities separated into different *components*. These
+components can be consumed independently, and in some cases, they may require other
+components from the same library or others. For example, consider a library like OpenSSL
+that provides *libcrypto* and *libssl*, where *libssl* depends on *libcrypto*.
 
-Conan provides a way to abstract this information using the ``components`` attribute of the
-``CppInfo`` object to define the information for each separate component of a Conan
-package. Also, consumers can select specific components to link against them but not the
-rest of the package.
+Conan provides a way to abstract this information using the `components` attribute of the
+`CppInfo` object to define the information for each separate component of a Conan package.
+Consumers can also select specific components to link against but not the rest of the
+package.
 
-Let's see an example of a game-engine library that provides several components like
-*algorithms*, *ai*, *rendering* and *network*. The *ai* and *rendering* both depend on the
-*algorithms* component.
+Let's take a game-engine library as an example, which provides several components such as
+*algorithms*, *ai*, *rendering*, and *network*. Both *ai* and *rendering* depend on the algorithms
+component.
 
-game-engine package
--------------------
+.. graphviz::
+    :caption: components of the game-engine package
+
+    digraph components {
+        node [fillcolor="lightskyblue", style=filled, shape=box]
+        algorithms -> ai;
+        algorithms -> rendering;
+        ai;
+        algorithms;
+        network;
+    }
+
+Please, first of all, clone the sources to recreate this project. You can find them in the
+`examples2.0 repository <https://github.com/conan-io/examples2>`_ in GitHub:
+
+.. code-block:: bash
+
+    $ git clone https://github.com/conan-io/examples2.git
+    $ cd examples2/examples/conanfile/package_info/components
+
+
+You can check the contents of the project:
+
+..  code-block:: text
+
+    .
+    ├── CMakeLists.txt
+    ├── conanfile.py
+    ├── include
+    │   ├── ai.h
+    │   ├── algorithms.h
+    │   ├── network.h
+    │   └── rendering.h
+    ├── src
+    │   ├── ai.cpp
+    │   ├── algorithms.cpp
+    │   ├── network.cpp
+    │   └── rendering.cpp
+    └── test_package
+        ├── CMakeLists.txt
+        ├── CMakeUserPresets.json
+        ├── conanfile.py
+        └── src
+            └── example.cpp
+
+As you can see there are the sources for each of the components and the CMakeLists.txt to
+build them. We also have a test_package that we are going to use to test consuming of the
+separate components.
+
+First, let's have a look at the conanfile.py and how we declared the information for each
+component that we want to provide to the consumers of the game-engine package.
+
+..  code-block:: python
+
+    def package_info(self):
+        self.cpp_info.components["algorithms"].libs = ["algorithms"]
+
+        self.cpp_info.components["network"].libs = ["network"]
+
+        self.cpp_info.components["ai"].libs = ["ai"]
+        self.cpp_info.components["ai"].requires = ["algorithms"]
+
+        self.cpp_info.components["rendering"].libs = ["rendering"]
+        self.cpp_info.components["rendering"].requires = ["algorithms"]
+
+Talk about target names:
