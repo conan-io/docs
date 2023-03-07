@@ -99,3 +99,6 @@ Note that we are also declaring the components' dependencies using the ``.requir
 attribute. With this attribute, you can declare requirements at the component level, not
 only for components in the same recipe but also for components from other packages that
 are declared as requires of the Conan package.
+
+You can have a look at the consumer part by checking the test_package. First the conanfile.py:
+
