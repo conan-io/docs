@@ -271,8 +271,8 @@ If your recipe is using CMake, you might want to use the ``cmake_layout(self)``:
 
 A typical anti-pattern in the recipes that can be solved with a ``layout()`` declaration would be:
 
-  .. code-block:: python
-     :caption: **From:**
+.. code-block:: python
+    :caption: **From:**
 
     from conans import ConanFile, tools
 
@@ -287,8 +287,8 @@ A typical anti-pattern in the recipes that can be solved with a ``layout()`` dec
                       destination=self._source_subfolder, strip_root=True)
 
 
-  .. code-block:: python
-     :caption: **To:**
+.. code-block:: python
+    :caption: **To:**
 
     from conan import ConanFile
     from conan.tools.layout import basic_layout
