@@ -32,7 +32,7 @@ conan lock add
 
 The ``conan lock add`` command is able to add a package version to an existing or new lockfile ``requires``, ``build_requires`` or ``python_requires``.
 
-For example, the following is able to create the following lockfile (by default, named ``conan.lock``):
+For example, the following is able to create a lockfile (by default, named ``conan.lock``):
 
 .. code-block:: bash
 
