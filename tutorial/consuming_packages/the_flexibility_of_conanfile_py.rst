@@ -340,6 +340,6 @@ Read more
 .. container:: examples
 
     - :ref:`Using "cmake_layout" + "CMakeToolchain" + "CMakePresets feature" to build your project<examples-tools-cmake-toolchain-build-project-presets>`.
+    - :ref:`Understanding the Conan Package layout<tutorial_package_layout>`.
     - Importing resource files in the generate() method
-    - Layouts advanced use
     - Conditional generators in configure()

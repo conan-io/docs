@@ -44,7 +44,9 @@ Let's check the relevant parts:
 
         def configure(self):
             if self.options.shared:
-                del self.options.fPIC
+                # If os=Windows, fPIC will have been removed in config_options()
+                # use rm_safe to avoid double delete errors
+                self.options.rm_safe("fPIC")
         ...
 
 
@@ -272,8 +274,7 @@ more detail.
 Read more
 ---------
 
-- :ref:`Header-only packages<creating_packages_other_header_only>`
-- compatibililty.py
-- package types
-- package id modes
-- ...
+- :ref:`Header-only packages<creating_packages_other_header_only>`.
+- Check the binary compatibility :ref:`compatibility.py extension <reference_extensions_binary_compatibility>`.
+- Conan :ref:`package types<reference_conanfile_attributes_package_type>`.
+- :ref:`Setting package_id_mode for requirements <reference_conanfile_methods_requirements_package_id_mode>`.

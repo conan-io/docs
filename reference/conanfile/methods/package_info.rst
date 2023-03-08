@@ -44,8 +44,8 @@ Each package has to specify certain build information for its consumers. This ca
     # Properties
     self.cpp_info.set_property("property_name", "property_value")
     # Structure
-    self.cpp_info.components = {} # Dictionary with the different components a package may have
-    self.cpp_info.requires = None  # List of components from requirements
+    self.cpp_info.components # Dictionary-like structure to define the different components a package may have
+    self.cpp_info.requires # List of components from requirements that need to be propagated downstream
 
 Binaries to link:
 
