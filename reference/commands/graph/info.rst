@@ -376,8 +376,10 @@ Which generates the following file:
     If using ``format=html``, the generated html contains links to a third-party resource,
     the *vis.js* library with 2 files: *vis.min.js*, *vis.min.css*.
     By default they are retrieved from Cloudfare. However, for environments without internet connection,
-    you'll need to modify the template found in ``cli/formatters/graph/info_graph.html``
+    you'll need to create a template for the file and place it in ``CONAN_HOME/templates/graph.html``.
     to point to a local version of these files:
 
     - *vis.min.js*: "https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js"
     - *vis.min.css*: "https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.css"
+
+    You can use the template found in ``cli/formatters/graph/info_graph.html`` as a basis for your own.
