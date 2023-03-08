@@ -144,9 +144,9 @@ does not exist. So, the CMakeLists.txt could look like this:
     add_executable(example src/example.cpp)
 
     target_link_libraries(example algorithms 
-                                network 
-                                ai 
-                                rendering)
+                                  network 
+                                  ai 
+                                  rendering)
 
 And the ``find_package()`` call would fail if any of the components target does not exist. 
 
@@ -207,9 +207,9 @@ the *nonexistent* component to the find_package() call:
     add_executable(example src/example.cpp)
 
     target_link_libraries(example algorithms 
-                                network 
-                                ai 
-                                rendering)
+                                  network 
+                                  ai 
+                                  rendering)
 
 And test the package again:
 
@@ -223,10 +223,7 @@ And test the package again:
     Call Stack (most recent call first):
     CMakeLists.txt:4 (find_package)
 
-
     -- Configuring incomplete, errors occurred!
-    See also "/Users/barbarian/Documents/developer/conan/examples2/examples/conanfile/package_info/components/test_package/build/apple-clang-14-x86_64-gnu17-release/CMakeFiles/CMakeOutput.log".
-    See also "/Users/barbarian/Documents/developer/conan/examples2/examples/conanfile/package_info/components/test_package/build/apple-clang-14-x86_64-gnu17-release/CMakeFiles/CMakeError.log".
 
     ...
 
