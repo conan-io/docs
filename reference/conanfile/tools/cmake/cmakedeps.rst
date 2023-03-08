@@ -165,6 +165,42 @@ Use the **build_context_build_modules** attribute to specify require names to in
     the two host and build profiles.
 
 
+check_components_exist
+++++++++++++++++++++++
+
+.. important::
+
+    This attribute is experimental and subject to breaking changes.
+
+This property is ``False`` by default. Use this property if you want to add a check when
+you require specifying components in the consumers' ``find_package()``. For example, if we
+are consuming a Conan package like Boost that declares several components. If we set the
+attribute to ``True``, the ``find_package()`` call of the consumer, will check that the
+required components exist and raise an error otherwise. You can set this attribute in the
+``generate()`` method:
+
+.. code-block:: python
+
+    requires = "boost/1.81.0"
+
+    ...
+
+    def generate(self):
+        deps = CMakeDeps(self)
+        deps.check_components_exist = True
+        deps.generate()
+
+Then, when consuming Boost the ``find_package()`` will raise an error as `fakecomp` does
+not exist:
+
+..  code-block:: text
+
+    cmake_minimum_required(VERSION 3.15)
+    ...
+    find_package(Boost COMPONENTS random regex fakecomp REQUIRED)
+    ...
+
+
 set_property()
 ++++++++++++++
 
