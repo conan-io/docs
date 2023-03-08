@@ -50,7 +50,7 @@ Now, you should be able to use the new deployer in both ``conan install`` and ``
 
 
 Inspecting the command output we can see that it copied the sources of our direct dependencies ``zlib`` and ``mcap``,
-**plus** the sources of our transitive dependencies, ``zstd``and ``lz4`` to a ``dependencies_sources`` folder.
+**plus** the sources of our transitive dependencies, ``zstd`` and ``lz4`` to a ``dependencies_sources`` folder.
 After this is done, extra preprocessing could be done to accomplish more specific needs.
 
 Code tour
