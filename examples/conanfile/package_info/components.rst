@@ -102,7 +102,7 @@ There are a couple of relevant things:
   components has some defaults defined, just like it does for
   :ref:`self.cpp_info<tutorial_creating_define_package_info>`. For example, the
   ``cpp_info.components`` object provides the ``.includedirs`` and ``.libdirs`` properties
-  to define those locations, but Conan sets their value as "lib" and "include" by default,
+  to define those locations, but Conan sets their value as ``["lib"]`` and ``["include"]`` by default,
   so it's not necessary to add them in this case.
 
 - We are also declaring the components' dependencies using the ``.requires`` attribute.
