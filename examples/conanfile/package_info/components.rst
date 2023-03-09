@@ -129,7 +129,7 @@ You can have a look at the consumer part by checking the *test_package* folder. 
         deps.generate()
 
 You can see that we are setting the :ref:`check_components_exist
-<conan_tools_cmakedeps_check_components_exist>`  property for CMakeDeps. This is not
+<conan_tools_cmakedeps_check_components_exist>` property for CMakeDeps. This is not
 needed, just to show how you can do if you want your consumers to fail if the component
 does not exist. So, the CMakeLists.txt could look like this:
 
