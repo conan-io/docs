@@ -18,7 +18,7 @@ Consumers can also select specific components to link against but not the rest o
 package.
 
 Let's take a game-engine library as an example, which provides several components such as
-*algorithms*, *ai*, *rendering*, and *network*. Both *ai* and *rendering* depend on the algorithms
+*algorithms*, *ai*, *rendering*, and *network*. Both *ai* and *rendering* depend on the *algorithms*
 component.
 
 .. graphviz::
