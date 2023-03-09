@@ -148,7 +148,7 @@ does not exist. So, the CMakeLists.txt could look like this:
                                   ai 
                                   rendering)
 
-And the ``find_package()`` call would fail if any of the components target does not exist. 
+And the ``find_package()`` call would fail if any of the components targets do not exist. 
 
 Let's run the example:
 
