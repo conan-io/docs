@@ -32,7 +32,7 @@ path_latest_v1 = Path(os.path.join(output_folder, latest_v1_folder))
 if path_latest_v1.exists():
     run(f"mkdir -p {output_folder}/en/latest")
     run(f"cp -R {output_folder}/{latest_v1_folder}/* {output_folder}/en/latest")
-    create_redirects(path_html=f"{output_folder}/en/latest", old_slug="en/latest", new_slug="1")
+    create_redirects(path_html=f"{output_folder}/en/latest", new_slug="1")
 
 # 2 folder is the same as the latest 2.X, copy the generated html files to 2 folder
 path_latest_v2 = Path(os.path.join(output_folder, latest_v2_version))
