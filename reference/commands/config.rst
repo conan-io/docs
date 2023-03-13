@@ -268,3 +268,73 @@ Displays all the Conan built-in configurations. There are 2 groups:
 .. seealso::
 
     - :ref:`Conan configuration files <reference_config_files>`
+
+
+conan config show
+-----------------
+.. code-block:: text
+
+    $ conan config show -h
+    usage: conan config show [-h] [-f FORMAT] [-v [V]] pattern
+
+    Get the value of the specified conf
+
+    positional arguments:
+      pattern               Conf item(s) pattern for which to query their value
+
+    optional arguments:
+      -h, --help            show this help message and exit
+      -f FORMAT, --format FORMAT
+                            Select the output format: json
+      -v [V]                Level of detail of the output. Valid options from
+                            less verbose to more verbose: -vquiet, -verror,
+                            -vwarning, -vnotice, -vstatus, -v or -vverbose, -vv
+                            or -vdebug, -vvv or -vtrace
+
+Shows the values of the conf items that match the given pattern.
+
+For a *global.conf* consisting of
+
+.. code-block:: text
+    tools.build:jobs=42
+    tools.files.download:retry_wait=10
+    tools.files.download:retry=7
+    core.net.http:timeout=30
+    core.net.http:max_retries=5
+    zlib*/:tools.files.download:retry_wait=100
+    zlib*/:tools.files.download:retry=5
+
+You can get all the values:
+
+.. code-block:: text
+
+    $ conan config show "*"
+
+    core.net.http:max_retries: 5
+    core.net.http:timeout: 30
+    tools.files.download:retry: 7
+    tools.files.download:retry_wait: 10
+    tools.build:jobs: 42
+    zlib*/:tools.files.download:retry: 5
+    zlib*/:tools.files.download:retry_wait: 100
+
+Or just those referring to the ``tools.files`` section:
+
+.. code-block:: text
+
+    $ conan config show "*tools.files*"
+
+    tools.files.download:retry: 7
+    tools.files.download:retry_wait: 10
+    zlib*/:tools.files.download:retry: 5
+    zlib*/:tools.files.download:retry_wait: 100
+
+Notice the first ``*`` in the pattern. This will match all the package patterns.
+Removing it will make the command only show global confs:
+
+.. code-block:: text
+
+    $ conan config show "tools.files*"
+
+    tools.files.download:retry: 7
+    tools.files.download:retry_wait: 10
