@@ -227,3 +227,60 @@ conan profile show
                             Configuration to build the package, overwriting the
                             defaults (host machine). e.g.: -c:h
                             tools.cmake.cmaketoolchain:generator=Xcode
+
+Use :command:`conan profile show` to compute the resulting build and host profiles from
+the command line arguments. For example, combining different options and settings with the
+default profile or with any other profile using the ``pr:b`` or ``pr:h`` arguments:
+
+.. code-block:: text
+    :emphasize-lines: 5,12
+    
+    $ conan profile show -s:h build_type=Debug -o:h shared=False
+    Host profile:
+    [settings]
+    arch=x86_64
+    build_type=Debug
+    compiler=apple-clang
+    compiler.cppstd=gnu17
+    compiler.libcxx=libc++
+    compiler.version=14
+    os=Macos
+    [options]
+    shared=False
+    [conf]
+
+
+    Build profile:
+    [settings]
+    arch=x86_64
+    build_type=Release
+    compiler=apple-clang
+    compiler.cppstd=gnu17
+    compiler.libcxx=libc++
+    compiler.version=14
+    os=Macos
+    [conf]
+
+It's also useful to show the result of the evaluation of :ref:`jinja2 templates in the
+profiles<reference_config_files_profiles_rendering>`. For example, a profile like this:
+
+..  code-block:: text
+    :caption: *myprofile*
+
+    [settings]
+    os = {{ {"Darwin": "Macos"}.get(platform.system(), platform.system()) }}
+
+Check the evaluated profile:
+
+..  code-block:: text
+
+    $ conan profile show -pr:h=myprofile     
+    Host profile:
+    [settings]
+    os=Macos
+    [conf]
+    ...
+
+.. seealso::
+
+    - Read more about :ref:`profiles<reference_config_files_profiles>`
