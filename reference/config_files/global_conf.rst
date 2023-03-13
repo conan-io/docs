@@ -151,6 +151,7 @@ and renders the template, which must result in a standard tools-configuration te
 
 
 The Python packages passed to render the template are ``os`` and ``platform`` for all platforms and ``distro`` in Linux platforms.
+Additionally, the variables ``conan_version`` and ``conan_home_folder`` are also available.
 
 
 Configuration data types
