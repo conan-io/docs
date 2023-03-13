@@ -31,6 +31,43 @@ conan profile detect
   to adapt to latest tools, latest versions, or other changes in the environment.
   See :ref:`the Conan stability<stability>` section for more information.
 
+You can create a new auto-detected profile for your configuration using:
+
+..  code-block:: text
+    :caption: *auto-detected profile*
+
+    $ conan profile detect
+    Found apple-clang 14.0
+    apple-clang>=13, using the major as version
+    Detected profile:
+    [settings]
+    arch=x86_64
+    build_type=Release
+    compiler=apple-clang
+    compiler.cppstd=gnu17
+    compiler.libcxx=libc++
+    compiler.version=14
+    os=Macos
+
+    WARN: This profile is a guess of your environment, please check it.
+    WARN: Defaulted to cppstd='gnu17' for apple-clang.
+    WARN: The output of this command is not guaranteed to be stable and can change in future Conan versions.
+    WARN: Use your own profile files for stability.
+    Saving detected profile to /Users/barbarians/.conan2/profiles/default
+
+
+Be aware that if the profile already exists you have to use ``--force`` to overwrite it. Otherwise it will 
+
+..  code-block:: text
+    :caption: *force overwriting already existing default profile*
+
+    $ conan profile detect
+    ERROR: Profile '/Users/carlosz/.conan2/profiles/default' already exists
+    $ conan profile detect --force
+    Found apple-clang 14.0
+    ...
+    Saving detected profile to /Users/carlosz/.conan2/profiles/default
+
 .. note::
 
     **Best practices**
@@ -58,6 +95,16 @@ conan profile list
                             verbose to more verbose: -vquiet, -verror, -vwarning,
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
                             -vvv or -vtrace
+
+..  code-block:: text
+    :caption: *force overwriting already existing default profile*
+
+    $ conan profile list
+    Profiles found in the cache:
+    default
+    ios_base
+    ios_simulator
+    clang_15
 
 
 conan profile path
