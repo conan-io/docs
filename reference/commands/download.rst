@@ -30,7 +30,39 @@ conan download
                             -vvv or -vtrace
       --only-recipe         Download only the recipe/s, not the binary packages.
       -p PACKAGE_QUERY, --package-query PACKAGE_QUERY
-                            Only upload packages matching a specific query. e.g:
+                            Only download packages matching a specific query. e.g:
                             os=Windows AND (arch=x86 OR compiler=gcc)
       -r REMOTE, --remote REMOTE
                             Download from this specific remote
+
+
+Downloads recipe and binaries to the local cache from the specified remote.
+
+.. note::
+
+  :command:`conan download` will download only the latest revision by default. If you want
+  to download more revisions other than the latest one you can use wildcards in the
+  revisions part of the reference pattern argument
+
+
+You can use patterns to download specific references just like in other commands like
+conan list or conan upload:
+
+  ..  code-block:: bash
+     
+      # download latest revision and packages for all openssl versions in foo remote
+      $ conan download "openssl/*" -r foo
+
+You may also just download recipes:
+
+  ..  code-block:: bash
+     
+      # download all recipe revisions for zlib/1.2.13
+      $ conan download "zlib/1.2.13#*" -r foo --only-recipe
+
+
+If you just want to download the packages belonging to a specific setting, use the ``--package-query`` argument:
+
+  .. code-block:: bash
+
+      $ conan download "zlib/1.2.13#*" -r foo --package-query="os=Linux and arch=x86" 
