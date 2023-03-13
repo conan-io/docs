@@ -296,6 +296,7 @@ Shows the values of the conf items that match the given pattern.
 For a *global.conf* consisting of
 
 .. code-block:: text
+
     tools.build:jobs=42
     tools.files.download:retry_wait=10
     tools.files.download:retry=7
