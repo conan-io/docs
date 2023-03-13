@@ -2,7 +2,9 @@
 
 node('Linux') {
 
-    boolean publishDocs = env.BRANCH_NAME.startsWith("release/2.")
+    String branch_name = env.BRANCH_NAME
+    // do not publish when the branch is a patch like release/2.0.1, just for minor release branches
+    boolean publishDocs = branch_name.startsWith("release/2.") && branch_name.count(".") == 1
     def targetBranch = env.CHANGE_TARGET ? env.CHANGE_TARGET : env.BRANCH_NAME
     
     // We also have to clone conan sources for the sphinx autodoc extension
