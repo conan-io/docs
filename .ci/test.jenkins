@@ -8,7 +8,8 @@ node('Linux') {
     def targetBranch = env.CHANGE_TARGET ? env.CHANGE_TARGET : env.BRANCH_NAME
     
     // We also have to clone conan sources for the sphinx autodoc extension
-    def conanBranch = targetBranch.startsWith("release/2.") ? targetBranch : 'develop2'
+    // consider only the minor for the Conan branch, we do not use patches
+    def conanBranch = targetBranch.startsWith("release/2.") ? "${targetBranch.split('\\.')[0]}.${targetBranch.split('\\.')[1]}" : 'develop2'
     def conan_repo_url = 'https://github.com/conan-io/conan.git'
 
     echo "Docs target branch: ${targetBranch}"
