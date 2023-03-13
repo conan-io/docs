@@ -38,7 +38,7 @@ Install Conan:
       If not using a **virtualenv** it is possible that conan dependencies will conflict with previously existing dependencies,
       especially if you are using Python for other purposes.
     - In **OSX**, especially the latest versions that may have **System Integrity Protection**, pip may fail. Try using virtualenvs, or
-      install with another user ``$ pip install --user conan``.
+      install it to the Python user install directory with ``$ pip install --user conan``.
     - Some Linux distros, such as Linux Mint, require a restart (shell restart, or logout/system if not enough) after
       installation, so Conan is found in the path.
 
@@ -46,7 +46,7 @@ Install Conan:
 Known installation issues with pip
 ++++++++++++++++++++++++++++++++++
 
-When Conan is installed with :command:`pip install --user <username>`, a new directory is usually created for it. However, the directory is not appended automatically to the `PATH` and the :command:`conan` commands do not work. This can usually be solved by restarting the session of the terminal or running the following command:
+When Conan is installed with :command:`pip install --user conan`, a new directory is usually created for it. However, the directory is not appended automatically to the `PATH` and the :command:`conan` commands do not work. This can usually be solved by restarting the session of the terminal or running the following command:
 
   .. code-block:: bash
 
