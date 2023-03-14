@@ -24,33 +24,24 @@ node('Linux') {
         sh(script: cloneConan)
     }
 
-    def image = null
-    stage('Build docker image') {
-        image = docker.build('conan-docs', '-f .ci/Dockerfile .')  // It should cache the image
-    }
+    def docsImage = docker.image("conanio/ci-docs")
 
-    stage('Test build') {
-        parallel html: {
-            image.inside {
+    docsImage.inside {
+        stage('Test build') {
+            parallel html: {
                 // for some reason even adding this to autodoc_mock_imports
                 // does not work, se we have to install the real dependency
                 sh(script: 'pip3 install colorama')
                 sh(script: 'make html')
-            }
-        },
-        pdf: {
-            image.inside {
+            },
+            pdf: {
                 sh(script: 'make latex')
-            }
-        },
-        spelling: {
-            image.inside {
+            },
+            spelling: {
                 sh(script: 'pip3 install colorama')
                 sh(script: 'make spelling')
-            }
-        },
-        linkcheck: {
-            image.inside {
+            },
+            linkcheck: {
                 catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE', message: 'Linkcheck failed! Please check links and fix broken ones.') {
                     sh(script: 'make linkcheck')
                 }
