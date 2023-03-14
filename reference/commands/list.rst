@@ -352,34 +352,8 @@ with the following structure:
 
 .. code-block:: text
 
-  $ conan list "zlib/1.2.12#*:*" --format=html
+  $ conan list "zlib/1.2.13#*:*#*" --format=html -c > list.html
 
 Here is the rendered generated HTML.
 
-.. raw:: html
-
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <title>conan list results</title>
-      <script>
-        var list_results = {"Local Cache": {"zlib/1.2.12": {"revisions": {"c2cd5ec484e443e4f01b51ff5370fd11": {"timestamp": 1665747741.12, "packages": {"6fe7fa69f760aee504e0be85c12b2327c716f9e7": {"info": {"settings": {"arch": "x86_64", "build_type": "Release", "compiler": "apple-clang", "compiler.version": "14", "os": "Macos"}, "options": {"fPIC": "True", "shared": "False"}}}}}, "0de8ff7f99079cd07341311c9ead89a2": {"timestamp": 1676913747.767964, "packages": {"6fe7fa69f760aee504e0be85c12b2327c716f9e7": {"info": {"settings": {"arch": "x86_64", "build_type": "Release", "compiler": "apple-clang", "compiler.version": "14", "os": "Macos"}, "options": {"fPIC": "True", "shared": "False"}}}}}}}}};
-        document.addEventListener("DOMContentLoaded", function () {
-          var divContainer = document.getElementById("showResults");
-          divContainer.innerHTML = JSON.stringify(list_results, null, 2);
-        });
-      </script>
-    </head>
-    <body>
-    <pre id="showResults"></pre>
-    </body>
-    <footer>
-      <p>
-        Conan <b>2.0.0</b>
-        <script>
-          document.write(new Date().getFullYear());
-        </script>
-        JFrog LTD. <a href="https://conan.io">https://conan.io</a>
-      </p>
-    </footer>
-  </html>
+.. image:: ../../images/conan-list-html.png
