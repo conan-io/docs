@@ -466,6 +466,8 @@ Running, for instance, :command:`conan install . -pr myprofile`, the configurati
     ...
 
 
+.. _reference_config_files_profiles_rendering:
+
 Profile rendering
 -----------------
 
