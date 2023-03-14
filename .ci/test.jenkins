@@ -9,29 +9,20 @@ node('Linux') {
         checkout scm
     }
 
-    def image = null
-    stage('Build docker image') {
-        image = docker.build('conan-docs', '-f .ci/Dockerfile .')  // It should cache the image
-    }
+    def docsImage = docker.image("conanio/ci-docs")
 
-    stage('Test build') {
-        parallel html: {
-            image.inside {
+    docsImage.inside {
+        stage('Test build') {
+            parallel html: {
                 sh 'make html'
-            }
-        },
-        pdf: {
-            image.inside {
+            },
+            pdf: {
                 sh 'make latex'
-            }
-        },
-        spelling: {
-            image.inside {
+            },
+            spelling: {
                 sh 'make spelling'
-            }
-        },
-        linkcheck: {
-            image.inside {
+            },
+            linkcheck: {
                 def status = sh(returnStatus: true, script: 'make linkcheck | tee links_output.txt')
                 sh 'cat links_output.txt'
                 if (status != 0) {
@@ -41,7 +32,7 @@ node('Linux') {
                     def summary = "${subject}\n```\n${broken_links}\n```"
                     slackSend (color: '#FF0000', message: summary)
                 }
-            }
+            } 
         }
     }
 
