@@ -133,8 +133,8 @@ the package has been created correctly. Check :ref:`testing Conan packages
 
 .. tip::
 
-    Sometimes you want to **skip/disable test stage**. In that case you can skip/disable
-    the test package stage passing an empty value as the ``-tf`` argument:
+    Sometimes you want to **skip/disable the test stage**. In that case you can skip/disable
+    the test package stage by passing an empty value as the ``-tf`` argument:
 
     .. code-block:: bash
 
