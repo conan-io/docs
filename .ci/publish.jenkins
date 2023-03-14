@@ -28,6 +28,8 @@ try {
 
         checkout scm
 
+        sh(script: 'docker pull conanio/ci-docs')
+
         def docsImage = docker.image("conanio/ci-docs")
 
         stage('Prepare sources as worktrees') {        
