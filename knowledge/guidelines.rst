@@ -19,12 +19,13 @@ Good practices
   Only CI builds have write permissions in the server. Developers should only have read permissions and 
   at most to some "playground" repositories used to work and share things with colleagues,
   but which packages are never used, moved or copied to the development or production repositories.
-- The ``test_package`` purpose is to check that the package has been correctly created (that is, 
+- **The test_package purpose is to validate the correct creation of the package, not for functional testing**. The ``test_package`` purpose is to check that the package has been correctly created (that is, 
   that it has correctly packaged the headers, the libraries, etc, in the right folders), not that
   the functionality of the package is correct. Then, it should be kept as simple as possible, like
   building and running an executable that uses the headers and links against a packaged library
   should be enough. Such execution should be as simple as possible too. Any kind of 
   unit and functional tests should be done in the ``build()`` method.
+- **All input sources must be common for all binary configurations**: All the "source" inputs, including the ``conanfile.py``, the ``conandata.yml``, the ``exports`` and ``exports_source``, the ``source()`` method, patches applied in the ``source()`` method, cannot be conditional to anything, platform, OS or compiler, as they are shared among all configurations. Furthermore, the line endings for all these things should be the same, it is recommended to use always just line-feeds in all platforms, and do not convert or checkout to ``crlf`` in Windows, as that will cause different recipe revisions.
 - **Keep ``python_requires`` as simple as possible**. Avoid transitive ``python_requires``, keep them
   as reduced as possible, and at most, require them explicitly in a "flat" structure, without
   ``python_requires`` requiring other ``python_requires``. Avoid inheritance (via ``python_requires_extend``)
@@ -47,6 +48,7 @@ Forbidden practices
   executed as a result of a Conan invocation. For the same reason **Conan Python API cannot be used from recipes**: The Conan Python API can only be called from Conan custom commands or from user Python scripts, 
   but never from ``conanfile.py`` recipes, hooks, extensions, plugins, or any other code
   executed by Conan.
+- **Settings and configration (conf) are read-only in recipes**: The settings and configuration cannot be defined or assigned values in recipes. Something like ``self.settings.compiler = "gcc"`` in recipes shouldn't be done. That is undefined behavior and can crash at any time, or just be ignored. Settings and configuration can only be defined in profiles, in command line arguments or in the ``profile.py`` plugin.
 - **Recipes reserved names**: Conan ``conanfile.py`` recipes user attributes and methods should always start with ``_``.
   Conan reserves the "public" namespace for all attributes and methods, and ``_conan`` for
   private ones. Using any non-documented Python function, method, class, attribute, even if
