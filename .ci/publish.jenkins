@@ -27,11 +27,10 @@ try {
         echo "Generating docs for ${branches}"
 
         checkout scm
-        def image = null
-        stage('Build docker image') {
-            // Build the docker image using the same commit as the current 'publish.jenkins' file
-            image = docker.build('conan-docs', '-f .ci/Dockerfile .')  // It should cache the image
-        }
+
+        sh(script: 'docker pull conanio/ci-docs')
+
+        def docsImage = docker.image("conanio/ci-docs")
 
         stage('Prepare sources as worktrees') {        
             String branch_argument = ""
@@ -48,20 +47,20 @@ try {
         def number_of_parallel_blocks = (branches.size()<10) ? 1 : 2
         def branches_blocks = branches.collate(branches.size().intdiv(number_of_parallel_blocks))
 
-        for (branches_block in branches_blocks) {
-            Map parallelJobs = [:]
-            println("New block ${branches_block}")
-            branches_block.each { branch ->
-                parallelJobs[branch] = {
-                    echo "Run parallel job for ${branch}"
-                    image.inside {
+        docsImage.inside {
+            for (branches_block in branches_blocks) {
+                Map parallelJobs = [:]
+                println("New block ${branches_block}")
+                branches_block.each { branch ->
+                    parallelJobs[branch] = {
+                        echo "Run parallel job for ${branch}"
                         sh(script: "python .ci/scripts/generate_documentation.py --sources-folder=${sources_folder} --branch=${branch} --with-pdf")
                     }
                 }
-            }
-            stage('Generate docs parallel block') {
-                parallelJobs.failFast = true
-                parallel parallelJobs
+                stage('Generate docs parallel block') {
+                    parallelJobs.failFast = true
+                    parallel parallelJobs
+                }
             }
         }
 
