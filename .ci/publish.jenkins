@@ -45,20 +45,20 @@ try {
         def number_of_parallel_blocks = (branches.size()<10) ? 1 : 2
         def branches_blocks = branches.collate(branches.size().intdiv(number_of_parallel_blocks))
 
-        for (branches_block in branches_blocks) {
-            Map parallelJobs = [:]
-            println("New block ${branches_block}")
-            branches_block.each { branch ->
-                parallelJobs[branch] = {
-                    echo "Run parallel job for ${branch}"
-                    docsImage.inside {
+        docsImage.inside {
+            for (branches_block in branches_blocks) {
+                Map parallelJobs = [:]
+                println("New block ${branches_block}")
+                branches_block.each { branch ->
+                    parallelJobs[branch] = {
+                        echo "Run parallel job for ${branch}"
                         sh(script: "python .ci/scripts/generate_documentation.py --sources-folder=${sources_folder} --branch=${branch} --with-pdf")
                     }
                 }
-            }
-            stage('Generate docs parallel block') {
-                parallelJobs.failFast = true
-                parallel parallelJobs
+                stage('Generate docs parallel block') {
+                    parallelJobs.failFast = true
+                    parallel parallelJobs
+                }
             }
         }
 
