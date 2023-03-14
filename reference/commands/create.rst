@@ -123,3 +123,35 @@ The ``conan create`` command creates a package from the recipe specified in ``pa
 
   The json output of the ``conan create --format=json`` is **experimental** and subject to
   change.
+
+
+This command will first ::comnand::`export` the recipe to the local cache and then build
+and create the package. If a ``test_package`` folder (you can change the folder name with
+the ``-tf`` argument) is found, the command will run the consumer project to ensure that
+the package has been created correctly. Check :ref:`testing Conan packages
+<tutorial_creating_test>` section to know more about how to test your Conan packages.
+
+.. tip::
+
+    Sometimes you want to **skip/disable the test stage**. In that case you can skip/disable
+    the test package stage by passing an empty value as the ``-tf`` argument:
+
+    .. code-block:: bash
+
+        $ conan create . --test-folder=
+
+Using conan create with build requirements
+------------------------------------------
+
+The ``--build-require`` argument allows to create the package using the configuration and
+settings of the "build" context, as it was a ``build_require``. This feature allows to
+create packages in a way that is consistent with the way they will be used later. 
+
+.. code-block:: bash
+
+    $ conan create . --name=cmake --version=3.23.1 --build-require  
+
+.. seealso::
+
+    - Read more about creating packages in the :ref:`dedicated
+      tutorial<tutorial_creating_packages>`
