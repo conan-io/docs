@@ -21,9 +21,11 @@ node('Linux') {
         sh(script: cloneConan)
     }
 
+    def docsImage = docker.image("conanio/ci-docs")
+
     stage('Test build') {
         parallel html: {
-            docker.image.inside("conanio/ci-docs") {
+            docsImage.inside {
                 // for some reason even adding this to autodoc_mock_imports
                 // does not work, se we have to install the real dependency
                 sh(script: 'pip3 install colorama')
@@ -31,18 +33,18 @@ node('Linux') {
             }
         },
         pdf: {
-            docker.image.inside("conanio/ci-docs") {
+            docsImage.inside {
                 sh(script: 'make latex')
             }
         },
         spelling: {
-            docker.image.inside("conanio/ci-docs") {
+            docsImage.inside {
                 sh(script: 'pip3 install colorama')
                 sh(script: 'make spelling')
             }
         },
         linkcheck: {
-            docker.image.inside("conanio/ci-docs") {
+            docsImage.inside {
                 catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE', message: 'Linkcheck failed! Please check links and fix broken ones.') {
                     sh(script: 'make linkcheck')
                 }
