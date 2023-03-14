@@ -56,7 +56,7 @@ You can create a new auto-detected profile for your configuration using:
     Saving detected profile to /Users/barbarians/.conan2/profiles/default
 
 
-Be aware that if the profile already exists you have to use ``--force`` to overwrite it. Otherwise it will 
+Be aware that if the profile already exists you have to use ``--force`` to overwrite it. Otherwise it will fail
 
 ..  code-block:: text
     :caption: *force overwriting already existing default profile*
