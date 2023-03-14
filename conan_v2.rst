@@ -23,10 +23,10 @@ If you want to migrate to 2.0, there are several things you will need to change:
   - **General changes** not related to the recipes nor the Conan commands, "build profiles", lowercase references... etc.
 
 
-.. notice::
+.. note::
 
-    There are already lots of recipes prepared for v2, some of them with generated binaries, in conancenter, follow the
-    `Conan 2.0 and ConanCenter Support thread <https://conan.io/cci-v2.html>`_ for more information.
+    There are already lots of recipes prepared for v2, some of them with generated binaries, in `ConanCenter <https://conan.io/center>`_,
+    follow the `Conan 2.0 and ConanCenter Support thread <https://conan.io/cci-v2.html>`_ for more information.
 
 .. toctree::
    :maxdepth: 2
