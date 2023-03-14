@@ -145,7 +145,7 @@ Using conan create with build requirements
 
 The ``--build-require`` argument allows to create the package using the configuration and
 settings of the "build" context, as it was a ``build_require``. This feature allows to
-create packages in a way that is consistent to the way they will be used later. 
+create packages in a way that is consistent with the way they will be used later. 
 
 .. code-block:: bash
 
