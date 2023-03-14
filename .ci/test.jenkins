@@ -9,29 +9,26 @@ node('Linux') {
         checkout scm
     }
 
-    def image = null
-    stage('Build docker image') {
-        image = docker.build('conan-docs', '-f .ci/Dockerfile .')  // It should cache the image
-    }
+    def docsImage = docker.image("conanio/ci-docs")
 
     stage('Test build') {
         parallel html: {
-            image.inside {
+            docsImage.inside {
                 sh 'make html'
             }
         },
         pdf: {
-            image.inside {
+            docsImage.inside {
                 sh 'make latex'
             }
         },
         spelling: {
-            image.inside {
+            docsImage.inside {
                 sh 'make spelling'
             }
         },
         linkcheck: {
-            image.inside {
+            docsImage.inside {
                 def status = sh(returnStatus: true, script: 'make linkcheck | tee links_output.txt')
                 sh 'cat links_output.txt'
                 if (status != 0) {

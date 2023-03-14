@@ -27,11 +27,8 @@ try {
         echo "Generating docs for ${branches}"
 
         checkout scm
-        def image = null
-        stage('Build docker image') {
-            // Build the docker image using the same commit as the current 'publish.jenkins' file
-            image = docker.build('conan-docs', '-f .ci/Dockerfile .')  // It should cache the image
-        }
+
+        def docsImage = docker.image("conanio/ci-docs")
 
         stage('Prepare sources as worktrees') {        
             String branch_argument = ""
@@ -54,7 +51,7 @@ try {
             branches_block.each { branch ->
                 parallelJobs[branch] = {
                     echo "Run parallel job for ${branch}"
-                    image.inside {
+                    docsImage.inside {
                         sh(script: "python .ci/scripts/generate_documentation.py --sources-folder=${sources_folder} --branch=${branch} --with-pdf")
                     }
                 }
