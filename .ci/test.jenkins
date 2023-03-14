@@ -11,35 +11,27 @@ node('Linux') {
 
     def docsImage = docker.image("conanio/ci-docs")
 
-    stage('Test build') {
+    docsImage.inside {
         parallel html: {
-            docsImage.inside {
-                sh 'make html'
-            }
+            sh 'make html'
         },
         pdf: {
-            docsImage.inside {
-                sh 'make latex'
-            }
+            sh 'make latex'
         },
         spelling: {
-            docsImage.inside {
-                sh 'make spelling'
-            }
+            sh 'make spelling'
         },
         linkcheck: {
-            docsImage.inside {
-                def status = sh(returnStatus: true, script: 'make linkcheck | tee links_output.txt')
-                sh 'cat links_output.txt'
-                if (status != 0) {
-                    def broken_links = sh(returnStdout: true , script: 'cat links_output.txt | grep broken')
-                    echo "Broken Links: \n ${broken_links}"
-                    def subject = "Broken links in `conan-io/docs`: ${env.BUILD_URL}"
-                    def summary = "${subject}\n```\n${broken_links}\n```"
-                    slackSend (color: '#FF0000', message: summary)
-                }
+            def status = sh(returnStatus: true, script: 'make linkcheck | tee links_output.txt')
+            sh 'cat links_output.txt'
+            if (status != 0) {
+                def broken_links = sh(returnStdout: true , script: 'cat links_output.txt | grep broken')
+                echo "Broken Links: \n ${broken_links}"
+                def subject = "Broken links in `conan-io/docs`: ${env.BUILD_URL}"
+                def summary = "${subject}\n```\n${broken_links}\n```"
+                slackSend (color: '#FF0000', message: summary)
             }
-        }
+        } 
     }
 
     if (publishDocs) {
