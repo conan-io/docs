@@ -4,12 +4,14 @@
 Conan migration guide to 2.0
 ============================
 
-Conan 2.0.0 `is already released <https://pypi.org/project/conan/#history>`_, you can
-install the latest Conan version from PyPI doing:
+.. tip::
 
-    .. code-block:: bash
+    Conan 2.0 `is already released <https://pypi.org/project/conan/#history>`_, you can
+    install the latest Conan version from PyPI doing:
 
-        $ pip install conan
+        .. code-block:: bash
+
+            $ pip install conan
 
 
 If you want to migrate to 2.0, there are several things you will need to change:
@@ -20,11 +22,11 @@ If you want to migrate to 2.0, there are several things you will need to change:
     the more relevant changes.
   - **General changes** not related to the recipes nor the Conan commands, "build profiles", lowercase references... etc.
 
-If you are looking for precompiled binaries, there is a very short list in a separate remote which can be added (please, check the `Conan 2.0 documentation <https://docs.conan.io/en/2.0/index.html>`_ for more information)
 
-    .. code-block:: bash
+.. note::
 
-      $ conan remote add conanv2 https://conanv2beta.jfrog.io/artifactory/api/conan/conan --index 0
+    There are already lots of recipes prepared for v2, some of them with generated binaries, in `ConanCenter <https://conan.io/center>`_,
+    follow the `Conan 2.0 and ConanCenter Support thread <https://conan.io/cci-v2.html>`_ for more information.
 
 .. toctree::
    :maxdepth: 2
