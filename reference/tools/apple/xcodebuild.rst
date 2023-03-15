@@ -53,7 +53,7 @@ Where:
   account** that for this case the skd located in that path should set your ``os.sdk`` and
   ``os.sdk_version`` settings values.
 - ``verbosity`` is the verbosity level for the build and can take value 'verbose' or
-  'quiet' if set by ``tools.apple.xcodebuild:verbosity`` in your **[conf]**
+  'quiet' if set by ``tools.build:verbosity`` by mapping the conf's possible values from your **[conf]**
 
 conf
 ++++

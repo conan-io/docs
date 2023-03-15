@@ -83,8 +83,8 @@ Should be only filled in the ``package_info()`` method.
         name = "pkg"
 
         def package_info(self):
-            self.conf_info.define("tools.microsoft.msbuild:verbosity", "Diagnostic")
-            self.conf_info.get("tools.microsoft.msbuild:verbosity")  # == "Diagnostic"
+            self.conf_info.define("tools.build:verbosity", "debug")
+            self.conf_info.get("tools.build:verbosity")  # == "debug"
             self.conf_info.append("user.myconf.build:ldflags", "--flag3")  # == ["--flag1", "--flag2", "--flag3"]
             self.conf_info.update("tools.microsoft.msbuildtoolchain:compile_options", {"ExpandAttributedSource": "false"})
             self.conf_info.unset("tools.microsoft.msbuildtoolchain:compile_options")
