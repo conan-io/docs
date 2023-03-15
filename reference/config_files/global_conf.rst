@@ -57,7 +57,6 @@ To list all the possible configurations available, run :command:`conan config li
     core:non_interactive: Disable interactive user input, raises error if input necessary
     core:required_conan_version: Raise if current version does not match the defined range.
     tools.android:ndk_path: Argument for the CMAKE_ANDROID_NDK
-    tools.apple.xcodebuild:verbosity: Verbosity level for xcodebuild: 'verbose' or 'quiet
     tools.apple:enable_arc: (boolean) Enable/Disable ARC Apple Clang flags
     tools.apple:enable_bitcode: (boolean) Enable/Disable Bitcode Apple Clang flags
     tools.apple:enable_visibility: (boolean) Enable/Disable Visibility Apple Clang flags
@@ -74,6 +73,7 @@ To list all the possible configurations available, run :command:`conan config li
     tools.build:sharedlinkflags: List of extra flags used by CMakeToolchain for CMAKE_SHARED_LINKER_FLAGS_INIT variable
     tools.build:skip_test: Do not execute CMake.test() and Meson.test() when enabled
     tools.build:sysroot: Pass the --sysroot=<tools.build:sysroot> flag if available. (None by default)
+    tools.build:verbosity: Verbosity of MSBuild and XCodeBuild build systems. Possible values are 'quiet', 'error', 'warning', 'notice', 'status', 'verbose', 'normal', 'debug', 'v', 'trace' and 'vv'
     tools.cmake.cmake_layout:build_folder_vars: Settings and Options that will produce a different build folder and different CMake presets names
     tools.cmake.cmaketoolchain:find_package_prefer_config: Argument for the CMAKE_FIND_PACKAGE_PREFER_CONFIG
     tools.cmake.cmaketoolchain:generator: User defined CMake generator to use instead of default
@@ -103,7 +103,6 @@ To list all the possible configurations available, run :command:`conan config li
     tools.microsoft.bash:subsystem: The subsystem to be used when conanfile.win_bash==True. Possible values: msys2, msys, cygwin, wsl, sfu
     tools.microsoft.msbuild:installation_path: VS install path, to avoid auto-detect via vswhere, like C:/Program Files (x86)/Microsoft Visual Studio/2019/Community. Use empty string to disable
     tools.microsoft.msbuild:max_cpu_count: Argument for the /m when running msvc to build parallel projects
-    tools.microsoft.msbuild:verbosity: Verbosity level for MSBuild: 'Quiet', 'Minimal', 'Normal', 'Detailed', 'Diagnostic'
     tools.microsoft.msbuild:vs_version: Defines the IDE version when using the new msvc compiler
     tools.microsoft.msbuilddeps:exclude_code_analysis: Suppress MSBuild code analysis for patterns
     tools.microsoft.msbuildtoolchain:compile_options: Dictionary with MSBuild compiler options
@@ -123,7 +122,7 @@ Tools and user configurations can be defined in both the *global.conf* file and
 .. code-block:: text
     :caption: *global.conf*
 
-    tools.microsoft.msbuild:verbosity=Diagnostic
+    tools.build:verbosity=debug
     tools.microsoft.msbuild:max_cpu_count=2
     tools.microsoft.msbuild:vs_version = 16
     tools.build:jobs=10
@@ -163,7 +162,7 @@ All the values will be interpreted by Conan as the result of the python built-in
 .. code-block:: text
 
     # String
-    tools.microsoft.msbuild:verbosity=Diagnostic
+    tools.build:verbosity=debug
     # Boolean
     tools.system.package_manager:sudo=True
     # Integer
