@@ -6,7 +6,7 @@ Conan migration guide to 2.0
 
 .. tip::
 
-    Conan 2.0.0 `is already released <https://pypi.org/project/conan/#history>`_, you can
+    Conan 2.0 `is already released <https://pypi.org/project/conan/#history>`_, you can
     install the latest Conan version from PyPI doing:
 
         .. code-block:: bash
