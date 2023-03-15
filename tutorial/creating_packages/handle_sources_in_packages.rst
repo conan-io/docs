@@ -237,7 +237,7 @@ Read more
 ---------
 
 - :ref:`Patching sources<examples_tools_files_patches>`
-- Advanced git repository handling (implement the "scm feature")
+- :ref:`Capturing Git SCM source information<examples_tools_scm_git_capture>` instead of copying sources with ``exports_sources``.
 - ...
 
 .. seealso::
