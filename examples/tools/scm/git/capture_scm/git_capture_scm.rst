@@ -8,7 +8,7 @@ There are 2 main strategies to handle source code in recipes:
 - **Third-party code**: When the ``conanfile.py`` recipe is packaging third party code, like an open source library, it is typically better to use the ``source()`` method to download or clone the sources of that library. This is the approach followed by the ``conan-center-index`` repository for ConanCenter.
 - **Your own code**: When the ``conanfile.py`` recipe is packaging your own code, it is typically better to have the ``conanfile.py`` in the same repository as the sources. Then, there are 2 alternatives for achieving reproducibility:
 
-  - Using the ``exports_sources`` (or ``export_source()`` method) to capture a copy of the sources together with the recipe in the Conan package. This is very simple and pragmatic and would be recommended for majority of cases.
+  - Using the ``exports_sources`` (or ``export_source()`` method) to capture a copy of the sources together with the recipe in the Conan package. This is very simple and pragmatic and would be recommended for the majority of cases.
   - For cases when it is not possible to store the sources beside the Conan recipe, for example when the package is to be consumed for someone that shouldn't have access to the source code at all, then the current **scm capture** method would be the way.
 
 
