@@ -50,7 +50,7 @@ Let's have a look at the *main.c* file:
         char buffer_in [256] = {"Conan is a MIT-licensed, Open Source package manager for C and C++ development "
                                 "for C and C++ development, allowing development teams to easily and efficiently "
                                 "manage their packages and dependencies across platforms and build systems."};
-        char buffer_out [256] = {0};
+        unsigned char buffer_out [256] = {0};
 
         z_stream defstream;
         defstream.zalloc = Z_NULL;
@@ -65,8 +65,8 @@ Let's have a look at the *main.c* file:
         deflate(&defstream, Z_FINISH);
         deflateEnd(&defstream);
 
-        printf("Uncompressed size is: %lu\n", strlen(buffer_in));
-        printf("Compressed size is: %lu\n", strlen(buffer_out));
+        printf("Uncompressed size is: %zu\n", strlen(buffer_in));
+        printf("Compressed size is: %lu\n", defstream.total_out);
 
         printf("ZLIB VERSION: %s\n", zlibVersion());
 
