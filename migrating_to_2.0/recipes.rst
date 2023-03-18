@@ -618,7 +618,7 @@ Example:
    :caption: **To:**
 
     import os
-    from conans import ConanFile
+    from conan import ConanFile
 
     class Pkg(ConanFile):
         name = "pkg"
@@ -633,7 +633,7 @@ In a consumer recipe:
 .. code-block:: python
 
     import os
-    from conans import ConanFile
+    from conan import ConanFile
 
     class Pkg(ConanFile):
         requires = "pkg/1.0"
