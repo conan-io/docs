@@ -212,6 +212,8 @@ the *test_package*.
 As you can see both the tests for the library and the Conan *test_package* linked against
 the *libhello-static.a* library successfully.
 
+.. _tutorial_creating_define_package_info_properties:
+
 Properties model: setting information for specific generators
 -------------------------------------------------------------
 
