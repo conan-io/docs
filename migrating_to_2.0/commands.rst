@@ -136,8 +136,8 @@ There are some examples:
     conan install . -s zlib/*:arch=x86 -o zlib/*:shared=True
     conan install . -s zlib/1.2.11@user/channel:arch=x86 -o zlib/1.2.11:shared=True
 
-Commands with have been removed
--------------------------------
+Commands which have been removed
+--------------------------------
 
 Removed "conan package"
 ^^^^^^^^^^^^^^^^^^^^^^^
