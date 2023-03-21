@@ -20,6 +20,7 @@ Assuming we have a ``base/1.1`` recipe:
     class PyReq(ConanFile):
         name = "base"
         version = "1.1"
+        package_type = "python-require"
 
 
 We could reuse and inherit from it with:
@@ -42,6 +43,46 @@ We could reuse and inherit from it with:
 
 
 The final ``Pkg`` conanfile will have both ``os`` and ``arch`` as settings, and ``MyLicense`` as license.
+
+To extend the ``options`` of the base class, it is necessarry to call the ``self.options.update()`` method:
+
+
+.. code-block:: python
+    :caption: base/conanfile.py
+
+    from conan import ConanFile
+
+    class BaseConan:
+        options = {"base": [True, False]}
+        default_options = {"base": True}
+
+    class PyReq(ConanFile):
+        name = "base"
+        version = "1.0.0"
+        package_type = "python-require"
+
+
+When the ``init()`` is called, the ``self.options`` object is already initialized. Then, updating the
+``self.default_options`` is useless, and it is necessary to update the ``self.options`` with both the
+base class options and the base class default options values:
+
+.. code-block:: python
+    :caption: pkg/conanfile.py
+
+    from conan import ConanFile
+
+    class DerivedConan(ConanFile):
+        name = "derived"
+        python_requires = "base/1.0.0"
+        python_requires_extend = "base.BaseConan"
+        options = {"derived": [True, False]}
+        default_options = {"derived": False}
+
+        def init(self):
+            base = self.python_requires["base"].module.BaseConan
+            # Note we pass the base options and default_options
+            self.options.update(base.options, base.default_options) 
+
 
 This method can also be useful if you need to unconditionally initialize class attributes like
 ``license`` or ``description`` or any other from datafiles other than
