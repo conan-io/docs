@@ -87,7 +87,7 @@ please create a folder outside of the ``examples2`` repository, and copy the con
 
 Let's explain step by step what is happening:
 
-- When the recipe is exported to the Conan cache, the ``export()`` method executes, running ``scm_url, scm_commit = git.get_url_and_commit()``. See the :ref:`Git reference<_conan_tools_scm_git>` for more information about these methods.
+- When the recipe is exported to the Conan cache, the ``export()`` method executes, running ``scm_url, scm_commit = git.get_url_and_commit()``. See the :ref:`Git reference<conan_tools_scm_git>` for more information about these methods.
 - This obtains the URL of the repo pointing to the local ``<local-path>/capture_scm`` and the commit ``8e8764c40bebabbe3ec57f9a0816a2c8e691f559``
 - It warns that this information will **not** be enough to re-build from source this recipe once the package is uploaded to the server and is tried to be built from source in other computer, which will not contain the path pointed by ``<local-path>/capture_scm``. This is expected, as the repository that we created doesn't have any remote defined. If our local clone had a remote defined and that remote contained the ``commit`` that we are building, the ``scm_url`` would point to the remote repository instead, making the build from source fully reproducible.
 - The ``export()`` method stores the ``url`` and ``commit`` information in the ``conandata.yml`` for future reproducibility.
