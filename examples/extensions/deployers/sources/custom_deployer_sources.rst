@@ -78,3 +78,11 @@ deploy()
 The ``deploy()`` method is called by Conan, and gets both a dependency graph and an output folder path as arguments.
 It iterates all the dependencies of our recipe and copies every source file to their respective folders
 under ``dependencies_sources`` using :ref:`conan.tools.copy<conan_tools_files_copy>`.
+
+
+.. note::
+
+    If you're using this deployer as an example for your own, remember that
+    ``tools.build:download_source=True`` is necessary so that ``dep.folders.source_folder`` is defined for the dependencies.
+    Without the conf, said variable will not be defined for those dependencies that do not need to be built from sources
+    nor in those commands that do not require building, such as :command:`conan graph`.
