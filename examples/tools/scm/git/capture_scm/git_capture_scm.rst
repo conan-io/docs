@@ -12,7 +12,7 @@ There are 2 main strategies to handle source code in recipes:
   - For cases when it is not possible to store the sources beside the Conan recipe, for example when the package is to be consumed for someone that shouldn't have access to the source code at all, then the current **scm capture** method would be the way.
 
 
-In the **scm capture** method, instead of capturing a copy of the code itself, the "coordinates" for that code are captured instead, in the ``Git`` case, the ``url`` of the repository and the ``commit``. If the recipe needs to build from source, it will use that information to get a clone, and if the user that tries that is not authorized, the process will fail. They will still be able to use the pre-compiled binaries that we distribute, but not build from source or have access to the code.
+In the **scm capture** method, instead of capturing a copy of the code itself, the "coordinates" for that code are captured instead, in the ``Git`` case, the ``url`` of the repository and the ``commit``. If the recipe needs to build from source, it will use that information to get a clone, and if the user who tries that is not authorized, the process will fail. They will still be able to use the pre-compiled binaries that we distribute, but not build from source or have access to the code.
 
 Let's see how it works with an example. Please, first clone the sources to recreate this project. You can find them in the
 `examples2.0 repository <https://github.com/conan-io/examples2>`_ on GitHub:
