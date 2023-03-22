@@ -62,7 +62,7 @@ There we will find a small "hello" project, containing this ``conanfile.py``:
 
 
 We need this code to be in its own Git repository, to see how it works in the real case, so
-please create a folder outside of the ``examples2`` repository, and copy there the contents of the current folder, then:
+please create a folder outside of the ``examples2`` repository, and copy the contents of the current folder there, then:
 
 .. code-block:: text
 
