@@ -87,7 +87,7 @@ please create a folder outside of the ``examples2`` repository, and copy the con
 
 Let's explain step by step what is happening:
 
-- When the recipe is exported to the Conan cache, the ``export()`` method executes, running ``scm_url, scm_commit = git.get_url_and_commit()``.
+- When the recipe is exported to the Conan cache, the ``export()`` method executes, running ``scm_url, scm_commit = git.get_url_and_commit()``. See the :ref:`Git reference<_conan_tools_scm_git>` for more information about these methods.
 - This obtains the URL of the repo pointing to the local ``<local-path>/capture_scm`` and the commit ``8e8764c40bebabbe3ec57f9a0816a2c8e691f559``
 - It warns that this information will **not** be enough to re-build from source this recipe once the package is uploaded to the server and is tried to be built from source in other computer, which will not contain the path pointed by ``<local-path>/capture_scm``. This is expected, as the repository that we created doesn't have any remote defined. If our local clone had a remote defined and that remote contained the ``commit`` that we are building, the ``scm_url`` would point to the remote repository instead, making the build from source fully reproducible.
 - The ``export()`` method stores the ``url`` and ``commit`` information in the ``conandata.yml`` for future reproducibility.
@@ -97,6 +97,29 @@ Let's explain step by step what is happening:
 .. warning::
 
     To achieve reproducibility, it is very important for this **scm capture** technique that the current checkout is not dirty. If it was dirty, it would be impossible to guarantee future reproducibility of the build, so ``git.get_url_and_commit()`` can raise errors, and require to commit changes. If more than 1 commit is necessary, it would be recommended to squash those commits before pushing changes to upstream repositories.
+
+If we do now a second ``conan create .``, as the repo is dirty we would get:
+
+.. code-block:: text
+
+    $ conan create .
+    hello/0.1: Calling export()
+    ERROR: hello/0.1: Error in export() method, line 19
+        scm_url, scm_commit = git.get_url_and_commit()
+        ConanException: Repo is dirty, cannot capture url and commit: .../capture_scm
+
+This could be solved by cleaning the repo with ``git clean -xdf``, or by adding a ``.gitignore`` file to the repo with the following contents
+(which might be a good practice anyway for source control):
+
+.. code-block:: text
+    :caption: .gitignore
+
+    test_package/build
+    test_package/CMakeUserPresets.json
+
+
+
+
 
 Credentials management
 ----------------------
