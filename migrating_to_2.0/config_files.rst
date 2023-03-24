@@ -16,6 +16,7 @@ This profile will not work in 2.0:
     [settings]
     os = $MYVAR
 
+The profile below is the 2.0 equivalent, now supporting Jinja syntax. This enables more dynamic content and customization possibilities.
 
 .. code-block:: text
     :caption: profile.jinja
