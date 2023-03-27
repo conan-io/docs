@@ -159,15 +159,16 @@ html_theme = "conan"
 html_theme_path = ["_themes"]
 
 
+# for sphinx-sitemap
+html_baseurl = "https://docs.conan.io/"
+
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
 html_theme_options = {
-  "base_url": "https://docs.conan.io/en/latest/",
+  "base_url": html_baseurl,
 }
 
-# for sphinx-sitemap
-html_baseurl = html_theme_options['base_url']
 
 # Add any paths that contain custom themes here, relative to this directory.
 #html_theme_path = []

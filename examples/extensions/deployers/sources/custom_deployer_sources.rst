@@ -69,6 +69,10 @@ The **source_deploy.py** file has the following code:
 
     def deploy(graph, output_folder):
         for name, dep in graph.root.conanfile.dependencies.items():
+            if dep.folders is None or dep.folders.source_folder is None:
+                raise ConanException(f"Sources missing for {name} dependency.\n"
+                                      "This deployer needs the sources of every dependency present to work, either building from source, "
+                                      "or by using the 'tools.build:download_source' conf.")
             copy(graph.root.conanfile, "*", dep.folders.source_folder, os.path.join(output_folder, "dependency_sources", str(dep)))
 
 
@@ -78,3 +82,11 @@ deploy()
 The ``deploy()`` method is called by Conan, and gets both a dependency graph and an output folder path as arguments.
 It iterates all the dependencies of our recipe and copies every source file to their respective folders
 under ``dependencies_sources`` using :ref:`conan.tools.copy<conan_tools_files_copy>`.
+
+
+.. note::
+
+    If you're using this deployer as an example for your own, remember that
+    ``tools.build:download_source=True`` is necessary so that ``dep.folders.source_folder`` is defined for the dependencies.
+    Without the conf, said variable will not be defined for those dependencies that do not need to be built from sources
+    nor in those commands that do not require building, such as :command:`conan graph`.

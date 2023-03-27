@@ -171,6 +171,7 @@ Use the **build_context_build_modules** attribute to specify require names to in
         cmake.build_context_build_modules = ["my_tool"]
         cmake.generate()
 
+.. _conan_tools_cmakedeps_check_components_exist:
 
 check_components_exist
 ++++++++++++++++++++++
