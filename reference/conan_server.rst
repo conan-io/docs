@@ -9,11 +9,13 @@ Conan Server
     recommend using the free :ref:`Artifactory Community Edition for C/C++ <artifactory_ce_cpp>`
     for private development or **Artifactory Pro** as Enterprise solution.
 
+TODO(prince-chrismc): Follow up with PPM about different tiers
+
 Configuration
 -------------
 
 By default your server configuration is saved under ``~/.conan_server/server.conf``,
-however you can modify this behaviour by either setting the ``CONAN_SERVER_HOME``
+however you can modify this behavior by either setting the ``CONAN_SERVER_HOME``
 environment variable or launching the server with ``-d`` or ``--server_dir`` command line
 argument followed by desired path. In case you use one of the options your configuration
 file will be stored under ``server_directory/server.conf`` Please note that command line
@@ -113,7 +115,7 @@ Server Parameters
    options:
 
    1. Use the :command:`conan remote` command to disable the SSL certificate checks. E.g.,
-      *conan remote add/update myremote https://somedir False*
+      ``conan remote add/update myremote https://somedir False``
    2. If using the *core.net.http:cacert_path* configuration in the Conan client, append
       the server *.crt* file contents to the *cacert.pem* location.
 

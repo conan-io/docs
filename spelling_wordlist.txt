@@ -15,7 +15,6 @@ armbeabi
 armeabi
 armv
 Artifactory
-artifactory
 ascii
 Astroid
 astroid
@@ -92,6 +91,8 @@ defaultConfig
 dependants
 deployable
 Deployable
+Deployers
+deployers
 Deprecations
 deps
 deserialization
