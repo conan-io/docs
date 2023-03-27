@@ -3,8 +3,8 @@
 Artifactory Community Edition for C/C++
 =======================================
 
-:ref:`Artifactory CE<integrations_artifactory_ce>` for C/C++ is the recommended server for trying Conan and hosting packages
-for private development. This tutorial section will cover setting up Artifactory with a Conan repository.
+:ref:`Artifactory <integrations_artifactory>` for C/C++ is the recommended server for trying Conan with uploading
+packages. This tutorial section will cover setting up Artifactory with a Conan repository.
 
 Running Artifactory CE
 ----------------------
@@ -50,7 +50,6 @@ Then configure the credentials for the remote:
 .. code-block:: bash
 
     $ conan remote login artifactory <user> -p <password>
-
 
 Your API key is the “password” used to authenticate the Conan client to Artifactory, NOT your Artifactory
 password. To get your API key, go to “Set Me Up” and enter your account password. Your API key will

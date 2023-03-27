@@ -6,7 +6,7 @@ Setting-up a Conan Server
 .. important::
 
     This server is mainly used for testing (though it might work fine for small teams). We
-    recommend using :ref:`Artifactory<integrations_artifactory>` for private development or
+    recommend using :ref:`Artifactory <integrations_artifactory>` for private development or
     enterprise solution.
 
 The **Conan Server** is a free and open source server that implements Conan remote
