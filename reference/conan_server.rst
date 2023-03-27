@@ -5,11 +5,9 @@ Conan Server
 
 .. important::
 
-    This server is mainly used for testing (though it might work fine for small teams). We
-    recommend using the free :ref:`Artifactory Community Edition for C/C++ <artifactory_ce_cpp>`
-    for private development or **Artifactory Pro** as Enterprise solution.
-
-TODO(prince-chrismc): Follow up with PPM about different tiers
+    This server is mainly used for testing (though it might work fine for small teams). Private development and personal
+    projects are well served with the free :ref:`Artifactory Community Edition for C/C++ <artifactory_ce_cpp>`, however
+    we recommend Enterprises leverage a paid version of Artifactory for broader package support and scalability
 
 Configuration
 -------------
