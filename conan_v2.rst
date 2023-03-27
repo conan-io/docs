@@ -35,3 +35,4 @@ If you want to migrate to 2.0, there are several things you will need to change:
    migrating_to_2.0/properties
    migrating_to_2.0/commands
    migrating_to_2.0/general
+   migrating_to_2.0/config_files
