@@ -13,7 +13,7 @@ In the previous examples, we declared our dependencies (*Zlib* and *CMake*) in a
     zlib/1.2.11
 
     [tool_requires]
-    cmake/3.19.8
+    cmake/3.22.6
 
     [generators]
     CMakeDeps
@@ -53,7 +53,7 @@ Remember that in the previous examples the *conanfile.txt* had this information:
     zlib/1.2.11
 
     [tool_requires]
-    cmake/3.19.8
+    cmake/3.22.6
 
     [generators]
     CMakeDeps
@@ -85,7 +85,7 @@ The equivalent of the *conanfile.txt* in form of Conan recipe could look like th
             self.requires("zlib/1.2.11")
         
         def build_requirements(self):
-            self.tool_requires("cmake/3.19.8")
+            self.tool_requires("cmake/3.22.6")
 
 
 To create the Conan recipe we declared a new class that inherits from the ``ConanFile``
@@ -116,7 +116,7 @@ same results as before.
     $ cmake .. -G "Visual Studio 15 2017" -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
     $ cmake --build . --config Release
     ...
-    Building with CMake version: 3.19.8
+    Building with CMake version: 3.22.6
     ...
     [100%] Built target compressor
 
@@ -137,7 +137,7 @@ same results as before.
     $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
     $ cmake --build .
     ...
-    Building with CMake version: 3.19.8
+    Building with CMake version: 3.22.6
     ...
     [100%] Built target compressor
 
@@ -181,7 +181,7 @@ Windows or that you want to use the system's CMake installation instead of using
         def build_requirements(self):
             # Use the system's CMake for Windows
             if self.settings.os != "Windows":
-                self.tool_requires("cmake/3.19.8")
+                self.tool_requires("cmake/3.22.6")
 
 
 .. _consuming_packages_flexibility_of_conanfile_py_use_layout:
@@ -210,7 +210,7 @@ for every platform without adding more changes:
             self.requires("zlib/1.2.11")
 
         def build_requirements(self):
-            self.tool_requires("cmake/3.19.8")
+            self.tool_requires("cmake/3.22.6")
 
         def layout(self):
             # We make the assumption that if the compiler is msvc the
@@ -254,7 +254,7 @@ Check that running the same commands as in the previous examples without the
     $ cmake .. -G "Visual Studio 15 2017" -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
     $ cmake --build . --config Release
     ...
-    Building with CMake version: 3.19.8
+    Building with CMake version: 3.22.6
     ...
     [100%] Built target compressor
 
@@ -275,7 +275,7 @@ Check that running the same commands as in the previous examples without the
     $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
     $ cmake --build .
     ...
-    Building with CMake version: 3.19.8
+    Building with CMake version: 3.22.6
     ...
     [100%] Built target compressor
 
@@ -304,7 +304,7 @@ CMake case, there's a :ref:`cmake_layout()<cmake_layout>` already defined in Con
             self.requires("zlib/1.2.11")
 
         def build_requirements(self):
-            self.tool_requires("cmake/3.19.8")
+            self.tool_requires("cmake/3.22.6")
 
         def layout(self):
             cmake_layout(self)
