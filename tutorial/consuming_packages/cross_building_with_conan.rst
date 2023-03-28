@@ -129,19 +129,19 @@ Now that we have our two profiles prepared, let's have a look at our *conanfile.
             self.requires("zlib/1.2.11")
 
         def build_requirements(self):
-            self.tool_requires("cmake/3.19.8")
+            self.tool_requires("cmake/3.22.6")
 
         def layout(self):
             cmake_layout(self)
 
 As you can see, this is practically the same *conanfile.py* we used in the :ref:`previous
 example<consuming_packages_flexibility_of_conanfile_py>`. We will require **zlib/1.2.11**
-as a regular dependency and **cmake/3.19.8** as a tool needed for building the
+as a regular dependency and **cmake/3.22.6** as a tool needed for building the
 application.
 
 We will need the application to build for the Raspberry Pi with the cross-build
 toolchain and also link the **zlib/1.2.11** library built for the same platform. On the
-other side, we need the **cmake/3.19.8** binary to run in Ubuntu Linux. Conan manages this
+other side, we need the **cmake/3.22.6** binary to run in Ubuntu Linux. Conan manages this
 internally in the dependency graph differentiating between what we call the "build
 context" and the "host context":
 
@@ -152,18 +152,18 @@ context" and the "host context":
 
 * The **build context** contains the tool requirements used in the build machine. This
   category typically includes all the developer tools like CMake, compilers and linkers.
-  In this case, this includes the **cmake/3.19.8** tool.
+  In this case, this includes the **cmake/3.22.6** tool.
 
 
 These contexts define how Conan will manage each one of the dependencies. For example, as
 **zlib/1.2.11** belongs to the **host context**, the ``[buildenv]`` build environment we
 defined in the **raspberry** profile (profile host) will only apply to the **zlib/1.2.11**
 library when building and won't affect anything that belongs to the **build context** like
-the **cmake/3.19.8** dependency.
+the **cmake/3.22.6** dependency.
 
 Now, let's build the application. First, call :command:`conan install` with the
 profiles for the build and host platforms. This will install the  **zlib/1.2.11**
-dependency built for *armv7hf* architecture and a **cmake/3.19.8** version that runs for
+dependency built for *armv7hf* architecture and a **cmake/3.22.6** version that runs for
 64-bit architecture.
 
 .. code-block:: bash
