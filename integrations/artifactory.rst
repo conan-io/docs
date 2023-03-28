@@ -5,8 +5,8 @@ Artifactory
 
 `JFrog's Artifactory <https://jfrog.com/artifactory/>`_ is used to power `ConanCenter`_ and it is the single solution
 for housing and managing all the binaries, packages, and files for use throughout your software supply chain. Artifactory
-is the binary repository manager for all major packaging formats. It is the recommended for enterprise and professional
-teams a like who need a single package management solution.
+is the binary repository manager for all major packaging formats. Check the `Artifactory Comparison Matrix
+<https://www.jfrog.com/confluence/display/JFROG/Artifactory+Comparison+Matrix>`_ to learn more.
 
 This pairs nicely with Conan whose strength comes from binary management for C/C++. These artifacts need to be stored
 and shared with all the developers on a project. For `artifact management <https://jfrog.com/artifact-management/>`_
@@ -18,9 +18,7 @@ when dealing with binary packages that evolved through the software development 
 Using Artifactory
 -----------------
 
-In Artifactory, you can create and manage as many Conan repositories as you like using :ref:`Artifactory CE
-<integrations_artifactory_ce>` hosted locally in your network or with :ref:`Artifactory Pro or Enterprise
-<integrations_artifactory_pro_e>`.
+In Artifactory, you can create and manage as many Conan repositories as you like.
 
 .. important::
 
@@ -56,14 +54,5 @@ Running Artifactory CE
 
 Please visit the :ref:`Artifactory CE Tutorial<tutorial_artifactory_ce_cpp>` for a step by
 step guide
-
-.. _integrations_artifactory_pro_e:
-
-Artifactory Pro and Enterprise
-------------------------------
-
-For a comparison between Artifactory editions, check the `Artifactory Comparison Matrix
-<https://www.jfrog.com/confluence/display/JFROG/Artifactory+Comparison+Matrix>`_.
-
 
 .. _`ConanCenter`: https://conan.io/center

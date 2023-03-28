@@ -5,8 +5,9 @@ Setting up a Conan remote
 
 There are several options to set-up a Conan repository:
 
-- :ref:`Artifactory <integrations_artifactory>`: Artifactory supports both self-hosted and cloud instance (even hybrid).
-  TODO(prince-chrismc): Say something good about hosting Conan packages
+- :ref:`Artifactory Community Edition for C/C++ <tutorial_artifactory_ce_cpp>`: Artifactory
+  Community Edition (CE) for C/C++ is a completely free Artifactory server that implements 
+  both Conan and generic repositories.
 
 - :ref:`Conan server <conan_server>`: Simple, free and open source, MIT licensed server
   that is part of the `conan-io organization <https://github.com/conan-io>`_ project. Check
