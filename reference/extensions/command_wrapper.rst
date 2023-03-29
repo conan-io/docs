@@ -42,7 +42,7 @@ depending on the caller:
 .. code-block:: python
 
     def cmd_wrapper(cmd, conanfile, **kwargs):
-        # lets paralellize only CMake invocations, for a few specific heavy packages
+        # Let's parallelize only CMake invocations, for a few specific heavy packages
         name = conanfile.ref.name
         heavy_pkgs = ["qt", "boost", "abseil", "opencv", "ffmpeg"]
         if cmd.startswith("cmake") and name in heavy_pkgs:
