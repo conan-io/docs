@@ -14,18 +14,22 @@ For example:
 
 .. code-block:: python
 
-    def cmd_wrapper(cmd):
+    def cmd_wrapper(cmd, **kwargs):
         return 'echo "{}"'.format(cmd)
 
 Would just intercept the commands and display them to terminal, which means that all commmands
 in all recipes ``self.run()`` will not execute, but just be echoed.
+
+The ``**kwargs`` is a mandatory generic argument to be robust against future changes and injection
+by Conan of new keyword arguments. Not adding it, even if not used could make the extension fail
+in future Conan versions.
 
 A more common use case would be the injection of a parallelization tools over some commands,
 which could look like:
 
 .. code-block:: python
 
-    def cmd_wrapper(cmd):
+    def cmd_wrapper(cmd, **kwargs):
         # lets paralellize only CMake invocations
         if cmd.startswith("cmake"):
             return 'parallel-build "{}"  --parallel-argument'.format(cmd)
