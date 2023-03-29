@@ -35,3 +35,17 @@ which could look like:
             return 'parallel-build "{}"  --parallel-argument'.format(cmd)
         # otherwise return same command, not modified
         return cmd
+
+The ``conanfile`` object is passed as an argument, so it is possible to customize the behavior
+depending on the caller:
+
+.. code-block:: python
+
+    def cmd_wrapper(cmd, conanfile, **kwargs):
+        # Let's parallelize only CMake invocations, for a few specific heavy packages
+        name = conanfile.ref.name
+        heavy_pkgs = ["qt", "boost", "abseil", "opencv", "ffmpeg"]
+        if cmd.startswith("cmake") and name in heavy_pkgs:
+            return 'parallel-build "{}"  --parallel-argument'.format(cmd)
+        # otherwise return same command, not modified
+        return cmd
