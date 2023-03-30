@@ -151,39 +151,6 @@ So far we have achieved the same functionality we had using a *conanfile.txt*, l
 how we can take advantage of the capabilities of the *conanfile.py* to define the project
 structure we want to follow and also to add some logic using Conan settings and options.
 
-
-Conditional requirements using a conanfile.py
----------------------------------------------
-
-You could add some logic to the :ref:`requirements() method<reference_conanfile_methods_requirements>` to add or remove requirements
-conditionally. Imagine, for example, that you want to add an additional dependency in
-Windows or that you want to use the system's CMake installation instead of using the Conan
-`tool_requires`:
-
-.. code-block:: python
-    :caption: **conanfile.py**
-
-    from conan import ConanFile
-
-
-    class CompressorRecipe(ConanFile):
-        # Binary configuration
-        settings = "os", "compiler", "build_type", "arch"
-        generators = "CMakeToolchain", "CMakeDeps"
-
-        def requirements(self):
-            self.requires("zlib/1.2.11")
-            
-            # Add base64 dependency for Windows
-            if self.settings.os == "Windows":
-                self.requires("base64/0.4.0")
-
-        def build_requirements(self):
-            # Use the system's CMake for Windows
-            if self.settings.os != "Windows":
-                self.tool_requires("cmake/3.22.6")
-
-
 .. _consuming_packages_flexibility_of_conanfile_py_use_layout:
 
 Use the layout() method
@@ -332,6 +299,38 @@ used for settings or options is not supported.
         def validate(self):
             if self.settings.os == "Macos" and self.settings.arch == "armv8":
                 raise ConanInvalidConfiguration("ARM v8 not supported")
+
+
+Conditional requirements using a conanfile.py
+---------------------------------------------
+
+You could add some logic to the :ref:`requirements() method<reference_conanfile_methods_requirements>` to add or remove requirements
+conditionally. Imagine, for example, that you want to add an additional dependency in
+Windows or that you want to use the system's CMake installation instead of using the Conan
+`tool_requires`:
+
+.. code-block:: python
+    :caption: **conanfile.py**
+
+    from conan import ConanFile
+
+
+    class CompressorRecipe(ConanFile):
+        # Binary configuration
+        settings = "os", "compiler", "build_type", "arch"
+        generators = "CMakeToolchain", "CMakeDeps"
+
+        def requirements(self):
+            self.requires("zlib/1.2.11")
+            
+            # Add base64 dependency for Windows
+            if self.settings.os == "Windows":
+                self.requires("base64/0.4.0")
+
+        def build_requirements(self):
+            # Use the system's CMake for Windows
+            if self.settings.os != "Windows":
+                self.tool_requires("cmake/3.22.6")
 
 
 Read more
