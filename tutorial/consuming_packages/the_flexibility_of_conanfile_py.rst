@@ -246,7 +246,7 @@ Check that running the same commands as in the previous examples without the
     ...
     [100%] Built target compressor
 
-    $ ./Release/compressor
+    $ ./compressor
     Uncompressed size is: 233
     Compressed size is: 147
     ZLIB VERSION: 1.2.11
@@ -298,7 +298,7 @@ used for settings or options is not supported.
 
         def validate(self):
             if self.settings.os == "Macos" and self.settings.arch == "armv8":
-                raise ConanInvalidConfiguration("ARM v8 not supported")
+                raise ConanInvalidConfiguration("ARM v8 not supported in Macos")
 
 
 Conditional requirements using a conanfile.py
