@@ -9,4 +9,5 @@ Conan recipe tools examples
    tools/cmake/cmake
    tools/files/files
    tools/meson/meson
+   tools/autotools/autotools
    tools/scm/git/capture_scm/git_capture_scm
