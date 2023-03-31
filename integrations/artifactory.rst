@@ -30,10 +30,9 @@ In Artifactory, you can create and manage as many Conan repositories as you like
     `Artifactory Changelog <https://www.jfrog.com/confluence/display/JFROG/Artifactory+Release+Notes>`_ to ensure no
     bugfixes appear in more recent versions.
 
-By creating different repositories you can control the way binaries enter, advance, and are leveraged throughout the
-software supply chain. Using a promote (not rebuild) workflow for binaries as they advance through the SSC to ensure
-integrity. This enables scaling to meet the needs of the largest organizations and systems that simply cannot fail.
-See the `Artifactory's Onboarding Best Practices <https://www.jfrog.com/confluence/display/JFROG/Onboarding+Best+Practices%3A+JFrog+Artifactory>`_
+By creating different repositories you can control the way binaries progress and are managed
+using a promote (not rebuild) workflow for binaries to ensure integrity See the `Artifactory's Onboarding
+Best Practices <https://www.jfrog.com/confluence/display/JFROG/Onboarding+Best+Practices%3A+JFrog+Artifactory>`_
 for more details.
 
 .. _integrations_artifactory_ce:
