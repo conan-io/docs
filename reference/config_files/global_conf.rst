@@ -181,6 +181,7 @@ any of your profiles:
 
 * ``+=`` == ``append``: appends values at the end of the existing value (only for lists).
 * ``=+`` == ``prepend``: puts values at the beginning of the existing value (only for lists).
+* ``*=`` == ``update``: updates the specified keys only, leaving the rest unmodified (only for dictionaries)
 * ``=!`` == ``unset``: gets rid of any configuration value.
 
 .. code-block:: text
@@ -197,6 +198,12 @@ any of your profiles:
 
     # Unset the value
     user.myconf.build:flags=!
+
+    # Define the value => {"a": 1, "b": 2}
+    user.myconf.build:other={"a": 1, "b": 2}
+
+    # Update b = 4 => {"a": 1, "b": 4}
+    user.myconf.build:other*={"b": 4}
 
 
 Configuration patterns
