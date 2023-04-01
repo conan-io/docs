@@ -1,0 +1,9 @@
+.. _conan_tools_b2:
+
+conan.tools.b2
+==============
+
+.. toctree::
+    :maxdepth: 2
+
+    b2/b2deps

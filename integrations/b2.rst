@@ -1,0 +1,21 @@
+.. _integrations_b2:
+
+.. image:: ../images/integrations/conan-b2-logo.png
+    :alt: B2
+    :align: center
+    :target: https://www.bfgroup.xyz/b2/
+
+B2
+===
+
+Conan provides some tools to help building using B2. They can be imported from
+``conan.tools.b2``. Currently there is:
+
+- `B2Deps`: generates ``conanbuildinfo.jam`` and ``conanbuildinfo-###.jam``
+  files for all the required dependencies to be used with your B2 system.
+
+
+.. seealso::
+
+    - Reference for :ref:`B2Deps<conan_tools_b2_b2deps>`.
+    - `B2 package managers documentation <https://www.bfgroup.xyz/b2/manual/release/index.html#bbv2.tasks.packagemanagers>`_
