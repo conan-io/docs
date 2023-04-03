@@ -31,7 +31,7 @@ will be evaluated in order until the first match happens. If no match is found, 
     {
         "credentials": [
             {
-                "url": "http://server/that/need/credentials", 
+                "url": "https://server/that/need/credentials", 
                 "token": "mytoken"
             }
         ]
