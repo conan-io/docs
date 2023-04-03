@@ -167,7 +167,7 @@ conan cache clean
     positional arguments:
       pattern               Selection pattern for references to clean
 
-    options:
+    optional arguments:
       -h, --help            show this help message and exit
       -v [V]                Level of detail of the output. Valid options from less
                             verbose to more verbose: -vquiet, -verror, -vwarning,
@@ -181,9 +181,9 @@ conan cache clean
                             Remove only the packages matching a specific query,
                             e.g., os=Windows AND (arch=x86 OR compiler=gcc)
 
-This command will remove non-critical files that Conan generates in its execution.
-It will remove all temporary files, along with all the source, build and download folders
-for every matching reference passed in *pattern*, unless a specific flag is supplied.
+This command will remove all temporary folders, along with the source, build and download folder
+that Conan generates in its execution. It will do so for every matching reference passed in *pattern*,
+unless a specific flag is supplied, in which case only the specified folders will be removed.
 
 
 **Examples**:
@@ -193,21 +193,28 @@ for every matching reference passed in *pattern*, unless a specific flag is supp
 
   .. code-block:: text
 
-      $ conan cache clean *
+      $ conan cache clean "*"
 
 
 - Remove all temporary files:
 
   .. code-block:: text
 
-      $ conan cache clean * --temp
+      $ conan cache clean "*" --temp
 
 
-- Remove the download folders for every ``zlib`` recipe
+- Remove the download folders for the ``zlib`` recipe:
 
   .. code-block:: text
 
-      $ conan cache clean zlib* --download
+      $ conan cache clean "zlib*" --download
+
+
+- Remove everything but the download folder for the ``zlib`` recipe:
+
+  .. code-block:: text
+
+      $ conan cache clean "*" --source --build --temp
 
 
 conan cache check-integrity
