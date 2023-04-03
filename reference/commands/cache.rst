@@ -182,8 +182,8 @@ conan cache clean
                             Remove only the packages matching a specific query,
                             e.g., os=Windows AND (arch=x86 OR compiler=gcc)
 
-conan cache clean
------------------
+conan cache check-integrity
+---------------------------
 
 .. code-block:: text
 
