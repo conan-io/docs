@@ -70,9 +70,12 @@ The function signature of your custom deployers should be as follows:
 .. code-block:: python
     :caption: **my_custom_deployer.py**
 
-    def deploy(graph, output_folder: str):
+    def deploy(graph, output_folder: str, **kwargs):
 
 (Note that the arguments are passed as named parameters, so both the ``graph`` and ``output_folder`` names are mandatory)
+
+The ``**kwargs`` is mandatory even if not used, as new arguments can be added in future Conan versions, and those would break
+if ``**kwargs`` is not defined.
 
 You can access your conanfile object with ``graph.root.conanfile``.
 See :ref:`ConanFile.dependencies<conan_conanfile_model_dependencies>` for information on how to iterate over its dependencies.

@@ -77,8 +77,8 @@ It is also possible to partially erase information for given subsets of values. 
 .. code-block:: python
 
     def package_id(self):
-        v = Version(str(self.settings.compiler.version))
-        if self.settings.compiler == "gcc" and (v >= "4.5" and v < "5.0"):
+        v = Version(str(self.info.settings.compiler.version))
+        if self.info.settings.compiler == "gcc" and (v >= "4.5" and v < "5.0"):
             # The assigned string can be arbitrary
             self.info.settings.compiler.version = "GCC 4 between 4.5 and 5.0"
 

@@ -158,9 +158,8 @@ conan cache clean
 .. code-block:: text
 
     $ conan cache clean -h
-    usage: conan cache clean [-h] [-v [V]] [-s] [-b] [-d]
-                             [-p PACKAGE_QUERY]
-                             pattern
+    usage: conan cache clean [-h] [-v [V]] [-s] [-b] [-d] [-t] [-p PACKAGE_QUERY]
+                             [pattern]
 
     Remove non-critical folders from the cache, like source, build and/or download
     (.tgz store) ones.
@@ -174,10 +173,82 @@ conan cache clean
                             verbose to more verbose: -vquiet, -verror, -vwarning,
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
                             -vvv or -vtrace
-
       -s, --source          Clean source folders
       -b, --build           Clean build folders
       -d, --download        Clean download folders
+      -t, --temp            Clean temporary folders
       -p PACKAGE_QUERY, --package-query PACKAGE_QUERY
                             Remove only the packages matching a specific query,
                             e.g., os=Windows AND (arch=x86 OR compiler=gcc)
+
+This command will remove all temporary folders, along with the source, build and download folder
+that Conan generates in its execution. It will do so for every matching reference passed in *pattern*,
+unless a specific flag is supplied, in which case only the specified folders will be removed.
+
+
+**Examples**:
+
+
+- Remove all non-critical files:
+
+  .. code-block:: text
+
+      $ conan cache clean "*"
+
+
+- Remove all temporary files:
+
+  .. code-block:: text
+
+      $ conan cache clean "*" --temp
+
+
+- Remove the download folders for the ``zlib`` recipe:
+
+  .. code-block:: text
+
+      $ conan cache clean "zlib*" --download
+
+
+- Remove everything but the download folder for the ``zlib`` recipe:
+
+  .. code-block:: text
+
+      $ conan cache clean "*" --source --build --temp
+
+
+conan cache check-integrity
+---------------------------
+
+.. code-block:: text
+
+    $ conan cache check-integrity --help
+    usage: conan cache check-integrity [-h] [-v [V]] [-p PACKAGE_QUERY] pattern
+
+    Check the integrity of the local cache for the given references
+
+    positional arguments:
+    pattern               Selection pattern for references to check integrity for
+
+    optional arguments:
+    -h, --help            show this help message and exit
+    -v [V]                Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning, -vnotice, -vstatus, -v or -vverbose, -vv or
+                            -vdebug, -vvv or -vtrace
+    -p PACKAGE_QUERY, --package-query PACKAGE_QUERY
+                            Only the packages matching a specific query, e.g., os=Windows AND (arch=x86 OR compiler=gcc)
+
+
+The ``conan cache check-integrity`` command checks the integrity of Conan packages in the
+local cache. This means that it will throw an error if any file included in the
+``conanmanifest.txt`` is missing or does not match the declared checksum in that file.
+
+For example, to verify the integrity of the whole Conan local cache, do:
+
+.. code-block:: text
+
+    $ conan cache check-integrity "*"
+    mypkg/1.0: Integrity checked: ok
+    mypkg/1.0:454923cd42d0da27b9b1294ebc3e4ecc84020747: Integrity checked: ok
+    mypkg/1.0:454923cd42d0da27b9b1294ebc3e4ecc84020747: Integrity checked: ok
+    zlib/1.2.11: Integrity checked: ok
+    zlib/1.2.11:6fe7fa69f760aee504e0be85c12b2327c716f9e7: Integrity checked: ok
