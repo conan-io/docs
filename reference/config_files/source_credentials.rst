@@ -48,7 +48,7 @@ If for some reason HTTP-Basic auth with user/password is necessary it can be pro
     {
         "credentials": [
             {
-                "url": "http://server/that/need/credentials", 
+                "url": "https://server/that/need/credentials", 
                 "user": "myuser", 
                 "password": "mypassword"
             }
