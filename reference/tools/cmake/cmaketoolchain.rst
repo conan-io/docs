@@ -451,6 +451,10 @@ CMakeToolchain is affected by these ``[conf]`` variables:
 - **tools.cmake.cmaketoolchain:toolchain_file** user toolchain file to replace the ``conan_toolchain.cmake`` one.
 - **tools.cmake.cmaketoolchain:user_toolchain** list of user toolchains to be included from the ``conan_toolchain.cmake`` file.
 - **tools.android:ndk_path** value for ``ANDROID_NDK_PATH``.
+- **tools.android:cmake_legacy_toolchain**: boolean value for ``ANDROID_USE_LEGACY_TOOLCHAIN_FILE``. It will only be defined in ``conan_toolchain.cmake`` if given a value. This is 
+  taken into account by the CMake toolchain inside the Android NDK specified in the ``tools.android:ndk_path`` config, for versions ``r23c`` and above. 
+  It may be useful to set this to ``False`` if compiler flags are defined via ``tools.build:cflags`` or ``tools.build:cxxflags`` to prevent Android's legacy CMake toolchain 
+  from overriding the values. If setting this to ``False``, please ensure you are using CMake 3.21 or above.
 - **tools.cmake.cmaketoolchain:system_name** is not necessary in most cases and is only used to force-define ``CMAKE_SYSTEM_NAME``.
 - **tools.cmake.cmaketoolchain:system_version** is not necessary in most cases and is only used to force-define ``CMAKE_SYSTEM_VERSION``.
 - **tools.cmake.cmaketoolchain:system_processor** is not necessary in most cases and is only used to force-define ``CMAKE_SYSTEM_PROCESSOR``.

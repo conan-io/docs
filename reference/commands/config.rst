@@ -209,6 +209,7 @@ Displays all the Conan built-in configurations. There are 2 groups:
     core:non_interactive: Disable interactive user input, raises error if input necessary
     core:required_conan_version: Raise if current version does not match the defined range.
     tools.android:ndk_path: Argument for the CMAKE_ANDROID_NDK
+    tools.android:cmake_legacy_toolchain: Boolean value for ANDROID_USE_LEGACY_TOOLCHAIN_FILE in CMakeToolchain. Not defined if not given a value.
     tools.apple:enable_arc: (boolean) Enable/Disable ARC Apple Clang flags
     tools.apple:enable_bitcode: (boolean) Enable/Disable Bitcode Apple Clang flags
     tools.apple:enable_visibility: (boolean) Enable/Disable Visibility Apple Clang flags
