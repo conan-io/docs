@@ -12,7 +12,7 @@ When a ``conanfile.py`` recipe downloads some sources from other servers with th
 
     def source(self):
         # Immutable source .zip
-        download(self, f"https://some/server/tarballname-{self.version}.zip", "downloaded.zip")
+        download(self, f"https://server/that/need/credentials/files/tarballname-{self.version}.zip", "downloaded.zip")
         # Also the ``get()`` function, as it internally calls ``download()``
 
 
