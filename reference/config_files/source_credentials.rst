@@ -62,11 +62,11 @@ level:
 
 .. code-block:: jinja
     
-    {% set mytk = 'mytoken' %}
+    {% set mytk = os.getenv('mytoken') %}
     {
         "credentials": [
             {
-                "url": "http://server/that/need/credentials", 
+                "url": "https://server/that/need/credentials", 
                 "token": "{{mytk}}"
             }
         ]
