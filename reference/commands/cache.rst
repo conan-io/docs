@@ -181,3 +181,39 @@ conan cache clean
       -p PACKAGE_QUERY, --package-query PACKAGE_QUERY
                             Remove only the packages matching a specific query,
                             e.g., os=Windows AND (arch=x86 OR compiler=gcc)
+
+conan cache check-integrity
+---------------------------
+
+.. code-block:: text
+
+    $ conan cache check-integrity --help
+    usage: conan cache check-integrity [-h] [-v [V]] [-p PACKAGE_QUERY] pattern
+
+    Check the integrity of the local cache for the given references
+
+    positional arguments:
+    pattern               Selection pattern for references to check integrity for
+
+    optional arguments:
+    -h, --help            show this help message and exit
+    -v [V]                Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning, -vnotice, -vstatus, -v or -vverbose, -vv or
+                            -vdebug, -vvv or -vtrace
+    -p PACKAGE_QUERY, --package-query PACKAGE_QUERY
+                            Only the packages matching a specific query, e.g., os=Windows AND (arch=x86 OR compiler=gcc)
+
+
+The ``conan cache check-integrity`` command checks the integrity of Conan packages in the
+local cache. This means that it will throw an error if any file included in the
+``conanmanifest.txt`` is missing or does not match the declared checksum in that file.
+
+For example, to verify the integrity of the whole Conan local cache, do:
+
+.. code-block:: text
+
+    $ conan cache check-integrity "*"
+    mypkg/1.0: Integrity checked: ok
+    mypkg/1.0:454923cd42d0da27b9b1294ebc3e4ecc84020747: Integrity checked: ok
+    mypkg/1.0:454923cd42d0da27b9b1294ebc3e4ecc84020747: Integrity checked: ok
+    zlib/1.2.11: Integrity checked: ok
+    zlib/1.2.11:6fe7fa69f760aee504e0be85c12b2327c716f9e7: Integrity checked: ok
