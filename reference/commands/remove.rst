@@ -36,7 +36,9 @@ conan remove
 
 The ``conan remove`` command removes recipes and packages from the local cache or from a
 specified remote. Depending on the patterns specified as argument, it is possible to
-remove a complete package, or just remove the binaries, leaving still the recipe available.
+remove a complete package, or just remove the binaries, leaving still the recipe
+available. You can also use the keyword ``!latest`` in the revision part of the pattern to
+avoid removing the latest recipe or package revision of a certain Conan package.
 
 To remove recipes and their associated package binaries from the local cache:
 
@@ -56,6 +58,10 @@ To remove recipes and their associated package binaries from the local cache:
     # Remove zlib/1.2.11, only its latest recipe revision and binaries of that revision
     # Leave the other zlib/1.2.11 revisions intact
 
+    $ conan remove zlib/1.2.11#!latest
+    # Remove all the recipe revisions from zlib/1.2.11 but the latest one
+    # Leave the latest zlib/1.2.11 revision intact
+
     $ conan remove zlib/1.2.11#<revision>
     # Remove zlib/1.2.11, only its exact <revision> and binaries of that revision
     # Leave the other zlib/1.2.11 revisions intact
@@ -74,6 +80,9 @@ pattern including the ``:`` separator of the ``package_id``:
 
     $ conan remove zlib/1.2.11#latest:*
     # Removes all the zlib/1.2.11 package binaries only from the latest zlib/1.2.11 recipe revision
+
+    $ conan remove zlib/1.2.11#!latest:*
+    # Removes all the zlib/1.2.11 package binaries from all the recipe revisions but the latest one
 
     $ conan remove zlib/1.2.11:<package_id>
     # Removes the package binary <package_id> from all the zlib/1.2.11 recipe revisions
