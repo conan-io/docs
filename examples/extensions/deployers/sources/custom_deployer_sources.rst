@@ -67,7 +67,8 @@ The **source_deploy.py** file has the following code:
     import os
 
 
-    def deploy(graph, output_folder):
+    def deploy(graph, output_folder, **kwargs):
+        # Note the kwargs argument is mandatory to be robust against future changes.
         for name, dep in graph.root.conanfile.dependencies.items():
             if dep.folders is None or dep.folders.source_folder is None:
                 raise ConanException(f"Sources missing for {name} dependency.\n"
