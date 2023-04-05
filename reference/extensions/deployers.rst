@@ -44,7 +44,7 @@ direct_deploy
 ^^^^^^^^^^^^^
 
 Same as ``full_deploy``, but only processes your recipe's *direct* dependencies.
-Will output your dependencies in a tree folder such as:
+This deployer will output your dependencies in a tree folder such as:
 
 ``[OUTPUT_FOLDER]/direct_deploy/dep/0.1``
 
