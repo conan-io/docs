@@ -35,7 +35,7 @@ Deploys each package folder of every dependency to your recipe's ``output_folder
 
 Then every dependency will end up in a folder such as:
 
-``[OUTPUT_FOLDER]/host/dep/0.1/Release/x86_64``
+``[OUTPUT_FOLDER]/full_deploy/host/dep/0.1/Release/x86_64``
 
 
 .. _reference_extensions_deployer_direct_deploy:
@@ -44,7 +44,9 @@ direct_deploy
 ^^^^^^^^^^^^^
 
 Same as ``full_deploy``, but only processes your recipe's *direct* dependencies.
+This deployer will output your dependencies in a tree folder such as:
 
+``[OUTPUT_FOLDER]/direct_deploy/dep/0.1``
 
 .. warning::
 
