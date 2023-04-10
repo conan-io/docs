@@ -106,7 +106,7 @@ force
 
 This ``requires`` will force its version in the dependency graph upstream, overriding
 other existing versions even of transitive dependencies, and also solving potential
-existing conflicts. The downstream consunmers ``force`` trait always have higher priority.
+existing conflicts. The downstream consumer's ``force`` traits always have higher priority.
 
 override
 ~~~~~~~~
@@ -121,3 +121,21 @@ direct
 
 If the dependency is a direct one, that is, it has explicitly been declared by the current
 recipe, or if it is a transitive one.
+
+
+.. _reference_conanfile_package_type_trait_inferring:
+
+package_type trait inferring
+============================
+
+Some traits are automatically inferred based on the value of the ``package:type`` if not explicitly set by the recipe.
+
+ * ``application``: ``headers=False``, ``libs=False``, ``run=True``
+ * ``shared-library``: ``run=True``
+ * ``static-library``: ``run=False``
+ * ``header-library``: ``headers=True``, ``libs=False``, ``run=False``
+ * ``build-scripts``: ``headers=False``, ``libs=False``, ``run=False``, ``visible=False``
+
+Additionally, some additional traits are inferred on top of the above mentioned based on the depender's ``package_type``:
+
+ * ``header-library``: ``transitive_headers=True``, ``transitive_libs=True``

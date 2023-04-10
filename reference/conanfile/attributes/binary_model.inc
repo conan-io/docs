@@ -15,7 +15,8 @@ Optional. Declaring the ``package_type`` will help Conan:
 - To choose better the default ``package_id_mode`` for each dependency, that is, how a change
   in a dependency should affect the ``package_id`` to the current package.
 - Which information from the dependencies should be propagated to the consumers, like
-  headers, libraries, runtime information...
+  headers, libraries, runtime information. See :ref:`here <reference_conanfile_package_type_trait_inferring>`
+  to see what traits are propagated based on the ``package_type`` information.
 
 The valid values are:
 
