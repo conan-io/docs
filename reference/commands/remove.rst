@@ -102,6 +102,9 @@ Note that you can filter which packages will be removed using the ``--package-qu
     # Removes all the zlib/1.2.11 packages built with Clang compiler
 
 
+You can query packages by both their settings and options, including custom ones.
+
+
 All the above commands, by default, operate in the Conan cache.
 To remove artifacts from a server, use the ``-r=myremote`` argument:
 
