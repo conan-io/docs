@@ -128,7 +128,7 @@ recipe, or if it is a transitive one.
 package_type trait inferring
 ============================
 
-Some traits are automatically inferred based on the value of the ``package:type`` if not explicitly set by the recipe.
+Some traits are automatically inferred based on the value of the ``package_type`` if not explicitly set by the recipe.
 
  * ``application``: ``headers=False``, ``libs=False``, ``run=True``
  * ``shared-library``: ``run=True``
