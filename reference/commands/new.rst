@@ -50,7 +50,7 @@ The available templates are:
   Creates a simple recipe with some example code and helpful comments,
   and is a good starting point to avoid writing boilerplate code.
 
-  Its variables are: [name], [version], [description], [require, require...]
+  Its variables are: [name], [version], [description], [requires1, requires2, ...], [tool_requires1, tool_requires2, ...]
 
 - **alias**:
   Creates the minimal recipe needed to define an alias to a target recipe
@@ -68,7 +68,7 @@ The available templates are:
   will add the necessary ``find_package``s in CMake, and add a call to ``math()`` and ``magic()``
   inside the generated ``ai()`` function.
 
-  Its variables are: name, version, [require, require...]
+  Its variables are: name, version, [requires1, requires2, ...], [tool_requires1, tool_requires2, ...]
 
 - **cmake_exe**:
   Creates a cmake executable target that defines a function called ``name``,
@@ -81,7 +81,7 @@ The available templates are:
   will add the necessary ``find_package``s in CMake, and add a call to ``math()`` and ``ai()``
   inside the generated ``game()`` function.
 
-  Its variables are: name, version, [require, require...]
+  Its variables are: name, version, [requires1, requires2, ...], [tool_requires1, tool_requires2, ...]
 
 - **autotools_lib**:
   Creates an Autotools library.
