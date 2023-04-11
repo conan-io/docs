@@ -39,7 +39,7 @@ Let's have a look at the *main.cpp* file, it only prints a default message, but 
     #include <cstdlib>
     #include <fmt/core.h>
 
-    int main(int argc, char** argv) {
+    int main() {
         fmt::print("{} - The C++ Package Manager!\n", "Conan");
         return EXIT_SUCCESS;
     }
