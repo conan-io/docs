@@ -86,7 +86,7 @@ In this case, we will use :ref:`PkgConfigDeps<conan_tools_gnu_pkgconfigdeps>` to
 files are installed thanks to the `*.pc` files and :ref:`AutotoolsToolchain<conan_tools_gnu_autotoolstoolchain>` to pass build information
 to *autotools* using a `conanbuild[.sh|.bat]` file that describes the compilation environment.
 
-We will use Conan to install **fmt** and generate the files that Autotools needs to find this library and build our project.
+We will use Conan to install **fmt** library, generate a toolchain for Autotools, and, .pc files for find **fmt** by pkg-config.
 
 
 Building on Linux and macOS
@@ -168,7 +168,7 @@ Now we run the ``make`` command, which will consume the ``Makefile`` generated b
 
     make
 
-As the final result, we will have the binary ``string_formatter`` installed in our *string_formatter* folder.
+The ``make`` command will read the ``Makefile`` and invoke the compiler, then, build the ``main.cpp``, generating the executable ``string_formatter`` in the same folder.
 
 .. code-block:: shell
 
