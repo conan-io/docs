@@ -57,7 +57,7 @@ The ``configure.ac`` tells us about our project will a C++ compiler and a pkg-co
     AC_PROG_CXX
     AC_OUTPUT
 
-And, the *Makefile.am* has ``string_formatter`` as our expected executable, and it will linked to the ``fmt`` library.
+And, the *Makefile.am* has ``string_formatter`` as our expected executable, and it will be linked to the ``fmt`` library.
 
 .. code-block:: text
     :caption: **Mafile.am**
