@@ -94,7 +94,18 @@ pattern including the ``:`` separator of the ``package_id``:
     # in normal situations
 
 
-All the above commands, by default operate in the Conan cache.
+Note that you can filter which packages will be removed using the ``--package-query`` argument:
+
+.. code-block:: text
+
+    $ conan remove zlib/1.2.11:* -p compiler=clang
+    # Removes all the zlib/1.2.11 packages built with Clang compiler
+
+
+You can query packages by both their settings and options, including custom ones.
+
+
+All the above commands, by default, operate in the Conan cache.
 To remove artifacts from a server, use the ``-r=myremote`` argument:
 
 .. code-block:: text
