@@ -228,3 +228,35 @@ Object used exclusively in ``package_id()`` method:
 
         def package_id(self):
             self.info.clear()
+
+
+package_id_xxxxx_mode
+---------------------
+
+The ``package_id_embed_mode, package_id_non_embed_mode, package_id_unknown_mode`` are class attributes that can be defined in recipes to define the effect they have on their consumers ``package_id``. Can be declared as:
+
+.. code-block:: python
+
+    from conan import ConanFile
+
+    class Pkg(ConanFile):
+        name = "pkg"
+        version = "1.0.0"
+        package_id_embed_mode = "full_mode"
+        package_id_non_embed_mode = "patch_mode"
+        package_id_unknown_mode = "minor_mode"
+        
+
+Possible values are (following the semver definition of MAJOR.MINOR.PATCH):
+
+- ``patch_mode``: New patches, minors, and major releases of the package will require a new binary (new ``package_id``) of the consumers. New recipe revisions will not require new binaries of the consumers. For example if we create a new ``pkg/1.0.1`` version and some consumer has ``requires = "pkg/[>=1.0 <2.0]"``, such a consumer will build a new binary against this specific new ``1.0.1`` version. But if we just change the recipe, producing a new ``recipe_revision``, the consumers will not require building a new binary.
+- ``minor_mode``: New minor and major releases of this package will require a new binary of the consumers. New patches and new revisions will not require new binaries of the consumers. This is the default for the "non-embed-mode", as it allows fine control by the users to decide when to rebuild things or not.
+- ``major_mode``: Only new major releases will require new binaries. Any other modifications and new versions will not require new binaries from the consumers.
+- ``full_mode``: The full identifier of this package, including ``pkgname/version@user/channel#recipe_revision:package_id`` will be used in the consumers ``package_id``, then requiring to build a new binary of the consumer for every change of this package (as any change either in source or configuration will produce a different ``recipe_revision`` or ``package_id`` respectively). This is the default for the "embed-mode".
+- ``unrelated_mode``: No change in this package will ever produce a new binary in the consumer. 
+
+The 3 different attributes are:
+
+- ``package_id_embed_mode``: Define the mode for "embedding" cases, that is, a shared library linking a static library, an application linking a static library, an application or a library linking a header-only library. The default for this mode is ``full_mode``
+- ``package_id_non_embed_mode``. Define the mode for "non-embedding" cases, that is, a shared library linking another shared library, a static library linking another static library, an application executable linking a shared library. The default for this mode is ``minor_mode``.
+- ``package_id_unknown_mode``: Define the mode when the relationship between packages is unknown. If it is not possible to deduce the package type, because there are no ``shared`` or ``header_only`` options defined, or because ``package_type`` is not defined, then, this mode will be used. The default for this mode is ``semver_mode`` (similar to Conan 1.X behavior).
