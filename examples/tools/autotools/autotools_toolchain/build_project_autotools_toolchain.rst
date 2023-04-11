@@ -60,7 +60,7 @@ The ``configure.ac`` file checks for a C++ compiler using the ``AC_PROG_CXX`` ma
 The *Makefile.am* specifies that ``string_formatter`` is the expected executable and that it should be linked to the ``fmt`` library.
 
 .. code-block:: text
-    :caption: **Mafile.am**
+    :caption: **Makefile.am**
 
     AUTOMAKE_OPTIONS = subdir-objects
     ACLOCAL_AMFLAGS = ${ACLOCAL_FLAGS}
