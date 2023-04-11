@@ -28,7 +28,7 @@ We start from a very simple C++ language project with this structure:
     └── src
         └── main.cpp
 
-This project contains a basic *configure.ac* including the **fmt** pkg-config dependency and the
+This project contains a basic `configure.ac <https://www.gnu.org/software/autoconf/manual/autoconf-2.60/html_node/Writing-configure_002eac.html>_` including the **fmt** pkg-config dependency and the
 source code for the string formatter program in *main.cpp*.
 
 Let's have a look at the *main.cpp* file, it only prints a default message, but uses ``fmt::print`` method for it.
