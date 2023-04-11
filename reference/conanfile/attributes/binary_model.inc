@@ -230,8 +230,8 @@ Object used exclusively in ``package_id()`` method:
             self.info.clear()
 
 
-package_id_xxxxx_mode
----------------------
+package_id_{embed,non_embed,unknown}_mode
+-----------------------------------------
 
 The ``package_id_embed_mode, package_id_non_embed_mode, package_id_unknown_mode`` are class attributes that can be defined in recipes to define the effect they have on their consumers ``package_id``. Can be declared as:
 
