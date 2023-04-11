@@ -32,7 +32,8 @@ conan lock create
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
                             -vvv or -vtrace
     --name NAME           Provide a package name if not specified in conanfile
-    --version VERSION     Provide a package version if not specified in conanfile
+    --version VERSION     Provide a package version if not specified in
+                            conanfile
     --user USER           Provide a user if not specified in conanfile
     --channel CHANNEL     Provide a channel if not specified in conanfile
     --requires REQUIRES   Directly provide requires instead of a conanfile
@@ -43,18 +44,18 @@ conan lock create
                             Combining multiple '--build' options on one command
                             line is allowed. Possible values: --build="*" Force
                             build from source for all packages. --build=never
-                            Disallow build for all packages, use binary packages or
-                            fail if a binary package is not found. Cannot be
+                            Disallow build for all packages, use binary packages
+                            or fail if a binary package is not found. Cannot be
                             combined with other '--build' options. --build=missing
                             Build packages from source whose binary package is not
                             found. --build=cascade Build packages from source that
                             have at least one dependency being built from source.
                             --build=[pattern] Build packages from source whose
-                            package reference matches the pattern. The pattern uses
-                            'fnmatch' style wildcards. --build=![pattern] Excluded
-                            packages, which will not be built from the source,
-                            whose package reference matches the pattern. The
-                            pattern uses 'fnmatch' style wildcards.
+                            package reference matches the pattern. The pattern
+                            uses 'fnmatch' style wildcards. --build=![pattern]
+                            Excluded packages, which will not be built from the
+                            source, whose package reference matches the pattern.
+                            The pattern uses 'fnmatch' style wildcards.
                             --build=missing:[pattern] Build from source if a
                             compatible binary does not exist, only for packages
                             matching pattern.
@@ -64,10 +65,10 @@ conan lock create
     -u, --update          Will check the remote and in case a newer version
                             and/or revision of the dependencies exists there, it
                             will install those in the local cache. When using
-                            version ranges, it will install the latest version that
-                            satisfies the range. Also, if using revisions, it will
-                            update to the latest revision for the resolved version
-                            range.
+                            version ranges, it will install the latest version
+                            that satisfies the range. Also, if using revisions, it
+                            will update to the latest revision for the resolved
+                            version range.
     -o OPTIONS_HOST, --options OPTIONS_HOST
                             Define options values (host machine), e.g.: -o
                             Pkg:with_qt=true
@@ -84,14 +85,14 @@ conan lock create
     -pr:h PROFILE_HOST, --profile:host PROFILE_HOST
                             Apply the specified profile to the host machine
     -s SETTINGS_HOST, --settings SETTINGS_HOST
-                            Settings to build the package, overwriting the defaults
-                            (host machine). e.g.: -s compiler=gcc
+                            Settings to build the package, overwriting the
+                            defaults (host machine). e.g.: -s compiler=gcc
     -s:b SETTINGS_BUILD, --settings:build SETTINGS_BUILD
-                            Settings to build the package, overwriting the defaults
-                            (build machine). e.g.: -s:b compiler=gcc
+                            Settings to build the package, overwriting the
+                            defaults (build machine). e.g.: -s:b compiler=gcc
     -s:h SETTINGS_HOST, --settings:host SETTINGS_HOST
-                            Settings to build the package, overwriting the defaults
-                            (host machine). e.g.: -s:h compiler=gcc
+                            Settings to build the package, overwriting the
+                            defaults (host machine). e.g.: -s:h compiler=gcc
     -c CONF_HOST, --conf CONF_HOST
                             Configuration to build the package, overwriting the
                             defaults (host machine). e.g.: -c
