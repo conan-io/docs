@@ -7,8 +7,7 @@ In this example, we are going to create a string formatter application
 that uses one of the most popular C++ libraries: `fmt <https://fmt.dev/latest/index.html/>`__.
 
 We'll use Autotools as build system and pkg-config as helper tool in this case, so you should get them installed
-on Linux and Mac before going forward with this example. In case you do not have them installed already, you can
-`Conan Center <https://conan.io/center/>`_ and install them as build requirements.
+on Linux and Mac before going forward with this example.
 
 Please, at first, clone the sources to recreate this project, you can find them in the
 `examples2.0 repository <https://github.com/conan-io/examples2>`_ in GitHub:
