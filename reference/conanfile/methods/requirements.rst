@@ -116,6 +116,15 @@ transitive dependency to override, this ``require`` will be discarded. This trai
 exists at the time of defining a ``requires``, but it will not exist as an actual
 ``requires`` once the graph is fully evaluated
 
+.. note::
+
+    **Best practices**
+
+    The ``force`` and ``override`` traits to solve conflicts are not recommended as a general versioning
+    solution, just as a temporary workaround to solve a version conflict. Its usage should be avoided
+    whenever possible, and updating versions or version ranges in the graph to avoid the conflicts without
+    overrides and forces is the recommended approach.
+
 direct
 ~~~~~~
 
