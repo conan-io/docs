@@ -68,7 +68,7 @@ Equivalent to ``self.test_requires()`` in ``conanfile.py``.
 
 .. code-block:: text
 
-    [tool_requires]
+    [test_requires]
     gtest/1.12.1
 
 This section also supports version ranges and pinned recipe revisions, as above.
