@@ -163,21 +163,23 @@ The output will look like:
       build_id: None
       binary: None
       invalid_build: False
+      info_invalid: None
       revision_mode: hash
       package_type: unknown
       settings:
         os: Macos
-        arch: x86_64
+        arch: armv8
         compiler: apple-clang
         compiler.cppstd: gnu17
         compiler.libcxx: libc++
         compiler.version: 14
         build_type: Release
-      system_requires:
       options:
+      system_requires:
       recipe_folder: None
       source_folder: None
       build_folder: None
+      generators_folder: None
       package_folder: None
       cpp_info:
         root:
@@ -208,12 +210,13 @@ The output will look like:
     binutils/2.38#0dc90586530d3e194d01d17cb70d9461:
       ref: binutils/2.38#0dc90586530d3e194d01d17cb70d9461
       id: 1
-      recipe: Cache
-      package_id: 477fd4770fc5cb8ad1e6274f5cf4ef9f9fb055b1
+      recipe: Downloaded
+      package_id: 5350e016ee8d04f418b50b7be75f5d8be9d79547
       prev: None
       build_id: None
       binary: Invalid
       invalid_build: False
+      info_invalid: cci does not support building binutils for Macos since binutils is degraded there (no as/ld + armv8 does not build)
       url: https://github.com/conan-io/conan-center-index/
       license: GPL-2.0-or-later
       description: The GNU Binutils are a collection of binary tools.
@@ -223,21 +226,22 @@ The output will look like:
       package_type: application
       settings:
         os: Macos
-        arch: x86_64
+        arch: armv8
         compiler: apple-clang
         compiler.version: 14
         build_type: Release
-      system_requires:
       options:
         multilib: True
-        prefix: x86_64-apple-darwin-
-        target_arch: x86_64
+        prefix: aarch64-apple-darwin-
+        target_arch: armv8
         target_os: Macos
-        target_triplet: x86_64-apple-darwin
+        target_triplet: aarch64-apple-darwin
         with_libquadmath: True
+      system_requires:
       recipe_folder: /Users/barbarian/.conan2/p/binut53bd9b3ee9490/e
       source_folder: None
       build_folder: None
+      generators_folder: None
       package_folder: None
       cpp_info:
         root:
@@ -264,16 +268,17 @@ The output will look like:
       context: host
       test: False
       requires:
-        2: zlib/1.2.13#13c96f538b52e1600c40b88994de240f
-    zlib/1.2.13#13c96f538b52e1600c40b88994de240f:
-      ref: zlib/1.2.13#13c96f538b52e1600c40b88994de240f
+        2: zlib/1.2.13#416618fa04d433c6bd94279ed2e93638
+    zlib/1.2.13#416618fa04d433c6bd94279ed2e93638:
+      ref: zlib/1.2.13#416618fa04d433c6bd94279ed2e93638
       id: 2
       recipe: Cache
-      package_id: 6fe7fa69f760aee504e0be85c12b2327c716f9e7
-      prev: None
+      package_id: 76f7d863f21b130b4e6527af3b1d430f7f8edbea
+      prev: 866f53e31e2d9b04d49d0bb18606e88e
       build_id: None
       binary: Skip
       invalid_build: False
+      info_invalid: None
       url: https://github.com/conan-io/conan-center-index
       license: Zlib
       description: A Massively Spiffy Yet Delicately Unobtrusive Compression Library (Also Free, Not to Mention Unencumbered by Patents)
@@ -283,17 +288,18 @@ The output will look like:
       package_type: static-library
       settings:
         os: Macos
-        arch: x86_64
+        arch: armv8
         compiler: apple-clang
         compiler.version: 14
         build_type: Release
-      system_requires:
       options:
         fPIC: True
         shared: False
-      recipe_folder: /Users/barbarian/.conan2/p/zlib9f370ca971ddf/e
+      system_requires:
+      recipe_folder: /Users/barbarian/.conan2/p/zlibbcf9063fcc882/e
       source_folder: None
       build_folder: None
+      generators_folder: None
       package_folder: None
       cpp_info:
         root:
