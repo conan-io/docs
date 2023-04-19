@@ -50,8 +50,8 @@ This is a basic recipe for a header-only recipe:
             self.cpp_info.bindirs = []
             self.cpp_info.libdirs = []
 
-Please, note that we are setting cpp_info.bindirs and cpp_info.libdirs to ``[]`` because
-we won't use them for header-only.
+Please, note that we are setting ``cpp_info.bindirs`` and ``cpp_info.libdirs`` to ``[]`` because
+header-only libraries don't have compiled libraries or binaries, but they default to ``["bin"]``, and ``["lib"]``, then it is necessary to change it.
 
 Our header-only library is this simple function that sums two numbers:
 
