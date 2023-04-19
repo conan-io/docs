@@ -44,6 +44,15 @@ This is a basic recipe for a header-only recipe:
             # This will also copy the "include" folder
             copy(self, "*.h", self.source_folder, self.package_folder)
 
+        def package_info(self):
+            # For header-only packages, libdirs and bindirs are not used
+            # so it's necessary to set those as empty.
+            self.cpp_info.bindirs = []
+            self.cpp_info.libdirs = []
+
+Please, note that we are setting ``cpp_info.bindirs`` and ``cpp_info.libdirs`` to ``[]`` because
+header-only libraries don't have compiled libraries or binaries, but they default to ``["bin"]``, and ``["lib"]``, then it is necessary to change it.
+
 Our header-only library is this simple function that sums two numbers:
 
 
@@ -159,6 +168,12 @@ We have the same header-only library that sums two numbers, but now we have this
         def package(self):
             # This will also copy the "include" folder
             copy(self, "*.h", self.source_folder, self.package_folder)
+
+        def package_info(self):
+            # For header-only packages, libdirs and bindirs are not used
+            # so it's necessary to set those as empty.
+            self.cpp_info.bindirs = []
+            self.cpp_info.libdirs = []
 
         def package_id(self):
             self.info.clear()
