@@ -144,27 +144,29 @@ The declared `.build_modules` come from the original package that declares usefu
 etc. We need to use the property `cmake_build_modules` to declare a list of cmake files instead of using `cpp_info.build_modules`:
 
 .. code-block:: python
-class PyBind11Conan(ConanFile):
-    name = "pybind11"
-    ...
 
-    def package_info(self):
-        ...
-        for generator in ["cmake_find_package", "cmake_find_package_multi"]:
-            self.cpp_info.components["main"].build_modules[generator].append(os.path.join("lib", "cmake", "pybind11", "pybind11Common.cmake"))
-        ...
+  class PyBind11Conan(ConanFile):
+      name = "pybind11"
+      ...
+
+      def package_info(self):
+          ...
+          for generator in ["cmake_find_package", "cmake_find_package_multi"]:
+              self.cpp_info.components["main"].build_modules[generator].append(os.path.join("lib", "cmake", "pybind11", "pybind11Common.cmake"))
+          ...
 
 To translate this information to the new model we declare the `cmake_build_modules` property in the `root cpp_info` object:
 
 .. code-block:: python
-class PyBind11Conan(ConanFile):
-    name = "pybind11"
-    ...
 
-    def package_info(self):
-        ...
-        self.cpp_info.set_property("cmake_build_modules", [os.path.join("lib", "cmake", "pybind11", "pybind11Common.cmake")])
-        ...
+  class PyBind11Conan(ConanFile):
+      name = "pybind11"
+      ...
+
+      def package_info(self):
+          ...
+          self.cpp_info.set_property("cmake_build_modules", [os.path.join("lib", "cmake", "pybind11", "pybind11Common.cmake")])
+          ...
 
 
 Migrating components information
