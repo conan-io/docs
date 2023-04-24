@@ -212,25 +212,28 @@ generator suports the new ``set_property`` model for most of the properties. The
 model can be translated to the new one without having to leave the old attributes in the
 recipes. Let's see an example:
 
-```python
-class AprConan(ConanFile):
-    name = "apr"
-    ...
-    def package_info(self):
-        self.cpp_info.names["pkg_config"] = "apr-1"
-    ...
-```
+.. code-block:: python
+
+    class AprConan(ConanFile):
+        name = "apr"
+        ...
+        def package_info(self):
+            self.cpp_info.names["pkg_config"] = "apr-1"
+        ...
+
 
 In this case, you can remove the ``.names`` attribute and just leave:
 
-```python
-class AprConan(ConanFile):
-    name = "apr"
-    ...
-    def package_info(self):
-        self.cpp_info.set_property("pkg_config_name",  "apr-1")
-    ...
-```
+
+.. code-block:: python
+
+    class AprConan(ConanFile):
+        name = "apr"
+        ...
+        def package_info(self):
+            self.cpp_info.set_property("pkg_config_name",  "apr-1")
+        ...
+
 
 For more information about properties supported by ``PkgConfigDeps`` generator, please check the [Conan
 documentation](https://docs.conan.io/1/reference/conanfile/tools/gnu/pkgconfigdeps.html#properties).
