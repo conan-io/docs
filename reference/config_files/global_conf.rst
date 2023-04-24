@@ -133,6 +133,16 @@ Tools and user configurations can be defined in both the *global.conf* file and
     Profiles values will have priority over globally defined ones in global.conf.
 
 
+These are some hints about configuration items scope and naming:
+
+- ``core.xxx`` and ``tools.yyy`` are Conan built-ins, users cannot define their own ones in these scopes.
+- ``core.xxx`` can be defined in ``global.conf`` only, but not in profiles.
+- ``tools.yyy`` can be defined in ``global.conf``, in profiles ``[conf]`` section and cli ``-c`` arguments
+- ``user.zzz`` can be defined everywhere, and they are totally at the user discretion, no established naming convention. However this would be more or less expected:
+  - For open source libraries, specially those in conancenter, ``user.packagename:conf`` might be expected, like the ``boost`` recipe defining ``user.boost:conf`` conf
+  - For private usage, the recommendation could be to use something like ``user.orgname:conf`` for global org configuration accross all projects, ``user.orgname.project:conf`` for project or package configuration, though ``user.project:conf`` might be also good if the project name is unique enough.
+
+
 Configuration file template
 ---------------------------
 

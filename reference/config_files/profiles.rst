@@ -420,6 +420,11 @@ List of user/tools configurations:
     # User conf variable
     user.confvar:something=False
 
+Recall some hints about configuration scope and naming:
+
+- ``core.xxx`` configuration can only be defined in ``global.conf`` file, but not in profiles
+- ``tools.yyy`` and ``user.zzz`` can be defined in ``global.conf`` and they will affect both the "build" and the "host" context. But configurations defined in a profile ``[conf]`` will only affect the respective "build" or "host" context of the profile, not both.
+
 
 They can also be used in :ref:`reference_config_files_global_conf`,
 but **profiles values will have priority over globally defined ones in global.conf**, so let's see an example that is a bit more complex,
