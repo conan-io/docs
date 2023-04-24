@@ -2,36 +2,28 @@
 
 node('Linux') {
     String masterBranch = 'master'
-    boolean isMaster = env.BRANCH_NAME == masterBranch
+    String branch = env.BRANCH_NAME
+    boolean publishDocs = (branch == masterBranch) || (branch.startsWith("release/"))
 
     stage('Clone sources') {
         checkout scm
     }
 
-    def image = null
-    stage('Build docker image') {
-        image = docker.build('conan-docs', '-f .ci/Dockerfile .')  // It should cache the image
-    }
+    def docsImage = docker.image("conanio/ci-docs")
 
-    stage('Test build') {
-        parallel html: {
-            image.inside {
+    docsImage.inside {
+        stage('Test build') {
+            parallel html: {
                 sh 'make html'
-            }
-        },
-        pdf: {
-            image.inside {
+            },
+            pdf: {
                 sh 'make latex'
-            }
-        },
-        spelling: {
-            image.inside {
+            },
+            spelling: {
                 sh 'make spelling'
-            }
-        },
-        linkcheck: {
-            image.inside {
-                def status = sh(returnStatus: true, script: 'make linkcheck > links_output.txt')
+            },
+            linkcheck: {
+                def status = sh(returnStatus: true, script: 'make linkcheck | tee links_output.txt')
                 sh 'cat links_output.txt'
                 if (status != 0) {
                     def broken_links = sh(returnStdout: true , script: 'cat links_output.txt | grep broken')
@@ -40,15 +32,15 @@ node('Linux') {
                     def summary = "${subject}\n```\n${broken_links}\n```"
                     slackSend (color: '#FF0000', message: summary)
                 }
-            }
+            } 
         }
     }
 
-    // 'master' branch is published to GH pages
-    if (isMaster) {
+    if (publishDocs) {
+        String branches = sh(script: 'python .ci/scripts/get_branches.py', returnStdout: true).trim().readLines().join(',')
+        echo "Will generate docs for ${branches}"
         build(job: 'Conan-Docs-Publish', propagate: true, wait: true, parameters: [
-            [$class: 'StringParameterValue', name: 'latest', value: masterBranch],
-            [$class: 'StringParameterValue', name: 'prefix', value: 'https://docs.conan.io/'],
+            [$class: 'StringParameterValue', name: 'branches', value: branches],
             [$class: 'BooleanParameterValue', name: 'publish', value: true]
         ])
     }

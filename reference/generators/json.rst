@@ -5,6 +5,11 @@ json
 
 .. warning::
 
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
+
+.. warning::
+
     Actual JSON may have more fields not documented here. Those fields may change in the future
     without previous warning.
 

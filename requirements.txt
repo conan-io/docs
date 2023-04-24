@@ -4,3 +4,4 @@ sphinx-sitemap>=2.1.0
 sphinxcontrib-spelling
 sphinx-notfound-page
 jinja2<=3.0.3
+colorama>=0.4.3, <0.5.0

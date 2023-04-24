@@ -140,7 +140,7 @@ The definition of the ``default_options`` attribute has changed when referring t
     from conan import ConanFile
 
     class Pkg(Conanfile):
-        # "pkg/*:some_option" or ""pkg/1.0:some_option" or "pkg*:some_option" would be valid
+        # "pkg/*:some_option" or ""pkg/1.0:some_option" would be valid
         default_options = {"pkg/*:some_option": "value"}
 
 
@@ -618,7 +618,7 @@ Example:
    :caption: **To:**
 
     import os
-    from conans import ConanFile
+    from conan import ConanFile
 
     class Pkg(ConanFile):
         name = "pkg"
@@ -633,7 +633,7 @@ In a consumer recipe:
 .. code-block:: python
 
     import os
-    from conans import ConanFile
+    from conan import ConanFile
 
     class Pkg(ConanFile):
         requires = "pkg/1.0"

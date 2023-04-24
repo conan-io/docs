@@ -4,6 +4,11 @@
 qbs
 ____
 
+.. warning::
+
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
+
 Conan provides a **qbs** generator, which will generate a ``conanbuildinfo.qbs`` file that can be used for your
 qbs builds.
 

@@ -178,6 +178,23 @@ It can be used for implementing a controlled ``export`` of files not gitignored,
             shutil.copy2(i, dst)
 
 
+fetch_commit()
+--------------
+
+Can be used to efficiently retrieve just 1 commit from the server, instead of doing a full clone, which can be slower.
+
+
+.. code-block:: python
+
+    def source(self):
+        git = Git(self)
+        git.fetch_commit(url="repo-url", commit="specific-commit")
+
+
+Note that this can fail if the server does not support this fetch mode. Most of modern servers like Github, Gitlab support it,
+but if you host your own server, please check.
+
+
 run()
 -----
 

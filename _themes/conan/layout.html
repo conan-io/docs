@@ -96,7 +96,7 @@
           {% block sidebartitle %}
 
           {% if logo and theme_logo_only %}
-            <a href="https://conan.io">
+            <a href="{{ pathto(master_doc) }}">
           {% else %}
             <a href="{{ pathto(master_doc) }}" class="icon icon-home"> {{ project }}
           {% endif %}
@@ -129,10 +129,7 @@
             {% endif %}
           {% endblock %}
           <div class="dark_newsletter-div">
-             <p>Sign up for release updates:</p>
-              <script src="https://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
-              <form id="mktoForm_1479"></form>
-              <script>MktoForms2.loadForm("https://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+             <p><a href="https://conan.io/#signUp" target="_blank">Sign up for release updates</a></p>
           </div>
         </div>
       </div>
@@ -155,6 +152,11 @@
       </script>
       <div class="wy-nav-content">
         <div class="rst-content">
+          {% if current_version.startswith("1") %}
+          <div class="admonition important wy-text-center">
+            <p>This document is for a <b>"1.X"</b> Conan version. <a href="https://docs.conan.io/2/">Click here to see the Conan 2.0 documentation</a></p>
+          </div>
+          {% endif %}       
           {% include "breadcrumbs.html" %}
           <!--<select id="search" name="state" multiple="true" onchange="window.location = reldir + this.value;" style="width:90%"></select>
           <hr/>-->

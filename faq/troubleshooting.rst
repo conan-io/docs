@@ -268,6 +268,19 @@ Here we choose ``foo/1.3.0`` because is newer. Now we can proceed:
 Conan still warns us about the conflict, but as we have :ref:`versioning_dependencies_overriding` the ``foo`` version, it's no longer an error.
 
 
+ERROR: AuthenticationException:
+--------------------------------------------------------------
+
+This error can happen, if there are no or false authentication credentials in the HTTP request from conan. To get more information try enabling the debug level for HTTP connections:
+
+.. code-block:: python
+
+    import http.client
+    http.client.HTTPConnection.debuglevel = 1
+
+One source of error can be the ``.netrc`` file, which is `honored by the requests library <https://requests.readthedocs.io/en/latest/user/quickstart/#custom-headers>`_.
+
+
 ERROR: HTTPSConnectionPool(host='conan.bintray.com', port=443)
 --------------------------------------------------------------
 

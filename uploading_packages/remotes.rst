@@ -12,8 +12,6 @@ The remotes are just servers used as binary repositories that store packages by 
 
 There are several possibilities when uploading packages to a server:
 
-For private development:
-
 - **Artifactory Community Edition for C/C++**: Artifactory Community Edition (CE) for C/C++ is a
   completely free Artifactory server that implements both Conan and generic repositories. It is
   the recommended server for companies and teams wanting to host their own private repository.
@@ -26,13 +24,6 @@ For private development:
   check the `Artifactory Comparison Matrix <https://www.jfrog.com/confluence/display/JFROG/Artifactory+Comparison+Matrix>`_.
 - **Conan server**: Simple, free and open source, MIT licensed server that comes bundled with the Conan client.
   Check :ref:`running_your_server` for more information.
-
-For distribution:
-
-- **Artifactory Cloud-hosted instance**: Artifactory Cloud, where JFrog manages, maintains and scales
-  the infrastructure and provides automated server backups with free updates and guaranteed uptime.
-  It's offered with a free tier designed for individual with reduced usage.
-  Check :ref:`artifactory_cloud` for more information.
 
 .. _conan_center:
 

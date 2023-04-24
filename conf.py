@@ -42,9 +42,9 @@ extensions = [
 ]
 
 # The short X.Y version.
-version = "1.57"
+version = "1.59"
 # The full version, including alpha/beta/rc tags.
-release = u'1.57.0'
+release = u'1.59.0'
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 if not os.path.exists(os.path.join(dir_path, "versions.json")):
@@ -145,7 +145,7 @@ html_theme_path = conan.get_html_theme_path()
 
 # for sphinx-sitemap, and for the canonical url
 # This helps with SEO by asking crawlers to prefer serving latest
-html_baseurl = "https://docs.conan.io/en/latest/"
+html_baseurl = "https://docs.conan.io/"
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further. For a list of options available for each theme, see the

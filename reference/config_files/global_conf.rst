@@ -132,6 +132,10 @@ and renders the template, which must result in a standard tools-configuration te
     The Python packages passed to render the template are ``os`` and ``platform`` for all platforms and ``distro`` in Linux platforms.
 
 
+
+Added in `1.60.0 <https://github.com/conan-io/conan/releases/tag/1.60.0>`_: Make variable ``conan_version`` available
+
+
 Configuration data types
 ------------------------
 

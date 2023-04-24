@@ -3,6 +3,11 @@
 QMake
 ======
 
+.. warning::
+
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
+
 The ``qmake`` generator will generate a *conanbuildinfo.pri* file that can be used for your qmake builds.
 
 .. code-block:: bash

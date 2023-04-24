@@ -3,6 +3,11 @@
 :command:`pkg-config` and *.pc* files
 =====================================
 
+.. warning::
+
+    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
+    to find the feature that replaced this one.
+
 If you are creating a Conan package for a library (A) and the build system uses *.pc* files to locate
 its dependencies (B and C) that are Conan packages too, you can follow different approaches.
 
