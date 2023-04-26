@@ -73,7 +73,6 @@ example:
             self.cpp_info.set_property("cmake_find_mode", "both")
         ...
 
-
 Migrating from .filenames to cmake_file_name
 ============================================
 
@@ -138,6 +137,38 @@ If we take the previous example of the ``myssl`` and you want to generate a ``Fi
 
 You can read more about this properties in the :ref:`CMakeDeps<CMakeDeps Properties>` properties reference.
 
+Translating .build_modules to cmake_build_modules
+=================================================
+
+The declared `.build_modules` come from the original package that declares useful CMake functions, variables
+etc. We need to use the property `cmake_build_modules` to declare a list of cmake files instead of using `cpp_info.build_modules`:
+
+.. code-block:: python
+
+  class PyBind11Conan(ConanFile):
+      name = "pybind11"
+      ...
+
+      def package_info(self):
+          ...
+          for generator in ["cmake_find_package", "cmake_find_package_multi"]:
+              self.cpp_info.components["main"].build_modules[generator].append(os.path.join("lib", "cmake", "pybind11", "pybind11Common.cmake"))
+          ...
+
+To translate this information to the new model we declare the `cmake_build_modules` property in the `root cpp_info` object:
+
+.. code-block:: python
+
+  class PyBind11Conan(ConanFile):
+      name = "pybind11"
+      ...
+
+      def package_info(self):
+          ...
+          self.cpp_info.set_property("cmake_build_modules", [os.path.join("lib", "cmake", "pybind11", "pybind11Common.cmake")])
+          ...
+
+
 Migrating components information
 ================================
 
@@ -167,12 +198,45 @@ Could be declared like this with the properties model:
         self.cpp_info.components["mycomponent"].set_property("custom_name", "mycomponent-name", "custom_generator")
         ...
 
-
 Please **note** that most of the legacy generators like `cmake`, `cmake_multi`,
 `cmake_find_package`, `cmake_find_package_multi` and `cmake_paths` do not listen to these
 properties at all, so if you want to maintain compatibility with consumers that use those
 generators and also that information for new generators like
 `CMakeDeps` you need both models living together in the same recipe.
+        
+Migration from .names to pkg_config_name
+========================================
+
+The current [pkg_config](https://docs.conan.io/1/reference/generators/pkg_config.html)
+generator suports the new ``set_property`` model for most of the properties. Then, the current
+model can be translated to the new one without having to leave the old attributes in the
+recipes. Let's see an example:
+
+.. code-block:: python
+
+    class AprConan(ConanFile):
+        name = "apr"
+        ...
+        def package_info(self):
+            self.cpp_info.names["pkg_config"] = "apr-1"
+        ...
+
+
+In this case, you can remove the ``.names`` attribute and just leave:
+
+
+.. code-block:: python
+
+    class AprConan(ConanFile):
+        name = "apr"
+        ...
+        def package_info(self):
+            self.cpp_info.set_property("pkg_config_name",  "apr-1")
+        ...
+
+
+For more information about properties supported by ``PkgConfigDeps`` generator, please check the [Conan
+documentation](https://docs.conan.io/1/reference/conanfile/tools/gnu/pkgconfigdeps.html#properties).
 
 .. seealso::
 
