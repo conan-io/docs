@@ -180,8 +180,8 @@ You will get something similar to this as the output of that command:
     ...
     -------- Computing dependency graph ----------
     zlib/1.2.11: Not found in local cache, looking in remotes...
-    zlib/1.2.11: Checking remote: conanv2
-    zlib/1.2.11: Trying with 'conanv2'...
+    zlib/1.2.11: Checking remote: conancenter
+    zlib/1.2.11: Trying with 'conancenter'...
     Downloading conanmanifest.txt
     Downloading conanfile.py
     Downloading conan_export.tgz
@@ -190,16 +190,16 @@ You will get something similar to this as the output of that command:
     Graph root
         conanfile.txt: /home/conan/examples2/tutorial/consuming_packages/simple_cmake_project/conanfile.txt
     Requirements
-        zlib/1.2.11#f1fadf0d3b196dc0332750354ad8ab7b - Downloaded (conanv2)
+        zlib/1.2.11#f1fadf0d3b196dc0332750354ad8ab7b - Downloaded (conancenter)
 
     -------- Computing necessary packages ----------
     Requirements
-        zlib/1.2.11#f1fadf0d3b196dc0332750354ad8ab7b:cdc9a35e010a17fc90bb845108cf86cfcbce64bf#dd7bf2a1ab4eb5d1943598c09b616121 - Download (conanv2)
+        zlib/1.2.11#f1fadf0d3b196dc0332750354ad8ab7b:cdc9a35e010a17fc90bb845108cf86cfcbce64bf#dd7bf2a1ab4eb5d1943598c09b616121 - Download (conancenter)
 
     -------- Installing packages ----------
 
     Installing (downloading, building) binaries...
-    zlib/1.2.11: Retrieving package cdc9a35e010a17fc90bb845108cf86cfcbce64bf from remote 'conanv2' 
+    zlib/1.2.11: Retrieving package cdc9a35e010a17fc90bb845108cf86cfcbce64bf from remote 'conancenter'
     Downloading conanmanifest.txt
     Downloading conaninfo.txt
     Downloading conan_package.tgz
