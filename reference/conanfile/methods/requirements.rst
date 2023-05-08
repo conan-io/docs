@@ -136,6 +136,16 @@ Some traits are automatically inferred based on the value of the ``package_type`
  * ``header-library``: ``headers=True``, ``libs=False``, ``run=False``
  * ``build-scripts``: ``headers=False``, ``libs=False``, ``run=False``, ``visible=False``
 
-Additionally, some additional traits are inferred on top of the above mentioned based on the depender's ``package_type``:
+Additionally, some additional traits are inferred on top of the above mentioned based on the ``package_type`` of the dependant:
 
  * ``header-library``: ``transitive_headers=True``, ``transitive_libs=True``
+
+Default traits for each kind of requires
+========================================
+
+Each kind of requires sets some additional traits by default on top of the ones stated in the last section. Those are:
+
+ * ``requires``: ``build=False``
+ * ``build_requires``:  ``headers=False``, ``libs=False``, ``build=True``, ``visible=False``
+ * ``tool_requires``: ``headers=False``, ``libs=False``, ``build=True``, ``run=True``, ``visible=False``
+ * ``test_requires``: ``headers=True``, ``libs=True``, ``build=False``, ``visible=False``, ``test=True``
