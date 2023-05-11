@@ -52,11 +52,11 @@ Requirements
 
     class Pkg(Conanfile):
 
-          ...
+        ...
 
-          def build_requirements(self):
-              self.build_requires("nasm/2.15.05")
-              self.build_requires("gtest/0.1", force_host_context=True)
+        def build_requirements(self):
+            self.build_requires("nasm/2.15.05")
+            self.build_requires("gtest/0.1", force_host_context=True)
 
 
 
@@ -67,11 +67,11 @@ Requirements
 
     class Pkg(Conanfile):
 
-          ...
+        ...
 
-          def build_requirements(self):
-              self.tool_requires("nasm/2.15.05")
-              self.test_requires("gtest/0.1")
+        def build_requirements(self):
+            self.tool_requires("nasm/2.15.05")
+            self.test_requires("gtest/0.1")
 
 
 The ``self.requires()`` method allows in 1.X any ``**kwargs``, so something like ``self.requires(..., transitive_headers=True)`` is possible in
@@ -92,13 +92,13 @@ Settings
 
     class Pkg(Conanfile):
 
-          settings = "os", "arch", "compiler"
+        settings = "os", "arch", "compiler"
 
-          ...
+        ...
 
-          def validate(self):
-              if self.settings.os == "Macos":
-                  raise ConanInvalidConfiguration("Macos not supported")
+        def validate(self):
+            if self.settings.os == "Macos":
+                raise ConanInvalidConfiguration("Macos not supported")
 
 
 
@@ -271,12 +271,12 @@ If your recipe is using CMake, you might want to use the ``cmake_layout(self)``:
 
 A typical anti-pattern in the recipes that can be solved with a ``layout()`` declaration would be:
 
-  .. code-block:: python
-     :caption: **From:**
+.. code-block:: python
+    :caption: **From:**
 
-     from conans import ConanFile, tools
+    from conans import ConanFile, tools
 
-     class Pkg(Conanfile):
+    class Pkg(Conanfile):
 
         @property
         def _source_subfolder(self):
@@ -287,14 +287,14 @@ A typical anti-pattern in the recipes that can be solved with a ``layout()`` dec
                       destination=self._source_subfolder, strip_root=True)
 
 
-  .. code-block:: python
-     :caption: **To:**
+.. code-block:: python
+    :caption: **To:**
 
-     from conan import ConanFile
-     from conan.tools.layout import basic_layout
-     from conan.tools.files import get
+    from conan import ConanFile
+    from conan.tools.layout import basic_layout
+    from conan.tools.files import get
 
-     class Pkg(Conanfile):
+    class Pkg(Conanfile):
 
         def layout(self):
             basic_layout(self, src_folder="source")
@@ -385,16 +385,16 @@ to mimic the same behavior:
 
     class Pkg(Conanfile):
 
-       def export(self):
-           git = Git(self, self.recipe_folder)
-           scm_url, scm_commit = git.get_url_and_commit()
-           update_conandata(self, {"sources": {"commit": scm_commit, "url": scm_url}})
+        def export(self):
+            git = Git(self, self.recipe_folder)
+            scm_url, scm_commit = git.get_url_and_commit()
+            update_conandata(self, {"sources": {"commit": scm_commit, "url": scm_url}})
 
-       def source(self):
-           git = Git(self)
-           sources = self.conan_data["sources"]
-           git.clone(url=sources["url"], target=".")
-           git.checkout(commit=sources["commit"])
+        def source(self):
+            git = Git(self)
+            sources = self.conan_data["sources"]
+            git.clone(url=sources["url"], target=".")
+            git.checkout(commit=sources["commit"])
 
 
 
@@ -618,7 +618,7 @@ Example:
    :caption: **To:**
 
     import os
-    from conans import ConanFile
+    from conan import ConanFile
 
     class Pkg(ConanFile):
         name = "pkg"
@@ -633,7 +633,7 @@ In a consumer recipe:
 .. code-block:: python
 
     import os
-    from conans import ConanFile
+    from conan import ConanFile
 
     class Pkg(ConanFile):
         requires = "pkg/1.0"
