@@ -400,3 +400,76 @@ For example among files below, this tool will select *libmath.dylib* file and th
 
     This tool collects the libraries searching directly inside the package folder and returns them in no specific order. If libraries are
     inter-dependent, then ``package_info()`` method should order them to achieve correct linking order.
+
+
+
+conan.tools.files.move_folder_contents()
+----------------------------------------
+
+Available since Conan 1.60.0
+
+.. code-block:: python
+
+    def move_folder_contents(conanfile, src_folder, dst_folder)
+
+
+This function allows to replace the ``dst_folder`` contents with the contents of ``src_folder``, also when ``src_folder`` is a
+children of ``dst_folder``.
+
+
+**Parameters:**
+    - **conanfile** (Required): A ``ConanFile`` object, always ``self`` inside a recipe.
+    - **src_folder** (Required): The folder which contents we want to move to ``dst_folder``
+    - **dst_folder** (Required): The destination folder.
+
+This helper function can help when using the ``scm`` capture strategy instead of ``exports``, and  a ``git clone``
+is cloning a whole repository, but we want to process only a subfolder of it.
+This situation can happen in mono-repo like projects, and also when using the ``self.folders.root = ".."`` ``layout()`` definition
+because the ``conanfile.py`` is not located in the root of the repo, but in one subfolder.
+
+For example, for a project repository containing 2 subprojects, each one with its own ``conanfile.py`` package definition:
+
+.. code-block:: text
+
+     project
+      |- pkg1
+           | - conanfile.py
+           | - CMakeLists, cpp/h files, etc
+      |- pkg2
+           | - conanfile.py
+           | - CMakeLists, cpp/h files, etc
+
+
+Assuming the ``project`` is a Git repo, each ``conanfile.py`` recipe would look like:
+
+.. code-block:: python
+
+     class Pkg(ConanFile):
+        name = <package-name>
+        version = <package-version>
+
+        # Each package will have its ``requires``
+
+        def export(self):
+            git = Git(self, self.recipe_folder)
+            scm_url, scm_commit = git.get_url_and_commit()
+            folder = os.path.basename(self.recipe_folder)
+            # Captures the Git repo and commit of "project", and folder name (pkg1/pkg2)
+            update_conandata(self, {{"sources": {{"commit": scm_commit, "url": scm_url,
+                                                  "folder": folder}}}})
+
+        def layout(self):
+            # this defines the location of each package sources wrt to itself
+            self.folders.source = "."
+
+        def source(self):
+            git = Git(self)
+            sources = self.conan_data["sources"]
+            git.clone(url=sources["url"], target=".")
+            git.checkout(commit=sources["commit"])
+            # This created in the cache the full original "project" structure, containing
+            # both "pkg1" and "pkg2" subfolders, but we only want the contents of the "pkg1"
+            src_folder = os.path.join(self.source_folder, sources["folder"]) # the "pkg1" subfolder
+            # replace the current self.source_folder with the "pkg1" subfolder contents
+            move_folder_contents(self, src_folder, self.source_folder)
+            # now we have the same relative layout in the cache as we had in the project clone
