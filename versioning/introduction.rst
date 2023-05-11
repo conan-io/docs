@@ -98,6 +98,42 @@ for normal dependencies versions management.**
     default in Conan 2.0 while removing the previous one.
 
 
+.. _tracking_host_versions:
+
+Tracking host versions
+++++++++++++++++++++++
+
+New since Conan 1.60.
+
+.. warning:: 
+
+    This is an **experimental** feature, added as a backport from Conan 2.0, subject to breaking changes in future releases.
+
+
+When there are packages that are required both in the "host" context and in the "build" context with ``tool_requires``, sometimes
+it is necessary to align the versions of both. This is possible with the ``<host_version>`` version specification:
+
+
+.. code-block:: python
+
+    from conan import ConanFile
+
+    class ProtoBuf(ConanFile):
+        name = "pkg"
+        version = "0.1"
+
+        def requirements(self):
+            self.requires("protobuf/1.0")
+    
+        def build_requirements(self):
+            self.tool_requires("protobuf/<host_version>")
+
+
+The ``<host_version>`` will take the version from the regular ``requires``, so in this case, this recipe will ``tool_requires`` ``protobuf/1.0``.
+Note this can be useful if for some reason the "host" requirement changes, like when it is overridden from downstream, or if it defined
+a version range and resolved to another version.
+
+
 Package revisions
 +++++++++++++++++
 
