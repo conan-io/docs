@@ -743,7 +743,9 @@ This method is useful for defining conditional tool requirements, for example:
 
 .. seealso::
 
-    :ref:`Tool requirements <build_requires>`
+    - :ref:`Tool requirements <build_requires>`
+    - Read how a ``tool_requires("pkg/<host_version>")`` can track the version of the host context :ref:`in this section <tracking_host_versions>`
+
 
 .. _method_system_requirements:
 
