@@ -345,6 +345,18 @@ value ``None`` to the property like this:
 After doing this the generated target name for the Zlib library will be ``zlib::zlib``
 instead of ``ZLIB::ZLIB``
 
+Additionally, `CMakeDeps.set_property()` can also be used for packages that have
+components. In this case, you will need to provide the package name along with its
+component separated by a double colon (`::`). Here's an example:
+
+.. code-block:: python
+
+    def generate(self):
+        deps = CMakeDeps(self)
+        deps.set_property("pkg::component", "cmake_target_name", <new_component_target_name>)
+        deps.generate()
+        ...
+
 
 .. _Disable CMakeDeps For Installed CMake imports:
 
