@@ -140,6 +140,7 @@ to distribute an unified *settings.yml* file you can use the :ref:`conan config 
 .. seealso::
 
     - :ref:`creating_packages_configure_options_settings`
+    - :ref:`conan_conanfile_properties_settings`
 
 
 Operating systems

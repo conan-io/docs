@@ -91,7 +91,7 @@ method:
         self.output.info("CPPSTDS: " + str(cppstds))
 
 
-This method is layer-based so doing ``self.settings.possible_values()`` returns the whole <reference_config_files_settings_yml>
+This method is layer-based so doing ``self.settings.possible_values()`` returns the whole :ref:`reference_config_files_settings_yml`
 as a Python dict-like object, and, doing ``self.settings.compiler.version.possible_values()`` for instance, it returns
 the available versions for the compiler used by the consumer.
 
@@ -107,7 +107,7 @@ For example, in the ``configure()`` method a typical pattern for a C library wou
 
 .. seealso::
 
-    - <reference_config_files_settings_yml>.
+    - :ref:`reference_config_files_settings_yml`.
     - Removing settings in the ``package_id()`` method. <MISSING PAGE>
 
 
