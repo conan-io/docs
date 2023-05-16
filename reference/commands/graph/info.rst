@@ -16,7 +16,7 @@ conan graph info
                                 [-l LOCKFILE] [--lockfile-partial]
                                 [--lockfile-out LOCKFILE_OUT] [--lockfile-packages]
                                 [--lockfile-clean] [--check-updates] [--filter FILTER]
-                                [--package-filter PACKAGE_FILTER] [--deploy DEPLOY]
+                                [--package-filter PACKAGE_FILTER] [-d DEPLOYER]
                                 [--build-require]
                                 [path]
 
@@ -123,8 +123,8 @@ conan graph info
         --package-filter PACKAGE_FILTER
                                 Print information only for packages that match the
                                 patterns
-        --deploy DEPLOY       Deploy using the provided deployer to the output
-                                folder
+        -d DEPLOYER, --deployer DEPLOYER
+                              Deploy using the provided deployer to the output folder
         --build-require       Whether the provided reference is a build-require
 
 The ``conan graph info`` command shows information about the dependency graph for the recipe specified in ``path``.

@@ -17,7 +17,7 @@ conan install
                         [-c:b CONF_BUILD] [-c:h CONF_HOST] [-l LOCKFILE]
                         [--lockfile-partial] [--lockfile-out LOCKFILE_OUT]
                         [--lockfile-packages] [--lockfile-clean] [-g GENERATOR]
-                        [-of OUTPUT_FOLDER] [--deploy DEPLOY] [--build-require]
+                        [-of OUTPUT_FOLDER] [-d DEPLOYER] [--build-require]
                         [path]
 
     Install the requirements specified in a recipe (conanfile.py or conanfile.txt).
@@ -132,8 +132,8 @@ conan install
                             Generators to use
     -of OUTPUT_FOLDER, --output-folder OUTPUT_FOLDER
                             The root output folder for generated and build files
-    --deploy DEPLOY       Deploy using the provided deployer to the output
-                            folder
+    -d DEPLOYER, --deployer DEPLOYER
+                          Deploy using the provided deployer to the output folder
     --build-require       Whether the provided reference is a build-require
 
 
@@ -244,7 +244,7 @@ like collecting licenses, generating reports, deploying binaries to the system, 
 .. code-block:: text
 
     # does a full copy of the dependencies binaries to the current user folder
-    $ conan install . --deploy=full_deploy
+    $ conan install . --deployer=full_deploy
 
 
 There are 2 built-in deployers:
