@@ -8,7 +8,9 @@ conan inspect
 .. code-block:: text
 
     $ conan inspect -h
-    usage: conan inspect [-h] [-f FORMAT] [-v [V]] path
+    usage: conan inspect [-h] [-f FORMAT] [-v [V]] [-r REMOTE] [-l LOCKFILE]
+                         [--lockfile-partial]
+                         path
 
     Inspect a conanfile.py to return its public fields.
 
@@ -23,10 +25,14 @@ conan inspect
                             verbose to more verbose: -vquiet, -verror, -vwarning,
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
                             -vvv or -vtrace
-
-.. note::
-
-    ``conan inspect`` doesn't really evaluate any methods or apply any conditional logic. It lists class attributes only.
+      -r REMOTE, --remote REMOTE
+                            Remote names. Accepts wildcards ('*' means all the
+                            remotes available)
+      -l LOCKFILE, --lockfile LOCKFILE
+                            Path to a lockfile. Use --lockfile="" to avoid
+                            automatic use of existing 'conan.lock' file
+      --lockfile-partial    Do not raise an error if some dependency is not found
+                            in lockfile
 
 The :command:`conan inspect` command shows the public attributes of any recipe (`conanfile.py`) as follows:
 
@@ -44,35 +50,49 @@ The :command:`conan inspect` command shows the public attributes of any recipe (
     description: libpng is the official PNG file format reference library.
     generators: []
     homepage: http://www.libpng.org
+    label:
     license: libpng-2.0
     name: libpng
-    no_copy_source: False
     options:
-        shared: [True, False]
-        fPIC: [True, False]
-        neon: [True, 'check', False]
-        msa: [True, False]
-        sse: [True, False]
-        vsx: [True, False]
+        api_prefix:
+        fPIC: True
+        msa: True
+        neon: True
+        shared: False
+        sse: True
+        vsx: True
+    options_definitions:
+        shared: ['True', 'False']
+        fPIC: ['True', 'False']
+        neon: ['True', 'check', 'False']
+        msa: ['True', 'False']
+        sse: ['True', 'False']
+        vsx: ['True', 'False']
         api_prefix: ['ANY']
+    package_type: None
+    requires: []
     revision_mode: hash
-    settings: ('os', 'arch', 'compiler', 'build_type')
-    topics: ('png', 'graphics', 'image')
+    settings: ['os', 'arch', 'compiler', 'build_type']
+    topics: ['png', 'graphics', 'image']
     url: https://github.com/conan-io/conan-center-index
+
+.. note::
+    ``conan inspect`` evaluates recipe methods such as ``set_name()`` and ``set_version()``,
+    and is capable of resolving ``python_requires`` dependencies (which can be locked with the ``--lockfile`` argument),
+    so its base methods will also be properly executed.
 
 The :command:`conan inspect ... --format=json` returns a JSON output format in ``stdout`` (which can be redirected to a file) with the following structure:
 
 .. code-block:: text
 
-    $ conan inspect -f json .
+    $ conan inspect . --format=json
     {
-        "author": null,
-        "build_policy": null,
-        "build_requires": null,
-        "buildenv_info": null,
-        "channel": null,
-        "conf_info": null,
-        "cpp": null,
+        "name": "libpng",
+        "url": "https://github.com/conan-io/conan-center-index",
+        "license": "libpng-2.0",
+        "description": "libpng is the official PNG file format reference library.",
+        "homepage": "http://www.libpng.org",
+        "revision_mode": "hash",
         "default_options": {
             "shared": false,
             "fPIC": true,
@@ -82,69 +102,66 @@ The :command:`conan inspect ... --format=json` returns a JSON output format in `
             "vsx": true,
             "api_prefix": ""
         },
-        "deprecated": null,
-        "description": "libpng is the official PNG file format reference library.",
-        "exports": null,
-        "exports_sources": null,
-        "generators": [],
-        "homepage": "http://www.libpng.org",
-        "license": "libpng-2.0",
-        "name": "libpng",
-        "no_copy_source": false,
-        "options": {
-            "shared": [
-                true,
-                false
-            ],
-            "fPIC": [
-                true,
-                false
-            ],
-            "neon": [
-                true,
-                "check",
-                false
-            ],
-            "msa": [
-                true,
-                false
-            ],
-            "sse": [
-                true,
-                false
-            ],
-            "vsx": [
-                true,
-                false
-            ],
-            "api_prefix": [
-                "ANY"
-            ]
-        },
-        "package_type": null,
-        "provides": null,
-        "recipe_folder": null,
-        "requires": null,
-        "revision_mode": "hash",
-        "runenv_info": null,
+        "topics": [
+            "png",
+            "graphics",
+            "image"
+        ],
+        "package_type": "None",
         "settings": [
             "os",
             "arch",
             "compiler",
             "build_type"
         ],
-        "test_requires": null,
-        "tested_reference_str": null,
-        "tool_requires": null,
-        "topics": [
-            "png",
-            "graphics",
-            "image"
-        ],
-        "upload_policy": null,
-        "url": "https://github.com/conan-io/conan-center-index",
-        "user": null,
-        "version": null,
-        "win_bash": null,
-        "win_bash_run": null
+        "options": {
+            "api_prefix": "",
+            "fPIC": "True",
+            "msa": "True",
+            "neon": "True",
+            "shared": "False",
+            "sse": "True",
+            "vsx": "True"
+        },
+        "options_definitions": {
+            "shared": [
+                "True",
+                "False"
+            ],
+            "fPIC": [
+                "True",
+                "False"
+            ],
+            "neon": [
+                "True",
+                "check",
+                "False"
+            ],
+            "msa": [
+                "True",
+                "False"
+            ],
+            "sse": [
+                "True",
+                "False"
+            ],
+            "vsx": [
+                "True",
+                "False"
+            ],
+            "api_prefix": [
+                "ANY"
+            ]
+        },
+        "generators": [],
+        "requires": [],
+        "source_folder": null,
+        "build_folder": null,
+        "generators_folder": null,
+        "package_folder": null,
+        "label": ""
     }
+
+.. note::
+    ``conan inspect`` does not list any requirements listed in the ``requirements()`` method,
+    only those present in the ``requires`` attribute will be shown.
