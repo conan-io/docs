@@ -59,8 +59,8 @@ And then use it in the generate method of your own packages like this:
 This has the advantage that you can version your own custom generators as packages and
 also that you can share those generators as Conan packages.
 
-Using custom generators globally
---------------------------------
+Using global custom generators
+------------------------------
 
 You can also use your custom generators globally if you store them in the
 ``[CONAN_HOME]/extensions/generators`` folder. You can place them directly in that folder
