@@ -77,10 +77,9 @@ conanfile.py method to learn a more flexible way to add them.
 build_requires
 --------------
 
-``build_requires`` are used in Conan 2.0 to provide compatibility with the Conan 1.X
-syntax but their use is discouraged in Conan 2 and will be deprecated in future 2.X
-releases. Please, use ``tool_requires`` instead ``build_requires`` in your Conan 2
-recipes.
+`build_requires` are used in Conan 2.0 to provide compatibility with the Conan 1.X syntax,
+but their use is discouraged in Conan 2 and will be deprecated in future 2.X releases.
+Please use `tool_requires` instead of `build_requires` in your Conan 2 recipes.
 
 
 test_requires
