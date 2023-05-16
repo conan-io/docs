@@ -96,3 +96,16 @@ build system syntax and command line arguments, so they can be extended or repla
 one that would handle your own private settings.
 
 .. _`Cpplang Slack`: https://cppalliance.org/slack/
+
+
+ERROR: AuthenticationException:
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This error can happen, if there are no or false authentication credentials in the HTTP request from conan. To get more information try enabling the debug level for HTTP connections:
+
+.. code-block:: python
+
+    import http.client
+    http.client.HTTPConnection.debuglevel = 1
+    
+One source of error can be the ``.netrc`` file, which is `honored by the requests library <https://requests.readthedocs.io/en/latest/user/quickstart/#custom-headers>`_.

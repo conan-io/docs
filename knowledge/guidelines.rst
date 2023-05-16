@@ -35,6 +35,10 @@ Good practices
   for example different parallel CI jobs should use different caches (with CONAN_HOME env-var). This might
   change in the future and we will work on providing concurrency in the cache, but until then,
   use isolated caches for concurrent tasks.
+- **Avoid 'force' and 'override' traits as a versioning mechanism.** The ``force`` and ``override`` traits to 
+  solve conflicts are not recommended as a general versioning solution, just as a temporary workaround to solve 
+  a version conflict. Its usage should be avoided whenever possible, and updating versions or version ranges in 
+  the graph to avoid the conflicts without overrides and forces is the recommended approach.
 
 
 Forbidden practices

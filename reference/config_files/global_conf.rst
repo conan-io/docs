@@ -84,7 +84,6 @@ To list all the possible configurations available, run :command:`conan config li
     tools.cmake.cmaketoolchain:toolset_arch: Toolset architecture to be used as part of CMAKE_GENERATOR_TOOLSET in CMakeToolchain
     tools.cmake.cmaketoolchain:user_toolchain: Inject existing user toolchains at the beginning of conan_toolchain.cmake
     tools.env.virtualenv:powershell: If it is set to True it will generate powershell launchers if os=Windows
-    tools.files.download:download_cache: Define the cache folder to store downloads from files.download()/get()
     tools.files.download:retry: Number of retries in case of failure when downloading
     tools.files.download:retry_wait: Seconds to wait between download attempts
     tools.gnu:define_libcxx11_abi: Force definition of GLIBCXX_USE_CXX11_ABI=1 for libstdc++11
@@ -132,6 +131,16 @@ Tools and user configurations can be defined in both the *global.conf* file and
 .. important::
 
     Profiles values will have priority over globally defined ones in global.conf.
+
+
+These are some hints about configuration items scope and naming:
+
+- ``core.xxx`` and ``tools.yyy`` are Conan built-ins, users cannot define their own ones in these scopes.
+- ``core.xxx`` can be defined in ``global.conf`` only, but not in profiles.
+- ``tools.yyy`` can be defined in ``global.conf``, in profiles ``[conf]`` section and cli ``-c`` arguments
+- ``user.zzz`` can be defined everywhere, and they are totally at the user discretion, no established naming convention. However this would be more or less expected:
+  - For open source libraries, specially those in conancenter, ``user.packagename:conf`` might be expected, like the ``boost`` recipe defining ``user.boost:conf`` conf
+  - For private usage, the recommendation could be to use something like ``user.orgname:conf`` for global org configuration accross all projects, ``user.orgname.project:conf`` for project or package configuration, though ``user.project:conf`` might be also good if the project name is unique enough.
 
 
 Configuration file template

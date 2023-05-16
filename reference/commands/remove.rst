@@ -103,6 +103,9 @@ Note that you can filter which packages will be removed using the ``--package-qu
 
 
 You can query packages by both their settings and options, including custom ones.
+To query for options you need to explicitly add the `options.` prefix, so that
+`-p options.shared=False` will work but `-p shared=False` won't.
+
 
 
 All the above commands, by default, operate in the Conan cache.

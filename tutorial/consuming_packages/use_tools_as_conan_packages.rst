@@ -78,8 +78,8 @@ You can check the output:
 
     -------- Computing dependency graph ----------
     cmake/3.22.6: Not found in local cache, looking in remotes...
-    cmake/3.22.6: Checking remote: conanv2
-    cmake/3.22.6: Trying with 'conanv2'...
+    cmake/3.22.6: Checking remote: conancenter
+    cmake/3.22.6: Trying with 'conancenter'...
     Downloading conanmanifest.txt
     Downloading conanfile.py
     cmake/3.22.6: Downloaded recipe revision 3e3d8f3a848b2a60afafbe7a0955085a
@@ -88,18 +88,18 @@ You can check the output:
     Requirements
         zlib/1.2.11#f1fadf0d3b196dc0332750354ad8ab7b - Cache
     Build requirements
-        cmake/3.22.6#3e3d8f3a848b2a60afafbe7a0955085a - Downloaded (conanv2)
+        cmake/3.22.6#3e3d8f3a848b2a60afafbe7a0955085a - Downloaded (conancenter)
 
     -------- Computing necessary packages ----------
     Requirements
         zlib/1.2.11#f1fadf0d3b196dc0332750354ad8ab7b:2a823fda5c9d8b4f682cb27c30caf4124c5726c8#48bc7191ec1ee467f1e951033d7d41b2 - Cache
     Build requirements
-        cmake/3.22.6#3e3d8f3a848b2a60afafbe7a0955085a:f2f48d9745706caf77ea883a5855538256e7f2d4#6c519070f013da19afd56b52c465b596 - Download (conanv2)
+        cmake/3.22.6#3e3d8f3a848b2a60afafbe7a0955085a:f2f48d9745706caf77ea883a5855538256e7f2d4#6c519070f013da19afd56b52c465b596 - Download (conancenter)
 
     -------- Installing packages ----------
 
     Installing (downloading, building) binaries...
-    cmake/3.22.6: Retrieving package f2f48d9745706caf77ea883a5855538256e7f2d4 from remote 'conanv2'
+    cmake/3.22.6: Retrieving package f2f48d9745706caf77ea883a5855538256e7f2d4 from remote 'conancenter'
     Downloading conanmanifest.txt
     Downloading conaninfo.txt
     Downloading conan_package.tgz

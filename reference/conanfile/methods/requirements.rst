@@ -106,7 +106,7 @@ force
 
 This ``requires`` will force its version in the dependency graph upstream, overriding
 other existing versions even of transitive dependencies, and also solving potential
-existing conflicts. The downstream consunmers ``force`` trait always have higher priority.
+existing conflicts. The downstream consumer's ``force`` traits always have higher priority.
 
 override
 ~~~~~~~~
@@ -116,8 +116,45 @@ transitive dependency to override, this ``require`` will be discarded. This trai
 exists at the time of defining a ``requires``, but it will not exist as an actual
 ``requires`` once the graph is fully evaluated
 
+.. note::
+
+    **Best practices**
+
+    The ``force`` and ``override`` traits to solve conflicts are not recommended as a general versioning
+    solution, just as a temporary workaround to solve a version conflict. Its usage should be avoided
+    whenever possible, and updating versions or version ranges in the graph to avoid the conflicts without
+    overrides and forces is the recommended approach.
+
 direct
 ~~~~~~
 
 If the dependency is a direct one, that is, it has explicitly been declared by the current
 recipe, or if it is a transitive one.
+
+
+.. _reference_conanfile_package_type_trait_inferring:
+
+package_type trait inferring
+============================
+
+Some traits are automatically inferred based on the value of the ``package_type`` if not explicitly set by the recipe.
+
+ * ``application``: ``headers=False``, ``libs=False``, ``run=True``
+ * ``shared-library``: ``run=True``
+ * ``static-library``: ``run=False``
+ * ``header-library``: ``headers=True``, ``libs=False``, ``run=False``
+ * ``build-scripts``: ``headers=False``, ``libs=False``, ``run=False``, ``visible=False``
+
+Additionally, some additional traits are inferred on top of the above mentioned based on the ``package_type`` of the dependant:
+
+ * ``header-library``: ``transitive_headers=True``, ``transitive_libs=True``
+
+Default traits for each kind of requires
+========================================
+
+Each kind of requires sets some additional traits by default on top of the ones stated in the last section. Those are:
+
+ * ``requires``: ``build=False``
+ * ``build_requires``:  ``headers=False``, ``libs=False``, ``build=True``, ``visible=False``
+ * ``tool_requires``: ``headers=False``, ``libs=False``, ``build=True``, ``run=True``, ``visible=False``
+ * ``test_requires``: ``headers=True``, ``libs=True``, ``build=False``, ``visible=False``, ``test=True``
