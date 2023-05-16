@@ -92,7 +92,7 @@ method:
 
 
 This method is layer-based so doing ``self.settings.possible_values()`` returns the whole :ref:`reference_config_files_settings_yml`
-as a Python dict-like object, and, doing ``self.settings.compiler.version.possible_values()`` for instance, it returns
+as a Python dict-like object, and doing ``self.settings.compiler.version.possible_values()`` for instance returns
 the available versions for the compiler used by the consumer.
 
 If you want to do a safe deletion of settings, you could use the ``rm_safe()`` method.
