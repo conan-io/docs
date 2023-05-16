@@ -143,7 +143,7 @@ Some traits are automatically inferred based on the value of the ``package_type`
  * ``shared-library``: ``run=True``
  * ``static-library``: ``run=False``
  * ``header-library``: ``headers=True``, ``libs=False``, ``run=False``
- * ``build-scripts``: ``headers=False``, ``libs=False``, ``run=False``, ``visible=False``
+ * ``build-scripts``: ``headers=False``, ``libs=False``, ``run=True``, ``visible=False``
 
 Additionally, some additional traits are inferred on top of the above mentioned based on the ``package_type`` of the dependant:
 
