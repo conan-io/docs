@@ -73,21 +73,13 @@ conanfile.py method to learn a more flexible way to add them.
 
 .. _reference_conanfile_attributes_build_requires:
 
+
 build_requires
 --------------
 
-List or tuple of strings for dependencies. Generic type of build dependencies that are not
-applications (nothing runs), like build scripts. If there is
-an existing pre-compiled binary for the current package, the binaries for the build_require
-won't be retrieved. They cannot conflict.
-
-.. code-block:: python
-
-    class MyPkg(ConanFile):
-        build_requires = ["my_build_scripts/1.3",]
-
-This is the declarative way to add ``build_requires``. Check the <MISSING PAGE> build_requires()
-conanfile.py method to learn a more flexible way to add them.
+`build_requires` are used in Conan 2.0 to provide compatibility with the Conan 1.X syntax,
+but their use is discouraged in Conan 2 and will be deprecated in future 2.X releases.
+Please use `tool_requires` instead of `build_requires` in your Conan 2 recipes.
 
 
 test_requires

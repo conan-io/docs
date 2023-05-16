@@ -117,13 +117,16 @@ You can list existing revisions with the :command:`conan list` command:
 
 .. code-block:: bash
 
-    conan list zlib/1.2.12#* -r=conancenter
+    $ conan list zlib/1.2.12#* -r=conancenter
 
-    conanv2:
-    zlib
-        zlib/1.2.12#0de8ff7f99079cd07341311c9ead89a2 (2022-12-12 11:39:43 UTC)
-        zlib/1.2.12#6758146baf425dc62ecc5246a1e955e4 (2022-08-25 07:45:24 UTC)
-        zlib/1.2.12#87a7211557b6690ef5bf7fc599dd8349 (2022-04-21 11:01:59 UTC)
+    conancenter
+      zlib
+        zlib/1.2.12
+          revisions
+            82202701ea360c0863f1db5008067122 (2022-03-29 15:47:45 UTC)
+            bd533fb124387a214816ab72c8d1df28 (2022-05-09 06:59:58 UTC)
+            3b9e037ae1c615d045a06c67d88491ae (2022-05-13 13:55:39 UTC)
+            ...
 
 
 Revisions always resolve to the latest (chronological order of creation or upload to the server) revision.
