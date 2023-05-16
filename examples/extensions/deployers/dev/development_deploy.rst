@@ -1,9 +1,10 @@
-Conan agnostic relocatable development deploys
-==============================================
+.. _examples_extensions_builtin_deployers_relocatable:
+
+
+Conan independent relocatable development deploys
+=================================================
 
 With the ``full_deploy`` deployer it is possible to create a Conan-agnostic copy of dependencies that can be used by developers without even having Conan installed in their computers.
-
-As the generators like ``CMakeDeps`` and ``CMakeToolchain`` are able to generate files with relative paths to the binaries that have been copied by ``full_deploy`` to the user folder.
 
 Let's see it with an example. All the source code is in the
 `examples2.0 Github repository <https://github.com/conan-io/examples2>`_ 
@@ -46,7 +47,8 @@ This will create the following folders:
 
     ├──src
     ├──build
-    │   ├──generators 
+    │   ├──generators
+    |         └── ZLibConfig.cmake  
     ├──full_deploy
     │   ├──build
     │   │   └──cmake
@@ -67,13 +69,13 @@ This will create the following folders:
     │                       ├──lib
 
 
-This folder is fully self contained, it contains both the necessary tools (like ``cmake`` executable), the headers and compiled libraries of ``zlib`` and the necessary files like ``ZLibConfig.cmake`` in the ``build/generators`` folder, that point to the binaries inside ``full_deploy``, with a relative path. 
+This folder is fully self contained, it contains both the necessary tools (like ``cmake`` executable), the headers and compiled libraries of ``zlib`` and the necessary files like ``ZLibConfig.cmake`` in the ``build/generators`` folder, that point to the binaries inside ``full_deploy`` with a relative path. 
 
 The Conan cache can be removed, and even Conan uninstalled, then the folder could be moved elsewhere in the computer or copied to another computer, assuming it has the same configuration of OS, compiler, etc.
 
 .. code-block:: bash
 
-    $ cd .. 
+    $ cd ..
     $ cp -R relocatable_deploy /some/other/place
     $ cd /some/other/place
 

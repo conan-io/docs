@@ -7,4 +7,4 @@ Builtin deployers
 .. toctree::
    :maxdepth: 2
 
-   dev/local_developer_deploy
+   dev/development_deploy
