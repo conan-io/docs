@@ -94,7 +94,7 @@ method:
         self.output.info(f"[BUILD] Versions for {str(self.settings.compiler)}:  {', '.join(compiler_versions)}")
 
 
-As you can see above, this method is layer-based so doing ``self.settings.possible_values()`` returns the
+As you can see above, doing ``self.settings.possible_values()`` returns the
 whole :ref:`reference_config_files_settings_yml` as a Python dict-like object, and doing
 ``self.settings.compiler.version.possible_values()`` for instance returns the available versions for the compiler
 used by the consumer.
