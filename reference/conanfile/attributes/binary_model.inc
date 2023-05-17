@@ -36,7 +36,7 @@ The valid values are:
 settings
 --------
 
-List of strings with the first level settings (from ``settings.yml``) that the recipe
+List of strings with the first level settings (from :ref:`reference_config_files_settings_yml`) that the recipe
 needs, because:
 - They are read for building (e.g: `if self.settings.compiler == "gcc"`)
 - They affect the ``package_id``. If a value of the declared setting changes, the ``package_id`` has to be different.
@@ -77,8 +77,8 @@ If you want to do a safe check of settings values, you could use the ``get_safe(
 The ``get_safe()`` method returns ``None`` if that setting or sub-setting doesn't
 exist and there is no default value assigned.
 
-It's also feasible to check the possible values defined for any setting/sub-setting using the ``possible_values()``
-method:
+It's also feasible to check the possible values defined in :ref:`reference_config_files_settings_yml` using the
+``possible_values()`` method:
 
 .. code-block:: python
 
@@ -86,10 +86,10 @@ method:
         # Print if Android exists as OS in the whole settings.yml
         is_android = "Android" in self.settings.possible_values()["os"]
         self.output.info(f"Android in settings.yml: {is_android}")
-        # Print the available compiler versions given your host profile
+        # Print the available versions for the compiler used by the HOST profile
         compiler_versions = self.settings.compiler.version.possible_values()
         self.output.info(f"[HOST] Versions for {str(self.settings.compiler)}:  {', '.join(compiler_versions)}")
-        # Print the available compiler versions given your build profile
+        # Print the available versions for the compiler used by the BUILD profile
         compiler_versions = self.settings_build.compiler.version.possible_values()
         self.output.info(f"[BUILD] Versions for {str(self.settings.compiler)}:  {', '.join(compiler_versions)}")
 
