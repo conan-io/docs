@@ -70,7 +70,7 @@ this case, the customization of the CMake generated filenames and targets is als
 necessary for this example.
 
 The important part is the ``layout()`` definition. Besides the common ``cmake_layout``, it is necessary to
-define the locaiton of the components headers (``self.cpp.source`` as they are source code) and the location
+define the location of the components headers (``self.cpp.source`` as they are source code) and the location
 of the locally built libraries. As the location of the libraries depends on the platform, the final
 ``self.cpp.build.components["component"].libdirs`` depends on the platform.
 
