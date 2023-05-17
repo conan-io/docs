@@ -4,7 +4,7 @@ global.conf
 ===========
 
 The **global.conf** file is located in the Conan user home directory, e.g., *[CONAN_HOME]/global.conf*. If it does not
-already exist, a default one will automatically be created.
+already exist, a default one is automatically created.
 
 Introduction to configuration
 -----------------------------
