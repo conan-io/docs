@@ -3,7 +3,7 @@
 Graph examples
 ==============
 
-This section contains example about different types of advanced graphs, using different types of ``requires`` and ``tool_requires``,
+This section contains examples about different types of advanced graphs, using different types of ``requires`` and ``tool_requires``,
 advanced usage of requirement traits, etc.
 
 
