@@ -83,17 +83,21 @@ method:
 .. code-block:: python
 
     def generate(self):
-        definition = self.settings.compiler.version.possible_values()
-        self.output.info("HOST: " + ", ".join(definition))
-        definition = self.settings_build.compiler.version.possible_values()
-        self.output.info("BUILD: " + ", ".join(definition))
-        cppstds = self.settings.compiler.cppstd.possible_values()
-        self.output.info("CPPSTDS: " + str(cppstds))
+        # Print if Android exists as OS in the whole settings.yml
+        is_android = "Android" in self.settings.possible_values()["os"]
+        self.output.info(f"Android in settings.yml: {is_android}")
+        # Print the available compiler versions given your host profile
+        compiler_versions = self.settings.compiler.version.possible_values()
+        self.output.info(f"[HOST] Versions for {str(self.settings.compiler)}:  {', '.join(compiler_versions)}")
+        # Print the available compiler versions given your build profile
+        compiler_versions = self.settings_build.compiler.version.possible_values()
+        self.output.info(f"[BUILD] Versions for {str(self.settings.compiler)}:  {', '.join(compiler_versions)}")
 
 
-This method is layer-based so doing ``self.settings.possible_values()`` returns the whole :ref:`reference_config_files_settings_yml`
-as a Python dict-like object, and doing ``self.settings.compiler.version.possible_values()`` for instance returns
-the available versions for the compiler used by the consumer.
+As you can see above, this method is layer-based so doing ``self.settings.possible_values()`` returns the
+whole :ref:`reference_config_files_settings_yml` as a Python dict-like object, and doing
+``self.settings.compiler.version.possible_values()`` for instance returns the available versions for the compiler
+used by the consumer.
 
 If you want to do a safe deletion of settings, you could use the ``rm_safe()`` method.
 For example, in the ``configure()`` method a typical pattern for a C library would be:
