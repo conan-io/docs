@@ -94,7 +94,7 @@ and it is completely the responsibility of the user to manage it.
     will not be able to override its version, but it would create an extra tool-require dependency with the version
     injected from the profile. You might want to exclude specific packages with something like ``!wine/*: gcc/3.0``.
 
-The recipe has still access in the ``generate()`` method to each different ``tool_require`` version, just by providing
+The recipe still has access in the ``generate()`` method to each different ``tool_require`` version, just by providing
 the options values for the dependency that we want ``self.dependencies.build.get("gcc", options={"myoption": 1})``.
 
 Finally, the most important part is that the usage of those tools is completely the responsibility of the user. The ``bin``
