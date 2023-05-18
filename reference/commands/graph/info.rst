@@ -1,3 +1,5 @@
+.. _reference_graph_info:
+
 conan graph info
 ================
 
