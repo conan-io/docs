@@ -13,7 +13,7 @@ Those libraries normally contains headers/sources of the library itself, and, pe
   the protobuf library (host context).
 
 
-Given that, we should be able to use protobuf in build/host context in the same Conan recipe. Basically, your package
+Given that, we should be able to use protobuf in build/host context in the same Conan recipe. Basically, your package recipe
 should look like:
 
 .. code-block:: python
