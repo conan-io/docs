@@ -294,3 +294,4 @@ was created.
       :ref:`export-pkg<reference_commands_export-pkg>` and
       :ref:`test<reference_commands_test>` commands.
     - Packaging prebuilt binaries :ref:`example<creating_packages_other_prebuilt>`
+    - When you are locally developing packages, at some poing you might need to step-into dependencies code while debugging. Please read this :ref:`example how to debug and step-into dependencies <examples_dev_flow_debug_step_into>` for more information about this use case.
