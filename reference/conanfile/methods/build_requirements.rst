@@ -27,6 +27,45 @@ The ``tool_requires`` is equivalent to ``requires()`` with the following traits:
 - ``headers=False`` A tool requirement does not have headers.
 - ``libs=False``: A tool requirement does not have libraries to be linked by the consumer (if it had libraries they would be in the "build" context and could be incompatible with the "host" context of the consumer package). 
 
+<host_version>
+**************
+
+.. include:: ../../../common/experimental_warning.inc
+
+This syntax is useful when you're using the same package recipe as a *requires* and as a *tool_requires* and you want to avoid
+conflicting downstream if any user decides to override the original *requires* version, i.e., the user could end up with
+two different versions in host and build context of the same dependency.
+
+For instance, let's show a simple recipe using *protobuf*:
+
+.. code-block:: python
+
+    from conan import ConanFile
+
+    class mylibRecipe(ConanFile):
+        name = "mylib"
+        version = "0.1"
+        def requirements(self):
+            self.requires("protobuf/3.18.1")
+        def build_requirements(self):
+            self.tool_requires("protobuf/<host_version>")
+
+Then, if any user wants to use my *mylib/0.1*, but another version of protobuf, there shouldn't be any problem overriding it:
+
+.. code-block:: python
+
+    from conan import ConanFile
+
+    class myappRecipe(ConanFile):
+        name = "myapp"
+        version = "0.1"
+        def requirements(self):
+            self.requires("mylib/0.1")
+            self.requires("protobuf/3.21.9", override=True)
+
+The ``<host_version>`` defined upstream is ensuring that the host and build context are using the same version of that requirement.
+
+
 test_requires
 -------------
 
