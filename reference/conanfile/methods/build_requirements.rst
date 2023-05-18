@@ -53,7 +53,7 @@ For instance, let's show a simple recipe using *protobuf*:
         def build_requirements(self):
             self.tool_requires("protobuf/<host_version>")
 
-Then, if any user wants to use my *mylib/0.1*, but another version of protobuf, there shouldn't be any problem overriding it:
+Then, if any user wants to use *mylib/0.1*, but another version of *protobuf*, there shouldn't be any problems overriding it:
 
 .. code-block:: python
 
