@@ -34,7 +34,7 @@ The ``tool_requires`` is equivalent to ``requires()`` with the following traits:
 
 This syntax is useful when you're using the same package recipe as a *requires* and as a *tool_requires* and you want to avoid
 conflicting downstream if any user decides to override the original *requires* version in the *host* context, i.e., the user could end up with
-two different versions in host and build context of the same dependency.
+two different versions in the host and build contexts of the same dependency.
 
 In a nutshell, the ``<host_version>`` specifier allows us to ensure that the version resolved for the *tool_requires*
 always matches the one for the host requirement.
