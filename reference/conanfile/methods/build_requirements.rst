@@ -66,7 +66,7 @@ Then, if any user wants to use *mylib/0.1*, but another version of *protobuf*, t
             self.requires("mylib/0.1")
             self.requires("protobuf/3.21.9", override=True)
 
-The ``<host_version>`` defined upstream is ensuring that the host and build context are using the same version of that requirement.
+The ``<host_version>`` defined upstream is ensuring that the host and build contexts are using the same version of that requirement.
 
 
 test_requires
