@@ -201,6 +201,11 @@ So, let's see if it works fine:
 After seeing it's running OK, let's try to use cross-building. Notice that this part is based on MacOS Intel systems,
 and cross-compiling for MacOS ARM ones, but you could use your own profiles depending on your needs for sure.
 
+.. warning::
+
+    MacOS system is required to run this part of the example.
+
+
 .. code-block:: shell
 
     $ conan create . --build missing -pr:b apple-arch-x86_64 -pr:h apple-arch-armv8
