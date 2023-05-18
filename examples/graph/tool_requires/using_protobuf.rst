@@ -5,7 +5,7 @@ Using the same requirement as a requires and as a tool_requires
 
 There are libraries which could behave as a library and as a tool requirement, e.g., `protobuf <https://github.com/conan-io/conan-center-index/tree/master/recipes/protobuf>`__
 Those libraries normally contains headers/sources of the library itself, and, perhaps, some extra tools
-(compilers, shell scripts, etc.). Both parts are used in a different contexts, let's think of this scenario using
+(compilers, shell scripts, etc.). Both parts are used in different contexts, let's think of this scenario using
 *protobuf* for instance:
 
 * I want to create a library which includes a compiled protobuf message. The protobuf compiler (build context)
