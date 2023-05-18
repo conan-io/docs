@@ -1,7 +1,7 @@
 .. _reference_conanfile_methods_build_requirements:
 
 build_requirements()
---------------------
+====================
 
 The ``build_requirements()`` method is functionally equivalent to the ``requirements()`` one, it is executed just after it. It is not strictly necessary, in theory everything that is inside this method, could be done in the end of the ``requirements()`` one. Still, ``build_requirements()`` is good for having a dedicated place to define ``tool_requires`` and ``test_requires``:
 
