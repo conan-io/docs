@@ -45,8 +45,8 @@ The structure of the project is the following:
     ├── conanfile.py
     ├── CMakeLists.txt
     ├── addressbook.proto
-    ├── host-armv8
-    ├── host-x86_64
+    ├── apple-arch-armv8
+    ├── apple-arch-x86_64
     └── src
        └── myserver.cpp
     └── include
@@ -203,7 +203,7 @@ and cross-compiling for MacOS ARM ones, but you could use your own profiles depe
 
 .. code-block:: shell
 
-    $ conan create . --build missing -pr:b host-x86_64 -pr:h host-armv8
+    $ conan create . --build missing -pr:b apple-arch-x86_64 -pr:h apple-arch-armv8
     ...
 
     -- Install configuration: "Release"
