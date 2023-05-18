@@ -3,7 +3,8 @@
 global.conf
 ===========
 
-The **global.conf** file is located in the Conan user home directory, e.g., *[CONAN_HOME]/global.conf*.
+The **global.conf** file is located in the Conan user home directory, e.g., *[CONAN_HOME]/global.conf*. If it does not
+already exist, a default one is automatically created.
 
 Introduction to configuration
 -----------------------------
@@ -241,10 +242,18 @@ effect because it's the first one evaluated, and after that, Conan is overriding
 general one, so it deserves to pay special attention to the order.
 
 
+Information about built-in confs
+================================
+
+This section provides extra information about specific confs.
+
+Networking confs
+----------------
+
 .. _reference_config_files_global_conf_ssl_certificates:
 
 Configuration of client certificates
-------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Conan supports client TLS certificates. You can configure the path to your existing *Cacert* file and/or your client
 certificate (and the key) using the following configuration variables:
@@ -265,3 +274,17 @@ For instance:
 .. seealso::
 
     * :ref:`Managing configuration in your recipes (self.conf_info) <conan_conanfile_model_conf_info>`
+
+
+UX confs
+--------
+
+Skip warnings
+~~~~~~~~~~~~~
+
+There are several warnings that Conan outputs in certain cases which can be omitted via the ``core:skip_warnings`` conf,
+by adding the warning tag to its value.
+
+Those warnings are:
+
+  - ``deprecated``: Messages for deprecated features such as legacy generators

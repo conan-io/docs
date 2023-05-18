@@ -79,12 +79,18 @@ revision_mode
 -------------
 
 This attribute allow each recipe to declare how the revision for the recipe itself should
-be computed. It can take two different values:
+be computed. It can take three different values:
 
 - ``"hash"`` (by default): Conan will use the checksum hash of the recipe manifest to
   compute the revision for the recipe.
-- ``"scm"``: the commit ID will be used as the recipe revision if it belongs to a known
-  repository system (Git or SVN). If there is no repository it will raise an error.
+- ``"scm"``: if the project is inside a Git repository the commit ID will be used as the
+  recipe revision. If there is no repository it will raise an error.
+- ``"scm_folder"``: This configuration applies when you have a mono-repository project, but
+  still want to use *scm* revisions. In this scenario, the revision of the exported
+  `conanfile.py` will correspond to the commit ID of the folder where it's located. This
+  approach allows multiple `conanfile.py` files to exist within the same Git repository,
+  with each file exported under its distinct revision.
+
 
 
 upload_policy

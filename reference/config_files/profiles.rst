@@ -525,6 +525,20 @@ Some of the capabilities of the profile templates are:
      [conf]
      tools.cmake.cmaketoolchain:toolchain_file = {{ os.path.join(profile_dir, "toolchain.cmake") }}
 
+- Getting settings from a filename, including referencing the current profile name. For
+  example, defining a generic profile which is configured according to its file name.
+  The variable ``profile_name`` pointing to the current profile file name is added to the context.
+
+  .. code-block:: jinja
+     :caption: *Linux-x86_64-gcc-12*
+
+     {% set os, arch, compiler, compiler_version = profile_name.split('-') %}
+     [settings]
+     os={{ os }}
+     arch={{ arch }}
+     compiler={{ compiler }}
+     compiler.version={{ compiler_version }}
+
 - Including or importing other files from ``profiles`` folder:
 
   .. code-block:: jinja
