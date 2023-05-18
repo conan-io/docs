@@ -13,3 +13,4 @@ Examples
    examples/cross_build
    examples/config_files
    examples/graph
+   examples/dev_flow
