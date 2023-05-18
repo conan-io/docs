@@ -1,18 +1,18 @@
-.. _examples_extensions_builtin_deployers_relocatable:
+.. _examples_extensions_builtin_deployers_development:
 
 
-Conan independent relocatable development deploys
-=================================================
+Creating a Conan-agnostic deploy of dependencies for developer use
+==================================================================
 
 With the ``full_deploy`` deployer it is possible to create a Conan-agnostic copy of dependencies that can be used by developers without even having Conan installed in their computers.
 
 Let's see it with an example. All the source code is in the
-`examples2.0 Github repository <https://github.com/conan-io/examples2>`_ 
+`examples2.0 Github repository <https://github.com/conan-io/examples2>`_
 
 .. code-block:: bash
 
     $ git clone https://github.com/conan-io/examples2.git
-    $ cd examples2/examples/extensions/deployers/relocatable_deploy
+    $ cd examples2/examples/extensions/deployers/development_deploy
 
 In the folder we can find the following ``conanfile.txt``:
 
@@ -48,7 +48,7 @@ This will create the following folders:
     ├──src
     ├──build
     │   ├──generators
-    |         └── ZLibConfig.cmake  
+    |         └── ZLibConfig.cmake
     ├──full_deploy
     │   ├──build
     │   │   └──cmake
@@ -76,7 +76,7 @@ The Conan cache can be removed, and even Conan uninstalled, then the folder coul
 .. code-block:: bash
 
     $ cd ..
-    $ cp -R relocatable_deploy /some/other/place
+    $ cp -R development_deploy /some/other/place
     $ cd /some/other/place
 
 And the files could be used by developers as:
