@@ -87,7 +87,7 @@ The ``conanfile.py`` looks like:
                 self.options.rm_safe("fPIC")
 
         def requirements(self):
-            self.requires("protobuf/3.18.1", transitive_headers=True)
+            self.requires("protobuf/3.18.1")
 
         def build_requirements(self):
             self.tool_requires("protobuf/3.18.1")
@@ -109,13 +109,6 @@ The ``conanfile.py`` looks like:
             self.cpp_info.requires = ["protobuf::libprotobuf"]
 
 As you can see, we're using *protobuf* at the same time but in different contexts.
-The only difference is that the *requires* is using the ``transitive_headers`` to make it visible downstream, i.e.,
-if any other user decides to use my recipe *myaddresser*.
-
-.. seealso::
-
-    Check the :ref:`requirements traits <reference_conanfile_methods_requirements>`.
-
 
 The ``CMakeLists.txt`` shows how this example uses protobuf compiler and library:
 
