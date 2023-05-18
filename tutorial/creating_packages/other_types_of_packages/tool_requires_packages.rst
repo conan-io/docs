@@ -171,7 +171,6 @@ It also printed the "23" value assigned to ``MY_VAR`` but, why are these automat
   and the enviornment variable "MYVAR" has the value declared in the tool-require.
 
 
-
 Removing settings in package_id()
 ---------------------------------
 
@@ -224,6 +223,7 @@ We got the same binary ``package_id``. The second ``conan create . -s build_type
 Read more
 ---------
 
+- - :ref:`examples_graph_tool_requires_protobuf`
 - Toolchains (compilers)
 - Usage of `self.rundenv_info`
 - ``settings_target``

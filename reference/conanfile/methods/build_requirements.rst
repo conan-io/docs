@@ -1,7 +1,7 @@
 .. _reference_conanfile_methods_build_requirements:
 
 build_requirements()
-====================
+--------------------
 
 The ``build_requirements()`` method is functionally equivalent to the ``requirements()`` one, it is executed just after it. It is not strictly necessary, in theory everything that is inside this method, could be done in the end of the ``requirements()`` one. Still, ``build_requirements()`` is good for having a dedicated place to define ``tool_requires`` and ``test_requires``:
 
@@ -16,8 +16,8 @@ For simple cases the attribute syntax can be enough, like ``tool_requires = "cma
 
 The ``tool_requires`` and ``test_requires`` methods are just a specialized instance of ``requires`` with some predefined trait values. See the :ref:`requires() reference<reference_conanfile_methods_requirements>` for more information about traits.
 
-tool_requires
--------------
+tool_requires()
+---------------
 
 The ``tool_requires`` is equivalent to ``requires()`` with the following traits:
 
@@ -27,8 +27,13 @@ The ``tool_requires`` is equivalent to ``requires()`` with the following traits:
 - ``headers=False`` A tool requirement does not have headers.
 - ``libs=False``: A tool requirement does not have libraries to be linked by the consumer (if it had libraries they would be in the "build" context and could be incompatible with the "host" context of the consumer package). 
 
-test_requires
--------------
+.. seealso::
+
+    - :ref:`examples_graph_tool_requires_protobuf`
+
+
+test_requires()
+---------------
 
 The ``test_requires`` is equivalent to ``requires()`` with the following traits:
 
@@ -56,3 +61,4 @@ It is possible to further modify individual traits of ``tool_requires()`` and ``
 
     - Follow the :ref:`tutorial about consuming Conan packages as tools<consuming_packages_tool_requires>`.
     - Read the :ref:`tutorial about creating tool_requires packages<tutorial_other_tool_requires_packages>`.
+    - :ref:`examples_graph_tool_requires_protobuf`
