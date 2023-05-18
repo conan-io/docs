@@ -33,7 +33,7 @@ The ``tool_requires`` is equivalent to ``requires()`` with the following traits:
 .. include:: ../../../common/experimental_warning.inc
 
 This syntax is useful when you're using the same package recipe as a *requires* and as a *tool_requires* and you want to avoid
-conflicting downstream if any user decides to override the original *requires* version, i.e., the user could end up with
+conflicting downstream if any user decides to override the original *requires* version in the *host* context, i.e., the user could end up with
 two different versions in host and build context of the same dependency.
 
 For instance, let's show a simple recipe using *protobuf*:
