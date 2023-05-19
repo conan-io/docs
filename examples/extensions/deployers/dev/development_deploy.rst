@@ -98,7 +98,7 @@ And the files could be used by developers as:
 
 The environment scripts in Linux and OSX are not relocatable, because they contain absolute paths and the ``sh`` shell `does not have any way to provide access to the current script directory for sourced files <https://stackoverflow.com/questions/29832037/how-to-get-script-directory-in-posix-sh/29835459#29835459>`_.
 
-This shouldn't be a big blocker, as a "search and replace" with `sed` in the generators folder can fix it:
+This shouldn't be a big blocker, as a "search and replace" with ``sed`` in the generators folder can fix it:
 
 .. code-block:: bash
     :caption: Linux
