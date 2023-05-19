@@ -122,7 +122,7 @@ This shouldn't be a big blocker, as a "search and replace" with `sed` in the gen
 
     **Best practices**
 
-    The fact that this flow is possible doesn't mean that it is recommended for majority of cases.
+    The fact that this flow is possible doesn't mean that it is recommended for the majority of cases.
     It has some limitations:
 
     - It is less efficient, requiring an extra copy of dependencies
