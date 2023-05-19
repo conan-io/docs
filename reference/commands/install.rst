@@ -257,7 +257,7 @@ There are 2 built-in deployers:
 
 Some generators might have the capability of redefining the target "package folder". That means that if some other
 generator like ``CMakeDeps`` is used that is pointing to the packages, it will be pointing to the local deployed
-copy, and not to the original packages in the Conan cache.
+copy, and not to the original packages in the Conan cache. See the full example in :ref:`examples_extensions_builtin_deployers_development`.
 
 It is also possible, and it is a powerful extension point, to write custom user deployers.
 Read more about custom deployers in :ref:`reference_extensions_deployers`.

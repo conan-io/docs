@@ -37,6 +37,7 @@ Then every dependency will end up in a folder such as:
 
 ``[OUTPUT_FOLDER]/full_deploy/host/dep/0.1/Release/x86_64``
 
+See a full example of the usage of ``full_deploy`` deployer in :ref:`examples_extensions_builtin_deployers_development`.
 
 .. _reference_extensions_deployer_direct_deploy:
 
