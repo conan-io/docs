@@ -7,4 +7,5 @@ Conan extensions examples
    :maxdepth: 2
 
    extensions/commands/custom_commands
+   extensions/deployers/builtin_deployers
    extensions/deployers/custom_deployers
