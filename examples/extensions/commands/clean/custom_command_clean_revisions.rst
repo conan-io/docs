@@ -180,6 +180,8 @@ Important classes to manage user input and user output:
 Conan public API
 ++++++++++++++++
 
+.. include:: ../../../../common/experimental_warning.inc
+
 The most important part of this example is the usage of the Conan API via ``conan_api`` parameter. These are some examples
 which are being used in this custom command:
 
