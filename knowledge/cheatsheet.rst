@@ -2,7 +2,7 @@
 Cheat sheet
 ***********
 
-JFrog has created the following visual cheat sheet for basic Conan commands and
+This is a visual cheat sheet for basic Conan commands and
 concepts which users can print out and use as a handy reference. It is available
 as both a PDF and PNG.
 
