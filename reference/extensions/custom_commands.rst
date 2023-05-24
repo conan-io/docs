@@ -144,7 +144,7 @@ For example, the ``graph info`` command uses several formatters like:
         field_filter = result["field_filter"]
         package_filter = result["package_filter"]
         ...
-        ConanOuptup().info("Conan info command output:")
+        ConanOutput().info("Conan info command output:")
         ...
 
     @conan_subcommand(formatters={"text": format_graph_info,
