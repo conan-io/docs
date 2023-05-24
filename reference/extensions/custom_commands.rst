@@ -144,7 +144,7 @@ For example, the ``graph info`` command uses several formatters like:
         field_filter = result["field_filter"]
         package_filter = result["package_filter"]
         ...
-        ConanOutput().info("Conan info command output:")
+        cli_out_write(f"Conan info result:\n\n{graph_info_result}")
         ...
 
     @conan_subcommand(formatters={"text": format_graph_info,
@@ -153,6 +153,7 @@ For example, the ``graph info`` command uses several formatters like:
                                   "dot": format_graph_dot})
     def graph_info(conan_api, parser, subparser, *args):
         ...
+        ConanOuptup().info("Conan info command output:")
         return {"graph": deps_graph,
                 "field_filter": args.filter,
                 "package_filter": args.package_filter,
@@ -168,9 +169,9 @@ $ conan graph info ... --format html
 
 There are two standard ways of outputing information as a result of a command:
 - `cli_out_write(data, fg=None, bg=None, endline="\n", indentation=0)`: This will output information
-   to the `stdout`. Normally used to output json as the standard format.
-- `ConanOutput().info(self, msg)`: This will output information to the `stderr`.
-   To avoid cluttering the `stdout` with messages.
+   to the `stdout`. Normally used to out put the final result of the command (like a JSON).
+- `ConanOutput().info(self, msg)`: This will output information to the `stderr`. Normally used to 
+   output informational messages and avoid cluttering the `stdout` but not the final result of the command.
 
 Command function arguments
 --------------------------
