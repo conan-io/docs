@@ -8,6 +8,7 @@ Knowledge
    :maxdepth: 2
 
 
+   knowledge/cheatsheet
    knowledge/guidelines
    knowledge/faq
    knowledge/videos
