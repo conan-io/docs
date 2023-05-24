@@ -31,7 +31,7 @@ Conan will look for the specified deployer in a few extra places in order, namel
 
 #. Absolute paths
 #. Relative to cwd
-#. In the ``[CONAN_HOME]/extensions/deploy`` folder
+#. In the ``[CONAN_HOME]/extensions/deployers`` folder
 #. Built-in deployers
 
 
