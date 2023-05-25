@@ -202,14 +202,20 @@ Displays all the Conan built-in configurations. There are 2 groups:
     core.package_id:default_non_embed_mode: By default, 'minor_mode'
     core.package_id:default_python_mode: By default, 'minor_mode'
     core.package_id:default_unknown_mode: By default, 'semver_mode'
+    core.sources:download_cache: Folder to store the sources backup
+    core.sources:download_urls: List of URLs to download backup sources from
+    core.sources:upload_url: Remote URL to upload backup sources to
     core.upload:retry: Number of retries in case of failure when uploading to Conan server
     core.upload:retry_wait: Seconds to wait between upload attempts to Conan server
+    core.version_ranges:resolve_prereleases: Whether version ranges can resolve to pre-releases or not
+    core:allow_uppercase_pkg_names: Temporarily (will be removed in 2.X) allow uppercase names
     core:default_build_profile: Defines the default build profile (None by default)
     core:default_profile: Defines the default host profile ('default' by default)
     core:non_interactive: Disable interactive user input, raises error if input necessary
     core:required_conan_version: Raise if current version does not match the defined range.
+    core:skip_warnings: Do not show warnings in this list
+    tools.android:cmake_legacy_toolchain: Define to explicitly pass ANDROID_USE_LEGACY_TOOLCHAIN_FILE in CMake toolchain
     tools.android:ndk_path: Argument for the CMAKE_ANDROID_NDK
-    tools.android:cmake_legacy_toolchain: Boolean value for ANDROID_USE_LEGACY_TOOLCHAIN_FILE in CMakeToolchain. Not defined if not given a value.
     tools.apple:enable_arc: (boolean) Enable/Disable ARC Apple Clang flags
     tools.apple:enable_bitcode: (boolean) Enable/Disable Bitcode Apple Clang flags
     tools.apple:enable_visibility: (boolean) Enable/Disable Visibility Apple Clang flags
@@ -236,6 +242,7 @@ Displays all the Conan built-in configurations. There are 2 groups:
     tools.cmake.cmaketoolchain:toolchain_file: Use other existing file rather than conan_toolchain.cmake one
     tools.cmake.cmaketoolchain:toolset_arch: Toolset architecture to be used as part of CMAKE_GENERATOR_TOOLSET in CMakeToolchain
     tools.cmake.cmaketoolchain:user_toolchain: Inject existing user toolchains at the beginning of conan_toolchain.cmake
+    tools.cmake:cmake_program: Path to CMake executable
     tools.env.virtualenv:powershell: If it is set to True it will generate powershell launchers if os=Windows
     tools.files.download:retry: Number of retries in case of failure when downloading
     tools.files.download:retry_wait: Seconds to wait between download attempts
@@ -258,7 +265,7 @@ Displays all the Conan built-in configurations. There are 2 groups:
     tools.microsoft.msbuild:vs_version: Defines the IDE version when using the new msvc compiler
     tools.microsoft.msbuilddeps:exclude_code_analysis: Suppress MSBuild code analysis for patterns
     tools.microsoft.msbuildtoolchain:compile_options: Dictionary with MSBuild compiler options
-    tools.system.package_manager:mode: Mode for package_manager tools: 'check' or 'install'
+    tools.system.package_manager:mode: Mode for package_manager tools: 'check', 'report', 'report-installed' or 'install'
     tools.system.package_manager:sudo: Use 'sudo' when invoking the package manager tools in Linux (False by default)
     tools.system.package_manager:sudo_askpass: Use the '-A' argument if using sudo in Linux to invoke the system package manager (False by default)
     tools.system.package_manager:tool: Default package manager tool: 'apt-get', 'yum', 'dnf', 'brew', 'pacman', 'choco', 'zypper', 'pkg' or 'pkgutil'
