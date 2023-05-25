@@ -152,10 +152,7 @@ This command does the following:
 - Optionally, execute the desired ``deployers``.
 
 
-.. warning::
-
-  The json output of the ``conan install --format=json`` is **experimental** and subject to
-  change.
+.. include:: ./graph/graph_info_format_json.inc
 
 
 Conanfile path or --requires
