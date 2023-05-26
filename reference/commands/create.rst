@@ -134,7 +134,9 @@ the package has been created correctly. Check :ref:`testing Conan packages
         $ conan create . --test-folder=
 
 
-.. include:: ./graph/graph_info_format_json.inc
+.. seealso::
+
+    - Check the :ref:`JSON format output <graph_info_json_format>` for this command.
 
 
 Using conan create with build requirements

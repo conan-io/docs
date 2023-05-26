@@ -152,7 +152,9 @@ This command does the following:
 - Optionally, execute the desired ``deployers``.
 
 
-.. include:: ./graph/graph_info_format_json.inc
+.. seealso::
+
+    - Check the :ref:`JSON format output <graph_info_json_format>` for this command.
 
 
 Conanfile path or --requires

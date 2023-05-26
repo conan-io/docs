@@ -77,8 +77,8 @@ The ``conan export-pkg`` command creates a package binary directly from pre-comp
 
 In general, it is expected that when ``conan export-pkg`` executes, the possible Conan dependencies that were necessary to build this package had already been installed via ``conan install``, so it is not necessary to download dependencies at ``export-pkg`` time. But if for some reason this is not the case, the command defines ``--remote`` and ``--no-remote`` arguments, similar to other commands, as well as the ``--skip-binaries`` optimization that could save some time installing dependencies binaries if they are not strictly necessary for the current ``export-pkg``. But this is the responsibility of the user, as it is possible that such binaries are actually necessary, for example, if a ``tool_requires = "cmake/x.y"`` is used and the ``package()`` method implements a ``cmake.install()`` call, this will definitely need the binaries for the dependencies installed in the current machine to execute.
 
-.. include:: ./graph/graph_info_format_json.inc
 
 .. seealso::
 
+    - Check the :ref:`JSON format output <graph_info_json_format>` for this command.
     - Read the tutorial about the :ref:`local package development flow <local_package_development_flow>`.
