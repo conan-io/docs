@@ -3,6 +3,13 @@
 Custom command: Clean old recipe and package revisions
 ======================================================
 
+.. note::
+
+    This is mostly an example command. The built-in ``conan remove *#!latest`` syntax,
+    meaning "all revisions but the latest" would probably be enough for this use case,
+    without needing this custom command.
+
+
 Please, first of all, clone the sources to recreate this project. You can find them in the
 `examples2.0 repository <https://github.com/conan-io/examples2>`_ in GitHub:
 
@@ -172,6 +179,8 @@ Important classes to manage user input and user output:
 
 Conan public API
 ++++++++++++++++
+
+.. include:: ../../../../common/experimental_warning.inc
 
 The most important part of this example is the usage of the Conan API via ``conan_api`` parameter. These are some examples
 which are being used in this custom command:

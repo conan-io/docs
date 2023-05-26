@@ -1,7 +1,7 @@
 .. _reference_commands_custom_commands:
 
 Custom commands
-=================
+===============
 
 It's possible to create your own Conan commands to solve self-needs thanks to Python and Conan public API powers altogether.
 
@@ -17,7 +17,7 @@ existing Conan one: :command:`conan your_command_name`.
 
 
 Scoping
-++++++++++
++++++++
 
 It's possible to have another folder layer to group some commands under the same topic.
 
@@ -87,7 +87,7 @@ Main decorator to declare a function as a new Conan command. Where the parameter
 
 
 conan_subcommand(formatters=None)
-++++++++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++
 
 Similar to ``conan_command``, but this one is declaring a sub-command of an existing custom command. For instance:
 
@@ -120,8 +120,53 @@ The command call looks like :command:`conan hello moon`.
     Notice that to declare a sub-command is required an empty Python function acts as the main command.
 
 
-Formatters arguments
-++++++++++++++++++++
+Argument definition and parsing
+-------------------------------
+
+Commands can define their own arguments with the ``argparse`` Python library.
+
+
+.. code-block:: python
+    
+    @conan_command(group='Creator')
+    def build(conan_api, parser, *args):
+        """
+        Command help
+        """
+        parser.add_argument("path", nargs="?", help='help for command')
+        add_reference_args(parser)
+        args = parser.parse_args(*args)
+        # Use args.path
+
+
+When there are sub-commands, the base command cannot define arguments, only the sub-commands can do it. If you have a set of common arguments to all sub-commands, you can define a function that adds them.
+
+.. code-block:: python
+
+    @conan_command(group="MyGroup")
+    def mycommand(conan_api, parser, *args):
+        """
+        Command help
+        """
+        # Do not define arguments in the base command
+        pass
+
+    @conan_subcommand()
+    def mycommand_mysubcommand(conan_api: ConanAPI, parser, subparser, *args):
+        """
+        Subcommand help
+        """
+        # Arguments are added to "subparser"
+        subparser.add_argument("reference", help="Recipe reference or Package reference")
+        # You can add common args with your helper
+        # add_my_common_args(subparser)
+        # But parsing all of them happens to "parser"
+        args = parser.parse_args(*args)
+        # use args.reference
+
+
+Formatters
+----------
 
 The return of the command will be passed as argument to the formatters. If there are different formatters that 
 require different arguments, the approach is to return a dictionary, and let the formatters chose the 
@@ -152,8 +197,8 @@ arguments they need. For example, the ``graph info`` command uses several format
                 "conan_api": conan_api}
 
 
-Command function arguments
-----------------------------
+Commands parameters
+-------------------
 
 These are the passed arguments to any custom command and its sub-commands functions:
 

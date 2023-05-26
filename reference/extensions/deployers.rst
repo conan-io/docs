@@ -37,6 +37,7 @@ Then every dependency will end up in a folder such as:
 
 ``[OUTPUT_FOLDER]/full_deploy/host/dep/0.1/Release/x86_64``
 
+See a full example of the usage of ``full_deploy`` deployer in :ref:`examples_extensions_builtin_deployers_development`.
 
 .. _reference_extensions_deployer_direct_deploy:
 
@@ -62,7 +63,7 @@ Conan will look in these locations for the deployer in the following order:
 
 #. Absolute paths
 #. Relative to cwd
-#. In the ``[CONAN_HOME]/extensions/deploy`` folder
+#. In the ``[CONAN_HOME]/extensions/deployers`` folder
 #. As built-in deployers
 
 Conan will look for a ``deploy()`` method to call for each installed file.
