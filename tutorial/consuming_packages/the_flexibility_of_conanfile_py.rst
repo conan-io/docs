@@ -213,7 +213,7 @@ Check that running the same commands as in the previous examples without the
 
     $ conan install . --build=missing
     $ cd build
-    $ conanbuild.bat
+    $ generators\conanbuild.bat
     # assuming Visual Studio 15 2017 is your VS version and that it matches your default profile
     $ cmake .. -G "Visual Studio 15 2017" -DCMAKE_TOOLCHAIN_FILE=generators\conan_toolchain.cmake
     $ cmake --build . --config Release
@@ -226,7 +226,7 @@ Check that running the same commands as in the previous examples without the
     Uncompressed size is: 233
     Compressed size is: 147
     ZLIB VERSION: 1.2.11
-    $ deactivate_conanbuild.bat
+    $ generators\deactivate_conanbuild.bat
 
 .. code-block:: bash
     :caption: Linux, macOS
