@@ -1,11 +1,11 @@
 
 .. warning::
 
-  The json output of the ``conan [create|install|graph info] xxxx --format=json`` command is **experimental** and
+  The json output of the ``conan [create|install|export-pkg|graph info] xxxx --format=json`` command is **experimental** and
   subject to change.
 
 
-:command:`[create|install|graph info] xxx --format json` commands follow the same JSON schema. It looks like this:
+:command:`[create|install|export-pkg|graph info] xxx --format json` commands follow the same JSON schema. It looks like this:
 
 .. code-block:: json
     :caption: **graph-info-schema.json (simplified)**
