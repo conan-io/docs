@@ -6,6 +6,26 @@ For a more detailed description of the major changes that Conan 2.0 brings, comp
 2.0.5 (18-May-2023)
 -------------------
 
+- Feature: `-v` argument defaults to the `VERBOSE` level. `#13839 <https://github.com/conan-io/conan/pull/13839>`_
+- Feature: Avoid showing unnecessary skipped dependencies. Now, it only shows a list of reference names if exists skipped binaries. They can be completely listed by adding `-v` (verbose mode) to the current command. `#13836 <https://github.com/conan-io/conan/pull/13836>`_
+- Feature: Allow step-into dependencies debugging for packages built locally with ``--build`` `#13833 <https://github.com/conan-io/conan/pull/13833>`_ . Docs `here <https://github.com/conan-io/docs/pull/3210>`__
+- Feature: Allow non relocatable, locally built packages with ``upload_policy="skip"`` and ``build_policy="missing"`` `#13833 <https://github.com/conan-io/conan/pull/13833>`_ . Docs `here <https://github.com/conan-io/docs/pull/3210>`__
+- Feature: Do not move "build" folders in cache when ``package-revision`` is computed to allow locating sources for dependencies debuggability with step-into `#13810 <https://github.com/conan-io/conan/pull/13810>`_
+- Feature: New ``settings.possible_values()`` method to query the range of possible values for a setting. `#13796 <https://github.com/conan-io/conan/pull/13796>`_ . Docs `here <https://github.com/conan-io/docs/pull/3212>`__
+- Feature: Optimize and avoid hitting servers for binaries when ``upload_policy=skip`` `#13771 <https://github.com/conan-io/conan/pull/13771>`_
+- Feature: Partially relativize generated environment .sh shell scripts `#13764 <https://github.com/conan-io/conan/pull/13764>`_
+- Feature: Improve settings.yml error messages `#13748 <https://github.com/conan-io/conan/pull/13748>`_
+- Feature: Auto create empty ``global.conf`` to improve UX looking for file in home. `#13746 <https://github.com/conan-io/conan/pull/13746>`_ . Docs `here <https://github.com/conan-io/docs/pull/3211>`__
+- Feature: Render the profile file name as profile_name `#13721 <https://github.com/conan-io/conan/pull/13721>`_ . Docs `here <https://github.com/conan-io/docs/pull/3180>`__
+- Feature: New global custom generators in cache "extensions/generators" that can be used by name. `#13718 <https://github.com/conan-io/conan/pull/13718>`_ . Docs `here <https://github.com/conan-io/docs/pull/3213>`__
+- Feature: Improve :command:`conan inspect` output, it now understands `set_name`/`set_version`. `#13716 <https://github.com/conan-io/conan/pull/13716>`_ . Docs `here <https://github.com/conan-io/docs/pull/3204>`__
+- Feature: Define new ``self.tool_requires("pkg/<host_version>")`` to allow some tool-requires to follow and use the same version as the "host" regular requires do. `#13712 <https://github.com/conan-io/conan/pull/13712>`_ . Docs `here <https://github.com/conan-io/docs/pull/3223>`__
+- Feature: Introduce new ``core:skip_warns`` configuration to be able to silence some warnings in the output. `#13706 <https://github.com/conan-io/conan/pull/13706>`_ . Docs `here <https://github.com/conan-io/docs/pull/3215>`__
+- Feature: Add info_invalid to graph node serialization `#13688 <https://github.com/conan-io/conan/pull/13688>`_
+- Feature: Computing and reporting the ``overrides`` in the graph, and in the ``graph build-order`` `#13680 <https://github.com/conan-io/conan/pull/13680>`_
+- Feature: New ``revision_mode = "scm_folder"`` for mono-repo projects that want to use ``scm`` revisions. `#13562 <https://github.com/conan-io/conan/pull/13562>`_ . Docs `here <https://github.com/conan-io/docs/pull/3218>`__
+- Feature: Demonstrate that it is possible to ``tool_requires`` different versions of the same package. `#13529 <https://github.com/conan-io/conan/pull/13529>`_ . Docs `here <https://github.com/conan-io/docs/pull/3219>`__
+- Fix: `build_scripts` now set the `run` trait to `True` by default `#13901 <https://github.com/conan-io/conan/pull/13901>`_ . Docs `here <https://github.com/conan-io/docs/pull/3206>`__
 - Fix: Fix XcodeDeps includes skipped dependencies. `#13880 <https://github.com/conan-io/conan/pull/13880>`_
 - Fix: Do not allow line feeds into ``pkg/version`` reference fields `#13870 <https://github.com/conan-io/conan/pull/13870>`_
 - Fix: Fix ``AutotoolsToolchain`` definition of  ``tools.build:compiler_executable`` for Windows subsystems `#13867 <https://github.com/conan-io/conan/pull/13867>`_
