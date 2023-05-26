@@ -3,6 +3,21 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2.0 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.0.6 (26-May-2023)
+-------------------
+
+- Feature: Add a `tools.cmake:cmake_program` configuration item to allow specifying the location of the desired CMake executable. `#13940 <https://github.com/conan-io/conan/pull/13940>`_ . Docs `here <https://github.com/conan-io/docs/pull/3232>`__
+- Fix: Output "id" property in graph json output as str instead of int. `#13964 <https://github.com/conan-io/conan/pull/13964>`_ . Docs `here <https://github.com/conan-io/docs/pull/3236>`__
+- Fix: Fix custom commands in a layer not able to do a local import. `#13944 <https://github.com/conan-io/conan/pull/13944>`_
+- Fix: Improve the output of download + unzip. `#13937 <https://github.com/conan-io/conan/pull/13937>`_
+- Fix: Add missing values to `package_manager:mode` in `conan config install`. `#13929 <https://github.com/conan-io/conan/pull/13929>`_
+- Bugfix: Ensuring the same graph-info JSON output for  `graph info`, `create`, `export-pkg`, and `install`. `#13967 <https://github.com/conan-io/conan/pull/13967>`_ . Docs `here <https://github.com/conan-io/docs/pull/3236>`__
+- Bugfix: ``test_requires`` were affecting the ``package_id`` of consumers as regular ``requires``, but they shouldn't. `#13966 <https://github.com/conan-io/conan/pull/13966>`_
+- Bugfix: Define ``source_folder`` correctly in the json output when ``-c tools.build:download_source=True``. `#13953 <https://github.com/conan-io/conan/pull/13953>`_
+- Bugfix: Fixed and completed the `graph info xxxx --format json` output, to publicly document it. `#13934 <https://github.com/conan-io/conan/pull/13934>`_ . Docs `here <https://github.com/conan-io/docs/pull/3236>`__
+- Bugfix: Fix "double" absolute paths in premakedeps. `#13926 <https://github.com/conan-io/conan/pull/13926>`_
+- Bugfix: Fix regression from 2.0.5 https://github.com/conan-io/conan/pull/13898, in which overrides of packages and components specification was failing `#13923 <https://github.com/conan-io/conan/pull/13923>`_
+
 2.0.5 (18-May-2023)
 -------------------
 
