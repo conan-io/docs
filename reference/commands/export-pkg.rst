@@ -80,5 +80,5 @@ In general, it is expected that when ``conan export-pkg`` executes, the possible
 
 .. seealso::
 
-    - Check the :ref:`JSON format output <graph_info_json_format>` for this command.
+    - Check the :ref:`JSON format output <reference_commands_graph_info_json_format>` for this command.
     - Read the tutorial about the :ref:`local package development flow <local_package_development_flow>`.

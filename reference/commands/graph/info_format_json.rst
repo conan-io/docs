@@ -1,4 +1,4 @@
-.. _graph_info_json_format:
+.. _reference_commands_graph_info_json_format:
 
 Graph info JSON output
 ======================

@@ -154,7 +154,7 @@ This command does the following:
 
 .. seealso::
 
-    - Check the :ref:`JSON format output <graph_info_json_format>` for this command.
+    - Check the :ref:`JSON format output <reference_commands_graph_info_json_format>` for this command.
 
 
 Conanfile path or --requires
