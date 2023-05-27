@@ -76,10 +76,15 @@ The :command:`conan inspect` command shows the public attributes of any recipe (
     topics: ['png', 'graphics', 'image']
     url: https://github.com/conan-io/conan-center-index
 
+
+``conan inspect`` evaluates recipe methods such as ``set_name()`` and ``set_version()``,
+and is capable of resolving ``python_requires`` dependencies (which can be locked with the ``--lockfile`` argument),
+so its base methods will also be properly executed.
+
 .. note::
-    ``conan inspect`` evaluates recipe methods such as ``set_name()`` and ``set_version()``,
-    and is capable of resolving ``python_requires`` dependencies (which can be locked with the ``--lockfile`` argument),
-    so its base methods will also be properly executed.
+    The ``--remote`` argument is used *only* for fetching remote ``python_requires`` in cases where they are needed,
+    **not** to inspect recipes from a remote. Use :ref:`conan graph info<reference_graph_info>` for such cases.
+
 
 The :command:`conan inspect ... --format=json` returns a JSON output format in ``stdout`` (which can be redirected to a file) with the following structure:
 

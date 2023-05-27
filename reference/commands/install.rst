@@ -152,10 +152,9 @@ This command does the following:
 - Optionally, execute the desired ``deployers``.
 
 
-.. warning::
+.. seealso::
 
-  The json output of the ``conan install --format=json`` is **experimental** and subject to
-  change.
+    - Check the :ref:`JSON format output <reference_commands_graph_info_json_format>` for this command.
 
 
 Conanfile path or --requires

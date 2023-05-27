@@ -49,7 +49,7 @@ Reference
 conf
 ^^^^
 
-CMake() helper is affected by these ``[conf]`` variables:
+The ``CMake()`` build helper is affected by these ``[conf]`` variables:
 
 - ``tools.build:verbosity`` will accept one of ``'quiet', 'error', 'warning', 'notice', 'status', 'verbose', 'normal', 'debug', 'v', 'trace', 'vv'`` to be passed
   to the ``CMake.build()`` command, when a Visual Studio generator (MSBuild build system) is being used for CMake. It is passed as
@@ -59,3 +59,5 @@ CMake() helper is affected by these ``[conf]`` variables:
 
 - ``tools.microsoft.msbuild:max_cpu_count`` argument for the ``/m`` (``/maxCpuCount``) when running
   ``MSBuild``
+
+- ``tools.cmake:cmake_program`` specify the location of the CMake executable, instead of using the one found in the ``PATH``.

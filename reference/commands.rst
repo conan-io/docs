@@ -15,7 +15,7 @@ and these :ref:`custom command examples <examples_extensions_custom_commands>`
    :caption: Consumer commands
    :maxdepth: 1
    :hidden:
-   
+
    commands/cache
    commands/config
    commands/graph
@@ -69,3 +69,23 @@ and these :ref:`custom command examples <examples_extensions_custom_commands>`
 - :doc:`conan source <commands/source>`: Calls the source() method
 - :doc:`conan test <commands/test>`: Test a package
 - :doc:`conan upload <commands/upload>`: Upload packages from the local cache to a specified remote
+
+
+Command formatters
+------------------
+
+Almost all the commands have the parameter ``--format xxxx`` which is used to apply an output conversion.
+The command formatters help users see the command output in a different way that could fit better with their needs.
+Here, there are only some of the most important ones whose details are worthy of having a separate section.
+
+
+.. toctree::
+   :caption: Command formatters
+   :maxdepth: 1
+   :hidden:
+
+   commands/formatters/graph_info_json_formatter
+
+
+- :doc:`graph-info formatter <commands/formatters/graph_info_json_formatter>`: Show the graph information in JSON
+  format. It's used by several commands.

@@ -1,3 +1,5 @@
+.. _reference_graph_info:
+
 conan graph info
 ================
 
@@ -128,12 +130,6 @@ conan graph info
         --build-require       Whether the provided reference is a build-require
 
 The ``conan graph info`` command shows information about the dependency graph for the recipe specified in ``path``.
-
-
-.. warning::
-
-  The json output of the ``conan graph info --format=json`` is **experimental** and subject to
-  change.
 
 
 **Examples**:
@@ -356,9 +352,12 @@ For example, to get the options of zlib, the following command could be run:
         shared: False
 
 
-You can generate a graph of your dependencies in ``dot`` or ``html`` formats:
+You can generate a graph of your dependencies in ``json``, ``dot`` or ``html`` formats:
+
+Now, let's try the ``dot`` format for instance:
 
 .. code-block:: bash
+    :caption: **binutils/2.38 graph info to DOT**
 
     $ conan graph info --require=binutils/2.38 -r=conancenter --format=dot > graph.dot
 
@@ -391,3 +390,8 @@ Which generates the following file:
     - *vis.min.css*: "https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.css"
 
     You can use the template found in ``cli/formatters/graph/info_graph.html`` as a basis for your own.
+
+
+.. seealso::
+
+    - Check the :ref:`JSON format output <reference_commands_graph_info_json_format>` for this command.

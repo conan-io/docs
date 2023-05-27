@@ -118,13 +118,6 @@ conan create
 
 The ``conan create`` command creates a package from the recipe specified in ``path``.
 
-
-.. warning::
-
-  The json output of the ``conan create --format=json`` is **experimental** and subject to
-  change.
-
-
 This command will first ::comnand::`export` the recipe to the local cache and then build
 and create the package. If a ``test_package`` folder (you can change the folder name with
 the ``-tf`` argument) is found, the command will run the consumer project to ensure that
@@ -139,6 +132,12 @@ the package has been created correctly. Check :ref:`testing Conan packages
     .. code-block:: bash
 
         $ conan create . --test-folder=
+
+
+.. seealso::
+
+    - Check the :ref:`JSON format output <reference_commands_graph_info_json_format>` for this command.
+
 
 Using conan create with build requirements
 ------------------------------------------
