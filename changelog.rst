@@ -21,6 +21,11 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.60 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
     a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.60.1 (30-May-2023)
+--------------------
+
+- Bugfix: Fix lockfile usage with transitive tool-dependencies. `#13902 <https://github.com/conan-io/conan/pull/13902>`_
+
 1.60.0 (11-May-2023)
 --------------------
 
