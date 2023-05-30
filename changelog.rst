@@ -18,8 +18,22 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-    Conan 1.59 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
+    Conan 1.60 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
     a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
+
+1.60.0 (11-May-2023)
+--------------------
+
+- Feature: Define new version expression ``tool_requires("pkg/<host_version>")`` to get the host requirement version (Backport of 2.0 https://github.com/conan-io/conan/pull/13712). `#13719 <https://github.com/conan-io/conan/pull/13719>`_ . Docs `here <https://github.com/conan-io/docs/pull/3197>`__
+- Feature: Provide compatibility with servers containing Conan 2.0 packages with user and no channel. `#13590 <https://github.com/conan-io/conan/pull/13590>`_
+- Feature: Add MacOS SDK version 13.1. `#13585 <https://github.com/conan-io/conan/pull/13585>`_
+- Feature: New ``move_folder_contents()`` file helper to re-arrange repos folders. `#13509 <https://github.com/conan-io/conan/pull/13509>`_ . Docs `here <https://github.com/conan-io/docs/pull/3196>`__
+- Feature: Allow ``conan_version`` in profile.jinja and global.conf jinja templating. `#13377 <https://github.com/conan-io/conan/pull/13377>`_ . Docs `here <https://github.com/conan-io/docs/pull/3081>`__
+- Fix: Add gcc 13 to default settings.yml. `#13848 <https://github.com/conan-io/conan/pull/13848>`_
+- Fix: Prepare Conan 1.60 to not break if Conan 2.X starts adding metadata files to packages. `#13351 <https://github.com/conan-io/conan/pull/13351>`_
+- Bugfix: Fix AutotoolsToolchain when unknown compiler. `#13815 <https://github.com/conan-io/conan/pull/13815>`_
+- Bugfix: Fixed graph_lock.py - lock_node(): consider context of build_require from lockfile. `#13788 <https://github.com/conan-io/conan/pull/13788>`_
+- Bugfix: Fix for ``conan search pkg/*@`` and ``conan upload pkg/*@``, to filter packages without user/channel. `#13173 <https://github.com/conan-io/conan/pull/13173>`_
 
 1.59.0 (16-Feb-2023)
 --------------------
