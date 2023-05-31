@@ -20,6 +20,7 @@ Xcode.
    integrations/xcode
    integrations/meson
    integrations/android
+   integrations/b2
 
 .. warning::
 
