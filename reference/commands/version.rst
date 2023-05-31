@@ -1,6 +1,6 @@
-.. _reference_commands_inspect:
+.. _reference_commands_version:
 
-conan inspect
+conan version
 =============
 
 .. include:: ../../common/experimental_warning.inc
