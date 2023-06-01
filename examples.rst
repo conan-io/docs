@@ -14,3 +14,4 @@ Examples
    examples/config_files
    examples/graph
    examples/dev_flow
+   examples/commands
