@@ -40,6 +40,9 @@ remove a complete package, or just remove the binaries, leaving still the recipe
 available. You can also use the keyword ``!latest`` in the revision part of the pattern to
 avoid removing the latest recipe or package revision of a certain Conan package.
 
+
+There are other commands like :command:`conan list` (see the patterns documentation there :ref:`reference_commands_list`), :command:`conan upload` and :command:`conan download`, that take the same patterns. 
+
 To remove recipes and their associated package binaries from the local cache:
 
 
@@ -48,11 +51,14 @@ To remove recipes and their associated package binaries from the local cache:
     $ conan remove "*"
     # Removes everything from the cache
 
-    $ conan remove zlib/*
+    $ conan remove "zlib/*""
     # Remove all possible versions of zlib, including all recipes, revisions and packages
 
     $ conan remove zlib/1.2.11
     # Remove zlib/1.2.11, all its revisions and package binaries. Leave other zlib versions
+
+    $ conan remove "zlib/[<1.2.13]"
+    # Remove zlib/1.2.11 and zlib/1.2.12, all its revisions and package binaries.
 
     $ conan remove zlib/1.2.11#latest
     # Remove zlib/1.2.11, only its latest recipe revision and binaries of that revision
@@ -72,16 +78,16 @@ pattern including the ``:`` separator of the ``package_id``:
 
 .. code-block:: text
 
-    $ conan remove zlib/1.2.11:*
+    $ conan remove "zlib/1.2.11:*"
     # Removes all the zlib/1.2.11 package binaries from all the recipe revisions
 
-    $ conan remove zlib/*:*
+    $ conan remove "zlib/*:*"
     # Removes all the binaries from all the recipe revisions from all zlib versions
 
-    $ conan remove zlib/1.2.11#latest:*
+    $ conan remove "zlib/1.2.11#latest:*"
     # Removes all the zlib/1.2.11 package binaries only from the latest zlib/1.2.11 recipe revision
 
-    $ conan remove zlib/1.2.11#!latest:*
+    $ conan remove "zlib/1.2.11#!latest:*"
     # Removes all the zlib/1.2.11 package binaries from all the recipe revisions but the latest one
 
     $ conan remove zlib/1.2.11:<package_id>

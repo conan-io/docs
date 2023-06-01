@@ -45,7 +45,7 @@ Downloads recipe and binaries to the local cache from the specified remote.
 
 
 You can use patterns to download specific references just like in other commands like
-:command:`conan list` or :command:`conan upload`:
+:command:`conan list` (see the patterns documentation there :ref:`reference_commands_list`) or :command:`conan upload`:
 
 ..  code-block:: bash
     
