@@ -9,6 +9,27 @@ You will need to adapt to the new commands once you migrate to Conan 2.0
 Changes to expect
 -----------------
 
+JSON output in 2.X commands
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+In Conan version 1.X, you can use the ``--json`` flag followed by the path to the output
+file when executing commands. For example:
+
+.. code-block:: bash
+
+   conan create ... --json=path/to/file.json
+
+Starting with Conan version 2.0, you are expected to use the ``--format`` flag followed by
+the output format type, and redirect standard output to a file. The same command in
+version 2.0 would be:
+
+.. code-block:: bash
+
+   conan create ... --format=json > path/to/file.json
+
+For more information, please check the `Conan 2 commands reference
+<https://docs.conan.io/2/reference/commands.html>`_ 
+
 
 conan install
 ^^^^^^^^^^^^^
