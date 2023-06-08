@@ -38,8 +38,8 @@ We can install the Debug and Release dependencies, and deploy a local copy of th
 
 .. code-block:: bash
 
-    $ conan install . --deploy=full_deploy --build=missing
-    $ conan install . --deploy=full_deploy -s build_type=Debug --build=missing
+    $ conan install . --deployer=full_deploy --build=missing
+    $ conan install . --deployer=full_deploy -s build_type=Debug --build=missing
 
 This will create the following folders:
 
