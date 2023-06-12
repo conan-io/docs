@@ -204,7 +204,7 @@ Displays all the Conan built-in configurations. There are 2 groups:
     core.package_id:default_unknown_mode: By default, 'semver_mode'
     core.upload:retry: Number of retries in case of failure when uploading to Conan server
     core.upload:retry_wait: Seconds to wait between upload attempts to Conan server
-    core:default_build_profile: Defines the default build profile (None by default)
+    core:default_build_profile: Defines the default build profile ('default' by default)
     core:default_profile: Defines the default host profile ('default' by default)
     core:non_interactive: Disable interactive user input, raises error if input necessary
     core:required_conan_version: Raise if current version does not match the defined range.
