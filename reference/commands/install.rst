@@ -17,7 +17,7 @@ conan install
                         [-c:b CONF_BUILD] [-c:h CONF_HOST] [-l LOCKFILE]
                         [--lockfile-partial] [--lockfile-out LOCKFILE_OUT]
                         [--lockfile-packages] [--lockfile-clean] [-g GENERATOR]
-                        [-of OUTPUT_FOLDER] [--deploy DEPLOY] [--build-require]
+                        [-of OUTPUT_FOLDER] [-d DEPLOYER] [--build-require]
                         [path]
 
     Install the requirements specified in a recipe (conanfile.py or conanfile.txt).
@@ -132,8 +132,8 @@ conan install
                             Generators to use
     -of OUTPUT_FOLDER, --output-folder OUTPUT_FOLDER
                             The root output folder for generated and build files
-    --deploy DEPLOY       Deploy using the provided deployer to the output
-                            folder
+    -d DEPLOYER, --deployer DEPLOYER
+                          Deploy using the provided deployer to the output folder
     --build-require       Whether the provided reference is a build-require
 
 
@@ -152,10 +152,9 @@ This command does the following:
 - Optionally, execute the desired ``deployers``.
 
 
-.. warning::
+.. seealso::
 
-  The json output of the ``conan install --format=json`` is **experimental** and subject to
-  change.
+    - Check the :ref:`JSON format output <reference_commands_graph_info_json_format>` for this command.
 
 
 Conanfile path or --requires
@@ -244,7 +243,7 @@ like collecting licenses, generating reports, deploying binaries to the system, 
 .. code-block:: text
 
     # does a full copy of the dependencies binaries to the current user folder
-    $ conan install . --deploy=full_deploy
+    $ conan install . --deployer=full_deploy
 
 
 There are 2 built-in deployers:
@@ -257,7 +256,7 @@ There are 2 built-in deployers:
 
 Some generators might have the capability of redefining the target "package folder". That means that if some other
 generator like ``CMakeDeps`` is used that is pointing to the packages, it will be pointing to the local deployed
-copy, and not to the original packages in the Conan cache.
+copy, and not to the original packages in the Conan cache. See the full example in :ref:`examples_extensions_builtin_deployers_development`.
 
 It is also possible, and it is a powerful extension point, to write custom user deployers.
 Read more about custom deployers in :ref:`reference_extensions_deployers`.

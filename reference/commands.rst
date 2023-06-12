@@ -5,7 +5,7 @@ Commands
 
 This section describe the Conan built-in commands, like ``conan install`` or ``conan search``.
 
-It is also possible to create user custom commands, visit :ref:`custom commands reference <reference_commands_custom_commands>` 
+It is also possible to create user custom commands, visit :ref:`custom commands reference <reference_commands_custom_commands>`
 and these :ref:`custom command examples <examples_extensions_custom_commands>`
 
 
@@ -15,7 +15,7 @@ and these :ref:`custom command examples <examples_extensions_custom_commands>`
    :caption: Consumer commands
    :maxdepth: 1
    :hidden:
-   
+
    commands/cache
    commands/config
    commands/graph
@@ -27,6 +27,7 @@ and these :ref:`custom command examples <examples_extensions_custom_commands>`
    commands/remove
    commands/remote
    commands/search
+   commands/version
 
 - :doc:`conan cache <commands/cache>`: Return the path of recipes and packages in the cache
 - :doc:`conan config <commands/config>`: Manage Conan configuration (remotes, settings, plugins, etc)
@@ -39,6 +40,7 @@ and these :ref:`custom command examples <examples_extensions_custom_commands>`
 - :doc:`conan remove <commands/remove>`: Remove packages from the local cache or from remotes
 - :doc:`conan remote <commands/remote>`: Add, remove, login/logout and manage remote server
 - :doc:`conan search <commands/search>`: Search packages matching a name
+- :doc:`conan version <commands/version>`: Give information about the Conan client version
 
 
 **Creator commands:**
@@ -69,3 +71,23 @@ and these :ref:`custom command examples <examples_extensions_custom_commands>`
 - :doc:`conan source <commands/source>`: Calls the source() method
 - :doc:`conan test <commands/test>`: Test a package
 - :doc:`conan upload <commands/upload>`: Upload packages from the local cache to a specified remote
+
+
+Command formatters
+------------------
+
+Almost all the commands have the parameter ``--format xxxx`` which is used to apply an output conversion.
+The command formatters help users see the command output in a different way that could fit better with their needs.
+Here, there are only some of the most important ones whose details are worthy of having a separate section.
+
+
+.. toctree::
+   :caption: Command formatters
+   :maxdepth: 1
+   :hidden:
+
+   commands/formatters/graph_info_json_formatter
+
+
+- :doc:`graph-info formatter <commands/formatters/graph_info_json_formatter>`: Show the graph information in JSON
+  format. It's used by several commands.

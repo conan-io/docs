@@ -31,7 +31,7 @@ Conan will look for the specified deployer in a few extra places in order, namel
 
 #. Absolute paths
 #. Relative to cwd
-#. In the ``[CONAN_HOME]/extensions/deploy`` folder
+#. In the ``[CONAN_HOME]/extensions/deployers`` folder
 #. Built-in deployers
 
 
@@ -46,7 +46,7 @@ Now, you should be able to use the new deployer in both ``conan install`` and ``
 
 .. code-block:: bash
 
-    $ conan graph info . -c tools.build:download_source=True --deploy=sources_deploy
+    $ conan graph info . -c tools.build:download_source=True --deployer=sources_deploy
 
 
 Inspecting the command output we can see that it copied the sources of our direct dependencies ``zlib`` and ``mcap``,

@@ -9,3 +9,4 @@ ConanFile layout() examples
    layout/conanfile_in_subfolder
    layout/third_party_libraries
    layout/multiple_subprojects
+   layout/editable_components

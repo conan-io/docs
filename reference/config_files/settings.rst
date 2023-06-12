@@ -16,7 +16,7 @@ It looks like this:
         WindowsStore:
             version: ["8.1", "10.0"]
         WindowsCE:
-            platform: ANY
+            platform: [ANY]
             version: ["5.0", "6.0", "7.0", "8.0"]
         Linux:
         iOS:
@@ -140,6 +140,7 @@ to distribute an unified *settings.yml* file you can use the :ref:`conan config 
 .. seealso::
 
     - :ref:`creating_packages_configure_options_settings`
+    - :ref:`conan_conanfile_properties_settings`
 
 
 Operating systems

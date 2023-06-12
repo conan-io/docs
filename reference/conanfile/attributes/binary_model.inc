@@ -37,7 +37,7 @@ The valid values are:
 settings
 --------
 
-List of strings with the first level settings (from ``settings.yml``) that the recipe
+List of strings with the first level settings (from :ref:`reference_config_files_settings_yml`) that the recipe
 needs, because:
 - They are read for building (e.g: `if self.settings.compiler == "gcc"`)
 - They affect the ``package_id``. If a value of the declared setting changes, the ``package_id`` has to be different.
@@ -75,8 +75,30 @@ If you want to do a safe check of settings values, you could use the ``get_safe(
         # Will be the default version if the return is None
         build_type = self.settings.get_safe("build_type", default="Release")
 
-The ``get_safe()`` method will return ``None`` if that setting or sub-setting doesn't
+The ``get_safe()`` method returns ``None`` if that setting or sub-setting doesn't
 exist and there is no default value assigned.
+
+It's also feasible to check the possible values defined in :ref:`reference_config_files_settings_yml` using the
+``possible_values()`` method:
+
+.. code-block:: python
+
+    def generate(self):
+        # Print if Android exists as OS in the whole settings.yml
+        is_android = "Android" in self.settings.possible_values()["os"]
+        self.output.info(f"Android in settings.yml: {is_android}")
+        # Print the available versions for the compiler used by the HOST profile
+        compiler_versions = self.settings.compiler.version.possible_values()
+        self.output.info(f"[HOST] Versions for {str(self.settings.compiler)}:  {', '.join(compiler_versions)}")
+        # Print the available versions for the compiler used by the BUILD profile
+        compiler_versions = self.settings_build.compiler.version.possible_values()
+        self.output.info(f"[BUILD] Versions for {str(self.settings.compiler)}:  {', '.join(compiler_versions)}")
+
+
+As you can see above, doing ``self.settings.possible_values()`` returns the
+whole :ref:`reference_config_files_settings_yml` as a Python dict-like object, and doing
+``self.settings.compiler.version.possible_values()`` for instance returns the available versions for the compiler
+used by the consumer.
 
 If you want to do a safe deletion of settings, you could use the ``rm_safe()`` method.
 For example, in the ``configure()`` method a typical pattern for a C library would be:
@@ -87,8 +109,10 @@ For example, in the ``configure()`` method a typical pattern for a C library wou
         self.settings.rm_safe("compiler.libcxx")
         self.settings.rm_safe("compiler.cppstd")
 
+
 .. seealso::
 
+    - :ref:`reference_config_files_settings_yml`.
     - Removing settings in the ``package_id()`` method. <MISSING PAGE>
 
 

@@ -5,8 +5,13 @@ Extensions
 
 Conan can be extended in a few ways, with custom user code:
 
-- ``python_requires`` allow to put common recipe code in a recipe package that can be reused
-  by other recipes by declaring a ``python_requires = "mypythoncode/version"``
+- ``python_requires`` allow to put common recipe code in a recipe package that can be
+  reused by other recipes by declaring a ``python_requires = "mypythoncode/version"``
+- You can create your own custom Conan commands to solve self-needs thanks to Python and
+  Conan public API powers altogether.
+- It's also possible to make your own custom Conan generators in case you are using build
+  systems that are not supported by the built-in Conan tools. Those can be used from
+  ``python_requires`` or installed globally.
 - ``hooks`` are "pre" and "post" recipe methods (like ``pre_build()`` and ``post_build()``) 
   extensions that can be used to complement recipes
   with orthogonal functionality, like quality checks, binary analyzing, logging, etc.
@@ -37,6 +42,7 @@ Contents:
 
    extensions/python_requires
    extensions/custom_commands
+   extensions/custom_generators
    extensions/python_api
    extensions/deployers
    extensions/hooks

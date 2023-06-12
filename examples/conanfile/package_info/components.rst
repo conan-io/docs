@@ -230,3 +230,9 @@ And test the package again:
     ERROR: game-engine/1.0 (test package): Error in build() method, line 22
             cmake.configure()
             ConanException: Error 1 while executing
+
+
+.. seealso::
+
+    If you want to use recipes defining components in ``editable`` mode, check the example in
+    :ref:`examples_conanfile_layout_components_editables`.
