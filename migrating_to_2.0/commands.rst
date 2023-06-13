@@ -5,6 +5,7 @@ Commands
 There is no "compatible with 2.X" commands introduced in Conan 1.X.
 You will need to adapt to the new commands once you migrate to Conan 2.0
 
+For a comparison of 1.x and 2.0 commands see the `Conan 2.0 Cheat Sheet Blog Post <https://blog.conan.io/2023/06/07/New-Cheat-Sheet-For-Conan-2.html>`_.
 
 Changes to expect
 -----------------
@@ -72,9 +73,6 @@ The ``conan search`` will search, by default, in all the remotes (not in the loc
         zlib/1.2.8
 
 If you want to explore the local cache there is a command ``conan list recipes <pattern>``.
-
-
-.. _conan_v2_remote_login:
 
 conan remote login
 ^^^^^^^^^^^^^^^^^^
@@ -158,7 +156,7 @@ server-side, copying packages from one server repository to another repository.
 Removed "conan user"
 ^^^^^^^^^^^^^^^^^^^^
 
-This has been replaced with :ref:<conan_v2_remote_login>
+This has been replaced with the `remote login command <https://docs.conan.io/2/reference/commands/remote.html#conan-remote-login>`_
 
 Removed "conan config set"
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -170,4 +168,4 @@ Custom commands
 ---------------
 
 You can build custom commands on top of the Conan Python API.
-WIP documentation.
+Refer to the `Conan 2.0 documenttion for custom commands <https://docs.conan.io/2/reference/extensions/custom_commands.html>`_.
