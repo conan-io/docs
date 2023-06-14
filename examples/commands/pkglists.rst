@@ -13,9 +13,9 @@ Let's see some common use cases:
 Listing packages and downloading them
 -------------------------------------
 
-A first simple use case could listing some recipes and/or binaries in a server, and then downloading them.
+A first simple use case could be listing some recipes and/or binaries in a server, and then downloading them.
 
-We can do any ``conan list``, for example, to list all ``zlib`` versions above 1.2.11, the latest recipe revision,
+We can do any ``conan list``, for example, to list all ``zlib`` versions above ``1.2.11``, the latest recipe revision,
 all Windows binaries for that latest recipe revision, and finally the latest package revision for every binary.
 Note that if we want to actually download something later, it is necessary to specify the ``latest`` package revision,
 otherwise only the recipes will be downloaded.
@@ -57,8 +57,8 @@ The output of the command is sent in ``json`` format to the file ``pkglist.json`
     }
 
 
-The first level in the ``pkglist.json`` is the "origin" remote or "Local Cache". In this case, as we listed the packages in ``conancenter``
-remote, that will be the origin.
+The first level in the ``pkglist.json`` is the "origin" remote or "Local Cache" if the list happens in the cache. 
+In this case, as we listed the packages in ``conancenter`` remote, that will be the origin.
 
 
 We can now do a download of these recipes and binaries with a single ``conan download`` invocation:
@@ -83,7 +83,7 @@ Let's say that we create a new  package list from the packages downloaded in the
 
 
 The resulting ``downloaded.json`` will be almost the same as the ``pkglist.json`` file, but in this case, the "origin" of
-those packages is the ``"Local Cache"``:
+those packages is the ``"Local Cache"`` (as the downloaded packages will be in teh cache):
 
 
 .. code-block:: json
@@ -115,6 +115,7 @@ That means that we can now upload this same set of recipes and binaries to a dif
     it is not possible to do a server-server copy.
 
 
+
 Building and uploading packages
 -------------------------------
 
@@ -127,27 +128,49 @@ our local cache.
 It is possible to compute a package list from the output of a ``conan install``, ``conan create`` and ``conan graph info``
 commands. Then, that package list can be used for the upload. Step by step:
 
-First lets say that we have our own package:
+First lets say that we have our own package ``mypkg/0.1`` and we create it:
 
 .. code-block:: bash
 
     $ conan new cmake_lib -d name=mypkg -d version=0.1
-    $ conan create . --format=json > build.json
+    $ conan create . --format=json > create.json
 
+
+This will create a json representation of the graph, with information of what packages have been built ``"binary": "Build"``:
 
 .. code-block:: json
-    :caption: downloaded.json (simplified)
+    :caption: create.json (simplified)
 
-    "Local Cache": {
-            "zlib/1.2.12": {
-                "revisions": {
-                }
+    {
+    "graph": {
+        "nodes": {
+            "0": {
+                "ref": "conanfile",
+                "id": "0",
+                "recipe": "Cli",
+                "context": "host",
+                "test": false
+            },
+            "1": {
+                "ref": "mypkg/0.1#f57cc9a1824f47af2f52df0dbdd440f6",
+                "id": "1",
+                "recipe": "Cache",
+                "package_id": "2401fa1d188d289bb25c37cfa3317e13e377a351",
+                "prev": "75f44d989175c05bc4be2399edc63091",
+                "build_id": null,
+                "binary": "Build"
             }
         }
+    }
 
 
+We can compute a package list from this file, and then upload those artifacts to the server with:
 
-.. warning::
+.. code-block:: bash
 
-    The ``conan remove`` command do not implement yet the input of package lists. Please create a Github ticket
-    to request it if you need it.
+    $ conan list --graph=create.json --graph-binaries=build --format=json > pkglist.json
+    # Create a pkglist.json with the known list of recipes and binaries built from sources
+    $ conan upload --list=pkglist.json -r=myremote -c
+
+
+For more information see the :ref:`Reference commands section<reference_commands>`

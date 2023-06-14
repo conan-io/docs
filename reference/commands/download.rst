@@ -6,21 +6,22 @@ conan download
 .. code-block:: text
 
     $ conan download -h
-    usage: conan download [-h] [-v [V]] [--only-recipe]
-                          [-p PACKAGE_QUERY] -r REMOTE
-                          reference
+    usage: conan download [-h] [-v [V]] [-f FORMAT] [--only-recipe]
+                          [-p PACKAGE_QUERY] -r REMOTE [-l LIST]
+                          [pattern]
 
     Download (without installing) a single conan package from a remote server.
 
     It downloads just the package, but not its transitive dependencies, and it will not call
     any generate, generators or deployers.
-    It can download multiple packages if patterns are used, and also works with queries over
-    the package binaries.
+    It can download multiple packages if patterns are used, and also works with
+    queries over the package binaries.
 
     positional arguments:
-      reference             Recipe reference or package reference, can contain *
-                            as wildcard at any reference field. If revision is not
-                            specified, it is assumed latest one.
+      pattern               A pattern in the form
+                            'pkg/version#revision:package_id#revision', e.g:
+                            zlib/1.2.13:* means all binaries for zlib/1.2.13. If
+                            revision is not specified, it is assumed latest one.
 
     optional arguments:
       -h, --help            show this help message and exit
@@ -28,12 +29,16 @@ conan download
                             verbose to more verbose: -vquiet, -verror, -vwarning,
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
                             -vvv or -vtrace
+      -f FORMAT, --format FORMAT
+                            Select the output format: json
       --only-recipe         Download only the recipe/s, not the binary packages.
       -p PACKAGE_QUERY, --package-query PACKAGE_QUERY
                             Only download packages matching a specific query. e.g:
                             os=Windows AND (arch=x86 OR compiler=gcc)
       -r REMOTE, --remote REMOTE
                             Download from this specific remote
+      -l LIST, --list LIST  Package list file
+
 
 
 Downloads recipe and binaries to the local cache from the specified remote.
