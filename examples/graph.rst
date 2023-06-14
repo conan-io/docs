@@ -12,3 +12,4 @@ advanced usage of requirement traits, etc.
 
    graph/tool_requires/different_versions
    graph/tool_requires/different_options
+   graph/tool_requires/using_protobuf

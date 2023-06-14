@@ -5,7 +5,7 @@ Commands
 
 This section describe the Conan built-in commands, like ``conan install`` or ``conan search``.
 
-It is also possible to create user custom commands, visit :ref:`custom commands reference <reference_commands_custom_commands>` 
+It is also possible to create user custom commands, visit :ref:`custom commands reference <reference_commands_custom_commands>`
 and these :ref:`custom command examples <examples_extensions_custom_commands>`
 
 
@@ -27,6 +27,7 @@ and these :ref:`custom command examples <examples_extensions_custom_commands>`
    commands/remove
    commands/remote
    commands/search
+   commands/version
 
 - :doc:`conan cache <commands/cache>`: Return the path of recipes and packages in the cache
 - :doc:`conan config <commands/config>`: Manage Conan configuration (remotes, settings, plugins, etc)
@@ -39,6 +40,7 @@ and these :ref:`custom command examples <examples_extensions_custom_commands>`
 - :doc:`conan remove <commands/remove>`: Remove packages from the local cache or from remotes
 - :doc:`conan remote <commands/remote>`: Add, remove, login/logout and manage remote server
 - :doc:`conan search <commands/search>`: Search packages matching a name
+- :doc:`conan version <commands/version>`: Give information about the Conan client version
 
 
 **Creator commands:**

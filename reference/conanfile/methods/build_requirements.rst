@@ -16,8 +16,8 @@ For simple cases the attribute syntax can be enough, like ``tool_requires = "cma
 
 The ``tool_requires`` and ``test_requires`` methods are just a specialized instance of ``requires`` with some predefined trait values. See the :ref:`requires() reference<reference_conanfile_methods_requirements>` for more information about traits.
 
-tool_requires
--------------
+tool_requires()
+---------------
 
 The ``tool_requires`` is equivalent to ``requires()`` with the following traits:
 
@@ -69,6 +69,11 @@ Then, if any user wants to use *mylib/0.1*, but another version of *protobuf*, t
 The ``<host_version>`` defined upstream is ensuring that the host and build contexts are using the same version of that requirement.
 
 
+.. seealso::
+
+    - :ref:`examples_graph_tool_requires_protobuf`
+
+
 test_requires
 -------------
 
@@ -98,3 +103,4 @@ It is possible to further modify individual traits of ``tool_requires()`` and ``
 
     - Follow the :ref:`tutorial about consuming Conan packages as tools<consuming_packages_tool_requires>`.
     - Read the :ref:`tutorial about creating tool_requires packages<tutorial_other_tool_requires_packages>`.
+    - :ref:`examples_graph_tool_requires_protobuf`
