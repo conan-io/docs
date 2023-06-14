@@ -49,6 +49,15 @@ Downloads recipe and binaries to the local cache from the specified remote.
     download any of the transitive dependencies of the downloaded package.
 
 
+The ``conan download`` command can downlaod packages to 1 server repository specified by the ``-r=myremote`` argument.
+
+It has 2 possible and mutually exclusive inputs:
+
+- The ``conan download <pattern>`` pattern-based matching of recipes, with a pattern similar to the ``conan list <pattern>``.
+- The ``conan download --list=<pkglist>`` that will upload the artifacts specified in the ``pkglist`` json file
+
+
+
 You can use patterns to download specific references just like in other commands like
 :command:`conan list` (see the patterns documentation there :ref:`reference_commands_list`) or :command:`conan upload`:
 
