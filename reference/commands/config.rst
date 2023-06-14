@@ -209,7 +209,7 @@ Displays all the Conan built-in configurations. There are 2 groups:
     core.upload:retry_wait: Seconds to wait between upload attempts to Conan server
     core.version_ranges:resolve_prereleases: Whether version ranges can resolve to pre-releases or not
     core:allow_uppercase_pkg_names: Temporarily (will be removed in 2.X) allow uppercase names
-    core:default_build_profile: Defines the default build profile (None by default)
+    core:default_build_profile: Defines the default build profile ('default' by default)
     core:default_profile: Defines the default host profile ('default' by default)
     core:non_interactive: Disable interactive user input, raises error if input necessary
     core:required_conan_version: Raise if current version does not match the defined range.

@@ -53,7 +53,7 @@ To list all the possible configurations available, run :command:`conan config li
     core.upload:retry: Number of retries in case of failure when uploading to Conan server
     core.upload:retry_wait: Seconds to wait between upload attempts to Conan server
     core:allow_uppercase_pkg_names: Temporarily (will be removed in 2.X) allow uppercase names
-    core:default_build_profile: Defines the default build profile (None by default)
+    core:default_build_profile: Defines the default build profile ('default' by default)
     core:default_profile: Defines the default host profile ('default' by default)
     core:non_interactive: Disable interactive user input, raises error if input necessary
     core:required_conan_version: Raise if current version does not match the defined range.
