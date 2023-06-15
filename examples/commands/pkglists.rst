@@ -6,7 +6,7 @@ Using packages-lists
 .. include:: ../../common/experimental_warning.inc
 
 
-Packages lists is a powerful and convenient Conan feature that allows to automate and concatenate different Conan commands.
+Packages lists are a powerful and convenient Conan feature that allows to automate and concatenate different Conan commands.
 Let's see some common use cases:
 
 
