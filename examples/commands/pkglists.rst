@@ -73,7 +73,7 @@ We can now do a download of these recipes and binaries with a single ``conan dow
 Downloading from one remote and uploading to a different remote
 ---------------------------------------------------------------
 
-Let's say that we create a new  package list from the packages downloaded in the previous step:
+Let's say that we create a new package list from the packages downloaded in the previous step:
 
 .. code-block:: bash
 
