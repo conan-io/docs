@@ -83,7 +83,7 @@ Let's say that we create a new package list from the packages downloaded in the 
 
 
 The resulting ``downloaded.json`` will be almost the same as the ``pkglist.json`` file, but in this case, the "origin" of
-those packages is the ``"Local Cache"`` (as the downloaded packages will be in teh cache):
+those packages is the ``"Local Cache"`` (as the downloaded packages will be in the cache):
 
 
 .. code-block:: json
