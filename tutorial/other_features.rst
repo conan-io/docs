@@ -14,7 +14,7 @@ Packages lists
 --------------
 
 It is possible to manage a list of packages, recipes and binaries together with the "packages-list" feature. 
-Several commands like ``upload``, ``download``, ``remove`` allow receiving a list of packages file as an input, and they can do that operation over that list.
+Several commands like ``upload``, ``download``, and ``remove`` allow receiving a list of packages file as an input, and they can do their operations over that list.
 A typical use case is to "upload to the server the packages that have been built in the last ``conan create``", which can be done with:
 
 .. code:: bash
