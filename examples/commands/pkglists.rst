@@ -110,7 +110,7 @@ That means that we can now upload this same set of recipes and binaries to a dif
 
     This would be a **slow** mechanism to run promotions between different server repositories. Servers like
     Artifactory provide ways to directly copy packages from one repository to another without using a client, 
-    that are orders of magnitude faster because of file deduplication, so this would be the recommended approach.
+    that are orders of magnitude faster because of file deduplication, so that would be the recommended approach.
     The presented approach in this section might be used for air-gapped environments and other situations that
     it is not possible to do a server-server copy.
 
