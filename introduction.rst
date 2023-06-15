@@ -88,7 +88,7 @@ There are some things that are not included in this commitment:
 - Builtin default implementation of extension points as plugins or hooks can also change with every release. Users can provide their own ones for stability.
 - Output of packages templates with ``conan new`` can update at any time to use latest features.
 - The output streams stdout, stderr, i.e. the terminal output can change at any time. Do not parse the terminal output for automation.
-- Anything that is explicitily labeled as ``experimental`` or ``preview`` in the documentation, or in the Conan cli output.
+- Anything that is explicitly labeled as ``experimental`` or ``preview`` in the documentation, or in the Conan cli output. Read the section below for a detailed definition of these labels.
 - Anything that is labeled as ``deprecated`` in the documentation should not get new usages, as it will not get new fixes and it will be removed in the next major version.
 - Other tools and repositories outside of the Conan client
 
