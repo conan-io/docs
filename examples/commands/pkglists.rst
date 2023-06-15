@@ -128,7 +128,7 @@ our local cache.
 It is possible to compute a package list from the output of a ``conan install``, ``conan create`` and ``conan graph info``
 commands. Then, that package list can be used for the upload. Step by step:
 
-First lets say that we have our own package ``mypkg/0.1`` and we create it:
+First let's say that we have our own package ``mypkg/0.1`` and we create it:
 
 .. code-block:: bash
 
