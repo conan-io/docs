@@ -77,9 +77,10 @@ that you can uncompress in your system and run directly.
 
 .. warning::
 
-    For **macOS** users, please do not download the compressed binaries directly using the
-    web browser, as it will be quarantined by the operating system. Instead, download them
-    using a tool such as `curl`, `wget`, or similar.
+    If you are using **macOS**, please be aware of the Gatekeeper feature that may
+    quarantine the compressed binaries if downloaded directly using a web browser. To
+    avoid this issue, download them using a tool such as `curl`, `wget`, or similar.
+
 
 If there is no installer for your platform, you can create your own Conan executable, with the ``pyinstaller.py`` utility in the repo. This process is able to create a self-contained Conan executable that contains all it needs,
 including the Python interpreter, so it wouldn't be necessary to have Python installed in the system.
