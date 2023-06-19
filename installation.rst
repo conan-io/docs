@@ -72,10 +72,14 @@ Use a system installer or create a self-contained executable
 
 There will be a number of existing installers in `Conan downloads`_ for OSX Brew, Debian, Windows, Linux Arch, that will not require Python first.
 
-.. note::
+We also distribute `Conan binaries`_ for Windows, Linux, and macOS in a compressed file
+that you can uncompress in your system and run directly.
 
-  These installers are not available at the moment of the 2.0 launch, but we will work to make them available after the launch.
-  Please use the ``pip install`` or create your own self-contained executable using this instructions in the meantime.
+.. warning::
+
+    If you are using **macOS**, please be aware of the Gatekeeper feature that may
+    quarantine the compressed binaries if downloaded directly using a web browser. To
+    avoid this issue, download them using a tool such as `curl`, `wget`, or similar.
 
 
 If there is no installer for your platform, you can create your own Conan executable, with the ``pyinstaller.py`` utility in the repo. This process is able to create a self-contained Conan executable that contains all it needs,
@@ -126,3 +130,4 @@ You should see the Conan commands help.
 
 .. _`pip docs`: https://pip.pypa.io/en/stable/installing/
 .. _`Conan downloads`: https://conan.io/downloads
+.. _`Conan binaries`: https://github.com/conan-io/conan/releases/latest
