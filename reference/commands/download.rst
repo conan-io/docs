@@ -86,3 +86,6 @@ If you just want to download the packages belonging to a specific setting, use t
 .. code-block:: bash
 
     $ conan download "zlib/1.2.13#*" -r foo --package-query="os=Linux and arch=x86" 
+
+
+If the ``--format=json`` formatter is specified, the result will be a "PackageList", compatible with other Conan commands, for example the ``conan upload`` command, so it is possible to concatenate a ``download + upload``, using the generated json file. See the :ref:`Packages Lists examples<examples_commands_pkglists>`.

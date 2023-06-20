@@ -173,4 +173,37 @@ We can compute a package list from this file, and then upload those artifacts to
     $ conan upload --list=pkglist.json -r=myremote -c
 
 
+Removing packages lists
+-----------------------
+
+It is also possible to first ``conan list`` and create a list of things to remove, and then remove them:
+
+.. code-block:: bash
+
+    # Removes everything from the cache
+    $ conan list *#* --format=json > pkglist.json
+    $ conan remove --list=pkglist.json  -c
+
+Note that in this case, the default patterns are different in ``list`` and ``remove``, because of the destructive nature of ``conan remove``:
+
+- When a recipe is passed to ``remove`` like ``conan remove zlib/1.2.13`` will remove the recipe of ``zlib/1.2.13`` and all of its binaries, because the binaries cannot live without the recipe.
+- When a ``package_id`` is passed, like ``conan remove zlib/1.2.13:package_id``, then that specific ``package_id`` will be removed, but the recipe will not
+
+Then the pattern to remove everything will be different if we call directly ``conan remove`` or if we call first ``conan list``, for example:
+
+.. code-block:: bash
+
+    # Removes everything from the cache
+    $ conan remove *
+    # OR via list, we need to explicitly include all revisions
+    $ conan list *#* --format=json > pkglist.json
+    $ conan remove --list=pkglist.json  -c
+
+    # Removes only the binaries from the cache (leave recipes)
+    $ conan remove *:*
+    # OR via list, we need to explicitly include all revisions
+    $ conan list *#*:* --format=json > pkglist.json
+    $ conan remove --list=pkglist.json  -c
+
+
 For more information see the :ref:`Reference commands section<reference_commands>`

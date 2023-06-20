@@ -58,6 +58,9 @@ It has 2 possible and mutually exclusive inputs:
 - The ``conan upload --list=<pkglist>`` that will upload the artifacts specified in the ``pkglist`` json file
 
 
+If the ``--format=json`` formatter is specified, the result will be a "PackageList", compatible with other Conan commands, for example the ``conan remove`` command, so it is possible to concatenate different commands using the generated json file. See the :ref:`Packages Lists examples<examples_commands_pkglists>`.
+
+
 Read more
 ---------
 
