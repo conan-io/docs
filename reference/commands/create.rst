@@ -154,7 +154,7 @@ This json is the same as the one created with ``conan graph info`` (see the :ref
 with extended information about the binaries, like a more complete ``cpp_info`` field.
 This resulting json is the dependency graph of the package recipe being created, excluding all the ``test_package`` and other possible dependencies of the ``test_package/conanfile.py``. These dependencies only exist in the ``test_package`` functionality, and as such, are not part of the "main" product or package. If you are interested in capturing the dependency graph including the ``test_package`` (most likely not necessary in most cases), then you can do it running the ``conan test`` command separately.
 
-The same happens for lockfiles created with ``--lockfile-out`` argument. The lockfile will only contain the created package and its transitive dependencies versions, but it will not contain the ``test_package`` or the transitive dependencies of the ``test_package/conanfile.py``. It is possible to capture a lockfile include those with the ``conan test`` command (though again, this might not be really necessary)
+The same happens for lockfiles created with ``--lockfile-out`` argument. The lockfile will only contain the created package and its transitive dependencies versions, but it will not contain the ``test_package`` or the transitive dependencies of the ``test_package/conanfile.py``. It is possible to capture a lockfile which includes those with the ``conan test`` command (though again, this might not be really necessary)
 
 .. note::
 
