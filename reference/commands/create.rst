@@ -134,11 +134,6 @@ the package has been created correctly. Check :ref:`testing Conan packages
         $ conan create . --test-folder=
 
 
-.. seealso::
-
-    - Check the :ref:`JSON format output <reference_commands_graph_info_json_format>` for this command.
-
-
 Using conan create with build requirements
 ------------------------------------------
 
@@ -149,6 +144,24 @@ create packages in a way that is consistent with the way they will be used later
 .. code-block:: bash
 
     $ conan create . --name=cmake --version=3.23.1 --build-require  
+
+
+Conan create output
+-------------------
+
+The ``conan create ... --format=json`` creates a json output containing the full dependency graph information.
+This json is the same as the one created with ``conan graph info`` (see the :ref:`graph info json format<reference_commands_graph_info_json_format>`)
+with extended information about the binaries, like a more complete ``cpp_info`` field.
+This resulting json is the dependency graph of the package recipe being created, excluding all the ``test_package`` and other possible dependencies of the ``test_package/conanfile.py``. These dependencies only exist in the ``test_package`` functionality, and as such, are not part of the "main" product or package. If you are interested in capturing the dependency graph including the ``test_package`` (most likely not necessary in most cases), then you can do it running the ``conan test`` command separately.
+
+The same happens for lockfiles created with ``--lockfile-out`` argument. The lockfile will only contain the created package and its transitive dependencies versions, but it will not contain the ``test_package`` or the transitive dependencies of the ``test_package/conanfile.py``. It is possible to capture a lockfile which includes those with the ``conan test`` command (though again, this might not be really necessary)
+
+.. note::
+
+  **Best practice**
+
+  In general, having ``test_package/conanfile.py`` with other dependencies rather than the tested one should be avoided. The ``test_package`` functionality should be a very simple check that the package is correctly created, adding extra dependencies to ``test_package`` could be an indicator that it is not a simple check, or that its functionality is being abused.
+
 
 .. seealso::
 
