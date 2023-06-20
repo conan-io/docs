@@ -53,6 +53,8 @@ Inspecting the command output we can see that it copied the sources of our direc
 **plus** the sources of our transitive dependencies, ``zstd`` and ``lz4`` to a ``dependencies_sources`` folder.
 After this is done, extra preprocessing could be done to accomplish more specific needs.
 
+Note that you can pass the ``--deployer-folder`` argument to change the base folder output path for the deployer.
+
 Code tour
 ---------
 
