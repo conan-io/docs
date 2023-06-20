@@ -1,7 +1,7 @@
 Use a CMake macro packaged in a dependency
 ------------------------------------------
 
-When a package recipe want to provide a CMake functionality via a macro, it can be done as follows.
+When a package recipe wants to provide a CMake functionality via a macro, it can be done as follows.
 Let's say that we have a ``pkg`` recipe, that will "export" and "package" a ``Macros.cmake`` file
 that contains a ``pkg_macro()`` CMake macro:
 
