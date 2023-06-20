@@ -124,8 +124,8 @@ Customization
 Attributes
 +++++++++++++
 
-definitions
-^^^^^^^^^^^^
+project_options
+^^^^^^^^^^^^^^^
 
 This attribute allows defining Meson project options:
 
@@ -133,12 +133,24 @@ This attribute allows defining Meson project options:
 
     def generate(self):
         tc = MesonToolchain(self)
-        tc.definitions["MYVAR"] = "MyValue"
+        tc.project_options["MYVAR"] = "MyValue"
         tc.generate()
 
 This is translated to:
 
 - One project options definition for ``MYVAR`` in ``conan_meson_native.ini`` or ``conan_meson_cross.ini`` file.
+
+The ``wrap_mode: nofallback`` is defined by default as a project option, to make sure that dependencies are found in Conan packages. It is possible to change or remove it with:
+
+.. code:: python
+
+    def generate(self):
+        tc = MesonToolchain(self)
+        tc.project_options.pop("wrap_mode")
+        tc.generate()
+
+Note that in this case, Meson might be able to find dependencies in "wraps", it is the responsibility of the user to check the behavior and make sure about the dependencies origin.
+
 
 preprocessor_definitions
 ^^^^^^^^^^^^^^^^^^^^^^^^
