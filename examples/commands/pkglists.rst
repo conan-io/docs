@@ -186,7 +186,7 @@ It is also possible to first ``conan list`` and create a list of things to remov
 
 Note that in this case, the default patterns are different in ``list`` and ``remove``, because of the destructive nature of ``conan remove``:
 
-- When a recipe is passed to ``remove`` like ``conan remove zlib/1.2.13`` will remove the recipe of ``zlib/1.2.13`` and all of its binaries, because the binaries cannot live without the recipe.
+- When a recipe is passed to ``remove`` like ``conan remove zlib/1.2.13``, it will remove the recipe of ``zlib/1.2.13`` and all of its binaries, because the binaries cannot live without the recipe.
 - When a ``package_id`` is passed, like ``conan remove zlib/1.2.13:package_id``, then that specific ``package_id`` will be removed, but the recipe will not
 
 Then the pattern to remove everything will be different if we call directly ``conan remove`` or if we call first ``conan list``, for example:
