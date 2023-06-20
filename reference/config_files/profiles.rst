@@ -413,7 +413,7 @@ List of user/tools configurations:
     :caption: *myprofile*
 
     [conf]
-    tools.build:verbosity=debug
+    tools.build:verbosity=verbose
     tools.microsoft.msbuild:max_cpu_count=2
     tools.microsoft.msbuild:vs_version = 16
     tools.build:jobs=10

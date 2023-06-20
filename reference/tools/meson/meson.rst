@@ -41,3 +41,7 @@ The ``Meson`` build helper is affected by these ``[conf]`` variables:
   native or cross builds. See `this Meson reference
   <https://mesonbuild.com/Machine-files.html#loading-multiple-machine-files>`_ for more
   information.
+
+- ``tools.compilation:verbosity`` which accepts one of ``quiet`` or ``verbose`` and sets the ``--verbose`` flag in ``Meson.build()``
+
+- ``tools.build:verbosity`` which accepts one of ``quiet`` or ``verbose`` and sets the ``--quiet`` flagh in ``Meson.install()``

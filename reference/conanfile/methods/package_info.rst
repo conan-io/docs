@@ -217,7 +217,7 @@ package packaging the AndroidNDK could do:
 
         def package_info(self):
             # Setting values
-            self.conf_info.define("tools.build:verbosity", "debug")
+            self.conf_info.define("tools.build:verbosity", "verbose")
             self.conf_info.define("tools.system.package_manager:sudo", True)
             self.conf_info.define("tools.microsoft.msbuild:max_cpu_count", 2)
             self.conf_info.define("user.myconf.build:ldflags", ["--flag1", "--flag2"])
