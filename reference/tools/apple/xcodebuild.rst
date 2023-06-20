@@ -53,12 +53,14 @@ Where:
   account** that for this case the skd located in that path should set your ``os.sdk`` and
   ``os.sdk_version`` settings values.
 - ``verbosity`` is the verbosity level for the build and can take value 'verbose' or
-  'quiet' if set by ``tools.build:verbosity`` by mapping the conf's possible values from your **[conf]**
+  'quiet' if set by ``tools.build:verbosity`` in your **[conf]**
 
 conf
 ++++
 
-- ``tools.apple.xcodebuild:verbosity`` verbosity value for the build, can be 'verbose' or 'quiet'
+- ``tools.build:verbosity`` (or ``tools.compilation:verbosity`` as fallback) which accepts ``quiet`` or ``verbose``,
+  and sets the ``-verbose`` or ``-quiet`` flags in ``XcodeBuild.install()``
+
 - ``tools.apple:sdk_path`` path for the sdk location, will set the ``SDKROOT`` value with
   preference over composing the value from the ``os.sdk`` and ``os.sdk_version`` settings.
 
