@@ -3,7 +3,7 @@
 conan.tools.CppInfo
 ===================
 
-The ``CppInfo`` class represents the basic C++ usage information of a given package, like the ``includedirs``, ``libdirs``, library names, etc. It is the information that the consumers of the package needs in order to be able to find the headers and link correctly with the libraries.
+The ``CppInfo`` class represents the basic C++ usage information of a given package, like the ``includedirs``, ``libdirs``, library names, etc. It is the information that the consumers of the package need in order to be able to find the headers and link correctly with the libraries.
 
 The ``self.cpp_info`` object in the ``package_info()`` is a ``CppInfo`` object, so in most cases it will not be necessary to explicitly instantiate it, and using it as explained in :ref:`the package_info()<reference_conanfile_methods_package_info>` section would be enough.
 
