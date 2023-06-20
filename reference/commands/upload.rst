@@ -58,9 +58,10 @@ It has 2 possible and mutually exclusive inputs:
 - The ``conan upload --list=<pkglist>`` that will upload the artifacts specified in the ``pkglist`` json file
 
 
+If the ``--format=json`` formatter is specified, the result will be a "PackageList", compatible with other Conan commands, for example the ``conan remove`` command, so it is possible to concatenate different commands using the generated json file. See the :ref:`Packages Lists examples<examples_commands_pkglists>`.
+
 The ``--dry-run`` argument will prepare the packages for upload, zip files if necessary, check in the server to see what needs to be uploaded and what is already in the server, but it will not execute the actual upload. 
 
-Use the ``--format=json`` formatter to create a "package lists" json file, compatible with other commands, see the :ref:`packages lists examples in this section<examples_commands_pkglists>`.
 
 Read more
 ---------
