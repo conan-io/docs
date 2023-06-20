@@ -49,6 +49,7 @@ The ``prefix`` variable is automatically adjusted to the ``package_folder``:
     prefix=/Users/YOUR_USER/.conan/data/zlib/1.2.11/_/_/package/647afeb69d3b0a2d3d316e80b24d38c714cc6900
     libdir=${prefix}/lib
     includedir=${prefix}/include
+    bindir=${prefix}/bin
 
     Name: zlib
     Description: Conan package: zlib

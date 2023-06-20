@@ -152,7 +152,26 @@ In general, base class attributes are not inherited, and should be avoided as mu
 There are method alternatives to some of them like ``export()`` or ``set_version()``.
 For exceptional situations, see the ``init()`` method documentation for more information to extend inherited attributes.
 
+It is possible to re-implement some of the base class methods, and also to call the base class 
+method explicitly, with the Python ``super()`` syntax:
 
+.. code-block:: python
+    
+    from conan import ConanFile
+
+    class Pkg(ConanFile):
+        name = "pkg"
+        version = "0.1"
+        python_requires = "pyreq/0.1"
+        python_requires_extend = "pyreq.MyBase"
+
+        def source(self):
+            super().source()  # call the base class method
+            self.output.info("MY OWN SOURCE") # Your own implementation
+
+It is not mandatory to call the base class method, a full overwrite without calling ``super()`` is possible. Also the call order can be changed, and calling your own code, then ``super()`` is possible.
+
+            
 Reusing files
 -------------
 
