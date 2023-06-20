@@ -19,6 +19,10 @@ Some generators, like the built-in ``NMakeDeps``, contains the equivalent to thi
 
 .. code-block:: python
 
+  from conan.tools import CppInfo
+  
+  ...
+  
   def generate(self):
       aggregated_cpp_info = CppInfo(self)
       deps = self.dependencies.host.topological_sort
