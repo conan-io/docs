@@ -38,3 +38,4 @@ Contents:
    tools/layout
    tools/intel
    tools/android
+   tools/cpp_info
