@@ -4,7 +4,7 @@ conan search
 ============
 
 Search existing recipes in remotes.
-This command is equivalent to ``conan list recipes <query> -r=*``, and is provided for simpler UX.
+This command is equivalent to ``conan list <query> -r=*``, and is provided for simpler UX.
 
 .. code-block:: text
 
@@ -14,7 +14,7 @@ This command is equivalent to ``conan list recipes <query> -r=*``, and is provid
     Search for package recipes in all the remotes (by default), or a remote.
 
     positional arguments:
-      reference             Recipe reference to search for.It can contain * as
+      reference             Recipe reference to search for. It can contain * as
                             wildcard at any reference field.
 
     optional arguments:
@@ -34,32 +34,33 @@ This command is equivalent to ``conan list recipes <query> -r=*``, and is provid
 .. code-block:: text
 
     $ conan search zlib
-    conancenter:
-    zlib
-        zlib/1.2.11
+    conancenter
+      zlib
         zlib/1.2.8
+        zlib/1.2.11
+        zlib/1.2.12
+        zlib/1.2.13
 
     $ conan search zlib -r=conancenter
-    conancenter:
-    zlib
-        zlib/1.2.11
+    conancenter
+      zlib
         zlib/1.2.8
+        zlib/1.2.11
+        zlib/1.2.12
+        zlib/1.2.13
 
     $ conan search zlib/1.2.1* -r=conancenter
-    conancenter:
-    zlib
+    conancenter
+      zlib
         zlib/1.2.11
+        zlib/1.2.12
+        zlib/1.2.13
 
     $ conan search zlib/1.2.1* -r=conancenter --format=json
-    [
-        {
-            "remote": "conancenter",
-            "error": null,
-            "results": [
-                {
-                    "name": "zlib",
-                    "id": "zlib/1.2.11"
-                }
-            ]
+    {
+        "conancenter": {
+            "zlib/1.2.11": {},
+            "zlib/1.2.12": {},
+            "zlib/1.2.13": {}
         }
-    ]
+    }
