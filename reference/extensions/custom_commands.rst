@@ -198,7 +198,7 @@ For example, the ``graph info`` command uses several formatters like:
                                   "dot": format_graph_dot})
     def graph_info(conan_api, parser, subparser, *args):
         ...
-        ConanOuptup().info("Conan info command output:")
+        ConanOutput().info("Conan info command output:")
         return {"graph": deps_graph,
                 "field_filter": args.filter,
                 "package_filter": args.package_filter,
