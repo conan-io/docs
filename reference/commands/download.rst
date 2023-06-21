@@ -7,7 +7,7 @@ conan download
 
     $ conan download -h
     usage: conan download [-h] [-v [V]] [-f FORMAT] [--only-recipe]
-                          [-p PACKAGE_QUERY] -r REMOTE [-l LIST]
+                          [-p PACKAGE_QUERY] -r REMOTE [-m METADATA] [-l LIST]
                           [pattern]
 
     Download (without installing) a single conan package from a remote server.
@@ -37,6 +37,9 @@ conan download
                             os=Windows AND (arch=x86 OR compiler=gcc)
       -r REMOTE, --remote REMOTE
                             Download from this specific remote
+      -m METADATA, --metadata METADATA
+                            Download the metadata matching the pattern, even if
+                            the package is already in the cache and not downloaded
       -l LIST, --list LIST  Package list file
 
 
@@ -89,3 +92,48 @@ If you just want to download the packages belonging to a specific setting, use t
 
 
 If the ``--format=json`` formatter is specified, the result will be a "PackageList", compatible with other Conan commands, for example the ``conan upload`` command, so it is possible to concatenate a ``download + upload``, using the generated json file. See the :ref:`Packages Lists examples<examples_commands_pkglists>`.
+
+
+Downloading metadata
+--------------------
+
+The metadata files of the recipes and packages are not downloaded by default It is possible to explicitly retrieve them with the ``conan download --metadata=xxx`` argument.
+The main arguments are the same as above, and Conan will download the specified packages, or skip them if they are already in the cache:
+
+.. code-block:: bash
+
+    $ conan download pkg/0.1 -r=default --metadata="*"
+    # will download pgkg/0.1 recipe with all the recipe metadata
+    # And also all package binaries (latest package revision)
+    # with all the binaries metadata
+
+If only one or several metadata folders or sets of files are desired, it can also be specified:
+
+
+.. code-block:: bash
+
+    $ conan download pkg/0.1 -r=default --metadata="logs/*" --metadata="tests/*"
+    # Will download only the logs and tests metadata, but not other potential metadata files
+
+If we want to retrieve all the "logs" metadata of a given dependency graph, we can use packages-lists to do it:
+
+.. code-block:: bash
+
+    $ conan install . --format=json > graph.json
+    # compute the graph and install dependencies, but won't retrieve metadata files
+    $ conan list --graph=graph.json --format=json > pkglist.json
+    # Will compute the list of all recipes and binaries in the graph
+    $ conan download --list=pkglist.json --metadata="logs/*"
+    # Will download the "logs" metadata belonging to the items in the graph
+    $ conan cache path dep/0.1 --folder=metadata
+    /path/to/dep/0.1/recipe/metadata/folder
+    # We have access to the folder of the recipe metadata
+    $ conan cache path dep/0.1:package_id --folder=metadata
+    /path/to/dep/0.1/pkg/metadata/folder
+    # We have access to the folder of the package metadata
+
+When the metadata has been downloaded, it is possible to check it with the ``conan cache path`` command for an individual recipe
+or package binary metadata. Likewise it is possible to collect it with a ``deployer`` using the ``conanfile`` ``recipe_metadata_folder`` and
+``package_metadata_folder``.
+
+For more information see the :ref:`metadata section<reference_extensions_metadata>`.

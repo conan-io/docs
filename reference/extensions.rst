@@ -20,10 +20,11 @@ Conan can be extended in a few ways, with custom user code:
 - The ``cmd_wrapper.py`` extension allows to inject arbitrary command wrappers to any
   ``self.run()`` recipe command invocation, which can be useful to inject wrappers as
   parallelization tools
+- **Deployers**, a mechanism to facilitate copying files from one folder, usually the Conan cache, to user folders
+- **Metadata files**: Store files like logs, tests executables, tests results, heavy debugging artifacts, etc, 
+  together with recipes and packages, in an efficient, convenient and traceable way.
 - The package signing extension allows to sign and verify packages at upload and install time
   respectively
-- Deployers, a mechanism to facilitate copying files from one folder, usually the Conan cache, to user folders
-
 
 ..  note::
 
@@ -38,7 +39,7 @@ Conan can be extended in a few ways, with custom user code:
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    extensions/python_requires
    extensions/custom_commands
@@ -50,4 +51,5 @@ Contents:
    extensions/profile_plugin
    extensions/command_wrapper
    extensions/package_signing
+   extensions/metadata
    

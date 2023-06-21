@@ -9,3 +9,4 @@ Conan extensions examples
    extensions/commands/custom_commands
    extensions/deployers/builtin_deployers
    extensions/deployers/custom_deployers
+   extensions/metadata/test_package
