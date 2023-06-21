@@ -3,6 +3,43 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2.0 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.0.7 (21-Jun-2023)
+-------------------
+
+- Feature: Add new ``arm64ec`` architecture, used to define CMAKE_GENERATOR_PLATFORM. `#14114 <https://github.com/conan-io/conan/pull/14114>`_ . Docs `here <https://github.com/conan-io/docs/pull/3266>`__
+- Feature: Make ``CppInfo`` a public, documented, importable tool for generators that need to aggregate them. `#14101 <https://github.com/conan-io/conan/pull/14101>`_ . Docs `here <https://github.com/conan-io/docs/pull/3268>`__
+- Feature: Allow ``conan remove --list=pkglist`` to remove package-lists. `#14082 <https://github.com/conan-io/conan/pull/14082>`_ . Docs `here <https://github.com/conan-io/docs/pull/3270>`__
+- Feature: Output for ``conan remove --format`` both text (summary of deleted things) and json. `#14082 <https://github.com/conan-io/conan/pull/14082>`_ . Docs `here <https://github.com/conan-io/docs/pull/3270>`__
+- Feature: Add `core.sources:excluded_urls` to backup sources. `#14020 <https://github.com/conan-io/conan/pull/14020>`_
+- Feature: :command:`conan test` command learned the ``--format=json`` formatter. `#14011 <https://github.com/conan-io/conan/pull/14011>`_ . Docs `here <https://github.com/conan-io/docs/pull/3273>`__
+- Feature: Allow ``pkg/[version-range]`` expressions in ``conan list`` (and download, upload, remove) patterns. `#14004 <https://github.com/conan-io/conan/pull/14004>`_ . Docs `here <https://github.com/conan-io/docs/pull/3244>`__
+- Feature: Add ``conan upload --dry-run`` equivalent to 1.X ``conan upload --skip-upload``. `#14002 <https://github.com/conan-io/conan/pull/14002>`_ . Docs `here <https://github.com/conan-io/docs/pull/3274>`__
+- Feature: Add new command `conan version` to format the output. `#13999 <https://github.com/conan-io/conan/pull/13999>`_ . Docs `here <https://github.com/conan-io/docs/pull/3243>`__
+- Feature: Small UX improvement to print some info while downloading large files. `#13989 <https://github.com/conan-io/conan/pull/13989>`_
+- Feature: Use ``PackagesList`` as input argument for ``conan upload --list=pkglist.json``. `#13928 <https://github.com/conan-io/conan/pull/13928>`_ . Docs `here <https://github.com/conan-io/docs/pull/3257>`__
+- Feature: Use ``--graph`` input for ``conan list`` to create a ``PackagesList`` that can be used as input for :command:`conan upload`. `#13928 <https://github.com/conan-io/conan/pull/13928>`_ . Docs `here <https://github.com/conan-io/docs/pull/3257>`__
+- Feature: New metadata files associated to recipes and packages that can be uploaded, downloaded and added after the package exists. `#13918 <https://github.com/conan-io/conan/pull/13918>`_
+- Feature: Allow to specify a custom deployer output folder. `#13757 <https://github.com/conan-io/conan/pull/13757>`_ . Docs `here <https://github.com/conan-io/docs/pull/3275>`__
+- Feature: Split build & compilation verbosity control to two confs. `#13729 <https://github.com/conan-io/conan/pull/13729>`_ . Docs `here <https://github.com/conan-io/docs/pull/3277>`__
+- Feature: Added `bindir` to generated `.pc` file in `PkgConfigDeps`. `#13623 <https://github.com/conan-io/conan/pull/13623>`_ . Docs `here <https://github.com/conan-io/docs/pull/3269>`__
+- Fix: Deprecate ``AutoPackage`` remnant from Conan 1.X. `#14083 <https://github.com/conan-io/conan/pull/14083>`_ . Docs `here <https://github.com/conan-io/docs/pull/3253>`__
+- Fix: Fix description for the conf entry for default build profile used. `#14075 <https://github.com/conan-io/conan/pull/14075>`_ . Docs `here <https://github.com/conan-io/docs/pull/3252>`__
+- Fix: Allow spaces in path in ``Git`` helper. `#14063 <https://github.com/conan-io/conan/pull/14063>`_ . Docs `here <https://github.com/conan-io/docs/pull/3271>`__
+- Fix: Remove trailing ``.`` in ``conanfile.xxx_folder`` that is breaking subsystems like msys2. `#14061 <https://github.com/conan-io/conan/pull/14061>`_
+- Fix: Avoid caching issues when some intermediate package in the graph calls ``aggregated_components()`` over some dependency and using ``--deployer``, generators still pointed to the Conan cache and not deployed copy. `#14060 <https://github.com/conan-io/conan/pull/14060>`_
+- Fix: Allow internal ``Cli`` object to be called more than once. `#14053 <https://github.com/conan-io/conan/pull/14053>`_
+- Fix: Force ``pyyaml>=6`` for Python 3.10, as previous versions broke. `#13990 <https://github.com/conan-io/conan/pull/13990>`_
+- Fix: Improve graph conflict message when Conan can't show one of the conflicting recipes. `#13946 <https://github.com/conan-io/conan/pull/13946>`_
+- Bugfix: Solve bug in timestamp of non-latest revision download from the server. `#14110 <https://github.com/conan-io/conan/pull/14110>`_
+- Bugfix: Fix double base path setup in editable packages. `#14109 <https://github.com/conan-io/conan/pull/14109>`_
+- Bugfix: Raise if ``conan graph build-order`` graph has any errors, instead of quietly doing nothing and outputting and empty json. `#14106 <https://github.com/conan-io/conan/pull/14106>`_
+- Bugfix: Avoid incorrect path replacements for ``editable`` packages when folders have overlapping matching names. `#14095 <https://github.com/conan-io/conan/pull/14095>`_
+- Bugfix: Set clang as the default FreeBSD detected compiler. `#14065 <https://github.com/conan-io/conan/pull/14065>`_
+- Bugfix: Add prefix var and any custom content (through the `pkg_config_custom_content` property) to already generated pkg-config root .pc files by `PkgConfigDeps`. `#14051 <https://github.com/conan-io/conan/pull/14051>`_
+- Bugfix: :command:`conan create` command returns always the same output for ``--format=json`` result graph, irrespective of test_package existence. `#14011 <https://github.com/conan-io/conan/pull/14011>`_ . Docs `here <https://github.com/conan-io/docs/pull/3273>`__
+- Bugfix: Fix problem with ``editable`` packages when defining ``self.folders.root=".."`` parent directory. `#13983 <https://github.com/conan-io/conan/pull/13983>`_
+- Bugfix: Removed `libdir1` and `includedir1` as the default index. Now, `PkgConfigDeps` creates the `libdir` and `includedir` variables by default in `.pc` files. `#13623 <https://github.com/conan-io/conan/pull/13623>`_ . Docs `here <https://github.com/conan-io/docs/pull/3269>`__
+
 2.0.6 (26-May-2023)
 -------------------
 
