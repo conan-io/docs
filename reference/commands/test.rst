@@ -6,15 +6,16 @@ conan test
 .. code-block:: text
 
     $ conan test -h
-    usage: conan test [-h] [-v [V]] [-b BUILD] [-r REMOTE | -nr] [-u]
-                      [-o OPTIONS_HOST] [-o:b OPTIONS_BUILD] [-o:h OPTIONS_HOST]
-                      [-pr PROFILE_HOST] [-pr:b PROFILE_BUILD]
-                      [-pr:h PROFILE_HOST] [-s SETTINGS_HOST]
-                      [-s:b SETTINGS_BUILD] [-s:h SETTINGS_HOST] [-c CONF_HOST]
-                      [-c:b CONF_BUILD] [-c:h CONF_HOST] [-l LOCKFILE]
-                      [--lockfile-partial] [--lockfile-out LOCKFILE_OUT]
-                      [--lockfile-packages] [--lockfile-clean]
-                      path reference
+    usage: conan test [-h] [-v [V]] [-f FORMAT] [-b BUILD] [-r REMOTE | -nr] [-u]
+                  [-o OPTIONS_HOST] [-o:b OPTIONS_BUILD] [-o:h OPTIONS_HOST]
+                  [-pr PROFILE_HOST] [-pr:b PROFILE_BUILD]
+                  [-pr:h PROFILE_HOST] [-s SETTINGS_HOST]
+                  [-s:b SETTINGS_BUILD] [-s:h SETTINGS_HOST] [-c CONF_HOST]
+                  [-c:b CONF_BUILD] [-c:h CONF_HOST] [-l LOCKFILE]
+                  [--lockfile-partial] [--lockfile-out LOCKFILE_OUT]
+                  [--lockfile-packages] [--lockfile-clean]
+                  [--lockfile-overrides LOCKFILE_OVERRIDES]
+                  path reference
 
     Test a package from a test_package folder.
 
@@ -29,6 +30,8 @@ conan test
                             verbose to more verbose: -vquiet, -verror, -vwarning,
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
                             -vvv or -vtrace
+      -f FORMAT, --format FORMAT
+                            Select the output format: json
       -b BUILD, --build BUILD
                             Optional, specify which packages to build from source.
                             Combining multiple '--build' options on one command
@@ -42,7 +45,7 @@ conan test
                             have at least one dependency being built from source.
                             --build=[pattern] Build packages from source whose
                             package reference matches the pattern. The pattern
-                            uses 'fnmatch' style wildcards. --build=![pattern]
+                            uses 'fnmatch' style wildcards. --build=~[pattern]
                             Excluded packages, which will not be built from the
                             source, whose package reference matches the pattern.
                             The pattern uses 'fnmatch' style wildcards.
@@ -104,6 +107,8 @@ conan test
                             Filename of the updated lockfile
       --lockfile-packages   Lock package-id and package-revision information
       --lockfile-clean      Remove unused entries from the lockfile
+      --lockfile-overrides LOCKFILE_OVERRIDES
+                            Overwrite lockfile overrides
 
 
 The ``conan test`` command uses the *test_package* folder specified in ``path`` to tests the package reference specified in ``reference``.

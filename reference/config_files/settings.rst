@@ -64,7 +64,7 @@ It looks like this:
         VxWorks:
             version: ["7"]
     arch: [x86, x86_64, ppc32be, ppc32, ppc64le, ppc64,
-           armv4, armv4i, armv5el, armv5hf, armv6, armv7, armv7hf, armv7s, armv7k, armv8, armv8_32, armv8.3,
+           armv4, armv4i, armv5el, armv5hf, armv6, armv7, armv7hf, armv7s, armv7k, armv8, armv8_32, armv8.3, arm64ec,
            sparc, sparcv9,
            mips, mips64, avr, s390, s390x, asm.js, wasm, sh4le,
            e2k-v2, e2k-v3, e2k-v4, e2k-v5, e2k-v6, e2k-v7,
@@ -245,6 +245,7 @@ Here you can find a brief explanation of each of the architectures defined as ``
 - **armv8_32**: The ARM 32 bit version 8 architecture. It covers only the ``aarch32`` instruction set (a.k.a. ``ILP32``).
 - **armv8.3**: The ARM 64 bit and 32 bit compatible version 8.3 architecture. Also known as ``arm64e``, it is used on the A12 chipset added
   in the latest iPhone models (XS/XS Max/XR).
+- **arm64e**: Windows 11 ARM64 (Emulation Compatible). This architecture support is **experimental** and incomplete. The only usage is to define CMAKE_GENERATOR_PLATFORM in CMake VS generators. Report new issues in Github if necessary.
 - **sparc**: The SPARC (Scalable Processor Architecture) originally developed by Sun Microsystems.
 - **sparcv9**: The SPARC version 9 architecture.
 - **mips**: The 32 bit MIPS (Microprocessor without Interlocked Pipelined Stages) developed by MIPS Technologies (formerly MIPS Computer

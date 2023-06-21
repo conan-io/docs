@@ -10,6 +10,7 @@ advanced usage of requirement traits, etc.
 .. toctree::
    :maxdepth: 2
 
+   graph/requires/consume_cmake_macro
    graph/tool_requires/different_versions
    graph/tool_requires/different_options
    graph/tool_requires/using_protobuf

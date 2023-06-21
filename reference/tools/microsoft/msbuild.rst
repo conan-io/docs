@@ -69,8 +69,8 @@ conf
 
 ``MSBuild`` is affected by these ``[conf]`` variables:
 
-- ``tools.build:verbosity`` accepts one of ``'quiet', 'error', 'warning', 'notice', 'status', 'verbose', 'normal', 'debug', 'v', 'trace', 'vv'`` to be passed
-  to the ``MSBuild.build()`` call as ``msbuild .... /verbosity:XXX``.
+- ``tools.build:verbosity`` accepts one of ``quiet`` or ``verbose`` to be passed
+  to the ``MSBuild.build()`` call as ``msbuild .... /verbosity:{Quiet,Detailed}``.
 - ``tools.microsoft.msbuild:max_cpu_count`` maximum number of CPUs to be passed to the ``MSBuild.build()``
   call as ``msbuild .... /m:N``.
 

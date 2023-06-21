@@ -16,6 +16,7 @@ and they will be ran in order of appearance.
 Deployers can be multi-configuration. Running ``conan install . --deployer=full_deploy`` repeatedly for different profiles
 can achieve a fully self-contained project, including all the artifacts, binaries, and build files.
 This project will be completely independent of Conan and no longer require it at all to build.
+Use the ``--deployer-folder`` argument to change the base folder output path for the deployer as desired.
 
 
 Built-in deployers

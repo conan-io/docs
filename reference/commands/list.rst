@@ -6,25 +6,26 @@ conan list
 .. code-block:: text
 
     $ conan list -h
-    usage: conan list [-h] [-f FORMAT] [-v [V]] [-p PACKAGE_QUERY]
-                      [-r REMOTE] [-c]
-                      reference
+    usage: conan list [-h] [-v [V]] [-f FORMAT] [-p PACKAGE_QUERY] [-r REMOTE]
+                  [-c] [-g GRAPH] [-gb GRAPH_BINARIES] [-gr GRAPH_RECIPES]
+                  [pattern]
 
     List existing recipes, revisions, or packages in the cache (by default) or the remotes.
 
     positional arguments:
-      reference             Recipe reference or package reference. Both can
-                            contain * as wildcard at any reference field. If
+      pattern               A pattern in the form
+                            'pkg/version#revision:package_id#revision', e.g:
+                            zlib/1.2.13:* means all binaries for zlib/1.2.13. If
                             revision is not specified, it is assumed latest one.
 
     optional arguments:
       -h, --help            show this help message and exit
-      -f FORMAT, --format FORMAT
-                            Select the output format: json, html
       -v [V]                Level of detail of the output. Valid options from less
                             verbose to more verbose: -vquiet, -verror, -vwarning,
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
                             -vvv or -vtrace
+      -f FORMAT, --format FORMAT
+                            Select the output format: json, html
       -p PACKAGE_QUERY, --package-query PACKAGE_QUERY
                             List only the packages matching a specific query, e.g,
                             os=Windows AND (arch=x86 OR compiler=gcc)
@@ -32,6 +33,12 @@ conan list
                             Remote names. Accepts wildcards ('*' means all the
                             remotes available)
       -c, --cache           Search in the local cache
+      -g GRAPH, --graph GRAPH
+                            Graph json file
+      -gb GRAPH_BINARIES, --graph-binaries GRAPH_BINARIES
+                            Which binaries are listed
+      -gr GRAPH_RECIPES, --graph-recipes GRAPH_RECIPES
+                            Which recipes are listed
 
 The ``conan list`` command can list recipes and packages from the local cache, from the
 specified remotes or from both. This command uses a *reference pattern* as input. The
@@ -63,7 +70,8 @@ Listing recipe references
 .. code-block:: text
   :caption: *list all references on local cache*
 
-    $ conan list *
+    # Make sure to quote the argument
+    $ conan list "*"
     Local Cache
       hello
         hello/2.26.1@mycompany/testing
@@ -93,18 +101,35 @@ search.
 .. code-block:: text
     :caption: *list all versions of a reference, equivalent to the previous one*
 
-    $ conan list zlib/*
+    # Make sure to quote the argument
+    $ conan list "zlib/*"
     Local Cache
       zlib
         zlib/1.2.11
         zlib/1.2.12
+
+You can also use version ranges in the version field to define the versions you want:
+
+.. code-block:: text
+    :caption: *list version ranges*
+
+    # Make sure to quote the argument
+    $ conan list "zlib/[<1.2.12]" -r=conancenter
+    Local Cache
+      zlib
+        zlib/1.2.11
+    $ conan list "zlib/[>1.2.11]" -r=conancenter
+    Local Cache
+      zlib
+        zlib/1.2.12
+        zlib/1.2.13
 
 Use the pattern for searching only references matching a specific channel:
 
 .. code-block:: text
     :caption: *list references with 'stable' channel*
 
-    $ conan list */*@*/stable
+    $ conan list "*/*@*/stable"
     Local Cache
       hello
         hello/2.3.2@mycompany/stable
@@ -145,7 +170,7 @@ To list all recipe revisions use the ``*`` wildcard:
 .. code-block:: text
   :caption: *list all recipe revisions*
 
-    $ conan list zlib/1.2.11#*
+    $ conan list "zlib/1.2.11#*""
     Local Cache
       zlib
         zlib/1.2.11
@@ -166,7 +191,8 @@ using ``name/version@user/channel:*`` as the pattern:
 .. code-block:: text
   :caption: *list all package IDs for latest recipe revision*
 
-    $ conan list zlib/1.2.11:*
+    # Make sure to quote the argument
+    $ conan list "zlib/1.2.11:*"
     Local Cache
       zlib
         zlib/1.2.11
@@ -208,7 +234,8 @@ revision ``#`` part:
 .. code-block:: text
   :caption: *list all the package IDs for all the recipe revisions*
 
-    $ conan list zlib/1.2.11#*:*
+    # Make sure to quote the argument
+    $ conan list "zlib/1.2.11#*:*"
     zlib
         zlib/1.2.11
           revisions
@@ -266,7 +293,8 @@ To list all the package revisions for for the latest recipe revision:
 .. code-block:: text
   :caption: *list all the package revisions for all package-ids the latest recipe revision*
 
-    $ conan list zlib/1.2.11:*#*
+    # Make sure to quote the argument
+    $ conan list "zlib/1.2.11:*#*"
     Local Cache
       zlib
         zlib/1.2.11
@@ -288,8 +316,20 @@ To list all the package revisions for for the latest recipe revision:
     equivalent to ``zlib/1.2.11#latest:*#*``
 
 
-List json output
-----------------
+Listing graph artifacts
+-----------------------
+
+When the ``conan list --graph=<graph.json>`` graph json file is provided, the command will list the binaries in it.
+By default, it will list all recipes and binaries included in the dependency graph. But the ``--graph-recipes=<recipe-mode>``
+and ``--graph-binaries=<binary-mode>`` allow specifying what artifacts have to be listed in the final result, some examples:
+
+- ``conan list --graph=graph.json --graph-binaries=build`` list exclusively the recipes and binaries that have been built from sources
+- ``conan list --graph=graph.json --graph-recipes=*`` list exclusively the recipes, all recipes, but no binaries
+- ``conan list --graph=graph.json --graph-binaries=download`` list exclusively the binaries that have been downloaded in the last ``conan create`` or ``conan install``
+
+
+List json output format
+-----------------------
 
 .. note::
 
@@ -305,7 +345,8 @@ with the following structure:
 
 .. code-block:: text
 
-  $ conan list zlib/1.2.11:*#* --format=json
+  # Make sure to quote the argument
+  $ conan list "zlib/1.2.11:*#*" --format=json
   {
     "Local Cache": {
       "zli/1.0.0": {
@@ -344,8 +385,9 @@ with the following structure:
     }
   }
 
-List html output
-----------------
+
+List html output format
+-----------------------
 
 The ``conan list ... --format=html`` will return a html output in ``stdout`` (which can be redirected to a file)
 with the following structure:
