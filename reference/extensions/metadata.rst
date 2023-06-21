@@ -111,7 +111,7 @@ In the same way we can have access to the package metadata, by specifying the ``
     # To obtain the recipe metadata
     $ conan cache path meta/0.1:da39a3ee5e6b4b0d3255bfef95601890afd80709 --folder=metadata
     <userhome>.conan2/p/b/metaf3993f7804ad7/d/metadata
-    ls <userhome>.conan2/p/b/metaf3993f7804ad7/d/metadata/logs
+    $ ls <userhome>/.conan2/p/b/metaf3993f7804ad7/d/metadata/logs
     mylogs.txt
 
 
@@ -131,19 +131,19 @@ An equivalent implementation of the above in a hook would be:
         # To copy the logs that were original in the source repo together with 
         # the conanfile.py, as RECIPE metadata
         copy(conanfile, "*.log", src=conanfile.recipe_folder,
-                dst=os.path.join(conanfile.recipe_metadata_folder, "logs"))
+             dst=os.path.join(conanfile.recipe_metadata_folder, "logs"))
 
     def post_source(conanfile):
         # to copy the files generated during the source() execution
         # as RECIPE metadata
         copy(conanfile, "*", src=os.path.join(conanfile.source_folder, "logs"),
-                dst=os.path.join(conanfile.recipe_metadata_folder, "logs"))
+             dst=os.path.join(conanfile.recipe_metadata_folder, "logs"))
 
     def post_build(conanfile):
         # to copy the files generated during the build() execution
         # This is PACKAGE metatada
         copy(conanfile, "*", src=os.path.join(conanfile.build_folder, "logs"),
-                dst=os.path.join(conanfile.pkg_metadata_folder, "logs"))
+             dst=os.path.join(conanfile.pkg_metadata_folder, "logs"))
 
 
 If we put this hook (or install it with ``conan config install``) in the cache, the recipe could be simplified to:
@@ -167,17 +167,113 @@ If we put this hook (or install it with ``conan config install``) in the cache, 
 And after a ``conan create`` the same recipe and package metadata would be created.
 
 
-Adding metadata to existing recipes and binaries
-------------------------------------------------
-
-
 Upload metadata
 ---------------
 
+The metadata files will be uploaded automatically when ``conan upload`` is executed. When a recipe or a package is uploaded to a remote, it will upload all metadata by default.
 
-Retrieving metadata
--------------------
+The ``conan upload`` command is efficient, and it avoids re-uploading artifacts if they are already in the server. That means that if new metadata is added to a recipe or a package, unless the ``--metadata`` argument is provided, the metadata will not be uploaded:
+
+.. code-block:: bash
+
+    # Upload all not existing in the server,
+    # with all the metadata
+    $ conan upload "*" -r=remote -c
+    # Upload only the logs metadata of the zlib/1.2.13 binaries
+    # This will upload the logs even if zlib/1.2.13 is already in the server
+    $ conan upload zlib/1.2.13:* -r=remote -c --metadata="logs/*"
+    # Multiple patterns are allowed:
+    $ conan upload "*" -r=remote -c --metadata="logs/*" --metadata="tests/*"
+
+
+AFter the upload, if you can inspect in the server side, you should be able to see the "metadata" folders under recipe revisions and package revisions, containing the uploaded files.
+
+.. note::
+
+    Conan does not do any compression or decompression of the metadata files. If there are a lot of metadata files, consider zipping them yourself, otherwise the upload of those many files can take a lot of time. If you need to handle different types of metadata (logs, tests, reports), zipping the files under each category might be better to be able to filter with the ``--metadata=xxx`` argument.
+
+
+Adding metadata to existing recipes and binaries
+------------------------------------------------
+
+It is possible to add new metadata to recipes and packages even after the package has been created, and also uploaded. For example, if we have a package that has been created, installed or downloaded, we can put new metadata files in the metadata folders directly.
+
+If we want to add metadata to a recipe:
+
+
+.. code-block:: bash
+
+    # To obtain the recipe metadata folder
+    # (it defaults to the latest revision, use meta/0.1#revision if want another one)
+    $ conan cache path meta/0.1 --folder=metadata
+    <userhome>/.conan2/p/meta98daf335d1d77/d/metadata
+    # copy my "logs" folder in my cwd to the recipe metadata folder
+    $ cp -R logs <userhome>/.conan2/p/meta98daf335d1d77/d/metadata
+    # Now upload the metadata
+    $ conan upload meta/0.1 -r=remote -c --metadata="*"
+
+
+Likewise we can do the same for the package binary:
+
+.. code-block:: bash
+
+    # To obtain the recipe metadata folder
+    # (it defaults to the latest revision, use meta/0.1#revision if want another one)
+    $  $ conan cache path meta/0.1:da39a3ee5e6b4b0d3255bfef95601890afd80709 --folder=metadata
+    <userhome>/.conan2/p/metaf3993f7804ad7/d/metadata
+    # copy my "logs" folder in my cwd to the package metadata folder
+    $ cp -R logs <userhome>/.conan2/p/metaf3993f7804ad7/d/metadata
+    # Now upload the metadata
+    $ conan upload "meta/0.1:*"" -r=remote -c --metadata="*"
+
+
+Downloading metadata
+--------------------
+
+Metadata is not downloaded by default, and it is not downloaded in normal ``install`` operations, when dependencies are downlaoded and installed for usage.
+
+Metadata can be retrieved explicitly by the ``conan download`` command:
+
+.. code-block:: bash
+
+    # download all the metadata from that server
+    $ conan download zlib/1.2.13:* --metadata="*" -r=remote
+    # download the source code (recipe) metadata of all versions of zlib
+    $ conan download zlib/* --metadata="code/*"  -r=remote
+
+
+If we want to download the metadata for a whole dependency graph, it is necessary to use "package-lists":
+
+.. code-block:: bash
+
+    $ conan install . --format=json -r=remote > graph.json
+    $ conan list --graph=graph.json --format=json > pkglist.json
+    # the list will contain the "remote" origin of downloaded packages
+    $ conan download --list=pkglist.json --metadata="*" -r=remote
+
+
+Note that the "package-list" will only contain associated to the "remote" origin the packages that were downloaded. If they were previously in the cache, then, they will not be listed under the "remote" origin and the metadata will not be downloaded.
 
 
 Removing metadata
 -----------------
+
+At the moment it is not possible to remove metadata from the server side using Conan, as the metadata are "additive", it is possible to add new data, but not to remove it (otherwise it would not be possible to add new metadata without downloading first all the previous metadata, and that can be quite inefficient and more error prone, specially sensitive to possible race conditions).
+
+The recommendation to remove metatada from the server side would be to use the tools, web interface or APIs that the server might provide.
+
+
+.. note::
+
+    **Best practices**
+
+    - If you are constantly downloading metadata in many of your ``install`` operations, that might indicate an abuse of the system. Metadata retrieval should be way less common than ``install`` operations.
+    - Package usage shouldn't rely on metadata, if normal consumption of a package makes the metadata mandatory, then this metadata should be part of the package instead.
+    - If there are many small files, it might be necessary to zip those files to avoid excessive upload and download time.
+    - As metadata will not be downloaded by default, it will not be promoted by default in ``conan download`` + ``conan upload`` operations. The recommended way to run a server-server promotion (copy) is using the server tools, and guaranteeing that the metadata folders are copied too.
+    - This is an **experimental** feature. We are looking forward to hearing your feedback, use cases and needs, to keep improving this feature. Please report it in `Github issues<https://github.com/conan-io/conan/issues>`_ .
+
+
+.. seealso::
+
+    - There is an :ref:`example of storing the "test_package" folder as metadata<examples_extensions_metadata_test_package>` and how to recover and use it.

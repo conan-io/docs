@@ -123,8 +123,10 @@ If we want to retrieve all the "logs" metadata of a given dependency graph, we c
     # compute the graph and install dependencies, but won't retrieve metadata files
     $ conan list --graph=graph.json --format=json > pkglist.json
     # Will compute the list of all recipes and binaries in the graph
-    $ conan download --list=pkglist.json --metadata="logs/*"
+    # Now, the download from the "remote" origin:
+    $ conan download --list=pkglist.json --metadata="logs/*" -r=remote
     # Will download the "logs" metadata belonging to the items in the graph
+    # Only of the packages that were downloaded in the "install" step
     $ conan cache path dep/0.1 --folder=metadata
     /path/to/dep/0.1/recipe/metadata/folder
     # We have access to the folder of the recipe metadata
