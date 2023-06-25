@@ -357,8 +357,9 @@ install()
 Installs `CMake` project with the given parameters.
 
 Parameters:
-    - **args** (Optional, Defaulted to ``None``): A list of additional arguments to be passed to the ``cmake`` command. Each argument will be escaped according to the current shell. No extra arguments will be added if ``args=None``.
     - **build_dir** (Optional, Defaulted to ``None``): CMake's output directory. If ``None`` is specified the ``build_folder`` from ``configure()`` will be used.
+    - **component** (Optional, Defaulted to ``None``): CMake's component-based install. Only install <comp>.
+    - **strip** (Optional, Defaulte to ``False``): Performing Cmake's ``install/strip`` target in order to strip symbols from shared libraries and binaries to reduce their size.
 
 
 .. _patch_config_paths:
