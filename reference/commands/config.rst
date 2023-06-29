@@ -221,6 +221,8 @@ Displays all the Conan built-in configurations. There are 2 groups:
     tools.apple:enable_arc: (boolean) Enable/Disable ARC Apple Clang flags
     tools.apple:enable_bitcode: (boolean) Enable/Disable Bitcode Apple Clang flags
     tools.apple:enable_visibility: (boolean) Enable/Disable Visibility Apple Clang flags
+    tools.apple:install_name_tool_program: Path to install_name_tool executable
+    tools.apple:otool_program: Path to otool executable
     tools.apple:sdk_path: Path to the SDK to be used
     tools.build.cross_building:can_run: Bool value that indicates whether is possible to run a non-native app on the same architecture. It's used by 'can_run' tool
     tools.build:cflags: List of extra C flags used by different toolchains like CMakeToolchain, AutotoolsToolchain and MesonToolchain
