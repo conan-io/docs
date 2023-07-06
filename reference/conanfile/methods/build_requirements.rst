@@ -27,6 +27,10 @@ The ``tool_requires`` is equivalent to ``requires()`` with the following traits:
 - ``headers=False`` A tool requirement does not have headers.
 - ``libs=False``: A tool requirement does not have libraries to be linked by the consumer (if it had libraries they would be in the "build" context and could be incompatible with the "host" context of the consumer package). 
 
+
+Recall that ``tool_requires`` are intended exclusively for depending on tools like ``cmake`` or ``ninja``, which run in the "build" context, but not for library-like dependencies that would be linked into binaries. For libraries or library-like dependencies, use ``requires`` or ``test_requires``.
+
+
 <host_version>
 **************
 
