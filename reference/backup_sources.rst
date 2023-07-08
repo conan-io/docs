@@ -16,7 +16,7 @@ This feature is controlled by a few configuration items:
 
 core.sources:download_cache
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Local path to store the sources backup to.
+(Optional) Local path to store the sources backup to. If not set, the default Conan home cache path will be used.
 
 core.sources:download_urls
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
