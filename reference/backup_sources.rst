@@ -29,7 +29,7 @@ or ``["https://your.backup/remote/", "origin"]`` to prefer your remote ahead of 
 core.sources:upload_url
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 URL of the remote to upload the backups when calling ``conan upload``,
-which might or might be not different from any of the URLs defined for download.
+which might or might not be different from any of the URLs defined for download.
 
 core.sources:exclude_urls
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
