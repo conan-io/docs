@@ -16,3 +16,4 @@ Reference
    reference/extensions
    reference/environment
    reference/conan_server
+   reference/backup_sources
