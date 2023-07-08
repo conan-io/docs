@@ -4,7 +4,7 @@ Backup sources
 ==============
 
 The *backup sources* feature is intended for storing the downloaded recipe sources in a secondary location,
-allowing future reproducibility of your builds even in the case where the original mirrors are no longer accessible.
+allowing future reproducibility of your builds even in the case where the original download URLs are no longer accessible.
 
 The backup is triggered for the :ref:`download<conan_tools_files_get>` and :ref:`get<conan_tools_files_get>` methods
 when a ``sha256`` signature is provided.
