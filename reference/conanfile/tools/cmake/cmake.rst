@@ -118,7 +118,7 @@ Equivalent to run ``cmake --build . --target=install``
 - ``build_type``: Use it only to override the value defined in the ``settings.build_type``. It
   can fail if the build is single configuration (e.g. Unix Makefiles), as in that case the build
   type must be specified at configure time, not build type.
-- ``component``: Passes the ``--component=<component>`` argument  to the CMake install command.
+- ``component``: Passes the ``--component=<component>`` argument to the CMake install command.
 
 
 test()
@@ -150,3 +150,6 @@ conf
 
 - ``tools.microsoft.msbuild:max_cpu_count`` argument for the ``/m`` (``/maxCpuCount``) when running
   ``MSBuild``
+
+- ``tools.cmake:install_strip`` is a boolean parameter used to specify whether the ``--strip`` option should be
+  enabled or disabled during the execution of the ``cmake --install`` command. (Defaulted to ``False``)
