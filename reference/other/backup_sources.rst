@@ -44,7 +44,7 @@ Usage
 The usage of this feature can look something like:
 
 - A remote backup repository is set up. This should allow ``POST`` and ``GET`` HTTP methods to modify and fetch its contents.
-  If access credentials are desired, you can use the :ref:`source_credentials.json<reference_config_files_source_credentials>` feature.
+ An Artifactory generic repository (available in the free Artifactory CE) can be used for this purpose.  If access credentials are desired, you can use the :ref:`source_credentials.json<reference_config_files_source_credentials>` feature.
   Its URL can then be set in ``core.sources:download_urls`` and ``core.sources:upload_url``.
 - In your recipe's ``source()`` method, ensure the relevant ``get``/``download`` calls supply the ``sha256`` signature of the downloaded files.
 - Set ``core.sources:download_cache`` in your :ref:`global.conf<reference_config_files_global_conf>` file if a custom location is desired,
