@@ -40,7 +40,7 @@ And a ``myfunction.cmake`` file in:
         message("Hello myfunction!!!!")
     endfunction()
 
-We can do a ``cd myfunctions && conan create .`` and that will create the ``myfunctions/1.0`` package containing the cmake script.
+We can do a ``cd myfunctions && conan create .`` which will create the ``myfunctions/1.0`` package containing the cmake script.
 
 Then, a consumer package will look like:
 
