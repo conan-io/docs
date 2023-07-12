@@ -43,6 +43,38 @@ so it should be removed:
             # fPIC might have been removed in config_options(), so we use rm_safe
             self.options.rm_safe("fPIC")
 
+Default behavior
+++++++++++++++++
+
+.. include:: ../../../common/experimental_warning.inc
+
+When the ``configure()`` method is not defined, Conan automatically manages some conventional options calling the
+:ref:`conan.tools.default_configure()<conan_tools_default_configure>` tool.
+
+Options automatically managed:
+
+- ``fPIC`` (True, False).
+- ``shared`` (True, False).
+- ``header_only`` (True, False).
+
+To opt-out from this behavior, the method can be empty-defined:
+
+.. code-block:: python
+
+    def configure(self):
+        pass
+
+To manage extra options apart from the ones automatically handled, the tool has to be explicitly called:
+
+.. code-block:: python
+
+    from conan.tools import default_configure
+
+    def configure(self):
+        default_configure(self)
+        self.settings.rm_safe("compiler.libcxx")
+        self.settings.rm_safe("compiler.cppstd")
+
 
 Recipes can suggest values for their dependencies options as ``default_options = {"*:shared": True}``, but
 it is not possible to do that conditionally. For this purpose, it is also possible to use the
