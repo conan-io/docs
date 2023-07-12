@@ -245,6 +245,8 @@ The following properties affect the CMakeDeps generator:
 - **cmake_set_interface_link_directories**: boolean value that should be only used by dependencies that don't declare `self.cpp_info.libs` but have ``#pragma comment(lib, "foo")`` (automatic link) declared at the public headers. Those dependencies should
   add this property to their *conanfile.py* files at root ``cpp_info`` level (components not supported for now).
 - **nosoname**: boolean value that should be used only by dependencies that are defined as ``SHARED`` and represent a library built without the ``soname`` flag option.
+- **cmake_config_version_compat**: (preview) By default ``SameMajorVersion``, it can take the values ``"AnyNewerVersion", "SameMajorVersion", "SameMinorVersion", "ExactVersion"``. It will use that policy in the generated ``<PackageName>ConfigVersion.cmake`` file
+
 
 Example:
 
