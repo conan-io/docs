@@ -231,7 +231,7 @@ Then, it updates the conandata dictionary with the provided ``data`` one, which 
 prioritizing the ``data`` values, but keeping other existing ones. Finally the ``conandata.yml`` is saved
 in the same place.
 
-This helper can only be used within the ``export()`` method, it can raise otherwise.some One application is
+This helper can only be used within the ``export()`` method, it can raise otherwise. One application is
 to capture in the ``conandata.yml`` the scm coordinates (like Git remote url and commit), to be able to
 recover it later in the ``source()`` method and have reproducible recipes that can build from sources
 without actually storing the sources in the recipe.
