@@ -42,7 +42,7 @@ And a ``myfunction.cmake`` file in:
 
 We can do a ``cd myfunctions && conan create .`` and that will create the ``myfunctions/1.0`` package containing the cmake script.
 
-Then, a consumer package will be like:
+Then, a consumer package will look like:
 
 .. code-block:: python
     :caption: consumer/conanfile.py
