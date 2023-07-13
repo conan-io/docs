@@ -249,6 +249,12 @@ conan.tools.files.trim_conandata()
 .. autofunction:: trim_conandata
 
 
+.. warning::
+
+  The ``conan.tools.files.trim_conandata()`` function is in **preview**.
+  See :ref:`the Conan stability<stability>` section for more information.
+
+
 This function modifies the ``conandata.yml`` inside the exported folder in the conan cache, if it exists,
 and keeps only the information related to the currently built version.
 
