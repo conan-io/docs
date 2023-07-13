@@ -39,7 +39,8 @@ Good practices
   solve conflicts are not recommended as a general versioning solution, just as a temporary workaround to solve 
   a version conflict. Its usage should be avoided whenever possible, and updating versions or version ranges in 
   the graph to avoid the conflicts without overrides and forces is the recommended approach.
-
+- **Please, do not abuse 'tool_requires'**. Those are intended only for executables like ``cmake`` and ``ninja`` running in the "build"
+  context, not for libraries or library-like dependencies, that must use ``requires`` or ``test_requires``.
 
 Forbidden practices
 -------------------

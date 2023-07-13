@@ -1,3 +1,5 @@
+.. _consume_cmake_macro:
+    
 Use a CMake macro packaged in a dependency
 ------------------------------------------
 

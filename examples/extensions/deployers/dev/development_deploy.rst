@@ -6,6 +6,14 @@ Creating a Conan-agnostic deploy of dependencies for developer use
 
 With the ``full_deploy`` deployer it is possible to create a Conan-agnostic copy of dependencies that can be used by developers without even having Conan installed in their computers.
 
+The common and recommended flow for most cases is using Conan packages directly from the Conan cache:
+
+.. image:: /images/examples/extensions/deployers/packages_from_cache.png
+   :align: center
+
+However, in some situations, it might be useful to be able to deploy a copy of the dependencies into a user folder, so the dependencies can be located there instead of in the Conan cache.
+This is possible using the Conan deployers. 
+
 Let's see it with an example. All the source code is in the
 `examples2.0 Github repository <https://github.com/conan-io/examples2>`_
 
@@ -72,6 +80,10 @@ This will create the following folders:
 (Note that you could use the ``--deployer-folder`` argument to change the base folder output path for the deployer)
 
 This folder is fully self-contained. It contains both the necessary tools (like ``cmake`` executable), the headers and compiled libraries of ``zlib`` and the necessary files like ``ZLibConfig.cmake`` in the ``build/generators`` folder, that point to the binaries inside ``full_deploy`` with a relative path. 
+
+.. image:: /images/examples/extensions/deployers/independent_dependencies_deploy.png
+   :align: center
+
 
 The Conan cache can be removed, and even Conan uninstalled, then the folder could be moved elsewhere in the computer or copied to another computer, assuming it has the same configuration of OS, compiler, etc.
 

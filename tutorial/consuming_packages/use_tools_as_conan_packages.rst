@@ -204,6 +204,14 @@ the environment activation:
     ...
 
 
+.. note::
+
+    **Best practice**
+
+    ``tool_requires`` and tool packages are intended for executable applications, like ``cmake`` or ``ninja``. Do not
+    use ``tool_requires`` to depend on library or library-like dependencies.
+
+
 Read more
 ---------
 
