@@ -148,7 +148,9 @@ The following properties affect the ``PkgConfigDeps`` generator:
 
 - **pkg_config_name** property will define the name of the generated ``*.pc`` file (``xxxxx.pc``)
 - **pkg_config_aliases** property sets some aliases of any package/component name for *pkg_config* generator. This property only accepts list-like Python objects.
-- **pkg_config_custom_content** property will add user defined content to the *.pc* files created by this generator.
+- **pkg_config_custom_content** property will add user defined content to the *.pc* files created by this generator as freeform variables.
+  That content can be a string or a dict-like Python object. Notice that the variables declared here will overwrite those ones already defined by Conan.
+  Click `here <https://people.freedesktop.org/~dbn/pkg-config-guide.html#concepts>`__ for more information about the type of variables in a ``*.pc`` file.
 - **component_version** property sets a custom version to be used in the ``Version`` field belonging to the created ``*.pc`` file for that component.
 
 These properties can be defined at global ``cpp_info`` level or at component level.
@@ -158,7 +160,7 @@ Example:
 .. code-block:: python
 
     def package_info(self):
-        custom_content = "datadir=${prefix}/share"
+        custom_content = {"datadir": "${prefix}/share"}  # or "datadir=${prefix}/share"
         self.cpp_info.set_property("pkg_config_custom_content", custom_content)
         self.cpp_info.set_property("pkg_config_name", "myname")
         self.cpp_info.components["mycomponent"].set_property("pkg_config_name", "componentname")

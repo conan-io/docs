@@ -3,6 +3,34 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2.0 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.0.8 (13-Jul-2023)
+-------------------
+
+- Feature: Add GCC 10.5 to default settings.yml. `#14252 <https://github.com/conan-io/conan/pull/14252>`_
+- Feature: Let `pkg_config_custom_content` overwrite default `*.pc` variables created by `PkgConfigDeps`. `#14233 <https://github.com/conan-io/conan/pull/14233>`_ . Docs `here <https://github.com/conan-io/docs/pull/3293>`__
+- Feature: Let `pkg_config_custom_content` be a dict-like object too. `#14233 <https://github.com/conan-io/conan/pull/14233>`_ . Docs `here <https://github.com/conan-io/docs/pull/3293>`__
+- Feature: The `fix_apple_shared_install_name` tool now uses `xcrun` to resolve the `otool` and `install_name_tool` programs. `#14195 <https://github.com/conan-io/conan/pull/14195>`_
+- Feature: Manage shared, fPIC, and header_only options automatically. `#14194 <https://github.com/conan-io/conan/pull/14194>`_ . Docs `here <https://github.com/conan-io/docs/pull/3296>`__
+- Feature: Manage package ID for header-library package type automatically. `#14194 <https://github.com/conan-io/conan/pull/14194>`_ . Docs `here <https://github.com/conan-io/docs/pull/3296>`__
+- Feature: New ``cpp_info.set_property("cmake_package_version_compat" , "AnyNewerVersion")`` for ``CMakeDeps`` generator. `#14176 <https://github.com/conan-io/conan/pull/14176>`_ . Docs `here <https://github.com/conan-io/docs/pull/3292>`__
+- Feature: Metadata improvements. `#14152 <https://github.com/conan-io/conan/pull/14152>`_
+- Fix: Improve error message when missing binaries with :command:`conan test` command. `#14272 <https://github.com/conan-io/conan/pull/14272>`_
+- Fix: Make :command:`conan download` command no longer need to load conanfile, won't fail for 1.X recipes or missing ``python_requires``. `#14261 <https://github.com/conan-io/conan/pull/14261>`_
+- Fix: Using `upload` with the `--list` argument now permits empty recipe lists. `#14254 <https://github.com/conan-io/conan/pull/14254>`_
+- Fix: Guarantee that ``Options.rm_safe`` never raises. `#14238 <https://github.com/conan-io/conan/pull/14238>`_
+- Fix: Allow `tools.gnu:make_program` to affect every CMake configuration. `#14223 <https://github.com/conan-io/conan/pull/14223>`_
+- Fix: Add missing `package_type` to :command:`conan new` lib templates. `#14215 <https://github.com/conan-io/conan/pull/14215>`_
+- Fix: Add clarification for the default folder shown when querying a package reference. `#14199 <https://github.com/conan-io/conan/pull/14199>`_ . Docs `here <https://github.com/conan-io/docs/pull/3290>`__
+- Fix: Enable existing status-message code in the `patch()` function. `#14177 <https://github.com/conan-io/conan/pull/14177>`_
+- Fix: Use ``configuration`` in ``XcodeDeps`` instead of always ``build_type``. `#14168 <https://github.com/conan-io/conan/pull/14168>`_
+- Fix: Respect symlinked path for cache location. `#14164 <https://github.com/conan-io/conan/pull/14164>`_
+- Fix: ``PkgConfig`` uses ``conanfile.run()`` instead of internal runner to get full Conan environment from profiles and dependencies. `#13985 <https://github.com/conan-io/conan/pull/13985>`_
+- Bugfix: Fix leaking of ``CMakeDeps`` ``CMAKE_FIND_LIBRARY_SUFFIXES`` variable. `#14253 <https://github.com/conan-io/conan/pull/14253>`_
+- Bugfix: Fix conan not finding generator by name when multiple custom global generators are detected. `#14227 <https://github.com/conan-io/conan/pull/14227>`_
+- Bugfix: Improve display of graph conflicts in `conan graph info` in html format. `#14190 <https://github.com/conan-io/conan/pull/14190>`_
+- Bugfix: Fix ``CMakeToolchain`` cross-building from Linux to OSX. `#14187 <https://github.com/conan-io/conan/pull/14187>`_
+- Bugfix: Fix KeyError in backup sources when no package is selected. `#14185 <https://github.com/conan-io/conan/pull/14185>`_
+
 2.0.7 (21-Jun-2023)
 -------------------
 
