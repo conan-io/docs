@@ -13,8 +13,10 @@ For example, the ``SSE2`` flag doesn't exist in architectures different than 32 
         if self.settings.arch != "x86_64":
             del self.options.with_sse2
 
-The ``config_options()`` method executes before the ``configure()`` method, and before the actual assignment of the ``options`` values,
-but after settings are already defined.
+The ``config_options()`` method executes:
+* Before calling the ``configure()`` method.
+* Before assigning the ``options`` values.
+* After ``settings`` are already defined.
 
 Default behavior
 ++++++++++++++++
