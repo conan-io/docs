@@ -12,6 +12,33 @@ The general rule is that every different value of ``settings`` and ``options`` c
 - A given package recipe can implement some partial erasure of information, for example to obtain the same ``package_id`` for a range of compiler versions. This type of binary compatibility is in general better addressed with the global ``compatibility`` plugin, or with the ``compatibility()`` method if the global plugin is not enough.
 - A package recipe can decide to inject extra variability in its computed ``package_id``, adding ``conf`` items or "target" settings.
 
+Default behavior
+++++++++++++++++
+
+.. include:: ../../../common/experimental_warning.inc
+
+When the ``package_id()`` method is not defined, Conan automatically manages the package ID clearing settings and options when the recipe
+declares an option ``header_only=True`` or when ``package_type`` is ``"header-library"``.
+This is achived by calling the :ref:`conan.tools.default_package_id()<conan_tools_default_package_id>` tool.
+
+To opt-out from this behavior, the method can be empty-defined:
+
+.. code-block:: python
+
+    def package_id(self):
+        pass
+
+To manage the package ID info further, the tool has to be explicitly called:
+
+.. code-block:: python
+
+    from conan.tools import default_package_id
+
+    def package_id(self):
+        default_package_id(self)
+        self.info.settings.rm_safe("compiler.libcxx")
+        self.info.settings.rm_safe("compiler.cppstd")
+
 
 Information erasure
 -------------------
