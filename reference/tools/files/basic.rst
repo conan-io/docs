@@ -236,6 +236,31 @@ to capture in the ``conandata.yml`` the scm coordinates (like Git remote url and
 recover it later in the ``source()`` method and have reproducible recipes that can build from sources
 without actually storing the sources in the recipe.
 
+.. currentmodule:: conan.tools.files.conandata
+
+.. autofunction:: update_conandata
+
+
+conan.tools.files.trim_conandata()
+----------------------------------
+
+.. currentmodule:: conan.tools.files.conandata
+
+.. autofunction:: trim_conandata
+
+
+.. warning::
+
+  The ``conan.tools.files.trim_conandata()`` function is in **preview**.
+  See :ref:`the Conan stability<stability>` section for more information.
+
+
+This function modifies the ``conandata.yml`` inside the exported folder in the conan cache, if it exists,
+and keeps only the information related to the currently built version.
+
+This helper can only be used within the ``export()`` method, it can raise otherwise. One application is
+to ensure changes in the ``conandata.yml`` file related to some versions do not affect the generated recipe revisions of the rest.
+
 Usage:
 
 .. code-block:: python
@@ -256,10 +281,6 @@ Usage:
         def source(self):
             data = self.conan_data["sources"]["mydata"]
 
-
-.. currentmodule:: conan.tools.files.conandata
-
-.. autofunction:: update_conandata
 
 .. _conan_tools_files_collect_libs:
 
