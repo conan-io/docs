@@ -69,7 +69,6 @@ must be explicitly declared:
 
 .. code-block:: python
 
-    from conan.tools import default_config_options
 
     def config_options(self):
         if conanfile.settings.get_safe("os") == "Windows":
