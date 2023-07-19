@@ -154,7 +154,7 @@ Currently these are the automatic implementations provided by Conan:
   :ref:`config_options<reference_conanfile_methods_config_options_implementations>` steps
   when those methods are not explicitly defined in the recipe.
 
-- ``"auto_header_only_package"``: automatically manages the package ID clearing settings. Adding this
+- ``"auto_header_only"``: automatically manages the package ID clearing settings. Adding this
   implementation will have effect in the
   :ref:`package_id<reference_conanfile_methods_package_id_implementations>` step
   when the method is not explicitly defined in the recipe.
