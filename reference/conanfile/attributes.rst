@@ -158,3 +158,7 @@ Currently these are the automatic implementations provided by Conan:
   implementation will have effect in the
   :ref:`package_id<reference_conanfile_methods_package_id_implementations>` step
   when the method is not explicitly defined in the recipe.
+
+.. warning::
+
+    This is a 2.0-only feature, and it will not work in 1.X
