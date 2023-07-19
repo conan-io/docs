@@ -143,7 +143,7 @@ in most of the recipes. The syntax is as follows:
     from conan import ConanFile
         
     class Pkg(ConanFile):
-        implements = ["auto_shared_fpic", "auto_header_only_package", ...]
+        implements = ["auto_shared_fpic", "auto_header_only", ...]
 
 
 Currently these are the automatic implementations provided by Conan:
