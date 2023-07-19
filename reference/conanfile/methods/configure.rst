@@ -99,7 +99,6 @@ must be explicitly declared:
 
 .. code-block:: python
 
-    from conan.tools import default_configure
 
     def configure(self):
         if conanfile.options.get_safe("header_only"):
