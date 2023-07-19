@@ -3,6 +3,20 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2.0 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.0.9 (19-Jul-2023)
+-------------------
+
+- Feature: Add `implements` attribute in ConanFile to provide automatic management of some options and settings. `#14320 <https://github.com/conan-io/conan/pull/14320>`_ . Docs `here <https://github.com/conan-io/docs/pull/3303>`__
+- Feature: Add `apple-clang` 15. `#14302 <https://github.com/conan-io/conan/pull/14302>`_
+- Fix: Allow repository being dirty outside of `conanfile.py` folder when using `revision_mode = "scm_folder"`. `#14330 <https://github.com/conan-io/conan/pull/14330>`_
+- Fix: Improve the error messages and provide Conan traces for errors in `compatibility.py` and `profile.py` plugins. `#14322 <https://github.com/conan-io/conan/pull/14322>`_
+- Fix: ``flush()`` output streams after every message write. `#14310 <https://github.com/conan-io/conan/pull/14310>`_
+- Bugfix: Fix Package signing plugin not verifying the downloaded sources. `#14331 <https://github.com/conan-io/conan/pull/14331>`_ . Docs `here <https://github.com/conan-io/docs/pull/3304>`__
+- Bugfix: Fix ``CMakeUserPresets`` inherits from conan generated presets due to typo. `#14325 <https://github.com/conan-io/conan/pull/14325>`_
+- Bugfix: ConanPresets.json contains duplicate presets if multiple user presets inherit from the same conan presets. `#14296 <https://github.com/conan-io/conan/pull/14296>`_
+- Bugfix: Meson `prefix` param is passed as UNIX path. `#14295 <https://github.com/conan-io/conan/pull/14295>`_
+- Bugfix: Fix `CMake Error: Invalid level specified for --loglevel` when `tools.build:verbosity` is set to `quiet`. `#14289 <https://github.com/conan-io/conan/pull/14289>`_
+
 2.0.8 (13-Jul-2023)
 -------------------
 
