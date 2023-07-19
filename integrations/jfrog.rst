@@ -60,10 +60,11 @@ For more reference, see the full example at https://github.com/conan-io/conan-ex
 
 .. seealso::
 
-    JFrog Artifactory has a `dedicated API <https://jfrog.com/help/r/jfrog-rest-apis/build-info>`_ to manage build infos that has been integrated into the
-    custom commands for Artifactory.
-
-    Check the ``conan art:build-info`` documentation for reference: https://github.com/conan-io/conan-extensions/blob/main/extensions/commands/art/readme_build_info.md
+    - JFrog Artifactory has a `dedicated API
+      <https://jfrog.com/help/r/jfrog-rest-apis/build-info>`_ to manage build infos that
+      has been integrated into the custom commands for Artifactory.
+    - Check the ``conan art:build-info`` documentation for reference:
+      https://github.com/conan-io/conan-extensions/blob/main/extensions/commands/art/readme_build_info.md
 
 
 .. |jfrog_logo| image:: ../images/integrations/conan-jfrog-logo.png
