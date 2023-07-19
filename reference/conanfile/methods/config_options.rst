@@ -18,33 +18,54 @@ The ``config_options()`` method executes:
 * Before assigning the ``options`` values.
 * After ``settings`` are already defined.
 
-Default behavior
-++++++++++++++++
+.. _reference_conanfile_methods_config_options_implementations:
+
+Available automatic implementations
++++++++++++++++++++++++++++++++++++
 
 .. include:: ../../../common/experimental_warning.inc
 
-When the ``config_options()`` method is not defined, Conan automatically manages some conventional options using
-the :ref:`conan.tools.default_config_options()<conan_tools_default_config_options>` tool.
+When the ``config_options()`` method is not defined, Conan can automatically manage some
+conventional options if specified in the
+:ref:`implements<conan_conanfile_attributes_implements>` ConanFile attribute:
+
+auto_shared_fpic
+----------------
 
 Options automatically managed:
 
 - ``fPIC`` (True, False).
 
-To opt-out from this behavior, the method can be empty-defined:
+It can be added to the recipe like this:
+
+.. code-block:: python
+    
+    from conan import ConanFile
+        
+    class Pkg(ConanFile):
+        implements = ["auto_shared_fpic"]
+        ...
+
+Then, if no ``config_options()`` method is specified in the recipe, Conan will
+automatically manage the fPIC setting in the ``config_options`` step like this:
 
 .. code-block:: python
 
-    def config_options(self):
-        pass
+    if conanfile.settings.get_safe("os") == "Windows":
+        conanfile.options.rm_safe("fPIC")
 
-To manage extra options apart from the ones automatically handled, the tool has to be explicitly called:
+Be aware that adding this implementation to the recipe may also affect the
+:ref:`configure<reference_conanfile_methods_configure_implementations>` step.
+
+If you need to implement custom behaviors in your recipes but also need this logic, it
+must be explicitly declared:
 
 .. code-block:: python
 
-    from conan.tools import default_config_options
 
     def config_options(self):
-        default_config_options(self)
+        if conanfile.settings.get_safe("os") == "Windows":
+            conanfile.options.rm_safe("fPIC")
         if self.settings.arch != "x86_64":
             del self.options.with_sse2
 
