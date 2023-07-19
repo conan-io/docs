@@ -87,13 +87,6 @@ automatically manage the fPIC setting in the ``configure`` step like this:
 Be aware that adding this implementation to the recipe may also affect the
 :ref:`configure<reference_conanfile_methods_config_options_implementations>` step.
 
-To opt-out from this behavior, the method can be empty-defined:
-
-.. code-block:: python
-
-    def configure(self):
-        pass
-
 If you need to implement custom behaviors in your recipes but also need this logic, it
 must be explicitly declared:
 

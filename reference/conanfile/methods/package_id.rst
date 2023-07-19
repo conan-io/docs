@@ -46,14 +46,6 @@ automatically manage the fPIC setting in the ``package_id`` step like this:
     if conanfile.options.get_safe("header_only") or conanfile.package_type is PackageType.HEADER:
         conanfile.info.clear()
 
-
-To opt-out from this behavior, the method can be empty-defined:
-
-.. code-block:: python
-
-    def package_id(self):
-        pass
-
 If you need to implement custom behaviors in your recipes but also need this logic, it
 must be explicitly declared:
 
