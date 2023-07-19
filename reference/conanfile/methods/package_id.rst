@@ -51,7 +51,6 @@ must be explicitly declared:
 
 .. code-block:: python
 
-
     def package_id(self):
         if conanfile.options.get_safe("header_only") or conanfile.package_type is PackageType.HEADER:
             conanfile.info.clear()
