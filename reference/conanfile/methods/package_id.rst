@@ -12,30 +12,48 @@ The general rule is that every different value of ``settings`` and ``options`` c
 - A given package recipe can implement some partial erasure of information, for example to obtain the same ``package_id`` for a range of compiler versions. This type of binary compatibility is in general better addressed with the global ``compatibility`` plugin, or with the ``compatibility()`` method if the global plugin is not enough.
 - A package recipe can decide to inject extra variability in its computed ``package_id``, adding ``conf`` items or "target" settings.
 
-Default behavior
-++++++++++++++++
+.. _reference_conanfile_methods_package_id_implementations:
+
+Available automatic implementations
++++++++++++++++++++++++++++++++++++
 
 .. include:: ../../../common/experimental_warning.inc
 
-When the ``package_id()`` method is not defined, Conan automatically manages the package ID clearing settings and options when the recipe
-declares an option ``header_only=True`` or when ``package_type`` is ``"header-library"``.
-This is achived by calling the :ref:`conan.tools.default_package_id()<conan_tools_default_package_id>` tool.
+When the ``package_id()`` method is not defined, the following automatic implementation
+can be specified in the :ref:`implements<conan_conanfile_attributes_implements>` ConanFile
+attribute:
 
-To opt-out from this behavior, the method can be empty-defined:
+auto_header_only
+----------------
+
+Conan will automatically manage the package ID clearing settings and options when the
+recipe declares an option ``header_only=True`` or when ``package_type`` is
+``"header-library"``. It can be added to the recipe like this:
+
+.. code-block:: python
+    
+    from conan import ConanFile
+        
+    class Pkg(ConanFile):
+        implements = ["auto_header_only"]
+        ...
+
+Then, if no ``package_id()`` method is specified in the recipe, Conan will
+automatically manage the fPIC setting in the ``package_id`` step like this:
+
+.. code-block:: python
+
+    if conanfile.options.get_safe("header_only") or conanfile.package_type is PackageType.HEADER:
+        conanfile.info.clear()
+
+If you need to implement custom behaviors in your recipes but also need this logic, it
+must be explicitly declared:
 
 .. code-block:: python
 
     def package_id(self):
-        pass
-
-To manage the package ID info further, the tool has to be explicitly called:
-
-.. code-block:: python
-
-    from conan.tools import default_package_id
-
-    def package_id(self):
-        default_package_id(self)
+        if conanfile.options.get_safe("header_only") or conanfile.package_type is PackageType.HEADER:
+            conanfile.info.clear()
         self.info.settings.rm_safe("compiler.libcxx")
         self.info.settings.rm_safe("compiler.cppstd")
 

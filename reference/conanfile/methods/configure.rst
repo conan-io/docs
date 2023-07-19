@@ -43,13 +43,19 @@ so it should be removed:
             # fPIC might have been removed in config_options(), so we use rm_safe
             self.options.rm_safe("fPIC")
 
-Default behavior
-++++++++++++++++
+.. _reference_conanfile_methods_configure_implementations:
+
+Available automatic implementations
++++++++++++++++++++++++++++++++++++
 
 .. include:: ../../../common/experimental_warning.inc
 
-When the ``configure()`` method is not defined, Conan automatically manages some conventional options calling the
-:ref:`conan.tools.default_configure()<conan_tools_default_configure>` tool.
+When the ``configure()`` method is not defined, Conan can automatically manage some
+conventional options if specified in the
+:ref:`implements<conan_conanfile_attributes_implements>` ConanFile attribute:
+
+auto_shared_fpic
+----------------
 
 Options automatically managed:
 
@@ -57,21 +63,42 @@ Options automatically managed:
 - ``shared`` (True, False).
 - ``header_only`` (True, False).
 
-To opt-out from this behavior, the method can be empty-defined:
+It can be added to the recipe like this:
+
+.. code-block:: python
+    
+    from conan import ConanFile
+        
+    class Pkg(ConanFile):
+        implements = ["auto_shared_fpic"]
+        ...
+
+Then, if no ``configure()`` method is specified in the recipe, Conan will
+automatically manage the fPIC setting in the ``configure`` step like this:
 
 .. code-block:: python
 
-    def configure(self):
-        pass
+    if conanfile.options.get_safe("header_only"):
+        conanfile.options.rm_safe("fPIC")
+        conanfile.options.rm_safe("shared")
+    elif conanfile.options.get_safe("shared"):
+        conanfile.options.rm_safe("fPIC")
 
-To manage extra options apart from the ones automatically handled, the tool has to be explicitly called:
+Be aware that adding this implementation to the recipe may also affect the
+:ref:`configure<reference_conanfile_methods_config_options_implementations>` step.
+
+If you need to implement custom behaviors in your recipes but also need this logic, it
+must be explicitly declared:
 
 .. code-block:: python
 
-    from conan.tools import default_configure
 
     def configure(self):
-        default_configure(self)
+        if conanfile.options.get_safe("header_only"):
+            conanfile.options.rm_safe("fPIC")
+            conanfile.options.rm_safe("shared")
+        elif conanfile.options.get_safe("shared"):
+            conanfile.options.rm_safe("fPIC")
         self.settings.rm_safe("compiler.libcxx")
         self.settings.rm_safe("compiler.cppstd")
 
