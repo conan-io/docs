@@ -21,6 +21,11 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.60 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
     a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.60.2 (26-Jul-2023)
+--------------------
+
+- Fix: Allow Pyyaml 6.0.X versions to avoid cython 3.0 problems. (backport #14323) `#14363 <https://github.com/conan-io/conan/pull/14363>`_
+
 1.60.1 (30-May-2023)
 --------------------
 
