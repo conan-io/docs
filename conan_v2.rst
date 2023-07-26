@@ -16,8 +16,10 @@ Conan migration guide to 2.0
 
 If you want to migrate to 2.0, there are several things you will need to change:
 
-  - The **recipes** have to be updated to be compatible with Conan 2.0. There are 2.0 features ported to Conan 1.X
-    so you can get a compatible recipe with 2.0 using Conan 1.X.
+  - The **recipes** have to be updated to be compatible with Conan 2.0. There are 2.0
+    features ported to Conan 1.X so you can get a compatible recipe with 2.0 using Conan
+    1.X. Please be aware that although the recipes can be compatible between Conan 1.X and
+    2.0, the generated Conan binary packages won't be compatible between versions.
   - The **conan commands** have also changed, but there are no "compatible" commands introduced in Conan 1.X. We will review
     the more relevant changes.
   - **General changes** not related to the recipes nor the Conan commands, "build profiles", lowercase references... etc.

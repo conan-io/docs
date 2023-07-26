@@ -11,6 +11,27 @@ For a comparison of some 1.x versus 2.0 commands, see the
 Changes to expect
 -----------------
 
+JSON output in 2.X commands
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+In Conan version 1.X, you can use the ``--json`` flag followed by the path to the output
+file when executing commands. For example:
+
+.. code-block:: bash
+
+   conan create ... --json=path/to/file.json
+
+Starting with Conan version 2.0, you are expected to use the ``--format`` flag followed by
+the output format type, and redirect standard output to a file. The same command in
+version 2.0 would be:
+
+.. code-block:: bash
+
+   conan create ... --format=json > path/to/file.json
+
+For more information, please check the `Conan 2 commands reference
+<https://docs.conan.io/2/reference/commands.html>`_ 
+
 
 conan install
 ^^^^^^^^^^^^^
@@ -55,7 +76,9 @@ This is the substitute of the old "conan info". The syntax is very similar to ``
 conan search
 ^^^^^^^^^^^^
 
-The ``conan search`` will search, by default, in all the remotes (not in the local cache):
+The `conan search` in 2.X is meant to provide the basic functionality of searching for
+**recipes** in Conan remotes. Please be aware that it will search in all the remotes by
+default but **not in the Conan local cache**.
 
 .. code-block:: shell
 
@@ -73,7 +96,40 @@ The ``conan search`` will search, by default, in all the remotes (not in the loc
         zlib/1.2.11
         zlib/1.2.8
 
-If you want to explore the local cache there is a command ``conan list recipes <pattern>``.
+If you want more advanced functionality, to inspect available packages in the local cache
+or in remotes, please use the `conan list
+<https://docs.conan.io/2/reference/commands/list.html>`_ command.
+
+**Listing available packages**
+
+The equivalent of doing a ``conan search zlib/1.2.13@`` to see details about the Conan
+packages can be done in 2.X using ``conan list <pattern>``.
+
+.. code-block:: shell
+
+    $ conan list "zlib/1.2.13:*" -r conancenter
+
+    conancenter
+    zlib
+        zlib/1.2.13
+        revisions
+            e377bee636333ae348d51ca90874e353 (2023-04-27 12:11:24 UTC)
+            packages
+                17b26a16efb893750e4481f98a154db2934ead88
+                info
+                    settings
+                    arch: x86_64
+                    build_type: Debug
+                    compiler: msvc
+                    compiler.runtime: dynamic
+                    compiler.runtime_type: Debug
+                    compiler.version: 193
+                    os: Windows
+                    options
+                    shared: True
+                d62dff20d86436b9c58ddc0162499d197be9de1e
+                ...
+
 
 conan remote login
 ^^^^^^^^^^^^^^^^^^
