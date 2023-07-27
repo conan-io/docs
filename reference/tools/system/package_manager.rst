@@ -40,7 +40,7 @@ all the calls except for the ``Apt()`` one and will only try to install the pack
 * *PacMan* for **Linux** with distribution names: *arch*, *manjaro* and when using **Windows** with *msys2*
 * *Chocolatey* for **Windows**
 * *Zypper* for **Linux** with distribution names: *opensuse*, *sles*
-* *Pkg* for **Linux** with distribution names: *freebsd*
+* *Pkg* for **FreeBSD**
 * *PkgUtil* for **Solaris**
 
 You can override this default mapping and set the package manager tool you want to use by
