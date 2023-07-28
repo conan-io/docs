@@ -14,7 +14,7 @@ Please, first of all, clone the sources to recreate this project. You can find t
 .. code-block:: bash
 
     $ git clone https://github.com/conan-io/examples2.git
-    $ cd examples2/examples/tools/cmake/cmake_toolchain/local_flow_cmake_presets
+    $ cd examples2/examples/tools/cmake/cmake_toolchain/extend_own_cmake_presets
 
 Please open the `conanfile.py` and check how it sets ``tc.user_presets_path =
 'ConanPresets.json'``. By modifying this attribute of `CMakeToolchain`, you can change the
