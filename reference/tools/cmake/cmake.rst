@@ -64,3 +64,5 @@ The ``CMake()`` build helper is affected by these ``[conf]`` variables:
   ``MSBuild``
 
 - ``tools.cmake:cmake_program`` specify the location of the CMake executable, instead of using the one found in the ``PATH``.
+
+- ``tools.cmake:install_strip`` will pass ``--strip`` to the ``cmake --install`` call if set to ``True``.
