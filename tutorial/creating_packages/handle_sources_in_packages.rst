@@ -115,12 +115,8 @@ the :ref:`conan.tools.files.unzip()<conan_tools_files_unzip>` reference for more
 
 .. warning::
 
-    Using not immutable source origins, like the HEAD branch, or any other branch that is
-    a moving target, or any URL that downloads something that can change is not allowed in
-    Conan. The sources origins must be unique and immutable. ``git`` clones must checkout
-    an immutable tag or a commit (not a branch) and ``download()/get()`` should provide
-    a file checksum to validate the file doesn't change.
-    Not using immutable sources will result in undefined behavior.
+    It is expected that retrieving the sources in the future produces the same results. Using mutable source origins, like a moving reference in git (e.g HEAD branch), or the URL to a file where the contents may change over time, is strongly discouraged and not supported. Not following this practice will result in undefined behavior likely to cause breakages
+
 
 The contents of the zip file are the same as the sources we previously had beside the
 Conan recipe, so if you do a :command:`conan create` the results will be the
@@ -196,7 +192,7 @@ default branch using the same folder for cloning the sources instead of a subfol
 
 .. warning::
 
-    As above, this is only a simple example. The source origine for ``Git()`` also has to be immutable, it is necessary to checkout out an immutable tag or a specific commit to guarantee the correct behavior. Using the HEAD of the repository is not allowed and can cause undefined behavior.
+    As above, this is only a simple example. The source origine for ``Git()`` also has to be immutable, it is necessary to checkout out an immutable tag or a specific commit to guarantee the correct behavior. Using the HEAD of the repository is not allowed and can cause undefined behavior and breakages.
 
 To checkout a commit or tag in the repository we use the ``checkout()``
 method of the Git tool:
