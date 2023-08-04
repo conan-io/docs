@@ -103,7 +103,7 @@ We declare a ``source()`` method with this information:
 
     def source(self):
         # Please, be aware that using the head of the branch instead of an immutable tag
-        # or commit is not a bad practice and not allowed by Conan
+        # or commit is strongly discouraged, unsupported by Conan and likely to cause issues
         get(self, "https://github.com/conan-io/libhello/archive/refs/heads/main.zip", 
                   strip_root=True)
 
@@ -202,7 +202,7 @@ method of the Git tool:
     def source(self):
         git = Git(self)
         git.clone(url="https://github.com/conan-io/libhello.git", target=".")
-        git.checkout("<branch name>, <tag> or <commit hash>")
+        git.checkout("<tag> or <commit hash>")
 
 For more information about the ``Git`` class methods, please check the
 :ref:`conan.tools.scm.Git()<reference>` reference.
