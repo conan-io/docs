@@ -313,6 +313,9 @@ located in the user home folder under the ``.conan2`` folder. Conan will use the
 You already used the :command:`conan list` command to list the recipes and binaries stored
 in the local cache. 
 
+An **important** note: the Conan cache is read-only. Do not modify, add, remove or change
+files inside the Conan cache, that will cause undefined behavior and break.
+
 Read more
 ---------
 

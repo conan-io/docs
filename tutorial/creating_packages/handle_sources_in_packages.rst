@@ -61,6 +61,8 @@ Let's have a look at the changes in the *conanfile.py*:
         default_options = {"shared": False, "fPIC": True}
 
         def source(self):
+            # Please, be aware that using the head of the branch instead of an immutable tag
+            # or commit is not a bad practice and not allowed by Conan
             get(self, "https://github.com/conan-io/libhello/archive/refs/heads/main.zip", 
                       strip_root=True)
 
@@ -100,6 +102,8 @@ We declare a ``source()`` method with this information:
 .. code-block:: python
 
     def source(self):
+        # Please, be aware that using the head of the branch instead of an immutable tag
+        # or commit is not a bad practice and not allowed by Conan
         get(self, "https://github.com/conan-io/libhello/archive/refs/heads/main.zip", 
                   strip_root=True)
 
@@ -108,6 +112,15 @@ We used the :ref:`conan.tools.files.get()<conan_tools_files_get>` tool that will
 it. Note that we pass the ``strip_root=True`` argument so that if all the unzipped
 contents are in a single folder, all the contents are moved to the parent folder (check
 the :ref:`conan.tools.files.unzip()<conan_tools_files_unzip>` reference for more details).
+
+.. warning::
+
+    Using not immutable source origins, like the HEAD branch, or any other branch that is
+    a moving target, or any URL that downloads something that can change is not allowed in
+    Conan. The sources origins must be unique and immutable. ``git`` clones must checkout
+    an immutable tag or a commit (not a branch) and ``download()/get()`` should provide
+    a file checksum to validate the file doesn't change.
+    Not using immutable sources will result in undefined behavior.
 
 The contents of the zip file are the same as the sources we previously had beside the
 Conan recipe, so if you do a :command:`conan create` the results will be the
@@ -180,7 +193,12 @@ method to clone the `<https://github.com/conan-io/libhello.git>`_ repository in 
 default branch using the same folder for cloning the sources instead of a subfolder
 (passing the ``target="."`` argument). 
 
-If we wanted to checkout a commit or tag in the repository we could use the ``checkout()``
+
+.. warning::
+
+    As above, this is only a simple example. The source origine for ``Git()`` also has to be immutable, it is necessary to checkout out an immutable tag or a specific commit to guarantee the correct behavior. Using the HEAD of the repository is not allowed and can cause undefined behavior.
+
+To checkout a commit or tag in the repository we use the ``checkout()``
 method of the Git tool:
 
 .. code-block:: python
