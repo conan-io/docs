@@ -9,7 +9,7 @@ It also contains a wide range of pre-compiled binaries for multiple OS, includin
 
 However, it is not a good practice to depend directly on ConanCenter for production systems, for several reasons:
 
-- ConanCenter continuously get contributions, fixes and improvements from the community, but that also means that ConanCenter can only guarantee that it works with the latest Conan version (see the :ref:`stability commitment in the introduction<stability>`). If you want to update your Conan version at a different pace, ConanCenter packages that introduce latest version features will break.
+- ConanCenter continuously gets contributions, fixes and improvements from the community, but that also means that ConanCenter can only guarantee that it works with the latest Conan version (see the :ref:`stability commitment in the introduction<stability>`). If you want to update your Conan version at a different pace, ConanCenter packages that introduce latest version features will break.
 - The changes in recipes might also unpexectedly cause bugs and other issues. Recipes and package updates might bump dependencies versions to use the latest, forcing a continuous update over all dependencies versions. That can cause version conflicts if your project doesn't bump dependencies versions at the same pace.
 - Fixes to ConanCenter recipes can take a while to be merged (weeks), because there are too many contributions to be reviewed. If you rely on a fix that you contributed and it is urgent for your production system, you might need to wait.
 - Binary configurations can be discontinued in ConanCenter, when new compiler versions are released and ConanCenter start to build them, it can drop some of the older versions.
