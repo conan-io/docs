@@ -1,7 +1,7 @@
 .. _tutorial_devops:
 
 
-Tutorial - devops
+Tutorial - DevOps
 =================
 
 The previous tutorial section was aimed at users in general and developers.
