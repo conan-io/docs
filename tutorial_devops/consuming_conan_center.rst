@@ -38,7 +38,7 @@ Updating from the upstream ``conan-center-index`` Github repo is still possible,
 
 - Merge the latest changes in the upstream main fork of ``conan-center-index`` into your fork.
 - You can check and audit those changes if you want to, analyzing the diffs (some automation that trims the diffs of recipes that you don't use could be useful)
-- Firing the above process will efficiently rebuild new binaries are needed. If your recipes are not affected by changes, the process will avoid rebuilding binaries (thanks to ``--build=missing``).
+- Firing the above process will efficiently rebuild the new binaries that are needed. If your recipes are not affected by changes, the process will avoid rebuilding binaries (thanks to ``--build=missing``).
 - You can upload the packages to a secondary "test" server repository. Then test your project against that test server, to check that your project is not broken by the new ConanCenter packages.
 - Once you verify that everything is good with the new packages, you can copy them from the secondary "test" repository to your main production repository to start using them.
 
