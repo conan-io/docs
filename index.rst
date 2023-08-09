@@ -16,6 +16,7 @@ Table of contents:
    whatsnew
    installation
    tutorial
+   tutorial_devops
    integrations
    examples
    reference
