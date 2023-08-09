@@ -30,7 +30,7 @@ This flow is relatively straightforward, and has many advantages that mitigate t
 
 - No central repository outage can affect your builds.
 - No changes in the central repository can break your projects.
-- You can customize, adapt, fix or perfectly control what versions are used, and release fixes in minutes, not weeks. You can apply customizations that wouldn't be accepted in the central repository.
+- You can customize, adapt, fix and perfectly control what versions are used, and release fixes in minutes, not weeks. You can apply customizations that wouldn't be accepted in the central repository.
 - You fully own the supply chain, from the source (recipes) to the binaries, eliminating in practice the majority of potential supply chain attacks of central repositories.
 
 
