@@ -239,8 +239,30 @@ Take into account that if a value is assigned in the ``configure()`` method it c
 options_description
 -------------------
 
-TODO: Complete, https://github.com/conan-io/conan/pull/11295
+The ``options_description`` attribute is an optional attribute that can be defined in the
+form of a dictionary where the key is the option name and the value is a description of
+the option in text format. This attribute is useful for providing additional information
+about the functionality and purpose of each option, particularly when the option is not
+self-explanatory or has complex or special behavior.
 
+The format for each dictionary entry should be:
+
+- Key: Option name. Must be a string and must match one of the keys in the ``options`` dictionary.
+- Value: Description of the option. Must be a string and can be as long as necessary.
+
+For example:
+
+.. code-block:: python
+
+    class MyPkg(ConanFile):
+        ...
+        options = {"option1": [True, False],
+                   "option2": "ANY"}
+
+        options_description = {
+            "option1": "Describe the purpose and functionality of 'option1'. ",
+            "option2": "Describe the purpose and functionality of 'option2'. ",
+        }
 
 info
 ----

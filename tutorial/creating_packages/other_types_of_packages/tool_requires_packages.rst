@@ -8,6 +8,17 @@ In the ":ref:`Using build tools as Conan packages <consuming_packages_tool_requi
 a tool require to build (or help building) our project or Conan package.
 In this section we are going to learn how to create a recipe for a tool require.
 
+.. note::
+
+    **Best practice**
+
+    ``tool_requires`` and tool packages are intended for executable applications, like ``cmake`` or ``ninja`` that
+    can be used as ``tool_requires("cmake/[>=3.25]")`` by other packages to put those executables in their path. They
+    are not intended for library-like dependencies (use ``requires`` for them), for test frameworks (use ``test_requires``)
+    or in general for anything that belongs to the "host" context of the final application. Do not abuse ``tool_requires``
+    for other purposes.
+    
+
 Please, first clone the sources to recreate this project. You can find them in the
 `examples2.0 repository <https://github.com/conan-io/examples2>`_ on GitHub:
 

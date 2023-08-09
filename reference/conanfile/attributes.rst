@@ -128,3 +128,37 @@ Version ranges as in ``requires`` are allowed.
 Also there is a ``global.conf`` file ``core:required_conan_version`` configuration that can
 define a global minimum, maximum or exact Conan version to run, which can be very convenient
 to maintain teams of developers and CI machines to use the desired range of versions.
+
+.. _conan_conanfile_attributes_implements:
+
+implements
+----------
+
+A list is used to define a series of option configurations that Conan will handle
+automatically. This is especially handy for avoiding boilerplate code that tends to repeat
+in most of the recipes. The syntax is as follows:
+
+.. code-block:: python
+    
+    from conan import ConanFile
+        
+    class Pkg(ConanFile):
+        implements = ["auto_shared_fpic", "auto_header_only", ...]
+
+
+Currently these are the automatic implementations provided by Conan:
+
+- ``"auto_shared_fpic"``: automatically manages ``fPIC`` and ``shared`` options. Adding this
+  implementation will have both effect in the
+  :ref:`configure<reference_conanfile_methods_configure_implementations>` and
+  :ref:`config_options<reference_conanfile_methods_config_options_implementations>` steps
+  when those methods are not explicitly defined in the recipe.
+
+- ``"auto_header_only"``: automatically manages the package ID clearing settings. Adding this
+  implementation will have effect in the
+  :ref:`package_id<reference_conanfile_methods_package_id_implementations>` step
+  when the method is not explicitly defined in the recipe.
+
+.. warning::
+
+    This is a 2.0-only feature, and it will not work in 1.X

@@ -22,12 +22,14 @@ conan cache path
     optional arguments:
         -h, --help            show this help message and exit
         -v [V]                Level of detail of the output. Valid options from less
-                            verbose to more verbose: -vquiet, -verror, -vwarning,
-                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
-                            -vvv or -vtrace
-        --folder {export_source,source,build}
-                            Path to show. The 'build' requires a package
-                            reference. If not specified it shows 'exports' path
+                              verbose to more verbose: -vquiet, -verror, -vwarning,
+                              -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
+                              -vvv or -vtrace
+        --folder {export_source,source,build,metadata}
+                              Path to show. The 'build' requires a package
+                              reference. If the argument is not passed, it shows
+                              'exports' path for recipe references and 'package'
+                              folder for package references.
 
 
 The ``conan cache path`` returns the path in the cache of a given reference. Depending on the reference, it
