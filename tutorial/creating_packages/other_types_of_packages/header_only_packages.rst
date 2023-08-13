@@ -138,6 +138,7 @@ We have the same header-only library that sums two numbers, but now we have this
     import os
     from conan import ConanFile
     from conan.tools.files import copy
+    from conan.tools.build import check_min_cppstd
     from conan.tools.cmake import cmake_layout, CMake
 
 
