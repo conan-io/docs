@@ -7,7 +7,7 @@ ConanCenter is a fantastic resource that contains a huge knowledge base and a re
 
 It also provides pre-compiled binaries for a wide range of configurations: multiple OS, including Windows, Linux and OSX, a variety of compilers, compiler versions, static and shared libraries, etc. These precompiled packages can be very useful to do quick experiments, testing, onboarding, and they also serve as a proof that the recipes for those packages can work solidly for that wide range of configurations.
 
-However, it is not advised to depend directly on ConanCenter for production environments, for several reasons:
+However, in the same way modern Devops discourages to depend directly on any central repository, it is not advised to depend directly on ConanCenter for production environments, for several reasons:
 
 - ConanCenter accepts contributions that require the most recently released versions of Conan. If you are in an environment where you are unable to keep Conan up-to-date across all your systems (developers, CI, etc) - depending directly on recipes from ConanCenter carries the risk of retrieving recipes that do not work with your older version of Conan.
 - The changes in recipes might also unpexectedly cause bugs and other issues. Recipes and package updates might bump dependencies versions to use the latest, forcing a continuous update over all dependencies versions. That can cause version conflicts if your project doesn't bump dependencies versions at the same pace.
