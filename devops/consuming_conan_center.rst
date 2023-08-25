@@ -1,71 +1,115 @@
 .. _devops_consuming_conan_center:
 
-Using ConanCenter packages in production
-========================================
+Using ConanCenter packages in production environments
+=====================================================
 
-ConanCenter is a fantastic resource that contains a huge knowledge base and a reference implementation of recipes contributed by the community on how to create and build Conan packages for a lot of open source third party libraries and applications supporting multiple platforms.
+ConanCenter is a fantastic resource that contains reference implementations of 
+recipes for over 1500 libraries and applications contributed by the community. 
+As such, it is a great knowledge base on how to create and build Conan packages 
+for open source dependencies.
 
-It also provides pre-compiled binaries for a wide range of configurations: multiple OS, including Windows, Linux and OSX, a variety of compilers, compiler versions, static and shared libraries, etc. These precompiled packages can be very useful to do quick experiments, testing, onboarding, and they also serve as a proof that the recipes for those packages can work solidly for that wide range of configurations.
+ConanCenter also builds and provides binary packages for a wide range of 
+configurations: multiple operating systems (Windows, Linux, macOS), compilers, 
+compiler versions, and library variants (shared, static). On top of this, 
+for a lot of libraries community contributors ensure that recipes are compatible 
+for additional operating systems (Android, iOS, FreeBSD, QNX) and CPU architectures. 
+The recipes in Conan Center are the greatest example of Conan’s universality promise.
 
-However, in the same way modern Devops discourages to depend directly on any central repository, it is not advised to depend directly on ConanCenter for production environments, for several reasons:
+Unlike other package managers or repositories, ConanCenter does not maintain a 
+fixed snapshot of versions. On the contrary, for a given library (e.g. OpenCV), 
+multiple versions are actively maintained at the same time. This gives users 
+greater control of which versions to use, rather than having to remain fixed 
+to an older version, or pushing them to always be on the latest version.
 
-- ConanCenter accepts contributions that require the most recently released versions of Conan. If you are in an environment where you are unable to keep Conan up-to-date across all your systems (developers, CI, etc) - depending directly on recipes from ConanCenter carries the risk of retrieving recipes that do not work with your older version of Conan.
-- The changes in recipes might also unpexectedly cause bugs and other issues. Recipes and package updates might bump dependencies versions to use the latest, forcing a continuous update over all dependencies versions. That can cause version conflicts if your project doesn't bump dependencies versions at the same pace.
-- Reviews in ConanCenter can take a while to be reviewed and merged, as there is usually a high volume of requests. Please consider this if you may find yourself in a situation where you may need proposed changes merged with urgency. Pull Requests are considered according to priorities and resources, and will only be accepted with positive peer reviews by the Conan team.
-- Binary configurations can be discontinued in ConanCenter, when new compiler versions are released and ConanCenter starts to build them, it can drop some of the older versions.
-- Outages, maintenance windows and other service interruptions can happen, ranging from a few minutes to days. The infrastructure to host central repositories is typically large and complex, and relies on cloud providers that sometimes have their own issues, networks, CDN, etc.
-- Supply chain issues. Even if the best effort is made to make ConanCenter secure and the process to add packages to ConanCenter is one of the most strict ones with human reviews for every package and many automated checks and processes, eventually all systems and central repositories in every technology are subject to attempts of supply chain attacks.
+In order to support this ecosystem, ConanCenter recipes are updated very 
+frequently. Recipes themselves may be updated to support a new platform, 
+bug fixes, or to require newer versions of their dependencies. 
+On the other hand, each user of ConanCenter may have a different combination 
+of versions in their requirements. This means that given the same input 
+list of requirements, Conan may resolve the graph differently at different 
+points in time - resolving to different recipe revisions, versions, or packages. 
+This is similar to the default behavior of package managers in other languages 
+(pip/PyPi, npm, cargo, etc). In production environments where reproducibility 
+is important, it is therefore discouraged to depend directly on Conan Center 
+in an unconstrained manner.
 
-Most of these reasons are not unique to Conan, but to every other package manager for other programming languages. 
+The following guidelines contain a series of recommendations to ensure repeatability,
+reliability, compliance and, where applicable, control to enable customization.
+As a summary, it is highly recommended to follow the approaches:
 
-.. important::
-  
-  The general devops known good practice is that you shouldn't rely on central repositories on production systems, but do consider the following approaches:
+- Use :ref:`lockfiles<tutorial_versioning_lockfiles>`
+- :ref:`Host your recipes and packages in a server under your control <devops_hosting_your_own_conancenter_fork>`
 
-  - If your project is mostly a "consuming" project, i.e. you are not generating your own packages, but just consuming packages from ConanCenter, and the above issues are not a concern because your project does not need that kind of robustness or security, then you can use **lockfiles** to at least guarantee that your project build using the same dependencies over time. Check :ref:`the lockfile docs<tutorial_versioning_lockfiles>` for more information.
-  - If you are creating your own packages for your own libraries or applications, or any of the above reasons is a concern for your production environment, then the recommended approach is **hosting your own copy of the packages you need for production** in your own private server.
+Repeatability and reproducibility
+---------------------------------
+As mentioned earlier - given a set of requirements, changes in ConanCenter 
+can cause the Conan dependency solver to resolve different graphs over time. 
+This does not only apply to the actual versions of libraries (e.g. ``opencv/4.5.0`` 
+instead ``opencv/4.2.1``) - but also the recipes themselves. That is, 
+there may exist multiple revisions of the ``opencv/4.5.0`` recipe, which can 
+have side effects for consumers. Changes in recipes typically address a problem 
+(bugfixes), target functionality (e.g. adding a conditional option, support for 
+a new platform), or change versions of dependencies.
 
-We have seen many Conan users succesfully using the second approach, building and hosting their own binaries in their own repository, even for "consuming" cases. The process for doing that is not complicated (and we are working to further streamline it) and in practice it is advangeous in most cases. Let's see how this can be done:
+In order to ensure repeatability, the use of lockfiles on the consumer side 
+is greatly encouraged: please check :ref:`the lockfile docs<tutorial_versioning_lockfiles>` 
+for more information.
 
+Lockfiles ensure that Conan will resolve the same graph in a repeatable and 
+consistent manner - thus making sure the same versions are used across multiple 
+systems (CI, developers, etc). 
 
+Lockfiles are also used in other package managers like Pytho pip, Rust Cargo, npm - 
+these recommendations are in line with the practices of these other technologies.
 
-Creating and hosting your own ConanCenter binaries
---------------------------------------------------
-
-Hosting your own copy of the packages you need in your server could be done by just downloading binaries from ConanCenter and then uploading them to your own server. However, it is much better to fully own the complete supply chain and create the binaries in your own CI systems. So the recommended flow to use ConanCenter packages in production would be:
-
-- Create a fork of the ConanCenter Github repository: https://github.com/conan-io/conan-center-index
-- Create a list of the packages and versions you need for your projects. This list can be added to the fork too, and maintained there (packages can be added and removed with PRs when the teams need them).
-- Create a script that first ``conan export`` all the packages in your list, then ``conan create --build=missing`` them. Do not add ``user/channel`` to these packages, it is way simpler to use them as ``zlib/1.2.13`` without user-channel. The ``user/channel`` part would be mostly recommended for your own proprietary packages, but not for open source ConanCenter packages.
-- Upload your build packages to your own server, that you use in production, instead of ConanCenter.
-
-This is the basic flow idea. We will be adding examples and tools to further automate this flow as soon as possible.
-
-
-This flow is relatively straightforward, and has many advantages that mitigate the above risks:
-
-- No central repository outage can affect your builds.
-- No changes in the central repository can break your projects, you are in full control when and how those changes are updated in your packages (as explained below).
-- You can customize, adapt, fix and perfectly control what versions are used, and release fixes in minutes, not weeks. You can apply customizations that wouldn't be accepted in the central repository.
-- You fully control the binaries supply chain, from the source (recipes) to the binaries, eliminating in practice the majority of potential supply chain attacks of central repositories.
-
-
-Updating from upstream
-++++++++++++++++++++++
-
-Updating from the upstream ``conan-center-index`` Github repo is still possible, and it can be done in a fully controlled way:
-
-- Merge the latest changes in the upstream main fork of ``conan-center-index`` into your fork.
-- You can check and audit those changes if you want to, analyzing the diffs (some automation that trims the diffs of recipes that you don't use could be useful)
-- Firing the above process will efficiently rebuild the new binaries that are needed. If your recipes are not affected by changes, the process will avoid rebuilding binaries (thanks to ``--build=missing``).
-- You can upload the packages to a secondary "test" server repository. Then test your project against that test server, to check that your project is not broken by the new ConanCenter packages.
-- Once you verify that everything is good with the new packages, you can copy them from the secondary "test" repository to your main production repository to start using them.
+Additionally, it is highly recommended to host your recipes and packages in your
+own server (see below). Both of these approaches help you achieve having control 
+on when upstream changes from ConanCenter are propagated across your team and systems.
 
 
-.. note::
+Service reliability
+-------------------
+Consuming recipes and packages from the ConanCenter remote can be impacted during 
+periods of downtime (scheduled or otherwise). While every effort is made to ensure 
+that the ConanCenter is always available, and unscheduled downtime is rare and 
+treated with urgency - this can impact users that depend on ConanCenter directly. 
+Additionally, when building recipes from source, this requires retrieving the source 
+packages (typically zip or tar files) from remote servers outside of the control of 
+ConanCenter. Occasionally, these too can suffer from unscheduled downtime.
 
-  **Best practices**
+In enterprise production environments with strong uptime is required, it is strongly 
+recommended to host recipes and binary packages in a server under your control. 
 
-  - Do not use ConanCenter packages on production systems, store the packages you need in your own server and use them from there.
-  - Create your own binaries from your fork to completely own the pipeline, remove all breakage risks, accelerate fixes and remove security supply chain attacks. The process is not complicated and really worth it.
-  - You can drop the ``conancenter`` remote from your clients to make sure packages are not accidentally downloaded from there. Use ``conan config install`` with your own ``remotes.json`` file to remove ``conancenter`` default remote.
+- Read more: :ref:`creating and hosting your own Conan Center binaries <devops_hosting_your_own_conancenter_fork>`
+
+This can also protect against transient network issues, and issues caused by transfer 
+of binary data from external sources. These recommendations also apply when consuming 
+packages from external sources in any package manager. 
+
+
+Compliance and security
+-----------------------
+Some industries such as finance, robotics and embedded, have stronger requirements 
+around change management, open source licenses and reproducibility. For example, 
+changes in recipes could result in a new version being resolved for a dependency, 
+in a way that the license for that version has changed and needs to be validated 
+and audited by your organization. 
+In some industries like medical or automotive, you may be required to ensure all 
+your dependencies can be built from source in a repeatable way, and thus using 
+binaries provided by Conan Center may not be advisable. In these instances, 
+we recommend building your own binary packages from source:
+
+- Read more: :ref:`creating and hosting your own Conan Center binaries <devops_hosting_your_own_conancenter_fork>`
+
+Control and customization
+-------------------------
+It is very common for users of dependencies to require custom changes to external 
+libraries - typically to support specific platform configurations not considered 
+by either ConanCenter or the original library authors, backport bug fixes, etc. 
+Some of these changes may not be suitable to be merged in ConanCenter, 
+and it may not happen until this has been reviewed and validated by ConanCenter maintainers. 
+For this reason, if you need tight control over the changes in recipes, 
+it is highly recommended to host not only a Conan remote, but your own fork of the 
+conan-center-index recipe repository.
+
+- Read more: :ref:`creating and hosting your own Conan Center binaries <devops_hosting_your_own_conancenter_fork>`
