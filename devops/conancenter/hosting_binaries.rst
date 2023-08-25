@@ -1,4 +1,4 @@
-.. _devops_hosting_your_own_conancenter_fork:
+.. _devops_conancenter_hosting_your_own_conancenter_fork:
 
 Creating and hosting your own ConanCenter binaries
 ==================================================
@@ -14,7 +14,7 @@ Hosting your own copy of the packages you need in your server could be done by j
 This is the basic flow idea. We will be adding examples and tools to further automate this flow as soon as possible.
 
 
-This flow is relatively straightforward, and has many advantages that mitigate the above risks:
+This flow is relatively straightforward, and has many advantages that mitigate the risks described before:
 
 - No central repository outage can affect your builds.
 - No changes in the central repository can break your projects, you are in full control when and how those changes are updated in your packages (as explained below).

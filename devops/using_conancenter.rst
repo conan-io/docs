@@ -35,10 +35,10 @@ in an unconstrained manner.
 
 The following guidelines contain a series of recommendations to ensure repeatability,
 reliability, compliance and, where applicable, control to enable customization.
-As a summary, it is highly recommended to follow the approaches:
+As a summary, it is highly recommended to follow these approaches when using packages from ConanCenter:
 
-- Use :ref:`lockfiles<tutorial_versioning_lockfiles>`
-- :ref:`Host your recipes and packages in a server under your control <devops_hosting_your_own_conancenter_fork>`
+- Lock the versions and revisions you depend on using :ref:`lockfiles<tutorial_versioning_lockfiles>`
+- Host your own copy ConanCenter recipes and package binaries :ref:`in a server under your control <devops_conancenter_hosting_your_own_conancenter_fork>`
 
 Repeatability and reproducibility
 ---------------------------------
@@ -80,7 +80,7 @@ ConanCenter. Occasionally, these too can suffer from unscheduled downtime.
 In enterprise production environments with strong uptime is required, it is strongly 
 recommended to host recipes and binary packages in a server under your control. 
 
-- Read more: :ref:`creating and hosting your own Conan Center binaries <devops_hosting_your_own_conancenter_fork>`
+- Read more: :ref:`creating and hosting your own Conan Center binaries <devops_conancenter_hosting_your_own_conancenter_fork>`
 
 This can also protect against transient network issues, and issues caused by transfer 
 of binary data from external sources. These recommendations also apply when consuming 
@@ -99,7 +99,7 @@ your dependencies can be built from source in a repeatable way, and thus using
 binaries provided by Conan Center may not be advisable. In these instances, 
 we recommend building your own binary packages from source:
 
-- Read more: :ref:`creating and hosting your own Conan Center binaries <devops_hosting_your_own_conancenter_fork>`
+- Read more: :ref:`creating and hosting your own Conan Center binaries <devops_conancenter_hosting_your_own_conancenter_fork>`
 
 Control and customization
 -------------------------
@@ -112,4 +112,13 @@ For this reason, if you need tight control over the changes in recipes,
 it is highly recommended to host not only a Conan remote, but your own fork of the 
 conan-center-index recipe repository.
 
-- Read more: :ref:`creating and hosting your own Conan Center binaries <devops_hosting_your_own_conancenter_fork>`
+- Read more: :ref:`creating and hosting your own Conan Center binaries <devops_conancenter_hosting_your_own_conancenter_fork>`
+
+
+The following subsections describe in more details the above strategies:
+
+.. toctree::
+   :maxdepth: 1
+
+   conancenter/hosting_binaries
+
