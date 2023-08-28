@@ -16,6 +16,7 @@ Table of contents:
    whatsnew
    installation
    tutorial
+   devops
    integrations
    examples
    reference

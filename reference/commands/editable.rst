@@ -60,6 +60,27 @@ conan editable remove
                             -vvv or -vtrace
       -r REFS, --refs REFS  Directly provide reference patterns
 
+
+conan editable list
+-------------------
+
+..  code-block:: text
+
+    $ conan editable list -h
+    usage: conan editable list [-h] [-f FORMAT] [-v [V]]
+
+    List all the packages in editable mode.
+
+    optional arguments:
+      -h, --help            show this help message and exit
+      -f FORMAT, --format FORMAT
+                            Select the output format: json
+      -v [V]                Level of detail of the output. Valid options from less
+                            verbose to more verbose: -vquiet, -verror, -vwarning,
+                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
+                            -vvv or -vtrace
+
+
 .. seealso::
 
     - Read the tutorial about editable packages :ref:`editable package<editable_packages>`.

@@ -58,7 +58,7 @@ the local working directory**:
 
 .. code-block:: bash
 
-    $ conan editable add say --name=say --version=1.0
+    $ conan editable add say
     $ conan editable list
     say/1.0
         Path: /Users/.../examples2/tutorial/developing_packages/editable_packages/say/conanfile.py
@@ -176,6 +176,48 @@ And build and run the "hello" project:
 In this manner, you can develop both the ``say`` library and the ``hello`` application
 simultaneously without executing any Conan command in between. If you have both open in
 your IDE, you can simply build one after the other.
+
+Building editable dependencies
+------------------------------
+
+If there are many editable dependencies, it might be inconvenient to go one by one, building them in the right order.
+It is possible to do an ordered build of the editable dependencies with the ``--build`` argument.
+
+Let's clean the previous local executables:
+
+.. code-block:: bash
+
+    $ git clean -xdf
+
+And using the ``build()`` method in the ``hello/conanfile.py`` recipe that we haven't really used so far (because
+we have been building directly calling ``cmake``, not by calling ``conan build`` command), we can do such build with
+just:
+
+.. code-block:: bash
+
+    $ conan build hello
+
+
+Note that all we had to do to do a full build of this project is these two commands. Starting from scratch in a different folder:
+
+.. code-block:: bash
+
+    $ git clone https://github.com/conan-io/examples2.git
+    $ cd examples2/tutorial/developing_packages/editable_packages
+    $ conan editable add say
+    $ conan build hello --build=editable
+
+
+Note that if we don't pass the ``--build=editable`` to ``conan build hello``, the binaries for ``say/0.1`` that is in editable mode
+won't be available and it will fail. With the ``--build=editable``, first a build of the ``say`` binaries is done locally and 
+incrementally, and then another incremental build of ``hello`` will be done. Everything will still happen locally, with no packages
+built in the cache. If there are multiple ``editable`` dependencies, with nested transitive dependencies, Conan will build them
+in the right order.
+
+Note that it is possible to build and test a package in editable with with its own ``test_package`` folder.
+If a package is put in ``editable`` mode, and if it contains a ``test_package`` folder, the ``conan create`` command
+will still do a local build of the current package. 
+
 
 Revert the editable mode
 ------------------------
