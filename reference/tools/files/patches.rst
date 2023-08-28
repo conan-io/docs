@@ -80,6 +80,10 @@ With different patches for different versions:
             ret = g_test_run ();
         - patch_file: "patches/0003-fix-content-length-calculation.patch"
 
+
+For each patch, a ``patch_file``, a ``patch_string`` or a ``patch_user`` field must be provided. The first two are automatically applied by ``apply_conandata_patches()``, while ``patch_user`` are ignored, and must be handled by the user directly in the ``conanfile.py`` recipe.
+
+
 conan.tools.files.export_conandata_patches()
 --------------------------------------------
 
