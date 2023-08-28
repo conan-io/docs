@@ -9,7 +9,7 @@ optional dependencies, or binary characteristics. Configurations like ``tools.bu
 inject arbitrary C++ compile flags.
 
 In some exceptional cases, it might be desired to inject CMake variables directly into dependencies doing CMake
-builds. This is possible when these dependencies use the ``CMakeToolchan`` integration. Let's check it in this
+builds. This is possible when these dependencies use the ``CMakeToolchain`` integration. Let's check it in this
 simple example.
 
 If we have the following package recipe, with a simple ``conanfile.py`` and a ``CMakeLists.txt`` printing a variable:
