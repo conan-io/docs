@@ -49,7 +49,7 @@ Methods
 - :doc:`requirements() <methods/requirements>`: Define the dependencies of the package
 - :doc:`set_name() <methods/set_name>`: Dynamically define the name of a package
 - :doc:`set_version() <methods/set_version>`: Dynamically define the version of a package.
-- :doc:`source() <methods/source>`: Define the dependencies of the package
+- :doc:`source() <methods/source>`: Contains the commands to obtain the source code used to build
 - :doc:`system_requirements() <methods/system_requirements>`: Call system package managers like Apt to install system packages
 - :doc:`test() <methods/test>`: Run some simple package test (exclusive of ``test_package``)
 - :doc:`validate() <methods/validate>`: Define if the current package is invalid (cannot work) with the current configuration.
