@@ -289,6 +289,12 @@ For instance:
     * :ref:`Managing configuration in your recipes (self.conf_info) <conan_conanfile_model_conf_info>`
 
 
+* ``tools.files.download:verify``: Setting ``tools.files.download:verify=False`` constitutes a security risk if enabled,
+  as it disables certificate validation. Do not use it unless you understand the implications
+  (And even then, properly scoping the conf to only the required recipes is a good idea)
+  or if you are using it for development purposes
+
+
 UX confs
 --------
 
