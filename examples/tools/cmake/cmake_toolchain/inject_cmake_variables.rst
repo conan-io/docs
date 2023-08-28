@@ -71,6 +71,8 @@ external ``myvars.cmake`` file:
     ...
     -- MYVAR1 MYVALUE1!!
 
+Note that using ``user_toolchain`` while defining values for confs like ``tools.cmake.cmaketoolchain:system_name`` is supported.
+
 The ``tools.cmake.cmaketoolchain:user_toolchain`` conf value might also be passed in the command line ``-c`` argument,
 but the location of the ``myvars.cmake`` needs to be absolute to be found, as jinja replacement doesn't happen in the
 command line.
