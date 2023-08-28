@@ -70,3 +70,4 @@ Forbidden practices
   like ``conan cache path`` to get information of the current folders. The Conan cache might 
   be checked while debugging, as read-only, but it is not allowed to edit, modify or delete 
   artifacts or files from the Conan cache by any other means that Conan command line or public API.
+- **Sources used in recipes must be immutable**. Once a recipe is exported to the Conan cache, it is expected that the sources are immutable, that is, that retrieving the sources in the future will always retrieve the exact same sources. It is not allowed to use moving targets like a ``git`` branch or a download of a file that is continuously rewritten in the server. ``git`` checkouts must be of an immutable tag or a commit, and ``download()/get()`` must use checksums to verify the server files doesn't change. Not using immutable sources will be undefined behavior.
