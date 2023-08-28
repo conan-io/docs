@@ -246,6 +246,7 @@ Displays all the Conan built-in configurations. There are 2 groups:
     tools.cmake.cmaketoolchain:user_toolchain: Inject existing user toolchains at the beginning of conan_toolchain.cmake
     tools.cmake:cmake_program: Path to CMake executable
     tools.compilation:verbosity: Verbosity of compilation tools if set. Possible values are 'quiet' and 'verbose'
+    tools.deployer:symlinks: Set to False to disable deployers copying symlinks
     tools.env.virtualenv:powershell: If it is set to True it will generate powershell launchers if os=Windows
     tools.files.download:retry: Number of retries in case of failure when downloading
     tools.files.download:retry_wait: Seconds to wait between download attempts
