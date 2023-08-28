@@ -3,7 +3,7 @@
 CMakeToolchain: Inject arbitrary CMake variables into dependencies
 ==================================================================
 
-In the general case, Conan package recipe provides the necessary abstractions via settings, confs, and options
+In the general case, Conan package recipes provide the necessary abstractions via settings, confs, and options
 to control different aspects of the build. Many recipes define ``options`` to activate or deactivate features,
 optional dependencies, or binary characteristics. Configurations like ``tools.build:cxxflags`` can be used to
 inject arbitrary C++ compile flags.
