@@ -11,9 +11,9 @@ conan editable add
 ..  code-block:: text
 
     $ conan editable add -h
-    usage: conan editable add [-h] [-v [V]] [--name NAME]
-                              [--version VERSION] [--user USER]
-                              [--channel CHANNEL] [-of OUTPUT_FOLDER]
+    usage: conan editable add [-h] [-v [V]] [--name NAME] [--version VERSION]
+                              [--user USER] [--channel CHANNEL]
+                              [-of OUTPUT_FOLDER] [-r REMOTE | -nr]
                               path
 
     Define the given <path> location as the package <reference>, so when this
@@ -23,7 +23,7 @@ conan editable add
     positional arguments:
       path                  Path to the package folder in the user workspace
 
-    optional arguments:
+    options:
       -h, --help            show this help message and exit
       -v [V]                Level of detail of the output. Valid options from less
                             verbose to more verbose: -vquiet, -verror, -vwarning,
@@ -36,6 +36,9 @@ conan editable add
       --channel CHANNEL     Provide a channel if not specified in conanfile
       -of OUTPUT_FOLDER, --output-folder OUTPUT_FOLDER
                             The root output folder for generated and build files
+      -r REMOTE, --remote REMOTE
+                            Look in the specified remote or remotes server
+      -nr, --no-remote      Do not use remote, resolve exclusively in the cache
 
 conan editable remove
 ---------------------
