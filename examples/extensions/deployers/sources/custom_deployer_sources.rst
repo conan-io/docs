@@ -93,3 +93,8 @@ under ``dependencies_sources`` using :ref:`conan.tools.copy<conan_tools_files_co
     ``tools.build:download_source=True`` is necessary so that ``dep.folders.source_folder`` is defined for the dependencies.
     Without the conf, said variable will not be defined for those dependencies that do not need to be built from sources
     nor in those commands that do not require building, such as :command:`conan graph`.
+
+.. note::
+
+   If your custom deployer needs access to the full dependency graph, including those libraries that might be skipped,
+   use the ``tools.graph:skip_binaries=False`` conf. This is useful for collecting, for example, all the licenses in your graph.
