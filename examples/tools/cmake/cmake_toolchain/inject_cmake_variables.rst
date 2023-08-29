@@ -3,6 +3,15 @@
 CMakeToolchain: Inject arbitrary CMake variables into dependencies
 ==================================================================
 
+You can find the sources to recreate this project in the `examples2.0 repository
+<https://github.com/conan-io/examples2>`_ in GitHub:
+
+.. code-block:: bash
+
+    $ git clone https://github.com/conan-io/examples2.git
+    $ cd examples2/examples/tools/cmake/cmake_toolchain/user_toolchain_profile
+
+
 In the general case, Conan package recipes provide the necessary abstractions via settings, confs, and options
 to control different aspects of the build. Many recipes define ``options`` to activate or deactivate features,
 optional dependencies, or binary characteristics. Configurations like ``tools.build:cxxflags`` can be used to
