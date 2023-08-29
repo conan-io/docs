@@ -71,7 +71,7 @@ Customization
 Flags
 +++++
 
-By default, the ``conandeps.mk`` will contain all dependencies listed, including theirs ``cpp_info`` information, but will not pass any flags to the compiler.
+By default, the ``conandeps.mk`` will contain all dependencies listed, including their ``cpp_info`` information, but will not pass any flags to the compiler.
 
 Thus, the consumer should pass the following flags to the compiler:
 
