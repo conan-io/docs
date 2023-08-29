@@ -37,7 +37,7 @@ Conan will be able to extract the credentials from this file automatically when 
     Conan does not pre-emptively use the credentials to force a login automatically in every remote defined at every Conan command.
     By default Conan uses the previously stored tokens or anonymous usage, until a explicit ``conan remote login`` command is done, 
     or until a remote server launches an authentication error. When that happens, authentication against that server will be done,
-    using the 
+    using the ``credentials.json`` file, the environment variables or the user interactive inputs.
 
 The priority of credentials origins is as follows:
 - If the ``credentials.json`` file exist, it has higher priority, if an entry for the remote exists, it will be used. If it doesn't
