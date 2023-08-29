@@ -95,6 +95,8 @@ It is possible to further modify individual traits of ``tool_requires()`` and ``
        self.tool_requires("cmake/3.23.5", options={"shared": False})
 
 
+The ``test_requires()`` allows the ``force=True`` trait in case there are transitive test requirements with conflicting versions, and likewise ``tool_requires()`` support the ``override=True`` trait, for overriding possible transitive dependencies of the direct tool requirements.
+
 .. note::
 
     **Best practices**
