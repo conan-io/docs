@@ -110,6 +110,7 @@ This error can happen, if there are no or false authentication credentials in th
     
 One source of error can be the ``.netrc`` file, which is `honored by the requests library <https://requests.readthedocs.io/en/latest/user/quickstart/#custom-headers>`_.
 
+.. _faq_different_revisions:
 
 ERROR: Obtaining different revisions in Linux and Windows
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

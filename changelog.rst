@@ -3,6 +3,60 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2.0 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.0.10 (29-Aug-2023)
+--------------------
+
+- Feature: Allow ``patch_user`` in ``conandata.yml`` definition for user patches, not handled by ``apply_conandata_patches()``. `#14576 <https://github.com/conan-io/conan/pull/14576>`_ . Docs `here <https://github.com/conan-io/docs/pull/3332>`__
+- Feature: Support for Xcode 15, iOS 17, tvOS 17, watchOS 10, macOS 14. `#14538 <https://github.com/conan-io/conan/pull/14538>`_
+- Feature: Raise an error if users are adding incorrect ConanCenter web URL as remote. `#14531 <https://github.com/conan-io/conan/pull/14531>`_
+- Feature: Serialization of graph with ``--format=json`` adds information to ``python_requires`` so ``conan list --graph`` can list ``python_requires`` too. `#14529 <https://github.com/conan-io/conan/pull/14529>`_
+- Feature: Add ``rrev``, ``rrev_timestamp`` and ``prev_timestamp`` to the graph json serialization. `#14526 <https://github.com/conan-io/conan/pull/14526>`_
+- Feature: Allow ``version-ranges`` to resolve to editable packages too. `#14510 <https://github.com/conan-io/conan/pull/14510>`_
+- Feature: Add `tools.files.download:verify`. `#14508 <https://github.com/conan-io/conan/pull/14508>`_ . Docs `here <https://github.com/conan-io/docs/pull/3341>`__
+- Feature: Add support for Apple visionOS. `#14504 <https://github.com/conan-io/conan/pull/14504>`_
+- Feature: Warn of unknown version range options. `#14493 <https://github.com/conan-io/conan/pull/14493>`_
+- Feature: Add `tools.graph:skip_binaries` to control binary skipping in the graph. `#14466 <https://github.com/conan-io/conan/pull/14466>`_ . Docs `here <https://github.com/conan-io/docs/pull/3342>`__
+- Feature: New ``tools.deployer:symlinks`` configuration to disable symlinks copy in deployers. `#14461 <https://github.com/conan-io/conan/pull/14461>`_ . Docs `here <https://github.com/conan-io/docs/pull/3335>`__
+- Feature: Allow remotes to automatically resolve missing ``python_requires`` in 'editable add'. `#14413 <https://github.com/conan-io/conan/pull/14413>`_ . Docs `here <https://github.com/conan-io/docs/pull/3345>`__
+- Feature: Add ``cli_args`` argument for ``CMake.install()``. `#14397 <https://github.com/conan-io/conan/pull/14397>`_ . Docs `here <https://github.com/conan-io/docs/pull/3314>`__
+- Feature: Allow ``test_requires(..., force=True)``. `#14394 <https://github.com/conan-io/conan/pull/14394>`_ . Docs `here <https://github.com/conan-io/docs/pull/3349>`__
+- Feature: New ``credentials.json`` file to store credentials for Conan remotes. `#14392 <https://github.com/conan-io/conan/pull/14392>`_ . Docs `here <https://github.com/conan-io/docs/pull/3350>`__
+- Feature: Added support for `apk` package manager and Alpine Linux `#14382 <https://github.com/conan-io/conan/pull/14382>`_ . Docs `here <https://github.com/conan-io/docs/pull/3312>`__
+- Feature: `conan profile detect` can now detect the version of msvc when invoked within a Visual Studio prompt where `CC` or `CXX` are defined and pointing to the `cl` compiler executable `#14364 <https://github.com/conan-io/conan/pull/14364>`_
+- Feature: Properly document ``--build=editable`` build mode. `#14358 <https://github.com/conan-io/conan/pull/14358>`_ . Docs `here <https://github.com/conan-io/docs/pull/3308>`__
+- Feature: ``conan create --build-test=missing`` new argument to control what is being built as dependencies of the ``test_package`` folder. `#14347 <https://github.com/conan-io/conan/pull/14347>`_ . Docs `here <https://github.com/conan-io/docs/pull/3336>`__
+- Feature: Provide new ``default_build_options`` attribute for defining options for ``tool_requires`` in recipes. `#14340 <https://github.com/conan-io/conan/pull/14340>`_ . Docs `here <https://github.com/conan-io/docs/pull/3338>`__
+- Feature: Implement ``...@`` as a pattern for indicating matches with packages without user/channel. `#14338 <https://github.com/conan-io/conan/pull/14338>`_ . Docs `here <https://github.com/conan-io/docs/pull/3337>`__
+- Feature: Add support to Makefile by the new MakeDeps generator `#14133 <https://github.com/conan-io/conan/pull/14133>`_ . Docs `here <https://github.com/conan-io/docs/pull/3348>`__
+- Fix: Allow `--format=json` in :command:`conan create` for `python-requires` `#14594 <https://github.com/conan-io/conan/pull/14594>`_
+- Fix: Remove conan v2 ready conan-center link. `#14593 <https://github.com/conan-io/conan/pull/14593>`_
+- Fix: Make :command:`conan inspect` use all remotes by default. `#14572 <https://github.com/conan-io/conan/pull/14572>`_ . Docs `here <https://github.com/conan-io/docs/pull/3340>`__
+- Fix: Allow extra hyphens in versions pre-releases. `#14561 <https://github.com/conan-io/conan/pull/14561>`_
+- Fix: Allow confs for ``tools.cmake.cmaketoolchain`` to be used if defined even if ``tools.cmake.cmaketoolchain:user_toolchain`` is defined. `#14556 <https://github.com/conan-io/conan/pull/14556>`_ . Docs `here <https://github.com/conan-io/docs/pull/3333>`__
+- Fix: Serialize booleans of ``dependencies`` in ``--format=json`` for graphs as booleans, not strings. `#14530 <https://github.com/conan-io/conan/pull/14530>`_ . Docs `here <https://github.com/conan-io/docs/pull/3334>`__
+- Fix: Avoid errors in :command:`conan upload` when ``python_requires`` are not in the cache and need to be downloaded. `#14511 <https://github.com/conan-io/conan/pull/14511>`_
+- Fix: Improve error check of ``lock add`` adding a full package reference instead of a recipe reference. `#14491 <https://github.com/conan-io/conan/pull/14491>`_
+- Fix: Better error message when a built-in deployer failed to copy files. `#14461 <https://github.com/conan-io/conan/pull/14461>`_ . Docs `here <https://github.com/conan-io/docs/pull/3335>`__
+- Fix: Do not print non-captured stacktraces to ``stdout`` but to ``stderr``. `#14444 <https://github.com/conan-io/conan/pull/14444>`_
+- Fix: Serialize ``conf_info`` in ``--format=json`` output. `#14442 <https://github.com/conan-io/conan/pull/14442>`_
+- Fix: `MSBuildToolchain`/`MSBuildDeps`: Avoid passing C/C++ compiler options as options for `ResourceCompile`. `#14378 <https://github.com/conan-io/conan/pull/14378>`_
+- Fix: Removal of plugin files result in a better error message instead of stacktrace. `#14376 <https://github.com/conan-io/conan/pull/14376>`_
+- Fix: Fix CMake system processor name on armv8/aarch64. `#14362 <https://github.com/conan-io/conan/pull/14362>`_
+- Fix: Make backup sources ``core.sources`` conf not mandate the final slash. `#14342 <https://github.com/conan-io/conan/pull/14342>`_
+- Fix: Correctly propagate options defined in recipe ``default_options`` to ``test_requires``. `#14340 <https://github.com/conan-io/conan/pull/14340>`_ . Docs `here <https://github.com/conan-io/docs/pull/3338>`__
+- Fix: Invoke XCRun using conanfile.run() so that environment is injected. `#14326 <https://github.com/conan-io/conan/pull/14326>`_
+- Fix: Use ``abspath`` for ``conan config install`` to avoid symlinks issues. `#14183 <https://github.com/conan-io/conan/pull/14183>`_
+- Bugfix: Solve ``build_id()`` issues, when multiple different ``package_ids`` reusing same build-folder. `#14555 <https://github.com/conan-io/conan/pull/14555>`_
+- Bugfix: Avoid DB errors when timestamp is not provided to :command:`conan download` when using package lists. `#14526 <https://github.com/conan-io/conan/pull/14526>`_
+- Bugfix: Print exception stacktrace (when `-vtrace` is set) into stderr instead of stdout `#14522 <https://github.com/conan-io/conan/pull/14522>`_
+- Bugfix: Print only packages confirmed interactively in :command:`conan upload`. `#14512 <https://github.com/conan-io/conan/pull/14512>`_
+- Bugfix: 'conan remove' was outputting all entries in the cache matching the filter not just the once which where confirmed by the user. `#14478 <https://github.com/conan-io/conan/pull/14478>`_
+- Bugfix: Better error when passing `--channel` without `--user`. `#14443 <https://github.com/conan-io/conan/pull/14443>`_
+- Bugfix: Fix ``settings_target`` computation for ``tool_requires`` of packages already in the "build" context. `#14441 <https://github.com/conan-io/conan/pull/14441>`_
+- Bugfix: Avoid ``DB is locked`` error when ``core.download:parallel`` is defined. `#14410 <https://github.com/conan-io/conan/pull/14410>`_
+- Bugfix: Make generated powershell environment scripts relative when using deployers. `#14391 <https://github.com/conan-io/conan/pull/14391>`_
+- Bugfix: fix profile [tool_requires] using revisions that were ignored. `#14337 <https://github.com/conan-io/conan/pull/14337>`_
+
 2.0.9 (19-Jul-2023)
 -------------------
 
