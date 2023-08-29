@@ -1,7 +1,7 @@
 .. _integrations_makefile:
 
 |gnu_make_logo| Makefile
-=========================
+========================
 
 Conan provides different tools to help manage your projects using Make. They can be
 imported from ``conan.tools.gnu``. Besides the most popular variant, GNU Make, Conan also
