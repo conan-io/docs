@@ -135,6 +135,17 @@ Use the pattern for searching only references matching a specific channel:
         hello/2.3.2@mycompany/stable
         hello/1.0.4@mycompany/stable
 
+Use the ``...@`` pattern for searching only references that don't have *user* and *channel*:
+
+.. code-block:: text
+    :caption: *list references without user and channel*
+
+    $ conan list "*/*@"
+    Local Cache
+      string-view-lite
+        string-view-lite/1.6.0
+      zlib
+        zlib/1.2.11
 
 Listing recipe revisions
 ------------------------
