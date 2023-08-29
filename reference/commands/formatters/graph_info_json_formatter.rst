@@ -108,18 +108,18 @@ for instance:
                     "dependencies": {
                         "1": {
                             "ref": "zlib/1.2.11",
-                            "run": "False",
-                            "libs": "True",
-                            "skip": "False",
-                            "test": "False",
-                            "force": "False",
-                            "direct": "True",
-                            "build": "False",
-                            "transitive_headers": "None",
-                            "transitive_libs": "None",
-                            "headers": "True",
-                            "package_id_mode": "None",
-                            "visible": "True"
+                            "run": false,
+                            "libs": true,
+                            "skip": false,
+                            "test": false,
+                            "force": false,
+                            "direct": true,
+                            "build": false,
+                            "transitive_headers": null,
+                            "transitive_libs": null,
+                            "headers": true,
+                            "package_id_mode": null,
+                            "visible": true
                         }
                     },
                     "context": "host",

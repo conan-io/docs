@@ -8,7 +8,7 @@ conan inspect
 .. code-block:: text
 
     $ conan inspect -h
-    usage: conan inspect [-h] [-f FORMAT] [-v [V]] [-r REMOTE] [-l LOCKFILE]
+    usage: conan inspect [-h] [-v [V]] [-f FORMAT] [-r REMOTE] [-nr] [-l LOCKFILE]
                          [--lockfile-partial]
                          path
 
@@ -17,17 +17,18 @@ conan inspect
     positional arguments:
       path                  Path to a folder containing a recipe (conanfile.py)
 
-    optional arguments:
+    options:
       -h, --help            show this help message and exit
-      -f FORMAT, --format FORMAT
-                            Select the output format: json
       -v [V]                Level of detail of the output. Valid options from less
                             verbose to more verbose: -vquiet, -verror, -vwarning,
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
                             -vvv or -vtrace
+      -f FORMAT, --format FORMAT
+                            Select the output format: json
       -r REMOTE, --remote REMOTE
                             Remote names. Accepts wildcards ('*' means all the
                             remotes available)
+      -nr, --no-remote      Do not use remote, resolve exclusively in the cache
       -l LOCKFILE, --lockfile LOCKFILE
                             Path to a lockfile. Use --lockfile="" to avoid
                             automatic use of existing 'conan.lock' file

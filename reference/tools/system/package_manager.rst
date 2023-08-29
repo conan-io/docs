@@ -36,11 +36,12 @@ all the calls except for the ``Apt()`` one and will only try to install the pack
 * *Apt* for **Linux** with distribution names: *ubuntu*, *debian* or *raspbian*
 * *Yum* for **Linux** with distribution names: *pidora*, *scientific*, *xenserver*, *amazon*, *oracle*, *amzn*, *almalinux* or *rocky*
 * *Dnf* for **Linux** with distribution names: *fedora*, *rhel*, *centos*, *mageia*
+* *Apk* for **Linux** with distribution names: *alpine*
 * *Brew* for **macOS**
 * *PacMan* for **Linux** with distribution names: *arch*, *manjaro* and when using **Windows** with *msys2*
 * *Chocolatey* for **Windows**
 * *Zypper* for **Linux** with distribution names: *opensuse*, *sles*
-* *Pkg* for **Linux** with distribution names: *freebsd*
+* *Pkg* for **FreeBSD**
 * *PkgUtil* for **Solaris**
 
 You can override this default mapping and set the package manager tool you want to use by
@@ -48,7 +49,7 @@ default setting the configuration property `tools.system.package_manager:tool`.
 
 .. _conan_tools_system_package_manager_methods:
 
-Methods available for system package manager tools 
+Methods available for system package manager tools
 --------------------------------------------------
 
 All these wrappers share three methods that represent the most common operations with a
@@ -85,8 +86,8 @@ As explained above there are several ``[conf]`` that
 affect how these tools are invoked:
 
 * ``tools.system.package_manager:tool``: to choose which package manager tool you want to
-  use by default: ``"apt-get"``, ``"yum"``, ``"dnf"``, ``"brew"``, ``"pacman"``,
-  ``"choco"``, ``"zypper"``, ``"pkg"`` or ``"pkgutil"``
+  use by default: ``"apk"``, ``"apt-get"``, ``"yum"``, ``"dnf"``, ``"brew"``,
+  ``"pacman"``, ``"choco"``, ``"zypper"``, ``"pkg"`` or ``"pkgutil"``
 
 * ``tools.system.package_manager:mode``: mode to use when invoking the package manager
   tool. There are two possible values:
@@ -113,6 +114,27 @@ affect how these tools are invoked:
 
 
 There are some specific arguments for each of these tools. Here is the complete reference:
+
+.. _conan_tools_system_package_manager_apk:
+
+conan.tools.system.package_manager.Apk
+---------------------------------------
+
+Will invoke the *apk* command. Enabled by default for **Linux** with distribution names:
+*alpine*.
+
+Reference
++++++++++
+
+.. currentmodule:: conan.tools.system.package_manager
+
+.. autoclass:: Apk
+    :members:
+    :inherited-members:
+
+
+Alpine Linux does not support multiple architectures in the same repository, so there is
+no mapping from Conan architectures to Alpine architectures.
 
 .. _conan_tools_system_package_manager_apt:
 

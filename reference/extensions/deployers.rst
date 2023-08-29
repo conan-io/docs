@@ -56,6 +56,14 @@ This deployer will output your dependencies in a tree folder such as:
   See :ref:`the Conan stability<stability>` section for more information.
 
 
+configuration
+^^^^^^^^^^^^^
+
+Both the ``full_deploy`` and the ``direct_deploy`` understand when the conf ``tools.deployer:symlinks`` is set to ``False``
+to disable deployers copying symlinks. This can be convenient in systems that do not support symlinks and could fail
+if deploying packages that contain symlinks.
+
+
 Custom deployers
 ----------------
 
