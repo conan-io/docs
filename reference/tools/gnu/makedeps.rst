@@ -7,7 +7,7 @@ MakeDeps
 
 .. _MakeDeps:
 
-The ``MakeDeps`` is the dependencies generator for make. Generates a makefile file named ``conandeps.mk``
+``MakeDeps`` is the dependencies generator for make. It generates a Makefile file named ``conandeps.mk``
 containing a valid make file syntax with all dependencies listed, including their components.
 
 This generator can be used by name in conanfiles:
