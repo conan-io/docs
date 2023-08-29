@@ -73,7 +73,7 @@ Flags
 
 By default, the ``conandeps.mk`` will contain all dependencies listed, including theirs ``cpp_info`` information, but will not pass any flags to the compiler.
 
-Thus, the consumer should pass the follow flags to the compiler:
+Thus, the consumer should pass the following flags to the compiler:
 
 - **CONAN_LIB_FLAG**: Add a prefix to all libs variables, e.g. ``-l``
 - **CONAN_DEFINE_FLAG**: Add a prefix to all defines variables, e.g. ``-D``
