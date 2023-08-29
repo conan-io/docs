@@ -40,8 +40,8 @@ Conan will be able to extract the credentials from this file automatically when 
     using the 
 
 The priority of credentials origins is as follows:
-- If the ``credentials.json`` file exist, it has higher priority, if an entry for the remote exists, it will be used. If it doesn'take
-  work, it will be an error.
+- If the ``credentials.json`` file exist, it has higher priority, if an entry for the remote exists, it will be used. If it doesn't
+work, it will be an error.
 - If an entry in the ``credentials.json`` for that remote does not exist, it will look for defined environment variables
 - If environment variables don't exist, it will request interactively the credentials. If ``core:non_interactive=True``, it will error.
 
