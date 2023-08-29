@@ -121,10 +121,10 @@ For example, in the ``configure()`` method a typical pattern for a C library wou
 options
 -------
 
-Dictionary with traits that affects only the current recipe, where the key is the
-option name and the value is a list of different values that the option can take.
-By default any value change in an option, changes the ``package_id``. Check the
-``default_options`` field to define default values for the options.
+Dictionary with traits that affects only the current recipe, where the key is the option
+name and the value is a list of different values that the option can take. By default any
+value change in an option, changes the ``package_id``. Check the ``default_options`` and
+``default_build_options`` fields to define default values for the options.
 
 Values for each option can be typed or plain strings (``"value"``, ``True``, ``42``,...).
 
@@ -234,6 +234,24 @@ Take into account that if a value is assigned in the ``configure()`` method it c
 .. seealso::
 
     Read more about the <MISSING PAGE>method_configure_config_options method.
+
+default_build_options
+---------------------
+
+The attribute ``default_build_options`` defines the default values for the options in the
+build context and is tipically used for defining options for ``tool_requires``.
+
+
+.. code-block:: python
+
+    from conan import ConanFile
+    class Consumer(ConanFile):
+        default_options = {"protobuf/*:shared": True}
+        default_build_options = {"protobuf/*:shared": False}
+        def requirements(self):
+            self.requires("protobuf/1.0")
+        def build_requirements(self):
+            self.build_requires("protobuf/1.0")
 
 
 options_description

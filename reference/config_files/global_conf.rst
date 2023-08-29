@@ -92,16 +92,20 @@ To list all the possible configurations available, run :command:`conan config li
     tools.cmake.cmaketoolchain:toolset_arch: Toolset architecture to be used as part of CMAKE_GENERATOR_TOOLSET in CMakeToolchain
     tools.cmake.cmaketoolchain:user_toolchain: Inject existing user toolchains at the beginning of conan_toolchain.cmake
     tools.cmake:cmake_program: Path to CMake executable
+    tools.cmake:install_strip: Add --strip to cmake.instal()
     tools.compilation:verbosity: Verbosity of compilation tools if set. Possible values are 'quiet' and 'verbose'
+    tools.deployer:symlinks: Set to False to disable deployers copying symlinks
     tools.env.virtualenv:powershell: If it is set to True it will generate powershell launchers if os=Windows
     tools.files.download:retry: Number of retries in case of failure when downloading
     tools.files.download:retry_wait: Seconds to wait between download attempts
+    tools.files.download:verify: If set, overrides recipes on whether to perform SSL verification for their downloaded files. Only recommended to be set while testing
     tools.gnu:define_libcxx11_abi: Force definition of GLIBCXX_USE_CXX11_ABI=1 for libstdc++11
     tools.gnu:host_triplet: Custom host triplet to pass to Autotools scripts
     tools.gnu:make_program: Indicate path to make program
     tools.gnu:pkg_config: Path to pkg-config executable used by PkgConfig build helper
     tools.google.bazel:bazelrc_path: Defines Bazel rc-path
     tools.google.bazel:configs: Define Bazel config file
+    tools.graph:skip_binaries: Allow the graph to skip binaries not needed in the current configuration (True by default)
     tools.info.package_id:confs: List of existing configuration to be part of the package ID
     tools.intel:installation_path: Defines the Intel oneAPI installation root path
     tools.intel:setvars_args: Custom arguments to be passed onto the setvars.sh|bat script from Intel oneAPI
@@ -118,7 +122,7 @@ To list all the possible configurations available, run :command:`conan config li
     tools.system.package_manager:mode: Mode for package_manager tools: 'check', 'report', 'report-installed' or 'install'
     tools.system.package_manager:sudo: Use 'sudo' when invoking the package manager tools in Linux (False by default)
     tools.system.package_manager:sudo_askpass: Use the '-A' argument if using sudo in Linux to invoke the system package manager (False by default)
-    tools.system.package_manager:tool: Default package manager tool: 'apt-get', 'yum', 'dnf', 'brew', 'pacman', 'choco', 'zypper', 'pkg' or 'pkgutil'
+    tools.system.package_manager:tool: Default package manager tool: 'apk', 'apt-get', 'yum', 'dnf', 'brew', 'pacman', 'choco', 'zypper', 'pkg' or 'pkgutil'
 
 
 User/Tools configurations
@@ -283,6 +287,12 @@ For instance:
 .. seealso::
 
     * :ref:`Managing configuration in your recipes (self.conf_info) <conan_conanfile_model_conf_info>`
+
+
+* ``tools.files.download:verify``: Setting ``tools.files.download:verify=False`` constitutes a security risk if enabled,
+  as it disables certificate validation. Do not use it unless you understand the implications
+  (And even then, properly scoping the conf to only the required recipes is a good idea)
+  or if you are using it for development purposes
 
 
 UX confs
