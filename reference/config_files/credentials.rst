@@ -35,7 +35,7 @@ Conan will be able to extract the credentials from this file automatically when 
 .. note::
 
     Conan does not pre-emptively use the credentials to force a login automatically in every remote defined at every Conan command.
-    By default Conan uses the previously stored tokens or anonymous usage, until a explicit ``conan remote login`` command is done, 
+    By default Conan uses the previously stored tokens or anonymous usage, until an explicit ``conan remote login`` command is done, 
     or until a remote server launches an authentication error. When that happens, authentication against that server will be done,
     using the ``credentials.json`` file, the environment variables or the user interactive inputs.
 
