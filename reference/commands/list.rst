@@ -135,7 +135,7 @@ Use the pattern for searching only references matching a specific channel:
         hello/2.3.2@mycompany/stable
         hello/1.0.4@mycompany/stable
 
-Use the ``...@`` pattern for searching only references that don't have _user_ and _channel_:
+Use the ``...@`` pattern for searching only references that don't have *user* and *channel*:
 
 .. code-block:: text
     :caption: *list references without user and channel*
