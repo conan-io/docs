@@ -115,6 +115,17 @@ revision, as the ``conanfile.py`` changed:
     
     Any change in source code or in recipe should always imply a new revision.
 
+.. warning::
+
+    **Line Endings Issue**
+
+    Git, by default, will checkout files on Windows systems using ``CRLF`` line endings.
+    This results in different files compared to Linux systems where files will use ``LF``
+    line endings. Since the files are different, the Conan recipe revision computed on
+    Windows will differ from the revisions on other platforms like Linux. Please, check
+    more about this issue and how to solve it in the :ref:`FAQ dedicated section<faq_different_revisions>`. 
+
+
 
 Using revisions
 ---------------
