@@ -8,7 +8,7 @@ conan inspect
 .. code-block:: text
 
     $ conan inspect -h
-    usage: conan inspect [-h] [-v [V]] [-f FORMAT] [-r REMOTE | -nr] [-l LOCKFILE]
+    usage: conan inspect [-h] [-v [V]] [-f FORMAT] [-r REMOTE] [-nr] [-l LOCKFILE]
                          [--lockfile-partial]
                          path
 
