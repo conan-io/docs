@@ -16,7 +16,7 @@ Conan can be extended in a few ways, with custom user code:
   extensions that can be used to complement recipes
   with orthogonal functionality, like quality checks, binary analyzing, logging, etc.
 - Binary compatibility ``compatibility.py`` extension allows to write custom rules for
-  defining custom binary compatibility accross different settings and options
+  defining custom binary compatibility across different settings and options
 - The ``cmd_wrapper.py`` extension allows to inject arbitrary command wrappers to any
   ``self.run()`` recipe command invocation, which can be useful to inject wrappers as
   parallelization tools

@@ -4,7 +4,7 @@
 system_requirements()
 =====================
 
-The ``system_requirements()`` method can be used to call the system package managers to install packages at the system level. In general, this should be reduced to a minimum, system packages are not modeleded dependencies, but it can be sometimes convenient to automate the installation of some system packages that are necessary for some Conan packages. For example, when creating a recipe to package the ``opencv`` library, we could realize that it needs in Linux the ``gtk`` libraries, but it might be undesired to create a package for them, because we want to make sure we use the system ones. We code
+The ``system_requirements()`` method can be used to call the system package managers to install packages at the system level. In general, this should be reduced to a minimum, system packages are not modeled dependencies, but it can be sometimes convenient to automate the installation of some system packages that are necessary for some Conan packages. For example, when creating a recipe to package the ``opencv`` library, we could realize that it needs in Linux the ``gtk`` libraries, but it might be undesired to create a package for them, because we want to make sure we use the system ones. We code
 
 
 .. code-block:: python

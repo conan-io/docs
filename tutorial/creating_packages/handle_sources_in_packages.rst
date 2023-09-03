@@ -192,7 +192,7 @@ default branch using the same folder for cloning the sources instead of a subfol
 
 .. warning::
 
-    As above, this is only a simple example. The source origine for ``Git()`` also has to be immutable, it is necessary to checkout out an immutable tag or a specific commit to guarantee the correct behavior. Using the HEAD of the repository is not allowed and can cause undefined behavior and breakages.
+    As above, this is only a simple example. The source origin for ``Git()`` also has to be immutable, it is necessary to checkout out an immutable tag or a specific commit to guarantee the correct behavior. Using the HEAD of the repository is not allowed and can cause undefined behavior and breakages.
 
 To checkout a commit or tag in the repository we use the ``checkout()``
 method of the Git tool:

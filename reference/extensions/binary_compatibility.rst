@@ -4,7 +4,7 @@ Binary compatibility
 --------------------
 
 This plugin, located in the cache ``extensions/plugins/compatibility/compatibility.py`` allows defining custom
-rules for the binary compatibility of packages accross settings and options.
+rules for the binary compatibility of packages across settings and options.
 It has some built-in logic implemented, but can be customized.
 
 

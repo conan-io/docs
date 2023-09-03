@@ -129,7 +129,7 @@ instead:
 .. warning::
 
     In Windows, there is a limit to the size of environment variables, a total of 32K for the whole environment,
-    but spcifically the PATH variable has a limit of 2048 characters. That means that the above utils could hit
+    but specifically the PATH variable has a limit of 2048 characters. That means that the above utils could hit
     that limit, for example for large dependency graphs where all packages contribute to the PATH env-var.
 
     This can be mitigated by:

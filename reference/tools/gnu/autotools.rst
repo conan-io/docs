@@ -80,7 +80,7 @@ pointing to a folder that does not exist in your current machine so you would ge
 errors when building. 
 
 
-How to adress this problem in Conan
+How to address this problem in Conan
 +++++++++++++++++++++++++++++++++++
 
 The only thing Conan can do to make these shared libraries relocatable is to patch the
