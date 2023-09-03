@@ -81,7 +81,7 @@ errors when building.
 
 
 How to address this problem in Conan
-+++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++
 
 The only thing Conan can do to make these shared libraries relocatable is to patch the
 built binaries after installation. To do this, when using the ``Autotools`` build helper
