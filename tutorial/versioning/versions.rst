@@ -203,7 +203,7 @@ Likewise, it is possible to obtain the version from a Git tag:
     - We could try to use something like the branch name or the commit as the version number. However this might
       have some disadvantages, for example, when this package is being required, it will need a explicit
       ``requires = "pkg/commit"`` in every other package recipe requiring this one, and it might be difficult to
-      update consumers consistenly, and to know if a newer or older dependency is being used.
+      update consumers consistently, and to know if a newer or older dependency is being used.
 
 
 Requiring the new versions

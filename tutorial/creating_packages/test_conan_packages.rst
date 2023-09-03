@@ -27,7 +27,7 @@ Some important notes to have in mind about the *test_package*:
   code including build scripts, that depends on the package being created, and builds and
   execute a small application that requires the library in the package.
 
-* It doesn’t belong to the package. It only exist in the source repository, not in the
+* It doesn't belong to the package. It only exist in the source repository, not in the
   package.
 
 The *test_package* folder for our hello/1.0 Conan package has the following contents:

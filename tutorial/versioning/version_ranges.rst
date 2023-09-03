@@ -47,7 +47,7 @@ Then, if we create a new version of ``pkg/1.1``, it will not automatically be us
     Requirements
         pkg/1.0
 
-So we could modify ``app`` conanfile to explictly use the new ``pkg/1.1`` version, but instead of that,
+So we could modify ``app`` conanfile to explicitly use the new ``pkg/1.1`` version, but instead of that,
 let's use the following version-range expression (introduced by the ``[expression]`` brackets):
 
 .. code-block:: python

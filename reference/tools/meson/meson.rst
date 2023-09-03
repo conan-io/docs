@@ -44,4 +44,4 @@ The ``Meson`` build helper is affected by these ``[conf]`` variables:
 
 - ``tools.compilation:verbosity`` which accepts one of ``quiet`` or ``verbose`` and sets the ``--verbose`` flag in ``Meson.build()``
 
-- ``tools.build:verbosity`` which accepts one of ``quiet`` or ``verbose`` and sets the ``--quiet`` flagh in ``Meson.install()``
+- ``tools.build:verbosity`` which accepts one of ``quiet`` or ``verbose`` and sets the ``--quiet`` flag in ``Meson.install()``

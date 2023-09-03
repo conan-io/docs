@@ -239,7 +239,7 @@ default_build_options
 ---------------------
 
 The attribute ``default_build_options`` defines the default values for the options in the
-build context and is tipically used for defining options for ``tool_requires``.
+build context and is typically used for defining options for ``tool_requires``.
 
 
 .. code-block:: python

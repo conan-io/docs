@@ -379,7 +379,7 @@ Example:
         cmake.install()
 
     def package_info(self):
-        self.cpp_info.set_property("cmake_find_mode", "none") # Do NOT generate anyfiles
+        self.cpp_info.set_property("cmake_find_mode", "none") # Do NOT generate any files
         self.cpp_info.builddirs.append(os.path.join("lib", "cmake", "foo"))
 
 

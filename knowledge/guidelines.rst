@@ -53,7 +53,7 @@ Forbidden practices
   executed as a result of a Conan invocation. For the same reason **Conan Python API cannot be used from recipes**: The Conan Python API can only be called from Conan custom commands or from user Python scripts, 
   but never from ``conanfile.py`` recipes, hooks, extensions, plugins, or any other code
   executed by Conan.
-- **Settings and configration (conf) are read-only in recipes**: The settings and configuration cannot be defined or assigned values in recipes. Something like ``self.settings.compiler = "gcc"`` in recipes shouldn't be done. That is undefined behavior and can crash at any time, or just be ignored. Settings and configuration can only be defined in profiles, in command line arguments or in the ``profile.py`` plugin.
+- **Settings and configuration (conf) are read-only in recipes**: The settings and configuration cannot be defined or assigned values in recipes. Something like ``self.settings.compiler = "gcc"`` in recipes shouldn't be done. That is undefined behavior and can crash at any time, or just be ignored. Settings and configuration can only be defined in profiles, in command line arguments or in the ``profile.py`` plugin.
 - **Recipes reserved names**: Conan ``conanfile.py`` recipes user attributes and methods should always start with ``_``.
   Conan reserves the "public" namespace for all attributes and methods, and ``_conan`` for
   private ones. Using any non-documented Python function, method, class, attribute, even if

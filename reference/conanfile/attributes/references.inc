@@ -27,7 +27,7 @@ this package through version ranges instead of exact versions.
 The version is only strictly necessary for ``export``-ing the recipe into the local cache (``export``, ``export-pkg`` 
 and ``create`` commands), if they are not defined in the command line with ``--version=<pkgversion>``
 
-The ``version`` can be dynamically defined in the command line, and also programmaticaly in the recipe with the
+The ``version`` can be dynamically defined in the command line, and also programmatically in the recipe with the
 :ref:`set_version() method<reference_conanfile_methods_set_version>`.
 
 

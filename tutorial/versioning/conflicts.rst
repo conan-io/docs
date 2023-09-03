@@ -170,7 +170,7 @@ Now lets modify ``game/conanfile.py`` to introduce this as a direct dependency:
 
 |
 
-So intalling it will raise a conflict error again:
+So installing it will raise a conflict error again:
 
 .. code-block:: bash
 

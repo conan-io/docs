@@ -305,7 +305,7 @@ There are few important things that should be taken into account when using ``py
   all consumers. Do not use any global state in the ``python_requires`` recipes.
 - Python requires are private to the consumers. They are not transitive. Different consumers
   can require different versions of the same ``python-require``. Being private, they cannot
-  be overriden from downstream in any way.
+  be overridden from downstream in any way.
 - ``python_requires`` cannot use regular ``requires`` or ``tool_requires``.
 - ``python_requires`` cannot be "aliased".
 - ``python_requires`` can use native python ``import`` to other python files, as long as these are

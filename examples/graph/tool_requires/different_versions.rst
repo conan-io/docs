@@ -102,7 +102,7 @@ so it is not an issue, and each one will be found inside its package.
 
 But if the executable file was exactly the same like ``gcc.exe``, then it would be necessary to obtain the full folder
 (typically in the ``generate()`` method) with something like ``self.dependencies.build["gcc/1.0"].cpp_info.bindir`` and
-use the full path to dissambiguate.
+use the full path to disambiguate.
 
 
 Let's see it working. If we execute:

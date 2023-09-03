@@ -107,7 +107,7 @@ the generated binaries package IDs.
 .. code-block:: bash
     :emphasize-lines: 6,19,29,42
     
-    $ conan create . --build=missing -s build_type=Release -tf=None # -tf=None will skip buildiing the test_package
+    $ conan create . --build=missing -s build_type=Release -tf=None # -tf=None will skip building the test_package
     ...
     [ 50%] Building CXX object CMakeFiles/hello.dir/src/hello.cpp.o
     [100%] Linking CXX static library libhello.a

@@ -138,5 +138,5 @@ option:
             xcode.generate()
 
 This will manage to generate new *.xcconfig* files for this custom configuration, and when you switch
-to this configuration in the IDE, the build system will take the correct values depending wether we
+to this configuration in the IDE, the build system will take the correct values depending whether we
 want to link with shared or static libraries.

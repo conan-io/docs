@@ -43,7 +43,7 @@ Read more:
 
 New custom user commands
 ------------------------
-Conan 2.0 allows extending Conan with custom user commands, written in python that can be called as ``conan xxxx``. These commands can be shared and installed with ``conan config install``, and have layers of commands and subcommands. The custom user comands use the new 2.0 public Python API to implement their functionality.
+Conan 2.0 allows extending Conan with custom user commands, written in python that can be called as ``conan xxxx``. These commands can be shared and installed with ``conan config install``, and have layers of commands and subcommands. The custom user commands use the new 2.0 public Python API to implement their functionality.
 
 
 New CLI

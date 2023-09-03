@@ -119,4 +119,4 @@ The ``conan build`` command installs the recipe specified in ``path`` and calls 
 
 .. seealso::
 
-    - Read the tutorial about the :ref:`local package developement flow <local_package_development_flow>`.
+    - Read the tutorial about the :ref:`local package development flow <local_package_development_flow>`.

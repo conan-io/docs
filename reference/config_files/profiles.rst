@@ -155,7 +155,7 @@ You can also show the profile's content per context:
 .. seealso::
 
     - Manage your profiles and share them using :ref:`reference_commands_conan_config_install`.
-    - Check the command and its sub-comands of :ref:`conan profile <reference_commands_profile>`.
+    - Check the command and its sub-commands of :ref:`conan profile <reference_commands_profile>`.
 
 
 Profile sections

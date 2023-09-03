@@ -333,4 +333,4 @@ Read more about lockfiles in :ref:`tutorial_consuming_packages_versioning_lockfi
 
 .. seealso::
 
-    - Read the tutorial about the :ref:`local package developement flow <local_package_development_flow>`.
+    - Read the tutorial about the :ref:`local package development flow <local_package_development_flow>`.
