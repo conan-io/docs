@@ -23,6 +23,7 @@ Methods
    methods/package_id
    methods/package_info
    methods/requirements
+   methods/run
    methods/set_name
    methods/set_version
    methods/source
@@ -47,6 +48,7 @@ Methods
 - :doc:`package_id() <methods/package_id>`: Defines special logic for computing the binary ``package_id`` identifier
 - :doc:`package_info() <methods/package_info>`: Provide information for consumers of this package about libraries, folders, etc.
 - :doc:`requirements() <methods/requirements>`: Define the dependencies of the package
+- :doc:`run() <methods/run>`: Run commands from the recipe
 - :doc:`set_name() <methods/set_name>`: Dynamically define the name of a package
 - :doc:`set_version() <methods/set_version>`: Dynamically define the version of a package.
 - :doc:`source() <methods/source>`: Contains the commands to obtain the source code used to build
