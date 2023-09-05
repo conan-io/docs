@@ -70,7 +70,7 @@ The upgrade shouldn't affect the installed packages or cache information. If the
 Install with pipx
 -----------------
 
-In certain scenarios, attempting to install with pip may yield the following error:
+In certain scenarios, attempting to install with `pip` may yield the following error:
 
 .. code-block:: bash
 
