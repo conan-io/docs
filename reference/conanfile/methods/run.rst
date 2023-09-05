@@ -17,5 +17,3 @@ so that command errors do not pass unnoticed. It is a wrapper for ``subprocess.P
 
 * ``command`` should be specified as a string which is passed to the system shell.
 * When the argument ``quiet`` is set to true the invocation of ``self.run()`` will print the command to be executed.
-
-
