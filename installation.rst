@@ -67,6 +67,48 @@ If installed via ``pip``, Conan version can be updated with:
 The upgrade shouldn't affect the installed packages or cache information. If the cache becomes inconsistent somehow, you may want to remove its content by deleting it (``<userhome>/.conan2``).
 
 
+Install with pipx
+-----------------
+
+In certain scenarios, attempting to install with pip may yield the following error:
+
+.. code-block:: bash
+
+    error: externally-managed-environment
+
+    × This environment is externally managed
+    ╰─> To install Python packages system-wide, try apt install
+        python3-xyz, where xyz is the package you are trying to
+        install.
+    ...
+
+This arises because some contemporary Linux distributions have begun designating their
+Python installations as "externally managed". This signifies that the system's package
+manager oversees the management of Python packages. Installing packages either globally or
+within the user space might disrupt system operations and potentially compromise system
+tools (for a more comprehensive understanding, refer to
+[PEP-668](https://peps.python.org/pep-0668/)).
+
+In such instances, it's advisable to utilize `pipx` for installing Conan. `pipx`
+establishes a virtual environment for every Python application, ensuring there's no
+conflict between dependencies. The benefit lies in its ability to isolate Conan and its
+dependencies from the system Python, preventing potential clashes with system packages and
+offering a pristine environment for Conan's operation.
+
+To install Conan with `pipx`:
+
+1. Ensure `pipx` is installed on your system. If it isn't, check the installation guidelines
+   [in the pipx documentation](https://pypa.github.io/pipx/installation/).
+
+2. Proceed to install Conan using `pipx`: 
+
+.. code-block:: bash
+
+      $ pipx install conan
+
+3. Now you can use Conan as you typically would.
+
+
 Use a system installer or create a self-contained executable
 ------------------------------------------------------------
 
