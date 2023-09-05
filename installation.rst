@@ -82,18 +82,18 @@ In certain scenarios, attempting to install with `pip` may yield the following e
         install.
     ...
 
-This arises because some contemporary Linux distributions have begun designating their
-Python installations as "externally managed". This signifies that the system's package
-manager oversees the management of Python packages. Installing packages either globally or
-within the user space might disrupt system operations and potentially compromise system
-tools (for a more comprehensive understanding, refer to
-[PEP-668](https://peps.python.org/pep-0668/)).
 
-In such instances, it's advisable to utilize `pipx` for installing Conan. `pipx`
-establishes a virtual environment for every Python application, ensuring there's no
-conflict between dependencies. The benefit lies in its ability to isolate Conan and its
-dependencies from the system Python, preventing potential clashes with system packages and
-offering a pristine environment for Conan's operation.
+This is because some modern Linux distributions have started marking their Python
+installations as "externally managed", which means that the system's package manager is
+responsible for managing Python packages. Installing packages globally or even in the user
+space can interfere with system operations and potentially break system tools (check
+[PEP-668](https://peps.python.org/pep-0668/) for more detailed information).
+
+For those cases it's recommended to use `pipx` to install Conan. `pipx` creates a virtual
+environment for each Python application, ensuring that dependencies do not conflict. The
+advantage is that it isolates Conan and its dependencies from the system Python and avoids
+potential conflicts with system packages while providing a clean environment for Conan to
+run.
 
 To install Conan with `pipx`:
 
