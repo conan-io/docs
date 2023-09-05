@@ -70,7 +70,7 @@ The upgrade shouldn't affect the installed packages or cache information. If the
 Install with pipx
 -----------------
 
-In certain scenarios, attempting to install with `pip` may yield the following error:
+In certain scenarios, attempting to install with ``pip`` may yield the following error:
 
 .. code-block:: bash
 
@@ -82,29 +82,36 @@ In certain scenarios, attempting to install with `pip` may yield the following e
         install.
     ...
 
-
 This is because some modern Linux distributions have started marking their Python
 installations as "externally managed", which means that the system's package manager is
 responsible for managing Python packages. Installing packages globally or even in the user
 space can interfere with system operations and potentially break system tools (check
-[PEP-668](https://peps.python.org/pep-0668/) for more detailed information).
+`PEP-668 <https://peps.python.org/pep-0668/>`_ for more detailed information).
 
-For those cases it's recommended to use `pipx` to install Conan. `pipx` creates a virtual
+For those cases, it's recommended to use ``pipx`` to install Conan. ``pipx`` creates a virtual
 environment for each Python application, ensuring that dependencies do not conflict. The
 advantage is that it isolates Conan and its dependencies from the system Python and avoids
 potential conflicts with system packages while providing a clean environment for Conan to
 run.
 
-To install Conan with `pipx`:
+To install Conan with ``pipx``:
 
-1. Ensure `pipx` is installed on your system. If it isn't, check the installation guidelines
-   [in the pipx documentation](https://pypa.github.io/pipx/installation/).
-
-2. Proceed to install Conan using `pipx`: 
+1. Ensure ``pipx`` is installed on your system. If it isn't, check the installation
+   guidelines `in the pipx documentation <https://pypa.github.io/pipx/installation/>`_. For
+   Debian-based distributions, you can install ``pipx`` using the system package manager:
 
 .. code-block:: bash
 
-      $ pipx install conan
+    $ apt-get install pipx
+    $ pipx ensurepath
+
+(Note: The package name might vary depending on the distribution)
+
+2. Restart your terminal and then install Conan using ``pipx``: 
+
+.. code-block:: bash
+
+    $ pipx install conan
 
 3. Now you can use Conan as you typically would.
 
