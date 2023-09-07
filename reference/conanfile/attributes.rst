@@ -76,7 +76,7 @@ The profile entries have priority.
 Output
 ------
 
-.. _conanfile_output:
+.. _conanfile_output_attribute:
 
 Output contents
 ---------------
@@ -92,6 +92,7 @@ Use the `self.output` to print contents to the output.
    self.output.title("This is a title, will take a few lines for visibility")
 
 Additional output methods are available and you can produce different outputs with different colors.
+See :ref:`the output documentation<reference_conanfile_output>` for the list of available output methods.
 
 
 .. _revision_mode_attribute:
