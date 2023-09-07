@@ -4,7 +4,7 @@ Build a project using Makefile with Conan MakeDeps
 ==================================================
 
 In this example, we are going to create a simple logger application that uses one of the most popular C++ libraries:
-`spdlog <https://github.com/gabime/spdlog/>`_  and `fmt <https://fmt.dev/latest/index.html/>`_.
+`spdlog <https://github.com/gabime/spdlog/>`_.
 
 We'll use `Make <https://www.gnu.org/software/make/>`_ as build system, so you should get it installed
 on Linux and Mac before going forward with this example.
@@ -44,7 +44,7 @@ Let's have a look at the *main.cpp* file, it only prints a quote said by Corin, 
         return EXIT_SUCCESS;
     }
 
-The *Makefile* specifies that ``logger`` is the expected executable and that it should be linked to the ``spdlog`` and ``fmt`` libraries.
+The *Makefile* specifies that ``logger`` is the expected executable and that it should be linked to the ``spdlog`` library.
 To simplify the usage, we use global variables to store the paths, flags and libraries.
 
 .. code-block:: make
@@ -82,7 +82,7 @@ The *conanfile.txt* looks simple as it just installs the **spdlog** package and 
 In this case, we will use :ref:`MakeDeps<conan_tools_gnu_makedeps>` to generate information about where the **spdlog** library
 files are installed thanks to the `makedeps.mk` file and using a `conanbuild[.sh|.bat]` file that describes the compilation environment.
 
-We will use Conan to install **spdlog** library, generate a dependency file for Makefile, for find **spdlog** and **fmt** by make.
+We will use Conan to install **spdlog** library, generate a dependency file for Makefile, for find **spdlog** by make.
 
 
 Building on Linux and macOS
@@ -144,7 +144,7 @@ Now we run the ``make`` command, which will consume the ``Makefile``.
 
     make
 
-The ``make`` command will read the ``Makefile`` and first, include ``conandeps.mk``, loading all variables that we need to find **spdlog** and **fmt**.
+The ``make`` command will read the ``Makefile`` and first, include ``conandeps.mk``, loading all variables that we need to find **spdlog**.
 Then, it will append the ``CXXFLAGS``, ``CPPFLAGS``, ``LDFLAGS``, ``LDLIBS`` and ``EXELINKFLAGS`` variables with the information provided by ``conandeps.mk``.
 Finally, it will invoke the compiler, then, build the ``main.cpp``, generating the executable ``logger`` in the same folder.
 
