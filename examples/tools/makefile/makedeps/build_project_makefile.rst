@@ -44,8 +44,9 @@ Let's have a look at the *main.cpp* file, it only prints a quote said by Corin, 
         return EXIT_SUCCESS;
     }
 
-The *Makefile* specifies that ``logger`` is the expected executable and that it should be linked to the ``spdlog`` library.
-To simplify the usage, we use global variables to store the paths, flags and libraries.
+The *Makefile* specifies that ``logger`` is the expected executable and that it should be linked to ``CONAN_LIBS``.
+To simplify the usage, we use global variables to store the paths, flags and libraries. However, all dependencies are listed
+in the ``conandeps.mk`` as individual variables, so you can use them as you need.
 
 .. code-block:: make
     :caption: **Makefile**
