@@ -44,7 +44,7 @@ Configuring the plugin
 
 Open a CMake project or create a new one in CLion. Then, go to the “Conan” tool tab at the
 bottom of the IDE. The only enabled action in the toolbar of the plugin will be the one
-with the ⚙️ (wheel) symbol. Click on it.
+with the "wheel" (configuration) symbol. Click on it.
 
 |clion_configuration_1|
 
@@ -76,7 +76,7 @@ CMake output. This warning indicates that we haven't added a `find_package()` to
 `find_package()` calls to the *CMakeLists.txt* file. 
 
 After the initial configuration, you'll notice that the list of libraries is enabled. The
-🔄 (update) and 👁️ (inspect) symbols are also active. We'll explain these in detail
+"update" and "inspect" buttons are also active. We'll explain these in detail
 later.
 
 Using the plugin
@@ -90,7 +90,7 @@ button. Select the version you want and click the button.
 
 |clion_use_libcurl|
 
-If you click on the 👁️ (inspect) icon, you'll see all the libraries added to the project
+If you click on the "eye" (inspect) icon, you'll see all the libraries added to the project
 (assuming you added more than one). This view includes basic target information for CMake
 and the necessary code snippets to integrate them into CMake. 
 
