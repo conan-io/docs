@@ -14,9 +14,9 @@ The ``self.output`` attribute has the following methods to express the level of 
 
    trace(msg)
    debug(msg)
-   verbose(msg, forgeground, background)
-   status(msg, foreground, backgorund)
-   info(msg, foreground, background)
+   verbose(msg)
+   status(msg)
+   info(msg)
    highlight(msg)
    success(msg)
    warning(msg)
@@ -31,6 +31,8 @@ The ``self.output`` attribute has the following methods to express the level of 
 These output functions will only output if the verbosity level with which Conan was launched is the same or higher than the message,
 so running with ``-vwarning` will output calls to ``warning()`` and ``error()``, but not ``info()``
 Additionally, the title()``, ``subtitle()``, ``highlight()`` and ``success()`` methods have a ``-vnotice`` verbosity level.
+
+Note that these methods return the output object again, so that you can chain output calls if needed.
 
 
 .. _reference_conanfile_run:
