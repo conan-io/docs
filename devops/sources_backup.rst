@@ -51,6 +51,10 @@ In summary, it looks something like:
      that will contain information about which references and which mirrors this blob belongs to.
 - Calling ``conan upload`` will now optionally upload the backups for the matching references if ``core.sources:upload_url`` is set.
 
+.. note::
+
+   Developers can also set this up in a similar way if needed, specially the ``core.sources:download_urls`` conf
+
 
 Creating the backup repository
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
