@@ -27,7 +27,7 @@ We start with a very simple C++ language project with the following structure:
     └── src
         └── main.cpp
 
-This project contains a basic `Makefile <https://www.gnu.org/software/make/manual/make.html#Introduction>_` including the **spdlog** variable dependency and the
+This project contains a basic `Makefile <https://www.gnu.org/software/make/manual/make.html#Introduction>`_ including the **spdlog** variable dependency and the
 source code for the logger program in *main.cpp*.
 
 Let's have a look at the *main.cpp* file, it only prints a quote said by Corin, but uses ``spdlog::info`` method for it.
