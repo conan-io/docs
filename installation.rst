@@ -76,8 +76,8 @@ In certain scenarios, attempting to install with ``pip`` may yield the following
 
     error: externally-managed-environment
 
-    × This environment is externally managed
-    ╰─> To install Python packages system-wide, try apt install
+    x This environment is externally managed
+        To install Python packages system-wide, try apt install
         python3-xyz, where xyz is the package you are trying to
         install.
     ...
