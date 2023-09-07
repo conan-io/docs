@@ -22,15 +22,11 @@ The ``self.output`` attribute has the following methods to express the level of 
    warning(msg)
    error(msg)
 
-   title(msg)
-   subtitle(msg)
-
-   flush()
 
 
 These output functions will only output if the verbosity level with which Conan was launched is the same or higher than the message,
 so running with ``-vwarning` will output calls to ``warning()`` and ``error()``, but not ``info()``
-Additionally, the title()``, ``subtitle()``, ``highlight()`` and ``success()`` methods have a ``-vnotice`` verbosity level.
+(Additionally, the ``highlight()`` and ``success()`` methods have a ``-vnotice`` verbosity level)
 
 Note that these methods return the output object again, so that you can chain output calls if needed.
 
