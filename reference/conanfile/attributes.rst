@@ -89,7 +89,7 @@ Use the `self.output` to print contents to the output.
    self.output.info("This is neutral, should be white")
    self.output.warning("This is a warning, should be yellow")
    self.output.error("Error, should be red")
-   self.output.rewrite_line("for progress bars, issues a cr")
+   self.output.title("This is a title, will take a few lines for visibility")
 
 Additional output methods are available and you can produce different outputs with different colors.
 
