@@ -15,6 +15,7 @@ Xcode.
    :maxdepth: 2
 
    integrations/cmake
+   integrations/clion
    integrations/visual_studio
    integrations/autotools
    integrations/makefile
@@ -25,7 +26,7 @@ Xcode.
 
 .. warning::
 
-    Even though there's a plugin for Visual Studio IDE and another for CLion, it's not
-    recommended to use them right now because they're not updated for the 2.0 version yet.
-    However, we intend to resume working on these plugins and enhance their functionality
-    once Conan 2.0 is released.
+    Even though there is a plugin for the Visual Studio IDE, it is not recommended to use
+    it right now because it has not been updated for the 2.0 version yet. However, we
+    intend to resume working on this plugin and enhance its functionality soon after Conan 2.0
+    is released.
