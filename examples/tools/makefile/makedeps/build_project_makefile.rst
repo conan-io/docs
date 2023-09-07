@@ -144,7 +144,7 @@ Now we run the ``make`` command, which will consume the ``Makefile``.
 
     make
 
-The ``make`` command will read the ``Makefile`` and first, include ``conandeps.mk``, loading all variables that we need to find **spdlog**.
+The ``make`` command will read the ``Makefile`` and first, include ``conandeps.mk``, loading all variables that we need to find **spdlog** and its dependencies.
 Then, it will append the ``CXXFLAGS``, ``CPPFLAGS``, ``LDFLAGS``, ``LDLIBS`` and ``EXELINKFLAGS`` variables with the information provided by ``conandeps.mk``.
 Finally, it will invoke the compiler, then, build the ``main.cpp``, generating the executable ``logger`` in the same folder.
 
