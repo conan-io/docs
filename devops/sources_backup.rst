@@ -1,9 +1,18 @@
 .. _conan_backup_sources:
 
-Backup sources
-==============
+Backing up third-party sources with Conan
+=========================================
 
-The *backup sources* feature is intended for storing the downloaded recipe sources in a secondary location,
+For recipes and build scripts for open source, publicly available libraries,
+it is common practice to download the sources from a canonical source, like Github releases, or project download web pages.
+Keeping a record of the origin of these files is useful for traceability purposes.
+However, it is often not guaranteed that the files will be available in the long term,
+and a user in the future building the same recipe from source may encounter a problem.
+Conan can thus can be configured to transparently retrieve sources from a configured mirror,
+without modifying the recipes or `conandata.yml`.
+Additionally, these sources can be transparently uploaded alongside via ``conan upload``.
+
+The *backup sources* feature is intended for storing the downloaded recipe sources in a file server in our own infrastructure,
 allowing future reproducibility of your builds even in the case where the original download URLs are no longer accessible.
 
 The backup is triggered for the :ref:`download<conan_tools_files_get>` and :ref:`get<conan_tools_files_get>` methods
@@ -37,7 +46,7 @@ Let's overview how the feature works by providing an example on configuring and 
 
 In summary, it looks something like:
 
-- A remote backup repository is set up. This should allow ``POST`` and ``GET`` HTTP methods to modify and fetch its contents.
+- A remote backup repository is set up. This should allow ``PUT`` and ``GET`` HTTP methods to modify and fetch its contents.
   An Artifactory generic repository (available in the free Artifactory CE) can be used for this purpose.
   If access credentials are desired (which is strongly recommended for writing), you can use the :ref:`source_credentials.json<reference_config_files_source_credentials>` feature.
 - Its URL can then be set in ``core.sources:download_urls`` and ``core.sources:upload_url``.
@@ -58,37 +67,38 @@ In summary, it looks something like:
 
 Creating the backup repository
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+We'll want to create a generic Artifactory remote.
+Read :ref:`Creating a public read Artifactory repo<devops_artifactory_new_anonymous_repo>`
+for instructions on how to create it and give it public read permissions.
 
-Let's create the backup repository with Artifactory CE. From the UI, create a generic repo to store the files, we'll imaginatively call it "source-backups".
-<IMAGE>
+We'll also want to create a separate "backup uploader" user that has manage permissions on our remote, so it's able to write to the repository.
+Once the user has the necessary permissions, we'll want to create an access token for the new user too.
 
-Next, we want to allow anonymous read access for our backups
-(We'll touch on the :ref:`source_credentials.json<reference_config_files_source_credentials>` feature for restricting upload access,
-if you also want restricted read access, follow those same steps for reading). Create a new user, we'll call it "backup reader",
-and from the "Access" tab, give it read permissions to our "source-backups" repo.
 <IMAGE>
-**CHECK, anonymous read is done the other way around!**
-
-As for uploading permissions, we'll do the same now. Create a new user, this time "backup uploader", and give it "Manage" permisisons.
-<IMAGE>
-We can now create an access token for our "backup uploader" user and store it. This token needs to go into the `source_credentials.json` file
-of our machine/CI worker.
-<IMAGE>
-
 
 Setting up the necessary configs
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The CI machine's :ref:`global.conf<reference_config_files_global_conf>` file should contain the
 ``core.sources:download_urls`` and ``core.sources:upload_url`` items, and the `source_credentials.json` file
-should also contain the access token we generated in the previous step.
-<IMAGE>
+should also contain the access token we generated in the previous step to allow uploading to the repository.
 
-There are a few strategies possible in the ``download_urls`` conf depending on your use-case:
+.. code-block:: text
+   :caption: global.conf
 
-* Origin first: ``["origin", "https://your.backup/remote/"]`` to look into and fetch from your backup remote only if and when the original source is not present.
-* Remote first: ``["https://your.backup/remote/", "origin"]`` to prefer your remote ahead of the recipes.
-  This is useful for example in CI if you are billed more per outbound connection than staying on your own network if the remote is set up there.
+   core.sources:download_urls=["<my_artifactory_url>/backup-sources", "origin"]
+   core.sources:upload_url="<my_artifactory_url>/backup-sources"
+
+
+.. code-block:: json
+   :caption: source_credentials.json
+
+   {
+      "credentials": [
+
+      ]
+   }
+
 
 .. note::
 
@@ -96,24 +106,37 @@ There are a few strategies possible in the ``download_urls`` conf depending on y
    to install the configs using the ``conan config install`` command on a repository. Read more here **MISSING LINK**
 
 
-As explained above, you can also set ``core.sources:download_cache`` if a custom location for the generated backups is desired,
-else the default cache folder will be used.
-
-
 Run Conan as normal
 ~~~~~~~~~~~~~~~~~~~
 
-With the above steps completed, Conan can now be used as normal, and for every downloaded sources,
+With the above steps completed, Conan can now be used as normal, and for every downloaded source,
 a copy will be stored locally as explained in the Usage section above.
 
-<IMAGES> **maybe? SHow that conan outputs some messages saying that it's used the backup**
+.. code-block:: text
+   :caption: The client will now print information regarding from which remote it was capable of downloading the sources
+
+   $ conan create . --version=1.3
+
+   ...
+
+   ======== Installing packages ========
+   zlib/1.3: Calling source() in /Users/ruben/.conan2/p/zlib0f4e45286ecd1/s/src
+   zlib/1.3: Sources for ['https://zlib.net/fossils/zlib-1.3.tar.gz', 'https://github.com/madler/zlib/releases/download/v1.3/zlib-1.3.tar.gz'] found in remote backup https://c3i.jfrog.io/artifactory/conan-center-backup-sources/
+
+   -------- Installing package zlib/1.3 (1 of 1) --------
+
+   ...
+
+
+If we now again try to run this, we'll find that no download is performed and the locally stored version of the files is used.
+
 
 
 Upload the packages
 ~~~~~~~~~~~~~~~~~~~
 
 Once a package has been created as shown above, when the CI now uploads the resulting binary to your Conan repository
-with the usual ``conan upload zlib/1.2.13 -c``, it will now also upload the source backups for that same reference to our backups remote.
+with the usual ``conan upload zlib/1.3 -c``, it will now also upload the source backups for that same reference to your backups remote.
 
 <IMAGE>
 
