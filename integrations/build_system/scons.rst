@@ -5,8 +5,8 @@ ____________________
 
 .. warning::
 
-    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
-    to find the feature that replaced this one.
+    This is a **deprecated** feature. Please check the new :ref:`SConsDeps<conan_tools_sconsdeps>`
+    tool that will be compatible with Conan 2.X.
 
 SCons can be used both to generate and consume Conan packages via the :ref:`scons_generator`
 generator. The package recipe ``build()`` method could be similar to:
