@@ -1,13 +1,16 @@
 .. _conan_tools_sconsdeps:
 
-SConsDeps
-=========
+conan.tools.scons
+=================
 
 .. important::
 
    Some of the features used in this section are still **under development**. While they
    are recommended and usable, and we will try not to break them in future releases, some
    breaking changes might still occur.
+
+SConsDeps
+---------
 
 Available since: `1.61.0 <https://github.com/conan-io/conan/releases>`_
 
