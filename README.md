@@ -33,10 +33,10 @@ Target Branches
 
 There are different branches in this repository, each one targeting a specific Conan version:
 
-* **master**: It should be used to fix some documentation issue or add some missing documentation for feature already available in Conan 1.x.
-* **develop**: It should be used for new features or hotfix to be incorporated in the next Conan 1.x version.
-* **release/2.0**: It should be used to fix some documentation issue or add some missing documentation for feature already available in Conan 2.x.
-* **develop/2.0**: It should be used for new features or hotfix to be incorporated in the next Conan 2.x version.
+* **master**: It should be used to fix some documentation issue or add some missing documentation for features already available in Conan 1.x.
+* **develop**: It should be used for new features or hotfixes to be incorporated in the next Conan 1.x version.
+* **release/2.0**: It should be used to fix some documentation issue or add some missing documentation for features already available in Conan 2.x.
+* **develop/2.0**: It should be used for new features or hotfixes to be incorporated in the next Conan 2.x version.
 
 Style Guidelines
 ----------------

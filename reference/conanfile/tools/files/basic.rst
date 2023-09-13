@@ -358,6 +358,39 @@ Example:
         def source(self):
             data = self.conan_data["sources"]["mydata"]
 
+conan.tools.files.trim_conandata()
+----------------------------------
+
+Available since: `1.61.0 <https://github.com/conan-io/conan/releases/tag/1.61.0>`_
+
+.. code-block:: python
+
+    def trim_conandata(conanfile)
+
+
+This function modifies the ``conandata.yml`` inside the exported folder in the conan
+cache, if it exists, and keeps only the information related to the currently built
+version.
+
+This helper can only be used within the ``export()`` method, it raises an exception otherwise. One
+application is to ensure changes in the ``conandata.yml`` file related to some versions do
+not affect the generated recipe revisions of the rest.
+
+Usage:
+
+.. code-block:: python
+
+    from conan import ConanFile
+    from conan.tools.files import trim_conandata
+
+    class Pkg(ConanFile):
+        name = "pkg"
+
+        def export(self):
+            # any change to other versions in the conandata.yml
+            # won't affect the revision of the version that is built
+            trim_conandata(self)
+
 
 conan.tools.files.collect_libs()
 --------------------------------

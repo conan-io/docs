@@ -5,8 +5,8 @@ scons
 
 .. warning::
 
-    This is a **deprecated** feature. Please refer to the :ref:`Migration Guidelines<conan2_migration_guide>`
-    to find the feature that replaced this one.
+    This is a **deprecated** feature. Please check the new :ref:`SConsDeps<conan_tools_sconsdeps>`
+    tool that will be compatible with Conan 2.X.
 
 Conan provides :ref:`integration with SCons <scons>` with this generator.
 
