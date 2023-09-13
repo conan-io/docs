@@ -97,18 +97,18 @@ Let's explain a little bit about this recipe:
     have the option of creating the package as a shared or static library, being static the default.
 
 - The ``exports_sources`` attribute defines which sources are exported together with the recipe, these
-  sources become part of the package recipe (there are other mechanisms that don't do this, will be explained
-  later.
+  sources become part of the package recipe (there are other mechanisms that don't do this, which will be explained
+  later).
 
-- The ``config_options()`` method (together with ``configure()`` one) allows to fine tune the binary configuration
-  model, for example, in Windows there is no ``fPIC`` option, so it can be removed.
+- The ``config_options()`` method (together with ``configure()``) allows to fine tune the binary configuration
+  model. For example, in Windows there is no ``fPIC`` option, so it can be removed.
 
 - The ``generate()`` method prepares the build of the package from source. In this case, it could be simplified
   to an attribute ``generators = "CMakeToolchain"``, but it is left to show this important method. In this case,
   the execution of ``CMakeToolchain`` ``generate()`` method will create a *conan_toolchain.cmake* file that maps
   the Conan ``settings`` and ``options`` to CMake syntax.
 
-- The ``build()`` method uses the ``CMake`` wrapper to call CMake commands, it is a thin layer that will manage
+- The ``build()`` method uses the ``CMake`` wrapper to call CMake commands. It is a thin layer that will manage
   to pass in this case the ``-DCMAKE_TOOLCHAIN_FILE=<path>/conan_toolchain.cmake`` argument, plus other possible arguments, 
   like ``-DCMAKE_BUILD_TYPE=<config>`` if necessary. It will configure the project and build it from source. The actual
   arguments that will be used are obtained from a generated ``CMakePresets.json`` file.

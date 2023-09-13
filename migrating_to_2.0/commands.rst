@@ -46,7 +46,7 @@ Remember that in Conan 1.X you have to specify the build profile or activate the
 In addition the ``--install-folder`` has been replaced with ``--output-folder``. You might need to provide both arguments in Conan 1.X as some legacy generated files (``conaninfo.txt``, ``conanbuildinfo.txt``, etc) are not affected by ``--output-folder``.
 
 
-conan install
+conan build
 ^^^^^^^^^^^^^
 
 In addition the ``--build-folder`` has been replaced with ``--output-folder``. Still in most cases you shouldn't be using it, but relying on the defined `layout()` in the recipe.
