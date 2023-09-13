@@ -23,6 +23,8 @@ The ``SConsDeps`` generator can be used by name in conanfiles:
 .. code-block:: python
    :caption: conanfile.py
 
+   from conan import ConanFile
+ 
    class Pkg(ConanFile):
        generators = "SConsDeps"
 
