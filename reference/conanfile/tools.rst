@@ -57,3 +57,4 @@ Contents:
    tools/scm
    tools/build
    tools/android
+   tools/scons
