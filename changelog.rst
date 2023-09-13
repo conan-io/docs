@@ -22,7 +22,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
 1.61.0 (13-Sept-2023)
---------------------
+---------------------
 
 - Feature: Add SConsDeps generator. `#14713 <https://github.com/conan-io/conan/pull/14713>`_ . Docs `here <https://github.com/conan-io/docs/pull/3371>`__
 - Feature: Add support fox Xcode 15. `#14533 <https://github.com/conan-io/conan/pull/14533>`_
