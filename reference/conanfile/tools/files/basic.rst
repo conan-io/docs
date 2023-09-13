@@ -372,7 +372,7 @@ This function modifies the ``conandata.yml`` inside the exported folder in the c
 cache, if it exists, and keeps only the information related to the currently built
 version.
 
-This helper can only be used within the ``export()`` method, it can raise otherwise. One
+This helper can only be used within the ``export()`` method, it raises an exception otherwise. One
 application is to ensure changes in the ``conandata.yml`` file related to some versions do
 not affect the generated recipe revisions of the rest.
 
