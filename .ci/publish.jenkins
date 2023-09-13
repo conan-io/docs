@@ -83,7 +83,7 @@ try {
                     sh "git commit -m \"Automatic deploy (build number ${BUILD_NUMBER})\""
                     withCredentials([usernamePassword(credentialsId: 'conanci-gh-token', usernameVariable: 'GH_USER', passwordVariable: 'GH_PASS')]) {
                         sh "git remote add origin-pages https://$GH_USER:$GH_PASS@github.com/conan-io/docs.git"
-                        sh 'git push origin-pages gh-pages'
+                        sh 'git push --quiet --force origin-pages gh-pages'
                     }
                 }
             }

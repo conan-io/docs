@@ -18,8 +18,21 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-    Conan 1.60 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
+    Conan 1.61 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
     a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
+
+1.61.0 (13-Sept-2023)
+---------------------
+
+- Feature: Add SConsDeps generator. `#14713 <https://github.com/conan-io/conan/pull/14713>`_ . Docs `here <https://github.com/conan-io/docs/pull/3371>`__
+- Feature: Add support fox Xcode 15. `#14533 <https://github.com/conan-io/conan/pull/14533>`_
+- Feature: New ``trim_conandata()`` function to make things explicit, not depend on hook. `#14169 <https://github.com/conan-io/conan/pull/14169>`_ . Docs `here <https://github.com/conan-io/docs/pull/3373>`__
+- Feature: Add new ``tools.cmake:install_strip`` conf to add ``--strip`` option to cmake install. `#14167 <https://github.com/conan-io/conan/pull/14167>`_ . Docs `here <https://github.com/conan-io/docs/pull/3281>`__
+- Feature:  Allow users to cross-build out of the box with Visual Studio recipes based on MesonToolchain. `#13141 <https://github.com/conan-io/conan/pull/13141>`_
+- Fix: Increase warning for legacy generators. `#14662 <https://github.com/conan-io/conan/pull/14662>`_
+- Fix: Allow Pyyaml 6.0.X versions to avoid cython 3.0 issues. `#14323 <https://github.com/conan-io/conan/pull/14323>`_
+- Fix: Change the xcconfig variable from `HEADER_SEARCH_PATHS` to `SYSTEM_HEADER_SEARCH_PATHS` changes the command line from `-i` to `-isystem` and avoids warnings that arise from including package headers. `#14157 <https://github.com/conan-io/conan/pull/14157>`_ . Docs `here <https://github.com/conan-io/docs/pull/3372>`__
+- Bugfix: Consider revision for build_requires in cli arguments. `#14679 <https://github.com/conan-io/conan/pull/14679>`_
 
 1.60.2 (26-Jul-2023)
 --------------------
