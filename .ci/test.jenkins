@@ -3,7 +3,7 @@
 node('Linux') {
     String masterBranch = 'master'
     String branch = env.BRANCH_NAME
-    boolean publishDocs = (branch == masterBranch) || (branch.startsWith("release/"))
+    boolean publishDocs = (branch == masterBranch)
 
     stage('Clone sources') {
         checkout scm
