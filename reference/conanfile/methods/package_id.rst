@@ -153,7 +153,7 @@ The ``conf`` items do not affect the ``package_id`` by default. It is possible t
 
 Although this can be achieved for all recipes without the ``package_id()`` method, using the ``tools.info.package_id:confs = ["user.myconf:myitem"]`` configuration.
 
-**Note on Regex Patterns in Configuration:** 
+**Using regex patterns:** 
 You can use regex patterns in the `tools.info.package_id:confs`. This means that instead
 of specifying each individual configuration item, you can use a regex pattern to match
 multiple configurations. This is particularly useful when dealing with a large number of
