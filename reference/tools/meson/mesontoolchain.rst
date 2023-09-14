@@ -151,7 +151,6 @@ The ``wrap_mode: nofallback`` is defined by default as a project option, to make
 
 Note that in this case, Meson might be able to find dependencies in "wraps", it is the responsibility of the user to check the behavior and make sure about the dependencies origin.
 
-
 preprocessor_definitions
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -194,7 +193,44 @@ conf
   * ``cpp``: will set ``cpp`` in ``[binaries]`` section from *conan_meson_xxxx.ini*.
   * ``objc``: will set ``objc`` in ``[binaries]`` section from *conan_meson_xxxx.ini*.
   * ``objcpp``: will set ``objcpp`` in ``[binaries]`` section from *conan_meson_xxxx.ini*.
-  
+
+
+Conan options as Meson values
+-----------------------------
+Assigning directly a Conan option as a Meson value is totally discouraged. For instance:
+
+.. code:: python
+
+    options = {{"shared": [True, False], "fPIC": [True, False], "with_msg": ["ANY"]}}
+    default_options = {{"shared": False, "fPIC": True, "with_msg": "Hi everyone!"}}
+
+    # ...
+
+    def generate(self):
+        tc = MesonToolchain(self)
+        tc.project_options["DYNAMIC"] = self.options.shared  # == <PackageOption object>
+        tc.project_options["GREETINGS"] = self.options.with_msg  # == <PackageOption object>
+        tc.generate()
+
+These are not boolean/string values. They are an internal Conan class to represent such option values, and you should
+get a warning in your console while executing the `generate()` function like ``WARN: deprecated: Please, do not use a Conan option value directly.``.
+In a nutshell, this is a bad practice because you could get unexpected errors when building your project.
+Before the assignment, we should always transform all those Conan options as valid Python data types:
+
+
+.. code:: python
+
+    options = {{"shared": [True, False], "fPIC": [True, False], "with_msg": ["ANY"]}}
+    default_options = {{"shared": False, "fPIC": True, "with_msg": "Hi everyone!"}}
+
+    # ...
+
+    def generate(self):
+        tc = MesonToolchain(self)
+        tc.project_options["DYNAMIC"] = bool(self.options.shared)  # bool object
+        tc.project_options["GREETINGS"] = str(self.options.with_msg)  # str object
+        tc.generate()
+
 
 Cross-building for Apple and Android
 -------------------------------------
