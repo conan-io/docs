@@ -57,7 +57,7 @@ system package manager. They take the same form for all of the package managers 
 *Apt* that also accepts the *recommends* argument for the :ref:`install
 method<conan_tools_system_package_manager_apt>`.
 
-* ``install(self, packages, update=False, check=False):`` try to install
+* ``install(self, packages, update=False, check=True):`` try to install
   the list of packages passed as a parameter. If the parameter ``check`` is ``True`` it
   will check if those packages are already installed before installing them. If the
   parameter ``update`` is ``True`` it will try to update the package manager database
