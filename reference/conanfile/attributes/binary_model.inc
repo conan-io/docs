@@ -287,7 +287,7 @@ info
 
 Object used exclusively in ``package_id()`` method:
 
-- The <MISSING PAGE> ``package_id(self)`` method to control the unique ID for a package:
+- The `:ref:package_id method<reference_conanfile_methods_package_id>` to control the unique ID for a package:
 
      .. code-block:: python
 
