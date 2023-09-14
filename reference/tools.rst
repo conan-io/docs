@@ -37,5 +37,6 @@ Contents:
    tools/scm
    tools/layout
    tools/intel
+   tools/scons
    tools/android
    tools/cpp_info
