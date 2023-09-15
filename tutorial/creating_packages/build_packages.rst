@@ -167,7 +167,7 @@ Now that we have gone through all the changes in the code, let's try them out:
 .. code-block:: bash
     :emphasize-lines: 6-23
 
-    $ conan create . --build=missing -tf=None
+    $ conan create . --build=missing -tf=""
     ...
     [ 25%] Building CXX object CMakeFiles/hello.dir/src/hello.cpp.o
     [ 50%] Linking CXX static library libhello.a
@@ -197,7 +197,7 @@ configuration in the command line to skip the test building and running:
 
 .. code-block:: bash
 
-    $ conan create . -c tools.build:skip_test=True -tf=None
+    $ conan create . -c tools.build:skip_test=True -tf="""
     ...
     [ 50%] Building CXX object CMakeFiles/hello.dir/src/hello.cpp.o
     [100%] Linking CXX static library libhello.a
