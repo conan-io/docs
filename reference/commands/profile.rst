@@ -245,6 +245,48 @@ Check the evaluated profile:
     [conf]
     ...
 
+
+The command can also output a json witht the results:
+
+.. code-block:: text
+
+    $ conan profile show --format=json
+    
+    {
+    "host": {
+        "settings": {
+            "arch": "armv8",
+            "build_type": "Release",
+            "compiler": "apple-clang",
+            "compiler.cppstd": "gnu17",
+            "compiler.libcxx": "libc++",
+            "compiler.version": "15",
+            "os": "Macos"
+        },
+        "package_settings": {},
+        "options": {},
+        "tool_requires": {},
+        "conf": {},
+        "build_env": ""
+    },
+    "build": {
+        "settings": {
+            "arch": "armv8",
+            "build_type": "Release",
+            "compiler": "apple-clang",
+            "compiler.cppstd": "gnu17",
+            "compiler.libcxx": "libc++",
+            "compiler.version": "15",
+            "os": "Macos"
+        },
+        "package_settings": {},
+        "options": {},
+        "tool_requires": {},
+        "conf": {},
+        "build_env": ""
+    }
+    }
+
 .. seealso::
 
     - Read more about :ref:`profiles<reference_config_files_profiles>`
