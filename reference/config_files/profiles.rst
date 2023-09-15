@@ -571,12 +571,12 @@ Some of the capabilities of the profile templates are:
     the recommended approach for all scenarios. This API is internal to Conan and is only
     exposed for profile and *global.conf* rendering. It's advised to use it judiciously.
 
-Conan also injects the ``detect_api`` to the jinja rendering context. With it, it's
-possible to use Conan's auto-detection capabilities directly within profile Jinja
+Conan also injects ``detect_api`` to the jinja rendering context. With it, it's
+possible to use Conan's auto-detection capabilities directly within Jinja profile
 templates. This provides a way to dynamically determine certain settings based on the
 environment.
 
-The ``detect_api`` can be invoked within the Jinja template of a profile. For instance, to
+``detect_api`` can be invoked within the Jinja template of a profile. For instance, to
 detect the operating system and architecture, you can use:
 
 .. code-block:: jinja
