@@ -557,6 +557,8 @@ Some of the capabilities of the profile templates are:
   would be useful to define custom per-package settings or options for multiple packages
   in a large dependency graph.
 
+.. _reference_config_files_profiles_detect_api:
+
 **Profile Rendering with ``detect_api``**
 
 .. warning::
