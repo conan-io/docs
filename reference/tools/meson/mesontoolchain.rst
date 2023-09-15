@@ -198,22 +198,21 @@ conf
 Using Proper Data Types for Conan Options in Meson
 --------------------------------------------------
 
-Please, always transform Conan options into valid Python data types before assigning them
-as Meson values. Here's the correct way to do it:
+Always transform Conan options into valid Python data types before assigning them as Meson
+values:
 
 .. code:: python
 
     options = {{"shared": [True, False], "fPIC": [True, False], "with_msg": ["ANY"]}}
     default_options = {{"shared": False, "fPIC": True, "with_msg": "Hi everyone!"}}
-    # ...
+
     def generate(self):
-        tc = MesonToolchain(self)
-        tc.project_options["DYNAMIC"] = bool(self.options.shared)  # bool object
-        tc.project_options["GREETINGS"] = str(self.options.with_msg)  # str object
+        tc = MesonToolchain(self) 
+        tc.project_options["DYNAMIC"] = bool(self.options.shared)  # shared is bool
+        tc.project_options["GREETINGS"] = str(self.options.with_msg)  # with_msg is str 
         tc.generate()
 
-On the contrary, directly assigning a Conan option as a Meson value is strongly
-discouraged:
+In contrast, directly assigning a Conan option as a Meson value is strongly discouraged:
 
 .. code:: python
 
@@ -226,11 +225,11 @@ discouraged:
         tc.project_options["GREETINGS"] = self.options.with_msg  # == <PackageOption object>
         tc.generate()
 
-These aren't boolean or string values but an internal Conan class representing such option
-values. If you set this values directly, When executing the `generate()` function, you
-should receive a warning in your console like ``WARN: deprecated: Please, do not use a
-Conan option value directly.``. This approach is considered bad practice as it can lead to
-unexpected errors during your project's build process.
+These are not boolean or string values but an internal Conan class representing such
+option values. If you assign these values directly, upon executing the `generate()`
+function, you should receive a warning in your console stating, ``WARN: deprecated:
+Please, do not use a Conan option value directly.`` This method is considered bad practice
+as it can result in unexpected errors during your project's build process.
 
 
 Cross-building for Apple and Android
