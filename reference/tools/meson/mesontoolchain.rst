@@ -195,41 +195,42 @@ conf
   * ``objcpp``: will set ``objcpp`` in ``[binaries]`` section from *conan_meson_xxxx.ini*.
 
 
-Conan options as Meson values
------------------------------
-Directly assigning a Conan option as a Meson value is strongly discouraged. For example:
+Using Proper Data Types for Conan Options in Meson
+--------------------------------------------------
+
+Please, always transform Conan options into valid Python data types before assigning them
+as Meson values. Here's the correct way to do it:
 
 .. code:: python
 
     options = {{"shared": [True, False], "fPIC": [True, False], "with_msg": ["ANY"]}}
     default_options = {{"shared": False, "fPIC": True, "with_msg": "Hi everyone!"}}
-
     # ...
+    def generate(self):
+        tc = MesonToolchain(self)
+        tc.project_options["DYNAMIC"] = bool(self.options.shared)  # bool object
+        tc.project_options["GREETINGS"] = str(self.options.with_msg)  # str object
+        tc.generate()
 
+On the contrary, directly assigning a Conan option as a Meson value is strongly
+discouraged:
+
+.. code:: python
+
+    options = {{"shared": [True, False], "fPIC": [True, False], "with_msg": ["ANY"]}}
+    default_options = {{"shared": False, "fPIC": True, "with_msg": "Hi everyone!"}}
+    # ...
     def generate(self):
         tc = MesonToolchain(self)
         tc.project_options["DYNAMIC"] = self.options.shared  # == <PackageOption object>
         tc.project_options["GREETINGS"] = self.options.with_msg  # == <PackageOption object>
         tc.generate()
 
-These are not boolean/string values. They are an internal Conan class to represent such option values, and you should
-get a warning in your console while executing the `generate()` function like ``WARN: deprecated: Please, do not use a Conan option value directly.``.
-In a nutshell, this is a bad practice because you could get unexpected errors when building your project.
-Before the assignment, we should always transform all those Conan options as valid Python data types:
-
-
-.. code:: python
-
-    options = {{"shared": [True, False], "fPIC": [True, False], "with_msg": ["ANY"]}}
-    default_options = {{"shared": False, "fPIC": True, "with_msg": "Hi everyone!"}}
-
-    # ...
-
-    def generate(self):
-        tc = MesonToolchain(self)
-        tc.project_options["DYNAMIC"] = bool(self.options.shared)  # bool object
-        tc.project_options["GREETINGS"] = str(self.options.with_msg)  # str object
-        tc.generate()
+These aren't boolean or string values but an internal Conan class representing such option
+values. If you set this values directly, When executing the `generate()` function, you
+should receive a warning in your console like ``WARN: deprecated: Please, do not use a
+Conan option value directly.``. This approach is considered bad practice as it can lead to
+unexpected errors during your project's build process.
 
 
 Cross-building for Apple and Android
