@@ -246,7 +246,7 @@ Check the evaluated profile:
     ...
 
 
-The command can also output a json witht the results:
+The command can also output a json with the results:
 
 .. code-block:: text
 
