@@ -107,7 +107,7 @@ the generated binaries package IDs.
 .. code-block:: bash
     :emphasize-lines: 6,19,29,42
     
-    $ conan create . --build=missing -s build_type=Release -tf=None # -tf=None will skip buildiing the test_package
+    $ conan create . --build=missing -s build_type=Release -tf="" # -tf="" will skip buildiing the test_package
     ...
     [ 50%] Building CXX object CMakeFiles/hello.dir/src/hello.cpp.o
     [100%] Linking CXX static library libhello.a
@@ -130,7 +130,7 @@ the generated binaries package IDs.
     hello/1.0: Full package reference: hello/1.0#e6b11fb0cb64e3777f8d62f4543cd6b3:738feca714b7251063cc51448da0cf4811424e7c#3bd9faedc711cbb4fdf10b295268246e
     hello/1.0: Package folder /Users/user/.conan2/p/5c497cbb5421cbda/p
 
-    $ conan create . --build=missing -s build_type=Debug -tf=None # -tf=None will skip buildiing the test_package
+    $ conan create . --build=missing -s build_type=Debug -tf="" # -tf="" will skip buildiing the test_package
     ...
     [ 50%] Building CXX object CMakeFiles/hello.dir/src/hello.cpp.o
     [100%] Linking CXX static library libhello.a
@@ -197,7 +197,7 @@ package ID will be the same for the **hello/1.0** binary:
 
 .. code-block:: bash
     
-    $ conan conan create . --build=missing -o shared=True -o fPIC=True -tf=None
+    $ conan conan create . --build=missing -o shared=True -o fPIC=True -tf=""
     ...
     hello/1.0 package(): Packaged 1 '.h' file: hello.h
     hello/1.0 package(): Packaged 1 '.dylib' file: libhello.dylib
@@ -206,7 +206,7 @@ package ID will be the same for the **hello/1.0** binary:
     hello/1.0: Full package reference: hello/1.0#e6b11fb0cb64e3777f8d62f4543cd6b3:2a899fd0da3125064bf9328b8db681cd82899d56#f0d1385f4f90ae465341c15740552d7e
     hello/1.0: Package folder /Users/user/.conan2/p/8a55286c6595f662/p
 
-    $ conan conan create . --build=missing -o shared=True -o fPIC=False -tf=None
+    $ conan conan create . --build=missing -o shared=True -o fPIC=False -tf=""
     ...
     -------- Computing dependency graph --------
     Graph root
