@@ -197,7 +197,7 @@ conf
 
 Conan options as Meson values
 -----------------------------
-Assigning directly a Conan option as a Meson value is totally discouraged. For instance:
+Directly assigning a Conan option as a Meson value is strongly discouraged. For example:
 
 .. code:: python
 
