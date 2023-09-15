@@ -171,7 +171,7 @@ and renders the template, which must result in a standard tools-configuration te
      # Using the current OS
      user.myconf.system:name = {{platform.system()}}
 
-Conan also injects ``detect_api`` to the jinja rendering context. You can use it like this:
+Conan also injects ``detect_api`` (non-stable, read the reference) to the jinja rendering context. You can use it like this:
 
   .. code:: jinja
 
