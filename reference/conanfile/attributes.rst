@@ -73,6 +73,27 @@ The profile entries have priority.
           self.output.info("Custom var1: %s" % self.conf.get("user.custom.var1"))
 
 
+Output
+------
+
+.. _conanfile_output_attribute:
+
+Output contents
+---------------
+
+Use the ``self.output`` to print contents to the output.
+
+..  code-block:: python
+
+   self.output.success("This is good, should be green")
+   self.output.info("This is neutral, should be white")
+   self.output.warning("This is a warning, should be yellow")
+   self.output.error("Error, should be red")
+
+Additional output methods are available and you can produce different outputs with different colors.
+See :ref:`the output documentation<reference_conanfile_output>` for the list of available output methods.
+
+
 .. _revision_mode_attribute:
 
 revision_mode
