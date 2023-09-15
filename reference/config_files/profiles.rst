@@ -563,7 +563,7 @@ Some of the capabilities of the profile templates are:
 
 .. warning::
 
-    **Stability Guarantees**: The detect_api, similar to conan profile detect, does not
+    **Stability Guarantees**: The detect_api, similar to ``conan profile detect``, does not
     offer strong stability guarantees.
     
     **Usage Recommendations**: The detect_api is not a regular API meant for creating new
