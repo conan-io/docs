@@ -59,13 +59,13 @@ system package manager. They take the same form for all of the package managers 
 *Apt* that also accepts the *recommends* argument for the :ref:`install
 method<conan_tools_system_package_manager_apt_methods>`.
 
-* ``install(self, packages, update=False, check=False, host_tool=True):`` try to install
+* ``install(self, packages, update=False, check=False, host_package=False):`` try to install
   the list of packages passed as a parameter. If the parameter ``check`` is ``True`` it
   will check if those packages are already installed before installing them. If the
   parameter ``update`` is ``True`` it will try to update the package manager database
-  before checking and installing. If the parameter ``host_tool`` is ``True`` it will install the 
-  packages for the host machine and if the parameter ``host_tool`` is ``False`` and we cross building
-  it will install the package for the target architecture and not for the host architecture.
+  before checking and installing. If the parameter ``host_package`` is ``True`` it will install the 
+  packages for the host machine architecture (the machine that will run the software), it has an effect 
+  when cross building.
   Its behaviour is affected by the value of ``tools.system.package_manager:mode``
   :ref:`configuration<conan_tools_system_package_manager_config>`.
 * ``install_substitutes(packages_substitutes, update=False, check=True)``: try to install
@@ -160,15 +160,15 @@ The default mapping Conan uses for *APT* packages architecture is:
 Methods
 +++++++
 
-* ``install(self, packages, update=False, check=False,  host_tool=True, recommends=False):`` will try to
+* ``install(self, packages, update=False, check=False, host_package=False, recommends=False):`` will try to
   install the list of packages passed as a parameter. If the parameter ``check`` is
   ``True`` it will check if those packages are already installed before installing them.
   If the parameter ``update`` is ``True`` it will try to update the package manager
-  database before checking and installing. If the parameter ``host_tool`` is ``True`` it will install the 
-  packages for the host machine and if the parameter ``host_tool`` is ``False`` and we cross building
-  it will install the package for the target architecture and not for the host architecture.
-  If the parameter ``recommends`` is ``False`` it will add the ``'--no-install-recommends'`` argument to 
-  the *apt-get* command call. Its behaviour is affected by the value of ``tools.system.package_manager:mode``
+  database before checking and installing. If the parameter ``host_package`` is ``True`` it will install the 
+  packages for the host machine architecture (the machine that will run the software), it has an effect 
+  when cross building. If the parameter ``recommends`` is ``False`` it will add the ``'--no-install-recommends'`` 
+  argument to the *apt-get* command call. 
+  Its behaviour is affected by the value of ``tools.system.package_manager:mode``
   :ref:`configuration<conan_tools_system_package_manager_config>`.
 * ``update()`` same behaviour as the one explained in the
   :ref:`section<conan_tools_system_package_manager_methods>` above.
