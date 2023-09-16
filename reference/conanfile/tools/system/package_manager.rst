@@ -59,7 +59,7 @@ system package manager. They take the same form for all of the package managers 
 *Apt* that also accepts the *recommends* argument for the :ref:`install
 method<conan_tools_system_package_manager_apt_methods>`.
 
-* ``install(self, packages, update=False, check=False, host_package=False):`` try to install
+* ``install(self, packages, update=False, check=False, host_package=True):`` try to install
   the list of packages passed as a parameter. If the parameter ``check`` is ``True`` it
   will check if those packages are already installed before installing them. If the
   parameter ``update`` is ``True`` it will try to update the package manager database
@@ -160,7 +160,7 @@ The default mapping Conan uses for *APT* packages architecture is:
 Methods
 +++++++
 
-* ``install(self, packages, update=False, check=False, host_package=False, recommends=False):`` will try to
+* ``install(self, packages, update=False, check=False, host_package=True, recommends=False):`` will try to
   install the list of packages passed as a parameter. If the parameter ``check`` is
   ``True`` it will check if those packages are already installed before installing them.
   If the parameter ``update`` is ``True`` it will try to update the package manager
