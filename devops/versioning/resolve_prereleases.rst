@@ -22,14 +22,14 @@ in which we depend on ``libpng`` and ``libmysqlclient``, both of which depend on
 
 .. graphviz::
 
-    digraph G {
+   digraph G {
+      node [fillcolor="lightskyblue", style=filled, shape=box]
+      "app" -> "libpng/1.6.40"
+      "app" -> "libmysqlclient/8.1.0"
 
-        "app" -> "libpng/1.6.40"
-        "app" -> "libmysqlclient/8.1.0"
-
-        "libpng/1.6.40" -> "zlib/1.2.13" [label="[>1.2 <2]"]
-        "libmysqlclient/8.1.0" -> "zlib/1.2.13" [label="[>1.2 <2]"]
-    }
+      "libpng/1.6.40" -> "zlib/1.2.13" [label="[>1.2 <2]"]
+      "libmysqlclient/8.1.0" -> "zlib/1.2.13" [label="[>1.2 <2]"]
+   }
 
 If ``zlib/1.3-pre`` is now published, using it is as easy as modifying your :ref:`global.conf<reference_config_files_global_conf>`
 file and adding the line ``core.version_ranges:resolve_prereleases=True``, after which,

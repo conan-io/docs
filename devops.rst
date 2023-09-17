@@ -13,4 +13,4 @@ If you plan to use Conan in production in your project, team, or organization, t
    :maxdepth: 1
 
    devops/using_conancenter
-   devops/resolve_prereleases
+   devops/versioning
