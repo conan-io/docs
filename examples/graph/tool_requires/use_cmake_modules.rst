@@ -81,7 +81,7 @@ And a ``CMakeLists.txt`` like:
     myfunction()
 
 
-Then, the consumer will be able to automatically call the ``myfunction()`` from the dependecy module:
+Then, the consumer will be able to automatically call the ``myfunction()`` from the dependency module:
 
 .. code-block:: bash
 
@@ -90,4 +90,3 @@ Then, the consumer will be able to automatically call the ``myfunction()`` from 
     Hello myfunction!!!!
 
 If for some reason the consumer wants to force the usage from the ``tool_requires()`` as a CMake module, the consumer could do ``deps.set_property("myfunctions", "cmake_find_mode", "module", build_context=True)``, and then ``find_package(myfunctions MODULE REQUIRED)`` will work.
-   

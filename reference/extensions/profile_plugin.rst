@@ -10,7 +10,7 @@ This plugin is located in the ``extensions/plugins/profile.py`` cache folder.
 
 This ``profile.py`` contains a default implementation that does:
 
-- Will try to define ``compiler.runtime_type`` for ``msvc`` compiler if it is not defined, and it will define it to match the ``settings.build_type``.
+- Will try to define ``compiler.runtime_type`` for ``msvc`` and ``clang`` compilers (in Windows) if it is not defined, and it will define it to match the ``settings.build_type``.
   That allow users to let it undefined in profiles, and switch it conveniently in command line just with ``-s build_type=Debug``
 - Will check the ``compiler.cppstd`` value if defined to validate if the current compiler version has support for it. For example, if a developer
   tries to use ``-s compiler=gcc -s compiler.version=5 -s compiler.cppstd=20``, it will raise an error.

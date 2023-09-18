@@ -30,7 +30,7 @@ which could look like:
 .. code-block:: python
 
     def cmd_wrapper(cmd, **kwargs):
-        # lets paralellize only CMake invocations
+        # lets parallelize only CMake invocations
         if cmd.startswith("cmake"):
             return 'parallel-build "{}"  --parallel-argument'.format(cmd)
         # otherwise return same command, not modified

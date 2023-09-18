@@ -7,7 +7,9 @@ conan build
 
     $ conan build -h
     usage: conan build [-h] [-v [V]] [--name NAME] [--version VERSION]
-                       [--user USER] [--channel CHANNEL] [-of OUTPUT_FOLDER]
+                       [--user USER] [--channel CHANNEL] [-g GENERATOR]
+                       [-of OUTPUT_FOLDER] [-d DEPLOYER]
+                       [--deployer-folder DEPLOYER_FOLDER] [--build-require]
                        [-b BUILD] [-r REMOTE | -nr] [-u] [-o OPTIONS_HOST]
                        [-o:b OPTIONS_BUILD] [-o:h OPTIONS_HOST] [-pr PROFILE_HOST]
                        [-pr:b PROFILE_BUILD] [-pr:h PROFILE_HOST]
@@ -16,6 +18,7 @@ conan build
                        [-c:h CONF_HOST] [-l LOCKFILE] [--lockfile-partial]
                        [--lockfile-out LOCKFILE_OUT] [--lockfile-packages]
                        [--lockfile-clean]
+                       [--lockfile-overrides LOCKFILE_OVERRIDES]
                        [path]
 
     Install dependencies and call the build() method.
@@ -36,22 +39,31 @@ conan build
                             conanfile
       --user USER           Provide a user if not specified in conanfile
       --channel CHANNEL     Provide a channel if not specified in conanfile
+      -g GENERATOR, --generator GENERATOR
+                            Generators to use
       -of OUTPUT_FOLDER, --output-folder OUTPUT_FOLDER
                             The root output folder for generated and build files
+      -d DEPLOYER, --deployer DEPLOYER
+                            Deploy using the provided deployer to the output
+                            folder
+      --deployer-folder DEPLOYER_FOLDER
+                            Deployer output folder, base build folder by default
+                            if not set
+      --build-require       Whether the provided path is a build-require
       -b BUILD, --build BUILD
                             Optional, specify which packages to build from source.
                             Combining multiple '--build' options on one command
                             line is allowed. Possible values: --build="*" Force
                             build from source for all packages. --build=never
                             Disallow build for all packages, use binary packages
-                            or fail if a binary package is not found. Cannot be
+                            or fail if a binary package is not found, it cannot be
                             combined with other '--build' options. --build=missing
                             Build packages from source whose binary package is not
                             found. --build=cascade Build packages from source that
                             have at least one dependency being built from source.
                             --build=[pattern] Build packages from source whose
                             package reference matches the pattern. The pattern
-                            uses 'fnmatch' style wildcards. --build=![pattern]
+                            uses 'fnmatch' style wildcards. --build=~[pattern]
                             Excluded packages, which will not be built from the
                             source, whose package reference matches the pattern.
                             The pattern uses 'fnmatch' style wildcards.
@@ -113,10 +125,12 @@ conan build
                             Filename of the updated lockfile
       --lockfile-packages   Lock package-id and package-revision information
       --lockfile-clean      Remove unused entries from the lockfile
+      --lockfile-overrides LOCKFILE_OVERRIDES
+                            Overwrite lockfile overrides
 
 
-The ``conan build`` command installs the recipe specified in ``path`` and calls its ``build`` method.
+The ``conan build`` command installs the recipe specified in ``path`` and calls its ``build()`` method.
 
 .. seealso::
 
-    - Read the tutorial about the :ref:`local package developement flow <local_package_development_flow>`.
+    - Read the tutorial about the :ref:`local package development flow <local_package_development_flow>`.

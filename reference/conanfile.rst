@@ -16,7 +16,7 @@ The ``conanfile.py`` is the recipe file of a package, responsible for defining h
 
 .. important::
 
-    *conanfile.py* recipes uses a variety of attributes and methods to operate. In order to avoid
+    *conanfile.py* recipes use a variety of attributes and methods to operate. In order to avoid
     collisions and conflicts, follow these rules:
 
     - Public attributes and methods, like ``build()``, ``self.package_folder``, are reserved for Conan.
@@ -33,3 +33,4 @@ Contents:
 
    conanfile/attributes
    conanfile/methods
+   conanfile/running_and_output

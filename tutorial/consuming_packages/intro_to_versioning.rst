@@ -149,7 +149,7 @@ Lockfiles
 The usage of version ranges, and the possibility of creating new revisions of a given package without bumping the version allows
 to do automatic faster and more convenient updates, without need to edit recipes. 
 
-But in some occassions, there is also a need to provide an immutable and reproducible set of dependencies. This process is known
+But in some occasions, there is also a need to provide an immutable and reproducible set of dependencies. This process is known
 as "locking", and the mechanism to allow it is "lockfile" files. A lockfile is a file that contains a fixed list of dependencies,
 specifying the exact version and exact revision. So, for example, a lockfile will never contain a version range with an expression,
 but only pinned dependencies. 

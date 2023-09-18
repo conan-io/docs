@@ -3,6 +3,35 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2.0 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.0.11 (18-Sept-2023)
+---------------------
+
+- Feature: Add ``--format=json`` formatter to ``conan profile show`` command `#14743 <https://github.com/conan-io/conan/pull/14743>`_ . Docs `here <https://github.com/conan-io/docs/pull/3388>`__
+- Feature: add new --deployer --generators args to 'conan build' cmd `#14737 <https://github.com/conan-io/conan/pull/14737>`_ . Docs `here <https://github.com/conan-io/docs/pull/3383>`__
+- Feature: Better ``CMakeToolchain`` blocks interface. Added new ``.blocks.select()``, ``.blocks.keys()``. `#14731 <https://github.com/conan-io/conan/pull/14731>`_ . Docs `here <https://github.com/conan-io/docs/pull/3384>`__
+- Feature: Add message when copying large files from download cache instead of downloading from server. `#14716 <https://github.com/conan-io/conan/pull/14716>`_
+- Feature: MesonToolchain shows a warning message if any options are used directly. `#14692 <https://github.com/conan-io/conan/pull/14692>`_ . Docs `here <https://github.com/conan-io/docs/pull/3381>`__
+- Feature: Support clang-cl in default profile plugin. `#14682 <https://github.com/conan-io/conan/pull/14682>`_ . Docs `here <https://github.com/conan-io/docs/pull/3387>`__
+- Feature: Added mechanism to transform `c`, `cpp`, and/or `ld` binaries variables from Meson into lists if declared blank-separated strings. `#14676 <https://github.com/conan-io/conan/pull/14676>`_
+- Feature: Add `nobara` distro to `dnf` package manager mapping. `#14668 <https://github.com/conan-io/conan/pull/14668>`_
+- Feature: Ensure meson toolchain sets `b_vscrt` with clang-cl. `#14664 <https://github.com/conan-io/conan/pull/14664>`_
+- Feature: Supporting regex pattern for conf `tools.info.package_id:confs` `#14621 <https://github.com/conan-io/conan/pull/14621>`_ . Docs `here <https://github.com/conan-io/docs/pull/3382>`__
+- Feature: MakeDeps: Provide "require" information, and more styling tweaks. `#14605 <https://github.com/conan-io/conan/pull/14605>`_
+- Feature: New ``detect_api`` to be used in profiles jinja templates. `#14578 <https://github.com/conan-io/conan/pull/14578>`_ . Docs `here <https://github.com/conan-io/docs/pull/3390>`__
+- Feature: Allow access to `settings_target` in compatibility method. `#14532 <https://github.com/conan-io/conan/pull/14532>`_
+- Fix: Add missing minor macos versions `#14740 <https://github.com/conan-io/conan/pull/14740>`_ . Docs `here <https://github.com/conan-io/docs/pull/3389>`__
+- Fix: Improve error messages in `ConanApi` init failures, `#14735 <https://github.com/conan-io/conan/pull/14735>`_
+- Fix: CMakeDeps: Remove "Target name ... already exists" warning about duplicating aliases. `#14644 <https://github.com/conan-io/conan/pull/14644>`_
+- Bugfix: Fix regression in ``Git.run()`` when ``win_bash=True``. `#14756 <https://github.com/conan-io/conan/pull/14756>`_
+- Bugfix: Change the default `check=False` in `conan.tools.system.package_manager.Apt`  to `True` as the other package manager tools. `#14728 <https://github.com/conan-io/conan/pull/14728>`_ . Docs `here <https://github.com/conan-io/docs/pull/3380>`__
+- Bugfix: Solved propagation of transitive shared dependencies of ``test_requires`` with diamonds. `#14721 <https://github.com/conan-io/conan/pull/14721>`_
+- Bugfix: Solve crash with :command:`conan export-pkg` with ``test_package`` doing calls to remotes. `#14712 <https://github.com/conan-io/conan/pull/14712>`_
+- Bugfix: Do not binary-skip packages that have transitive dependencies that are not skipped, otherwise the build chain of build systems to those transitive dependencies like ``CMakeDeps`` generated files are broken. `#14673 <https://github.com/conan-io/conan/pull/14673>`_
+- Bugfix: Fix detected CPU architecture when running ``conan profile detect`` on native ARM64 Windows. `#14667 <https://github.com/conan-io/conan/pull/14667>`_
+- Bugfix: ``conan lock create --update`` now correctly updates references from servers if newer than cache ones. `#14643 <https://github.com/conan-io/conan/pull/14643>`_
+- Bugfix: Fix unnecessarily decorating command stdout with escape sequences. `#14642 <https://github.com/conan-io/conan/pull/14642>`_
+- Bugfix: ``tools.info.package_id:confs`` shouldn't affect header-only libraries. `#14622 <https://github.com/conan-io/conan/pull/14622>`_
+
 2.0.10 (29-Aug-2023)
 --------------------
 

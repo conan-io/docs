@@ -149,7 +149,7 @@ The ``conan clean`` command has the following code:
 
 
 
-Let's analize the most important parts.
+Let's analyze the most important parts.
 
 parser
 ++++++

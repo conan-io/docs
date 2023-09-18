@@ -41,7 +41,7 @@ There are 2 folders inside this project:
             └── say.cpp
 
 
-- A "say" folder containing a fully fledge package, with its ``conanfile.py`` and its source
+- A "say" folder containing a fully fledged package, with its ``conanfile.py`` and its source
   code.
 - A "hello" folder containing a simple consumer project with a ``conanfile.py`` and its
   source code, which depends on the ``say/1.0`` requirement.

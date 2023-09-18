@@ -44,7 +44,7 @@ We could reuse and inherit from it with:
 
 The final ``Pkg`` conanfile will have both ``os`` and ``arch`` as settings, and ``MyLicense`` as license.
 
-To extend the ``options`` of the base class, it is necessarry to call the ``self.options.update()`` method:
+To extend the ``options`` of the base class, it is necessary to call the ``self.options.update()`` method:
 
 
 .. code-block:: python

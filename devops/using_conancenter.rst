@@ -59,7 +59,7 @@ Lockfiles ensure that Conan will resolve the same graph in a repeatable and
 consistent manner - thus making sure the same versions are used across multiple 
 systems (CI, developers, etc). 
 
-Lockfiles are also used in other package managers like Pytho pip, Rust Cargo, npm - 
+Lockfiles are also used in other package managers like Python pip, Rust Cargo, npm -
 these recommendations are in line with the practices of these other technologies.
 
 Additionally, it is highly recommended to host your recipes and packages in your

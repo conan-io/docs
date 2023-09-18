@@ -177,7 +177,7 @@ conan config list
 Displays all the Conan built-in configurations. There are 2 groups:
 
 - ``core.xxxx``: These can only be defined in ``global.conf`` and are used by Conan internally
-- ``tools.xxxx``: Thesa can be defined both in ``global.conf`` and profiles, and will be used by
+- ``tools.xxxx``: These can be defined both in ``global.conf`` and profiles, and will be used by
   recipes and tools used within recipes, like ``CMakeToolchain``
 
 
@@ -190,7 +190,7 @@ Displays all the Conan built-in configurations. There are 2 groups:
     core.download:parallel: Number of concurrent threads to download packages
     core.download:retry: Number of retries in case of failure when downloading from Conan server
     core.download:retry_wait: Seconds to wait between download attempts from Conan server
-    core.gzip:compresslevel: The Gzip compresion level for Conan artifacts (default=9)
+    core.gzip:compresslevel: The Gzip compression level for Conan artifacts (default=9)
     core.net.http:cacert_path: Path containing a custom Cacert file
     core.net.http:clean_system_proxy: If defined, the proxies system env-vars will be discarded
     core.net.http:client_cert: Path or tuple of files containing a client cert (and key)
@@ -245,7 +245,7 @@ Displays all the Conan built-in configurations. There are 2 groups:
     tools.cmake.cmaketoolchain:toolset_arch: Toolset architecture to be used as part of CMAKE_GENERATOR_TOOLSET in CMakeToolchain
     tools.cmake.cmaketoolchain:user_toolchain: Inject existing user toolchains at the beginning of conan_toolchain.cmake
     tools.cmake:cmake_program: Path to CMake executable
-    tools.cmake:install_strip: Add --strip to cmake.instal()
+    tools.cmake:install_strip: Add --strip to cmake.install()
     tools.compilation:verbosity: Verbosity of compilation tools if set. Possible values are 'quiet' and 'verbose'
     tools.deployer:symlinks: Set to False to disable deployers copying symlinks
     tools.env.virtualenv:powershell: If it is set to True it will generate powershell launchers if os=Windows

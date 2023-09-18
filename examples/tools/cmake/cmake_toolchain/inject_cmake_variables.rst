@@ -78,7 +78,7 @@ external ``myvars.cmake`` file:
 
     $ conan create . -pr=myprofile
     ...
-    -- MYVAR1 MYVALUE1!!
+    -- MY_USER_VAR1 MYVALUE1
 
 Note that using ``user_toolchain`` while defining values for confs like ``tools.cmake.cmaketoolchain:system_name`` is supported.
 

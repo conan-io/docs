@@ -91,7 +91,7 @@ Let's explain step by step what is happening:
 - This obtains the URL of the repo pointing to the local ``<local-path>/capture_scm`` and the commit ``8e8764c40bebabbe3ec57f9a0816a2c8e691f559``
 - It warns that this information will **not** be enough to re-build from source this recipe once the package is uploaded to the server and is tried to be built from source in other computer, which will not contain the path pointed by ``<local-path>/capture_scm``. This is expected, as the repository that we created doesn't have any remote defined. If our local clone had a remote defined and that remote contained the ``commit`` that we are building, the ``scm_url`` would point to the remote repository instead, making the build from source fully reproducible.
 - The ``export()`` method stores the ``url`` and ``commit`` information in the ``conandata.yml`` for future reproducibility.
-- When the package needs to be built from sources and it calls the ``source()`` method, it recovers the information from the ``conandata.yml`` file, and calls ``git.clone()`` with it to retrive the sources. In this case, it will be cloning from the local checkout in ``<local-path>/capture_scm``, but if it had a remote defined, it will clone from it.
+- When the package needs to be built from sources and it calls the ``source()`` method, it recovers the information from the ``conandata.yml`` file, and calls ``git.clone()`` with it to retrieve the sources. In this case, it will be cloning from the local checkout in ``<local-path>/capture_scm``, but if it had a remote defined, it will clone from it.
 
 
 .. warning::

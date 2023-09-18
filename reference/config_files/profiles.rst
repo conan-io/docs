@@ -155,7 +155,7 @@ You can also show the profile's content per context:
 .. seealso::
 
     - Manage your profiles and share them using :ref:`reference_commands_conan_config_install`.
-    - Check the command and its sub-comands of :ref:`conan profile <reference_commands_profile>`.
+    - Check the command and its sub-commands of :ref:`conan profile <reference_commands_profile>`.
 
 
 Profile sections
@@ -557,6 +557,59 @@ Some of the capabilities of the profile templates are:
   would be useful to define custom per-package settings or options for multiple packages
   in a large dependency graph.
 
+.. _reference_config_files_profiles_detect_api:
+
+**Profile Rendering with ``detect_api``**
+
+.. warning::
+
+    **Stability Guarantees**: The detect_api, similar to ``conan profile detect``, does not
+    offer strong stability guarantees.
+    
+    **Usage Recommendations**: The detect_api is not a regular API meant for creating new
+    commands or similar functionalities. While auto-detection can be convenient, it's not
+    the recommended approach for all scenarios. This API is internal to Conan and is only
+    exposed for profile and *global.conf* rendering. It's advised to use it judiciously.
+
+Conan also injects ``detect_api`` to the jinja rendering context. With it, it's
+possible to use Conan's auto-detection capabilities directly within Jinja profile
+templates. This provides a way to dynamically determine certain settings based on the
+environment.
+
+``detect_api`` can be invoked within the Jinja template of a profile. For instance, to
+detect the operating system and architecture, you can use:
+
+.. code-block:: jinja
+
+    [settings]
+    os={{detect_api.detect_os()}}
+    arch={{detect_api.detect_arch()}}
+  
+Similarly, for more advanced detections like determining the compiler, its version, and
+the associated runtime, you can use:
+
+.. code-block:: jinja
+
+    {% set compiler, version = detect_api.detect_compiler() %}
+    {% set runtime, _ = detect_api.default_msvc_runtime(compiler) %}
+    [settings]
+    compiler={{compiler}}
+    compiler.version={{detect_api.default_compiler_version(compiler, version)}}
+    compiler.runtime={{runtime}}
+    compiler.cppstd={{detect_api.default_cppstd(compiler, version)}}
+
+**detect_api reference**:
+
+    - **`detect_os()`**: returns operating system as a string (e.g., "Windows", "Macos").
+    - **`detect_arch()`**: returns system architecture as a string (e.g., "x86_64", "armv8").
+    - **`detect_libcxx(compiler, version)`**: returns C++ standard library as a string (e.g., "libstdc++", "libc++").
+    - **`default_msvc_runtime(compiler)`**: returns tuple with runtime (e.g., "dynamic") and its version (e.g., "v143").
+    - **`default_cppstd(compiler, compiler_version)`**: returns default C++ standard as a string (e.g., "gnu14").
+    - **`detect_compiler()`**: returns tuple with compiler name (e.g., "gcc") and its version.
+    - **`default_msvc_ide_version(version)`**: returns MSVC IDE version as a string (e.g., "17").
+    - **`default_compiler_version(compiler, version)`**: returns the default version that
+        Conan uses in profiles, typically dropping some of the minor or patch digits, that
+        do not affect binary compatibility.
 
 Profile patterns
 ----------------

@@ -56,7 +56,7 @@ Each one of those will contain:
 - ``conf_info``: configuration information for consumers (equivalent to ``self.conf_info`` in ``package_info()``). Note this is
   only automatically propagated to ``self.conf`` of consumers when this package is a direct ``tool_require``.
 
-For example, if we had an ``androidndk`` recipe that contais the AndroidNDK, and we want to have that recipe in "editable" mode,
+For example, if we had an ``androidndk`` recipe that contains the AndroidNDK, and we want to have that recipe in "editable" mode,
 it is necessary where the androidndk will be locally, before being in the created package:
 
 .. code-block:: python

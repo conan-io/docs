@@ -36,7 +36,7 @@ There we find a ``greetings`` subfolder and package, that contains 2 libraries, 
 
         def layout(self):
             cmake_layout(self, src_folder="src")
-            # This "includedirs" starts in the source folder, wich is "src"
+            # This "includedirs" starts in the source folder, which is "src"
             # So the components include dirs is the "src" folder (includes are
             # intended to be included as ``#include "hello/hello.h"``)
             self.cpp.source.components["hello"].includedirs = ["."]

@@ -37,7 +37,7 @@ To list all the possible configurations available, run :command:`conan config li
     core.download:parallel: Number of concurrent threads to download packages
     core.download:retry: Number of retries in case of failure when downloading from Conan server
     core.download:retry_wait: Seconds to wait between download attempts from Conan server
-    core.gzip:compresslevel: The Gzip compresion level for Conan artifacts (default=9)
+    core.gzip:compresslevel: The Gzip compression level for Conan artifacts (default=9)
     core.net.http:cacert_path: Path containing a custom Cacert file
     core.net.http:clean_system_proxy: If defined, the proxies system env-vars will be discarded
     core.net.http:client_cert: Path or tuple of files containing a client cert (and key)
@@ -92,7 +92,7 @@ To list all the possible configurations available, run :command:`conan config li
     tools.cmake.cmaketoolchain:toolset_arch: Toolset architecture to be used as part of CMAKE_GENERATOR_TOOLSET in CMakeToolchain
     tools.cmake.cmaketoolchain:user_toolchain: Inject existing user toolchains at the beginning of conan_toolchain.cmake
     tools.cmake:cmake_program: Path to CMake executable
-    tools.cmake:install_strip: Add --strip to cmake.instal()
+    tools.cmake:install_strip: Add --strip to cmake.install()
     tools.compilation:verbosity: Verbosity of compilation tools if set. Possible values are 'quiet' and 'verbose'
     tools.deployer:symlinks: Set to False to disable deployers copying symlinks
     tools.env.virtualenv:powershell: If it is set to True it will generate powershell launchers if os=Windows
@@ -154,7 +154,7 @@ These are some hints about configuration items scope and naming:
 - ``tools.yyy`` can be defined in ``global.conf``, in profiles ``[conf]`` section and cli ``-c`` arguments
 - ``user.zzz`` can be defined everywhere, and they are totally at the user discretion, no established naming convention. However this would be more or less expected:
   - For open source libraries, specially those in conancenter, ``user.packagename:conf`` might be expected, like the ``boost`` recipe defining ``user.boost:conf`` conf
-  - For private usage, the recommendation could be to use something like ``user.orgname:conf`` for global org configuration accross all projects, ``user.orgname.project:conf`` for project or package configuration, though ``user.project:conf`` might be also good if the project name is unique enough.
+  - For private usage, the recommendation could be to use something like ``user.orgname:conf`` for global org configuration across all projects, ``user.orgname.project:conf`` for project or package configuration, though ``user.project:conf`` might be also good if the project name is unique enough.
 
 
 Configuration file template
@@ -171,6 +171,15 @@ and renders the template, which must result in a standard tools-configuration te
      # Using the current OS
      user.myconf.system:name = {{platform.system()}}
 
+Conan also injects ``detect_api`` (non-stable, read the reference) to the jinja rendering context. You can use it like this:
+
+  .. code:: jinja
+
+    user.myteam:myconf1={{detect_api.detect_os()}}
+    user.myteam:myconf2={{detect_api.detect_arch()}}
+
+For more information on how to use it, please check :ref:`the detect_api section
+<reference_config_files_profiles_detect_api>` in the profiles reference.
 
 The Python packages passed to render the template are ``os`` and ``platform`` for all platforms and ``distro`` in Linux platforms.
 Additionally, the variables ``conan_version`` and ``conan_home_folder`` are also available.

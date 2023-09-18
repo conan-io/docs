@@ -82,7 +82,7 @@ Changes introduced in the recipe
   - If we set the ``tools.build:skip_test`` configuration to ``True`` Conan will
     automatically inject the ``BUILD_TESTING`` variable to CMake set to ``OFF``. You will
     see in the next section that we are using this variable in our *CMakeLists.txt* to
-    decide wether to build the tests or not.
+    decide whether to build the tests or not.
  
   - We use the ``tools.build:skip_test`` configuration in the ``build()`` method,
     after building the package and tests, to decide if we want to run the tests or not.
@@ -126,7 +126,7 @@ The ``BUILD_TESTING`` `CMake variable
 <https://cmake.org/cmake/help/latest/module/CTest.html>`_ is declared and set to ``OFF``
 by Conan (if not already defined) whenever the ``tools.build:skip_test`` configuration is
 set to value ``True``. This variable is typically declared by CMake when you use CTest but
-using the ``tools.build:skip_test`` configuration you can use it in your *CMakeListst.txt*
+using the ``tools.build:skip_test`` configuration you can use it in your *CMakeLists.txt*
 even if you are using another testing framework.
 
 * We have a `CMakeLists.txt
@@ -244,7 +244,7 @@ tool:
 
 Please, note that patching in ``build()`` should avoided if possible and only be done for
 very particular cases as it will make more difficult to develop your packages locally (we
-will explain more about this in the local developement flow section later <MISSING REFERENCE>)
+will explain more about this in the local development flow section later <MISSING REFERENCE>)
 
 
 Conditionally select your build system
