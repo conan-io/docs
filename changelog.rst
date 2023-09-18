@@ -22,6 +22,7 @@ For a more detailed description of the major changes that Conan 2.0 brings, comp
 - Fix: Add missing minor macos versions `#14740 <https://github.com/conan-io/conan/pull/14740>`_ . Docs `here <https://github.com/conan-io/docs/pull/3389>`__
 - Fix: Improve error messages in `ConanApi` init failures, `#14735 <https://github.com/conan-io/conan/pull/14735>`_
 - Fix: CMakeDeps: Remove "Target name ... already exists" warning about duplicating aliases. `#14644 <https://github.com/conan-io/conan/pull/14644>`_
+- Bugfix: Fix regression in ``Git.run()`` when ``win_bash=True``. `#14756 <https://github.com/conan-io/conan/pull/14756>`_
 - Bugfix: Change the default `check=False` in `conan.tools.system.package_manager.Apt`  to `True` as the other package manager tools. `#14728 <https://github.com/conan-io/conan/pull/14728>`_ . Docs `here <https://github.com/conan-io/docs/pull/3380>`__
 - Bugfix: Solved propagation of transitive shared dependencies of ``test_requires`` with diamonds. `#14721 <https://github.com/conan-io/conan/pull/14721>`_
 - Bugfix: Solve crash with :command:`conan export-pkg` with ``test_package`` doing calls to remotes. `#14712 <https://github.com/conan-io/conan/pull/14712>`_
