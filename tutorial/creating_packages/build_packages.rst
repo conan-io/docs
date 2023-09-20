@@ -244,7 +244,7 @@ tool:
 
 Please, note that patching in ``build()`` should avoided if possible and only be done for
 very particular cases as it will make more difficult to develop your packages locally (we
-will explain more about this in the local development flow section later <MISSING REFERENCE>)
+will explain more about this in the :ref:`local development flow section<local_package_development_flow>` later)
 
 
 Conditionally select your build system

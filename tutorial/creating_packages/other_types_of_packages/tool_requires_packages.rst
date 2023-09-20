@@ -187,7 +187,7 @@ Removing settings in package_id()
 
 With the previous recipe, if we call :command:`conan create` with different setting like different compiler versions, we will get
 different binary packages with a different ``package ID``. This might be convenient to, for example, keep better traceability of
-our tools. In this case, the <MISSING PAGE> compatibility.py plugin can help to locate the best matching binary in case Conan doesn't find the
+our tools. In this case, the :ref:`compatibility.py<reference_extensions_binary_compatibility>` plugin can help to locate the best matching binary in case Conan doesn't find the
 binary for our specific compiler version.
 
 But in some cases we might want to just generate a binary taking into account only the ``os``, ``arch`` or at most

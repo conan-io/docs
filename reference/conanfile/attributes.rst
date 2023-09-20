@@ -53,8 +53,8 @@ Conan recipes provide access to their dependencies via the ``self.dependencies``
 conf
 ----
 
-In the ``self.conf`` attribute we can find all the conf entries declared in the <MISSING PAGE> [conf] section of the profiles.
-in addition of the declared <MISSING PAGE> self.conf_info entries from the first level tool requirements.
+In the ``self.conf`` attribute we can find all the conf entries declared in the :ref:`[conf]<reference_config_files_profiles_conf>`  section of the profiles.
+in addition of the declared :ref:`self.conf_info<conan_conanfile_model_conf_info>` entries from the first level tool requirements.
 The profile entries have priority.
 
 
