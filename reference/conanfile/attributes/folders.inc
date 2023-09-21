@@ -106,4 +106,5 @@ folder when ``no_copy_source=False`` and will point to the ``source`` folder whe
 
 .. seealso::
 
-    Read  <MISSING PAGE> header-only section for an example using ``no_copy_source`` attribute.
+    Read  :ref:`header-only packages section <creating_packages_other_header_only>` for an
+    example using ``no_copy_source`` attribute.

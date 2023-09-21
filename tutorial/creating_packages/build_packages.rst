@@ -167,7 +167,7 @@ Now that we have gone through all the changes in the code, let's try them out:
 .. code-block:: bash
     :emphasize-lines: 6-23
 
-    $ conan create . --build=missing -tf=None
+    $ conan create . --build=missing -tf=""
     ...
     [ 25%] Building CXX object CMakeFiles/hello.dir/src/hello.cpp.o
     [ 50%] Linking CXX static library libhello.a
@@ -197,7 +197,7 @@ configuration in the command line to skip the test building and running:
 
 .. code-block:: bash
 
-    $ conan create . -c tools.build:skip_test=True -tf=None
+    $ conan create . -c tools.build:skip_test=True -tf="""
     ...
     [ 50%] Building CXX object CMakeFiles/hello.dir/src/hello.cpp.o
     [100%] Linking CXX static library libhello.a
@@ -244,7 +244,7 @@ tool:
 
 Please, note that patching in ``build()`` should avoided if possible and only be done for
 very particular cases as it will make more difficult to develop your packages locally (we
-will explain more about this in the local development flow section later <MISSING REFERENCE>)
+will explain more about this in the :ref:`local development flow section<local_package_development_flow>` later)
 
 
 Conditionally select your build system
