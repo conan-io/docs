@@ -8,7 +8,7 @@ it is common practice to download the sources from a canonical source, like Gith
 Keeping a record of the origin of these files is useful for traceability purposes, however,
 it is often not guaranteed that the files will be available in the long term,
 and a user in the future building the same recipe from source may encounter a problem.
-Conan can thus can be configured to transparently retrieve sources from a configured mirror,
+Conan can thus be configured to transparently retrieve sources from a configured mirror,
 without modifying the recipes or `conandata.yml`.
 Additionally, these sources can be transparently uploaded alongside the packages via :command:`conan upload`.
 
