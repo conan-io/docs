@@ -151,7 +151,6 @@ The ``wrap_mode: nofallback`` is defined by default as a project option, to make
 
 Note that in this case, Meson might be able to find dependencies in "wraps", it is the responsibility of the user to check the behavior and make sure about the dependencies origin.
 
-
 preprocessor_definitions
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -194,7 +193,44 @@ conf
   * ``cpp``: will set ``cpp`` in ``[binaries]`` section from *conan_meson_xxxx.ini*.
   * ``objc``: will set ``objc`` in ``[binaries]`` section from *conan_meson_xxxx.ini*.
   * ``objcpp``: will set ``objcpp`` in ``[binaries]`` section from *conan_meson_xxxx.ini*.
-  
+
+
+Using Proper Data Types for Conan Options in Meson
+--------------------------------------------------
+
+Always transform Conan options into valid Python data types before assigning them as Meson
+values:
+
+.. code:: python
+
+    options = {{"shared": [True, False], "fPIC": [True, False], "with_msg": ["ANY"]}}
+    default_options = {{"shared": False, "fPIC": True, "with_msg": "Hi everyone!"}}
+
+    def generate(self):
+        tc = MesonToolchain(self) 
+        tc.project_options["DYNAMIC"] = bool(self.options.shared)  # shared is bool
+        tc.project_options["GREETINGS"] = str(self.options.with_msg)  # with_msg is str 
+        tc.generate()
+
+In contrast, directly assigning a Conan option as a Meson value is strongly discouraged:
+
+.. code:: python
+
+    options = {{"shared": [True, False], "fPIC": [True, False], "with_msg": ["ANY"]}}
+    default_options = {{"shared": False, "fPIC": True, "with_msg": "Hi everyone!"}}
+    # ...
+    def generate(self):
+        tc = MesonToolchain(self)
+        tc.project_options["DYNAMIC"] = self.options.shared  # == <PackageOption object>
+        tc.project_options["GREETINGS"] = self.options.with_msg  # == <PackageOption object>
+        tc.generate()
+
+These are not boolean or string values but an internal Conan class representing such
+option values. If you assign these values directly, upon executing the `generate()`
+function, you should receive a warning in your console stating, ``WARN: deprecated:
+Please, do not use a Conan option value directly.`` This method is considered bad practice
+as it can result in unexpected errors during your project's build process.
+
 
 Cross-building for Apple and Android
 -------------------------------------

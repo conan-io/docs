@@ -144,7 +144,6 @@ If we are creating a package for a tool, to be used as a ``tool_require``, and i
     def package_id(self):
         self.info.settings_target = self.settings_target
 
-
 The ``conf`` items do not affect the ``package_id`` by default. It is possible to explicitly make them part of it at the recipe level with:
 
 .. code-block:: python
@@ -154,6 +153,17 @@ The ``conf`` items do not affect the ``package_id`` by default. It is possible t
 
 Although this can be achieved for all recipes without the ``package_id()`` method, using the ``tools.info.package_id:confs = ["user.myconf:myitem"]`` configuration.
 
+**Using regex patterns:** 
+You can use regex patterns in the `tools.info.package_id:confs`. This means that instead
+of specifying each individual configuration item, you can use a regex pattern to match
+multiple configurations. This is particularly useful when dealing with a large number of
+configurations or when configurations follow a predictable naming pattern. For instance:
+
+- tools.info.package_id:confs=[`user.myconf:myitem*`] matches all configurations that start in `user.myconf:myitem`.
+- tools.info.package_id:confs=[`.*`] matches all configurations.
+- tools.info.package_id:confs=[`tools\..*`] matches configurations starting with "tools.".
+- tools.info.package_id:confs=[`.*cmake`] matches configurations ending with "cmake".
+- tools.info.package_id:confs=[`(tools.deploy|core)`] matches configurations starting with "tools.deploy" or "core".
 
 .. seealso::
     

@@ -32,13 +32,27 @@ for preparing the build, creating toolchain files, CMake presets, or any other f
 so developers could easily call the build system by hand. This allows for much better integrations with IDEs and
 improves the developer experience. The result is that in practice the ``build()`` method should be relatively simple.
 
+The ``build()`` method runs once per unique configuration, so if there are some source operations like applying patches that are done conditionally to different configurations, they could be also applied in the
+``build()`` method, before the actual build. It is important to note that in this case the :ref:`no_copy_source <conan_conanfile_properties_no_copy_source>` attribute cannot be set to ``True``.
+
 The ``build()`` method is the right place to build and run unit tests, before packaging, and raising errors if those tests fail, interrupting the process, and not even packaging the final binaries.
 The built-in helpers will skip the unit tests if the ``tools.build:skip_test`` configuration is defined. For custom integrations, it is expected that the method checks this ``conf`` value in order to skip building and running tests, which can be useful for some CI scenarios.
 
-The ``build()`` method runs once per unique configuration, so if there are some source operations like applying patches that are done conditionally to different configurations, they could be also applied in the
-``build()`` method, before the actual build. It is important to note that in this case the ``no_copy_source`` attribute cannot be set to ``True``.
+**Running Tests in Cross-Building Scenarios**: There may be some cases where you want to
+build tests but cannot run them, such as in cross-building scenarios. For these rare
+situations, you can use the :ref:`conan.tools.build.can_run<conan_tools_build_can_run>`
+tool as follows:
 
+.. code-block:: python
 
+    ...
+
+    def build(self):
+        cmake = CMake(self)
+        cmake.configure()
+        cmake.build()
+        if can_run(self):
+            cmake.test()    
 
 .. note::
 

@@ -281,12 +281,41 @@ Conan **option**. Please, note the difference between **settings** and **options
   static, and this is the linkage that should be used if consumers don’t specify
   otherwise.
 
+Introducing the concept of Package ID
+-------------------------------------
+
+When consuming packages like Zlib with different `settings` and `options`, you might
+wonder how Conan determines which binary to retrieve from the remote. The answer lies in
+the concept of the `package_id`.
+
+The `package_id` is an identifier that Conan uses to determine the binary compatibility of
+packages. It is computed based on several factors, including the package's `settings`,
+`options`, and dependencies. When you modify any of these factors, Conan computes a new
+`package_id` to reference the corresponding binary.
+
+Here's a breakdown of the process:
+
+1. **Determine Settings and Options**: Conan first retrieves the user's input settings and
+   options. These can come from the command line or profiles like
+   `--settings=build_type=Debug` or `--profile=debug`.
+2. **Compute the Package ID**: With the current values for `settings`, `options`, and
+   dependencies, Conan computes a hash. This hash serves as the `package_id`, representing
+   the binary package's unique identity.
+3. **Fetch the Binary**: Conan then checks its cache or the specified remote for a binary
+   package with the computed `package_id`. If it finds a match, it retrieves that binary.
+   If not, Conan can build the package from source or indicate that the binary is missing.
+
+In the context of our tutorial, when we consumed Zlib with different `settings` and
+`options`, Conan used the `package_id` to ensure that it fetched the correct binary that
+matched our specified configuration.
+
 
 Read more
 ---------
 
 - :ref:`VirtualRunEnv reference <conan_tools_env_virtualrunenv>`
 - :ref:`Cross-compiling using --profile:build and --profile:host <consuming_packages_cross_building_with_conan>`
+- :ref:`creating_packages_configure_options_settings`
 - Installing configurations with conan config install
 - VS Multi-config
 - Example about how settings and options influence the package id

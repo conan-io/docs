@@ -266,20 +266,15 @@ Usage:
 .. code-block:: python
 
     from conan import ConanFile
-    from conan.tools.files import update_conandata
+    from conan.tools.files import trim_conandata
 
     class Pkg(ConanFile):
         name = "pkg"
-        version = "0.1"
 
         def export(self):
-            # This is an example, doesn't make sense to have static data, instead you
-            # could put the data directly in a conandata.yml file.
-            # This would be useful for storing dynamic data, obtained at export() time from elsewhere
-            update_conandata(self, {"mydata": {"value": {"nested1": 123, "nested2": "some-string"}}})
-
-        def source(self):
-            data = self.conan_data["sources"]["mydata"]
+            # any change to other versions in the conandata.yml
+            # won't affect the revision of the version that is built
+            trim_conandata(self)
 
 
 .. _conan_tools_files_collect_libs:

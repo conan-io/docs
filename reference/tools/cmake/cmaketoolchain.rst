@@ -338,14 +338,42 @@ and added in this order:
 Customizing the content blocks
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Every block can be customized in different ways:
+Every block can be customized in different ways (recall to call ``tc.generate()`` after the customization):
 
 .. code:: python
 
-    # remove an existing block
+    # tc.generate() should be called at the end of every one
+
+    # remove an existing block, the generated conan_toolchain.cmake
+    # will not contain code for that block at all
     def generate(self):
         tc = CMakeToolchain(self)
         tc.blocks.remove("generic_system")
+
+    # remove several blocks
+    def generate(self):
+        tc = CMakeToolchain(self)
+        tc.blocks.remove("generic_system", "cmake_flags_init")
+
+    # keep one block, remove all the others
+    # If you want to generate conan_toolchain.cmake with only that
+    # block
+    def generate(self):
+        tc = CMakeToolchain(self)
+        tc.blocks.select("generic_system")
+
+    # keep several blocks, remove the other blocks
+    def generate(self):
+        tc = CMakeToolchain(self)
+        tc.blocks.select("generic_system", "cmake_flags_init")
+
+    # iterate blocks
+    def generate(self):
+        tc = CMakeToolchain(self)
+        for block_name in tc.blocks.keys():
+            # do something with block_name
+        for block_name, block in tc.blocks.items():
+            # do something with block_name and block
 
     # modify the template of an existing block
     def generate(self):

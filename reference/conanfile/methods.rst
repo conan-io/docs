@@ -3,6 +3,7 @@
 Methods
 =======
 
+What follows is a list of methods that you can define in your recipes to customize the package creation & consumption processes:
 
 .. toctree::
    :maxdepth: 1

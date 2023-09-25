@@ -171,6 +171,15 @@ and renders the template, which must result in a standard tools-configuration te
      # Using the current OS
      user.myconf.system:name = {{platform.system()}}
 
+Conan also injects ``detect_api`` (non-stable, read the reference) to the jinja rendering context. You can use it like this:
+
+  .. code:: jinja
+
+    user.myteam:myconf1={{detect_api.detect_os()}}
+    user.myteam:myconf2={{detect_api.detect_arch()}}
+
+For more information on how to use it, please check :ref:`the detect_api section
+<reference_config_files_profiles_detect_api>` in the profiles reference.
 
 The Python packages passed to render the template are ``os`` and ``platform`` for all platforms and ``distro`` in Linux platforms.
 Additionally, the variables ``conan_version`` and ``conan_home_folder`` are also available.

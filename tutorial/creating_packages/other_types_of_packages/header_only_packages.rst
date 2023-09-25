@@ -53,6 +53,11 @@ This is a basic recipe for a header-only recipe:
 Please, note that we are setting ``cpp_info.bindirs`` and ``cpp_info.libdirs`` to ``[]`` because
 header-only libraries don't have compiled libraries or binaries, but they default to ``["bin"]``, and ``["lib"]``, then it is necessary to change it.
 
+Also check that we are setting the :ref:`no_copy_source
+<conan_conanfile_properties_no_copy_source>` attribute to ``True`` so that the source code
+will not be copied from the ``source_folder`` to the ``build_folder``. This is a typical
+optimization for header-only libraries to avoid extra copies.
+
 Our header-only library is this simple function that sums two numbers:
 
 

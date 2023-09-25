@@ -53,8 +53,8 @@ Conan recipes provide access to their dependencies via the ``self.dependencies``
 conf
 ----
 
-In the ``self.conf`` attribute we can find all the conf entries declared in the <MISSING PAGE> [conf] section of the profiles.
-in addition of the declared <MISSING PAGE> self.conf_info entries from the first level tool requirements.
+In the ``self.conf`` attribute we can find all the conf entries declared in the :ref:`[conf]<reference_config_files_profiles_conf>`  section of the profiles.
+in addition of the declared :ref:`self.conf_info<conan_conanfile_model_conf_info>` entries from the first level tool requirements.
 The profile entries have priority.
 
 
@@ -71,6 +71,27 @@ The profile entries have priority.
           self.output.info("NDK host: %s" % self.conf.get("tools.android:ndk_path"))
           # This is declared in the profile at [conf] section
           self.output.info("Custom var1: %s" % self.conf.get("user.custom.var1"))
+
+
+Output
+------
+
+.. _conanfile_output_attribute:
+
+Output contents
+---------------
+
+Use the ``self.output`` to print contents to the output.
+
+..  code-block:: python
+
+   self.output.success("This is good, should be green")
+   self.output.info("This is neutral, should be white")
+   self.output.warning("This is a warning, should be yellow")
+   self.output.error("Error, should be red")
+
+Additional output methods are available and you can produce different outputs with different colors.
+See :ref:`the output documentation<reference_conanfile_output>` for the list of available output methods.
 
 
 .. _revision_mode_attribute:
