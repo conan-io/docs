@@ -1,3 +1,5 @@
+.. _reference_graph_build_order:
+
 conan graph build-order
 =======================
 
@@ -120,4 +122,10 @@ conan graph build-order
       --lockfile-clean      Remove unused entries from the lockfile
 
 
-The ``conan graph build-order`` command computes build order of the dependency graph for the recipe specified in ``path``.
+The ``conan graph build-order`` command computes the build order of the dependency graph for the recipe specified in ``path``
+or via the ``--requires`` arguments.
+
+It returns an ordered list of levels, each consisting of a list of references which can be built concurrently in any order.
+Note that it's possible that a reference might have more than 1 package in its build order.
+Only once the first level has been fully built, the second level can be then built without having to worry about missing binaries in their dependencies,
+and so on until the last level returned in the output. See :ref:`devops_product_pipeline` for a practical use-case example.

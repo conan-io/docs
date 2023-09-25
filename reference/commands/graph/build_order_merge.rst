@@ -1,4 +1,6 @@
-conan graph build-order-merge     
+.. _reference_graph_build_order_merge:
+
+conan graph build-order-merge
 =============================
 
 
@@ -19,3 +21,5 @@ conan graph build-order-merge
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
                             -vvv or -vtrace
       --file [FILE]         Files to be merged
+
+This command merges 2 or more outputs in json format from :ref:`conan graph build-order<reference_graph_build_order>`.
