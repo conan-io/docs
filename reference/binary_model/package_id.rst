@@ -42,7 +42,7 @@ We can see, for the latest recipe revision of ``zlib/1.2.13`` several binaries. 
    :width: 680 px
    :align: center
 
-The ``packge_id`` is computed as the sha1 hash of the ``conaninfo.txt`` file, containing the ``info`` displayed above. It is relatively easy to display such file:
+The ``package_id`` is computed as the sha1 hash of the ``conaninfo.txt`` file, containing the ``info`` displayed above. It is relatively easy to display such file:
 
 .. code-block:: bash
 
@@ -67,7 +67,43 @@ The ``packge_id`` is computed as the sha1 hash of the ``conaninfo.txt`` file, co
 The ``package_id`` is the sha1 checksum of the ``conaninfo.txt`` file inside the package. You can validate it with the ``sha1sum`` utility.
 
 
+If now we have a look to the binaries of ``openssl`` we can see something like:
 
 
 
-- Graphic2
+.. code-block:: bash
+    :emphasize-lines: 8,20,21
+
+    $ conan list openssl/3.1.2:* -r=conancenter
+    conancenter
+      openssl
+        openssl/3.1.2
+          revisions
+            8879e931d726a8aad7f372e28470faa1 (2023-09-13 18:52:54 UTC)
+              packages
+                0348efdcd0e319fb58ea747bb94dbd88850d6dd1  # package_id
+                  info
+                    settings
+                      arch: x86_64
+                      build_type: Release
+                      compiler: apple-clang
+                      compiler.version: 13
+                      os: Macos
+                    options
+                      386: False
+                      ...
+                      shared: True
+                    requires
+                      zlib/1.3.Z
+
+We see now that the ``conaninfo.txt`` contains a new section the ``requires`` section.
+This happens because ``openssl`` depends on ``zlib``, and due to the C and C++ compilation model, the dependencies can affect the binaries that use them. Some examples are when using inline or templates from ``#include`` header files of the dependency.
+
+Expanding the image above:
+
+.. image:: /images/conan_package_id_full.png
+   :width: 680 px
+   :align: center
+
+As it can be seen, even if the ``settings`` and the ``options`` are the same, different binaries will be obtained if the dependencies versions change.
+In the next section :ref:`how the versions affect the package_id <reference_binary_model_dependencies>` is explained.

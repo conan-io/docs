@@ -295,6 +295,8 @@ Object used exclusively in ``package_id()`` method:
             self.info.clear()
 
 
+.. _reference_conanfile_attributes_package_id_modes:
+
 package_id_{embed,non_embed,unknown}_mode
 -----------------------------------------
 
