@@ -1,7 +1,8 @@
 Default binary compatibility
 ============================
 
-settings
+settings, one per configuration, exact
+
 
 The effect of dependencies:
 
