@@ -107,7 +107,7 @@ the generated binaries package IDs.
 .. code-block:: bash
     :emphasize-lines: 6,19,29,42
     
-    $ conan create . --build=missing -s build_type=Release -tf="" # -tf="" will skip buildiing the test_package
+    $ conan create . --build=missing -s build_type=Release -tf="" # -tf="" will skip ng the test_package
     ...
     [ 50%] Building CXX object CMakeFiles/hello.dir/src/hello.cpp.o
     [100%] Linking CXX static library libhello.a
@@ -130,7 +130,7 @@ the generated binaries package IDs.
     hello/1.0: Full package reference: hello/1.0#e6b11fb0cb64e3777f8d62f4543cd6b3:738feca714b7251063cc51448da0cf4811424e7c#3bd9faedc711cbb4fdf10b295268246e
     hello/1.0: Package folder /Users/user/.conan2/p/5c497cbb5421cbda/p
 
-    $ conan create . --build=missing -s build_type=Debug -tf="" # -tf="" will skip buildiing the test_package
+    $ conan create . --build=missing -s build_type=Debug -tf="" # -tf="" will skip building the test_package
     ...
     [ 50%] Building CXX object CMakeFiles/hello.dir/src/hello.cpp.o
     [100%] Linking CXX static library libhello.a
@@ -236,7 +236,7 @@ There are other typical cases where you want to delete certain settings. Imagine
 are packaging a C library. When you build this library, there are settings like the
 compiler C++ standard (``settings.compiler.cppstd``) or the standard library used
 (``self.settings.compiler.libcxx``) that won't affect the resulting binary at all. Then it
-does no make sense that they affect to the package ID computation, so a typical pattern is
+does not make sense that they affect to the package ID computation, so a typical pattern is
 to delete them in the ``configure()`` method:
 
 .. code-block:: python
