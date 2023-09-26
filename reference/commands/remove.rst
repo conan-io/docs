@@ -46,6 +46,8 @@ remove a complete package, or just remove the binaries, leaving still the recipe
 available. You can also use the keyword ``!latest`` in the revision part of the pattern to
 avoid removing the latest recipe or package revision of a certain Conan package.
 
+Use ``--dry-run`` to avoid performing actual deletions, and instead get a list of the elements that would have been removed.
+
 It has 2 possible and mutually exclusive inputs:
 
 - The ``conan remove <pattern>`` pattern-based matching of recipes.
