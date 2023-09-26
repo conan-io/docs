@@ -51,6 +51,7 @@ In summary, it looks something like:
 - A remote backup repository is set up. This should allow ``PUT`` and ``GET`` HTTP methods to modify and fetch its contents.
   If access credentials are desired (which is strongly recommended for uploading permissions),
   you can use the :ref:`source_credentials.json<reference_config_files_source_credentials>` feature.
+  :ref:`See below<backup_sources_setup_remote>` if you are in need for configuring your own.
 - The remote's URL can then be set in ``core.sources:download_urls`` and ``core.sources:upload_url``.
 - In your recipe's ``source()`` method, ensure the relevant ``get``/``download``
   calls supply the ``sha256`` signature of the downloaded files.
@@ -80,7 +81,7 @@ The :ref:`global.conf<reference_config_files_global_conf>` file should contain t
    core.sources:download_urls=["https://myteam.myorg.com/artifactory/backup-sources/", "origin"]
 
 
-You might want to add extra confs based on your use case, as described in the beginning of this document.
+You might want to add extra confs based on your use case, as described :ref:`in the beginning of this document<backup_sources_config>`.
 
 .. note::
 
@@ -138,7 +139,7 @@ Creating the backup repository
 
 You can also set up your own remote backup repository instead of relying on an already available one.
 While an Artifactory generic repository (available for free with Artifactory CE) is recommend for this purpose,
-any simple server that allows ``PUT`` and ``GET`` HTTP methods to modify and fetch its contents are sufficient.
+any simple server that allows ``PUT`` and ``GET`` HTTP methods to modify and fetch its contents is sufficient.
 
 Read the following section for instructions on how to create a generic Artifactory backup repo and how to give it public read permissions,
 while keeping write access only for authorized agents
