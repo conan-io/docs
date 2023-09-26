@@ -5,7 +5,7 @@ conan remove
 
     $ conan remove -h
     usage: conan remove [-h] [-v [V]] [-f FORMAT] [-c] [-p PACKAGE_QUERY]
-                        [-r REMOTE] [-l LIST]
+                        [-r REMOTE] [-l LIST] [--dry-run]
                         [pattern]
 
     Remove recipes or packages from local cache or a remote.
@@ -37,12 +37,16 @@ conan remove
       -r REMOTE, --remote REMOTE
                             Will remove from the specified remote
       -l LIST, --list LIST  Package list file
+      --dry-run             Do not remove any items, only print those which would
+                            be removed
 
 The ``conan remove`` command removes recipes and packages from the local cache or from a
 specified remote. Depending on the patterns specified as argument, it is possible to
 remove a complete package, or just remove the binaries, leaving still the recipe
 available. You can also use the keyword ``!latest`` in the revision part of the pattern to
 avoid removing the latest recipe or package revision of a certain Conan package.
+
+Use ``--dry-run`` to avoid performing actual deletions, and instead get a list of the elements that would have been removed.
 
 It has 2 possible and mutually exclusive inputs:
 

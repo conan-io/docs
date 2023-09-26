@@ -3,6 +3,21 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2.0 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.0.12 (26-Sept-2023)
+---------------------
+
+- Feature: Add support for Clang 17. `#14781 <https://github.com/conan-io/conan/pull/14781>`_ . Docs `here <https://github.com/conan-io/docs/pull/3398>`__
+- Feature: Add `--dry-run` for :command:`conan remove`. `#14760 <https://github.com/conan-io/conan/pull/14760>`_ . Docs `here <https://github.com/conan-io/docs/pull/3404>`__
+- Feature: Add `host_tool` to `install()` method in `package_manager` to indicate whether the package is a host tool or a library. `#14752 <https://github.com/conan-io/conan/pull/14752>`_ . Docs `here <https://github.com/conan-io/docs/pull/3401>`__
+- Fix: Better error message when trying to ``export-pkg`` a ``python-require`` package, and avoid it being exported and then failing. `#14819 <https://github.com/conan-io/conan/pull/14819>`_
+- Fix: ``CMakeDeps`` allows ``set_property()`` on all properties. `#14813 <https://github.com/conan-io/conan/pull/14813>`_
+- Fix: Add minor version for Apple clang 15.0. `#14797 <https://github.com/conan-io/conan/pull/14797>`_ . Docs `here <https://github.com/conan-io/docs/pull/3402>`__
+- Fix: :command:`conan build` command prettier error when <path> argument not provided. `#14787 <https://github.com/conan-io/conan/pull/14787>`_
+- Bugfix: fix ``compatibility()`` over ``settings_target`` making it None `#14825 <https://github.com/conan-io/conan/pull/14825>`_
+- Bugfix: ``compatible`` packages look first in the cache, and only if not found, the servers, to allow offline installs when there are compatible packages. `#14800 <https://github.com/conan-io/conan/pull/14800>`_
+- BugFix: Reuse session in ConanRequester to speed up requests. `#14795 <https://github.com/conan-io/conan/pull/14795>`_
+- Bugfix: Fix relative paths of ``editable`` packages when they have components partially defining directories. `#14782 <https://github.com/conan-io/conan/pull/14782>`_
+
 2.0.11 (18-Sept-2023)
 ---------------------
 

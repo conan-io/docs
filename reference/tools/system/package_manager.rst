@@ -57,14 +57,16 @@ system package manager. They take the same form for all of the package managers 
 *Apt* that also accepts the *recommends* argument for the :ref:`install
 method<conan_tools_system_package_manager_apt>`.
 
-* ``install(self, packages, update=False, check=True):`` try to install
+* ``install(self, packages, update=False, check=True, host_package=True):`` try to install
   the list of packages passed as a parameter. If the parameter ``check`` is ``True`` it
   will check if those packages are already installed before installing them. If the
   parameter ``update`` is ``True`` it will try to update the package manager database
   before checking and installing. Its behaviour is affected by the value of
   ``tools.system.package_manager:mode``
-  :ref:`configuration<conan_tools_system_package_manager_config>`. It will return the
-  return code of the executed commands.
+  :ref:`configuration<conan_tools_system_package_manager_config>`. If the parameter
+  ``host_package`` is ``True`` it will install the packages for the host machine
+  architecture (the machine that will run the software), it has an effect when cross
+  building. This method will return the return code of the executed commands.
 * ``install_substitutes(packages_substitutes, update=False, check=True)``: try to install
   the list of lists of substitutes packages passed as a parameter, e.g., ``[["pkg1", "pkg2"], ["pkg3"]]``.
   It succeeds if one of the substitutes list is completely installed, so it's intended to be used when you have

@@ -53,7 +53,7 @@ conan graph info
                                 line is allowed. Possible values: --build="*" Force
                                 build from source for all packages. --build=never
                                 Disallow build for all packages, use binary packages
-                                or fail if a binary package is not found. Cannot be
+                                or fail if a binary package is not found, it cannot be
                                 combined with other '--build' options. --build=missing
                                 Build packages from source whose binary package is not
                                 found. --build=cascade Build packages from source that

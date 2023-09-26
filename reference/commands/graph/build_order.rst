@@ -4,8 +4,8 @@ conan graph build-order
 .. code-block:: text
 
     $ conan graph build-order -h
-    usage: conan graph build-order [-h] [-f FORMAT] [-v [V]]
-                                   [--name NAME] [--version VERSION] [--user USER]
+    usage: conan graph build-order [-h] [-f FORMAT] [-v [V]] [--name NAME]
+                                   [--version VERSION] [--user USER]
                                    [--channel CHANNEL] [--requires REQUIRES]
                                    [--tool-requires TOOL_REQUIRES] [-b BUILD]
                                    [-r REMOTE | -nr] [-u] [-o OPTIONS_HOST]
@@ -18,6 +18,7 @@ conan graph build-order
                                    [--lockfile-partial]
                                    [--lockfile-out LOCKFILE_OUT]
                                    [--lockfile-packages] [--lockfile-clean]
+                                   [--lockfile-overrides LOCKFILE_OVERRIDES]
                                    [path]
 
     Compute the build order of a dependency graph.
@@ -49,14 +50,14 @@ conan graph build-order
                             line is allowed. Possible values: --build="*" Force
                             build from source for all packages. --build=never
                             Disallow build for all packages, use binary packages
-                            or fail if a binary package is not found. Cannot be
+                            or fail if a binary package is not found, it cannot be
                             combined with other '--build' options. --build=missing
                             Build packages from source whose binary package is not
                             found. --build=cascade Build packages from source that
                             have at least one dependency being built from source.
                             --build=[pattern] Build packages from source whose
                             package reference matches the pattern. The pattern
-                            uses 'fnmatch' style wildcards. --build=![pattern]
+                            uses 'fnmatch' style wildcards. --build=~[pattern]
                             Excluded packages, which will not be built from the
                             source, whose package reference matches the pattern.
                             The pattern uses 'fnmatch' style wildcards.
@@ -118,6 +119,8 @@ conan graph build-order
                             Filename of the updated lockfile
       --lockfile-packages   Lock package-id and package-revision information
       --lockfile-clean      Remove unused entries from the lockfile
+      --lockfile-overrides LOCKFILE_OVERRIDES
+                            Overwrite lockfile overrides
 
 
 The ``conan graph build-order`` command computes build order of the dependency graph for the recipe specified in ``path``.
