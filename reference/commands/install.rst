@@ -24,15 +24,16 @@ conan install
 
     Install the requirements specified in a recipe (conanfile.py or conanfile.txt).
 
-    It can also be used to install a concrete package specifying a
-    reference. If any requirement is not found in the local cache, it will
-    retrieve the recipe from a remote, looking for it sequentially in the
-    configured remotes. When the recipes have been downloaded it will try
-    to download a binary package matching the specified settings, only from
-    the remote from which the recipe was retrieved. If no binary package is
-    found, it can be built from sources using the '--build' option. When
-    the package is installed, Conan will write the files for the specified
-    generators.
+    It can also be used to install packages without a conanfile, using the
+    --requires and --tool-requires arguments.
+
+    If any requirement is not found in the local cache, it will iterate the remotes
+    looking for it. When the full dependency graph is computed, and all dependencies
+    recipes have been found, it will look for binary packages matching the current settings.
+    If no binary package is found for some or several dependencies, it will error,
+    unless the '--build' argument is used to build it from source.
+
+    After installation of packages, the generators and deployers will be called.
 
     positional arguments:
       path                  Path to a folder containing a recipe (conanfile.py or
@@ -61,7 +62,7 @@ conan install
                             line is allowed. Possible values: --build="*" Force
                             build from source for all packages. --build=never
                             Disallow build for all packages, use binary packages
-                            or fail if a binary package is not found. Cannot be
+                            or fail if a binary package is not found, it cannot be
                             combined with other '--build' options. --build=missing
                             Build packages from source whose binary package is not
                             found. --build=cascade Build packages from source that
@@ -142,7 +143,7 @@ conan install
       --deployer-folder DEPLOYER_FOLDER
                             Deployer output folder, base build folder by default
                             if not set
-      --build-require       Whether the provided reference is a build-require
+      --build-require       Whether the provided path is a build-require
 
 
 The ``conan install`` command is one of the main Conan commands, and it is used to resolve and install dependencies.
