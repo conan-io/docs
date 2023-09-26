@@ -7,7 +7,7 @@ conan download
 
     $ conan download -h
     usage: conan download [-h] [-v [V]] [-f FORMAT] [--only-recipe]
-                          [-p PACKAGE_QUERY] -r REMOTE [-l LIST]
+                          [-p PACKAGE_QUERY] -r REMOTE [-m METADATA] [-l LIST]
                           [pattern]
 
     Download (without installing) a single conan package from a remote server.
@@ -37,6 +37,9 @@ conan download
                             os=Windows AND (arch=x86 OR compiler=gcc)
       -r REMOTE, --remote REMOTE
                             Download from this specific remote
+      -m METADATA, --metadata METADATA
+                            Download the metadata matching the pattern, even if
+                            the package is already in the cache and not downloaded
       -l LIST, --list LIST  Package list file
 
 
