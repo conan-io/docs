@@ -146,4 +146,4 @@ while keeping write access only for authorized agents
 
 .. toctree::
 
-   artifactory/creating_backup_sources_repo
+   repositories/artifactory/creating_backup_sources_repo
