@@ -49,7 +49,6 @@ Let's overview how the feature works by providing an example usage from beginnin
 In summary, it looks something like:
 
 - A remote backup repository is set up. This should allow ``PUT`` and ``GET`` HTTP methods to modify and fetch its contents.
-  An Artifactory generic repository (available for free with Artifactory CE) is recommend for this purpose.
   If access credentials are desired (which is strongly recommended for uploading permissions),
   you can use the :ref:`source_credentials.json<reference_config_files_source_credentials>` feature.
 - The remote's URL can then be set in ``core.sources:download_urls`` and ``core.sources:upload_url``.
