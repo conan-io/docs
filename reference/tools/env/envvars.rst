@@ -42,7 +42,7 @@ aggregate and create a ``conanrun.bat|sh|ps1`` script:
 .. code:: python
 
     def generate(self):
-        env1 = Environment(self)
+        env1 = Environment()
         env1.define("foo", "var")
         envvars = env1.vars(self, scope="run")
         # Will append "my_env_file" to "conanrun.bat|sh|ps1"
@@ -53,7 +53,7 @@ You can also use ``scope=None`` argument to avoid appending the script to the ag
 
 .. code:: python
 
-    env1 = Environment(self)
+    env1 = Environment()
     env1.define("foo", "var")
     # Will not append "my_env_file" to "conanbuild.bat|sh|ps1"
     envvars = env1.vars(self, scope=None)
@@ -88,7 +88,7 @@ As an alternative to running a command, environments can be applied in the pytho
 
     from conan.tools.env import Environment
 
-    env1 = Environment(self)
+    env1 = Environment()
     env1.define("foo", "var")
     envvars = env1.vars(self)
     with envvars.apply():
