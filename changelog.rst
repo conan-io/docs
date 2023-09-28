@@ -3,6 +3,11 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2.0 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.0.13 (28-Sept-2023)
+---------------------
+
+- Bugfix: Fix wrong cppstd detection for newer apple-clang versions introduced in 2.0.11. `#14837 <https://github.com/conan-io/conan/pull/14837>`_
+
 2.0.12 (26-Sept-2023)
 ---------------------
 
