@@ -28,7 +28,7 @@ License of the **target** source code and binaries, i.e. the code
 that is being packaged, not the ``conanfile.py`` itself.
 Can contain several, comma separated licenses. It is a text string, so it can
 contain any text, but it is strongly recommended that recipes of Open Source projects use
-`SPDX <https://spdx.dev>`_ identifiers from the `SPDX license list <https://spdx.dev/licenses>`_
+`SPDX <https://spdx.dev>`_ identifiers from the `SPDX license list <https://spdx.org/licenses/>`_
 
 
 This will help people wanting to automate license compatibility checks, like consumers of your
