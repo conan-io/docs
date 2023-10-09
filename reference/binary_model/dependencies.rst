@@ -125,7 +125,7 @@ Let's build the new ``app/0.1`` binary:
 Now we will have two ``app/0.1`` different binaries:
 
 .. code-block:: bash
-  :emphasize-lines: 11,12,17,18
+  :emphasize-lines: 13,14,19,20
 
     $ conan list app/0.1:*
     (conan2_36) λ conan list app/0.1:*
