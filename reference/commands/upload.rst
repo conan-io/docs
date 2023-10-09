@@ -11,9 +11,9 @@ section <conan_repositories>`.
 
     $ conan upload -h
     usage: conan upload [-h] [-v [V]] [-f FORMAT] [-p PACKAGE_QUERY] -r REMOTE
-                    [--only-recipe] [--force] [--check] [-c] [--dry-run]
-                    [-l LIST]
-                    [pattern]
+                        [--only-recipe] [--force] [--check] [-c] [--dry-run]
+                        [-l LIST] [-m METADATA]
+                        [pattern]
 
     Upload packages to a remote.
 
@@ -49,6 +49,9 @@ section <conan_repositories>`.
       -c, --confirm         Upload all matching recipes without confirmation
       --dry-run             Do not execute the real upload (experimental)
       -l LIST, --list LIST  Package list file
+      -m METADATA, --metadata METADATA
+                            Upload the metadata, even if the package is already in
+                            the server and not uploaded
 
 
 The ``conan upload`` command can upload packages to 1 server repository specified by the ``-r=myremote`` argument.

@@ -62,7 +62,7 @@ Let's have a look at the changes in the *conanfile.py*:
 
         def source(self):
             # Please, be aware that using the head of the branch instead of an immutable tag
-            # or commit is not a bad practice and not allowed by Conan
+            # or commit is a bad practice and not allowed by Conan
             get(self, "https://github.com/conan-io/libhello/archive/refs/heads/main.zip", 
                       strip_root=True)
 
