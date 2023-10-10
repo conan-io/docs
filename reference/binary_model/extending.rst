@@ -106,7 +106,7 @@ There is also the possibility to define ``user.xxxx:conf=value`` for user-define
 
 But there might be some special situations in which it is really desired that some ``conf`` defines different ``package_ids``, creating different package binaries. It is possible to do this in two different places:
 
-- Locally, in recipeps ``package_id`` method, via the ``self.info.conf`` attribute:
+- Locally, in the recipe's ``package_id`` method, via the ``self.info.conf`` attribute:
 
   .. code-block:: python
 
