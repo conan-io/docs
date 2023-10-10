@@ -148,7 +148,7 @@ Recipes can define how their dependencies affect their ``package_id``, using the
             self.requires("mydep/1.0", package_id_mode="patch_mode")
 
 
-Using ``package_id_mode`` trait do not differentiate between the "embed" and "non-embed" cases, it is up to the user to define the correct value. It is likely that this approach should only be used for very special cases that do not have variability of shared/static libraries controlled via ``options``.
+Using ``package_id_mode`` trait does not differentiate between the "embed" and "non-embed" cases, it is up to the user to define the correct value. It is likely that this approach should only be used for very special cases that do not have variability of shared/static libraries controlled via ``options``.
 
 Note that the ``requirements()`` method is evaluated while the graph is being expanded, the dependencies do not exist yet (haven't been computed), so it is nos possible to know the dependencies options.
 In this case it might be preferred to use the ``package_id()`` method.
