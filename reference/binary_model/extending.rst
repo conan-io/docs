@@ -1,7 +1,7 @@
 Extending the binary model
 ==========================
 
-There are a few mechanisms to extend the Conan default binary model:
+There are a few mechanisms to extend the default Conan binary model:
 
 Custom settings
 ---------------
