@@ -163,6 +163,13 @@ line. An example of the output of this command for MacOS would be:
     Then open and edit the file and set ``compiler.cppstd`` to the C++ standard you want
     to use.
 
+.. note:: **Using a different compiler than the auto-detected one**
+
+    If you want to change a Conan profile to use a compiler different from the default
+    one, you need to change the ``compiler`` setting and also tell Conan explicitly where
+    to find it using the :ref:`tools.build:compiler_executables
+    configuration<conan-cmake-toolchain_conf>`.
+
 We will use Conan to install **Zlib** and generate the files that CMake needs to
 find this library and build our project. We will generate those files in the folder
 *build*. To do that, run:
