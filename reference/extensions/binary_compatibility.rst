@@ -28,3 +28,7 @@ Some important rules:
   The ``compatibility.py`` feature is in **preview**. The current default ``compatibility.py`` is
   **experimental**.
   See :ref:`the Conan stability<stability>` section for more information.
+
+.. seealso::
+
+    Read the :ref:`binary model reference<reference_binary_model>` for a full view of the Conan binary model.

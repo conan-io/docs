@@ -15,4 +15,5 @@ Reference
    reference/config_files
    reference/extensions
    reference/environment
+   reference/binary_model
    reference/conan_server

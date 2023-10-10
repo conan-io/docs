@@ -167,4 +167,5 @@ configurations or when configurations follow a predictable naming pattern. For i
 
 .. seealso::
     
-    See :ref:`the tutorial about header-only packages<creating_packages_other_header_only>` for explanations about the ``package_id()`` method.
+    - See :ref:`the tutorial about header-only packages<creating_packages_other_header_only>` for explanations about the ``package_id()`` method.
+    - Read the :ref:`binary model reference<reference_binary_model>` for a full view of the Conan binary model.

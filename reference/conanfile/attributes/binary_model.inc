@@ -287,13 +287,15 @@ info
 
 Object used exclusively in ``package_id()`` method:
 
-- The <MISSING PAGE> ``package_id(self)`` method to control the unique ID for a package:
+- The `:ref:package_id method<reference_conanfile_methods_package_id>` to control the unique ID for a package:
 
      .. code-block:: python
 
         def package_id(self):
             self.info.clear()
 
+
+.. _reference_conanfile_attributes_package_id_modes:
 
 package_id_{embed,non_embed,unknown}_mode
 -----------------------------------------
@@ -325,3 +327,7 @@ The 3 different attributes are:
 - ``package_id_embed_mode``: Define the mode for "embedding" cases, that is, a shared library linking a static library, an application linking a static library, an application or a library linking a header-only library. The default for this mode is ``full_mode``
 - ``package_id_non_embed_mode``. Define the mode for "non-embedding" cases, that is, a shared library linking another shared library, a static library linking another static library, an application executable linking a shared library. The default for this mode is ``minor_mode``.
 - ``package_id_unknown_mode``: Define the mode when the relationship between packages is unknown. If it is not possible to deduce the package type, because there are no ``shared`` or ``header_only`` options defined, or because ``package_type`` is not defined, then, this mode will be used. The default for this mode is ``semver_mode`` (similar to Conan 1.X behavior).
+
+.. seealso::
+
+    Read the :ref:`binary model reference<reference_binary_model>` for a full view of the Conan binary model.
