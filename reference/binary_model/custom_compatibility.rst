@@ -73,7 +73,7 @@ with 4.9 we could declare a ``compatibility()`` method like this:
                     for v in ("4.8", "4.7", "4.6")]
                 
 
-Read more about the ``compatibility()`` method in :ref:`the compatibility() method reference<reference_conanfile_methods_compatibility`
+Read more about the ``compatibility()`` method in :ref:`the compatibility() method reference<reference_conanfile_methods_compatibility>`
 
 
 The ``compatibility.py`` plugin

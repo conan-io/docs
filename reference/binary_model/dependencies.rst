@@ -20,7 +20,7 @@ Non-embed mode
 When we list the binaries of a package like ``openssl`` with dependencies:
 
 .. code-block:: bash
-    :emphasize-lines: 11,12
+    :emphasize-lines: 13,14
 
     $ conan list openssl/3.1.2:* -r=conancenter
     conancenter
@@ -31,7 +31,9 @@ When we list the binaries of a package like ``openssl`` with dependencies:
               packages
                 0348efdcd0e319fb58ea747bb94dbd88850d6dd1  # package_id
                   info
-                      ...
+                    options
+                      shared: True
+                    ...
                     requires
                       zlib/1.3.Z
 

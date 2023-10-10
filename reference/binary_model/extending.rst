@@ -124,6 +124,7 @@ But there might be some special situations in which it is really desired that so
 
   The value of the ``package_id`` will contain the value provided in the ``tools.build:cxxflags`` and other configurations. Note that this value is managed as a string, changing the string, will produce a different result and a different ``package_id``, so if this approach is used, it is very important to be very consistent with the provided values for different configurations like ``tools.build:cxxflags``.
 
+  It is also possible to use regex expressions to match several ``confs``, instead of listing all of them, for example ``.*cmake`` could match any configuration that contains "cmake" in its name (not that this is recommended, see best practices below).
 
 .. note::
 
