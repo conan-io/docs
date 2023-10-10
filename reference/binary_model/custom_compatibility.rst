@@ -7,7 +7,7 @@ of dependencies versions, as explained in the :ref:`previous section about depen
 In summary, the required binaries ``package_id`` when installing dependencies should match by default:
 
 - All the settings in the ``package_id`` except ``compiler.cppstd`` should match exactly the ones provided in the input profiles, including the compiler version. So ``compiler.version=9`` is different than ``compiler.version=9.1``.
-- The default behavior will assume binary compatibility among different ``compiler.cppstd`` values for C++ packages, being able to fall back to other values rather the specified in the input profiles, if the ``cppstd`` required by the input profile does not exist. This is controlled by the ``compatibility.py`` plugin, that can be customized by users.
+- The default behavior will assume binary compatibility among different ``compiler.cppstd`` values for C++ packages, being able to fall back to other values rather than the one specified in the input profiles, if the ``cppstd`` required by the input profile does not exist. This is controlled by the ``compatibility.py`` plugin, that can be customized by users.
 - All the options in the ``package_id`` should match exactly the ones provided in the input profiles.
 - The versions of the dependencies should match:
 
