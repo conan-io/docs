@@ -104,7 +104,7 @@ Read more about :ref:`the Conan configuration system in this section<reference_c
 
 There is also the possibility to define ``user.xxxx:conf=value`` for user-defined configuration, that in the same spirit as core and tools built-in configurations, do not affect the ``package_id`` of binaries.
 
-But there might be some special situations in which is really desired that some ``conf`` defines different ``package_ids``, creating different package binaries. It is possible to do this in two different places:
+But there might be some special situations in which it is really desired that some ``conf`` defines different ``package_ids``, creating different package binaries. It is possible to do this in two different places:
 
 - Locally, in recipeps ``package_id`` method, via the ``self.info.conf`` attribute:
 
