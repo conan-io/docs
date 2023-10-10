@@ -166,7 +166,7 @@ line. An example of the output of this command for MacOS would be:
 .. note:: **Using a different compiler than the auto-detected one**
 
     If you want to change a Conan profile to use a compiler different from the default
-    one, you need to change the ``compiler``setting and also tell Conan explicitly where
+    one, you need to change the ``compiler`` setting and also tell Conan explicitly where
     to find it using the :ref:`tools.build:compiler_executables
     configuration<conan-cmake-toolchain_conf>`.
 
