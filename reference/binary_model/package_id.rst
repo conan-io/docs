@@ -36,7 +36,7 @@ Let's take some package and list its binaries, for example:
                     shared: True
 
 
-We can see, for the latest recipe revision of ``zlib/1.2.13`` several binaries. Every binary is identified by its own ``package_id``, and below it we can see some information for that binary under ``info``. This information is the one used to compute the ``package_id``. Every time something change in this information, like the architecture, or being a static or a shared library, a new ``package_id`` is computed because it represents a different binary.
+We can see severa binaries for the latest recipe revision of ``zlib/1.2.13``. Every binary is identified by its own ``package_id``, and below it we can see some information for that binary under ``info``. This information is the one used to compute the ``package_id``. Every time something changes in this information, like the architecture, or being a static or a shared library, a new ``package_id`` is computed because it represents a different binary.
 
 .. image:: /images/conan_package_id.png
    :width: 680 px
