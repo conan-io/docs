@@ -327,3 +327,7 @@ The 3 different attributes are:
 - ``package_id_embed_mode``: Define the mode for "embedding" cases, that is, a shared library linking a static library, an application linking a static library, an application or a library linking a header-only library. The default for this mode is ``full_mode``
 - ``package_id_non_embed_mode``. Define the mode for "non-embedding" cases, that is, a shared library linking another shared library, a static library linking another static library, an application executable linking a shared library. The default for this mode is ``minor_mode``.
 - ``package_id_unknown_mode``: Define the mode when the relationship between packages is unknown. If it is not possible to deduce the package type, because there are no ``shared`` or ``header_only`` options defined, or because ``package_type`` is not defined, then, this mode will be used. The default for this mode is ``semver_mode`` (similar to Conan 1.X behavior).
+
+.. seealso::
+
+    Read the :ref:`binary model reference<reference_binary_model>` for a full view of the Conan binary model.
