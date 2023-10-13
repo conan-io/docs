@@ -54,7 +54,9 @@ using CMake **v3.22.6**.
     Please note that this *conanfile.txt* will install *zlib/1.2.11* and *cmake/3.22.6*
     separately. However, if Conan does not find a binary for Zlib in Conan Center and it
     needs to be built from sources, a CMake installation must already be present in your
-    system. If you want to use that *cmake/3.22.6* to also build Zlib, when installing if
+    system, because the ``cmake/3.22.6`` declared in your ``conanfile.txt`` only applies to 
+    your current project, not all dependencies.
+    If you want to use that *cmake/3.22.6* to also build Zlib, when installing if
     necessary, you may add the ``[tool_requires]`` section to the profile you are using.
     Please check :ref:`the profile doc<reference_config_files_profiles>` for more
     information.
