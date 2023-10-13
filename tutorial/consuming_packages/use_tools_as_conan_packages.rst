@@ -4,11 +4,11 @@ Using build tools as Conan packages
 ===================================
 
 In the previous example, we built our CMake project and used Conan to install and locate
-the **Zlib** library. Conan used the CMake version found in the system path to build this
-example. But, what happens if, for example, you want to build your project with a specific
-CMake version different from the one you have already installed system-wide? In this case,
+the **Zlib** library. Conan used the system path’s CMake version to build this
+example. But what happens if you want to build your project with a specific
+CMake version, different from the one already installed system-wide? In this case,
 you can declare this dependency in Conan using a type of requirement named
-``tool_requires``. Let’s see an example of how to add a ``tool_requires`` to our project,
+``tool_requires``. Let’s see an example of how to add a ``tool_requires`` to our project
 and use a different CMake version to build it.
 
 Please, first clone the sources to recreate this project. You can find them in the
