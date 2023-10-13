@@ -4,12 +4,12 @@ Using build tools as Conan packages
 ===================================
 
 In the previous example, we built our CMake project and used Conan to install and locate
-the **Zlib** library. Conan used the CMake version found in the system path to build this
-example. But, what happens if you don’t have CMake installed in your build environment or
-want to build your project with a specific CMake version different from the one you have
-already installed system-wide? In this case, you can declare this dependency in Conan
-using a type of requirement named ``tool_requires``. Let’s see an example of how to add a
-``tool_requires`` to our project, and use a different CMake version to build it.
+the **Zlib** library. Conan used the system path’s CMake version to build this
+example. But what happens if you want to build your project with a specific
+CMake version, different from the one already installed system-wide? In this case,
+you can declare this dependency in Conan using a type of requirement named
+``tool_requires``. Let’s see an example of how to add a ``tool_requires`` to our project
+and use a different CMake version to build it.
 
 Please, first clone the sources to recreate this project. You can find them in the
 `examples2.0 repository <https://github.com/conan-io/examples2>`_ in GitHub:
@@ -47,6 +47,20 @@ using CMake **v3.22.6**.
     [generators]
     CMakeDeps
     CMakeToolchain
+
+
+.. important::
+
+    Please note that this *conanfile.txt* will install *zlib/1.2.11* and *cmake/3.22.6*
+    separately. However, if Conan does not find a binary for Zlib in Conan Center and it
+    needs to be built from sources, a CMake installation must already be present in your
+    system, because the ``cmake/3.22.6`` declared in your ``conanfile.txt`` only applies to 
+    your current project, not all dependencies.
+    If you want to use that *cmake/3.22.6* to also build Zlib, when installing if
+    necessary, you may add the ``[tool_requires]`` section to the profile you are using.
+    Please check :ref:`the profile doc<reference_config_files_profiles>` for more
+    information.
+
 
 We also added a message to the *CMakeLists.txt* to output the CMake version:
 
