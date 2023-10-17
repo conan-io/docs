@@ -72,3 +72,4 @@ Read more
 - :ref:`Uploading packages tutorial <uploading_packages>`
 - :ref:`Working with Conan repositories <conan_repositories>`
 - :ref:`Managing remotes with conan remote command <reference_commands_remote>`
+- :ref:`Uploading metadata files<devops_metadata>`.
