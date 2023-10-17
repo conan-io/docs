@@ -5,13 +5,13 @@ Managing package metadata files
 
 .. include:: ../common/experimental_warning.inc
 
-Conan packages store the library headers, libraries and executable binaries, licenses and sometimes other data files or build files that might be necessary to use those packages.
 
-But there are many other files that are generated during the build, or that are relevant for the current package, that we want to manage and store them:
+A Conan package is typically composed by several C and C++ artifacts, headers, compiled libraries, executables. But there are other files that might not be necessary for the normal consumption of such a package, but that could be very important for compliance, technical or business reasons, for example:
 
 - Full build logs
 - The tests executables
-- The tests results
+- The tests results from running the test suite
+- Debugging artifacts like heavy .pdb files
 - Coverage, sanitizers, or other source or binary analysis tools results
 - Context and metadata about the build, exact machine, environment, author, CI data
 - Other compliance and security related files
@@ -22,6 +22,12 @@ The problem with these files is that they can be large/heavy, if we store them i
 
 
 The **metadata files** feature allows to create, upload, append and store metadata associated to packages in an integrated and unified way, while avoiding the impact on developers and CI speed and costs, because metadata files are not downloaded and unzipped by default when packages are used.
+
+
+It is important to highlight that there are two types of metadata:
+
+- Recipe metadata, associated to the ``conanfile.py`` recipe, the metadata should be common to all binaries created from this recipe (package name, version and recipe revision). This metadata will probably be less common, but for example results of some scanning of the source code, that would be common for all configurations and builds, can be recipe metadata.
+- Package binary metadata, associated to the package binary for a given specific configuration and represented by a ``package_id``. Build logs, tests reports, etc, that are specific to a binary configuration will be package metadata.
 
 
 Creating metadata in recipes
@@ -37,6 +43,13 @@ in those locations.
    from conan.tools.files import save, copy
 
    class Pkg(ConanFile):
+      name = "pkg"
+      version = "0.1"
+
+      def layout(self):
+         # Or something else, like the "cmake_layout(self)" built-in layout
+         self.folders.build = "mybuild"
+         self.folders.generators = "mybuild/generators"
 
       def export(self):
          # logs that might be generated in the recipe folder at "export" time.
@@ -63,25 +76,15 @@ Doing a ``conan create`` over this recipe, will create "metadata" folders in the
 
 .. code-block:: bash
 
-   $ conan create . --name=pkg --version=0.1
+   $ conan create .
    $ conan cache path pkg/0.1 --folder=metadata
    # folder containing the recipe metadata
    $ conan cache path pkg/0.1:package_id --folder=metadata
    # folder containing the specific "package_id" binary metadata
 
 
-It is also possible to use the "local flow" commands and get local "metadata" folders. But if we want to do this, it is very recommended
-to use a ``layout()`` method like this to avoid the excessive pollution of the current folder:
-
-.. code-block:: python
-
-   def layout(self):
-      # Or something else, like the "cmake_layout(self)" built-in layout
-      self.folders.build = "mybuild"
-      self.folders.generators = "mybuild/generators"
-   
-
-And then the local commands will allow to test and debug the functionality:
+It is also possible to use the "local flow" commands and get local "metadata" folders. If we want to do this, it is very recommended
+to use a ``layout()`` method like above to avoid cluttering the current folder. Then the local commands will allow to test and debug the functionality:
 
 .. code-block:: bash
    
@@ -93,6 +96,7 @@ And then the local commands will allow to test and debug the functionality:
 
 **NOTE**: This metadata is not valid for the ``conan export-pkg`` flow. If you want to use the ``export-pkg`` flow you might want to check the
 "Adding metadata" section below.
+
 
 Creating metadata with hooks
 ----------------------------
@@ -167,6 +171,9 @@ command will return the folders to do that operation, so copying, creating or mo
    # the returned folder
 
 
+This metadata is added locally, in the Conan cache. If you want to update the server metadata, uploading it from the cache is necessary.
+
+
 Uploading metadata
 ------------------
 
@@ -199,6 +206,14 @@ If the metadata has been locally modified or added new files, we can force the u
 The ``--metadata`` argument allows to specify the metadata files that we are uploading. If we structure them in folders,
 we could specify ``--metadata=logs*`` to upload only the logs metadata, but not other possible ones like ``test`` metadata.
 
+.. code-block:: bash
+
+   # Upload only the logs metadata of the zlib/1.2.13 binaries
+   # This will upload the logs even if zlib/1.2.13 is already in the server
+   $ conan upload zlib/1.2.13:* -r=remote -c --metadata="logs/*"
+   # Multiple patterns are allowed:
+   $ conan upload "*" -r=remote -c --metadata="logs/*" --metadata="tests/*"
+
 
 Downloading metadata
 --------------------
@@ -219,9 +234,28 @@ The way to recover the metadata from the server is to explicitly specify it with
    # Inspect the package metadata for binary "package_id"
 
 
-The retrieval of the metadata is done with ``download`` per-package, or for a list of packages (``conan download --list``), but it is not
-possible to do it (in a built-in way, it is possible with extensions, like using a deployer or custom commands) for a full dependency graph.
+The retrieval of the metadata is done with ``download`` per-package, or for a list of packages (``conan download --list``).
 
+
+If we want to download the metadata for a whole dependency graph, it is necessary to use "package-lists":
+
+.. code-block:: bash
+
+    $ conan install . --format=json -r=remote > graph.json
+    $ conan list --graph=graph.json --format=json > pkglist.json
+    # the list will contain the "remote" origin of downloaded packages
+    $ conan download --list=pkglist.json --metadata="*" -r=remote
+
+
+Note that the "package-list" will only contain associated to the "remote" origin the packages that were downloaded. If they were previously in the cache, then, they will not be listed under the "remote" origin and the metadata will not be downloaded. If you want to collect the dependencies metadata, recall to download it when the package is installed from the server.
+There are other possibilities, like a custom command that can automatically collect and download dependencies metadata from the servers.
+
+
+Removing metadata
+-----------------
+At the moment it is not possible to remove metadata from the server side using Conan, as the metadata are "additive", it is possible to add new data, but not to remove it (otherwise it would not be possible to add new metadata without downloading first all the previous metadata, and that can be quite inefficient and more error prone, specially sensitive to possible race conditions).
+
+The recommendation to remove metatada from the server side would be to use the tools, web interface or APIs that the server might provide.
 
 .. note::
 
@@ -232,8 +266,7 @@ possible to do it (in a built-in way, it is possible with extensions, like using
    - Metadata reading access should not be a frequent operation, or something that developers have to do. Metadata read is intended for
      excepcional cases, when some build logs need to be recovered for compliance, or some test executables might be needed for debugging or
      re-checking a crash.
-   - Metadata is not automatically zipped or unzipped. Storing many individual files can be inefficient for upload, download and storage,
-     and it might be recommended to zip those metadata files. It is the user recipe or hook responsibility to do that if desired.
+   - Conan does not do any compression or decompression of the metadata files. If there are a lot of metadata files, consider zipping them yourself, otherwise the upload of those many files can take a lot of time. If you need to handle different types of metadata (logs, tests, reports), zipping the files under each category might be better to be able to filter with the ``--metadata=xxx`` argument.
 
 
 test_package as metadata
@@ -295,3 +328,6 @@ downloading it, and copying it to our current folder:
 .. seealso::
 
    - TODO: Examples how to collect the metadata of a complete dependency graph with some custom deployer or command
+
+
+This is an **experimental** feature. We are looking forward to hearing your feedback, use cases and needs, to keep improving this feature. Please report it in `Github issues <https://github.com/conan-io/conan/issues>`_ 

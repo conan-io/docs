@@ -92,3 +92,28 @@ If you just want to download the packages belonging to a specific setting, use t
 
 
 If the ``--format=json`` formatter is specified, the result will be a "PackageList", compatible with other Conan commands, for example the ``conan upload`` command, so it is possible to concatenate a ``download + upload``, using the generated json file. See the :ref:`Packages Lists examples<examples_commands_pkglists>`.
+
+
+Downloading metadata
+--------------------
+
+The metadata files of the recipes and packages are not downloaded by default. It is possible to explicitly retrieve them with the ``conan download --metadata=xxx`` argument.
+The main arguments are the same as above, and Conan will download the specified packages, or skip them if they are already in the cache:
+
+.. code-block:: bash
+
+    $ conan download pkg/0.1 -r=default --metadata="*"
+    # will download pgkg/0.1 recipe with all the recipe metadata
+    # And also all package binaries (latest package revision)
+    # with all the binaries metadata
+
+
+If only one or several metadata folders or sets of files are desired, it can also be specified:
+
+
+.. code-block:: bash
+
+    $ conan download pkg/0.1 -r=default --metadata="logs/*" --metadata="tests/*"
+    # Will download only the logs and tests metadata, but not other potential metadata files
+
+For more information see the :ref:`metadata section<devops_metadata>`.
