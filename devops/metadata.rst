@@ -6,7 +6,7 @@ Managing package metadata files
 .. include:: ../common/experimental_warning.inc
 
 
-A Conan package is typically composed by several C and C++ artifacts, headers, compiled libraries, executables. But there are other files that might not be necessary for the normal consumption of such a package, but that could be very important for compliance, technical or business reasons, for example:
+A Conan package is typically composed by several C and C++ artifacts, headers, compiled libraries and executables. But there are other files that might not be necessary for the normal consumption of such a package, but which could be very important for compliance, technical or business reasons, for example:
 
 - Full build logs
 - The tests executables
