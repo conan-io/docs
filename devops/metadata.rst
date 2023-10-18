@@ -204,13 +204,13 @@ If the metadata has been locally modified or added new files, we can force the u
    pkg/0.1:da39a3ee5e6b4b0d3255bfef95601890afd80709: Package metadata: 1 files
 
 The ``--metadata`` argument allows to specify the metadata files that we are uploading. If we structure them in folders,
-we could specify ``--metadata=logs*`` to upload only the logs metadata, but not other possible ones like ``test`` metadata.
+we could specify ``--metadata="logs*"`` to upload only the logs metadata, but not other possible ones like ``test`` metadata.
 
 .. code-block:: bash
 
    # Upload only the logs metadata of the zlib/1.2.13 binaries
    # This will upload the logs even if zlib/1.2.13 is already in the server
-   $ conan upload zlib/1.2.13:* -r=remote -c --metadata="logs/*"
+   $ conan upload "zlib/1.2.13:*" -r=remote -c --metadata="logs/*"
    # Multiple patterns are allowed:
    $ conan upload "*" -r=remote -c --metadata="logs/*" --metadata="tests/*"
 
@@ -234,10 +234,7 @@ The way to recover the metadata from the server is to explicitly specify it with
    # Inspect the package metadata for binary "package_id"
 
 
-The retrieval of the metadata is done with ``download`` per-package, or for a list of packages (``conan download --list``).
-
-
-If we want to download the metadata for a whole dependency graph, it is necessary to use "package-lists":
+The retrieval of the metadata is done with ``download`` per-package. If we want to download the metadata for a whole dependency graph, it is necessary to use "package-lists":
 
 .. code-block:: bash
 
