@@ -46,7 +46,9 @@ folder:
 
 As you can see, the profile has different sections. The ``[settings]`` section is the one
 that has information about things like the operating system, architecture, compiler, and
-build configuration. When you call a Conan command setting the ``--profile`` argument,
+build configuration. The default profile can also be checked with the command :command:`conan profile show`.
+
+When you call a Conan command setting the ``--profile`` argument,
 Conan will take all the information from the profile and apply it to the packages you want
 to build or install. If you don't specify that argument it's equivalent to call it with
 ``--profile=default``. These two commands will behave the same:
@@ -59,7 +61,7 @@ to build or install. If you don't specify that argument it's equivalent to call 
 
 You can store different profiles and use them to build for different settings. For example,
 to use a ``build_type=Debug``, or adding a ``tool_requires`` to all the packages you build
-with that profile. One example of a *debug* profile could be:
+with that profile. We will create a *debug* profile to try building with different configurations:
 
 .. code-block:: bash
     :caption: <conan home>/profiles/debug
