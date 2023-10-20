@@ -204,10 +204,10 @@ executable can't find the shared libraries for *Zlib* that we just installed.
     $ Release\compressor.exe
     (on a pop-up window) The code execution cannot proceed because zlib1.dll was not found. Reinstalling the program may fix this problem.
 
-.. note::
+.. note:: **Possible issue with Windows consoles**
 
     The error depends on the console being used and may not always pop up. It can even
-    run correctly if the console is able to get zlib dll from a different path.
+    run correctly if the console is able to get the zlib dll from a different path.
     We can make sure by using the Windows Powershell console. Running the program won't have any output but running
     :command:`Exit $LASTEXITCODE` afterwards will give us the exit code:
 
