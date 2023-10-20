@@ -243,11 +243,11 @@ Check that running the same commands as in the previous examples without the
     :caption: Linux, macOS
     
     $ conan install . --build=missing
-    $ cd build
-    $ source ./Release/generators/conanbuild.sh
+    $ cd build/Release
+    $ source ./generators/conanbuild.sh
     Capturing current environment in deactivate_conanbuildenv-release-x86_64.sh
     Configuring environment variables    
-    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=Release/generators/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
+    $ cmake ../.. -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
     $ cmake --build .
     ...
     Building with CMake version: 3.22.6
