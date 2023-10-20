@@ -46,7 +46,9 @@ folder:
 
 As you can see, the profile has different sections. The ``[settings]`` section is the one
 that has information about things like the operating system, architecture, compiler, and
-build configuration. When you call a Conan command setting the ``--profile`` argument,
+build configuration. The default profile can also be checked with the command :command:`conan profile show`.
+
+When you call a Conan command setting the ``--profile`` argument,
 Conan will take all the information from the profile and apply it to the packages you want
 to build or install. If you don't specify that argument it's equivalent to call it with
 ``--profile=default``. These two commands will behave the same:
@@ -59,7 +61,7 @@ to build or install. If you don't specify that argument it's equivalent to call 
 
 You can store different profiles and use them to build for different settings. For example,
 to use a ``build_type=Debug``, or adding a ``tool_requires`` to all the packages you build
-with that profile. One example of a *debug* profile could be:
+with that profile. We will create a *debug* profile to try building with different configurations:
 
 .. code-block:: bash
     :caption: <conan home>/profiles/debug
@@ -201,6 +203,23 @@ executable can't find the shared libraries for *Zlib* that we just installed.
 
     $ Release\compressor.exe
     (on a pop-up window) The code execution cannot proceed because zlib1.dll was not found. Reinstalling the program may fix this problem.
+
+.. note:: **Possible issue with Windows consoles**
+
+    The expected error depends on the console being used and may not always pop up. It can sometimes
+    run correctly if the console is able to get the zlib dll from a different path.
+
+    We can make sure that the execution is not finding our zlib library as it was set to Shared.
+    We will use the Windows Powershell console to run the program which won't have any output. Running
+    :command:`Exit $LASTEXITCODE` afterwards will give us the exit code:
+
+    .. code-block:: bash
+
+        $ .\Release\compressor.exe
+        $ Exit $LASTEXITCODE
+        [process exited with code 3221225781 (0xc0000135)]
+
+    This exit code is STATUS_DLL_NOT_FOUND because it couldn´t find the zlib library as expected.
 
 .. code-block:: bash
     :caption: Linux, Macos
