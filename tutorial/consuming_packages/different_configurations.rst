@@ -43,10 +43,12 @@ folder:
     [tool_requires]
     [env]
 
+    # The default profile can also be checked with the command "conan profile show"
+
 
 As you can see, the profile has different sections. The ``[settings]`` section is the one
 that has information about things like the operating system, architecture, compiler, and
-build configuration. The default profile can also be checked with the command :command:`conan profile show`.
+build configuration.
 
 When you call a Conan command setting the ``--profile`` argument,
 Conan will take all the information from the profile and apply it to the packages you want
@@ -203,23 +205,8 @@ executable can't find the shared libraries for *Zlib* that we just installed.
 
     $ Release\compressor.exe
     (on a pop-up window) The code execution cannot proceed because zlib1.dll was not found. Reinstalling the program may fix this problem.
-
-.. note:: **Possible issue with Windows consoles**
-
-    The expected error depends on the console being used and may not always pop up. It can sometimes
-    run correctly if the console is able to get the zlib dll from a different path.
-
-    We can make sure that the execution is not finding our zlib library as it was set to Shared.
-    We will use the Windows Powershell console to run the program which won't have any output. Running
-    :command:`Exit $LASTEXITCODE` afterwards will give us the exit code:
-
-    .. code-block:: bash
-
-        $ .\Release\compressor.exe
-        $ Exit $LASTEXITCODE
-        [process exited with code 3221225781 (0xc0000135)]
-
-    This exit code is STATUS_DLL_NOT_FOUND because it couldn´t find the zlib library as expected.
+    # This error depends on the console being used and may not always pop up.
+    # It could run correctly if the console gets the zlib dll from a different path.
 
 .. code-block:: bash
     :caption: Linux, Macos
