@@ -15,3 +15,4 @@ These are the most important configuration files, used to customize conan.
     config_files/remotes
     config_files/source_credentials
     config_files/credentials
+    config_files/conanrc
