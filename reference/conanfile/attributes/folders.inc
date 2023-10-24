@@ -88,6 +88,21 @@ as the folder from where we copy the files:
            copy(self, "LICENSE.md", self.recipe_folder, self.export_folder)
 
 
+recipe_metadata_folder
+----------------------
+
+The ``self.recipe_metadata_folder`` (**experimental**) can be used in the ``export()`` and ``export_sources()`` and ``source()`` methods
+to save or copy **recipe** metadata files. See :ref:`metadata section<devops_metadata>` for more information.
+
+
+package_metadata_folder
+-----------------------
+
+The ``self.package_metadata_folder`` (**experimental**)  can be used in the ``generate()``, ``build()`` and ``package()`` methods
+to save or copy **package** metadata files. See :ref:`metadata section<devops_metadata>` for more information.
+
+
+
 .. _conan_conanfile_properties_no_copy_source:
 
 no_copy_source

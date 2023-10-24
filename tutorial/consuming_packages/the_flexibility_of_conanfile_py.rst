@@ -99,9 +99,20 @@ class. This class has different class attributes and methods:
 * **generators** this class attribute specifies which Conan generators will be run when we
   call the :command:`conan install` command. In this case, we added **CMakeToolchain** and
   **CMakeDeps** as in the *conanfile.txt*.
-* **requirements()** in this method we can use the ``self.requires()`` and
-  ``self.tool_requires()`` methods to declare all our dependencies (libraries and build
-  tools).
+* **requirements()** in this method we use the ``self.requires()`` method to declare the
+  *zlib/1.2.11* dependency.
+* **build_requirements()** in this method we use the ``self.tool_requires()`` method to declare the
+  *cmake/3.22.6* dependency.
+
+.. note::
+
+    It's not strictly necessary to add the dependencies to the tools in
+    ``build_requirements()``, as in theory everything within this method could be done in
+    the ``requirements()`` method. However, ``build_requirements()`` provides a dedicated
+    place to define ``tool_requires`` and ``test_requires``, which helps in keeping the
+    structure organized and clear. For more information, please check the
+    :ref:`requirements()<reference_conanfile_methods_requirements>` and
+    :ref:`build_requirements()<reference_conanfile_methods_build_requirements>` docs.
 
 You can check that running the same commands as in the previous examples will lead to the
 same results as before.
@@ -337,5 +348,6 @@ Read more
 
     - :ref:`Using "cmake_layout" + "CMakeToolchain" + "CMakePresets feature" to build your project<examples-tools-cmake-toolchain-build-project-presets>`.
     - :ref:`Understanding the Conan Package layout<tutorial_package_layout>`.
+    - :ref:`Documentation for all conanfile.py available methods<reference_conanfile_methods>`.
     - Importing resource files in the generate() method
     - Conditional generators in configure()

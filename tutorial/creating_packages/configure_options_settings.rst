@@ -278,3 +278,4 @@ Read more
 - Check the binary compatibility :ref:`compatibility.py extension <reference_extensions_binary_compatibility>`.
 - Conan :ref:`package types<reference_conanfile_attributes_package_type>`.
 - :ref:`Setting package_id_mode for requirements <reference_conanfile_methods_requirements_package_id_mode>`.
+- Read the :ref:`binary model reference<reference_binary_model>` for a full view of the Conan binary model.

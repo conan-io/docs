@@ -31,6 +31,8 @@ The ``tool_requires`` is equivalent to ``requires()`` with the following traits:
 Recall that ``tool_requires`` are intended exclusively for depending on tools like ``cmake`` or ``ninja``, which run in the "build" context, but not for library-like dependencies that would be linked into binaries. For libraries or library-like dependencies, use ``requires`` or ``test_requires``.
 
 
+.. _reference_conanfile_build_requirements_host_version:
+
 <host_version>
 **************
 
