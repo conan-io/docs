@@ -10,8 +10,10 @@
 
 The **.conanrc** file can be placed in the folder where you are running Conan or any
 parent folder. This file is used to set up the Conan user home directory by defining the
-`conan_home` value. Below are some examples of how you can define the Conan user home in
-the **.conanrc** file:
+`conan_home` value. This value will take precedence over the :ref:`CONAN_HOME
+<reference_environment_variables_conan_home>` environment variable in case it's also
+defined. Below are some examples of how you can define the Conan user home in the
+**.conanrc** file:
 
 Set the Conan home to an absolute folder:
 
