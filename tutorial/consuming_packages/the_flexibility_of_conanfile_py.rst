@@ -258,7 +258,7 @@ Check that running the same commands as in the previous examples without the
     Uncompressed size is: 233
     Compressed size is: 147
     ZLIB VERSION: 1.2.11
-    $ source ./Release/generators/deactivate_conanbuild.sh
+    $ source ./generators/deactivate_conanbuild.sh
 
 There's no need to always write this logic in the `conanfile.py`. There are some
 pre-defined layouts you can import and directly use in your recipe. For example, for the
