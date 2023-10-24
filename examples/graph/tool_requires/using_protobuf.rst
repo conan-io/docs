@@ -22,7 +22,12 @@ should look like:
         self.requires("protobuf/3.18.1")
 
     def build_requirements(self):
-        self.tool_requires("protobuf/3.18.1")
+        self.tool_requires("protobuf/<host_version>")
+
+.. note::
+
+   The ``protobuf/<host_version>`` expression ensures that the same version of the library is used in both contexts.
+   You can read more about it :ref:`here<reference_conanfile_build_requirements_host_version>`.
 
 
 This is the way to proceed with any other library used in both contexts. Nonetheless, let's see a detailed example to see
@@ -90,7 +95,7 @@ The ``conanfile.py`` looks like:
             self.requires("protobuf/3.18.1")
 
         def build_requirements(self):
-            self.tool_requires("protobuf/3.18.1")
+            self.tool_requires("protobuf/<host_version>")
 
         def layout(self):
             cmake_layout(self)
