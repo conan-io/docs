@@ -159,11 +159,9 @@ of specifying each individual configuration item, you can use a regex pattern to
 multiple configurations. This is particularly useful when dealing with a large number of
 configurations or when configurations follow a predictable naming pattern. For instance:
 
-- tools.info.package_id:confs=[`user.myconf:myitem*`] matches all configurations that start in `user.myconf:myitem`.
-- tools.info.package_id:confs=[`.*`] matches all configurations.
-- tools.info.package_id:confs=[`tools\..*`] matches configurations starting with "tools.".
-- tools.info.package_id:confs=[`.*cmake`] matches configurations ending with "cmake".
-- tools.info.package_id:confs=[`(tools.deploy|core)`] matches configurations starting with "tools.deploy" or "core".
+- ``tools.info.package_id:confs=[".*"]`` matches all configurations.
+- ``tools.info.package_id:confs=["tools\..*"]`` matches configurations starting with "tools.".
+- ``tools.info.package_id:confs=["(tools\.deploy|core)"]`` matches configurations starting with "tools.deploy" or "core".
 
 .. seealso::
     
