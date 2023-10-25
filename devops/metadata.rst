@@ -222,6 +222,14 @@ To ignore uploading the metadata, use an empty argument as metadata pattern:
    # Upload only the packages, not the metadata
    $ conan upload "*" -r=remote -c --metadata=""
 
+The case of mixing ``--metadata=""`` with ``--metadata="*"`` is not allowed, and it will raise an error.
+
+.. code-block:: bash
+
+   # Invalid command, it will raise an error
+   $ conan upload "*" -r=remote -c --metadata="" --metadata="logs/*"
+   ERROR: Empty string and patterns can not be mixed for metadata.
+
 
 Downloading metadata
 --------------------
