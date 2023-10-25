@@ -202,6 +202,7 @@ platform without adding more changes.
                 self.folders.generators = os.path.join("build", "generators")
             else:
                 self.folders.generators = os.path.join("build", str(self.settings.build_type), "generators")
+                self.folders.build = os.path.join("build", str(self.settings.build_type))
 
 
 As you can see, we defined the **self.folders.generators** attribute in the `layout()`
