@@ -254,3 +254,24 @@ For example, to verify the integrity of the whole Conan local cache, do:
     mypkg/1.0:454923cd42d0da27b9b1294ebc3e4ecc84020747: Integrity checked: ok
     zlib/1.2.11: Integrity checked: ok
     zlib/1.2.11:6fe7fa69f760aee504e0be85c12b2327c716f9e7: Integrity checked: ok
+
+
+conan cache backup-upload
+-------------------------
+
+.. code-block:: text
+
+    $ conan cache backup-upload -h
+    usage: conan cache backup-upload [-h] [-v [V]]
+
+    Upload all the source backups present in the cache
+
+    options:
+      -h, --help  show this help message and exit
+      -v [V]      Level of detail of the output. Valid options from less verbose
+                  to more verbose: -vquiet, -verror, -vwarning, -vnotice,
+                  -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
+
+The ``conan cache backup-upload`` will upload all source backups present in the local cache to the backup server,
+(excluding those which have been fetched from the excluded urls listed in the ``core.sources:exclude_urls`` conf),
+regardless of which package they belong to, if any.
