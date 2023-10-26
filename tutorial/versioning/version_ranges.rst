@@ -152,8 +152,13 @@ It is also possible to apply multiple conditions with the OR operator, like ``re
 but this kind of complex expressions is not recommended in practice and should only be used in very extreme cases.
 
 Finally, note that pre-releases are not resolved by default. The way to include them in the range is to
-explicitly define it like: ``requires = "pkg/[>1- <2.0]"`` or more explicitly with 
-``requires = "pkg/[>1 <2, include_prerelease=True]"``. This will include 1.5.1-pre1, but exclude 2.0-pre1.
+explicitly enable them with either the ``include_prerelease`` option (``requires = "pkg/[>1 <2, include_prereleases]"``),
+or via the ``core.version_ranges:resolve_prereleases=True`` conf. In this example, 1.5.1-pre1 will be included,
+but 2.0-pre1 would be excluded.
+
+.. note::
+
+   ``include_prereleases`` receives no argument so it's not possible to deactivate prereleases with ``include_prerelease=False``.
 
 
 For more information about valid range expressions go to :ref:`Requires reference <version_ranges_reference>`
