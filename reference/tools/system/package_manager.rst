@@ -144,7 +144,7 @@ conan.tools.system.package_manager.Apt
 --------------------------------------
 
 Will invoke the *apt-get* command. Enabled by default for **Linux** with distribution
-names: *ubuntu*, *debian*, *raspberry* and *linuxmint*.
+names: *ubuntu*, *debian*, *raspbian* and *linuxmint*.
 
 Reference
 +++++++++
