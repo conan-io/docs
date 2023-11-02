@@ -39,7 +39,7 @@ Let's check the relevant parts:
 
         def validate(self):
             check_min_cppstd(self, "11")
-            check_max_cppstd(self, "14")
+            check_max_cppstd(self, "23")
 
         def requirements(self):
             self.requires("fmt/8.1.1")
@@ -72,7 +72,7 @@ Let's check the relevant parts:
   non-supported configurations. Here, we call the
   :ref:`check_min_cppstd()<conan_tools_build_check_min_cppstd>` and
   :ref:`check_max_cppstd()<conan_tools_build_check_max_cppstd>` to check that we are using at
-  least C++11 and at most C++14 standards in our settings.
+  least C++11 and at most C++23 standards in our settings.
 
 
 You can check the new sources, using the fmt library in the
