@@ -251,7 +251,7 @@ build context and is typically used for defining options for ``tool_requires``.
         def requirements(self):
             self.requires("protobuf/1.0")
         def build_requirements(self):
-            self.build_requires("protobuf/1.0")
+            self.tool_requires("protobuf/1.0")
 
 
 options_description
