@@ -152,6 +152,8 @@ Again, the "build" folder will only exist if the package was built from source.
       package storage must be considered **read-only**. Do not modify, change, remove or add files from the cache.
     - If you are using this command to obtain the path to artifacts and then copying them, consider the usage of a ``deployer``
       instead. In the general case, extracting artifacts from the cache manually is discouraged.
+    - Developers can use the ``conan list ... --format=compact`` to get the full references in a compact way that can
+      be copied and pasted into the ``conan cache path`` command
 
 
 conan cache clean

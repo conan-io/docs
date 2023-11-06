@@ -25,7 +25,7 @@ conan list
                             -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
                             -vvv or -vtrace
       -f FORMAT, --format FORMAT
-                            Select the output format: json, html
+                            Select the output format: json, html, compact
       -p PACKAGE_QUERY, --package-query PACKAGE_QUERY
                             List only the packages matching a specific query, e.g,
                             os=Windows AND (arch=x86 OR compiler=gcc)
@@ -410,3 +410,32 @@ with the following structure:
 Here is the rendered generated HTML.
 
 .. image:: ../../images/conan-list-html.png
+
+
+List compact output format
+--------------------------
+
+For developers, it can be convenient to use the ``--format=compact`` output, because it allows to copy and paste
+full references into other commands (like for example ``conan cache path``):
+
+.. code-block:: text
+
+  $ conan list "zlib/1.2.13:*" -r=conancenter --format=compact
+  conancenter
+    zlib/1.2.13
+      zlib/1.2.13#97d5730b529b4224045fe7090592d4c1 (2023-08-22 02:51:57 UTC)
+        zlib/1.2.13#97d5730b529b4224045fe7090592d4c1:d62dff20d86436b9c58ddc0162499d197be9de1e
+          settings: Macos, x86_64, Release, apple-clang, 13
+          options(diff): fPIC=True, shared=False
+        zlib/1.2.13#97d5730b529b4224045fe7090592d4c1:abe5e2b04ea92ce2ee91bc9834317dbe66628206
+          settings: Linux, x86_64, Release, gcc, 11
+          options(diff): shared=True
+        zlib/1.2.13#97d5730b529b4224045fe7090592d4c1:ae9eaf478e918e6470fe64a4d8d4d9552b0b3606
+          settings: Windows, x86_64, Release, msvc, dynamic, Release, 192
+          options(diff): shared=True
+      ...
+
+
+The ``--format=compact`` will show the list of values for ``settings``, and it will only show the differences ("diff")
+for options, that is, it will compute the common denominator of options for all displayed packages, and will print
+only those values that deviate from that common denominator.
