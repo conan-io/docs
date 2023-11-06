@@ -267,6 +267,6 @@ conf
 
 .. note::
 
-    **Order of Preference for Flags**: Flags specified in the `tools.build` configuration,
+    **flags order of preference**: Flags specified in the `tools.build` configuration,
     such as `cxxflags`, `cflags`, `sharedlinkflags`, `exelinkflags`, and `defines`, will
     always take precedence over those set by the AutotoolsToolchain attributes.
