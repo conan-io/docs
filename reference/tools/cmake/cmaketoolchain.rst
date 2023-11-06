@@ -212,6 +212,22 @@ following way:
         tc.user_presets_path = False
         tc.generate()
 
+Extra compilation flags
+^^^^^^^^^^^^^^^^^^^^^^^
+
+You can use the following attributes to append extra compilation flags to the toolchain:
+
+- **extra_cxxflags** (defaulted to ``[]``) for additional cxxflags
+- **extra_cflags** (defaulted to ``[]``) for additional cflags
+- **extra_sharedlinkflags** (defaulted to ``[]``) for additional shared link flags
+- **extra_exelinkflags** (defaulted to ``[]``) for additional exe link flags
+
+.. note::
+
+    **Order of Preference for Flags**: Flags specified in the `tools.build` configuration,
+    such as `cxxflags`, `cflags`, `sharedlinkflags` and `exelinkflags`, will
+    always take precedence over those set by the CMakeToolchain attributes.
+
 
 presets_prefix
 ^^^^^^^^^^^^^^
