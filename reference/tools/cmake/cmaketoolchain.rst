@@ -224,7 +224,7 @@ You can use the following attributes to append extra compilation flags to the to
 
 .. note::
 
-    **Order of Preference for Flags**: Flags specified in the `tools.build` configuration,
+    **flags order of preference**: Flags specified in the `tools.build` configuration,
     such as `cxxflags`, `cflags`, `sharedlinkflags` and `exelinkflags`, will
     always take precedence over those set by the CMakeToolchain attributes.
 
