@@ -73,8 +73,10 @@ The profile entries have priority.
           self.output.info("Custom var1: %s" % self.conf.get("user.custom.var1"))
 
 
-NOTE: The ``conf`` attribute is a **read-only** attribute. It can only be defined in profiles and command lines, but it should never be set by recipes.
-Recipes can only read its value via ``self.conf.get()`` method.
+.. note::
+
+    The ``conf`` attribute is a **read-only** attribute. It can only be defined in profiles and command lines, but it should never be set by recipes.
+    Recipes can only read its value via ``self.conf.get()`` method.
 
 
 Output
