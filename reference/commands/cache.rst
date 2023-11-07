@@ -277,3 +277,61 @@ conan cache backup-upload
 The ``conan cache backup-upload`` will upload all source backups present in the local cache to the backup server,
 (excluding those which have been fetched from the excluded urls listed in the ``core.sources:exclude_urls`` conf),
 regardless of which package they belong to, if any.
+
+
+
+conan cache save
+----------------
+
+.. code-block:: text
+
+    $ conan cache save -h
+    usage: conan cache save [-h] [-f FORMAT] [-v [V]] [-l LIST] [--file FILE]
+                            [pattern]
+
+    Get the artifacts from a package list and archive them
+
+    positional arguments:
+    pattern               A pattern in the form
+                            'pkg/version#revision:package_id#revision', e.g:
+                            zlib/1.2.13:* means all binaries for zlib/1.2.13. If
+                            revision is not specified, it is assumed latest one.
+
+    optional arguments:
+    -h, --help            show this help message and exit
+    -f FORMAT, --format FORMAT
+                            Select the output format: json
+    -v [V]                Level of detail of the output. Valid options from less
+                            verbose to more verbose: -vquiet, -verror, -vwarning,
+                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
+                            -vvv or -vtrace
+    -l LIST, --list LIST  Package list of packages to save
+    --file FILE           Save to this tgz file
+
+Read more in :ref:`devops_save_restore`.
+
+
+conan cache restore
+-------------------
+
+.. code-block:: text
+
+    $ conan cache restore -h
+    usage: conan cache restore [-h] [-f FORMAT] [-v [V]] file
+
+    Put the artifacts from an archive into the cache
+
+    positional arguments:
+    file                  Path to archive to restore
+
+    optional arguments:
+    -h, --help            show this help message and exit
+    -f FORMAT, --format FORMAT
+                            Select the output format: json
+    -v [V]                Level of detail of the output. Valid options from less
+                            verbose to more verbose: -vquiet, -verror, -vwarning,
+                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
+                            -vvv or -vtrace
+
+
+Read more in :ref:`devops_save_restore`.
