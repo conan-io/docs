@@ -151,7 +151,10 @@ The following properties affect the ``PkgConfigDeps`` generator:
 - **pkg_config_custom_content** property will add user defined content to the *.pc* files created by this generator as freeform variables.
   That content can be a string or a dict-like Python object. Notice that the variables declared here will overwrite those ones already defined by Conan.
   Click `here <https://people.freedesktop.org/~dbn/pkg-config-guide.html#concepts>`__ for more information about the type of variables in a ``*.pc`` file.
-- **component_version** property sets a custom version to be used in the ``Version`` field belonging to the created ``*.pc`` file for that component.
+- **system_package_version**: property sets a custom version to be used in the ``Version`` field belonging to the created ``*.pc`` file for the package.
+- **component_version** property sets a custom version to be used in the ``Version`` field
+  belonging to the created ``*.pc`` file for that component (takes precedence over the
+  **system_package_version** property).
 
 These properties can be defined at global ``cpp_info`` level or at component level.
 
