@@ -8,6 +8,7 @@ conan list
     $ conan list -h
     usage: conan list [-h] [-v [V]] [-f FORMAT] [-p PACKAGE_QUERY] [-r REMOTE]
                   [-c] [-g GRAPH] [-gb GRAPH_BINARIES] [-gr GRAPH_RECIPES]
+                  [--lru LRU]
                   [pattern]
 
     List existing recipes, revisions, or packages in the cache (by default) or the remotes.
@@ -39,6 +40,9 @@ conan list
                             Which binaries are listed
       -gr GRAPH_RECIPES, --graph-recipes GRAPH_RECIPES
                             Which recipes are listed
+      --lru LRU             List recipes and binaries that have not been recently
+                            used. Use a time limit like --lru=5d (days) or
+                            --lru=4w (weeks), h (hours), m(minutes)
 
 The ``conan list`` command can list recipes and packages from the local cache, from the
 specified remotes or from both. This command uses a *reference pattern* as input. The
