@@ -31,7 +31,7 @@ Removing unused packages from the cache
 
 .. warning::
 
-  The package signing plugin is in **preview**.
+  The least recently used feature is in **preview**.
   See :ref:`the Conan stability<stability>` section for more information.
 
 
