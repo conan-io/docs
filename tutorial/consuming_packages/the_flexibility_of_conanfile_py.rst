@@ -200,8 +200,10 @@ platform without adding more changes.
             multi = True if self.settings.get_safe("compiler") == "msvc" else False
             if multi:
                 self.folders.generators = os.path.join("build", "generators")
+                self.folders.build = "build"
             else:
                 self.folders.generators = os.path.join("build", str(self.settings.build_type), "generators")
+                self.folders.build = os.path.join("build", str(self.settings.build_type))
 
 
 As you can see, we defined the **self.folders.generators** attribute in the `layout()`
@@ -243,11 +245,11 @@ Check that running the same commands as in the previous examples without the
     :caption: Linux, macOS
     
     $ conan install . --build=missing
-    $ cd build
-    $ source ./Release/generators/conanbuild.sh
+    $ cd build/Release
+    $ source ./generators/conanbuild.sh
     Capturing current environment in deactivate_conanbuildenv-release-x86_64.sh
     Configuring environment variables    
-    $ cmake .. -DCMAKE_TOOLCHAIN_FILE=Release/generators/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
+    $ cmake ../.. -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
     $ cmake --build .
     ...
     Building with CMake version: 3.22.6
@@ -258,7 +260,7 @@ Check that running the same commands as in the previous examples without the
     Uncompressed size is: 233
     Compressed size is: 147
     ZLIB VERSION: 1.2.11
-    $ source ./Release/generators/deactivate_conanbuild.sh
+    $ source ./generators/deactivate_conanbuild.sh
 
 There's no need to always write this logic in the `conanfile.py`. There are some
 pre-defined layouts you can import and directly use in your recipe. For example, for the

@@ -152,6 +152,8 @@ Again, the "build" folder will only exist if the package was built from source.
       package storage must be considered **read-only**. Do not modify, change, remove or add files from the cache.
     - If you are using this command to obtain the path to artifacts and then copying them, consider the usage of a ``deployer``
       instead. In the general case, extracting artifacts from the cache manually is discouraged.
+    - Developers can use the ``conan list ... --format=compact`` to get the full references in a compact way that can
+      be copied and pasted into the ``conan cache path`` command
 
 
 conan cache clean
@@ -254,3 +256,82 @@ For example, to verify the integrity of the whole Conan local cache, do:
     mypkg/1.0:454923cd42d0da27b9b1294ebc3e4ecc84020747: Integrity checked: ok
     zlib/1.2.11: Integrity checked: ok
     zlib/1.2.11:6fe7fa69f760aee504e0be85c12b2327c716f9e7: Integrity checked: ok
+
+
+conan cache backup-upload
+-------------------------
+
+.. code-block:: text
+
+    $ conan cache backup-upload -h
+    usage: conan cache backup-upload [-h] [-v [V]]
+
+    Upload all the source backups present in the cache
+
+    options:
+      -h, --help  show this help message and exit
+      -v [V]      Level of detail of the output. Valid options from less verbose
+                  to more verbose: -vquiet, -verror, -vwarning, -vnotice,
+                  -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
+
+The ``conan cache backup-upload`` will upload all source backups present in the local cache to the backup server,
+(excluding those which have been fetched from the excluded urls listed in the ``core.sources:exclude_urls`` conf),
+regardless of which package they belong to, if any.
+
+
+
+conan cache save
+----------------
+
+.. code-block:: text
+
+    $ conan cache save -h
+    usage: conan cache save [-h] [-f FORMAT] [-v [V]] [-l LIST] [--file FILE]
+                            [pattern]
+
+    Get the artifacts from a package list and archive them
+
+    positional arguments:
+    pattern               A pattern in the form
+                            'pkg/version#revision:package_id#revision', e.g:
+                            zlib/1.2.13:* means all binaries for zlib/1.2.13. If
+                            revision is not specified, it is assumed latest one.
+
+    optional arguments:
+    -h, --help            show this help message and exit
+    -f FORMAT, --format FORMAT
+                            Select the output format: json
+    -v [V]                Level of detail of the output. Valid options from less
+                            verbose to more verbose: -vquiet, -verror, -vwarning,
+                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
+                            -vvv or -vtrace
+    -l LIST, --list LIST  Package list of packages to save
+    --file FILE           Save to this tgz file
+
+Read more in :ref:`devops_save_restore`.
+
+
+conan cache restore
+-------------------
+
+.. code-block:: text
+
+    $ conan cache restore -h
+    usage: conan cache restore [-h] [-f FORMAT] [-v [V]] file
+
+    Put the artifacts from an archive into the cache
+
+    positional arguments:
+    file                  Path to archive to restore
+
+    optional arguments:
+    -h, --help            show this help message and exit
+    -f FORMAT, --format FORMAT
+                            Select the output format: json
+    -v [V]                Level of detail of the output. Valid options from less
+                            verbose to more verbose: -vquiet, -verror, -vwarning,
+                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
+                            -vvv or -vtrace
+
+
+Read more in :ref:`devops_save_restore`.

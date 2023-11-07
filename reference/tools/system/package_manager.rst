@@ -33,7 +33,7 @@ System name. In the example above, if we are running on Ubuntu Linux, Conan will
 all the calls except for the ``Apt()`` one and will only try to install the packages using the
 ``apt-get`` tool. Conan uses the following mapping by default:
 
-* *Apt* for **Linux** with distribution names: *ubuntu*, *debian* or *raspbian*
+* *Apt* for **Linux** with distribution names: *ubuntu*, *debian*, *raspbian* or *linuxmint*
 * *Yum* for **Linux** with distribution names: *pidora*, *scientific*, *xenserver*, *amazon*, *oracle*, *amzn*, *almalinux* or *rocky*
 * *Dnf* for **Linux** with distribution names: *fedora*, *rhel*, *centos*, *mageia*
 * *Apk* for **Linux** with distribution names: *alpine*
@@ -144,7 +144,7 @@ conan.tools.system.package_manager.Apt
 --------------------------------------
 
 Will invoke the *apt-get* command. Enabled by default for **Linux** with distribution
-names: *ubuntu* and *debian*.
+names: *ubuntu*, *debian*, *raspbian* and *linuxmint*.
 
 Reference
 +++++++++

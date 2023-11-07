@@ -53,7 +53,7 @@ in those locations.
 
       def export(self):
          # logs that might be generated in the recipe folder at "export" time.
-         # these would be associated with the recipe repo and original source of the recipe repo 
+         # these would be associated with the recipe repo and original source of the recipe repo
          copy(self, "*.log", src=self.recipe_folder,
               dst=os.path.join(self.recipe_metadata_folder, "logs"))
 
@@ -69,7 +69,7 @@ in those locations.
 
 
 Note that "recipe" methods (those that are common for all binaries, like ``export()`` and ``source()``) should use
-``self.recipe_metadata_folder``, while "package" specific methods (``build()``, ``package()``) should use the 
+``self.recipe_metadata_folder``, while "package" specific methods (``build()``, ``package()``) should use the
 ``self.package_metadata_folder``.
 
 Doing a ``conan create`` over this recipe, will create "metadata" folders in the Conan cache. We can have a look at those folders with:
@@ -87,7 +87,7 @@ It is also possible to use the "local flow" commands and get local "metadata" fo
 to use a ``layout()`` method like above to avoid cluttering the current folder. Then the local commands will allow to test and debug the functionality:
 
 .. code-block:: bash
-   
+
    $ conan source .
    # check local metadata/logs/src.log file
    $ conan build .
@@ -214,6 +214,22 @@ we could specify ``--metadata="logs*"`` to upload only the logs metadata, but no
    # Multiple patterns are allowed:
    $ conan upload "*" -r=remote -c --metadata="logs/*" --metadata="tests/*"
 
+Sometimes it might be useful to upload packages without uploading the metadata, even if the metadata cache folders contain files.
+To ignore uploading the metadata, use an empty argument as metadata pattern:
+
+.. code-block:: bash
+
+   # Upload only the packages, not the metadata
+   $ conan upload "*" -r=remote -c --metadata=""
+
+The case of mixing ``--metadata=""`` with ``--metadata="*"`` is not allowed, and it will raise an error.
+
+.. code-block:: bash
+
+   # Invalid command, it will raise an error
+   $ conan upload "*" -r=remote -c --metadata="" --metadata="logs/*"
+   ERROR: Empty string and patterns can not be mixed for metadata.
+
 
 Downloading metadata
 --------------------
@@ -288,7 +304,7 @@ Let's  start with a hook that automatically stores as **recipe metadata** the ``
 
 Note that this hook doesn't take into account that ``test_package`` can be dirty with tons of temporary build
 objects (it should be cleaned before being added to metadata), and it doesn't check that ``test_package`` might
-not exist at all and crash. 
+not exist at all and crash.
 
 When a package is created and uploaded, it will upload to the server the recipe metadata containing the ``test_package``:
 
@@ -298,7 +314,7 @@ When a package is created and uploaded, it will upload to the server the recipe 
    $ conan upload "*" -c -r=default  # uploads metadata
    ...
    pkg/0.1: Recipe metadata: 1 files
-   
+
 Let's remove the local copy, and assume that the package is installed, but the metadata is not:
 
 .. code-block:: bash
@@ -327,4 +343,4 @@ downloading it, and copying it to our current folder:
    - TODO: Examples how to collect the metadata of a complete dependency graph with some custom deployer or command
 
 
-This is an **experimental** feature. We are looking forward to hearing your feedback, use cases and needs, to keep improving this feature. Please report it in `Github issues <https://github.com/conan-io/conan/issues>`_ 
+This is an **experimental** feature. We are looking forward to hearing your feedback, use cases and needs, to keep improving this feature. Please report it in `Github issues <https://github.com/conan-io/conan/issues>`_

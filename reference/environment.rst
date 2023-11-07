@@ -7,6 +7,7 @@ These are very few environment variables that can be used to configure some of t
 These variables are the exception, for customization and configuration control, Conan uses the 
 :ref:`global.conf configuration<reference_config_files_global_conf>` and the :ref:`profile [conf] section<reference_config_files_profiles>`
 
+.. _reference_environment_variables_conan_home:
 
 CONAN_HOME
 ----------

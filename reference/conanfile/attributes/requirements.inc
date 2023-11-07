@@ -48,10 +48,28 @@ Accepted expressions would be:
       - 1.1, 1.2, 2.0
 
 
+If pre-releases are activated, like defining configuration ``core.version_ranges:resolve_prereleases=True``:
+
+.. list-table::
+    :widths: 25 25 50
+    :header-rows: 1
+
+    * - Expression
+      - Versions in range
+      - Versions outside of range
+    * - [>=1.0 <2]
+      - 1.0.0-pre.1, 1.0.0, 1.0.1, 1.1, 1.2.3
+      - 0.2, 2.0-pre.1, 2.0, 2.1, 3.0
+    * - [<3.2.1]
+      - 0.1, 1.2, 1.8-beta.1, 2.0-alpha.2, 2.4, 3.1.1
+      - 3.2.1-pre.1, 3.2.1, 3.2.2, 3.3
+    * - [>2.0]
+      - 2.1-pre.1, 2.1, 2.2, 3.1, 14.2
+      - 1.1, 1.2, 2.0-pre.1, 2.0
+
 .. seealso::
 
-    - Check <MISSING PAGE> version_ranges if you want to learn more about version ranges.
-    - Check <MISSING PAGE> requires() conanfile.py method.
+    - Check :ref:`tutorial_version_ranges_expressions` version_ranges tutorial section
 
 
 tool_requires
