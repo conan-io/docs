@@ -64,7 +64,7 @@ above, for example:
 
 Every :command:`conan install` generates these files:
 
-* *BUILD.bazel*: empty file which is aimed only to be together the *dependencies.bzl* one.
+* *BUILD.bazel*: An empty file aimed to be alongside the *dependencies.bzl* one.
   More information `here <https://bazel.build/concepts/build-files>`__.
 * *dependencies.bzl*: this file tells your Bazel *WORKSPACE* how to load the dependencies.
 * *zlib/BUILD.bazel*: contains all the targets that you can load from any of your *BUILD* files. More information in
