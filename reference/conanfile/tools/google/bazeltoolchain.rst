@@ -34,6 +34,7 @@ The ``BazelToolchain`` generator can be used by name in conanfiles:
 And it can also be fully instantiated in the conanfile ``generate()`` method:
 
 .. code-block:: python
+    :caption: conanfile.py
 
     from conan import ConanFile
     from conan.tools.google import BazelToolchain
@@ -67,9 +68,10 @@ The toolchain supports the following methods and attributes:
 constructor
 +++++++++++
 
-.. code:: python
+.. code-block:: python
 
-    def __init__(self, conanfile, namespace=None, prefix="/"):
+    def __init__(self, conanfile, namespace=None):
+
 
 - ``conanfile``: the current recipe object. Always use ``self``.
 - ``namespace``: (deprecated since Conan 1.62) this argument avoids collisions when you have multiple toolchain calls in the same
@@ -86,7 +88,7 @@ Attributes
 You can change some attributes before calling the ``generate()`` method if you want to change some of the precalculated
 values:
 
-.. code:: python
+.. code-block:: python
 
     from conan import ConanFile
     from conan.tools.google import BazelToolchain
