@@ -74,12 +74,7 @@ constructor
 
 
 - ``conanfile``: the current recipe object. Always use ``self``.
-- ``namespace``: (deprecated since Conan 1.62) this argument avoids collisions when you have multiple toolchain calls in the same
-  recipe. By setting this argument, the *conanbuild.conf* file used to pass information to the
-  build helper will be named as: *<namespace>_conanbuild.conf*. The default value is ``None`` meaning that
-  the name of the generated file is *conanbuild.conf*. This namespace must be also set with the same
-  value in the constructor of the ``Bazel`` build helper so that it reads the information from the proper
-  file.
+- ``namespace``: Deprecated since Conan 1.62. It only keeps backward compatibility.
 
 
 Attributes
