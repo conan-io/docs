@@ -184,8 +184,8 @@ Now your Conan-bazel files were generated in the *conan/* folder, so your WORKSP
 
 
 
-Build requirements
-++++++++++++++++++
+build_context_activated
++++++++++++++++++++++++
 
 Available since: `1.62.0 <https://github.com/conan-io/conan/releases/tag/1.62.0>`_
 
