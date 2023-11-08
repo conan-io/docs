@@ -232,7 +232,7 @@ Available since: `1.62.0 <https://github.com/conan-io/conan/releases/tag/1.62.0>
 
 The following properties affect the ``BazelDeps`` generator:
 
-- **bazel_target_name** property will define the name of the target declared in the *<REPOSITORY>/BUILD.bazel*.
+- **bazel_target_name** property will define the name of the target declared in the ``<REPOSITORY>/BUILD.bazel``.
   This property can be defined at both global and component ``cpp_info`` level.
 - **bazel_repository_name** property will define the name of the folder where the dependency *BUILD.bazel* will be
   allocated. This property can only be defined at global ``cpp_info`` level.
@@ -252,7 +252,7 @@ Example:
 Repository and target names
 +++++++++++++++++++++++++++
 
-The *<REPOSITORY>/BUILD.bazel* file contains all the targets declared by the dependency. Both the *<REPOSITORY>/* folder and the targets
+The ``<REPOSITORY>/BUILD.bazel`` file contains all the targets declared by the dependency. Both the ``<REPOSITORY>/`` folder and the targets
 declared in there will be named following these rules by default:
 
 * For packages, it uses the package name as folder/target name, e.g., package ``zlib/1.2.11`` will have:
