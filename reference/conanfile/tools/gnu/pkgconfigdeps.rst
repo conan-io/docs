@@ -197,7 +197,7 @@ By default, the ``*.pc`` files will be named following these rules:
 * For packages, it uses the package name, e.g., package ``zlib/1.2.11`` -> ``zlib.pc``.
 * For components, the package name + hyphen + component name, e.g., ``openssl/3.0.0`` with ``self.cpp_info.components["crypto"]``  -> ``openssl-crypto.pc``.
 
-You can change that default behavior with the ``pkg_config_name`` and ``pkg_config_aliases`` properties. For instance, ``openssl/3.0.0``` recipe has these ``pkg_config_name`` properties already declared:
+You can change that default behavior with the ``pkg_config_name`` and ``pkg_config_aliases`` properties. For instance, ``openssl/3.0.0`` recipe has these ``pkg_config_name`` properties already declared:
 
 .. code:: python
 
