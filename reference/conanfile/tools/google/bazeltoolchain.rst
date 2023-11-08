@@ -93,7 +93,7 @@ values:
 
         def generate(self):
             tc = BazelToolchain(self)
-            tc.extra_cxxflags.append("--my_flag")
+            tc.cxxopt.append("--my_flag")
             tc.generate()
 
 These attributes are processed and passed as part of ``build:conan-config``:
