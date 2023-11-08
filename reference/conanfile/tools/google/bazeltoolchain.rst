@@ -1,55 +1,128 @@
 .. _conan_tools_google_bazeltoolchain:
 
 BazelToolchain
---------------
+==============
+
+.. important::
+
+    Some of the features used in this section are still **under development**, while they are
+    recommended and usable and we will try not to break them in future releases, some breaking
+    changes might still happen if necessary to prepare for the *Conan 2.0 release*.
 
 Available since: `1.37.0 <https://github.com/conan-io/conan/releases/tag/1.37.0>`_
 
-The ``BazelToolchain`` is the toolchain generator for Bazel. It will generate a file called
-``conanbuild.conf`` containing two keys:
+BazelToolchain
+--------------
 
-- **bazelrc_path**: defining Bazel rc-path. Can be set using the conf ``tools.google.bazel:bazelrc_path``.
-- **bazel_configs**: defining the configs to be activated in the ``bazelrc_path``.
-  Can be set with the conf ``tools.google.bazel:configs``.
+The ``BazelToolchain`` is the toolchain generator for Bazel. It will generate a ``conan_bzl.rc`` file that contains
+a build configuration ``conan-config`` to inject all the parameters into the :command:`bazel build` command.
+
+The ``BazelToolchain`` generator can be used by name in conanfiles:
+
+.. code-block:: python
+    :caption: conanfile.py
+
+    class Pkg(ConanFile):
+        generators = "BazelToolchain"
 
 .. code-block:: text
-   :caption: **Example of a custom bazelrc file at '/path/to/mybazelrc':**
+    :caption: conanfile.txt
 
-   build:Release -c opt
-   build:RelWithDebInfo -c opt --copt=-O3 --copt=-DNDEBUG
-   build:MinSizeRel  -c opt --copt=-Os --copt=-DNDEBUG
-   build --color=yes
-   build:withTimeStamps --show_timestamps
+    [generators]
+    BazelToolchain
 
-.. code-block:: ini
-   :caption: **Example of a Release profile:**
+And it can also be fully instantiated in the conanfile ``generate()`` method:
 
-   [settings]
-   ...
-   build_type=Release
+.. code-block:: python
 
-   [conf]
-   tools.google.bazel:bazelrc_path=/path/to/mybazelrc
-   tools.google.bazel:configs=["Release"]
+    from conan import ConanFile
+    from conan.tools.google import BazelToolchain
+
+    class App(ConanFile):
+        settings = "os", "arch", "compiler", "build_type"
+
+        def generate(self):
+            tc = BazelToolchain(self)
+            tc.generate()
+
+After running :command:`conan install conanfile.py` command, the ``BazelToolchain`` generates the *conan_bzl.rc* file
+that contains Bazel build parameters (it will depend on your current Conan settings and options from your *default* profile):
+
+.. code-block:: text
+    :caption: conan_bzl.rc
+
+    # Automatic bazelrc file created by Conan
+
+    build:conan-config --cxxopt=-std=gnu++17
+
+    build:conan-config --dynamic_mode=off
+    build:conan-config --compilation_mode=opt
+
+The :ref:`Bazel build helper<conan_tools_google_bazel>` will use that ``conan_bzl.rc`` file to perform a call using this
+configuration. The outcoming command will look like this :command:`bazel --bazelrc=/path/to/conan_bzl.rc build --config=conan-config <target>`.
 
 
-The Bazel build helper will use that ``conanbuild.conf`` file to seamlessly call
-the configure and make script using these precalculated arguments. Note that the file can have a
-different name if you set the namespace argument in the constructor as explained below.
-
-It supports the following methods and attributes:
+The toolchain supports the following methods and attributes:
 
 constructor
 +++++++++++
 
 .. code:: python
 
-    def __init__(self, conanfile, namespace=None):
+    def __init__(self, conanfile, namespace=None, prefix="/"):
 
 - ``conanfile``: the current recipe object. Always use ``self``.
-- ``namespace``: this argument avoids collisions when you have multiple toolchain calls in the same
+- ``namespace``: (deprecated since Conan 1.62) this argument avoids collisions when you have multiple toolchain calls in the same
   recipe. By setting this argument, the *conanbuild.conf* file used to pass information to the
   build helper will be named as: *<namespace>_conanbuild.conf*. The default value is ``None`` meaning that
   the name of the generated file is *conanbuild.conf*. This namespace must be also set with the same
   value in the constructor of the ``Bazel`` build helper so that it reads the information from the proper
   file.
+
+
+Attributes
+++++++++++
+
+You can change some attributes before calling the ``generate()`` method if you want to change some of the precalculated
+values:
+
+.. code:: python
+
+    from conan import ConanFile
+    from conan.tools.google import BazelToolchain
+
+    class App(ConanFile):
+        settings = "os", "arch", "compiler", "build_type"
+
+        def generate(self):
+            tc = BazelToolchain(self)
+            tc.extra_cxxflags.append("--my_flag")
+            tc.generate()
+
+These attributes are processed and passed as part of ``build:conan-config``:
+
+* **force_pic** (defaulted to ``fpic`` if ``options.shared == False`` and ``options.fpic == True`` else ``None``):
+  Injected to the ``--force_pic`` parameter.
+* **dynamic_mode** (defaulted to ``fully`` if shared, else ``off``): Injected to the ``--dynamic_mode`` parameter.
+* **cppstd** (defaulted to ``None`` if your settings does not have ``settings.compiler.cppstd``
+* **copt** (defaulted to ``[]``): They will be part of the ``--copt`` parameter.
+* **conlyopt** (defaulted to ``[]``): They will be part of the ``--conlyopt`` parameter.
+* **cxxopt** (defaulted to ``[]``): They will be part of the ``--cxxopt`` parameter.
+* **linkopt** (defaulted to ``[]``): They will be part of the ``--linkopt`` parameter.
+* **compilation_mode** (defaulted to ``opt`` if ``settings.build_type == "Release"``, otherwise,
+  if ``settings.build_type == "Debug"``, it'll be ``dbg``): Injected to the ``--compilation_mode`` parameter.
+* **compiler** (defaulted to ``None``): Injected to the ``--compiler`` parameter.
+* **cpu** (defaulted to ``None``): Injected to the ``--cpu`` parameter.
+* **crosstool_top** (defaulted to ``None``): Injected to the ``--crosstool_top`` parameter.
+
+
+conf
++++++
+
+``BazelToolchain`` is affected by these :ref:`[conf]<global_conf>` variables:
+
+- ``tools.build:cxxflags`` list of extra C++ flags that will be used by ``cxxopt``.
+- ``tools.build:cflags`` list of extra of pure C flags that will be used by ``conlyopt``.
+- ``tools.build:sharedlinkflags`` list of extra linker flags that will be used by ``linkopt``.
+- ``tools.build:exelinkflags`` list of extra linker flags that will be used by ``linkopt``.
+- ``tools.build:linker_scripts`` list of linker scripts, each of which will be prefixed with ``-T`` and added to ``linkopt``.
