@@ -73,11 +73,6 @@ Every :command:`conan install` generates these files:
 Let's check the content of the files created:
 
 .. code-block:: python
-    :caption: BUILD.bazel
-
-    # This is an empty BUILD file to be able to load the dependencies.bzl one.
-
-.. code-block:: python
     :caption: dependencies.bzl
 
     # This Bazel module should be loaded by your WORKSPACE file.
