@@ -46,7 +46,7 @@ And it can also be fully instantiated in the conanfile ``generate()`` method:
             tc = BazelToolchain(self)
             tc.generate()
 
-After running :command:`conan install conanfile.py` command, the ``BazelToolchain`` generates the *conan_bzl.rc* file
+After running :command:`conan install` command, the ``BazelToolchain`` generates the *conan_bzl.rc* file
 that contains Bazel build parameters (it will depend on your current Conan settings and options from your *default* profile):
 
 .. code-block:: text
