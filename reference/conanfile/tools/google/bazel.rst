@@ -80,7 +80,7 @@ Properties
 
 Available since: `1.62.0 <https://github.com/conan-io/conan/releases/tag/1.62.0>`_
 
-The following properties affect the ``BazelDeps`` generator:
+The following properties affect the ``Bazel`` build helper:
 
 - ``tools.build:skip_test=<bool>`` (boolean) if ``True``, it runs the ``bazel test <target>``.
 
@@ -88,7 +88,7 @@ The following properties affect the ``BazelDeps`` generator:
 conf
 +++++
 
-``BazelToolchain`` is affected by these :ref:`[conf]<global_conf>` variables:
+``Bazel`` is affected by these :ref:`[conf]<global_conf>` variables:
 
 - ``tools.google.bazel:bazelrc_path``: List of paths to other bazelrc files to be used as :command:`bazel --bazelrc=rcpath1 ... build`.
 - ``tools.google.bazel:configs``: List of Bazel configurations to be used as :command:`bazel build --config=config1 ...`.
