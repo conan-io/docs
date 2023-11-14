@@ -62,7 +62,7 @@ are possible. These are the **default** values, but it is possible to customize 
         Macos:
             version: [None, "10.6", "10.7", "10.8", "10.9", "10.10", "10.11", "10.12", "10.13", "10.14", "10.15", "11.0", "12.0", "13.0"]
             sdk: [None, "macosx"]
-            sdk_version: [None, "10.13", "10.14", "10.15", "11.0", "11.1", "11.3", "12.0", "12.1", "12.3", "13.0"]
+            sdk_version: [None, "10.13", "10.14", "10.15", "11.0", "11.1", "11.3", "12.0", "12.1", "12.3", "13.0", "13.1"]
             subsystem:
                 None:
                 catalyst:
@@ -93,9 +93,10 @@ are possible. These are the **default** values, but it is possible to customize 
                       "7", "7.1", "7.2", "7.3", "7.4", "7.5",
                       "8", "8.1", "8.2", "8.3", "8.4", "8.5",
                       "9", "9.1", "9.2", "9.3", "9.4", "9.5",
-                      "10", "10.1", "10.2", "10.3", "10.4",
-                      "11", "11.1", "11.2", "11.3",
-                      "12", "12.1", "12.2"]
+                      "10", "10.1", "10.2", "10.3", "10.4", "10.5",
+                      "11", "11.1", "11.2", "11.3", "11.4",
+                      "12", "12.1", "12.2", "12.3",
+                      "13", "13.1", "13.2"]
             libcxx: [libstdc++, libstdc++11]
             threads: [None, posix, win32]  # Windows MinGW
             exception: [None, dwarf2, sjlj, seh]  # Windows MinGW
@@ -119,14 +120,15 @@ are possible. These are the **default** values, but it is possible to customize 
         clang:
             version: ["3.3", "3.4", "3.5", "3.6", "3.7", "3.8", "3.9", "4.0",
                       "5.0", "6.0", "7.0", "7.1",
-                      "8", "9", "10", "11", "12", "13", "14", "15", "16"]
+                      "8", "9", "10", "11", "12", "13", "14", "15", "16", "17"]
             libcxx: [None, libstdc++, libstdc++11, libc++, c++_shared, c++_static]
             cppstd: [None, 98, gnu98, 11, gnu11, 14, gnu14, 17, gnu17, 20, gnu20, 23, gnu23]
             runtime: [None, MD, MT, MTd, MDd, static, dynamic]
             runtime_type: [None, Debug, Release]
             runtime_version: [None, v140, v141, v142, v143]
         apple-clang: &apple_clang
-            version: ["5.0", "5.1", "6.0", "6.1", "7.0", "7.3", "8.0", "8.1", "9.0", "9.1", "10.0", "11.0", "12.0", "13", "13.0", "13.1", "14", "14.0"]
+            version: ["5.0", "5.1", "6.0", "6.1", "7.0", "7.3", "8.0", "8.1", "9.0", "9.1",
+                      "10.0", "11.0", "12.0", "13", "13.0", "13.1", "14", "14.0", "15", "15.0"]
             libcxx: [libstdc++, libc++]
             cppstd: [None, 98, gnu98, 11, gnu11, 14, gnu14, 17, gnu17, 20, gnu20, 23, gnu23]
         intel:
