@@ -3,6 +3,48 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2.0 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.0.14 (14-Nov-2023)
+--------------------
+
+- Feature: Added ``riscv64, riscv32`` architectures to default ``settings.yml`` and management of them in Meson and Autotools. `#15053 <https://github.com/conan-io/conan/pull/15053>`_
+- Feature: Allow only one simultaneous database connection. `#15029 <https://github.com/conan-io/conan/pull/15029>`_
+- Feature: Add `conan cache backup-upload` to upload all the backup sources in the cache, regardless of which references they are from `#15013 <https://github.com/conan-io/conan/pull/15013>`_ . Docs `here <https://github.com/conan-io/docs/pull/3438>`__
+- Feature: New ``conan list --format=compact`` for better UX. `#15011 <https://github.com/conan-io/conan/pull/15011>`_ . Docs `here <https://github.com/conan-io/docs/pull/3446>`__
+- Feature: Ignore metadata upload by passing --metadata="" `#15007 <https://github.com/conan-io/conan/pull/15007>`_ . Docs `here <https://github.com/conan-io/docs/pull/3436>`__
+- Feature: Better output messages in :command:`conan upload` `#14984 <https://github.com/conan-io/conan/pull/14984>`_
+- Feature: Add extra flags to CMakeToolchain. `#14966 <https://github.com/conan-io/conan/pull/14966>`_ . Docs `here <https://github.com/conan-io/docs/pull/3452>`__
+- Feature: Implement package load/restore from the cache, for CI workflows and moving packages over air-gaps. `#14923 <https://github.com/conan-io/conan/pull/14923>`_ . Docs `here <https://github.com/conan-io/docs/pull/3453>`__
+- Feature: Compute version-ranges intersection to avoid graph version conflicts for compatible ranges `#14912 <https://github.com/conan-io/conan/pull/14912>`_
+- Feature: CMake helper can use multiple targets in target argument. `#14883 <https://github.com/conan-io/conan/pull/14883>`_
+- Feature: Add Macos 13.6 to settings.yml. `#14858 <https://github.com/conan-io/conan/pull/14858>`_ . Docs `here <https://github.com/conan-io/docs/pull/3416>`__
+- Feature: Add CMakeDeps and PkgConfigDeps generators listening to system_package_version property. `#14808 <https://github.com/conan-io/conan/pull/14808>`_ . Docs `here <https://github.com/conan-io/docs/pull/3399>`__
+- Feature: Add shorthand syntax in cli to specify host and build in 1 argument `#14727 <https://github.com/conan-io/conan/pull/14727>`_ . Docs `here <https://github.com/conan-io/docs/pull/3439>`__
+- Feature: Implement cache LRU control for cleaning of unused artifacts. `#14054 <https://github.com/conan-io/conan/pull/14054>`_ . Docs `here <https://github.com/conan-io/docs/pull/3455>`__
+- Fix: Avoid ``CMakeToolchain`` overwriting user ``CMakePresets.json`` when no layout nor output-folder is defined `#15058 <https://github.com/conan-io/conan/pull/15058>`_
+- Fix: Add ``astra``, ``elbrus`` and ``altlinux`` as distribution using ``apt`` in SystemPackageManager `#15051 <https://github.com/conan-io/conan/pull/15051>`_
+- Fix: Default to apt-get package manager in Linux Mint `#15026 <https://github.com/conan-io/conan/pull/15026>`_ . Docs `here <https://github.com/conan-io/docs/pull/3441>`__
+- Fix: Make ``Git()`` check commits in remote server even for shallow clones. `#15023 <https://github.com/conan-io/conan/pull/15023>`_
+- Fix: Add new Apple OS versions to settings.yml `#15015 <https://github.com/conan-io/conan/pull/15015>`_
+- Fix: Fix AutotoolsToolchain extraflags priority. `#15005 <https://github.com/conan-io/conan/pull/15005>`_ . Docs `here <https://github.com/conan-io/docs/pull/3451>`__
+- Fix: Remove colors from ``conan --version`` output `#15002 <https://github.com/conan-io/conan/pull/15002>`_
+- Fix: Add an error message if the sqlite3 version is unsupported (less than 3.7.11 from 2012) `#14950 <https://github.com/conan-io/conan/pull/14950>`_
+- Fix: Make cache DB always use forward slash for paths, to be uniform across Windows and Linux `#14940 <https://github.com/conan-io/conan/pull/14940>`_
+- Fix: Solve re-build of an existing package revision (like forcing rebuild of a an existing header-only package), while previous folder was still used by other projects. `#14938 <https://github.com/conan-io/conan/pull/14938>`_
+- Fix: Avoid a recipe mutating a ``conf`` to affect other recipes. `#14932 <https://github.com/conan-io/conan/pull/14932>`_ . Docs `here <https://github.com/conan-io/docs/pull/3449>`__
+- Fix: The output of system packages via ``Apt.install()`` or ``PkgConfig.fill_cpp_info``, like ``xorg/system`` was very noisy to the Conan output, making it more quiet `#14924 <https://github.com/conan-io/conan/pull/14924>`_
+- Fix: Serialize the ``path`` information of ``python_requires``, necessary for computing buildinfo `#14886 <https://github.com/conan-io/conan/pull/14886>`_
+- Fix: Define remotes in :command:`conan source` command in case recipe has ``python_requires`` that need to be downloaded from remotes. `#14852 <https://github.com/conan-io/conan/pull/14852>`_
+- Fix: Fix min target flag for xros and xros-simulator. `#14776 <https://github.com/conan-io/conan/pull/14776>`_
+- Bugfix: ``--build=missing`` was doing unnecessary builds of packages that were not needed and could be skipped, in the case of ``tool_requires`` having transitive dependencies. `#15082 <https://github.com/conan-io/conan/pull/15082>`_
+- BugFix: Add package revision to format=json in 'conan export-pkg' command `#15042 <https://github.com/conan-io/conan/pull/15042>`_
+- Bugfix: ``tools.build:download_source=True`` will not fail when there are editable packages. `#15004 <https://github.com/conan-io/conan/pull/15004>`_ . Docs `here <https://github.com/conan-io/docs/pull/3448>`__
+- Bugfix: Transitive dependencies were incorrectly added to conandeps.xcconfig. `#14898 <https://github.com/conan-io/conan/pull/14898>`_
+- Bugfix: Fix integrity-check (``upload --check`` or ``cache check-integrity``) when the ``export_source`` has not been downloaded `#14850 <https://github.com/conan-io/conan/pull/14850>`_
+- Bugfix: Properly lock release candidates of python requires `#14846 <https://github.com/conan-io/conan/pull/14846>`_
+- BugFix: Version ranges ending with ``-`` do not automatically activate pre-releases resolution in the full range. `#14814 <https://github.com/conan-io/conan/pull/14814>`_ . Docs `here <https://github.com/conan-io/docs/pull/3454>`__
+- BugFix: Fix version ranges so pre-releases are correctly included in the lower bound and excluded in the upper bound. `#14814 <https://github.com/conan-io/conan/pull/14814>`_ . Docs `here <https://github.com/conan-io/docs/pull/3454>`__
+
+
 2.0.13 (28-Sept-2023)
 ---------------------
 
