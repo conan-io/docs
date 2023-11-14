@@ -267,7 +267,7 @@ attribute:
             "compiler": {"Visual Studio": {"version": [11, 12]}},
             "arch": None}
 
-In this example we have just defined that this package only works in Windows, with VS 10 and 11.
+In this example we have just defined that this package only works in Windows, with VS 11 and 12.
 Any attempt to build it in other platforms with other settings will throw an error saying so.
 We have also defined that the runtime (the MD and MT flags of VS) is irrelevant for us
 (maybe we using a universal one?). Using None as a value means, *maintain the original values* in order
