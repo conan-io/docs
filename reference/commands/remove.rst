@@ -1,3 +1,5 @@
+.. _reference_commands_remove:
+
 conan remove
 ============
 
@@ -5,7 +7,7 @@ conan remove
 
     $ conan remove -h
     usage: conan remove [-h] [-v [V]] [-f FORMAT] [-c] [-p PACKAGE_QUERY]
-                        [-r REMOTE] [-l LIST] [--dry-run]
+                        [-r REMOTE] [-l LIST] [--lru LRU] [--dry-run]
                         [pattern]
 
     Remove recipes or packages from local cache or a remote.
@@ -37,6 +39,9 @@ conan remove
       -r REMOTE, --remote REMOTE
                             Will remove from the specified remote
       -l LIST, --list LIST  Package list file
+      --lru LRU             Remove recipes and binaries that have not been
+                            recently used. Use a time limit like --lru=5d (days)
+                            or --lru=4w (weeks), h (hours), m(minutes)
       --dry-run             Do not remove any items, only print those which would
                             be removed
 

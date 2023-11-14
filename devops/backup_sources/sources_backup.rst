@@ -132,6 +132,8 @@ and future source downloads of this recipe will use the newly updated contents w
    See :ref:`the packages list feature<examples_commands_pkglists>` for a way to only upload the packages that have been built
 
 
+In case there's a need to upload backups for sources not linked to any package, or for packages that are already on the remote and would therefore be skipped during upload, the :command:`conan cache backup-upload` command can be used to address this scenario.
+
 .. _backup_sources_setup_remote:
 
 Creating the backup repository

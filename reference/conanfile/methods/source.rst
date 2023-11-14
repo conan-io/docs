@@ -102,6 +102,8 @@ Will compute the dependency graph, then call the ``source()`` method for all "ho
 
 Likewise, it is possible to retrieve the sources for packages in other ``create`` and ``install`` commands, just by passing the configuration. Finally, as also configuration can be defined per-package, using ``-c mypkg*:tools.build:download_source=True`` would only retrieve the sources of packages matching the ``mypkg*`` pattern.
 
+Note that ``tools.build:download_source=True`` will not have any effect on packages in **editable** mode. Downloading sources in that case could easily overwrite and destroy local developer changes over that code. The ``conan source`` command must be used on packages in editable mode to download the sources.
+
 
 .. note::
 

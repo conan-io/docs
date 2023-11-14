@@ -23,20 +23,21 @@ The main guidelines are:
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+    :maxdepth: 2
 
-   tools/cmake
-   tools/gnu
-   tools/apple
-   tools/env
-   tools/build
-   tools/files
-   tools/meson
-   tools/system
-   tools/microsoft
-   tools/scm
-   tools/layout
-   tools/intel
-   tools/scons
-   tools/android
-   tools/cpp_info
+    tools/android
+    tools/apple
+    tools/build
+    tools/cmake
+    tools/cpp_info
+    tools/env
+    tools/files
+    tools/gnu
+    tools/google
+    tools/intel
+    tools/layout
+    tools/meson
+    tools/microsoft
+    tools/scm
+    tools/scons
+    tools/system
