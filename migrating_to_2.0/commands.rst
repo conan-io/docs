@@ -236,7 +236,7 @@ This is achieved using the alias template in Conan 2.0 and exporting the recipe:
 .. code-block:: shell
 
     $ conan new alias -d name=mypkg -d version=latest -d target=1.0 
-    $ conan export
+    $ conan export .
 
 Note that when requiring the alias, you must place the version in parentheses ``()`` to
 explicitly declare the use of an alias as a requirement:
