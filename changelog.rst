@@ -18,8 +18,25 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-    Conan 1.61 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
+    Conan 1.62 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
     a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
+
+1.62.0 (14-Nov-2023)
+--------------------
+
+- Feature: Removed extra_xxxx attributes from BazelToolchain `#15073 <https://github.com/conan-io/conan/pull/15073>`_ . Docs `here <https://github.com/conan-io/docs/pull/3457>`__
+- Feature: BazelDeps global refactor. Adding each component as an isolated target, better requirements management (including requirements coming from build-context), adding C/C++ flags, etc. `#14959 <https://github.com/conan-io/conan/pull/14959>`_ . Docs `here <https://github.com/conan-io/docs/pull/3457>`__
+- Feature: BazelDeps works fine in editable mode. `#14959 <https://github.com/conan-io/conan/pull/14959>`_ . Docs `here <https://github.com/conan-io/docs/pull/3457>`__
+- Feature: Added `bazel_target_name` and `bazel_repository_name` properties. `#14959 <https://github.com/conan-io/conan/pull/14959>`_ . Docs `here <https://github.com/conan-io/docs/pull/3457>`__
+- Feature: Added mechanism to consume shared/static libraries for `bazel_lib` template in all the platforms. `#14959 <https://github.com/conan-io/conan/pull/14959>`_ . Docs `here <https://github.com/conan-io/docs/pull/3457>`__
+- Feature: `BazelToolchain` creates a `conan_bzl.rc` file which defines the `conan-config` configuration. If it exists, Bazel helper will use it automatically. `#14958 <https://github.com/conan-io/conan/pull/14958>`_ . Docs `here <https://github.com/conan-io/docs/pull/3457>`__
+- Feature: Add clang-17 support to settings. `#14915 <https://github.com/conan-io/conan/pull/14915>`_ . Docs `here <https://github.com/conan-io/docs/pull/3447>`__
+- Feature: Add support for gcc 10.5 `#14865 <https://github.com/conan-io/conan/pull/14865>`_ . Docs `here <https://github.com/conan-io/docs/pull/3447>`__
+- Feature: Add support for gcc 11.4 `#14865 <https://github.com/conan-io/conan/pull/14865>`_ . Docs `here <https://github.com/conan-io/docs/pull/3447>`__
+- Feature: Add support for gcc 13.2 `#14865 <https://github.com/conan-io/conan/pull/14865>`_ . Docs `here <https://github.com/conan-io/docs/pull/3447>`__
+- Fix: Use importlib in Python >= 3.12 `#14841 <https://github.com/conan-io/conan/pull/14841>`_
+- Bugfix: Solve crash of ``conan lock install`` when the provided lockfile was created from a ``conanfile.txt`` `#14836 <https://github.com/conan-io/conan/pull/14836>`_
+
 
 1.61.0 (13-Sept-2023)
 ---------------------
