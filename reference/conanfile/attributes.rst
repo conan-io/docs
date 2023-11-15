@@ -189,3 +189,34 @@ Currently these are the automatic implementations provided by Conan:
 .. warning::
 
     This is a 2.0-only feature, and it will not work in 1.X
+
+
+alias
+-----
+
+.. warning::
+    
+    While aliases can technically still be used in Conan 2.0, their usage is not recommended
+    and they may be fully removed in future releases. Users are encouraged to adapt to the
+    newer versioning features for a more standardized and efficient package management
+    experience.
+
+In Conan 2.0, the `alias` attribute remains a part of the recipe, allowing users to define
+an alias for a package version. Normally, you would create one using the ``conan new``
+command with the ``alias`` template and the exporting the recipe with conan export:
+
+.. code-block:: shell
+
+    $ conan new alias -d name=mypkg -d version=latest -d target=1.0 
+    $ conan export .
+
+Note that when requiring the alias, you must place the version in parentheses ``()`` to
+explicitly declare the use of an alias as a requirement:
+
+.. code-block:: python
+
+    class Consumer(ConanFile):
+    
+        ... 
+        requires = "mypkg/(latest)" 
+        ...
