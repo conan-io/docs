@@ -47,4 +47,7 @@ The public documented interface (besides the defined one in :ref:`the package_in
 
 - ``CppInfo(conanfile)``: Constructor. Receives a ``conanfile`` as argument, typically ``self``
 - ``aggregated_components()``: return a new ``CppInfo`` object resulting from the aggregation of all the components
+- ``get_sorted_components()``: Get the ordered components of a package, prioritizing those
+  with fewer dependencies within the same package. Returns An ``OrderedDict`` of sorted
+  components in the format ``{component_name: component}``.
 - ``merge(other_cppinfo: CppInfo)``: modifies the current ``CppInfo`` object, updating it with the information of the parameter ``other_cppinfo``, allowing to aggregate information from multiple dependencies.
