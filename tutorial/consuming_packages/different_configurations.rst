@@ -45,6 +45,19 @@ folder:
 
     # The default profile can also be checked with the command "conan profile show"
 
+.. note::
+
+    **Using Powershell**
+
+    For Powershell users it is recommended to modify the profile so it is no longer needed to use the
+    ``--conf=tools.env.virtualenv:powershell=True`` command. Open your profile file an add:
+
+    .. code-block:: bash
+
+        [conf]
+        tools.env.virtualenv:powershell=True
+
+    This only modifies the chosen profile and further profiles created will require the same change.
 
 As you can see, the profile has different sections. The ``[settings]`` section is the one
 that has information about things like the operating system, architecture, compiler, and
