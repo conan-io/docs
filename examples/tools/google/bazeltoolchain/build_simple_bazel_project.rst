@@ -90,8 +90,9 @@ Let's have a look at each file content:
 Conan uses the :ref:`conan_tools_google_bazeltoolchain` to generate a ``conan_bzl.rc`` file which defines the
 ``conan-config`` bazel-build configuration. This file and the configuration are passed as parameters to the
 ``bazel build`` command. Apart from that, Conan uses the :ref:`conan_tools_google_bazeldeps` generator
-to create all the necessary bazel *BUILD* and *.bzl* files where are defined all the dependencies as bazel targets.
-Those ones will be loaded by your *WORKSPACE* file and used by your *main/BUILD* one.
+to create all the bazel files (*[DEP]/BUILD.bazel* and *dependencies.bzl*) where are defined all the dependencies
+as public bazel targets. The *WORKSPACE* above is already ready to load the *dependencies.bzl* which will tell the
+*main/BUILD* all the information about the ``@fmt//:fmt`` bazel target.
 
 As the first step, we should install all the dependencies listed in the ``conanfile.txt``.
 The command :ref:`conan install<reference_commands_install>` does not only install the ``fmt`` package,
