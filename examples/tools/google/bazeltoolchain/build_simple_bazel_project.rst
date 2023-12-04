@@ -1,6 +1,6 @@
-.. _examples_tools_meson_toolchain_build_simple_meson_project:
+.. _examples_tools_bazel_toolchain_build_simple_bazel_project:
 
-Build a simple Meson project using Conan
+Build a simple Bazel project using Conan
 ========================================
 
 In this example, we are going to create a string formatter application
@@ -10,6 +10,7 @@ that uses one of the most popular C++ libraries: `fmt <https://fmt.dev/latest/in
 
     This example is based on the main :ref:`Build a simple CMake project using Conan<consuming_packages_build_simple_cmake_project>`
     tutorial. So we highly recommend reading it before trying out this one.
+
 
 We'll use Bazel as build system and helper tool in this case, so you should get it installed
 before going forward with this example. See `how install Bazel <https://bazel.build/install>`_.
@@ -138,8 +139,8 @@ will be loaded by your *WORKSPACE* file and used by your *main/BUILD* one.
 As the first step, we should install all the dependencies listed in the ``conanfile.txt``.
 The command :ref:`conan install<reference_commands_install>` does not only install the ``fmt`` package,
 it also builds it from sources in case your profile does not match with a pre-built binary in your remotes.
-Furthermore, it provides these generators listed in the ``conanfile.txt``, and thanks to the ``bazel_layout`` all the
-Conan-generated files will be saved in a default folder: *conan/*.
+Furthermore, it will save all the files created by the generators listed in the ``conanfile.txt``
+in a folder named *conan/* (default folder defined by the ``bazel_layout``).
 
 .. code-block:: bash
 
