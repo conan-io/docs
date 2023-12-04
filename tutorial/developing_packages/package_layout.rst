@@ -253,6 +253,17 @@ use to find headers and binaries. We defined:
 - ``self.cpp.build.libdirs`` set to ``["."]``. This location is relative to the
   ``self.folders.build`` that we defined to **./build/<build_type>**. In the case of
   editable packages, this location will point to **<local_folder>/build/<build_type>**.
+
+
+Note that other ``cpp.source`` and ``cpp.build`` definitions are also possible, with different 
+meanings and purposes, for example:
+
+- ``self.cpp.source.libdirs`` and ``self.cpp.source.libs`` could be used if we had pre-compiled
+  libraries in the source repo, committed to git, for example. They are not a product of the build,
+  but rather part of the sources.
+- ``self.cpp.build.includedirs`` could be use for folders containing headers generated at build
+  time, as it usually happens by some code generators that are fired by the build before starting
+  to compile the project.
   
 To check how this information affects consumers, we are going to first put the ``say``
 package in editable mode and build it locally.
