@@ -76,3 +76,8 @@ conf
 - ``tools.build:sharedlinkflags`` list of extra linker flags that will be used by ``linkopt``.
 - ``tools.build:exelinkflags`` list of extra linker flags that will be used by ``linkopt``.
 - ``tools.build:linker_scripts`` list of linker scripts, each of which will be prefixed with ``-T`` and added to ``linkopt``.
+
+
+.. seealso::
+
+    - :ref:`examples_tools_bazel_toolchain_build_simple_bazel_project`

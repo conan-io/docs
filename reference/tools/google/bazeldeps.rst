@@ -266,3 +266,8 @@ Example:
         self.cpp_info.set_property("bazel_target_name", "my_target")
         self.cpp_info.set_property("bazel_repository_name", "my_repo")
         self.cpp_info.components["mycomponent"].set_property("bazel_target_name", "component_name")
+
+
+.. seealso::
+
+    - :ref:`examples_tools_bazel_toolchain_build_simple_bazel_project`

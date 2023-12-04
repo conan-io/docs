@@ -18,6 +18,7 @@ Xcode.
    integrations/clion
    integrations/visual_studio
    integrations/autotools
+   integrations/bazel
    integrations/makefile
    integrations/xcode
    integrations/meson

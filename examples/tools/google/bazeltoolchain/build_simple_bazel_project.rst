@@ -87,11 +87,11 @@ Let's have a look at each file content:
     bazel_layout
 
 
-How it works? Conan uses the :ref:`conan_tools_google_bazeltoolchain` to generate a ``conan_bzl.rc`` file which defines the
-``conan-config`` bazel-build configuration. This file and the configuration are read by the :ref:`conan_tools_google_bazel` build helper
-that executes the bazel commands under the hood. In the other hand, Conan uses the :ref:`conan_tools_google_bazeldeps` generator
-to create all the necessary bazel *BUILD* and *.bzl* files where are defined all the dependencies as bazel targets. Those ones
-will be loaded by your *WORKSPACE* file and used by your *main/BUILD* one.
+Conan uses the :ref:`conan_tools_google_bazeltoolchain` to generate a ``conan_bzl.rc`` file which defines the
+``conan-config`` bazel-build configuration. This file and the configuration are passed as parameters to the
+``bazel build`` command. Apart from that, Conan uses the :ref:`conan_tools_google_bazeldeps` generator
+to create all the necessary bazel *BUILD* and *.bzl* files where are defined all the dependencies as bazel targets.
+Those ones will be loaded by your *WORKSPACE* file and used by your *main/BUILD* one.
 
 As the first step, we should install all the dependencies listed in the ``conanfile.txt``.
 The command :ref:`conan install<reference_commands_install>` does not only install the ``fmt`` package,
@@ -131,11 +131,4 @@ Now we are ready to build and run our **string formatter** app:
 .. code-block:: bash
 
     $ ./bazel-bin/main/demo
-    PRINT: Hello World!
-    PRINTF: Hello, World!
-    abracadabra
-    Euler number: 2.7182818
-    The date is 2012-12-9
-    Conan 42 3.14159
-    Magic number 42
-    Bincrafters
+    Conan - The C++ Package Manager!
