@@ -104,6 +104,8 @@ files the folder *build*. To do that, just run:
         tools.env.virtualenv:powershell=True
 
     Note that this only modifies the chosen profile and further profiles created will require the same change.
+    Check the :ref:`profiles page<reference_config_files_profiles>`
+    for more information.
 
 You can check the output:
 
