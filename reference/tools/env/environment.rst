@@ -5,7 +5,7 @@ Environment
 
 
 ``Environment`` is a generic class that helps to define modifications to the environment variables.
-This class is used by other tools like the `conan.tools.gnu` autotools helpers and
+This class is used by other tools like the `conan.tools.gnu` :ref:`Autotools<conan_tools_gnu_build_helper>` helpers and
 the :ref:`VirtualBuildEnv<conan_tools_env_virtualbuildenv>` and :ref:`VirtualRunEnv<conan_tools_env_virtualrunenv>`
 generator. It is important to highlight that this is a generic class, to be able to use it, a specialization
 for the current context (shell script, bat file, path separators, etc), a ``EnvVars`` object needs to be obtained

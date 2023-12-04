@@ -13,7 +13,7 @@ List or tuple of strings with names of generators.
         generators = "CMakeDeps", "CMakeToolchain"
 
 
-The generators can also be instantiated explicitly in the <MISSING PAGE> generate() method.
+The generators can also be instantiated explicitly in the :ref:`generate() method<reference_conanfile_methods_generate>`.
 
 
 .. code-block:: python
