@@ -3,7 +3,7 @@
 VirtualRunEnv
 =============
 
-``VirtualRunEnv`` is a generator that produces a launcher *conanrunenv* .bat or .sh script containing environment variables
+``VirtualRunEnv`` is a generator that produces a launcher *conanrunenv* .bat, .ps1 or .sh script containing environment variables
 of the run time environment.
 
 The launcher contains the runtime environment information, anything that is necessary in the environment to actually run
@@ -48,17 +48,20 @@ And it can also be fully instantiated in the conanfile ``generate()`` method:
 Generated files
 ---------------
 
-- conanrunenv-release-x86_64.(bat|sh): This file contains the actual definition of environment variables
+- conanrunenv-release-x86_64.(bat|ps1|sh): This file contains the actual definition of environment variables
   like PATH, LD_LIBRARY_PATH, etc, and ``runenv_info`` of dependencies corresponding to the ``host`` context,
   and to the current installed configuration. If a repeated call is done with other settings, a different file will be created.
-- conanrun.(bat|sh): Accumulates the calls to one or more other scripts to give one single convenient file
+- conanrun.(bat|ps1|sh): Accumulates the calls to one or more other scripts to give one single convenient file
   for all. This only calls the latest specific configuration one, that is, if ``conan install`` is called first for Release build type,
-  and then for Debug, ``conanrun.(bat|sh)`` script will call the Debug one.
+  and then for Debug, ``conanrun.(bat|ps1|sh)`` script will call the Debug one.
 
 After the execution of one of those files, a new deactivation script will be generated, capturing the current
 environment, so the environment can be restored when desired. The file will be named also following the
 current active configuration, like ``deactivate_conanrunenv-release-x86_64.bat``.
 
+.. note::
+
+    To create ``.ps1`` files it is necessary to use the conf: ``tools.env.virtualenv:Powershell``.
 
 Reference
 ---------
