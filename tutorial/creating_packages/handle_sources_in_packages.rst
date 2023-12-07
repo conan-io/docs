@@ -89,15 +89,15 @@ Let's have a look at the changes in the *conanfile.py*:
         def package_info(self):
             self.cpp_info.libs = ["hello"]
 
-As you can see, the recipe is the same but instead declaring the ``exports_sources``
-attribute as we did previously:
+As you can see, the recipe is the same but instead of declaring the ``exports_sources``
+attribute as we did previously, i.e.
 
 .. code-block:: python
 
     exports_sources = "CMakeLists.txt", "src/*", "include/*"
 
 
-We declare a ``source()`` method with this information:
+we declare a ``source()`` method with this information:
 
 .. code-block:: python
 
