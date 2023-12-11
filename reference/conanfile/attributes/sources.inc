@@ -30,7 +30,7 @@ Exclude patterns are also possible, with the ``!`` prefix:
 
 .. seealso::
 
-    - Check <MISSING PAGE> exports() conanfile.py method.
+    - :ref:`Check the export() conanfile.py method<reference_conanfile_methods_export>`.
 
 
 .. _exports_sources_attribute:
@@ -91,7 +91,8 @@ or even better, from ``self.export_sources_folder``.
 conan_data
 ----------
 
-Read only attribute with a dictionary with the keys and values provided in a <MISSING PAGE> conandata_yml file format placed
+Read only attribute with a dictionary with the keys and values provided in a
+:ref:`conandata.yml<creating_packages_handle_sources_in_packages_conandata>` file format placed
 next to the *conanfile.py*. This YAML file is automatically exported with the recipe and automatically loaded with it too.
 
 You can declare information in the *conandata.yml* file and then access it inside any of the methods of the recipe.

@@ -58,6 +58,8 @@ must be explicitly declared:
         self.info.settings.rm_safe("compiler.cppstd")
 
 
+.. _reference_conanfile_methods_package_id_clear:
+
 Information erasure
 -------------------
 

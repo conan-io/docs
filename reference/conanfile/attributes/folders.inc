@@ -30,8 +30,8 @@ The value depends on the method you access it:
 
 .. seealso::
 
-    - Read  <MISSING PAGE> ``export_sources`` method.
-    - Read  <MISSING PAGE> ``source`` method.
+    - :ref:`Read about the export_sources() method<reference_conanfile_methods_export_sources>`.
+    - :ref:`Read about the source() method<reference_conanfile_methods_source>`.
 
 .. _attribute_build_folder:
 
@@ -50,7 +50,8 @@ package_folder
 The folder to copy the final artifacts for the binary package. In the local cache a package
 folder is created for every different package ID.
 
-The most common usage of ``self.package_folder`` is to ``copy`` the files at the <MISSING PAGE> package() method:
+The most common usage of ``self.package_folder`` is to ``copy`` the files
+at the :ref:`package() method<reference_conanfile_methods_package>`:
 
 .. code-block:: python
 
