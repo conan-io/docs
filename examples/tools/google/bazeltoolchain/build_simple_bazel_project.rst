@@ -12,7 +12,7 @@ that uses one of the most popular C++ libraries: `fmt <https://fmt.dev/latest/in
     tutorial. So we highly recommend reading it before trying out this one.
 
 
-We'll use Bazel as build system and helper tool in this case, so you should get it installed
+We'll use Bazel as the build system and helper tool in this case, so you should get it installed
 before going forward with this example. See `how to install Bazel <https://bazel.build/install>`_.
 
 Please, at first, clone the sources to recreate this project, you can find them in the
