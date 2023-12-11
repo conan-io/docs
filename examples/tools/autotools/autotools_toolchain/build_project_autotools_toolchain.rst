@@ -9,7 +9,7 @@ that uses one of the most popular C++ libraries: `fmt <https://fmt.dev/latest/in
 We'll use `Autotools <https://www.gnu.org/software/automake/manual/html_node/Autotools-Introduction.html>`_ as build system and `pkg-config <https://www.freedesktop.org/wiki/Software/pkg-config/>`_ as a helper tool in this case, so you should get them installed
 on Linux and Mac before going forward with this example.
 
-Please, first, clone the sources to recreate this project, you can find them in the
+Please, first clone the sources to recreate this project. You can find them in the
 `examples2.0 repository <https://github.com/conan-io/examples2>`_ on GitHub:
 
 .. code-block:: shell

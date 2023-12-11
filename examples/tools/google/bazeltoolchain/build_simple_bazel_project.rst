@@ -3,7 +3,7 @@
 Build a simple Bazel project using Conan
 ========================================
 
-In this example, we are going to create a string formatter application
+In this example, we are going to create a Hello World program
 that uses one of the most popular C++ libraries: `fmt <https://fmt.dev/latest/index.html/>`_.
 
 .. note::
@@ -15,7 +15,7 @@ that uses one of the most popular C++ libraries: `fmt <https://fmt.dev/latest/in
 We'll use Bazel as the build system and helper tool in this case, so you should get it installed
 before going forward with this example. See `how to install Bazel <https://bazel.build/install>`_.
 
-Please, first clone the sources to recreate this project, you can find them in the
+Please, first clone the sources to recreate this project. You can find them in the
 `examples2.0 repository <https://github.com/conan-io/examples2>`_ in GitHub:
 
 .. code-block:: bash
@@ -37,7 +37,7 @@ We start from a very simple C++ language project with this structure:
 
 This project contains a *WORKSPACE* file loading the Conan dependencies (in this case only ``fmt``)
 and a *main/BUILD* file which defines the *demo* bazel target and it's in charge of using ``fmt`` to build a
-simple string formatter application.
+simple Hello World program.
 
 Let's have a look at each file's content:
 
@@ -112,7 +112,7 @@ in a folder named *conan/* (default folder defined by the ``bazel_layout``).
     conanfile.txt: Generated aggregated env files: ['conanbuild.sh', 'conanrun.sh']
     Install finished successfully
 
-Now we are ready to build and run our **string formatter** app:
+Now we are ready to build and run our application:
 
 .. code-block:: bash
 

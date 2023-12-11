@@ -10,7 +10,7 @@ Custom command: Clean old recipe and package revisions
     without needing this custom command.
 
 
-Please, first of all, clone the sources to recreate this project. You can find them in the
+Please, first clone the sources to recreate this project. You can find them in the
 `examples2.0 repository <https://github.com/conan-io/examples2>`_ in GitHub:
 
 .. code-block:: bash
