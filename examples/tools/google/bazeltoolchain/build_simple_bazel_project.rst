@@ -36,7 +36,7 @@ We start from a very simple C++ language project with this structure:
         └── demo.cpp
 
 This project contains a *WORKSPACE* file loading the Conan dependencies (in this case only ``fmt``)
-and a *main/BUILD* which defines the *demo* bazel target and it's in charge of using ``fmt`` to build a
+and a *main/BUILD* file which defines the *demo* bazel target and it's in charge of using ``fmt`` to build a
 simple string formatter application.
 
 Let's have a look at each file content:
