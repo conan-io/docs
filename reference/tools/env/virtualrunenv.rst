@@ -61,7 +61,7 @@ current active configuration, like ``deactivate_conanrunenv-release-x86_64.bat``
 
 .. note::
 
-    To create ``.ps1`` files it is necessary to use the conf: ``tools.env.virtualenv:Powershell``.
+    To create ``.ps1`` files required for Powershell it is necessary to set to True the following conf: ``tools.env.virtualenv:powershell``.
 
 Reference
 ---------

@@ -89,23 +89,17 @@ files the folder *build*. To do that, just run:
 
 .. note::
 
-    **Using Powershell**
-
-    When using a Powershell terminal we need a different configuration to generate the corresponding files.
-    Adding :command:`--conf=tools.env.virtualenv:powershell=True` to the previous :command:`conan install` command
-    will generate ``.ps1`` files that you can run instead of the ``.bat`` files.
-
-    We recommend changing the profile so you don't need to run the command every time. Run :command:`conan config home`
-    to find your conan cache location, then edit the file in **.conan2/profiles/default** by adding:
+    **Powershell** users need to add ``--conf=tools.env.virtualenv:powershell=True`` to the previous command
+    to generate ``.ps1`` files instead of ``.bat`` files.
+    We recommend modifying the profile so you don't need to run the command every time.
+    Add to the profile used:
 
     .. code-block:: bash
 
         [conf]
         tools.env.virtualenv:powershell=True
 
-    Note that this only modifies the chosen profile and further profiles created will require the same change.
-    Check the :ref:`profiles page<reference_config_files_profiles>`
-    for more information.
+    For more information on how to set your profile check the :ref:`profiles page<reference_config_files_profiles>`.
 
 You can check the output:
 

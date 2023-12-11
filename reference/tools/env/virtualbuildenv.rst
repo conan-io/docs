@@ -65,8 +65,7 @@ will create the following files:
 
 .. note::
 
-    To create ``.ps1`` files it is necessary to use the conf: ``tools.env.virtualenv:Powershell``.
-
+    To create ``.ps1`` files required for Powershell it is necessary to set to True the following conf: ``tools.env.virtualenv:powershell``.
 
 Reference
 ---------
