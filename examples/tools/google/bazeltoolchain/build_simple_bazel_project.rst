@@ -90,7 +90,7 @@ Let's have a look at each file's content:
 Conan uses the :ref:`conan_tools_google_bazeltoolchain` to generate a ``conan_bzl.rc`` file which defines the
 ``conan-config`` bazel-build configuration. This file and the configuration are passed as parameters to the
 ``bazel build`` command. Apart from that, Conan uses the :ref:`conan_tools_google_bazeldeps` generator
-to create all the bazel files (*[DEP]/BUILD.bazel* and *dependencies.bzl*) where are defined all the dependencies
+to create all the bazel files (*[DEP]/BUILD.bazel* and *dependencies.bzl*) which define all the dependencies
 as public bazel targets. The *WORKSPACE* above is already ready to load the *dependencies.bzl* which will tell the
 *main/BUILD* all the information about the ``@fmt//:fmt`` bazel target.
 
