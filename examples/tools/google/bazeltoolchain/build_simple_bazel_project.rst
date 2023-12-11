@@ -39,7 +39,7 @@ This project contains a *WORKSPACE* file loading the Conan dependencies (in this
 and a *main/BUILD* file which defines the *demo* bazel target and it's in charge of using ``fmt`` to build a
 simple string formatter application.
 
-Let's have a look at each file content:
+Let's have a look at each file's content:
 
 .. code-block:: cpp
     :caption: **main/demo.cpp**
