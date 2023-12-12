@@ -91,15 +91,7 @@ files the folder *build*. To do that, just run:
 
     **Powershell** users need to add ``--conf=tools.env.virtualenv:powershell=True`` to the previous command
     to generate ``.ps1`` files instead of ``.bat`` files.
-    We recommend modifying the profile so you don't need to run the command every time.
-    Add to the profile used:
-
-    .. code-block:: bash
-
-        [conf]
-        tools.env.virtualenv:powershell=True
-
-    For more information on how to set your profile check the :ref:`profiles page<reference_config_files_profiles>`.
+    To avoid the need to add this line every time, we recommend configuring it in the ``[conf]`` section of your profile. For detailed information, please refer to the :ref:`profiles section<reference_config_files_profiles>`.
 
 You can check the output:
 
