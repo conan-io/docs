@@ -87,6 +87,12 @@ files the folder *build*. To do that, just run:
 
     $ conan install . --output-folder=build --build=missing
 
+.. note::
+
+    **Powershell** users need to add ``--conf=tools.env.virtualenv:powershell=True`` to the previous command
+    to generate ``.ps1`` files instead of ``.bat`` files.
+    To avoid the need to add this line every time, we recommend configuring it in the ``[conf]`` section of your profile. For detailed information, please refer to the :ref:`profiles section<reference_config_files_profiles>`.
+
 You can check the output:
 
 .. code-block:: bash
@@ -142,6 +148,7 @@ have installed the new CMake version in the path.
 
     $ cd build
     $ conanbuild.bat
+    # conanbuild.ps1 if using Powershell
 
 .. code-block:: bash
     :caption: Linux, macOS
