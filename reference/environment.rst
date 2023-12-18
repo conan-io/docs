@@ -73,6 +73,6 @@ Logging
 -------
 
 The environment variable ``CONAN_LOG_LEVEL`` can define the Conan command line verbosity in the same way that the ``-v``
-command line argument, with the same values (``error``, ``verbose``, etc.).
+command line argument, with the same values (``error``, ``verbose``, etc.). It also has priority over the value of the command line arg if both are present.
 This can be useful to temporarily change the log level in CI pipelines, in automation, etc., without needing to modify the 
 command line arguments.
