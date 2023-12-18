@@ -81,8 +81,8 @@ conan graph explain
       --missing [MISSING]   A pattern in the form 'pkg/version#revision:package_id#revision', e.g: zlib/1.2.13:* means all binaries for zlib/1.2.13. If revision is not specified, it is
                             assumed latest one.
 
-The ``conan graph explain`` tries to give a more comprenhensive explanation for a package that might be missing with the configuration provided and show the differences between the expected binary package and the available one.
-It helps to understand what is missing from the package requested, wether it is different options, differnt settings or different dependencies.
+The ``conan graph explain`` tries to give a more detailed explanation for a package that might be missing with the configuration provided and show the differences between the expected binary package and the available ones.
+It helps to understand what is missing from the package requested, wether it is different options, different settings or different dependencies.
 
 **Example**:
 
