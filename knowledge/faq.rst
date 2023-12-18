@@ -34,9 +34,10 @@ that you get an error like the following one:
     fPIC=True
     shared=False
 
-    ERROR: Missing prebuilt package for 'zlib/1.2.11'
-    Check the available packages using 'conan list zlib/1.2.11:* -r=remote'
-    or try to build locally from sources using the '--build=zlib/1.2.11' argument
+    ERROR: Missing prebuilt package for 'zlib/1.2.11'. You can try:
+        - List all available packages using 'conan list {ref}:* -r=remote'
+        - Explain missing binaries: replace 'conan install ...' with 'conan graph explain ...'
+        - Try to build locally from sources using the '--build=zlib/1.2.11' argument
 
     More Info at 'https://docs.conan.io/en/2/knowledge/faq.html#error-missing-prebuilt-package'
 
