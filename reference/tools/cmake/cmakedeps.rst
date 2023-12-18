@@ -70,7 +70,7 @@ Generated files
 - **Other necessary *.cmake**:  files like version, flags and directory data or configuration.
 
 
-Note that it will also generate a **conandeps_legacy.cmake** file. This is a file that provides a behavior similar to the Conan 1 ``cmake`` generator, allowing to include this file with ``include(${CMAKE_BINARY_DIR}/generators/conandeps_legacy.cmake)``, and providing a single CMake ``CONANDEPS_LEGACY`` variable that allows to link with all the direct and transitive dependencies without explicitly enumerating them like: ``target_link_libraries(app ${CONANDEPS_LEGACY})``. This is a convenience provided for Conan 1.X users to upgrade to Conan 2.0 without changing their overall developer flow, but it is not recommended otherwise, and using the CMake canonical flow of explicitly use ``find_package()`` and ``target_link_libraries(... pkg1::pkg1 pkg2::pkg2)`` using targets is the correct approach. 
+Note that it will also generate a **conandeps_legacy.cmake** file. This is a file that provides a behavior similar to the Conan 1 ``cmake`` generator, allowing to include this file with ``include(${CMAKE_BINARY_DIR}/generators/conandeps_legacy.cmake)``, and providing a single CMake ``CONANDEPS_LEGACY`` variable that allows to link with all the direct and transitive dependencies without explicitly enumerating them like: ``target_link_libraries(app ${CONANDEPS_LEGACY})``. This is a convenience provided for Conan 1.X users to upgrade to Conan 2.0 without changing their overall developer flow, but it is not recommended otherwise, and using the CMake canonical flow of explicitly using ``find_package()`` and ``target_link_libraries(... pkg1::pkg1 pkg2::pkg2)`` with targets is the correct approach. 
 
 
 Customization
