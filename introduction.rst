@@ -93,7 +93,7 @@ There are some things that are not included in this commitment:
 - Other tools and repositories outside of the Conan client
 
 
-Conan needs Python>=3.6 to run. Conan will deprecate support for Python versions 1 year after those versions have been declared End Of Life (EOL).
+Conan needs Python>=3.7 to run. Conan will deprecate support for Python versions 1 year after those versions have been declared End Of Life (EOL).
 
 If you have any question regarding Conan updates, stability, or any clarification about this definition of stability, please report in the documentation issue tracker: https://github.com/conan-io/docs.
 
