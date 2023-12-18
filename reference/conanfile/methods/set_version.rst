@@ -54,7 +54,30 @@ could be done with:
             self.version = git.run("describe --tags")
 
 
+The ``set_version()`` method can decide to define the ``version`` value, irrespective of the potential
+``--version=xxx`` command line argument, that can be even completely ignored by ``set_version()``. It 
+is the responsibility of the developer to provide a correct ``set_version()``:
+
+.. code-block:: python
+
+    def set_version(self):
+        # This will always assign "2.1" as version, ignoring ``--version`` command line argument
+        # and without erroring or warning
+        self.version = "2.1"
+
+
+If a command line argument ``--version=xxx`` is provided, it will be initialized in the ``self.version``
+attribute, so ``set_version()`` method can read and use it:
+
+.. code-block:: python
+
+    def set_version(self):
+        # Takes the provided command line ``--version`` argument and creates a version appending to
+        # it the ".extra" string
+        self.version = self.version + ".extra"
+
+
 .. warning::
 
-    The ``set_version()`` method is an alternative to the ``version`` attribute. It is
-    not advised or supported to define both a ``version`` attribute and a ``set_version()`` method. 
+    - The ``set_version()`` method is an alternative to the ``version`` attribute. It is
+    not advised or supported to define both a ``version`` class attribute and a ``set_version()`` method. 
