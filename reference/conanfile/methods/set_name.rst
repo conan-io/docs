@@ -40,6 +40,29 @@ command line argument we should do:
             self.name = self.name or load(self, "name.txt")
 
 
+The ``set_name()`` method can decide to define the ``name`` value, irrespective of the potential
+``--name=xxx`` command line argument, that can be even completely ignored by ``set_name()``. It 
+is the responsibility of the developer to provide a correct ``set_name()``:
+
+.. code-block:: python
+
+    def set_name(self):
+        # This will always assign "pkg" as name, ignoring ``--name`` command line argument
+        # and without erroring or warning
+        self.name = "pkg"
+
+
+If a command line argument ``--name=xxx`` is provided, it will be initialized in the ``self.name``
+attribute, so ``set_name()`` method can read and use it:
+
+.. code-block:: python
+
+    def set_name(self):
+        # Takes the provided command line ``--name`` argument and creates a name appending to
+        # it the ".extra" string
+        self.name = self.name + ".extra"
+
+
 .. warning::
 
     The ``set_name()`` method is an alternative to the ``name`` attribute. It is
