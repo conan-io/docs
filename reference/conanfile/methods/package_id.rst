@@ -44,7 +44,7 @@ to make the ``package_id`` independent of settings, options, configuration and r
 
 
 If you need to implement custom behaviors in your recipes but also need this logic, it
-must be explicitly declared, for example something like this:
+must be explicitly declared, for example, something like this:
 
 .. code-block:: python
 
