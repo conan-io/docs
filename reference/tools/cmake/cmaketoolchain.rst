@@ -82,7 +82,9 @@ translated from the current ``settings``:
         - The `BUILD_TESTING` variable set to `OFF` when the configuration
           `tools.build:skip_test` is true.
         - An environment section setting all the environment information related to the
-          :ref:`VirtualBuildEnv<conan_tools_env_virtualbuildenv>` (if any).
+          :ref:`VirtualBuildEnv<conan_tools_env_virtualbuildenv>` (if any). You can skip
+          the generation of this section by using the
+          ``tools.cmake.cmaketoolchain:presets_environment`` configuration.
         - By default, preset names will be `conan-xxxx`, but the "conan-" prefix can be
           customized with the `CMakeToolchain.presets_prefix = "conan"` attribute.
         - Preset names are controlled by the `layout()` `self.folders.build_folder_vars`
@@ -95,7 +97,9 @@ translated from the current ``settings``:
     - `testPresets` storing the following information:
         - The `configurePreset` associated with this build preset.
         - An environment section setting all the environment information related to the
-          :ref:`VirtualRunEnv<conan_tools_env_virtualrunenv>` (if any).
+          :ref:`VirtualRunEnv<conan_tools_env_virtualrunenv>` (if any). You can skip the
+          generation of this section by using the
+          ``tools.cmake.cmaketoolchain:presets_environment`` configuration.
 
 
 - **CMakeUserPresets.json**:  If you declare a ``layout()`` in the recipe and your
