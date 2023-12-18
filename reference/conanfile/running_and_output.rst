@@ -39,7 +39,7 @@ Running commands
 
 .. code-block:: python
 
-    run(self, command, stdout=None, cwd=None, ignore_errors=False, env="", quiet=False, shell=True, scope="build")
+    run(self, command, stdout=None, cwd=None, ignore_errors=False, env="", quiet=False, shell=True, scope="build", stderr=None)
 
 
 ``self.run()`` is a helper to run system commands while injecting the calls to activate the appropriate environment,
