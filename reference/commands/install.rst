@@ -20,7 +20,8 @@ conan install
                          [--lockfile-packages] [--lockfile-clean]
                          [--lockfile-overrides LOCKFILE_OVERRIDES] [-g GENERATOR]
                          [-of OUTPUT_FOLDER] [-d DEPLOYER]
-                         [--deployer-folder DEPLOYER_FOLDER] [--build-require]
+                         [--deployer-folder DEPLOYER_FOLDER]
+                         [--deployer-package DEPLOYER_PACKAGE] [--build-require]
                          [path]
 
     Install the requirements specified in a recipe (conanfile.py or conanfile.txt).
@@ -143,6 +144,9 @@ conan install
       --deployer-folder DEPLOYER_FOLDER
                             Deployer output folder, base build folder by default
                             if not set
+      --deployer-package DEPLOYER_PACKAGE
+                            Execute the deploy() method of the packages matching
+                            the provided patterns
       --build-require       Whether the provided path is a build-require
 
 
@@ -233,6 +237,8 @@ not matter what the order of arguments is.
     $ conan install . -pr=myprofile -s build_type=Debug
     
 
+.. _reference_commands_install_generators_deployers:
+
 Generators and deployers
 ------------------------
 
@@ -269,6 +275,19 @@ copy, and not to the original packages in the Conan cache. See the full example 
 
 It is also possible, and it is a powerful extension point, to write custom user deployers.
 Read more about custom deployers in :ref:`reference_extensions_deployers`.
+
+It is possible to also invoke the package recipes ``deploy()`` method with the ``--deployer-package``:
+
+.. code-block:: bash
+
+    # Execute deploy() method of every recipe that defines it
+    $ conan install --requires=pkg/0.1 --deployer-package=*
+    # Execute deploy() method only for "pkg" (any version) recipes
+    $ conan install --requires=pkg/0.1 --deployer-package=pkg/*
+
+The ``--deployer-package`` argument is a pattern and accept multiple values, all package references matching any of the defined patterns will execute its ``deploy()`` method. The ``--deployer-folder`` argument will also affect the output location of this deployment. See the :ref:`deploy() method<reference_conanfile_methods_deploy>`.
+
+If multiple deployed packages deploy to the same location, it is their responsibility to not mutually overwrite their binaries if they have the same filenames. For example if multiple packages ``deploy()`` a file called "License.txt", the ``deploy()`` method of each recipe is repsonsible to create an intermediate folder with the package name and/or version that makes it unique, so other recipes ``deploy()`` method do not overwrite previously deployed "License.txt" files.
 
 
 Name, version, user, channel
