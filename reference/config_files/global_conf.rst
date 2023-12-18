@@ -111,6 +111,7 @@ To list all the possible configurations available, run :command:`conan config li
     tools.intel:setvars_args: Custom arguments to be passed onto the setvars.sh|bat script from Intel oneAPI
     tools.meson.mesontoolchain:backend: Any Meson backend: ninja, vs, vs2010, vs2012, vs2013, vs2015, vs2017, vs2019, xcode
     tools.meson.mesontoolchain:extra_machine_files: List of paths for any additional native/cross file references to be appended to the existing Conan ones
+    tools.microsoft:winsdk_version: "Use this winsdk_version in vcvars
     tools.microsoft.bash:active: If Conan is already running inside bash terminal in Windows
     tools.microsoft.bash:path: The path to the shell to run when conanfile.win_bash==True
     tools.microsoft.bash:subsystem: The subsystem to be used when conanfile.win_bash==True. Possible values: msys2, msys, cygwin, wsl, sfu
