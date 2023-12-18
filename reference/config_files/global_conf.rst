@@ -85,6 +85,7 @@ To list all the possible configurations available, run :command:`conan config li
     tools.cmake.cmake_layout:build_folder_vars: Settings and Options that will produce a different build folder and different CMake presets names
     tools.cmake.cmaketoolchain:find_package_prefer_config: Argument for the CMAKE_FIND_PACKAGE_PREFER_CONFIG
     tools.cmake.cmaketoolchain:generator: User defined CMake generator to use instead of default
+    tools.cmake.cmaketoolchain:presets_environment: String to define wether to add or not the environment section to the CMake presets. Empty by default, will generate the environment section in CMakePresets. Can take values: 'disabled'.
     tools.cmake.cmaketoolchain:system_name: Define CMAKE_SYSTEM_NAME in CMakeToolchain
     tools.cmake.cmaketoolchain:system_processor: Define CMAKE_SYSTEM_PROCESSOR in CMakeToolchain
     tools.cmake.cmaketoolchain:system_version: Define CMAKE_SYSTEM_VERSION in CMakeToolchain
@@ -103,8 +104,8 @@ To list all the possible configurations available, run :command:`conan config li
     tools.gnu:host_triplet: Custom host triplet to pass to Autotools scripts
     tools.gnu:make_program: Indicate path to make program
     tools.gnu:pkg_config: Path to pkg-config executable used by PkgConfig build helper
-    tools.google.bazel:bazelrc_path: Defines Bazel rc-path
-    tools.google.bazel:configs: Define Bazel config file
+    tools.google.bazel:bazelrc_path: List of paths to bazelrc files to be used as 'bazel --bazelrc=rcpath1 ... build'
+    tools.google.bazel:configs: List of Bazel configurations to be used as 'bazel build --config=config1 ...'
     tools.graph:skip_binaries: Allow the graph to skip binaries not needed in the current configuration (True by default)
     tools.info.package_id:confs: List of existing configuration to be part of the package ID
     tools.intel:installation_path: Defines the Intel oneAPI installation root path
@@ -116,9 +117,10 @@ To list all the possible configurations available, run :command:`conan config li
     tools.microsoft.bash:subsystem: The subsystem to be used when conanfile.win_bash==True. Possible values: msys2, msys, cygwin, wsl, sfu
     tools.microsoft.msbuild:installation_path: VS install path, to avoid auto-detect via vswhere, like C:/Program Files (x86)/Microsoft Visual Studio/2019/Community. Use empty string to disable
     tools.microsoft.msbuild:max_cpu_count: Argument for the /m when running msvc to build parallel projects
-    tools.microsoft.msbuild:vs_version: Defines the IDE version when using the new msvc compiler
+    tools.microsoft.msbuild:vs_version: Defines the IDE version (15, 16, 17) when using the msvc compiler. Necessary if compiler.version specifies a toolset that is not the IDE default
     tools.microsoft.msbuilddeps:exclude_code_analysis: Suppress MSBuild code analysis for patterns
     tools.microsoft.msbuildtoolchain:compile_options: Dictionary with MSBuild compiler options
+    tools.microsoft:winsdk_version: Use this winsdk_version in vcvars
     tools.system.package_manager:mode: Mode for package_manager tools: 'check', 'report', 'report-installed' or 'install'
     tools.system.package_manager:sudo: Use 'sudo' when invoking the package manager tools in Linux (False by default)
     tools.system.package_manager:sudo_askpass: Use the '-A' argument if using sudo in Linux to invoke the system package manager (False by default)
