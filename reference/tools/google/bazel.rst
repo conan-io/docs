@@ -49,3 +49,8 @@ conf
 
 - ``tools.google.bazel:bazelrc_path``: List of paths to other bazelrc files to be used as :command:`bazel --bazelrc=rcpath1 ... build`.
 - ``tools.google.bazel:configs``: List of Bazel configurations to be used as :command:`bazel build --config=config1 ...`.
+
+
+.. seealso::
+
+    - :ref:`examples_tools_bazel_toolchain_build_simple_bazel_project`

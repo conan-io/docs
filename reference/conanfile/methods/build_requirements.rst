@@ -16,6 +16,8 @@ For simple cases the attribute syntax can be enough, like ``tool_requires = "cma
 
 The ``tool_requires`` and ``test_requires`` methods are just a specialized instance of ``requires`` with some predefined trait values. See the :ref:`requires() reference<reference_conanfile_methods_requirements>` for more information about traits.
 
+.. _reference_conanfile_methods_build_requirements_tool_requires:
+
 tool_requires()
 ---------------
 
@@ -94,6 +96,7 @@ should the *requires* and *tool_requires* have different names. For instance:
 
     - :ref:`examples_graph_tool_requires_protobuf`
 
+.. _reference_conanfile_methods_build_requirements_test_requires:
 
 test_requires
 -------------

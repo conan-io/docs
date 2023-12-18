@@ -18,7 +18,7 @@ Will generate a "conflict", showing an error like ``Duplicated requirement``.
 
 However there are some exceptional situations that we could need to depend on the same ``tool_requires`` version, 
 but using different binaries of that ``tool_requires``. This can be achieved by passing different ``options`` to those
-``tool_requires``. Please, first, clone the sources to recreate this project, you can find them in the
+``tool_requires``. Please, first clone the sources to recreate this project. You can find them in the
 `examples2.0 repository <https://github.com/conan-io/examples2>`_ on GitHub:
 
 .. code-block:: shell
