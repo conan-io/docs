@@ -112,3 +112,24 @@ For example, a *conandata.yml* with information about sources that looks like th
 
     def source(self):
         tools.get(**self.conan_data["sources"][self.version])
+
+source_buildenv
+---------------
+
+Boolean attribute to opt-out from using tool requires in the `source()` method.
+
+Setting this attribute to `False` (default value `True`) will prevent Conan from inyecting the VirtualBuildEnv generated environment from tool requires
+when executing the `source()` method.
+
+.. code-block:: python
+   :emphasize-lines: 4,5,8
+
+    class MyConan:
+       name = "mylib"
+       version = "1.0.0"
+       source_buildenv = False
+       tool_requires = "7zip/1.2.0"
+
+    def source(self):
+        tools.get(**self.conan_data["sources"][self.version])
+        self.run("7z x *.zip -o*")  ## Error! tool require not available
