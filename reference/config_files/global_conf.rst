@@ -307,6 +307,8 @@ For instance:
 UX confs
 --------
 
+.. _reference_config_files_global_conf_skip_warnings:
+
 Skip warnings
 ~~~~~~~~~~~~~
 
@@ -316,3 +318,4 @@ by adding the warning tag to its value.
 Those warnings are:
 
   - ``deprecated``: Messages for deprecated features such as legacy generators
+  - ``network``: Messages related to network issues, such as retries

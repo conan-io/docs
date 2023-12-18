@@ -30,6 +30,10 @@ so running with ``-vwarning` will output calls to ``warning()`` and ``error()``,
 
 Note that these methods return the output object again, so that you can chain output calls if needed.
 
+Using the ``core:warnings_as_errors`` conf, you can make Conan raise an exception when either a warning or error is printed.
+This is useful to make sure that recipes are not printing unexpected warnings or errors.
+Additionally, you can skip which warnings trigger an exception :ref:`with the *core:skip_warnings* conf<reference_config_files_global_conf_skip_warnings>`.
+
 
 .. _reference_conanfile_run:
 
