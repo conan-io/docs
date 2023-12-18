@@ -79,5 +79,5 @@ attribute, so ``set_version()`` method can read and use it:
 
 .. warning::
 
-    - The ``set_version()`` method is an alternative to the ``version`` attribute. It is
+    The ``set_version()`` method is an alternative to the ``version`` attribute. It is
     not advised or supported to define both a ``version`` class attribute and a ``set_version()`` method. 
