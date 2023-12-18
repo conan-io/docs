@@ -63,6 +63,7 @@ To list all the possible configurations available, run :command:`conan config li
     core:non_interactive: Disable interactive user input, raises error if input necessary
     core:required_conan_version: Raise if current version does not match the defined range.
     core:skip_warnings: Do not show warnings in this list
+    core:warnings_as_errors: Treat warnings as errors
     tools.android:cmake_legacy_toolchain: Define to explicitly pass ANDROID_USE_LEGACY_TOOLCHAIN_FILE in CMake toolchain
     tools.android:ndk_path: Argument for the CMAKE_ANDROID_NDK
     tools.apple:enable_arc: (boolean) Enable/Disable ARC Apple Clang flags
