@@ -111,7 +111,7 @@ For example, a *conandata.yml* with information about sources that looks like th
 .. code-block:: python
 
     def source(self):
-        tools.get(**self.conan_data["sources"][self.version])
+        get(self, **self.conan_data["sources"][self.version])
 
 source_buildenv
 ---------------
