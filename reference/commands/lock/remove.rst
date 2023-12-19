@@ -85,8 +85,8 @@ It is possible to specify different patterns:
 
 The ``conan lock remove`` can be useful for:
 
-- In combination with ``conan lock add`` can be used to force the downgrade of a locked version to an older one. As ``conan lock add``
-  always add and sorts the order, resulting in newer versions with high priority, it is not possible to force going back to an older
-  version with just ``add``. But using first ``conan lock remove``, then ``conan lock add``, it is possible to do so.
+- In combination with ``conan lock add``, it can be used to force the downgrade of a locked version to an older one. As ``conan lock add``
+  always adds and sorts the order, resulting in newer versions with high priority, it is not possible to force going back to an older
+  version with just ``add``. But first using ``conan lock remove``, then ``conan lock add``, it is possible to do so.
 - ``conan lock remove`` can unlock certain dependencies, resulting in an incomplete lockfile, that can be used with ``--lockfile-partial``
   to resolve to the latest available versions for the unlocked dependencies, while keeping locked the rest.
