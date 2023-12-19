@@ -26,9 +26,6 @@ They have this structure:
     tool1/0.1@user/channel
     *: tool4/0.1@user/channel
 
-    [system_tools]
-    cmake/3.24.2
-
     [buildenv]
     VAR1=value
 
@@ -43,6 +40,12 @@ They have this structure:
 
     [replace_tool_requires]
     7zip/*: 7zip/system
+
+    [platform_requires]
+    dlib/1.3.22
+
+    [platform_tool_requires]
+    cmake/3.24.2
 
 Profiles can be created with the ``detect`` option in :ref:`conan profile <reference_commands_profile>` command,
 and edited later. If you don't specify a *name*, the command will create the ``default`` profile:
@@ -379,13 +382,32 @@ Running, for instance, :command:`conan install . -pr myprofile`, the configurati
 .. include:: ../../common/experimental_warning.inc
 
 This section allows the user to redefine requires of recipes. This can be useful when a package can be changed by a similar one like `zlib` and `zlibng`.
-It is also usefult to solve conflicts, or to replace some dependencies by system alternatives wrapped in another Conan package recipe.
+It is also useful to solve conflicts, or to replace some dependencies by system alternatives wrapped in another Conan package recipe.
+
+References listed under this section work as a **literal replacement of requires in recipes**, and is is done as the very first step before any other processing
+of recipe requirements, without processing them or checking for conflicts.
+
+As an example, we could define `zlibng` as a replacement for the typical `zlib`:abbr:
 
 .. code-block:: text
     :caption: *myprofile*
 
     [replace_requires]
     zlib/*: zlibng/*
+
+Using the ``*`` pattern for the ``zlibng`` reference means that ``zlib`` will be replaced will by the exact same version of ``zlibng``.
+
+Other examples are:
+
+.. code-block:: text
+    :caption: *myprofile*
+
+    [replace_requires]
+    dep/*: dep/1.1               # To override dep/[>=1.0 <2] in recipes to a specific version dep/1.1)
+    dep/*: dep/*@system          # To override a dep/1.3 in recipes to dep/1.3@system
+    dep/*@*/*: dep/*@system/*    # To override "dep/1.3@comp/stable" in recipes to the same version with other user but same channel
+    dep/1.1: dep/1.1@system      # To replace exact reference in recipes by the same one in the system
+    dep/1.1@*: dep/1.1@*/stable  # To replace dep/[>=1.0 <2]@comp version range in recipes by 1.1 version in stable chanel
 
 
 .. _reference_config_files_profiles_replace_tool_requires:
@@ -401,7 +423,9 @@ Same usage as the `replace_requires` section but in this case for `tool_requires
     :caption: *myprofile*
 
     [replace_tool_requires]
-    cmake/*: cmake/system
+    cmake/*: cmake/3.25.2
+
+In this case, whatever version of ``cmake`` declared in recipes, will be replaced by the reference `cmake/3.25.2`.
 
 
 .. _reference_config_files_profiles_platform_requires:
@@ -412,9 +436,10 @@ Same usage as the `replace_requires` section but in this case for `tool_requires
 .. include:: ../../common/experimental_warning.inc
 
 This section allows the user to redefine requires of recipes replacing them with platform-provided dependencies, this means that Conan will not try to download the
-reference and will assume that it is installed in your system and ready to be used.
+reference or look for it in the cache and will assume that it is installed in your system and ready to be used.
 
-For example, if the zlib library is already installed in your system:
+For example, if the zlib 1.2.11 library is already installed in your system or it is part of your build toolchain and you would like Conan to use it,
+you could specify so as:
 
 .. code-block:: text
     :caption: *myprofile*
