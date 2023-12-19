@@ -376,6 +376,8 @@ Running, for instance, :command:`conan install . -pr myprofile`, the configurati
 [replace_requires]
 ++++++++++++++++++
 
+.. include:: ../../common/experimental_warning.inc
+
 This section allows the user to redefine requires of recipes. This can be useful when a package can be changed by a similar one like `zlib` and `zlibng`.
 It is also usefult to solve conflicts, or to replace some dependencies by system alternatives wrapped in another Conan package recipe.
 
@@ -391,6 +393,8 @@ It is also usefult to solve conflicts, or to replace some dependencies by system
 [replace_tool_requires]
 +++++++++++++++++++++++
 
+.. include:: ../../common/experimental_warning.inc
+
 Same usage as the `replace_requires` section but in this case for `tool_requires`.
 
 .. code-block:: text
@@ -405,10 +409,12 @@ Same usage as the `replace_requires` section but in this case for `tool_requires
 [platform_requires]
 +++++++++++++++++++
 
+.. include:: ../../common/experimental_warning.inc
+
 This section allows the user to redefine requires of recipes replacing them with platform-provided dependencies, this means that Conan will not try to download the
 reference and will assume that it is installed in your system and ready to be used.
 
-For example, if the zlib library is already installed in your 
+For example, if the zlib library is already installed in your system:
 
 .. code-block:: text
     :caption: *myprofile*
@@ -421,6 +427,8 @@ For example, if the zlib library is already installed in your
 
 [platform_tool_requires]
 ++++++++++++++++++++++++
+
+.. include:: ../../common/experimental_warning.inc
 
 Same usage as the `platform_requires` section but in this case for `tool_requires` such as `cmake`, `meson`...
 
