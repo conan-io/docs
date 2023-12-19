@@ -8,7 +8,7 @@ That is, if we want to put a package in ``editable`` mode, and that package defi
 necessary to define the components layout correctly in the ``layout()`` method.  
 Let's see it in a real example.
 
-Please, first of all, clone the sources to recreate this project. You can find them in the
+Please, first clone the sources to recreate this project. You can find them in the
 `examples2.0 repository <https://github.com/conan-io/examples2>`_ in GitHub:
 
 .. code-block:: bash

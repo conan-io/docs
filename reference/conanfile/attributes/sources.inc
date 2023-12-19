@@ -30,7 +30,7 @@ Exclude patterns are also possible, with the ``!`` prefix:
 
 .. seealso::
 
-    - Check <MISSING PAGE> exports() conanfile.py method.
+    - :ref:`Check the export() conanfile.py method<reference_conanfile_methods_export>`.
 
 
 .. _exports_sources_attribute:
@@ -91,7 +91,8 @@ or even better, from ``self.export_sources_folder``.
 conan_data
 ----------
 
-Read only attribute with a dictionary with the keys and values provided in a <MISSING PAGE> conandata_yml file format placed
+Read only attribute with a dictionary with the keys and values provided in a
+:ref:`conandata.yml<creating_packages_handle_sources_in_packages_conandata>` file format placed
 next to the *conanfile.py*. This YAML file is automatically exported with the recipe and automatically loaded with it too.
 
 You can declare information in the *conandata.yml* file and then access it inside any of the methods of the recipe.
@@ -110,4 +111,25 @@ For example, a *conandata.yml* with information about sources that looks like th
 .. code-block:: python
 
     def source(self):
-        tools.get(**self.conan_data["sources"][self.version])
+        get(self, **self.conan_data["sources"][self.version])
+
+source_buildenv
+---------------
+
+Boolean attribute to opt-out from injecting the :ref:`VirtualBuildEnv<conan_tools_env_virtualbuildenv>` generated environment while running the `source()` method.
+
+Setting this attribute to `False` (default value `True`) will prevent Conan from injecting the ``VirtualBuildEnv`` generated environment from tool requires
+when executing the `source()` method.
+
+.. code-block:: python
+   :emphasize-lines: 4,5,8
+
+    class MyConan:
+       name = "mylib"
+       version = "1.0.0"
+       source_buildenv = False
+       tool_requires = "7zip/1.2.0"
+
+       def source(self):
+           get(self, **self.conan_data["sources"][self.version])
+           self.run("7z x *.zip -o*")  ## Error! tool require not available

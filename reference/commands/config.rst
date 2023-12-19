@@ -180,6 +180,7 @@ Displays all the Conan built-in configurations. There are 2 groups:
 - ``tools.xxxx``: These can be defined both in ``global.conf`` and profiles, and will be used by
   recipes and tools used within recipes, like ``CMakeToolchain``
 
+
 .. include:: ../../common/config_list.inc
 
 

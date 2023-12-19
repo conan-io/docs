@@ -39,24 +39,25 @@ recipe declares an option ``header_only=True`` or when ``package_type`` is
         ...
 
 Then, if no ``package_id()`` method is specified in the recipe, Conan will
-automatically manage the fPIC setting in the ``package_id`` step like this:
+automatically manage it and call ``self.info.clear()`` in the ``package_id()`` automatically,
+to make the ``package_id`` independent of settings, options, configuration and requirements.
 
-.. code-block:: python
-
-    if conanfile.options.get_safe("header_only") or conanfile.package_type is PackageType.HEADER:
-        conanfile.info.clear()
 
 If you need to implement custom behaviors in your recipes but also need this logic, it
-must be explicitly declared:
+must be explicitly declared, for example, something like this:
 
 .. code-block:: python
 
     def package_id(self):
-        if conanfile.options.get_safe("header_only") or conanfile.package_type is PackageType.HEADER:
-            conanfile.info.clear()
-        self.info.settings.rm_safe("compiler.libcxx")
-        self.info.settings.rm_safe("compiler.cppstd")
+        def package_id(self):
+            if self.package_type == "header-library":
+                self.info.clear()
+            else:
+                self.info.settings.rm_safe("compiler.libcxx")
+                self.info.settings.rm_safe("compiler.cppstd")
 
+
+.. _reference_conanfile_methods_package_id_clear:
 
 Information erasure
 -------------------

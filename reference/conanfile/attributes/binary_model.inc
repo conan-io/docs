@@ -113,7 +113,7 @@ For example, in the ``configure()`` method a typical pattern for a C library wou
 .. seealso::
 
     - :ref:`reference_config_files_settings_yml`.
-    - Removing settings in the ``package_id()`` method. <MISSING PAGE>
+    - :ref:`Removing settings in the package_id() method<reference_conanfile_methods_package_id_clear>`.
 
 
 .. _conan_conanfile_properties_options:
@@ -233,7 +233,7 @@ Take into account that if a value is assigned in the ``configure()`` method it c
 
 .. seealso::
 
-    Read more about the <MISSING PAGE>method_configure_config_options method.
+    Read more about the :ref:`config_options() method<reference_conanfile_methods_config_options>`.
 
 default_build_options
 ---------------------
@@ -293,6 +293,11 @@ Object used exclusively in ``package_id()`` method:
 
         def package_id(self):
             self.info.clear()
+
+
+The ``self.info.clear()`` method removes all the settings, options, requirements (``requires``, ``tool_requires``, ``python_requires``)
+and configuration (``conf``) from the ``package_id`` computation, so the ``package_id`` will always result in the same binary, irrespective
+of all those things. This would be the typical case of a header-only library, in which the packaged artifacts (files) are always identical.
 
 
 .. _reference_conanfile_attributes_package_id_modes:

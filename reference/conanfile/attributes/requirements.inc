@@ -85,7 +85,7 @@ won't be retrieved. They cannot conflict.
         tool_requires = "tool_a/0.2", "tool_b/0.2@user/testing"
 
 
-This is the declarative way to add ``tool_requires``. Check the <MISSING PAGE> tool_requires()
+This is the declarative way to add ``tool_requires``. Check the :ref:`tool_requires()<reference_conanfile_methods_build_requirements_tool_requires>`
 conanfile.py method to learn a more flexible way to add them.
 
 
@@ -115,8 +115,9 @@ won't be retrieved. They cannot conflict.
         test_requires = "gtest/1.11.0", "other_test_tool/0.2@user/testing"
 
 
-This is the declarative way to add ``test_requires``. Check the <MISSING PAGE> test_requires()
-conanfile.py method to learn a more flexible way to add them.
+This is the declarative way to add ``test_requires``.
+Check the :ref:`test_requires() method<reference_conanfile_methods_build_requirements_test_requires>`
+to learn a more flexible way to add them.
 
 python_requires
 ---------------

@@ -3,6 +3,17 @@
 requirements()
 ==============
 
+The ``requirements()`` method is used to specify the dependencies of a package.
+
+.. code-block:: python
+
+    def requirements(self):
+        self.requires("zlib/1.2.11")
+
+
+For simple cases the attribute syntax can be used, like ``requires = "zlib/1.2.11"``.
+
+
 Requirement traits
 ^^^^^^^^^^^^^^^^^^
 

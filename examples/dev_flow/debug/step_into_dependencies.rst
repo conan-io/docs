@@ -17,7 +17,7 @@ Building from source
 
 The recommended approach for debugging dependencies is building them from source in the local cache. This approach should work out of the box for most recipes, including ConanCenter recipes. 
 
-We can reuse the code from the very first example in the tutorial for this use case. Please, first clone the sources to recreate this project, you can find them in the
+We can reuse the code from the very first example in the tutorial for this use case. Please, first clone the sources to recreate this project. You can find them in the
 `examples2.0 repository <https://github.com/conan-io/examples2>`_ in GitHub:
 
 .. code-block:: bash

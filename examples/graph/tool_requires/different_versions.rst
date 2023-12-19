@@ -18,7 +18,7 @@ Will generate a "conflict", showing an error like ``Duplicated requirement``. Th
 when it is obvious that it is not possible to use 2 versions of the same compiler to build the current package.
 
 However there are some exceptional situations when something like that is desired. Let's recreate the potential
-scenario. Please, first, clone the sources to recreate this project, you can find them in the
+scenario. Please, first clone the sources to recreate this project. You can find them in the
 `examples2.0 repository <https://github.com/conan-io/examples2>`_ on GitHub:
 
 .. code-block:: shell

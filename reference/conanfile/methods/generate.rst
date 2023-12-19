@@ -146,6 +146,9 @@ the following syntax:
             openssl.options
             openssl.settings
 
+            if "zlib" in self.dependencies:
+                # do something
+
 
 Some **important** points:
 

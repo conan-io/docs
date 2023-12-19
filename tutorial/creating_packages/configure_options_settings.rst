@@ -258,13 +258,14 @@ there's no binary code we need to link with, but just some header files to add t
 project. In this cases the package ID of the Conan package should not be affected by
 settings or options. For that case, there's a simplified way of declaring that the
 generated package ID should not take into account settings, options or any information
-from the requirement which is using the ``self.info.clear()`` method inside another recipe
+from the requirements, which is using the ``self.info.clear()`` method inside another recipe
 method called ``package_id()``:
 
 .. code-block:: python
     
     def package_id(self):
         self.info.clear()
+
 
 We will explain the ``package_id()`` method later and explain how you can customize the
 way the package ID for the package is calculated. You can also check the :ref:`Conanfile's

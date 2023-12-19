@@ -33,7 +33,7 @@ should look like:
 This is the way to proceed with any other library used in both contexts. Nonetheless, let's see a detailed example to see
 how the example looks like.
 
-Please, first, clone the sources to recreate this project, you can find them in the
+Please, first clone the sources to recreate this project. You can find them in the
 `examples2.0 repository <https://github.com/conan-io/examples2>`_ on GitHub:
 
 .. code-block:: shell

@@ -28,7 +28,9 @@ Let's briefly explain the three types of existing configurations:
 
 To list all the possible configurations available, run :command:`conan config list`:
 
+
 .. include:: ../../common/config_list.inc
+
 
 
 User/Tools configurations

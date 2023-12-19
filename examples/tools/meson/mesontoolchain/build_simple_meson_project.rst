@@ -14,7 +14,7 @@ that uses one of the most popular C++ libraries: `Zlib <https://zlib.net/>`__.
 We'll use Meson as build system and pkg-config as helper tool in this case, so you should get them installed
 before going forward with this example.
 
-Please, at first, clone the sources to recreate this project, you can find them in the
+Please, first clone the sources to recreate this project. You can find them in the
 `examples2.0 repository <https://github.com/conan-io/examples2>`_ in GitHub:
 
 .. code-block:: bash

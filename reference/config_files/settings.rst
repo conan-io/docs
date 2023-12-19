@@ -215,7 +215,7 @@ control is desired, you can just add the ``update`` part to your profiles:
     [settings]
     compiler=msvc
     compiler.version=191
-    compiler.version.update=3
+    compiler.update=3
 
 
 This will be equivalent to the full version ``1913 (19.13)``. If even further details are desired, you could even add your own digits
