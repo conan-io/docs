@@ -395,7 +395,7 @@ As an example, we could define `zlibng` as a replacement for the typical `zlib`:
     [replace_requires]
     zlib/*: zlibng/*
 
-Using the ``*`` pattern for the ``zlibng`` reference means that ``zlib`` will be replaced will by the exact same version of ``zlibng``.
+Using the ``*`` pattern for the ``zlibng`` reference means that ``zlib`` will be replaced by the exact same version of ``zlibng``.
 
 Other examples are:
 
