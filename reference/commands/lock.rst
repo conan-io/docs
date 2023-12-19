@@ -15,6 +15,7 @@ In addition to these commands, most of the Conan commands that compute a graph, 
 
 
 - :doc:`conan lock add <lock/add>`: Manually add items to a lockfile
+- :doc:`conan lock remove <lock/remove>`: Manually remove items from a lockfile
 - :doc:`conan lock create <lock/create>`: Evaluates a dependency graph and save a lockfile
 - :doc:`conan lock merge <lock/merge>`: Merge several existing lockfiles into one.
 
@@ -33,6 +34,9 @@ In addition to these commands, most of the Conan commands that compute a graph, 
                         package references, including at least the version, and they cannot contain a version range.
       create            Create a lockfile from a conanfile or a reference.
       merge             Merge 2 or more lockfiles.
+      remove            Remove requires, build-requires or python-requires
+                        from an existing or new lockfile. References can be
+                        supplied with and without revisions like "--requires=pkg/version"
 
    optional arguments:
    -h, --help          show this help message and exit
