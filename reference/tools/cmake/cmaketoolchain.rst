@@ -513,7 +513,7 @@ CMakeToolchain is affected by these ``[conf]`` variables:
 - **tools.build:tools.apple:enable_arc** boolean value to enable/disable ARC Apple Clang flags, e.g., ``CMAKE_XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC``.
 - **tools.build:tools.apple:enable_visibility** boolean value to enable/disable Visibility Apple Clang flags, e.g., ``CMAKE_XCODE_ATTRIBUTE_GCC_SYMBOLS_PRIVATE_EXTERN``.
 - **tools.build:sysroot** defines the value of ``CMAKE_SYSROOT``.
-- **tools.microsoft:winsdk_version** Defines the ``CMAKE_SYSTEM_VERSION`` or the ``CMAKE_GENERATOR_TOOLSET`` according to CMake policy ``CMP0149``
+- **tools.microsoft:winsdk_version** Defines the ``CMAKE_SYSTEM_VERSION`` or the ``CMAKE_GENERATOR_TOOLSET`` according to CMake policy ``CMP0149``.
 - **tools.build:compiler_executables** dict-like Python object which specifies the
   compiler as key and the compiler executable path as value. Those keys will be mapped as
   follows:
