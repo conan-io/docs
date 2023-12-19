@@ -411,7 +411,7 @@ Other examples are:
 
 .. note:: **Best practices**
 
-   - Make rational use of this kind of section. This is is not a versioning mechanism and does not aim to replace actual requires in recipes.
+   - Please make rational use of this feature. It is not a versioning mechanism and is not intended to replace actual requires in recipes.
    - The usage of this feature is intended for **temporarily** solving conflicts or replacing a specific dependency by a system one in some cross-build scenarios.
 
 
