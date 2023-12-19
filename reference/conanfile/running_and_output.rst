@@ -25,7 +25,7 @@ The ``self.output`` attribute has the following methods to express the level of 
 
 
 These output functions will only output if the verbosity level with which Conan was launched is the same or higher than the message,
-so running with ``-vwarning` will output calls to ``warning()`` and ``error()``, but not ``info()``
+so running with ``-vwarning`` will output calls to ``warning()`` and ``error()``, but not ``info()``
 (Additionally, the ``highlight()`` and ``success()`` methods have a ``-vnotice`` verbosity level)
 
 Note that these methods return the output object again, so that you can chain output calls if needed.
@@ -47,6 +47,7 @@ A special ``unknown`` value can be used to match any warning without a tag.
 To tag a warning, use the ``warn_tag`` argument of the ``warning()`` method in your recipes:
 
 .. code-block:: python
+
     self.output.warning("Extra warning", warn_tag="custom_tag")
 
 
