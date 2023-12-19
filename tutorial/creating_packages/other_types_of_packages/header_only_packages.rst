@@ -196,8 +196,9 @@ These are the changes introduced in the recipe:
     - We have a ``build()`` method, building the tests, but only when the standard conf ``tools.build:skip_test`` is not
       True. Use that conf as a standard way to enable/disable the testing. It is used by the helpers like ``CMake`` to
       skip the ``cmake.test()`` in case we implement the tests in CMake.
-    - We have a ``package_id()`` method calling ``self.info.clear()``. This is internally removing the settings
-      from the package ID calculation so we generate only one configuration for our header-only library.
+    - We have a ``package_id()`` method calling ``self.info.clear()``. This is internally removing all the information
+      (settings, options, requirements) from the package_id calculation so we generate only one configuration for our
+      header-only library.
 
 
 We can call ``conan create`` to build and test our package.
