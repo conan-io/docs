@@ -22,16 +22,27 @@ They have this structure:
     [options]
     MyLib:shared=True
 
-    [buildenv]
-    VAR1=value
-
     [tool_requires]
     tool1/0.1@user/channel
     *: tool4/0.1@user/channel
 
+    [system_tools]
+    cmake/3.24.2
+
+    [buildenv]
+    VAR1=value
+
+    [runenv]
+    EnvironmentVar1=My Value
+
     [conf]
     tools.build:jobs=2
 
+    [replace_requires]
+    zlib/1.2.123: zlib/*
+
+    [replace_tool_requires]
+    7zip/*: 7zip/system
 
 Profiles can be created with the ``detect`` option in :ref:`conan profile <reference_commands_profile>` command,
 and edited later. If you don't specify a *name*, the command will create the ``default`` profile:
@@ -182,7 +193,7 @@ List of settings available from :ref:`reference_config_files_settings_yml`:
 
 
 [options]
-++++++++++
++++++++++
 
 List of options available from your recipe and its dependencies:
 
@@ -380,11 +391,10 @@ Then, the result of applying this profile is:
 .. _reference_config_files_profiles_runenv:
 
 [runenv]
-++++++++++
+++++++++
 
 List of environment variables that will be injected to the environment every time the ConanFile
 ``run(cmd, env="conanrun")`` method is invoked (runtime context is automatically run by :ref:`conan_tools_env_virtualrunenv`).
-
 
 All the operators/patterns explained for :ref:`reference_config_files_profiles_buildenv` applies to this one in the same way:
 
@@ -470,6 +480,32 @@ Running, for instance, :command:`conan install . -pr myprofile`, the configurati
     user.myconf.build:ldflags=['--prefix prefix-value', '--flag1 value1', '--flag2 value2']
     ...
 
+.. _reference_config_files_profiles_replace_requires:
+
+[replace_requires]
+++++++++++++++++++
+
+This section allows the user to redefine requires of recipes. This can be useful when a package can be changed by a similar one like `zlib` and `zlibng`.
+It is also usefult to solve conflicts, or to replace some dependencies by system alternatives wrapped in another Conan package recipe.
+
+.. code-block:: text
+    :caption: *myprofile*
+
+    [replace_requires]
+    zlib/*: zlibng/*
+
+.. _reference_config_files_profiles_replace_tool_requires:
+
+[replace_tool_requires]
++++++++++++++++++++++++
+
+Same usage as the `replace_requires` section but in this case for `tool_requires`.
+
+.. code-block:: text
+    :caption: *myprofile*
+
+    [replace_tool_requires]
+    cmake/*: cmake/system
 
 .. _reference_config_files_profiles_rendering:
 
