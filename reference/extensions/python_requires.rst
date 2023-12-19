@@ -245,7 +245,7 @@ It is possible to test with ``test_package`` a ``python_require``, by adding a `
 
     class Tool(ConanFile):
         def test(self):
-            pyreq = self.python_requires["common"].module
+            pyreq = self.python_requires["pyreq"].module
             mynumber = pyreq.mynumber()
             self.output.info("{}!!!".format(mynumber))
 
