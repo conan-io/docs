@@ -409,6 +409,11 @@ Other examples are:
     dep/1.1: dep/1.1@system      # To replace exact reference in recipes by the same one in the system
     dep/1.1@*: dep/1.1@*/stable  # To replace dep/[>=1.0 <2]@comp version range in recipes by 1.1 version in stable chanel
 
+.. note:: **Best practices**
+
+   - Make rational use of this kind of section. This is is not a versioning mechanism and does not aim to replace actual requires in recipes.
+   - The usage of this feature is intended for **temporarily** solving conflicts or replacing a specific dependency by a system one in some cross-build scenarios.
+
 
 .. _reference_config_files_profiles_replace_tool_requires:
 
