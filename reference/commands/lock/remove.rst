@@ -64,7 +64,7 @@ Will result in the following ``conan.lock``:
 
 .. code-block:: bash
 
-  $cat conan.lock
+  $ cat conan.lock
   {
       "version": "0.5",
       "requires": [
