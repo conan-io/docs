@@ -116,7 +116,7 @@ For example, a *conandata.yml* with information about sources that looks like th
 source_buildenv
 ---------------
 
-Boolean attribute to opt-out from using tool requires in the `source()` method.
+Boolean attribute to opt-out from injecting the :ref:`VirtualBuildEnv<conan_tools_env_virtualbuildenv>` generated environment while running the `source()` method.
 
 Setting this attribute to `False` (default value `True`) will prevent Conan from injecting the ``VirtualBuildEnv`` generated environment from tool requires
 when executing the `source()` method.
