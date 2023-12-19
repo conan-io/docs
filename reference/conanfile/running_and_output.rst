@@ -39,7 +39,7 @@ Running commands
 
 .. code-block:: python
 
-    run(self, command, stdout=None, cwd=None, ignore_errors=False, env="", quiet=False, shell=True, scope="build")
+    run(self, command, stdout=None, cwd=None, ignore_errors=False, env="", quiet=False, shell=True, scope="build", stderr=None)
 
 
 ``self.run()`` is a helper to run system commands while injecting the calls to activate the appropriate environment,
@@ -49,3 +49,13 @@ It also wraps the commands with the results of the :ref:`command wrapper plugin<
 
 * ``command`` should be specified as a string which is passed to the system shell.
 * When the argument ``quiet`` is set to true, the invocation of ``self.run()`` will not print the command to be executed.
+
+Use the ``stdout`` and ``stderr`` arguments to redirect the output of the command to a file-like object instead of the console.
+
+.. code-block:: python
+
+    # Redirect stdout to a file
+    with open("ninja_stdout.log", "w") as stdout:
+        # Redirect stderr to a StringIO object to be able to read it later
+        stderr = StringIO()
+        self.run("ninja ...", stdout=stdout, stderr=stderr)
