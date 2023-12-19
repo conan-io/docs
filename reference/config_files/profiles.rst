@@ -384,7 +384,7 @@ Running, for instance, :command:`conan install . -pr myprofile`, the configurati
 This section allows the user to redefine requires of recipes. This can be useful when a package can be changed by a similar one like `zlib` and `zlibng`.
 It is also useful to solve conflicts, or to replace some dependencies by system alternatives wrapped in another Conan package recipe.
 
-References listed under this section work as a **literal replacement of requires in recipes**, and is is done as the very first step before any other processing
+References listed under this section work as a **literal replacement of requires in recipes**, and is done as the very first step before any other processing
 of recipe requirements, without processing them or checking for conflicts.
 
 As an example, we could define `zlibng` as a replacement for the typical `zlib`:abbr:
