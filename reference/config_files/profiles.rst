@@ -225,117 +225,12 @@ List of ``tool_requires`` required by your recipe or its dependencies:
 
 .. _reference_config_files_profiles_system_tools:
 
-[system_tools]
-+++++++++++++++
+[system_tools] (DEPRECATED)
++++++++++++++++++++++++++++
 
-.. include:: ../../common/experimental_warning.inc
+.. note::
 
-This section is similar to the previous one, **[tool_requires]**, but it's intended to list only the tool requires
-that are already in your own system and you don't want Conan to search for, neither remotely nor locally.
-
-For instance, you have already installed ``cmake==3.24.2`` in your system:
-
-.. code-block:: bash
-
-    $ cmake --version
-    cmake version 3.24.2
-
-    CMake suite maintained and supported by Kitware (kitware.com/cmake).
-
-Now, you have in your recipe (or the transitive dependencies) declared a **tool_requires**, i.e., something like this:
-
-.. code-block:: python
-    :caption: **conanfile.py**
-
-    from conan import ConanFile
-
-    class PkgConan(ConanFile):
-        name = "pkg"
-        version = "2.0"
-        # ....
-
-        # Exact version
-        def build_requirements(self):
-            self.tool_requires("cmake/3.24.2")
-
-        # Or even version ranges
-        def build_requirements(self):
-            self.tool_requires("cmake/[>=3.20.0]")
-
-
-Given this situation, it could make sense to want to use your already installed CMake version, so it's enough to declare
-it as a ``system_tools`` in your profile (``default`` one or any other in use):
-
-.. code-block:: text
-    :caption: *myprofile*
-
-    ...
-
-    [system_tools]
-    cmake/3.24.2
-
-Whenever you want to create the package, you'll see that build requirement is already satisfied because of the system tool
-declaration:
-
-.. code-block:: bash
-    :emphasize-lines: 9,18
-
-    $ conan create . -pr myprofile --build=missing
-    ...
-    -------- Computing dependency graph --------
-    Graph root
-        virtual
-    Requirements
-        pkg/2.0#3488ec5c2829b44387152a6c4b013767 - Cache
-    Build requirements
-        cmake/3.24.2 - System tool
-
-    -------- Computing necessary packages --------
-
-    -------- Computing necessary packages --------
-    pkg/2.0: Forced build from source
-    Requirements
-        pkg/2.0#3488ec5c2829b44387152a6c4b013767:20496b332552131b67fb99bf425f95f64d0d0818 - Build
-    Build requirements
-        cmake/3.24.2 - System tool
-
-
-Notice that if the ``system_tools`` declared does not make a strict match with the ``tool_requires`` one (version or
-version range), then Conan will try to bring them remotely or locally as usual. Given the previous example, changing the
-profile as follows:
-
-.. code-block:: text
-    :caption: *myprofile*
-
-    ...
-
-    [system_tools]
-    cmake/3.20.0
-
-The result will be different when calling the :command:`conan create`, because Conan will download remotely and build
-from source if necessary:
-
-.. code-block:: bash
-    :emphasize-lines: 9,18
-
-    $ conan create . -pr myprofile --build=missing
-    ...
-    -------- Computing dependency graph --------
-    Graph root
-        virtual
-    Requirements
-        pkg/2.0#3488ec5c2829b44387152a6c4b013767 - Cache
-    Build requirements
-        cmake/3.24.2#e35bc44b3fcbcd661e0af0dc5b5b1ad4 - Downloaded (conancenter)
-
-    -------- Computing necessary packages --------
-
-    -------- Computing necessary packages --------
-    pkg/2.0: Forced build from source
-    Requirements
-        pkg/2.0#3488ec5c2829b44387152a6c4b013767:20496b332552131b67fb99bf425f95f64d0d0818 - Build
-    Build requirements
-        cmake/3.24.2#e35bc44b3fcbcd661e0af0dc5b5b1ad4:d0599452a426a161e02a297c6e0c5070f99b4909 - Build
+    This section is **deprecated** and  has been replaced by :ref:`reference_config_files_profiles_platform_requires` and :ref:`reference_config_files_profiles_platform_tool_requires` sections.
 
 
 .. _reference_config_files_profiles_buildenv:
@@ -356,7 +251,6 @@ when you're composing profiles or even local variables:
 Another essential point to mention is the possibility of defining variables as `PATH` ones by simply putting ``(path)`` as
 the prefix of the variable. It is useful to automatically get the append/prepend of the `PATH` in different systems
 (Windows uses ``;`` as separation, and UNIX ``:``).
-
 
 .. code-block:: text
     :caption: *myprofile*
@@ -387,7 +281,6 @@ Then, the result of applying this profile is:
 * ``mypkg*:PATH``: ``None``
 
 
-
 .. _reference_config_files_profiles_runenv:
 
 [runenv]
@@ -407,6 +300,7 @@ All the operators/patterns explained for :ref:`reference_config_files_profiles_b
     MyPath1=(path)/some/path11
     MyPath1=+(path)/other path/path12
     MyPath1=!
+
 
 .. _reference_config_files_profiles_conf:
 
@@ -435,11 +329,9 @@ Recall some hints about configuration scope and naming:
 - ``core.xxx`` configuration can only be defined in ``global.conf`` file, but not in profiles
 - ``tools.yyy`` and ``user.zzz`` can be defined in ``global.conf`` and they will affect both the "build" and the "host" context. But configurations defined in a profile ``[conf]`` will only affect the respective "build" or "host" context of the profile, not both.
 
-
 They can also be used in :ref:`reference_config_files_global_conf`,
 but **profiles values will have priority over globally defined ones in global.conf**, so let's see an example that is a bit more complex,
 trying different configurations coming from the *global.conf* and another profile *myprofile*:
-
 
 .. code-block:: text
     :caption: *global.conf*
@@ -447,7 +339,6 @@ trying different configurations coming from the *global.conf* and another profil
     # Defining several lists
     user.myconf.build:ldflags=["--flag1 value1"]
     user.myconf.build:cflags=["--flag1 value1"]
-
 
 .. code-block:: text
     :caption: *myprofile*
@@ -465,7 +356,6 @@ trying different configurations coming from the *global.conf* and another profil
     # Prepending values into the existing list
     user.myconf.build:ldflags=+["--prefix prefix-value"]
 
-
 Running, for instance, :command:`conan install . -pr myprofile`, the configuration output will be something like:
 
 .. code-block:: bash
@@ -479,6 +369,7 @@ Running, for instance, :command:`conan install . -pr myprofile`, the configurati
     user.myconf.build:cflags=!
     user.myconf.build:ldflags=['--prefix prefix-value', '--flag1 value1', '--flag2 value2']
     ...
+
 
 .. _reference_config_files_profiles_replace_requires:
 
@@ -494,6 +385,7 @@ It is also usefult to solve conflicts, or to replace some dependencies by system
     [replace_requires]
     zlib/*: zlibng/*
 
+
 .. _reference_config_files_profiles_replace_tool_requires:
 
 [replace_tool_requires]
@@ -506,6 +398,100 @@ Same usage as the `replace_requires` section but in this case for `tool_requires
 
     [replace_tool_requires]
     cmake/*: cmake/system
+
+
+.. _reference_config_files_profiles_platform_requires:
+
+[platform_requires]
++++++++++++++++++++
+
+This section allows the user to redefine requires of recipes replacing them with platform-provided dependencies, this means that Conan will not try to download the
+reference and will assume that it is installed in your system and ready to be used.
+
+For example, if the zlib library is already installed in your 
+
+.. code-block:: text
+    :caption: *myprofile*
+
+    [platform_requires]
+    zlib/1.2.11
+
+
+.. _reference_config_files_profiles_platform_tool_requires:
+
+[platform_tool_requires]
+++++++++++++++++++++++++
+
+Same usage as the `platform_requires` section but in this case for `tool_requires` such as `cmake`, `meson`...
+
+As an example, let's say you have already installed ``cmake==3.24.2`` in your system:
+
+.. code-block:: bash
+
+    $ cmake --version
+    cmake version 3.24.2
+
+    CMake suite maintained and supported by Kitware (kitware.com/cmake).
+
+And you have in your recipe (or the transitive dependencies) declared a **tool_requires**, i.e., something like this:
+
+.. code-block:: python
+    :caption: **conanfile.py**
+
+    from conan import ConanFile
+
+    class PkgConan(ConanFile):
+        name = "pkg"
+        version = "2.0"
+        # ....
+
+        # Exact version
+        def build_requirements(self):
+            self.tool_requires("cmake/3.24.2")
+
+        # Or even version ranges
+        def build_requirements(self):
+            self.tool_requires("cmake/[>=3.20.0]")
+
+Given this situation, it could make sense to want to use your already installed CMake version, so it's enough to declare
+it as a ``platform_tool_requires`` in your profile:
+
+.. code-block:: text
+    :caption: *myprofile*
+
+    ...
+
+    [platform_tool_requires]
+    cmake/3.24.2
+
+Whenever you want to create the package, you'll see that build requirement is already satisfied because of the platform tool
+declaration:
+
+.. code-block:: bash
+    :emphasize-lines: 9,18
+
+    $ conan create . -pr myprofile --build=missing
+    ...
+    -------- Computing dependency graph --------
+    Graph root
+        virtual
+    Requirements
+        pkg/2.0#3488ec5c2829b44387152a6c4b013767 - Cache
+    Build requirements
+        cmake/3.24.2 - Platform
+
+    -------- Computing necessary packages --------
+
+    -------- Computing necessary packages --------
+    pkg/2.0: Forced build from source
+    Requirements
+        pkg/2.0#3488ec5c2829b44387152a6c4b013767:20496b332552131b67fb99bf425f95f64d0d0818 - Build
+    Build requirements
+        cmake/3.24.2 - Platform
+
+Note that if the ``platform_tool_requires`` declared **does not make a strict match** with the ``tool_requires`` one (version or
+version range), then Conan will try to bring them remotely or locally as usual.
+
 
 .. _reference_config_files_profiles_rendering:
 
