@@ -67,3 +67,12 @@ of the following change that behavior:
 - ``CLICOLOR_FORCE`` Forces the generation of terminal color escape characters, no matter what the autodetection of terminal is.
 - ``NO_COLOR`` disables the generation of color escape characters. This will be ignored if ``CLICOLOR_FORCE`` is activated.
 - ``CONAN_COLOR_DARK`` will revert the color scheme for white/light background terminals (default assumes dark background).
+
+
+Logging
+-------
+
+The environment variable ``CONAN_LOG_LEVEL`` can define the Conan command line verbosity in the same way that the ``-v``
+command line argument, with the same values (``error``, ``verbose``, etc.). It also has priority over the value of the command line arg if both are present.
+This can be useful to temporarily change the log level in CI pipelines, in automation, etc., without needing to modify the 
+command line arguments.
