@@ -130,6 +130,6 @@ when executing the `source()` method.
        source_buildenv = False
        tool_requires = "7zip/1.2.0"
 
-    def source(self):
-        get(self, **self.conan_data["sources"][self.version])
-        self.run("7z x *.zip -o*")  ## Error! tool require not available
+        def source(self):
+            get(self, **self.conan_data["sources"][self.version])
+            self.run("7z x *.zip -o*")  ## Error! tool require not available
