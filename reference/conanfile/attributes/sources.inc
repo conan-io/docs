@@ -118,7 +118,7 @@ source_buildenv
 
 Boolean attribute to opt-out from using tool requires in the `source()` method.
 
-Setting this attribute to `False` (default value `True`) will prevent Conan from inyecting the VirtualBuildEnv generated environment from tool requires
+Setting this attribute to `False` (default value `True`) will prevent Conan from injecting the ``VirtualBuildEnv`` generated environment from tool requires
 when executing the `source()` method.
 
 .. code-block:: python
