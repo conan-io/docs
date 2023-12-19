@@ -15,6 +15,7 @@ What follows is a list of methods that you can define in your recipes to customi
    methods/compatibility
    methods/configure
    methods/config_options
+   methods/deploy
    methods/export
    methods/export_sources
    methods/generate
@@ -39,6 +40,7 @@ What follows is a list of methods that you can define in your recipes to customi
 - :doc:`compatibility() <methods/compatibility>`: Defines binary compatibility at the recipe level
 - :doc:`configure() <methods/configure>`: Allows configuring settings and options while computing dependencies
 - :doc:`config_options() <methods/config_options>`: Configure options while computing dependency graph
+- :doc:`deploy() <methods/deploy>`: Deploys (copy from package to user folder) the desired artifacts
 - :doc:`export() <methods/export>`: Copies files that are part of the recipe
 - :doc:`export_sources() <methods/export_sources>`: Copies files that are part of the recipe sources
 - :doc:`generate() <methods/generate>`: Generates the files that are necessary for building the package
