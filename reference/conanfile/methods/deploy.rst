@@ -30,5 +30,5 @@ See the documentation of the :ref:`conan install command<reference_commands_inst
     **Best practices**
 
     - Only "binary" package artifacts can be deployed, copying from the ``self.package_folder``. It is not recommended to try to copy only from the package folder, not other folders.
-    - The ``deploy()`` method is intended for final, production deployment or installation of binaries in the machine, extracting them out of Conan. It is not intended for normal development operations, not intended to build Conan packages against deployed binaries. The recommendation is to build against packages in teh Conan cache.
+    - The ``deploy()`` method is intended for final, production deployment or installation of binaries in the machine, extracting them out of Conan. It is not intended for normal development operations, nor to build Conan packages against deployed binaries. The recommendation is to build against packages in the Conan cache.
     - The ``self.deploy_folder`` should only be used from the ``deploy()`` method, not any other method should use it.
