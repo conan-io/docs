@@ -168,7 +168,7 @@ dependency built for *armv7hf* architecture and a **cmake/3.22.6** version that 
 
 .. code-block:: bash
     
-    $ conan install . --build missing -pr:b=default -pr:h=./profiles/raspberry
+    $ conan install . --output-folder=build --build missing -pr:b=default -pr:h=./profiles/raspberry
 
 Then, let's call CMake to build the application. As we did in the previous example we have
 to activate the **build environment** running ``source Release/generators/conanbuild.sh``. That will
