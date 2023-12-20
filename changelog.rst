@@ -3,6 +3,55 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2.0 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.0.15 (20-Dec-2023)
+--------------------
+
+- Feature: New ``conan lock remove`` command to remove requires from lockfiles. `#15284 <https://github.com/conan-io/conan/pull/15284>`_ . Docs `here <https://github.com/conan-io/docs/pull/3496>`__
+- Feature: New ``CMake.ctest()`` helper method to launch directly ``ctest`` instead of via ``cmake --target=RUN_TEST``. `#15282 <https://github.com/conan-io/conan/pull/15282>`_
+- Feature: Add tracking syntax in `<host_version>` for different references. `#15274 <https://github.com/conan-io/conan/pull/15274>`_ . Docs `here <https://github.com/conan-io/docs/pull/3480>`__
+- Feature: Adding ``tools.microsoft:winsdk_version`` conf to make ``VCVars`` generator to use the given ``winsdk_version``. `#15272 <https://github.com/conan-io/conan/pull/15272>`_ . Docs `here <https://github.com/conan-io/docs/pull/3487>`__
+- Feature: Add `pkglist` formatter for conan export command. `#15266 <https://github.com/conan-io/conan/pull/15266>`_ . Docs `here <https://github.com/conan-io/docs/pull/3483>`__
+- Feature: Define ``CONAN_LOG_LEVEL`` env-var to be able to change verbosity at a global level. `#15263 <https://github.com/conan-io/conan/pull/15263>`_ . Docs `here <https://github.com/conan-io/docs/pull/3490>`__
+- Feature: `conan cache path xxx --folder xxxx` raises an error if the folder requested does not exist. `#15257 <https://github.com/conan-io/conan/pull/15257>`_
+- Feature: Add `in` operator support for ConanFile's `self.dependencies`. `#15221 <https://github.com/conan-io/conan/pull/15221>`_ . Docs `here <https://github.com/conan-io/docs/pull/3481>`__
+- Feature: Make ``CMakeDeps`` generator create a ``conandeps.cmake`` that aggregates all direct dependencies in a ``cmake``-like generator style. `#15207 <https://github.com/conan-io/conan/pull/15207>`_ . Docs `here <https://github.com/conan-io/docs/pull/3492>`__
+- Feature: Add build environment information to CMake configure preset and run environment information to CMake test presets. `#15192 <https://github.com/conan-io/conan/pull/15192>`_ . Docs `here <https://github.com/conan-io/docs/pull/3488>`__
+- Feature: Removed a warning about a potential issue with conan migration that would print every time a build failed. `#15174 <https://github.com/conan-io/conan/pull/15174>`_
+- Feature: New ``deploy()`` method in recipes for explicit per-recipe deployment. `#15172 <https://github.com/conan-io/conan/pull/15172>`_ . Docs `here <https://github.com/conan-io/docs/pull/3494>`__
+- Feature: Allow ``tool-requires`` to be used in ``source()`` method injecting environment. `#15153 <https://github.com/conan-io/conan/pull/15153>`_ . Docs `here <https://github.com/conan-io/docs/pull/3493>`__
+- Feature: Allow accessing the contents of `settings.yml` (and `settings_user`!) from `ConfigAPI`. `#15151 <https://github.com/conan-io/conan/pull/15151>`_
+- Feature: Add builtin conf access from `ConfigAPI`. `#15151 <https://github.com/conan-io/conan/pull/15151>`_
+- Feature: Add `redirect_stdout` to CMake integration methods. `#15150 <https://github.com/conan-io/conan/pull/15150>`_
+- Feature: Add `core:warnings_as_errors` configuration option to make Conan raise on warnings and errors. `#15149 <https://github.com/conan-io/conan/pull/15149>`_ . Docs `here <https://github.com/conan-io/docs/pull/3484>`__
+- Feature: Added `FTP_TLS` option using `secure` argument in `ftp_download` for secure communication. `#15137 <https://github.com/conan-io/conan/pull/15137>`_
+- Feature: New ``[replace_requires]`` and ``[replace_tool_requires]`` in profile for redefining requires, useful for package replacements like ``zlibng/zlib``, to solve conflicts, and to replace some dependencies by system alternatives wrapped in another Conan package recipe. `#15136 <https://github.com/conan-io/conan/pull/15136>`_ . Docs `here <https://github.com/conan-io/docs/pull/3495>`__
+- Feature: Add `stderr` capture argument to conanfile's `run()` method. `#15121 <https://github.com/conan-io/conan/pull/15121>`_ . Docs `here <https://github.com/conan-io/docs/pull/3482>`__
+- Feature: Smart ``conan cache path`` command that is able to deduce the ``package_id`` if it is a single one, and to retrieve recipe, export and source folders when providing a full package-reference `#14980 <https://github.com/conan-io/conan/pull/14980>`_
+- Feature: New ``[platform_requires]`` profile definition to be able to replace Conan dependencies by platform-provided dependencies. `#14871 <https://github.com/conan-io/conan/pull/14871>`_ . Docs `here <https://github.com/conan-io/docs/pull/3495>`__
+- Feature: New ``conan graph explain`` command to search, compare and explain missing binaries. `#14694 <https://github.com/conan-io/conan/pull/14694>`_ . Docs `here <https://github.com/conan-io/docs/pull/3486>`__
+- Feature: Global ``cpp_info`` can be used to initialize components values. `#13994 <https://github.com/conan-io/conan/pull/13994>`_
+- Fix: Make `core:warnings_as_errors` accept a list `#15297 <https://github.com/conan-io/conan/pull/15297>`_
+- Fix: Fix `user` confs package scoping when no separator was given `#15296 <https://github.com/conan-io/conan/pull/15296>`_
+- Fix: Fix range escaping in conflict reports involving ranges. `#15222 <https://github.com/conan-io/conan/pull/15222>`_
+- Fix: Allow hard ``set_name()`` and ``set_version()`` to mutate name and version provided in command line. `#15211 <https://github.com/conan-io/conan/pull/15211>`_ . Docs `here <https://github.com/conan-io/docs/pull/3491>`__
+- Fix: Make `conan graph info --format=text` print to stdout. `#15170 <https://github.com/conan-io/conan/pull/15170>`_
+- Fix: Avoid warning in CMake output due to `CMAKE_POLICY_DEFAULT_CMP0091` unused variable. `#15127 <https://github.com/conan-io/conan/pull/15127>`_
+- Fix: Deprecate ``[system_tools]`` in favor of ``[platform_tool_requires]`` to align with ``[platform_requires]`` for regular dependencies. Changed output from "System tool" to "Platform". `#14871 <https://github.com/conan-io/conan/pull/14871>`_ . Docs `here <https://github.com/conan-io/docs/pull/3495>`__
+- Bugfix: Ensure `user` confs have at least 1 `:` separator `#15296 <https://github.com/conan-io/conan/pull/15296>`_
+- Bugfix: ``Git.is_dirty()`` will use ``git status . -s`` to make sure it only process the current path, not the whole repo, similarly to other ``Git`` methods. `#15289 <https://github.com/conan-io/conan/pull/15289>`_
+- Bugfix: Make ``self.info.clear()`` and header-only packages to remove ``python_requires`` and ``tool_requires``. `#15285 <https://github.com/conan-io/conan/pull/15285>`_ . Docs `here <https://github.com/conan-io/docs/pull/3485>`__
+- Bugfix: Make ``conan cache save/restore`` portable across Windows and other OSs. `#15253 <https://github.com/conan-io/conan/pull/15253>`_
+- Bugfix: Do not relativize absolute paths in ``deployers``. `#15244 <https://github.com/conan-io/conan/pull/15244>`_
+- Bugfix: Add ``architecture`` to ``CMakePresets`` to avoid cmake ignoring toolchain definitions when using presets. `#15215 <https://github.com/conan-io/conan/pull/15215>`_
+- Bugfix: Fix `conan graph info --format=html` reporting misleading conflicting nodes. `#15196 <https://github.com/conan-io/conan/pull/15196>`_
+- Bugfix: Fix serialization of tool_requires in `conan profile show --format=json`. `#15185 <https://github.com/conan-io/conan/pull/15185>`_
+- Bugfix: Fix NMakeDeps quoting issues. `#15140 <https://github.com/conan-io/conan/pull/15140>`_
+- Bugfix: Fix the 2.0.14 migration to add LRU data to the cache when ``storage_path`` conf is defined. `#15135 <https://github.com/conan-io/conan/pull/15135>`_
+- Bugfix: Fix definition of ``package_metadata_folder`` for :command:`conan export-pkg` command. `#15126 <https://github.com/conan-io/conan/pull/15126>`_
+- Bugfix: `pyinstaller.py` was broken for Python 3.12 due to a useless `distutils` import. `#15116 <https://github.com/conan-io/conan/pull/15116>`_
+- Bugfix: Fix backup sources error when no `core.sources:download_cache` is set. `#15109 <https://github.com/conan-io/conan/pull/15109>`_
+
+
 2.0.14 (14-Nov-2023)
 --------------------
 
