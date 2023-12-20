@@ -76,6 +76,21 @@ Then, if any user wants to use *mylib/0.1*, but another version of *protobuf*, t
 
 The ``<host_version>`` defined upstream is ensuring that the host and build contexts are using the same version of that requirement.
 
+Additionally, the syntax ``<host_version:mylib>`` can be used to specify the name of the package to be tracked,
+should the *requires* and *tool_requires* have different names. For instance:
+
+.. code-block:: python
+
+    from conan import ConanFile
+
+    class mylibRecipe(ConanFile):
+        name = "mylib"
+        version = "0.1"
+        def requirements(self):
+            self.requires("gettext/2.31")
+        def build_requirements(self):
+            self.tool_requires("libgettext/<host_version:gettext>")
+
 
 .. seealso::
 

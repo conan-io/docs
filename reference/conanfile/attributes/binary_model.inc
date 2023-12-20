@@ -295,6 +295,11 @@ Object used exclusively in ``package_id()`` method:
             self.info.clear()
 
 
+The ``self.info.clear()`` method removes all the settings, options, requirements (``requires``, ``tool_requires``, ``python_requires``)
+and configuration (``conf``) from the ``package_id`` computation, so the ``package_id`` will always result in the same binary, irrespective
+of all those things. This would be the typical case of a header-only library, in which the packaged artifacts (files) are always identical.
+
+
 .. _reference_conanfile_attributes_package_id_modes:
 
 package_id_{embed,non_embed,unknown}_mode
