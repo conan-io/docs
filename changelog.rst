@@ -3,6 +3,12 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2.0 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.0.16 (21-Dec-2023)
+--------------------
+
+- Bugfix: Revert the default of ``source_buildenv``, make it ``False`` by default. `#15319 <https://github.com/conan-io/conan/pull/15319>`_ . Docs `here <https://github.com/conan-io/docs/pull/3501>`__
+
+
 2.0.15 (20-Dec-2023)
 --------------------
 
