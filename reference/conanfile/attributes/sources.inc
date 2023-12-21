@@ -116,9 +116,9 @@ For example, a *conandata.yml* with information about sources that looks like th
 source_buildenv
 ---------------
 
-Boolean attribute to opt-out from injecting the :ref:`VirtualBuildEnv<conan_tools_env_virtualbuildenv>` generated environment while running the `source()` method.
+Boolean attribute to opt-in injecting the :ref:`VirtualBuildEnv<conan_tools_env_virtualbuildenv>` generated environment while running the `source()` method.
 
-Setting this attribute to `False` (default value `True`) will prevent Conan from injecting the ``VirtualBuildEnv`` generated environment from tool requires
+Setting this attribute to `True` (default value `False`) will inject the ``VirtualBuildEnv`` generated environment from tool requires
 when executing the `source()` method.
 
 .. code-block:: python
@@ -127,9 +127,9 @@ when executing the `source()` method.
     class MyConan:
        name = "mylib"
        version = "1.0.0"
-       source_buildenv = False
+       source_buildenv = True
        tool_requires = "7zip/1.2.0"
 
        def source(self):
            get(self, **self.conan_data["sources"][self.version])
-           self.run("7z x *.zip -o*")  ## Error! tool require not available
+           self.run("7z x *.zip -o*")  ## Can run 7z in the source method
