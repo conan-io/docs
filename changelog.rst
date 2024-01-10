@@ -3,6 +3,17 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2.0 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.0.17 (10-Jan-2023)
+--------------------
+
+- Fix: Automatically create folder if ``conan cache save --file=subfolder/file.tgz`` subfolder doesn't exist. `#15409 <https://github.com/conan-io/conan/pull/15409>`_
+- Bugfix: Fix libcxx detection when using `CC/CXX` env vars. `#15418 <https://github.com/conan-io/conan/pull/15418>`_ . Docs `here <https://github.com/conan-io/docs/pull/3509>`__
+- Bugfix: Solve ``winsdk_version`` bug in ``CMakeToolchain`` generator for ``cmake_minimum_required(3.27)``. `#15373 <https://github.com/conan-io/conan/pull/15373>`_
+- Bugfix: Fix visible trait propagation with ``build=True`` trait. `#15357 <https://github.com/conan-io/conan/pull/15357>`_
+- Bugfix: Fix `package_id` calculation when including conf values thru `tools.info.package_id:confs`. `#15356 <https://github.com/conan-io/conan/pull/15356>`_
+- Bugfix: Order `conf` items when dumping them to allow reproducible `package_id` independent of the order the confs were declared. `#15356 <https://github.com/conan-io/conan/pull/15356>`_
+
+
 2.0.16 (21-Dec-2023)
 --------------------
 
