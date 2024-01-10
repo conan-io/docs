@@ -650,22 +650,23 @@ the associated runtime, you can use:
 
 .. code-block:: jinja
 
-    {% set compiler, version = detect_api.detect_compiler() %}
+    {% set compiler, version, compiler_exe = detect_api.detect_default_compiler() %}
     {% set runtime, _ = detect_api.default_msvc_runtime(compiler) %}
     [settings]
     compiler={{compiler}}
     compiler.version={{detect_api.default_compiler_version(compiler, version)}}
     compiler.runtime={{runtime}}
     compiler.cppstd={{detect_api.default_cppstd(compiler, version)}}
+    compiler.libcxx={{detect_api.detect_libcxx(compiler, version, compiler_exe)}}
 
 **detect_api reference**:
 
     - **`detect_os()`**: returns operating system as a string (e.g., "Windows", "Macos").
     - **`detect_arch()`**: returns system architecture as a string (e.g., "x86_64", "armv8").
-    - **`detect_libcxx(compiler, version)`**: returns C++ standard library as a string (e.g., "libstdc++", "libc++").
+    - **`detect_libcxx(compiler, version, compiler_exe=None)`**: returns C++ standard library as a string (e.g., "libstdc++", "libc++").
     - **`default_msvc_runtime(compiler)`**: returns tuple with runtime (e.g., "dynamic") and its version (e.g., "v143").
     - **`default_cppstd(compiler, compiler_version)`**: returns default C++ standard as a string (e.g., "gnu14").
-    - **`detect_compiler()`**: returns tuple with compiler name (e.g., "gcc") and its version.
+    - **`detect_default_compiler()`**: returns tuple with compiler name (e.g., "gcc"), its version and the executable path.
     - **`default_msvc_ide_version(version)`**: returns MSVC IDE version as a string (e.g., "17").
     - **`default_compiler_version(compiler, version)`**: returns the default version that
         Conan uses in profiles, typically dropping some of the minor or patch digits, that
