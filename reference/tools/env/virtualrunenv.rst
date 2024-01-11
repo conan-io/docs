@@ -10,13 +10,9 @@ The launcher contains the runtime environment information, anything that is nece
 the compiled executables and applications. The information is obtained from:
 
     - The ``self.runenv_info`` of the dependencies corresponding to the ``host`` context.
-    - Also automatically deduced from the ``self.cpp_info`` definition of the package, to define ``PATH``,
-      ``LD_LIBRARY_PATH``, ``DYLD_LIBRARY_PATH`` and ``DYLD_FRAMEWORK_PATH`` environment variables.
-
-.. note::
-
-    ``PATH`` is always set, but ``LD_LIBRARY_PATH``, ``DYLD_LIBRARY_PATH``, and ``DYLD_FRAMEWORK_PATH`` require the
-    ``os`` setting and are only set for non-Windows hosts.
+    - Also automatically deduced from the ``self.cpp_info`` definition of the package to define ``PATH``.
+    - ``LD_LIBRARY_PATH``, ``DYLD_LIBRARY_PATH``, and ``DYLD_FRAMEWORK_PATH`` are similarly deduced on
+      non-Windows hosts if the ``os`` setting is set.
 
 It can be used by name in conanfiles:
 
