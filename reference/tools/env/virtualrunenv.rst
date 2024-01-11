@@ -13,6 +13,11 @@ the compiled executables and applications. The information is obtained from:
     - Also automatically deduced from the ``self.cpp_info`` definition of the package, to define ``PATH``,
       ``LD_LIBRARY_PATH``, ``DYLD_LIBRARY_PATH`` and ``DYLD_FRAMEWORK_PATH`` environment variables.
 
+.. note::
+
+    ``PATH`` is always set, but ``LD_LIBRARY_PATH``, ``DYLD_LIBRARY_PATH``, and ``DYLD_FRAMEWORK_PATH`` require the
+    ``os`` setting and are only set for non-Windows hosts.
+
 It can be used by name in conanfiles:
 
 .. code-block:: python
