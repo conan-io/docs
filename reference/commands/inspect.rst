@@ -5,35 +5,8 @@ conan inspect
 
 .. include:: ../../common/experimental_warning.inc
 
-.. code-block:: text
-
-    $ conan inspect -h
-    usage: conan inspect [-h] [-v [V]] [-f FORMAT] [-r REMOTE] [-nr] [-l LOCKFILE]
-                         [--lockfile-partial]
-                         path
-
-    Inspect a conanfile.py to return its public fields.
-
-    positional arguments:
-      path                  Path to a folder containing a recipe (conanfile.py)
-
-    options:
-      -h, --help            show this help message and exit
-      -v [V]                Level of detail of the output. Valid options from less
-                            verbose to more verbose: -vquiet, -verror, -vwarning,
-                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
-                            -vvv or -vtrace
-      -f FORMAT, --format FORMAT
-                            Select the output format: json
-      -r REMOTE, --remote REMOTE
-                            Remote names. Accepts wildcards ('*' means all the
-                            remotes available)
-      -nr, --no-remote      Do not use remote, resolve exclusively in the cache
-      -l LOCKFILE, --lockfile LOCKFILE
-                            Path to a lockfile. Use --lockfile="" to avoid
-                            automatic use of existing 'conan.lock' file
-      --lockfile-partial    Do not raise an error if some dependency is not found
-                            in lockfile
+.. autohelp::
+    :command: conan inspect
 
 The :command:`conan inspect` command shows the public attributes of any recipe (`conanfile.py`) as follows:
 

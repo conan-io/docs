@@ -2,48 +2,8 @@
 
 conan remove
 ============
-
-.. code-block:: text
-
-    $ conan remove -h
-    usage: conan remove [-h] [-v [V]] [-f FORMAT] [-c] [-p PACKAGE_QUERY]
-                        [-r REMOTE] [-l LIST] [--lru LRU] [--dry-run]
-                        [pattern]
-
-    Remove recipes or packages from local cache or a remote.
-
-    - If no remote is specified (-r), the removal will be done in the local conan cache.
-    - If a recipe reference is specified, it will remove the recipe and all the packages, unless -p
-      is specified, in that case, only the packages matching the specified query (and not the recipe)
-      will be removed.
-    - If a package reference is specified, it will remove only the package.
-
-    positional arguments:
-      pattern               A pattern in the form
-                            'pkg/version#revision:package_id#revision', e.g:
-                            zlib/1.2.13:* means all binaries for zlib/1.2.13. If
-                            revision is not specified, it is assumed latest one.
-
-    optional arguments:
-      -h, --help            show this help message and exit
-      -v [V]                Level of detail of the output. Valid options from less
-                            verbose to more verbose: -vquiet, -verror, -vwarning,
-                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
-                            -vvv or -vtrace
-      -f FORMAT, --format FORMAT
-                            Select the output format: json
-      -c, --confirm         Remove without requesting a confirmation
-      -p PACKAGE_QUERY, --package-query PACKAGE_QUERY
-                            Remove all packages (empty) or provide a query:
-                            os=Windows AND (arch=x86 OR compiler=gcc)
-      -r REMOTE, --remote REMOTE
-                            Will remove from the specified remote
-      -l LIST, --list LIST  Package list file
-      --lru LRU             Remove recipes and binaries that have not been
-                            recently used. Use a time limit like --lru=5d (days)
-                            or --lru=4w (weeks), h (hours), m(minutes)
-      --dry-run             Do not remove any items, only print those which would
-                            be removed
+.. autohelp::
+    :command: conan remove
 
 The ``conan remove`` command removes recipes and packages from the local cache or from a
 specified remote. Depending on the patterns specified as argument, it is possible to

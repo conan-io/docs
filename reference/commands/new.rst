@@ -7,35 +7,8 @@ Create a new recipe (with a conanfile.py and other associated files) from either
 
 conan new
 ---------
-
-.. code-block:: text
-
-    $ conan new -h
-    usage: conan new [-h] [-v [V]] [-d DEFINE] [-f] template
-
-    Create a new example recipe and source files from a template.
-
-    positional arguments:
-      template              Template name, either a predefined built-in or a user-
-                            provided one. Available built-in templates: basic,
-                            cmake_lib, cmake_exe, meson_lib, meson_exe,
-                            msbuild_lib, msbuild_exe, bazel_lib, bazel_exe,
-                            autotools_lib, autotools_exe. E.g. 'conan new
-                            cmake_lib -d name=hello -d version=0.1'. You can
-                            define your own templates too by inputting an absolute
-                            path as your template, or a path relative to your
-                            conan home folder.
-
-    optional arguments:
-      -h, --help            show this help message and exit
-      -v [V]                Level of detail of the output. Valid options from less
-                            verbose to more verbose: -vquiet, -verror, -vwarning,
-                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
-                            -vvv or -vtrace
-      -d DEFINE, --define DEFINE
-                            Define a template argument as key=value, e.g., -d
-                            name=mypkg
-      -f, --force           Overwrite file if it already exists
+.. autohelp::
+    :command: conan new
 
 
 The ``conan new`` command creates a new recipe in the current working directory,

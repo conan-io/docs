@@ -5,19 +5,8 @@ conan version
 
 .. include:: ../../common/experimental_warning.inc
 
-.. code-block:: text
-
-    $ conan version -h
-    usage: conan version [-h] [-f FORMAT] [-v [V]]
-
-    Give information about the Conan client version.
-
-    options:
-      -h, --help            show this help message and exit
-      -f FORMAT, --format FORMAT
-                            Select the output format: json
-      -v [V]                Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning, -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
-
+.. autohelp::
+    :command: conan version
 
 The :command:`conan version` command shows the conan version as well the python version from the system:
 

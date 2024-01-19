@@ -9,28 +9,8 @@ Perform file operations in the local cache (of recipes and/or packages).
 conan cache path
 ----------------
 
-..  code-block:: text
-
-    $ conan cache path --help
-    usage: conan cache path [-h] [-v [V]] [--folder {export_source,source,build}] reference
-
-    Show the path to the Conan cache for a given reference.
-
-    positional arguments:
-        reference             Recipe reference or Package reference
-
-    optional arguments:
-        -h, --help            show this help message and exit
-        -v [V]                Level of detail of the output. Valid options from less
-                              verbose to more verbose: -vquiet, -verror, -vwarning,
-                              -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
-                              -vvv or -vtrace
-        --folder {export_source,source,build,metadata}
-                              Path to show. The 'build' requires a package
-                              reference. If the argument is not passed, it shows
-                              'exports' path for recipe references and 'package'
-                              folder for package references.
-
+.. autohelp::
+    :command: conan cache path
 
 The ``conan cache path`` returns the path in the cache of a given reference. Depending on the reference, it
 could return the path of a recipe, or the path to a package binary. 
@@ -159,31 +139,8 @@ Again, the "build" folder will only exist if the package was built from source.
 conan cache clean
 -----------------
 
-.. code-block:: text
-
-    $ conan cache clean -h
-    usage: conan cache clean [-h] [-v [V]] [-s] [-b] [-d] [-t] [-p PACKAGE_QUERY]
-                             [pattern]
-
-    Remove non-critical folders from the cache, like source, build and/or download
-    (.tgz store) ones.
-
-    positional arguments:
-      pattern               Selection pattern for references to clean
-
-    optional arguments:
-      -h, --help            show this help message and exit
-      -v [V]                Level of detail of the output. Valid options from less
-                            verbose to more verbose: -vquiet, -verror, -vwarning,
-                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
-                            -vvv or -vtrace
-      -s, --source          Clean source folders
-      -b, --build           Clean build folders
-      -d, --download        Clean download folders
-      -t, --temp            Clean temporary folders
-      -p PACKAGE_QUERY, --package-query PACKAGE_QUERY
-                            Remove only the packages matching a specific query,
-                            e.g., os=Windows AND (arch=x86 OR compiler=gcc)
+.. autohelp::
+    :command: conan cache clean
 
 This command will remove all temporary folders, along with the source, build and download folder
 that Conan generates in its execution. It will do so for every matching reference passed in *pattern*,
@@ -224,22 +181,8 @@ unless a specific flag is supplied, in which case only the specified folders wil
 conan cache check-integrity
 ---------------------------
 
-.. code-block:: text
-
-    $ conan cache check-integrity --help
-    usage: conan cache check-integrity [-h] [-v [V]] [-p PACKAGE_QUERY] pattern
-
-    Check the integrity of the local cache for the given references
-
-    positional arguments:
-    pattern               Selection pattern for references to check integrity for
-
-    optional arguments:
-    -h, --help            show this help message and exit
-    -v [V]                Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning, -vnotice, -vstatus, -v or -vverbose, -vv or
-                            -vdebug, -vvv or -vtrace
-    -p PACKAGE_QUERY, --package-query PACKAGE_QUERY
-                            Only the packages matching a specific query, e.g., os=Windows AND (arch=x86 OR compiler=gcc)
+.. autohelp::
+    :command: conan cache check-integrity
 
 
 The ``conan cache check-integrity`` command checks the integrity of Conan packages in the
@@ -261,18 +204,8 @@ For example, to verify the integrity of the whole Conan local cache, do:
 conan cache backup-upload
 -------------------------
 
-.. code-block:: text
-
-    $ conan cache backup-upload -h
-    usage: conan cache backup-upload [-h] [-v [V]]
-
-    Upload all the source backups present in the cache
-
-    options:
-      -h, --help  show this help message and exit
-      -v [V]      Level of detail of the output. Valid options from less verbose
-                  to more verbose: -vquiet, -verror, -vwarning, -vnotice,
-                  -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
+.. autohelp::
+    :command: conan cache backup-upload
 
 The ``conan cache backup-upload`` will upload all source backups present in the local cache to the backup server,
 (excluding those which have been fetched from the excluded urls listed in the ``core.sources:exclude_urls`` conf),
@@ -283,30 +216,8 @@ regardless of which package they belong to, if any.
 conan cache save
 ----------------
 
-.. code-block:: text
-
-    $ conan cache save -h
-    usage: conan cache save [-h] [-f FORMAT] [-v [V]] [-l LIST] [--file FILE]
-                            [pattern]
-
-    Get the artifacts from a package list and archive them
-
-    positional arguments:
-    pattern               A pattern in the form
-                            'pkg/version#revision:package_id#revision', e.g:
-                            zlib/1.2.13:* means all binaries for zlib/1.2.13. If
-                            revision is not specified, it is assumed latest one.
-
-    optional arguments:
-    -h, --help            show this help message and exit
-    -f FORMAT, --format FORMAT
-                            Select the output format: json
-    -v [V]                Level of detail of the output. Valid options from less
-                            verbose to more verbose: -vquiet, -verror, -vwarning,
-                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
-                            -vvv or -vtrace
-    -l LIST, --list LIST  Package list of packages to save
-    --file FILE           Save to this tgz file
+.. autohelp::
+    :command: conan cache save
 
 Read more in :ref:`devops_save_restore`.
 
@@ -314,24 +225,7 @@ Read more in :ref:`devops_save_restore`.
 conan cache restore
 -------------------
 
-.. code-block:: text
-
-    $ conan cache restore -h
-    usage: conan cache restore [-h] [-f FORMAT] [-v [V]] file
-
-    Put the artifacts from an archive into the cache
-
-    positional arguments:
-    file                  Path to archive to restore
-
-    optional arguments:
-    -h, --help            show this help message and exit
-    -f FORMAT, --format FORMAT
-                            Select the output format: json
-    -v [V]                Level of detail of the output. Valid options from less
-                            verbose to more verbose: -vquiet, -verror, -vwarning,
-                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
-                            -vvv or -vtrace
-
+.. autohelp::
+    :command: conan cache restore
 
 Read more in :ref:`devops_save_restore`.

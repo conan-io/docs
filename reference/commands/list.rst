@@ -2,47 +2,8 @@
 
 conan list
 ==========
-
-.. code-block:: text
-
-    $ conan list -h
-    usage: conan list [-h] [-v [V]] [-f FORMAT] [-p PACKAGE_QUERY] [-r REMOTE]
-                  [-c] [-g GRAPH] [-gb GRAPH_BINARIES] [-gr GRAPH_RECIPES]
-                  [--lru LRU]
-                  [pattern]
-
-    List existing recipes, revisions, or packages in the cache (by default) or the remotes.
-
-    positional arguments:
-      pattern               A pattern in the form
-                            'pkg/version#revision:package_id#revision', e.g:
-                            zlib/1.2.13:* means all binaries for zlib/1.2.13. If
-                            revision is not specified, it is assumed latest one.
-
-    optional arguments:
-      -h, --help            show this help message and exit
-      -v [V]                Level of detail of the output. Valid options from less
-                            verbose to more verbose: -vquiet, -verror, -vwarning,
-                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
-                            -vvv or -vtrace
-      -f FORMAT, --format FORMAT
-                            Select the output format: json, html, compact
-      -p PACKAGE_QUERY, --package-query PACKAGE_QUERY
-                            List only the packages matching a specific query, e.g,
-                            os=Windows AND (arch=x86 OR compiler=gcc)
-      -r REMOTE, --remote REMOTE
-                            Remote names. Accepts wildcards ('*' means all the
-                            remotes available)
-      -c, --cache           Search in the local cache
-      -g GRAPH, --graph GRAPH
-                            Graph json file
-      -gb GRAPH_BINARIES, --graph-binaries GRAPH_BINARIES
-                            Which binaries are listed
-      -gr GRAPH_RECIPES, --graph-recipes GRAPH_RECIPES
-                            Which recipes are listed
-      --lru LRU             List recipes and binaries that have not been recently
-                            used. Use a time limit like --lru=5d (days) or
-                            --lru=4w (weeks), h (hours), m(minutes)
+.. autohelp::
+    :command: conan list
 
 The ``conan list`` command can list recipes and packages from the local cache, from the
 specified remotes or from both. This command uses a *reference pattern* as input. The

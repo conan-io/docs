@@ -8,21 +8,8 @@ Manage profiles
 
 conan profile detect
 --------------------
-
-.. code-block:: text
-
-    $ conan profile detect -h
-    usage: conan profile detect [-h] [-v [V]] [--name NAME] [-f]
-
-    Generate a profile using auto-detected values.
-
-    optional arguments:
-      -h, --help   show this help message and exit
-      -v [V]       Level of detail of the output. Valid options from less verbose
-                   to more verbose: -vquiet, -verror, -vwarning, -vnotice,
-                   -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
-      --name NAME  Profile name, 'default' if not specified
-      -f, --force  Overwrite if exists
+.. autohelp::
+    :command: conan profile detect
 
 
 .. warning::
@@ -79,25 +66,10 @@ Be aware that if the profile already exists you have to use ``--force`` to overw
 
 conan profile list
 ------------------
-
-.. code-block:: text
-
-    $ conan profile list -h
-    usage: conan profile list [-h] [-f FORMAT] [-v [V]]
-
-    List all profiles in the cache.
-
-    optional arguments:
-      -h, --help            show this help message and exit
-      -f FORMAT, --format FORMAT
-                            Select the output format: json
-      -v [V]                Level of detail of the output. Valid options from less
-                            verbose to more verbose: -vquiet, -verror, -vwarning,
-                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
-                            -vvv or -vtrace
+.. autohelp::
+    :command: conan profile list
 
 ..  code-block:: text
-    :caption: *force overwriting already existing default profile*
 
     $ conan profile list
     Profiles found in the cache:
@@ -109,20 +81,8 @@ conan profile list
 
 conan profile path
 ------------------
-
-.. code-block:: text
-
-    $ conan profile path [-h] [-v [V]] name
-
-    Show profile path location.
-
-    positional arguments:
-    name        Profile name
-
-    optional arguments:
-    -h, --help  show this help message and exit
-    -v [V]      Level of detail of the output. Valid options from less verbose to more verbose: -vquiet, -verror, -vwarning,
-                -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
+.. autohelp::
+    :command: conan profile path
 
 Use to get the profile location in your ``[CONAN_HOME]`` folder:
 
@@ -134,64 +94,8 @@ Use to get the profile location in your ``[CONAN_HOME]`` folder:
 
 conan profile show
 ------------------
-
-.. code-block:: text
-
-    $ conan profile show -h
-    usage: conan profile show [-h] [-f FORMAT] [-v [V]] [-pr PROFILE]
-                              [-pr:b PROFILE_BUILD] [-pr:h PROFILE_HOST]
-                              [-pr:a PROFILE_ALL] [-o OPTIONS]
-                              [-o:b OPTIONS_BUILD] [-o:h OPTIONS_HOST]
-                              [-o:a OPTIONS_ALL] [-s SETTINGS]
-                              [-s:b SETTINGS_BUILD] [-s:h SETTINGS_HOST]
-                              [-s:a SETTINGS_ALL] [-c CONF] [-c:b CONF_BUILD]
-                              [-c:h CONF_HOST] [-c:a CONF_ALL]
-
-    Show aggregated profiles from the passed arguments.
-
-    options:
-      -h, --help            show this help message and exit
-      -f FORMAT, --format FORMAT
-                            Select the output format: json
-      -v [V]                Level of detail of the output. Valid options from less
-                            verbose to more verbose: -vquiet, -verror, -vwarning,
-                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
-                            -vvv or -vtrace
-      -pr PROFILE, --profile PROFILE
-                            Apply the specified profile. By default, or if
-                            specifying -pr:h (--profile:host), it applies to the
-                            host context. Use -pr:b (--profile:build) to specify
-                            the build context, or -pr:a (--profile:all) to specify
-                            both contexts at once
-      -pr:b PROFILE_BUILD, --profile:build PROFILE_BUILD
-      -pr:h PROFILE_HOST, --profile:host PROFILE_HOST
-      -pr:a PROFILE_ALL, --profile:all PROFILE_ALL
-      -o OPTIONS, --options OPTIONS
-                            Apply the specified options. By default, or if
-                            specifying -o:h (--options:host), it applies to the
-                            host context. Use -o:b (--options:build) to specify
-                            the build context, or -o:a (--options:all) to specify
-                            both contexts at once. Example: -o pkg:with_qt=true
-      -o:b OPTIONS_BUILD, --options:build OPTIONS_BUILD
-      -o:h OPTIONS_HOST, --options:host OPTIONS_HOST
-      -o:a OPTIONS_ALL, --options:all OPTIONS_ALL
-      -s SETTINGS, --settings SETTINGS
-                            Apply the specified settings. By default, or if
-                            specifying -s:h (--settings:host), it applies to the
-                            host context. Use -s:b (--settings:build) to specify
-                            the build context, or -s:a (--settings:all) to specify
-                            both contexts at once. Example: -s compiler=gcc
-      -s:b SETTINGS_BUILD, --settings:build SETTINGS_BUILD
-      -s:h SETTINGS_HOST, --settings:host SETTINGS_HOST
-      -s:a SETTINGS_ALL, --settings:all SETTINGS_ALL
-      -c CONF, --conf CONF  Apply the specified conf. By default, or if specifying
-                            -c:h (--conf:host), it applies to the host context.
-                            Use -c:b (--conf:build) to specify the build context,
-                            or -c:a (--conf:all) to specify both contexts at once.
-                            Example: -c tools.cmake.cmaketoolchain:generator=Xcode
-      -c:b CONF_BUILD, --conf:build CONF_BUILD
-      -c:h CONF_HOST, --conf:host CONF_HOST
-      -c:a CONF_ALL, --conf:all CONF_ALL
+.. autohelp::
+    :command: conan profile show
 
 Use :command:`conan profile show` to compute the resulting build and host profiles from
 the command line arguments. For example, combining different options and settings with the

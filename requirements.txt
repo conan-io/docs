@@ -1,7 +1,5 @@
-sphinx==1.7.9
-docutils<0.18
-sphinx-sitemap>=2.1.0
-sphinxcontrib-spelling
-sphinx-notfound-page
-jinja2<=3.0.3
+sphinx==7.2.6
+sphinx-sitemap==2.5.1
+sphinxcontrib-spelling==8.0.0
+sphinx-notfound-page==1.0.0
 watchdog[watchmedo]==2.2.0

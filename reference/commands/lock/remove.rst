@@ -1,32 +1,7 @@
 conan lock remove
 =================
-
-.. code-block:: text
-
-    $ conan lock remove -h
-    usage: conan lock remove [-h] [-v [V]] [--requires REQUIRES]
-                         [--build-requires BUILD_REQUIRES]
-                         [--python-requires PYTHON_REQUIRES]
-                         [--lockfile-out LOCKFILE_OUT] [--lockfile LOCKFILE]
-
-    Remove requires, build-requires or python-requires from an existing or new
-    lockfile. References can be supplied with and without revisions like "--
-    requires=pkg/version",
-
-    optional arguments:
-      -h, --help            show this help message and exit
-      -v [V]                Level of detail of the output. Valid options from less
-                            verbose to more verbose: -vquiet, -verror, -vwarning,
-                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
-                            -vvv or -vtrace
-      --requires REQUIRES   Remove references to lockfile.
-      --build-requires BUILD_REQUIRES
-                            Remove build-requires from lockfile
-      --python-requires PYTHON_REQUIRES
-                            Remove python-requires from lockfile
-      --lockfile-out LOCKFILE_OUT
-                            Filename of the created lockfile
-      --lockfile LOCKFILE   Filename of the input lockfile
+.. autohelp::
+    :command: conan lock remove
 
 
 The ``conan lock remove`` command is able to remove ``requires``, ``build_requires`` or ``python_requires`` items from an existing lockfile.

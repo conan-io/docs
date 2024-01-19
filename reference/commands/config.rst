@@ -6,18 +6,8 @@ Manage the Conan configuration in the Conan home.
 
 conan config home
 -----------------
-
-.. code-block:: text
-
-    $ conan config home --help
-    usage: conan config home [-h] [-v [V]]
-    Show the Conan home folder.
-
-    optional arguments:
-      -h, --help  show this help message and exit
-      -v [V]      Level of detail of the output. Valid options from less verbose
-                  to more verbose: -vquiet, -verror, -vwarning, -vnotice,
-                  -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
+.. autohelp::
+    :command: conan config home
 
 
 The ``conan config home`` command returns the path of the Conan home folder.
@@ -31,41 +21,8 @@ The ``conan config home`` command returns the path of the Conan home folder.
 
 conan config install
 --------------------
-
-.. code-block:: text
-
-    $ conan config install -h
-    usage: conan config install [-h] [-v [V]]
-                                [--verify-ssl [VERIFY_SSL] | --insecure]
-                                [-t {git,dir,file,url}] [-a ARGS]
-                                [-sf SOURCE_FOLDER] [-tf TARGET_FOLDER]
-                                item
-
-    Install the configuration (remotes, profiles, conf), from git, http or a
-    folder, into the Conan home folder.
-
-    positional arguments:
-      item                  git repository, local file or folder or zip file
-                            (local or http) where the configuration is stored
-
-    optional arguments:
-      -h, --help            show this help message and exit
-      -v [V]                Level of detail of the output. Valid options from less
-                            verbose to more verbose: -vquiet, -verror, -vwarning,
-                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
-                            -vvv or -vtrace
-      --verify-ssl [VERIFY_SSL]
-                            Verify SSL connection when downloading file
-      --insecure            Allow insecure server connections when using SSL.
-                            Equivalent to --verify-ssl=False
-      -t {git,dir,file,url}, --type {git,dir,file,url}
-                            Type of remote config
-      -a ARGS, --args ARGS  String with extra arguments for "git clone"
-      -sf SOURCE_FOLDER, --source-folder SOURCE_FOLDER
-                            Install files only from a source subfolder from the
-                            specified origin
-      -tf TARGET_FOLDER, --target-folder TARGET_FOLDER
-                            Install to that path in the conan cache
+.. autohelp::
+    :command: conan config install
 
 
 
@@ -156,23 +113,8 @@ See `conan-io/command-extensions's .conanignore <https://github.com/conan-io/com
 
 conan config list
 -----------------
-.. code-block:: text
-
-    $ conan config list -h
-    usage: conan config list [-h] [-f FORMAT] [-v [V]]
-
-    Show all the Conan available configurations: core and tools.
-
-    optional arguments:
-      -h, --help            show this help message and exit
-      -f FORMAT, --format FORMAT
-                            Select the output format: json
-      -v [V]                Level of detail of the output. Valid options from less
-                            verbose to more verbose: -vquiet, -verror, -vwarning,
-                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
-                            -vvv or -vtrace
-
-
+.. autohelp::
+    :command: conan config list
 
 Displays all the Conan built-in configurations. There are 2 groups:
 
@@ -191,24 +133,8 @@ Displays all the Conan built-in configurations. There are 2 groups:
 
 conan config show
 -----------------
-.. code-block:: text
-
-    $ conan config show -h
-    usage: conan config show [-h] [-f FORMAT] [-v [V]] pattern
-
-    Get the value of the specified conf
-
-    positional arguments:
-      pattern               Conf item(s) pattern for which to query their value
-
-    optional arguments:
-      -h, --help            show this help message and exit
-      -f FORMAT, --format FORMAT
-                            Select the output format: json
-      -v [V]                Level of detail of the output. Valid options from
-                            less verbose to more verbose: -vquiet, -verror,
-                            -vwarning, -vnotice, -vstatus, -v or -vverbose, -vv
-                            or -vdebug, -vvv or -vtrace
+.. autohelp::
+    :command: conan config show
 
 Shows the values of the conf items that match the given pattern.
 
