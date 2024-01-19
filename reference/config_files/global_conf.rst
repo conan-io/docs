@@ -58,12 +58,12 @@ Tools and user configurations can be defined in both the *global.conf* file and
 These are some hints about configuration items scope and naming:
 
 - ``core.xxx`` and ``tools.yyy`` are Conan built-ins, users cannot define their own ones in these scopes.
-- ``core.xxx`` can be defined in ``global.conf`` only, but not in profiles.
-- ``tools.yyy`` can be defined in ``global.conf``, in profiles ``[conf]`` section and cli ``-c`` arguments
+- ``core.xxx`` can be defined in ``global.conf`` or via the ``--core-conf`` CLI argument only, but not in profiles.
+- ``tools.yyy`` can be defined in ``global.conf``, in profiles ``[conf]`` section and as CLI ``-c`` arguments
 - ``user.zzz`` can be defined everywhere, and they are totally at the user discretion, no established naming convention. However this would be more or less expected:
-  - For open source libraries, specially those in conancenter, ``user.packagename:conf`` might be expected, like the ``boost`` recipe defining ``user.boost:conf`` conf
-  - For private usage, the recommendation could be to use something like ``user.orgname:conf`` for global org configuration across all projects, ``user.orgname.project:conf`` for project or package configuration, though ``user.project:conf`` might be also good if the project name is unique enough.
-
+   - For open source libraries, specially those in conancenter, ``user.packagename:conf`` might be expected, like the ``boost`` recipe defining ``user.boost:conf`` conf
+   - For private usage, the recommendation could be to use something like ``user.orgname:conf`` for global org configuration across all projects, ``user.orgname.project:conf`` for project or package configuration, though ``user.project:conf`` might be also good if the project name is unique enough.
+   - They _must_ have one ``:`` separator, like ``user.myorg:conf``, but not ``user.myorg.conf`` or ``user.myorg``. This is to disambiguate from patterns, which are discussed below.
 
 Configuration file template
 ---------------------------
@@ -156,8 +156,8 @@ You can use package patterns to apply the configuration in those dependencies wh
     *:tools.cmake.cmaketoolchain:generator=Ninja
     zlib:tools.cmake.cmaketoolchain:generator=Visual Studio 16 2019
 
-This example shows you how to specify a general ``generator`` for all your packages except for `zlib` which is defining
-`Visual Studio 16 2019` as its generator.
+This example shows you how to specify a general ``generator`` for all your packages except for ``zlib`` which is defining
+``Visual Studio 16 2019`` as its generator.
 
 Besides that, it's quite relevant to say that **the order matters**. So, if we change the order of the
 configuration lines above:
@@ -167,7 +167,7 @@ configuration lines above:
     zlib:tools.cmake.cmaketoolchain:generator=Visual Studio 16 2019
     *:tools.cmake.cmaketoolchain:generator=Ninja
 
-The result is that you're specifying a general `generator` for all your packages, and that's it. The `zlib` line has no
+The result is that you're specifying a general ``generator`` for all your packages, and that's it. The ``zlib`` line has no
 effect because it's the first one evaluated, and after that, Conan is overriding that specific pattern with the most
 general one, so it deserves to pay special attention to the order.
 

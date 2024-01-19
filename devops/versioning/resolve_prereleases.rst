@@ -11,7 +11,7 @@ At first glance, it could be expected that the new version matches our range if 
 but :ref:`as described in the version ranges tutorial<tutorial_version_ranges_expressions>`,
 by default Conan does not match pre-release versions to ranges that don't specify it.
 Conan provides the :ref:`global.conf<reference_config_files_global_conf>` ``core.version_ranges:resolve_prereleases``,
-which when set to ``True``, enable pre-release matching in version ranges.
+which when set to ``True``, enables pre-release matching in version ranges.
 This avoids having to modify and export the recipes of your dependency graph, which would become unfeasible for large ones.
 
 This conf has the added benefit of affecting the whole dependency graph, so that if any of our dependencies also define
@@ -32,8 +32,9 @@ in which we depend on ``libpng`` and ``libmysqlclient``, both of which depend on
    }
 
 If ``zlib/1.3-pre`` is now published, using it is as easy as modifying your :ref:`global.conf<reference_config_files_global_conf>`
-file and adding the line ``core.version_ranges:resolve_prereleases=True``, after which,
-running ``conan create`` will now output the expected prerelease version of ``zlib`` being used:
+file and adding the line ``core.version_ranges:resolve_prereleases=True``
+(or adding the ``--core-conf core.version_ranges:resolve_prereleases=True`` CLI argument to your command invocations),
+after which, running ``conan create`` will now output the expected prerelease version of ``zlib`` being used:
 
 .. code-block:: text
 
