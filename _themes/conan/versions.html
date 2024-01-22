@@ -1,32 +1,27 @@
 {# Add rst-badge after rst-versions for small badge style. #}
-  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
-    <span class="rst-current-version" data-toggle="rst-current-version">
-      <!--<span class="fa fa-pencil-square-o"> Other versions:</span> -->
-      Version: {{ current_version }}
-      <span class="fa fa-caret-down"></span>
-    </span>
-    <div class="rst-other-versions">
-      <dl>
-        <dt>{{ _('Versions') }}</dt>
-        {% for the_version, slug in versions.items() %}
-            {% if the_version.startswith("2") %}
-                <dd><a href="/{{ the_version }}/index.html">{{ the_version }}</a></dd>
-            {% endif %}       
-        {% endfor %}
-        <br>
-        {% for the_version, slug in versions.items() %}
-            {% if the_version.startswith("en/1.") or the_version.startswith("1") %}
-                <dd><a href="/{{ the_version }}/index.html">{{ the_version.replace("en/", "") }}</a></dd>
-            {% endif %}       
-        {% endfor %}
-      </dl>
-      <dl>
-        <dt>Downloads</dt>
-        {% if current_version.startswith("1.") %}
-            <dd><a href="/en/{{ current_version }}/conan.pdf">PDF</a></dd>
-        {% else%}
-            <dd><a href="/{{ current_version }}/conan.pdf">PDF</a></dd> 
-        {% endif %}       
-      </dl>
-    </div>
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="{{ _('Versions') }}">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: {{ current_version }}
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>{{ _('Versions') }}</dt>
+      {% for slug, the_version in versions.items() %}
+        {% if slug == "master" %}
+          <dd><a href="/en/latest/index.html">{{ the_version }}</a></dd>
+        {% else %}
+          <dd><a href="/en/{{ the_version }}/index.html">{{ the_version }}</a></dd>
+        {% endif %}
+      {% endfor %}
+    </dl>
+    <dl>
+      <dt>{{ _('Downloads') }}</dt>
+      {% if versions["master"] == current_version %}
+        <dd><a href="/en/latest/conan.pdf">PDF</a></dd>
+      {% else %}
+        <dd><a href="/en/{{ current_version }}/conan.pdf">PDF</a></dd>
+      {% endif %}
+    </dl>
   </div>
+</div>

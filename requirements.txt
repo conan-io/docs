@@ -1,7 +1,4 @@
-sphinx==1.8.6
-docutils<0.18
-sphinx-sitemap>=2.1.0
-sphinxcontrib-spelling
-sphinx-notfound-page
-jinja2<=3.0.3
-colorama>=0.4.3, <0.5.0
+sphinx==7.2.6
+sphinx-sitemap==2.5.1
+sphinxcontrib-spelling==8.0.0
+sphinx-notfound-page==1.0.0
