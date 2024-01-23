@@ -11,8 +11,7 @@
 #
 # All configuration values have a default; values that are commented out
 # serve to show the default.
-
-
+import pathlib
 import sys
 import os
 from shutil import copyfile
@@ -39,6 +38,7 @@ extensions = [
     'sphinx_sitemap',
     'notfound.extension',
     'sphinx.ext.todo',
+    'sphinxcontrib.jquery'
 ]
 
 # The short X.Y version.
@@ -141,7 +141,7 @@ import conan
 # a list of builtin themes.
 # html_theme = 'sphinx_rtd_theme'
 html_theme = "conan"
-html_theme_path = conan.get_html_theme_path()
+html_theme_path = [conan.get_html_theme_path()]
 
 # for sphinx-sitemap, and for the canonical url
 # This helps with SEO by asking crawlers to prefer serving latest
@@ -457,9 +457,10 @@ def copy_legacy_redirects(app, docname): # Sphinx expects two arguments
 </html>
 """
 
+    outdir = pathlib.Path(app.outdir)
     if app.builder.name == 'html':
         for html_src_path, dst_path in redirect_files.items():
-            target_path = app.outdir + '/' + html_src_path
+            target_path = outdir / html_src_path
             html = redirect_template % dst_path
             if not os.path.exists(os.path.dirname(target_path)):
                 os.makedirs(os.path.dirname(target_path))
