@@ -13,6 +13,7 @@ node('Linux') {
 
     docsImage.inside {
         stage('Test build') {
+            sh 'pip install -r requirements.txt'
             parallel html: {
                 sh 'make html'
             },
