@@ -52,7 +52,7 @@ Downloads recipe and binaries to the local cache from the specified remote.
     download any of the transitive dependencies of the downloaded package.
 
 
-The ``conan download`` command can downlaod packages to 1 server repository specified by the ``-r=myremote`` argument.
+The ``conan download`` command can download packages to 1 server repository specified by the ``-r=myremote`` argument.
 
 It has 2 possible and mutually exclusive inputs:
 
