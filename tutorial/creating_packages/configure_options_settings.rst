@@ -197,7 +197,7 @@ package ID will be the same for the **hello/1.0** binary:
 
 .. code-block:: bash
     
-    $ conan conan create . --build=missing -o shared=True -o fPIC=True -tf=""
+    $ conan create . --build=missing -o shared=True -o fPIC=True -tf=""
     ...
     hello/1.0 package(): Packaged 1 '.h' file: hello.h
     hello/1.0 package(): Packaged 1 '.dylib' file: libhello.dylib
@@ -206,7 +206,7 @@ package ID will be the same for the **hello/1.0** binary:
     hello/1.0: Full package reference: hello/1.0#e6b11fb0cb64e3777f8d62f4543cd6b3:2a899fd0da3125064bf9328b8db681cd82899d56#f0d1385f4f90ae465341c15740552d7e
     hello/1.0: Package folder /Users/user/.conan2/p/8a55286c6595f662/p
 
-    $ conan conan create . --build=missing -o shared=True -o fPIC=False -tf=""
+    $ conan create . --build=missing -o shared=True -o fPIC=False -tf=""
     ...
     -------- Computing dependency graph --------
     Graph root
@@ -242,8 +242,8 @@ to delete them in the ``configure()`` method:
 .. code-block:: python
     
     def configure(self):
-        del self.settings.compiler.cppstd
-        del self.settings.compiler.libcxx
+        self.settings.rm_safe("compiler.cppstd")
+        self.settings.rm_safe("compiler.libcxx")
 
 Please, note that deleting these settings in the ``configure()`` method will modify the
 package ID calculation but will also affect how the toolchain, and the build system
