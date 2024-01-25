@@ -130,7 +130,6 @@ Now we will have two ``app/0.1`` different binaries:
   :emphasize-lines: 13,14,19,20
 
     $ conan list app/0.1:*
-    (conan2_36) λ conan list app/0.1:*
     Local Cache
       app
         app/0.1
