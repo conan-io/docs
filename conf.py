@@ -141,7 +141,7 @@ import conan
 # a list of builtin themes.
 # html_theme = 'sphinx_rtd_theme'
 html_theme = "conan"
-html_theme_path = [conan.get_html_theme_path()]
+html_theme_path = conan.get_html_theme_path()
 
 # for sphinx-sitemap, and for the canonical url
 # This helps with SEO by asking crawlers to prefer serving latest
