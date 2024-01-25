@@ -127,7 +127,7 @@ Let's build the new ``app/0.1`` binary:
 Now we will have two ``app/0.1`` different binaries:
 
 .. code-block:: bash
-  :emphasize-lines: 12,13,18,1920
+  :emphasize-lines: 12,13,18,19
 
     $ conan list app/0.1:*
     Local Cache
