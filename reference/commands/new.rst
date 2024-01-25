@@ -162,7 +162,56 @@ inside the generated ``game()`` function.
 Custom templates
 ----------------
 
-There's also the possibility to create your own templates by passing a path to your template directory,
-both as an absolute path, or relative to your Conan home folder. This directory should contain Jinja2 templates,
-which will produce your desired template structure. You can use custom variables that will be needed to be passed
-as ``name`` and ```version`` does, or use your custom variables.
+There's also the possibility to create your own templates. Templates in the Conan home should be 
+located in the ``templates/command/new`` folder, and each template should create a new folder, being
+the name of the folder the name of the template. If we create the ``templates/command/new/mytemplate``
+folder, the command will be called with:
+
+
+.. code-block:: text
+
+    $ conan new mytemplate
+
+
+As other files in the Conan home, you can manage these templates with ``conan config install``, putting them
+in a git repo or http server and sharing them with your team. It is also possible to use templates from 
+any folder, just passing the full path to the template in the ``conan new <full_path>``, but in general it
+is more convenient to manage them in the Conan home.
+
+The folder can contain as many files as desired. Both the filenames and the contents of the files can be
+templatized using Jinja2 syntax. The command ``-d/--define`` arguments will define the ``key=value`` inputs
+to the templates. 
+
+There are some special ``-d/--defines`` names. The ``name`` one is always mandatory. The ``conan_version``
+definition will always be automatically defined. The ``requires`` and ``tool_requires`` definitions, if existing, 
+will be automatically converted to lists. The ``package_name`` will always be defined, by default equals to ``name``.
+
+The file contents will be like (Jinja2 syntax):
+
+.. code-block:: python
+
+   class Conan(ConanFile):
+      name = "{{name}}"
+      version = "{{version}}"
+      license = "{{license}}"
+
+
+And it will require passing these values:
+
+.. code-block:: text
+
+    $ conan new mytemplate -d name=pkg -d version=0.1 -d license=MIT
+
+
+For variable filenames, the filenames themselves can have Jinja2 syntax. For example if we store a file with
+named literally ``templates/command/new/mytemplate/{{name}}``, with the brackets in the filename, when running
+
+.. code-block:: text
+
+    $ conan new mytemplate -d name=file.txt
+
+
+a filename called ``file.txt`` will be created.
+
+If there are files in the template to not be rendered with Jinja2, like image files, then their names should be
+added to a file called ``not_templates`` inside the template directory, one filename per line.
