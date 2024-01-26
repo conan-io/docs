@@ -167,13 +167,13 @@ located in the ``templates/command/new`` folder, and each template should have a
 folder, the command will be called with the following:
 
 
-.. code-block:: text
+.. code-block:: bash
 
     $ conan new mytemplate
 
 
-As other files in the Conan home, you can manage these templates with ``conan config install``, putting them
-in a git repo or http server and sharing them with your team. It is also possible to use templates from 
+As other files in the Conan home, you can manage these templates with ``conan config install <url>``, putting them
+in a git repo or a http server and sharing them with your team. It is also possible to use templates from 
 any folder, just passing the full path to the template in the ``conan new <full_path>``, but in general it
 is more convenient to manage them in the Conan home.
 
@@ -181,36 +181,75 @@ The folder can contain as many files as desired. Both the filenames and the cont
 templatized using Jinja2 syntax. The command ``-d/--define`` arguments will define the ``key=value`` inputs
 to the templates. 
 
-There are some special ``-d/--defines`` names. The ``name`` one is always mandatory. The ``conan_version``
-definition will always be automatically defined. The ``requires`` and ``tool_requires`` definitions, if existing, 
-will be automatically converted to lists. The ``package_name`` will always be defined, by default equals to ``name``.
-
 The file contents will be like (Jinja2 syntax):
 
 .. code-block:: python
+    
+    # File "templates/command/new/mytemplate/conanfile.py"
+    from conan import ConanFile
 
-   class Conan(ConanFile):
-      name = "{{name}}"
-      version = "{{version}}"
-      license = "{{license}}"
+    class Conan(ConanFile):
+        name = "{{name}}"
+        version = "{{version}}"
+        license = "{{license}}"
 
 
 And it will require passing these values:
 
-.. code-block:: text
+.. code-block:: bash
 
     $ conan new mytemplate -d name=pkg -d version=0.1 -d license=MIT
 
+and it will generate in the current folder a file:
 
-For variable filenames, the filenames themselves can have Jinja2 syntax. For example if we store a file with
-named literally ``templates/command/new/mytemplate/{{name}}``, with the brackets in the filename, when running
+.. code-block:: python
+    
+    # File "<cwd>/conanfile.py"
+    from conan import ConanFile
+
+    class Conan(ConanFile):
+        name = "pkg"
+        version = "0.1"
+        license = "MIT"
+
+
+There are some special ``-d/--defines`` names. The ``name`` one is always mandatory. The ``conan_version``
+definition will always be automatically defined. The ``requires`` and ``tool_requires`` definitions, if existing, 
+will be automatically converted to lists. The ``package_name`` will always be defined, by default equals to ``name``.
+
+
+For parametrized filenames, the filenames themselves support Jinja2 syntax. For example if we store a file 
+named literally ``{{name}}`` with the brackes in the template folder ``templates/command/new/mytemplate/``, 
+instead of the ``conanfile.py`` above:
+
+
+.. code-block:: python
+    :caption: File: "templates/command/new/mytemplate/{{name}}"
+
+    {{contents}}
+
+Then, executing
+
+.. code-block:: bash
+
+    $ conan new mytemplate -d name=file.txt -d contents=hello!
+
+
+will create a file called ``file.txt`` in the current dir containing the string ``hello!``.
+
+If there are files in the template not to be rendered with Jinja2, like image files, then their names should be
+added to a file called ``not_templates`` inside the template directory, one filename per line.
+So we could have a folder with:
+
 
 .. code-block:: text
 
-    $ conan new mytemplate -d name=file.txt
+    templates/command/new/mytemplate
+                             |- not_templates
+                             |- conanfile.py
+                             |- image.png
+                             |- image2.png
 
 
-a filename called ``file.txt`` will be created.
-
-If there are files in the template to not be rendered with Jinja2, like image files, then their names should be
-added to a file called ``not_templates`` inside the template directory, one filename per line.
+And the ``not_templates`` contains the string ``*.png``, then ``conan new mytemplate ...`` will only render the
+``conanfile.py`` through Jinja2, but both images will be copied as-is.
