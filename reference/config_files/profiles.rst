@@ -405,6 +405,7 @@ Other examples are:
     [replace_requires]
     dep/*: dep/1.1               # To override dep/[>=1.0 <2] in recipes to a specific version dep/1.1)
     dep/*: dep/*@system          # To override a dep/1.3 in recipes to dep/1.3@system
+    dep/*: dep/[>=1 <2]          # To override every dep requirement in recipes to a specific version range
     dep/*@*/*: dep/*@system/*    # To override "dep/1.3@comp/stable" in recipes to the same version with other user but same channel
     dep/1.1: dep/1.1@system      # To replace exact reference in recipes by the same one in the system
     dep/1.1@*: dep/1.1@*/stable  # To replace dep/[>=1.0 <2]@comp version range in recipes by 1.1 version in stable chanel
