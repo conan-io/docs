@@ -162,10 +162,9 @@ inside the generated ``game()`` function.
 Custom templates
 ----------------
 
-There's also the possibility to create your own templates. Templates in the Conan home should be 
-located in the ``templates/command/new`` folder, and each template should create a new folder, being
-the name of the folder the name of the template. If we create the ``templates/command/new/mytemplate``
-folder, the command will be called with:
+There's also the possibility of creating your templates. Templates in the Conan home should be 
+located in the ``templates/command/new`` folder, and each template should have a folder named like the template one. If we create the ``templates/command/new/mytemplate``
+folder, the command will be called with the following:
 
 
 .. code-block:: text
