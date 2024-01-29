@@ -667,6 +667,7 @@ the associated runtime, you can use:
     - **`default_msvc_runtime(compiler)`**: returns tuple with runtime (e.g., "dynamic") and its version (e.g., "v143").
     - **`default_cppstd(compiler, compiler_version)`**: returns default C++ standard as a string (e.g., "gnu14").
     - **`detect_default_compiler()`**: returns tuple with compiler name (e.g., "gcc"), its version and the executable path.
+    - **`detect_msvc_update(version)`**: returns MSVC update version as a string (e.g., "7").
     - **`default_msvc_ide_version(version)`**: returns MSVC IDE version as a string (e.g., "17").
     - **`default_compiler_version(compiler, version)`**: returns the default version that
         Conan uses in profiles, typically dropping some of the minor or patch digits, that
