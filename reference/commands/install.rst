@@ -17,7 +17,7 @@ conan install
                          [-s:a SETTINGS_ALL] [-c CONF] [-c:b CONF_BUILD]
                          [-c:h CONF_HOST] [-c:a CONF_ALL] [-l LOCKFILE]
                          [--lockfile-partial] [--lockfile-out LOCKFILE_OUT]
-                         [--lockfile-packages] [--lockfile-clean]
+                         [--lockfile-clean]
                          [--lockfile-overrides LOCKFILE_OVERRIDES] [-g GENERATOR]
                          [-of OUTPUT_FOLDER] [-d DEPLOYER]
                          [--deployer-folder DEPLOYER_FOLDER]
@@ -130,7 +130,6 @@ conan install
                             in lockfile
       --lockfile-out LOCKFILE_OUT
                             Filename of the updated lockfile
-      --lockfile-packages   Lock package-id and package-revision information
       --lockfile-clean      Remove unused entries from the lockfile
       --lockfile-overrides LOCKFILE_OVERRIDES
                             Overwrite lockfile overrides
@@ -343,8 +342,6 @@ to resolve the new one, which was not previously present in the lockfile, and st
     # --lockfile=conan.lock is the default, not necessary
     $ conan install . --lockfile=conan.lock --lockfile-partial --lockfile-out=conan.lock 
 
-The ``--lockfile-packages`` argument allows to create lockfiles that also lock down to the package revision, but 
-it should not be necessary in the vast majority of cases, so it is discouraged in the general case.
 
 Also, it is likely that the majority of lockfile operations are better managed by the ``conan lock`` command.
 

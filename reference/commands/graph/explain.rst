@@ -9,7 +9,7 @@ conan graph explain
     usage: conan graph explain [-h] [-f FORMAT] [-v [V]] [--name NAME] [--version VERSION] [--user USER] [--channel CHANNEL] [--requires REQUIRES] [--tool-requires TOOL_REQUIRES]
                            [-b BUILD] [-r REMOTE | -nr] [-u] [-pr PROFILE] [-pr:b PROFILE_BUILD] [-pr:h PROFILE_HOST] [-pr:a PROFILE_ALL] [-o OPTIONS] [-o:b OPTIONS_BUILD]
                            [-o:h OPTIONS_HOST] [-o:a OPTIONS_ALL] [-s SETTINGS] [-s:b SETTINGS_BUILD] [-s:h SETTINGS_HOST] [-s:a SETTINGS_ALL] [-c CONF] [-c:b CONF_BUILD]
-                           [-c:h CONF_HOST] [-c:a CONF_ALL] [-l LOCKFILE] [--lockfile-partial] [--lockfile-out LOCKFILE_OUT] [--lockfile-packages] [--lockfile-clean]
+                           [-c:h CONF_HOST] [-c:a CONF_ALL] [-l LOCKFILE] [--lockfile-partial] [--lockfile-out LOCKFILE_OUT] [--lockfile-clean]
                            [--lockfile-overrides LOCKFILE_OVERRIDES] [--check-updates] [--build-require] [--missing [MISSING]]
                            [path]
 
@@ -72,7 +72,6 @@ conan graph explain
       --lockfile-partial    Do not raise an error if some dependency is not found in lockfile
       --lockfile-out LOCKFILE_OUT
                             Filename of the updated lockfile
-      --lockfile-packages   Lock package-id and package-revision information
       --lockfile-clean      Remove unused entries from the lockfile
       --lockfile-overrides LOCKFILE_OVERRIDES
                             Overwrite lockfile overrides
