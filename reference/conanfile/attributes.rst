@@ -118,6 +118,13 @@ be computed. It can take three different values:
   approach allows multiple `conanfile.py` files to exist within the same Git repository,
   with each file exported under its distinct revision.
 
+When ``scm`` or ``scm_folder`` is selected, the Git commit will be used, but by default
+the repository must be clean, otherwise it would be very likely that there are uncommitted
+changes and the build wouldn't be reproducible. So if there are dirty files, Conan will raise
+an error. If there are files that can be dirty in the repo, but do not belong at all to the
+recipe or the package, then it is possible to exclude them from the check with the ``core.scm:excluded``
+configuration, which is a list of patterns (fnmatch) to exclude.
+
 
 
 upload_policy
