@@ -18,7 +18,7 @@ conan build
                        [-s:a SETTINGS_ALL] [-c CONF] [-c:b CONF_BUILD]
                        [-c:h CONF_HOST] [-c:a CONF_ALL] [-l LOCKFILE]
                        [--lockfile-partial] [--lockfile-out LOCKFILE_OUT]
-                       [--lockfile-packages] [--lockfile-clean]
+                       [--lockfile-clean]
                        [--lockfile-overrides LOCKFILE_OVERRIDES]
                        path
 
@@ -123,7 +123,6 @@ conan build
                             in lockfile
       --lockfile-out LOCKFILE_OUT
                             Filename of the updated lockfile
-      --lockfile-packages   Lock package-id and package-revision information
       --lockfile-clean      Remove unused entries from the lockfile
       --lockfile-overrides LOCKFILE_OVERRIDES
                             Overwrite lockfile overrides
