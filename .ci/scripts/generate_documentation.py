@@ -69,7 +69,6 @@ with chdir(f"{sources_folder}"):
 
     # generate pdf
     if with_pdf:
-        # adding the -f flag because the pdf gen fails for some versions
-        run(f"sphinx-build -W -b latex -f -d {branch_folder}/_build/.doctrees {branch_folder}/ {branch_folder}/_build/latex")
+        run(f"sphinx-build -W -b latex -d {branch_folder}/_build/.doctrees {branch_folder}/ {branch_folder}/_build/latex")
         run(f"make -C {branch_folder}/_build/latex all-pdf")
         run(f"cp {branch_folder}/_build/latex/conan.pdf {output_folder}/{branch_folder}/conan.pdf")
