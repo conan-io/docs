@@ -302,10 +302,10 @@ of all those things. This would be the typical case of a header-only library, in
 
 .. _reference_conanfile_attributes_package_id_modes:
 
-package_id_{embed,non_embed,unknown}_mode
------------------------------------------
+package_id_{embed,non_embed,python,unknown}_mode
+------------------------------------------------
 
-The ``package_id_embed_mode, package_id_non_embed_mode, package_id_unknown_mode`` are class attributes that can be defined in recipes to define the effect they have on their consumers ``package_id``. Can be declared as:
+The ``package_id_embed_mode, package_id_non_embed_mode, package_id_python_mode, package_id_unknown_mode`` are class attributes that can be defined in recipes to define the effect they have on their consumers ``package_id``. Can be declared as:
 
 .. code-block:: python
 
@@ -314,10 +314,14 @@ The ``package_id_embed_mode, package_id_non_embed_mode, package_id_unknown_mode`
     class Pkg(ConanFile):
         name = "pkg"
         version = "1.0.0"
+        # They are not mandatory, and it is not necessary to define all
         package_id_embed_mode = "full_mode"
         package_id_non_embed_mode = "patch_mode"
         package_id_unknown_mode = "minor_mode"
+        package_id_python_mode = "major_mode"
         
+In general, the Conan defaults are good ones, and allow providing users good control over when the consumers need to be re-built from source or not. Also, the Conan defaults can be changed globally in the ``global.conf`` file (they should be changed globally for all users, CI, etc.) via the ``core.package_id:xxxx`` configurations. The in-recipe attribute definition is useful to define behavior that deviates from the defaults.
+
 
 Possible values are (following the semver definition of MAJOR.MINOR.PATCH):
 
@@ -327,11 +331,12 @@ Possible values are (following the semver definition of MAJOR.MINOR.PATCH):
 - ``full_mode``: The full identifier of this package, including ``pkgname/version@user/channel#recipe_revision:package_id`` will be used in the consumers ``package_id``, then requiring to build a new binary of the consumer for every change of this package (as any change either in source or configuration will produce a different ``recipe_revision`` or ``package_id`` respectively). This is the default for the "embed-mode".
 - ``unrelated_mode``: No change in this package will ever produce a new binary in the consumer. 
 
-The 3 different attributes are:
+The 4 different attributes are:
 
 - ``package_id_embed_mode``: Define the mode for "embedding" cases, that is, a shared library linking a static library, an application linking a static library, an application or a library linking a header-only library. The default for this mode is ``full_mode``
 - ``package_id_non_embed_mode``. Define the mode for "non-embedding" cases, that is, a shared library linking another shared library, a static library linking another static library, an application executable linking a shared library. The default for this mode is ``minor_mode``.
 - ``package_id_unknown_mode``: Define the mode when the relationship between packages is unknown. If it is not possible to deduce the package type, because there are no ``shared`` or ``header_only`` options defined, or because ``package_type`` is not defined, then, this mode will be used. The default for this mode is ``semver_mode`` (similar to Conan 1.X behavior).
+- ``package_id_python_mode``: Define the mode for consumers of ``python_requires``. By default it will be ``minor_mode``, and it is strongly recommended to use this default, and not define the ``package_id_python_mode``. This attribute is provided for completeness and exceptional cases like temporary migrations.
 
 .. seealso::
 
