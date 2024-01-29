@@ -172,7 +172,7 @@ folder, the command will be called with the following:
     $ conan new mytemplate
 
 
-As other files in the Conan home, you can manage these templates with ``conan config install <url>``, putting them
+As with other files in the Conan home, you can manage these templates with ``conan config install <url>``, putting them
 in a git repo or a http server and sharing them with your team. It is also possible to use templates from 
 any folder, just passing the full path to the template in the ``conan new <full_path>``, but in general it
 is more convenient to manage them in the Conan home.
