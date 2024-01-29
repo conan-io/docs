@@ -25,7 +25,22 @@ branch_folder = [k for k, v in conan_versions.items() if v == branch][0]
 
 print(f"branch_folder: {branch_folder}")
 
+def replace_in_file(file_path, old, new):
+    try:
+        with open(file_path, 'r') as file:
+            content = file.read()
+
+        modified_content = content.replace(old, new)
+
+        with open(file_path, 'w') as file:
+            file.write(modified_content)
+    except IOError as e:
+        print(f"Error replacing in file {file_path}: {e}")
+
+
 with chdir(f"{sources_folder}"):
+
+    replace_in_file(os.path.join(branch_folder, "conf.py"), "language = None", "language = 'en'")
 
     with open(os.path.join(branch_folder, 'versions.json'), 'w') as versions_json:
         json.dump(conan_versions, versions_json, indent=4)
