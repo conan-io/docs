@@ -20,10 +20,12 @@
     core.package_id:default_non_embed_mode: By default, 'minor_mode'
     core.package_id:default_python_mode: By default, 'minor_mode'
     core.package_id:default_unknown_mode: By default, 'semver_mode'
+    core.scm:excluded: List of excluded patterns for builtin git dirty checks
     core.sources:download_cache: Folder to store the sources backup
     core.sources:download_urls: List of URLs to download backup sources from
     core.sources:exclude_urls: URLs which will not be backed up
     core.sources:upload_url: Remote URL to upload backup sources to
+    core.upload:parallel: Number of concurrent threads to upload packages
     core.upload:retry: Number of retries in case of failure when uploading to Conan server
     core.upload:retry_wait: Seconds to wait between upload attempts to Conan server
     core.version_ranges:resolve_prereleases: Whether version ranges can resolve to pre-releases or not

@@ -427,7 +427,7 @@ full references into other commands (like for example ``conan cache path``):
   $ conan list "zlib/1.2.13:*" -r=conancenter --format=compact
   conancenter
     zlib/1.2.13
-      zlib/1.2.13#97d5730b529b4224045fe7090592d4c1 (2023-08-22 02:51:57 UTC)
+      zlib/1.2.13#97d5730b529b4224045fe7090592d4c1%1692672717.68 (2023-08-22 02:51:57 UTC)
         zlib/1.2.13#97d5730b529b4224045fe7090592d4c1:d62dff20d86436b9c58ddc0162499d197be9de1e
           settings: Macos, x86_64, Release, apple-clang, 13
           options(diff): fPIC=True, shared=False

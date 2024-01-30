@@ -7,7 +7,7 @@ conan create
     usage: conan create [-h] [-v [V]] [-f FORMAT] [--name NAME]
                         [--version VERSION] [--user USER] [--channel CHANNEL]
                         [-l LOCKFILE] [--lockfile-partial]
-                        [--lockfile-out LOCKFILE_OUT] [--lockfile-packages]
+                        [--lockfile-out LOCKFILE_OUT]
                         [--lockfile-clean]
                         [--lockfile-overrides LOCKFILE_OVERRIDES] [-b BUILD]
                         [-r REMOTE | -nr] [-u] [-pr PROFILE] [-pr:b PROFILE_BUILD]
@@ -44,7 +44,6 @@ conan create
                             in lockfile
       --lockfile-out LOCKFILE_OUT
                             Filename of the updated lockfile
-      --lockfile-packages   Lock package-id and package-revision information
       --lockfile-clean      Remove unused entries from the lockfile
       --lockfile-overrides LOCKFILE_OVERRIDES
                             Overwrite lockfile overrides

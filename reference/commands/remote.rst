@@ -42,23 +42,32 @@ conan remote add
 
 ..  code-block:: text
 
-    $ conan remote add -h     
-    usage: conan remote add [-h] [-v [V]] [--insecure] [--index INDEX] [-f] name url
+    $ conan remote add -h
+    usage: conan remote add [-h] [-v [V]] [-cc CORE_CONF] [--insecure]
+                            [--index INDEX] [-f] [-ap [ALLOWED_PACKAGES ...]]
+                            name url
 
     Add a remote.
 
     positional arguments:
-      name           Name of the remote to add
-      url            Url of the remote
+      name                  Name of the remote to add
+      url                   Url of the remote
 
     options:
-      -h, --help     show this help message and exit
-      -v [V]         Level of detail of the output. Valid options from less verbose to more verbose:
-                     -vquiet, -verror, -vwarning, -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug, -vvv
-                     or -vtrace
-      --insecure     Allow insecure server connections when using SSL
-      --index INDEX  Insert the remote at a specific position in the remote list
-      -f, --force    Force the definition of the remote even if duplicated
+      -h, --help            show this help message and exit
+      -v [V]                Level of detail of the output. Valid options from less
+                            verbose to more verbose: -vquiet, -verror, -vwarning,
+                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
+                            -vvv or -vtrace
+      -cc CORE_CONF, --core-conf CORE_CONF
+                            Global configuration for Conan
+      --insecure            Allow insecure server connections when using SSL
+      --index INDEX         Insert the remote at a specific position in the remote
+                            list
+      -f, --force           Force the definition of the remote even if duplicated
+      -ap [ALLOWED_PACKAGES ...], --allowed-packages [ALLOWED_PACKAGES ...]
+                            Add recipe reference pattern to list of allowed
+                            packages for this remote
 
 
 
@@ -296,25 +305,32 @@ conan remote update
 .. code-block:: text
 
     $ conan remote update -h
-    usage: conan remote update [-h] [-v [V]] [--url URL] [--secure]
-                               [--insecure] [--index INDEX]
+    usage: conan remote update [-h] [-v [V]] [-cc CORE_CONF] [--url URL]
+                               [--secure] [--insecure] [--index INDEX]
+                               [-ap [ALLOWED_PACKAGES ...]]
                                remote
 
     Update a remote.
 
     positional arguments:
-      remote         Name of the remote to update
+      remote                Name of the remote to update
 
     options:
-      -h, --help     show this help message and exit
-      -v [V]         Level of detail of the output. Valid options from less
-                     verbose to more verbose: -vquiet, -verror, -vwarning,
-                     -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or
-                     -vtrace
-      --url URL      New url for the remote
-      --secure       Don't allow insecure server connections when using SSL
-      --insecure     Allow insecure server connections when using SSL
-      --index INDEX  Insert the remote at a specific position in the remote list
+      -h, --help            show this help message and exit
+      -v [V]                Level of detail of the output. Valid options from less
+                            verbose to more verbose: -vquiet, -verror, -vwarning,
+                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
+                            -vvv or -vtrace
+      -cc CORE_CONF, --core-conf CORE_CONF
+                            Global configuration for Conan
+      --url URL             New url for the remote
+      --secure              Don't allow insecure server connections when using SSL
+      --insecure            Allow insecure server connections when using SSL
+      --index INDEX         Insert the remote at a specific position in the remote
+                            list
+      -ap [ALLOWED_PACKAGES ...], --allowed-packages [ALLOWED_PACKAGES ...]
+                            Add recipe reference pattern to the list of allowed
+                            packages for this remote
 
 
 Read more

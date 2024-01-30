@@ -8,7 +8,7 @@ conan export-pkg
     $ conan export-pkg -h
     usage: conan export-pkg [-h] [-f FORMAT] [-v [V]] [-of OUTPUT_FOLDER] [--build-require] [-tf TEST_FOLDER] [-sb] [-r REMOTE | -nr] [--name NAME]              
                         [--version VERSION] [--user USER] [--channel CHANNEL] [-l LOCKFILE] [--lockfile-partial] [--lockfile-out LOCKFILE_OUT]               
-                        [--lockfile-packages] [--lockfile-clean] [-o OPTIONS_HOST] [-o:b OPTIONS_BUILD] [-o:h OPTIONS_HOST] [-pr PROFILE_HOST]               
+                        [--lockfile-clean] [-o OPTIONS_HOST] [-o:b OPTIONS_BUILD] [-o:h OPTIONS_HOST] [-pr PROFILE_HOST]
                         [-pr:b PROFILE_BUILD] [-pr:h PROFILE_HOST] [-s SETTINGS_HOST] [-s:b SETTINGS_BUILD] [-s:h SETTINGS_HOST] [-c CONF_HOST]              
                         [-c:b CONF_BUILD] [-c:h CONF_HOST]                                                                                                   
                         path                                                                                                                                 
@@ -40,9 +40,7 @@ conan export-pkg
       -l LOCKFILE, --lockfile LOCKFILE                                                                                                                           
                             Path to a lockfile. Use --lockfile="" to avoid automatic use of existing 'conan.lock' file                                           
       --lockfile-partial    Do not raise an error if some dependency is not found in lockfile                                                                    
-      --lockfile-out LOCKFILE_OUT                                                                                                                                
-                            Filename of the updated lockfile                                                                                                     
-      --lockfile-packages   Lock package-id and package-revision information                                                                                     
+      --lockfile-out LOCKFILE_OUT    Filename of the updated lockfile
       --lockfile-clean      Remove unused entries from the lockfile                                                                                              
       -o OPTIONS_HOST, --options OPTIONS_HOST                                                                                                                    
                             Define options values (host machine), e.g.: -o Pkg:with_qt=true                                                                      
