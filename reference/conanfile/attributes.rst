@@ -227,3 +227,32 @@ explicitly declare the use of an alias as a requirement:
         ... 
         requires = "mypkg/(latest)" 
         ...
+
+
+.. _conan_conanfile_attributes_extension_properties:
+
+extension_properties
+--------------------
+
+The ``extensions_properties`` attribute is a dictionary intended to define and pass information from the
+recipes to the Conan extensions.
+
+At the moment, the only defined property is ``compatibility_cppstd``, that allows disabling the behavior
+of :ref:`the default compatibility.py extension <reference_extensions_binary_compatibility>`, that considers 
+binaries built with different ``compiler.cppstd`` values ABI-compatible among them. 
+To disable this behavior for the current package, it is possible to do it with:
+
+.. code-block:: python
+
+  class Pkg(ConanFile):
+      extension_properties = {"compatibility_cppstd": False}
+
+If it is necessary to do it conditionally, it is also possible to define its value inside recipe ``compatibility()``
+method:
+
+.. code-block:: python
+
+  class Pkg(ConanFile):
+
+      def compatibility(self):
+          self.extension_properties = {"compatibility_cppstd": False}
