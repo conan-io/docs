@@ -10,6 +10,9 @@
 {%- extends "layout.html" %}
 {% set title = _('Search') %}
 {% set display_vcs_links = False %}
+{%- block css %}
+    <link rel="stylesheet" href="{{ pathto('_static/css/search.css', 1) }}" type="text/css" />
+{%- endblock %}
 {%- block scripts %}
     {{ super() }}
     <script src="{{ pathto('_static/searchtools.js', 1) }}"></script>
