@@ -14,7 +14,7 @@ The URL of the remote should now be added to the :ref:`global.conf<reference_con
 .. code-block:: text
    :caption: global.conf
 
-   core.sources:upload_url="https://myteam.myorg.com/artifactory/backup-sources/"
+   core.sources:upload_url=https://myteam.myorg.com/artifactory/backup-sources/
 
 
 Next, as we want this to be a public read repo, we'll allow anonymous read access to our repo.
