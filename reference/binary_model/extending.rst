@@ -44,7 +44,7 @@ Package ``conanfile.py`` recipes define their own options, with their own range 
     class MyPkg(ConanFile):
         ...
         options = {"build_tests": [True, False],
-                   "option2": "ANY"}
+                   "option2": ["ANY"]}
         default_options = {"build_tests": True,
                             "option1": 42,
                             "z*:shared": True}
