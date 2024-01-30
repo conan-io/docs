@@ -81,10 +81,12 @@ translated from the current ``settings``:
         - The `CMAKE_BUILD_TYPE` variable for single-configuration generators.
         - The `BUILD_TESTING` variable set to `OFF` when the configuration
           `tools.build:skip_test` is true.
-        - An environment section setting all the environment information related to the
-          :ref:`VirtualBuildEnv<conan_tools_env_virtualbuildenv>` (if any). You can skip
-          the generation of this section by using the
-          ``tools.cmake.cmaketoolchain:presets_environment`` configuration.
+        - An "Environment" section, setting all the environment information related to the
+          :ref:`VirtualBuildEnv<conan_tools_env_virtualbuildenv>`, if applicable. This
+          environment can be modified in the `generate()` method of the recipe by passing
+          an environment through the `CMakeToolchain.presets_build_environment` attribute.
+          Generation of this section can be skipped by using the
+          `tools.cmake.cmaketoolchain:presets_environment` configuration.
         - By default, preset names will be `conan-xxxx`, but the "conan-" prefix can be
           customized with the `CMakeToolchain.presets_prefix = "conan"` attribute.
         - Preset names are controlled by the `layout()` `self.folders.build_folder_vars`
@@ -96,11 +98,13 @@ translated from the current ``settings``:
 
     - `testPresets` storing the following information:
         - The `configurePreset` associated with this build preset.
-        - An environment section setting all the environment information related to the
-          :ref:`VirtualRunEnv<conan_tools_env_virtualrunenv>` (if any). You can skip the
-          generation of this section by using the
-          ``tools.cmake.cmaketoolchain:presets_environment`` configuration.
-
+        - An "Environment" section, setting all the environment information related to the
+          :ref:`VirtualRunEnv<conan_tools_env_virtualrunenv>`, if applicable. This
+          environment can be modified in the `generate()` method of the recipe by passing
+          an environment through the `CMakeToolchain.presets_run_environment` attribute.
+          Please note that since this preset inherits from a `configurePreset`, it will
+          also inherit its environment. Generation of this section can be skipped by using
+          the`tools.cmake.cmaketoolchain:presets_environment` configuration.
 
 - **CMakeUserPresets.json**:  If you declare a ``layout()`` in the recipe and your
   ``CMakeLists.txt`` file is found at the ``conanfile.source_folder`` folder, a
@@ -230,6 +234,47 @@ following way:
         tc = CMakeToolchain(self)
         tc.user_presets_path = False
         tc.generate()
+
+presets_build_environment, presets_run_environment
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+These attributes enable the modification of the build and run environments associated with 
+the presets, respectively, by assigning an 
+:ref:`Environment<conan_tools_env_environment_model>`. This can be accomplished in the 
+`generate()` method.
+
+For example, you can override the value of an environment variable already set in the 
+build environment:
+
+.. code:: python
+
+    def generate(self):
+        buildenv = VirtualBuildEnv(self)
+        buildenv.environment().define("MY_BUILD_VAR", "MY_BUILDVAR_VALUE_OVERRIDDEN")
+        buildenv.generate()
+
+        tc = CMakeToolchain(self)
+        tc.presets_build_environment = buildenv.environment()
+        tc.generate()
+
+Or generate a new environment and compose it with an already existing one:
+
+.. code:: python
+
+    def generate(self):
+        runenv = VirtualRunEnv(self)
+        runenv.environment().define("MY_RUN_VAR", "MY_RUNVAR_SET_IN_GENERATE")
+        runenv.generate()
+
+        env = Environment()
+        env.define("MY_ENV_VAR", "MY_ENV_VAR_VALUE")
+        env = env.vars(self, scope="run")
+        env.save_script("other_env")
+
+        tc = CMakeToolchain(self)
+        tc.presets_run_environment = runenv.environment().compose_env(env)
+        tc.generate()
+
 
 Extra compilation flags
 ^^^^^^^^^^^^^^^^^^^^^^^
