@@ -212,7 +212,11 @@ Note that if we don't pass the ``--build=editable`` to ``conan build hello``, th
 won't be available and it will fail. With the ``--build=editable``, first a build of the ``say`` binaries is done locally and 
 incrementally, and then another incremental build of ``hello`` will be done. Everything will still happen locally, with no packages
 built in the cache. If there are multiple ``editable`` dependencies, with nested transitive dependencies, Conan will build them
-in the right order.
+in the right order. 
+
+If editable packages have dependants in the Conan cache, it is possible to force the rebuild from source of the
+cache dependants by using ``--build=editable --build=cascade``. In general this should be avoided, and the recommendation if it
+is needed to rebuild those dependencies is to put them in editable mode too.
 
 Note that it is possible to build and test a package in editable with with its own ``test_package`` folder.
 If a package is put in ``editable`` mode, and if it contains a ``test_package`` folder, the ``conan create`` command
