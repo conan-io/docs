@@ -3,7 +3,7 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2.0 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
-2.0.17 (10-Jan-2023)
+2.0.17 (10-Jan-2024)
 --------------------
 
 - Fix: Automatically create folder if ``conan cache save --file=subfolder/file.tgz`` subfolder doesn't exist. `#15409 <https://github.com/conan-io/conan/pull/15409>`_
