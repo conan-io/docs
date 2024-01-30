@@ -153,12 +153,14 @@ This attribute allows defining compiler preprocessor definitions, for multiple c
         tc.preprocessor_definitions["MYDEF"] = "MyValue"
         tc.preprocessor_definitions.debug["MYCONFIGDEF"] = "MyDebugValue"
         tc.preprocessor_definitions.release["MYCONFIGDEF"] = "MyReleaseValue"
+        # Setting to None will add the definition with no value
+        tc.preprocessor_definitions["NOVALUE_DEF"] = None
         tc.generate()
 
 This will be translated to:
 
-- One ``add_definitions()`` definition for ``MYDEF`` in ``conan_toolchain.cmake`` file.
-- One ``add_definitions()`` definition, using a cmake generator expression in ``conan_toolchain.cmake`` file,
+- One ``add_compile_definitions()`` definition for ``MYDEF`` in ``conan_toolchain.cmake`` file.
+- One ``add_compile_definitions()`` definition, using a cmake generator expression in ``conan_toolchain.cmake`` file,
   using the different values for different configurations.
 
 .. _conan-cmake-toolchain-cache_variables:
