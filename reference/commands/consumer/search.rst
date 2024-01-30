@@ -35,7 +35,10 @@ can be forced with '--case-sensitive'.
       -q QUERY, --query QUERY
                             Packages query: 'os=Windows AND (arch=x86 OR
                             compiler=gcc)'. The 'pattern_or_reference' parameter
-                            has to be a reference: MyPackage/1.2@user/channel
+                            has to be a reference: MyPackage/1.2@user/channel. Use
+                            the prefixes option: and setting: for custom
+                            properties: 'setting:libc=glibc AND
+                            option:arch=native'.
       -r REMOTE, --remote REMOTE
                             Remote to search in. '-r all' searches all remotes
       --case-sensitive      Make a case-sensitive search. Use it to guarantee
@@ -90,6 +93,20 @@ Query syntax allows sub-settings, even for custom ones. e.g:
 
     $ conan search boost/1.71.0@ -q "compiler=gcc AND compiler.version=9"
     $ conan search boost/1.71.0@ -q "os=Linux AND os.distro=Ubuntu AND os.distro.version=19.04"
+
+If you need to use custom settings, you can use the prefix `settings:` or `s:`:
+
+.. code-block:: bash
+
+    $ conan search Boost/1.60.0@lasote/stable -q "setting:libc=glibc AND setting:libc.version=2.29"
+    $ conan search Boost/1.60.0@lasote/stable -q "s:libc=glibc AND s:libc.version=2.29"
+
+Also, you can use the prefix `option:` or `o:` for options:
+
+.. code-block:: bash
+
+    $ conan search Boost/1.60.0@lasote/stable -q "options:shared=True AND options:arch=native"
+    $ conan search Boost/1.60.0@lasote/stable -q "o:shared=True AND o:arch=native"
 
 If you specify a query filter for a setting and the package recipe is not restricted by this
 setting, Conan won't find the packages. e.g:
