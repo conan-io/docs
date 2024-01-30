@@ -90,6 +90,12 @@ translated from the current ``settings``:
         - Preset names are controlled by the `layout()` `self.folders.build_folder_vars`
           definition, which can contain a list of settings and options like
           `["settings.compiler", "settings.arch", "options.shared"]`.
+        - If CMake is found as a direct `tool_requires` dependency, or if
+          `tools.cmake:cmake_program` is set, the configure preset will include a
+          `cmakeExecutable` field. This field represents the path to the CMake executable
+          to be used for this preset. As stated in the CMake documentation, this field is
+          reserved for use by IDEs and is not utilized by CMake itself.
+
 
     - `buildPresets` storing the following information:
         - The `configurePreset` associated with this build preset.
