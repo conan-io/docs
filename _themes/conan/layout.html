@@ -41,6 +41,10 @@
     <link rel="stylesheet" href="{{ pathto(css_file, 1)|escape }}" type="text/css" />
   {%- endfor -%}
 
+  {#- CSS #}
+  {%- block css %}
+  {%- endblock -%}
+
   {#- FAVICON
       favicon_url is the only context var necessary since Sphinx 4.
       In Sphinx<4, we use favicon but need to prepend path info.
@@ -125,7 +129,6 @@
 </head>
 
 <body class="wy-body-for-nav">
-
   {%- block extrabody %} {% endblock %}
   <div class="wy-grid-for-nav">
     {#- SIDE NAV, TOGGLES ON MOBILE #}
@@ -200,6 +203,11 @@
         {%- else %}
         <div class="rst-content">
         {%- endif %}
+          {% if current_version.startswith("1") %}
+            <div class="admonition warning wy-text-center" style="position:sticky;top:0;border: 1px solid orange">
+              <p>This document is for a <b>"1.X" legacy</b> Conan version. <a href="https://docs.conan.io/2/">Click here to read the <b>Conan 2.0</b> documentation</a></p>
+            </div>
+          {% endif %}
           {% include "breadcrumbs.html" %}
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
           {%- block document %}
