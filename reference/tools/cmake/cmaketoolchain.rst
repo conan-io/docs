@@ -81,7 +81,7 @@ translated from the current ``settings``:
         - The `CMAKE_BUILD_TYPE` variable for single-configuration generators.
         - The `BUILD_TESTING` variable set to `OFF` when the configuration
           `tools.build:skip_test` is true.
-        - An "Environment" section, setting all the environment information related to the
+        - An environment section, setting all the environment information related to the
           :ref:`VirtualBuildEnv<conan_tools_env_virtualbuildenv>`, if applicable. This
           environment can be modified in the `generate()` method of the recipe by passing
           an environment through the `CMakeToolchain.presets_build_environment` attribute.
@@ -98,7 +98,7 @@ translated from the current ``settings``:
 
     - `testPresets` storing the following information:
         - The `configurePreset` associated with this build preset.
-        - An "Environment" section, setting all the environment information related to the
+        - An environment section, setting all the environment information related to the
           :ref:`VirtualRunEnv<conan_tools_env_virtualrunenv>`, if applicable. This
           environment can be modified in the `generate()` method of the recipe by passing
           an environment through the `CMakeToolchain.presets_run_environment` attribute.
