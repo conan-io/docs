@@ -130,7 +130,7 @@ Values for each option can be typed or plain strings (``"value"``, ``True``, ``4
 
 There are two special values:
 
-- ``None``: Allow the option to have a ``None`` value (not specified) without erroring.
+- ``None``: Allow the option to have a ``None`` value (not specified) without erroring. 
 - ``"ANY"``:  For options that can take any value, not restricted to a set.
 
 .. code-block:: python
