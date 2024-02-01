@@ -17,11 +17,18 @@ import os
 from shutil import copyfile
 import json
 
+# path to the conan_sources, they must be cloned to the branch
+# that we are building the docs for
+# if building the docs in local, point this to the local conan_sources
+
+path_to_conan_sources = './conan_sources'
+
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 
 sys.path.insert(0, os.path.abspath('./_themes'))
+sys.path.insert(0, os.path.abspath(path_to_conan_sources))
 
 
 # -- General configuration ------------------------------------------------
@@ -33,18 +40,29 @@ sys.path.insert(0, os.path.abspath('./_themes'))
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'conan',
     'sphinxcontrib.spelling',
     'sphinx_sitemap',
     'notfound.extension',
+    'sphinx.ext.autodoc',
+    'sphinx.ext.graphviz',
     'sphinx.ext.todo',
     'sphinxcontrib.jquery'
 ]
 
+# autodoc configuration
+add_module_names = False
+autoclass_content = 'both'
+autodoc_member_order = 'bysource'  # To order the methods following the order at the code, not alphabetically
+autodoc_mock_imports = ["PyJWT", "requests", "urllib3", "PyYAML", 
+                        "patch-ng", "fasteners", "six", "node-semver", "distro",
+                        "pygments", "tqdm", "Jinja2", "MarkupSafe", "Jinja2", 
+                        "python-dateutil", "configparse", "patch_ng", "yaml", "semver", "dateutil"]
+
+
 # The short X.Y version.
-version = "1.62"
+version = "2.0"
 # The full version, including alpha/beta/rc tags.
-release = u'1.62.0'
+release = u'2.0.17'
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 if not os.path.exists(os.path.join(dir_path, "versions.json")):
@@ -66,7 +84,7 @@ html_context = {
     "display_github": True, # Integrate GitHub
     "github_user": "conan-io", # Username
     "github_repo": "docs", # Repo name
-    "github_version": "master", # Version
+    "github_version": "develop2", # Version
     "conf_py_path": "/" # Path in the checkout to the docs root
 }
 
@@ -104,7 +122,7 @@ language = 'en'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
-exclude_patterns = ['_build', '**/site-packages']
+exclude_patterns = ['_build', '**/site-packages', 'conan_sources/**.rst']
 
 # The reST default role (used for this markup: `text`) to use for all
 # documents.
@@ -135,22 +153,24 @@ todo_include_todos = True
 
 
 # -- Options for HTML output ----------------------------------------------
-import conan
+import conan_theme
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 # html_theme = 'sphinx_rtd_theme'
-html_theme = "conan"
-html_theme_path = conan.get_html_theme_path()
+html_theme = "conan_theme"
+html_theme_path = conan_theme.get_html_theme_path()
 
 # for sphinx-sitemap, and for the canonical url
 # This helps with SEO by asking crawlers to prefer serving latest
 html_baseurl = "https://docs.conan.io/"
 
+
 # Theme options are theme-specific and customize the look and feel of a theme
 # further. For a list of options available for each theme, see the
 # documentation.
 html_theme_options = {}
+
 
 # Add any paths that contain custom themes here, relative to this directory.
 #html_theme_path = []
@@ -164,7 +184,7 @@ html_theme_options = {}
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
-html_logo = "_static/conan-logo.png"
+html_logo = "_static/conan-docs-logo-2.svg"
 
 # The name of an image file (relative to this directory) to use as a favicon of
 # the docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
@@ -269,7 +289,7 @@ latex_documents = [
 
 # The name of an image file (relative to this directory) to place at the top of
 # the title page.
-latex_logo = "_static/conan-logo.png"
+latex_logo = "_static/conan-docs-logo-2.png"
 
 # For "manual" documents, if this is true, then toplevel headings are parts,
 # not chapters.
@@ -395,7 +415,7 @@ epub_exclude_files = ['search.html']
 #epub_use_index = True
 
 # A list of regular expressions that match URIs that should not be checked when doing a linkcheck build.
-linkcheck_ignore = [r'http://localhost:\d+', r'https://github.com/conan-io/conan/pull/\d+', r'https://github.com/conan-io/docs/pull/\d+', 'https://conan.bintray.com']
+linkcheck_ignore = [r'http://localhost:\d+', r'https://github.com/conan-io/conan/pull/\d+', r'https://github.com/conan-io/docs/pull/\d+']
 linkcheck_workers = 15
 linkcheck_timeout = 90
 linkcheck_retries = 2
@@ -403,53 +423,14 @@ linkcheck_retries = 2
 # Not Found
 notfound_pagename = 'Page Not Found'
 
+# Graphviz output format, one of png, svg
+graphviz_output_format = 'svg'
+
 
 # copy legacy redirects
 def copy_legacy_redirects(app, docname): # Sphinx expects two arguments
     # FILL in this dicts the necessary redirects
-    redirect_files = {
-        "creating_packages/package_dev_flow.html": "../developing_packages/package_dev_flow.html",
-        "conan1.0.html": "faq/conan1.0.html",
-        "mastering/python_requires.html": "../extending/python_requires.html",
-        "mastering/version_ranges.html": "../versioning/version_ranges.html",
-        "mastering/revisions.html": "../versioning/revisions.html",
-
-        "integrations/cmake.html": "build_system/cmake.html",
-        "integrations/makefile.html": "build_system/makefile.html",
-        "integrations/ninja.html": "build_system/ninja.html",
-        "integrations/pkg_config_pc_files.html": "build_system/pkg_config_pc_files.html",
-        "integrations/boost_build.html": "build_system/boost_build.html",
-        "integrations/b2.html": "build_system/b2.html",
-        "integrations/qmake.html": "build_system/qmake.html",
-        "integrations/premake.html": "build_system/premake.html",
-        "integrations/make.html": "build_system/make.html",
-        "integrations/qbs.html": "build_system/qbs.html",
-        "integrations/meson.html": "build_system/meson.html",
-        "integrations/scons.html": "build_system/scons.html",
-        "integrations/gcc.html": "build_system/gcc.html",
-
-        "integrations/docker.html": "cross_platform/docker.html",
-        "integrations/qnx_neutrino.html": "cross_platform/qnx_neutrino.html",
-        "integrations/emscripten.html": "cross_platform/emscripten.html",
-
-        "integrations/visual_studio.html": "ide/visual_studio.html",
-        "integrations/xcode.html": "ide/xcode.html",
-        "integrations/android_studio.html": "ide/android_studio.html",
-        "integrations/clion.html": "ide/clion.html",
-        "integrations/youcompleteme.html": "ide/youcompleteme.html",
-
-        "integrations/git.html": "vcs/git.html",
-
-        "integrations/jenkins.html": "ci/jenkins.html",
-        "integrations/travisci.html": "ci/travisci.html",
-        "integrations/appveyor.html": "ci/appveyor.html",
-        "integrations/gitlab.html": "ci/gitlab.html",
-        "integrations/circleci.html": "ci/circleci.html",
-        "integrations/azure_devops.html": "ci/azure_devops.html",
-
-        "integrations/other.html": "custom.html",
-        "integrations/pylint.html": "linting.html",
-
+    redirect_files = {    
     }
 
     redirect_template = """<!DOCTYPE html>
