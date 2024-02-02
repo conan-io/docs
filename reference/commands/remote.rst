@@ -91,40 +91,8 @@ conan remote set-user
 conan remote update
 -------------------
 
-<<<<<<< HEAD
-.. code-block:: text
-
-    $ conan remote update -h
-    usage: conan remote update [-h] [-v [V]] [-cc CORE_CONF] [--url URL]
-                               [--secure] [--insecure] [--index INDEX]
-                               [-ap [ALLOWED_PACKAGES ...]]
-                               remote
-
-    Update a remote.
-
-    positional arguments:
-      remote                Name of the remote to update
-
-    options:
-      -h, --help            show this help message and exit
-      -v [V]                Level of detail of the output. Valid options from less
-                            verbose to more verbose: -vquiet, -verror, -vwarning,
-                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
-                            -vvv or -vtrace
-      -cc CORE_CONF, --core-conf CORE_CONF
-                            Global configuration for Conan
-      --url URL             New url for the remote
-      --secure              Don't allow insecure server connections when using SSL
-      --insecure            Allow insecure server connections when using SSL
-      --index INDEX         Insert the remote at a specific position in the remote
-                            list
-      -ap [ALLOWED_PACKAGES ...], --allowed-packages [ALLOWED_PACKAGES ...]
-                            Add recipe reference pattern to the list of allowed
-                            packages for this remote
-=======
 .. autohelp::
     :command: conan remote update
->>>>>>> release/2.0
 
 
 Read more
