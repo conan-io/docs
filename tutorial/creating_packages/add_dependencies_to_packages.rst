@@ -7,7 +7,7 @@ In the :ref:`previous tutorial section<tutorial_creating_packages>` we created a
 package for a "Hello World" C++ library. We used the
 :ref:`conan.tools.scm.Git()<reference>` tool to retrieve the sources from a git
 repository. So far, the package does not have any dependency on other Conan packages.
-Let's explain how to add a dependency to our package in a very similar way that we did in
+Let's explain how to add a dependency to our package in a very similar way to how we did in
 the :ref:`consuming packages section<consuming_packages_flexibility_of_conanfile_py>`. We
 will add some fancy colour output to our "Hello World" library using the `fmt 
 <https://conan.io/center/fmt>`__ library.
