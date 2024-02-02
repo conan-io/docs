@@ -76,5 +76,5 @@ with chdir(f"{sources_folder}"):
         run(f"cp {branch_folder}/_build/latex/conan.pdf {output_folder}/{branch_folder}/conan.pdf")
 
     if branch_folder.startswith("2"):
-        run(f"pip uninstall conan")
+        run(f"pip uninstall conan -y")
         
