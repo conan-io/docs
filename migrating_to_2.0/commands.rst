@@ -218,8 +218,45 @@ This has been replaced with the `remote login command <https://docs.conan.io/2/r
 Removed "conan config set"
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-we are no longer implementing file-editing commands in 2.0. A bit overkill `conan config set` to edit one file. Which should very rarely happen,
+We are no longer implementing file-editing commands in 2.0. A bit overkill `conan config set` to edit one file. Which should very rarely happen,
 the file is updated with `conan config install`. Alternatively, you can use the command line and profiles to pass these values.
+
+
+Removed "conan alias"
+^^^^^^^^^^^^^^^^^^^^^
+
+The ``conan alias`` command has been removed in Conan 2.0. The use of aliases is no longer
+recommended due to significant improvements in version handling and version ranges that
+surpass the capabilities of Conan 1.X.
+
+Although the command has been removed and the feature will be completely removed in future
+versions, it is still possible to create aliases in Conan 2.0 for compatibility purposes.
+This is achieved using the alias template in Conan 2.0 and exporting the recipe:
+
+.. code-block:: shell
+
+    $ conan new alias -d name=mypkg -d version=latest -d target=1.0 
+    $ conan export .
+
+Note that when requiring the alias, you must place the version in parentheses ``()`` to
+explicitly declare the use of an alias as a requirement:
+
+.. code-block:: python
+
+    class Consumer(ConanFile):
+    
+        ... 
+        requires = "mypkg/(latest)" 
+        ...
+
+
+For users still relying on `alias`, it is recommended to consider migrating to the newer
+versioning mechanisms introduced in Conan 2.0, such as the dynamic selection of
+pre-releases for easier testing. This change aligns with general trends in package
+management and version control, where explicit aliases are not commonly used in other
+package managers. Please, check the `versioning section in the Conan 2.0 docs
+<https://docs.conan.io/2/devops/versioning.html>`_.
+
 
 Custom commands
 ---------------
