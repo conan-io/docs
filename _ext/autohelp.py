@@ -24,7 +24,7 @@ class AutohelpDirective(SphinxDirective):
     }
 
     def run(self):
-        command = f"python -m {self.options['command']} -h"
+        command = f"{self.options['command']} -h"
 
         output = subprocess.getoutput(command)
 
