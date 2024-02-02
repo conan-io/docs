@@ -26,8 +26,7 @@ At a high level, the servers are just storing packages. They do not build nor cr
 
 
 .. image:: images/conan-systems.png
-   :height: 400 px
-   :width: 500 px
+   :width: 70%
    :align: center
 
 
@@ -48,8 +47,7 @@ A package is defined by a "conanfile.py". This is a file that defines the packag
 
 
 .. image:: images/conan-binary_mgmt.png
-   :height: 200 px
-   :width: 400 px
+   :width: 70%
    :align: center
 
 Installation of packages from servers is also very efficient. Only the necessary binaries for the current platform and configuration are downloaded, not all of them. If the compatible binary is not available, the package can be built from sources in the client too.
