@@ -29,6 +29,7 @@ path_to_conan_sources = './conan_sources'
 
 sys.path.insert(0, os.path.abspath('./_themes'))
 sys.path.insert(0, os.path.abspath(path_to_conan_sources))
+sys.path.append(os.path.abspath('./_ext'))
 
 
 # -- General configuration ------------------------------------------------
@@ -46,7 +47,8 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.graphviz',
     'sphinx.ext.todo',
-    'sphinxcontrib.jquery'
+    'sphinxcontrib.jquery',
+    'autohelp'
 ]
 
 # autodoc configuration
