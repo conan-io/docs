@@ -1022,3 +1022,22 @@ The valid values are:
     - **build-scripts**: The package only contains build scripts.
     - **python-require**: The package is a python require.
     - **unknown**: The type of the package is unknown.
+
+
+New Conan client version structure
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``__version__`` variable has been replaced by the ``conan_version`` structure:
+
+.. code-block:: python
+
+        from conan import ConanFile
+        from conan import conan_version
+
+        class pkg(ConanFile):
+            ...
+
+            if conan_version.major < 2:
+                print("Running Conan 1")
+            else:
+                print("Running Conan 2")
