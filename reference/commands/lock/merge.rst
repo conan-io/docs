@@ -1,8 +1,8 @@
 conan lock merge
 ================
 
-.. autohelp::
-    :command: conan lock merge
+.. autocommand::
+    :command: conan lock merge -h
 
 
 The ``conan lock merge`` command takes 2 or more lockfiles and aggregate them, producing one final lockfile.

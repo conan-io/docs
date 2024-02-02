@@ -3,8 +3,8 @@
 conan download
 ==============
 
-.. autohelp::
-    :command: conan download
+.. autocommand::
+    :command: conan download -h
 
 
 Downloads recipe and binaries to the local cache from the specified remote.

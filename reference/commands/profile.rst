@@ -9,8 +9,8 @@ Manage profiles
 conan profile detect
 --------------------
 
-.. autohelp::
-    :command: conan profile detect
+.. autocommand::
+    :command: conan profile detect -h
 
 
 .. warning::
@@ -68,8 +68,8 @@ Be aware that if the profile already exists you have to use ``--force`` to overw
 conan profile list
 ------------------
 
-.. autohelp::
-    :command: conan profile list
+.. autocommand::
+    :command: conan profile list -h
 
 
 ..  code-block:: text
@@ -86,7 +86,7 @@ conan profile list
 conan profile path
 ------------------
 
-.. autohelp::
+.. autocommand::
     :command: conan
 
 
@@ -101,8 +101,8 @@ Use to get the profile location in your ``[CONAN_HOME]`` folder:
 conan profile show
 ------------------
 
-.. autohelp::
-    :command: conan profile show
+.. autocommand::
+    :command: conan profile show -h
 
 
 Use :command:`conan profile show` to compute the resulting build and host profiles from

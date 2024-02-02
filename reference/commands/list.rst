@@ -3,8 +3,8 @@
 conan list
 ==========
 
-.. autohelp::
-    :command: conan list
+.. autocommand::
+    :command: conan list -h
 
 
 The ``conan list`` command can list recipes and packages from the local cache, from the

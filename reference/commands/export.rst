@@ -1,8 +1,8 @@
 conan export
 ============
 
-.. autohelp::
-    :command: conan export
+.. autocommand::
+    :command: conan export -h
 
 
 The ``conan export`` command exports the recipe specified in ``path`` to the Conan package cache.

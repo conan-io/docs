@@ -48,7 +48,7 @@ extensions = [
     'sphinx.ext.graphviz',
     'sphinx.ext.todo',
     'sphinxcontrib.jquery',
-    'autohelp'
+    'autocommand',
 ]
 
 # autodoc configuration
