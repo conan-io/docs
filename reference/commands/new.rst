@@ -8,34 +8,8 @@ Create a new recipe (with a conanfile.py and other associated files) from either
 conan new
 ---------
 
-.. code-block:: text
-
-    $ conan new -h
-    usage: conan new [-h] [-v [V]] [-d DEFINE] [-f] template
-
-    Create a new example recipe and source files from a template.
-
-    positional arguments:
-      template              Template name, either a predefined built-in or a user-
-                            provided one. Available built-in templates: basic,
-                            cmake_lib, cmake_exe, meson_lib, meson_exe,
-                            msbuild_lib, msbuild_exe, bazel_lib, bazel_exe,
-                            autotools_lib, autotools_exe. E.g. 'conan new
-                            cmake_lib -d name=hello -d version=0.1'. You can
-                            define your own templates too by inputting an absolute
-                            path as your template, or a path relative to your
-                            conan home folder.
-
-    optional arguments:
-      -h, --help            show this help message and exit
-      -v [V]                Level of detail of the output. Valid options from less
-                            verbose to more verbose: -vquiet, -verror, -vwarning,
-                            -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
-                            -vvv or -vtrace
-      -d DEFINE, --define DEFINE
-                            Define a template argument as key=value, e.g., -d
-                            name=mypkg
-      -f, --force           Overwrite file if it already exists
+.. autohelp::
+    :command: conan new
 
 
 The ``conan new`` command creates a new recipe in the current working directory,
@@ -162,7 +136,94 @@ inside the generated ``game()`` function.
 Custom templates
 ----------------
 
-There's also the possibility to create your own templates by passing a path to your template directory,
-both as an absolute path, or relative to your Conan home folder. This directory should contain Jinja2 templates,
-which will produce your desired template structure. You can use custom variables that will be needed to be passed
-as ``name`` and ```version`` does, or use your custom variables.
+There's also the possibility of creating your templates. Templates in the Conan home should be 
+located in the ``templates/command/new`` folder, and each template should have a folder named like the template one. If we create the ``templates/command/new/mytemplate``
+folder, the command will be called with the following:
+
+
+.. code-block:: bash
+
+    $ conan new mytemplate
+
+
+As with other files in the Conan home, you can manage these templates with ``conan config install <url>``, putting them
+in a git repo or an http server and sharing them with your team. It is also possible to use templates from 
+any folder, just passing the full path to the template in the ``conan new <full_path>``, but in general it
+is more convenient to manage them in the Conan home.
+
+The folder can contain as many files as desired. Both the filenames and the contents of the files can be
+templatized using Jinja2 syntax. The command ``-d/--define`` arguments will define the ``key=value`` inputs
+to the templates. 
+
+The file contents will be like (Jinja2 syntax):
+
+.. code-block:: python
+    
+    # File "templates/command/new/mytemplate/conanfile.py"
+    from conan import ConanFile
+
+    class Conan(ConanFile):
+        name = "{{name}}"
+        version = "{{version}}"
+        license = "{{license}}"
+
+
+And it will require passing these values:
+
+.. code-block:: bash
+
+    $ conan new mytemplate -d name=pkg -d version=0.1 -d license=MIT
+
+and it will generate in the current folder a file:
+
+.. code-block:: python
+    
+    # File "<cwd>/conanfile.py"
+    from conan import ConanFile
+
+    class Conan(ConanFile):
+        name = "pkg"
+        version = "0.1"
+        license = "MIT"
+
+
+There are some special ``-d/--defines`` names. The ``name`` one is always mandatory. The ``conan_version``
+definition will always be automatically defined. The ``requires`` and ``tool_requires`` definitions, if existing, 
+will be automatically converted to lists. The ``package_name`` will always be defined, by default equals to ``name``.
+
+
+For parametrized filenames, the filenames themselves support Jinja2 syntax. For example if we store a file 
+named literally ``{{name}}`` with the brackes in the template folder ``templates/command/new/mytemplate/``, 
+instead of the ``conanfile.py`` above:
+
+
+.. code-block:: python
+    :caption: File: "templates/command/new/mytemplate/{{name}}"
+
+    {{contents}}
+
+Then, executing
+
+.. code-block:: bash
+
+    $ conan new mytemplate -d name=file.txt -d contents=hello!
+
+
+will create a file called ``file.txt`` in the current dir containing the string ``hello!``.
+
+If there are files in the template not to be rendered with Jinja2, like image files, then their names should be
+added to a file called ``not_templates`` inside the template directory, one filename per line.
+So we could have a folder with:
+
+
+.. code-block:: text
+
+    templates/command/new/mytemplate
+                             |- not_templates
+                             |- conanfile.py
+                             |- image.png
+                             |- image2.png
+
+
+And the ``not_templates`` contains the string ``*.png``, then ``conan new mytemplate ...`` will only render the
+``conanfile.py`` through Jinja2, but both images will be copied as-is.

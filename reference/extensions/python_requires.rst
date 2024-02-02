@@ -244,11 +244,18 @@ It is possible to test with ``test_package`` a ``python_require``, by adding a `
     from conan import ConanFile
 
     class Tool(ConanFile):
+
+        # Literal "tested_reference_str", Conan will dynamically replace it
+        python_requires = "tested_reference_str"
+
         def test(self):
             pyreq = self.python_requires["pyreq"].module
             mynumber = pyreq.mynumber()
             self.output.info("{}!!!".format(mynumber))
 
+
+The ``python_requires = "tested_reference_str"`` is mandatory from Conan 2.1. Automatic injection of ``python_requires``
+without this declaration is deprecated and it will be removed in future versions.
 
 Note that the ``test_package/conanfile.py`` does not need any type of declaration of the ``python_requires``, this is done
 automatically and implicitly. We can now create and test it with:

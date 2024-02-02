@@ -118,6 +118,13 @@ be computed. It can take three different values:
   approach allows multiple `conanfile.py` files to exist within the same Git repository,
   with each file exported under its distinct revision.
 
+When ``scm`` or ``scm_folder`` is selected, the Git commit will be used, but by default
+the repository must be clean, otherwise it would be very likely that there are uncommitted
+changes and the build wouldn't be reproducible. So if there are dirty files, Conan will raise
+an error. If there are files that can be dirty in the repo, but do not belong at all to the
+recipe or the package, then it is possible to exclude them from the check with the ``core.scm:excluded``
+configuration, which is a list of patterns (fnmatch) to exclude.
+
 
 
 upload_policy
@@ -220,3 +227,32 @@ explicitly declare the use of an alias as a requirement:
         ... 
         requires = "mypkg/(latest)" 
         ...
+
+
+.. _conan_conanfile_attributes_extension_properties:
+
+extension_properties
+--------------------
+
+The ``extensions_properties`` attribute is a dictionary intended to define and pass information from the
+recipes to the Conan extensions.
+
+At the moment, the only defined property is ``compatibility_cppstd``, that allows disabling the behavior
+of :ref:`the default compatibility.py extension <reference_extensions_binary_compatibility>`, that considers 
+binaries built with different ``compiler.cppstd`` values ABI-compatible among them. 
+To disable this behavior for the current package, it is possible to do it with:
+
+.. code-block:: python
+
+  class Pkg(ConanFile):
+      extension_properties = {"compatibility_cppstd": False}
+
+If it is necessary to do it conditionally, it is also possible to define its value inside recipe ``compatibility()``
+method:
+
+.. code-block:: python
+
+  class Pkg(ConanFile):
+
+      def compatibility(self):
+          self.extension_properties = {"compatibility_cppstd": False}

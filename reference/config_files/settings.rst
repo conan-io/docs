@@ -434,6 +434,20 @@ The sub-setting can also be accessed from recipes:
                 tc.cache_variables["SOME_CENTOS_FLAG"] = "Some CentOS Value"
 
 
+It is possible to have ``ANY`` to define nested subsettings, being the ``ANY`` the fallback for any value not matching the defined ones:
+
+.. code-block:: yaml
+
+    os:
+        ANY:
+            version: [null, ANY]
+        Ubuntu:
+            version: ["18.04", "20.04"]
+
+This will allow settings like ``-s os=MyOS -s os.version=1.2.3``, because the version can be ``ANY`` for ``os!=Ubuntu``,
+but if we try ``-s os=Ubuntu -s os.version=1.2.3`` it will error because ``Ubuntu`` only accept those defined versions.
+ 
+
 Add new values
 ++++++++++++++
 
