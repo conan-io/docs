@@ -59,6 +59,8 @@ with chdir(f"{sources_folder}"):
         run(f"rm -rf {branch_folder}/conan_sources")
         run(f"git clone --single-branch -b {conan_branch} --depth 1 {conan_repo_url} {branch_folder}/conan_sources")
 
+        run(f"pip install -e {branch_folder}/conan_sources --update")
+
         # for some reason even adding this to autodoc_mock_imports
         # does not work, se we have to install the real dependency
         # TODO: move this to jenkins
@@ -72,3 +74,7 @@ with chdir(f"{sources_folder}"):
         run(f"sphinx-build -W -b latex -d {branch_folder}/_build/.doctrees {branch_folder}/ {branch_folder}/_build/latex")
         run(f"make -C {branch_folder}/_build/latex all-pdf")
         run(f"cp {branch_folder}/_build/latex/conan.pdf {output_folder}/{branch_folder}/conan.pdf")
+
+    if branch_folder.startswith("2"):
+        run(f"pip uninstall conan")
+        
