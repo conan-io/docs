@@ -22,9 +22,6 @@ If the ``--format=json`` formatter is specified, the result will be a "PackageLi
 
 The ``--dry-run`` argument will prepare the packages for upload, zip files if necessary, check in the server to see what needs to be uploaded and what is already in the server, but it will not execute the actual upload. 
 
-Using the ``core.upload:parallel`` conf, it is possible to upload packages in parallel.
-By default, or when set to a value less than ``2``, no parallelization will take place,
-and any other value will be the number of parallel threads to utilize.
 
 Read more
 ---------
