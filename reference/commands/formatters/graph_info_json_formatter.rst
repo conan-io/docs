@@ -25,19 +25,14 @@ for instance:
     :caption: **graph.json**
 
     {
-        "graph": {
-            "nodes": {
+      "graph": {
+          "nodes": {
                 "0": {
                     "ref": "conanfile",
                     "id": "0",
                     "recipe": "Cli",
                     "package_id": null,
                     "prev": null,
-                    "rrev": null,
-                    "rrev_timestamp": null,
-                    "prev_timestamp": null,
-                    "remote": null,
-                    "binary_remote": null,
                     "build_id": null,
                     "binary": null,
                     "invalid_build": false,
@@ -74,7 +69,6 @@ for instance:
                     "options": {},
                     "options_definitions": {},
                     "generators": [],
-                    "python_requires": null,
                     "system_requires": {},
                     "recipe_folder": null,
                     "source_folder": null,
@@ -110,7 +104,6 @@ for instance:
                             "properties": null
                         }
                     },
-                    "conf_info": {},
                     "label": "cli",
                     "dependencies": {
                         "1": {
@@ -137,12 +130,7 @@ for instance:
                     "id": "1",
                     "recipe": "Cache",
                     "package_id": "d0599452a426a161e02a297c6e0c5070f99b4909",
-                    "prev": "1440f4f447208c8e6808936b4c6ff282",
-                    "rrev": "dc0e384f0551386cd76dc29cc964c95e",
-                    "rrev_timestamp": 1703667991.3458598,
-                    "prev_timestamp": 1703668372.8517942,
-                    "remote": null,
-                    "binary_remote": null,
+                    "prev": null,
                     "build_id": null,
                     "binary": "Missing",
                     "invalid_build": false,
@@ -177,8 +165,6 @@ for instance:
                         "os": "Macos",
                         "arch": "x86_64",
                         "compiler": "apple-clang",
-                        "compiler.cppstd": "gnu17",
-                        "compiler.libcxx": "libc++",
                         "compiler.version": "12.0",
                         "build_type": "Release"
                     },
@@ -197,7 +183,6 @@ for instance:
                         ]
                     },
                     "generators": [],
-                    "python_requires": null,
                     "system_requires": {},
                     "recipe_folder": "/Users/franchuti/.conan2/p/zlib774aa77541f8b/e",
                     "source_folder": null,
@@ -233,23 +218,7 @@ for instance:
                             "properties": null
                         }
                     },
-                    "conf_info": {},
                     "label": "zlib/1.2.11",
-                    "info": {
-                        "settings": {
-                            "os": "Macos",
-                            "arch": "x86_64",
-                            "compiler": "apple-clang",
-                            "compiler.cppstd": "gnu17",
-                            "compiler.libcxx": "libc++",
-                            "compiler.version": "12.0",
-                            "build_type": "Release"
-                        },
-                        "options": {
-                            "fPIC": "True",
-                            "shared": "False"
-                        }
-                    },
                     "dependencies": {},
                     "context": "host",
                     "test": false
@@ -259,7 +228,6 @@ for instance:
                 "0": "None"
             },
             "overrides": {},
-            "resolved_ranges": {},
-            "replaced_requires": {}
+            "resolved_ranges": {}
         }
     }
