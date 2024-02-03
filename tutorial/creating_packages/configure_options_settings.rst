@@ -66,10 +66,10 @@ already had defined in the recipe:
   the fPIC option** in Windows because that option does not exist for that operating
   system. Note that this method is executed before the ``configure()`` method.
 
-Be aware that deleting an option in the ``config_options()`` or in the ``configure()`` has
-not the same result. Deleting it in the ``config_options()`` **is like if we never declared
-it in the recipe** and it will raise an exception saying that the option does not exist.
-Nevertheless, if we delete it in the ``configure()`` method we can pass the option but it
+Be aware that deleting an option using the ``config_options()`` method has a different result from using the ``configure()`` 
+method. Deleting the option in ``config_options()`` **is like we never declared
+it in the recipe** which will raise an exception saying that the option does not exist.
+However, if we delete it in the ``configure()`` method we can pass the option but it
 will have no effect. For example, if you try to pass a value to the ``fPIC`` option in
 Windows, Conan will raise an error warning that the option does not exist:
 
@@ -84,7 +84,7 @@ Windows, Conan will raise an error warning that the option does not exist:
 
 
 As you have noticed, the ``configure()`` and ``config_options()`` methods **delete an
-option** if certain conditions meet. Let's explain why we are doing this and the
+option** if certain conditions are met. Let's explain why we are doing this and the
 implications of removing that option. It is related to how Conan identifies packages that
 are binary compatible with the configuration set in the profile. In the next section, we
 introduce the concept of the **Conan package ID**.
