@@ -60,7 +60,7 @@ already had defined in the recipe:
   systems will add this flag automatically when building a shared library).
 
 
-* ``config_options()``: This method is used to **constraint** the available options in a
+* ``config_options()``: This method is used to **constrain** the available options in a
   package **before they take a value**. If a value is assigned to a setting or option that is
   deleted inside this method, Conan will raise an error. In this case we are **deleting
   the fPIC option** in Windows because that option does not exist for that operating
