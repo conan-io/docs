@@ -182,7 +182,7 @@ to install a package, Conan will:
   sources (this depends on the value of the ``--build`` argument). This build will
   generate a new package ID in the local cache.
 
-This steps are simplified, there is far more to package ID calculation than what we
+These steps are simplified, there is far more to package ID calculation than what we
 explain here, recipes themselves can even adjust their package ID calculations, we can
 have different recipe and package revisions besides package IDs and there's also a
 built-in mechanism in Conan that can be configured to declare that some packages with a
