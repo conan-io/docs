@@ -55,8 +55,8 @@ packaging:
 
 Then the *CMakeLists.txt* file to tell CMake how to build the example:
 
-.. code-block:: cpp
-    :caption: *test_package/src/example.cpp*
+.. code-block:: cmake
+    :caption: *test_package/CMakeLists.txt*
 
     cmake_minimum_required(VERSION 3.15)
     project(PackageTest CXX)
