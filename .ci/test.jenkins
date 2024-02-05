@@ -20,8 +20,8 @@ node('Linux') {
 
     stage('Clone sources') {
         checkout scm
-        def cloneConan = "git clone --single-branch -b ${conanBranch} --depth 1 ${conan_repo_url} conan_sources"
-        sh(script: cloneConan)
+        def cloneAndInstallConan = "git clone --single-branch -b ${conanBranch} --depth 1 ${conan_repo_url} conan_sources && pip install -e ."
+        sh(script: cloneAndInstallConan)
     }
 
     def docsImage = docker.image("conanio/ci-docs")
