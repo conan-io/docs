@@ -3,8 +3,8 @@
 conan install
 =============
 
-.. autohelp::
-    :command: conan install
+.. autocommand::
+    :command: conan install -h
 
 
 The ``conan install`` command is one of the main Conan commands, and it is used to resolve and install dependencies.

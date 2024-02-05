@@ -8,22 +8,22 @@ Allow working with a package that resides in user folder.
 conan editable add
 ------------------
 
-.. autohelp::
-    :command: conan editable add
+.. autocommand::
+    :command: conan editable add -h
 
 
 conan editable remove
 ---------------------
 
-.. autohelp::
-    :command: conan editable remove
+.. autocommand::
+    :command: conan editable remove -h
 
 
 conan editable list
 -------------------
 
-.. autohelp::
-    :command: conan editable list
+.. autocommand::
+    :command: conan editable list -h
 
 
 .. seealso::

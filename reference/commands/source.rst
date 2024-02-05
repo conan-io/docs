@@ -3,8 +3,8 @@
 conan source
 ============
 
-.. autohelp::
-    :command: conan source
+.. autocommand::
+    :command: conan source -h
 
 
 .. seealso::
