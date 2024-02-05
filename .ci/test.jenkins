@@ -32,14 +32,12 @@ node('Linux') {
             parallel html: {
                 // for some reason even adding this to autodoc_mock_imports
                 // does not work, se we have to install the real dependency
-                sh(script: 'pip3 install colorama')
                 sh(script: 'make html')
             },
             pdf: {
                 sh(script: 'make latex')
             },
             spelling: {
-                sh(script: 'pip3 install colorama')
                 sh(script: 'make spelling')
             },
             linkcheck: {
