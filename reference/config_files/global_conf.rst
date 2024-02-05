@@ -31,6 +31,34 @@ To list all the possible configurations available, run :command:`conan config li
 
 .. include:: ../../common/config_list.inc
 
+Description of configurations
++++++++++++++++++++++++++++++
+
+core.cache:storage_path
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Absolute path to a folder where the Conan packages and the database of the packages will be stored.
+This folder will be the heaviest Conan storage folder, as it stores the binary packages dowloaded or created.
+
+.. code-block:: text
+    :caption: *global.conf*
+
+    core.cache.storage_path = C:\Users\danielm\my_conan_storage_folder
+
+**Default value:** ``<CONAN_HOME>/p``
+
+core.download:download_cache
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Absolute path to a folder where the Conan packages will be stored *compressed*.
+This is useful to avoid recurrent downloads of the same packages, especially in CI.
+
+.. code-block:: text
+    :caption: *global.conf*
+
+    core.cache.download_cache = C:\Users\danielm\my_download_cache
+
+**Default value:** Not defined.
 
 
 User/Tools configurations
@@ -183,7 +211,7 @@ Networking confs
 .. _reference_config_files_global_conf_ssl_certificates:
 
 Configuration of client certificates
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+++++++++++++++++++++++++++++++++++++
 
 Conan supports client TLS certificates. You can configure the path to your existing *Cacert* file and/or your client
 certificate (and the key) using the following configuration variables:
@@ -218,7 +246,7 @@ UX confs
 .. _reference_config_files_global_conf_skip_warnings:
 
 Skip warnings
-~~~~~~~~~~~~~
++++++++++++++
 
 There are several warnings that Conan outputs in certain cases which can be omitted via the ``core:skip_warnings`` conf,
 by adding the warning tag to its value.
