@@ -24,11 +24,13 @@ class AutocommandDirective(SphinxDirective):
     }
 
     def run(self):
-        output = subprocess.run(self.options['command'])
+        command_list = self.options['command'].split()
+
+        output = subprocess.run(command_list, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 
         output.check_returncode()
 
-        text = f"$ {self.options['command']}\n{output.stdout}\n"
+        text = f"$ {' '.join(command_list)}\n{output.stdout}\n"
 
         new_node = nodes.literal_block(self.options['command'], text,
                                        language='text',
