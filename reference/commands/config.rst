@@ -7,8 +7,8 @@ Manage the Conan configuration in the Conan home.
 conan config home
 -----------------
 
-.. autohelp::
-    :command: conan config home
+.. autocommand::
+    :command: conan config home -h
 
 
 The ``conan config home`` command returns the path of the Conan home folder.
@@ -17,14 +17,16 @@ The ``conan config home`` command returns the path of the Conan home folder.
 
     $ conan config home
 
+    /home/user/.conan2
+
 
 .. _reference_commands_conan_config_install:
 
 conan config install
 --------------------
 
-.. autohelp::
-    :command: conan config install
+.. autocommand::
+    :command: conan config install -h
 
 
 The ``conan config install`` command is intended to install in the current home a common shared Conan
@@ -115,8 +117,8 @@ See `conan-io/command-extensions's .conanignore <https://github.com/conan-io/com
 conan config list
 -----------------
 
-.. autohelp::
-    :command: conan config list
+.. autocommand::
+    :command: conan config list -h
 
 
 Displays all the Conan built-in configurations. There are 2 groups:
@@ -126,7 +128,8 @@ Displays all the Conan built-in configurations. There are 2 groups:
   recipes and tools used within recipes, like ``CMakeToolchain``
 
 
-.. include:: ../../common/config_list.inc
+.. autocommand::
+    :command: conan config list
 
 
 .. seealso::
@@ -137,8 +140,8 @@ Displays all the Conan built-in configurations. There are 2 groups:
 conan config show
 -----------------
 
-.. autohelp::
-    :command: conan config show
+.. autocommand::
+    :command: conan config show -h
 
 
 Shows the values of the conf items that match the given pattern.

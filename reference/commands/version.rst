@@ -5,8 +5,8 @@ conan version
 
 .. include:: ../../common/experimental_warning.inc
 
-.. autohelp::
-    :command: conan version
+.. autocommand::
+    :command: conan version -h
 
 
 The :command:`conan version` command shows the conan version as well the python version from the system:

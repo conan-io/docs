@@ -5,8 +5,8 @@ conan inspect
 
 .. include:: ../../common/experimental_warning.inc
 
-.. autohelp::
-    :command: conan inspect
+.. autocommand::
+    :command: conan inspect -h
 
 
 The :command:`conan inspect` command shows the public attributes of any recipe (`conanfile.py`) as follows:

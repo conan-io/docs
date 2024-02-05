@@ -20,26 +20,24 @@ node('Linux') {
 
     stage('Clone sources') {
         checkout scm
-        def cloneConan = "git clone --single-branch -b ${conanBranch} --depth 1 ${conan_repo_url} conan_sources"
-        sh(script: cloneConan)
+        def cloneAndInstallConan = "git clone --single-branch -b ${conanBranch} --depth 1 ${conan_repo_url} conan_sources"
+        sh(script: cloneAndInstallConan)
     }
 
     def docsImage = docker.image("conanio/ci-docs")
 
     docsImage.inside {
         stage('Test build') {
-            sh 'pip install -r requirements.txt'
+            sh 'pip install -r requirements.txt && pip install -e conan_sources && conan --version'
             parallel html: {
                 // for some reason even adding this to autodoc_mock_imports
                 // does not work, se we have to install the real dependency
-                sh(script: 'pip3 install colorama')
                 sh(script: 'make html')
             },
             pdf: {
                 sh(script: 'make latex')
             },
             spelling: {
-                sh(script: 'pip3 install colorama')
                 sh(script: 'make spelling')
             },
             linkcheck: {

@@ -3,8 +3,8 @@
 conan remove
 ============
 
-.. autohelp::
-    :command: conan remove
+.. autocommand::
+    :command: conan remove -h
 
 
 The ``conan remove`` command removes recipes and packages from the local cache or from a

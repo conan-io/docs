@@ -20,5 +20,5 @@ In addition to these commands, most of the Conan commands that compute a graph, 
 - :doc:`conan lock merge <lock/merge>`: Merge several existing lockfiles into one.
 
 
-.. autohelp::
-    :command: conan lock
+.. autocommand::
+    :command: conan lock -h

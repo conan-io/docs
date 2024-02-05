@@ -1,8 +1,8 @@
 conan lock remove
 =================
 
-.. autohelp::
-    :command: conan lock remove
+.. autocommand::
+    :command: conan lock remove -h
 
 
 The ``conan lock remove`` command is able to remove ``requires``, ``build_requires`` or ``python_requires`` items from an existing lockfile.

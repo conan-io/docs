@@ -8,8 +8,8 @@ Create a new recipe (with a conanfile.py and other associated files) from either
 conan new
 ---------
 
-.. autohelp::
-    :command: conan new
+.. autocommand::
+    :command: conan new -h
 
 
 The ``conan new`` command creates a new recipe in the current working directory,

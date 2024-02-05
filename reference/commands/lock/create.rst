@@ -1,8 +1,8 @@
 conan lock create
 =================
 
-.. autohelp::
-    :command: conan lock create
+.. autocommand::
+    :command: conan lock create -h
 
 
 The ``conan lock create`` command creates a lockfile for the recipe or reference specified in ``path`` or ``--requires``.

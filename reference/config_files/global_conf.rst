@@ -29,7 +29,9 @@ Let's briefly explain the three types of existing configurations:
 To list all the possible configurations available, run :command:`conan config list`:
 
 
-.. include:: ../../common/config_list.inc
+.. autocommand::
+    :command: conan config list
+
 
 Description of configurations
 +++++++++++++++++++++++++++++
