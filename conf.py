@@ -48,6 +48,7 @@ extensions = [
     'sphinx.ext.graphviz',
     'sphinx.ext.todo',
     'sphinxcontrib.jquery',
+    'sphinxcontrib.youtube',
     'autocommand',
 ]
 
