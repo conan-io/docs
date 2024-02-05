@@ -20,7 +20,7 @@ node('Linux') {
 
     stage('Clone sources') {
         checkout scm
-        def cloneAndInstallConan = "git clone --single-branch -b ${conanBranch} --depth 1 ${conan_repo_url} conan_sources && pip install -e ."
+        def cloneAndInstallConan = "git clone --single-branch -b ${conanBranch} --depth 1 ${conan_repo_url} conan_sources && pip install -e conan_sources"
         sh(script: cloneAndInstallConan)
     }
 
