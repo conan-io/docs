@@ -28,7 +28,7 @@ node('Linux') {
 
     docsImage.inside {
         stage('Test build') {
-            sh 'pip install -r requirements.txt && pip install -e conan_sources'
+            sh 'pip install -r requirements.txt && pip install -e conan_sources && conan --version'
             parallel html: {
                 // for some reason even adding this to autodoc_mock_imports
                 // does not work, se we have to install the real dependency
