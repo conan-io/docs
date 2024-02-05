@@ -20,7 +20,7 @@ node('Linux') {
 
     stage('Clone sources') {
         checkout scm
-        def cloneAndInstallConan = "git clone --single-branch -b ${conanBranch} --depth 1 ${conan_repo_url} conan_sources && pip install -e conan_sources"
+        def cloneAndInstallConan = "git clone --single-branch -b ${conanBranch} --depth 1 ${conan_repo_url} conan_sources"
         sh(script: cloneAndInstallConan)
     }
 
@@ -28,7 +28,7 @@ node('Linux') {
 
     docsImage.inside {
         stage('Test build') {
-            sh 'pip install -r requirements.txt'
+            sh 'pip install -r requirements.txt && pip install -e conan_sources'
             parallel html: {
                 // for some reason even adding this to autodoc_mock_imports
                 // does not work, se we have to install the real dependency
