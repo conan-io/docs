@@ -13,9 +13,31 @@ Videos
 
 - ACCU 2022: Advanced Dependencies Model in Conan 2.0 C, C++ Package Manager by Diego Rodriguez-Losada
 
-  .. raw:: html
+    Conan 2.0 introduces a new dependencies model with requirements "traits" like visibility,
+    definition and propagation of headers and libraries independently, and more that allow modeling all these advanced use cases.
+    This talk will present this new model, and apply it to solve different advanced use cases, with real life examples
 
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/kKGglzm5ous" frameborder="0" allow="autoplay; encrypted-media; allowfullscreen>
-      </iframe>
+.. youtube:: kKGglzm5ous
 
-      <br/><br/>
+- CppCon 2022: What's New in Conan 2.0 C/C++ Package Manager - Diego Rodriguez-Losada
+
+    During the years since Conan 1.0 was released, we have continued to learn from the C++ ecosystem as we watched it grow;
+    learning many lessons, challenges and trends in the industry from the feedback from tens of thousands of conversations with users and customers,
+    including many of the largest C++ related companies in the world. This talk summarizes some of these lessons
+    and how they have been used to create the new major version of Conan.
+
+.. youtube:: NM-xp3tob2Q
+
+- Using std::cpp: Why you shouldn’t write your own C++ package manager Luis Caro Campos JFrog
+
+    This talk will provide a quick overview of how Conan deals with intrinsic C++ complexities:
+    Headers vs binary symbols
+    Shared and static library
+    Symbol visibilityBinary compatibility: is there a one-size fits all approach to modeling it?
+    Build-time dependency resolution is only half the battle, what about runtime dependencies?
+
+.. youtube:: 8Go5g2jVJWo
+
+- Meeting C++ online book & tool fair: Conan 2.0 demo - Chris McArthur
+
+.. youtube:: 1q5oIOupwjg
