@@ -3,8 +3,8 @@
 conan graph info
 ================
 
-.. autohelp::
-    :command: conan graph info
+.. autocommand::
+    :command: conan graph info -h
 
 
 The ``conan graph info`` command shows information about the dependency graph for the recipe specified in ``path``.

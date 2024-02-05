@@ -7,8 +7,8 @@ Use this command to upload recipes and binaries to Conan repositories. For more
 information on how to work with Conan repositories, please check the :ref:`dedicated
 section <conan_repositories>`.
 
-.. autohelp::
-    :command: conan upload
+.. autocommand::
+    :command: conan upload -h
 
 
 The ``conan upload`` command can upload packages to 1 server repository specified by the ``-r=myremote`` argument.

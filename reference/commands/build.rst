@@ -3,8 +3,8 @@
 conan build
 ===========
 
-.. autohelp::
-    :command: conan build
+.. autocommand::
+    :command: conan build -h
 
 
 The ``conan build`` command installs the recipe specified in ``path`` and calls its ``build()`` method.

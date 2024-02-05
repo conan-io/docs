@@ -7,92 +7,92 @@ Use this command to add, edit and remove Conan repositories from the Conan remot
 registry and also manage authentication to those remotes. For more information on how to
 work with Conan repositories, please check the :ref:`dedicated section <conan_repositories>`.
 
-.. autohelp::
-    :command: conan remote
+.. autocommand::
+    :command: conan remote -h
 
 
 conan remote add
 ----------------
 
-.. autohelp::
-    :command: conan remote add
+.. autocommand::
+    :command: conan remote add -h
 
 
 conan remote auth
 -----------------
 
-.. autohelp::
-    :command: conan remote auth
+.. autocommand::
+    :command: conan remote auth -h
 
 
 conan remote disable
 --------------------
 
-.. autohelp::
-    :command: conan remote disable
+.. autocommand::
+    :command: conan remote disable -h
 
 
 conan remote enable
 -------------------
 
-.. autohelp::
-    :command: conan remote enable
+.. autocommand::
+    :command: conan remote enable -h
 
 
 conan remote list
 -----------------
 
-.. autohelp::
-    :command: conan remote list
+.. autocommand::
+    :command: conan remote list -h
 
 
 conan remote list-users
 -----------------------
 
-.. autohelp::
-    :command: conan remote list-users
+.. autocommand::
+    :command: conan remote list-users -h
 
 
 conan remote login
 ------------------
 
-.. autohelp::
-    :command: conan remote login
+.. autocommand::
+    :command: conan remote login -h
 
 
 conan remote logout
 -------------------
 
-.. autohelp::
-    :command: conan remote logout
+.. autocommand::
+    :command: conan remote logout -h
 
 
 conan remote remove
 -------------------
 
-.. autohelp::
-    :command: conan remote remove
+.. autocommand::
+    :command: conan remote remove -h
 
 
 conan remote rename
 -------------------
 
-.. autohelp::
-    :command: conan remote rename
+.. autocommand::
+    :command: conan remote rename -h
 
 
 conan remote set-user
 ---------------------
 
-.. autohelp::
-    :command: conan remote set-user
+.. autocommand::
+    :command: conan remote set-user -h
 
 
 conan remote update
 -------------------
 
-.. autohelp::
-    :command: conan remote update
+.. autocommand::
+    :command: conan remote update -h
 
 
 Read more

@@ -3,8 +3,8 @@
 conan export-pkg
 ================
 
-.. autohelp::
-    :command: conan export-pkg
+.. autocommand::
+    :command: conan export-pkg -h
 
 
 The ``conan export-pkg`` command creates a package binary directly from pre-compiled binaries in a user folder. This command can be useful in different cases:

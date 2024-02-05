@@ -1,8 +1,8 @@
 conan create
 ============
 
-.. autohelp::
-    :command: conan create
+.. autocommand::
+    :command: conan create -h
 
 
 The ``conan create`` command creates a package from the recipe specified in ``path``.

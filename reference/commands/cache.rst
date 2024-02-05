@@ -9,8 +9,8 @@ Perform file operations in the local cache (of recipes and/or packages).
 conan cache path
 ----------------
 
-.. autohelp::
-    :command: conan cache path
+.. autocommand::
+    :command: conan cache path -h
 
 
 The ``conan cache path`` returns the path in the cache of a given reference. Depending on the reference, it
@@ -140,8 +140,8 @@ Again, the "build" folder will only exist if the package was built from source.
 conan cache clean
 -----------------
 
-.. autohelp::
-    :command: conan cache clean
+.. autocommand::
+    :command: conan cache clean -h
 
 
 This command will remove all temporary folders, along with the source, build and download folder
@@ -183,8 +183,8 @@ unless a specific flag is supplied, in which case only the specified folders wil
 conan cache check-integrity
 ---------------------------
 
-.. autohelp::
-    :command: conan cache check-integrity
+.. autocommand::
+    :command: conan cache check-integrity -h
 
 
 The ``conan cache check-integrity`` command checks the integrity of Conan packages in the
@@ -206,8 +206,8 @@ For example, to verify the integrity of the whole Conan local cache, do:
 conan cache backup-upload
 -------------------------
 
-.. autohelp::
-    :command: conan cache backup-upload
+.. autocommand::
+    :command: conan cache backup-upload -h
 
 
 The ``conan cache backup-upload`` will upload all source backups present in the local cache to the backup server,
@@ -219,8 +219,8 @@ regardless of which package they belong to, if any.
 conan cache save
 ----------------
 
-.. autohelp::
-    :command: conan cache save
+.. autocommand::
+    :command: conan cache save -h
 
 
 Read more in :ref:`devops_save_restore`.
@@ -229,8 +229,8 @@ Read more in :ref:`devops_save_restore`.
 conan cache restore
 -------------------
 
-.. autohelp::
-    :command: conan cache restore
+.. autocommand::
+    :command: conan cache restore -h
 
 
 Read more in :ref:`devops_save_restore`.

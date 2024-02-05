@@ -18,5 +18,10 @@ h1, h2, .rst-content .toctree-wrapper p.caption, h3, h4, h5, h6, legend {
     border-radius: 1px;
     padding: 2px;
     font-family: monospace, serif;
-    font-size: 0.8em
+    font-size: 0.8em;
+}
+
+.code-block-caption {
+    text-align: left;
+    font-weight: bold;
 }

@@ -3,8 +3,8 @@
 conan graph explain
 ===================
 
-.. autohelp::
-    :command: conan graph explain
+.. autocommand::
+    :command: conan graph explain -h
 
 The ``conan graph explain`` tries to give a more detailed explanation for a package that might be missing with the configuration provided and show the differences between the expected binary package and the available ones.
 It helps to understand what is missing from the package requested, whether it is different options, different settings or different dependencies.

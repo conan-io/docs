@@ -1,8 +1,8 @@
 conan lock add
 ==============
 
-.. autohelp::
-    :command: conan lock add
+.. autocommand::
+    :command: conan lock add -h
 
 
 The ``conan lock add`` command is able to add a package version to an existing or new lockfile ``requires``, ``build_requires`` or ``python_requires``.

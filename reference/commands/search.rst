@@ -6,8 +6,8 @@ conan search
 Search existing recipes in remotes.
 This command is equivalent to ``conan list <query> -r=*``, and is provided for simpler UX.
 
-.. autohelp::
-    :command: conan search
+.. autocommand::
+    :command: conan search -h
 
 
 .. code-block:: text
