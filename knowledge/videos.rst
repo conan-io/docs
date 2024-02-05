@@ -36,6 +36,18 @@ Videos
     Symbol visibilityBinary compatibility: is there a one-size fits all approach to modeling it?
     Build-time dependency resolution is only half the battle, what about runtime dependencies?
 
+- Meeting C++ 2023: CMake and Conan: past, present and future - Diego Rodriguez-Losada
+
+.. youtube:: s0q6s5XzIrA
+
+    This talk will quickly review the past approaches, their pitfalls, and how modern CMake and Conan integrations have improved over them:
+
+    From variables, to targets, to transparent targets integration with modern Conan generators
+    Better separation of concerns to align binary configurations using CMake toolchains
+    Improving the developer experience with CMake presets
+
+    The new CMake-Conan integration using CMake’s new dependency providers feature for transparent installation of dependencies
+
 .. youtube:: 8Go5g2jVJWo
 
 - Meeting C++ online book & tool fair: Conan 2.0 demo - Chris McArthur
