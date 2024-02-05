@@ -50,7 +50,7 @@ This folder will take the most of the space in your disk, as it stores the binar
 core.download:download_cache
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Absolute path to a folder where the Conan packages *uncompressed* will be stored.
+Absolute path to a folder where the Conan packages will be stored *compressed*.
 This is useful to avoid recurrent downloads of the same packages, especially in CI.
 
 .. code-block:: text
