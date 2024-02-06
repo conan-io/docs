@@ -106,10 +106,14 @@ Semantic versioning
 The semantic versioning specification or `semver <https://semver.org/>`_, specifies that packages should
 be versioned using always 3 dot-separated digits like ``MAJOR.MINOR.PATCH``, with very specific meanings for each digit.
 
-Conan extends the semver specification to any number of digits, and also allows to include letters in it.
+Conan extends the semver specification to any number of digits, and also allows to include lowercase letters in it.
 This was done because during 1.X a lot of experience and feedback from users was gathered, and it became evident
 than in C++ the versioning scheme is often more complex, and users were demanding more flexibility, allowing
 versions like ``1.2.3.a.8`` if necessary.
+
+Conan versions non-digit identifiers follow the same rules as package names, they can only contain lowercase letters.
+This is to avoid ``1.2.3-Beta`` to be a different version than ``1.2.3-beta`` which can be problematic, even a
+security risk.
 
 The ordering of versions when necessary (for example to decide which is the latest version in a version range)
 is done by comparing individually each dot-separated entity in the version, from left to right. Digits will be
