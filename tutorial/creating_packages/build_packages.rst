@@ -88,7 +88,7 @@ Changes introduced in the recipe
     after building the package and tests, to decide if we want to run the tests or not.
   
   - In this case we are using **gtest** for testing and we have to check if the
-    build method is to run the tests or not  This configuration also affects the
+    build method is to run the tests or not.  This configuration also affects the
     execution of ``CMake.test()`` if you are using CTest and ``Meson.test()`` for Meson.
   
 
