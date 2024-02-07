@@ -138,13 +138,12 @@ the sources for our "hello" library.
 
 Then, several methods are declared:
 
-* The ``config_options()`` method (together with ``configure()`` one) allows to fine-tune the binary configuration
+* The ``config_options()`` method (together with the ``configure()`` one) allows fine-tuning the binary configuration
   model, for example, in Windows, there is no ``fPIC`` option, so it can be removed.
 
 * The ``layout()`` method declares the locations where we expect to find the source files
-  and also those where we want to save the generated files during the build process.
-  Things like the folder for the generated binaries or all the files that the Conan
-  generators create in the ``generate()`` method. In this case, as our project uses CMake
+  and destinations for the files generated during the build process. Example destination folders are those for the
+  generated binaries and all the files that the Conan generators create in the ``generate()`` method. In this case, as our project uses CMake
   as the build system, we call to ``cmake_layout()``. Calling this function will set the
   expected locations for a CMake project. 
 
@@ -248,8 +247,8 @@ binaries for Debug configuration or to build the hello library as shared:
     hello/1.0: Hello World Release!
 
 
-These new package binaries will be also stored in the Conan cache, ready to be used by any project in this computer,
-we can see them with:
+These new package binaries will be also stored in the Conan cache, ready to be used by any project in this computer.
+We can see them with:
 
 
 .. code-block:: bash
@@ -313,7 +312,7 @@ located in the user home folder under the ``.conan2`` folder. Conan will use the
 You already used the :command:`conan list` command to list the recipes and binaries stored
 in the local cache. 
 
-An **important** note: the Conan cache are private to the Conan client - modifying, adding, removing or changing files inside the Conan cache is undefined behaviour likely to cause breakages.
+An **important** note: the Conan cache is private to the Conan client - modifying, adding, removing or changing files inside the Conan cache is undefined behaviour likely to cause breakages.
 
 
 Read more

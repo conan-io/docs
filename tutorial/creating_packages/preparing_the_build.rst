@@ -18,7 +18,7 @@ information that could be needed while running the build step. That means things
   apply for certain cases.
 
 
-We explain to use this method for a simple example based on the previous tutorial section.
+We explain how to use this method for a simple example based on the previous tutorial section.
 We add a `with_fmt` option to the recipe, depending on the value we require the
 `fmt` library or not. We use the `generate()` method to modify the toolchain so that
 it passes a variable to CMake so that we can conditionally add that library and use `fmt`

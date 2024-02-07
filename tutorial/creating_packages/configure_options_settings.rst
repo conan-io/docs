@@ -60,16 +60,16 @@ already had defined in the recipe:
   systems will add this flag automatically when building a shared library).
 
 
-* ``config_options()``: This method is used to **constraint** the available options in a
+* ``config_options()``: This method is used to **constrain** the available options in a
   package **before they take a value**. If a value is assigned to a setting or option that is
   deleted inside this method, Conan will raise an error. In this case we are **deleting
   the fPIC option** in Windows because that option does not exist for that operating
   system. Note that this method is executed before the ``configure()`` method.
 
-Be aware that deleting an option in the ``config_options()`` or in the ``configure()`` has
-not the same result. Deleting it in the ``config_options()`` **is like if we never declared
-it in the recipe** and it will raise an exception saying that the option does not exist.
-Nevertheless, if we delete it in the ``configure()`` method we can pass the option but it
+Be aware that deleting an option using the ``config_options()`` method has a different result from using the ``configure()`` 
+method. Deleting the option in ``config_options()`` **is like we never declared
+it in the recipe** which will raise an exception saying that the option does not exist.
+However, if we delete it in the ``configure()`` method we can pass the option but it
 will have no effect. For example, if you try to pass a value to the ``fPIC`` option in
 Windows, Conan will raise an error warning that the option does not exist:
 
@@ -84,7 +84,7 @@ Windows, Conan will raise an error warning that the option does not exist:
 
 
 As you have noticed, the ``configure()`` and ``config_options()`` methods **delete an
-option** if certain conditions meet. Let's explain why we are doing this and the
+option** if certain conditions are met. Let's explain why we are doing this and the
 implications of removing that option. It is related to how Conan identifies packages that
 are binary compatible with the configuration set in the profile. In the next section, we
 introduce the concept of the **Conan package ID**.
@@ -182,7 +182,7 @@ to install a package, Conan will:
   sources (this depends on the value of the ``--build`` argument). This build will
   generate a new package ID in the local cache.
 
-This steps are simplified, there is far more to package ID calculation than what we
+These steps are simplified, there is far more to package ID calculation than what we
 explain here, recipes themselves can even adjust their package ID calculations, we can
 have different recipe and package revisions besides package IDs and there's also a
 built-in mechanism in Conan that can be configured to declare that some packages with a

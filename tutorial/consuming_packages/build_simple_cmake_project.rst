@@ -163,7 +163,7 @@ line. An example of the output of this command for MacOS would be:
     Then open and edit the file and set ``compiler.cppstd`` to the C++ standard you want
     to use.
 
-.. note:: **Using a different compiler than the auto-detected one**
+.. note:: **Using a compiler other than the auto-detected one**
 
     If you want to change a Conan profile to use a compiler different from the default
     one, you need to change the ``compiler`` setting and also tell Conan explicitly where

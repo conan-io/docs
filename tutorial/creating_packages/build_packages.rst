@@ -87,8 +87,8 @@ Changes introduced in the recipe
   - We use the ``tools.build:skip_test`` configuration in the ``build()`` method,
     after building the package and tests, to decide if we want to run the tests or not.
   
-  - In this case we are using **gtest** for testing and we have to add the check if the
-    build method to run the tests or not, but this configuration also affects the
+  - In this case we are using **gtest** for testing and we have to check if the
+    build method is to run the tests or not. This configuration also affects the
     execution of ``CMake.test()`` if you are using CTest and ``Meson.test()`` for Meson.
   
 
@@ -242,7 +242,7 @@ tool:
                             "Hello {} Friends".format("Shared" if self.options.shared else "Static"))
 
 
-Please, note that patching in ``build()`` should avoided if possible and only be done for
+Please, note that patching in ``build()`` should be avoided if possible and only be done for
 very particular cases as it will make more difficult to develop your packages locally (we
 will explain more about this in the :ref:`local development flow section<local_package_development_flow>` later)
 
@@ -251,7 +251,7 @@ Conditionally select your build system
 --------------------------------------
 
 It's not uncommon that some packages need one build system or another depending on the
-platform we are building. For example, the *hello* library could build in Windows using
+platform we are building on. For example, the *hello* library could build in Windows using
 CMake and in Linux and MacOS using Autotools. This can be easily handled in the
 ``build()`` method like this:
 
