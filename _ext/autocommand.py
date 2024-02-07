@@ -17,6 +17,7 @@ class AutocommandDirective(SphinxDirective):
     has_content = True
     option_spec = {
         'command': directives.unchanged_required,
+        'language': directives.unchanged,
     }
 
     def run(self):
@@ -31,8 +32,11 @@ class AutocommandDirective(SphinxDirective):
 
         text = f"$ {' '.join(command_list)}\n{command_output}\n"
 
+        highlight_language = self.options.get('language', 'text')
+
         new_node = nodes.literal_block(text,
-                                       text, language='text', classes=["autocommand-output"])
+                                       text,
+                                       language=highlight_language)
         self.state.nested_parse(self.content, self.content_offset, new_node)
         return [new_node]
 
