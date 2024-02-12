@@ -133,6 +133,19 @@ The ``<host_version>`` will take the version from the regular ``requires``, so i
 Note this can be useful if for some reason the "host" requirement changes, like when it is overridden from downstream, or if it defined
 a version range and resolved to another version.
 
+Additionally, the syntax ``<host_version:mylib>`` can be used to specify the name of the package to be tracked,
+should the *requires* and *tool_requires* have different names. For instance:
+
+.. code-block:: python
+    from conan import ConanFile
+    class mylibRecipe(ConanFile):
+        name = "mylib"
+        version = "0.1"
+        def requirements(self):
+            self.requires("gettext/2.31")
+        def build_requirements(self):
+            self.tool_requires("libgettext/<host_version:gettext>")
+
 
 Package revisions
 +++++++++++++++++
