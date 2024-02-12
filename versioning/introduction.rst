@@ -137,6 +137,7 @@ Additionally, the syntax ``<host_version:mylib>`` can be used to specify the nam
 should the *requires* and *tool_requires* have different names. For instance:
 
 .. code-block:: python
+
     from conan import ConanFile
     class mylibRecipe(ConanFile):
         name = "mylib"
