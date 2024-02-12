@@ -241,7 +241,7 @@ Now we are ready to build and run our **compressor** app:
 
     $ cd build
     # assuming Visual Studio 15 2017 is your VS version and that it matches your default profile
-    $ cmake .. -G "Visual Studio 15 2017" -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
+    $ cmake .. -G "Visual Studio 15 2017" -DCMAKE_TOOLCHAIN_FILE="conan_toolchain.cmake"
     $ cmake --build . --config Release
     ...
     [100%] Built target compressor
