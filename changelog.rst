@@ -18,8 +18,21 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-    Conan 1.62 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
+    Conan 1.63 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
     a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
+
+1.63.0 (12-Feb-2024)
+--------------------
+
+- Feature: Improved `get_libs` algorithm for BazelDeps. `#15299 <https://github.com/conan-io/conan/pull/15299>`_
+- Feature: Changed shared lib name in conan-new templates. `#15299 <https://github.com/conan-io/conan/pull/15299>`_
+- Feature: Add tracking of different ref to `<host_version>`. `#15287 <https://github.com/conan-io/conan/pull/15287>`_ . Docs `here <https://github.com/conan-io/docs/pull/3575>`__
+- Fix: Adding a workaround to avoid `tqdm` failing on macOS. `#15628 <https://github.com/conan-io/conan/pull/15628>`_
+- Bugfix: `BazelDeps._get_libs()` was gathering binary names. `#15410 <https://github.com/conan-io/conan/pull/15410>`_
+- Bugfix: Non-visible transitive dependencies are not included in the requires (PkgConfigDeps). `#15320 <https://github.com/conan-io/conan/pull/15320>`_
+- Bugfix: `from_old_cppinfo` helper checks if the old cpp_info is not `None` before merging. `#15320 <https://github.com/conan-io/conan/pull/15320>`_
+- Bugfix: Fix `NMakeDeps` quoting issues. `#15288 <https://github.com/conan-io/conan/pull/15288>`_
+- Bugfix: Make `<host_version>` only track for same user/channel. `#15287 <https://github.com/conan-io/conan/pull/15287>`_ . Docs `here <https://github.com/conan-io/docs/pull/3575>`__
 
 1.62.0 (14-Nov-2023)
 --------------------
