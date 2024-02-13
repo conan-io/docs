@@ -6,14 +6,13 @@ Custom commands
 It's possible to create your own Conan commands to solve self-needs thanks to Python and Conan public API powers altogether.
 
 Location and naming
---------------------
+-------------------
 
 All the custom commands must be located in ``[YOUR_CONAN_HOME]/extensions/commands/`` folder. If you don't know where
-``[YOUR_CONAN_HOME]`` is located, you can run :command:`conan config home` to check it.
+``[YOUR_CONAN_HOME]`` is located, you can run :command:`conan config home` to check it. If _commands_ sub-directory is not created yet, you will have to create it.
 
-If _commands_ sub-directory is not created yet, you will have to create it. Those custom commands files must be Python
-files and start with the prefix ``cmd_[your_command_name].py``. The call to the custom commands is like any other
-existing Conan one: :command:`conan your_command_name`.
+Those custom commands files must be Python files and start with the prefix ``cmd_[your_command_name].py``.
+The call to the custom commands is like any other existing Conan one: :command:`conan your_command_name`.
 
 
 Scoping
@@ -36,18 +35,17 @@ The call to those commands change a little bit: :command:`conan [topic_name]:you
     $ conan greet:hello
     $ conan greet:bye
 
-
 .. note::
 
-    It's possible for only one folder layer, so it won't work to have something like
+    Only one folder layer is allowed. Something like this won't work:
     ``[YOUR_CONAN_HOME]/extensions/commands/topic1/topic2/cmd_command.py``
 
 
 Decorators
------------
+----------
 
 conan_command(group=None, formatters=None)
-+++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++
 
 Main decorator to declare a function as a new Conan command. Where the parameters are:
 
@@ -63,27 +61,31 @@ Main decorator to declare a function as a new Conan command. Where the parameter
     import json
 
     from conan.api.conan_api import ConanAPI
-    from conan.api.output import ConanOutput
+    from conan.api.output import cli_out_write, ConanOutput
     from conan.cli.command import conan_command
 
+
     def output_json(msg):
-        return json.dumps({"greet": msg})
+        cli_out_write(cli_json.dumps({"greet": msg}))
+
+    def output_text(msg):
+        ConanOutput().info(msg)
 
 
-    @conan_command(group="Custom commands", formatters={"json": output_json})
+    @conan_command(group="Custom commands", formatters={"text": output_text,
+                                                        "json": output_json})
     def hello(conan_api: ConanAPI, parser, *args):
         """
         Simple command to print "Hello World!" line
         """
         msg = "Hello World!"
-        ConanOutput().info(msg)
         return msg
 
 
 .. important::
 
     The function decorated by ``@conan_command(....)`` must have the same name as the suffix used by the Python file.
-    For instance, the previous example, the file name is ``cmd_hello.py``, and the command function decorated is ``def hello(....)``.
+    In the previous example, the file name is ``cmd_hello.py``, and the command function decorated is ``def hello(....)``.
 
 
 conan_subcommand(formatters=None)
@@ -168,21 +170,26 @@ When there are sub-commands, the base command cannot define arguments, only the 
 Formatters
 ----------
 
-The return of the command will be passed as argument to the formatters. If there are different formatters that 
+This allows to have different formats of output for the same command. The return of the command will be passed as argument to the formatters. If there are different formatters that 
 require different arguments, the approach is to return a dictionary, and let the formatters chose the 
-arguments they need. For example, the ``graph info`` command uses several formatters like:
+arguments they need.
+
+For example, the ``graph info`` command uses several formatters like:
 
 .. code-block:: python
 
-    def format_graph_html(result):
+    def format_graph_json(result):
         graph = result["graph"]
         conan_api = result["conan_api"]
         ...
+        cli_out_write(cli_json.dumps(...))
 
     def format_graph_info(result):
         graph = result["graph"]
         field_filter = result["field_filter"]
         package_filter = result["package_filter"]
+        ...
+        cli_out_write(f"Conan info result:\n\n{graph_info_result}")
         ...
 
     @conan_subcommand(formatters={"text": format_graph_info,
@@ -191,11 +198,25 @@ arguments they need. For example, the ``graph info`` command uses several format
                                   "dot": format_graph_dot})
     def graph_info(conan_api, parser, subparser, *args):
         ...
+        ConanOutput().info("Conan info command output:")
         return {"graph": deps_graph,
                 "field_filter": args.filter,
                 "package_filter": args.package_filter,
                 "conan_api": conan_api}
 
+So we can have different output formats:
+
+```
+$ conan graph info ...  # Will use the formatter 'text' by default
+$ conan graph info ... --format json
+$ conan graph info ... --format html
+```
+
+There are two standard ways of outputing information as a result of a command:
+- `cli_out_write(data, fg=None, bg=None, endline="\n", indentation=0)`: This will output information
+   to the `stdout`. Normally used to out put the final result of the command (like a JSON).
+- `ConanOutput().info(self, msg)`: This will output information to the `stderr`. Normally used to 
+   output informational messages and avoid cluttering the `stdout` but not the final result of the command.
 
 Commands parameters
 -------------------
