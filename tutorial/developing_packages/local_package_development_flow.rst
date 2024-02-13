@@ -229,12 +229,12 @@ preset. Let's try it:
 .. code-block:: bash
 
     $ cd src
-    $ cmake --preset conan-conan-release
+    $ cmake --preset conan-release
     ...
     -- Configuring done
     -- Generating done
 
-    $ cmake --build --preset conan-conan-release
+    $ cmake --build --preset conan-release
     ...
     [100%] Built target hello
 
