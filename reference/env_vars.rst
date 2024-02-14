@@ -314,6 +314,13 @@ This variable, however, is useful for shared CI servers where the stored value c
 assign a random generated string to this value for each of the builds and configure your server to expire
 tokens, this will make the value stored in the database harder to crack.
 
+CONAN_NO_DEFAULT_REMOTES
+------------------------
+
+**Defaulted to**: ``False``/``0``
+
+Set it to ``True``/``1`` to not generate a ``<userhome>/.conan/remotes.json`` with a default remote
+defined inside when that file doesn't exist.
 
 .. _env_vars_conan_make_program:
 
