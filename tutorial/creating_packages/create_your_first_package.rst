@@ -319,6 +319,6 @@ Read more
 ---------
 
 - :ref:`Conan list command reference<reference_commands_list>`.
-- Create your first Conan package with Autotools.
-- Create your first Conan package with Meson.
-- Create your first Conan package with Visual Studio.
+- :ref:`Create your first Conan package with Autotools<examples_tools_autotools_autotools_toolchain_build_project_autotools_toolchain>`.
+- :ref:`Create your first Conan package with Meson<examples_tools_meson_toolchain_build_simple_meson_project>`.
+- :ref:`Create your first Conan package with CMake<examples-tools-cmake-toolchain-build-project-presets>`.

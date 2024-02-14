@@ -674,10 +674,12 @@ the associated runtime, you can use:
         Conan uses in profiles, typically dropping some of the minor or patch digits, that
         do not affect binary compatibility.
 
+.. _reference_config_files_profile_patterns:
+
 Profile patterns
 ----------------
 
-Profiles also support patterns definition, so you can override some settings, configuration variables, etc.
+Profiles (and everywhere where a setting or option is defined) also support patterns definition, so you can override some settings, configuration variables, etc.
 for some specific packages:
 
 .. code-block:: text
