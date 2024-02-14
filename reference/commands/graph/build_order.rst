@@ -5,7 +5,23 @@ conan graph build-order
     :command: conan graph build-order -h
 
 
-The ``conan graph build-order`` command computes build order of the dependency graph for the recipe specified in ``path``.
+The ``conan graph build-order`` command computes the build order of the dependency graph for the recipe specified in ``path`` or in ``--requires/--tool-requires``.
+
+There are 2 important arguments that affect how this build order is computed:
+
+- The ``--order-by`` argument can take 2 values ``recipe`` and ``configuration``, depending how we want to
+  structure and parallelize our CI.
+- The ``--reduce`` argument will strip all packages in the order that doesn't need to be built from source.
+
+By default, the ``conan graph build-order`` will return the order for the full dependency graph, and it will annotate
+in each element what needs to be done, for example ``"binary": "Cache"`` if the binary is already in the Conan Cache
+and doesnt need to be built from source, and ``"binary": "Build"``, if it needs to be built from source.
+Having the full order is necessary if we want to ``conan graph build-order-merge`` several build-orders into a single
+one later, because having the full information allows to preserve the relative order that would otherwise be lost and
+broken.
+Consequently, the ``--reduce`` argument should only be used when we are directly going to use the result to do the
+build, but not if we plan to later do a merge of the resulting build-order with other ones.
+
 
 Let's consider installing `libpng` and wanting to see the build order for this requirement ordered by recipe:
 
@@ -124,3 +140,50 @@ value `configuration`.
         ]
     }
 
+If we now apply the ``--reduce``:
+
+.. code-block:: text
+
+    $ conan graph build-order --requires=libpng/1.5.30 --reduce --format=json --order-by=configuration
+    ...
+    ======== Computing the build order ========
+    {
+        "order_by": "configuration",
+        "reduced": false,
+        "order": []
+    }
+
+As there are no binaries to build here, all binaries already exist. If we explicitly force to build some,
+the result would be only those that are going to be built:
+
+
+.. code-block:: text
+
+    $ conan graph build-order --requires=libpng/1.5.30 --build="libpng/*" --reduce --format=json --order-by=configuration
+    ...
+    ======== Computing the build order ========
+    {
+        "order_by": "configuration",
+        "reduced": false,
+        "order": [
+            [
+                {
+                    "ref": "libpng/1.5.30#ed8593b3f837c6c9aa766f231c917a5b",
+                    "pref": "libpng/1.5.30#ed8593b3f837c6c9aa766f231c917a5b:60778dfa43503cdcda3636d15124c19bf6546ae3#ad092d2e4aebcd9d48a5b1f3fd51ba9a",
+                    "package_id": "60778dfa43503cdcda3636d15124c19bf6546ae3",
+                    "prev": null,
+                    "context": "host",
+                    "binary": "Build",
+                    "options": [],
+                    "filenames": [],
+                    "depends": [],
+                    "overrides": {},
+                    "build_args": "--require=libpng/1.5.30 --build=libpng/1.5.30"
+                }
+            ]
+        ]
+    }
+
+Then it will contain exclusively the ``binary=Build`` nodes, but not the rest.
+Note that it will also provide a ``build_args`` field with the arguments needed for a ``conan install <args>`` to fire the build of this package
+in the CI agent.
