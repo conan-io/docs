@@ -7,164 +7,121 @@ conan graph build-order
 
 The ``conan graph build-order`` command computes build order of the dependency graph for the recipe specified in ``path``.
 
+Let's consider installing `libpng` and wanting to see the build order for this requirement:
 
-**Example**:
+.. warning::
 
-Let's think of installing `libpng`, and we want to see the build order for this requirement:
+    Please be aware that starting with Conan 2.1.0, using the `--order-by` argument is
+    recommended, and its absence is deprecated. This argument will be removed in the near
+    future. It is maintained for backward compatibility. Note that the JSON output will
+    differ if you use the `--order-by` argument, changing from a simple list to a
+    dictionary with extended information.
+
 
 .. code-block:: text
 
-    $ conan graph build-order --requires libpng/1.5.30 --format json
+    $ conan graph build-order --requires=libpng/1.5.30 --format=json --order-by=recipe
     ...
     ======== Computing the build order ========
-    [
-        [
-            {
-                "ref": "zlib/1.3#5c0f3a1a222eebb6bff34980bcd3e024",
-                "depends": [],
-                "packages": [
-                    [
-                        {
-                            "package_id": "be7ccd6109b8a8f9da81fd00ee143a1f5bbd5bbf",
-                            "prev": null,
-                            "context": "host",
-                            "binary": "Missing",
-                            "options": [],
-                            "filenames": [],
-                            "depends": [],
-                            "overrides": {},
-                            "build_args": null
-                        }
+    {
+        "order_by": "recipe",
+        "reduced": false,
+        "order": [
+            [
+                {
+                    "ref": "zlib/1.3#06023034579559bb64357db3a53f88a4",
+                    "depends": [],
+                    "packages": [
+                        [
+                            {
+                                "package_id": "d62dff20d86436b9c58ddc0162499d197be9de1e",
+                                "prev": "54b9c3efd9ddd25eb6a8cbf01860b499",
+                                "context": "host",
+                                "binary": "Cache",
+                                "options": [],
+                                "filenames": [],
+                                "depends": [],
+                                "overrides": {},
+                                "build_args": null
+                            }
+                        ]
                     ]
-                ]
-            }
-        ],
-        [
-            {
-                "ref": "libpng/1.5.30#ed8593b3f837c6c9aa766f231c917a5b",
-                "depends": [
-                    "zlib/1.3#5c0f3a1a222eebb6bff34980bcd3e024"
-                ],
-                "packages": [
-                    [
-                        {
-                            "package_id": "235f6d8c648e7c618d86155a8c3c6efb96d61fa1",
-                            "prev": null,
-                            "context": "host",
-                            "binary": "Missing",
-                            "options": [],
-                            "filenames": [],
-                            "depends": [],
-                            "overrides": {},
-                            "build_args": null
-                        }
+                }
+            ],
+            [
+                {
+                    "ref": "libpng/1.5.30#ed8593b3f837c6c9aa766f231c917a5b",
+                    "depends": [
+                        "zlib/1.3#06023034579559bb64357db3a53f88a4"
+                    ],
+                    "packages": [
+                        [
+                            {
+                                "package_id": "60778dfa43503cdcda3636d15124c19bf6546ae3",
+                                "prev": "ad092d2e4aebcd9d48a5b1f3fd51ba9a",
+                                "context": "host",
+                                "binary": "Download",
+                                "options": [],
+                                "filenames": [],
+                                "depends": [],
+                                "overrides": {},
+                                "build_args": null
+                            }
+                        ]
                     ]
-                ]
-            }
+                }
+            ]
         ]
-    ]
-
-At first place, we can see the ``zlib`` package as ``libpng`` depends on it. That output is ordered by recipes by default, but
-we could want to see it ordered by configurations instead:
-
-The ``conan graph build-order`` command computes build order of the dependency graph for the recipe specified in ``path``.
+    }
 
 
-**Example**:
-
-Let's think of installing `libpng`, and we want to see the build order for this requirement:
+Firstly, we can see the `zlib` package, as `libpng` depends on it. The output is sorted by
+recipes by default; however, we might prefer to see it sorted by configurations instead.
+For that purpouse use the `--order-by` argument (that takes the value `recipe` by
+default). Please, note that the `--order-by` argument will be mandatory in upcoming
+releases as the absence of it will be deprecated.
 
 .. code-block:: text
 
-    $ conan graph build-order --requires libpng/1.5.30 --format json
+    $ conan graph build-order --requires=libpng/1.5.30 --format=json --order-by=configuration
     ...
     ======== Computing the build order ========
-    [
-        [
-            {
-                "ref": "zlib/1.3#5c0f3a1a222eebb6bff34980bcd3e024",
-                "depends": [],
-                "packages": [
-                    [
-                        {
-                            "package_id": "be7ccd6109b8a8f9da81fd00ee143a1f5bbd5bbf",
-                            "prev": null,
-                            "context": "host",
-                            "binary": "Missing",
-                            "options": [],
-                            "filenames": [],
-                            "depends": [],
-                            "overrides": {},
-                            "build_args": null
-                        }
-                    ]
-                ]
-            }
-        ],
-        [
-            {
-                "ref": "libpng/1.5.30#ed8593b3f837c6c9aa766f231c917a5b",
-                "depends": [
-                    "zlib/1.3#5c0f3a1a222eebb6bff34980bcd3e024"
-                ],
-                "packages": [
-                    [
-                        {
-                            "package_id": "235f6d8c648e7c618d86155a8c3c6efb96d61fa1",
-                            "prev": null,
-                            "context": "host",
-                            "binary": "Missing",
-                            "options": [],
-                            "filenames": [],
-                            "depends": [],
-                            "overrides": {},
-                            "build_args": null
-                        }
-                    ]
-                ]
-            }
+    {
+        "order_by": "configuration",
+        "reduced": false,
+        "order": [
+            [
+                {
+                    "ref": "zlib/1.3#06023034579559bb64357db3a53f88a4",
+                    "pref": "zlib/1.3#06023034579559bb64357db3a53f88a4:d62dff20d86436b9c58ddc0162499d197be9de1e#54b9c3efd9ddd25eb6a8cbf01860b499",
+                    "package_id": "d62dff20d86436b9c58ddc0162499d197be9de1e",
+                    "prev": "54b9c3efd9ddd25eb6a8cbf01860b499",
+                    "context": "host",
+                    "binary": "Cache",
+                    "options": [],
+                    "filenames": [],
+                    "depends": [],
+                    "overrides": {},
+                    "build_args": null
+                }
+            ],
+            [
+                {
+                    "ref": "libpng/1.5.30#ed8593b3f837c6c9aa766f231c917a5b",
+                    "pref": "libpng/1.5.30#ed8593b3f837c6c9aa766f231c917a5b:60778dfa43503cdcda3636d15124c19bf6546ae3#ad092d2e4aebcd9d48a5b1f3fd51ba9a",
+                    "package_id": "60778dfa43503cdcda3636d15124c19bf6546ae3",
+                    "prev": "ad092d2e4aebcd9d48a5b1f3fd51ba9a",
+                    "context": "host",
+                    "binary": "Download",
+                    "options": [],
+                    "filenames": [],
+                    "depends": [
+                        "zlib/1.3#06023034579559bb64357db3a53f88a4:d62dff20d86436b9c58ddc0162499d197be9de1e#54b9c3efd9ddd25eb6a8cbf01860b499"
+                    ],
+                    "overrides": {},
+                    "build_args": null
+                }
+            ]
         ]
-    ]
+    }
 
-At first place, we can see the ``zlib`` package as ``libpng`` depends on it. That output is ordered by recipes by default, but
-we could want to see it ordered by configurations instead:
-
-.. code-block:: text
-
-    $ conan graph build-order --requires libpng/1.5.30 --format json --order configuration
-    ...
-    ======== Computing the build order ========
-    [
-        [
-            {
-                "ref": "zlib/1.3#5c0f3a1a222eebb6bff34980bcd3e024",
-                "pref": "zlib/1.3#5c0f3a1a222eebb6bff34980bcd3e024:be7ccd6109b8a8f9da81fd00ee143a1f5bbd5bbf",
-                "package_id": "be7ccd6109b8a8f9da81fd00ee143a1f5bbd5bbf",
-                "prev": null,
-                "context": "host",
-                "binary": "Missing",
-                "options": [],
-                "filenames": [],
-                "depends": [],
-                "overrides": {},
-                "build_args": null
-            }
-        ],
-        [
-            {
-                "ref": "libpng/1.5.30#ed8593b3f837c6c9aa766f231c917a5b",
-                "pref": "libpng/1.5.30#ed8593b3f837c6c9aa766f231c917a5b:235f6d8c648e7c618d86155a8c3c6efb96d61fa1",
-                "package_id": "235f6d8c648e7c618d86155a8c3c6efb96d61fa1",
-                "prev": null,
-                "context": "host",
-                "binary": "Missing",
-                "options": [],
-                "filenames": [],
-                "depends": [
-                    "zlib/1.3#5c0f3a1a222eebb6bff34980bcd3e024:be7ccd6109b8a8f9da81fd00ee143a1f5bbd5bbf"
-                ],
-                "overrides": {},
-                "build_args": null
-            }
-        ]
-    ]
