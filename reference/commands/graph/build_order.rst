@@ -7,7 +7,7 @@ conan graph build-order
 
 The ``conan graph build-order`` command computes build order of the dependency graph for the recipe specified in ``path``.
 
-Let's consider installing `libpng` and wanting to see the build order for this requirement:
+Let's consider installing `libpng` and wanting to see the build order for this requirement ordered by recipe:
 
 .. warning::
 
@@ -76,10 +76,9 @@ Let's consider installing `libpng` and wanting to see the build order for this r
 
 
 Firstly, we can see the `zlib` package, as `libpng` depends on it. The output is sorted by
-recipes by default; however, we might prefer to see it sorted by configurations instead.
-For that purpouse use the `--order-by` argument (that takes the value `recipe` by
-default). Please, note that the `--order-by` argument will be mandatory in upcoming
-releases as the absence of it will be deprecated.
+recipes as we passed with the `--order-by` argument; however, we might prefer to see it
+sorted by configurations instead. For that purpouse use the `--order-by` argument with
+value `configuration`.
 
 .. code-block:: text
 
