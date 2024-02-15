@@ -91,6 +91,9 @@ This holds as long as the newer version lies within the defined range, if we cre
     Requirements
         pkg/1.2
 
+When using version ranges, versions in the cache are preferred over remote ones, so if you have a local
+``pkg/1.2`` package, it will be used instead of the remote one, even if the remote one is newer.
+To ensure you use the latest available one, you can use the ``--update`` argument in the ``install``/``create`` command.
 
 Version ranges can be defined in several places:
 

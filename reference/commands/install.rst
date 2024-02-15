@@ -209,3 +209,13 @@ Read more about lockfiles in :ref:`tutorial_consuming_packages_versioning_lockfi
 .. seealso::
 
     - Read the tutorial about the :ref:`local package development flow <local_package_development_flow>`.
+
+
+Update
+------
+
+The ``conan install`` command has a ``--update`` argument that will force the re-evaluation of the selected items of the dependency graph,
+allowing for the update of the dependencies to the latest version if using version ranges, or to the latest revision of the same version,
+when those versions are not locked in the given lockfile. Passing ``--update`` will check every package in the dependency graph,
+but it is also possible to pass a package name to the ``--update`` argument (it can be added to the command more than once with different names),
+to only update those packages, which avoids the re-evaluation of the whole graph.
