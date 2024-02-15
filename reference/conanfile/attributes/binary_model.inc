@@ -235,6 +235,48 @@ Take into account that if a value is assigned in the ``configure()`` method it c
 
     Read more about the :ref:`config_options() method<reference_conanfile_methods_config_options>`.
 
+
+There are 2 different ways that a recipe can try to define options values for its dependencies.
+Using ``default_options = {"mypkg/*:myoption", 123}`` the current recipe can define the ``123`` value
+to the dependency ``mypkg`` ``myoption``. This way of defining options for dependencies has
+some limitations:
+
+- Any other downstream user of the current recipe that defines the same option for ``mypkg``
+  will have precedence, overwriting the current recipe ``123`` value. Also any definition
+  in the profile or command line will also have precedence. The recipe ``default_options``
+  have the least precedence. 
+  If a recipe will not work at all with some dependencies options, then recipes can check
+  and raise ``ConanInvalidConfiguration`` errors accordingly.
+- Any *sibling* package that depends on ``mypkg`` will also define its options and it will
+  be the only one being taken into account. In other words, the first time ``mypkg`` is required
+  by any other package will "freeze" its currently assigned options values. Any other package
+  that depends later on ``mypkg``, closing the diamond structures in the dependency graph will
+  not have any influence on the ``mypkg`` options. Only the first one requiring it will.
+
+
+The second way to define the options values is defining them as ``important!``.
+
+.. warning::
+
+    The ``important!`` syntax is experimental and can be changed or removed at any time.
+
+A recipe can define its dependencies options as ``important!`` with the syntax 
+``default_options = {"mypkg/*:myoption!", 123}``. That means that the ``mypkg`` ``myoption``
+will not be overriden by other downstream packages, profile or command line doing regular
+definition of options (like ``-o *:myoption=234``).
+
+But there are 2 cases in which this will still not define the final value of the dependency:
+
+- If any downstream recipe, command line or profile also uses the ``myoption!`` syntax, that
+  will also have precedence and override the value upstream
+- If there is any other package that requires first ``mypkg``, the values defined at that moment
+  will still have precedence.
+
+In general the recommendation for defining options values is to do it in ``profile`` files,
+not in recipes, as in-recipe definition can be more complicated specially for complex
+dependency graphs.
+
+
 default_build_options
 ---------------------
 
