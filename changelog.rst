@@ -3,6 +3,80 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2.0 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.1.0 (15-Feb-2024)
+-------------------
+
+- Feature: Implement multi-config ``tools.build:xxxx`` flags in ``CMakeToolchain``. `#15654 <https://github.com/conan-io/conan/pull/15654>`_
+- Feature: Add ability to pass patterns to `--update` flag. `#15652 <https://github.com/conan-io/conan/pull/15652>`_ . Docs `here <https://github.com/conan-io/docs/pull/3587>`__
+- Feature: Add  `--format=json`  formatter to :command:`conan build`. `#15651 <https://github.com/conan-io/conan/pull/15651>`_
+- Feature: Added `tools.build.cross_building:cross_build` to decide whether cross-building or not regardless of the internal Conan mechanism. `#15616 <https://github.com/conan-io/conan/pull/15616>`_
+- Feature: Add `--format=json` option to `conan cache path`. `#15613 <https://github.com/conan-io/conan/pull/15613>`_
+- Feature: Add the --order-by argument for conan graph build-order. `#15602 <https://github.com/conan-io/conan/pull/15602>`_ . Docs `here <https://github.com/conan-io/docs/pull/3582>`__
+- Feature: Provide a new ``graph build-order --reduce`` argument to reduce the order exclusively to packages that need to be built from source. `#15573 <https://github.com/conan-io/conan/pull/15573>`_ . Docs `here <https://github.com/conan-io/docs/pull/3584>`__
+- Feature: Add configuration to specify desired CUDA Toolkit in CMakeToolchain for Visual Studio CMake generators. `#15572 <https://github.com/conan-io/conan/pull/15572>`_ . Docs `here <https://github.com/conan-io/docs/pull/3568>`__
+- Feature: New "important" options values definition, with higher precedence over regular option value definitions. `#15571 <https://github.com/conan-io/conan/pull/15571>`_ . Docs `here <https://github.com/conan-io/docs/pull/3585>`__
+- Feature: Display message when calling `deactivate_conanvcvars`. `#15557 <https://github.com/conan-io/conan/pull/15557>`_
+- Feature: Add ``self.info`` information of ``package_id`` to serialized output in the graph, and forward it to package-lists. `#15553 <https://github.com/conan-io/conan/pull/15553>`_ . Docs `here <https://github.com/conan-io/docs/pull/3553>`__
+- Feature: Log Git tool commands when running in verbose mode. `#15514 <https://github.com/conan-io/conan/pull/15514>`_
+- Feature: Add verbose debug information (with ``-vvv``) for ``conan.tools.files.copy()`` calls. `#15513 <https://github.com/conan-io/conan/pull/15513>`_
+- Feature: Define ``python_requires = "tested_reference_str"`` for explicit ``test_package`` of ``python_requires``. `#15485 <https://github.com/conan-io/conan/pull/15485>`_ . Docs `here <https://github.com/conan-io/docs/pull/3537>`__
+- Feature: Adding `CMakeToolchain.presets_build/run_environment` to modify `CMakePresets` environment in `generate()` method. `#15470 <https://github.com/conan-io/conan/pull/15470>`_ . Docs `here <https://github.com/conan-io/docs/pull/3547>`__
+- Feature: Add `--allowed-packges` to remotes to limit what references a remote can supply. `#15464 <https://github.com/conan-io/conan/pull/15464>`_ . Docs `here <https://github.com/conan-io/docs/pull/3534>`__
+- Feature: Initial documentation to make ``RemotesAPI`` publicly available (experimental). `#15462 <https://github.com/conan-io/conan/pull/15462>`_
+- Feature: Add support for use of vcvars env variables when calling from powershell. `#15461 <https://github.com/conan-io/conan/pull/15461>`_ . Docs `here <https://github.com/conan-io/docs/pull/3541>`__
+- Feature: New ``Git(..., excluded=[])`` feature to avoid "dirty" errors in ``Git`` helper. `#15457 <https://github.com/conan-io/conan/pull/15457>`_ . Docs `here <https://github.com/conan-io/docs/pull/3538>`__
+- Feature: New ``core.scm:excluded`` feature to avoid "dirty" errors in ``Git`` helper and ``revision_mode = "scm"``. `#15457 <https://github.com/conan-io/conan/pull/15457>`_ . Docs `here <https://github.com/conan-io/docs/pull/3538>`__
+- Feature: Recipe ``python_package_id_mode`` for ``python_requires`` recipes, to define per-recipe effect on consumers ``package_id``. `#15453 <https://github.com/conan-io/conan/pull/15453>`_ . Docs `here <https://github.com/conan-io/docs/pull/3542>`__
+- Feature: Add cmakeExecutable to configure preset. `#15447 <https://github.com/conan-io/conan/pull/15447>`_ . Docs `here <https://github.com/conan-io/docs/pull/3548>`__
+- Feature: Add new ``--core-conf`` command line argument to allow passing `core.` confs via CLI. `#15441 <https://github.com/conan-io/conan/pull/15441>`_ . Docs `here <https://github.com/conan-io/docs/pull/3515>`__
+- Feature: Add ``detect_api.detect_msvc_update(version)`` helper to ``detect_api``. `#15435 <https://github.com/conan-io/conan/pull/15435>`_ . Docs `here <https://github.com/conan-io/docs/pull/3535>`__
+- Feature: ``CMakeToolchain`` defines ``jobs`` in generated ``CMakePresets.json`` buildPresets. `#15422 <https://github.com/conan-io/conan/pull/15422>`_
+- Feature: Allow nested "ANY" definitions in ``settings.yml``. `#15415 <https://github.com/conan-io/conan/pull/15415>`_ . Docs `here <https://github.com/conan-io/docs/pull/3546>`__
+- Feature: Helpers ``Git().coordinates_to_conandata()`` and ``Git().checkout_from_conandata_coordinates()`` to simplify scm based flows. `#15377 <https://github.com/conan-io/conan/pull/15377>`_
+- Feature: ``AutotoolsToolchain`` automatically inject ``-FS`` for VS. `#15375 <https://github.com/conan-io/conan/pull/15375>`_
+- Feature: New :command:`conan upload` ``core.upload:parallel`` for faster parallel uploads. `#15360 <https://github.com/conan-io/conan/pull/15360>`_ . Docs `here <https://github.com/conan-io/docs/pull/3540>`__
+- Feature: Intel oneAPI compiler detection improvement. `#15358 <https://github.com/conan-io/conan/pull/15358>`_
+- Feature: Display progress for long ``conan list`` commands. `#15354 <https://github.com/conan-io/conan/pull/15354>`_
+- Feature: Add `extension_properties` attribute to pass information to extensions from recipes. `#15348 <https://github.com/conan-io/conan/pull/15348>`_ . Docs `here <https://github.com/conan-io/docs/pull/3549>`__
+- Feature: Implement `compatibility_cppstd` in `extension_properties` for the ``compatibility.py`` plugin to disable fallback to other cppstd for the recipe. `#15348 <https://github.com/conan-io/conan/pull/15348>`_ . Docs `here <https://github.com/conan-io/docs/pull/3549>`__
+- Feature: Add ``Git.get_commit(..., repository=True)`` to obtain the repository commit, not the folder commit. `#15304 <https://github.com/conan-io/conan/pull/15304>`_
+- Feature: Ensure ``--build=editable`` and ``--build=cascade`` works together. `#15300 <https://github.com/conan-io/conan/pull/15300>`_ . Docs `here <https://github.com/conan-io/docs/pull/3550>`__
+- Feature: New ``conan graph build-order --order=configuration`` to output a different order, sorted by package binaries/configurations, not grouped by recipe revisions. `#15270 <https://github.com/conan-io/conan/pull/15270>`_ . Docs `here <https://github.com/conan-io/docs/pull/3552>`__
+- Feature: Allow copy&paste of recipe revisions with timestamps from ``--format=compact`` into ``conan lock add``. `#15262 <https://github.com/conan-io/conan/pull/15262>`_ . Docs `here <https://github.com/conan-io/docs/pull/3533>`__
+- Fix: Guarantee order of `generators` attribute execution. `#15678 <https://github.com/conan-io/conan/pull/15678>`_
+- Fix: Solve issue with ``[platform_tool_requires]`` in the build profile and context. Discard ``[platform_requires]`` in build profile. `#15665 <https://github.com/conan-io/conan/pull/15665>`_
+- Fix: Fix gcc detection in conda environments. `#15664 <https://github.com/conan-io/conan/pull/15664>`_
+- Fix: Improve handling of `.dirty` download files when uploading backup sources. `#15601 <https://github.com/conan-io/conan/pull/15601>`_
+- Fix: Fix relativize paths in generated files. `#15592 <https://github.com/conan-io/conan/pull/15592>`_
+- Fix: Allow ``None`` values for ``CMakeToolchain.preprocessor_definitions`` that will map to definitions without values. `#15545 <https://github.com/conan-io/conan/pull/15545>`_ . Docs `here <https://github.com/conan-io/docs/pull/3551>`__
+- Fix: Fix `graph build-order --order=configuration` text format output. `#15538 <https://github.com/conan-io/conan/pull/15538>`_
+- Fix: Raise a helpful error when the remote is not reachable in case the user wants to work in offline mode. `#15516 <https://github.com/conan-io/conan/pull/15516>`_
+- Fix: Avoid missing file stacktrace when no metadata exists for a source backup. `#15501 <https://github.com/conan-io/conan/pull/15501>`_
+- Fix: Remove ``--lockfile-packages`` argument, it was not documented as it is was not intended for public usage. `#15499 <https://github.com/conan-io/conan/pull/15499>`_ . Docs `here <https://github.com/conan-io/docs/pull/3536>`__
+- Fix: Raise if `check_type=int` and conf value is set to `bool`. `#15378 <https://github.com/conan-io/conan/pull/15378>`_
+- Fix: Add `pkg-config` entry to machine file generated by MesonToolchain, due to `pkgconfig` entry being deprecated since Meson 1.3.0. `#15369 <https://github.com/conan-io/conan/pull/15369>`_
+- Fix: Fix `graph explain` not showing some differences in requirements if missing. `#15355 <https://github.com/conan-io/conan/pull/15355>`_
+- Fix: Fix `tools.info.package_id:confs` when pattern did not match any defined conf. `#15353 <https://github.com/conan-io/conan/pull/15353>`_
+- Fix: Fix ``upload_policy=skip`` with ``--build=missing`` issues. `#15336 <https://github.com/conan-io/conan/pull/15336>`_
+- Fix: Accept  ``conan download/upload --list=.. --only-recipe`` to download only the recipes. `#15312 <https://github.com/conan-io/conan/pull/15312>`_
+- Fix: Allow ``cmake.build(build_type="Release")`` for recipes built with multi-config systems but without ``build_type`` setting. `#14780 <https://github.com/conan-io/conan/pull/14780>`_
+- Bugfix: Fix ``MSBuildDeps`` with components and skipped dependencies. `#15626 <https://github.com/conan-io/conan/pull/15626>`_
+- Bugfix: Avoid ``provides`` raising an error for packages that self ``tool_requires`` to themselves to cross-build. `#15575 <https://github.com/conan-io/conan/pull/15575>`_
+- Bugfix: Fix build scope OS detection in `tools.microsoft.visual.VCVars`. `#15568 <https://github.com/conan-io/conan/pull/15568>`_
+- Bugfix: Fix wrong propagation over ``visible=False`` when dependency is header-only. `#15564 <https://github.com/conan-io/conan/pull/15564>`_
+- Bugfix: Store the temporary cache folders inside ``core.cache:storage_path``, so ``conan cache clean`` also finds and clean them correctly. `#15505 <https://github.com/conan-io/conan/pull/15505>`_
+- Bugfix: The ``conan export-pkg --format=json`` output now returns ``recipe = "cache"`` status, as the recipe is in the cache after the command. `#15504 <https://github.com/conan-io/conan/pull/15504>`_
+- Bugfix: The :command:`conan export-pkg` command stores the lockfile excluding the ``test_package``, following the same behavior as :command:`conan create`. `#15504 <https://github.com/conan-io/conan/pull/15504>`_
+- Bugfix: Avoid :command:`conan test` failing for ``python_requires`` test-package. `#15485 <https://github.com/conan-io/conan/pull/15485>`_ . Docs `here <https://github.com/conan-io/docs/pull/3537>`__
+- Bugfix: MesonToolchain calculates a valid `apple_min_version_flag`. `#15465 <https://github.com/conan-io/conan/pull/15465>`_
+- Bugfix: Allow to limit ``os``, ``compiler`` and other settings with subsettings in ``build_id()`` and ``package_id()`` methods. `#15439 <https://github.com/conan-io/conan/pull/15439>`_
+- Bugfix: Fix getting environment variable CONAN_LOGIN_USERNAME_REMOTE. `#15388 <https://github.com/conan-io/conan/pull/15388>`_
+- Bugfix: Don't take `.` folder into consideration for `tools.files.copy()` `excludes` patterns. `#15349 <https://github.com/conan-io/conan/pull/15349>`_
+- Bugfix: Disable creating editables without name and version. `#15337 <https://github.com/conan-io/conan/pull/15337>`_
+- Bugfix: Fix `Git.get_url_and_commit` raising for some Git configs. `#15271 <https://github.com/conan-io/conan/pull/15271>`_
+- Bugfix: Direct dependencies in the "host" context of packages being built shouldn't be skipped. This allows for non C/C++ libraries artifacts, like images, in the "host" context, to be used as build-time resources. `#15128 <https://github.com/conan-io/conan/pull/15128>`_
+
+
 2.0.17 (10-Jan-2024)
 --------------------
 
