@@ -39,7 +39,7 @@ Run it
 
 For our example, we have 3 simple recipes:
 
-.. dot::
+.. graphviz::
 
     digraph {
         rankdir=LR;
