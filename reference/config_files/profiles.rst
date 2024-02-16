@@ -666,6 +666,7 @@ the associated runtime, you can use:
     - **`detect_arch()`**: returns system architecture as a string (e.g., "x86_64", "armv8").
     - **`detect_glib_libc(ldd="/usr/bin/ldd")`**: returns the version of the GNU C library as a string (e.g., "2.38", "2.39").
     - **`detect_musl_libc(ldd="/usr/bin/ldd")`**: returns the version of the musl C library as a string (e.g., "1.2.4", "1.2.4_git20230717").
+    - **`detect_libc(ldd="/usr/bin/ldd")`**: returns a tuple with the name (e.g., "gnu", "musl") and version (e.g., "2.39", "1.2.4") of the C library.
     - **`detect_libcxx(compiler, version, compiler_exe=None)`**: returns C++ standard library as a string (e.g., "libstdc++", "libc++").
     - **`default_msvc_runtime(compiler)`**: returns tuple with runtime (e.g., "dynamic") and its version (e.g., "v143").
     - **`default_cppstd(compiler, compiler_version)`**: returns default C++ standard as a string (e.g., "gnu14").
