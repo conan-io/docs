@@ -196,12 +196,12 @@ alias
 
 .. warning::
     
-    While aliases can technically still be used in Conan 2.0, their usage is not recommended
+    While aliases can technically still be used in Conan 2, their usage is not recommended
     and they may be fully removed in future releases. Users are encouraged to adapt to the
     :ref:`newer versioning features<devops_versioning>` for a more standardized and efficient
     package management experience. 
 
-In Conan 2.0, the `alias` attribute remains a part of the recipe, allowing users to define
+In Conan 2, the `alias` attribute remains a part of the recipe, allowing users to define
 an alias for a package version. Normally, you would create one using the ``conan new``
 command with the ``alias`` template and the exporting the recipe with conan export:
 

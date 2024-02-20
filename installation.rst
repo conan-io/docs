@@ -15,7 +15,7 @@ There are different ways to install Conan:
 Install with pip (recommended)
 ------------------------------
 
-To install latest Conan 2.0 pre-release version using ``pip``, you need a Python >= 3.6
+To install latest Conan 2 version using ``pip``, you need a Python >= 3.6
 distribution installed on your machine. Modern Python distros come with pip pre-installed.
 However, if necessary you can install pip by following the instructions in `pip docs`_.
 
