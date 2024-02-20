@@ -15,7 +15,7 @@ Version ranges
 
 A ``requires`` can express a dependency to a certain range of versions for a given package, with the syntax ``pkgname/[version-range-expression]``.
 Let's see an example, please, first clone the sources to recreate this project. You can find them in the
-`examples2.0 repository <https://github.com/conan-io/examples2>`_ in GitHub:
+`examples2 repository <https://github.com/conan-io/examples2>`_ in GitHub:
 
 .. code-block:: bash
 

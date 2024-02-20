@@ -10,7 +10,7 @@ We'll use `Autotools <https://www.gnu.org/software/automake/manual/html_node/Aut
 on Linux and Mac before going forward with this example.
 
 Please, first clone the sources to recreate this project. You can find them in the
-`examples2.0 repository <https://github.com/conan-io/examples2>`_ on GitHub:
+`examples2 repository <https://github.com/conan-io/examples2>`_ on GitHub:
 
 .. code-block:: shell
 

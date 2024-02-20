@@ -19,7 +19,7 @@ when it is obvious that it is not possible to use 2 versions of the same compile
 
 However there are some exceptional situations when something like that is desired. Let's recreate the potential
 scenario. Please, first clone the sources to recreate this project. You can find them in the
-`examples2.0 repository <https://github.com/conan-io/examples2>`_ on GitHub:
+`examples2 repository <https://github.com/conan-io/examples2>`_ on GitHub:
 
 .. code-block:: shell
 

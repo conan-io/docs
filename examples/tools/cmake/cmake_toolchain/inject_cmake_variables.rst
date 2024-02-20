@@ -3,7 +3,7 @@
 CMakeToolchain: Inject arbitrary CMake variables into dependencies
 ==================================================================
 
-You can find the sources to recreate this project in the `examples2.0 repository
+You can find the sources to recreate this project in the `examples2 repository
 <https://github.com/conan-io/examples2>`_ in GitHub:
 
 .. code-block:: bash
