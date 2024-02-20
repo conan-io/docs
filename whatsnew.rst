@@ -121,3 +121,34 @@ The thorough use of ``revisions`` (already introduced in Conan 1.X as opt-in in 
 The ``revisions`` allow accurate traceability of artifacts, and thus allows better update flows. For example, it will be easier to get different binaries for different configurations from different repositories, as long as they were created from the same recipe revision.
 
 The package transfers, uploads, downloads, will also be more efficient, based on ``revisions``. As long as a given revision exists on the server or in the cache, Conan will not transfer artifacts at all for that package.
+
+Package lists
+-------------
+
+Conan 2 allows bulk operations over several recipes and packages with teh "Package Lists" feature.
+This feature allows to upload, download, remove and list several recipes and packages with one single command.
+
+Package lists can also be created from a dependency graph resulting from a ``conan create`` or ``conan install`` command,
+so it is possible to upload to a server all packages that belong to a given dependency graph just chaining 2 commands.
+
+Read more about it in :ref:`these examples <examples_commands_pkglists>` and `this blog post <https://blog.conan.io/2023/06/28/Conan-bulk-package-operations.html>`_
+
+
+Metadata files
+--------------
+
+Conan 2 allows to store, upload, download, modify metadata files associated to recipes and packages. This feature
+can be very useful to manage build logs, tests executable, test results, coverage data and many other different
+files needed for traceability, compliance and business purposes.
+
+Read more about this feature in `this metadata files blog post <https://blog.conan.io/2023/10/24/Conan-launches-metadata-files.html>`_
+
+
+Third party backup sources
+--------------------------
+
+When building packages for third parties with sources in the internet, those sources can be removed or changed.
+The "backup sources" can automatically store a copy of those sources in your own server, so your builds are 
+always fully reproducible, no matter what happens to the original internet sources. 
+
+Read more about it in `the backup-sources blog post <https://blog.conan.io/2023/10/03/backup-sources-feature.html>`_
