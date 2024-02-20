@@ -145,7 +145,7 @@ Packaging already Pre-built Binaries
 ------------------------------------
 
 Please, first clone the sources to recreate this project. You can find them in the
-`examples2.0 repository <https://github.com/conan-io/examples2>`_ on GitHub:
+`examples2 repository <https://github.com/conan-io/examples2>`_ on GitHub:
 
 .. code-block:: bash
 
@@ -294,7 +294,7 @@ have them somewhere in a remote repository. In this case, creating a complete Co
 retrieval of the binaries could be the preferred method, because it is reproducible, and the original binaries might be traced.
 
 Please, first clone the sources to recreate this project. You can find them in the
-`examples2.0 repository <https://github.com/conan-io/examples2>`_ on GitHub:
+`examples2 repository <https://github.com/conan-io/examples2>`_ on GitHub:
 
 .. code-block:: bash
 

@@ -14,7 +14,7 @@ In this tutorial, we will continue working with the ``say/1.0`` package and the
 ``hello/1.0`` consumer used in the :ref:`editable packages <editable_packages>` tutorial.
 
 Please, first of all, clone the sources to recreate this project. You can find them in the
-`examples2.0 repository <https://github.com/conan-io/examples2>`_ in GitHub:
+`examples2 repository <https://github.com/conan-io/examples2>`_ in GitHub:
 
 .. code-block:: bash
 

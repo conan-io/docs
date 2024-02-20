@@ -6,7 +6,7 @@ Dependencies conflicts
 In a dependency graph, when different packages depends on different versions of the
 same package, this is called a dependency version conflict. It is relatively easy
 to produce one. Let's see it with a practical example, start cloning 
-the `examples2.0 repository <https://github.com/conan-io/examples2>`_:
+the `examples2 repository <https://github.com/conan-io/examples2>`_:
 
 .. code-block:: bash
 

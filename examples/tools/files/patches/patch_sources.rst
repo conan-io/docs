@@ -8,7 +8,7 @@ creating a package for a third party library. A patch might be required in the b
 source code of the library if you want, for example, to apply a security patch.
 
 Please, first clone the sources to recreate this project. You can find them in the
-`examples2.0 repository <https://github.com/conan-io/examples2>`_ on GitHub:
+`examples2 repository <https://github.com/conan-io/examples2>`_ on GitHub:
 
 .. code-block:: bash
 
