@@ -51,4 +51,4 @@ This is an optional attribute. It is sometimes used to identify a maturity of th
 but in general this is not necessary, and the maturity of packages is better managed by putting them in different
 server repositories.
 
-The user can be specified in the command line with ``--channel=<mychannel>``
+The channel can be specified in the command line with ``--channel=<mychannel>``
