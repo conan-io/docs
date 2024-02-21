@@ -93,6 +93,6 @@ conan.tools.build.supported_cppstd()
 conan.tools.build.cppstd_flag()
 """"""""""""""""""""""""""""""""""""
 
-.. currentmodule:: conan.tools.build.cppstd_flag
+.. currentmodule:: conan.tools.build.flags
 
 .. autofunction:: cppstd_flag
