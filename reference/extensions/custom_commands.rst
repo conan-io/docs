@@ -134,12 +134,14 @@ Commands can define their own arguments with the ``argparse`` Python library.
         Command help
         """
         parser.add_argument("path", nargs="?", help='help for command')
-        add_reference_args(parser)
+        ...
         args = parser.parse_args(*args)
         # Use args.path
 
 
-When there are sub-commands, the base command cannot define arguments, only the sub-commands can do it. If you have a set of common arguments to all sub-commands, you can define a function that adds them.
+When there are sub-commands, the base command cannot define arguments, only the
+sub-commands can do it. If you have a set of common arguments to all sub-commands, you can
+define a function that adds them.
 
 .. code-block:: python
 
@@ -243,8 +245,13 @@ These are the passed arguments to any custom command and its sub-commands functi
   Normally, they'll be parsed as ``args = parser.parse_args(*args)``. For instance, running :command:`conan mycommand arg1 arg2 arg3`,
   the command function will receive them as a Python list-like ``["arg1", "arg2", "arg3"]``.
 
-
 Read more
 ---------
 
-- :ref:`Custom command to remove recipe and package revisions but the latest package one from the latest recipe one<examples_extensions_commands_clean_revisions>`.
+- :ref:`Custom command to remove recipe and package revisions but the latest package one
+  from the latest recipe one<examples_extensions_commands_clean_revisions>`.
+- You can check more examples of Conan custom command in the conan-extensions repository.
+  For an example of a custom command without sub-commands `you can check this one
+  <https://github.com/conan-io/conan-extensions/blob/main/extensions/commands/art/cmd_server.py>`__.
+  Also an example of a custom command with sub-commands `you can check this one
+  <https://github.com/conan-io/conan-extensions/blob/main/extensions/commands/cci/cmd_export_all_versions.py>`__.
