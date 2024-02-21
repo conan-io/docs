@@ -251,7 +251,7 @@ Read more
 - :ref:`Custom command to remove recipe and package revisions but the latest package one
   from the latest recipe one<examples_extensions_commands_clean_revisions>`.
 - You can check more examples of Conan custom command in the conan-extensions repository.
-  For an example of a custom command without sub-commands `you can check this one
+  There you can find examples of custom commands without sub-commands `like this one
   <https://github.com/conan-io/conan-extensions/blob/main/extensions/commands/art/cmd_server.py>`__.
-  Also an example of a custom command with sub-commands `you can check this one
+  and custom commands with sub-commands `like this one
   <https://github.com/conan-io/conan-extensions/blob/main/extensions/commands/cci/cmd_export_all_versions.py>`__.
