@@ -154,3 +154,27 @@ the behavior is as described in cgroup v1.
 Parameters:
 
 - **conanfile**: The current recipe object. Always use ``self``.
+
+
+conan.tools.build.cppstd_flag
+-----------------------------
+
+Available since: `1.64.0 <https://github.com/conan-io/conan/releases/tag/1.64.0>`_
+
+.. code-block:: python
+
+    def cppstd_flag(conanfile):
+
+
+Returns flags specific to the C++ standard based on the ``conanfile.settings.compiler``,
+``conanfile.settings.compiler.version`` and ``conanfile.settings.compiler.cppstd``.
+
+It also considers when using GNU extension in ``settings.compiler.cppstd``, reflecting it in the
+compiler flag. Currently, it supports GCC, Clang, AppleClang, MSVC, Intel, MCST-LCC.
+
+In case there is no ``settings.compiler`` or ``settings.cppstd`` in the profile, the result will
+be an **empty string**.
+
+Parameters:
+
+- **conanfile**: The current recipe object. Always use ``self``.
