@@ -13,7 +13,7 @@ will add some fancy colour output to our "Hello World" library using the `fmt
 <https://conan.io/center/fmt>`__ library.
 
 Please, first clone the sources to recreate this project. You can find them in the
-`examples2.0 repository <https://github.com/conan-io/examples2>`_ on GitHub:
+`examples2 repository <https://github.com/conan-io/examples2>`_ on GitHub:
 
 .. code-block:: bash
 

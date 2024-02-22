@@ -685,9 +685,9 @@ for some specific packages:
 
     [settings]
     # Only for zlib
-    zlib*:compiler=clang
-    zlib*:compiler.version=3.5
-    zlib*:compiler.libcxx=libstdc++11
+    zlib/*:compiler=clang
+    zlib/*:compiler.version=3.5
+    zlib/*:compiler.libcxx=libstdc++11
 
     # For the all the dependency tree
     compiler=gcc
@@ -696,7 +696,7 @@ for some specific packages:
 
     [options]
     # shared=True option only for zlib package
-    zlib*:shared=True
+    zlib/*:shared=True
 
     [buildenv]
     # For the all the dependency tree
@@ -704,7 +704,7 @@ for some specific packages:
 
     [conf]
     # Only for zlib
-    zlib*:tools.build:compiler_executables={'c': '/usr/bin/clang', 'cpp': '/usr/bin/clang++'}
+    zlib/*:tools.build:compiler_executables={'c': '/usr/bin/clang', 'cpp': '/usr/bin/clang++'}
 
 
 Your build tool will locate **clang** compiler only for the **zlib** package and **gcc** (default one)
@@ -712,7 +712,8 @@ for the rest of your dependency tree.
 
 .. important::
 
-    Putting only ``zlib:`` is not going to work, you have to always put a pattern-like expression, e.g., ``zlib*:``, ``zlib/1.*:``, etc.
+    Putting only ``zlib:`` is deprecated behaviour and won't work, you have to always put a pattern-like expression, e.g., ``zlib*:``,
+    ``zlib/*:``, ``zlib/1.*:``, etc.
 
 
 They accept patterns too, like ``-s *@myuser/*``, which means that packages that have the username "myuser" will use
@@ -740,6 +741,17 @@ This is a special case because the consumer conanfile might not declare a `name`
     &:compiler.version=4.9
     &:compiler.libcxx=libstdc++11
 
+Partial matches are also supported, so you can define a pattern like ``zlib*`` to match all the zlib like libraries,
+so it will match everything starting with zlib, like ``zlib``, ``zlibng``, ``zlib/1.2.8@user/channel``, etc.
+
+.. code-block:: text
+    :caption: *myprofile*
+
+    [settings]
+    zlib*:compiler=clang
+    zlib*:compiler.version=3.5
+    zlib*:compiler.libcxx=libstdc++11
+
 
 Profile includes
 ----------------
@@ -763,9 +775,9 @@ The ``include()`` statement has to be at the top of the profile file:
     include(gcc_49)
 
     [settings]
-    zlib*:compiler=clang
-    zlib*:compiler.version=3.5
-    zlib*:compiler.libcxx=libstdc++11
+    zlib/*:compiler=clang
+    zlib/*:compiler.version=3.5
+    zlib/*:compiler.libcxx=libstdc++11
 
 
 The final result of using *myprofile* is:
@@ -777,9 +789,9 @@ The final result of using *myprofile* is:
     compiler=gcc
     compiler.libcxx=libstdc++11
     compiler.version=4.9
-    zlib*:compiler=clang
-    zlib*:compiler.libcxx=libstdc++11
-    zlib*:compiler.version=3.5
+    zlib/*:compiler=clang
+    zlib/*:compiler.libcxx=libstdc++11
+    zlib/*:compiler.version=3.5
 
 
 .. seealso::

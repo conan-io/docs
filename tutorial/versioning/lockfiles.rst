@@ -5,7 +5,7 @@ Lockfiles
 
 Lockfiles are a mechanism to achieve reproducible dependencies, even when new versions or revisions
 of those dependencies are created.
-Let's see it with a practical example, start cloning  the `examples2.0 repository <https://github.com/conan-io/examples2>`_:
+Let's see it with a practical example, start cloning  the `examples2 repository <https://github.com/conan-io/examples2>`_:
 
 .. code-block:: bash
 

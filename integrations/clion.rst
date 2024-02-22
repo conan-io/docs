@@ -64,7 +64,7 @@ Several options are marked as default. Let's review them:
 
 - There's also a checkbox allowing Conan to modify the default CLion settings and run
   CMake sequentially instead of in parallel. This is necessary because the Conan cache
-  isn't concurrent yet in Conan 2.0. 
+  isn't concurrent yet in Conan 2. 
 
 If you're using the Conan plugin, you typically wouldn't uncheck these options. After
 setting your preferences, click the OK button to finalize the configuration.

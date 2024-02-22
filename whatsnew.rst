@@ -1,20 +1,20 @@
 .. _whatsnew:
 
-What's new in Conan 2.0
-========================
+What's new in Conan 2
+=====================
 
-Conan 2.0 comes with many exciting improvements based on the lessons learned in the last years with Conan 1.X.
-Also, a lot of effort has been made to backport necessary things to Conan 1.X to make the upgrade easier: Recipes using latest 1.X integrations will be compatible with Conan 2.0, and binaries for both versions will not collide and be able to live in the same server repositories.
+Conan 2 comes with many exciting improvements based on the lessons learned in the last years with Conan 1.X.
+Also, a lot of effort has been made to backport necessary things to Conan 1.X to make the upgrade easier: Recipes using latest 1.X integrations will be compatible with Conan 2, and binaries for both versions will not collide and be able to live in the same server repositories.
 
 
-Conan 2.0 migration guide
--------------------------
-If you are using Conan 1.X, please read the `Conan 2.0 Migration guide <https://docs.conan.io/en/latest/conan_v2.html>`_ , to start preparing your package recipes to 2.0 and be aware of some changes while you still work in Conan 1.X. That guide summarizes the above mentioned backports to make the upgrade easier.
+Conan 2 migration guide
+-----------------------
+If you are using Conan 1.X, please read the `Conan 2 Migration guide <https://docs.conan.io/en/latest/conan_v2.html>`_ , to start preparing your package recipes to 2.0 and be aware of some changes while you still work in Conan 1.X. That guide summarizes the above mentioned backports to make the upgrade easier.
 
 
 New graph model
 ---------------
-Conan 2.0 defines new requirement traits (headers, libs, build, run, test, package_id_mode, options, transitive_headers, transitive_libs) and package types (static, shared, application, header-only) to better represent the relations that happen with C and C++ binaries, like executables or shared libraries linking static libraries or shared libraries. 
+Conan 2 defines new requirement traits (headers, libs, build, run, test, package_id_mode, options, transitive_headers, transitive_libs) and package types (static, shared, application, header-only) to better represent the relations that happen with C and C++ binaries, like executables or shared libraries linking static libraries or shared libraries. 
 
 Read more:
 
@@ -34,7 +34,7 @@ Read more:
 
 New build system integrations
 -----------------------------
-Introduced in latest Conan 1.X, Conan 2.0 will use modern build system integrations like ``CMakeDeps`` and ``CMakeToolchain`` that are fully transparent CMake integration (i.e. the consuming ``CMakeLists.txt`` doesn’t need to be aware at all about Conan). These integrations can also achieve a better IDE integration, for example via CMakePresets.json.
+Introduced in latest Conan 1.X, Conan 2 will use modern build system integrations like ``CMakeDeps`` and ``CMakeToolchain`` that are fully transparent CMake integration (i.e. the consuming ``CMakeLists.txt`` doesn’t need to be aware at all about Conan). These integrations can also achieve a better IDE integration, for example via CMakePresets.json.
 
 Read more:
 
@@ -43,12 +43,12 @@ Read more:
 
 New custom user commands
 ------------------------
-Conan 2.0 allows extending Conan with custom user commands, written in python that can be called as ``conan xxxx``. These commands can be shared and installed with ``conan config install``, and have layers of commands and subcommands. The custom user commands use the new 2.0 public Python API to implement their functionality.
+Conan 2 allows extending Conan with custom user commands, written in python that can be called as ``conan xxxx``. These commands can be shared and installed with ``conan config install``, and have layers of commands and subcommands. The custom user commands use the new 2.0 public Python API to implement their functionality.
 
 
 New CLI
 -------
-Conan 2.0 has redesigned the CLI for better consistency, removing ambiguities, and improving the user experience. The new CLI also sends all the information, warning, and error messages to stderr, while keeping the final result in stdout, allowing multiple output formats like ``--format=html`` or ``--format=json`` and using redirects to create files ``--format=json > myfile.json``. The information provided by the CLI will be more structured and thorough so that it can be used more easily for automation, especially in CI/CD systems.
+Conan 2 has redesigned the CLI for better consistency, removing ambiguities, and improving the user experience. The new CLI also sends all the information, warning, and error messages to stderr, while keeping the final result in stdout, allowing multiple output formats like ``--format=html`` or ``--format=json`` and using redirects to create files ``--format=json > myfile.json``. The information provided by the CLI will be more structured and thorough so that it can be used more easily for automation, especially in CI/CD systems.
 
 Read more:
 
@@ -57,24 +57,24 @@ Read more:
 
 New deployers
 -------------
-Conan 2.0 implements “deployers”, which can be called in the command line as ``conan install …. --deployer=mydeploy``, typically to perform copy operations from the Conan cache to user folders. Such deployers can be built-in (“full_deploy” and “direct_deploy” are provided so far), or user-defined, which can be shared and managed with ``conan config install``. Deployers run before generators, and they can change the target folders. For example, if the ``--deployer=full_deploy`` deployer runs before ``CMakeDeps``, the files generated by ``CMakeDeps`` will point to the local copy in the user folder done by the ``full_deploy`` deployer, and not to the Conan cache.
+Conan 2 implements “deployers”, which can be called in the command line as ``conan install …. --deployer=mydeploy``, typically to perform copy operations from the Conan cache to user folders. Such deployers can be built-in (“full_deploy” and “direct_deploy” are provided so far), or user-defined, which can be shared and managed with ``conan config install``. Deployers run before generators, and they can change the target folders. For example, if the ``--deployer=full_deploy`` deployer runs before ``CMakeDeps``, the files generated by ``CMakeDeps`` will point to the local copy in the user folder done by the ``full_deploy`` deployer, and not to the Conan cache.
 
 Deployers can be multi-configuration. Running ``conan install . --deployer=full_deploy`` repeatedly for different profiles, can achieve a fully self-contained project, including all the artifacts, binaries, and build files that is completely independent of Conan and no longer require Conan at all to build.
 
 
 New package_id
 --------------
-Conan 2.0 defines a new, dynamic ``package_id`` that is a great improvement over the limitations of Conan 1.X. This ``package_id`` will take into account the package types and types of requirements to implement a more meaningful strategy, depending on the scenario. For example, it is well known that when an application ``myapp`` is linking a static library ``mylib``, any change in the binary of the static library ``mylib`` requires re-building the application ``myapp``. So Conan will default to a mode like ``full_mode`` that will generate a new ``myapp`` ``package_id``, for every change in the ``mylib`` recipe or binary. While a dependency between a static library ``mylib_a`` that is used by``mylib_b`` in general does not imply that a change in ``mylib_b`` always needs a rebuild of ``mylib_a``, and that relationship can default to a ``minor_mode`` mode. In Conan 2.0, the one doing modifications to ``mylib_a`` can better express whether the consumer ``mylib_b`` needs to rebuild or not, based on the version bump (patch version bump will not trigger a rebuild while a minor version bump will trigger it)
+Conan 2 defines a new, dynamic ``package_id`` that is a great improvement over the limitations of Conan 1.X. This ``package_id`` will take into account the package types and types of requirements to implement a more meaningful strategy, depending on the scenario. For example, it is well known that when an application ``myapp`` is linking a static library ``mylib``, any change in the binary of the static library ``mylib`` requires re-building the application ``myapp``. So Conan will default to a mode like ``full_mode`` that will generate a new ``myapp`` ``package_id``, for every change in the ``mylib`` recipe or binary. While a dependency between a static library ``mylib_a`` that is used by``mylib_b`` in general does not imply that a change in ``mylib_b`` always needs a rebuild of ``mylib_a``, and that relationship can default to a ``minor_mode`` mode. In Conan 2, the one doing modifications to ``mylib_a`` can better express whether the consumer ``mylib_b`` needs to rebuild or not, based on the version bump (patch version bump will not trigger a rebuild while a minor version bump will trigger it)
 
 Furthermore the default versioning scheme in Conan has been generalized to any number of digits and letters, as opposed to the official “semver” that uses just 3 fields.
 
 compatibility.py
 ----------------
-Conan 2.0 features a new extension mechanism to define binary compatibility at a global level. A ``compatibility.py`` file in the Conan cache will be used to define which fallbacks of binaries should be used in case there is some missing binary for a given package. Conan will provide a default one to account for ``cppstd`` compatibility, and executables compatibility, but this extension is fully configurable by the user (and can also be shared and managed with ``conan config install``)
+Conan 2 features a new extension mechanism to define binary compatibility at a global level. A ``compatibility.py`` file in the Conan cache will be used to define which fallbacks of binaries should be used in case there is some missing binary for a given package. Conan will provide a default one to account for ``cppstd`` compatibility, and executables compatibility, but this extension is fully configurable by the user (and can also be shared and managed with ``conan config install``)
 
 New lockfiles
 -------------
-Lockfiles in Conan 2.0 have been greatly simplified and made way more flexible. Lockfiles are now modeled as lists of sorted references, which allow one single lockfile being used for multiple configurations, merging lockfiles, applying partially defined lockfiles, being strict or non-strict, adding user defined constraints to lockfiles, and much more.
+Lockfiles in Conan 2 have been greatly simplified and made way more flexible. Lockfiles are now modeled as lists of sorted references, which allow one single lockfile being used for multiple configurations, merging lockfiles, applying partially defined lockfiles, being strict or non-strict, adding user defined constraints to lockfiles, and much more.
 
 Read more:
 
@@ -116,8 +116,39 @@ A new ``sign.py`` extension has been added to implement signing and verifying of
 
 Package immutability optimizations
 ----------------------------------
-The thorough use of ``revisions`` (already introduced in Conan 1.X as opt-in in `<https://docs.conan.io/en/latest/versioning/revisions.html>`_) in Conan 2.0, together with the declaration of artifacts **immutability** allows for improved processes, downloading, installing and updated dependencies as well as uploading dependencies.
+The thorough use of ``revisions`` (already introduced in Conan 1.X as opt-in in `<https://docs.conan.io/en/latest/versioning/revisions.html>`_) in Conan 2, together with the declaration of artifacts **immutability** allows for improved processes, downloading, installing and updated dependencies as well as uploading dependencies.
 
 The ``revisions`` allow accurate traceability of artifacts, and thus allows better update flows. For example, it will be easier to get different binaries for different configurations from different repositories, as long as they were created from the same recipe revision.
 
 The package transfers, uploads, downloads, will also be more efficient, based on ``revisions``. As long as a given revision exists on the server or in the cache, Conan will not transfer artifacts at all for that package.
+
+Package lists
+-------------
+
+Conan 2 allows bulk operations over several recipes and packages with teh "Package Lists" feature.
+This feature allows to upload, download, remove and list several recipes and packages with one single command.
+
+Package lists can also be created from a dependency graph resulting from a ``conan create`` or ``conan install`` command,
+so it is possible to upload to a server all packages that belong to a given dependency graph just chaining 2 commands.
+
+Read more about it in :ref:`these examples <examples_commands_pkglists>` and `this blog post <https://blog.conan.io/2023/06/28/Conan-bulk-package-operations.html>`_
+
+
+Metadata files
+--------------
+
+Conan 2 allows to store, upload, download, modify metadata files associated to recipes and packages. This feature
+can be very useful to manage build logs, tests executable, test results, coverage data and many other different
+files needed for traceability, compliance and business purposes.
+
+Read more about this feature in `this metadata files blog post <https://blog.conan.io/2023/10/24/Conan-launches-metadata-files.html>`_
+
+
+Third party backup sources
+--------------------------
+
+When building packages for third parties with sources in the internet, those sources can be removed or changed.
+The "backup sources" can automatically store a copy of those sources in your own server, so your builds are 
+always fully reproducible, no matter what happens to the original internet sources. 
+
+Read more about it in `the backup-sources blog post <https://blog.conan.io/2023/10/03/backup-sources-feature.html>`_

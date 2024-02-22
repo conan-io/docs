@@ -11,7 +11,7 @@ Custom command: Clean old recipe and package revisions
 
 
 Please, first clone the sources to recreate this project. You can find them in the
-`examples2.0 repository <https://github.com/conan-io/examples2>`_ in GitHub:
+`examples2 repository <https://github.com/conan-io/examples2>`_ in GitHub:
 
 .. code-block:: bash
 

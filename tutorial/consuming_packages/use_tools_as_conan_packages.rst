@@ -13,7 +13,7 @@ requirement named ``tool_requires``. Let's see an example of how to add a
 ``tool_requires`` to our project and use a different CMake version to build it.
 
 Please, first clone the sources to recreate this project. You can find them in the
-`examples2.0 repository <https://github.com/conan-io/examples2>`_ in GitHub:
+`examples2 repository <https://github.com/conan-io/examples2>`_ in GitHub:
 
 .. code-block:: bash
 
