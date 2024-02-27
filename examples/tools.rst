@@ -8,6 +8,7 @@ Conan recipe tools examples
 
    tools/cmake/cmake
    tools/files/files
+   tools/makefile/makefile
    tools/meson/meson
    tools/google/bazel
    tools/autotools/autotools
