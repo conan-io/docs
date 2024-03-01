@@ -41,6 +41,20 @@ You might need to modify:
 - ``tools.android:ndk_path`` conf: Write the location of the unzipped NDK.
 
 
+If you are in Windows, it is necessary to have a make-like build system like MinGW-Make or Ninja. 
+We can provision for Ninja directly in our profile with ``[tool_requires]``:
+
+.. code-block:: text
+
+    ...
+    [conf]
+    tools.android:ndk_path=C:\ws\android\android-ndk-r23b  # Use your path here
+    tools.cmake.cmaketoolchain:generator=Ninja
+
+    [tool_requires]
+    ninja/[*]
+
+
 Use the :command:`conan new` command to create a "Hello World" C++ library example project:
 
 .. code-block:: bash
