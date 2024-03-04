@@ -583,9 +583,10 @@ CMakeToolchain is affected by these ``[conf]`` variables:
 - **tools.build:sharedlinkflags** list of extra linker flags that will be appended to ``CMAKE_SHARED_LINKER_FLAGS_INIT``.
 - **tools.build:exelinkflags** list of extra linker flags that will be appended to ``CMAKE_EXE_LINKER_FLAGS_INIT``.
 - **tools.build:defines** list of preprocessor definitions that will be used by ``add_definitions()``.
-- **tools.build:tools.apple:enable_bitcode** boolean value to enable/disable Bitcode Apple Clang flags, e.g., ``CMAKE_XCODE_ATTRIBUTE_ENABLE_BITCODE``.
-- **tools.build:tools.apple:enable_arc** boolean value to enable/disable ARC Apple Clang flags, e.g., ``CMAKE_XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC``.
-- **tools.build:tools.apple:enable_visibility** boolean value to enable/disable Visibility Apple Clang flags, e.g., ``CMAKE_XCODE_ATTRIBUTE_GCC_SYMBOLS_PRIVATE_EXTERN``.
+- **tools.apple:sdk_path** value for ``CMAKE_OSX_SYSROOT``. In the general case it's not needed and will be passed to CMake by the settings values.
+- **tools.apple:enable_bitcode** boolean value to enable/disable Bitcode Apple Clang flags, e.g., ``CMAKE_XCODE_ATTRIBUTE_ENABLE_BITCODE``.
+- **tools.apple:enable_arc** boolean value to enable/disable ARC Apple Clang flags, e.g., ``CMAKE_XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC``.
+- **tools.apple:enable_visibility** boolean value to enable/disable Visibility Apple Clang flags, e.g., ``CMAKE_XCODE_ATTRIBUTE_GCC_SYMBOLS_PRIVATE_EXTERN``.
 - **tools.build:sysroot** defines the value of ``CMAKE_SYSROOT``.
 - **tools.microsoft:winsdk_version** Defines the ``CMAKE_SYSTEM_VERSION`` or the ``CMAKE_GENERATOR_PLATFORM`` according to CMake policy ``CMP0149``.
 - **tools.build:compiler_executables** dict-like Python object which specifies the
