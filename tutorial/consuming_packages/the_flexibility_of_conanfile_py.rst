@@ -190,9 +190,12 @@ platform without adding more changes.
 
         def requirements(self):
             self.requires("zlib/1.2.11")
+            if self.settings.os == "Windows":
+                self.requires("base64/0.4.0")
 
         def build_requirements(self):
-            self.tool_requires("cmake/3.22.6")
+            if self.settings.os != "Windows":
+                self.tool_requires("cmake/3.22.6")
 
         def layout(self):
             # We make the assumption that if the compiler is msvc the

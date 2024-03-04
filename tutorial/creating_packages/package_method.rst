@@ -171,7 +171,7 @@ absolute links into relative paths and make the package relocatable.
 Read more
 ---------
 
-- ...
+- :ref:`Package method reference<reference_conanfile_methods_package>`
 
 .. seealso::
 

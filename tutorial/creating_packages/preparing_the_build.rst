@@ -36,7 +36,7 @@ You will notice some changes in the `conanfile.py` file from the previous recipe
 Let's check the relevant parts:
 
 .. code-block:: python
-    :emphasize-lines: 12,16,20,27,30,35
+    :emphasize-lines: 12,16,20,29,32,37
 
     ...
     from conan.tools.build import check_max_cppstd, check_min_cppstd

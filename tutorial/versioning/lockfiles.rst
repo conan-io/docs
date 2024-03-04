@@ -318,6 +318,4 @@ scripts, and for some advanced CI flows that will be explained later.
 
 Read more
 ---------
-- It is possible to lock down to package revisions, but this would be not recommended for
-  most use cases, and should only be used in extreme and problematic cases.
 - Continuous Integrations links.

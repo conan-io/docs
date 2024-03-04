@@ -65,7 +65,7 @@ You can store different profiles and use them to build for different settings. F
 to use a ``build_type=Debug``, or adding a ``tool_requires`` to all the packages you build
 with that profile. We will create a *debug* profile to try building with different configurations:
 
-.. code-block:: bash
+.. code-block:: text
     :caption: <conan home>/profiles/debug
     :emphasize-lines: 8
 
@@ -208,10 +208,16 @@ executable can't find the shared libraries for *Zlib* that we just installed.
     # It could run correctly if the console gets the zlib dll from a different path.
 
 .. code-block:: bash
-    :caption: Linux, Macos
+    :caption: Linux
     
     $ ./compressor
     ./compressor: error while loading shared libraries: libz.so.1: cannot open shared object file: No such file or directory
+
+.. code-block:: bash
+    :caption: Macos
+
+    $ ./compressor
+    ./compressor: dyld[41259]: Library not loaded: @rpath/libz.1.dylib
 
 
 This is because shared libraries (*.dll* in windows, *.dylib* in OSX and *.so* in Linux),
@@ -321,7 +327,7 @@ Read more
 - :ref:`VirtualRunEnv reference <conan_tools_env_virtualrunenv>`
 - :ref:`Cross-compiling using --profile:build and --profile:host <consuming_packages_cross_building_with_conan>`
 - :ref:`creating_packages_configure_options_settings`
-- Installing configurations with conan config install
+- :ref:`Installing configurations with conan config install <reference_commands_conan_config_install>`
 - VS Multi-config
 - Example about how settings and options influence the package id
-- Using patterns for settings and options
+- :ref:`Using patterns for settings and options <reference_config_files_profile_patterns>`

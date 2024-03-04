@@ -22,7 +22,7 @@ You will notice some changes in the **conanfile.py** file from the previous reci
 Let's check the relevant parts:
 
 .. code-block:: python
-    :emphasize-lines: 21
+    :emphasize-lines: 23
 
     class helloRecipe(ConanFile):
         name = "hello"
