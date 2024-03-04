@@ -125,7 +125,7 @@ The package transfers, uploads, downloads, will also be more efficient, based on
 Package lists
 -------------
 
-Conan 2 allows bulk operations over several recipes and packages with teh "Package Lists" feature.
+Conan 2 allows bulk operations over several recipes and packages with the "Package Lists" feature.
 This feature allows to upload, download, remove and list several recipes and packages with one single command.
 
 Package lists can also be created from a dependency graph resulting from a ``conan create`` or ``conan install`` command,
