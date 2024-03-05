@@ -156,6 +156,8 @@ Dependencies among components and to components of other requirements can be def
 of the component. The dependency graph for components will be calculated and values will be aggregated in the correct order for each field.
 
 
+.. _reference_conanfile_methods_package_info_buildenv_info:
+.. _reference_conanfile_methods_package_info_runenv_info:
 
 buildenv_info, runenv_info
 --------------------------
@@ -175,13 +177,15 @@ They can use any of the ``Environment`` methods to define such information:
             self.buildenv_info.append("MY_ANDROID_ARCH", f"android-{arch})
 
         self.runenv_info.append_path("MYRUNPATH", "my/run/path")
-        if self.settins.os == "Windows":
+        if self.settings.os == "Windows":
             self.runenv_info.define_path("MYPKGHOME", "my/home")
 
 
-Note that these objects are not tied to either regular ``requires`` or ``tool_requires``, any package recipe can use both. The difference between ``buildenv_info`` and ``runenv_info`` is that the former is applied when Conan is building something from source, like in the ``build()`` method, while the later would be used when executing something in the "host" context that would need the runtime activated. 
+Note that these objects are not tied to either regular ``requires`` or ``tool_requires``, any package recipe can use both.
+The difference between ``buildenv_info`` and ``runenv_info`` is that the former is applied when Conan is building something from source, like in the ``build()`` method, while the later would be used when executing something in the "host" context that would need the runtime activated.
 
-Conan ``VirtualBuildEnv`` generator will be used by default in consumers, collecting the information from ``buildenv_info`` (and some ``runenv_info`` from the "build" context) to create the ``conanbuild`` environment script, which runs by default in all ``self.run(cmd, env="conanbuild")`` calls. The ``VirtualRunEnv`` generator will also be used by default in consumers collecting the ``runenv_info`` from the "host" context creating the ``conanrun`` environment script, which can be explicitly used with ``self.run(<cmd>, env="conanrun")``.
+Conan ``VirtualBuildEnv`` generator will be used by default in consumers, collecting the information from ``buildenv_info`` (and some ``runenv_info`` from the "build" context) to create the ``conanbuild`` environment script, which runs by default in all ``self.run(cmd, env="conanbuild")`` calls.
+The ``VirtualRunEnv`` generator will also be used by default in consumers collecting the ``runenv_info`` from the "host" context creating the ``conanrun`` environment script, which can be explicitly used with ``self.run(<cmd>, env="conanrun")``.
 
 
 .. note:: 

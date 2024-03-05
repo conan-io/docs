@@ -303,4 +303,3 @@ Read more
 ---------
 
 - :ref:`Patching sources <examples_tools_files_patches>`
-- ...

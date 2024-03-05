@@ -215,5 +215,5 @@ Read more
     - :ref:`Cross building to Android with the NDK<examples_cross_build_android_ndk>`
     - :ref:`VirtualBuildEnv reference <conan_tools_env_virtualbuildenv>`
     - Cross-build using a tool_requires
-    - How to require test frameworks like gtest: using ``test_requires``
+    - :ref:`How to require test frameworks like gtest: using test_requires <reference_conanfile_methods_build_requirements_test_requires>`
     - Using Conan to build for iOS

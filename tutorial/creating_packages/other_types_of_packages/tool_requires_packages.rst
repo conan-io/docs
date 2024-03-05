@@ -236,5 +236,5 @@ Read more
 
 - - :ref:`examples_graph_tool_requires_protobuf`
 - Toolchains (compilers)
-- Usage of `self.rundenv_info`
-- ``settings_target``
+- :ref:`Usage of runenv_info<reference_conanfile_methods_package_info_runenv_info>`
+- :ref:`More info on settings_target<binary_model_extending_cross_build_target_settings>`

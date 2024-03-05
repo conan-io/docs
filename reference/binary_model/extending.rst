@@ -133,6 +133,8 @@ But there might be some special situations in which it is really desired that so
     In general, defining variability of binaries ``package_id`` via ``conf`` should be reserved for special situations and always managed with care. Passing many different ``confs`` to the ``tools.info.package_id:confs`` can easily result in issues like missing binaries or unnecessarily building too many binaries. If that is the case, consider building higher level abstraction over your binaries with new custom settings or options.
 
 
+.. _binary_model_extending_cross_build_target_settings:
+
 Cross build target settings
 ---------------------------
 
