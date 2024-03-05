@@ -75,7 +75,7 @@ Let's have a look at the package recipe *conanfile.py* (only the relevant new pa
 Let's explain the different sections of the recipe briefly:
 
 - Note there are no ``options`` like the ``shared`` option in this recipe. The current project
-  always build a static library, so it is not optional.
+  always builds a static library, so it is not optional.
 - The ``layout()`` defines a typical VS layout, this is less flexible than a CMake one, so it
   doesn't allow any parametrization.
 - The ``generate()`` method calls ``MSBuildToolchain`` to generate a ``conantoolchain.props`` 
