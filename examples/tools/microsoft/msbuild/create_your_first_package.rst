@@ -79,7 +79,7 @@ Let's explain the different sections of the recipe briefly:
 - The ``layout()`` defines a typical VS layout, this is less flexible than a CMake one, so it
   doesn't allow any parametrization.
 - The ``generate()`` method calls ``MSBuildToolchain`` to generate a ``conantoolchain.props`` 
-  file, that the project must add to his properties. If the project had dependencies with Conan
+  file, that the project must add to its properties. If the project had dependencies with Conan
   ``requires``, it should add ``MSBuildDeps`` too and add the relevant generated files property
   sheets.
 - The ``build()`` method uses the ``MSBuild()`` helper to drive the build of the solution
