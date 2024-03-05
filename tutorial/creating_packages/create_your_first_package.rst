@@ -48,7 +48,7 @@ The generated files are:
   file, responsible for defining how the package is built and consumed.
 - **CMakeLists.txt**: A simple generic *CMakeLists.txt*, with nothing specific about Conan
   in it.
-- **src** folder: the *src* folder that contains the simple C++ "hello" library.
+- **src** and **include** folders: the folders that contains the simple C++ "hello" library.
 - **test_package** folder: contains an *example* application that will require
   and link with the created package. It is not mandatory, but it is useful to check that
   our package is correctly created.
@@ -58,7 +58,7 @@ Let's have a look at the package recipe *conanfile.py*:
 .. code-block:: python
 
   from conan import ConanFile
-  from conan.tools.cmake import CMakeToolchain, CMake, cmake_layout
+  from conan.tools.cmake import CMakeToolchain, CMake, cmake_layout, CMakeDeps
 
 
   class helloRecipe(ConanFile):
@@ -88,6 +88,8 @@ Let's have a look at the package recipe *conanfile.py*:
           cmake_layout(self)
 
       def generate(self):
+          deps = CMakeDeps(self)
+          deps.generate()
           tc = CMakeToolchain(self)
           tc.generate()
 
@@ -150,7 +152,8 @@ Then, several methods are declared:
 * The ``generate()`` method prepares the build of the package from source. In this case, it could be simplified
   to an attribute ``generators = "CMakeToolchain"``, but it is left to show this important method. In this case,
   the execution of ``CMakeToolchain`` ``generate()`` method will create a *conan_toolchain.cmake* file that translates
-  the Conan ``settings`` and ``options`` to CMake syntax.
+  the Conan ``settings`` and ``options`` to CMake syntax. The ``CMakeDeps`` generator is added for completitude, 
+  but it is not strictly necessary until ``requires`` are added to the recipe.
 
 * The ``build()`` method uses the ``CMake`` wrapper to call CMake commands, it is a thin layer that will manage
   to pass in this case the ``-DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake`` argument. It will configure the
@@ -190,14 +193,26 @@ the ``test_package`` folder test the package:
 .. code-block:: bash
 
     $ conan create .
-    -------- Exporting the recipe ----------
+
+    ======== Exporting recipe to the cache ========
     hello/1.0: Exporting package recipe
+    ...
+    hello/1.0: Exported: hello/1.0#dcbfe21e5250264b26595d151796be70 (2024-03-04 17:52:39 UTC)
+
+    ======== Installing packages ========
+    -------- Installing package hello/1.0 (1 of 1) --------
+    hello/1.0: Building from source
+    hello/1.0: Calling build()
+    ...
+    hello/1.0: Package '9bdee485ef71c14ac5f8a657202632bdb8b4482b' built
+
+    ======== Testing the package: Building ========
     ...
     [ 50%] Building CXX object CMakeFiles/example.dir/src/example.cpp.o
     [100%] Linking CXX executable example
     [100%] Built target example
 
-    -------- Testing the package: Running test() ----------
+    ======== Testing the package: Executing test ========
     hello/1.0 (test package): Running test()
     hello/1.0 (test package): RUN: ./example
     hello/1.0: Hello World Release!
@@ -253,47 +268,52 @@ We can see them with:
 
 .. code-block:: bash
 
-    # list the binary built for the hello/1.0 package
-    # latest is a placeholder to show the package that is the latest created
-    $ conan list hello/1.0#:*
+    # list all the binaries built for the hello/1.0 package in the cache
+    $ conan list hello/1.0:*
     Local Cache:
-    hello
-      hello/1.0#fa5f6b17d0adc4de6030c9ab71cdbede (2022-12-22 17:32:19 UTC)
-        PID: 6679492451b5d0750f14f9024fdbf84e19d2941b (2022-12-22 17:32:20 UTC)
-          settings:
-            arch=x86_64
-            build_type=Release
-            compiler=apple-clang
-            compiler.cppstd=gnu11
-            compiler.libcxx=libc++
-            compiler.version=14
-            os=Macos
-          options:
-            fPIC=True
-            shared=True
-        PID: b1d267f77ddd5d10d06d2ecf5a6bc433fbb7eeed (2022-12-22 17:31:59 UTC)
-          settings:
-            arch=x86_64
-            build_type=Release
-            compiler=apple-clang
-            compiler.cppstd=gnu11
-            compiler.libcxx=libc++
-            compiler.version=14
-            os=Macos
-          options:
-            fPIC=True
-            shared=False
-        PID: d15c4f81b5de757b13ca26b636246edff7bdbf24 (2022-12-22 17:32:14 UTC)
-          settings:
-            arch=x86_64
-            build_type=Debug
-            compiler=apple-clang
-            compiler.cppstd=gnu11
-            compiler.libcxx=libc++
-            compiler.version=14
-            os=Macos
-          options:
-            fPIC=True
+      hello
+        hello/1.0
+          revisions
+            dcbfe21e5250264b26595d151796be70 (2024-03-04 17:52:39 UTC)
+              packages
+                6679492451b5d0750f14f9024fdbf84e19d2941b
+                  info
+                    settings
+                      arch: x86_64
+                      build_type: Release
+                      compiler: apple-clang
+                      compiler.cppstd: gnu11
+                      compiler.libcxx: libc++
+                      compiler.version: 14
+                      os: Macos
+                    options
+                      fPIC: True
+                      shared: True
+                b1d267f77ddd5d10d06d2ecf5a6bc433fbb7eeed
+                  info
+                    settings
+                      arch: x86_64
+                      build_type: Release
+                      compiler: apple-clang
+                      compiler.cppstd: gnu11
+                      compiler.libcxx: libc++
+                      compiler.version: 14
+                      os: Macos
+                    options
+                      fPIC: True
+                      shared: False
+                d15c4f81b5de757b13ca26b636246edff7bdbf24
+                  info
+                    settings:
+                      arch: x86_64
+                      build_type: Debug
+                      compiler: apple-clang
+                      compiler.cppstd: gnu11
+                      compiler.libcxx: libc++
+                      compiler.version: 14
+                      os: Macos
+                    options:
+                      fPIC: True
 
 
 Now that we have created a simple Conan package, we will explain each of the methods of
@@ -318,7 +338,6 @@ An **important** note: the Conan cache is private to the Conan client - modifyin
 Read more
 ---------
 
-- :ref:`Conan list command reference<reference_commands_list>`.
-- :ref:`Create your first Conan package with Autotools<examples_tools_autotools_autotools_toolchain_build_project_autotools_toolchain>`.
-- :ref:`Create your first Conan package with Meson<examples_tools_meson_toolchain_build_simple_meson_project>`.
-- :ref:`Create your first Conan package with CMake<examples-tools-cmake-toolchain-build-project-presets>`.
+- :ref:`Create your first Conan package with Visual Studio/MSBuild<examples_tools_microsoft_create_first_package>`.
+- :ref:`CMake built-in integrations reference<conan_tools_cmake>`.
+- :ref:`conan create command reference<reference_commands_create>` and :ref:`Conan list command reference<reference_commands_list>`.
