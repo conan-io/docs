@@ -38,7 +38,7 @@ reliability, compliance and, where applicable, control to enable customization.
 As a summary, it is highly recommended to follow these approaches when using packages from ConanCenter:
 
 - Lock the versions and revisions you depend on using :ref:`lockfiles<tutorial_versioning_lockfiles>`
-- Host your own copy ConanCenter recipes and package binaries :ref:`in a server under your control <devops_conancenter_hosting_your_own_conancenter_fork>`
+- Host your own copy of ConanCenter recipes and package binaries :ref:`in a server under your control <devops_conancenter_hosting_your_own_conancenter_fork>`
 
 Repeatability and reproducibility
 ---------------------------------
