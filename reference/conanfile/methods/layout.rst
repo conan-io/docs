@@ -99,9 +99,8 @@ There are three objects available in the ``layout()`` method:
 
 .. seealso::
 
-    Read more about the usage of the ``layout()`` in :ref:`this
-    tutorial<developing_packages_layout>` and Conan package layout
-    :ref:`here<tutorial_package_layout>`.
+    - Read more about the usage of the ``layout()`` in :ref:`this tutorial<developing_packages_layout>` and Conan package layout
+    - :ref:`here<tutorial_package_layout>`.
 
 
 Environment variables and configuration

@@ -26,10 +26,9 @@ Using the ``core.upload:parallel`` conf, it is possible to upload packages in pa
 By default, or when set to a value less than ``2``, no parallelization will take place,
 and any other value will be the number of parallel threads to utilize.
 
-Read more
----------
+.. seealso::
 
-- :ref:`Uploading packages tutorial <uploading_packages>`
-- :ref:`Working with Conan repositories <conan_repositories>`
-- :ref:`Managing remotes with conan remote command <reference_commands_remote>`
-- :ref:`Uploading metadata files<devops_metadata>`.
+    - :ref:`Uploading packages tutorial <uploading_packages>`
+    - :ref:`Working with Conan repositories <conan_repositories>`
+    - :ref:`Managing remotes with conan remote command <reference_commands_remote>`
+    - :ref:`Uploading metadata files<devops_metadata>`.

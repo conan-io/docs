@@ -95,9 +95,8 @@ conan remote update
     :command: conan remote update -h
 
 
-Read more
----------
+.. seealso::
 
-- :ref:`Uploading packages tutorial <uploading_packages>`
-- :ref:`Working with Conan repositories <conan_repositories>`
-- :ref:`Upload Conan packages to remotes using conan upload command <reference_commands_upload>`
+    - :ref:`Uploading packages tutorial <uploading_packages>`
+    - :ref:`Working with Conan repositories <conan_repositories>`
+    - :ref:`Upload Conan packages to remotes using conan upload command <reference_commands_upload>`

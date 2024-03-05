@@ -247,12 +247,8 @@ zip file has the correct ``sha256``. So we could modify the source method to thi
 
 
 
-Read more
----------
-
-- :ref:`Patching sources<examples_tools_files_patches>`
-- :ref:`Capturing Git SCM source information<examples_tools_scm_git_capture>` instead of copying sources with ``exports_sources``.
-
 .. seealso::
 
+    - :ref:`Patching sources<examples_tools_files_patches>`
+    - :ref:`Capturing Git SCM source information<examples_tools_scm_git_capture>` instead of copying sources with ``exports_sources``.
     - :ref:`source() method reference<reference_conanfile_methods_source>`

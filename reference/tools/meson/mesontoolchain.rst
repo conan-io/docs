@@ -287,10 +287,9 @@ in this example of host profile:
     tools.android:ndk_path=/my/path/to/NDK
 
 
-Read more
----------
+.. seealso::
 
-- :ref:`Getting started with Meson<examples_tools_meson_toolchain_build_simple_meson_project>`
+    - :ref:`Getting started with Meson<examples_tools_meson_toolchain_build_simple_meson_project>`
 
 
 .. _MesonToolchain Reference:

@@ -346,10 +346,7 @@ Windows or that you want to use the system's CMake installation instead of using
                 self.tool_requires("cmake/3.22.6")
 
 
-Read more
----------
-
-.. container:: examples
+.. seealso::
 
     - :ref:`Using "cmake_layout" + "CMakeToolchain" + "CMakePresets feature" to build your project<examples-tools-cmake-toolchain-build-project-presets>`.
     - :ref:`Understanding the Conan Package layout<tutorial_package_layout>`.

@@ -266,9 +266,8 @@ Now we are ready to build and run our **compressor** app:
 
 .. _consuming_packages_read_more:
 
-Read more
----------
+.. seealso::
 
-- :ref:`Getting started with Autotools<examples_tools_autotools_autotools_toolchain_build_project_autotools_toolchain>`
-- :ref:`Getting started with Meson<examples_tools_meson_toolchain_build_simple_meson_project>`
-- :ref:`Getting started with Bazel<examples_tools_bazel_toolchain_build_simple_bazel_project>`
+    - :ref:`Getting started with Autotools<examples_tools_autotools_autotools_toolchain_build_project_autotools_toolchain>`
+    - :ref:`Getting started with Meson<examples_tools_meson_toolchain_build_simple_meson_project>`
+    - :ref:`Getting started with Bazel<examples_tools_bazel_toolchain_build_simple_bazel_project>`

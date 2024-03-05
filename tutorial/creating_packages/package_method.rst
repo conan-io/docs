@@ -168,11 +168,7 @@ absolute links into relative paths and make the package relocatable.
         absolute_to_relative_symlinks(self, self.package_folder)
 
 
-Read more
----------
-
-- :ref:`Package method reference<reference_conanfile_methods_package>`
-
 .. seealso::
 
+    - :ref:`Package method reference<reference_conanfile_methods_package>`
     - :ref:`package() method reference<reference_conanfile_methods_package>`

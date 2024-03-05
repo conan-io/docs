@@ -335,9 +335,8 @@ in the local cache.
 An **important** note: the Conan cache is private to the Conan client - modifying, adding, removing or changing files inside the Conan cache is undefined behaviour likely to cause breakages.
 
 
-Read more
----------
+.. seealso:: 
 
-- :ref:`Create your first Conan package with Visual Studio/MSBuild<examples_tools_microsoft_create_first_package>`.
-- :ref:`CMake built-in integrations reference<conan_tools_cmake>`.
-- :ref:`conan create command reference<reference_commands_create>` and :ref:`Conan list command reference<reference_commands_list>`.
+  - :ref:`Create your first Conan package with Visual Studio/MSBuild<examples_tools_microsoft_create_first_package>`.
+  - :ref:`CMake built-in integrations reference<conan_tools_cmake>`.
+  - :ref:`conan create command reference<reference_commands_create>` and :ref:`Conan list command reference<reference_commands_list>`.

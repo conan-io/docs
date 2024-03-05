@@ -58,9 +58,8 @@ You can check the package existence on your local computer again with:
     $ conan list hello
 
 
-Read more
----------
+.. seealso::
 
-- :ref:`conan upload command reference <reference_commands_upload>`
-- :ref:`conan remote command reference <reference_commands_remote>`
-- :ref:`conan search command reference <reference_commands_search>`
+    - :ref:`conan upload command reference <reference_commands_upload>`
+    - :ref:`conan remote command reference <reference_commands_remote>`
+    - :ref:`conan search command reference <reference_commands_search>`

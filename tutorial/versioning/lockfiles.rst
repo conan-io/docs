@@ -316,6 +316,6 @@ This multiple-clean + merge operation is not something that developers should do
 scripts, and for some advanced CI flows that will be explained later.
 
 
-Read more
----------
-- Continuous Integrations links.
+.. seealso::
+
+    - Continuous Integrations links.
