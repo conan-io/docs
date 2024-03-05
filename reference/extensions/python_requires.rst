@@ -313,7 +313,8 @@ There are few important things that should be taken into account when using ``py
 - Python requires are private to the consumers. They are not transitive. Different consumers
   can require different versions of the same ``python-require``. Being private, they cannot
   be overridden from downstream in any way.
-- ``python_requires`` cannot use regular ``requires`` or ``tool_requires``.
+- ``python_requires`` cannot use regular ``requires`` or ``tool_requires`` themselves. Having a ``requirements()`` (and similar)
+  methods to be inherited by recipes is possible and allowed, but the ``python_requires`` class itself cannot use them.
 - ``python_requires`` cannot be "aliased".
 - ``python_requires`` can use native python ``import`` to other python files, as long as these are
   exported together with the recipe.
