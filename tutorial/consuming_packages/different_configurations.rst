@@ -321,13 +321,12 @@ In the context of our tutorial, when we consumed Zlib with different `settings` 
 matched our specified configuration.
 
 
-Read more
----------
+.. seealso::
 
-- :ref:`VirtualRunEnv reference <conan_tools_env_virtualrunenv>`
-- :ref:`Cross-compiling using --profile:build and --profile:host <consuming_packages_cross_building_with_conan>`
-- :ref:`creating_packages_configure_options_settings`
-- :ref:`Installing configurations with conan config install <reference_commands_conan_config_install>`
-- VS Multi-config
-- Example about how settings and options influence the package id
-- :ref:`Using patterns for settings and options <reference_config_files_profile_patterns>`
+    - :ref:`VirtualRunEnv reference <conan_tools_env_virtualrunenv>`
+    - :ref:`Cross-compiling using --profile:build and --profile:host <consuming_packages_cross_building_with_conan>`
+    - :ref:`creating_packages_configure_options_settings`
+    - :ref:`Installing configurations with conan config install <reference_commands_conan_config_install>`
+    - VS Multi-config
+    - Example about how settings and options influence the package id
+    - :ref:`Using patterns for settings and options <reference_config_files_profile_patterns>`

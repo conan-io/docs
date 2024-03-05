@@ -134,7 +134,6 @@ You can specify one name of a predefined layout. The available values are:
     cmake_layout
 
 
-Read more
----------
+.. seealso::
 
-Read :ref:`consuming_packages_flexibility_of_conanfile_py` for more information about conanfile.txt vs conanfile.py.
+    Read :ref:`consuming_packages_flexibility_of_conanfile_py` for more information about conanfile.txt vs conanfile.py.

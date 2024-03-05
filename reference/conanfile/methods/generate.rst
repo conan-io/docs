@@ -271,4 +271,4 @@ the dependency is in the cache or is an :ref:`editable package<editable_packages
 
 .. seealso::
 
-   Read more about the :ref:`CppInfo<conan_conanfile_model_cppinfo>` model.
+   - :ref:`CppInfo<conan_conanfile_model_cppinfo>` model.

@@ -203,11 +203,9 @@ to resolve the new one, which was not previously present in the lockfile, and st
 
 Also, it is likely that the majority of lockfile operations are better managed by the ``conan lock`` command.
 
-
-Read more about lockfiles in :ref:`tutorial_consuming_packages_versioning_lockfiles`.
-
 .. seealso::
 
+    - :ref:`tutorial_consuming_packages_versioning_lockfiles`.
     - Read the tutorial about the :ref:`local package development flow <local_package_development_flow>`.
 
 

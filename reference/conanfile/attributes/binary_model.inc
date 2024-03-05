@@ -233,7 +233,7 @@ Take into account that if a value is assigned in the ``configure()`` method it c
 
 .. seealso::
 
-    Read more about the :ref:`config_options() method<reference_conanfile_methods_config_options>`.
+    - :ref:`config_options() method<reference_conanfile_methods_config_options>`.
 
 
 There are 2 different ways that a recipe can try to define options values for its dependencies.

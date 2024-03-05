@@ -117,8 +117,7 @@ colour now:
       hello/1.0: __clang_minor__ 1
       hello/1.0: __apple_build_version__ 13160021
 
-Read more
----------
+.. seealso::
 
-- :ref:`Reference for requirements() method <reference_conanfile_methods_requirements>`.
-- :ref:`Introduction to versioning <consuming_packages_intro_versioning>`.
+  - :ref:`Reference for requirements() method <reference_conanfile_methods_requirements>`.
+  - :ref:`Introduction to versioning <consuming_packages_intro_versioning>`.

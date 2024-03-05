@@ -217,8 +217,7 @@ Note how the version range is no longer resolved, and it doesn't get the ``zlib/
 allowed range ``zlib/[~1.2]``, because the ``conan.lock`` lockfile is forcing it to stay in ``zlib/1.2.11`` and that exact revision too.
 
 
-Read more
----------
+.. seealso::
 
-- :ref:`Introduction to Versioning<tutorial_versioning>`
+    - :ref:`Introduction to Versioning<tutorial_versioning>`
 

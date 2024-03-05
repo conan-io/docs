@@ -231,10 +231,9 @@ So, if we call :command:`conan create` with different ``build_type`` we will get
 We got the same binary ``package_id``. The second ``conan create . -s build_type=Debug`` created and overwrote (created a newer package revision) of the previous Release binary, because they have the same ``package_id`` identifier. It is typical to create only the ``Release`` one, and if for any reason managing both Debug and Release binaries is intended, then the approach would be not removing the ``del self.info.settings.build_type``
 
 
-Read more
----------
+.. seealso::
 
-- - :ref:`examples_graph_tool_requires_protobuf`
-- Toolchains (compilers)
-- :ref:`Usage of runenv_info<reference_conanfile_methods_package_info_runenv_info>`
-- :ref:`More info on settings_target<binary_model_extending_cross_build_target_settings>`
+    - - :ref:`examples_graph_tool_requires_protobuf`
+    - Toolchains (compilers)
+    - :ref:`Usage of runenv_info<reference_conanfile_methods_package_info_runenv_info>`
+    - :ref:`More info on settings_target<binary_model_extending_cross_build_target_settings>`

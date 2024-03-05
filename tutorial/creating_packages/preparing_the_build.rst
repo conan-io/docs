@@ -190,12 +190,8 @@ could do in the ``generate()`` method like:
 * Adding custom configurations besides *Release* and *Debug*, taking into account the
   settings, like *ReleaseShared* or *DebugShared*.
 
-Read more
----------
-
-- Use the ``generate()`` method to import files from dependencies.
-- More based on the examples mentioned above ... 
-
 .. seealso::
 
+    - Use the ``generate()`` method to import files from dependencies.
+    - More based on the examples mentioned above ... 
     - :ref:`generate() method reference<reference_conanfile_methods_generate>`

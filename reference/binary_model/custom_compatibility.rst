@@ -51,10 +51,11 @@ It is also possible to assign a value for a given setting, for example if we wan
 
     If we want to be able to create, store and manage different binaries for different input settings, information erasure can't be used, and using the below ``compatibility`` approaches is recommended.
 
-Read more about ``package_id()`` in:
 
-- :ref:`creating_packages_configure_options_settings`
-- :ref:`package_id() method reference<reference_conanfile_methods_package_id>`
+.. seealso::
+
+    - :ref:`creating_packages_configure_options_settings`
+    - :ref:`package_id() method reference<reference_conanfile_methods_package_id>`
 
 
 The compatibility() method
