@@ -12,3 +12,4 @@ Conan recipe tools examples
    tools/google/bazel
    tools/autotools/autotools
    tools/scm/git/capture_scm/git_capture_scm
+   tools/microsoft/msbuild
