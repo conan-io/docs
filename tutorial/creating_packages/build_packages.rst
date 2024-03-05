@@ -299,7 +299,6 @@ CMake and in Linux and MacOS using Autotools. This can be easily handled in the
         ...
 
 
-Read more
----------
+.. seealso::
 
-- :ref:`Patching sources <examples_tools_files_patches>`
+    - :ref:`Patching sources <examples_tools_files_patches>`

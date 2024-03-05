@@ -11,9 +11,8 @@ Conan API Reference
     :members:
 
 
-Read more
----------
+.. seealso::
 
-- Creating Conan custom commands
-- ...
+    - Creating Conan custom commands
+    - ...
 

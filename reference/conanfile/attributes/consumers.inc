@@ -11,7 +11,7 @@ the ``package_folder`` to locate the already located artifacts.
 
 .. seealso::
 
-    Read more about the :ref:`CppInfo<conan_conanfile_model_cppinfo>` model.
+    - :ref:`CppInfo<conan_conanfile_model_cppinfo>` model.
 
 
 .. important::

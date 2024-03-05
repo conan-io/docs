@@ -158,8 +158,7 @@ As you can see in the output, our *test_package* builds successfully testing tha
 *hello/1.0* Conan package can be consumed with no problem.
 
 
-Read more
----------
+.. seealso::
 
-- Test *tool_requires* packages
-- ...
+    - Test *tool_requires* packages
+    - ...

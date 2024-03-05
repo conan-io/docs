@@ -81,9 +81,9 @@ Both the library and the ``test_package`` executable are built for Android, so w
 Unless you have access to a `root` Android device, running the test application or using the built library is not possible
 directly so it is more common to build an Android application that uses the ``hello`` library.
 
-Read more
----------
+.. seealso::
 
-- Check the example :ref:`Integrating Conan in Android Studio<examples_cross_build_android_studio>` to know how to use your
-  c++ libraries in a native Android application.
-- Check the tutorial :ref:`How to cross-compile your applications using Conan<consuming_packages_cross_building_with_conan>`.
+  - Check the example :ref:`Integrating Conan in Android Studio<examples_cross_build_android_studio>` to know how to use your
+    c++ libraries in a native Android application.
+  - Check the tutorial :ref:`How to cross-compile your applications using Conan<consuming_packages_cross_building_with_conan>`.
+  

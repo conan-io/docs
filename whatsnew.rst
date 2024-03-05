@@ -16,29 +16,29 @@ New graph model
 ---------------
 Conan 2 defines new requirement traits (headers, libs, build, run, test, package_id_mode, options, transitive_headers, transitive_libs) and package types (static, shared, application, header-only) to better represent the relations that happen with C and C++ binaries, like executables or shared libraries linking static libraries or shared libraries. 
 
-Read more:
+.. seealso::
 
-- https://www.youtube.com/watch?v=kKGglzm5ous
-- https://github.com/conan-io/tribe/blob/main/design/026-requirements_traits.md
-- https://github.com/conan-io/tribe/blob/main/design/027-package_types.md
+    - https://www.youtube.com/watch?v=kKGglzm5ous
+    - https://github.com/conan-io/tribe/blob/main/design/026-requirements_traits.md
+    - https://github.com/conan-io/tribe/blob/main/design/027-package_types.md
 
 
 New public Python API
 ---------------------
 A new modular Python API is made available, public and documented. This is a real API, with building blocks that are already used to build the Conan built-in commands, but that will allow further extensions. There are subapis for different functional groups, like ``api.list``, ``api.search``, ``api.remove``, ``api.profile``, ``api.graph``, ``api.upload``, ``api.remotes``, etc. that will allow to implement advanced user flows, functionality and automation.
 
-Read more:
+.. seealso::
 
-- :ref:`Python API reference <reference_python_api>`
+    - :ref:`Python API reference <reference_python_api>`
 
 
 New build system integrations
 -----------------------------
 Introduced in latest Conan 1.X, Conan 2 will use modern build system integrations like ``CMakeDeps`` and ``CMakeToolchain`` that are fully transparent CMake integration (i.e. the consuming ``CMakeLists.txt`` doesn’t need to be aware at all about Conan). These integrations can also achieve a better IDE integration, for example via CMakePresets.json.
 
-Read more:
+.. seealso::
 
-- :ref:`Tools reference <conan_tools>`
+    - :ref:`Tools reference <conan_tools>`
 
 
 New custom user commands
@@ -50,9 +50,9 @@ New CLI
 -------
 Conan 2 has redesigned the CLI for better consistency, removing ambiguities, and improving the user experience. The new CLI also sends all the information, warning, and error messages to stderr, while keeping the final result in stdout, allowing multiple output formats like ``--format=html`` or ``--format=json`` and using redirects to create files ``--format=json > myfile.json``. The information provided by the CLI will be more structured and thorough so that it can be used more easily for automation, especially in CI/CD systems.
 
-Read more:
+.. seealso::
 
-- :ref:`Commands reference <reference_commands>`
+    - :ref:`Commands reference <reference_commands>`
 
 
 New deployers
@@ -76,11 +76,11 @@ New lockfiles
 -------------
 Lockfiles in Conan 2 have been greatly simplified and made way more flexible. Lockfiles are now modeled as lists of sorted references, which allow one single lockfile being used for multiple configurations, merging lockfiles, applying partially defined lockfiles, being strict or non-strict, adding user defined constraints to lockfiles, and much more.
 
-Read more:
+.. seealso::
 
-- :ref:`Tutorial introduction to lockfiles <tutorial_consuming_packages_versioning_lockfiles>`
-- https://github.com/conan-io/tribe/blob/main/design/034-new_lockfiles.md
-- :ref:`Tutorial about versioning and lockfiles <tutorial_versioning_lockfiles>`
+    - :ref:`Tutorial introduction to lockfiles <tutorial_consuming_packages_versioning_lockfiles>`
+    - https://github.com/conan-io/tribe/blob/main/design/034-new_lockfiles.md
+    - :ref:`Tutorial about versioning and lockfiles <tutorial_versioning_lockfiles>`
 
 
 New configuration and environment management
@@ -88,9 +88,9 @@ New configuration and environment management
 The new configuration system called ``[conf]`` in profiles and command line, and introduced experimentally in Conan 1.X, is now the major mechanism to configure and control Conan behavior. The idea is that the configuration system is used to transmit information from Conan (a Conan profile) to Conan (A Conan recipe, or a Conan build system integration like ``CMakeToolchain``). This new configuration system can define strings, boolean, lists, being cleaner, more structured and powerful than using environment variables.
 A better, more explicit environment management, also introduced in Conan 1.X is now the way to pass information from Conan (profiles) to tools (like compilers, build systems).
 
-Read more:
+.. seealso::
 
-- :ref:`Reference of enviroment tools <reference_tools_env>`
+    - :ref:`Reference of enviroment tools <reference_tools_env>`
 
 
 Multi-revision cache
@@ -131,7 +131,10 @@ This feature allows to upload, download, remove and list several recipes and pac
 Package lists can also be created from a dependency graph resulting from a ``conan create`` or ``conan install`` command,
 so it is possible to upload to a server all packages that belong to a given dependency graph just chaining 2 commands.
 
-Read more about it in :ref:`these examples <examples_commands_pkglists>` and `this blog post <https://blog.conan.io/2023/06/28/Conan-bulk-package-operations.html>`_
+.. seealso::
+    
+    - :ref:`these examples <examples_commands_pkglists>`
+    - `Package lists blog post <https://blog.conan.io/2023/06/28/Conan-bulk-package-operations.html>`_
 
 
 Metadata files
@@ -141,7 +144,9 @@ Conan 2 allows to store, upload, download, modify metadata files associated to r
 can be very useful to manage build logs, tests executable, test results, coverage data and many other different
 files needed for traceability, compliance and business purposes.
 
-Read more about this feature in `this metadata files blog post <https://blog.conan.io/2023/10/24/Conan-launches-metadata-files.html>`_
+.. seealso::
+    
+    - `Metadata files blog post <https://blog.conan.io/2023/10/24/Conan-launches-metadata-files.html>`_
 
 
 Third party backup sources
@@ -151,4 +156,6 @@ When building packages for third parties with sources in the internet, those sou
 The "backup sources" can automatically store a copy of those sources in your own server, so your builds are 
 always fully reproducible, no matter what happens to the original internet sources. 
 
-Read more about it in `the backup-sources blog post <https://blog.conan.io/2023/10/03/backup-sources-feature.html>`_
+.. seealso::
+    
+    - `the backup-sources blog post <https://blog.conan.io/2023/10/03/backup-sources-feature.html>`_

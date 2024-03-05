@@ -234,12 +234,11 @@ the environment activation:
     use ``tool_requires`` to depend on library or library-like dependencies.
 
 
-Read more
----------
+.. seealso::
 
-- :ref:`Using [system_tools] in your profiles <reference_config_files_profiles_system_tools>`.
-- :ref:`Creating recipes for tool_requires: packaging build tools <tutorial_other_tool_requires_packages>`.
-- :ref:`examples_graph_tool_requires_protobuf`
-- Using MinGW as tool_requires
-- :ref:`Using tool_requires in profiles <reference_config_files_profile_patterns>`
-- Using conf to set a toolchain from a tool requires
+    - :ref:`Using [system_tools] in your profiles <reference_config_files_profiles_system_tools>`.
+    - :ref:`Creating recipes for tool_requires: packaging build tools <tutorial_other_tool_requires_packages>`.
+    - :ref:`examples_graph_tool_requires_protobuf`
+    - Using MinGW as tool_requires
+    - :ref:`Using tool_requires in profiles <reference_config_files_profile_patterns>`
+    - Using conf to set a toolchain from a tool requires

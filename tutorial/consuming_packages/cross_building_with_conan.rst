@@ -207,10 +207,7 @@ You could check that we built the application for the correct architecture by ru
     stripped
 
 
-Read more
----------
-
-.. container:: examples
+.. seealso::
 
     - :ref:`Cross building to Android with the NDK<examples_cross_build_android_ndk>`
     - :ref:`VirtualBuildEnv reference <conan_tools_env_virtualbuildenv>`
