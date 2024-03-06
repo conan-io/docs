@@ -108,7 +108,7 @@ locate it.
     meson/[*]
     pkgconf/[*]
 
-  and use it in ``conan create . -pr=myprofile``
+We added `Meson` and `pkg-config` as :ref:`tool requirements to the profile <reference_config_files_profiles_tool_requires>`. By executing ``conan create . -pr=myprofile``, those tools will be installed and made available during the package's build process.
 
 
 Let's build the package from sources with the current default configuration, and then let
