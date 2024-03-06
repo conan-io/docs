@@ -192,6 +192,6 @@ could do in the ``generate()`` method like:
 
 .. seealso::
 
-    - Use the ``generate()`` method to import files from dependencies.
+    - Use the ``generate()`` to :ref:`import files from dependencies<copy_resources_on_generate>`.
     - More based on the examples mentioned above ... 
     - :ref:`generate() method reference<reference_conanfile_methods_generate>`

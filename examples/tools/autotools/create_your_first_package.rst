@@ -5,7 +5,7 @@ Create your first Conan package with Autotools
 
 .. warning::
 
-  This example only works in Linux and OSX, but not in Windows (even if using msys2/cygwin subsystems, 
+  This example only works in Linux and OSX, but not in Windows (even if using msys2/cygwin subsystems,
   WSL shouldn't be a problem it is Linux). There is some provision in Conan with ``win_bash = True``
   to be able to work with Autotools in Windows subsystems, but not working in this example.
 
@@ -93,7 +93,7 @@ Let's explain the different sections of the recipe briefly:
   folder the final artifacts. Note the template also includes a call to ``fix_apple_shared_install_name()``
   that uses OSX *install_name_tool* utility to set ``@rpath``to fix the ``LC_ID_DYLIB`` and ``LC_LOAD_DYLIB``
   fields on Apple dylibs, because it is very unusual that autotools project will manage to do this (CMake can do it) .
-    
+
 
 Let's build the package from sources with the current default configuration, and then let
 the ``test_package`` folder test the package:
@@ -101,7 +101,7 @@ the ``test_package`` folder test the package:
 .. code-block:: bash
 
     $ conan create .
-    
+
     ...
     ======== Testing the package: Executing test ========
     hello/0.1 (test package): Running test()
@@ -139,8 +139,8 @@ We can now validate that the recipe and the package binary are in the cache:
                       os: Linux
                     options
                       fPIC: True
-                      shared: False               
-         
+                      shared: False
+
 
 .. seealso::
 
