@@ -384,6 +384,13 @@ how to import files from a package in the ``generate()`` method, you can refer t
 <https://blog.conan.io/2019/06/26/An-introduction-to-the-Dear-ImGui-library.html>`, which
 demonstrates how to import bindings for the library depending on the graphics API.
 
+.. note::
+
+    It's important to clarify that copying libraries, whether static or shared, is not
+    necessary. Conan is designed to use the libraries from their locations in the Conan
+    local cache using :ref:`generators<conan_tools>` and :ref:`environment
+    tools<conan_tools_env_virtualrunenv>` without the need to copy them to the local
+    folder.
 
 .. seealso::
 
