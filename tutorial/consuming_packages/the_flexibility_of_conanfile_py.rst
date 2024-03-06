@@ -352,7 +352,7 @@ Use the generate() method to copy resources from packages
 In some scenarios, Conan packages include files that are useful or even necessary for the
 consumption of the libraries they package. These files can range from configuration files,
 assets, to specific files required for the project to build or run correctly. Using the
-:ref:`generate() method<reference_conanfile_methods_generate>` method you can copy these
+:ref:`generate() method<reference_conanfile_methods_generate>` you can copy these
 files from the Conan cache to your project's folder, ensuring that all required resources
 are directly available for use.
 
