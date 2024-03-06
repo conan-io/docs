@@ -346,6 +346,8 @@ Windows or that you want to use the system's CMake installation instead of using
                 self.tool_requires("cmake/3.22.6")
 
 
+.. _copy_resources_on_generate:
+
 Use the generate() method to copy resources from packages
 ---------------------------------------------------------
 
