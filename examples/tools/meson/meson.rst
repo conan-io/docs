@@ -9,4 +9,5 @@ tools.meson
    :maxdepth: 2
 
 
-   mesontoolchain/build_simple_meson_project
+   build_simple_meson_project
+   create_your_first_package
