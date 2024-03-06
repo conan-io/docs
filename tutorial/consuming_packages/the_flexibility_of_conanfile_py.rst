@@ -378,7 +378,7 @@ Here's an example that shows how to copy all resources from a dependency's
 
 
 Then, after the ``conan install`` step, all those resource files will be copied locally,
-allowing you to use them in your project's build process. For a comprehensive example of
+allowing you to use them in your project's build process. For a complete example of
 how to import files from a package in the ``generate()`` method, you can refer to the
 `blog post about using the Dear ImGui library
 <https://blog.conan.io/2019/06/26/An-introduction-to-the-Dear-ImGui-library.html>`, which
