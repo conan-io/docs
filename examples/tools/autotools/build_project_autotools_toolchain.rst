@@ -5,8 +5,9 @@ Build a simple Autotools project with Conan dependencies
 
 .. warning::
 
-  This example only works in Linux and OSX, but not in Windows (even if using msys2/cygwin subsystems, 
-  WSL shouldn't be a problem it is Linux)
+  This example will only work for Linux and OSX environments and does not support Windows directly, including msys2/cygwin subsystems.
+  However, Windows Subsystem for Linux (WSL) should work since it provides a Linux environment. While Conan offers `win_bash = True` 
+  for some level of support in Windows environments with Autotools, it's not applicable in this tutorial.
 
 
 In this example, we are going to create a string formatter application
