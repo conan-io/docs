@@ -5,9 +5,10 @@ Create your first Conan package with Autotools
 
 .. warning::
 
-  This example only works in Linux and OSX, but not in Windows (even if using msys2/cygwin subsystems,
-  WSL shouldn't be a problem it is Linux). There is some provision in Conan with ``win_bash = True``
-  to be able to work with Autotools in Windows subsystems, but not working in this example.
+  This example will only work for Linux and OSX environments and does not support Windows directly, including msys2/cygwin subsystems.
+  However, Windows Subsystem for Linux (WSL) should work since it provides a Linux environment. While Conan offers `win_bash = True` 
+  for some level of support in Windows environments with Autotools, it's not applicable in this tutorial.
+
 
 In the :ref:`Create your first Conan package tutorial<creating_packages_create_your_first_conan_package>`
 CMake was used as the build system. If you haven't read that section, read it first to familiarize
