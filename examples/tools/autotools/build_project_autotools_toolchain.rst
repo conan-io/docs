@@ -1,7 +1,13 @@
 .. _examples_tools_autotools_autotools_toolchain_build_project_autotools_toolchain:
 
-Build a simple Autotools project using Conan
-============================================
+Build a simple Autotools project with Conan dependencies
+========================================================
+
+.. warning::
+
+  This example only works in Linux and OSX, but not in Windows (even if using msys2/cygwin subsystems, 
+  WSL shouldn't be a problem it is Linux)
+
 
 In this example, we are going to create a string formatter application
 that uses one of the most popular C++ libraries: `fmt <https://fmt.dev/latest/index.html/>`_.
