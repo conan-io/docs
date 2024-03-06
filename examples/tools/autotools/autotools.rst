@@ -9,4 +9,5 @@ tools.autotools
    :maxdepth: 2
 
 
-   autotools_toolchain/build_project_autotools_toolchain
+   build_project_autotools_toolchain
+   create_your_first_package
