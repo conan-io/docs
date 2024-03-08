@@ -5,8 +5,8 @@ Creating a package for a toolchain
 ==================================
 
 After learning how to create recipes for tool requires packaging applications we can use
-during the build we are coing to show an example on how to create a recipe that packages a
-precompiled toolchain or compiler for building other packages.
+during the build, we are going to show an example on how to create a recipe that packages
+a precompiled toolchain or compiler for building other packages.
 
 In the section ":ref:`consuming_packages_cross_building_with_conan`", we discussed the
 basics of cross-compiling applications using Conan with a focus on the "build" and "host"
@@ -28,9 +28,9 @@ Please, first clone the sources to recreate this project. You can find them in t
     $ git clone https://github.com/conan-io/examples2.git
     $ cd examples2/tutorial/creating_packages/other_packages/toolchain_packages/toolchain
 
-Here, you will find a conan recipe (and the *test_package*) to package an ARM toolchain for cross-compiling
-to Linux ARM for both 32 and 64 bits. To simplify a bit, we are assuming that we can just
-cross-build from Linux x86_64 to Linux ARM, both 32 and 64 bits. 
+Here, you will find a Conan recipe (and the *test_package*) to package an ARM toolchain
+for cross-compiling to Linux ARM for both 32 and 64 bits. To simplify a bit, we are
+assuming that we can just cross-build from Linux x86_64 to Linux ARM, both 32 and 64 bits.
 
 .. code-block:: bash
 
@@ -129,11 +129,12 @@ Let's check the recipe and go through the most relevant parts:
 Validating the toolchain package: settings, settings_build and settings_target
 ------------------------------------------------------------------------------
 
-As you already know, the :ref:`validate() method<reference_conanfile_methods_validate>` is
-used to mark that the package does not work with some configurations. As we said below, we
-are restricting the use of this package to be used by a *Linux* *x86_64* to cross-build to
-another Linux ARM for both 32 and 64 bits. Let's see how we translate that information to
-the ``validate()`` method and explain the different types of settings in the process:
+As you may recall, the :ref:`validate() method<reference_conanfile_methods_validate>` is
+used to indicate that a package is not compatible with certain configurations. As
+mentioned earlier, we are limiting the usage of this package to a *Linux x86_64* platform
+for cross-compiling to a *Linux ARM* target, supporting both 32-bit and 64-bit
+architectures. Let's check how we incorporate this information into the ``validate()``
+method and discuss the various types of settings involved:
 
 .. code-block:: python
 
@@ -152,26 +153,27 @@ the ``validate()`` method and explain the different types of settings in the pro
 
 **Validating the build platform**
 
-Please, first note that we only declared ``os`` and ``arch`` settings. These are in fact
-the settings of the machine that will build the package for the toolchain, so we will just
-need those to check that these correspond to ``Linux`` and ``x86_64`` becausa that's the
-platform the binaries for the toolchain were meant to run into.
+First, it's important to acknowledge that only the ``os`` and ``arch`` settings are
+declared. These settings represent the machine that will compile the package for the
+toolchain, so we only need to verify that they correspond to ``Linux`` and ``x86_64``, as
+these are the platforms for which the toolchain binaries are intended.
 
-It's very important to note that in this case, for this package that is going to be used
-as a tool_requires, those settings do not correspond to the ``host`` profile, but to the
-``build`` profile. Conan knows about this, because when we create the package later we
-will pass the ``--build-require`` argument to the Conan create that will make that the
-``settings`` equal in practice to the ``settings_build``.
+It is important to note that for this package, which is to be used as a ``tool_requires``,
+these settings do not relate to the ``host`` profile but to the ``build`` profile. This
+distinction is recognized by Conan when creating the package with the ``--build-require``
+argument. This will make the ``settings`` and the ``settings_build`` to be equal within
+the context of package creation.
 
 **Validating the target platform**
 
-In this case, that we are cross-compiling, if we want to make checks on the platform that
-is going to run the executable that will be produced by the compilers of the toolchain we
-have to refer to them using the ``settings_target``. These settings_target, come in fact
-from the information of the ``host`` profile. So, in our case if we are building for a
-Raspberry Pi, that will be the information stored in the ``settings_target``. Again, Conan
-knows that the settings_target have to be file with the ``host`` profile information
-because we pass the ``--build-require`` argument when creating the package.
+In scenarios involving cross-compilation, validations regarding the target platform, where
+the executable generated by the toolchain's compilers will run, must refer to the
+``settings_target``. These settings come from the information in the ``host`` profile. For
+instance, if compiling for a Raspberry Pi, that will be the information stored in the
+``settings_target``. Again, Conan is aware that ``settings_target`` should be populated with the
+``host`` profile information due to the use of the ``--build-require`` flag during package
+creation.
+
 
 .. code-block:: python
 
@@ -191,7 +193,11 @@ because we pass the ``--build-require`` argument when creating the package.
             raise ConanInvalidConfiguration(f"Invalid gcc version '{self.settings_target.compiler.version}'. "
                                             "Only 13.X versions are supported for the compiler.")
 
-As you can see, we do some verifications to check that the architectures and os where the
-resulting binary will run are valid and also to check that the compiler name and version
-corresponds to the expected one in the package for the ``host`` context.
+
+As you can see, several verifications are made to ensure the validity of the operating
+system and architectures for the resulting binaries' execution environment. Additionally,
+it verifies that the compiler's name and version align with the expectations for the
+``host`` context.
+
+
 
