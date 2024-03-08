@@ -200,4 +200,18 @@ it verifies that the compiler's name and version align with the expectations for
 ``host`` context.
 
 
+Defining the Package ID
+----------------------
+
+Getting the binaries for the toolchain and packaging it
+-------------------------------------------------------
+
+Define information for consumers
+-------------------------------
+
+Testing the toolchain
+---------------------
+
+A note about cross-building consumers with the toolchain
+--------------------------------------------------------
 
