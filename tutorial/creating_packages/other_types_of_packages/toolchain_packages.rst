@@ -4,15 +4,15 @@
 Creating a Conan package for a toolchain
 ========================================
 
-After learning how to create recipes for tool requires packaging applications we can use
-during the build, we are going to show an example on how to create a recipe that packages
-a precompiled toolchain or compiler for building other packages.
+After learning how to create recipes for tool requires that package applications, we are
+going to show an example on how to create a recipe that packages a precompiled toolchain
+or compiler for building other packages.
 
-In the section ":ref:`consuming_packages_cross_building_with_conan`", we discussed the
-basics of cross-compiling applications using Conan with a focus on the "build" and "host"
-contexts. We learned how to configure Conan to use different profiles for the build
-machine and the target host machine, enabling us to cross-compile applications for
-platforms like Raspberry Pi from an Ubuntu Linux machine.
+In the ":ref:`consuming_packages_cross_building_with_conan`" tutorial section, we
+discussed the basics of cross-compiling applications using Conan with a focus on the
+"build" and "host" contexts. We learned how to configure Conan to use different profiles
+for the build machine and the target host machine, enabling us to cross-compile
+applications for platforms like Raspberry Pi from an Ubuntu Linux machine.
 
 However, in that section, we assumed the existence of a cross-compiling toolchain or
 compiler as part of the build environment, set up through Conan profiles. Now, we will
