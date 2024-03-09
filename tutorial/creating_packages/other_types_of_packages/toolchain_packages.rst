@@ -369,7 +369,7 @@ architecture.
 Creating the toolchain package and cross-building an example with the toolchain
 -------------------------------------------------------------------------------
 
-Now that we have explained the recipe for the toolchain in detail, let's go and create the package:
+Having detailed the toolchain recipe, it's time to proceed with package creation:
 
 .. code-block:: bash
 
@@ -406,17 +406,17 @@ Now that we have explained the recipe for the toolchain in detail, let's go and 
     ...
 
 
-As you can see, we are passing two profiles for the build and host context. The most
-important detail is the ``--build-require`` argument that will tell Conan that this
-package is meant to be used as a build requirement, taking the package to the build
-context and doing that ``settings`` equal the settings from the build profile and that
-``settings_target`` equal the settings from the host profile.
+We employ two profiles for the *build* and *host* contexts, but the most important
+detail is the use of the `--build-require` argument. This informs Conan that the package
+is intended as a build requirement, situating it within the build context. Consequently,
+`settings` match those from the build profile, while `settings_target` aligns with the
+host profile's settings.
 
-Now that we have our toolchain package ready, let's build a real application. We will use
-the same application that we already cross-compiled in the
-:ref:`consuming_packages_cross_building_with_conan` section but adding the tool requires
-package as a dependency in the host profile, that will make that the application and all
-the requirements are built using this toolchain.
+With the toolchain package prepared, we proceed to build an actual application. This will
+be the same application previously cross-compiled in the
+:ref:`consuming_packages_cross_building_with_conan` section. However, this time, we
+incorporate the toolchain package as a dependency within the host profile. This ensures
+the toolchain is used to build the application and all its dependencies
 
 .. code-block:: bash
 
@@ -429,7 +429,7 @@ the requirements are built using this toolchain.
     linked, interpreter /lib/ld-linux-aarch64.so.1, for GNU/Linux 3.7.0, with debug_info,
     not stripped
 
-As you can see, we composed the already existing profile with other profile that just has
+We composed the already existing profile with other profile that just has
 the ``tool_requires`` added:
 
 .. code-block:: ini
@@ -437,12 +437,12 @@ the ``tool_requires`` added:
     [tool_requires]
     arm-toolchain/13.2
 
-In the process, the zlib requirement will be build for ARM 64 bit too if not yet
-available. Also, check that in the end we are checking the architecture of the output
-executable confirming that it's the intended 64 bit architecture.
-
+During this procedure, the zlib dependency will also be compiled for ARM 64-bit
+architecture if it hasn't already been. Additionally, it's important to verify the
+architecture of the resulting executable, confirming its alignment with the targeted
+64-bit architecture.
 
 .. seealso::
 
     - :ref:`More info on settings_target<binary_model_extending_cross_build_target_settings>`
-
+    - :ref:`Cross-compile your applications using Conan<consuming_packages_cross_building_with_conan>`
