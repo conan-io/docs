@@ -93,14 +93,6 @@ Let's check the recipe and go through the most relevant parts:
                 raise ConanInvalidConfiguration(f"Invalid gcc version '{self.settings_target.compiler.version}'. "
                                                     "Only 13.X versions are supported for the compiler.")
 
-
-        def package_id(self):
-            self.info.settings_target = self.settings_target
-            # We only want the ``arch`` setting
-            self.info.settings_target.rm_safe("os")
-            self.info.settings_target.rm_safe("compiler")
-            self.info.settings_target.rm_safe("build_type")
-
         def source(self):
             download(self, "https://developer.arm.com/GetEula?Id=37988a7c-c40e-4b78-9fd1-62c20b507aa8", "LICENSE", verify=False)
 
@@ -108,6 +100,13 @@ Let's check the recipe and go through the most relevant parts:
             toolchain, sha = self._get_toolchain(self.settings_target.arch)
             get(self, f"https://developer.arm.com/-/media/Files/downloads/gnu/13.2.rel1/binrel/arm-gnu-toolchain-13.2.rel1-x86_64-{toolchain}.tar.xz",
                 sha256=sha, strip_root=True)            
+
+        def package_id(self):
+            self.info.settings_target = self.settings_target
+            # We only want the ``arch`` setting
+            self.info.settings_target.rm_safe("os")
+            self.info.settings_target.rm_safe("compiler")
+            self.info.settings_target.rm_safe("build_type")
 
         def package(self):
             toolchain, _ = self._get_toolchain(self.settings_target.arch)
@@ -199,18 +198,158 @@ system and architectures for the resulting binaries' execution environment. Addi
 it verifies that the compiler's name and version align with the expectations for the
 ``host`` context.
 
-
-Defining the Package ID
-----------------------
-
 Getting the binaries for the toolchain and packaging it
 -------------------------------------------------------
+
+.. code-block:: python
+
+    ...
+
+    def _archs32(self):
+        return ["armv6", "armv7", "armv7hf"]
+    
+    def _archs64(self):
+        return ["armv8", "armv8.3"]
+
+    def _get_toolchain(self, target_arch):
+        if target_arch in self._archs32():
+            return ("arm-none-linux-gnueabihf", 
+                    "df0f4927a67d1fd366ff81e40bd8c385a9324fbdde60437a512d106215f257b3")
+        else:
+            return ("aarch64-none-linux-gnu", 
+                    "12fcdf13a7430655229b20438a49e8566e26551ba08759922cdaf4695b0d4e23")
+
+    def source(self):
+        download(self, "https://developer.arm.com/GetEula?Id=37988a7c-c40e-4b78-9fd1-62c20b507aa8", "LICENSE", verify=False)
+
+    def build(self):
+        toolchain, sha = self._get_toolchain(self.settings_target.arch)
+        get(self, f"https://developer.arm.com/-/media/Files/downloads/gnu/13.2.rel1/binrel/arm-gnu-toolchain-13.2.rel1-x86_64-{toolchain}.tar.xz",
+            sha256=sha, strip_root=True)            
+
+    def package(self):
+        toolchain, _ = self._get_toolchain(self.settings_target.arch)
+        dirs_to_copy = [toolchain, "bin", "include", "lib", "libexec"]
+        for dir_name in dirs_to_copy:
+            copy(self, pattern=f"{dir_name}/*", src=self.build_folder, dst=self.package_folder, keep_path=True)
+        copy(self, "LICENSE", src=self.build_folder, dst=os.path.join(self.package_folder, "licenses"), keep_path=False)
+
+    ...
+
+You can see that we have implemented a ``source()`` method, where we download the recipe
+license because it's stored in the downloads page for the ARM toolchains but that's the
+only thing we retrieve there and we are instead retrieving the toolchain binaries in the
+``build()`` method. This is because as we said, this toolchain package targets 32 and 64
+bit architectures. For that, we have to download two different toolchain binaries. The one
+the package gets will depend on the ``settings_target`` architecture. As this will
+conditionally download one file or another, we can't fetch it in the ``source()`` as it
+:ref:`caches the downloaded contents method<reference_conanfile_methods_source_caching>`.
+
+The ``package()`` method does not have anything particular, we just copy the
+contents of the downloaded files to the package_folder along with the license file.
+
+
+Adding ``settings_target`` to the Package ID
+--------------------------------------------
+
+In recipes designed for cross-compiling scenarios, particularly those involving toolchains
+or compilers that target specific architectures or operating systems, the ``package_id()``
+method requires careful consideration. This method is critical for ensuring that Conan
+correctly identifies and differentiates between binaries based on the target platform they
+are intended for.
+
+The ``package_id()`` method can be extended to include ``settings_target``, which
+encapsulates the target platform's configuration. This inclusion is essential for tools
+and compilers that generate binaries tailored to specific target environments. Here's how
+to appropriately modify the ``package_id()`` method to account for the target settings:
+
+.. code-block:: python
+
+    def package_id(self):
+        # Assign settings_target to the package ID to differentiate binaries by target platform. 
+        self.info.settings_target = self.settings_target
+        
+        # We only want the ``arch`` setting
+        self.info.settings_target.rm_safe("os")
+        self.info.settings_target.rm_safe("compiler")
+        self.info.settings_target.rm_safe("build_type")
+
+By specifying ``self.info.settings_target = self.settings_target``, we explicitly instruct
+Conan to consider the target platform's settings when generating the package ID. This
+approach is particularly relevant for packages like cross-compilers, where the
+executable's might vary based on the target architecture or operating system it is
+designed to compile for.
+
+Also note that irrelevant settings for this case can be removed with ``rm_safe()``,
+focusing only on the attributes that impact the binary's compatibility with the target
+platform, such as ``arch`` in this example.
+
 
 Define information for consumers
 -------------------------------
 
+The ``package_info()`` method is pivotal for defining package information that is crucial
+for its consumers. This method allows you to specify details about the executable paths,
+compiler executables, and any other configuration details required by projects that depend
+on this toolchain package.
+
+.. code-block:: python
+
+    def package_info(self):
+        toolchain, _ = self._get_toolchain(self.settings_target.arch)
+        self.cpp_info.bindirs.append(os.path.join(self.package_folder, toolchain, "bin"))
+
+        self.conf_info.define("tools.build:compiler_executables", {
+            "c":   f"{toolchain}-gcc",
+            "cpp": f"{toolchain}-g++",
+            "asm": f"{toolchain}-as"
+        })
+        
+
 Testing the toolchain
 ---------------------
+
+To verify the functionality and ensure the correct setup of the toolchain package, a test
+package is used. This package attempts to compile a simple project using the provided
+toolchain and examines the resulting binary.
+
+.. code-block:: python
+    :caption: test_package/conanfile.py
+
+    from conan import ConanFile
+    from conan.tools.cmake import CMake, cmake_layout
+    import os
+
+
+    class TestPackgeConan(ConanFile):
+        settings = "os", "arch", "compiler", "build_type"
+        generators = "CMakeToolchain", "VirtualBuildEnv"
+        test_type = "explicit"
+
+        def build_requirements(self):
+            self.tool_requires(self.tested_reference_str)
+
+        def layout(self):
+            cmake_layout(self)
+
+        def build(self):
+            cmake = CMake(self)
+            cmake.configure()
+            cmake.build()
+
+        def test(self):
+            if self.settings.arch in ["armv6", "armv7", "armv7hf"]:
+                toolchain = "arm-none-linux-gnueabihf"
+            else:
+                toolchain = "aarch64-none-linux-gnu"
+            self.run(f"{toolchain}-gcc --version")
+            test_file = os.path.join(self.cpp.build.bindirs[0], "test_package")
+            self.run(f"file {test_file}")
+
+This test package ensures that the toolchain is functional and that binaries produced with
+it are correctly targeted for the specified architecture, providing a solid foundation for
+cross-compilation tasks.
+
 
 A note about cross-building consumers with the toolchain
 --------------------------------------------------------

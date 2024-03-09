@@ -54,6 +54,7 @@ It is possible to apply patches with:
 - The Conan built-in ``patch()`` utility to explicitly apply patches one by one
 - Apply the ``apply_conandata_patches()`` Conan utility to automatically apply all patches defined in ``conandata.yml`` file following some conventions.
 
+.. _reference_conanfile_methods_source_caching:
 
 Source caching
 --------------
