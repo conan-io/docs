@@ -1,8 +1,8 @@
 .. _tutorial_other_toolchain_packages:
 
 
-Creating a package for a toolchain
-==================================
+Creating a Conan package for a toolchain
+========================================
 
 After learning how to create recipes for tool requires packaging applications we can use
 during the build, we are going to show an example on how to create a recipe that packages
@@ -198,8 +198,8 @@ system and architectures for the resulting binaries' execution environment. Addi
 it verifies that the compiler's name and version align with the expectations for the
 ``host`` context.
 
-Getting the binaries for the toolchain and packaging it
--------------------------------------------------------
+Downloading the binaries for the toolchain and packaging it
+-----------------------------------------------------------
 
 .. code-block:: python
 
@@ -249,8 +249,8 @@ The ``package()`` method does not have anything particular, we just copy the
 contents of the downloaded files to the package_folder along with the license file.
 
 
-Adding ``settings_target`` to the Package ID
---------------------------------------------
+Adding ``settings_target`` to the Package ID information
+--------------------------------------------------------
 
 In recipes designed for cross-compiling scenarios, particularly those involving toolchains
 or compilers that target specific architectures or operating systems, the ``package_id()``
@@ -306,8 +306,8 @@ on this toolchain package.
         })
         
 
-Testing the toolchain
----------------------
+Testing the Conan toolchain package
+-----------------------------------
 
 To verify the functionality and ensure the correct setup of the toolchain package, a test
 package is used. This package attempts to compile a simple project using the provided
@@ -351,6 +351,6 @@ it are correctly targeted for the specified architecture, providing a solid foun
 cross-compilation tasks.
 
 
-A note about cross-building consumers with the toolchain
---------------------------------------------------------
+Cross-building a simple example with the toolchain
+--------------------------------------------------
 
