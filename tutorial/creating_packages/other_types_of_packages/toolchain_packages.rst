@@ -284,10 +284,8 @@ bits.
 Define information for consumers
 -------------------------------
 
-The ``package_info()`` method is pivotal for defining package information that is crucial
-for its consumers. This method allows you to specify details about the executable paths,
-compiler executables, and any other configuration details required by projects that depend
-on this toolchain package.
+In the ``package_info()`` method we define all the information that consumers need to have
+available when using the toolchain:
 
 .. code-block:: python
 
@@ -301,6 +299,22 @@ on this toolchain package.
             "asm": f"{toolchain}-as"
         })
         
+In this case we have to define the following information:
+
+- Add folders that contain toolchain tools that may be needed while compiling, in this the
+  toolchain we download will store it's tools in both ``bin`` and
+  ``<toolchain_triplet>/bin``. As the ``self.cpp_info.bindirs`` is ``bin`` by default, we
+  only need to add the one specific for the triplet. Note that it's not necessary to
+  define environment information to add these folders to the PATH, Conan will handle this
+  through the :ref:`VirtualRunEnv<conan_tools_env_virtualrunenv>`. 
+
+- We define the ``tools.build:compiler_executables`` configuration. This configuration
+  will be taken into account in several generators, like
+  ::ref:`CMakeToolchain<conan_tools_cmaketoolchain>`,
+  ::ref:`MesonToolchain<conan_tools_meson_mesontoolchain>` or
+  ::ref:`AutotoolsToolchain<conan_tools_gnu_autotoolstoolchain>` to point to the
+  appropiate compiler binaries.
+
 
 Testing the Conan toolchain package
 -----------------------------------
