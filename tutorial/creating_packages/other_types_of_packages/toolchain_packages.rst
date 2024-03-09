@@ -236,32 +236,31 @@ Downloading the binaries for the toolchain and packaging it
 
     ...
 
-You can see that we have implemented a ``source()`` method, where we download the recipe
-license because it's stored in the downloads page for the ARM toolchains but that's the
-only thing we retrieve there and we are instead retrieving the toolchain binaries in the
-``build()`` method. This is because as we said, this toolchain package targets 32 and 64
-bit architectures. For that, we have to download two different toolchain binaries. The one
-the package gets will depend on the ``settings_target`` architecture. As this will
-conditionally download one file or another, we can't fetch it in the ``source()`` as it
-:ref:`caches the downloaded contents method<reference_conanfile_methods_source_caching>`.
+The `source()` method is used to download the recipe license, as it's found on the ARM
+toolchains' download page. However, this is the only action performed there. The actual
+toolchain binaries are fetched in the `build()` method. This approach is necessary because
+the toolchain package is designed to support both 32-bit and 64-bit architectures,
+requiring us to download two distinct sets of toolchain binaries. Which binary the package
+ends up with depends on the `settings_target` architecture. This conditional downloading
+process can't happen in the `source()` method, as it :ref:`caches the downloaded contents
+<reference_conanfile_methods_source_caching>`.
 
-The ``package()`` method does not have anything particular, we just copy the
-contents of the downloaded files to the package_folder along with the license file.
+The `package()` method doesn't have anything out of the ordinary; it simply copies the
+downloaded files into the package folder, license included.
 
 
 Adding ``settings_target`` to the Package ID information
 --------------------------------------------------------
 
 In recipes designed for cross-compiling scenarios, particularly those involving toolchains
-or compilers that target specific architectures or operating systems, the ``package_id()``
-method requires careful consideration. This method is critical for ensuring that Conan
-correctly identifies and differentiates between binaries based on the target platform they
-are intended for.
+that target specific architectures or operating systems, and the binary package can be
+different based on the target platform we may need to modify the ``package_id()`` to
+ensure that Conan correctly identifies and differentiates between binaries based on the
+target platform they are intended for.
 
-The ``package_id()`` method can be extended to include ``settings_target``, which
-encapsulates the target platform's configuration. This inclusion is essential for tools
-and compilers that generate binaries tailored to specific target environments. Here's how
-to appropriately modify the ``package_id()`` method to account for the target settings:
+In this case, we extend the ``package_id()`` method to include ``settings_target``, which
+encapsulates the target platform's configuration (in this case if it's 32 or 64 bit):
+
 
 .. code-block:: python
 
@@ -275,14 +274,11 @@ to appropriately modify the ``package_id()`` method to account for the target se
         self.info.settings_target.rm_safe("build_type")
 
 By specifying ``self.info.settings_target = self.settings_target``, we explicitly instruct
-Conan to consider the target platform's settings when generating the package ID. This
-approach is particularly relevant for packages like cross-compilers, where the
-executable's might vary based on the target architecture or operating system it is
-designed to compile for.
-
-Also note that irrelevant settings for this case can be removed with ``rm_safe()``,
-focusing only on the attributes that impact the binary's compatibility with the target
-platform, such as ``arch`` in this example.
+Conan to consider the target platform's settings when generating the package ID. In this
+case we remove ``os``, ``compiler`` and ``build_type`` settings as changing them will not
+be relevant for selecting the toolchain we will use for building and leave only the
+``arch`` setting that will be used to decide if want to produce binaries for 32 or 64
+bits.
 
 
 Define information for consumers
@@ -353,4 +349,10 @@ cross-compilation tasks.
 
 Cross-building a simple example with the toolchain
 --------------------------------------------------
+
+
+
+.. seealso::
+
+    - :ref:`More info on settings_target<binary_model_extending_cross_build_target_settings>`
 
