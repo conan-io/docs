@@ -299,36 +299,36 @@ available when using the toolchain:
             "asm": f"{toolchain}-as"
         })
         
-In this case we have to define the following information:
+In this case, we need to define the following information:
 
-- Add folders that contain toolchain tools that may be needed while compiling, in this the
-  toolchain we download will store it's tools in both ``bin`` and
-  ``<toolchain_triplet>/bin``. As the ``self.cpp_info.bindirs`` is ``bin`` by default, we
-  only need to add the one specific for the triplet. Note that it's not necessary to
-  define environment information to add these folders to the PATH, Conan will handle this
-  through the :ref:`VirtualRunEnv<conan_tools_env_virtualrunenv>`. 
+- Add directories containing toolchain tools that may be required during compilation. The
+  toolchain we download will store its tools in both ``bin`` and
+  ``<toolchain_triplet>/bin``. Since ``self.cpp_info.bindirs`` defaults to ``bin``, we
+  only need to add the directory specific to the triplet. Note that it's not necessary to
+  define environment information to add these directories to the ``PATH``, as Conan will
+  manage this through the :ref:`VirtualRunEnv<conan_tools_env_virtualrunenv>`.
 
 - We define the ``tools.build:compiler_executables`` configuration. This configuration
-  will be taken into account in several generators, like
-  ::ref:`CMakeToolchain<conan_tools_cmaketoolchain>`,
-  ::ref:`MesonToolchain<conan_tools_meson_mesontoolchain>` or
-  ::ref:`AutotoolsToolchain<conan_tools_gnu_autotoolstoolchain>` to point to the
-  appropiate compiler binaries.
+  will be considered in several generators, like
+  :ref:`CMakeToolchain<conan_tools_cmaketoolchain>`,
+  :ref:`MesonToolchain<conan_tools_meson_mesontoolchain>`, or
+  :ref:`AutotoolsToolchain<conan_tools_gnu_autotoolstoolchain>`, to direct to the
+  appropriate compiler binaries.
 
 
 Testing the Conan toolchain package
 -----------------------------------
 
-To verify the functionality and ensure the correct setup of the toolchain package, a test
-package is used. This package attempts to compile a simple project using the provided
-toolchain and examines the resulting binary.
+We also added a simple *test_package* to test the toolchain:
 
 .. code-block:: python
     :caption: test_package/conanfile.py
 
+    import os
+    from io import StringIO
+
     from conan import ConanFile
     from conan.tools.cmake import CMake, cmake_layout
-    import os
 
 
     class TestPackgeConan(ConanFile):
@@ -354,16 +354,92 @@ toolchain and examines the resulting binary.
                 toolchain = "aarch64-none-linux-gnu"
             self.run(f"{toolchain}-gcc --version")
             test_file = os.path.join(self.cpp.build.bindirs[0], "test_package")
-            self.run(f"file {test_file}")
+            stdout = StringIO()
+            self.run(f"file {test_file}", stdout=stdout)
+            if toolchain == "aarch64-none-linux-gnu":
+                assert "ELF 64-bit" in stdout.getvalue()
+            else:
+                assert "ELF 32-bit" in stdout.getvalue()
 
-This test package ensures that the toolchain is functional and that binaries produced with
-it are correctly targeted for the specified architecture, providing a solid foundation for
-cross-compilation tasks.
+This test package ensures that the toolchain is functional building a minimal *hello world*
+program and that binaries produced with it are correctly targeted for the specified
+architecture.
 
 
-Cross-building a simple example with the toolchain
---------------------------------------------------
+Creating the toolchain package and cross-building an example with the toolchain
+-------------------------------------------------------------------------------
 
+Now that we have explained the recipe for the toolchain in detail, let's go and create the package:
+
+.. code-block:: bash
+
+    $ conan create . -pr:b=default -pr:h=../profiles/raspberry-64 --build-require
+
+    ======== Exporting recipe to the cache ========
+    ...
+    ======== Input profiles ========
+    Profile host:
+    [settings]
+    arch=armv8
+    build_type=Release
+    compiler=gcc
+    compiler.cppstd=gnu14
+    compiler.libcxx=libstdc++11
+    compiler.version=13
+    os=Linux
+
+    Profile build:
+    [settings]
+    arch=x86_64
+    build_type=Release
+    compiler=gcc
+    compiler.cppstd=gnu14
+    compiler.libcxx=libstdc++11
+    compiler.version=7
+    os=Linux
+    ...
+    ======== Testing the package: Executing test ========
+    arm-toolchain/13.2 (test package): Running test()
+    arm-toolchain/13.2 (test package): RUN: aarch64-none-linux-gnu-gcc --version
+    aarch64-none-linux-gnu-gcc (Arm GNU Toolchain 13.2.rel1 (Build arm-13.7)) 13.2.1 20231009
+    Copyright (C) 2023 Free Software Foundation, Inc.
+    ...
+
+
+As you can see, we are passing two profiles for the build and host context. The most
+important detail is the ``--build-require`` argument that will tell Conan that this
+package is meant to be used as a build requirement, taking the package to the build
+context and doing that ``settings`` equal the settings from the build profile and that
+``settings_target`` equal the settings from the host profile.
+
+Now that we have our toolchain package ready, let's build a real application. We will use
+the same application that we already cross-compiled in the
+:ref:`consuming_packages_cross_building_with_conan` section but adding the tool requires
+package as a dependency in the host profile, that will make that the application and all
+the requirements are built using this toolchain.
+
+.. code-block:: bash
+
+    $ cd .. && cd consumer
+    $ conan install . -pr:b=default -pr:h=../profiles/raspberry-64 -pr:h=../profiles/arm-toolchain --build missing
+    $ cd build && cmake .. -DCMAKE_TOOLCHAIN_FILE=Release/generators/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
+    $ cmake --build .
+    $ file compressor 
+    compressor: ELF 64-bit LSB executable, ARM aarch64, version 1 (SYSV), dynamically
+    linked, interpreter /lib/ld-linux-aarch64.so.1, for GNU/Linux 3.7.0, with debug_info,
+    not stripped
+
+As you can see, we composed the already existing profile with other profile that just has
+the ``tool_requires`` added:
+
+.. code-block:: ini
+
+    [tool_requires]
+    arm-toolchain/13.2
+
+In the process, the zlib requirement will be build for ARM 64 bit too if not yet
+available. Also, check that in the end we are checking the architecture of the output
+executable confirming that it's the intended 64 bit architecture.
 
 
 .. seealso::
