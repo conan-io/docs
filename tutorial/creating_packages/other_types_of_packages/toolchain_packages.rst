@@ -282,7 +282,7 @@ bits.
 
 
 Define information for consumers
--------------------------------
+--------------------------------
 
 In the ``package_info()`` method we define all the information that consumers need to have
 available when using the toolchain:
