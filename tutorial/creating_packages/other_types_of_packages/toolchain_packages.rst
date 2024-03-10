@@ -429,7 +429,7 @@ the toolchain is used to build the application and all its dependencies
     linked, interpreter /lib/ld-linux-aarch64.so.1, for GNU/Linux 3.7.0, with debug_info,
     not stripped
 
-We composed the already existing profile with other profile that just has
+We composed the already existing profile with another profile called ``arm-toolchain`` that just has
 the ``tool_requires`` added:
 
 .. code-block:: ini
