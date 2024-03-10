@@ -361,7 +361,7 @@ We also added a simple *test_package* to test the toolchain:
             else:
                 assert "ELF 32-bit" in stdout.getvalue()
 
-This test package ensures that the toolchain is functional building a minimal *hello world*
+This test package ensures that the toolchain is functional, building a minimal *hello world*
 program and that binaries produced with it are correctly targeted for the specified
 architecture.
 
