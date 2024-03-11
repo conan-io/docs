@@ -366,8 +366,10 @@ program and that binaries produced with it are correctly targeted for the specif
 architecture.
 
 
-Creating the toolchain package and cross-building an example with the toolchain
--------------------------------------------------------------------------------
+.. _example_cross_build_toolchain_package_use:
+
+Cross-build an application using the toolchain
+----------------------------------------------
 
 Having detailed the toolchain recipe, it's time to proceed with package creation:
 

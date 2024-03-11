@@ -110,6 +110,15 @@ section to the profile will invoke the VirtualBuildEnv generator everytime we do
 ``conanbuild.sh`` script that we will source before building with CMake so that it can use
 the cross-build toolchain.
 
+.. note::
+
+    In some cases, you don't have the toolchain available on the build platform. For those
+    cases, you can use a Conan package for the cross-compiler and add it to the
+    ``[tool_requires]`` section of the profile. For an example of cross-building using a
+    toolchain package, please check :ref:`this example
+    <example_cross_build_toolchain_package_use>`.
+
+
 Build and host contexts
 ^^^^^^^^^^^^^^^^^^^^^^^
 
