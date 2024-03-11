@@ -209,7 +209,7 @@ You could check that we built the application for the correct architecture by ru
 
 .. seealso::
 
-    - :ref:`Creating a Conan package for a toolchain<tutorial_other_toolchain_packages>`
+    - :ref:`Creating a Conan package for a toolchain<example_cross_build_toolchain_package>`
     - :ref:`Cross building to Android with the NDK<examples_cross_build_android_ndk>`
     - :ref:`VirtualBuildEnv reference <conan_tools_env_virtualbuildenv>`
     - Cross-build using a tool_requires

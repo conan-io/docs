@@ -1,4 +1,4 @@
-.. _tutorial_other_toolchain_packages:
+.. _example_cross_build_toolchain_package:
 
 
 Creating a Conan package for a toolchain
