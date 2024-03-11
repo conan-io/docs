@@ -331,10 +331,9 @@ We also added a simple *test_package* to test the toolchain:
     from conan.tools.cmake import CMake, cmake_layout
 
 
-    class TestPackgeConan(ConanFile):
+    class TestPackageConan(ConanFile):
         settings = "os", "arch", "compiler", "build_type"
         generators = "CMakeToolchain", "VirtualBuildEnv"
-        test_type = "explicit"
 
         def build_requirements(self):
             self.tool_requires(self.tested_reference_str)
@@ -361,7 +360,7 @@ We also added a simple *test_package* to test the toolchain:
             else:
                 assert "ELF 32-bit" in stdout.getvalue()
 
-This test package ensures that the toolchain is functional building a minimal *hello world*
+This test package ensures that the toolchain is functional, building a minimal *hello world*
 program and that binaries produced with it are correctly targeted for the specified
 architecture.
 
@@ -431,7 +430,7 @@ the toolchain is used to build the application and all its dependencies
     linked, interpreter /lib/ld-linux-aarch64.so.1, for GNU/Linux 3.7.0, with debug_info,
     not stripped
 
-We composed the already existing profile with other profile that just has
+We composed the already existing profile with another profile called ``arm-toolchain`` that just has
 the ``tool_requires`` added:
 
 .. code-block:: ini
