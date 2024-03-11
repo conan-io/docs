@@ -135,6 +135,8 @@ for cross-compiling to a *Linux ARM* target, supporting both 32-bit and 64-bit
 architectures. Let's check how we incorporate this information into the ``validate()``
 method and discuss the various types of settings involved:
 
+**Validating the build platform**
+
 .. code-block:: python
 
     ...
@@ -149,8 +151,6 @@ method and discuss the various types of settings involved:
             raise ConanInvalidConfiguration(f"This toolchain is not compatible with {self.settings.os}-{self.settings.arch}. "
                                             "It can only run on Linux-x86_64.")
         ...
-
-**Validating the build platform**
 
 First, it's important to acknowledge that only the ``os`` and ``arch`` settings are
 declared. These settings represent the machine that will compile the package for the
@@ -172,7 +172,6 @@ instance, if compiling for a Raspberry Pi, that will be the information stored i
 ``settings_target``. Again, Conan is aware that ``settings_target`` should be populated with the
 ``host`` profile information due to the use of the ``--build-require`` flag during package
 creation.
-
 
 .. code-block:: python
 
@@ -197,6 +196,7 @@ As you can see, several verifications are made to ensure the validity of the ope
 system and architectures for the resulting binaries' execution environment. Additionally,
 it verifies that the compiler's name and version align with the expectations for the
 ``host`` context.
+
 
 Downloading the binaries for the toolchain and packaging it
 -----------------------------------------------------------
@@ -423,9 +423,9 @@ the toolchain is used to build the application and all its dependencies
 
     $ cd .. && cd consumer
     $ conan install . -pr:b=default -pr:h=../profiles/raspberry-64 -pr:h=../profiles/arm-toolchain --build missing
-    $ cd build && cmake .. -DCMAKE_TOOLCHAIN_FILE=Release/generators/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
-    $ cmake --build .
-    $ file compressor 
+    $ cmake --preset conan-release
+    $ cmake --build --preset conan-release
+    $ file ./build/Release/compressor 
     compressor: ELF 64-bit LSB executable, ARM aarch64, version 1 (SYSV), dynamically
     linked, interpreter /lib/ld-linux-aarch64.so.1, for GNU/Linux 3.7.0, with debug_info,
     not stripped
