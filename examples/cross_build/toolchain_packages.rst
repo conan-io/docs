@@ -26,7 +26,7 @@ Please, first clone the sources to recreate this project. You can find them in t
 .. code-block:: bash
 
     $ git clone https://github.com/conan-io/examples2.git
-    $ cd examples2/tutorial/creating_packages/other_packages/toolchain_packages/toolchain
+    $ cd examples2/examples/cross_build/toolchain_packages/toolchain
 
 Here, you will find a Conan recipe (and the *test_package*) to package an ARM toolchain
 for cross-compiling to Linux ARM for both 32 and 64 bits. To simplify a bit, we are

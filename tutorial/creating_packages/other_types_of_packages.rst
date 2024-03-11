@@ -7,8 +7,7 @@ there are other types of packages rather than libraries.
 
 In this section, we will review how to create a recipe for ``header-only`` libraries, how
 to package already ``built libraries``, and how to create recipes for ``tool requires``
-and ``applications``. Additionally, we will explain how to create a package for a
-toolchain that can be used as a tool require.
+and ``applications``.
 
 
 
@@ -19,4 +18,3 @@ toolchain that can be used as a tool require.
    other_types_of_packages/header_only_packages
    other_types_of_packages/package_prebuilt_binaries
    other_types_of_packages/tool_requires_packages
-   other_types_of_packages/toolchain_packages
