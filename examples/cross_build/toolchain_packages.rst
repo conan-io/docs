@@ -197,6 +197,44 @@ system and architectures for the resulting binaries' execution environment. Addi
 it verifies that the compiler's name and version align with the expectations for the
 ``host`` context.
 
+Here, the diagram shows both profiles and which settings are picked for the **arm-toolchain**
+recipe that is in the *build* context.
+
+.. graphviz::
+
+    digraph context_diagram {
+        subgraph cluster_build_context {
+            label = "build context";
+            fontname = Helvetica;
+            labeljust = "l";
+            style=filled;
+            color=lightblue;
+            
+            "arm-toolchain/13.2" [shape=box, style=filled, color=lightblue, fontname=Helvetica]
+            "settings" [shape=box, style=filled, fillcolor=lightblue, fontname=Helvetica]
+            "settings_target" [shape=box, style=filled, fillcolor=pink, fontname=Helvetica]
+        }
+
+        subgraph cluster_build_profile {
+            label="build profile";
+            labeljust = "l";
+            fontname = Helvetica;
+            color=white
+            "build_profile" [shape=record, label="[settings]\larch=x86_64\lbuild_type=Release\lcompiler=gcc\lcompiler.cppstd=gnu14\lcompiler.version=7\los=Linux\l", style=filled, color=lightblue, fontname=Helvetica]
+        }
+
+        subgraph cluster_host_profile {
+            label = "host profile";
+            labeljust = "l";
+            fontname = Helvetica
+            color = white;
+            "host_profile" [shape=record, label="[settings]\larch=armv8\lbuild_type=Release\lcompiler=gcc\lcompiler.cppstd=gnu14\lcompiler.version=13\los=Linux\l", style=filled, color=pink, fontname=Helvetica]
+        }
+
+        "build_profile" -> "settings"
+        "host_profile" -> "settings_target"
+    }
+
 
 Downloading the binaries for the toolchain and packaging it
 -----------------------------------------------------------
