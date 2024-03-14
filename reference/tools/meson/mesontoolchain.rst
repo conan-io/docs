@@ -186,6 +186,7 @@ conf
 - ``tools.build:linker_scripts`` list of linker scripts, each of which will be prefixed with ``-T`` and passed to ``c_link_args`` and
   ``cpp_link_args``. Only use this flag with linkers that supports specifying linker scripts with the ``-T`` flag, such as ``ld``, ``gold``,
   and ``lld``.
+- ``tools.build:linkerprefix`` linker argument to use for linking libraries if different from ``-l``.
 - ``tools.build:compiler_executables`` dict-like Python object which specifies the compiler as key
   and the compiler executable path as value. Those keys will be mapped as follows:
 
@@ -207,9 +208,9 @@ values:
     default_options = {{"shared": False, "fPIC": True, "with_msg": "Hi everyone!"}}
 
     def generate(self):
-        tc = MesonToolchain(self) 
+        tc = MesonToolchain(self)
         tc.project_options["DYNAMIC"] = bool(self.options.shared)  # shared is bool
-        tc.project_options["GREETINGS"] = str(self.options.with_msg)  # with_msg is str 
+        tc.project_options["GREETINGS"] = str(self.options.with_msg)  # with_msg is str
         tc.generate()
 
 In contrast, directly assigning a Conan option as a Meson value is strongly discouraged:
