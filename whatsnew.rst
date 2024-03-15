@@ -132,7 +132,8 @@ Package lists can also be created from a dependency graph resulting from a ``con
 so it is possible to upload to a server all packages that belong to a given dependency graph just chaining 2 commands.
 
 .. seealso::
-    
+
+    - :ref:`Package lists reference <examples_commands_pkglists>`
     - :ref:`these examples <examples_commands_pkglists>`
     - `Package lists blog post <https://blog.conan.io/2023/06/28/Conan-bulk-package-operations.html>`_
 
