@@ -328,5 +328,5 @@ matched our specified configuration.
     - :ref:`creating_packages_configure_options_settings`
     - :ref:`Installing configurations with conan config install <reference_commands_conan_config_install>`
     - VS Multi-config
-    - Example about how settings and options influence the package id
+    - :ref:`How settings and options influence the package id <reference_binary_model_settings_options>`
     - :ref:`Using patterns for settings and options <reference_config_files_profile_patterns>`
