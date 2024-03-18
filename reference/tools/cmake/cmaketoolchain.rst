@@ -90,7 +90,8 @@ translated from the current ``settings``:
         - By default, preset names will be `conan-xxxx`, but the "conan-" prefix can be
           customized with the `CMakeToolchain.presets_prefix = "conan"` attribute.
         - Preset names are controlled by the `layout()` `self.folders.build_folder_vars`
-          definition, which can contain a list of settings and options like
+          definition, which can contain a list of settings, options and/or
+          ``self.name`` and ``self.version`` like
           `["settings.compiler", "settings.arch", "options.shared"]`.
         - If CMake is found as a direct `tool_requires` dependency, or if
           `tools.cmake:cmake_program` is set, the configure preset will include a
@@ -576,7 +577,7 @@ CMakeToolchain is affected by these ``[conf]`` variables:
 - **tools.cmake.cmaketoolchain:system_processor** is not necessary in most cases and is only used to force-define ``CMAKE_SYSTEM_PROCESSOR``.
 - **tools.cmake.cmaketoolchain:toolset_arch**: Will add the ``,host=xxx`` specifier in the ``CMAKE_GENERATOR_TOOLSET`` variable of ``conan_toolchain.cmake`` file.
 - **tools.cmake.cmaketoolchain:toolset_cuda**: (Experimental) Will add the ``,cuda=xxx`` specifier in the ``CMAKE_GENERATOR_TOOLSET`` variable of ``conan_toolchain.cmake`` file.
-- **tools.cmake.cmake_layout:build_folder_vars**: Settings and Options that will produce a different build folder and different CMake presets names.
+- **tools.cmake.cmake_layout:build_folder_vars**: Settings, Options, and/or ``self.name`` and ``self.version`` that will produce a different build folder and different CMake presets names.
 - **tools.cmake.cmaketoolchain:presets_environment**: Set to ``'disabled'`` to prevent the addition of the environment section to the generated CMake presets.
 - **tools.build:cxxflags** list of extra C++ flags that will be appended to ``CMAKE_CXX_FLAGS_INIT``.
 - **tools.build:cflags** list of extra of pure C flags that will be appended to ``CMAKE_C_FLAGS_INIT``.

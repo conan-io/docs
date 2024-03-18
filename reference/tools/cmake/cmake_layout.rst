@@ -56,7 +56,7 @@ Multi-setting/option cmake_layout
 
 The ``folders.build`` and ``conanfile.folders.generators`` can be customized to take into account the ``settings``
 and ``options`` and not only the ``build_type``. Use the ``tools.cmake.cmake_layout:build_folder_vars``
-conf to declare a list of settings or options:
+conf to declare a list of settings, options and/or ``self.name`` and ``self.version``:
 
 .. code:: bash
 
