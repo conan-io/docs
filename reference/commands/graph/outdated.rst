@@ -1,7 +1,7 @@
 .. _reference_graph_outdated:
 
 conan graph outdated
-================
+====================
 
 .. autocommand::
     :command: conan graph outdated -h
