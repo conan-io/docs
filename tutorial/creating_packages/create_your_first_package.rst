@@ -338,5 +338,7 @@ An **important** note: the Conan cache is private to the Conan client - modifyin
 .. seealso:: 
 
   - :ref:`Create your first Conan package with Visual Studio/MSBuild<examples_tools_microsoft_create_first_package>`.
+  - :ref:`Create your first Conan package with Meson<examples_tools_meson_create_first_package>`.
+  - :ref:`Create your first Conan package with Autotools (only Linux)<examples_tools_autotools_create_first_package>`.
   - :ref:`CMake built-in integrations reference<conan_tools_cmake>`.
   - :ref:`conan create command reference<reference_commands_create>` and :ref:`Conan list command reference<reference_commands_list>`.

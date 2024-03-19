@@ -1,3 +1,5 @@
+.. _reference_binary_model_package_id:
+
 How the ``package_id`` is computed
 ==================================
 

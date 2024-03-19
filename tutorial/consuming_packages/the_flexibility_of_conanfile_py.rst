@@ -346,10 +346,57 @@ Windows or that you want to use the system's CMake installation instead of using
                 self.tool_requires("cmake/3.22.6")
 
 
+.. _copy_resources_on_generate:
+
+Use the generate() method to copy resources from packages
+---------------------------------------------------------
+
+In some scenarios, Conan packages include files that are useful or even necessary for the
+consumption of the libraries they package. These files can range from configuration files,
+assets, to specific files required for the project to build or run correctly. Using the
+:ref:`generate() method<reference_conanfile_methods_generate>` you can copy these
+files from the Conan cache to your project's folder, ensuring that all required resources
+are directly available for use.
+
+Here's an example that shows how to copy all resources from a dependency's
+``resdirs`` directory to an ``assets`` directory within your project:
+
+
+.. code-block:: python
+
+    import os
+    from conan import ConanFile
+    from conan.tools.files import copy
+
+    class MyProject(ConanFile):
+
+        ...
+
+        def generate(self):
+            # Copy all resources from the dependency's resource directory 
+            # to the "assets" folder in the source directory of your project 
+            dep = self.dependencies["dep_name"]
+            copy(self, "*", dep.cpp_info.resdirs[0], os.path.join(self.source_folder, "assets"))
+
+
+Then, after the ``conan install`` step, all those resource files will be copied locally,
+allowing you to use them in your project's build process. For a complete example of
+how to import files from a package in the ``generate()`` method, you can refer to the
+`blog post about using the Dear ImGui library
+<https://blog.conan.io/2019/06/26/An-introduction-to-the-Dear-ImGui-library.html>`, which
+demonstrates how to import bindings for the library depending on the graphics API.
+
+.. note::
+
+    It's important to clarify that copying libraries, whether static or shared, is not
+    necessary. Conan is designed to use the libraries from their locations in the Conan
+    local cache using :ref:`generators<conan_tools>` and :ref:`environment
+    tools<conan_tools_env_virtualrunenv>` without the need to copy them to the local
+    folder.
+
 .. seealso::
 
     - :ref:`Using "cmake_layout" + "CMakeToolchain" + "CMakePresets feature" to build your project<examples-tools-cmake-toolchain-build-project-presets>`.
     - :ref:`Understanding the Conan Package layout<tutorial_package_layout>`.
     - :ref:`Documentation for all conanfile.py available methods<reference_conanfile_methods>`.
-    - Importing resource files in the generate() method
     - Conditional generators in configure()
