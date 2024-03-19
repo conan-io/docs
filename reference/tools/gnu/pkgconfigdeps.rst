@@ -111,6 +111,8 @@ you can activate it using the **build_context_activated** attribute:
 build_context_suffix
 ^^^^^^^^^^^^^^^^^^^^
 
+*DEPRECATED since Conan 2.2.0: use build_context_folder attribute instead*
+
 When you have the same package as a **build-require** and as a **regular require** it will
 cause a conflict in the generator because the file names of the ``*.pc`` files will
 collide as well as the names, requires names, etc.
@@ -137,6 +139,32 @@ renamed:
         # disambiguate the files, requires, names, etc
         pc.build_context_suffix = {"my_tool": "_BUILD"}
         pc.generate()
+
+
+build_context_folder
+^^^^^^^^^^^^^^^^^^^^
+
+*New since Conan 2.2.0*
+
+Similar to the quoted ``build_context_suffix`` attribute above, but this is meant to specify a folder for the all
+build requirements listed in the ``build_context_activated`` one:
+
+.. code-block:: python
+
+    tool_requires = ["my_tool/0.0.1"]
+    requires = ["my_tool/0.0.1"]
+    def generate(self):
+        pc = PkgConfigDeps(self)
+        # generate the *.pc file for the tool require
+        pc.build_context_activated = ["my_tool"]
+        # save all the *.pc files coming from the "my_tool" build context and its requirements
+        pc.build_context_folder = "build"  # [generators_folder]/build/
+        pc.generate()
+
+
+.. important::
+
+    You cannot use this attribute along together with the already deprecated ``build_context_suffix`` one.
 
 
 .. _PkgConfigDeps Properties:
