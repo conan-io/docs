@@ -111,7 +111,7 @@ you can activate it using the **build_context_activated** attribute:
 build_context_suffix
 ^^^^^^^^^^^^^^^^^^^^
 
-*DEPRECATED since Conan 2.2.0: use build_context_folder attribute instead*
+*DEPRECATED: use build_context_folder attribute instead*
 
 When you have the same package as a **build-require** and as a **regular require** it will
 cause a conflict in the generator because the file names of the ``*.pc`` files will
