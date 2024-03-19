@@ -1,9 +1,7 @@
-.. examples_extensions_deployers_sources:
+.. _examples_extensions_deployers_sources:
 
 Copy sources from all your dependencies
 =======================================
-
-
 
 Please, first clone the sources to recreate this project. You can find them in the
 `examples2 repository <https://github.com/conan-io/examples2>`_ in GitHub:
@@ -65,9 +63,9 @@ The **source_deploy.py** file has the following code:
 .. code-block:: python
     :caption: **sources_deploy.py**
 
-    from conan.tools.files import copy
     import os
-
+    from conan.errors import ConanException
+    from conan.tools.files import copy
 
     def deploy(graph, output_folder, **kwargs):
         # Note the kwargs argument is mandatory to be robust against future changes.

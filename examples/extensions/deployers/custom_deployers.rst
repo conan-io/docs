@@ -12,3 +12,4 @@ Custom deployers
 
 
    sources/custom_deployer_sources
+   metadata/custom_deployer_metadata

@@ -340,7 +340,8 @@ downloading it, and copying it to our current folder:
 
 .. seealso::
 
-   - TODO: Examples how to collect the metadata of a complete dependency graph with some custom deployer or command
+   - Check an :ref:`example on how to collect the metadata of a complete dependency graph with some custom deployer<examples_extensions_deployers_metadata>`
 
 
-This is an **experimental** feature. We are looking forward to hearing your feedback, use cases and needs, to keep improving this feature. Please report it in `Github issues <https://github.com/conan-io/conan/issues>`_
+Remember that this is an **experimental** feature. We are looking forward to hearing your feedback, use cases and needs, to keep improving this feature.
+Please report it in `Github issues <https://github.com/conan-io/conan/issues>`_
