@@ -383,7 +383,7 @@ and added in this order:
   ``CMAKE_CXX_COMPILER``
 - **android_system**: Defines ``ANDROID_PLATFORM``, ``ANDROID_STL``, ``ANDROID_ABI`` and includes ``ANDROID_NDK_PATH/build/cmake/android.toolchain.cmake``
   where ``ANDROID_NDK_PATH`` comes defined in ``tools.android:ndk_path`` configuration value.
-- **apple_system**: Defines ``CMAKE_OSX_ARCHITECTURES``, ``CMAKE_OSX_SYSROOT`` for Apple systems.
+- **apple_system**: Defines ``CMAKE_OSX_ARCHITECTURES`` (see the :ref:`universal binaries section<conan_tools_cmaketoolchain_universal_binaries>`), ``CMAKE_OSX_SYSROOT`` for Apple systems.
 - **fpic**: Defines the ``CMAKE_POSITION_INDEPENDENT_CODE`` when there is a ``options.fPIC``
 - **arch_flags**: Defines C/C++ flags like ``-m32, -m64`` when necessary.
 - **linker_scripts**: Defines the flags for any provided linker scripts.
@@ -548,6 +548,25 @@ variables:
 - ``CMAKE_SYSTEM_PROCESSOR``: ``tools.cmake.cmaketoolchain:system_processor`` conf if defined, otherwise
   ``arch`` setting (host) if defined
 
+.. _conan_tools_cmaketoolchain_universal_binaries:
+
+Support for Universal Binaries in macOS
+---------------------------------------
+
+.. include:: ../../../common/experimental_warning.inc
+
+Starting in Conan 2.2.0, there's preliminary support for building universal binaries in
+macOS using CMakeToolchain. To pass the universal architecture to Conan, use the `|`
+separator when defining the arch in the settings to pass a list of architectures. For
+example, running:
+
+.. code:: bash
+
+    conan create . --name=mylibrary --version=1.0 -s="arch=armv8|x86_64"
+
+will create a universal binary for *mylibrary* containing both ``armv8`` and ``x86_64``
+architectures, setting ``CMAKE_OSX_ARCHITECTURES`` with a value of ``arm64;x86_64`` in the
+*conan_toolchain.cmake* file.
 
 
 Reference
