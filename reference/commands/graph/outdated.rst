@@ -12,7 +12,7 @@ repository. This command helps users in identifying outdated libraries by displa
 the remote repository and indicating which specific remote repository it was found in. Additionally, it presents
 information on the versions currently stored in the local cache and specifies the version ranges for each library.
 
-It will display the information for evey library on the dependency graph it is run on. For example if running
+It will display the information for every library on the dependency graph it is run on. For example if running
 the command with an older version of ``libcurl`` it will display:
 
 .. code-block:: bash
