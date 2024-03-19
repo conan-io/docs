@@ -43,7 +43,7 @@ self.folders
   :ref:`layouts with multiple subprojects<examples_conanfile_layout_multiple_subprojects>`
 
 - **self.folders.build_folder_vars** (Defaulted to ``None``): Use settings, options and/or
-  ``self.name`` and ``self.version``to produce a different build folder and different CMake presets names.
+  ``self.name`` and ``self.version`` to produce a different build folder and different CMake presets names.
 
 
 .. _layout_cpp_reference:
