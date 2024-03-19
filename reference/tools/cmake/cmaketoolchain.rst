@@ -61,6 +61,9 @@ translated from the current ``settings``:
   - Definition of the C++ standard as necessary
   - Definition of the standard library used for C++
   - Deactivation of rpaths in OSX
+  - Definition of ``CMAKE_VS_DEBUGGER_ENVIRONMENT`` when on Windows with Visual Studio.
+    This sets up the ``PATH`` environment variable to point to directories containing DLLs,
+    to allow debugging directly from the Visual Studio IDE without copying DLLs (requires CMake 3.27).
 
 - **conanvcvars.bat**: In some cases, the Visual Studio environment needs to be defined correctly for building,
   like when using the Ninja or NMake generators. If necessary, the ``CMakeToolchain`` will generate this script,
