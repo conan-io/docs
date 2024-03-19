@@ -25,3 +25,4 @@ Python API
    python_api/NewAPI
    python_api/UploadAPI
    python_api/DownloadAPI
+   python_api/CommandAPI
