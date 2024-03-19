@@ -255,6 +255,7 @@ conf
 - ``tools.build:linker_scripts`` list of linker scripts, each of which will be prefixed with ``-T`` and added to ``LDFLAGS``.
   Only use this flag with linkers that supports specifying linker scripts with the ``-T`` flag, such as ``ld``, ``gold``, and ``lld``.
 - ``tools.build:sysroot`` defines the ``--sysroot`` flag to the compiler.
+- ``tools.build:linkerprefix`` linker argument to use for linking libraries if different from ``-l``.
 - ``tools.build:compiler_executables`` dict-like Python object which specifies the
   compiler as key and the compiler executable path as value. Those keys will be mapped as
   follows:

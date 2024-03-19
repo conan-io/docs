@@ -76,6 +76,7 @@ conf
 - ``tools.build:sharedlinkflags`` list of extra linker flags that will be used by ``linkopt``.
 - ``tools.build:exelinkflags`` list of extra linker flags that will be used by ``linkopt``.
 - ``tools.build:linker_scripts`` list of linker scripts, each of which will be prefixed with ``-T`` and added to ``linkopt``.
+- ``tools.build:linkerprefix`` linker argument to use for linking libraries if different from ``-l``.
 
 
 .. seealso::
