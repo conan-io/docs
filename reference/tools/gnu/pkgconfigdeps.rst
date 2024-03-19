@@ -147,7 +147,7 @@ build_context_folder
 *New since Conan 2.2.0*
 
 Same concept as the quoted ``build_context_suffix`` attribute above, but this is meant to specify a folder to save
-the **.pc* files created by all those build requirements listed in the ``build_context_activated`` one:
+the `*.pc` files created by all those build requirements listed in the ``build_context_activated`` one:
 
 .. code-block:: python
 
