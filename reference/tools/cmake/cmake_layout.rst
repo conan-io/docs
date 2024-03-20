@@ -42,7 +42,7 @@ These are the values assigned by the ``cmake_layout``:
 
 
 conf
-^^^^
+----
 
 ``cmake_layout`` is affected by these ``[conf]`` variables:
 
