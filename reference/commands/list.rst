@@ -306,6 +306,53 @@ and ``--graph-binaries=<binary-mode>`` allow specifying what artifacts have to b
 - ``conan list --graph=graph.json --graph-binaries=download`` list exclusively the binaries that have been downloaded in the last ``conan create`` or ``conan install``
 
 
+Filtering packages
+------------------
+
+There's a few ways to filter the packages that are returned by the command:
+- The ``--package-query`` option allows to filter the packages that match a specific query,
+  for example ``--package-query="os=Windows AND (arch=x86 OR compiler=gcc)"`` would match only Windows packages
+  where the architecture is x86 or the compiler is gcc.
+- You can filter packages by profiles (``--filter-profile``), settings (``--filter-settings``), or options (``--filter-options``).
+  Note that only declared settings and options in the recipe will be considered for filtering,
+  so that if for example a recipe does not declare the ``shared`` option, its packages will always be returned when using
+  the ``--filter-options="*:shared=True"`` filter (regardless of the ``shared`` value used)
+
+
+.. code-block:: text
+
+   $ conan list "zlib/1.3.1:*" -fs="os=Macos" -fo="*:shared=True" -r=conancenter
+   conancenter
+     zlib
+       zlib/1.3.1
+         revisions
+           f52e03ae3d251dec704634230cd806a2 (2024-02-22 09:20:06 UTC)
+             packages
+               24612164eb0760405fcd237df0102e554ed1cb2f
+                 info
+                   settings
+                     arch: x86_64
+                     build_type: Release
+                     compiler: apple-clang
+                     compiler.version: 13
+                     os: Macos
+                   options
+                     shared: True
+               a3c9d80d887539fac38b81ff8cd4585fe42027e0
+                 info
+                   settings
+                     arch: armv8
+                     build_type: Release
+                     compiler: apple-clang
+                     compiler.version: 13
+                     os: Macos
+                   options
+                     shared: True
+
+
+Both ways can be used together, and only the packages that match both filters will be listed
+
+
 List json output format
 -----------------------
 
