@@ -558,18 +558,28 @@ Support for Universal Binaries in macOS
 
 .. include:: ../../../common/experimental_warning.inc
 
-Starting in Conan 2.2.0, there's preliminary support for building universal binaries in
-macOS using CMakeToolchain. To pass the universal architecture to Conan, use the `|`
-separator when defining the arch in the settings to pass a list of architectures. For
-example, running:
+Starting in Conan 2.2.0, there's preliminary support for building universal binaries on
+macOS using CMakeToolchain. To specify multiple architectures for a universal binary in
+Conan, use the `|` separator when defining the architecture in the settings. This approach
+enables passing a list of architectures. For example, running:
 
 .. code:: bash
 
     conan create . --name=mylibrary --version=1.0 -s="arch=armv8|x86_64"
 
 will create a universal binary for *mylibrary* containing both ``armv8`` and ``x86_64``
-architectures, setting ``CMAKE_OSX_ARCHITECTURES`` with a value of ``arm64;x86_64`` in the
-*conan_toolchain.cmake* file.
+architectures, by setting ``CMAKE_OSX_ARCHITECTURES`` with a value of ``arm64;x86_64`` in
+the *conan_toolchain.cmake* file.
+
+.. warning::
+
+    It is important to note that this method is not applicable to build systems other than
+    CMake.
+
+    Be aware that this feature is primarily beneficial for building final univeral
+    binaries for release purposes. The default Conan behavior of managing one binary per
+    architecture generally provides a more reliable and trouble-free experience. Users
+    should be cautious and not overly rely on this feature for broader use cases.
 
 
 Reference
