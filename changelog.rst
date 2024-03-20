@@ -3,6 +3,11 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.2.1 (20-Mar-2024)
+-------------------
+
+- Fix: Add `copytree_compat` method for compatibility with Python>=3.12 after distutils removal. `#15906 <https://github.com/conan-io/conan/pull/15906>`_
+
 2.2.0 (20-Mar-2024)
 -------------------
 
