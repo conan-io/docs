@@ -108,8 +108,10 @@ you can activate it using the **build_context_activated** attribute:
         pc.generate()
 
 
-build_context_suffix
+build_context_folder
 ^^^^^^^^^^^^^^^^^^^^
+
+*New since Conan 2.2.0*
 
 When you have the same package as a **build-require** and as a **regular require** it will
 cause a conflict in the generator because the file names of the ``*.pc`` files will
@@ -122,9 +124,30 @@ also have a **regular require**. Solving this conflict is specially important wh
 cross-building because the tool (that will run in the building machine) belongs to a
 different binary package than the library, that will "run" in the host machine.
 
-You can use the **build_context_suffix** attribute to specify a suffix for a requirement,
-so the files/requires/names of the requirement in the build context (tool require) will be
-renamed:
+You can use the ``build_context_folder`` attribute to specify a folder to save the `*.pc` files created by all those
+build requirements listed in the ``build_context_activated`` one:
+
+.. code-block:: python
+
+    tool_requires = ["my_tool/0.0.1"]
+    requires = ["my_tool/0.0.1"]
+    def generate(self):
+        pc = PkgConfigDeps(self)
+        # generate the *.pc file for the tool require
+        pc.build_context_activated = ["my_tool"]
+        # save all the *.pc files coming from the "my_tool" build context and its requirements
+        pc.build_context_folder = "build"  # [generators_folder]/build/
+        pc.generate()
+
+
+
+build_context_suffix
+^^^^^^^^^^^^^^^^^^^^
+
+*DEPRECATED: use build_context_folder attribute instead*
+
+Same concept as the quoted ``build_context_folder`` attribute above, but this is meant to specify a suffix for a requirement,
+so the files/requires/names of the requirement in the build context (tool require) will be renamed:
 
 .. code-block:: python
 
@@ -137,6 +160,11 @@ renamed:
         # disambiguate the files, requires, names, etc
         pc.build_context_suffix = {"my_tool": "_BUILD"}
         pc.generate()
+
+
+.. important::
+
+    This attribute should not be used simultaneously with the ``build_context_folder`` attribute.
 
 
 .. _PkgConfigDeps Properties:
