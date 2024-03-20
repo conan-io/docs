@@ -310,10 +310,11 @@ Filtering packages
 ------------------
 
 There are a few ways to filter the packages that are returned by the command:
-- The ``--package-query`` option allows to filter the packages that match a specific query,
+
+* The ``--package-query`` option allows to filter the packages that match a specific query,
   for example ``--package-query="os=Windows AND (arch=x86 OR compiler=gcc)"`` would match only Windows packages
   where the architecture is x86 or the compiler is gcc.
-- You can filter packages by profiles (``--filter-profile``), settings (``--filter-settings``), or options (``--filter-options``).
+* You can filter packages by profiles (``--filter-profile``), settings (``--filter-settings``), or options (``--filter-options``).
   Note that only declared settings and options in the recipe will be considered for filtering,
   so that if for example a recipe does not declare the ``shared`` option, its packages will always be returned when using
   the ``--filter-options="*:shared=True"`` filter (regardless of the ``shared`` value used)
