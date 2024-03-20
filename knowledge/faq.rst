@@ -126,3 +126,53 @@ Conan will not normalize or change in any way the source files, it is not its re
     crlf = false
 
 Other approach would be to change the ``.gitconfig`` to change it globally. Modern editors (even Notepad) in Windows can perfectly work with files with ``LF``, it is no longer necessary to change the line endings.
+
+
+.. _faq_different_options_values:
+
+
+Defining options for dependencies in conanfile.py recipes doesn't work
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Conan expands the dependency graph depth-first, this is important to be able to implement many of the very special C/C++ propagation
+logic (headers, static and shared libraries, applications, tool-requires, test-requires, conflicts, overrides, etc.).
+
+This means that when a ``conanfile.py`` declares something like:
+
+.. code-block:: python
+
+  class MyPkg(ConanFile):
+      name = "mypkg"
+      version = "0.1"
+      default_options = {"zlib/*:shared": True}
+      # Or
+      def requirements(self):
+          self.requires("zlib/1.3", options={"shared": True})
+
+
+it cannot be always honored, and the ``zlib`` dependency might end with different ``shared=False`` option value.
+This in-recipe options values definition for dependencies only works if:
+
+- There are no other packages depending on ``zlib`` in the graph
+- There are other packages depending on ``zlib`` in the graph, but ``mypkg/0.1`` is the first require (the first branch
+  in the dependency graph) that is required. That means that ``requires = "mypkg/0.1", "zlib/1.3"`` will work and will have 
+  ``zlib`` as shared, but ``requires = "zlib/1.3", "mypkg/0.1"`` will expand first ``zlib`` with its default, which is 
+  ``shared=False`` and when the ``mypkg/0.1`` is computed it will be too late to change ``zlib`` to be ``shared=True``.
+
+In case there are some recipe that won't work at all with some option of the dependency, the recommendation is to define
+a ``validate()`` method in the recipe to guarantee that it will raise an error if for some reason the upstream dependency
+doesn't have the right options values.
+
+Conan might be able to show some (not guaranteed to be exhaustive) of these issues in the output of the Conan commands,
+please read it carefully.
+
+
+.. code-block::
+
+    Options conflicts
+        liba/0.1:myoption=1 (current value)
+            libc/0.1->myoption=2
+        It is recommended to define options values in profiles, not in recipes
+
+In general, it is more recommended to define options values in profile files, not in recipes.
+Recipe defined options always have precedence over options defined in profiles.

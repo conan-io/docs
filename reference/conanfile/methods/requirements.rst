@@ -142,6 +142,22 @@ direct
 If the dependency is a direct one, that is, it has explicitly been declared by the current
 recipe, or if it is a transitive one.
 
+options
+~~~~~~~
+
+It is possible to define options values for dependencies as a trait:
+
+.. code-block:: python
+
+    self.requires("mydep/0.1", options={"dep_option": "value"})
+
+
+.. warning::
+
+    Defining options values in recipes does not have strong guarantees, please check 
+    :ref:`this FAQ about options values for dependencies<faq_different_options_values>`. The recommended way
+    to define options values is in profile files.
+
 
 .. _reference_conanfile_package_type_trait_inferring:
 

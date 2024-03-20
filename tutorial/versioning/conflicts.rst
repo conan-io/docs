@@ -256,6 +256,13 @@ define that it should be a static library (not really necessary, because that is
         # Not strictly necessary because this is already the matrix default
         default_options = {"matrix*:shared": False}
 
+
+.. warning::
+
+    Defining options values in recipes does not have strong guarantees, please check 
+    :ref:`this FAQ about options values for dependencies<faq_different_options_values>`. The recommended way
+    to define options values is in profile files.
+
 And also ``intro`` recipe would do the same, but instead define that it wants a shared library, and adds a
 ``validate()`` method, because for some reason the ``intro`` package can only be built against shared libraries
 and otherwise crashes:

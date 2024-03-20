@@ -213,6 +213,12 @@ This attribute should be defined as a python dictionary.
 You can also assign default values for options of your requirements using "<reference_pattern>: option_name", being
 a valid ``reference_pattern`` a ``name/version`` or any pattern with ``*`` like the example above.
 
+.. warning::
+
+    Defining options values in recipes does not have strong guarantees, please check 
+    :ref:`this FAQ about options values for dependencies<faq_different_options_values>`. The recommended way
+    to define options values is in profile files.
+
 You can also set the options conditionally to a final value with ``configure()`` instead of using ``default_options``:
 
 .. code-block:: python
