@@ -230,24 +230,35 @@ For example, to get the options of zlib, the following command could be run:
         shared: False
 
 
-You can generate a graph of your dependencies in ``json``, ``dot`` or ``html`` formats:
+Available formatters
+--------------------
 
-Now, let's try the ``dot`` format for instance:
+json formatter
+^^^^^^^^^^^^^^
+
+For the documentation about the JSON formatter, please check the :ref:`dedicated section <reference_commands_graph_info_json_format>`.
+
+dot formatter
+^^^^^^^^^^^^^
+
+To use the DOT format, execute the following command:
 
 .. code-block:: bash
-    :caption: **binutils/2.38 graph info to DOT**
+    :caption: binutils/2.38 graph info DOT representation
 
     $ conan graph info --require=binutils/2.38 -r=conancenter --format=dot > graph.dot
 
-Which generates the following file:
+This command generates a DOT file with the following content:
 
 .. code-block:: dot
-    :caption: **graph.dot**
+    :caption: Contents of graph.dot
 
     digraph {
-            "cli" -> "binutils/2.38"
-            "binutils/2.38" -> "zlib/1.2.13"
+        "cli" -> "binutils/2.38"
+        "binutils/2.38" -> "zlib/1.2.13"
     }
+
+To visualize this graph, you can render it using Graphviz or any compatible tool.
 
 .. graphviz::
 
@@ -257,17 +268,39 @@ Which generates the following file:
     }
 
 
+
+html formatter
+^^^^^^^^^^^^^^
+
+The HTML formatter provides a visual representation of the dependency graph that is both
+interactive and user-friendly. 
+
+.. code-block:: bash
+
+    $ conan graph info --require=tensorflow-lite/2.12.0 -r=conancenter --format=html > graph.html
+
+
+The HTML output displays an interactive graph of your project's dependencies, featuring
+nodes for packages with versions, directional arrows for dependencies, and color-coded
+labels for dependency types. You can interact with the graph to filter visibility of
+dependencies and access package details and status.
+
+
+.. image:: ../../../images/conan-graph-info-html.png
+    :target: ../../../_images/conan-graph-info-html.png
+
 .. note::
-    If using ``format=html``, the generated html contains links to a third-party resource,
-    the *vis.js* library with 2 files: *vis.min.js*, *vis.min.css*.
-    By default they are retrieved from Cloudfare. However, for environments without internet connection,
-    you'll need to create a template for the file and place it in ``CONAN_HOME/templates/graph.html``.
-    to point to a local version of these files:
 
-    - *vis.min.js*: "https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js"
-    - *vis.min.css*: "https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.css"
-
-    You can use the template found in ``cli/formatters/graph/info_graph.html`` as a basis for your own.
+    When using ``format=html``, the generated HTML contains links to a third-party
+    resource: the `vis-network <https://github.com/visjs/vis-network>`_ library trough the
+    *vis-network.min.js* file. By default, this file is retrieved from Cloudflare.
+    However, for environments without an internet connection, you will need to create a
+    template for the file and place it in ``CONAN_HOME/templates/graph.html`` to point to
+    a local version of `the remote vis-network.min.js file <https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.9/standalone/umd/vis-network.min.js>`_
+    
+    Use the template located in
+    ``<conan_sources>/conan/cli/formatters/graph/info_graph_html.py`` as a starting point for
+    your own.
 
 
 .. seealso::
