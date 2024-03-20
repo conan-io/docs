@@ -57,6 +57,7 @@ They are also the recommended default to represent when a library is shared, sta
 
     - :ref:`documentation for options<conan_conanfile_properties_options>` 
     - :ref:`documentation for default_options<conan_conanfile_properties_default_options>`.
+    - :ref:`Defining options for dependencies in recipes does not have strong guarantees<faq_different_options_values>`
 
 
 Settings vs options vs conf
