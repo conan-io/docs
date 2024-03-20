@@ -309,7 +309,7 @@ and ``--graph-binaries=<binary-mode>`` allow specifying what artifacts have to b
 Filtering packages
 ------------------
 
-There's a few ways to filter the packages that are returned by the command:
+There are a few ways to filter the packages that are returned by the command:
 - The ``--package-query`` option allows to filter the packages that match a specific query,
   for example ``--package-query="os=Windows AND (arch=x86 OR compiler=gcc)"`` would match only Windows packages
   where the architecture is x86 or the compiler is gcc.
