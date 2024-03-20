@@ -114,6 +114,7 @@ For example, in the ``configure()`` method a typical pattern for a C library wou
 
     - :ref:`reference_config_files_settings_yml`.
     - :ref:`Removing settings in the package_id() method<reference_conanfile_methods_package_id_clear>`.
+    - :ref:`Creating universal binaries using CMakeToolchain<conan_tools_cmaketoolchain_universal_binaries>`.
 
 
 .. _conan_conanfile_properties_options:
