@@ -164,7 +164,7 @@ so the files/requires/names of the requirement in the build context (tool requir
 
 .. important::
 
-    You cannot use this attribute along together with the ``build_context_folder`` one.
+    This attribute should not be used simultaneously with the ``build_context_folder`` attribute.
 
 
 .. _PkgConfigDeps Properties:
