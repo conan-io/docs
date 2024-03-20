@@ -114,6 +114,39 @@ See `conan-io/command-extensions's .conanignore <https://github.com/conan-io/com
       $ conan config install /path/to/some/config.zip
 
 
+.. _reference_commands_conan_config_install_pkg:
+
+conan config install-pkg
+------------------------
+
+.. include:: ../../common/experimental_warning.inc
+
+
+.. autocommand::
+    :command: conan config install-pkg -h
+
+
+This command allows to install configuration from a Conan package stored in a Conan server.
+
+The packages containing configuration follow some special rules:
+
+- They must define the ``package_type = "configuration"``
+- The configuration files must be packaged in the final "binary" package, following the same layout as they would for other ``conan config install`` cases.
+- They cannot be used as ``requires`` of other packages, because that would result in a chicken-and-egg problem.
+- They cannot contain ``requires`` to other packages
+- The configuration packages are created with ``conan create`` and ``conan export-pkg`` as other packages, and uploaded to the servers with ``conan upload``
+
+To install configuration from a Conan configuration package, it is possible:
+
+- To generate a lockfile file with ``--lockfile-out``. This lockfile file can be passed to ``conan config install-pkg --lockfile`` (it will automatically loaded it if is named ``conan.lock`` and found in the current directory) in the future to guarantee the same exact version.
+- Version ranges can be used ``conan config install-pkg "myconf/[>=1.0 <2]"`` is correct, and it will install the latest one in that range.
+- ``conan config install-pkg`` always look in the server for the latest version or revision.
+- If the same version and revision was downloaded and installed from the server, ``conan config install-pkg`` will be a no-op unless ``--force`` is used, in this case the configuration will be overwritten.
+
+It is also possible to make the version of the configuration affect all packages ``package_id`` and be part of the binary model, by activating the ``core.package_id:config_mode`` conf (this is also experimental), to any available mode, like ``minor_mode``.
+
+
+
 conan config list
 -----------------
 
