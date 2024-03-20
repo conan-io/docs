@@ -57,9 +57,9 @@ conf
 
 - **tools.cmake.cmake_layout:build_folder_vars** list of settings, options and/or ``self.name`` and ``self.version`` to
   customize the ``conanfile.folders.build`` folder. See section :ref:`cmake_layout_multi_name` below.
-- **tools.cmake.cmake_layout:build_folder** uses its value as the base folder of the ``conanfile.folders.build``
+- **tools.cmake.cmake_layout:build_folder** (*new since Conan 2.2.0*)(*experimental*) uses its value as the base folder of the ``conanfile.folders.build``
   for local builds.
-- **tools.cmake.cmake_layout:test_folder** uses its value as the base folder of the ``conanfile.folders.build``
+- **tools.cmake.cmake_layout:test_folder** (*new since Conan 2.2.0*)(*experimental*) uses its value as the base folder of the ``conanfile.folders.build``
   for test_package builds. If that value is ``$TMP``, Conan will create and use a temporal folder.
 
 
