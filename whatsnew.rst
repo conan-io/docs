@@ -159,3 +159,16 @@ always fully reproducible, no matter what happens to the original internet sourc
 .. seealso::
     
     - `the backup-sources blog post <https://blog.conan.io/2023/10/03/backup-sources-feature.html>`_
+
+
+Installing configuration from Conan packages
+--------------------------------------------
+
+From Conan 2.2 it is possible to install configuration not only from git repos and http servers, but also
+from Conan packages. Doing ``conan config install-pkg myconf/myversion`` over a Conan package ``myconf/myversion``
+stored in a a Conan server, allows to install the configuration files inside that package. It also allows
+to use version ranges to update easily to the latest one within the range, and lockfiles to achieve reproducibility.
+
+.. seealso::
+
+    - :ref:`Read the conan config install-pkg command reference <reference_commands_conan_config_install_pkg>`
