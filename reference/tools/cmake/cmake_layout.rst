@@ -41,6 +41,15 @@ These are the values assigned by the ``cmake_layout``:
     - ``.`` for a single-configuration cmake generator.
 
 
+Reference
+---------
+
+
+.. currentmodule:: conan.tools.cmake.layout
+
+.. autofunction:: cmake_layout
+
+
 conf
 ----
 
@@ -52,15 +61,6 @@ conf
   for local builds.
 - **tools.cmake.cmake_layout:test_folder** uses its value as the base folder of the ``conanfile.folders.build``
   for test_package builds. If that value is ``$TMP``, Conan will create and use a temporal folder.
-
-
-Reference
----------
-
-
-.. currentmodule:: conan.tools.cmake.layout
-
-.. autofunction:: cmake_layout
 
 
 .. _cmake_layout_multi_name:
