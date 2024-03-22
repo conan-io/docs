@@ -382,8 +382,8 @@ and added in this order:
   If the configuration ``tools.cmake.cmaketoolchain:user_toolchain=["xxxx", "yyyy"]`` is defined, its values will be ``include(xxx)\ninclude(yyyy)`` as the
   first lines in ``conan_toolchain.cmake``.
 - **generic_system**: Defines ``CMAKE_SYSTEM_NAME``, ``CMAKE_SYSTEM_VERSION``, ``CMAKE_SYSTEM_PROCESSOR``,
-  ``CMAKE_GENERATOR_PLATFORM``, ``CMAKE_GENERATOR_TOOLSET``, ``CMAKE_C_COMPILER``,
-  ``CMAKE_CXX_COMPILER``
+  ``CMAKE_GENERATOR_PLATFORM``, ``CMAKE_GENERATOR_TOOLSET``
+- **compilers**: Defines ``CMAKE_<LANG>_COMPILER`` for different languages, as defined by ``tools.build:compiler_executables`` configuration.
 - **android_system**: Defines ``ANDROID_PLATFORM``, ``ANDROID_STL``, ``ANDROID_ABI`` and includes ``ANDROID_NDK_PATH/build/cmake/android.toolchain.cmake``
   where ``ANDROID_NDK_PATH`` comes defined in ``tools.android:ndk_path`` configuration value.
 - **apple_system**: Defines ``CMAKE_OSX_ARCHITECTURES`` (see the :ref:`universal binaries section<conan_tools_cmaketoolchain_universal_binaries>`), ``CMAKE_OSX_SYSROOT`` for Apple systems.
