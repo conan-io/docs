@@ -101,16 +101,16 @@ generators.
       --lockfile-out LOCKFILE_OUT
                             Filename of the updated lockfile
       -e ENV_HOST, --env ENV_HOST
-                            Environment variables that will be set during the
-                            package build (host machine). e.g.: -e
+                            (Deprecated) Environment variables that will be set
+                            during the package build (host machine). e.g.: -e
                             CXX=/usr/bin/clang++
       -e:b ENV_BUILD, --env:build ENV_BUILD
-                            Environment variables that will be set during the
-                            package build (build machine). e.g.: -e:b
+                            (Deprecated) Environment variables that will be set
+                            during the package build (build machine). e.g.: -e:b
                             CXX=/usr/bin/clang++
       -e:h ENV_HOST, --env:host ENV_HOST
-                            Environment variables that will be set during the
-                            package build (host machine). e.g.: -e:h
+                            (Deprecated) Environment variables that will be set
+                            during the package build (host machine). e.g.: -e:h
                             CXX=/usr/bin/clang++
       -o OPTIONS_HOST, --options OPTIONS_HOST
                             Define options values (host machine), e.g.: -o
@@ -275,8 +275,13 @@ If you omit the :command:`--build` option, the ``build_policy`` attribute in `co
 looked up. If it is set to ``missing`` or ``always``, this build option will be used, otherwise the
 command will behave like :command:`--build=never` was set.
 
-env variables
--------------
+env variables [DEPRECATED]
+--------------------------
+
+.. warning::
+
+    :command:`-e` parameters are deprecated and was removed in Conan 2.0. Use :command:`-c`, profile `[conf]` or
+    :ref:`global.conf <global_conf>` instead.
 
 With the :command:`-e` parameters you can define:
 
@@ -338,12 +343,6 @@ because the consumer conanfile might not declare a `name` so it would be impossi
 folders
 -------
 
-.. important::
-
-    This feature is still **under development**, while it is recommended and usable and we will try not to break them in future releases,
-    some breaking changes might still happen if necessary to prepare for the *Conan 2.0 release*.
-
-
 The ``--output-folder`` define together with the ``layout()`` recipe
 method the location of the output files. For example, the files created by build system integrations
 such as ``CMakeToolchain`` or ``PkgConfigDeps`` will be created in the folder defined by the
@@ -354,16 +353,12 @@ such as ``CMakeToolchain`` or ``PkgConfigDeps`` will be created in the folder de
 conf
 ----
 
-.. important::
-
-    This feature is still **under development**, while it is recommended and usable and we will try not to break them in future releases,
-    some breaking changes might still happen if necessary to prepare for the *Conan 2.0 release*.
-
 With the :command:`-c` parameters you can define specific tool configurations.
 
 .. code-block:: bash
 
     $ conan install . -c tools.microsoft.msbuild:verbosity=Diagnostic
+    $ conan install . -c mypkg/*:tools.microsoft.msbuild:verbosity=Diagnostic
     $ conan install . -c tools.microsoft.msbuild:verbosity=Detailed -c tools.build:processes=10
 
 
