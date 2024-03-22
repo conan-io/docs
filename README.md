@@ -5,6 +5,13 @@ Documentation for Conan C/C++ package manager: https://conan.io
 How to build
 ============
 
+- Install host package
+  - graphviz
+  - enchant
+    - Ubuntu: `# apt install graphviz enchant`
+    - Achlinux: `# pacman -Syu graphviz enchant`
+
+
 - Install python and [pip docs](https://pip.pypa.io/en/stable/installing/).
 - Install the requirements (sphinx):
 
@@ -12,9 +19,9 @@ How to build
 
 - Point to the Conan source code folder (``git clone https://github.com/conan-io/conan && cd conan && git checkout develop2``)
 
-  Windows:
+  - Windows:
   `$ set PYTHONPATH=<your/path/to/conan>;%PYTHONPATH%`
-  Linux:
+  - Linux:
   `$ export PYTHONPATH=<your/path/to/conan>:$PYTHONPATH`
 
 
