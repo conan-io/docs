@@ -11,7 +11,7 @@ Tools
 .. caution::
 
     We are actively working to finalize the *Conan 2.0 Release*. Some of the information on this page references
-    **deprecated** features which will not be carried forward with the new release. It's important to check the 
+    **deprecated** features which will not be carried forward with the new release. It's important to check the
     :ref:`Migration Guidelines<conan2_migration_guide>` to ensure you are using the most up to date features.
 
 Under the tools module there are several functions and utilities that can be used in Conan package recipes:
@@ -149,7 +149,7 @@ tools.build_sln_command() [DEPRECATED]
 
 .. warning::
 
-    This tool is deprecated and will be removed in Conan 2.0. Use :ref:`MSBuild()<msbuild>` build helper instead.
+    This tool is deprecated and was removed in Conan 2.0. Use :ref:`MSBuild()<msbuild>` build helper instead.
 
 .. code-block:: python
 
@@ -203,7 +203,7 @@ tools.msvc_build_command() [DEPRECATED]
 
 .. warning::
 
-    This tool is deprecated and will be removed in Conan 2.0. Use :ref:`MSBuild()<msbuild>`.get_command() instead.
+    This tool is deprecated and was removed in Conan 2.0. Use :ref:`MSBuild()<msbuild>`.get_command() instead.
 
 .. code-block:: python
 
