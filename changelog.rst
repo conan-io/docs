@@ -3,6 +3,13 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.2.2 (25-Mar-2024)
+-------------------
+
+- Fix: Avoid issues with recipe ``print(..., file=fileobj)``. `#15934 <https://github.com/conan-io/conan/pull/15934>`_
+- Fix: Fix broken calls to `print(x, file=y)` with duplicate keyword arguments. `#15912 <https://github.com/conan-io/conan/pull/15912>`_
+- Bugfix: Fix handling of `tools.build:defines` for multiconfig CMake. `#15924 <https://github.com/conan-io/conan/pull/15924>`_
+
 2.2.1 (20-Mar-2024)
 -------------------
 
