@@ -3,6 +3,74 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.2.2 (25-Mar-2024)
+-------------------
+
+- Fix: Avoid issues with recipe ``print(..., file=fileobj)``. `#15934 <https://github.com/conan-io/conan/pull/15934>`_
+- Fix: Fix broken calls to `print(x, file=y)` with duplicate keyword arguments. `#15912 <https://github.com/conan-io/conan/pull/15912>`_
+- Bugfix: Fix handling of `tools.build:defines` for multiconfig CMake. `#15924 <https://github.com/conan-io/conan/pull/15924>`_
+
+2.2.1 (20-Mar-2024)
+-------------------
+
+- Fix: Add `copytree_compat` method for compatibility with Python>=3.12 after distutils removal. `#15906 <https://github.com/conan-io/conan/pull/15906>`_
+
+2.2.0 (20-Mar-2024)
+-------------------
+
+- Feature: Raise for toolchains different than CMakeToolchain if using universal binary syntax. `#15896 <https://github.com/conan-io/conan/pull/15896>`_
+- Feature: Warn on misplaced requirement function calls `#15888 <https://github.com/conan-io/conan/pull/15888>`_
+- Feature: Print options conflicts in the graph caused by different branches recipes defining options values. `#15876 <https://github.com/conan-io/conan/pull/15876>`_ . Docs `here <https://github.com/conan-io/docs/pull/3643>`__
+- Feature: Add macOS versions 14.2, 14.3, 14.4 to `settings.yml`. `#15859 <https://github.com/conan-io/conan/pull/15859>`_ . Docs `here <https://github.com/conan-io/docs/pull/3628>`__
+- Feature: New graph ``html``: more information, test-requires, hiding/showing different packages (build, test). `#15846 <https://github.com/conan-io/conan/pull/15846>`_ . Docs `here <https://github.com/conan-io/docs/pull/3644>`__
+- Feature: Add `--backup-sources` flag to `conan cache clean`. `#15845 <https://github.com/conan-io/conan/pull/15845>`_
+- Feature: Add `conan graph outdated` command that lists the dependencies that have newer versions in remotes `#15838 <https://github.com/conan-io/conan/pull/15838>`_ . Docs `here <https://github.com/conan-io/docs/pull/3641>`__
+- Feature: Set `CMAKE_VS_DEBUGGER_ENVIRONMENT` from CMakeToolchain to point to all binary directories when using Visual Studio. This negates the need to copy DLLs to launch executables from the Visual Studio IDE (requires CMake 3.27 or newer). `#15830 <https://github.com/conan-io/conan/pull/15830>`_ . Docs `here <https://github.com/conan-io/docs/pull/3639>`__
+- Feature: Add a parameter to `trim_conandata` to avoid raising an exception when conandata.yml file doesn't exist. `#15829 <https://github.com/conan-io/conan/pull/15829>`_ . Docs `here <https://github.com/conan-io/docs/pull/3624>`__
+- Feature: Added `build_context_folder ` to PkgConfigDeps. `#15813 <https://github.com/conan-io/conan/pull/15813>`_ . Docs `here <https://github.com/conan-io/docs/pull/3640>`__
+- Feature: Included `build.pkg_config_path ` in the built-in options section in the MesonToolchain template. `#15813 <https://github.com/conan-io/conan/pull/15813>`_ . Docs `here <https://github.com/conan-io/docs/pull/3640>`__
+- Feature: Update `_meson_cpu_family_map` to support `arm64ec`. `#15812 <https://github.com/conan-io/conan/pull/15812>`_
+- Feature: Added support for Clang 18. `#15806 <https://github.com/conan-io/conan/pull/15806>`_ . Docs `here <https://github.com/conan-io/docs/pull/3637>`__
+- Feature: Add basic support in CMakeToolchain for universal binaries. `#15775 <https://github.com/conan-io/conan/pull/15775>`_ . Docs `here <https://github.com/conan-io/docs/pull/3642>`__
+- Feature: New ``tools.cmake.cmake_layout:build_folder`` config that allows re-defining ``cmake_layout`` local build-folder. `#15767 <https://github.com/conan-io/conan/pull/15767>`_ . Docs `here <https://github.com/conan-io/docs/pull/3646>`__
+- Feature: New ``tools.cmake.cmake_layout:test_folder`` config that allows re-defining ``cmake_layout`` output build folder for ``test_package``, including a ``$TMP`` placeholder to create a temporary folder in system ``tmp``. `#15767 <https://github.com/conan-io/conan/pull/15767>`_ . Docs `here <https://github.com/conan-io/docs/pull/3646>`__
+- Feature: (Experimental) Add ``conan config install-pkg myconf/[*]`` new configuration inside Conan packages with new ``package_type = "configuration"``. `#15748 <https://github.com/conan-io/conan/pull/15748>`_ . Docs `here <https://github.com/conan-io/docs/pull/3648>`__
+- Feature: (Experimental) New ``core.package_id:config_mode`` that allows configuration package reference to affect the ``package_id`` of all packages built with that configuration. `#15748 <https://github.com/conan-io/conan/pull/15748>`_ . Docs `here <https://github.com/conan-io/docs/pull/3648>`__
+- Feature: Make `cppstd_flag` public to return the corresponding C++ standard flag based on the settings. `#15710 <https://github.com/conan-io/conan/pull/15710>`_ . Docs `here <https://github.com/conan-io/docs/pull/3599>`__
+- Feature: Allow ``self.name`` and ``self.version`` in ``build_folder_vars`` attribute and conf. `#15705 <https://github.com/conan-io/conan/pull/15705>`_ . Docs `here <https://github.com/conan-io/docs/pull/3636>`__
+- Feature: Add ``conan list --filter-xxx`` arguments to list package binaries that match settings+options. `#15697 <https://github.com/conan-io/conan/pull/15697>`_ . Docs `here <https://github.com/conan-io/docs/pull/3647>`__
+- Feature: Add `detect_libc` to the `detect_api` to get the name and version of the C library. `#15683 <https://github.com/conan-io/conan/pull/15683>`_ . Docs `here <https://github.com/conan-io/docs/pull/3590>`__
+- Feature: New ``CommandAPI`` subapi in the ``ConanAPI`` that allows calling other commands. `#15630 <https://github.com/conan-io/conan/pull/15630>`_ . Docs `here <https://github.com/conan-io/docs/pull/3635>`__
+- Fix: Avoid unnecessary build of ``tool_requires`` when ``--build=missing`` and repeated ``tool_requires``. `#15885 <https://github.com/conan-io/conan/pull/15885>`_
+- Fix: Fix ``CMakeDeps`` ``set_property(... APPEND`` argument order. `#15877 <https://github.com/conan-io/conan/pull/15877>`_
+- Fix: Raising an error when an infinite loop is found in the install graph (ill-formed dependency graph with loops). `#15835 <https://github.com/conan-io/conan/pull/15835>`_
+- Fix: Make sure `detect_default_compiler()` always returns a 3-tuple. `#15832 <https://github.com/conan-io/conan/pull/15832>`_
+- Fix: Print a clear message for ``conan graph explain`` when no binaries exist for one revision. `#15823 <https://github.com/conan-io/conan/pull/15823>`_
+- Fix: Add ``package_type="static-library"`` to the ``conan new msbuild_lib`` template. `#15807 <https://github.com/conan-io/conan/pull/15807>`_
+- Fix: Avoid ``platform_requires`` to fail when explicit options are being passed via ``requires(.., options={})``. `#15804 <https://github.com/conan-io/conan/pull/15804>`_
+- Fix: Make ``CMakeToolchain`` end with newline. `#15788 <https://github.com/conan-io/conan/pull/15788>`_
+- Fix: Do not allow ``conan list`` binary filters or package query if a binary pattern is not provided. `#15781 <https://github.com/conan-io/conan/pull/15781>`_
+- Fix: Avoid ``CMakeToolchain.preprocessor_definition`` definitions to ``"None"`` literal string when it  has no value (Python ``None``). `#15756 <https://github.com/conan-io/conan/pull/15756>`_
+- Fix: Improved ``conan install <path> --deployer-package=*`` case that was crashing when using ``self.package_folder``. `#15737 <https://github.com/conan-io/conan/pull/15737>`_
+- Fix: Fix `conan graph info --format=html` for large dependency graphs. `#15724 <https://github.com/conan-io/conan/pull/15724>`_
+- Fix: Make all recipe and plugins python file ``print()`` to ``stderr``, so json outputs to ``stdout`` are not broken. `#15704 <https://github.com/conan-io/conan/pull/15704>`_
+- Fix: Fix getting the gnu triplet for Linux x86. `#15699 <https://github.com/conan-io/conan/pull/15699>`_
+- Bugfix: Solve backslash issues with ``conan_home_folder`` in ``global.conf`` when used in strings inside lists. `#15870 <https://github.com/conan-io/conan/pull/15870>`_
+- Bugfix: Fix ``CMakeDeps`` multi-config when there are conditional dependencies on the ``build_type``. `#15853 <https://github.com/conan-io/conan/pull/15853>`_
+- Bugfix: Move `get_backup_sources()` method to expected `CacheAPI` from `UploadAPI`. `#15845 <https://github.com/conan-io/conan/pull/15845>`_
+- Bugfix: Avoid TypeError when a version in conandata.yml lists no patches. `#15842 <https://github.com/conan-io/conan/pull/15842>`_
+- Bugfix: Solve ``package_type=build-scripts`` issue with lockfiles and :command:`conan create`. `#15802 <https://github.com/conan-io/conan/pull/15802>`_
+- Bugfix: Allow ``--channel`` command line argument if the recipe specifies ``user`` attribute. `#15794 <https://github.com/conan-io/conan/pull/15794>`_
+- Bugfix: Fix cross-compilation to Android from Windows when using ``MesonToolchain``. `#15790 <https://github.com/conan-io/conan/pull/15790>`_
+- Bugfix: Fix ``CMakeToolchain`` GENERATOR_TOOLSET when ``compiler.update`` is defined. `#15789 <https://github.com/conan-io/conan/pull/15789>`_
+- Bugfix: Solved evaluation of ``conf`` items when they matched a Python module `#15779 <https://github.com/conan-io/conan/pull/15779>`_
+- Bugfix: Fix ``PkgConfigDeps`` generating .pc files for its ``tool_requires`` when it is in the build context already. `#15763 <https://github.com/conan-io/conan/pull/15763>`_
+- Bugfix: Adding `VISIBILITY` flags to `CONAN_C_FLAGS` too. `#15762 <https://github.com/conan-io/conan/pull/15762>`_
+- Bugfix: Fix `conan profile show --format=json` for profiles with scoped confs. `#15747 <https://github.com/conan-io/conan/pull/15747>`_
+- Bugfix: Fix legacy usage of `update` argument in Conan API. `#15743 <https://github.com/conan-io/conan/pull/15743>`_
+- Bugfix: Solve broken profile ``[conf]`` when strings contains Windows backslash. `#15727 <https://github.com/conan-io/conan/pull/15727>`_
+- Bugfix: Fix version precendence for metadata version ranges. `#15653 <https://github.com/conan-io/conan/pull/15653>`_
+
 2.1.0 (15-Feb-2024)
 -------------------
 
