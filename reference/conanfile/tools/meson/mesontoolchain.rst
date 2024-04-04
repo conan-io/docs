@@ -11,7 +11,7 @@ MesonToolchain
 
 .. important::
 
-    This class will generate files that are only compatible with Meson versions >= 0.55.0
+    This class will generate files that are only compatible with Meson versions >= 0.57.0
 
 
 Available since: `1.33.0 <https://github.com/conan-io/conan/releases/tag/1.33.0>`_
