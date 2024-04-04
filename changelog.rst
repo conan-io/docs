@@ -18,8 +18,17 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-    Conan 1.63 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
+    Conan 1.64 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
     a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
+
+1.64.0 (04-Apr-2024)
+--------------------
+
+- Feature: Add ``--output-folder`` to ``export-pkg`` command to be used when ``layout()`` is declared. `#15741 <https://github.com/conan-io/conan/pull/15741>`_ . Docs `here <https://github.com/conan-io/docs/pull/3661>`__
+- Feature: Promote cppstd_flag in the new conan.tools.build module. `#15731 <https://github.com/conan-io/conan/pull/15731>`_ . Docs `here <https://github.com/conan-io/docs/pull/3602>`__
+- Feature: `conan.tools.meson` helper requires meson >= 0.57.0. `#15706 <https://github.com/conan-io/conan/pull/15706>`_ . Docs `here <https://github.com/conan-io/docs/pull/3663>`__
+- Fix: Fix flags passed by AutotoolsToolchain when cross compiling from macOS to a non-Apple OS. Backported from Conan 2. `#15948 <https://github.com/conan-io/conan/pull/15948>`_
+- Fix: Avoiding reconfigure process. Using `--destdir` param instead. Deprecated `reconfigure` param in `Meson.configure() function`. `#15706 <https://github.com/conan-io/conan/pull/15706>`_ . Docs `here <https://github.com/conan-io/docs/pull/3663>`__
 
 1.63.0 (12-Feb-2024)
 --------------------
