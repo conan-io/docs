@@ -50,7 +50,7 @@ configuration to add your machine files at the end of the command using the corr
 See `this Meson reference <https://mesonbuild.com/Machine-files.html#loading-multiple-machine-files>`_ for more information.
 
 Parameters:
-    - **reconfigure** (Optional, Defaulted to ``False``): Adds the ``--reconfigure`` parameter to the ``meson setup`` command if ``True``.
+    - **reconfigure** (**DEPRECATED**)(Optional, Defaulted to ``False``): Adds the ``--reconfigure`` parameter to the ``meson setup`` command if ``True``.
 
 
 build()
@@ -72,7 +72,9 @@ install()
 
     def install(self):
 
-Installs development files (headers, libraries, etc.). Equivalent to run :command:`meson install -C .` in the build folder.
+Installs development files (headers, libraries, etc.). Equivalent to run :command:`meson install -C . --destdir [CONAN_PACKAGE_FOLDER]` in the build folder.
+
+Using *--destdir* Meson param since Conan `1.64.0 <https://github.com/conan-io/conan/releases/tag/1.64.0>`__
 
 test()
 ++++++
