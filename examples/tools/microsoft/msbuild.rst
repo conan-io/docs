@@ -1,8 +1,8 @@
 .. _examples_tools_msbuild:
 
 
-tools.microsoft
-===============
+MSBuild
+=======
 
 
 .. toctree::

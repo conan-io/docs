@@ -1,8 +1,8 @@
 .. _examples_cmake:
 
 
-tools.cmake
-===========
+CMake
+=====
 
 
 .. toctree::
