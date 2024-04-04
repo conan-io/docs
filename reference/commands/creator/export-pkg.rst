@@ -7,14 +7,16 @@ conan export-pkg
 .. code-block:: bash
 
     $ conan export-pkg [-h] [-bf BUILD_FOLDER] [-f] [-if INSTALL_FOLDER]
-                       [-pf PACKAGE_FOLDER] [-sf SOURCE_FOLDER] [-j JSON]
-                       [-l LOCKFILE] [--lockfile-out LOCKFILE_OUT]
-                       [--ignore-dirty] [-e ENV_HOST] [-e:b ENV_BUILD]
-                       [-e:h ENV_HOST] [-o OPTIONS_HOST] [-o:b OPTIONS_BUILD]
+                       [-pf PACKAGE_FOLDER] [-of OUTPUT_FOLDER]
+                       [-sf SOURCE_FOLDER] [-j JSON] [-l LOCKFILE]
+                       [--lockfile-out LOCKFILE_OUT] [--ignore-dirty]
+                       [-e ENV_HOST] [-e:b ENV_BUILD] [-e:h ENV_HOST]
+                       [-o OPTIONS_HOST] [-o:b OPTIONS_BUILD]
                        [-o:h OPTIONS_HOST] [-pr PROFILE_HOST]
                        [-pr:b PROFILE_BUILD] [-pr:h PROFILE_HOST]
-                       [-s SETTINGS_HOST] [-s:b SETTINGS_BUILD] [-s:h SETTINGS_HOST]
-                       [-c CONF_HOST] [-c:b CONF_BUILD] [-c:h CONF_HOST]
+                       [-s SETTINGS_HOST] [-s:b SETTINGS_BUILD]
+                       [-s:h SETTINGS_HOST] [-c CONF_HOST] [-c:b CONF_BUILD]
+                       [-c:h CONF_HOST]
                        path [reference]
 
 Exports a recipe, then creates a package from local source and build folders.
@@ -49,6 +51,8 @@ the binary package.
                             folder containing a locally created package. If a
                             value is given, it won't call the recipe 'package()'
                             method, and will run a copy of the provided folder.
+      -of OUTPUT_FOLDER, --output-folder OUTPUT_FOLDER
+                            To be used with 'layout()' recipes, useless otherwise
       -sf SOURCE_FOLDER, --source-folder SOURCE_FOLDER
                             Directory containing the sources. Defaulted to the
                             conanfile's directory. A relative path to the current
@@ -130,6 +134,10 @@ different sources for the files:
    corresponds to the ``build_folder``).
  * If the arguments ``--package-folder``, ```--build-folder`` or ``--source-folder`` are
    declared, but the path is incorrect, :command:`export-pkg` will raise an exception.
+
+
+Also, the ``--output-folder`` argument can be defined to be aligned with the ``conan install --output-folder``
+when the ``layout()`` method is used.
 
 
 There are different scenarios where this command could look like useful:
