@@ -47,7 +47,7 @@ Note a few important things:
   will change from machine to machine, so it needs to be generalized.
 - The ``version_vs = "16.11.34601.136"`` needs to match your installation. It can be obtained with ``vswhere``. It is possible
   to automate that in the recipe, but it is hardcoded for simplicity, like the ``vs_path``.
-- A ``CONAN_MSVC_16_FOLDER`` environment variable, which value is defined in the ``package_info()`` method is used to 
+- A ``CONAN_MSVC_16_FOLDER`` environment variable, whose value is defined in the ``package_info()`` method is used to 
   generalize the package folder location.
 - The generated ``msvc_toolchain.cmake`` is passed to consumers with the ``tools.cmake.cmaketoolchain:user_toolchain`` configuration
 
