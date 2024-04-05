@@ -30,7 +30,6 @@ There we will find a small "hello" project, containing this ``conanfile.py``:
     from conan import ConanFile
     from conan.tools.cmake import CMake, cmake_layout
     from conan.tools.scm import Git
-    from conan.tools.files import load, update_conandata
 
 
     class helloRecipe(ConanFile):
@@ -45,18 +44,13 @@ There we will find a small "hello" project, containing this ``conanfile.py``:
 
         def export(self):
             git = Git(self, self.recipe_folder)
-            scm_url, scm_commit = git.get_url_and_commit()
-            self.output.info(f"Obtained URL: {scm_url} and {scm_commit}")
-            # we store the current url and commit in conandata.yml
-            update_conandata(self, {"sources": {"commit": scm_commit, "url": scm_url}})
+            # save the url and commit in conandata.yml
+            git.coordinates_to_conandata()
 
         def source(self):
             # we recover the saved url and commit from conandata.yml and use them to get sources
             git = Git(self)
-            sources = self.conan_data["sources"]
-            self.output.info(f"Cloning sources from: {sources}")
-            git.clone(url=sources["url"], target=".")
-            git.checkout(commit=sources["commit"])
+            git.checkout_from_conandata_coordinates()
 
         ...
 
@@ -77,26 +71,47 @@ please create a folder outside of the ``examples2`` repository, and copy the con
     # Finally create the package
     $ conan create .
     ...
-    hello/0.1: WARN: Current commit 8e8764c40bebabbe3ec57f9a0816a2c8e691f559 doesn't exist in remote origin
+    ======== Exporting recipe to the cache ========
+    hello/0.1: Exporting package recipe: /myfolder/conanfile.py
+    hello/0.1: Calling export()
+    hello/0.1: RUN: git status . --short --no-branch --untracked-files
+    hello/0.1: RUN: git rev-list HEAD -n 1 --full-history -- "."
+    hello/0.1: RUN: git remote -v
+    hello/0.1: RUN: git branch -r --contains cb7815a58529130b49da952362ce8b28117dee53
+    hello/0.1: RUN: git fetch origin --dry-run --depth=1 cb7815a58529130b49da952362ce8b28117dee53
+    hello/0.1: WARN: Current commit cb7815a58529130b49da952362ce8b28117dee53 doesn't exist in remote origin
     This revision will not be buildable in other computer
-    hello/0.1: Obtained URL: <local-path>/capture_scm and 8e8764c40bebabbe3ec57f9a0816a2c8e691f559
-    hello/0.1: Copied 1 '.yml' file: conandata.yml
+    hello/0.1: RUN: git rev-parse --show-toplevel
     hello/0.1: Copied 1 '.py' file: conanfile.py
+    hello/0.1: Copied 1 '.yml' file: conandata.yml
+    hello/0.1: Exported to cache folder: /.conan2/p/hello237d6f9f65bba/e
     ...
-    hello/0.1: Cloning sources from: {'commit': '8e8764c40bebabbe3ec57f9a0816a2c8e691f559', 'url': '<local-path>/capture_scm'}
+    ======== Installing packages ========
+    hello/0.1: Calling source() in /.conan2/p/hello237d6f9f65bba/s
+    hello/0.1: Cloning git repo
+    hello/0.1: RUN: git clone "<hidden>"  "."
+    hello/0.1: Checkout: cb7815a58529130b49da952362ce8b28117dee53
+    hello/0.1: RUN: git checkout cb7815a58529130b49da952362ce8b28117dee53
 
 Let's explain step by step what is happening:
 
-- When the recipe is exported to the Conan cache, the ``export()`` method executes, running ``scm_url, scm_commit = git.get_url_and_commit()``. See the :ref:`Git reference<conan_tools_scm_git>` for more information about these methods.
+- When the recipe is exported to the Conan cache, the ``export()`` method executes, ``git.coordinates_to_conandata()``,
+  which stores the Git URL and commit in the ``conandata.yml`` file by internally calling ``git.get_url_and_commit()``.
+  See the :ref:`Git reference<conan_tools_scm_git>` for more information about these methods.
 - This obtains the URL of the repo pointing to the local ``<local-path>/capture_scm`` and the commit ``8e8764c40bebabbe3ec57f9a0816a2c8e691f559``
 - It warns that this information will **not** be enough to re-build from source this recipe once the package is uploaded to the server and is tried to be built from source in other computer, which will not contain the path pointed by ``<local-path>/capture_scm``. This is expected, as the repository that we created doesn't have any remote defined. If our local clone had a remote defined and that remote contained the ``commit`` that we are building, the ``scm_url`` would point to the remote repository instead, making the build from source fully reproducible.
 - The ``export()`` method stores the ``url`` and ``commit`` information in the ``conandata.yml`` for future reproducibility.
-- When the package needs to be built from sources and it calls the ``source()`` method, it recovers the information from the ``conandata.yml`` file, and calls ``git.clone()`` with it to retrieve the sources. In this case, it will be cloning from the local checkout in ``<local-path>/capture_scm``, but if it had a remote defined, it will clone from it.
+- When the package needs to be built from sources and it calls the ``source()`` method,
+  it recovers the information from the ``conandata.yml`` file inside the ``git.checkout_from_conandata_coordinates()`` method,
+  which internally calls ``git.clone()`` with it to retrieve the sources.
+  In this case, it will be cloning from the local checkout in ``<local-path>/capture_scm``, but if it had a remote defined, it will clone from it.
 
 
 .. warning::
 
-    To achieve reproducibility, it is very important for this **scm capture** technique that the current checkout is not dirty. If it was dirty, it would be impossible to guarantee future reproducibility of the build, so ``git.get_url_and_commit()`` can raise errors, and require to commit changes. If more than 1 commit is necessary, it would be recommended to squash those commits before pushing changes to upstream repositories.
+    To achieve reproducibility, it is very important for this **scm capture** technique that the current checkout is not dirty
+    If it was dirty, it would be impossible to guarantee future reproducibility of the build, so ``git.get_url_and_commit()`` can raise errors,
+    and require to commit changes. If more than 1 commit is necessary, it would be recommended to squash those commits before pushing changes to upstream repositories.
 
 If we do now a second ``conan create .``, as the repo is dirty we would get:
 

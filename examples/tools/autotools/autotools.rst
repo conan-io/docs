@@ -1,8 +1,8 @@
 .. _examples_autotools:
 
 
-tools.autotools
-===============
+Autotools
+=========
 
 
 .. toctree::
