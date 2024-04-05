@@ -72,19 +72,26 @@ please create a folder outside of the ``examples2`` repository, and copy the con
     $ conan create .
     ...
     ======== Exporting recipe to the cache ========
-    hello/0.1: Exporting package recipe: /examples2/examples/tools/scm/git/capture_scm/conanfile.py
+    hello/0.1: Exporting package recipe: /myfolder/conanfile.py
     hello/0.1: Calling export()
     hello/0.1: RUN: git status . --short --no-branch --untracked-files
     hello/0.1: RUN: git rev-list HEAD -n 1 --full-history -- "."
     hello/0.1: RUN: git remote -v
-    hello/0.1: RUN: git branch -r --contains b0809960b96002053d954cec112f1fa4a4d306d2
+    hello/0.1: RUN: git branch -r --contains cb7815a58529130b49da952362ce8b28117dee53
+    hello/0.1: RUN: git fetch origin --dry-run --depth=1 cb7815a58529130b49da952362ce8b28117dee53
+    hello/0.1: WARN: Current commit cb7815a58529130b49da952362ce8b28117dee53 doesn't exist in remote origin
+    This revision will not be buildable in other computer
+    hello/0.1: RUN: git rev-parse --show-toplevel
     hello/0.1: Copied 1 '.py' file: conanfile.py
     hello/0.1: Copied 1 '.yml' file: conandata.yml
+    hello/0.1: Exported to cache folder: /.conan2/p/hello237d6f9f65bba/e
     ...
+    ======== Installing packages ========
+    hello/0.1: Calling source() in /.conan2/p/hello237d6f9f65bba/s
     hello/0.1: Cloning git repo
     hello/0.1: RUN: git clone "<hidden>"  "."
-    hello/0.1: Checkout: b0809960b96002053d954cec112f1fa4a4d306d2
-    hello/0.1: RUN: git checkout b0809960b96002053d954cec112f1fa4a4d306d2
+    hello/0.1: Checkout: cb7815a58529130b49da952362ce8b28117dee53
+    hello/0.1: RUN: git checkout cb7815a58529130b49da952362ce8b28117dee53
 
 Let's explain step by step what is happening:
 
