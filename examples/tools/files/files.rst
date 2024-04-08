@@ -1,8 +1,7 @@
 .. _examples_files:
 
-
-tools.files
-===========
+File interaction
+================
 
 
 .. toctree::

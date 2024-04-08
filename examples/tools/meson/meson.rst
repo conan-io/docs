@@ -1,8 +1,8 @@
 .. _examples_tools_meson:
 
 
-tools.meson
-===========
+Meson
+=====
 
 
 .. toctree::
