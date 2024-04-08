@@ -30,6 +30,8 @@ For the full list of tools under ``conan.tools.microsoft`` please check the
 :ref:`reference <conan_tools_microsoft>` section.
 
 
+.. _integrations_visual_studio_extension:
+
 Conan extension for Visual Studio
 ---------------------------------
 
