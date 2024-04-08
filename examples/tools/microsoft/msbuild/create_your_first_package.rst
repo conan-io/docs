@@ -164,5 +164,6 @@ We can now validate that the recipe and the package binary are in the cache:
 
 .. seealso::
 
+    - Check the :ref:`Conan Visual Studio Extension <integrations_visual_studio_extension>`.
     - :ref:`MSBuild built-in integrations reference<conan_tools_microsoft>`.
 
