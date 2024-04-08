@@ -1,8 +1,8 @@
 .. _examples_tools_bazel:
 
 
-tools.google
-============
+Bazel
+=====
 
 .. toctree::
    :maxdepth: 2
