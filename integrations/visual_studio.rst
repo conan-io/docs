@@ -35,7 +35,7 @@ Conan extension for Visual Studio
 
 There's an extension `available in the VisualStudio Marketplace
 <https://marketplace.visualstudio.com/items?itemName=conan-io.conan-vs-extension>`_ that's
-compatible with Visual Studio versions higher than *2022*. With this extension, you can
+compatible begining from Visual Studio  version *2022*. With this extension, you can
 browse Conan packages available in `Conan Center <https://conan.io/center>`_, add them to
 your project, and they will be automatically installed before building your projects.
 
