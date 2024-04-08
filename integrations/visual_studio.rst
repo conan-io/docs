@@ -73,9 +73,9 @@ Visual Studio. To do so, go to **View > Other Windows > Conan C/C++ Package Mana
     :alt: Initial configuration
 
 Initially, you will need to configure the Conan executable to be used by the extension. By
-clicking on the ⚙️ (wheel) symbol from the extension's window, you can set up the path to
-the Conan client executable. You can either specify a custom path or choose to use the
-Conan client installed at the system level.
+clicking on the *configure* button (gear icon) from the extension's window, you can set up
+the path to the Conan client executable. You can either specify a custom path or choose to
+use the Conan client installed at the system level.
 
 .. image:: ../images/integrations/vs_extension/select-conan-executable.png
     :alt: Select Conan executable
@@ -98,7 +98,7 @@ a `conandata.yml` to your project with the necessary information to install the 
 Conan packages. It will also add a prebuild event to the project to install those
 libraries on the next compilation of the project.
 
-At any point, you can also use the refresh button (🔄) to update the list of available
+At any point, you can also use the *refresh* button (circular arrow icon) to update the list of available
 packages in `Conan Center <https://conan.io/center>`_.
 
 Now, if you initiate the build process for your project, the pre-build event will trigger
