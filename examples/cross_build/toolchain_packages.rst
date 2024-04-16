@@ -485,4 +485,4 @@ architecture of the resulting executable, confirming its alignment with the targ
 
     - :ref:`More info on settings_target<binary_model_extending_cross_build_target_settings>`
     - :ref:`Cross-compile your applications using Conan<consuming_packages_cross_building_with_conan>`
-    - :ref:`Another example of cross-compile from Macos to Linux <https://github.com/conan-io/examples2/tree/main/examples/cross_build/toolchain_packages/toolchain_macos_linux_cross>`_
+    - `Another example of cross-compile from Macos to Linux <https://github.com/conan-io/examples2/tree/main/examples/cross_build/toolchain_packages/toolchain_macos_linux_cross>`_
