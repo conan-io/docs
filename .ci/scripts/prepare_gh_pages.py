@@ -39,6 +39,11 @@ path_latest_v2 = Path(os.path.join(output_folder, latest_v2_version))
 if path_latest_v2.exists():
     run(f"cp -R {output_folder}/{latest_v2_version} {output_folder}/{latest_v2_folder}")
 
+    latest_v2_tree = set()
+    for root, dirs, files in os.walk(f"{output_folder}/{latest_v2_folder}"):
+        for file in files:
+            latest_v2_tree.add(os.path.join(root, file))
+
     # regenerate 404 file
     run(f"cp {output_folder}/{latest_v2_folder}/404.html {pages_folder}/404.html")
 

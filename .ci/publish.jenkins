@@ -69,6 +69,17 @@ try {
             sh(script: "python .ci/scripts/prepare_gh_pages.py --sources-folder=${sources_folder} --gh-pages-folder=${gh_pages_out}")
         }
 
+        stage('Replace HTML tags in generated files') {
+            Map parallelReplaces = [:]
+            branches_block.each { branch ->
+                parallelReplaces[branch] = {
+                    echo "Run parallel replace for ${branch}"
+                    sh(script: "python .ci/scripts/replace_html_tags.py --sources-folder=${sources_folder} --branch=${branch}")
+                }
+            }
+            parallelReplaces.failFast = true
+            parallel parallelReplaces
+        }
 
         stage('Archive generated folder') {
             archiveArtifacts artifacts: "${gh_pages_out}/**/*.*"
