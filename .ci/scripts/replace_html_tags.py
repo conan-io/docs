@@ -32,16 +32,17 @@ if branch_folder != conan_versions[latest_v2_version]:
                 path = os.path.join(root, file)
                 as_latest_path = path.replace(os.path.join(output_folder, branch_folder),
                                               os.path.join(output_folder, latest_v2_folder))
-                #print(as_latest_path)
                 if as_latest_path in latest_v2_tree:
                     with open(path, 'r') as f:
                         content = f.read()
                     commented_tag = r'<!--@ OUTDATED_VERSION_PLACEHOLDER_BEGIN @(.*)@ OUTDATED_VERSION_PLACEHOLDER_END @-->'
-                    match = re.match(commented_tag, content, re.DOTALL)
+                    match = re.search(commented_tag, content, re.DOTALL)
                     if match:
-                        print("Replacing in file: ", path)
+                        latest_link = path.replace(os.path.join(output_folder, branch_folder), "")
+                        print(f"Replacing in file: {path} to point to {latest_link}")
                         new_tag = match.group(1)
-                        new_tag = re.sub(r'@LATEST_DOC_PAGE_URL@', "NEW_URL_FOUND", new_tag)
+                        new_tag = re.sub(r'@LATEST_DOC_PAGE_URL@', latest_link, new_tag)
+                        print(new_tag)
                         content = content.replace(match.group(0), new_tag)
                         with open(path, 'w') as f:
                             f.write(content)
