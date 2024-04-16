@@ -59,6 +59,34 @@ The same happens for lockfiles created with ``--lockfile-out`` argument. The loc
   dependencies, you can control their build using the ``--build-test`` argument.
 
 
+Methods execution order
+-----------------------
+
+The ``conan create`` executes :ref:`methods <reference_conanfile_methods>` of a *conanfile.py* in the following order:
+
+#. ``export()``
+#. ``export_sources()``
+#. ``config_options()``
+#. ``configure()``
+#. ``layout()``
+#. ``requirements()``
+#. ``package_id()``
+#. ``validate()``
+#. ``validate_build()``
+#. ``build_requirements()``
+#. ``build_id()``
+#. ``system_requirements()``
+#. ``source()``
+#. ``generate()``
+#. ``imports()``
+#. ``build()``
+#. ``package()``
+#. ``package_info()``
+
+In case of installing a pre-built binary, steps from 9 to 17 will be skipped.
+Note that ``deploy()`` method is only used in ``conan install``.
+
+
 .. seealso::
 
     - Read more about creating packages in the :ref:`dedicated
