@@ -26,7 +26,7 @@ print(f"Prepare docs for: {branches}")
 
 # Prepare sources as worktrees
 if not Path(f"{sources_folder}/tmp").is_dir():
-    run(f"git clone --bare https://github.com/conan-io/docs.git {sources_folder}/tmp")
+    run(f"git clone --bare https://github.com/conan-io/docs.git {sources_folder}/tmp --depth 1")
 
 with chdir(f"{sources_folder}/tmp"):
     for folder, branch in conan_versions.items():
