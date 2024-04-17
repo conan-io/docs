@@ -16,7 +16,7 @@ args = parser.parse_args()
 
 branch = args.branch
 output_folder = os.path.join(args.sources_folder, "output")
-if branch.startswith("2"):
+if branch.startswith("release/2"):
     branch_folder = [k for k, v in conan_versions.items() if v == branch][0]
 
     if branch_folder != conan_versions[latest_v2_version]:
