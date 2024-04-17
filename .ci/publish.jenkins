@@ -71,7 +71,7 @@ try {
 
         stage('Replace HTML tags in generated files') {
             Map parallelReplaces = [:]
-            branches_block.each { branch ->
+            branches.each { branch ->
                 parallelReplaces[branch] = {
                     echo "Run parallel replace for ${branch}"
                     sh(script: "python .ci/scripts/replace_html_tags.py --sources-folder=${sources_folder} --branch=${branch}")
