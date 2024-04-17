@@ -64,27 +64,55 @@ Methods execution order
 
 The ``conan create`` executes :ref:`methods <reference_conanfile_methods>` of a *conanfile.py* in the following order:
 
-#. ``export()``
-#. ``export_sources()``
-#. ``config_options()``
-#. ``configure()``
-#. ``layout()``
-#. ``requirements()``
-#. ``package_id()``
-#. ``validate()``
-#. ``validate_build()``
-#. ``build_requirements()``
-#. ``build_id()``
-#. ``system_requirements()``
-#. ``source()``
-#. ``generate()``
-#. ``imports()``
-#. ``build()``
-#. ``package()``
-#. ``package_info()``
+#. Export recipe to the cache
+    #. ``init()``
+    #. ``set_name()``
+    #. ``set_version()``
+    #. ``export()``
+    #. ``export_sources()``
+#. Compute dependency graph
+    #. ``ìnit()``
+    #. ``config_options()``
+    #. ``configure()``
+    #. ``requirements()``
+    #. ``build_requirements()``
+#. Compute necessary packages
+    #. ``validate_build()``
+    #. ``validate()``
+    #. ``package_id()``
+    #. ``layout()``
+    #. ``system_requirements()``
+#. Install packages
+    #. ``build_id()``
+    #. ``generate()``
+    #. ``build()``
+    #. ``package()``
+    #. ``package_info()``
 
-In case of installing a pre-built binary, steps from 9 to 17 will be skipped.
-Note that ``deploy()`` method is only used in ``conan install``.
+After that, if you have a folder named *test_package* in your project or you call the ``conan create`` command with the
+``--test-folder`` flag, the command will call the *conanfile.py* file inside the folder in the following order:
+
+#. Compute dependency graph
+    #. ``ìnit()``
+    #. ``config_options()``
+    #. ``configure()``
+    #. ``requirements()``
+    #. ``build_requirements()``
+#. Compute necessary packages
+    #. ``validate_build()``
+    #. ``validate()``
+    #. ``package_id()``
+    #. ``layout()``
+    #. ``system_requirements()``
+#. Install packages
+    #. ``build_id()``
+    #. ``generate()``
+    #. ``build()``
+    #. ``package()``
+    #. ``package_info()``
+
+Steps ``3.1, 3.2, 3.3, 3.4`` will be skipped if the project is already installed. Typically, it should be installed
+just as it was installed in the previous "install packages" step.
 
 
 .. seealso::
