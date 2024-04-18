@@ -6,8 +6,8 @@ from common import run, latest_v1_folder, latest_v2_folder, latest_v2_version, c
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument('--sources-folder',
-                    help='Folder where the docs were created', required=True)
+parser.add_argument('--gh-pages-folder',
+                    help='Folder where the GitHub pages files are', required=True)
 
 parser.add_argument('--branch',
                     help='Branch', required=True)
@@ -15,7 +15,7 @@ parser.add_argument('--branch',
 args = parser.parse_args()
 
 branch = args.branch
-output_folder = os.path.join(args.sources_folder, "output")
+output_folder = os.path.join(args.gh_pages_folder)
 if branch.startswith("release/2"):
     branch_folder = [k for k, v in conan_versions.items() if v == branch][0]
 
@@ -28,7 +28,7 @@ if branch.startswith("release/2"):
                     latest_v2_tree.add(os.path.join(root, file))
         for root, dirs, files in os.walk(f"{output_folder}/{branch_folder}"):
             for file in files:
-                if file.endswith(".html"):
+                if file.endswith(".html") and file != "404.html":
                     path = os.path.join(root, file)
                     as_latest_path = path.replace(os.path.join(output_folder, branch_folder),
                                                   os.path.join(output_folder, latest_v2_folder))
@@ -41,7 +41,7 @@ if branch.startswith("release/2"):
                             latest_link = path.replace(os.path.join(output_folder, branch_folder), "")
                             print(f"Replacing in file: {path} to point to {latest_link}")
                             new_tag = match.group(1)
-                            new_tag = re.sub(r'@LATEST_DOC_PAGE_URL@', latest_link, new_tag)
+                            new_tag = re.sub(r'/@LATEST_DOC_PAGE_URL@', latest_link, new_tag)
                             print(new_tag)
                             content = content.replace(match.group(0), new_tag)
                             with open(path, 'w') as f:

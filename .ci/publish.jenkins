@@ -74,7 +74,7 @@ try {
             branches.each { branch ->
                 parallelReplaces[branch] = {
                     echo "Run parallel replace for ${branch}"
-                    sh(script: "python .ci/scripts/replace_html_tags.py --sources-folder=${sources_folder} --branch=${branch}")
+                    sh(script: "python .ci/scripts/replace_html_tags.py --gh-pages-folder=${gh_pages_out} --branch=${branch}")
                 }
             }
             parallelReplaces.failFast = true
