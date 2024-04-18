@@ -83,16 +83,28 @@ The ``conan create`` executes :ref:`methods <reference_conanfile_methods>` of a 
     #. ``layout()``
     #. ``system_requirements()``
 #. Install packages
+    #. ``source()``
     #. ``build_id()``
     #. ``generate()``
     #. ``build()``
     #. ``package()``
     #. ``package_info()``
 
+Steps ``generate()``,  ``build()``, ``package()`` from *Install packages* step will not be called if the package
+is not being built from source.
+
 After that, if you have a folder named *test_package* in your project or you call the ``conan create`` command with the
 ``--test-folder`` flag, the command will call the *conanfile.py* file inside the folder in the following order:
 
+#. Launch test_package
+    #. (test package) ``init()``
+    #. (test package) ``set_name()``
+    #. (test package) ``set_version()``
 #. Compute dependency graph
+    #. (test package) ``config_options()``
+    #. (test package) ``configure()``
+    #. (test package) ``requirements()``
+    #. (test package) ``build_requirements()``
     #. ``ìnit()``
     #. ``config_options()``
     #. ``configure()``
@@ -103,16 +115,24 @@ After that, if you have a folder named *test_package* in your project or you cal
     #. ``validate()``
     #. ``package_id()``
     #. ``layout()``
+    #. (test package) ``validate_build()``
+    #. (test package) ``validate()``
+    #. (test package) ``package_id()``
+    #. (test package) ``layout()``
     #. ``system_requirements()``
+    #. (test package) ``system_requirements()``
 #. Install packages
     #. ``build_id()``
     #. ``generate()``
     #. ``build()``
-    #. ``package()``
     #. ``package_info()``
+#. Test the package
+    #. (test package) ``build()``
+    #. (test package) ``test()``
 
-Steps ``3.1, 3.2, 3.3, 3.4`` will be skipped if the project is already installed. Typically, it should be installed
-just as it was installed in the previous "install packages" step.
+The functions with *(test package)* belong to the *conanfile.py* in the *test_package* folder. Besides steps
+``build_id()``, ``generate()``, ``build()`` inside the *Install packages* step, will be skipped if the project is
+already installed. Typically, it should be installed just as it was installed in the previous "install packages" step.
 
 
 .. seealso::
