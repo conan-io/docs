@@ -71,7 +71,7 @@ will create the following files:
 
     To create ``.fish`` files required for Fish shell it is necessary to set to True the following conf: ``tools.env.virtualenv:fish``.
 
-    When using fish shell, ``deactivate`` files are not generated, instead a function is exported in the environment.
+    When using fish shell, ``deactivate`` files are not generated, instead the function ``deactivate_conanbuildenv`` is exported in the environment.
 
 Reference
 ---------
