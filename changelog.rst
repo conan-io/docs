@@ -3,6 +3,11 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.2.3 (17-Apr-2024)
+-------------------
+
+- Fix: Fix `to_apple_archs` method when using architectures from settings_user. `#16090 <https://github.com/conan-io/conan/pull/16090>`_
+
 2.2.2 (25-Mar-2024)
 -------------------
 
