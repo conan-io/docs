@@ -19,7 +19,7 @@ output_folder = os.path.join(args.gh_pages_folder)
 if branch.startswith("release/2"):
     branch_folder = [k for k, v in conan_versions.items() if v == branch][0]
 
-    if branch_folder != conan_versions[latest_v2_version]:
+    if branch_folder != latest_v2_version:
         latest_v2_tree = set()
         print(f"{output_folder}/{latest_v2_folder}")
         for root, dirs, files in os.walk(f"{output_folder}/{latest_v2_folder}"):
