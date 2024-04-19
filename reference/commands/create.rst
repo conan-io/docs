@@ -91,7 +91,7 @@ The ``conan create`` executes :ref:`methods <reference_conanfile_methods>` of a 
     #. ``package_info()``
 
 Steps ``generate()``,  ``build()``, ``package()`` from *Install packages* step will not be called if the package
-is not being built from source.
+is not being built from sources.
 
 After that, if you have a folder named *test_package* in your project or you call the ``conan create`` command with the
 ``--test-folder`` flag, the command will call the *conanfile.py* file inside the folder in the following order:
