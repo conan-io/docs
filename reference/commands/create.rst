@@ -130,8 +130,8 @@ After that, if you have a folder named *test_package* in your project or you cal
     #. (test package) ``build()``
     #. (test package) ``test()``
 
-The functions with *(test package)* belong to the *conanfile.py* in the *test_package* folder. Besides steps
-``build_id()``, ``generate()``, ``build()`` inside the *Install packages* step, will be skipped if the project is
+The functions with *(test package)* belong to the *conanfile.py* in the *test_package* folder. The steps
+``build_id()``, ``generate()``, ``build()`` inside the *Install packages* step will be skipped if the project is
 already installed. Typically, it should be installed just as it was installed in the previous "install packages" step.
 
 
