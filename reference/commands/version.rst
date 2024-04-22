@@ -57,7 +57,7 @@ The :command:`conan version --format=json` returns a JSON output format in ``std
         "python": {
             "version": "3.10.4",
             "sys_version": "3.10.4 (main, May 17 2022, 10:53:07) [Clang 13.1.6 (clang-1316.0.21.2.3)]",
-            "sys_executable": "/Users/myUser/Documents/GitHub/conan/venv/bin/python",
+            "sys_executable": "/conan/venv/bin/python",
             "is_frozen": false,
             "architecture": "arm64"
         },
