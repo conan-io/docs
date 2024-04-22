@@ -31,7 +31,7 @@ including Conan version, Python version, system platform, architecture, release,
 
     $ conan version
     version: 2.0.6
-    conan_path: /Users/myUser/Documents/GitHub/conan/venv/bin/conan
+    conan_path: /conan/venv/bin/conan
     python
       version: 3.10.4
       sys_version: 3.10.4 (main, May 17 2022, 10:53:07) [Clang 13.1.6 (clang-1316.0.21.2.3)]
