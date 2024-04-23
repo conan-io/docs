@@ -19,6 +19,8 @@ output_folder = os.path.join(args.gh_pages_folder)
 if branch.startswith("release/2"):
     branch_folder = [k for k, v in conan_versions.items() if v == branch][0]
 
+    ignore_files = {"404.html", "search.html"}
+
     if branch_folder != latest_v2_version:
         latest_v2_tree = set()
         print(f"{output_folder}/{latest_v2_folder}")
@@ -28,7 +30,7 @@ if branch.startswith("release/2"):
                     latest_v2_tree.add(os.path.join(root, file))
         for root, dirs, files in os.walk(f"{output_folder}/{branch_folder}"):
             for file in files:
-                if file.endswith(".html") and file != "404.html":
+                if file.endswith(".html") and file not in ignore_files:
                     path = os.path.join(root, file)
                     as_latest_path = path.replace(os.path.join(output_folder, branch_folder),
                                                   os.path.join(output_folder, latest_v2_folder))
