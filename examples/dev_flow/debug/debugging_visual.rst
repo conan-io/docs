@@ -19,7 +19,7 @@ A PDB has the information to link the source code of a debuggable object to the 
 specific file (executable or library) and contains the source file name and line numbers to display in the IDE.
 When compiling the files in Debug mode the created binary will contain the information of where the PDB will be
 generated, which by default is the same path where the file is being compiled. The PDBs are created by the ``cl.exe``
-compiler with the ``/Zi`` flag, or by the ```link.exe`` when linking a DLL or executable.
+compiler with the ``/Zi`` flag, or by the ``link.exe`` when linking a DLL or executable.
 
 .. note::
 
@@ -61,7 +61,7 @@ corresponding DLL is found.
 
 This hook is located in the `conan-extensions repository <https://github.com/conan-io/conan-extensions>`_.
 To use the hook is necessary to install it as explained and then rename it to ``hook_`` as explained
-`here <https://docs.conan.io/2/reference/extensions/hooks.html#storage-activation-and-sharing>`_ (link to hooks naming).
+:ref:`here <reference_extensions_hooks>`.
 
 
 
