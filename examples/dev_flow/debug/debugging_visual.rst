@@ -51,6 +51,9 @@ and can be located for each user through the ``vswhere`` tool. Using ``dumpbin \
 we can get the name and path of the PDB which contains the debug information for that DLL. The hook will do this for
 every DLL in the package and then copy the PDB next to its PDB so Visual can find and load it.
 
+The hook is implemented as a post-package hook, which will execute after the package is created through the
+``package()`` method of a recipe.
+
 The hook is available in the `conan-extensions repository <https://github.com/conan-io/conan-extensions>`_. Running
 ``conan config install https://github.com/conan-io/conan-extensions.git```will install all the available extensions,
 including this hook. To install the hook independently (complete).
