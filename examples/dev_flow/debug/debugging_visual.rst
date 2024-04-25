@@ -54,8 +54,19 @@ every DLL in the package and then copy the PDB next to its PDB so Visual can fin
 The hook is implemented as a post-package hook, which will execute after the package is created through the
 ``package()`` method of a recipe.
 
-The hook is available in the `conan-extensions repository <https://github.com/conan-io/conan-extensions>`_. Running
-``conan config install https://github.com/conan-io/conan-extensions.git```will install all the available extensions,
-including this hook. To install the hook independently (complete).
+The hook is available in the `conan-extensions repository <https://github.com/conan-io/conan-extensions>`_.
+It can be installed with all the other conan extensions with the command:
+
+  .. code-block:: text
+
+      $ conan config install https://github.com/conan-io/conan-extensions.git
+
+Or it can be installed independently, only installing the hooks from the conan-extensions repo with:
+
+  .. code-block:: text
+
+      $ conan config install https://github.com/conan-io/conan-extensions.git -sf=extensions/hooks -tf=extensions/hooks
+
 The hook will not work by default, it needs to be renamed so that it starts with ``hook_`` as it's explained in
-the :ref:`hooks documentation <reference_extensions_hooks>`.
+the :ref:`hooks documentation <reference_extensions_hooks>`. To locate the hook run ``conan config home`` to locate
+your local cache path and go to the ``extensions/hooks`` folder to find the ``_hook_copy_pdbs_to_package.py`` and rename it.
