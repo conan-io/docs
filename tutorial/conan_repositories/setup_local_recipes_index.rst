@@ -3,14 +3,17 @@
 Local Recipes Index Repository
 ==============================
 
-The `local_recipes_index` repository is a special type of repository that you can't upload
-packages to or store binaries into. The purpouse of this feature is to enable contributors
-sharing package recipes with the community for libraries that might not be suitable for
-ConanCenter. It also also simplifies building binaries from a private `conan-center-index
-fork`, allowing absolute control over recipes, customization, and maintaining a stable
-repository snapshot, ensuring robustness against upstream changes in ConanCenter. For
-detailed setup and usage instructions, :ref:`see the dedicated section in the Conan DevOps
-Guide <devops_local_recipes_index>`.
+The `local_recipes_index` repository is a special type of repository to which you cannot
+upload packages or store binaries. The purpose of this remote is:
+
+- Enable contributors to share package recipes with the community, particularly for
+  libraries that might not be suitable for ConanCenter.
+
+- It also simplifies the process of building binaries from a private `conan-center-index`
+  fork, allowing absolute control over recipes, customization, and maintaining a stable
+  repository snapshot. This ensures robustness against upstream changes in ConanCenter.
+  For detailed setup and usage instructions, see the dedicated section in the Conan DevOps
+  Guide :ref:`devops_local_recipes_index`.
 
 Setup
 -----
