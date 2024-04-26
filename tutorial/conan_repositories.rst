@@ -17,6 +17,9 @@ packages to your own repositories and how to operate when you have multiple Cona
 configured. Finally, we will briefly cover how you can contribute to the Conan Center
 central repository. 
 
+Finally, we will explain the `local_recipes_index`, a special type of remote that provides
+the capability of using a source folder with recipes as a Conan remote repository.
+
 .. toctree::
    :maxdepth: 2
    :caption: Table of contents
@@ -24,3 +27,4 @@ central repository.
    conan_repositories/setting_up_conan_remotes.rst
    conan_repositories/uploading_packages.rst
    conan_repositories/conan_center.rst
+   conan_repositories/setup_local_recipes_index.rst
