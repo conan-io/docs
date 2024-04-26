@@ -13,7 +13,9 @@ This setup is particularly useful for:
 - Building Binaries from a private conan-center-index fork.
 
 - Sharing your own recipes for certain libraries or tools, that due to licensing
-  restrictions or proprietary nature, are not suitable for ConanCenter.
+  restrictions or proprietary nature, are not suitable for ConanCenter. Check how you can
+  use it for that :ref:`in the dedicated section of the documentation
+  <setup_local_recipes_index>`.
 
 Building Binaries from a private `conan-center-index` fork
 ----------------------------------------------------------
