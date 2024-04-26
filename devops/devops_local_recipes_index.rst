@@ -35,6 +35,10 @@ binaries from source on each machine where the package is used. For sharing bina
 across teams, we continue to recommend :ref:`using a Conan remote server like Artifactory
 <artifactory_ce_cpp>` for production purposes.
 
+.. image:: ../images/devops/local-repo-general-flow-diagram.png
+   :width: 100%
+   :align: center
+
 The `local-recipes-index` repository allows you to easily build binaries from a fork of
 `conan-center-index`, and then hosting them on a Conan remote repository like Artifactory.
 The main difference with the process explained in the :ref:`previous section <devops>` is
