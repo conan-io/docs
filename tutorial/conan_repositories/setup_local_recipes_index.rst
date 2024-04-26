@@ -1,4 +1,4 @@
-.. _repositories_local_recipes_index:
+.. _setup_local_recipes_index:
 
 Local Recipes Index Repository
 ==============================
