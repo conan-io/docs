@@ -86,3 +86,4 @@ as a local repository themselves.
 .. seealso::
 
     - :ref:`DevOps guide <devops>`
+    - `Introducing the Local-Recipes-Index Post <https://blog.conan.io/2024/04/23/Introducing-local-recipes-index-remote.html>`_

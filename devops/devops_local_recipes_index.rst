@@ -241,3 +241,8 @@ pre-releases <resolve_prereleases_summary>`, :ref:`platform_requires
 <reference_config_files_profiles_replace_requires>`, etc. This separation also facilitates
 the implementation of modern DevOps practices, such as package immutability, full
 relocatability and package promotions.
+
+.. seealso::
+
+    - :ref:`Using Local-Recipes-Index repositories to share your libraries <setup_local_recipes_index>`
+    - `Introducing the Local-Recipes-Index Post <https://blog.conan.io/2024/04/23/Introducing-local-recipes-index-remote.html>`_
