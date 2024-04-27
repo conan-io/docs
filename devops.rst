@@ -13,6 +13,7 @@ If you plan to use Conan in production in your project, team, or organization, t
    :maxdepth: 1
 
    devops/using_conancenter
+   devops/devops_local_recipes_index
    devops/backup_sources/sources_backup
    devops/metadata
    devops/versioning
