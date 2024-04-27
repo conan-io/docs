@@ -177,7 +177,7 @@ not developers, following the :ref:`Conan guidelines <guidelines>`. This approac
 that package consumers enjoy pre-compiled binaries and consistency across dependencies.
 
 Modifying the local-recipes-index repository files
--------------------------------------------------
+---------------------------------------------------
 
 One of the advantages of this approach is that all the changes that we do in every single
 recipe are automatically available for the Conan client. For example, changes to the
