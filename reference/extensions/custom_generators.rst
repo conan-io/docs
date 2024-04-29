@@ -53,8 +53,8 @@ And then use it in the generate method of your own packages like this:
         requires = "zlib/1.2.11"
 
         def generate(self):
-            mygenerator = self.python_requires["mygenerator"].module.MyGenerator
-            mygenerator.generate(self)
+            mygenerator = self.python_requires["mygenerator"].module.MyGenerator()
+            mygenerator.generate()
 
 This has the advantage that you can version your own custom generators as packages and
 also that you can share those generators as Conan packages.
