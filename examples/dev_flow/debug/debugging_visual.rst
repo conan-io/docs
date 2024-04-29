@@ -1,16 +1,18 @@
-
 .. _examples_dev_flow_debug_visual:
 
 
 Debugging shared libraries with Visual Studio
 =============================================
 
-Conan packages don't contain the necessary information for debugging libraries with Visual Studio by default.
-This information is stored in PDBs that are generated during the compilation of the libraries. When using Conan these
-PDBs are generated in the build folder, which isn't always available, making impossible to debug the dependencies.
+We previously discussed how to debug dependencies in Conan with Visual Studio, but that requires the original build
+folder and build files to exist. Conan packages don't contain the necessary information for debugging libraries with
+Visual Studio by default. This information is stored in PDBs that are generated during the
+compilation of the libraries. When using Conan these PDBs are generated in the build folder, which is generated during
+the building of the libraries and it's no longer needed afterwards. A case where the build
+folder won't be available is when cleaning the cache with ``conan cache clean``.
 
-The goal is to have the necessary PDB files in the package folder, so that Visual is able to debug through the
-dependencies of a project. To solve this we created a hook that copies the PDBs created in the build folder to the
+The goal is to store the necessary PDB files in the package folder to make sure they are always present and don't depend on the
+existence of the build folder. To solve this we created a hook that copies the PDBs created in the build folder to the
 package folder. This behavior can't be forced by default because PDB files are usually larger than the whole package,
 and it would greatly increase the package sizes.
 
@@ -24,10 +26,26 @@ When compiling the files in Debug mode the created binary will contain the infor
 generated, which by default is the same path where the file is being compiled. The PDBs are created by the ``cl.exe``
 compiler with the ``/Zi`` flag, or by the ``link.exe`` when linking a DLL or executable.
 
-.. note::
+When a DLL is created it contains the information of the path where its corresponding PDB was generated. This can be
+manually checked by running the following commands:
 
-    PDBs can sometimes be generated for LIB files, for now we will focus only on shared libraries and work with
-    PDBs generated for DLLs.
+  .. code-block:: text
+
+      $ "%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -find "**\dumpbin.exe"
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.16.27023\bin\HostX64\x64\dumpbin.exe
+
+      $ C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.16.27023\bin\HostX64\x64\dumpbin.exe /PDBPATH {dll_path}
+      [..]
+      Dump of file .\bin\zlib1.dll
+
+      File Type: DLL
+        PDB file found at 'C:\Users\{user}\.conan2\p\b\zlib78326f0099328\p\bin\zlib1.pdb'
+      [...]
+
+First we locate the ``dumpbin.exe`` path with the ``vswhere`` tool and then we run the command passing a DLL path,
+which will return the information of the PDB path. In this case we used a relative path to DLL from the build folder,
+but it can be a full path.
+
 
 PDBs are created when compiling a library or executable in Debug mode. They are created by default in the same directory
 as the file it is associated with. This means that when using Conan they will be created in the build directory in the
@@ -41,27 +59,32 @@ When using the Visual Studio debugger, it will look for PDBs to load in the foll
 
 The PDB has by default the same name as its associated file, so Visual will look for it based on the name of the DLL.
 
+.. note::
 
-Making the PDBs available for Visual Studio
--------------------------------------------
+    PDBs can sometimes be generated for LIB files, for now we will focus only on shared libraries and work with
+    PDBs generated for DLLs.
 
-With the information above we developed a hook that will look through all the DLLs in the package folder and get the
-location of where its PDB was generated. To do this we used the ``dumpbin`` tool which is provided with Visual Studio
+
+Post-package hook for copying PDBs to package folder
+----------------------------------------------------
+
+After knowing what is our problem and how Visual uses PDBs we can now explain how we used the conan hooks to solve it.
+We developed a hook that will look through all the DLLs in the package folder and get the
+location of where its PDB was generated inside the build folder in the conan cache. As explained above we used the
+``dumpbin`` tool which is provided with Visual Studio
 and can be located for each user through the ``vswhere`` tool. Using ``dumpbin \PDBPATH`` with a DLL as parameter
 we can get the name and path of the PDB which contains the debug information for that DLL. The hook will do this for
 every DLL in the package and then copy the PDB next to its PDB so Visual can find and load it.
 
-The hook is implemented as a post-package hook, which will execute after the package is created through the
-``package()`` method of a recipe.
+The hook is implemented as a post-package hook, which means that it will execute after the package is created through the
+``package()`` method of a recipe. This avoids any potential issue, as the order will be as follows:
+
+- The ``build()`` method of the recipe is executed, generating the DLLs and PDBs
+- The ``package()`` method of the recipe is executed, copying the necessary files to the package folder (in this case the DLLs but not the PDBs)
+- The hook is executed copying the PDBs from the build folder next to its DLL for every DLL in the package
 
 The hook is available in the `conan-extensions repository <https://github.com/conan-io/conan-extensions>`_.
-It can be installed with all the other conan extensions with the command:
-
-  .. code-block:: text
-
-      $ conan config install https://github.com/conan-io/conan-extensions.git
-
-Or it can be installed independently, only installing the hooks from the conan-extensions repo with:
+Installing the whole repo will work, but we recommend to only install the hooks folder from the conan-extensions repo with:
 
   .. code-block:: text
 
