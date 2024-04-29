@@ -4,9 +4,9 @@
 Debugging shared libraries with Visual Studio
 =============================================
 
-We previously discussed how to debug dependencies in Conan with Visual Studio, but that requires the original build
-folder and build files to exist. Conan packages don't contain the necessary information for debugging libraries with
-Visual Studio by default. This information is stored in PDBs that are generated during the
+We previously discussed how to debug dependencies in Visual Studio, but when using Conan to create your project is
+possible that the original build folder and build files don't exist. Conan packages don't contain the necessary
+information for debugging libraries with Visual Studio by default, this information is stored in PDBs that are generated during the
 compilation of the libraries. When using Conan these PDBs are generated in the build folder, which is generated during
 the building of the libraries and it's no longer needed afterwards. A case where the build
 folder won't be available is when cleaning the cache with ``conan cache clean``.
@@ -70,9 +70,10 @@ Post-package hook for copying PDBs to package folder
 
 After knowing what is our problem and how Visual uses PDBs we can now explain how we used the conan hooks to solve it.
 We developed a hook that will look through all the DLLs in the package folder and get the
-location of where its PDB was generated inside the build folder in the conan cache. As explained above we used the
-``dumpbin`` tool which is provided with Visual Studio
-and can be located for each user through the ``vswhere`` tool. Using ``dumpbin \PDBPATH`` with a DLL as parameter
+location of where its PDB was generated inside the build folder in the conan cache.
+
+As explained above we used the ``dumpbin`` tool which is provided with Visual Studio and can be located for each user
+through the ``vswhere`` tool. Using ``dumpbin \PDBPATH`` with a DLL as parameter
 we can get the name and path of the PDB which contains the debug information for that DLL. The hook will do this for
 every DLL in the package and then copy the PDB next to its PDB so Visual can find and load it.
 
