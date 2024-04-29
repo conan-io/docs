@@ -312,6 +312,41 @@ By default it is ``"conan"``, and it will generate CMake presets named "conan-xx
 This is done to avoid potential name clashes with users own presets.
 
 
+CONAN_RUNTIME_LIB_DIRS
+^^^^^^^^^^^^^^^^^^^^^^
+
+This variable defines the directories containing the runtime libraries necessary to
+build and execute the project in the development environment. These libraries are essential
+to ensure that the project compiles and runs correctly, providing the necessary dependencies
+during runtime.
+
+
+An example of usage would be first to add the additional paths we want in our ``conanfile.py``:
+
+.. code:: python
+
+    class ConanExample(ConanFile):
+        def package_info(self):
+            self.cpp_info.builddirs = ["/path/to/builddir1", "/path/to/builddir2"]
+
+Then add the ``CONAN_RUNTIME_LIB_DIRS`` variable in our ``CMakeLists.txt`` file.
+
+.. code:: cmake
+
+    install(RUNTIME_DEPENDENCY_SET my_app_deps
+        PRE_EXCLUDE_REGEXES
+            [[api-ms-win-.*]]
+            [[ext-ms-.*]]
+            [[kernel32\.dll]]
+            [[libc\.so\..*]] [[libgcc_s\.so\..*]] [[libm\.so\..*]] [[libstdc\+\+\.so\..*]]
+        POST_EXCLUDE_REGEXES
+            [[.*/system32/.*\.dll]]
+            [[^/lib.*]]
+            [[^/usr/lib.*]]
+        DIRECTORIES ${CONAN_RUNTIME_LIB_DIRS}
+    )
+
+
 Using a custom toolchain file
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
