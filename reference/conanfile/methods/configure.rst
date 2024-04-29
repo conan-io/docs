@@ -29,6 +29,20 @@ recipe to remove them so they are not used in the recipe:
         # No need to delete those settings here, they were already deleted
         pass
 
+For packages where you want to remove every subsetting of a setting, you can use the ``rm_safe`` method
+with a wildcard:
+
+.. code-block:: python
+
+    settings = "os", "compiler", "build_type", "arch"
+
+    def configure(self):
+        self.settings.rm_safe("compiler.*")
+
+
+This will remove all the subsettings of the ``compiler`` setting, like ``compiler.libcxx`` or ``compiler.cppstd``,
+but keep the ``compiler`` setting itself (Which ``self.settings.rm_safe("compiler")`` would remove).
+
 Likewise, for a package containing a library, the ``fPIC`` option really only applies when the
 library is compiled as a static library, but otherwise, the ``fPIC`` option doesn't make sense,
 so it should be removed:
