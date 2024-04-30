@@ -151,6 +151,24 @@ The ``wrap_mode: nofallback`` is defined by default as a project option, to make
 
 Note that in this case, Meson might be able to find dependencies in "wraps", it is the responsibility of the user to check the behavior and make sure about the dependencies origin.
 
+subproject_options
+^^^^^^^^^^^^^^^^^^
+
+This attribute allows defining Meson subproject options:
+
+.. code:: python
+
+    def generate(self):
+        tc = MesonToolchain(self)
+        tc.subproject_options["SUBPROJECT"] = [{'MYVAR': 'MyValue'}]
+        tc.generate()
+
+This is translated to:
+
+- One subproject ``SUBPROJECT`` and option definition for ``MYVAR`` in the ``conan_meson_native.ini`` or ``conan_meson_cross.ini`` file.
+
+Note that in contrast to ``project_options``, ``subproject_options`` is a dictionary of lists of dictionaries. This is because Meson allows multiple subprojects, and each subproject can have multiple options.
+
 preprocessor_definitions
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -209,7 +227,9 @@ values:
     def generate(self):
         tc = MesonToolchain(self) 
         tc.project_options["DYNAMIC"] = bool(self.options.shared)  # shared is bool
-        tc.project_options["GREETINGS"] = str(self.options.with_msg)  # with_msg is str 
+        tc.project_options["GREETINGS"] = str(self.options.with_msg)  # with_msg is str
+        tc.subproject_options["SUBPROJECT"] = [{'MYVAR': str(self.options.with_msg)}]  # with_msg is str
+        tc.subproject_options["SUBPROJECT"].append({'MYVAR': bool(self.options.shared)})  # shared is bool
         tc.generate()
 
 In contrast, directly assigning a Conan option as a Meson value is strongly discouraged:
@@ -223,6 +243,8 @@ In contrast, directly assigning a Conan option as a Meson value is strongly disc
         tc = MesonToolchain(self)
         tc.project_options["DYNAMIC"] = self.options.shared  # == <PackageOption object>
         tc.project_options["GREETINGS"] = self.options.with_msg  # == <PackageOption object>
+        tc.subproject_options["SUBPROJECT"] = [{'MYVAR': self.options.with_msg}]  # == <PackageOption object>
+        tc.subproject_options["SUBPROJECT"].append({'MYVAR': self.options.shared})  # == <PackageOption object>
         tc.generate()
 
 These are not boolean or string values but an internal Conan class representing such
