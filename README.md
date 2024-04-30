@@ -5,12 +5,9 @@ Documentation for Conan C/C++ package manager: https://conan.io
 How to build
 ============
 
-- Install host package
-  - graphviz
-  - enchant
-    - Ubuntu: `# apt install graphviz enchant`
-    - Achlinux: `# pacman -Syu graphviz enchant`
-
+- Install prerequisites:
+  - [graphviz](https://graphviz.org/download)
+  - [enchant](https://pyenchant.github.io/pyenchant/install.html)
 
 - Install python and [pip docs](https://pip.pypa.io/en/stable/installing/).
 - Install the requirements (sphinx):
