@@ -223,3 +223,6 @@ to only update those packages, which avoids the re-evaluation of the whole graph
    $ conan install . --update  # Update all packages in the graph
    $ conan install . --update=openssl  # Update only the openssl package
    $ conan install . --update=openssl --update=boost  # Update both openssl and boost packages
+
+Note that the ``--update`` argument will look into all the remotes specified in the command for possible newer versions,
+and won't stop at the first newer one found.
