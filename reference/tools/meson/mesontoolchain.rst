@@ -167,7 +167,7 @@ This is translated to:
 
 - One subproject ``SUBPROJECT`` and option definition for ``MYVAR`` in the ``conan_meson_native.ini`` or ``conan_meson_cross.ini`` file.
 
-Note that in contrast to project_options, subproject_options is a dictionary of lists of dictionaries. This is because Meson allows multiple subprojects, and each subproject can have multiple options.
+Note that in contrast to ``project_options``, ``subproject_options`` is a dictionary of lists of dictionaries. This is because Meson allows multiple subprojects, and each subproject can have multiple options.
 
 preprocessor_definitions
 ^^^^^^^^^^^^^^^^^^^^^^^^
