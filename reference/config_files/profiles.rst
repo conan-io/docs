@@ -674,6 +674,13 @@ the associated runtime, you can use:
     - **`default_compiler_version(compiler, version)`**: returns the default version that
         Conan uses in profiles, typically dropping some of the minor or patch digits, that
         do not affect binary compatibility.
+    - **`detect_gcc_compiler(compiler_exe="gcc")`**: Return the tuple ('gcc', version, executable) for ``gcc``
+    - **`detect_intel_compiler(compiler_exe="icx")`**: Return the tuple ('intel-cc', version, executable) for ``intel-cc``
+    - **`detect_suncc_compiler(compiler_exe="cc")`**: Return the tuple ('sun-cc', version, executable) for ``sun-cc``
+    - **`detect_clang_compiler(compiler_exe="clang")`**: Return the tuple ('clang'|'apple-clang', version, executable) for ``clang`` or ``apple-clang``.
+    - **`detect_msvc_compiler()`**: Detect the compiler ('msvc', version, None) default version of the latest VS IDE installed
+    - **`detect_cl_compiler(compiler_exe="cl")`**: Detect the compiler ('msvc', version, executable) for the ``cl.exe`` compiler
+
 
 .. _reference_config_files_profile_patterns:
 
