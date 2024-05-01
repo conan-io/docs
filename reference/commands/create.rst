@@ -22,7 +22,12 @@ the package has been created correctly. Check :ref:`testing Conan packages
 
     .. code-block:: bash
 
-        $ conan create . --test-folder=
+        $ conan create . --test-folder=""
+
+    You might also want to do ``conan create . --build=missing`` so the package is not built
+    if a binary already exists in the servers. If you want to also avoid the ``test_package``
+    step when the binary already exists, you can apply the ``conan create . --build=missing --test-missing``,
+    and it will only launch the test-package when the binary is built from source.
 
 
 Using conan create with build requirements
@@ -63,3 +68,4 @@ The same happens for lockfiles created with ``--lockfile-out`` argument. The loc
 
     - Read more about creating packages in the :ref:`dedicated
       tutorial<tutorial_creating_packages>`
+    - Read more about :ref:`testing Conan packages <tutorial_creating_test>`
