@@ -11,7 +11,7 @@ The ``conan create`` command creates a package from the recipe specified in ``pa
 
 This command will first :command:`export` the recipe to the local cache and then build
 and create the package. If a ``test_package`` folder (you can change the folder name with
-the ``-tf`` argument) is found, the command will run the consumer project to ensure that
+the ``-tf`` argument or with the ``test_package_folder`` recipe attribute) is found, the command will run the consumer project to ensure that
 the package has been created correctly. Check :ref:`testing Conan packages
 <tutorial_creating_test>` section to know more about how to test your Conan packages.
 

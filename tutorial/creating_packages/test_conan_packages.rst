@@ -30,6 +30,9 @@ Some important notes to have in mind about the *test_package*:
 * It doesn't belong to the package. It only exist in the source repository, not in the
   package.
 
+* The *test_package* folder is the default one, but a different one can be defined
+  in command line ``--test-folder`` argument or with the ``test_package_folder`` recipe attribute.
+
 The *test_package* folder for our hello/1.0 Conan package has the following contents:
 
 .. code-block:: text
@@ -156,6 +159,7 @@ test<reference_commands>` command:
 
 As you can see in the output, our *test_package* builds successfully testing that the
 *hello/1.0* Conan package can be consumed with no problem.
+
 
 
 .. seealso::
