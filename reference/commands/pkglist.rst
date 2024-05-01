@@ -9,7 +9,7 @@ conan pkglist
 Perform different operations over package lists:
 
 - Merge multiple package lists (deep merge) into a single one: ``conan pkglist merge``
-- Find in which remotes can be found packages from the cache: ``conan pkglist find-remote``
+- Find in which remotes packages from the cache can be found: ``conan pkglist find-remote``
 
 
 conan pkglist merge
