@@ -124,3 +124,28 @@ folder when ``no_copy_source=False`` and will point to the ``source`` folder whe
 
     Read  :ref:`header-only packages section <creating_packages_other_header_only>` for an
     example using ``no_copy_source`` attribute.
+
+
+.. _conan_conanfile_attributes_test_package_folder:
+
+test_package_folder
+-------------------
+
+The ``test_package_folder`` class attribute allows defining in recipe a different default
+``test_package`` folder for ``conan create`` commands.
+When a ``conan create`` runs, after the package is created in the cache, it will look for
+a ``test_package`` folder, or for the folder specified in the ``--test-folder=xxx`` argument,
+and launch the package test.
+
+This attribute allows to change that default name:
+
+.. code-block:: python
+
+  import os
+  from conan import ConanFile
+
+  class Pkg(ConanFile):
+      test_package_folder = "my/test/folder"
+
+
+It allows to define any folder, always relative to the location of the ``conanfile.py``.
