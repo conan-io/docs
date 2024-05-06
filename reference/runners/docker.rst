@@ -129,7 +129,7 @@ Now, we are going to clone and build zlib from conan-center-index and create it 
 
 .. code-block:: bash
     
-    $ git clone https://github.com/conan-io/conan-center-index.git
+    $ git clone https://github.com/conan-io/conan-center-index.git --depth=1
     $ conan create ./conan-center-index/recipes/zlib/all --version 1.3.1 -pr:h </my/runner/forder>/docker_example_host -pr:b </my/runner/forder>/docker_example_build
 
 If we split and analyze the command output, we can see what is happening and where the commands are being executed.
