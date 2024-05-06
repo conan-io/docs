@@ -98,9 +98,9 @@ Now, we are going to clone and build zlib from conan-center-index and create it 
 
     ...
 
-    ┌──────────────────────────────────────────────────┐
-    | Building the Docker image: my-conan-runner-image |
-    └──────────────────────────────────────────────────┘
+    ****************************************************
+    * Building the Docker image: my-conan-runner-image *
+    ****************************************************
 
     Dockerfile path: '</my/runner/folder>/Dockerfile'
     Docker build context: '</my/runner/folder>'
@@ -116,31 +116,31 @@ Now, we are going to clone and build zlib from conan-center-index and create it 
 
     ...
 
-    ┌───────────────────────────────┐
-    | Creating the docker container |
-    └───────────────────────────────┘
+    *********************************
+    * Creating the docker container *
+    *********************************
 
 
-    ┌─────────────────────────────────────────┐
-    | Container my-conan-runner-image running |
-    └─────────────────────────────────────────┘
+    *******************************************
+    * Container my-conan-runner-image running *
+    *******************************************
 
 
-    ┌─────────────────────────────────────────┐
-    | Running in container: "conan --version" |
-    └─────────────────────────────────────────┘
+    *******************************************
+    * Running in container: "conan --version" *
+    *******************************************
 
-    ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-    | Restore host cache from: </my/runner/folder>/conan-center-index/recipes/zlib/all/.conanrunner/docker_cache_save.tgz |
-    └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+    ************************************************************************************************************************
+    * Restore host cache from: </my/runner/folder>/conan-center-index/recipes/zlib/all/.conanrunner/docker_cache_save.tgz *
+    ************************************************************************************************************************
 
     Restore: zlib/1.3.1 in p/zlib95420566fc0dd
     Restore: zlib/1.3.1:b647c43bfefae3f830561ca202b6cfd935b56205 in p/zlibd59462fc4358e/p
     Restore: zlib/1.3.1:b647c43bfefae3f830561ca202b6cfd935b56205 metadata in p/zlibd59462fc4358e/d/metadata
 
-    ┌────────────────────┐
-    | Stopping container |
-    └────────────────────┘
+    **********************
+    * Stopping container *
+    **********************
 
 If we now check the status of our Conan and docker cache, we will see the zlib package compiled for Linux and the new docker image and container.
 
@@ -183,8 +183,8 @@ If we run the ``conan create`` command again we will see how Conan reuses the pr
 
     ...
 
-    ┌───────────────────────────────┐
-    | Starting the docker container |
-    └───────────────────────────────┘
+    *********************************
+    * Starting the docker container *
+    *********************************
 
     ...

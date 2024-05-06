@@ -122,9 +122,9 @@ If we split and analyze the command output, we can see what is happening and whe
 
 .. code-block:: bash
 
-    ┌────────────────────────────────────────────┐
-    | Building the Docker image: my-conan-runner |
-    └────────────────────────────────────────────┘
+    **********************************************
+    * Building the Docker image: my-conan-runner *
+    **********************************************
 
     Dockerfile path: '</my/runner/folder>/Dockerfile'
     Docker build context: '</my/runner/folder>'
@@ -141,9 +141,9 @@ If we split and analyze the command output, we can see what is happening and whe
 
 .. code-block:: bash
 
-    ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-    | Save host cache in: </my/runner/folder>/conan-center-index/recipes/zlib/all/.conanrunner/local_cache_save.tgz |
-    └────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+    ******************************************************************************************************************
+    * Save host cache in: </my/runner/folder>/conan-center-index/recipes/zlib/all/.conanrunner/local_cache_save.tgz *
+    ******************************************************************************************************************
 
     Found 1 pkg/version recipes matching * in local cache
     Saving zlib/1.3.1: p/zlib95420566fc0dd
@@ -152,21 +152,21 @@ If we split and analyze the command output, we can see what is happening and whe
 
 .. code-block:: bash
 
-    ┌───────────────────────────────┐
-    | Creating the docker container |
-    └───────────────────────────────┘
+    *********************************
+    * Creating the docker container *
+    *********************************
 
-    ┌───────────────────────────────────────┐
-    | Container conan-runner-docker running |
-    └───────────────────────────────────────┘
+    *****************************************
+    * Container conan-runner-docker running *
+    *****************************************
 
 5. Check if the container has a conan version with the runner feature.
 
 .. code-block:: bash
 
-    ┌─────────────────────────────────────────┐
-    | Running in container: "conan --version" |
-    └─────────────────────────────────────────┘
+    *******************************************
+    * Running in container: "conan --version" *
+    *******************************************
 
     Conan version 2.3.0
 
@@ -174,9 +174,9 @@ If we split and analyze the command output, we can see what is happening and whe
 
 .. code-block:: bash
 
-    ┌───────────────────────────────────────────────────────────────────────────────────────────────────────┐
-    | Running in container: "conan cache restore "/root/conanrunner/all/.conanrunner/local_cache_save.tgz"" |
-    └───────────────────────────────────────────────────────────────────────────────────────────────────────┘
+    *********************************************************************************************************
+    * Running in container: "conan cache restore "/root/conanrunner/all/.conanrunner/local_cache_save.tgz"" *
+    *********************************************************************************************************
 
     Restore: zlib/1.3.1 in p/zlib95420566fc0dd
     Local Cache
@@ -191,9 +191,9 @@ If we split and analyze the command output, we can see what is happening and whe
 
 .. code-block:: bash
 
-    ┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-    | Running in container: "conan create /root/conanrunner/all --version 1.3.1 -pr:h /root/conanrunner/all/.conanrunner/profiles/docker_example_host_1 -pr:b /root/conanrunner/all/.conanrunner/profiles/docker_example_build_0 -f json > create.json" |
-    └───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+    *****************************************************************************************************************************************************************************************************************************************************
+    * Running in container: "conan create /root/conanrunner/all --version 1.3.1 -pr:h /root/conanrunner/all/.conanrunner/profiles/docker_example_host_1 -pr:b /root/conanrunner/all/.conanrunner/profiles/docker_example_build_0 -f json > create.json" *
+    *****************************************************************************************************************************************************************************************************************************************************
 
 
     ======== Exporting recipe to the cache ========
@@ -396,9 +396,9 @@ If we split and analyze the command output, we can see what is happening and whe
 
 ..  code-block:: bash
 
-    ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-    | Running in container: "conan cache save --list=pkglist.json --file "/root/conanrunner/all"/.conanrunner/docker_cache_save.tgz" |
-    └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+    **********************************************************************************************************************************
+    * Running in container: "conan cache save --list=pkglist.json --file "/root/conanrunner/all"/.conanrunner/docker_cache_save.tgz" *
+    **********************************************************************************************************************************
 
     Saving zlib/1.3.1: p/zlib95420566fc0dd
     Saving zlib/1.3.1:b647c43bfefae3f830561ca202b6cfd935b56205: p/b/zlib8dd8e27348e8c/p
@@ -427,22 +427,22 @@ If we split and analyze the command output, we can see what is happening and whe
             recipe_folder: p/zlib95420566fc0dd
 
 
-    ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-    | Restore host cache from: </my/runner/folder>/conan-center-index/recipes/zlib/all/.conanrunner/docker_cache_save.tgz |
-    └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+    ************************************************************************************************************************
+    * Restore host cache from: </my/runner/folder>/conan-center-index/recipes/zlib/all/.conanrunner/docker_cache_save.tgz *
+    ************************************************************************************************************************
 
     Restore: zlib/1.3.1 in p/zlib95420566fc0dd
     Restore: zlib/1.3.1:b647c43bfefae3f830561ca202b6cfd935b56205 in p/b/zlib8dd8e27348e8c/p
     Restore: zlib/1.3.1:b647c43bfefae3f830561ca202b6cfd935b56205 metadata in p/b/zlib8dd8e27348e8c/d/metadata
 
-    ┌────────────────────┐
-    | Stopping container |
-    └────────────────────┘
+    **********************
+    * Stopping container *
+    **********************
 
 
-    ┌────────────────────┐
-    | Removing container |
-    └────────────────────┘
+    **********************
+    * Removing container *
+    **********************
 
 If we now check the status of our conan and docker cache, we will see the new zlib package compile for Linux and the new docker image. We don't have any container because we define ``remove=true``
 
