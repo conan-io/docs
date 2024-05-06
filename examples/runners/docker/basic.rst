@@ -3,7 +3,7 @@
 Compile zlib/1.3.1 using docker runner
 ======================================
 
-In this example we are going to see how to compile zlib  1.3.1 inside docker. Let’s create two profiles and a Dockerfile inside our project folder.
+In this example we are going to see how to create the ``zlib/1.3.1`` Conan packge inside Docker using a runner. Let’s create two profiles and a Dockerfile inside our project folder.
 
 .. code-block:: bash
 
