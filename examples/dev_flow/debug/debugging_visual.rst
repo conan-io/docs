@@ -67,11 +67,11 @@ dependency, with the breakpoint on line 22, you will notice it will directly ski
 doesn't have any information on the dependencies to debug.
 
 
-Installing the new hook to copy PDBs
-------------------------------------
+Installing a hook to copy the PDBs to the package folder
+--------------------------------------------------------
 
 The hook is available in the `conan-extensions repository <https://github.com/conan-io/conan-extensions>`_.
-Installing the whole repository will function, but we recommend to only install the hooks folder from the
+Installing the whole repository will work, but we recommend to only install the hooks folder from the
 ``conan-extensions`` repository with:
 
 .. code-block:: text
@@ -91,75 +91,6 @@ The hook is implemented as a post-package hook, which means that it will execute
 - The ``build()`` method of the recipe is executed, generating the DLLs and PDBs
 - The ``package()`` method of the recipe is executed, copying the necessary files to the package folder (in this case the DLLs but not the PDBs)
 - The hook is executed copying the PDBs from the build folder next to its DLL for every DLL in the package
-
-
-Debugging without build files
------------------------------
-
-After installing the hook we will create again the project from sources so the hook can now copy the PDBs to the package.
-
-.. code-block:: bash
-
-    $ conan install . -o="*:shared=True" -s build_type=Debug --build="zlib/*"
-    ...
-    zlib/1.2.11: Calling package()
-    ...
-    [HOOK - hook_copy_pdbs_to_package.py] post_package(): PDBs post package hook running
-    ...
-    Install finished successfully
-
-    # CMake presets require CMake>=3.23
-    $ cmake --preset=conan-default
-
-Notice that when running the conan install now you will see the outputs of the hook running after the call to package().
-We will clean the cache once again to test the debugging without the build files:
-
-.. code-block:: bash
-
-    $ conan cache clean zlib/1.2.11 --build
-
-Open the solution in Visual Studio again and start the debugger. When you try to step into the dependency in line 22, an error
-message will pop up telling us the file was not found and it will ask where the file is located. We can close this window
-and it will give the option to view the disassembly which can be debugged thanks to the PDB.
-
-.. image:: ../../../images/examples/dev_flow/source_file_not_found.png
-    :alt: Debugging without build files in cache
-
-
-Locating the sources path for the debugger
-------------------------------------------
-
-There's an option to manually set the source folder path so that it's possible to debug over the source files. This
-requires that the source files for the dependency exist. In our case we can get the location of this source files
-by running a ```conan cache path``.
-
-.. code-block::
-
-    $ conan cache path --folder source zlib/1.2.11
-
-In case this source path is not present we can use a config to download the sources again.
-
-.. code-block::
-
-    $ conan install . -o="*:shared=True" -s build_type=Debug -c:a="tools.build:download_source=True"
-
-Once we have the source path we can set it in Visual Studio so the debugger can find the source files. Right click on
-the solution in the Solution Explorer and select Properties. Go to Debug Source Files in the Common Properties section
-and add our source path.
-
-.. image:: ../../../images/examples/dev_flow/add_path_to_debug_source_files.png
-    :alt: Setting source path
-
-Starting the debugger again will allow to step into the code of the dependency as in the first example we did.
-
-.. note::
-
-    For Visual Studio to find the source files it is necessary that these are the same exact files as when the
-    libraries were compiled because Visual does a checksum check.
-
-    Also note that we are using the source files from the source folders, in the case that there exist patches
-    for those source files they won't be applied, as that's done in a later step in the build folder.
-
 
 .. _examples_dev_flow_debug_visual_pdb:
 
@@ -209,3 +140,78 @@ The PDB has by default the same name as its associated file, so Visual will look
 
     PDBs can sometimes be generated for LIB files, but for now the feature only focuses on shared libraries and work with
     PDBs generated for DLLs.
+
+
+Debugging without build files
+-----------------------------
+
+After installing the hook we will create again the project from sources so the hook can now copy the PDBs to the package
+folder alongside the package DLLs so they can be found by the debugger.
+
+.. code-block:: bash
+
+    $ conan install . -o="*:shared=True" -s build_type=Debug --build="zlib/*"
+    ...
+    zlib/1.2.11: Calling package()
+    ...
+    [HOOK - hook_copy_pdbs_to_package.py] post_package(): PDBs post package hook running
+    ...
+    Install finished successfully
+
+    # CMake presets require CMake>=3.23
+    $ cmake --preset=conan-default
+
+Notice that when running the conan install now you will see the outputs of the hook running after the call to package().
+To test the hook we can clean the cache again to remove the build files, this includes the sources used to build the
+library and the PDBs that were originally generated.
+
+.. code-block:: bash
+
+    $ conan cache clean zlib/1.2.11 --build
+
+Open the solution in Visual Studio again and start the debugger. When you try to step into the dependency in line 22, an error
+message will pop up telling us the file was not found and it will ask where the file is located. We can close this window
+and it will give the option to view the disassembly which can be debugged thanks to the PDB. The PDB only contains the
+debugging information but Visual Studio is missing the source files, so it won't be able to debug over those as it did
+initially.
+
+.. image:: ../../../images/examples/dev_flow/source_file_not_found.png
+    :alt: Debugging without build files in cache
+
+
+Locating the sources path for the debugger
+------------------------------------------
+
+Visual Studio won't be able to find te source files by itself after deleting the original build files. To be able to
+debug over the source files, there's an option to manually set the source folder path so that it's possible to debug over the source files. This
+requires that the source files for the dependency exist. In our case we can get the location of this source files
+by running a ```conan cache path``.
+
+.. code-block::
+
+    $ conan cache path --folder source zlib/1.2.11
+
+In case this source path is not present we can use a config to download the sources again.
+
+.. code-block::
+
+    $ conan install . -o="*:shared=True" -s build_type=Debug -c:a="tools.build:download_source=True"
+
+Once we have the source path we can set it in Visual Studio so the debugger can find the source files. Right click on
+the solution in the Solution Explorer and select Properties. Go to Debug Source Files in the Common Properties section
+and add our source path.
+
+.. image:: ../../../images/examples/dev_flow/add_path_to_debug_source_files.png
+    :alt: Setting source path
+
+Starting the debugger again will allow to step into the code of the dependency as in the first example we did.
+
+.. note::
+
+    If there are patches to the source files we won't be able to debug over the modified files, as we are using the
+    files from the source folder and the patches are applied in a later step right before being compiled in the build folder.
+
+    Any modification to the source files will not allow debugging over them, as Visual Studio does a checksum check, so
+    they need to be the exact same files as when the libraries were compiled.
+
+
