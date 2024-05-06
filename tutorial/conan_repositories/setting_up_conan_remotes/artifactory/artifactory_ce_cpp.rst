@@ -10,24 +10,24 @@ API, a generic CLI tool and generic repositories to host any kind of source or b
 artifact.
 
 This is a very brief introduction to Artifactory CE. For the complete Artifactory CE
-documentation, visit `Artifactory docs <https://www.jfrog.com/confluence/>`_.
+documentation, visit `Artifactory docs <https://jfrog.com/help/>`_.
 
 Running Artifactory CE
 ----------------------
 
 There are several ways to run Artifactory CE:
 
-* **Running from a docker image**. Just run:
+* **Running from a Docker image:**
 
 .. code-block:: bash
     
-    $ docker run --name artifactory -d -p 8081:8081 -p 8082:8082 docker.bintray.io/jfrog/artifactory-cpp-ce:latest
+    $ docker run --name artifactory -d -p 8081:8081 -p 8082:8082 releases-docker.jfrog.io/jfrog/artifactory-cpp-ce:latest
 
 * **Download and run from zip file**. The `Download Page <https://conan.io/downloads.html>`_ has
   a link for you to follow. When the file is unzipped, launch Artifactory by double clicking
-  the artifactory.bat(Windows) or artifactory.sh script in the *app/bin* subfolder,
+  the artifactory.bat on Windows or artifactory.sh script in the *app/bin* subfolder,
   depending on the OS. Artifactory comes with JDK bundled, please `read Artifactory
-  requirements <https://www.jfrog.com/confluence/display/JFROG/System+Requirements>`_.
+  requirements <https://jfrog.com/help/r/jfrog-installation-setup-documentation/system-requirements>`_.
 
 Once Artifactory has started, navigate to the default URL `http://localhost:8081`, where
 the Web UI should be running. The default user and password are ``admin:password``.
