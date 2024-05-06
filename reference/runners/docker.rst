@@ -17,7 +17,7 @@ To run Conan inside a docker container you need to define a ``[runner]`` section
     - ``copy``: copy the host cache inside the container using the :ref:`conan cache save/restore<reference_commands_cache>` command.
     - ``shared``: mount the host's Conan cache as a shared volume.
 
-- ``remove`` **(optional, default false)**: ``true`` or ``false``. Remove the container after running the conan command.
+- ``remove`` **(optional, default False)**: ``True`` or ``False``. Remove the container after running the Conan command.
 - ``configfile``  **(optional, default None)**: Absolute path to a configuration file with extra parameters (see **extra configuration** section for more info).
 
 Extra configuration
