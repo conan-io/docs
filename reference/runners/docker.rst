@@ -702,7 +702,7 @@ If we now check the status of our Conan and docker cache, we will see the zlib p
     my-conan-runner   latest    383b905f352e   22 minutes ago   531MB
     ubuntu            22.04     437ec753bef3   12 days ago      77.9MB
 
-If we run the conan create command again we will see how conan reuses the previous container beacause we set ``remove=False``.
+If we run the ``conan create`` command again we will see how Conan reuses the previous container because we have set ``remove=False``.
 
 .. code-block:: bash
     
