@@ -586,9 +586,9 @@ In this example we are going to see how to use a docker runner configfile. Letâ€
     run:
         name: my-conan-runner-container
 
-``Dockerfile``
 
 ..  code-block:: docker
+    :caption: Dockerfile
 
     ARG BASE_IMAGE
     FROM $BASE_IMAGE
