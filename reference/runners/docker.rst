@@ -139,7 +139,7 @@ If we split and analyze the command output, we can see what is happening and whe
 .. code-block:: bash
 
     ======== Exporting recipe to the cache ========
-    zlib/1.3.1: Exporting package recipe: </my/runner/forder>/conan-center-index/recipes/zlib/all/conanfile.py
+    zlib/1.3.1: Exporting package recipe: </my/runner/folder>/conan-center-index/recipes/zlib/all/conanfile.py
     zlib/1.3.1: exports: File 'conandata.yml' found. Exporting it...
     zlib/1.3.1: Calling export_sources()
     zlib/1.3.1: Copied 1 '.py' file: conanfile.py
