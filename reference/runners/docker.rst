@@ -177,8 +177,8 @@ If we split and analyze the command output, we can see what is happening and whe
     | Building the Docker image: my-conan-runner |
     └────────────────────────────────────────────┘
 
-    Dockerfile path: '</my/runner/forder>/Dockerfile'
-    Docker build context: '</my/runner/forder>'
+    Dockerfile path: '</my/runner/folder>/Dockerfile'
+    Docker build context: '</my/runner/folder>'
 
     Step 1/4 : FROM ubuntu:22.04
 
