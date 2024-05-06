@@ -7,7 +7,7 @@ Runners are the way to run Conan remotely and transparently just by modifying th
 
 - Installing a version of conan with runner dependencies ``pip install conan[runners]``. 
 - Install the tools to run each of the runners (``docker``).
-- Add to the ``host profile`` the ``[runner]`` section defined in the documentation of each runner.
+- Add the ``[runner]`` section defined in the documentation of each runner to the host profile.
 
 Runners:
 
