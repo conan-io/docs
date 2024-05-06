@@ -11,7 +11,7 @@ To run Conan inside a docker container you need to define a ``[runner]`` section
 - ``type`` **(mandatory)**: define the runner we want to use, in this case ``docker``.
 - ``dockerfile`` **(optional, default None)**: absolute path to a Dockerfile in case you want to build a docker image.
 - ``image`` **(optional, default conan-runner-default)**: docker image name you want to download from a docker registry or the name of the built image in case you define a dockerfile path.
-- ``cache`` **(optional, default clean)**: how docker container uses (or not) the host cache.
+- ``cache`` **(optional, default clean)**: how docker container uses (or not) the host's Conan cache.
 
     - ``clean``: use an empty cache.
     - ``copy``: copy the host cache inside the container using the :ref:`conan cache save/restore<reference_commands_cache>` command.
