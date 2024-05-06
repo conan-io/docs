@@ -23,7 +23,7 @@ To run Conan inside a docker container you need to define a ``[runner]`` section
 Extra configuration
 -------------------
 
-If you need more controll over the container build and execution, you can define more parameters inside a ``configfile`` yaml.
+If you need more control over the build and execution of the container, you can define more parameters inside a ``configfile`` yaml.
 
 ..  code-block:: yaml
 
