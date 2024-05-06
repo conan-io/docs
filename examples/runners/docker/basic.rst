@@ -1,7 +1,7 @@
 .. _examples_runners_docker_basic:
 
-Using docker runner
-===================
+Compile zlib/1.3.1 using docker runner
+======================================
 
 In this example we are going to see how to compile zlib  1.3.1 inside docker. Let’s create two profiles and a Dockerfile inside our project folder.
 
