@@ -38,7 +38,7 @@ If you need more controll over the container build and execution, you can define
     run:
         name: container_name # The name for this container.
         containerEnv: # Environment variables to set inside the container.
-            env_var_1: env_valie
+            env_var_1: env_value
         containerUser: user_name # Username or UID to run commands as inside the container.
         privileged: False # Run as privileged
         capAdd: # Add kernel capabilities.
