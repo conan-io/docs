@@ -99,9 +99,11 @@ PDBs and how to locate them
 
 A PDB has the information to link the source code of a debuggable object to the Visual Studio debugger. Each PDB is linked to a
 specific file (executable or library) and contains the source file name and line numbers to display in the IDE.
-When compiling the files in Debug mode the created binary will contain the information of where the PDB will be
-generated, which by default is the same path where the file is being compiled. The PDBs are created by the ``cl.exe``
-compiler with the ``/Zi`` flag, or by the ``link.exe`` when linking a DLL or executable.
+
+PDBs are created when compiling a library or executable in Debug mode. They are created by default in the same directory
+as the file it is associated with. This means that when using Conan they will be created in the build directory in the
+same path as the DLLs. Visual will look for PDBs in several paths, one of them being the current location of the DLL, which
+in our case will be in the pacakge folder.
 
 When a DLL is created it contains the information of the path where its corresponding PDB was generated. This can be
 manually checked by running the following commands:
@@ -123,18 +125,6 @@ manually checked by running the following commands:
 First we locate the ``dumpbin.exe`` path with the ``vswhere`` tool and then we run the command passing a DLL path,
 which will return the information of the PDB path. We can find the path to the DLLs of our example with the help of the
 ``conan cache path`` command by passing to it the generated package id.
-
-PDBs are created when compiling a library or executable in Debug mode. They are created by default in the same directory
-as the file it is associated with. This means that when using Conan they will be created in the build directory in the
-same path as the DLLS.
-
-When using the Visual Studio debugger, it will look for PDBs to load in the following paths:
-
-- The project folder.
-- The original path where the associated file was compiled.
-- The path where Visual is currently finding the compiled file, in our case the DLL in the package folder.
-
-The PDB has by default the same name as its associated file, so Visual will look for it based on the name of the DLL.
 
 .. note::
 
