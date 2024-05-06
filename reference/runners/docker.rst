@@ -193,7 +193,7 @@ If we split and analyze the command output, we can see what is happening and whe
 .. code-block:: bash
 
     ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-    | Save host cache in: </my/runner/forder>/conan-center-index/recipes/zlib/all/.conanrunner/local_cache_save.tgz |
+    | Save host cache in: </my/runner/folder>/conan-center-index/recipes/zlib/all/.conanrunner/local_cache_save.tgz |
     └────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 
     Found 1 pkg/version recipes matching * in local cache
