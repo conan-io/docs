@@ -3,7 +3,7 @@
 Runners
 =======
 
-Runners are the way to run conan remotely and transparently just by modifying the host profile. There are three requirements to be able to use the requirements:
+Runners are the way to run Conan remotely and transparently just by modifying the host profile. There are three requirements to be able to use the feature:
 
 - Installing a version of conan with runner dependencies ``pip install conan[runners]``. 
 - Install the tools to run each of the runners (``docker``).
