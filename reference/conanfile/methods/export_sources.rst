@@ -56,7 +56,6 @@ in the ``conandata.yml`` file, which could be later applied with ``apply_conanda
 
     **Best practices**
 
-    The recipe sources must be configuration independent. Those sources are common for all configurations,
-    thus it is not possible to do conditional ``export_sources()`` to different settings, options, or
-    platforms. Do not try to do any kind of conditional export. If necessary export all the files necessary for 
-    all configurations at once.
+    - The recipe sources must be configuration independent. Those sources are common for all configurations, thus it is not possible to do conditional ``export_sources()`` to different settings, options, or platforms. Do not try to do any kind of conditional export. If necessary export all the files necessary for all configurations at once.
+    - The ``export_sources()`` method does not receive any information from profiles, not even ``conf``. Only the ``global.conf`` will be available, and in any case it is not possible to use that ``conf`` to define conditionals.
+    - Keep the ``export_source()`` method simple. Its intention is to copy files from the user folder to the cache to store those files together with the recipe.

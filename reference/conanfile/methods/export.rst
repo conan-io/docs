@@ -33,5 +33,7 @@ There are 2 files that are always exported to the cache, without being explicitl
     **Best practices**
 
     - The recipe files must be configuration independent. Those files are common for all configurations, thus it is not possible to do conditional ``export()`` to different settings, options, or platforms. Do not try to do any kind of conditional export. If necessary export all the files necessary for all configurations at once.
+    - The ``export()`` method does not receive any information from profiles, not even ``conf``. Only the ``global.conf`` will be available, and in any case it is not possible to use that ``conf`` to define conditionals.
+    - Keep the ``export()`` method simple. Its intention is to copy files from the user folder to the cache to store those files together with the recipe.
     - The exported files must be small. Exporting big files with the recipe will make the resolution of dependencies much slower the resolution.
     - Only files that are necessary for the evaluation of the ``conanfile.py`` recipe must be exported with this method. Files necessary for building from sources should be exported with the ``exports_sources`` attribute or the :ref:`export_source()<reference_conanfile_methods_export_sources>` method.
