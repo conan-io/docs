@@ -258,7 +258,7 @@ as it can result in unexpected errors during your project's build process.
 Cross-building for Apple and Android
 -------------------------------------
 
-The ``MesonToolchain`` adds all the flags required to cross-compile for Apple (MacOS M1, iOS, etc.) and Android.
+The ``MesonToolchain`` generator adds all the flags required to cross-compile for Apple (MacOS M1, iOS, etc.) and Android.
 
 **Apple**
 
@@ -281,6 +281,30 @@ in this example of host profile:
 
     [conf]
     tools.apple:sdk_path=/my/path/to/iPhoneOS.sdk
+
+
+Cross-building and native=true
+------------------------------
+
+New since `Conan 2.3.0 <https://github.com/conan-io/conan/releases/tag/2.3.0>`__
+
+When you are cross-building, sometimes you need to build a tool which is used to generate source files.
+For this you would want to build some targets with the system's native compiler. Then, you need Conan to create both
+context files:
+
+.. code:: python
+
+    def generate(self):
+        tc = MesonToolchain(self)
+        tc.generate()
+        # Forcing to create the native context too
+        if cross_building(self):
+            tc = MesonToolchain(self, native=True)
+            tc.generate()
+
+See also `this reference <https://mesonbuild.com/Cross-compilation.html#mixing-host-and-build-targets>`__
+from the Meson documentation for more information.
+
 
 Objective-C arguments
 ++++++++++++++++++++++
