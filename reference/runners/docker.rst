@@ -6,7 +6,7 @@ Docker runner
 How to use a docker runner
 --------------------------
 
-To run conan inside a docker container you need to define a ``[runner]`` section in your host profile file using the following fields.
+To run Conan inside a docker container you need to define a ``[runner]`` section in your host profile using the following fields:
 
 - ``type`` **(mandatory)**: define the ruuner we want to use, in that case ``docker``.
 - ``dockerfile`` **(optional, default None)**: define the Dockerfile absolute path in case you want to build a docker image.
