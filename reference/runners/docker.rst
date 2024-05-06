@@ -706,7 +706,7 @@ If we run the ``conan create`` command again we will see how Conan reuses the pr
 
 .. code-block:: bash
     
-    $ conan create ./conan-center-index/recipes/zlib/all --version 1.3.1 -pr:h </my/runner/forder>/docker_example_host -pr:b </my/runner/forder>/docker_example_build
+    $ conan create ./conan-center-index/recipes/zlib/all --version 1.3.1 -pr:h </my/runner/folder>/docker_example_host -pr:b </my/runner/folder>/docker_example_build
 
     ...
 
