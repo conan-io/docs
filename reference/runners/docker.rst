@@ -669,7 +669,7 @@ Now, we are going to clone and build zlib from conan-center-index and create it 
     | Stopping container |
     └────────────────────┘
 
-If we now check the status of our conan and docker cache, we will see the zlib package compile for Linux and the new docker image and container.
+If we now check the status of our Conan and docker cache, we will see the zlib package compiled for Linux and the new docker image and container.
 
 .. code-block:: bash
 
