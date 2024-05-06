@@ -16,9 +16,6 @@ existence of the build folder. To solve this we created a hook that copies the P
 package folder. This behavior can't be forced by default because PDB files are usually larger than the whole package,
 and it would greatly increase the package sizes.
 
-For more information about how PDBs work, check the :ref:`PDBs and how to locate them section <examples_dev_flow_debug_visual_pdb>`
-below.
-
 
 Creating a project and debugging as usual
 -----------------------------------------
@@ -92,7 +89,6 @@ The hook is implemented as a post-package hook, which means that it will execute
 - The ``package()`` method of the recipe is executed, copying the necessary files to the package folder (in this case the DLLs but not the PDBs)
 - The hook is executed copying the PDBs from the build folder next to its DLL for every DLL in the package
 
-.. _examples_dev_flow_debug_visual_pdb:
 
 PDBs and how to locate them
 ---------------------------
@@ -128,8 +124,12 @@ which will return the information of the PDB path. We can find the path to the D
 
 .. note::
 
-    PDBs can sometimes be generated for LIB files, but for now the feature only focuses on shared libraries and work with
-    PDBs generated for DLLs.
+    **Static libraries**
+
+    PDBs can sometimes be generated for LIB files, but for now the feature only focuses on shared libraries and
+    will only work with PDBs generated for DLLs. This is because the linking of PDBs and static libraries works differently
+    than with shared libraries and the PDBs are generated differently, which doesn't allow us to get the name and path
+    of a PDB through the ``dumpbin`` tool and will require different methods.
 
 
 Debugging without build files
