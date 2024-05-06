@@ -579,8 +579,8 @@ In this example we are going to see how to use a docker runner configfile. Letâ€
 
     image: my-conan-runner-image
     build:
-        dockerfile: </my/runner/forder>
-        build_context: </my/runner/forder>
+        dockerfile: </my/runner/folder>
+        build_context: </my/runner/folder>
         build_args:
             BASE_IMAGE: ubuntu:22.04
     run:
