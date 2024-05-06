@@ -658,7 +658,7 @@ Now, we are going to clone and build zlib from conan-center-index and create it 
     └─────────────────────────────────────────┘
 
     ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-    | Restore host cache from: </my/runner/forder>/conan-center-index/recipes/zlib/all/.conanrunner/docker_cache_save.tgz |
+    | Restore host cache from: </my/runner/folder>/conan-center-index/recipes/zlib/all/.conanrunner/docker_cache_save.tgz |
     └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 
     Restore: zlib/1.3.1 in p/zlib95420566fc0dd
