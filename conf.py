@@ -287,6 +287,9 @@ latex_logo = "_static/conan-logo.png"
 # If false, no module index is generated.
 #latex_domain_indices = True
 
+# Use a Unicode
+latex_engine = "xelatex"
+
 
 # -- Options for manual page output ---------------------------------------
 
