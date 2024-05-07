@@ -4,26 +4,27 @@
 Debugging shared libraries with Visual Studio
 =============================================
 
-We previously discussed how to debug dependencies in Visual Studio, but when creating your project with Conan is
+In the previous example we discussed how to debug dependencies in Visual Studio, but when using Conan dependencies in a project it is
 possible that the original build folder and build files don't exist. Conan packages don't contain the necessary
-information for debugging libraries with Visual Studio by default, this information is stored in PDBs that are generated during the
-compilation of the libraries. When using Conan these PDBs are generated in the build folder, which is generated during
-the building of the libraries and it's no longer needed afterwards. For example, cleaning the Conan cache with
-``conan cache clean`` will remove the build folder.
+information for debugging libraries with Visual Studio by default, this information is stored in PDBs that are
+generated during the compilation of the libraries. When using Conan these PDBs are generated in the build folder,
+which is only needed during the building of the libraries. For that reason it's a common operation to clean the Conan
+cache with ``conan cache clean`` to remove the build folder and save disk space.
 
-The goal is to store the necessary PDB files in the package folder to make sure they are always present and don't depend on the
-existence of the build folder. To solve this we created a hook that copies the PDBs created in the build folder to the
+For these cases where the build folder is not present we created a hook that copies the PDBs generated in the build folder to the
 package folder. This behavior can't be forced by default because PDB files are usually larger than the whole package,
 and it would greatly increase the package sizes.
+
+This section will follow some examples on how to debug a project in different cases to show how users can make use of
+the PDB hook.
 
 
 Creating a project and debugging as usual
 -----------------------------------------
 
-We are going to show some examples on how to debug a project in different cases to show how the PDBs hook could help users.
 First we will debug our project as usual, as it is explained in more detail in the :ref:`previous example <examples_dev_flow_debug_step_into>`
 We can start building our dependencies from sources as in the previous section, only this time we will build them as
-shared. To begin with, clone the sources for the example from the `examples2 repository <https://github.com/conan-io/examples2>`_
+shared. To begin with, clone the sources needed for the example from the `examples2 repository <https://github.com/conan-io/examples2>`_
 in GitHub and create the project.
 
 .. code-block:: bash
@@ -37,12 +38,20 @@ in GitHub and create the project.
     # CMake presets require CMake>=3.23
     $ cmake --preset=conan-default
 
+.. note::
+
+    We will only cover the case where the dependencies are built as shared because the PDBs and how they are linked
+    to the libraries works differently for static libraries.
+
 We can now open the solution ``compressor.sln`` to open our project in Visual Studio and debug it as explained in the
-previous example. Setting a breakpoint in line 22, running the debugger and
-using the step into will allow us to debug inside our dependency file ``deflate.c``.
+previous example. Setting a breakpoint in line 22, running the debugger and using the step into will allow us to debug
+inside our dependency file ``deflate.c``.
 
 .. image:: ../../../images/examples/dev_flow/debug_with_build_files.png
     :alt: Debugging with build files in cache
+
+In this case the original build files were all present so the debugger worked as usual. Next we will see how the
+debugger works after removing the build files from the Conan cache.
 
 
 Removing build files from the Conan cache
@@ -67,6 +76,8 @@ doesn't have any information on the dependencies to debug.
 Installing a hook to copy the PDBs to the package folder
 --------------------------------------------------------
 
+To solve the issue of not having the PDBs in the package folder, we created a hook that copies the PDBs from the build
+folder to the package folder.
 The hook is available in the `conan-extensions repository <https://github.com/conan-io/conan-extensions>`_.
 Installing the whole repository will work, but we recommend to only install the hooks folder from the
 ``conan-extensions`` repository with:
@@ -89,48 +100,12 @@ The hook is implemented as a post-package hook, which means that it will execute
 - The ``package()`` method of the recipe is executed, copying the necessary files to the package folder (in this case the DLLs but not the PDBs)
 - The hook is executed copying the PDBs from the build folder next to its DLL for every DLL in the package
 
+The hook makes use of the ``dumpbin`` tool which is included in the Visual Studio installation. This tool allows us
+to get information of a DLL, in this case the path where its associated PDB is located. It will be used for every DLL
+in the package to locate its PDB to copy it to the package folder.
 
-PDBs and how to locate them
----------------------------
-
-A PDB has the information to link the source code of a debuggable object to the Visual Studio debugger. Each PDB is linked to a
-specific file (executable or library) and contains the source file name and line numbers to display in the IDE.
-
-PDBs are created when compiling a library or executable in Debug mode. They are created by default in the same directory
-as the file it is associated with. This means that when using Conan they will be created in the build directory in the
-same path as the DLLs. Visual will look for PDBs in several paths, one of them being the current location of the DLL, which
-in our case will be in the pacakge folder.
-
-When a DLL is created it contains the information of the path where its corresponding PDB was generated. This can be
-manually checked by running the following commands:
-
-.. code-block:: text
-
-    $ "%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -find "**\dumpbin.exe"
-    C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.16.27023\bin\HostX64\x64\dumpbin.exe
-
-    # Use the path for the dumpbin.exe that you got from the previous command
-    $ "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.16.27023\bin\HostX64\x64\dumpbin.exe" /PDBPATH <dll_path>
-    ...
-    Dump of file .\bin\zlib1.dll
-
-    File Type: DLL
-    PDB file found at 'C:\Users\{user}\.conan2\p\b\zlib78326f0099328\p\bin\zlib1.pdb'
-    ...
-
-First we locate the ``dumpbin.exe`` path with the ``vswhere`` tool and then we run the command passing a DLL path,
-which will return the information of the PDB path. We can find the path to the DLLs of our example with the help of the
-``conan cache path`` command by passing to it the generated package id.
-
-.. note::
-
-    **Static libraries**
-
-    PDBs can sometimes be generated for LIB files, but for now the feature only focuses on shared libraries and
-    will only work with PDBs generated for DLLs. This is because the linking of PDBs and static libraries works differently
-    than with shared libraries and the PDBs are generated differently, which doesn't allow us to get the name and path
-    of a PDB through the ``dumpbin`` tool and will require different methods.
-
+For more information on how PDBs work with Visual and how we used it to create the hook can be found in the
+`hook readme <https://github.com/conan-io/conan-extensions/blob/main/hooks/README.md>`_.
 
 Debugging without build files
 -----------------------------
