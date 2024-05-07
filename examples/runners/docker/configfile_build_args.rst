@@ -3,6 +3,8 @@
 Using a docker runner configfile to parameterize a Dockerfile
 =============================================================
 
+.. include:: ../../../common/experimental_warning.inc
+
 In this example we are going to see how to use a docker runner configfile to define our Dockerfile base image. Let’s create two profiles and a Dockerfile inside our project folder.
 
 .. code-block:: bash
