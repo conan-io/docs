@@ -94,7 +94,7 @@ Steps ``generate()``,  ``build()``, ``package()`` from *Install packages* step w
 is not being built from sources.
 
 After that, if you have a folder named *test_package* in your project or you call the ``conan create`` command with the
-``--test-folder`` flag, the command will call the *conanfile.py* file inside the folder in the following order:
+``--test-folder`` flag, the command will invoke the methods of the *conanfile.py* file inside the folder in the following order:
 
 #. Launch test_package
     #. (test package) ``init()``
