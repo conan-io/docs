@@ -126,7 +126,7 @@ folder alongside the package DLLs so they can be found by the debugger.
     # CMake presets require CMake>=3.23
     $ cmake --preset=conan-default
 
-Notice that when running the conan install now you will see the outputs of the hook running after the call to package().
+Notice that when running the conan install now you will see the outputs of the hook running after the call to ``package()``.
 To test the hook we can clean the cache again to remove the build files, this includes the sources used to build the
 library and the PDBs that were originally generated.
 
