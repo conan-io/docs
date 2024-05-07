@@ -28,8 +28,7 @@ try {
 
         checkout scm
 
-        sh(script: 'docker pull conanio/ci-docs:latest')
-        def docsImage = docker.image("conanio/ci-docs:latest")
+        def docsImage = docker.image("conanio/ci-docs:latest").pull()
 
         stage('Prepare sources as worktrees') {        
             String branch_argument = ""
