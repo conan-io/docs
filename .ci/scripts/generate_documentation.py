@@ -59,7 +59,7 @@ with chdir(f"{sources_folder}"):
         run(f"rm -rf {branch_folder}/conan_sources")
         run(f"git clone --single-branch -b {conan_branch} --depth 1 {conan_repo_url} {branch_folder}/conan_sources")
 
-        run(f"pip3 install -e {branch_folder}/conan_sources")
+        run(f"pip3 install --no-cache-dir -e {branch_folder}/conan_sources")
 
         # for some reason even adding this to autodoc_mock_imports
         # does not work, se we have to install the real dependency
