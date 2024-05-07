@@ -3,6 +3,8 @@
 Docker runner
 =============
 
+.. include:: ../../common/experimental_warning.inc
+
 How to use a docker runner
 --------------------------
 
