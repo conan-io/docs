@@ -59,7 +59,7 @@ with chdir(f"{sources_folder}"):
         run(f"rm -rf {branch_folder}/conan_sources")
         run(f"git clone --single-branch -b {conan_branch} --depth 1 {conan_repo_url} {branch_folder}/conan_sources")
 
-        run(f"pip3 install --no-cache-dir -e {branch_folder}/conan_sources")
+        run(f"pip install -e {branch_folder}/conan_sources")
 
         # for some reason even adding this to autodoc_mock_imports
         # does not work, se we have to install the real dependency
@@ -76,5 +76,5 @@ with chdir(f"{sources_folder}"):
         run(f"cp {branch_folder}/_build/latex/conan.pdf {output_folder}/{branch_folder}/conan.pdf")
 
     if branch_folder.startswith("2"):
-        run(f"pip3 uninstall conan -y")
+        run(f"pip uninstall conan -y")
         

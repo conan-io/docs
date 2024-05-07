@@ -46,7 +46,6 @@ try {
         def branches_blocks = branches.collate(branches.size().intdiv(number_of_parallel_blocks))
 
         docker.image("conanio/ci-docs:latest").inside {
-            sh 'pip install --upgrade pip setuptools'
             sh 'pip install -r requirements.txt'
             for (branches_block in branches_blocks) {
                 Map parallelJobs = [:]
