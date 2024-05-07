@@ -28,7 +28,7 @@ try {
 
         checkout scm
 
-        def docsImage = docker.image("conanio/ci-docs:latest").pull()
+        docker.image("conanio/ci-docs:latest").pull()
 
         stage('Prepare sources as worktrees') {        
             String branch_argument = ""
@@ -45,7 +45,7 @@ try {
         def number_of_parallel_blocks = (branches.size()<5) ? 1 : 5
         def branches_blocks = branches.collate(branches.size().intdiv(number_of_parallel_blocks))
 
-        docsImage.inside {
+        docker.image("conanio/ci-docs:latest").inside {
             sh 'pip install -r requirements.txt'
             for (branches_block in branches_blocks) {
                 Map parallelJobs = [:]
