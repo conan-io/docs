@@ -31,6 +31,8 @@ Please, first clone the sources to recreate this project. You can find them in t
 Here, you will find a Conan recipe (and the *test_package*) to package an ARM toolchain
 for cross-compiling to Linux ARM for both 32 and 64 bits. To simplify a bit, we are
 assuming that we can just cross-build from Linux x86_64 to Linux ARM, both 32 and 64 bits.
+If you're looking for another example, you can explore an additional MacOs to Linux cross-build example right
+`here <https://github.com/conan-io/examples2/tree/main/examples/cross_build/toolchain_packages/toolchain_macos_linux_cross>`_ .
 
 .. code-block:: bash
 
@@ -485,3 +487,4 @@ architecture of the resulting executable, confirming its alignment with the targ
 
     - :ref:`More info on settings_target<binary_model_extending_cross_build_target_settings>`
     - :ref:`Cross-compile your applications using Conan<consuming_packages_cross_building_with_conan>`
+    - `Another example of cross-compilation from Macos to Linux <https://github.com/conan-io/examples2/tree/main/examples/cross_build/toolchain_packages/toolchain_macos_linux_cross>`_
