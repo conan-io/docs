@@ -24,7 +24,7 @@ If we had MinGW installed in our environment, we could define a profile like:
     # etc
 
     [conf]
-    # some configuration like compiler-execuables might be needed for some cases
+    # some configuration like 'tools.build:compiler_executables' might be needed for some cases
 
 
 But we can also use a Conan package that contains a copy of the MinGW compiler and use it
