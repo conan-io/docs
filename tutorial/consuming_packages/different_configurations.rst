@@ -173,7 +173,17 @@ using the ``--options`` argument. To do so, please run:
 
 Doing this, Conan will install the *Zlib* shared libraries, generate the files to build with
 them and, also the necessary files to locate those dynamic libraries when running the
-application. Let's build the application again after configuring it to link *Zlib* as a
+application.
+
+.. note::
+
+    Options are defined per-package. In this case we were defining that we wanted that specific
+    version of zlib/1.2.11 as a shared library. If we had other dependencies and we want all of
+    our dependencies (whenever possible) as shared libraries, we would use ``-o *:shared=True``,
+    with the ``*`` pattern that matches all package references.
+
+
+Let's build the application again after configuring it to link *Zlib* as a
 shared library:
 
 .. code-block:: bash

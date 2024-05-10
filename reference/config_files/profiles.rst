@@ -20,7 +20,7 @@ They have this structure:
     os=Macos
 
     [options]
-    MyLib:shared=True
+    mylib/*:shared=True
 
     [tool_requires]
     tool1/0.1@user/channel
@@ -204,8 +204,8 @@ List of options available from your recipe and its dependencies:
     :caption: *myprofile*
 
     [options]
-    my_pkg_option=True
-    shared=True
+    mypkg/*:my_pkg_option=True
+    *:shared=True
 
 
 .. _reference_config_files_profiles_tool_requires:
