@@ -250,7 +250,9 @@ The following properties affect the CMakeDeps generator:
 - **nosoname**: boolean value that should be used only by dependencies that are defined as ``SHARED`` and represent a library built without the ``soname`` flag option.
 - **cmake_config_version_compat**: (preview) By default ``SameMajorVersion``, it can take the values ``"AnyNewerVersion", "SameMajorVersion", "SameMinorVersion", "ExactVersion"``. It will use that policy in the generated ``<PackageName>ConfigVersion.cmake`` file
 - **system_package_version**: version of the package used to generate the ``<PackageName>ConfigVersion.cmake`` file. Can be useful when creating system packages or other wrapper packages, where the conan package version is different to the eventually referenced package version to keep compatibility to ``find_package(<PackageName> <Version>)`` calls.
-
+- **cmake_additional_variables_prefixes**: List of prefixes to be used when creating CMake variables in the config
+  files. These variables are created with ``file_name`` as prefix by default, but setting this property will create
+  additional variables with the specified prefixes.
 
 Example:
 
