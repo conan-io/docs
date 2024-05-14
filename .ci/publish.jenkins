@@ -30,11 +30,11 @@ try {
 
         docker.image("conanio/ci-docs:latest").pull()
 
-        stage('Prepare sources as worktrees') {        
+        stage('Prepare sources as worktrees') {
             String branch_argument = ""
             for (branch in branches) {
                 branch_argument = branch_argument + " --branches=${branch}"
-            } 
+            }
             // clone sources to generate docs
             sh(script: "python .ci/scripts/prepare_sources.py --sources-folder=${sources_folder} ${branch_argument}")
         }
@@ -42,18 +42,22 @@ try {
         // we have to divide the parallel blocks because if we have to generate all branches documentation
         // it will fail
 
-        def number_of_parallel_blocks = (branches.size()<5) ? 1 : 5
+        def number_of_parallel_blocks = (branches.size() < 5) ? 1 : 5
         def branches_blocks = branches.collate(branches.size().intdiv(number_of_parallel_blocks))
 
         docker.image("conanio/ci-docs:latest").inside {
-            sh 'pip install -r requirements.txt'
             for (branches_block in branches_blocks) {
                 Map parallelJobs = [:]
                 println("New block ${branches_block}")
                 branches_block.each { branch ->
                     parallelJobs[branch] = {
                         echo "Run parallel job for ${branch}"
-                        sh(script: "python .ci/scripts/generate_documentation.py --sources-folder=${sources_folder} --branch=${branch} --with-pdf")
+                        sh """
+                            python -m venv venv_${branch}
+                            . venv_${branch}/bin/activate
+                            pip install -r requirements.txt
+                            python .ci/scripts/generate_documentation.py --sources-folder=${sources_folder} --branch=${branch} --with-pdf
+                        """
                     }
                 }
                 stage('Generate docs parallel block') {
