@@ -21,6 +21,11 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.64 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
     a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.64.1 (14-May-2024)
+--------------------
+
+- Bugfix: Solved inefficiency in :command:`conan info` that could make the command order of magnitude slower in slow drive systems with large dependency graphs. `#16236 <https://github.com/conan-io/conan/pull/16236>`_
+
 1.64.0 (04-Apr-2024)
 --------------------
 
