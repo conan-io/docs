@@ -181,7 +181,7 @@ It is also possible to first ``conan list`` and create a list of things to remov
 .. code-block:: bash
 
     # Removes everything from the cache
-    $ conan list *#* --format=json > pkglist.json
+    $ conan list "*#*" --format=json > pkglist.json
     $ conan remove --list=pkglist.json  -c
 
 Note that in this case, the default patterns are different in ``list`` and ``remove``, because of the destructive nature of ``conan remove``:
@@ -194,15 +194,15 @@ Then the pattern to remove everything will be different if we call directly ``co
 .. code-block:: bash
 
     # Removes everything from the cache
-    $ conan remove *
+    $ conan remove "*"
     # OR via list, we need to explicitly include all revisions
-    $ conan list *#* --format=json > pkglist.json
+    $ conan list "*#*" --format=json > pkglist.json
     $ conan remove --list=pkglist.json  -c
 
     # Removes only the binaries from the cache (leave recipes)
-    $ conan remove *:*
+    $ conan remove "*:*"
     # OR via list, we need to explicitly include all revisions
-    $ conan list *#*:* --format=json > pkglist.json
+    $ conan list "*#*:*" --format=json > pkglist.json
     $ conan remove --list=pkglist.json  -c
 
 

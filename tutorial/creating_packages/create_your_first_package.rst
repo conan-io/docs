@@ -243,7 +243,7 @@ We can now validate that the recipe and the package binary are in the cache:
 .. code-block:: bash
 
     $ conan list hello
-    Local Cache:
+    Local Cache
       hello
         hello/1.0
 
@@ -269,51 +269,51 @@ We can see them with:
 .. code-block:: bash
 
     # list all the binaries built for the hello/1.0 package in the cache
-    $ conan list hello/1.0:*
-    Local Cache:
+    $ conan list "hello/1.0:*"
+    Local Cache
       hello
         hello/1.0
           revisions
-            dcbfe21e5250264b26595d151796be70 (2024-03-04 17:52:39 UTC)
+            dcbfe21e5250264b26595d151796be70 (2024-05-10 09:40:15 UTC)
               packages
-                6679492451b5d0750f14f9024fdbf84e19d2941b
+                2505f7ebb5a4cca156b2d6b8534f415a4a48b5c9
                   info
                     settings
-                      arch: x86_64
+                      arch: armv8
                       build_type: Release
                       compiler: apple-clang
-                      compiler.cppstd: gnu11
+                      compiler.cppstd: gnu17
                       compiler.libcxx: libc++
-                      compiler.version: 14
+                      compiler.version: 15
                       os: Macos
                     options
-                      fPIC: True
                       shared: True
-                b1d267f77ddd5d10d06d2ecf5a6bc433fbb7eeed
+                39f48664f195e0847f59889d8a4cdfc6bca84bf1
                   info
                     settings
-                      arch: x86_64
+                      arch: armv8
                       build_type: Release
                       compiler: apple-clang
-                      compiler.cppstd: gnu11
+                      compiler.cppstd: gnu17
                       compiler.libcxx: libc++
-                      compiler.version: 14
+                      compiler.version: 15
                       os: Macos
                     options
                       fPIC: True
                       shared: False
-                d15c4f81b5de757b13ca26b636246edff7bdbf24
+                814ddaac84bc84f3595aa076660133b88e49fb11
                   info
-                    settings:
-                      arch: x86_64
+                    settings
+                      arch: armv8
                       build_type: Debug
                       compiler: apple-clang
-                      compiler.cppstd: gnu11
+                      compiler.cppstd: gnu17
                       compiler.libcxx: libc++
-                      compiler.version: 14
+                      compiler.version: 15
                       os: Macos
-                    options:
+                    options
                       fPIC: True
+                      shared: False
 
 
 Now that we have created a simple Conan package, we will explain each of the methods of

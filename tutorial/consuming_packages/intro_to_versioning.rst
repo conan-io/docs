@@ -117,8 +117,7 @@ You can list existing revisions with the :command:`conan list` command:
 
 .. code-block:: bash
 
-    $ conan list zlib/1.2.12#* -r=conancenter
-
+    $ conan list "zlib/1.2.12#*" -r=conancenter
     conancenter
       zlib
         zlib/1.2.12

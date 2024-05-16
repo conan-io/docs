@@ -121,7 +121,7 @@ We can now validate that the recipe and the package binary are in the cache:
 
 .. code-block:: bash
 
-    $ conan list hello/1.0:*
+    $ conan list "hello/1.0:*"
     Local Cache:
       hello
         hello/1.0

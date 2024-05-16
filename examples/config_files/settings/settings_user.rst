@@ -105,7 +105,7 @@ that it's working correctly:
     -------- Installing (downloading, building) binaries... --------
     pkg/1.0: Copying sources to build folder
     pkg/1.0: Building your package in /Users/myuser/.conan2/p/t/pkg929d53a5f06b1/b
-    pkg/1.0: Aggregating env generators
+    pkg/1.0: Generating aggregated env files
     pkg/1.0: Package 'a0d37d10fdb83a0414d7f4a1fb73da2c210211c6' built
     pkg/1.0: Build folder /Users/myuser/.conan2/p/t/pkg929d53a5f06b1/b
     pkg/1.0: Generated conaninfo.txt
@@ -145,7 +145,7 @@ that it's working correctly:
     -------- Installing (downloading, building) binaries... --------
     pkg/1.0: Copying sources to build folder
     pkg/1.0: Building your package in /Users/myuser/.conan2/p/t/pkg918904bbca9dc/b
-    pkg/1.0: Aggregating env generators
+    pkg/1.0: Generating aggregated env files
     pkg/1.0: Package '44a4588d3fe63ccc6e7480565d35be38d405718e' built
     pkg/1.0: Build folder /Users/myuser/.conan2/p/t/pkg918904bbca9dc/b
     pkg/1.0: Generated conaninfo.txt
@@ -186,7 +186,7 @@ that it's working correctly:
     -------- Installing (downloading, building) binaries... --------
     pkg/1.0: Copying sources to build folder
     pkg/1.0: Building your package in /Users/myuser/.conan2/p/t/pkgde9b63a6bed0a/b
-    pkg/1.0: Aggregating env generators
+    pkg/1.0: Generating aggregated env files
     pkg/1.0: Package '19cf3cb5842b18dc78e5b0c574c1e71e7b0e17fc' built
     pkg/1.0: Build folder /Users/myuser/.conan2/p/t/pkgde9b63a6bed0a/b
     pkg/1.0: Generated conaninfo.txt

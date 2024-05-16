@@ -9,33 +9,33 @@ Let's take some package and list its binaries, for example:
     :emphasize-lines: 8,19
 
     $ conan list zlib/1.2.13:* -r=conancenter
-
-    zlib
-      zlib/1.2.13
-        revisions
-          97d5730b529b4224045fe7090592d4c1 (2023-08-22 02:51:57 UTC)
-            packages
-              d62dff20d86436b9c58ddc0162499d197be9de1e  # package_id
-                info
-                  settings
-                    arch: x86_64
-                    build_type: Release
-                    compiler: apple-clang
-                    compiler.version: 13
-                    os: Macos
-                  options
-                    fPIC: True
-                    shared: False
-              abe5e2b04ea92ce2ee91bc9834317dbe66628206  # package_id
-                info
-                  settings
-                    arch: x86_64
-                    build_type: Release
-                    compiler: gcc
-                    compiler.version: 11
-                    os: Linux
-                  options
-                    shared: True
+    Local Cache
+      zlib
+        zlib/1.2.13
+          revisions
+            97d5730b529b4224045fe7090592d4c1 (2023-08-22 02:51:57 UTC)
+              packages
+                d62dff20d86436b9c58ddc0162499d197be9de1e  # package_id
+                  info
+                    settings
+                      arch: x86_64
+                      build_type: Release
+                      compiler: apple-clang
+                      compiler.version: 13
+                      os: Macos
+                    options
+                      fPIC: True
+                      shared: False
+                abe5e2b04ea92ce2ee91bc9834317dbe66628206  # package_id
+                  info
+                    settings
+                      arch: x86_64
+                      build_type: Release
+                      compiler: gcc
+                      compiler.version: 11
+                      os: Linux
+                    options
+                      shared: True
 
 
 We can see several binaries for the latest recipe revision of ``zlib/1.2.13``. Every binary is identified by its own ``package_id``, and below it we can see some information for that binary under ``info``. This information is the one used to compute the ``package_id``. Every time something changes in this information, like the architecture, or being a static or a shared library, a new ``package_id`` is computed because it represents a different binary.

@@ -453,7 +453,7 @@ If we now check the status of our conan and docker cache, we will see the new zl
     $ conan list "*:*"
     Found 1 pkg/version recipes matching * in local cache
     Local Cache
-    zlib
+      zlib
         zlib/1.3.1
         revisions
             e20364c96c45455608a72543f3a53133 (2024-04-29 17:18:07 UTC)
