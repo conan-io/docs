@@ -36,7 +36,7 @@ In the same way, it can report when a package has a different option value and t
 
 .. code-block:: text
 
-    $conan graph explain --requires=lib/1.0.0 -o shared=True --format=json
+    $conan graph explain --requires=lib/1.0.0 -o lib/*:shared=True --format=json
     ...
     {
         "closest_binaries": {
