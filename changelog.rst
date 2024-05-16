@@ -3,6 +3,16 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.3.1 (17-May-2024)
+-------------------
+
+- Feature: Add GCC 13.3 support. `#16246 <https://github.com/conan-io/conan/pull/16246>`_ . Docs `here <https://github.com/conan-io/docs/pull/3724>`__
+- Feature: Allow opt-out for ``CMakeToolchain`` default use of absolute paths for CMakeUserPresets->CMakePreset and CMakePresets->toolchainFile path. `#16244 <https://github.com/conan-io/conan/pull/16244>`_ . Docs `here <https://github.com/conan-io/docs/pull/3726>`__
+- Fix: Fix config container name for Docker runner. `#16243 <https://github.com/conan-io/conan/pull/16243>`_
+- Bugfix: Make compatibility checks understand update flag patterns. `#16252 <https://github.com/conan-io/conan/pull/16252>`_
+- Bugfix: Solve bug with ``overrides`` from ``lockfiles`` in case of diamond structures. `#16235 <https://github.com/conan-io/conan/pull/16235>`_
+- Bugfix: Allow ``export-pkg --version=xxx`` to be passed to recipes with ``python_requires`` inheriting ``set_version`` from base class. `#16224 <https://github.com/conan-io/conan/pull/16224>`_
+
 2.3.0 (06-May-2024)
 -------------------
 
