@@ -143,6 +143,8 @@ All the values will be interpreted by Conan as the result of the python built-in
     tools.microsoft.msbuildtoolchain:compile_options={"ExceptionHandling": "Async"}
 
 
+.. _configuration_data_operators:
+
 Configuration data operators
 ----------------------------
 

@@ -625,7 +625,16 @@ CMakeToolchain is affected by these ``[conf]`` variables:
 - **tools.cmake.cmaketoolchain:system_name** is not necessary in most cases and is only used to force-define ``CMAKE_SYSTEM_NAME``.
 - **tools.cmake.cmaketoolchain:system_version** is not necessary in most cases and is only used to force-define ``CMAKE_SYSTEM_VERSION``.
 - **tools.cmake.cmaketoolchain:system_processor** is not necessary in most cases and is only used to force-define ``CMAKE_SYSTEM_PROCESSOR``.
-- **tools.cmake.cmaketoolchain:generator_instance**: Value of ``CMAKE_GENERATOR_INSTANCE``, useful when there are multiple instances of Visual Studio installed for the same version.
+- **tools.cmake.cmaketoolchain:extra_variables**: dict-like python object which specifies the CMake variable name and value. E.g.
+    
+.. code:: bash
+
+    conan install . -c "tools.cmake.cmaketoolchain:extra_variables*={'CMAKE_GENERATOR_INSTANCE': 'C:/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/'}"
+
+.. tip::
+
+    Use the ``*=`` operator described in :ref:`configuration data operators <configuration_data_operators>` to update the dictionary merging it with previous definitions of ``extra_variables``.
+
 - **tools.cmake.cmaketoolchain:toolset_arch**: Will add the ``,host=xxx`` specifier in the ``CMAKE_GENERATOR_TOOLSET`` variable of ``conan_toolchain.cmake`` file.
 - **tools.cmake.cmaketoolchain:toolset_cuda**: (Experimental) Will add the ``,cuda=xxx`` specifier in the ``CMAKE_GENERATOR_TOOLSET`` variable of ``conan_toolchain.cmake`` file.
 - **tools.cmake.cmake_layout:build_folder_vars**: Settings, Options, and/or ``self.name`` and ``self.version`` that will produce a different build folder and different CMake presets names.
