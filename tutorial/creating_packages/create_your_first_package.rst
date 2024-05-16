@@ -216,13 +216,12 @@ the ``test_package`` folder test the package:
     hello/1.0 (test package): Running test()
     hello/1.0 (test package): RUN: ./example
     hello/1.0: Hello World Release!
-      hello/1.0: __x86_64__ defined
-      hello/1.0: __cplusplus199711
+      hello/1.0: __aarch64__ defined
+      hello/1.0: __cplusplus201703
       hello/1.0: __GNUC__4
       hello/1.0: __GNUC_MINOR__2
-      hello/1.0: __clang_major__13
-      hello/1.0: __clang_minor__1
-      hello/1.0: __apple_build_version__13160021
+      hello/1.0: __clang_major__15
+      hello/1.0: __apple_build_version__15000309
     ...
 
 If "Hello world Release!" is displayed, it worked. This is what has happened:

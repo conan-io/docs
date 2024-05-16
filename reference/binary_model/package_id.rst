@@ -8,7 +8,7 @@ Let's take some package and list its binaries, for example:
 .. code-block:: bash
     :emphasize-lines: 8,19
 
-    $ conan list zlib/1.2.13:* -r=conancenter
+    $ conan list "zlib/1.2.13:*" -r=conancenter
     Local Cache
       zlib
         zlib/1.2.13
@@ -76,7 +76,7 @@ If now we have a look to the binaries of ``openssl`` we can see something like:
 .. code-block:: bash
     :emphasize-lines: 8,20,21
 
-    $ conan list openssl/3.1.2:* -r=conancenter
+    $ conan list "openssl/3.1.2:*" -r=conancenter
     conancenter
       openssl
         openssl/3.1.2

@@ -153,7 +153,7 @@ We can see now the binary package in our local cache:
                 compiler: gcc
                 compiler.version: 9
                 os: Linux
-                options
+              options
                 fPIC: True
                 shared: False
 
