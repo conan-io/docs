@@ -3,7 +3,7 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
-2.3.1 (17-May-2024)
+2.3.1 (16-May-2024)
 -------------------
 
 - Feature: Add GCC 13.3 support. `#16246 <https://github.com/conan-io/conan/pull/16246>`_ . Docs `here <https://github.com/conan-io/docs/pull/3724>`__
