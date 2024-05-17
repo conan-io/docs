@@ -28,15 +28,13 @@ try {
 
         checkout scm
 
-        sh(script: 'docker pull conanio/ci-docs')
+        docker.image("conanio/ci-docs:latest").pull()
 
-        def docsImage = docker.image("conanio/ci-docs")
-
-        stage('Prepare sources as worktrees') {        
+        stage('Prepare sources as worktrees') {
             String branch_argument = ""
             for (branch in branches) {
                 branch_argument = branch_argument + " --branches=${branch}"
-            } 
+            }
             // clone sources to generate docs
             sh(script: "python .ci/scripts/prepare_sources.py --sources-folder=${sources_folder} ${branch_argument}")
         }
@@ -44,18 +42,22 @@ try {
         // we have to divide the parallel blocks because if we have to generate all branches documentation
         // it will fail
 
-        def number_of_parallel_blocks = (branches.size()<5) ? 1 : 5
+        def number_of_parallel_blocks = (branches.size() < 5) ? 1 : 5
         def branches_blocks = branches.collate(branches.size().intdiv(number_of_parallel_blocks))
 
-        docsImage.inside {
-            sh 'pip install -r requirements.txt'
+        docker.image("conanio/ci-docs:latest").inside {
             for (branches_block in branches_blocks) {
                 Map parallelJobs = [:]
                 println("New block ${branches_block}")
                 branches_block.each { branch ->
                     parallelJobs[branch] = {
                         echo "Run parallel job for ${branch}"
-                        sh(script: "python .ci/scripts/generate_documentation.py --sources-folder=${sources_folder} --branch=${branch} --with-pdf")
+                        sh """
+                            python -m venv venv_${branch}
+                            . venv_${branch}/bin/activate
+                            pip install -r requirements.txt
+                            python .ci/scripts/generate_documentation.py --sources-folder=${sources_folder} --branch=${branch} --with-pdf
+                        """
                     }
                 }
                 stage('Generate docs parallel block') {
@@ -69,6 +71,17 @@ try {
             sh(script: "python .ci/scripts/prepare_gh_pages.py --sources-folder=${sources_folder} --gh-pages-folder=${gh_pages_out}")
         }
 
+        stage('Replace HTML tags in generated files') {
+            Map parallelReplaces = [:]
+            branches.each { branch ->
+                parallelReplaces[branch] = {
+                    echo "Run parallel replace for ${branch}"
+                    sh(script: "python .ci/scripts/replace_html_tags.py --gh-pages-folder=${gh_pages_out} --branch=${branch}")
+                }
+            }
+            parallelReplaces.failFast = true
+            parallel parallelReplaces
+        }
 
         stage('Archive generated folder') {
             archiveArtifacts artifacts: "${gh_pages_out}/**/*.*"

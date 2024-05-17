@@ -42,9 +42,9 @@ extensions = [
 ]
 
 # The short X.Y version.
-version = "1.63"
+version = "1.64"
 # The full version, including alpha/beta/rc tags.
-release = u'1.63.0'
+release = u'1.64.1'
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 if not os.path.exists(os.path.join(dir_path, "versions.json")):
@@ -286,6 +286,9 @@ latex_logo = "_static/conan-logo.png"
 
 # If false, no module index is generated.
 #latex_domain_indices = True
+
+# Use a Unicode
+latex_engine = "xelatex"
 
 
 # -- Options for manual page output ---------------------------------------
