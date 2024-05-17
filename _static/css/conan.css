@@ -20,3 +20,9 @@ h1, h2, .rst-content .toctree-wrapper p.caption, h3, h4, h5, h6, legend {
     font-family: monospace, serif;
     font-size: 0.8em
 }
+
+.rst-content .highlight {
+    background-color: #f1c40f4f;
+    box-shadow: none;
+    font-weight: normal;
+}
