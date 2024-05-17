@@ -243,7 +243,7 @@ You can use package patterns to apply the configuration in those dependencies wh
 .. code-block:: text
 
     *:tools.cmake.cmaketoolchain:generator=Ninja
-    zlib:tools.cmake.cmaketoolchain:generator=Visual Studio 16 2019
+    zlib/*:tools.cmake.cmaketoolchain:generator=Visual Studio 16 2019
 
 This example shows you how to specify a general `generator` for all your packages, but for `zlib` one. `zlib` is defining
 `Visual Studio 16 2019` as its own generator.
@@ -253,7 +253,7 @@ configuration lines above:
 
 .. code-block:: text
 
-    zlib:tools.cmake.cmaketoolchain:generator=Visual Studio 16 2019
+    zlib/*:tools.cmake.cmaketoolchain:generator=Visual Studio 16 2019
     *:tools.cmake.cmaketoolchain:generator=Ninja
 
 The result is that you're specifying a general `generator` for all your packages, and that's it. The `zlib` line has no
