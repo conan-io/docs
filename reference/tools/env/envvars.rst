@@ -31,7 +31,7 @@ It will generate automatically a ``my_env_file.bat`` for Windows systems or ``my
 In Windows, it is possible to opt-in to generate Powershell ``.ps1`` scripts instead of ``.bat`` ones, using the
 conf ``tools.env.virtualenv:powershell=True``.
 
-In Macos and Linux, it is possible to opt-in to generate Fish ``.fish`` scripts instead of ``.sh`` ones, using the
+In macOS and Linux, it is possible to opt-in to generate Fish ``.fish`` scripts instead of ``.sh`` ones, using the
 conf ``tools.env.virtualenv:fish=True``.
 
 Also, by default, Conan will automatically append that launcher file path to a list that will be used to
