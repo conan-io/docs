@@ -625,11 +625,21 @@ CMakeToolchain is affected by these ``[conf]`` variables:
 - **tools.cmake.cmaketoolchain:system_name** is not necessary in most cases and is only used to force-define ``CMAKE_SYSTEM_NAME``.
 - **tools.cmake.cmaketoolchain:system_version** is not necessary in most cases and is only used to force-define ``CMAKE_SYSTEM_VERSION``.
 - **tools.cmake.cmaketoolchain:system_processor** is not necessary in most cases and is only used to force-define ``CMAKE_SYSTEM_PROCESSOR``.
-- **tools.cmake.cmaketoolchain:extra_variables**: dict-like python object which specifies the CMake variable name and value. E.g.
+- **tools.cmake.cmaketoolchain:extra_variables**: dict-like python object which specifies the CMake variable name and value. Value can be a plain string, number or a dict-like python object which must specifies ``value`` (string/number) , ``cache`` (boolean), ``type`` (CMake cache type) and ``docstring`` (string). Potential override of CMakeToolchain defined variables, users are at their own risk. E.g.
     
-.. code:: bash
+.. code-block:: text
 
-    conan install . -c "tools.cmake.cmaketoolchain:extra_variables*={'CMAKE_GENERATOR_INSTANCE': 'C:/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/'}"
+    [conf]
+    tools.cmake.cmaketoolchain:extra_variables*={'STR': 'string value', 'NUM': 1.3, 'CMAKE_GENERATOR_INSTANCE': '${ENV}/buildTools/', 'SOME_DICT': {'value': '42 sense', 'cache': 'true', 'type': 'BOOL', 'docstring': 'test cache var'}}
+
+Resulting in:
+
+.. code-block:: cmake
+
+    set(STR "string value")
+    set(NUM 1.3)
+    set(CMAKE_GENERATOR_INSTANCE "${ENV}/buildTools/")
+    set(SOME_DICT "42 sense" CACHE BOOL "test cache var")
 
 .. tip::
 
