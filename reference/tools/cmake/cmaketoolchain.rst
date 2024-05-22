@@ -127,7 +127,7 @@ translated from the current ``settings``:
   3.23.
   The file name of this file can be configured with the ``CMakeToolchain.user_presets_path = "CMakeUserPresets.json"```
   attribute, so if you want to generate a "ConanPresets.json" instead to be included from your own file, 
-  you can define ``tc.user_presets_path = "ConanPresets.jon"`` in the ``generate()`` method.
+  you can define ``tc.user_presets_path = "ConanPresets.json"`` in the ``generate()`` method.
   See :ref:`extending your own CMake presets<examples-tools-cmake-toolchain-build-project-extend-presets>` for a full example.
 
   **Note:** Conan will skip the generation of the ``CMakeUserPresets.json`` if it already exists and was not
