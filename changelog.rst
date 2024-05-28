@@ -3,6 +3,14 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.3.2 (28-May-2024)
+-------------------
+
+- Feature: New ``tools.microsoft:msvc_update`` configuration to define the MSVC compiler ``update`` even when ``compiler.update`` is not defined. Can be used to use ``compiler.version=193`` once VS2022 is updated to 17.10, which changes the default compiler to ``compiler.version=194``. `#16332 <https://github.com/conan-io/conan/pull/16332>`_
+- Bugfix: Allow default ``compatibility.py`` plugin to fallback from MSVC ``compiler.version=194->193`` and to other ``cppstd`` values. `#16346 <https://github.com/conan-io/conan/pull/16346>`_
+- Bugfix: Skip dot folders in local recipe index layouts. `#16345 <https://github.com/conan-io/conan/pull/16345>`_
+- Bugfix: Remove extra backslash in generated `conanvcvars.ps1`. `#16322 <https://github.com/conan-io/conan/pull/16322>`_
+
 2.3.1 (16-May-2024)
 -------------------
 
