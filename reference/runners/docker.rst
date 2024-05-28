@@ -60,6 +60,10 @@ If you need more control over the build and execution of the container, you can 
 How to run a `conan create` in a runner
 ---------------------------------------
 
+..  note::
+
+    The docker runner feature is only supported by ``conan create`` command. The ``conan install --build`` command is not supported.
+
 In the following links you can find some examples about how to use a conan docker runner:
 
 - :ref:`Creating a Conan package using a Docker runner<examples_runners_docker_basic>`
