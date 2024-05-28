@@ -57,8 +57,8 @@ The ``package_id`` is computed as the sha1 hash of the ``conaninfo.txt`` file, c
     arch=x86_64
     build_type=Release
     compiler=msvc
-    compilerruntime=dynamic
-    compilerruntime_type=Release
+    compiler.runtime=dynamic
+    compiler.runtime_type=Release
     compiler.version=193
     os=Windows
     [options]
