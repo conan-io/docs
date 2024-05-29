@@ -9,7 +9,15 @@ Videos
     While they can be very informative and educational, please note that some of them might
     be outdated. Always use the documentation and reference as the source of truth, not the
     videos.
-    
+
+- Using std::cpp 2024: Unlock the power of Conan 2 - 15 new features you didn’t know about! Luis Caro / Diego Rodriguez
+
+
+    Conan 2.0 was released over a year ago with a large number of new features and improvements. Since its release, the team has continued to add improvements based on user feedback, releasing many more new features than in the previous years combined. 
+    Join Diego and Luis from the Conan team for an overview of practical examples of what Conan 2 can do for your C and C++ package management development workflows. Some highlights include: transparent fall back to system-provided dependencies, managing metadata files, and the flexible and fully transparent CMake integrations, and more!
+
+.. youtube:: yC3ERwB-Njc
+
 
 - ACCU 2022: Advanced Dependencies Model in Conan 2.0 C, C++ Package Manager by Diego Rodriguez-Losada
 
