@@ -114,7 +114,7 @@ It's indicated to use it instead of ``os.remove`` because it's cross-platform an
 
     from conan.tools.files import rm
 
-    rm(self, "*.tmp", self.build_folder, recursive=True, excludes=None)
+    rm(self, "*.tmp", self.build_folder, recursive=True)
 
 .. code-block:: python
     :caption: *Remove all files from bin_folder, except for any finished by .dll*
