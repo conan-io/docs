@@ -3,7 +3,7 @@
 Version
 =======
 
-This is a helper class to work with semantic versions.
+This is a helper class to work with versions, it splits the version string based on dots and hyphens.
 It exposes all the version components as properties and offers total ordering through compare operators.
 
 .. code-block:: python
