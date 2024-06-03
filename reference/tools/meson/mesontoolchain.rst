@@ -201,10 +201,10 @@ conf
 - ``tools.build:cflags`` list of extra of pure C flags that is used by ``c_args``.
 - ``tools.build:sharedlinkflags`` list of extra linker flags that is used by ``c_link_args`` and ``cpp_link_args``.
 - ``tools.build:exelinkflags`` list of extra linker flags that is used by ``c_link_args`` and ``cpp_link_args``.
-- ``tools.build:linker_scripts`` list of linker scripts, each of which will be prefixed with ``-T`` and passed to ``c_link_args`` and
+- ``tools.build:linker_scripts`` list of linker scripts, each of which will be prefixed with ``-T`` and passed
+  to ``c_link_args`` and ``cpp_link_args``. Only use this flag with linkers that supports specifying
+  linker scripts with the ``-T`` flag, such as ``ld``, ``gold``, and ``lld``.
 - ``tools.build:defines`` list of preprocessor definitions, each of which will be prefixed with ``-D`` and passed to ``cpp_args`` and ``c_args``.
-  ``cpp_link_args``. Only use this flag with linkers that supports specifying linker scripts with the ``-T`` flag, such as ``ld``, ``gold``,
-  and ``lld``.
 - ``tools.build:compiler_executables`` dict-like Python object which specifies the compiler as key
   and the compiler executable path as value. Those keys will be mapped as follows:
 
