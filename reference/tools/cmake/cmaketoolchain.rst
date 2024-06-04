@@ -565,7 +565,7 @@ variables:
   cross-building if Android systems (that is managed by other blocks), and not 64bits to
   32bits builds in x86_64, sparc and ppc systems.
 - ``CMAKE_SYSTEM_VERSION``: ``tools.cmake.cmaketoolchain:system_version`` conf if defined, otherwise
-  ``os.version`` subsetting (host) when defined. On Apple systems, this ``os.version`` is converted to Darwin version.
+  ``os.version`` subsetting (host) when defined. On Apple systems, this ``os.version`` is converted to the corresponding Darwin version.
 - ``CMAKE_SYSTEM_PROCESSOR``: ``tools.cmake.cmaketoolchain:system_processor`` conf if defined, otherwise
   ``arch`` setting (host) if defined
 
