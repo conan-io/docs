@@ -317,7 +317,7 @@ CONAN_RUNTIME_LIB_DIRS
 ^^^^^^^^^^^^^^^^^^^^^^
 
 This variable contains a list of directories that contain runtime libraries (like DLLs)
-from all dependencies in the host context.. This is intended to be used when relying on 
+from all dependencies in the host context. This is intended to be used when relying on 
 CMake functionality to collect shared libraries to create a relocatable bundle, as
 per the example below.
 
