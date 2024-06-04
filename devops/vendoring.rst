@@ -51,6 +51,6 @@ Some important notes:
   propagate over vendoring packages, as they don't even expand their dependencies.
 - If a vendoring package binary is missing and/or the user request to build such a package from sources, Conan
   will fail, raising an error that it is not possible to build it.
-- To allow the expansion of the private dpenedency the ``tools.graph:vendor=build`` configuration can be activated.
+- To allow the expansion of the private dependency the ``tools.graph:vendor=build`` configuration can be activated.
   If that is the case, the private dependency graph of the package will be computed and expanded and the package
   will be allowed to build.
