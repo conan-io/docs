@@ -53,6 +53,11 @@ corresponding build flags like ``-stdlib=libstdc++``, ``-std=gnu14``, architectu
 etc. It will also append the folder where the Conan generators are located to the
 ``PKG_CONFIG_PATH`` environment variable.
 
+Since `Conan 2.4.0 <https://github.com/conan-io/conan/releases/tag/2.4.0>`__,
+if it's a cross-building context, ``CC_FOR_BUILD`` and ``CXX_FOR_BUILD`` are also set as environment variables if the
+build profile is defining the ``c`` and ``cpp`` values in the conf variable ``tools.build:compiler_executables``.
+See more info in the :ref:`conan_tools_gnu_autotoolstoolchain_conf` section.
+
 This generator will also generate a file called ``conanbuild.conf`` containing two keys:
 
 - **configure_args**: Arguments to call the ``configure`` script.
@@ -259,8 +264,9 @@ conf
   compiler as key and the compiler executable path as value. Those keys will be mapped as
   follows:
 
-  * ``c``: will set ``CC`` in *conanautotoolstoolchain.sh|bat* script.
-  * ``cpp``: will set ``CXX`` in *conanautotoolstoolchain.sh|bat* script.
+  * ``c``: will set ``CC`` (and ``CC_FOR_BUILD`` if cross-building) in *conanautotoolstoolchain.sh|bat* script.
+  * ``cpp``: will set ``CXX`` (and ``CXX_FOR_BUILD`` if cross-building) in *conanautotoolstoolchain.sh|bat* script.
+  * ``rc``: will set ``RC`` in *conanautotoolstoolchain.sh|bat* script.
   * ``cuda``: will set ``NVCC`` in *conanautotoolstoolchain.sh|bat* script.
   * ``fortran``: will set ``FC`` in *conanautotoolstoolchain.sh|bat* script.
 
