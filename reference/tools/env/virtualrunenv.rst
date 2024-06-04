@@ -3,7 +3,7 @@
 VirtualRunEnv
 =============
 
-``VirtualRunEnv`` is a generator that produces a launcher *conanrunenv* .bat, .ps1, fish or .sh script containing environment variables
+``VirtualRunEnv`` is a generator that produces a launcher *conanrunenv* .bat, .ps1, .fish or .sh script containing environment variables
 of the run time environment.
 
 The launcher contains the runtime environment information, anything that is necessary in the environment to actually run
