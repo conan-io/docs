@@ -56,7 +56,7 @@ etc. It will also append the folder where the Conan generators are located to th
 Since `Conan 2.4.0 <https://github.com/conan-io/conan/releases/tag/2.4.0>`__,
 if it's a cross-building context, ``CC_FOR_BUILD`` and ``CXX_FOR_BUILD`` are also set as environment variables if the
 build profile is defining the ``c`` and ``cpp`` values in the conf variable ``tools.build:compiler_executables``.
-See more info in the :ref:`conan_tools_gnu_autotoolstoolchain_conf` section.
+See more info in the :ref:`conf section<conan_tools_gnu_autotoolstoolchain_conf>`.
 
 This generator will also generate a file called ``conanbuild.conf`` containing two keys:
 
@@ -246,11 +246,10 @@ Reference
     :members:
 
 
+.. _conan_tools_gnu_autotoolstoolchain_conf:
 
 conf
 ^^^^
-
-.. _conan_tools_gnu_autotoolstoolchain_conf:
 
 - ``tools.build:cxxflags`` list of extra C++ flags that will be used by ``CXXFLAGS``.
 - ``tools.build:cflags`` list of extra of pure C flags that will be used by ``CFLAGS``.
