@@ -14,6 +14,8 @@ This ``profile.py`` contains a default implementation that does:
   That allow users to let it undefined in profiles, and switch it conveniently in command line just with ``-s build_type=Debug``
 - Will check the ``compiler.cppstd`` value if defined to validate if the current compiler version has support for it. For example, if a developer
   tries to use ``-s compiler=gcc -s compiler.version=5 -s compiler.cppstd=20``, it will raise an error.
+- Even the ``profile.py`` plugin has some provision to handle ``compiler.cstd`` checks they are not implemented yet, so the plugin will be permissive
+  regarding definition errors, please make sure the ``compiler.cstd`` is actually supported by your compiler version.
 
 
 

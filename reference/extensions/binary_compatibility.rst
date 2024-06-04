@@ -24,8 +24,8 @@ The following would be valid syntax (but not an useful or working one, as it wil
 
 
 Conan provides a default ``compatibility.py`` implementation that implements binary compatibility for
-different ``compiler.cppstd`` values. That is, by default it assumes that binaries built with different ``cppstd``
-values (for the same compiler and compiler version) are binary compatible, and can be linked together
+different ``compiler.cppstd`` and ``compiler.cstd`` values. That is, by default it assumes that binaries built with different ``cppstd``
+and ``cstd`` values (for the same compiler and compiler version) are binary compatible, and can be linked together
 without issues.
 
 The ``compiler.cppstd`` must be defined in profiles in most C++ scenarios. If a binary for a given
@@ -34,6 +34,9 @@ Conan  default ``compatibility.py`` will iterate the supported ``cppstd`` values
 It is possible to disable this behavior for any specific package, adding to the package ``conanfile.py`` 
 recipe the ``extension_properties = {"compatibility_cppstd": False}`` attribute, read the 
 :ref:`extension_properties docs<conan_conanfile_attributes_extension_properties>`.
+
+From Conan 2.4, the ``compiler.cstd`` setting is available. It will only be taken into account in the computation of
+packages ``package_id`` when their recipes explicitly declare the ``languages = "C"`` attribute.
 
 Some important rules:
 

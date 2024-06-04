@@ -237,9 +237,9 @@ extension_properties
 The ``extensions_properties`` attribute is a dictionary intended to define and pass information from the
 recipes to the Conan extensions.
 
-At the moment, the only defined property is ``compatibility_cppstd``, that allows disabling the behavior
+At the moment, the only defined properties are ``compatibility_cppstd`` and ``compatibility_cstd``, that allows disabling the behavior
 of :ref:`the default compatibility.py extension <reference_extensions_binary_compatibility>`, that considers 
-binaries built with different ``compiler.cppstd`` values ABI-compatible among them. 
+binaries built with different ``compiler.cppstd`` and ``compiler.cstd`` values ABI-compatible among them. 
 To disable this behavior for the current package, it is possible to do it with:
 
 .. code-block:: python
