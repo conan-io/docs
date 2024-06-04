@@ -7,8 +7,6 @@ Conan provides different tools to integrate with Xcode IDE, providing all the ne
 information about the dependencies, build options and also to build projects created with
 Xcode in recipes. They can be imported from ``conan.tools.apple``. The most relevant tools are:
 
-Please also check the reference for the CMakeDeps, CMakeToolchain, and CMake tools:
-
 - `XcodeDeps`: the dependency information generator for Xcode. It will generate multiple
   `.xcconfig` configuration files, that can be used by consumers using xcodebuild in the
   command line or adding them to the Xcode IDE.

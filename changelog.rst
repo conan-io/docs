@@ -3,6 +3,77 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.3.2 (28-May-2024)
+-------------------
+
+- Feature: New ``tools.microsoft:msvc_update`` configuration to define the MSVC compiler ``update`` even when ``compiler.update`` is not defined. Can be used to use ``compiler.version=193`` once VS2022 is updated to 17.10, which changes the default compiler to ``compiler.version=194``. `#16332 <https://github.com/conan-io/conan/pull/16332>`_
+- Bugfix: Allow default ``compatibility.py`` plugin to fallback from MSVC ``compiler.version=194->193`` and to other ``cppstd`` values. `#16346 <https://github.com/conan-io/conan/pull/16346>`_
+- Bugfix: Skip dot folders in local recipe index layouts. `#16345 <https://github.com/conan-io/conan/pull/16345>`_
+- Bugfix: Remove extra backslash in generated `conanvcvars.ps1`. `#16322 <https://github.com/conan-io/conan/pull/16322>`_
+
+2.3.1 (16-May-2024)
+-------------------
+
+- Feature: Add GCC 13.3 support. `#16246 <https://github.com/conan-io/conan/pull/16246>`_ . Docs `here <https://github.com/conan-io/docs/pull/3724>`__
+- Feature: Allow opt-out for ``CMakeToolchain`` default use of absolute paths for CMakeUserPresets->CMakePreset and CMakePresets->toolchainFile path. `#16244 <https://github.com/conan-io/conan/pull/16244>`_ . Docs `here <https://github.com/conan-io/docs/pull/3726>`__
+- Fix: Fix config container name for Docker runner. `#16243 <https://github.com/conan-io/conan/pull/16243>`_
+- Bugfix: Make compatibility checks understand update flag patterns. `#16252 <https://github.com/conan-io/conan/pull/16252>`_
+- Bugfix: Solve bug with ``overrides`` from ``lockfiles`` in case of diamond structures. `#16235 <https://github.com/conan-io/conan/pull/16235>`_
+- Bugfix: Allow ``export-pkg --version=xxx`` to be passed to recipes with ``python_requires`` inheriting ``set_version`` from base class. `#16224 <https://github.com/conan-io/conan/pull/16224>`_
+
+2.3.0 (06-May-2024)
+-------------------
+
+- Feature: Allow `*` wildcard as subsetting in in `rm_safe`. `#16105 <https://github.com/conan-io/conan/pull/16105>`_ . Docs `here <https://github.com/conan-io/docs/pull/3697>`__
+- Feature: Show recipe and package sizes when running :command:`conan upload`. `#16103 <https://github.com/conan-io/conan/pull/16103>`_
+- Feature: Extend `conan version` to report current python and system for troubleshooting. `#16102 <https://github.com/conan-io/conan/pull/16102>`_ . Docs `here <https://github.com/conan-io/docs/pull/3691>`__
+- Feature: Add ``detect_xxxx_compiler()`` for mainstream compilers as gcc, msvc, clang. to the public ``detect_api``. `#16092 <https://github.com/conan-io/conan/pull/16092>`_ . Docs `here <https://github.com/conan-io/docs/pull/3702>`__
+- Feature: Add comment support for `.conanignore` file. `#16087 <https://github.com/conan-io/conan/pull/16087>`_
+- Feature: In graph `html` search bar now takes in multiple search patterns separated by commas. `#16083 <https://github.com/conan-io/conan/pull/16083>`_
+- Feature: In graph `html` added 'filter packages' bar that takes in multiple search patterns separated by comma and hides filters them from graph. `#16083 <https://github.com/conan-io/conan/pull/16083>`_
+- Feature: Add an argument `hide_url` to Git operations to allow logging of the repository URL. By default, URLs will stay `<hidden>`, but users may opt-out of this. `#16038 <https://github.com/conan-io/conan/pull/16038>`_
+- Feature: Allow ``.conf`` access (exclusively to ``global.conf`` information, not to profile information) in the ``export()`` and ``export_sources()`` methods. `#16034 <https://github.com/conan-io/conan/pull/16034>`_ . Docs `here <https://github.com/conan-io/docs/pull/3703>`__
+- Feature: Avoid copying identical existing files in ``copy()``. `#16031 <https://github.com/conan-io/conan/pull/16031>`_
+- Feature: New ``conan pkglist merge`` command to merge multiple package lists. `#16022 <https://github.com/conan-io/conan/pull/16022>`_ . Docs `here <https://github.com/conan-io/docs/pull/3704>`__
+- Feature: New ``conan pkglist find-remote`` command to find matching in remotes for list of packages in the cache. `#16022 <https://github.com/conan-io/conan/pull/16022>`_ . Docs `here <https://github.com/conan-io/docs/pull/3704>`__
+- Feature: Relativize paths in `CMakePresets` generation. `#16015 <https://github.com/conan-io/conan/pull/16015>`_
+- Feature: Add new ``test_package_folder`` attribute to ``conanfile.py`` to define a different custom location and name rather than ``test_package`` default. `#16013 <https://github.com/conan-io/conan/pull/16013>`_ . Docs `here <https://github.com/conan-io/docs/pull/3705>`__
+- Feature: New ``conan create --test-missing`` syntax to optionally run the ``test_package`` only when the package is actually created (useful with ``--build=missing``). `#15999 <https://github.com/conan-io/conan/pull/15999>`_ . Docs `here <https://github.com/conan-io/docs/pull/3705>`__
+- Feature: Add `tools.gnu:build_triplet` to conf. `#15965 <https://github.com/conan-io/conan/pull/15965>`_
+- Feature: Add ``--exist-ok`` argument to ``conan profile detect`` to not fail if the profile already exists, without overwriting it. `#15933 <https://github.com/conan-io/conan/pull/15933>`_
+- Feature: MesonToolchain can generate a native file if native=True (only makes sense when cross-building). `#15919 <https://github.com/conan-io/conan/pull/15919>`_ . Docs `here <https://github.com/conan-io/docs/pull/3710>`__
+- Feature: Meson helper injects native and cross files if both exist. `#15919 <https://github.com/conan-io/conan/pull/15919>`_ . Docs `here <https://github.com/conan-io/docs/pull/3710>`__
+- Feature: Add support for meson subproject. `#15916 <https://github.com/conan-io/conan/pull/15916>`_ . Docs `here <https://github.com/conan-io/docs/pull/3655>`__
+- Feature: Added transparent support for running Conan within a Docker container. `#15856 <https://github.com/conan-io/conan/pull/15856>`_ . Docs `here <https://github.com/conan-io/docs/pull/3699>`__
+- Fix: Allow defining ``CC=/usr/bin/cc`` (and for CXX) for ``conan profile detect`` auto-detection. `#16187 <https://github.com/conan-io/conan/pull/16187>`_
+- Fix: Solve issue in ``pyinstaller.py`` script, it will no longer install ``pip install pyinstaller``, having it installed will be a precondition `#16186 <https://github.com/conan-io/conan/pull/16186>`_
+- Fix: Use backslash in ``CMake`` helper for the CMakeLists.txt folder, fixes issue when project is in the drive root, like ``X:`` `#16180 <https://github.com/conan-io/conan/pull/16180>`_
+- Fix: Allowing ``conan editable remove <path>`` even when the path has been already deleted. `#16170 <https://github.com/conan-io/conan/pull/16170>`_
+- Fix: Fix `conan new --help` formatting issue. `#16155 <https://github.com/conan-io/conan/pull/16155>`_
+- Fix: Improved error message when there are conflicts in the graph. `#16137 <https://github.com/conan-io/conan/pull/16137>`_
+- Fix: Improve error message when one URL is not a valid server but still returns 200-ok under a Conan "ping" API call. `#16126 <https://github.com/conan-io/conan/pull/16126>`_
+- Fix: Solve ``sqlite3`` issues in FreeBSD due to queries with double quotes. `#16123 <https://github.com/conan-io/conan/pull/16123>`_
+- Fix: Clean error message for ``conan cache restore <non-existing-file>``. `#16113 <https://github.com/conan-io/conan/pull/16113>`_
+- Fix: Improve UX and error messages when a remotes or credentials file in the cache is invalid/empty. `#16091 <https://github.com/conan-io/conan/pull/16091>`_
+- Fix: Use ``cc`` executable in Linux systems for autodetect compiler (``conan profile detect`` and ``detect_api``). `#16074 <https://github.com/conan-io/conan/pull/16074>`_
+- Fix: Improve the definition of version ranges UX with better error message for invalid ``==, ~=, ^=`` operators. `#16069 <https://github.com/conan-io/conan/pull/16069>`_
+- Fix: Improve error message UX when incorrect ``settings.yml`` or ``settings_user.yml``. `#16065 <https://github.com/conan-io/conan/pull/16065>`_
+- Fix: Print a warning for Python 3.6 usage which is EOL since 2021. `#16003 <https://github.com/conan-io/conan/pull/16003>`_
+- Fix: Remove duplicated printing of command line in ``Autotools`` helper. `#15991 <https://github.com/conan-io/conan/pull/15991>`_
+- Fix: Add response error message output to HTTP Status 401 Errors in FileDownloader. `#15983 <https://github.com/conan-io/conan/pull/15983>`_
+- Fix: Add gcc 14 to default ``settings.yml``. `#15958 <https://github.com/conan-io/conan/pull/15958>`_
+- Fix: Make ``VCVars`` use the ``compiler.update`` to specify the toolset. `#15947 <https://github.com/conan-io/conan/pull/15947>`_
+- Fix: Add ``rc`` to ``AutotoolsToolchain`` mapping of ``compiler_executables`` for cross-build Linux->Windows. `#15946 <https://github.com/conan-io/conan/pull/15946>`_
+- Fix: Add ``Pop!_OS`` to the distros using ``apt-get`` as system package manager. `#15931 <https://github.com/conan-io/conan/pull/15931>`_
+- Fix: Do not warn with package names containing the `-` character. `#15920 <https://github.com/conan-io/conan/pull/15920>`_
+- Fix: Fix html escaping of new ``--format=html`` graph output, and pass the graph serialized object instead of the string. `#15915 <https://github.com/conan-io/conan/pull/15915>`_
+- Bugfix: Make MesonToolchain listen to `tools.build:defines` conf variable. `#16172 <https://github.com/conan-io/conan/pull/16172>`_ . Docs `here <https://github.com/conan-io/docs/pull/3709>`__
+- Bugfix: Disallow `self.cpp_info` access in `validate_build()` method. `#16135 <https://github.com/conan-io/conan/pull/16135>`_
+- Bugfix: Don't show a trace when `.conanrc`'s `conan_home` is invalid. `#16134 <https://github.com/conan-io/conan/pull/16134>`_
+- Bugfix: Avoid the propagation of transitive dependencies of ``tool_requires`` to generators information even if they are marked as ``visible=True``. `#16077 <https://github.com/conan-io/conan/pull/16077>`_
+- Bugfix: `BazelDeps` now uses the `requirement.build` property instead of `dependency.context` one. `#16025 <https://github.com/conan-io/conan/pull/16025>`_
+- Bugfix: Make `conan cache restore` work correctly when restoring over a package already in the local cache. `#15950 <https://github.com/conan-io/conan/pull/15950>`_
+
 2.2.3 (17-Apr-2024)
 -------------------
 

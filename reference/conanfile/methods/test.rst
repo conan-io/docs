@@ -21,4 +21,5 @@ It usually takes the form of:
 
 .. seealso::
     
-    See :ref:`the "testing packages" tutorial<tutorial_creating_test>` for more information.
+    - See :ref:`the "testing packages" tutorial<tutorial_creating_test>` for more information.
+    - The :ref:`test_package_folder attribute<conan_conanfile_attributes_test_package_folder>` allows defining a different default location of the test-package instead of the default ``test_package`` folder.

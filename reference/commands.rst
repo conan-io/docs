@@ -23,6 +23,7 @@ and these :ref:`custom command examples <examples_extensions_custom_commands>`
    commands/install
    commands/list
    commands/lock
+   commands/pkglist
    commands/profile
    commands/remove
    commands/remote
@@ -36,6 +37,7 @@ and these :ref:`custom command examples <examples_extensions_custom_commands>`
 - :doc:`conan install <commands/install>`: Install dependencies
 - :doc:`conan list <commands/list>`: List recipes, revisions and packages in the local cache or in remotes
 - :doc:`conan lock <commands/lock>`: Create and manage lockfiles
+- :doc:`conan pkglist <commands/pkglist>`: Manipulate package lists, merge them or find packages in remotes.
 - :doc:`conan profile <commands/profile>`: Display and manage profile files
 - :doc:`conan remove <commands/remove>`: Remove packages from the local cache or from remotes
 - :doc:`conan remote <commands/remote>`: Add, remove, login/logout and manage remote server

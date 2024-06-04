@@ -151,6 +151,24 @@ The ``wrap_mode: nofallback`` is defined by default as a project option, to make
 
 Note that in this case, Meson might be able to find dependencies in "wraps", it is the responsibility of the user to check the behavior and make sure about the dependencies origin.
 
+subproject_options
+^^^^^^^^^^^^^^^^^^
+
+This attribute allows defining Meson subproject options:
+
+.. code:: python
+
+    def generate(self):
+        tc = MesonToolchain(self)
+        tc.subproject_options["SUBPROJECT"] = [{'MYVAR': 'MyValue'}]
+        tc.generate()
+
+This is translated to:
+
+- One subproject ``SUBPROJECT`` and option definition for ``MYVAR`` in the ``conan_meson_native.ini`` or ``conan_meson_cross.ini`` file.
+
+Note that in contrast to ``project_options``, ``subproject_options`` is a dictionary of lists of dictionaries. This is because Meson allows multiple subprojects, and each subproject can have multiple options.
+
 preprocessor_definitions
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -183,9 +201,10 @@ conf
 - ``tools.build:cflags`` list of extra of pure C flags that is used by ``c_args``.
 - ``tools.build:sharedlinkflags`` list of extra linker flags that is used by ``c_link_args`` and ``cpp_link_args``.
 - ``tools.build:exelinkflags`` list of extra linker flags that is used by ``c_link_args`` and ``cpp_link_args``.
-- ``tools.build:linker_scripts`` list of linker scripts, each of which will be prefixed with ``-T`` and passed to ``c_link_args`` and
-  ``cpp_link_args``. Only use this flag with linkers that supports specifying linker scripts with the ``-T`` flag, such as ``ld``, ``gold``,
-  and ``lld``.
+- ``tools.build:linker_scripts`` list of linker scripts, each of which will be prefixed with ``-T`` and passed
+  to ``c_link_args`` and ``cpp_link_args``. Only use this flag with linkers that supports specifying
+  linker scripts with the ``-T`` flag, such as ``ld``, ``gold``, and ``lld``.
+- ``tools.build:defines`` list of preprocessor definitions, each of which will be prefixed with ``-D`` and passed to ``cpp_args`` and ``c_args``.
 - ``tools.build:compiler_executables`` dict-like Python object which specifies the compiler as key
   and the compiler executable path as value. Those keys will be mapped as follows:
 
@@ -209,7 +228,9 @@ values:
     def generate(self):
         tc = MesonToolchain(self) 
         tc.project_options["DYNAMIC"] = bool(self.options.shared)  # shared is bool
-        tc.project_options["GREETINGS"] = str(self.options.with_msg)  # with_msg is str 
+        tc.project_options["GREETINGS"] = str(self.options.with_msg)  # with_msg is str
+        tc.subproject_options["SUBPROJECT"] = [{'MYVAR': str(self.options.with_msg)}]  # with_msg is str
+        tc.subproject_options["SUBPROJECT"].append({'MYVAR': bool(self.options.shared)})  # shared is bool
         tc.generate()
 
 In contrast, directly assigning a Conan option as a Meson value is strongly discouraged:
@@ -223,6 +244,8 @@ In contrast, directly assigning a Conan option as a Meson value is strongly disc
         tc = MesonToolchain(self)
         tc.project_options["DYNAMIC"] = self.options.shared  # == <PackageOption object>
         tc.project_options["GREETINGS"] = self.options.with_msg  # == <PackageOption object>
+        tc.subproject_options["SUBPROJECT"] = [{'MYVAR': self.options.with_msg}]  # == <PackageOption object>
+        tc.subproject_options["SUBPROJECT"].append({'MYVAR': self.options.shared})  # == <PackageOption object>
         tc.generate()
 
 These are not boolean or string values but an internal Conan class representing such
@@ -235,7 +258,7 @@ as it can result in unexpected errors during your project's build process.
 Cross-building for Apple and Android
 -------------------------------------
 
-The ``MesonToolchain`` adds all the flags required to cross-compile for Apple (MacOS M1, iOS, etc.) and Android.
+The ``MesonToolchain`` generator adds all the flags required to cross-compile for Apple (MacOS M1, iOS, etc.) and Android.
 
 **Apple**
 
@@ -258,6 +281,30 @@ in this example of host profile:
 
     [conf]
     tools.apple:sdk_path=/my/path/to/iPhoneOS.sdk
+
+
+Cross-building and native=true
+------------------------------
+
+New since `Conan 2.3.0 <https://github.com/conan-io/conan/releases/tag/2.3.0>`__
+
+When you are cross-building, sometimes you need to build a tool which is used to generate source files.
+For this you would want to build some targets with the system's native compiler. Then, you need Conan to create both
+context files:
+
+.. code:: python
+
+    def generate(self):
+        tc = MesonToolchain(self)
+        tc.generate()
+        # Forcing to create the native context too
+        if cross_building(self):
+            tc = MesonToolchain(self, native=True)
+            tc.generate()
+
+See also `this reference <https://mesonbuild.com/Cross-compilation.html#mixing-host-and-build-targets>`__
+from the Meson documentation for more information.
+
 
 Objective-C arguments
 ++++++++++++++++++++++

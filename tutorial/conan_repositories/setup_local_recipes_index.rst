@@ -27,9 +27,10 @@ template for the `conan new` command:
 
 .. code-block:: bash
 
-    $ mkdir repo && cd repo $ conan new local_recipes_index -d name=hello -d version=0.1 \
-        -d url=https://github.com/conan-io/libhello/archive/refs/tags/0.0.1.zip \ -d
-        sha256=1dfb66cfd1e2fb7640c88cc4798fe25853a51b628ed9372ffc0ca285fe5be16b
+    $ mkdir repo && cd repo
+    $ conan new local_recipes_index -d name=hello -d version=0.1 \
+        -d url=https://github.com/conan-io/libhello/archive/refs/tags/0.0.1.zip \
+        -d sha256=1dfb66cfd1e2fb7640c88cc4798fe25853a51b628ed9372ffc0ca285fe5be16b
     $ cd ..
 
 The `conan new local_recipes_index` command creates a template that assumes CMake as the
