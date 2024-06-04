@@ -457,3 +457,23 @@ def copy_legacy_redirects(app, docname): # Sphinx expects two arguments
 
 def setup(app):
     app.connect('build-finished', copy_legacy_redirects)
+
+
+def monkeypatch_method(cls, fname=None):
+    def decorator(func):
+        local_fname = fname
+        if local_fname is None:
+            local_fname = func.__name__
+        setattr(func, "orig", getattr(cls, local_fname, None))
+        setattr(cls, local_fname, func)
+        return func
+    return decorator
+
+import sphinx.application
+
+
+@monkeypatch_method(sphinx.application.Sphinx)
+def add_node(self, node, override=False, **kwds):
+    if 'html' in kwds and 'epub' not in kwds:
+        kwds['epub'] = kwds['html']
+    return add_node.orig(self, node, override, **kwds)
