@@ -317,7 +317,7 @@ CONAN_RUNTIME_LIB_DIRS
 ^^^^^^^^^^^^^^^^^^^^^^
 
 This variable defines the directories containing the runtime libraries necessary to
-run the linked executables in the project. These libraries are essential
+run the linked executables in the project of all host dependencies. These libraries are essential
 to ensure that the project compiles and runs correctly, providing the necessary dependencies
 during runtime. This is most useful when relying on CMake functionality to collect runtime dependencies,
 for example to create a relocatable bundle.
