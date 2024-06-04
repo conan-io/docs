@@ -9,7 +9,7 @@ From Conan 2.4 it is possible to create and use Conan packages that completely v
 that is, they completely hide and isolate their dependencies from their consumers. This can be useful
 in some different cases:
 
-- When sharing Conan packages with other organizations, that vendor (copy, embed or link) the dependencies,
+- When sharing Conan packages with other organizations which vendor (copy, embed or link) the dependencies,
   so it is not necessary for the consumers of those packages to have access to those dependencies and the
   intention is that they always use the shared precompiled binaries.
 - To introduce a hard decoupling between parts of a project.
