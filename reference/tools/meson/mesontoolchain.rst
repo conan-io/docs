@@ -207,7 +207,7 @@ conf
 - ``tools.build:defines`` list of preprocessor definitions, each of which will be prefixed with ``-D`` and passed to ``cpp_args`` and ``c_args``.
 - ``tools.build:compiler_executables`` dict-like Python object which specifies the compiler as key
   and the compiler executable path as value. Those keys will be mapped as follows:
-- ``tools.build:sysroot`` which accepts a path to the system root directory and sets the ``--sysroot`` flag.
+- ``tools.build:sysroot`` which accepts a path to the system root directory and sets the ``--sysroot`` flag that is used by ``c_args``, ``cpp_args``, ``c_link_args`` and ``cpp_link_args``.
 
   * ``c``: will set ``c`` in ``[binaries]`` section from *conan_meson_xxxx.ini*.
   * ``cpp``: will set ``cpp`` in ``[binaries]`` section from *conan_meson_xxxx.ini*.
