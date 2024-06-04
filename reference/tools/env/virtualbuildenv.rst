@@ -3,7 +3,7 @@
 VirtualBuildEnv
 ===============
 
-VirtualBuildEnv is a generator that produces a *conanbuildenv* .bat, .ps1, fish or .sh script containing the environment variables
+VirtualBuildEnv is a generator that produces a *conanbuildenv* .bat, .ps1, .fish or .sh script containing the environment variables
 of the build time context:
 
     - From the ``self.buildenv_info`` of the direct ``tool_requires`` in "build" context.
