@@ -10,7 +10,7 @@ that is, they completely hide and isolate their dependencies from their consumer
 in some different cases:
 
 - When sharing Conan packages with other organizations, that vendor (copy, embed or link) the dependencies,
-  so it is not necessary for hte consumers of those packages to have access to those dependencies and the
+  so it is not necessary for the consumers of those packages to have access to those dependencies and the
   intention is that they always use the shared precompiled binaries.
 - To introduce a hard decoupling between parts of a project.
 
