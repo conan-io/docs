@@ -66,7 +66,7 @@ current active configuration, like ``deactivate_conanrunenv-release-x86_64.bat``
 
 .. note::
 
-    To create ``.fish`` files required for Fish shell it is necessary to set to True the following conf: ``tools.env.virtualenv:fish``.
+    To create ``.fish`` files required for Fish shell it is necessary to activate the following conf: ``tools.env.virtualenv:fish=True``.
 
     When using fish shell, ``deactivate`` files are not generated, instead the function ``deactivate_conanbuildenv`` is exported in the environment.
 
