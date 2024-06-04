@@ -36,7 +36,7 @@ in the remotes for the consumers, it will not be checked.
 Some important notes:
 
 - A package that vendors its dependencies is intended to be consumed always in binary form.
-- The dependencies of a vendoring package is always a fully private and isolated dependency graph, decoupled from
+- The dependencies of a vendoring package always form a fully private and isolated dependency graph, decoupled from
   the rest of the dependency graph that uses this package.
 - It is the responsibility of the vendoring package and its users to guarantee that vendored dependencies do not
   collide. If a vendoring package vendors for example ``libssl.a`` as a static library doing a regular copy of
