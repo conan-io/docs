@@ -80,12 +80,12 @@ It looks like this:
        VxWorks:
            version: ["7"]
    arch: [x86, x86_64, ppc32be, ppc32, ppc64le, ppc64,
-       armv4, armv4i, armv5el, armv5hf, armv6, armv7, armv7hf, armv7s, armv7k, armv8, armv8_32, armv8.3, arm64ec,
-       sparc, sparcv9,
-       mips, mips64, avr, s390, s390x, asm.js, wasm, sh4le,
-       e2k-v2, e2k-v3, e2k-v4, e2k-v5, e2k-v6, e2k-v7,
-       riscv64, riscv32,
-       xtensalx6, xtensalx106, xtensalx7]
+          armv4, armv4i, armv5el, armv5hf, armv6, armv7, armv7hf, armv7s, armv7k, armv8, armv8_32, armv8.3, arm64ec,
+          sparc, sparcv9,
+          mips, mips64, avr, s390, s390x, asm.js, wasm, sh4le,
+          e2k-v2, e2k-v3, e2k-v4, e2k-v5, e2k-v6, e2k-v7,
+          riscv64, riscv32,
+          xtensalx6, xtensalx106, xtensalx7]
    compiler:
        sun-cc:
            version: ["5.10", "5.11", "5.12", "5.13", "5.14", "5.15"]
@@ -118,8 +118,8 @@ It looks like this:
            cstd: [null, 11, 17]
        clang:
            version: ["3.3", "3.4", "3.5", "3.6", "3.7", "3.8", "3.9", "4.0",
-                   "5.0", "6.0", "7.0", "7.1",
-                   "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18"]
+                     "5.0", "6.0", "7.0", "7.1",
+                     "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18"]
            libcxx: [null, libstdc++, libstdc++11, libc++, c++_shared, c++_static]
            cppstd: [null, 98, gnu98, 11, gnu11, 14, gnu14, 17, gnu17, 20, gnu20, 23, gnu23]
            runtime: [null, static, dynamic]
@@ -128,13 +128,13 @@ It looks like this:
            cstd: [null, 99, gnu99, 11, gnu11, 17, gnu17, 23, gnu23]
        apple-clang:
            version: ["5.0", "5.1", "6.0", "6.1", "7.0", "7.3", "8.0", "8.1", "9.0", "9.1",
-                   "10.0", "11.0", "12.0", "13", "13.0", "13.1", "14", "14.0", "15", "15.0"]
+                     "10.0", "11.0", "12.0", "13", "13.0", "13.1", "14", "14.0", "15", "15.0"]
            libcxx: [libstdc++, libc++]
            cppstd: [null, 98, gnu98, 11, gnu11, 14, gnu14, 17, gnu17, 20, gnu20, 23, gnu23]
            cstd: [null, 99, gnu99, 11, gnu11, 17, gnu17, 23, gnu23]
        intel-cc:
            version: ["2021.1", "2021.2", "2021.3", "2021.4", "2022.1", "2022.2",
-                   "2022.3", "2023.0", "2023.1", "2023.2", "2024.0",]
+                     "2022.3", "2023.0", "2023.1", "2023.2", "2024.0",]
            update: [null, ANY]
            mode: ["icx", "classic", "dpcpp"]
            libcxx: [null, libstdc++, libstdc++11, libc++]
