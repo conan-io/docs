@@ -62,8 +62,6 @@ Let's have a look at each file's content:
 .. code-block:: python
     :caption: **main/BUILD**
 
-    load("@rules_cc//cc:defs.bzl", "cc_binary")
-
     cc_binary(
         name = "demo",
         srcs = ["demo.cpp"],
