@@ -30,7 +30,7 @@ To make a package vendor its dependencies, define in its recipe the following at
 
 When we have this recipe, we can create its binaries with a normal ``conan create .``.
 But when we use this package as a requirement for other packages, its dependencies will be fully invisible.
-The graph will not even expand the ``somedep/1.3`` requirement. This dependency doesn't even need to available
+The graph will not even expand the ``somedep/1.3`` requirement. This dependency doesn't even need to be available
 in the remotes for the consumers, it will not be checked.
 
 Some important notes:
