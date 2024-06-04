@@ -323,15 +323,7 @@ during runtime. This is most useful when relying on CMake functionality to colle
 for example to create a relocatable bundle.
 
 
-An example of usage would be first to add the additional paths we want in our ``conanfile.py``:
-
-.. code:: python
-
-    class ConanExample(ConanFile):
-        def package_info(self):
-            self.cpp_info.builddirs = ["/path/to/builddir1", "/path/to/builddir2"]
-
-Then add the ``CONAN_RUNTIME_LIB_DIRS`` variable in our ``CMakeLists.txt`` file.
+Just add the ``CONAN_RUNTIME_LIB_DIRS`` variable in our ``CMakeLists.txt`` file.
 
 .. code:: cmake
 
