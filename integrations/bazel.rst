@@ -21,6 +21,7 @@ imported from ``conan.tools.google``. The most relevant tools are:
     - Reference for :ref:`conan_tools_google_bazeltoolchain`.
     - Reference for :ref:`conan_tools_google_bazel`.
     - :ref:`examples_tools_bazel_toolchain_build_simple_bazel_project`
+    - :ref:`examples_tools_bazel_7x_toolchain_build_simple_bazel_project`
 
 
 .. |bazel_logo| image:: ../images/integrations/conan-bazel-logo.png
