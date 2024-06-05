@@ -204,7 +204,7 @@ Conan runs it based on *config_install.json*, including the timestamp of the las
 
   .. code-block:: bash
 
-      $ conan config install http://github.com/user/conan_config/.git --args "--recursive"
+      $ conan config install http://github.com/user/conan_config/.git --args="--recursive"
 
   You can also force the git download by using :command:`--type git` (in case it is not deduced from the URL automatically):
 
