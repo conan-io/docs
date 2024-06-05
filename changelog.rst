@@ -27,6 +27,7 @@ For a more detailed description of the major changes that Conan 2 brings, compar
 - Feature: Implement ``check_min_cstd``, ``check_max_cstd``, ``valid_max_cstd``, ``valid_min_cstd``, ``supported_cstd`` tools `#16028 <https://github.com/conan-io/conan/pull/16028>`_ . Docs `here <https://github.com/conan-io/docs/pull/3757>`__
 - Feature: New ``languages = "C", "C++"`` class attribute to further automate settings management `#16028 <https://github.com/conan-io/conan/pull/16028>`_ . Docs `here <https://github.com/conan-io/docs/pull/3757>`__
 - Feature: Add `CONAN_RUNTIME_LIB_DIRS` variable to the `conan_toolchain.cmake`. `#15914 <https://github.com/conan-io/conan/pull/15914>`_ . Docs `here <https://github.com/conan-io/docs/pull/3698>`__
+- Fix: Implement a back migration to <2.3 for default ``compatibility.py`` plugin. `#16405 <https://github.com/conan-io/conan/pull/16405>`_
 - Fix: Add missing `[replace_requires]` and `[platform_requires]` to serialization/dump of profiles. `#16401 <https://github.com/conan-io/conan/pull/16401>`_
 - Fix: Fix handling spaces in paths in ``Qbs`` helper. `#16382 <https://github.com/conan-io/conan/pull/16382>`_
 - Fix: Make cc version detection more robust `#16362 <https://github.com/conan-io/conan/pull/16362>`_
