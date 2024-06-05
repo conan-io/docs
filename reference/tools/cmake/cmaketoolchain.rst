@@ -316,14 +316,14 @@ This is done to avoid potential name clashes with users own presets.
 CONAN_RUNTIME_LIB_DIRS
 ^^^^^^^^^^^^^^^^^^^^^^
 
-This variable defines the directories containing the runtime libraries necessary to
-run the linked executables in the project of all host dependencies. These libraries are essential
-to ensure that the project compiles and runs correctly, providing the necessary dependencies
-during runtime. This is most useful when relying on CMake functionality to collect runtime dependencies,
-for example to create a relocatable bundle.
+This variable contains a list of directories that contain runtime libraries (like DLLs)
+from all dependencies in the host context. This is intended to be used when relying on 
+CMake functionality to collect shared libraries to create a relocatable bundle, as
+per the example below.
 
 
-Just add the ``CONAN_RUNTIME_LIB_DIRS`` variable in our ``CMakeLists.txt`` file.
+Just pass the ``CONAN_RUNTIME_LIB_DIRS`` variable to the ``DIRECTORIES`` argument
+in the ``install(RUNTIME_DEPENDENCY_SET ...)``` invocation. 
 
 .. code:: cmake
 
