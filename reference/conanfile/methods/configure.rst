@@ -29,6 +29,12 @@ recipe to remove them so they are not used in the recipe:
         # No need to delete those settings here, they were already deleted
         pass
 
+.. note::
+
+    From Conan 2.4, the above ``configure()`` is not necessary if defined ``languages = "C"`` recipe
+    attribute (experimental).
+
+
 For packages where you want to remove every subsetting of a setting, you can use the ``rm_safe`` method
 with a wildcard:
 
