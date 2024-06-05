@@ -43,9 +43,10 @@ Good practices
   the graph to avoid the conflicts without overrides and forces is the recommended approach.
 - **Please, do not abuse 'tool_requires'**. Those are intended only for executables like ``cmake`` and ``ninja`` running in the "build"
   context, not for libraries or library-like dependencies, that must use ``requires`` or ``test_requires``.
-- Named arguments which receive a value should use ``=`` without spaces. For example, ``-r=conancenter`` is correct, but ``-r conancenter`` is not.
 - Positional arguments when invoking Conan should be specified first, before any named argument. For example,
   ``conan install . -s="os=Windows"`` is correct, but ``conan install -s="os=Windows" .`` is not.
+  Likewise, it's recommended to use ``=`` instead of spaces between the name and value of named arguments.
+  This is to avoid some ambiguity scenarios when parsing the command line arguments.
 
 Forbidden practices
 -------------------
