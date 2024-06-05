@@ -331,6 +331,33 @@ For example:
             "option2": "Describe the purpose and functionality of 'option2'. ",
         }
 
+languages
+---------
+
+.. include:: ../../common/experimental_warning.inc
+
+
+From Conan 2.4, the ``conanfile.py`` recipe attribute ``languages`` can be used to define the programming languages 
+involved in this package. At the moment the ``C`` and ``C++`` languages are the possible values. For example a
+pure C package would define something as:
+
+.. code-block:: python
+
+    class ZLib(ConanFile):
+        languages = "C"
+
+
+It is possible to define more than one language, for example ``languages = "C", "C++"`` is the correct definition when
+a package is built from both C and C++ sources.
+
+Regarding ``languages`` definition, the following will happen:
+
+- If no ``languages`` is defined or ``C`` is not a declared language, ``compiler.cstd`` subsetting will be automatically removed 
+  at package ``configure()`` time (to achieve backward compatibility).
+- If ``languages`` is defined, but it doesn't contain ``C++``, ``compiler.cppstd`` and ``compiler.libcxx`` subsettings will be
+  automatically removed at package ``configure()`` time.
+
+
 info
 ----
 

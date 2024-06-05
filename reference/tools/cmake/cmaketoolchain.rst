@@ -312,6 +312,34 @@ By default it is ``"conan"``, and it will generate CMake presets named "conan-xx
 This is done to avoid potential name clashes with users own presets.
 
 
+
+CONAN_RUNTIME_LIB_DIRS
+^^^^^^^^^^^^^^^^^^^^^^
+
+This variable contains a list of directories that contain runtime libraries (like DLLs)
+from all dependencies in the host context. This is intended to be used when relying on 
+CMake functionality to collect shared libraries to create a relocatable bundle, as
+per the example below.
+
+
+Just pass the ``CONAN_RUNTIME_LIB_DIRS`` variable to the ``DIRECTORIES`` argument
+in the ``install(RUNTIME_DEPENDENCY_SET ...)``` invocation. 
+
+.. code:: cmake
+
+    install(RUNTIME_DEPENDENCY_SET my_app_deps
+        PRE_EXCLUDE_REGEXES
+            [[api-ms-win-.*]]
+            [[ext-ms-.*]]
+            [[kernel32\.dll]]
+            [[libc\.so\..*]] [[libgcc_s\.so\..*]] [[libm\.so\..*]] [[libstdc\+\+\.so\..*]]
+        POST_EXCLUDE_REGEXES
+            [[.*/system32/.*\.dll]]
+            [[^/lib.*]]
+            [[^/usr/lib.*]]
+        DIRECTORIES ${CONAN_RUNTIME_LIB_DIRS}
+    )
+
 absolute_paths
 ^^^^^^^^^^^^^^
 
