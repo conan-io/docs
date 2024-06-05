@@ -106,19 +106,26 @@ Usage:
 conan.tools.files.rm()
 ----------------------
 
-.. currentmodule:: conan.tools.files.files
-
-.. autofunction:: rm
-
-
-Usage:
+This function removes files from the filesystem. It can be used to remove a single file or a pattern based on fnmatch.
+It's indicated to use it instead of ``os.remove`` because it's cross-platform and may avoid permissions issues.
 
 .. code-block:: python
+    :caption: *Remove all files finished in .tmp in build_folder and recursively*
 
     from conan.tools.files import rm
 
     rm(self, "*.tmp", self.build_folder, recursive=True)
 
+.. code-block:: python
+    :caption: *Remove all files from bin_folder, except for any finished by .dll*
+
+    from conan.tools.files import rm
+
+    rm(self, "*", self.bin_folder, recursive=False, excludes="*.dll")
+
+.. currentmodule:: conan.tools.files.files
+
+.. autofunction:: rm
 
 
 conan.tools.files.mkdir()
@@ -306,7 +313,7 @@ For UNIX libraries starting with **lib**, like *libmath.a*, this tool will colle
 library name **math**. Regarding symlinks, this tool will keep only the "most generic"
 file among the resolved real file and all symlinks pointing to this real file. For example
 among files below, this tool will select *libmath.dylib* file and therefore only append
-*math* in the returned list: 
+*math* in the returned list:
 
 .. code-block:: shell
 
