@@ -653,6 +653,42 @@ CMakeToolchain is affected by these ``[conf]`` variables:
 - **tools.cmake.cmaketoolchain:system_name** is not necessary in most cases and is only used to force-define ``CMAKE_SYSTEM_NAME``.
 - **tools.cmake.cmaketoolchain:system_version** is not necessary in most cases and is only used to force-define ``CMAKE_SYSTEM_VERSION``.
 - **tools.cmake.cmaketoolchain:system_processor** is not necessary in most cases and is only used to force-define ``CMAKE_SYSTEM_PROCESSOR``.
+- **tools.cmake.cmaketoolchain:extra_variables**: dict-like python object which specifies the CMake variable name and value. Value can be a plain string, number or a dict-like python object which must specifies ``value`` (string/number) , ``cache`` (boolean), ``type`` (CMake cache type) and optionally, ``docstring`` (string: defaulted to variable name). Potential override of CMakeToolchain defined variables, users are at their own risk. E.g.
+    
+.. code-block:: text
+
+    [conf]
+    tools.cmake.cmaketoolchain:extra_variables={'MY_CMAKE_VAR': 'MyValue'}
+
+Resulting in:
+
+.. code-block:: cmake
+
+    set(MY_CMAKE_VAR "MyValue")
+
+Which will be injected later so it can override default Conan variables.
+
+Another advanced usage:
+
+.. code-block:: text
+
+    tools.cmake.cmaketoolchain:extra_variables={'MyIntegerVariable': 42, 'CMAKE_GENERATOR_INSTANCE': '${ENV}/buildTools/'}
+    tools.cmake.cmaketoolchain:extra_variables*={'CACHED_VAR': {'value': '/var/run', 'cache': True, 'type': 'PATH', 'docstring': 'test cache var'}}
+
+Resulting in:
+
+.. code-block:: cmake
+
+    set(MyIntegerVariable 42)
+    set(CMAKE_GENERATOR_INSTANCE "${ENV}/buildTools/")
+    set(CACHED_VAR "/var/run" CACHE BOOL "test cache var")
+
+This block injects ``$`` which will be expanded later. It also defines a cache variable of type ``PATH``.
+
+.. tip::
+
+    Use the :ref:`configuration data operator<configuration_data_operators>` ``*=`` to **update** (instead of redefining) conf variables already set in profiles or the global configuration.
+
 - **tools.cmake.cmaketoolchain:toolset_arch**: Will add the ``,host=xxx`` specifier in the ``CMAKE_GENERATOR_TOOLSET`` variable of ``conan_toolchain.cmake`` file.
 - **tools.cmake.cmaketoolchain:toolset_cuda**: (Experimental) Will add the ``,cuda=xxx`` specifier in the ``CMAKE_GENERATOR_TOOLSET`` variable of ``conan_toolchain.cmake`` file.
 - **tools.cmake.cmake_layout:build_folder_vars**: Settings, Options, and/or ``self.name`` and ``self.version`` that will produce a different build folder and different CMake presets names.
