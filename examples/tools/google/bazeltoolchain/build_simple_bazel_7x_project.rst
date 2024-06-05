@@ -94,8 +94,8 @@ Conan uses the :ref:`conan_tools_google_bazeltoolchain` to generate a ``conan_bz
 ``bazel build`` command. Apart from that, Conan uses the :ref:`conan_tools_google_bazeldeps` generator
 to create all the bazel files (*[DEP]/BUILD.bazel*, *conan_deps_module_extension.bzl* and
 *conan_deps_repo_rules.bzl*) which define the rule and all the dependencies to create/load them as Bazel repositories.
-The *MODULE.bazel* above is already ready to load the *dependencies.bzl* which will tell the *main/BUILD* all
-the information about the ``@fmt//:fmt`` bazel target.
+The *MODULE.bazel* above is ready to load the *conan_deps_module_extension.bzl* file which will tell the
+*main/BUILD* all the information about the ``@fmt//:fmt`` bazel target.
 
 As the first step, we should install all the dependencies listed in the ``conanfile.txt``.
 The command :ref:`conan install<reference_commands_install>` does not only install the ``fmt`` package,

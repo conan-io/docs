@@ -183,6 +183,7 @@ you would have to add these lines in there:
     :caption: MODULE.bazel
 
     load_conan_dependencies = use_extension("//:conan_deps_module_extension.bzl", "conan_extension")
+    # use_repo(load_conan_dependencies, "dep1", "dep2", ..., "depN")
     use_repo(load_conan_dependencies, "zlib")
 
 
