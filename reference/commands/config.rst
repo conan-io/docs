@@ -85,7 +85,7 @@ See `conan-io/command-extensions's .conanignore <https://github.com/conan-io/com
 
   .. code-block:: text
 
-      $ conan config install http://github.com/user/conan_config/.git --args "--recursive"
+      $ conan config install http://github.com/user/conan_config/.git --args="--recursive"
 
   You can also force the git download by using :command:`--type git` (in case it is not deduced from the URL automatically):
 
