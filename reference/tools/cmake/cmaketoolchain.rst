@@ -658,20 +658,36 @@ CMakeToolchain is affected by these ``[conf]`` variables:
 .. code-block:: text
 
     [conf]
-    tools.cmake.cmaketoolchain:extra_variables*={'STR': 'string value', 'NUM': 1.3, 'CMAKE_GENERATOR_INSTANCE': '${ENV}/buildTools/', 'SOME_DICT': {'value': '42 sense', 'cache': True, 'type': 'BOOL', 'docstring': 'test cache var'}}
+    tools.cmake.cmaketoolchain:extra_variables={'MY_CMAKE_VAR': 'MyValue'}
 
 Resulting in:
 
 .. code-block:: cmake
 
-    set(STR "string value")
-    set(NUM 1.3)
+    set(MY_CMAKE_VAR "MyValue")
+
+Which will be injected later so it can override default Conan variables.
+
+Another advanced usage:
+
+.. code-block:: text
+
+    tools.cmake.cmaketoolchain:extra_variables={'MyIntegerVariable': 42, 'CMAKE_GENERATOR_INSTANCE': '${ENV}/buildTools/'}
+    tools.cmake.cmaketoolchain:extra_variables*={'CACHED_VAR': {'value': '/var/run', 'cache': True, 'type': 'PATH', 'docstring': 'test cache var'}}
+
+Resulting in:
+
+.. code-block:: cmake
+
+    set(MyIntegerVariable 42)
     set(CMAKE_GENERATOR_INSTANCE "${ENV}/buildTools/")
-    set(SOME_DICT "42 sense" CACHE BOOL "test cache var")
+    set(CACHED_VAR "/var/run" CACHE BOOL "test cache var")
+
+This block injects ``$`` which will be expanded later. It also defines a cache variable of type ``PATH``.
 
 .. tip::
 
-    Use the ``*=`` operator described in :ref:`configuration data operators <configuration_data_operators>` to update the dictionary merging it with previous definitions of ``extra_variables``.
+    Use the :ref:`configuration data operator<configuration_data_operators>` ``*=`` to **update** (instead of redefine) conf variables already defined in profiles or global configuration.
 
 - **tools.cmake.cmaketoolchain:toolset_arch**: Will add the ``,host=xxx`` specifier in the ``CMAKE_GENERATOR_TOOLSET`` variable of ``conan_toolchain.cmake`` file.
 - **tools.cmake.cmaketoolchain:toolset_cuda**: (Experimental) Will add the ``,cuda=xxx`` specifier in the ``CMAKE_GENERATOR_TOOLSET`` variable of ``conan_toolchain.cmake`` file.
