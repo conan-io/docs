@@ -43,6 +43,8 @@ Good practices
   the graph to avoid the conflicts without overrides and forces is the recommended approach.
 - **Please, do not abuse 'tool_requires'**. Those are intended only for executables like ``cmake`` and ``ninja`` running in the "build"
   context, not for libraries or library-like dependencies, that must use ``requires`` or ``test_requires``.
+- Positional arguments when calling Conan should be specified first, before any named argument. For example,
+  ``conan install . -s os=Windows`` is correct, but ``conan install -s os=Windows .`` is not.
 
 Forbidden practices
 -------------------
