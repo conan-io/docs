@@ -281,8 +281,6 @@ Or your MODULE.bazel:
     use_repo(load_conan_dependencies, "zlib")
 
 
-
-
 .. _conan_tools_google_bazeldeps_customization:
 
 Customization
