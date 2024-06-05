@@ -1,4 +1,4 @@
-.. _examples_tools_bazel_toolchain_build_simple_bazel_project:
+.. _examples_tools_bazel_7x_toolchain_build_simple_bazel_project:
 
 Build a simple Bazel 7.x project using Conan
 ============================================

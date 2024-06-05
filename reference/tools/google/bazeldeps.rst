@@ -381,3 +381,4 @@ Example:
 .. seealso::
 
     - :ref:`examples_tools_bazel_toolchain_build_simple_bazel_project`
+    - :ref:`examples_tools_bazel_7x_toolchain_build_simple_bazel_project`
