@@ -3,6 +3,56 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.4.0 (05-Jun-2024)
+-------------------
+
+- Feature: Added support for MacOS sdk_version 14.5 `#16400 <https://github.com/conan-io/conan/pull/16400>`_ . Docs `here <https://github.com/conan-io/docs/pull/3758>`__
+- Feature: Added `CC_FOR_BUILD` and  `CXX_FOR_BUILD` environment variable to AutotoolsToolchain. `#16391 <https://github.com/conan-io/conan/pull/16391>`_ . Docs `here <https://github.com/conan-io/docs/pull/3750>`__
+- Feature: Added `extra_xxxx` flags to MesonToolchain as done in other toolchains like AutotoolsToolchain, CMakeToolchain, etc. `#16389 <https://github.com/conan-io/conan/pull/16389>`_
+- Feature: Add new ``qbs_lib`` template for the :command:`conan new` command. `#16382 <https://github.com/conan-io/conan/pull/16382>`_
+- Feature: new ``detect_api.detect_sdk_version()`` method `#16355 <https://github.com/conan-io/conan/pull/16355>`_ . Docs `here <https://github.com/conan-io/docs/pull/3751>`__
+- Feature: Add excludes parameter to tools.files.rm to void removing pattern. `#16350 <https://github.com/conan-io/conan/pull/16350>`_ . Docs `here <https://github.com/conan-io/docs/pull/3743>`__
+- Feature: Allow multiple ``--build=missing:~pattern1 --build=missing:~pattern2`` patterns. `#16327 <https://github.com/conan-io/conan/pull/16327>`_
+- Feature: Deprecate use of path accessors in ConanFile. `#16247 <https://github.com/conan-io/conan/pull/16247>`_
+- Feature: add support for setting `tools.cmake.cmaketoolchain:extra_variables` `#16242 <https://github.com/conan-io/conan/pull/16242>`_ . Docs `here <https://github.com/conan-io/docs/pull/3719>`__
+- Feature: Add `cmake_additional_variables_prefixes` variable to CMakeDeps generator to allow adding extra names for declared CMake variables. `#16231 <https://github.com/conan-io/conan/pull/16231>`_ . Docs `here <https://github.com/conan-io/docs/pull/3721>`__
+- Feature: Allow GNUInstallDirs definition in ``CMakeToolchain`` for the local ``conan install/build`` flow too. `#16214 <https://github.com/conan-io/conan/pull/16214>`_
+- Feature: Let ``conan cache save`` listen to the ``core.gzip:compresslevel`` conf. `#16211 <https://github.com/conan-io/conan/pull/16211>`_
+- Feature: Add support for Bazel >= 7.1. `#16196 <https://github.com/conan-io/conan/pull/16196>`_ . Docs `here <https://github.com/conan-io/docs/pull/3707>`__
+- Feature: Add new ``revision_mode`` including everything down to the ``recipe-revision``, but not the ``package_id``. `#16195 <https://github.com/conan-io/conan/pull/16195>`_ . Docs `here <https://github.com/conan-io/docs/pull/3754>`__
+- Feature: Allow a recipe to ``requires(..., visible=False)`` a previous version of itself without raising a loop error. `#16132 <https://github.com/conan-io/conan/pull/16132>`_
+- Feature: New ``vendor=True`` package creation and build isolation strategy `#16073 <https://github.com/conan-io/conan/pull/16073>`_ . Docs `here <https://github.com/conan-io/docs/pull/3756>`__
+- Feature: New ``compiler.cstd`` setting for C standard `#16028 <https://github.com/conan-io/conan/pull/16028>`_ . Docs `here <https://github.com/conan-io/docs/pull/3757>`__
+- Feature: Implemented ``compatibility.py`` default compatibility for different C standards `#16028 <https://github.com/conan-io/conan/pull/16028>`_ . Docs `here <https://github.com/conan-io/docs/pull/3757>`__
+- Feature: Implement ``check_min_cstd``, ``check_max_cstd``, ``valid_max_cstd``, ``valid_min_cstd``, ``supported_cstd`` tools `#16028 <https://github.com/conan-io/conan/pull/16028>`_ . Docs `here <https://github.com/conan-io/docs/pull/3757>`__
+- Feature: New ``languages = "C", "C++"`` class attribute to further automate settings management `#16028 <https://github.com/conan-io/conan/pull/16028>`_ . Docs `here <https://github.com/conan-io/docs/pull/3757>`__
+- Feature: Add `CONAN_RUNTIME_LIB_DIRS` variable to the `conan_toolchain.cmake`. `#15914 <https://github.com/conan-io/conan/pull/15914>`_ . Docs `here <https://github.com/conan-io/docs/pull/3698>`__
+- Fix: Implement a back migration to <2.3 for default ``compatibility.py`` plugin. `#16405 <https://github.com/conan-io/conan/pull/16405>`_
+- Fix: Add missing `[replace_requires]` and `[platform_requires]` to serialization/dump of profiles. `#16401 <https://github.com/conan-io/conan/pull/16401>`_
+- Fix: Fix handling spaces in paths in ``Qbs`` helper. `#16382 <https://github.com/conan-io/conan/pull/16382>`_
+- Fix: Make cc version detection more robust `#16362 <https://github.com/conan-io/conan/pull/16362>`_
+- Fix: Allow ``--build=missing:&`` pattern to build only the consumer if missing, but not others. `#16344 <https://github.com/conan-io/conan/pull/16344>`_
+- Fix: Allow "local-recipes-index" to ``conan list`` packages with custom ``user/channel``. `#16342 <https://github.com/conan-io/conan/pull/16342>`_
+- Fix: Fixing docstrings for ``cppstd`` functions. `#16341 <https://github.com/conan-io/conan/pull/16341>`_
+- Fix: Change autodetect of `CMAKE_SYSTEM_VERSION` to use the Darwin version. `#16335 <https://github.com/conan-io/conan/pull/16335>`_ . Docs `here <https://github.com/conan-io/docs/pull/3755>`__
+- Fix: Fix `require` syntax in output in `graph build-order`. `#16308 <https://github.com/conan-io/conan/pull/16308>`_
+- Fix: Improve some commands help documentation strings by adding double quotes. `#16292 <https://github.com/conan-io/conan/pull/16292>`_
+- Fix: Better error message for incorrect version-ranges definitions. `#16289 <https://github.com/conan-io/conan/pull/16289>`_
+- Fix: Only print info about cached recipe revision being newer when it truly is. `#16275 <https://github.com/conan-io/conan/pull/16275>`_
+- Fix: Warn when using ``options`` without pattern scope, to improve UX of users expecting ``-o shared=True`` to apply to dependencies. `#16233 <https://github.com/conan-io/conan/pull/16233>`_ . Docs `here <https://github.com/conan-io/docs/pull/3720>`__
+- Fix: Fix CommandAPI usage when not used by Conan custom commands. `#16213 <https://github.com/conan-io/conan/pull/16213>`_
+- Fix: Avoid ``datetime`` deprecated calls in Python 3.12. `#16095 <https://github.com/conan-io/conan/pull/16095>`_
+- Fix: Handle `tools.build:sysroot` on Meson toolchain. `#16011 <https://github.com/conan-io/conan/pull/16011>`_ . Docs `here <https://github.com/conan-io/docs/pull/3753>`__
+- Bugfix: Fix ``LLVM/Clang`` enablement of ``vcvars`` for latest ``v14.4`` toolset version after VS 17.10 update `#16374 <https://github.com/conan-io/conan/pull/16374>`_ . Docs `here <https://github.com/conan-io/docs/pull/3752>`__
+- Bugfix: Fix profile errors when using a docker runner of `type=shared` `#16364 <https://github.com/conan-io/conan/pull/16364>`_
+- Bugfix: ``conan graph info .. --build=pkg`` doesn't download ``pkg`` sources unless ``tools.build:download_source`` is defined. `#16349 <https://github.com/conan-io/conan/pull/16349>`_
+- Bugfix: Solved problem with relativization of paths in CMakeToolchain and CMakeDeps. `#16316 <https://github.com/conan-io/conan/pull/16316>`_
+- Bugfix: Avoid sanitizing `tools.build:compiler_executables` value in MesonToolchain. `#16307 <https://github.com/conan-io/conan/pull/16307>`_
+- Bugfix: Solved incorrect paths in ``conan cache save/restore`` tgz files that crashed when using ``storage_path`` custom configuration. `#16293 <https://github.com/conan-io/conan/pull/16293>`_
+- Bugfix: Fix stacktrace with nonexistent graph file in `conan list`. `#16291 <https://github.com/conan-io/conan/pull/16291>`_
+- Bugfix: Let ``CMakeDeps`` generator overwrite the ``xxxConfig.cmake`` when it already exists. `#16279 <https://github.com/conan-io/conan/pull/16279>`_
+- Bugfix: Disallow `self.info` access in `source()` method. `#16272 <https://github.com/conan-io/conan/pull/16272>`_
+
 2.3.2 (28-May-2024)
 -------------------
 
