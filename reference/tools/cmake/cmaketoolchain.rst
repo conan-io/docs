@@ -687,7 +687,7 @@ This block injects ``$`` which will be expanded later. It also defines a cache v
 
 .. tip::
 
-    Use the :ref:`configuration data operator<configuration_data_operators>` ``*=`` to **update** (instead of redefine) conf variables already defined in profiles or global configuration.
+    Use the :ref:`configuration data operator<configuration_data_operators>` ``*=`` to **update** (instead of redefining) conf variables already set in profiles or the global configuration.
 
 - **tools.cmake.cmaketoolchain:toolset_arch**: Will add the ``,host=xxx`` specifier in the ``CMAKE_GENERATOR_TOOLSET`` variable of ``conan_toolchain.cmake`` file.
 - **tools.cmake.cmaketoolchain:toolset_cuda**: (Experimental) Will add the ``,cuda=xxx`` specifier in the ``CMAKE_GENERATOR_TOOLSET`` variable of ``conan_toolchain.cmake`` file.
