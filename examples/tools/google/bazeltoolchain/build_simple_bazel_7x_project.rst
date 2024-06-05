@@ -12,7 +12,7 @@ that uses one of the most popular C++ libraries: `fmt <https://fmt.dev/latest/in
 
 .. note::
 
-    This example is based on the main :ref:`Build a simple CMake project using Conan<consuming_packages_build_simple_cmake_project>`
+    This example is based on the :ref:`Build a simple CMake project using Conan<consuming_packages_build_simple_cmake_project>`
     tutorial. So we highly recommend reading it before trying out this one.
 
 
