@@ -217,7 +217,7 @@ You will get something similar to this as the output of that command:
     -------- Finalizing install (deploy, generators) ----------
     conanfile.txt: Generator 'CMakeToolchain' calling 'generate()'
     conanfile.txt: Generator 'CMakeDeps' calling 'generate()'
-    conanfile.txt: Aggregating env generators
+    conanfile.txt: Generating aggregated env files
 
 
 As you can see in the output, there are a couple of things that happened:

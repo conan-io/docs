@@ -83,7 +83,7 @@ And that’s all! Now you're set to list and use packages from your `conan-cente
 
     $ conan list "zlib/*" -r=mycenter
     mycenter
-    zlib
+      zlib
         zlib/1.2.11
         zlib/1.2.12
         zlib/1.2.13
@@ -138,24 +138,24 @@ We can see now the binary package in our local cache:
 
 .. code-block:: bash
 
-    $ conan list zlib:*
+    $ conan list "zlib:*"
     Local Cache
-    zlib
+      zlib
         zlib/1.3
         revisions
-            5c0f3a1a222eebb6bff34980bcd3e024 (2024-04-10 11:50:34 UTC)
-            packages
-                72c852c5f0ae27ca0b1741e5fd7c8b8be91a590a
-                info
-                    settings
-                    arch: x86_64
-                    build_type: Release
-                    compiler: gcc
-                    compiler.version: 9
-                    os: Linux
-                    options
-                    fPIC: True
-                    shared: False
+          5c0f3a1a222eebb6bff34980bcd3e024 (2024-04-10 11:50:34 UTC)
+          packages
+            72c852c5f0ae27ca0b1741e5fd7c8b8be91a590a
+            info
+              settings
+                arch: x86_64
+                build_type: Release
+                compiler: gcc
+                compiler.version: 9
+                os: Linux
+              options
+                fPIC: True
+                shared: False
 
 Finally, upload the binary package to our Artifactory repository to make it available for
 our organization, users and CI jobs:
@@ -188,7 +188,7 @@ edit that file and remove all versions but the latest and then we `list` the rec
 
     $ conan list "zlib/*" -r=mycenter
     mycenter
-    zlib
+      zlib
         zlib/1.3.1
 
 When some of the recipes change, then note that the current Conan home already contains a

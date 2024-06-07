@@ -170,14 +170,14 @@ unless a specific flag is supplied, in which case only the specified folders wil
 
   .. code-block:: text
 
-      $ conan cache clean "zlib*" --download
+      $ conan cache clean "zlib/*" --download
 
 
 - Remove everything but the download folder for the ``zlib`` recipe:
 
   .. code-block:: text
 
-      $ conan cache clean "*" --source --build --temp
+      $ conan cache clean "zlib/*" --source --build --temp
 
 
 conan cache check-integrity

@@ -214,7 +214,8 @@ revision ``#`` part:
 
     # Make sure to quote the argument
     $ conan list "zlib/1.2.11#*:*"
-    zlib
+    Local Cache
+      zlib
         zlib/1.2.11
           revisions
             d77ee68739fcbe5bf37b8a4690eea6ea (2022-08-05 17:17:30 UTC)
@@ -302,7 +303,7 @@ By default, it will list all recipes and binaries included in the dependency gra
 and ``--graph-binaries=<binary-mode>`` allow specifying what artifacts have to be listed in the final result, some examples:
 
 - ``conan list --graph=graph.json --graph-binaries=build`` list exclusively the recipes and binaries that have been built from sources
-- ``conan list --graph=graph.json --graph-recipes=*`` list exclusively the recipes, all recipes, but no binaries
+- ``conan list --graph=graph.json --graph-recipes="*"`` list exclusively the recipes, all recipes, but no binaries
 - ``conan list --graph=graph.json --graph-binaries=download`` list exclusively the binaries that have been downloaded in the last ``conan create`` or ``conan install``
 
 

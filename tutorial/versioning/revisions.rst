@@ -23,7 +23,7 @@ We can now list the existing recipe revisions in the cache:
 
 .. code-block:: bash
 
-    $ conan list hello/1.0#*
+    $ conan list "hello/1.0#*"
     Local Cache
       hello
         hello/1.0
@@ -56,7 +56,7 @@ has been created.
 
 .. code-block:: bash
     
-    $ conan list hello/1.0#*
+    $ conan list "hello/1.0#*"
     Local Cache
       hello
         hello/1.0
@@ -90,7 +90,7 @@ revision, as the ``conanfile.py`` changed:
     $ conan create .
     hello/1.0: Bye World Release!
     ...
-    $ conan list hello/1.0#*
+    $ conan list "hello/1.0#*"
     Local Cache
       hello
         hello/1.0
@@ -229,7 +229,7 @@ artifacts will have different checksums, resulting in new package revisions:
 
 .. code-block:: bash
 
-    $ conan list hello/1.0:*#*
+    $ conan list "hello/1.0:*#*"
     Local Cache
       hello
         hello/1.0

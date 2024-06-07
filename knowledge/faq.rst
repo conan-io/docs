@@ -35,7 +35,7 @@ that you get an error like the following one:
     shared=False
 
     ERROR: Missing prebuilt package for 'zlib/1.2.11'. You can try:
-        - List all available packages using 'conan list {ref}:* -r=remote'
+        - List all available packages using 'conan list "{ref}:*" -r=remote'
         - Explain missing binaries: replace 'conan install ...' with 'conan graph explain ...'
         - Try to build locally from sources using the '--build=zlib/1.2.11' argument
 

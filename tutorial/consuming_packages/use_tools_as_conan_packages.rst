@@ -132,7 +132,7 @@ You can check the output:
     -------- Finalizing install (deploy, generators) ----------
     conanfile.txt: Generator 'CMakeToolchain' calling 'generate()'
     conanfile.txt: Generator 'CMakeDeps' calling 'generate()'
-    conanfile.txt: Aggregating env generators
+    conanfile.txt: Generating aggregated env files
 
 Now, if you check the folder you will see that Conan generated a new
 file called ``conanbuild.sh/bat``. This is the result of automatically invoking a
