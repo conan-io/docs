@@ -63,7 +63,7 @@ flag makes sure that we only remove the build files, as we will need our source 
 
 .. code-block:: bash
 
-    $ conan list zlib/1.2.11:*
+    $ conan list "zlib/1.2.11:*"
     $ conan cache path --folder build zlib/1.2.11:17b26a16efb893750e4481f98a154db2934ead88
     $ conan cache clean zlib/1.2.11 --build
     $ conan cache path --folder build zlib/1.2.11:17b26a16efb893750e4481f98a154db2934ead88

@@ -79,7 +79,7 @@ We can now validate that the recipe and the package binary are in the cache:
 
 .. code-block:: bash
 
-    $  conan list mypkg:*
+    $  conan list "mypkg:*"
     Found 1 pkg/version recipes matching mypkg in local cache
     Local Cache
       mypkg

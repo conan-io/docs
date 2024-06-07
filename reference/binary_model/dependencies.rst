@@ -70,16 +70,16 @@ If we now list the ``app/0.1`` binaries, we will see the binary just created:
 
     $ conan list app/0.1:*
     Local Cache
-    app/0.1
-      revisions
-        632e236936211ac2293ec33339ce582b (2023-09-25 22:34:17 UTC)
-          packages
-            3ca530d20914cf632eb00efbccc564da48190314
-              info
-                settings
-                  ...
-                requires
-                  dep/0.1#d125304fb1fb088d5b92d4f8135f4dff:9bdee485ef71c14ac5f8a657202632bdb8b4482b
+      app/0.1
+        revisions
+          632e236936211ac2293ec33339ce582b (2023-09-25 22:34:17 UTC)
+            packages
+              3ca530d20914cf632eb00efbccc564da48190314
+                info
+                  settings
+                    ...
+                  requires
+                    dep/0.1#d125304fb1fb088d5b92d4f8135f4dff:9bdee485ef71c14ac5f8a657202632bdb8b4482b
 
 It is now visible that the ``app/0.1`` package-id depends on the full identifier of the ``dep/0.1`` dependency, that includes both its recipe revision and ``package_id``.
 
@@ -129,7 +129,7 @@ Now we will have two ``app/0.1`` different binaries:
 .. code-block:: bash
   :emphasize-lines: 12,13,18,19
 
-    $ conan list app/0.1:*
+    $ conan list "app/0.1:*"
     Local Cache
       app
         app/0.1
