@@ -36,7 +36,7 @@ They have this structure:
     tools.build:jobs=2
 
     [replace_requires]
-    zlib/1.2.123: zlib/*
+    zlib/1.2.12: zlib/[*]
 
     [replace_tool_requires]
     7zip/*: 7zip/system
@@ -626,7 +626,7 @@ Some of the capabilities of the profile templates are:
 
     **Stability Guarantees**: The detect_api, similar to ``conan profile detect``, does not
     offer strong stability guarantees.
-    
+
     **Usage Recommendations**: The detect_api is not a regular API meant for creating new
     commands or similar functionalities. While auto-detection can be convenient, it's not
     the recommended approach for all scenarios. This API is internal to Conan and is only
@@ -645,7 +645,7 @@ detect the operating system and architecture, you can use:
     [settings]
     os={{detect_api.detect_os()}}
     arch={{detect_api.detect_arch()}}
-  
+
 Similarly, for more advanced detections like determining the compiler, its version, and
 the associated runtime, you can use:
 
