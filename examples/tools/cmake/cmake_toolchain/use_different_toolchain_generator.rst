@@ -8,6 +8,7 @@ This guide demonstrates how to use ``CMakeToolchain`` with predefined generators
 
 Creating a Basic Project
 -------------------------
+
 We will create a basic project based on the ``cmake_exe`` template as an example of a C++ project:
 
 .. code-block:: bash
@@ -16,7 +17,11 @@ We will create a basic project based on the ``cmake_exe`` template as an example
 
 Understanding CMake Generators
 ------------------------------
-CMake offers a variety of `generators <https://cmake.org/cmake/help/latest/manual/cmake-generators.7.html>`_ to create build system files. If you want to use a generator other than the default chosen by CMake, you can configure ``tools.cmake.cmaketoolchain:generator``.
+
+The `CMake <https://cmake.org/>`_ client offers a variety of `generators <https://cmake.org/cmake/help/latest/manual/cmake-generators.7.html>`_ to create build system files.
+If you want to use a generator other than the default chosen by CMake, you can configure ``tools.cmake.cmaketoolchain:generator``.
+
+Please, note that `CMake <https://cmake.org/>`_ client is not the same as the Conan :ref:`CMake <conan_tools_cmake_helper>` helper.
 
 To see which generators are available on your system, run:
 
@@ -28,6 +33,7 @@ You can set this configuration in your profile, directly in the command line, or
 
 Generating the Toolchain File with the Ninja Generator
 ------------------------------------------------------
+
 The project's recipe declares the "CMakeToolchain" generator.
 
 1. **Default Build**: To build the recipe using the default generator chosen by CMake, run:
@@ -42,7 +48,8 @@ The project's recipe declares the "CMakeToolchain" generator.
 
         $ conan create . -c tools.cmake.cmaketoolchain:generator=Ninja
 
-    This configuration will be passed to the ``conan_toolchain.cmake`` file, and the Ninja generator will be used. You should see the following output snippet indicating the Ninja generator is being used:
+    This configuration will be passed to the ``conan_toolchain.cmake`` file, and the Ninja generator will be used.
+    You should see the following output snippet indicating the Ninja generator is being used:
 
     .. code-block:: bash
 
@@ -87,7 +94,9 @@ The Ninja generator will be used by default when running CMake with this profile
 
 Setting the Ninja Generator Globally
 ------------------------------------
-To set the Ninja generator as the default globally, add the following to your global configuration file located at ``~/.conan2/global.conf``. If the file does not exist, create it:
+
+To set the Ninja generator as the default globally, add the following to your global configuration file located at ``~/.conan2/global.conf``.
+If the file does not exist, create it:
 
 .. code-block:: text
 
@@ -97,8 +106,12 @@ With this setting, any profile will use the Ninja generator as the default when 
 
 Conclusion
 ----------
-This guide showed you how to configure `CMakeToolchain` to use different generators, specifically the Ninja generator, through the command line, profile configuration, and global settings. For more details, refer to the following resources:
 
-- ``CMakeToolchain`` :ref:`reference <conan_tools_cmaketoolchain>`
-- Configuration pattern :ref:`reference <reference_config_files_global_conf_patterns>`
-- Configuration in profiles :ref:`reference <reference_config_files_profiles_conf>`
+This guide showed you how to configure `CMakeToolchain` to use different generators, specifically the Ninja generator,
+through the command line, profile configuration, and global settings.
+
+.. seealso::
+
+    - :ref:`CMakeToolchain reference<conan_tools_cmaketoolchain>`.
+    - :ref:`Global configuration patterns<reference_config_files_global_conf_patterns>`.
+    - :ref:`Configuration in Conan profiles<reference_config_files_profiles_conf>`.
