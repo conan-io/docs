@@ -7,6 +7,10 @@ Using CMakeToolchain with different generators: Ninja example
 This guide demonstrates how to use :ref:`CMakeToolchain<conan_tools_cmaketoolchain>` with predefined generators
 like `Ninja <https://ninja-build.org/>`_ and how to configure it to use different generators.
 
+We assume you have already installed Ninja in your system. In case you do not have Ninja installed in your system,
+you can use the `Ninja tool requirement<https://conan.io/center/recipes/ninja>`_ in your profile (default or custom)
+by adding :ref:`platform-tool-requires <reference_config_files_profiles_platform_tool_requires>`.
+
 Understanding CMake generators
 ------------------------------
 
