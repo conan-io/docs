@@ -71,9 +71,3 @@ You should see the following output snippet indicating the Ninja generator is be
     foo/0.1.0: Calling build()
     foo/0.1.0: Running CMake.configure()
     foo/0.1.0: RUN: cmake -G "Ninja" ...
-
-Conclusion
-----------
-
-This guide showed you how to configure `CMakeToolchain` to use different generators, specifically the Ninja generator,
-through the command line, profile configuration, and global settings.
