@@ -653,7 +653,7 @@ CMakeToolchain is affected by these ``[conf]`` variables:
 - **tools.cmake.cmaketoolchain:system_name** is not necessary in most cases and is only used to force-define ``CMAKE_SYSTEM_NAME``.
 - **tools.cmake.cmaketoolchain:system_version** is not necessary in most cases and is only used to force-define ``CMAKE_SYSTEM_VERSION``.
 - **tools.cmake.cmaketoolchain:system_processor** is not necessary in most cases and is only used to force-define ``CMAKE_SYSTEM_PROCESSOR``.
-- **tools.cmake.cmaketoolchain:extra_variables**: dict-like python object which specifies the CMake variable name and value. Value can be a plain string, number or a dict-like python object which must specifies ``value`` (string/number) , ``cache`` (boolean), ``type`` (CMake cache type) and optionally, ``docstring`` (string: defaulted to variable name) and ``force`` (boolean). Potential override of CMakeToolchain defined variables, users are at their own risk. E.g.
+- **tools.cmake.cmaketoolchain:extra_variables**: dict-like python object which specifies the CMake variable name and value. The value can be a plain string, a number or a dict-like python object which must specify the ``value`` (string/number) , ``cache`` (boolean), ``type`` (CMake cache type) and optionally, ``docstring`` (string: defaulted to variable name) and ``force`` (boolean) keys. It can override CMakeToolchain defined variables, for which users are at their own risk. E.g.
     
 .. code-block:: text
 
