@@ -121,8 +121,8 @@ command using the ``--profile=debug`` argument instead of the
 ``--settings=build_type=Debug`` argument.
 
 This :command:`conan install` command will check if we already have the required libraries in the local cache
-(Zlib) for Debug configuration and obtain them if not. It will also set the build
-configuration in the ``conan_toolchain.cmake`` toolchain that the CMakeToolchain generator
+(Zlib) for Debug configuration and obtain them if not. It will also update the build
+configuration in the ``conan_toolchain.cmake`` and ``CMakePresets.json`` files that the ``CMakeToolchain`` generator
 creates so that when we build the application it's built in *Debug* configuration. Now
 build your project as you did in the previous examples and check in the output how it was
 built in *Debug* configuration:
