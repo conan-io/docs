@@ -13,3 +13,4 @@ CMake
    cmake_toolchain/extend_own_cmake_presets
    cmake_toolchain/inject_cmake_variables
    cmake_toolchain/use_package_config_cmake
+   cmake_toolchain/use_different_toolchain_generator

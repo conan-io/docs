@@ -17,7 +17,7 @@ The ``cmake_layout()`` sets the :ref:`folders<conan_conanfile_attributes_folders
 
 .. note::
 
-    To try it you can use the ``conan new -d name=hello -d version=1.0 cmake_lib`` template.
+    To try it you can use the ``conan new cmake_lib -d name=hello -d version=1.0`` template.
 
 
 

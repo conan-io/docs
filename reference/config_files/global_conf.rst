@@ -177,6 +177,7 @@ any of your profiles:
     # Update b = 4 => {"a": 1, "b": 4}
     user.myconf.build:other*={"b": 4}
 
+.. _reference_config_files_global_conf_patterns:
 
 Configuration patterns
 ----------------------
