@@ -264,10 +264,16 @@ Now we are ready to build and run our **compressor** app:
     ZLIB VERSION: 1.2.11
 
 
+Note that ``CMakeToolchain`` might generate CMake **presets** files, that allows users with a modern CMake (``>=3.23``) to 
+use them with ``cmake --preset`` instead of passing the toolchain file argument. 
+See :ref:`Building with CMake presets<examples-tools-cmake-toolchain-build-project-presets>`
+
+
 .. _consuming_packages_read_more:
 
 .. seealso::
 
+    - :ref:`Building with CMake presets<examples-tools-cmake-toolchain-build-project-presets>`
     - :ref:`Getting started with Autotools<examples_tools_autotools_autotools_toolchain_build_project_autotools_toolchain>`
     - :ref:`Getting started with Meson<examples_tools_meson_toolchain_build_simple_meson_project>`
     - :ref:`Getting started with Bazel<examples_tools_bazel_toolchain_build_simple_bazel_project>`
