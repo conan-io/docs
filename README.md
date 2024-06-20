@@ -6,6 +6,7 @@ How to build
 ============
 
 - Install python and [pip docs](https://pip.pypa.io/en/stable/installing/).
+- (Recommended) Create a virtual environment: `python -m venv env` and activate it: `source env/bin/activate`
 - Install the requirements (sphinx):
 
   `$ pip install -r requirements.txt`
