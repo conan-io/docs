@@ -29,13 +29,15 @@ the library sources:
 .. code-block:: text
 
     .
-    ├── CMakeLists.txt
     ├── conanfile.py
     └── test_package
         ├── CMakeLists.txt
         ├── conanfile.py
         └── src
             └── example.cpp
+
+(There are other files, like ``conanfile_git.py``, ``conandata.yml`` and ``conanfile_conandata.yml``. These files are the "solution" or the final state of the code after running this tutorial section).
+
 
 Sources from a *zip* file stored in a remote repository
 -------------------------------------------------------
