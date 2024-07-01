@@ -69,6 +69,7 @@ It looks like this:
                    ios_version: *ios_version
        Android:
            api_level: [ANY]
+           ndk_version: [null, ANY]
        FreeBSD:
        SunOS:
        AIX:
@@ -101,7 +102,7 @@ It looks like this:
                        "9", "9.1", "9.2", "9.3", "9.4", "9.5",
                        "10", "10.1", "10.2", "10.3", "10.4", "10.5",
                        "11", "11.1", "11.2", "11.3", "11.4",
-                       "12", "12.1", "12.2", "12.3",
+                       "12", "12.1", "12.2", "12.3",  "12.4",
                        "13", "13.1", "13.2", "13.3",
                        "14", "14.1"]
            libcxx: [libstdc++, libstdc++11]
