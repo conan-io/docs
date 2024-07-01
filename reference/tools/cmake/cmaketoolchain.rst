@@ -493,17 +493,30 @@ Every block can be customized in different ways (recall to call ``tc.generate()`
         tc = CMakeToolchain(self)
         tc.blocks.remove("generic_system", "cmake_flags_init")
 
-    # keep one block, remove all the others
+    # LEGACY: keep one block, remove all the others
     # If you want to generate conan_toolchain.cmake with only that
-    # block
+    # block. Use "tc.blocks.enabled()" instead
     def generate(self):
         tc = CMakeToolchain(self)
+        # this still leaves blocks "variables" and "preprocessor"
+        # use "tc.blocks.enabled()"" instead
         tc.blocks.select("generic_system")
 
-    # keep several blocks, remove the other blocks
+    # LEGACY: keep several blocks, remove the other blocks
+    # Use "tc.blocks.enabled()" instead
     def generate(self):
         tc = CMakeToolchain(self)
+        # this still leaves blocks "variables" and "preprocessor"
+        # use "tc.blocks.enabled()" instead
         tc.blocks.select("generic_system", "cmake_flags_init")
+
+    # keep several blocks, remove the other blocks
+    # This can be done from configuration with 
+    # tools.cmake.cmaketoolchain:enabled_blocs
+    def generate(self):
+        tc = CMakeToolchain(self)
+        # Discard all the other blocks except ``generic_system``
+        tc.blocks.enabled("generic_system")
 
     # iterate blocks
     def generate(self):
@@ -570,6 +583,27 @@ Every block can be customized in different ways (recall to call ``tc.generate()`
                 return {"myvar": "World"}
 
         tc.blocks["mynewblock"] = MyBlock
+
+
+It is possible to select which blocks are active from configuration in profiles, using the
+``tools.cmake.cmaketoolchain:enabled_blocks`` configuration. This is a list of blocks, so doing:
+
+.. code-block::
+
+    [conf]
+    tools.cmake.cmaketoolchain:enabled_blocks=["generic_system"]
+
+Will leave only the ``generic_system`` block, and discard all others.
+This feature can be used for example when users are providing their own toolchain files, and they don't
+need Conan ``CMakeToolchain`` to define any flags or CMake variables, except for the necessary paths so
+dependencies can be found. For this case, it should be possible to do something like:
+
+
+.. code-block::
+
+    [conf]
+    tools.cmake.cmaketoolchain:user_toolchain+=my_user_toolchain.cmake
+    tools.cmake.cmaketoolchain:enabled_blocks=["find_paths"]
 
 
 For more information about these blocks, please have a look at the source code.
@@ -653,6 +687,7 @@ CMakeToolchain is affected by these ``[conf]`` variables:
 - **tools.cmake.cmaketoolchain:system_name** is not necessary in most cases and is only used to force-define ``CMAKE_SYSTEM_NAME``.
 - **tools.cmake.cmaketoolchain:system_version** is not necessary in most cases and is only used to force-define ``CMAKE_SYSTEM_VERSION``.
 - **tools.cmake.cmaketoolchain:system_processor** is not necessary in most cases and is only used to force-define ``CMAKE_SYSTEM_PROCESSOR``.
+- **tools.cmake.cmaketoolchain:enabled_blocks** define which blocks are enabled and discard the others.
 - **tools.cmake.cmaketoolchain:extra_variables**: dict-like python object which specifies the CMake variable name and value. The value can be a plain string, a number or a dict-like python object which must specify the ``value`` (string/number) , ``cache`` (boolean), ``type`` (CMake cache type) and optionally, ``docstring`` (string: defaulted to variable name) and ``force`` (boolean) keys. It can override CMakeToolchain defined variables, for which users are at their own risk. E.g.
     
 .. code-block:: text
