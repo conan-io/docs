@@ -433,7 +433,7 @@ There are two ways of providing custom CMake toolchain files:
       in cases of cross-building, and the user toolchains should provide these values or use other confs such as 
       ``tools.cmake.cmaketoolchain:system_name``.
     - The usage of ``tools.cmake.cmaketoolchain:enabled_blocks`` can be used together with ``tools.cmake.cmaketoolchain:user_toolchain``
-      to enable only certain blocks but avoid CMakeToolchain to be overriding CMake values defined in the user toolchain
+      to enable only certain blocks but avoid CMakeToolchain to override CMake values defined in the user toolchain
       file.
 
 
