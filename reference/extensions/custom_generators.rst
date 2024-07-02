@@ -16,6 +16,7 @@ One way of having your own custom generators in Conan is by using them as
 `python_requires` package:
 
 .. code-block:: python
+    :caption: mygenerator/conanfile.py
 
     from conan import ConanFile
     from conan.tools.files import save
@@ -28,7 +29,7 @@ One way of having your own custom generators in Conan is by using them as
         def generate(self):
             deps_info = ""
             for dep, _ in self._conanfile.dependencies.items():
-                deps_info = f"{dep.ref.name}, {dep.ref.version}"
+                deps_info += f"{dep.ref.name}, {dep.ref.version}\n"
             save(self._conanfile, "deps.txt", deps_info)
 
 
@@ -38,9 +39,10 @@ One way of having your own custom generators in Conan is by using them as
         package_type = "python-require"
 
 
-And then use it in the generate method of your own packages like this:
+And then ``conan create mygenerator`` and use it in the generate method of your own packages like this:
 
 .. code-block:: python
+    :caption: pkg/conanfile.py
 
     from conan import ConanFile
 
@@ -50,11 +52,19 @@ And then use it in the generate method of your own packages like this:
         version = "1.0"
 
         python_requires = "mygenerator/1.0"
-        requires = "zlib/1.2.11"
+        requires = "zlib/1.2.11", "bzip2/1.0.8"
 
         def generate(self):
-            mygenerator = self.python_requires["mygenerator"].module.MyGenerator()
+            mygenerator = self.python_requires["mygenerator"].module.MyGenerator(self)
             mygenerator.generate()
+
+Then, doing a ``conan install pkg`` on this ``pkg`` recipe, will create a ``deps.txt`` text file containing:
+
+.. code-block:: text
+
+    zlib, 1.2.11
+    bzip2, 1.0.8
+
 
 This has the advantage that you can version your own custom generators as packages and
 also that you can share those generators as Conan packages.
