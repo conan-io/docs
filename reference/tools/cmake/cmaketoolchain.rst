@@ -64,6 +64,8 @@ translated from the current ``settings``:
   - Definition of ``CMAKE_VS_DEBUGGER_ENVIRONMENT`` when on Windows with Visual Studio.
     This sets up the ``PATH`` environment variable to point to directories containing DLLs,
     to allow debugging directly from the Visual Studio IDE without copying DLLs (requires CMake 3.27).
+  - Definition of ``CONAN_RUNTIME_LIB_DIRS`` to allow collecting runtime dependencies (shared libraries),
+    see below for details.
 
 - **conanvcvars.bat**: In some cases, the Visual Studio environment needs to be defined correctly for building,
   like when using the Ninja or NMake generators. If necessary, the ``CMakeToolchain`` will generate this script,
@@ -141,9 +143,38 @@ translated from the current ``settings``:
     with CMake>=3.23) and the schema for the ``CMakePresets.json`` is 3 (compatible with
     CMake>=3.21).
 
+
+CONAN_RUNTIME_LIB_DIRS
+^^^^^^^^^^^^^^^^^^^^^^
+
+This variable in the generated ``conan_toolchain.cmake`` file contains a list of directories 
+that contain runtime libraries (like DLLs)
+from all dependencies in the host context. This is intended to be used when relying on 
+CMake functionality to collect shared libraries to create a relocatable bundle, as
+per the example below.
+
+
+Just pass the ``CONAN_RUNTIME_LIB_DIRS`` variable to the ``DIRECTORIES`` argument
+in the ``install(RUNTIME_DEPENDENCY_SET ...)``` invocation. 
+
+.. code:: cmake
+
+    install(RUNTIME_DEPENDENCY_SET my_app_deps
+        PRE_EXCLUDE_REGEXES
+            [[api-ms-win-.*]]
+            [[ext-ms-.*]]
+            [[kernel32\.dll]]
+            [[libc\.so\..*]] [[libgcc_s\.so\..*]] [[libm\.so\..*]] [[libstdc\+\+\.so\..*]]
+        POST_EXCLUDE_REGEXES
+            [[.*/system32/.*\.dll]]
+            [[^/lib.*]]
+            [[^/usr/lib.*]]
+        DIRECTORIES ${CONAN_RUNTIME_LIB_DIRS}
+    )
+
+
 Customization
 -------------
-
 
 preprocessor_definitions
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -312,34 +343,6 @@ By default it is ``"conan"``, and it will generate CMake presets named "conan-xx
 This is done to avoid potential name clashes with users own presets.
 
 
-
-CONAN_RUNTIME_LIB_DIRS
-^^^^^^^^^^^^^^^^^^^^^^
-
-This variable contains a list of directories that contain runtime libraries (like DLLs)
-from all dependencies in the host context. This is intended to be used when relying on 
-CMake functionality to collect shared libraries to create a relocatable bundle, as
-per the example below.
-
-
-Just pass the ``CONAN_RUNTIME_LIB_DIRS`` variable to the ``DIRECTORIES`` argument
-in the ``install(RUNTIME_DEPENDENCY_SET ...)``` invocation. 
-
-.. code:: cmake
-
-    install(RUNTIME_DEPENDENCY_SET my_app_deps
-        PRE_EXCLUDE_REGEXES
-            [[api-ms-win-.*]]
-            [[ext-ms-.*]]
-            [[kernel32\.dll]]
-            [[libc\.so\..*]] [[libgcc_s\.so\..*]] [[libm\.so\..*]] [[libstdc\+\+\.so\..*]]
-        POST_EXCLUDE_REGEXES
-            [[.*/system32/.*\.dll]]
-            [[^/lib.*]]
-            [[^/usr/lib.*]]
-        DIRECTORIES ${CONAN_RUNTIME_LIB_DIRS}
-    )
-
 absolute_paths
 ^^^^^^^^^^^^^^
 
@@ -364,7 +367,11 @@ Using a custom toolchain file
 There are two ways of providing custom CMake toolchain files:
 
 - The ``conan_toolchain.cmake`` file can be completely skipped and replaced by a user one, defining the
-  ``tools.cmake.cmaketoolchain:toolchain_file=<filepath>`` configuration value.
+  ``tools.cmake.cmaketoolchain:toolchain_file=<filepath>`` configuration value. Note this approach will translate
+  all the toolchain responsibility to the user provided toolchain, but things like locating the necessary ``xxx-config.cmake``
+  files from dependencies can be challenging without some help. For this reason, using the following
+  ``tools.cmake.cmaketoolchain:user_toolchain`` is recommended in most cases, and if necessary, 
+  using ``tools.cmake.cmaketoolchain:enabled_blocks`` can be used.
 - A custom user toolchain file can be added (included from) to the ``conan_toolchain.cmake`` one, by using the
   ``user_toolchain`` block described below, and defining the ``tools.cmake.cmaketoolchain:user_toolchain=["<filepath>"]``
   configuration value.
@@ -414,6 +421,20 @@ There are two ways of providing custom CMake toolchain files:
             def build(self):
                 cmake = CMake(self)
                 cmake.configure()
+
+
+.. note::
+
+    **Important notes**
+
+    - In most cases, ``tools.cmake.cmaketoolchain:user_toolchain`` will be preferred over ``tools.cmake.cmaketoolchain:toolchain_file``
+    - The definition of a ``tools.cmake.cmaketoolchain:user_toolchain`` inhibits the automatic definition of
+      ``CMAKE_SYSTEM_NAME``, ``CMAKE_SYSTEM_VERSION`` and ``CMAKE_SYSTEM_PROCESSOR`` that Conan would try to auto-detect
+      in cases of cross-building, and the user toolchains should provide these values or use other confs such as 
+      ``tools.cmake.cmaketoolchain:system_name``.
+    - The usage of ``tools.cmake.cmaketoolchain:enabled_blocks`` can be used together with ``tools.cmake.cmaketoolchain:user_toolchain``
+      to enable only certain blocks but avoid CMakeToolchain to override CMake values defined in the user toolchain
+      file.
 
 
 Extending and advanced customization
@@ -469,8 +490,13 @@ and added in this order:
                 # For CMAKE_INSTALL_DATAROOTDIR, takes the first value:
                 self.cpp.package.resdirs = ["myres"]
 
+
     .. note::
-        It is **not valid** to change the self.cpp_info  at the ``package_info()`` method.
+        It is **not valid** to change the self.cpp_info  at the ``package_info()`` method, the ``self.cpp.package``
+        needs to be defined instead.
+
+- **variables**: Define CMake variables from the ``CMakeToolchain.variables`` attribute.
+- **preprocessor**: Define preprocessor directives from ``CMakeToolchain.preprocessor_definitions`` attribute
 
 
 Customizing the content blocks
@@ -493,17 +519,30 @@ Every block can be customized in different ways (recall to call ``tc.generate()`
         tc = CMakeToolchain(self)
         tc.blocks.remove("generic_system", "cmake_flags_init")
 
-    # keep one block, remove all the others
+    # LEGACY: keep one block, remove all the others
     # If you want to generate conan_toolchain.cmake with only that
-    # block
+    # block. Use "tc.blocks.enabled()" instead
     def generate(self):
         tc = CMakeToolchain(self)
+        # this still leaves blocks "variables" and "preprocessor"
+        # use "tc.blocks.enabled()"" instead
         tc.blocks.select("generic_system")
 
-    # keep several blocks, remove the other blocks
+    # LEGACY: keep several blocks, remove the other blocks
+    # Use "tc.blocks.enabled()" instead
     def generate(self):
         tc = CMakeToolchain(self)
+        # this still leaves blocks "variables" and "preprocessor"
+        # use "tc.blocks.enabled()" instead
         tc.blocks.select("generic_system", "cmake_flags_init")
+
+    # keep several blocks, remove the other blocks
+    # This can be done from configuration with 
+    # tools.cmake.cmaketoolchain:enabled_blocs
+    def generate(self):
+        tc = CMakeToolchain(self)
+        # Discard all the other blocks except ``generic_system``
+        tc.blocks.enabled("generic_system")
 
     # iterate blocks
     def generate(self):
@@ -570,6 +609,27 @@ Every block can be customized in different ways (recall to call ``tc.generate()`
                 return {"myvar": "World"}
 
         tc.blocks["mynewblock"] = MyBlock
+
+
+It is possible to select which blocks are active from configuration in profiles, using the
+``tools.cmake.cmaketoolchain:enabled_blocks`` configuration. This is a list of blocks, so doing:
+
+.. code-block::
+
+    [conf]
+    tools.cmake.cmaketoolchain:enabled_blocks=["generic_system"]
+
+Will leave only the ``generic_system`` block, and discard all others.
+This feature can be used for example when users are providing their own toolchain files, and they don't
+need Conan ``CMakeToolchain`` to define any flags or CMake variables, except for the necessary paths so
+dependencies can be found. For this case, it should be possible to do something like:
+
+
+.. code-block::
+
+    [conf]
+    tools.cmake.cmaketoolchain:user_toolchain+=my_user_toolchain.cmake
+    tools.cmake.cmaketoolchain:enabled_blocks=["find_paths"]
 
 
 For more information about these blocks, please have a look at the source code.
@@ -653,6 +713,7 @@ CMakeToolchain is affected by these ``[conf]`` variables:
 - **tools.cmake.cmaketoolchain:system_name** is not necessary in most cases and is only used to force-define ``CMAKE_SYSTEM_NAME``.
 - **tools.cmake.cmaketoolchain:system_version** is not necessary in most cases and is only used to force-define ``CMAKE_SYSTEM_VERSION``.
 - **tools.cmake.cmaketoolchain:system_processor** is not necessary in most cases and is only used to force-define ``CMAKE_SYSTEM_PROCESSOR``.
+- **tools.cmake.cmaketoolchain:enabled_blocks** define which blocks are enabled and discard the others.
 - **tools.cmake.cmaketoolchain:extra_variables**: dict-like python object which specifies the CMake variable name and value. The value can be a plain string, a number or a dict-like python object which must specify the ``value`` (string/number) , ``cache`` (boolean), ``type`` (CMake cache type) and optionally, ``docstring`` (string: defaulted to variable name) and ``force`` (boolean) keys. It can override CMakeToolchain defined variables, for which users are at their own risk. E.g.
     
 .. code-block:: text
