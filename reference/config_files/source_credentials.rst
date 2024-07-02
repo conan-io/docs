@@ -26,6 +26,8 @@ URL that should match the recipe one. If the recipe URL starts with the given on
 then the credentials will be injected. If the file provides multiple credentials for multiple URLs, they
 will be evaluated in order until the first match happens. If no match is found, no credentials will be injected.
 
+It has to be noted that the ``source_credentials`` applies only to files downloaded with the ``tools.files`` ``download()`` and ``get()`` helpers, but it won't be used in other cases. To provide credentials for Conan repos, the ``credentials.json`` file should be used instead, see :ref:`reference_config_files_credentials`.
+
 .. code-block:: json
 
     {
