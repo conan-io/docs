@@ -64,7 +64,7 @@ translated from the current ``settings``:
   - Definition of ``CMAKE_VS_DEBUGGER_ENVIRONMENT`` when on Windows with Visual Studio.
     This sets up the ``PATH`` environment variable to point to directories containing DLLs,
     to allow debugging directly from the Visual Studio IDE without copying DLLs (requires CMake 3.27).
-  - Definition of ``CONAN_RUNTIME_LIB_DIRS`` to allow collecting runtime depencies (shared libraries),
+  - Definition of ``CONAN_RUNTIME_LIB_DIRS`` to allow collecting runtime dependencies (shared libraries),
     see below for details.
 
 - **conanvcvars.bat**: In some cases, the Visual Studio environment needs to be defined correctly for building,
