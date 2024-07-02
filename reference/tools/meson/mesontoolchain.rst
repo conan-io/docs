@@ -284,6 +284,25 @@ in this example of host profile:
     tools.apple:sdk_path=/my/path/to/iPhoneOS.sdk
 
 
+**Android**
+
+It initializes the ``MesonToolchain`` ``c``, ``cpp``, and ``ar`` attributes, which are needed to cross-compile for Android, given the
+Conan settings for Android and the ``tools.android:ndk_path`` configuration value like it's shown
+in this example of host profile:
+
+
+.. code-block:: text
+    :caption: **android_host_profile**
+
+    [settings]
+    os = Android
+    os.api_level = 21
+    arch = armv8
+
+    [conf]
+    tools.android:ndk_path=/my/path/to/NDK
+
+
 Cross-building and native=true
 ------------------------------
 
@@ -314,25 +333,6 @@ In Apple OS's there are also specific Objective-C/Objective-C++ arguments: ``obj
 ``objcpp``, ``objc_args``, ``objc_link_args``, ``objcpp_args``, and ``objcpp_link_args``,
 as public attributes of the ``MesonToolchain`` class, where the variables ``objc`` and
 ``objcpp`` are initialized as ``clang`` and ``clang++`` respectively by default.
-
-
-**Android**
-
-It initializes the ``MesonToolchain`` ``c``, ``cpp``, and ``ar`` attributes, which are needed to cross-compile for Android, given the
-Conan settings for Android and the ``tools.android:ndk_path`` configuration value like it's shown
-in this example of host profile:
-
-
-.. code-block:: text
-    :caption: **android_host_profile**
-
-    [settings]
-    os = Android
-    os.api_level = 21
-    arch = armv8
-
-    [conf]
-    tools.android:ndk_path=/my/path/to/NDK
 
 
 .. seealso::
