@@ -10,7 +10,7 @@ Let's create a basic project based on the template ``cmake_exe`` as an example o
 
 .. code:: bash
 
-    $ conan new -d name=foo -d version=1.0 cmake_exe
+    $ conan new cmake_exe -d name=foo -d version=1.0
 
 
 Generating the toolchain
