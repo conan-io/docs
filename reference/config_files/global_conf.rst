@@ -40,7 +40,7 @@ core.cache:storage_path
 ^^^^^^^^^^^^^^^^^^^^^^^
 
 Absolute path to a folder where the Conan packages and the database of the packages will be stored.
-This folder will be the heaviest Conan storage folder, as it stores the binary packages dowloaded or created.
+This folder will be the heaviest Conan storage folder, as it stores the binary packages downloaded or created.
 
 .. code-block:: text
     :caption: *global.conf*
