@@ -34,7 +34,6 @@ For a more detailed description of the major changes that Conan 2 brings, compar
 - Bugfix: Fix `conan list ... --format=compact` for package revisions. `#16490 <https://github.com/conan-io/conan/pull/16490>`_
 - Bugfix: Fix XcodeToolchain when only defines are set. `#16429 <https://github.com/conan-io/conan/pull/16429>`_
 
-
 2.4.1 (10-Jun-2024)
 -------------------
 
