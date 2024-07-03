@@ -118,13 +118,15 @@ like collecting licenses, generating reports, deploying binaries to the system, 
     $ conan install . --deployer=full_deploy
 
 
-There are 2 built-in deployers:
+There are 3 built-in deployers:
 
 - ``full_deploy`` does a complete copy of the dependencies binaries in the local folder, with a minimal folder
   structure to avoid conflicts between files and artifacts of different packages
 - ``direct_deploy`` does a copy of only the immediate direct dependencies, but does not include the transitive
   dependencies.
-
+- ``runtime_deploy`` deploys all the shared libraries and the executables of the
+  dependencies (like ``.so``, ``.dll``, or ``.dylib`` files) into a flat directory
+  structure. (Available since Conan 2.5.0)
 
 Some generators might have the capability of redefining the target "package folder". That means that if some other
 generator like ``CMakeDeps`` is used that is pointing to the packages, it will be pointing to the local deployed
