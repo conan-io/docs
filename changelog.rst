@@ -3,6 +3,37 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.5.0 (03-Jul-2024)
+-------------------
+
+- Feature: New ``tools.cmake.cmaketoolchain:enabled_blocks`` configuration to define which blocks of ``CMakeToolchain`` should be active or not. `#16563 <https://github.com/conan-io/conan/pull/16563>`_ . Docs `here <https://github.com/conan-io/docs/pull/3786>`__
+- Feature: Allow `--filter-options` in `conan list` to use `&:` scope to refer to all packages being listed. `#16559 <https://github.com/conan-io/conan/pull/16559>`_
+- Feature: Highlight missing or invalid requirements while computing dependency graph. `#16520 <https://github.com/conan-io/conan/pull/16520>`_
+- Feature: New ``conan lock update`` subcommand to remove + add a reference in the same command. `#16511 <https://github.com/conan-io/conan/pull/16511>`_ . Docs `here <https://github.com/conan-io/docs/pull/3784>`__
+- Feature: Add support for GCC 12.4. `#16506 <https://github.com/conan-io/conan/pull/16506>`_ . Docs `here <https://github.com/conan-io/docs/pull/3783>`__
+- Feature: Honoring `tools.android:ndk_path` conf. Setting the needed flags to cross-build for Android. `#16502 <https://github.com/conan-io/conan/pull/16502>`_ . Docs `here <https://github.com/conan-io/docs/pull/3787>`__
+- Feature: Add ``os.ndk_version`` for ``Android``. `#16494 <https://github.com/conan-io/conan/pull/16494>`_ . Docs `here <https://github.com/conan-io/docs/pull/3783>`__
+- Feature: Qbs helper now invokes Conan provider automatically. `#16486 <https://github.com/conan-io/conan/pull/16486>`_
+- Feature: Added force option to `tools.cmake.cmaketoolchain:extra_variables`. `#16481 <https://github.com/conan-io/conan/pull/16481>`_ . Docs `here <https://github.com/conan-io/docs/pull/3774>`__
+- Feature: Raising a ConanException if any section is duplicated in the same Conan profile file. `#16454 <https://github.com/conan-io/conan/pull/16454>`_
+- Feature: Added `resolve()` method to the Qbs toolchain. `#16449 <https://github.com/conan-io/conan/pull/16449>`_
+- Feature: Make ``MSBuildDeps`` generation with deployer relocatable. `#16441 <https://github.com/conan-io/conan/pull/16441>`_
+- Feature: Add QbsDeps class to be used with Qbs Conan module provider. `#16334 <https://github.com/conan-io/conan/pull/16334>`_
+- Feature: Add built in `runtime_deploy` deployer. `#15382 <https://github.com/conan-io/conan/pull/15382>`_ . Docs `here <https://github.com/conan-io/docs/pull/3789>`__
+- Fix: Fix provides conflict error message not showing conflicting provides when a named reference matches a provider. `#16562 <https://github.com/conan-io/conan/pull/16562>`_
+- Fix: Set correct `testpaths` for pytest. `#16530 <https://github.com/conan-io/conan/pull/16530>`_
+- Fix: Allow ``.conanrc`` file in the root of a filesystem. `#16514 <https://github.com/conan-io/conan/pull/16514>`_
+- Fix: Add support for non default docker hosts in conan runners `#16477 <https://github.com/conan-io/conan/pull/16477>`_
+- Fix: Don't fail when we can't overwrite the summary file in the backup upload. `#16452 <https://github.com/conan-io/conan/pull/16452>`_
+- Fix: Make ``source_credentials.json`` do not apply to Conan server repos protocol. `#16425 <https://github.com/conan-io/conan/pull/16425>`_ . Docs `here <https://github.com/conan-io/docs/pull/3785>`__
+- Fix: Allow packages to have empty folders. `#16424 <https://github.com/conan-io/conan/pull/16424>`_
+- Bugfix: Fix ``detect_msvc_compiler()`` from ``detect_api`` to properly detect VS 17.10 with ``compiler.version=194``. `#16581 <https://github.com/conan-io/conan/pull/16581>`_
+- Bugfix: Fix unexpected error when a recipe performs `package_id()` `info` erasure and is used as a compatibility candidate. `#16575 <https://github.com/conan-io/conan/pull/16575>`_
+- Bugfix: Ensure msvc cppstd compatibility fallback does not ignore 194 binaries. `#16573 <https://github.com/conan-io/conan/pull/16573>`_
+- Bugfix: `XXXDeps` generators did not include an absolute path in their generated files if `--deployer-folder=xxxx` param was used. `#16552 <https://github.com/conan-io/conan/pull/16552>`_
+- Bugfix: Fix `conan list ... --format=compact` for package revisions. `#16490 <https://github.com/conan-io/conan/pull/16490>`_
+- Bugfix: Fix XcodeToolchain when only defines are set. `#16429 <https://github.com/conan-io/conan/pull/16429>`_
+
 2.4.1 (10-Jun-2024)
 -------------------
 
