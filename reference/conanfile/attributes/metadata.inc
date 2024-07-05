@@ -89,4 +89,4 @@ Recommended, but not mandatory attribute.
     class HelloConan(ConanFile):
         name = "hello"
         version = "0.1"
-        url = "https://github.com/conan-io/hello.git"
+        url = "https://github.com/conan-io/libhello.git"
