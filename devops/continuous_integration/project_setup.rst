@@ -1,0 +1,90 @@
+Project setup
+=============
+
+The code necessary for this tutorial is found in the ``examples2`` repo, clone it and 
+move to the folder:
+
+
+.. code-block:: bash
+
+    $ git clone https://github.com/conan-io/examples2.git
+    $ cd examples2/devops/ci/game
+
+
+Server repositories setup
+-------------------------
+
+We need 3 different repositories in the same server. Make sure to have an Artifactory running and available. You can download the free  `JFrog Artifactory Community Edition (CE) <https://conan.io/downloads.html>`_ and run it in your own computer. Log into the web UI and create 3 different local repositories called ``develop``, ``packages`` and ``products``.
+
+Edit the ``project_setup.py`` file:
+
+.. code-block:: python
+        
+    # TODO: This must be configured by users
+    SERVER_URL = "http://<your url>/artifactory/api/conan"
+    USER = "admin"
+    PASSWORD = "your password"
+
+
+Initial dependency graph
+------------------------
+
+.. warning::
+
+    - The initialization of the project will remove the contents of the 3 ``develop``, ``products`` and ``packages`` repositories.
+    - The ``examples2/devops/ci/game`` folder contains an ``.conanrc`` file that defines a local cache, so commands executed in this tutorial do not pollute or alter your main Conan cache.
+
+
+.. code-block:: bash
+
+    $ python project_setup.py
+
+This will do several tasks, clean the server repos, create initial ``Debug`` and ``Release`` binaries for the dependency graph and upload them to the ``develop`` repo, then clean the local cache.
+
+This dependency graph of packages in the ``develop`` repo is the starting point for our tutorial, assumed as a functional and stable "develop" state of the project that developers can ``conan install`` to work in any of the different packages.
+
+.. graphviz::
+    :align: center
+
+    digraph repositories {
+        node [fillcolor="lightskyblue", style=filled, shape=box]
+        rankdir="LR"; 
+        subgraph cluster_0 {
+                label="Packages server";
+                style=filled;
+                color=lightgrey;
+                subgraph cluster_1 {
+                label = "packages\n repository" 
+                shape = "box";
+                style=filled;
+                color=lightblue;
+                "packages" [style=invis];
+                }
+                subgraph cluster_2 {
+                label = "products\n repository" 
+                shape = "box";
+                style=filled;
+                color=lightblue;
+                "products" [style=invis];
+                } 
+                subgraph cluster_3 {
+                rankdir="BT";
+                shape = "box";
+                label = "develop repository";
+                color=lightblue;
+                rankdir="BT";
+        
+                node [fillcolor="lightskyblue", style=filled, shape=box]
+                "game/1.0" -> "engine/1.0" -> "ai/1.0" -> "mathlib/1.0";
+                "engine/1.0" -> "graphics/1.0" -> "mathlib/1.0";
+                "mapviewer/1.0" -> "graphics/1.0";
+                "game/1.0" [fillcolor="lightgreen"];
+                "mapviewer/1.0" [fillcolor="lightgreen"];
+                }
+                {
+                edge[style=invis];
+                "packages" -> "products" -> "game/1.0" ; 
+                rankdir="BT";    
+                }
+        }
+    }

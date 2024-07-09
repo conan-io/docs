@@ -1,0 +1,2 @@
+Products pipeline: single configuration
+=======================================
