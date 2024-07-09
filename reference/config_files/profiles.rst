@@ -662,25 +662,24 @@ the associated runtime, you can use:
 
 **detect_api reference**:
 
-    - **`detect_os()`**: returns operating system as a string (e.g., "Windows", "Macos").
-    - **`detect_arch()`**: returns system architecture as a string (e.g., "x86_64", "armv8").
-    - **`detect_libc(ldd="/usr/bin/ldd")`**: **experimental** returns a tuple with the name (e.g., "gnu", "musl") and version (e.g., "2.39", "1.2.4") of the C library.
-    - **`detect_libcxx(compiler, version, compiler_exe=None)`**: returns C++ standard library as a string (e.g., "libstdc++", "libc++").
-    - **`default_msvc_runtime(compiler)`**: returns tuple with runtime (e.g., "dynamic") and its version (e.g., "v143").
-    - **`default_cppstd(compiler, compiler_version)`**: returns default C++ standard as a string (e.g., "gnu14").
-    - **`detect_default_compiler()`**: returns tuple with compiler name (e.g., "gcc"), its version and the executable path.
-    - **`detect_msvc_update(version)`**: returns MSVC update version as a string (e.g., "7").
-    - **`default_msvc_ide_version(version)`**: returns MSVC IDE version as a string (e.g., "17").
-    - **`default_compiler_version(compiler, version)`**: returns the default version that
-        Conan uses in profiles, typically dropping some of the minor or patch digits, that
-        do not affect binary compatibility.
-    - **`detect_gcc_compiler(compiler_exe="gcc")`**: Return the tuple ('gcc', version, executable) for ``gcc``
-    - **`detect_intel_compiler(compiler_exe="icx")`**: Return the tuple ('intel-cc', version, executable) for ``intel-cc``
-    - **`detect_suncc_compiler(compiler_exe="cc")`**: Return the tuple ('sun-cc', version, executable) for ``sun-cc``
-    - **`detect_clang_compiler(compiler_exe="clang")`**: Return the tuple ('clang'|'apple-clang', version, executable) for ``clang`` or ``apple-clang``.
-    - **`detect_msvc_compiler()`**: Detect the compiler ('msvc', version, None) default version of the latest VS IDE installed
-    - **`detect_cl_compiler(compiler_exe="cl")`**: Detect the compiler ('msvc', version, executable) for the ``cl.exe`` compiler
-    - **`detect_sdk_version(sdk)`**: Detect the Apple SDK version (``None`` for non Apple platforms), for the given ``sdk``. Equivalent to ``xcrun -sdk {sdk} --show-sdk-version``
+    - ``detect_os()``: returns operating system as a string (e.g., "Windows", "Macos").
+    - ``detect_arch()``: returns system architecture as a string (e.g., "x86_64", "armv8").
+    - ``detect_libc(ldd="/usr/bin/ldd")``: **experimental** returns a tuple with the name (e.g., "gnu", "musl") and version (e.g., "2.39", "1.2.4") of the C library.
+    - ``detect_libcxx(compiler, version, compiler_exe=None)``: returns C++ standard library as a string (e.g., "libstdc++", "libc++").
+    - ``default_msvc_runtime(compiler)``: returns tuple with runtime (e.g., "dynamic") and its version (e.g., "v143").
+    - ``default_cppstd(compiler, compiler_version)``: returns default C++ standard as a string (e.g., "gnu14").
+    - ``detect_default_compiler()``: returns tuple with compiler name (e.g., "gcc"), its version and the executable path.
+    - ``detect_msvc_update(version)``: returns MSVC update version as a string (e.g., "7").
+    - ``default_msvc_ide_version(version)``: returns MSVC IDE version as a string (e.g., "17").
+    - ``default_compiler_version(compiler, version)``: returns the default version that  Conan uses in profiles,
+      typically dropping some of the minor or patch digits, that do not affect binary compatibility.
+    - ``detect_gcc_compiler(compiler_exe="gcc")``: Return the tuple ('gcc', version, executable) for ``gcc``
+    - ``detect_intel_compiler(compiler_exe="icx")``: Return the tuple ('intel-cc', version, executable) for ``intel-cc``
+    - ``detect_suncc_compiler(compiler_exe="cc")``: Return the tuple ('sun-cc', version, executable) for ``sun-cc``
+    - ``detect_clang_compiler(compiler_exe="clang")``: Return the tuple ('clang'|'apple-clang', version, executable) for ``clang`` or ``apple-clang``.
+    - ``detect_msvc_compiler()``: Detect the compiler ('msvc', version, None) default version of the latest VS IDE installed
+    - ``detect_cl_compiler(compiler_exe="cl")``: Detect the compiler ('msvc', version, executable) for the ``cl.exe`` compiler
+    - ``detect_sdk_version(sdk)``: Detect the Apple SDK version (``None`` for non Apple platforms), for the given ``sdk``. Equivalent to ``xcrun -sdk {sdk} --show-sdk-version``
 
 
 .. _reference_config_files_profile_patterns:
