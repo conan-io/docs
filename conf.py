@@ -12,6 +12,7 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 import pathlib
+import subprocess
 import sys
 import os
 from shutil import copyfile
@@ -455,5 +456,11 @@ def copy_legacy_redirects(app, docname): # Sphinx expects two arguments
             with open(target_path, "w") as f:
                 f.write(html)
 
+def get_conan_version():
+    out, _ = subprocess.Popen("conan --version", stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, shell=True).communicate()
+    return out
+
 def setup(app):
     app.connect('build-finished', copy_legacy_redirects)
+    # Run Conan once, so autocommands are executed without migrations
+    print("Running with Conan version: ", get_conan_version().decode().strip())
