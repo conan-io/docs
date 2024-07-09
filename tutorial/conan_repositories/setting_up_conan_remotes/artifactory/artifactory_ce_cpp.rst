@@ -21,7 +21,7 @@ There are several ways to run Artifactory CE:
 
 .. code-block:: bash
     
-    $ docker run --name artifactory -d -p 8081:8081 -p 8082:8082 releases-docker.jfrog.io/jfrog/artifactory-cpp-ce:7.63.12
+    $ docker run --name artifactory -d -p 8081:8081 -p 8082:8082 releases-docker.jfrog.io/jfrog/artifactory-cpp-ce:7.84.17
 
 * **Download and run from zip file**. The `Download Page <https://conan.io/downloads.html>`_ has
   a link for you to follow. When the file is unzipped, launch Artifactory by double clicking
