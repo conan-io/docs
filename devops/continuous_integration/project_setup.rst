@@ -14,7 +14,7 @@ move to the folder:
 Server repositories setup
 -------------------------
 
-We need 3 different repositories in the same server. Make sure to have an Artifactory running and available. You can download the free  `JFrog Artifactory Community Edition (CE) <https://conan.io/downloads.html>`_ and run it in your own computer. Log into the web UI and create 3 different local repositories called ``develop``, ``packages`` and ``products``.
+We need 3 different repositories in the same server. Make sure to have an Artifactory running and available. You can download the free  `JFrog Artifactory Community Edition (CE) <https://conan.io/downloads.html>`_ and run it in your own computer. If you have another available Artifactory, it can be used too if you can create new repositories there. Log into the web UI and create 3 different local repositories called ``develop``, ``packages`` and ``products``.
 
 Edit the ``project_setup.py`` file:
 
@@ -39,7 +39,8 @@ Initial dependency graph
 
     $ python project_setup.py
 
-This will do several tasks, clean the server repos, create initial ``Debug`` and ``Release`` binaries for the dependency graph and upload them to the ``develop`` repo, then clean the local cache.
+This will do several tasks, clean the server repos, create initial ``Debug`` and ``Release`` binaries for the dependency graph and upload them to the ``develop`` repo, then clean the local cache. Note in this example we are using ``Debug`` and ``Release`` different configurations for convenience, but in real cases these would be different configurations such as Windows/X86_64, Linux/x86_64, Linux/armv8, etc., running
+in different computers.
 
 This dependency graph of packages in the ``develop`` repo is the starting point for our tutorial, assumed as a functional and stable "develop" state of the project that developers can ``conan install`` to work in any of the different packages.
 

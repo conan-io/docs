@@ -78,8 +78,15 @@ The concept of multiple server side repositories is very important for CI. In th
   in a package source code to be correct, it might require that such change build correctly under a variaty of platforms, lets say Windows and Linux.
   If the package builds correctly under Linux more quickly, we can upload it to the ``packages`` repository, and wait until the Windows build 
   finishes, and only when both are correct we can proceed. The ``packages`` repository serves as a temporary storage when building different
-  binaries for the same package in different platforms concurrently.
-- ``products``: It is possible that some changes create 
+  binaries for the same package in different platforms concurrently, until all of those configurations have been built correctly. In the example
+  above, when some developer did source changes in a new ``ai/1.1.0`` recipe, the different binaries for Windows and Linux will be built in different
+  servers. These jobs can upload their respective binaries for Windows and Linux to the ``packages`` binary repository. Note that these individual
+  binaries will not disrupt other developers or CI jobs, as they don't use the ``packages`` repository.
+- ``products``: It is possible that some changes create new package versions or revisions correctly. But these new versions might break consumers
+  of those packages, for example some changes in the new ``ai/1.1.0`` package might unexpectedly break ``engine/1.0``. Or even if they don't
+  necessarily break, they might still need to build a new binary from source for ``engine/1.0`` and/or ``game/1.0``. The ``products`` binary
+  repository will be the place where binaries for different packages are uploaded to not disrupt or break the ``develop`` repository, until
+  the "products pipeline" can build necessary binaries from source and verify that these packages integrate cleanly.
 
 
 .. graphviz::
@@ -97,6 +104,31 @@ The concept of multiple server side repositories is very important for CI. In th
         }
        
     }
+
+Promotions are the mechanism used to make available packages from one pipeline to the other. Connecting the above packages and product pipelines
+with the repositories, there will be 2 promotions:
+
+- First, when the developer submit the changes that create the new ``ai/1.1.0`` version, the ``package pipeline`` is triggered. It will build
+  new binaries for ``ai/1.1.0`` for Windows and Linux. These jobs will upload their respective package binaries to the ``packages`` binary 
+  repository. If some of this jobs succeed, but other fail, it won't be a problem, because the ``packages`` repo is not used by other jobs,
+  so the new ``ai/1.1.0`` new package will still not be used by other packages and won't break anyone.
+- When all the different binaries for ``ai/1.1.0`` have been built correctly, the ``package pipeline`` can consider its job succesfull and decide
+  to promote those binaries. But further package builds and checks are necessary, so instead of promoting them to the ``develop`` repository,
+  the ``package pipeline`` can promote them to the ``products`` binary repository. As all other developers and CI use the ``develop`` repository,
+  no one will be broken at this stage either.
+- The promotion is a copy of the packages. This can be done with several mechanisms, for example the ``conan art:promote`` extension commands
+  can efficiently promote Conan "package lists" between Artifactory (Pro) repositories. As Artifactory is deduplicating storage, this promotion
+  will be very fast and do not require any extra storage. 
+- One very important aspect of the promotion mechanisms is that packages are **immutable**. They do not change at all, not its contents,
+  not its reference. Using user/channel to denote stages or maturity is discouraged.
+- Then, when packages are in the ``products`` repository, the ``products pipeline`` can be triggered. This job will make sure that both the
+  organization products ``game/1.0`` and ``mapviewer/1.0`` build cleanly with the new ``ai/1.1.0`` package, and build necessary new package
+  binaries, for example if ``engine/1.0`` needs to do a build from source to integrate the changes in ``ai/1.1.0`` the ``products pipeline``
+  will make sure that this happens.
+- When the ``products pipeline`` build all necessary new binaries for all intermediate and product packages and check that every is correct, then
+  these new packages can be made available for all other developers and CI jobs. This can be done with a promotion of these packages, copying
+  them from the ``products`` repository to the ``develop`` repository. As the changes have been integrated and tested consistently for the main
+  organization products, developers doing ``conan install`` will start seeing and using the new packages and binaries.
 
 
 Let's start with the tutorial, move to the next section to do the project setup:
