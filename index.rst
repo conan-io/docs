@@ -16,6 +16,7 @@ Table of contents:
    whatsnew
    installation
    tutorial
+   CI Tutorial <ci_tutorial/tutorial>
    devops
    integrations
    examples

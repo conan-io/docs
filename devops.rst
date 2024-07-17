@@ -14,7 +14,6 @@ If you plan to use Conan in production in your project, team, or organization, t
 
    devops/using_conancenter
    devops/devops_local_recipes_index
-   devops/continuous_integration/tutorial
    devops/backup_sources/sources_backup
    devops/metadata
    devops/versioning
