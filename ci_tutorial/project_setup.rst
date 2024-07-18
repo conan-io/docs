@@ -23,11 +23,12 @@ We need 3 different repositories in the same server. Make sure to have an Artifa
     # Can be stopped with "docker stop artifactory"
 
 When you launch it, you can go to http://localhost:8081/ to check it (user: "admin", password: "password").
+If you have another available Artifactory, it can be used too if you can create new repositories there. 
 
 
-If you have another available Artifactory, it can be used too if you can create new repositories there. Log into the web UI and create 3 different local repositories called ``develop``, ``packages`` and ``products``.
+✍️ As a first step, log into the web UI and **create 3 different local repositories** called ``develop``, ``packages`` and ``products``.
 
-Edit the ``project_setup.py`` file:
+✍️ Then edit the ``project_setup.py`` file:
 
 .. code-block:: python
         
