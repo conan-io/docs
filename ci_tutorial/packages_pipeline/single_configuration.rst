@@ -13,7 +13,8 @@ Let's make sure we start from a clean state:
 
     $ conan remove "*" -c  # Make sure no packages from last run
     $ conan remote remove "*"  # Make sure no other remotes defined
-    $ conan remote add develop <url-develop-repo>  # Add only the develop repo
+    # Add only the develop repo, you might need to adjust this for your URL
+    $ conan remote add develop http://localhost:8081/artifactory/api/conan/develop
 
 
 The removal and addition of repos accross this tutorial can be a bit tedious, but it is important for the correct
@@ -24,7 +25,8 @@ With this configuration the CI job could just do:
 
 .. code-block:: bash
 
-    $ conan create ai --build="missing:ai/*"
+    $ cd ai
+    $ conan create . --build="missing:ai/*"
     ...
     ai/1.1.0: SUPER BETTER Artificial Intelligence for aliens (Release)!
     ai/1.1.0: Intelligence level=50
@@ -34,14 +36,16 @@ Note the ``--build="missing:ai/*"`` might not be fully necessary in some cases, 
 For example, if the developer did some changes just to the repo README, and didn't bump the version at all, Conan will not 
 generate a new ``recipe revision``, and detect this as a no-op, avoiding having to unnecessarily rebuild binaries from source.
 
-If we are in a single-configuration scenario and it built correctly, for this simple case we won't need a promotion at all,
-and just uploading directly the built packages to the ``products`` repository will be enough:
+If we are in a single-configuration scenario and it built correctly, for this simple case we don't need a promotion,
+and just uploading directly the built packages to the ``products`` repository will be enough, where the ``products pipeline``
+will pick it later.
 
 
 .. code-block:: bash
 
-    # We don't want to disrupt developers or CI, upload to products
-    $ conan remote add products <url-products-repo>  
+    # We don't want to disrupt developers or CI, upload to products 
+    # Add products repo, you might need to adjust this URL
+    $ conan remote add products http://localhost:8081/artifactory/api/conan/products
     $ conan upload "ai*" -r=products -c
 
 As the cache was initially clean, all ``ai`` packages would be the ones that were built in this pipeline.

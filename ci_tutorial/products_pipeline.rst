@@ -1,7 +1,27 @@
 Products pipeline
 ==================
 
+The **products pipeline** responds a more challenging question: does my "products" build correctly with the latest changes that have been done
+to the packages? This is the real "Continuous Integration" part, in which changes in different packages are really tested against the organization
+important product to check if things integrate cleanly or break. Let's continue with the example above, if we now have a new ``ai/1.1.0`` package,
+is it going to break the existing ``game/1.0`` and/or ``mapviewer/1.0`` applications? Is it necessary to re-build from source some of the existing
+packages that depend directly or indirectly on ``ai`` package? In this tutorial we will use ``game/1.0`` and ``mapviewer/1.0`` as our "products",
+but this concept will be further explained later, and specially why it is important to think in terms of "products" instead of trying to explicitly
+model the dependencies top-bottom in the CI.
 
+
+
+- Then, when packages are in the ``products`` repository, the ``products pipeline`` can be triggered. This job will make sure that both the
+  organization products ``game/1.0`` and ``mapviewer/1.0`` build cleanly with the new ``ai/1.1.0`` package, and build necessary new package
+  binaries, for example if ``engine/1.0`` needs to do a build from source to integrate the changes in ``ai/1.1.0`` the ``products pipeline``
+  will make sure that this happens.
+
+  
+- ``products``: It is possible that some changes create new package versions or revisions correctly. But these new versions might break consumers
+  of those packages, for example some changes in the new ``ai/1.1.0`` package might unexpectedly break ``engine/1.0``. Or even if they don't
+  necessarily break, they might still need to build a new binary from source for ``engine/1.0`` and/or ``game/1.0``. The ``products`` binary
+  repository will be the place where binaries for different packages are uploaded to not disrupt or break the ``develop`` repository, until
+  the "products pipeline" can build necessary binaries from source and verify that these packages integrate cleanly.
 
 There are some important points to understand about the products pipeline:
 

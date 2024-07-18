@@ -1,10 +1,12 @@
+.. _ci_tutorial:
+
 Continuous Integration (CI) tutorial
 ====================================
 
 Continuous Integration has different meanings for different users and organizations. In this tutorial we will cover the scenarios when users
 are doing changes to the source code of their packages and want to automatically build new binaries for those packages and also compute if those new package changes integrate cleanly or break the organization main products.
 
-We will use in this tutorial this small project that uses several packages (static libraries by default) to build a couple of applications, a video game and a map viewer utility:
+We will use in this tutorial this small project that uses several packages (static libraries by default) to build a couple of applications, a video game and a map viewer utility. The game and mapviewer are our final "products", what we distribute to our users:
 
 .. graphviz::
     :align: center
@@ -47,22 +49,14 @@ Packages and products pipelines
 When a developer is doing some changes to a package source code, we will consider 2 different parts or pipelines of the overall system CI:
 the **packages pipeline** and the **products pipeline**
 
+- The **packages pipeline** takes care of building one single package when its code is changed. If necessary it will build it for different configurations.
+- The **products pipeline** takes care of building the main organization "products" (the packages that implement the final applications or deliverables),
+  and making sure that changes and new versions in dependencies integrate correctly, rebuilding any intermediate packages in the graph if necessary.
 
-The **packages pipeline** will build, create and upload the package binaries for the different configurations and platforms, when some
-developer is submitting some changes to one of the organization repositories source code. For example if a developer is doing some changes
-to the ``ai`` package, improving some of the library functionality, and bumping the version to ``ai/1.1.0``. If the organization needs to
-support both Windows and Linux platforms, then the package pipeline will build the new ``ai/1.1.0`` both for Windows and Linux, before
-considering the changes are valid. If some of the configurations fail to build under a specific platform, it is common to consider the
-changes invalid and stop the processing of those changes, until the code is fixed.
-
-
-The **products pipeline** responds a more challenging question: does my "products" build correctly with the latest changes that have been done
-to the packages? This is the real "Continuous Integration" part, in which changes in different packages are really tested against the organization
-important product to check if things integrate cleanly or break. Let's continue with the example above, if we now have a new ``ai/1.1.0`` package,
-is it going to break the existing ``game/1.0`` and/or ``mapviewer/1.0`` applications? Is it necessary to re-build from source some of the existing
-packages that depend directly or indirectly on ``ai`` package? In this tutorial we will use ``game/1.0`` and ``mapviewer/1.0`` as our "products",
-but this concept will be further explained later, and specially why it is important to think in terms of "products" instead of trying to explicitly
-model the dependencies top-bottom in the CI.
+The idea is that if some developer does changes to ``ai`` package, producing a new ``ai/1.1.0`` version, the packages pipeline will first build this
+new version. But this new version might accidentally break or require rebuilding some consumers packages. If our organization main **products** are
+``game/1.0`` and ``mapviewer/1.0``, then the products pipeline can be triggered, in this case it would rebuild ``engine/1.0`` and ``game/1.0`` as
+they are affected by the change.
 
 
 Repositories and promotions
@@ -74,20 +68,10 @@ The concept of multiple server side repositories is very important for CI. In th
   and work. As such it is expected to be quite stable, similar to a shared "develop" branch in git, and the repository should contain pre-compiled
   binaries for the organization pre-defined platforms, so developers and CI don't need to do ``--build=missing`` and build again and again from
   source.
-- ``packages``: This repository will be used to upload individual package binaries for different configurations. To consider a certain change
-  in a package source code to be correct, it might require that such change build correctly under a variaty of platforms, lets say Windows and Linux.
-  If the package builds correctly under Linux more quickly, we can upload it to the ``packages`` repository, and wait until the Windows build 
-  finishes, and only when both are correct we can proceed. The ``packages`` repository serves as a temporary storage when building different
-  binaries for the same package in different platforms concurrently, until all of those configurations have been built correctly. In the example
-  above, when some developer did source changes in a new ``ai/1.1.0`` recipe, the different binaries for Windows and Linux will be built in different
-  servers. These jobs can upload their respective binaries for Windows and Linux to the ``packages`` binary repository. Note that these individual
-  binaries will not disrupt other developers or CI jobs, as they don't use the ``packages`` repository.
-- ``products``: It is possible that some changes create new package versions or revisions correctly. But these new versions might break consumers
-  of those packages, for example some changes in the new ``ai/1.1.0`` package might unexpectedly break ``engine/1.0``. Or even if they don't
-  necessarily break, they might still need to build a new binary from source for ``engine/1.0`` and/or ``game/1.0``. The ``products`` binary
-  repository will be the place where binaries for different packages are uploaded to not disrupt or break the ``develop`` repository, until
-  the "products pipeline" can build necessary binaries from source and verify that these packages integrate cleanly.
-
+- ``packages``: This repository will be used to temporarily upload the packages built by the "packages pipeline", to not upload them directly to
+  the ``develop`` repo and avoid disruption until these packages are fully validated.
+- ``products``: This repository will be used to temporarily upload the packages built by the "products pipeline", while building and testing that
+  new dependencies changes do not break the main "products".
 
 .. graphviz::
     :align: center
@@ -108,27 +92,16 @@ The concept of multiple server side repositories is very important for CI. In th
 Promotions are the mechanism used to make available packages from one pipeline to the other. Connecting the above packages and product pipelines
 with the repositories, there will be 2 promotions:
 
-- First, when the developer submit the changes that create the new ``ai/1.1.0`` version, the ``package pipeline`` is triggered. It will build
-  new binaries for ``ai/1.1.0`` for Windows and Linux. These jobs will upload their respective package binaries to the ``packages`` binary 
-  repository. If some of this jobs succeed, but other fail, it won't be a problem, because the ``packages`` repo is not used by other jobs,
-  so the new ``ai/1.1.0`` new package will still not be used by other packages and won't break anyone.
-- When all the different binaries for ``ai/1.1.0`` have been built correctly, the ``package pipeline`` can consider its job succesfull and decide
-  to promote those binaries. But further package builds and checks are necessary, so instead of promoting them to the ``develop`` repository,
-  the ``package pipeline`` can promote them to the ``products`` binary repository. As all other developers and CI use the ``develop`` repository,
-  no one will be broken at this stage either.
-- The promotion is a copy of the packages. This can be done with several mechanisms, for example the ``conan art:promote`` extension commands
-  can efficiently promote Conan "package lists" between Artifactory (Pro) repositories. As Artifactory is deduplicating storage, this promotion
-  will be very fast and do not require any extra storage. 
-- One very important aspect of the promotion mechanisms is that packages are **immutable**. They do not change at all, not its contents,
-  not its reference. Using user/channel to denote stages or maturity is discouraged.
-- Then, when packages are in the ``products`` repository, the ``products pipeline`` can be triggered. This job will make sure that both the
-  organization products ``game/1.0`` and ``mapviewer/1.0`` build cleanly with the new ``ai/1.1.0`` package, and build necessary new package
-  binaries, for example if ``engine/1.0`` needs to do a build from source to integrate the changes in ``ai/1.1.0`` the ``products pipeline``
-  will make sure that this happens.
-- When the ``products pipeline`` build all necessary new binaries for all intermediate and product packages and check that every is correct, then
-  these new packages can be made available for all other developers and CI jobs. This can be done with a promotion of these packages, copying
-  them from the ``products`` repository to the ``develop`` repository. As the changes have been integrated and tested consistently for the main
-  organization products, developers doing ``conan install`` will start seeing and using the new packages and binaries.
+- When all the different binaries for the different configurations have been built for a single package with the ``packages pipeline``, and uploaded
+  to the ``packages`` repository, the package changes and package new version can be considered "correct" and promoted (copied) to the ``products``
+  repository.
+- When the ``products pipeline`` has built from source all the necessary packages that need a re-build because of the new package versions in
+  the ``products`` repository and has checked that the organization "products" (such ``game/1.0`` and ``mapviewer/1.0``) are not broken, then
+  the packages can be promoted (copied) from the ``products`` repo to the ``develop`` repo, to make them available for all other developers and CI.
+
+This tutorial is just modeling the **development** flow. In production systems, there will be other repositories
+and promotions, like a ``testing`` repository for the QA team, and a final ``release`` repository for final users and packages can
+be promoted from ``develop`` to ``testing`` to ``release`` as they pass validation. Read more about promotions in :ref:`Package promotions<devops_package_promotions>`.
 
 
 Let's start with the tutorial, move to the next section to do the project setup:

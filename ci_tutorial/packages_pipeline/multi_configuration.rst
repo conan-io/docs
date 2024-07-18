@@ -13,7 +13,8 @@ Let's begin cleaning our cache and initializing only the ``develop`` repo:
 
     $ conan remove "*" -c  # Make sure no packages from last run
     $ conan remote remove "*"  # Make sure no other remotes defined
-    $ conan remote add develop <url-develop-repo>  # Add only the develop repo
+    # Add develop repo, you might need to adjust this URL
+    $ conan remote add develop http://localhost:8081/artifactory/api/conan/develop
 
 
 We will create the packages for the 2 configurations sequentially in our computer, but note these will typically run
@@ -22,20 +23,22 @@ in different computers, so it is typical for CI systems to launch the builds of 
 .. code-block:: bash
     :caption: Release build
 
+    $ cd ai
     $ conan create . --build="missing:ai/*" -s build_type=Release --format=json > graph.json
-    $ conan list --graph=graph.json --graph-binaries=build --format=json > upload_release.json
-    $ conan remote add packages "<url-packages-repo>"
-    $ conan upload -l=upload_release.json -r=packages -c --format=json > upload_release.json
+    $ conan list --graph=graph.json --graph-binaries=build --format=json > built.json
+    # Add packages repo, you might need to adjust this URL
+    $ conan remote add packages http://localhost:8081/artifactory/api/conan/packages
+    $ conan upload -l=built.json -r=packages -c --format=json > uploaded_release.json
 
 We have done a few changes and extra steps:
 
 - First step is similar to the one in the previous section, a ``conan create``, just making it explicit our configuration
   ``-s build_type=Release`` for clarity, and capturing the output of the ``conan create`` in a ``graph.json`` file.
-- The second step is create a ``upload_release.json`` **package list** file, with the packages that needs to be uploaded,
+- The second step is create from the ``graph.json`` a ``built.json`` **package list** file, with the packages that needs to be uploaded,
   in this case, only the packages that have been built from source (``--graph-binaries=build``) will be uploaded. This is
   done for efficiency and faster uploads.
 - Third step is to define the ``packages`` repository
-- Finally, we will upload the ``upload_release.json`` package list to the ``packages`` repository, updating the ``upload_release.json``
+- Finally, we will upload the ``built.json`` package list to the ``packages`` repository, creating the ``uploaded_release.json``
   package list with the new location of the packages (the server repository).
 
 Likewise, the Debug build will do the same steps:
@@ -45,9 +48,10 @@ Likewise, the Debug build will do the same steps:
     :caption: Debug build
 
     $ conan create . --build="missing:ai/*" -s build_type=Debug --format=json > graph.json
-    $ conan list --graph=graph.json --graph-binaries=build --format=json > upload_debug.json
-    $ conan remote add packages "<url-packages-repo>" -f  # Can be ommitted, it was defined above
-    $ conan upload -l=upload_debug.json -r=packages -c --format=json > upload_debug.json
+    $ conan list --graph=graph.json --graph-binaries=build --format=json > built.json
+    # Remote definition can be ommitted in tutorial, it was defined above (-f == force)
+    $ conan remote add packages http://localhost:8081/artifactory/api/conan/packages -f  
+    $ conan upload -l=built.json -r=packages -c --format=json > uploaded_debug.json
 
 
 When both Release and Debug configuration finish successfully, we would have these packages in the repositories:
@@ -100,6 +104,14 @@ When both Release and Debug configuration finish successfully, we would have the
         }
     }
 
+TODO
+
+
+- When all the different binaries for ``ai/1.1.0`` have been built correctly, the ``package pipeline`` can consider its job succesfull and decide
+  to promote those binaries. But further package builds and checks are necessary, so instead of promoting them to the ``develop`` repository,
+  the ``package pipeline`` can promote them to the ``products`` binary repository. As all other developers and CI use the ``develop`` repository,
+  no one will be broken at this stage either.
+
 
 If the build of all configurations for ``ai/1.1.0`` were succesfull, then the ``packages pipeline`` can proceed and promote
 them to the ``products`` repository:
@@ -108,18 +120,16 @@ them to the ``products`` repository:
     :caption: Promoting from packages->product
 
     # aggregate the package list
-    $ conan pkglist merge -l upload_release.json -l upload_debug.json --format=json > promote.json
+    $ conan pkglist merge -l uploaded_release.json -l uploaded_debug.json --format=json > uploaded.json
 
-    $ conan remote add packages "<url-packages-repo>" -f  # Can be ommitted, it was defined above
-    $ conan remote add products "<url-products-repo>" -f  # Can be ommitted, it was defined above
-
-    # Promotion with Artifactory CE (slow, can be improved with art:promote)
-    $ conan download --list=promote.json -r=packages --format=json > promote.json
+    # Promotion using Conan download/upload commands 
+    # (slow, can be improved with art:promote custom command)
+    $ conan download --list=uploaded.json -r=packages --format=json > promote.json
     $ conan upload --list=promote.json -r=products -c
 
 
 The first step uses the ``conan pkglist merge`` command to merge the package lists from the "Release" and "Debug" configurations and 
-merge it into a single ``promote.json`` package list.
+merge it into a single ``uploaded.json`` package list.
 This list is the one that will be used to run the promotion.
 
 In this example we are using a slow ``conan download`` + ``conan upload`` promotion. This can be way more efficient with 
@@ -176,3 +186,12 @@ After running the promotion we will have the following packages in the server:
                 }
         }
     }
+
+
+To summarize:
+
+- We built 2 different configurations, ``Release`` and ``Debug`` (could have been Windows/Linux or others), and uploaded them
+  to the ``packages`` repository.
+- When all package binaries for all configurations were successfully built, we promoted them from the ``packages`` to the
+  ``products`` repository, to make them available for the ``products pipeline``.
+- **Package lists** were captured in the package creation process and merged into a single one to run the promotion.

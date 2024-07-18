@@ -8,13 +8,24 @@ move to the folder:
 .. code-block:: bash
 
     $ git clone https://github.com/conan-io/examples2.git
-    $ cd examples2/devops/ci/game
+    $ cd examples2/ci/game
 
 
 Server repositories setup
 -------------------------
 
-We need 3 different repositories in the same server. Make sure to have an Artifactory running and available. You can download the free  `JFrog Artifactory Community Edition (CE) <https://conan.io/downloads.html>`_ and run it in your own computer. If you have another available Artifactory, it can be used too if you can create new repositories there. Log into the web UI and create 3 different local repositories called ``develop``, ``packages`` and ``products``.
+We need 3 different repositories in the same server. Make sure to have an Artifactory running and available. You can download the free  :ref:`Artifactory CE<artifactory_ce_cpp>` from the `downloads page <https://conan.io/downloads.html>`_ and run it in your own computer, or you can use docker:
+
+
+.. code-block:: bash
+    
+    $ docker run --name artifactory -d -p 8081:8081 -p 8082:8082 releases-docker.jfrog.io/jfrog/artifactory-cpp-ce:7.63.12
+    # Can be stopped with "docker stop artifactory"
+
+When you launch it, you can go to http://localhost:8081/ to check it (user: "admin", password: "password").
+
+
+If you have another available Artifactory, it can be used too if you can create new repositories there. Log into the web UI and create 3 different local repositories called ``develop``, ``packages`` and ``products``.
 
 Edit the ``project_setup.py`` file:
 
@@ -32,7 +43,7 @@ Initial dependency graph
 .. warning::
 
     - The initialization of the project will remove the contents of the 3 ``develop``, ``products`` and ``packages`` repositories.
-    - The ``examples2/devops/ci/game`` folder contains an ``.conanrc`` file that defines a local cache, so commands executed in this tutorial do not pollute or alter your main Conan cache.
+    - The ``examples2/ci/game`` folder contains an ``.conanrc`` file that defines a local cache, so commands executed in this tutorial do not pollute or alter your main Conan cache.
 
 
 .. code-block:: bash

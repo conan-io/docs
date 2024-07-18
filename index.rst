@@ -17,7 +17,7 @@ Table of contents:
    installation
    tutorial
    CI Tutorial <ci_tutorial/tutorial>
-   devops
+   devops/devops
    integrations
    examples
    reference

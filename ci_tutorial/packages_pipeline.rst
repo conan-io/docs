@@ -1,6 +1,15 @@
 Packages pipeline
 ==================
 
+
+The **packages pipeline** will build, create and upload the package binaries for the different configurations and platforms, when some
+developer is submitting some changes to one of the organization repositories source code. For example if a developer is doing some changes
+to the ``ai`` package, improving some of the library functionality, and bumping the version to ``ai/1.1.0``. If the organization needs to
+support both Windows and Linux platforms, then the package pipeline will build the new ``ai/1.1.0`` both for Windows and Linux, before
+considering the changes are valid. If some of the configurations fail to build under a specific platform, it is common to consider the
+changes invalid and stop the processing of those changes, until the code is fixed.
+
+
 For the ``package pipeline`` we will start with a simple source code change in the ``ai`` recipe, simulating some improvements
 in the ``ai`` package, providing some better algorithms for our game.
 
@@ -14,10 +23,14 @@ Let's do the following changes:
 
 
 The ``packages pipeline`` will take care of building the different packages binaries for the new ``ai/1.1.0`` and upload them to the ``packages``
-binary repository. If the pipeline succeed it will copy them to the ``products`` binary repository, and stop otherwise.
+binary repository to avoid disrupting or causing potential issues to other developers and CI jobs. 
+If the pipeline succeed it will promote (copy) them to the ``products`` binary repository, and stop otherwise.
 
 There are different aspects that need to be taken into account when building these packages. The following tutorial sections do the same
 job, but under different hypothesis. They are explained in increasing complexity.
+
+Note all of the commands can be found in the repository ``run_example.py`` file. This file is mostly intended for maintainers and testing,
+but it might be useful in case of issues.
 
 
 .. toctree::
