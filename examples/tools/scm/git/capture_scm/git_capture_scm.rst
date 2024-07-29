@@ -133,7 +133,16 @@ This could be solved by cleaning the repo with ``git clean -xdf``, or by adding 
     test_package/CMakeUserPresets.json
 
 
+The capture of coordinates uses the ``Git.get_url_and_commit()`` method, that by default does:
 
+- If the repository is dirty, it will raise an exception
+- If the repository is not dirty, but the commit doesn't exist in the remote, it will warn, but it will return the local folder as repo ``url``.
+  This way, local commits can be tested without needing to push it to the server. The ``core.scm:local_url=allow`` can silence
+  the warning and the ``core.scm:local_url=block`` will immediately raise an error: This last value can be useful for CI
+  scenarios, to fail fast and save a build that will be blocked later in the ``conan upload``.
+- Packages built with local commit will fail if trying to upload them to the server with ``conan upload`` as those local commits
+  are not in the server and then the package might not be reproducible. This upload error can be avoided setting ``core.scm:local_url=allow``.
+- If the repository is not dirty, and the commit exist in the server, it will return the remote URL and the commit.
 
 
 Credentials management
