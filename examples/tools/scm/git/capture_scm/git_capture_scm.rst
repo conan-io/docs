@@ -142,7 +142,7 @@ The capture of coordinates uses the ``Git.get_url_and_commit()`` method, that by
   scenarios, to fail fast and save a build that will be blocked later in the ``conan upload``.
 - Packages built with local commit will fail if trying to upload them to the server with ``conan upload`` as those local commits
   are not in the server and then the package might not be reproducible. This upload error can be avoided setting ``core.scm:local_url=allow``.
-- If the repository is not dirty, and the commit exist in the server, it will return the remote URL and the commit.
+- If the repository is not dirty, and the commit exists in the server, it will return the remote URL and the commit.
 
 
 Credentials management
