@@ -55,7 +55,7 @@ conf
 
 ``cmake_layout`` is affected by these ``[conf]`` variables:
 
-- **tools.cmake.cmake_layout:build_folder_vars** list of settings, options and/or ``self.name`` and ``self.version`` to
+- **tools.cmake.cmake_layout:build_folder_vars** list of settings, options, ``self.name`` and ``self.version`` and constants ``const.xxx`` to
   customize the ``conanfile.folders.build`` folder. See section :ref:`cmake_layout_multi_name` below.
 - **tools.cmake.cmake_layout:build_folder** (*new since Conan 2.2.0*)(*experimental*) uses its value as the base folder of the ``conanfile.folders.build``
   for local builds.
@@ -71,7 +71,7 @@ Multi-setting/option cmake_layout
 
 The ``folders.build`` and ``conanfile.folders.generators`` can be customized to take into account the ``settings``
 and ``options`` and not only the ``build_type``. Use the ``tools.cmake.cmake_layout:build_folder_vars``
-conf to declare a list of settings, options and/or ``self.name`` and ``self.version``:
+conf to declare a list of settings, options and/or ``self.name`` and ``self.version`` and user constants:
 
 .. code:: bash
 
@@ -100,6 +100,13 @@ The values assigned by the ``cmake_layout`` (installing the Release/shared confi
 
 
 So we can keep separated folders for any number of different configurations that we want to install.
+Recipe attributes like name and version and user constants can also be used:
+
+.. code:: bash
+
+    $ conan install . -c tools.cmake.cmake_layout:build_folder_vars="['const.myvalue, 'self.name']"
+
+And it will create folders like ``build/myvalue-pkgname``.
 
 The ``CMakePresets.json`` file generated at the :ref:`CMakeToolchain<conan_tools_cmaketoolchain>`
 generator, will also take this ``tools.cmake.cmake_layout:build_folder_vars`` config into account to generate different
