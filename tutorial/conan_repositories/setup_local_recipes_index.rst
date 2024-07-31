@@ -3,7 +3,7 @@
 Local Recipes Index Repository
 ==============================
 
-The `local_recipes_index` repository is a special type of repository to which you cannot
+The `local_recipes_index` repository is an **experimental** special type of repository to which you cannot
 upload packages or store binaries. The purpose of this remote is:
 
 - Enable contributors to share package recipes with the community, particularly for
