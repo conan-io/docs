@@ -187,3 +187,17 @@ the result would be only those that are going to be built:
 Then it will contain exclusively the ``binary=Build`` nodes, but not the rest.
 Note that it will also provide a ``build_args`` field with the arguments needed for a ``conan install <args>`` to fire the build of this package
 in the CI agent.
+
+
+**Getting a visual representation of the Build Order**
+
+You can obtain a visual representation of the build order by using the HTML formatter. For example:
+
+.. code-block:: text
+
+    $ conan graph build-order --requires=opencv/4.9.0 --order-by=recipe --build=missing --format=html > build-order.html
+
+
+.. image:: /images/conan-build-order-html.png
+   :width: 100%
+   :align: center
