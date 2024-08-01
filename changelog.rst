@@ -3,6 +3,30 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.6.0 (01-Aug-2024)
+-------------------
+
+- Feature: Add ``build_folder_vars=["const.myvalue"]`` to create presets for user "myvalue" arbitrary values. `#16633 <https://github.com/conan-io/conan/pull/16633>`_ . Docs `here <https://github.com/conan-io/docs/pull/3800>`__
+- Feature: Added `outputRootDir` as an optional definition in Bazel new templates. `#16620 <https://github.com/conan-io/conan/pull/16620>`_
+- Feature: MakeDeps generator generates make variables for dependencies and their components. `#16613 <https://github.com/conan-io/conan/pull/16613>`_ . Docs `here <https://github.com/conan-io/docs/pull/3794>`__
+- Feature: Add html output for graph build-order and graph build-order-merge `#16611 <https://github.com/conan-io/conan/pull/16611>`_ . Docs `here <https://github.com/conan-io/docs/pull/3805>`__
+- Feature: Introduce ``core.scm:local_url=allow|block`` to control local folder URLs in conandata ``scm``. `#16597 <https://github.com/conan-io/conan/pull/16597>`_ . Docs `here <https://github.com/conan-io/docs/pull/3801>`__
+- Feature: Added `XXX_FOR_BUILD` flags and Android extra ones to `extra_env` attribute in `GnuToolchain`. `#16596 <https://github.com/conan-io/conan/pull/16596>`_
+- Feature: Support ``python_requires`` in ``local-recipes-index``. `#16420 <https://github.com/conan-io/conan/pull/16420>`_ . Docs `here <https://github.com/conan-io/docs/pull/3802>`__
+- Fix: Avoid ``runtime_deployer`` to deploy dependencies with ``run=False`` trait. `#16724 <https://github.com/conan-io/conan/pull/16724>`_
+- Fix: Improve error message when passing a ``--deployer-folder=xxx`` argument of an incorrect folder. `#16723 <https://github.com/conan-io/conan/pull/16723>`_
+- Fix: Change ``requirements.txt`` so it install ``distro`` package in FreeBSD too. `#16700 <https://github.com/conan-io/conan/pull/16700>`_
+- Fix: Better error messages when loading an inexistent or broken "package list" file. `#16685 <https://github.com/conan-io/conan/pull/16685>`_
+- Fix: Remove unsupported `ld` and `ar` entries from `tools.build:compiler_executables`, they had no effect in every Conan integration. `#16647 <https://github.com/conan-io/conan/pull/16647>`_
+- Fix: Ensure direct tool requires conflicts are properly reported instead of hanging. `#16619 <https://github.com/conan-io/conan/pull/16619>`_
+- Fix: Update ``docker`` dependency version for the ``runners`` feature `#16610 <https://github.com/conan-io/conan/pull/16610>`_
+- Fix: Raise an error when trying to upload a package with a local folder URL in ``conandata`` ``scm``. `#16597 <https://github.com/conan-io/conan/pull/16597>`_ . Docs `here <https://github.com/conan-io/docs/pull/3801>`__
+- Bugfix: Fix profile ``include()`` with per-package ``[settings]`` with partial definition. `#16720 <https://github.com/conan-io/conan/pull/16720>`_
+- Bugfix: The ``MakeDeps`` generator was missing some aggregated variables when packages have components. `#16715 <https://github.com/conan-io/conan/pull/16715>`_
+- Bugfix: Avoid `settings.update_values()` failing when deducing compatibility. `#16642 <https://github.com/conan-io/conan/pull/16642>`_
+- Bugfix: Fix handling of `tools.build:defines` for Ninja Multi-Config CMake. `#16637 <https://github.com/conan-io/conan/pull/16637>`_
+- Bugfix: Make conan graph <subcommand> a real "install" dry-run. Return same errors and give same messages `#16415 <https://github.com/conan-io/conan/pull/16415>`_
+
 2.5.0 (03-Jul-2024)
 -------------------
 
