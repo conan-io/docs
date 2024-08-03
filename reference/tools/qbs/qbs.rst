@@ -12,7 +12,7 @@ commands automatically when a package is being built directly by Conan (create, 
 .. code-block:: python
 
     from conan import ConanFile
-    from conan.tools.qbs import Qbs, QbsDeps
+    from conan.tools.qbs import Qbs, QbsProfile, QbsDeps
 
     class App(ConanFile):
         settings = "os", "arch", "compiler", "build_type"
@@ -22,6 +22,8 @@ commands automatically when a package is being built directly by Conan (create, 
         default_options = {"shared": False, "fPIC": True}
 
         def generate(self):
+            profile = QbsProfile(self)
+            profile.generate()
             deps = QbsDeps(self)
             deps.generate()
 
