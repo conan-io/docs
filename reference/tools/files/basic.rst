@@ -189,8 +189,8 @@ Usage:
 conan.tools.files.unzip()
 -------------------------
 
-This function extract different compressed formats (``.tar.gz``, ``.tar``, ``.tzb2``, ``.tar.bz2``, ``.tgz``, ``.txz``,
-``tar.xz``, and ``.zip``) into the given destination folder.
+This function extract different compressed formats (``.tar``, ``.tar.gz``, ``.tgz``, ``.tar.bz2``, ``.tbz2``, ``.tar.xz``, ``.txz``, 
+and ``.zip``) into the given destination folder.
 
 It also accepts gzipped files, with extension ``.gz`` (not matching any of the above), and it will unzip them into a file with the same name
 but without the extension, or to a filename defined by the ``destination`` argument.
