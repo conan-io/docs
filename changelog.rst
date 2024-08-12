@@ -18,8 +18,16 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-    Conan 1.64 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
+    Conan 1.65 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
     a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
+
+1.65.0 (12-Aug-2024)
+--------------------
+
+- Feature: Add gcc 14 to default settings.yml. `#16815 <https://github.com/conan-io/conan/pull/16815>`_
+- Feature: Add possibility to enforce return value of cross_building via conf. `#16728 <https://github.com/conan-io/conan/pull/16728>`_
+- Bugfix: Fixed msvc / Visual Studio package cmpatibility in case cppstd is used in profiles `#16732 <https://github.com/conan-io/conan/pull/16732>`_
+- Bugfix: Fix corruption of ``package_id`` computation with dependencies options when using lockfiles. `#16509 <https://github.com/conan-io/conan/pull/16509>`_
 
 1.64.1 (14-May-2024)
 --------------------
