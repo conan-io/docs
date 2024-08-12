@@ -26,7 +26,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 - Feature: Add gcc 14 to default settings.yml. `#16815 <https://github.com/conan-io/conan/pull/16815>`_
 - Feature: Add possibility to enforce return value of cross_building via conf. `#16728 <https://github.com/conan-io/conan/pull/16728>`_
-- Bugfix: Fixed msvc / Visual Studio package cmpatibility in case cppstd is used in profiles `#16732 <https://github.com/conan-io/conan/pull/16732>`_
+- Bugfix: Fixed msvc / Visual Studio package compatibility in case cppstd is used in profiles `#16732 <https://github.com/conan-io/conan/pull/16732>`_
 - Bugfix: Fix corruption of ``package_id`` computation with dependencies options when using lockfiles. `#16509 <https://github.com/conan-io/conan/pull/16509>`_
 
 1.64.1 (14-May-2024)
