@@ -91,6 +91,9 @@ try {
         if (params.publish) {
             stage('Publish to gh-pages') {
                 dir(gh_pages_out) {
+                    sh 'rm -rf .git'
+                    sh 'git init .'
+                    sh 'git checkout -b gh-pages'
                     sh 'git add .'
                     sh 'git config user.email "conanci@jfrog.com"'
                     sh 'git config user.name "ConanCI bot"'
