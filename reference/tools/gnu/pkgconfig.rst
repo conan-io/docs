@@ -58,8 +58,8 @@ In case of not having ``pkg-config`` available in the system, it is possible to 
 
     class Pkg(ConanFile):
 
-        def tool_requires(self):
-            self.requires("pkgconf/[*]")
+        def build_requirements(self):
+            self.tool_requires("pkgconf/[*]")
 
         ...
 
