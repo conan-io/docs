@@ -47,7 +47,7 @@ Using pkg-config from Conan package instead of system
 
 .. include:: ../../../common/experimental_warning.inc
 
-In case not having ``pkg-config`` available in the system, it is possible to use the ``pkg-config`` executable provided by a Conan package:
+In case of not having ``pkg-config`` available in the system, it is possible to use the ``pkg-config`` executable provided by a Conan package:
 
 .. code-block:: python
 
