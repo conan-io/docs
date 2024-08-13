@@ -28,7 +28,7 @@ Read a ``pc`` file and access the information:
 Using PkgConfig to fill a ``cpp_info`` object
 ---------------------------------------------
 
-The ``PkgConfig`` class can be used to fill a ``CppInfo`` object with the information that will be consumed by ``PkgConfigDeps`` generator later.
+The ``PkgConfig`` class can be used to fill a ``CppInfo`` object with the information that will be consumed by the ``PkgConfigDeps`` generator later.
 This is a useful feature when packaging a system library that provides a ``.pc`` file, or when a proprietary package has a build system that only outputs ``.pc`` files.
 
 .. code-block:: python
