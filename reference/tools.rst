@@ -38,6 +38,7 @@ Contents:
     tools/layout
     tools/meson
     tools/microsoft
+    tools/qbs
     tools/scm
     tools/scons
     tools/system
