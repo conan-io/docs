@@ -42,12 +42,12 @@ However, ``PkgConfig`` will invoke the ``pkg-config`` executable to extract the 
 The ``pkg-config`` executable must be available in the system path for this case, otherwise, it will fail when installing the consumed package.
 
 
-Using pkg-config from Conan package instead of system
------------------------------------------------------
+Using pkg-config from Conan tool_requires instead of system
+-----------------------------------------------------------
 
 .. include:: ../../../common/experimental_warning.inc
 
-In case of not having ``pkg-config`` available in the system, it is possible to use the ``pkg-config`` executable provided by a Conan package:
+In case of not having ``pkg-config`` available in the system, it is possible to use the ``pkg-config`` executable provided by Conan ``tool_requires`` instead.:
 
 .. code-block:: python
 
@@ -80,8 +80,11 @@ when consuming the package.
 
 .. warning::
 
-    It's not recommended to use this approach when creating a "system" package recipe, as the packaged information may not be compatible with the host system,
+    It's forbidden to upload or reuse this approach when creating a package, as the information may not be compatible with the host system,
     resulting in errors when consuming the package.
+
+    When using this approach for wrapping system packages, it is recommended to use ``upload_policy = "skip"``
+    (see :ref:`upload_policy_attribute`) in the package recipe to avoid uploading the package.
 
 Reference
 ---------
