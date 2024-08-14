@@ -29,7 +29,7 @@ Using PkgConfig to fill a ``cpp_info`` object
 ---------------------------------------------
 
 The ``PkgConfig`` class can be used to fill a ``CppInfo`` object with the information that will be consumed by the ``PkgConfigDeps`` generator later.
-This is a useful feature when packaging a system library that provides a ``.pc`` file, or when a proprietary package has a build system that only outputs ``.pc`` files.
+This is a useful feature when packaging a proprietary package has a build system that only outputs ``.pc`` files for a known environment.
 
 .. code-block:: python
 
@@ -77,6 +77,11 @@ The ``pkg-config`` executable provided by the Conan package ``pkgconf`` will be 
 The ``.pc`` information will be extracted from the ``cpp_info.json`` file located in the package folder, it will fill the ``self.cpp_info`` object.
 This way, the ``PkgConfig`` will not need to invoke the ``pkg-config`` executable again to extract the information from the ``.pc`` file,
 when consuming the package.
+
+.. warning::
+
+    It's not recommended to use this approach when creating a "system" package recipe, as the packaged information may not be compatible with the host system,
+    resulting in errors when consuming the package.
 
 Reference
 ---------
