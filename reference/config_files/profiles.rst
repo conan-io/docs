@@ -283,6 +283,13 @@ Then, the result of applying this profile is:
     * Windows: ``/other path/path12;/some/path11``
 * ``mypkg*:PATH``: ``None``
 
+.. warning::
+
+    Note that ``[buildenv]`` and ``[runenv]`` environment variables definition keeps
+    user blank spaces in values. ``MYVAR = MyValue`` will produce a ``" MyValue"`` value, which
+    will be different than ``MYVAR=MyValue`` that will produce ``"MyValue"``. avoid
+    using extra spaces around ``=`` in profiles, use the syntax shown above.
+
 
 .. _reference_config_files_profiles_runenv:
 
