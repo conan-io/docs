@@ -23,7 +23,7 @@ Use the :command:`conan new` command to create a "Hello World" C++ library examp
 
 .. code-block:: bash
 
-    $ conan new cmake_lib -d name=hello -d version=1.0
+    $ conan new cmake_lib -d name=hello -d version=0.1
 
 
 This will create a Conan package project with the following structure.

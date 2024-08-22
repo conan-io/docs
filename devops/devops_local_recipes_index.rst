@@ -3,7 +3,7 @@
 Local Recipes Index Repository
 ==============================
 
-The **Local Recipes Index** is a repository type introduced in Conan to enhance
+The **Local Recipes Index** is an **experimental** repository type introduced in Conan to enhance
 flexibility in managing C/C++ package recipes. This repository type allows users to
 use a local directory as a Conan remote, where the directory structure mirrors that of
 the `conan-center-index` GitHub repository.
@@ -231,6 +231,13 @@ Several important points should be considered when using this new feature:
 - Also, note that a server remote can retain a history of changes storing multiple recipe
   revisions. In contrast, a `local-recipes-index` remote can only represent a single
   snapshot at any given time. 
+
+- ConanCenter does not use ``python-requires``, as this is a mechanism more intended for
+  first-party packages. Using ``python-requires`` in a ``local-recipes-index`` repository
+  is possible (and experimental) at this moment, but only if the ``python-requires`` are also in the same index repository.
+  It is not intended or planned to support having these ``python-requires`` in other repositories
+  or in the user Conan cache.
+
 
 Furthermore, this feature does not support placing server URLs directly in recipes; remote
 repositories must be explicitly added with `conan remote add`. Decoupling abstract package

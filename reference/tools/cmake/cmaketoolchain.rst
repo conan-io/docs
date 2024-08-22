@@ -95,9 +95,9 @@ translated from the current ``settings``:
         - By default, preset names will be `conan-xxxx`, but the "conan-" prefix can be
           customized with the `CMakeToolchain.presets_prefix = "conan"` attribute.
         - Preset names are controlled by the `layout()` `self.folders.build_folder_vars`
-          definition, which can contain a list of settings, options and/or
-          ``self.name`` and ``self.version`` like
-          `["settings.compiler", "settings.arch", "options.shared"]`.
+          definition, which can contain a list of settings, options,
+          ``self.name`` and ``self.version`` and constants ``const.xxx`` like
+          `["settings.compiler", "settings.arch", "options.shared", "const.myname"]`.
         - If CMake is found as a direct `tool_requires` dependency, or if
           `tools.cmake:cmake_program` is set, the configure preset will include a
           `cmakeExecutable` field. This field represents the path to the CMake executable
@@ -752,7 +752,7 @@ This block injects ``$`` which will be expanded later. It also defines a cache v
 
 - **tools.cmake.cmaketoolchain:toolset_arch**: Will add the ``,host=xxx`` specifier in the ``CMAKE_GENERATOR_TOOLSET`` variable of ``conan_toolchain.cmake`` file.
 - **tools.cmake.cmaketoolchain:toolset_cuda**: (Experimental) Will add the ``,cuda=xxx`` specifier in the ``CMAKE_GENERATOR_TOOLSET`` variable of ``conan_toolchain.cmake`` file.
-- **tools.cmake.cmake_layout:build_folder_vars**: Settings, Options, and/or ``self.name`` and ``self.version`` that will produce a different build folder and different CMake presets names.
+- **tools.cmake.cmake_layout:build_folder_vars**: Settings, Options, ``self.name`` and ``self.version`` and constants ``const.uservalue`` that will produce a different build folder and different CMake presets names.
 - **tools.cmake.cmaketoolchain:presets_environment**: Set to ``'disabled'`` to prevent the addition of the environment section to the generated CMake presets.
 - **tools.build:cxxflags** list of extra C++ flags that will be appended to ``CMAKE_CXX_FLAGS_INIT``.
 - **tools.build:cflags** list of extra of pure C flags that will be appended to ``CMAKE_C_FLAGS_INIT``.
