@@ -6,7 +6,7 @@ Continuous Integration (CI) tutorial
 Continuous Integration has different meanings for different users and organizations. In this tutorial we will cover the scenarios when users
 are doing changes to the source code of their packages and want to automatically build new binaries for those packages and also compute if those new package changes integrate cleanly or break the organization main products.
 
-We will use in this tutorial this small project that uses several packages (static libraries by default) to build a couple of applications, a video game and a map viewer utility. The game and mapviewer are our final "products", what we distribute to our users:
+We will use in this tutorial this small project that uses several packages (static libraries by default) to build a couple of applications, a video game and a map viewer utility. The ``game`` and ``mapviewer`` are our final "**products**", what we distribute to our users:
 
 .. graphviz::
     :align: center
@@ -98,6 +98,12 @@ with the repositories, there will be 2 promotions:
 - When the ``products pipeline`` has built from source all the necessary packages that need a re-build because of the new package versions in
   the ``products`` repository and has checked that the organization "products" (such ``game/1.0`` and ``mapviewer/1.0``) are not broken, then
   the packages can be promoted (copied) from the ``products`` repo to the ``develop`` repo, to make them available for all other developers and CI.
+
+
+.. note::
+
+  The concept of **immutability** is important in package management and devops. Modifying ``channel`` is strongly discouraged, see 
+  :ref:`Package promotions<devops_package_promotions>`.
 
 This tutorial is just modeling the **development** flow. In production systems, there will be other repositories
 and promotions, like a ``testing`` repository for the QA team, and a final ``release`` repository for final users and packages can

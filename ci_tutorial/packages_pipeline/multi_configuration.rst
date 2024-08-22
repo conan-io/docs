@@ -104,17 +104,11 @@ When both Release and Debug configuration finish successfully, we would have the
         }
     }
 
-TODO
 
-
-- When all the different binaries for ``ai/1.1.0`` have been built correctly, the ``package pipeline`` can consider its job succesfull and decide
-  to promote those binaries. But further package builds and checks are necessary, so instead of promoting them to the ``develop`` repository,
-  the ``package pipeline`` can promote them to the ``products`` binary repository. As all other developers and CI use the ``develop`` repository,
-  no one will be broken at this stage either.
-
-
-If the build of all configurations for ``ai/1.1.0`` were succesfull, then the ``packages pipeline`` can proceed and promote
-them to the ``products`` repository:
+When all the different binaries for ``ai/1.1.0`` have been built correctly, the ``package pipeline`` can consider its job succesfull and decide
+to promote those binaries. But further package builds and checks are necessary, so instead of promoting them to the ``develop`` repository,
+the ``package pipeline`` can promote them to the ``products`` binary repository. As all other developers and CI use the ``develop`` repository,
+no one will be broken at this stage either:
 
 .. code-block:: bash
     :caption: Promoting from packages->product
@@ -195,3 +189,7 @@ To summarize:
 - When all package binaries for all configurations were successfully built, we promoted them from the ``packages`` to the
   ``products`` repository, to make them available for the ``products pipeline``.
 - **Package lists** were captured in the package creation process and merged into a single one to run the promotion.
+
+
+There is still an aspect that we haven't considered yet, the possibility that the dependencies of ``ai/1.1.0`` change
+during the build. Move to the next section to see how to use lockfiles to achieve more consistent multi-configuration builds.

@@ -28,14 +28,14 @@ If you have another available Artifactory, it can be used too if you can create 
 
 ✍️ As a first step, log into the web UI and **create 3 different local repositories** called ``develop``, ``packages`` and ``products``.
 
-✍️ Then edit the ``project_setup.py`` file:
+✍️ Then according to the ``project_setup.py`` file, these are the necessary environment variables to configure the server. Please define ``ARTIFACTORY_URL``, ``ARTIFACTORY_USER`` and/or ``ARTIFACTORY_PASSWORD`` if necessary to adapt to your setup:
 
 .. code-block:: python
         
     # TODO: This must be configured by users
-    SERVER_URL = "http://<your url>/artifactory/api/conan"
-    USER = "admin"
-    PASSWORD = "your password"
+    SERVER_URL = os.environ.get("ARTIFACTORY_URL", "http://localhost:8081/artifactory/api/conan")
+    USER = os.environ.get("ARTIFACTORY_USER", "admin")
+    PASSWORD = os.environ.get("ARTIFACTORY_PASSWORD", "password")
 
 
 Initial dependency graph
@@ -43,8 +43,8 @@ Initial dependency graph
 
 .. warning::
 
-    - The initialization of the project will remove the contents of the 3 ``develop``, ``products`` and ``packages`` repositories.
-    - The ``examples2/ci/game`` folder contains an ``.conanrc`` file that defines a local cache, so commands executed in this tutorial do not pollute or alter your main Conan cache.
+    - The initialization of the project will remove the contents of the 3 ``develop``, ``products`` and ``packages`` repositories in the server.
+    - The ``examples2/ci/game`` folder contains a ``.conanrc`` file that defines a local cache, so commands executed in this tutorial do not pollute or alter your main Conan cache.
 
 
 .. code-block:: bash

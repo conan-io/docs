@@ -26,11 +26,11 @@ The ``packages pipeline`` will take care of building the different packages bina
 binary repository to avoid disrupting or causing potential issues to other developers and CI jobs. 
 If the pipeline succeed it will promote (copy) them to the ``products`` binary repository, and stop otherwise.
 
-There are different aspects that need to be taken into account when building these packages. The following tutorial sections do the same
+There are different aspects that need to be taken into account when building these binary packages for ``ai/1.1.0``. The following tutorial sections do the same
 job, but under different hypothesis. They are explained in increasing complexity.
 
 Note all of the commands can be found in the repository ``run_example.py`` file. This file is mostly intended for maintainers and testing,
-but it might be useful in case of issues.
+but it might be useful as a reference in case of issues.
 
 
 .. toctree::

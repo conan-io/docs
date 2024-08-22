@@ -10,7 +10,6 @@ but this concept will be further explained later, and specially why it is import
 model the dependencies top-bottom in the CI.
 
 
-
 - Then, when packages are in the ``products`` repository, the ``products pipeline`` can be triggered. This job will make sure that both the
   organization products ``game/1.0`` and ``mapviewer/1.0`` build cleanly with the new ``ai/1.1.0`` package, and build necessary new package
   binaries, for example if ``engine/1.0`` needs to do a build from source to integrate the changes in ``ai/1.1.0`` the ``products pipeline``
@@ -22,6 +21,9 @@ model the dependencies top-bottom in the CI.
   necessarily break, they might still need to build a new binary from source for ``engine/1.0`` and/or ``game/1.0``. The ``products`` binary
   repository will be the place where binaries for different packages are uploaded to not disrupt or break the ``develop`` repository, until
   the "products pipeline" can build necessary binaries from source and verify that these packages integrate cleanly.
+
+What are the **products**
+-------------------------
 
 There are some important points to understand about the products pipeline:
 
@@ -42,6 +44,13 @@ There are some important points to understand about the products pipeline:
   if the source of the package itself didn't change at all. Conan's ``package_id`` computation together with some versioning conventions
   can greatly help to efficiently define which packages needs to rebuild and which ones don't.
 
+
+Building intermediate packages new binaries
+-------------------------------------------
+
+- Is it a new version
+- No, it is a new package-id
+- The package-id model and links
 
 
 .. toctree::
