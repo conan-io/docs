@@ -102,8 +102,8 @@ with the repositories, there will be 2 promotions:
 
 .. note::
 
-  The concept of **immutability** is important in package management and devops. Modifying ``channel`` is strongly discouraged, see 
-  :ref:`Package promotions<devops_package_promotions>`.
+  - The concept of **immutability** is important in package management and devops. Modifying ``channel`` is strongly discouraged, see :ref:`Package promotions<devops_package_promotions>`.
+  - The versioning approach is important. This tutorial will be following :ref:`the default Conan versioning approach, see details here<reference_binary_model_dependencies_versioning>`
 
 This tutorial is just modeling the **development** flow. In production systems, there will be other repositories
 and promotions, like a ``testing`` repository for the QA team, and a final ``release`` repository for final users and packages can

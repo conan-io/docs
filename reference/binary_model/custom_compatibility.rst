@@ -85,6 +85,7 @@ Compatibility can be defined globally via the ``compatibility.py`` plugin, in th
 Check the binary compatibility :ref:`compatibility.py extension <reference_extensions_binary_compatibility>`.
 
 
+.. _reference_binary_model_custom_compatibility_dependencies:
 
 Customizing binary compatibility of dependencies versions
 ---------------------------------------------------------
