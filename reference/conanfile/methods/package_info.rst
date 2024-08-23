@@ -125,7 +125,7 @@ Example:
 
     def package_info(self):
         self.cpp_info.set_property("cmake_find_mode", "both")
-        self.cpp_info.get_property("cmake_find_mode", check_type=string)
+        self.cpp_info.get_property("cmake_find_mode", check_type=str)
 
 
 Components
