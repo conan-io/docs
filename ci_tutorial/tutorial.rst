@@ -3,6 +3,13 @@
 Continuous Integration (CI) tutorial
 ====================================
 
+.. note::
+
+  - This is an advanced topic, previous knowledge of Conan tool is necessary. Please :ref:`read and practice the user tutorial<tutorial>` first.
+  - This section is intended for devops and build engineers designing and implementing a CI pipeline involving Conan packages, if it is not the
+    case, you can skip this section.
+
+
 Continuous Integration has different meanings for different users and organizations. In this tutorial we will cover the scenarios when users
 are doing changes to the source code of their packages and want to automatically build new binaries for those packages and also compute if those new package changes integrate cleanly or break the organization main products.
 
@@ -103,7 +110,7 @@ with the repositories, there will be 2 promotions:
 .. note::
 
   - The concept of **immutability** is important in package management and devops. Modifying ``channel`` is strongly discouraged, see :ref:`Package promotions<devops_package_promotions>`.
-  - The versioning approach is important. This tutorial will be following :ref:`the default Conan versioning approach, see details here<reference_binary_model_dependencies_versioning>`
+  - The versioning approach is important. This tutorial will be following :ref:`the default Conan versioning approach, see details here<devops_versioning_default>`
 
 This tutorial is just modeling the **development** flow. In production systems, there will be other repositories
 and promotions, like a ``testing`` repository for the QA team, and a final ``release`` repository for final users and packages can

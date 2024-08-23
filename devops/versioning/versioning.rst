@@ -8,4 +8,5 @@ This section deals with different versioning topics:
 .. toctree::
    :maxdepth: 1
 
-   versioning/resolve_prereleases
+   default
+   resolve_prereleases
