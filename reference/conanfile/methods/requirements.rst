@@ -51,7 +51,8 @@ build
 
 This dependency is a build tool, an application or executable, like cmake, that is used
 exclusively at build time. It is not linked/embedded into binaries, and will be in the
-build context.
+build context. If ``visible=True`` is set, this dependency will be propagated downstream,
+making it available in the "build" context of consumer packages.
 
 run
 ~~~
