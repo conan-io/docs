@@ -214,7 +214,7 @@ This can be solved just by swapping the order of ``requires``:
       self.requires("libc/1.0")  # requires liba/1.0
       self.requires("libb/1.0")  # requires liba/[>=1.0 <2]
       
-If ``libc/1.0`` is expanded first, it resolves to ``liba/1.0``. Whne later ``libb/1.0`` is expanded, its transitive requirement ``liba/[>=1.0 <2]`` can be succesfully satisfied by the previous ``libb/1.0``, so it can resolve the graph succesfully.
+If ``libc/1.0`` is expanded first, it resolves to ``liba/1.0``. When later ``libb/1.0`` is expanded, its transitive requirement ``liba/[>=1.0 <2]`` can be successfully satisfied by the previous ``libb/1.0``, so it can resolve the graph successfully.
 
 The general best practices are:
 
