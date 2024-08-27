@@ -200,7 +200,7 @@ However, there are some situations in which the conflict is not that evident, fo
       self.requires("libb/1.0")  # requires liba/[>=1.0 <2]
       self.requires("libc/1.0")  # requires liba/1.0
 
-And it happens that ``libb/1.0`` has a transitive requirement to ``liba/[>=1.0 <2]``, and ``libc/1.0`` requires ``liba/1.0``, and thethere exist the ``liba/1.1`` or higher packages. In this case, Conan might also throw a "version conflict" error.
+And it happens that ``libb/1.0`` has a transitive requirement to ``liba/[>=1.0 <2]``, and ``libc/1.0`` requires ``liba/1.0``, and there exist the ``liba/1.1`` or higher packages. In this case, Conan might also throw a "version conflict" error.
 
 The root cause is that resolving the joint compatibility for all the possible constraints that version-ranges define in a graph is a known NP-hard problem, known as SAT-solver. Evaluating each hypothesis in this NP-hard problem in Conan is very expensive, because it usually requires to look for a version/revision in all remotes defined, then download such version/revision compressed files, unzip them, load and Python-parse and evaluate them and finally to do all the graph computation processing, which involves a full propagation down the already expanded graph to propagate the C/C++ requirement traits that can produce the conflicts. This would make the problem intractable in practice, that would require to wait for many hours to finish.
 
