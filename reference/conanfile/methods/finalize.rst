@@ -64,10 +64,12 @@ This info is also serialized as part of the graph information in :command:`conan
 .. note::
 
   Without using this approach, the package would generate the pycache files in the package folder,
-  and thus there would be a need to set ``PYTHONDONTWRITEBYTECODE`` to avoid mutating the package, but this would affect performance.
+  and thus there would be a need to set ``PYTHONDONTWRITEBYTECODE`` to avoid mutating the package, but this would affect performance,
+  and performing cache integrity checks either thru :command:`conan cache check-integrity` or as part of the upload processes
+  in :command:`conan upload ... --check` would raise errors if the modified package was ever checked.
 
 
-.. note::
+.. warning::
 
   This is not a replacement for the :ref:`post_package <reference_extensions_hooks>` hook.
   The hook runs after the creation of the package for a chance to modify it before the package_id is computed,
