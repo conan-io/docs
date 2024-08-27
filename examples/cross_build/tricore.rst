@@ -12,7 +12,7 @@ Since Conan 2.7 there is some built-in support for this compiler:
 
 - The default ``settings.yml`` contains architectures: ``'tc131', 'tc16', 'tc161', 'tc162', 'tc18'``
 - ``CMakeToolchain`` defines ``CMAKE_SYSTEM_NAME=Generic-ELF`` and ``CMAKE_SYSTEM_PROCESSOR=tricore`` for these architectures
-- The compiler flags ``-m<architecture>"`` are injected as compiler and linker flags in ``CMakeToolchain`` and ``AutotoolsToolchain``
+- The compiler flags ``-m<architecture>"`` are injected as compiler and linker flags in ``CMakeToolchain`` and ``AutotoolsToolchain``.
 
 That means that it is possible to define a profile like:
 
