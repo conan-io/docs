@@ -7,7 +7,7 @@ Building packages with Tricore compiler
 .. include:: ../../common/experimental_warning.inc
 
 
-Tricore compiler is a popular compiler for embedded in some domains as automotive.
+Tricore compiler is a popular compiler for embedded in some domains such as automotive.
 Since Conan 2.7 there is some built-in support for this compiler:
 
 - The default ``settings.yml`` contains architectures: ``'tc131', 'tc16', 'tc161', 'tc162', 'tc18'``
