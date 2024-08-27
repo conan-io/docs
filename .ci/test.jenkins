@@ -1,5 +1,12 @@
 #!groovy​
 
+def runInVenv(String command) {
+    sh """
+    source /opt/venv/bin/activate
+    ${command}
+    """
+}
+
 node('LinuxDocs') {
 
     String branch_name = env.BRANCH_NAME
@@ -25,21 +32,20 @@ node('LinuxDocs') {
     }
 
     stage('Test build') {
-        sh 'pip install -r requirements.txt && pip install -e conan_sources && conan --version'
+        runInVenv('pip install -r requirements.txt && pip install -e conan_sources && conan --version')
+        
         parallel html: {
-            // for some reason even adding this to autodoc_mock_imports
-            // does not work, se we have to install the real dependency
-            sh(script: 'make html')
+            runInVenv('make html')
         },
         pdf: {
-            sh(script: 'make latex')
+            runInVenv('make latex')
         },
         spelling: {
-            sh(script: 'make spelling')
+            runInVenv('make spelling')
         },
         linkcheck: {
             catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE', message: 'Linkcheck failed! Please check links and fix broken ones.') {
-                sh(script: 'make linkcheck')
+                runInVenv('make linkcheck')
             }
         }
     }
