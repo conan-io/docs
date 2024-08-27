@@ -2,7 +2,7 @@
 
 def runInVenv(String command) {
     sh """
-    source /opt/venv/bin/activate
+    . /opt/venv/bin/activate
     ${command}
     """
 }
