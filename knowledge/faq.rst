@@ -176,3 +176,49 @@ please read it carefully.
 
 In general, it is more recommended to define options values in profile files, not in recipes.
 Recipe defined options always have precedence over options defined in profiles.
+
+
+.. _faq_version_conflicts_version_ranges:
+
+Getting version conflicts even when using version ranges
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+It is possible that when installing dependencies, there are version conflict error messages like:
+
+.. code-block::
+
+  ...
+  Version conflict: Conflict between math/1.0.1 and math/1.0 in the graph
+
+This :ref:`tutorial about version conflicts<tutorial_versioning_conflicts>` summarizes how different versions of the same package dependency can conflict in a dependency graph and how to resolve those conflicts.
+
+However, there are some situations in which the conflict is not that evident, for example when there are some mixed version ranges and fixed dependencies, something like:
+
+.. code-block::  python
+
+    def requirements(self):
+      self.requires("libb/1.0")  # requires liba/[>=1.0 <2]
+      self.requires("libc/1.0")  # requires liba/1.0
+
+And it happens that ``libb/1.0`` has a transitive requirement to ``liba/[>=1.0 <2]``, and ``libc/1.0`` requires ``liba/1.0``, and there exist the ``liba/1.1`` or higher packages. In this case, Conan might also throw a "version conflict" error.
+
+The root cause is that resolving the joint compatibility for all the possible constraints that version-ranges define in a graph is a known NP-hard problem, known as SAT-solver. Evaluating each hypothesis in this NP-hard problem in Conan is very expensive, because it usually requires to look for a version/revision in all remotes defined, then download such version/revision compressed files, unzip them, load and Python-parse and evaluate them and finally to do all the graph computation processing, which involves a full propagation down the already expanded graph to propagate the C/C++ requirement traits that can produce the conflicts. This would make the problem intractable in practice, that would require to wait for many hours to finish.
+
+So instead of doing that, Conan uses a "greedy" algorithm that does not require backtracking, but still will try to reconcile version-ranges with fixed versions when possible. The most important point to know about this is that Conan implements a "depth-first" graph expansion, evaluating the ``requires`` in the order they are declared. Knowing this can help to solve this conflict. In the case above the error happens because ``libb/1.0`` is expanded first, it finds a requirement of ``liba/[>=1.0 <2]``, and as no other constraint to ``liba`` has been found before, it freely resolves to the latest ``liba/1.1``. When later ``libc/1.0`` is expanded, it finds a requirement to ``liba/1.0``, but it is already too late, as it will conflict with the previous ``liba/1.1``. Going back in the previous hypothesis is the "backtracking" part that converts the problem in NP-hard, so the algorithm stops there and raises the conflict.
+
+This can be solved just by swapping the order of ``requires``:
+
+.. code-block::  python
+
+    def requirements(self):
+      self.requires("libc/1.0")  # requires liba/1.0
+      self.requires("libb/1.0")  # requires liba/[>=1.0 <2]
+      
+If ``libc/1.0`` is expanded first, it resolves to ``liba/1.0``. When later ``libb/1.0`` is expanded, its transitive requirement ``liba/[>=1.0 <2]`` can be successfully satisfied by the previous ``libb/1.0``, so it can resolve the graph successfully.
+
+The general best practices are:
+
+- For the same dependency, try to use the same approach everywhere: use version ranges everywhere, or fixed versions everywhere for that specific dependency.
+- Keep the versions aligned. If using a version range try to use the same version range everywhere.
+- Declare first dependencies that use fixed version, not version ranges
+- Use the ``conan graph info ... --format=html > graph.html`` graphical interactive output to understand and navigate conflicts.
