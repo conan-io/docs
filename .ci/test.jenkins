@@ -34,7 +34,7 @@ node('LinuxDocs') {
     }
 
     if (publishDocs) {
-        String branches = sh(script: 'python .ci/scripts/get_branches.py', returnStdout: true).trim().readLines().join(',')
+        String branches = sh(script: 'python3 .ci/scripts/get_branches.py', returnStdout: true).trim().readLines().join(',')
         echo "Will generate docs for ${branches}"
         build(job: 'Conan-Docs-Publish', propagate: true, wait: true, parameters: [
             [$class: 'StringParameterValue', name: 'branches', value: branches],

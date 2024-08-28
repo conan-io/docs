@@ -7,14 +7,14 @@ try {
         // To generate the docs locally run the following, better redirect sources_folder and gh_pages_out
         // to folders outside this repo. Add --branches arguments for the branches you want to regenerate
 
-        // python .ci/scripts/prepare_sources.py --sources-folder=../cloned_sources --branches=release/2.0 --branches=master
+        // python3 .ci/scripts/prepare_sources.py --sources-folder=../cloned_sources --branches=release/2.0 --branches=master
 
-        // python .ci/scripts/generate_documentation.py --sources-folder=../cloned_sources --branch=$release/2.0 --with-pdf
-        // python .ci/scripts/generate_documentation.py --sources-folder=../cloned_sources --branch=master --with-pdf
+        // python3 .ci/scripts/generate_documentation.py --sources-folder=../cloned_sources --branch=$release/2.0 --with-pdf
+        // python3 .ci/scripts/generate_documentation.py --sources-folder=../cloned_sources --branch=master --with-pdf
 
-        // python .ci/scripts/prepare_gh_pages.py --sources-folder=../cloned_sources --gh-pages-folder=../gh_pages_out
+        // python3 .ci/scripts/prepare_gh_pages.py --sources-folder=../cloned_sources --gh-pages-folder=../gh_pages_out
 
-        // Then go to ../gh_pages_out and test the docs using a local server like: 'python -m http.server 8000'
+        // Then go to ../gh_pages_out and test the docs using a local server like: 'python3 -m http.server 8000'
         // and open: 'http://localhost:8000/2.0/index.html'
 
         String output_contents = 'output_contents'
@@ -34,7 +34,7 @@ try {
                 branch_argument = branch_argument + " --branches=${branch}"
             }
             // clone sources to generate docs
-            sh(script: "python .ci/scripts/prepare_sources.py --sources-folder=${sources_folder} ${branch_argument}")
+            sh(script: "python3 .ci/scripts/prepare_sources.py --sources-folder=${sources_folder} ${branch_argument}")
         }
 
         // we have to divide the parallel blocks because if we have to generate all branches documentation
@@ -50,10 +50,10 @@ try {
                 parallelJobs[branch] = {
                     echo "Run parallel job for ${branch}"
                     sh """
-                        python -m venv venv_${branch}
+                        python3 -m venv venv_${branch}
                         . venv_${branch}/bin/activate
                         pip install -r requirements.txt
-                        python .ci/scripts/generate_documentation.py --sources-folder=${sources_folder} --branch=${branch} --with-pdf
+                        python3 .ci/scripts/generate_documentation.py --sources-folder=${sources_folder} --branch=${branch} --with-pdf
                     """
                 }
             }
@@ -64,7 +64,7 @@ try {
         }
 
         stage('Prepare gh-pages') {
-            sh(script: "python .ci/scripts/prepare_gh_pages.py --sources-folder=${sources_folder} --gh-pages-folder=${gh_pages_out}")
+            sh(script: "python3 .ci/scripts/prepare_gh_pages.py --sources-folder=${sources_folder} --gh-pages-folder=${gh_pages_out}")
         }
 
         stage('Replace HTML tags in generated files') {
@@ -72,7 +72,7 @@ try {
             branches.each { branch ->
                 parallelReplaces[branch] = {
                     echo "Run parallel replace for ${branch}"
-                    sh(script: "python .ci/scripts/replace_html_tags.py --gh-pages-folder=${gh_pages_out} --branch=${branch}")
+                    sh(script: "python3 .ci/scripts/replace_html_tags.py --gh-pages-folder=${gh_pages_out} --branch=${branch}")
                 }
             }
             parallelReplaces.failFast = true
