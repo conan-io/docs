@@ -126,6 +126,7 @@ recipe or the package, then it is possible to exclude them from the check with t
 configuration, which is a list of patterns (fnmatch) to exclude.
 
 
+.. _upload_policy_attribute:
 
 upload_policy
 -------------
