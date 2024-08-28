@@ -61,6 +61,10 @@ both in the same recipe's ``self.immutable_package_folder`` and
 thru the ``self.dependencies[<package_name>].immutable_package_folder`` attribute in the dependants' recipe.
 This info is also serialized as part of the graph information in :command:`conan graph info` etc.
 
+As this method must have a 1 to 1 correspondence to the generated package id,
+access to ``self.settings``, ``self.options`` and ``self.cpp_info`` is forbidden inside the ``finalize()`` method, 
+and _must_ be done thru the ``self.info`` attribute.
+
 .. note::
 
   Without using this approach, the package would generate the pycache files in the package folder,
