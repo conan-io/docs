@@ -1,6 +1,6 @@
 #!groovy​
 
-node('Linux') {
+node('LinuxDocs') {
 
     String branch_name = env.BRANCH_NAME
     // do not publish when the branch is a patch like release/2.0.1, just for minor release branches
@@ -24,26 +24,20 @@ node('Linux') {
         sh(script: cloneAndInstallConan)
     }
 
-    def docsImage = docker.image("conanio/ci-docs")
-
-    docsImage.inside {
-        stage('Test build') {
-            sh 'pip install -r requirements.txt && pip install -e conan_sources && conan --version'
-            parallel html: {
-                // for some reason even adding this to autodoc_mock_imports
-                // does not work, se we have to install the real dependency
-                sh(script: 'make html')
-            },
-            pdf: {
-                sh(script: 'make latex')
-            },
-            spelling: {
-                sh(script: 'make spelling')
-            },
-            linkcheck: {
-                catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE', message: 'Linkcheck failed! Please check links and fix broken ones.') {
-                    sh(script: 'make linkcheck')
-                }
+    stage('Test build') {
+        sh 'pip install -r requirements.txt && pip install -e conan_sources && conan --version'
+        parallel html: {
+            sh(script: 'make html')
+        },
+        pdf: {
+            sh(script: 'make latex')
+        },
+        spelling: {
+            sh(script: 'make spelling')
+        },
+        linkcheck: {
+            catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE', message: 'Linkcheck failed! Please check links and fix broken ones.') {
+                sh(script: 'make linkcheck')
             }
         }
     }
