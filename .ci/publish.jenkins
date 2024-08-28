@@ -40,7 +40,7 @@ try {
         // we have to divide the parallel blocks because if we have to generate all branches documentation
         // it will fail
 
-        def number_of_parallel_blocks = (branches.size() < 5) ? 1 : 5
+        def number_of_parallel_blocks = (branches.size() < 5) ? 1 : 10
         def branches_blocks = branches.collate(branches.size().intdiv(number_of_parallel_blocks))
 
         for (branches_block in branches_blocks) {
