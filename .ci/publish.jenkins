@@ -1,7 +1,7 @@
 #!groovy​
 
 
-node('Linux') {
+node('LinuxDocs') {
 
 try {
         // To generate the docs locally run the following, better redirect sources_folder and gh_pages_out
@@ -28,8 +28,6 @@ try {
 
         checkout scm
 
-        docker.image("conanio/ci-docs:latest").pull()
-
         stage('Prepare sources as worktrees') {
             String branch_argument = ""
             for (branch in branches) {
@@ -45,25 +43,23 @@ try {
         def number_of_parallel_blocks = (branches.size() < 5) ? 1 : 5
         def branches_blocks = branches.collate(branches.size().intdiv(number_of_parallel_blocks))
 
-        docker.image("conanio/ci-docs:latest").inside {
-            for (branches_block in branches_blocks) {
-                Map parallelJobs = [:]
-                println("New block ${branches_block}")
-                branches_block.each { branch ->
-                    parallelJobs[branch] = {
-                        echo "Run parallel job for ${branch}"
-                        sh """
-                            python -m venv venv_${branch}
-                            . venv_${branch}/bin/activate
-                            pip install -r requirements.txt
-                            python .ci/scripts/generate_documentation.py --sources-folder=${sources_folder} --branch=${branch} --with-pdf
-                        """
-                    }
+        for (branches_block in branches_blocks) {
+            Map parallelJobs = [:]
+            println("New block ${branches_block}")
+            branches_block.each { branch ->
+                parallelJobs[branch] = {
+                    echo "Run parallel job for ${branch}"
+                    sh """
+                        python -m venv venv_${branch}
+                        . venv_${branch}/bin/activate
+                        pip install -r requirements.txt
+                        python .ci/scripts/generate_documentation.py --sources-folder=${sources_folder} --branch=${branch} --with-pdf
+                    """
                 }
-                stage('Generate docs parallel block') {
-                    parallelJobs.failFast = true
-                    parallel parallelJobs
-                }
+            }
+            stage('Generate docs parallel block') {
+                parallelJobs.failFast = true
+                parallel parallelJobs
             }
         }
 
