@@ -18,6 +18,7 @@ What follows is a list of methods that you can define in your recipes to customi
    methods/deploy
    methods/export
    methods/export_sources
+   methods/finalize
    methods/generate
    methods/init
    methods/layout
@@ -43,6 +44,7 @@ What follows is a list of methods that you can define in your recipes to customi
 - :doc:`deploy() <methods/deploy>`: Deploys (copy from package to user folder) the desired artifacts
 - :doc:`export() <methods/export>`: Copies files that are part of the recipe
 - :doc:`export_sources() <methods/export_sources>`: Copies files that are part of the recipe sources
+- :doc:`finalize() <methods/finalize>`: Customizes the package for using it in the running machine without affecting the original package
 - :doc:`generate() <methods/generate>`: Generates the files that are necessary for building the package
 - :doc:`init() <methods/init>`: Special initialization of recipe when extending from ``python_requires``
 - :doc:`layout() <methods/layout>`: Defines the relative project layout, source folders, build folders, etc.
