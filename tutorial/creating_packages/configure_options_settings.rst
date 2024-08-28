@@ -196,8 +196,17 @@ option ``shared=True``. Regardless of the value you pass for the fPIC option the
 package ID will be the same for the **hello/1.0** binary:
 
 .. code-block:: bash
-    
+    :caption: Windows
+
     $ conan create . --build=missing -o shared=True -o fPIC=True -tf=""
+
+.. code-block:: bash
+    :caption: Linux, macOS
+
+    $ conan create . --build=missing -o shared=True -o -tf=""
+
+.. code-block:: bash
+
     ...
     hello/1.0 package(): Packaged 1 '.h' file: hello.h
     hello/1.0 package(): Packaged 1 '.dylib' file: libhello.dylib
