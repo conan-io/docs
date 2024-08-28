@@ -56,6 +56,18 @@ making it available in the "build" context of consumer packages. ``headers`` and
 traits will not be propagated downstream (do not set those to ``True``, propagating headers
 and libraries from build to host context is invalid e.g. in the case of cross building).
 
+.. warning::
+
+  Build time requirements (``tool_requires``, ``build_requires``) that define ``build=True`` are designed to
+  work with their default ``visible=False``, and at the moment it is very strongly recommended to 
+  keep them as ``visible=False``. If you think you might have a use case, it would be better to discuss first
+  in https://github.com/conan-io/conan/issues and ask about it than trying to enable ``visible=True``.
+ 
+  For some very exceptional cases, there is **experimental** support for build/tool requires with ``build=True``
+  that also define ``visible=True``, but experimental and subject to possible breaking changes in future Conan
+  versions. It is also known and designed to not propagate all traits, for example ``headers/libs`` will not be 
+  propagated, because headers and libs from the "build" context cannot be linked in the host context.
+
 run
 ~~~
 
