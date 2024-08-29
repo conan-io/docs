@@ -3,6 +3,29 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.7.0 (28-Aug-2024)
+-------------------
+
+- Feature: Added ``Git.is_dirty(repository=False)`` new argument `#16892 <https://github.com/conan-io/conan/pull/16892>`_
+- Feature: Add variable_watch for `CMAKE_{C,CXX}_STANDARD` in `conan_toolchain.cmake`. `#16879 <https://github.com/conan-io/conan/pull/16879>`_
+- Feature: Add `check_type` to `get_property`  for CMakeDeps. `#16854 <https://github.com/conan-io/conan/pull/16854>`_ . Docs `here <https://github.com/conan-io/docs/pull/3815>`__
+- Feature: Propagate `run` trait requirement information in the "build" context downstream when `visible` trait is `True`. `#16849 <https://github.com/conan-io/conan/pull/16849>`_ . Docs `here <https://github.com/conan-io/docs/pull/3816>`__
+- Feature: Add `check_type` on  components `get_property`. `#16848 <https://github.com/conan-io/conan/pull/16848>`_ . Docs `here <https://github.com/conan-io/docs/pull/3815>`__
+- Feature: Add `set_property` for PkgConfigDeps to set properties for requirements from consumer recipes. `#16789 <https://github.com/conan-io/conan/pull/16789>`_
+- Feature: Define `CMAKE_<LANG>_COMPILER` variables in CMakePresets.json. `#16762 <https://github.com/conan-io/conan/pull/16762>`_
+- Feature: Add support for gcc 14.2. `#16760 <https://github.com/conan-io/conan/pull/16760>`_
+- Feature: Rework QbsProfile to support Conan 2. `#16742 <https://github.com/conan-io/conan/pull/16742>`_
+- Feature: Add `finalize()` method for local cache final adjustments of packages. `#16646 <https://github.com/conan-io/conan/pull/16646>`_ . Docs `here <https://github.com/conan-io/docs/pull/3820>`__
+- Feature: Add ``tricore`` compiler architecture support. `#16317 <https://github.com/conan-io/conan/pull/16317>`_ . Docs `here <https://github.com/conan-io/docs/pull/3819>`__
+- Feature: Describe here your pull request `#16317 <https://github.com/conan-io/conan/pull/16317>`_ . Docs `here <https://github.com/conan-io/docs/pull/3819>`__
+- Fix: Propagate ``repository`` argument from ``Git.get_url_and_commit(repository=True)`` to ``Git.is_dirty()``. `#16892 <https://github.com/conan-io/conan/pull/16892>`_
+- Fix: Improve error when accessing `cpp_info` shorthand methods. `#16847 <https://github.com/conan-io/conan/pull/16847>`_
+- Fix: Improve error message when a lockfile fails to lock a requirement, specifying its type. `#16841 <https://github.com/conan-io/conan/pull/16841>`_
+- Fix: Update patch-ng 1.18.0 to avoid SyntaxWarning spam. `#16766 <https://github.com/conan-io/conan/pull/16766>`_
+- Bugfix: Avoid ``CMakeToolchain`` error when both architecture flags and ``tools.build:linker_scripts`` are defined, due to missing space. `#16883 <https://github.com/conan-io/conan/pull/16883>`_
+- Bugfix: When using Visual Studio's llvm-clang, set the correct Platform Toolset in `MSBuildToolchain`. `#16844 <https://github.com/conan-io/conan/pull/16844>`_
+- Bugfix: Fix `export_sources` for non-existent recipes in a local recipes index. `#16776 <https://github.com/conan-io/conan/pull/16776>`_
+
 2.6.0 (01-Aug-2024)
 -------------------
 
