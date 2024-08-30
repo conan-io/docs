@@ -98,15 +98,24 @@ And copying the shared libraries in Windows and OSX to the current build folder,
     class Pkg(ConanFile):
 
         def generate(self):
+            # NOTE: In most cases it is not necessary to copy the shared libraries
+            # of dependencies to use them. Conan environment generators that create
+            # environment scripts allow to use the shared dependencies without copying
+            # them to the current location
             for dep in self.dependencies.values():
+                # This code assumes dependencies will only have 1 libdir/bindir, if for some
+                # reason they have more than one, it will fail. Use ``dep.cpp_info.libdirs``
+                # and ``dep.cpp_info.bindirs`` lists for those cases.
                 copy(self, "*.dylib", dep.cpp_info.libdir, self.build_folder)
-                copy(self, "*.dll", dep.cpp_info.libdir, self.build_folder)
+                # In Windows, dlls are in teh "bindir", not "libdir"
+                copy(self, "*.dll", dep.cpp_info.bindir, self.build_folder)
 
 
 .. note::
 
     **Best practices**
 
+    - Copying shared libraries to the current project in ``generate()`` is not a necessary in most cases, and shouldn't be done as a general approach. Instead, the Conan environment generators, which are enabled by default, will automatically generate environment scripts like ``conanbuild.bat|.sh`` or ``conanrun.bat|.sh`` with the necessary environment variables (``PATH``, ``LD_LIBRARY_PATH``, etc), to correctly locate and use the shared libraries of dependencies at runtime.
     - Accessing dependencies ``self.dependencies["mydep"].package_folder`` is possible, but it will be ``None`` when the dependency "mydep" is in "editable" mode. If you plan to use editable packages, make sure to always reference the ``cpp_info.xxxdirs`` instead.
 
 
@@ -168,6 +177,9 @@ Not all fields of the dependency conanfile are exposed, the current fields are:
 
 - **package_folder**: The folder location of the dependency package binary
 - **recipe_folder**: The folder containing the ``conanfile.py`` (and other exported files) of the dependency
+- **recipe_metadata_folder**: The folder containing optional recipe metadata files of the dependency
+- **package_metadata_folder**: The folder containing optional package metadata files of the dependency
+- **immutable_package_folder**: The folder containing the immutable artifacts when ``finalize()`` method exists
 - **ref**: An object that contains ``name``, ``version``, ``user``, ``channel`` and ``revision`` (recipe revision)
 - **pref**: An object that contains ``ref``, ``package_id`` and ``revision`` (package revision)
 - **buildenv_info**: ``Environment`` object with the information of the environment necessary to build
@@ -185,6 +197,8 @@ Not all fields of the dependency conanfile are exposed, the current fields are:
 - **description**: The ``description`` attribute of the dependency
 - **homepage**: The ``homepage`` attribute of the dependency
 - **url**: The ``url`` attribute of the dependency
+- **package_type**: The ``package_type`` of the dependency
+- **languages**: The ``languages`` of the dependency.
 
 
 Iterating dependencies
