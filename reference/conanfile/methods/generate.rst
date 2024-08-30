@@ -107,7 +107,7 @@ And copying the shared libraries in Windows and OSX to the current build folder,
                 # reason they have more than one, it will fail. Use ``dep.cpp_info.libdirs``
                 # and ``dep.cpp_info.bindirs`` lists for those cases.
                 copy(self, "*.dylib", dep.cpp_info.libdir, self.build_folder)
-                # In Windows, dlls are in teh "bindir", not "libdir"
+                # In Windows, dlls are in the "bindir", not "libdir"
                 copy(self, "*.dll", dep.cpp_info.bindir, self.build_folder)
 
 
