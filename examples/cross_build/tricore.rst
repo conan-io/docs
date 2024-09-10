@@ -1,14 +1,18 @@
 .. _example_cross_build_tricore:
 
 
-Building packages with Tricore compiler
+Building packages for TriCore
 =======================================
 
 .. include:: ../../common/experimental_warning.inc
 
 
-Tricore compiler is a popular compiler for embedded in some domains such as automotive.
-Since Conan 2.7 there is some built-in support for this compiler:
+TriCore is an embedded microcontroller architecture used in multiple domains such as automotive.
+There are multiple compilers for TriCore, some of which can be found `here
+<https://www.infineon.com/cms/en/tools/aurix-tools/Compilers/>`__. There are also ``gcc``
+implementations for TriCore; this is what we will be using in the examples on this page.
+
+Since Conan 2.7 there is some built-in support for this architecture:
 
 - The default ``settings.yml`` contains architectures: ``'tc131', 'tc16', 'tc161', 'tc162', 'tc18'``
 - ``CMakeToolchain`` defines ``CMAKE_SYSTEM_NAME=Generic-ELF`` and ``CMAKE_SYSTEM_PROCESSOR=tricore`` for these architectures
@@ -36,7 +40,7 @@ That means that it is possible to define a profile like:
 
 
 This assumes the compiler is installed in the system path, and its executables are called ``tricore-elf-gcc`` and ``tricore-elf-g++``.
-And then, cross-build and create a package for tricore using this profile, for example the default ``cmake_lib``:
+And then, cross-build and create a package for TriCore using this profile, for example the default ``cmake_lib``:
 
 .. code-block:: bash
 
