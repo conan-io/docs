@@ -3,6 +3,13 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.7.1 (11-Sept-2024)
+--------------------
+
+- Feature: Add support apple-clang 16. `#16972 <https://github.com/conan-io/conan/pull/16972>`_
+- Fix: Add test for #19960. `#16974 <https://github.com/conan-io/conan/pull/16974>`_
+- Bugfix: Revert "Define compiler variables in CMakePresets.json" commit 60df72cf75254608ebe6a447106e60be4d8c05a4. `#16971 <https://github.com/conan-io/conan/pull/16971>`_
+
 2.7.0 (28-Aug-2024)
 -------------------
 
