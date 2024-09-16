@@ -50,7 +50,7 @@ If you are using a multi-configuration generator:
 
 .. code:: bash
 
-    $ cmake --preset conan-default
+    $ cmake --preset conan-debug
     $ cmake --build --preset conan-debug
     $ build\Debug\foo.exe
     foo/1.0: Hello World Release!
