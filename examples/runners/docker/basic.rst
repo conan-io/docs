@@ -5,7 +5,7 @@ Creating a Conan package using a Docker runner
 
 .. include:: ../../../common/experimental_warning.inc
 
-First of all you need to have docker installed and running, plus conan and the docker python package. In this example we are going to use a virtualenv with both packages.
+First of all you need to have the Docker daemon installed and running, plus Conan and the ``docker`` Python package. This tutorial assumes that you are running Conan inside a Python virtual environment, skip the first line if you already have the ``docker`` Python package installed in your virtual environment.
 
 .. code-block:: bash
 
