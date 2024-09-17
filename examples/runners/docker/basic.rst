@@ -9,7 +9,7 @@ First of all you need to have the Docker daemon installed and running, plus Cona
 
 .. code-block:: bash
 
-    $ python3.8 -m venv conan2-runners && source conan2-runners/bin/activate
+    # install docker in your virtual environment if you don't have it already installed
     $ pip install conan docker
     $ docker ps
     $ CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
