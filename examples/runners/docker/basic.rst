@@ -15,7 +15,7 @@ First of all you need to have the Docker daemon installed and running, plus Cona
     $ CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 
 
-Once the environment is ready, we are going to create create simple ``cmake_lib`` Conan template inside Docker using a runner. Let’s create the lib and a Dockerfile inside our project folder.
+Now we are going to create create simple ``cmake_lib`` Conan template to later run inside Docker using the runner feature. Let’s create the Conan package and a Dockerfile inside our project folder.
 
 .. code-block:: bash
 
