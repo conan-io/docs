@@ -15,7 +15,7 @@ This first plugin is a Python script that receives a ``remote`` object and two o
 or ``None`` if no credentials are specified for that remote and we want Conan to follow the normal login flow.
 
 This plugin is located at the path ``<CONAN_HOME>/extensions/plugins/auth_remote.py`` and must be manually created with the name
-``auth_remote.py``, containing a function like ``auth_remote_plugin(remote, user=None, password=None)``.
+``auth_remote.py``, containing a function named ``auth_remote_plugin(remote, user=None, password=None)``.
 
 Here we can see an example of a plugin implementation.
 
