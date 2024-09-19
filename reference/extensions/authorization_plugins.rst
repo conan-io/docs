@@ -31,7 +31,7 @@ Auth source plugin
 This one is a Python script that receives an ``url`` as a parameter and outputs a dictionary with the credentials or
 access token. It can also return None to indicate that Conan should proceed with its normal login flow.
 
-This plugin is located at the path ``extensions/plugins/auth_source.py`` and must be manually created with the name
+This plugin is located at the path ``<CONAN_HOME>/extensions/plugins/auth_source.py`` and must be manually created with the name
 ``auth_source.py``, containing a function like ``auth_source_plugin(url)``.
 
 Here we can see an example of a plugin implementation.
