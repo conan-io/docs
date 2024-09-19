@@ -39,9 +39,9 @@ Here we can see an example of a plugin implementation.
 .. code-block:: python
 
     def auth_source_plugin(url):
-        if url == "https://www.my-custom-login-sources.com":
+        if url.startswith("https://my-sources-user-password.my-org/"):
             return {'user': 'my-user', 'password': 'my-password'}
-        elif url == "https://www.my-custom-token-sources.com":
+        elif url.startswith("https://my-private-token-sources.my-org/"):
             return {'token': 'my-secure-token'}
 
 
