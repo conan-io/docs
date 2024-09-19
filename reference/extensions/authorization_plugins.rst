@@ -22,7 +22,7 @@ Here we can see an example of a plugin implementation.
 .. code-block:: python
 
     def auth_remote_plugin(remote, user=None, password=None):
-        if remote.url == "https://www.my-custom-remote.com":
+        if remote.url.startswith("https://artifactory.my-org/"):
             return "admin", "password"
 
 
