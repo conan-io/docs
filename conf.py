@@ -48,6 +48,7 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.graphviz',
     'sphinx.ext.todo',
+    'sphinx_tabs.tabs',
     'sphinxcontrib.jquery',
     'sphinxcontrib.youtube',
     'autocommand',

@@ -21,6 +21,9 @@ In the next wizard window, select a name for your application, for example `MyCo
 "Minimum SDK" with the suggested value (21 in our case), but remember the value as we are using it later in the Conan
 profile at ``os.api_level```
 
+In the "Build configuration language" you can choose between ``Groovy DSL (build.gradle)`` or ``Kotlin DSL (build.gradle.kts)`` 
+in order to use `conanInstall` task bellow.
+
 Select a "C++ Standard" in the next window, again, remember the choice as later we should use the same in the profile at
 ``compiler.cppstd``.
 
@@ -80,44 +83,103 @@ open the ``build.gradle`` file in the ``My_Conan_App.app`` (Find it in the `Grad
 Paste the ``task conanInstall`` contents after the ``plugins`` and before the ``android`` elements:
 
 
-.. code-block:: groovy
-   :caption: build.gradle
+.. tabs::
+
+    .. code-tab:: groovy
+        :caption: build.gradle
 
 
-   plugins {
-    ...
-   }
+        plugins {
+         ...
+        }
+
+        task conanInstall {
+            def conanExecutable = "conan" // define the path to your conan installation
+            def buildDir = new File("app/build")
+            buildDir.mkdirs()
+            ["Debug", "Release"].each { String build_type ->
+                ["armv7", "armv8", "x86", "x86_64"].each { String arch ->
+                    def cmd = conanExecutable + " install " +
+                              "../src/main/cpp --profile android -s build_type="+ build_type +" -s arch=" + arch +
+                              " --build missing -c tools.cmake.cmake_layout:build_folder_vars=['settings.arch']"
+                    print(">> ${cmd} \n")
+
+                    def sout = new StringBuilder(), serr = new StringBuilder()
+                    def proc = cmd.execute(null, buildDir)
+                    proc.consumeProcessOutput(sout, serr)
+                    proc.waitFor()
+                    println "$sout $serr"
+                    if (proc.exitValue() != 0) {
+                        throw new Exception("out> $sout err> $serr" + "\nCommand: ${cmd}")
+                    }
+                }
+            }
+        }
+
+        android {
+            compileSdk 32
+
+            defaultConfig {
+
+        ...
 
 
-   task conanInstall {
-       def conanExecutable = "conan" // define the path to your conan installation
-       def buildDir = new File("app/build")
-       buildDir.mkdirs()
-       ["Debug", "Release"].each { String build_type ->
-           ["armv7", "armv8", "x86", "x86_64"].each { String arch ->
-               def cmd = conanExecutable + " install " +
-                         "../src/main/cpp --profile android -s build_type="+ build_type +" -s arch=" + arch +
-                         " --build missing -c tools.cmake.cmake_layout:build_folder_vars=['settings.arch']"
-               print(">> ${cmd} \n")
+    .. code-tab:: kotlin
+        :caption: build.gradle.kts
+        
 
-               def sout = new StringBuilder(), serr = new StringBuilder()
-               def proc = cmd.execute(null, buildDir)
-               proc.consumeProcessOutput(sout, serr)
-               proc.waitFor()
-               println "$sout $serr"
-               if (proc.exitValue() != 0) {
-                   throw new Exception("out> $sout err> $serr" + "\nCommand: ${cmd}")
-               }
-           }
-       }
-   }
+        plugins {
+         ...
+        }
 
-   android {
-       compileSdk 32
+        tasks.register("conanInstall") {
+            val conanExecutable = "conan" // define the path to your conan installation
+            val buildDir = file("app/build")
+            buildDir.mkdirs()
 
-       defaultConfig {
+            val buildTypes = listOf("Debug", "Release")
+            val architectures = listOf("armv7", "armv8", "x86", "x86_64")
 
-   ...
+            doLast {
+                buildTypes.forEach { buildType ->
+                    architectures.forEach { arch ->
+                        val cmd = "$conanExecutable install ../../src/main/cpp --profile android-studio " +
+                                  "-s build_type=$buildType -s arch=$arch --build missing " +
+                                  "-c tools.cmake.cmake_layout:build_folder_vars=['settings.arch']"
+
+                        println(">> $cmd")
+
+                        val proc = ProcessBuilder(cmd.split(" "))
+                            .directory(buildDir)
+                            .start()
+
+                        val result = proc.inputStream.bufferedReader().readText()
+                        val errors = proc.errorStream.bufferedReader().readText()
+
+                        proc.waitFor()
+
+                        if (proc.exitValue() != 0) {
+                            throw Exception("Execution failed! Output: $result Error: $errors")
+                        }
+                        println(result)
+                        if (errors.isNotBlank()) {
+                            println("Errors: $errors")
+                        }
+                    }
+                }
+            }
+        }
+
+        tasks.named("preBuild").configure {
+            dependsOn("conanInstall")
+        }
+
+        android {
+           compileSdk 32
+        
+           defaultConfig {
+        
+        ...
 
 
 The ``conanInstall`` task is calling :command:`conan install` for Debug/Release and for each architecture we want to build, you
@@ -125,24 +187,41 @@ can adjust these values to match your requirements.
 
 If we focus on the ``conan install`` task we can see:
 
-   1. We are passing a ``--profile android``, so we need to create the proile. Go to the ``profiles`` folder in the
+   1. We are passing a ``--profile android``, so we need to create the profile. Go to the ``profiles`` folder in the
       conan config home directory (check it running :command:`conan config home`) and create a file named ``android``
       with the following contents:
 
-      .. code-block:: text
+      .. tabs::
 
-          include(default)
+         .. code-tab:: text System NDK
 
-          [settings]
-          os=Android
-          os.api_level=21
-          compiler=clang
-          compiler.version=12
-          compiler.libcxx=c++_static
-          compiler.cppstd=14
+            include(default)
+            
+            [settings]
+            os=Android
+            os.api_level=21
+            compiler=clang
+            compiler.version=12
+            compiler.libcxx=c++_static
+            compiler.cppstd=14
+            
+            [conf]
+            tools.android:ndk_path=/opt/homebrew/share/android-ndk
 
-          [conf]
-          tools.android:ndk_path=/Users/luism/Library/Android/sdk/ndk/21.4.7075529/
+         .. code-tab:: text Conan Packed NDK
+
+            include(default)
+            
+            [settings]
+            os=Android
+            os.api_level=21
+            compiler=clang
+            compiler.version=12
+            compiler.libcxx=c++_static
+            compiler.cppstd=14
+            
+            [tool_requires]
+            *: android-ndk/r26d
 
 
       You might need to modify:
@@ -272,8 +351,8 @@ If we click build and then run the application, we will see that the zlib depend
 
 
 .. |zlib1.2.11| image:: ../../../images/examples/cross_build/android/android_studio/zlib_1_2_11.png
-   :width: 400
+   :width: 300
    :alt: Android application showing the zlib 1.2.11
 .. |zlib1.2.12| image:: ../../../images/examples/cross_build/android/android_studio/zlib_1_2_12.jpg
-   :width: 400
+   :width: 300
    :alt: Android application showing the zlib 1.2.12
