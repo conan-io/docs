@@ -3,25 +3,33 @@
 Authorization plugins
 ---------------------
 
-Regarding authorization, we have two plugins: one focused on remote Conan servers authorization, ``auth_remote.py``, and another
-focused on authorization for source file servers, ``auth_source.py``.
+Regarding authorization, we have two plugins: one focused on remote  :ref:`Conan servers <setting_up_conan_remotes>`
+authorization, ``auth_remote.py``, and another focused on authorization for source file servers, ``auth_source.py``.
 
 The idea behind these plugins is to create custom integrations with each user's secrets managers.
 
 Auth remote plugin
 +++++++++++++++++++
-This first plugin is a Python script that receives a ``remote`` object and two optional parameters: ``user`` and
-``password``. The output should be a tuple of the username and password that we want to use for that remote,
-or ``None`` if no credentials are specified for that remote and we want Conan to follow the normal login flow.
+This first plugin is a Python script that receives a ``remote`` object and an optional parameter: ``user``. If the user
+is provided, the expected output is the credentials that use that username. The output should be a tuple of the
+username that we want to use for that remote, or ``None`` if no credentials are specified for that remote and we want
+Conan to follow the normal login flow.
 
-This plugin is located at the path ``<CONAN_HOME>/extensions/plugins/auth_remote.py`` and must be manually created with the name
-``auth_remote.py``, containing a function named ``auth_remote_plugin(remote, user=None, password=None)``.
+This plugin is located at the path ``<CONAN_HOME>/extensions/plugins/auth_remote.py`` and must be manually created with
+the name ``auth_remote.py``, containing a function named ``auth_remote_plugin(remote, user=None)``.
+
+The order for retrieving credentials is as follows:
+
+* First, an attempt is made to obtain the credentials from the ``auth_remote_plugin``.
+* If it doesn't exist or returns ``None``, the next step is to check ``credentials.json``.
+* After that, the environment variables are searched.
+* Finally, the credentials are obtained through an interactive prompt.
 
 Here we can see an example of a plugin implementation.
 
 .. code-block:: python
 
-    def auth_remote_plugin(remote, user=None, password=None):
+    def auth_remote_plugin(remote, user=None):
         if remote.url.startswith("https://artifactory.my-org/"):
             return "admin", "password"
 
@@ -33,6 +41,11 @@ access token. It can also return ``None`` to indicate that Conan should proceed 
 
 This plugin is located at the path ``<CONAN_HOME>/extensions/plugins/auth_source.py`` and must be manually created with the name
 ``auth_source.py``, containing a function named ``auth_source_plugin(url)``.
+
+The order for retrieving the credentials is as follows:
+
+* First, an attempt is made to obtain the credentials from the ``auth_source_plugin``.
+* If it doesn't exist or returns ``None``, an attempt is made to retrieve them from ``source_credentials.json``.
 
 Here we can see an example of a plugin implementation.
 
