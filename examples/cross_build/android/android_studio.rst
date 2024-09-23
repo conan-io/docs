@@ -208,7 +208,7 @@ If we focus on the ``conan install`` task we can see:
             [conf]
             tools.android:ndk_path=/opt/homebrew/share/android-ndk
 
-         .. code-tab:: text Conan Packed NDK
+         .. code-tab:: text Conan NDK package
 
             include(default)
             
