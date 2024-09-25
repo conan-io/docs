@@ -16,7 +16,7 @@ username that we want to use for that remote, or ``None`` if no credentials are 
 Conan to follow the normal login flow.
 
 This plugin is located at the path ``<CONAN_HOME>/extensions/plugins/auth_remote.py`` and must be manually created with
-the name ``auth_remote.py``, containing a function named ``auth_remote_plugin(remote, user=None)``.
+the name ``auth_remote.py``, containing a function named ``auth_remote_plugin(remote, user=None, **kwargs)``.
 
 The order for retrieving credentials is as follows:
 
@@ -29,7 +29,7 @@ Here we can see an example of a plugin implementation.
 
 .. code-block:: python
 
-    def auth_remote_plugin(remote, user=None):
+    def auth_remote_plugin(remote, user=None, **kwargs):
         if remote.url.startswith("https://artifactory.my-org/"):
             return "admin", "password"
 
@@ -58,3 +58,9 @@ Here we can see an example of a plugin implementation.
             return {'token': 'my-secure-token'}
 
 
+.. note::
+
+    These plugins can be shared and installed using ``conan config install`` or ``conan config install-pkg``
+
+    **Important:** Ensure that your plugins and configurations do **not** contain hardcoded secrets or sensitive data.
+    Instead, passwords should be retrieved using your implementation with a secret manager.

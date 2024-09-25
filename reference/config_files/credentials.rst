@@ -68,4 +68,4 @@ For example it could do something like the following to get the credentials from
 
 .. seealso::
 
-    - :ref:`How to use your own secrets manager for your source server logins <reference_extensions_authorization_plugin>`.
+    - :ref:`How to use your own secrets manager for Conan remotes logins <reference_extensions_authorization_plugin>`.
