@@ -17,20 +17,48 @@ Running Artifactory CE
 
 There are several ways to run Artifactory CE:
 
-* **Running from a Docker image:**
+Running from a Docker image
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+As of Artifactory 7.77, it is mandatory to use an additional SQL database such as
+PostgreSQL, or configure the ``allowNonPostgresql: true`` flag in the ``system.yaml`` file
+if you wish to use Derby or another database. You can pass that information via
+environment variables directly in the command line:
+
+1. **Using Derby** (with the flag ``allowNonPostgresql: true``):
 
 .. code-block:: bash
-    
-    $ docker run --name artifactory -d -p 8081:8081 -p 8082:8082 releases-docker.jfrog.io/jfrog/artifactory-cpp-ce:7.63.12
 
-* **Download and run from zip file**. The `Download Page <https://conan.io/downloads.html>`_ has
-  a link for you to follow. When the file is unzipped, launch Artifactory by double clicking
-  the artifactory.bat on Windows or artifactory.sh script in the *app/bin* subfolder,
-  depending on the OS. Artifactory comes with JDK bundled, please `read Artifactory
-  requirements <https://jfrog.com/help/r/jfrog-installation-setup-documentation/system-requirements>`_.
+    $ docker run --name artifactory -d -e JF_SHARED_DATABASE_TYPE=derby -e JF_SHARED_DATABASE_ALLOWNONPOSTGRESQL=true -p 8081:8081 -p 8082:8082 releases-docker.jfrog.io/jfrog/artifactory-cpp-ce:7.90.10
 
-Once Artifactory has started, navigate to the default URL `http://localhost:8081`, where
-the Web UI should be running. The default user and password are ``admin:password``.
+2. **Launchung a PostgreSQL along with Artifactory**
+
+.. code-block:: bash
+
+    $ docker run --name postgres -itd -e POSTGRES_USER=artifactory -e POSTGRES_PASSWORD=password -e POSTGRES_DB=artifactorydb -p 5432:5432 library/postgres
+
+    $ docker run --name artifactory -d -e JF_SHARED_DATABASE_USERNAME=artifactory -e JF_SHARED_DATABASE_PASSWORD=password -e JF_SHARED_DATABASE_URL=jdbc:postgresql://host.docker.internal:5432/artifactorydb -e JF_SHARED_DATABASE_TYPE=postgresql -e JF_SHARED_DATABASE_DRIVER=org.postgresql.Driver -p 8081:8081 -p 8082:8082 releases-docker.jfrog.io/jfrog/artifactory-cpp-ce:7.90.10
+
+
+For more detailed information, refer to the official JFrog documentation:
+https://jfrog.com/help/r/jfrog-installation-setup-documentation/install-artifactory-single-node-with-docker.
+
+
+Download and run from a zip file
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+For instructions on installing Artifactory CE on different operating systems, consult the
+relevant JFrog installation documentation:
+
+- `Linux Installation
+  <https://jfrog.com/help/r/jfrog-installation-setup-documentation/install-artifactory-single-node-with-linux-archive>`_
+- `Windows Installation
+  <https://jfrog.com/help/r/jfrog-installation-setup-documentation/install-artifactory-single-node-on-windows>`_
+- `MacOS Installation
+  <https://jfrog.com/help/r/jfrog-installation-setup-documentation/install-artifactory-single-node-on-mac-darwin>`_
+
+Once Artifactory is up and running, access the web UI by navigating to the default URL
+`http://localhost:8082 <http://localhost:8082>`_. The default credentials are ``admin:password``.
 
 Creating and Using a Conan Repo
 -------------------------------
