@@ -31,7 +31,7 @@ environment variables directly in the command line:
 
     $ docker run --name artifactory -d -e JF_SHARED_DATABASE_TYPE=derby -e JF_SHARED_DATABASE_ALLOWNONPOSTGRESQL=true -p 8081:8081 -p 8082:8082 releases-docker.jfrog.io/jfrog/artifactory-cpp-ce:7.90.10
 
-2. **Launchung a PostgreSQL along with Artifactory**
+2. **Launching PostgreSQL along with Artifactory**
 
 .. code-block:: bash
 
@@ -40,8 +40,12 @@ environment variables directly in the command line:
     $ docker run --name artifactory -d -e JF_SHARED_DATABASE_USERNAME=artifactory -e JF_SHARED_DATABASE_PASSWORD=password -e JF_SHARED_DATABASE_URL=jdbc:postgresql://host.docker.internal:5432/artifactorydb -e JF_SHARED_DATABASE_TYPE=postgresql -e JF_SHARED_DATABASE_DRIVER=org.postgresql.Driver -p 8081:8081 -p 8082:8082 releases-docker.jfrog.io/jfrog/artifactory-cpp-ce:7.90.10
 
 
-For more detailed information, refer to the official JFrog documentation:
-https://jfrog.com/help/r/jfrog-installation-setup-documentation/install-artifactory-single-node-with-docker.
+Once Artifactory is up and running, access the web UI by navigating to the default URL
+`http://localhost:8082 <http://localhost:8082>`_. The default credentials are
+``admin:password``.
+
+For more detailed information, refer to the `official JFrog documentation
+<https://jfrog.com/help/r/jfrog-installation-setup-documentation/install-artifactory-single-node-with-docker>`_.
 
 
 Download and run from a zip file
@@ -51,14 +55,18 @@ For instructions on installing Artifactory CE on different operating systems, co
 relevant JFrog installation documentation:
 
 - `Linux Installation
-  <https://jfrog.com/help/r/jfrog-installation-setup-documentation/install-artifactory-single-node-with-linux-archive>`_
+  <https://jfrog.com/help/r/jfrog-installation-setup-documentation/install-artifactory-single-node-with-linux-archive>`_. `Download link for Linux <https://releases.jfrog.io/artifactory/bintray-artifactory/org/artifactory/cpp/ce/jfrog-artifactory-cpp-ce/[RELEASE]/jfrog-artifactory-cpp-ce-[RELEASE]-linux.tar.gz>`_
+
 - `Windows Installation
-  <https://jfrog.com/help/r/jfrog-installation-setup-documentation/install-artifactory-single-node-on-windows>`_
+  <https://jfrog.com/help/r/jfrog-installation-setup-documentation/install-artifactory-single-node-on-windows>`_. `Download link for Windows <https://releases.jfrog.io/artifactory/bintray-artifactory/org/artifactory/cpp/ce/jfrog-artifactory-cpp-ce/[RELEASE]/jfrog-artifactory-cpp-ce-[RELEASE]-windows.zip>`_
+
 - `MacOS Installation
-  <https://jfrog.com/help/r/jfrog-installation-setup-documentation/install-artifactory-single-node-on-mac-darwin>`_
+  <https://jfrog.com/help/r/jfrog-installation-setup-documentation/install-artifactory-single-node-on-mac-darwin>`_. `Download link dor MacOS <https://releases.jfrog.io/artifactory/bintray-artifactory/org/artifactory/cpp/ce/jfrog-artifactory-cpp-ce/[RELEASE]/jfrog-artifactory-cpp-ce-[RELEASE]-darwin.tar.gz>`_
 
 Once Artifactory is up and running, access the web UI by navigating to the default URL
-`http://localhost:8082 <http://localhost:8082>`_. The default credentials are ``admin:password``.
+`http://localhost:8082 <http://localhost:8082>`_. The default credentials are
+``admin:password``.
+
 
 Creating and Using a Conan Repo
 -------------------------------
