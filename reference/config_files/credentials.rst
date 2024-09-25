@@ -12,6 +12,7 @@ Conan can authenticate against its Conan remote servers with the following:
 - With the ``conan remote login`` command, authentication can be done with argument passing, or interactively.
 - With the environment variables ``CONAN_LOGIN_USERNAME`` for all remotes (``CONAN_LOGIN_USERNAME_{REMOTE}`` for an individual remote) and ``CONAN_PASSWORD`` (``CONAN_PASSWORD_{REMOTE}`` for an individual remote), Conan will not request interactively in the command line when necessary, but will take the values from the environment variables as if they were provided by the user.
 - With a ``credentials.json`` file put in the Conan cache.
+- With a custom :ref:`auth plugin <reference_extensions_authorization_plugin>`.
 
 This section describes the usage of ``credentials.json`` file.
 
@@ -64,3 +65,7 @@ For example it could do something like the following to get the credentials from
             }
         ]
     }
+
+.. seealso::
+
+    - :ref:`How to use your own secrets manager for your source server logins <reference_extensions_authorization_plugin>`.
