@@ -20,7 +20,7 @@ There are several ways to run Artifactory CE:
 Running from a Docker image
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-As of Artifactory 7.77, it is mandatory to use an additional SQL database such as
+As of Artifactory 7.77,  it is a requirement to point Artifactory to a running instance of a SQL server such as
 PostgreSQL, or configure the ``allowNonPostgresql: true`` flag in the ``system.yaml`` file
 if you wish to use Derby or another database. You can pass that information via
 environment variables directly in the command line:
