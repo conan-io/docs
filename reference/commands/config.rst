@@ -164,10 +164,20 @@ Displays all the Conan built-in configurations. There are 2 groups:
 .. autocommand::
     :command: conan config list
 
+It is possible to list only the configurations that match a given pattern, like:
+
+.. code:: bash
+
+    $  conan config list proxy
+    core.net.http:clean_system_proxy: If defined, the proxies system env-vars will be discarded
+    core.net.http:no_proxy_match: List of urls to skip from proxies configuration
+    core.net.http:proxies: Dictionary containing the proxy configuration
+
 
 .. seealso::
 
-    - :ref:`Conan configuration files <reference_config_files>`
+    - These configurations can be defined in ``global.conf``, profile files and command line, see 
+      :ref:`Conan configuration files <reference_config_files>`
 
 
 conan config show
