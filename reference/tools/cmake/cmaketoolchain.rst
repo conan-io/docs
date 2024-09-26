@@ -428,10 +428,11 @@ There are two ways of providing custom CMake toolchain files:
     **Important notes**
 
     - In most cases, ``tools.cmake.cmaketoolchain:user_toolchain`` will be preferred over ``tools.cmake.cmaketoolchain:toolchain_file``
-    - The definition of a ``tools.cmake.cmaketoolchain:user_toolchain`` inhibits the automatic definition of
-      ``CMAKE_SYSTEM_NAME``, ``CMAKE_SYSTEM_VERSION`` and ``CMAKE_SYSTEM_PROCESSOR`` that Conan would try to auto-detect
-      in cases of cross-building, and the user toolchains should provide these values or use other confs such as 
-      ``tools.cmake.cmaketoolchain:system_name``.
+    - The ``user_toolchain`` files can define variables for cross-building, such as ``CMAKE_SYSTEM_NAME``, ``CMAKE_SYSTEM_VERSION``
+      and ``CMAKE_SYSTEM_PROCESSOR``. If these variables are defined in the user toolchain file, they will be respected, and the 
+      ``conan_toolchain.cmake`` deduced ones will not overwrite the user defined ones. If those variables are not defined in the
+      user toolchain file, then the Conan automatically deduced ones will be used. Those variables defined in the ``user_toolchain``
+      files will also have higher precedence than the configuration defined ones like ``tools.cmake.cmaketoolchain:system_name``.
     - The usage of ``tools.cmake.cmaketoolchain:enabled_blocks`` can be used together with ``tools.cmake.cmaketoolchain:user_toolchain``
       to enable only certain blocks but avoid CMakeToolchain to override CMake values defined in the user toolchain
       file.
