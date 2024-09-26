@@ -67,6 +67,10 @@ will create the following files:
 
     To create ``.ps1`` files required for Powershell it is necessary to set to True the following conf: ``tools.env.virtualenv:powershell``.
 
+.. note::
+
+    Disabling the automatic generation of these files for consumers can be achieved by passing ``--env-generation=false`` to the ``conan install`` command.
+
 Reference
 ---------
 
