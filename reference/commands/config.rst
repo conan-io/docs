@@ -145,6 +145,13 @@ To install configuration from a Conan configuration package, it is possible:
 
 It is also possible to make the version of the configuration affect all packages ``package_id`` and be part of the binary model, by activating the ``core.package_id:config_mode`` conf (this is also experimental), to any available mode, like ``minor_mode``.
 
+As the ``conan config install-pkg`` command downloads the package from a Conan remote server, it can download from an already existing remote,
+or it can download from a Conan remote directly specifying the repository URL:
+
+.. code:: bash
+
+    $ conan config install-pkg myconf/version --url=<url/conan/remote/repo>
+
 
 
 conan config list
