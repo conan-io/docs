@@ -90,7 +90,8 @@ html_context = {
     "github_user": "conan-io", # Username
     "github_repo": "docs", # Repo name
     "github_version": "develop2", # Version
-    "conf_py_path": "/" # Path in the checkout to the docs root
+    "conf_py_path": "/", # Path in the checkout to the docs root
+    "enable_cookies": True  # enable cookies banner
 }
 
 # Add any paths that contain templates here, relative to this directory.
@@ -430,7 +431,6 @@ notfound_pagename = 'Page Not Found'
 
 # Graphviz output format, one of png, svg
 graphviz_output_format = 'svg'
-
 
 # copy legacy redirects
 def copy_legacy_redirects(app, docname): # Sphinx expects two arguments
