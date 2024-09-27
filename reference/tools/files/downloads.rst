@@ -11,6 +11,13 @@ conan.tools.files.get()
 .. autofunction:: get
 
 
+.. important::
+
+    ``get()`` calls internally ``unzip()``. 
+    Please read the note in :ref:`conan_tools_files_unzip` regarding Python 3.14 breaking changes and 
+    the new tar archive extract filters.
+
+
 conan.tools.files.ftp_download()
 --------------------------------
 

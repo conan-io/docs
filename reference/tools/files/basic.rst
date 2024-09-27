@@ -223,6 +223,15 @@ Use the ``pattern`` argument if you want to filter specific files and paths to d
     unzip(self, "bigfile.zip", pattern="*.txt")
 
 
+.. important::
+
+    In Conan 2.8 ``unzip()`` provides a new ``extract_filter=None`` argument and a new 
+    ``tools.files.unzip:filter`` configuration was added to prepare for future Python 3.14 
+    breaking changes, in which the ``data`` filter for extracting tar archives will be made the default.
+    The recommendation is to start using the ``data`` filter as soon as possible (the conf can be 
+    defined in ``global.conf``, or it can be explicitly added as argument in recipes ``unzip()`` and ``get()``
+    helpers) as that is the current security recommendation while downloading sources from the internet.
+
 
 .. currentmodule:: conan.tools.files.files
 
