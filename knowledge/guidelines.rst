@@ -47,6 +47,18 @@ Good practices
   ``conan install . -s="os=Windows"`` is correct, but ``conan install -s="os=Windows" .`` is not.
   Likewise, it's recommended to use ``=`` instead of spaces between the name and value of named arguments.
   This is to avoid some ambiguity scenarios when parsing the command line arguments.
+- **It is strongly discouraged to use user/channel** for any quality, stage, maturity or variable information
+  The ``channel`` part is very legacy, and should be avoided in most cases, or use a fixed string as ``stable``.
+  The ``user`` might be used for intra-organization private packages, while the recommendation for packages coming
+  from ConanCenter or forks of ``conan-center-index`` Github repo is to use them without any user or channel, like
+  the ``zlib/1.3.1`` ConanCenter references, even for customization of the recipes and packages for those third party
+  libraries.
+- The way to manage package quality, stage or maturity **promotions is by using different server repositories**, and the well known developers
+  best practices recommend to manage the pipelines by doing promotions (copying) immutable artifacts or packages between
+  those different server repositories, for example copying packages from a ``staging`` repository to a ``production`` repository
+  once they have passed some quality checks. But it is very important that this promotion do not change in any way those
+  packages, which must be completely immutable, not even changing its ``user/channel``, this is why the above point discourages
+  using user and channel, packages and artifacts must be immutable.
 
 Forbidden practices
 -------------------
