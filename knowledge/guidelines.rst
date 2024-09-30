@@ -56,7 +56,7 @@ Good practices
 - The way to manage package quality, stage or maturity **promotions is by using different server repositories**, and the well known developer's
   best practices recommend to manage the pipelines by doing promotions (copying) immutable artifacts or packages between
   those different server repositories, for example copying packages from a ``staging`` repository to a ``production`` repository
-  once they have passed some quality checks. But it is very important that this promotion do not change in any way those
+  once they have passed some quality checks. But it is very important that this promotion does not change in any way those
   packages, which must be completely immutable, not even changing its ``user/channel``, this is why the above point discourages
   using user and channel, packages and artifacts must be immutable.
 
