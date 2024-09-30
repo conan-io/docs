@@ -3,6 +3,60 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.7.1 (11-Sept-2024)
+--------------------
+
+- Feature: Add support apple-clang 16. `#16972 <https://github.com/conan-io/conan/pull/16972>`_
+- Fix: Add test for #19960. `#16974 <https://github.com/conan-io/conan/pull/16974>`_
+- Bugfix: Revert "Define compiler variables in CMakePresets.json" commit 60df72cf75254608ebe6a447106e60be4d8c05a4. `#16971 <https://github.com/conan-io/conan/pull/16971>`_
+
+2.7.0 (28-Aug-2024)
+-------------------
+
+- Feature: Added ``Git.is_dirty(repository=False)`` new argument `#16892 <https://github.com/conan-io/conan/pull/16892>`_
+- Feature: Add variable_watch for `CMAKE_{C,CXX}_STANDARD` in `conan_toolchain.cmake`. `#16879 <https://github.com/conan-io/conan/pull/16879>`_
+- Feature: Add `check_type` to `get_property`  for CMakeDeps. `#16854 <https://github.com/conan-io/conan/pull/16854>`_ . Docs `here <https://github.com/conan-io/docs/pull/3815>`__
+- Feature: Propagate `run` trait requirement information in the "build" context downstream when `visible` trait is `True`. `#16849 <https://github.com/conan-io/conan/pull/16849>`_ . Docs `here <https://github.com/conan-io/docs/pull/3816>`__
+- Feature: Add `check_type` on  components `get_property`. `#16848 <https://github.com/conan-io/conan/pull/16848>`_ . Docs `here <https://github.com/conan-io/docs/pull/3815>`__
+- Feature: Add `set_property` for PkgConfigDeps to set properties for requirements from consumer recipes. `#16789 <https://github.com/conan-io/conan/pull/16789>`_
+- Feature: Define `CMAKE_<LANG>_COMPILER` variables in CMakePresets.json. `#16762 <https://github.com/conan-io/conan/pull/16762>`_
+- Feature: Add support for gcc 14.2. `#16760 <https://github.com/conan-io/conan/pull/16760>`_
+- Feature: Rework QbsProfile to support Conan 2. `#16742 <https://github.com/conan-io/conan/pull/16742>`_
+- Feature: Add `finalize()` method for local cache final adjustments of packages. `#16646 <https://github.com/conan-io/conan/pull/16646>`_ . Docs `here <https://github.com/conan-io/docs/pull/3820>`__
+- Feature: Add ``tricore`` compiler architecture support. `#16317 <https://github.com/conan-io/conan/pull/16317>`_ . Docs `here <https://github.com/conan-io/docs/pull/3819>`__
+- Feature: Describe here your pull request `#16317 <https://github.com/conan-io/conan/pull/16317>`_ . Docs `here <https://github.com/conan-io/docs/pull/3819>`__
+- Fix: Propagate ``repository`` argument from ``Git.get_url_and_commit(repository=True)`` to ``Git.is_dirty()``. `#16892 <https://github.com/conan-io/conan/pull/16892>`_
+- Fix: Improve error when accessing `cpp_info` shorthand methods. `#16847 <https://github.com/conan-io/conan/pull/16847>`_
+- Fix: Improve error message when a lockfile fails to lock a requirement, specifying its type. `#16841 <https://github.com/conan-io/conan/pull/16841>`_
+- Fix: Update patch-ng 1.18.0 to avoid SyntaxWarning spam. `#16766 <https://github.com/conan-io/conan/pull/16766>`_
+- Bugfix: Avoid ``CMakeToolchain`` error when both architecture flags and ``tools.build:linker_scripts`` are defined, due to missing space. `#16883 <https://github.com/conan-io/conan/pull/16883>`_
+- Bugfix: When using Visual Studio's llvm-clang, set the correct Platform Toolset in `MSBuildToolchain`. `#16844 <https://github.com/conan-io/conan/pull/16844>`_
+- Bugfix: Fix `export_sources` for non-existent recipes in a local recipes index. `#16776 <https://github.com/conan-io/conan/pull/16776>`_
+
+2.6.0 (01-Aug-2024)
+-------------------
+
+- Feature: Add ``build_folder_vars=["const.myvalue"]`` to create presets for user "myvalue" arbitrary values. `#16633 <https://github.com/conan-io/conan/pull/16633>`_ . Docs `here <https://github.com/conan-io/docs/pull/3800>`__
+- Feature: Added `outputRootDir` as an optional definition in Bazel new templates. `#16620 <https://github.com/conan-io/conan/pull/16620>`_
+- Feature: MakeDeps generator generates make variables for dependencies and their components. `#16613 <https://github.com/conan-io/conan/pull/16613>`_ . Docs `here <https://github.com/conan-io/docs/pull/3794>`__
+- Feature: Add html output for graph build-order and graph build-order-merge `#16611 <https://github.com/conan-io/conan/pull/16611>`_ . Docs `here <https://github.com/conan-io/docs/pull/3805>`__
+- Feature: Introduce ``core.scm:local_url=allow|block`` to control local folder URLs in conandata ``scm``. `#16597 <https://github.com/conan-io/conan/pull/16597>`_ . Docs `here <https://github.com/conan-io/docs/pull/3801>`__
+- Feature: Added `XXX_FOR_BUILD` flags and Android extra ones to `extra_env` attribute in `GnuToolchain`. `#16596 <https://github.com/conan-io/conan/pull/16596>`_
+- Feature: Support ``python_requires`` in ``local-recipes-index``. `#16420 <https://github.com/conan-io/conan/pull/16420>`_ . Docs `here <https://github.com/conan-io/docs/pull/3802>`__
+- Fix: Avoid ``runtime_deployer`` to deploy dependencies with ``run=False`` trait. `#16724 <https://github.com/conan-io/conan/pull/16724>`_
+- Fix: Improve error message when passing a ``--deployer-folder=xxx`` argument of an incorrect folder. `#16723 <https://github.com/conan-io/conan/pull/16723>`_
+- Fix: Change ``requirements.txt`` so it install ``distro`` package in FreeBSD too. `#16700 <https://github.com/conan-io/conan/pull/16700>`_
+- Fix: Better error messages when loading an inexistent or broken "package list" file. `#16685 <https://github.com/conan-io/conan/pull/16685>`_
+- Fix: Remove unsupported `ld` and `ar` entries from `tools.build:compiler_executables`, they had no effect in every Conan integration. `#16647 <https://github.com/conan-io/conan/pull/16647>`_
+- Fix: Ensure direct tool requires conflicts are properly reported instead of hanging. `#16619 <https://github.com/conan-io/conan/pull/16619>`_
+- Fix: Update ``docker`` dependency version for the ``runners`` feature `#16610 <https://github.com/conan-io/conan/pull/16610>`_
+- Fix: Raise an error when trying to upload a package with a local folder URL in ``conandata`` ``scm``. `#16597 <https://github.com/conan-io/conan/pull/16597>`_ . Docs `here <https://github.com/conan-io/docs/pull/3801>`__
+- Bugfix: Fix profile ``include()`` with per-package ``[settings]`` with partial definition. `#16720 <https://github.com/conan-io/conan/pull/16720>`_
+- Bugfix: The ``MakeDeps`` generator was missing some aggregated variables when packages have components. `#16715 <https://github.com/conan-io/conan/pull/16715>`_
+- Bugfix: Avoid `settings.update_values()` failing when deducing compatibility. `#16642 <https://github.com/conan-io/conan/pull/16642>`_
+- Bugfix: Fix handling of `tools.build:defines` for Ninja Multi-Config CMake. `#16637 <https://github.com/conan-io/conan/pull/16637>`_
+- Bugfix: Make conan graph <subcommand> a real "install" dry-run. Return same errors and give same messages `#16415 <https://github.com/conan-io/conan/pull/16415>`_
+
 2.5.0 (03-Jul-2024)
 -------------------
 

@@ -53,6 +53,54 @@ To tag a warning, use the ``warn_tag`` argument of the ``warning()`` method in y
 
 .. _reference_conanfile_run:
 
+The common use of these functions from least specific to most specific, is:
+
+* **error(msg)**:
+    Indicates that a serious issue has occurred that prevents the system or application
+    from continuing to function correctly. Typically, this represents a failure in the normal flow of execution,
+    such as a service crash or a critical exception.
+
+* **warning(msg, warn_tag=None)**:
+    Highlights a potential issue that, while not stopping the system,
+    could cause problems in the future or under certain conditions. Warnings signal abnormal situations that should be
+    reviewed but don’t necessarily cause an immediate halt in operations.
+
+* **success(msg)**:
+    Shows that an operation has been completed successfully. This type of message is useful to confirm
+    that key processes or tasks have finished correctly, which is essential for good application monitoring.
+
+* **highlight(msg)**:
+    Marks or emphasizes important events or processes that need to stand out but don’t necessarily
+    indicate success or error. These messages draw attention to key points that may be relevant for the user or administrator.
+
+* **info(msg)**:
+    Provides general information about the system or ongoing operations. Info messages are basic and used
+    to inform about common events, like the start or completion of processes, without implying specific problems or achievements.
+
+* **status(msg)**:
+    Reports the current state of the system or an ongoing operation. Status messages provide updates on
+    how something is working, often in real time, to offer a clear view of the progress or situation of a process.
+
+
+The following three methods are not shown by default and are usually reserved for scenarios that require a higher level
+of verbosity. You can display them using the arguments ``-v``, ``-vv``, and ``-vvv`` respectively.
+
+* **verbose(msg)**:
+    Displays additional and detailed information that, while not critical, can be useful for better
+    understanding how the system is working. It’s appropriate for gaining more context without overloading the logs with
+    excessive detail. Useful when more clarity is needed than a simple info.
+
+* **debug(msg)**:
+    With a high level of detail, it is mainly used for debugging code. These messages provide useful
+    information for developers, such as variable values or execution flow details, to trace errors or analyze the program's
+    behavior.
+
+* **trace(msg)**:
+    This is the most extreme level of detail. Trace messages log every little step the system takes,
+    including function entries and exits, variable changes, and other very specific events. It’s used when full visibility
+    of everything happening in the system is required, but should be used carefully due to the large amount of information
+    it can generate.
+
 
 Running commands
 ----------------

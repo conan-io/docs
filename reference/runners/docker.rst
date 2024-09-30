@@ -24,7 +24,9 @@ To run Conan inside a docker container you need to define a ``[runner]`` section
 
 ..  note::
 
-    The runner profile section doesn't affect the package id.
+    - You can only use profiles that are inside the conan profiles folder.
+    - ``Shared`` cache can cause permissions issues depending on the user inside and outside the container. We recommend using the ``copy`` cache even though it may be a bit slower to setup.
+    - The runner profile section doesn't affect the package id.
 
 Extra configuration
 -------------------

@@ -37,3 +37,4 @@ The fields for each remote are:
 
     - :ref:`How to manage SSL (TLS) certificates <reference_config_files_global_conf_ssl_certificates>`
     - :ref:`How to manage remotes.json through CLI: conan remotes <reference_commands_remote>`.
+    - :ref:`How to use your own secrets manager for Conan remotes logins <reference_extensions_authorization_plugin>`.
