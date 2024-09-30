@@ -48,6 +48,7 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.graphviz',
     'sphinx.ext.todo',
+    'sphinx_tabs.tabs',
     'sphinxcontrib.jquery',
     'sphinxcontrib.youtube',
     'autocommand',
@@ -57,9 +58,9 @@ extensions = [
 add_module_names = False
 autoclass_content = 'both'
 autodoc_member_order = 'bysource'  # To order the methods following the order at the code, not alphabetically
-autodoc_mock_imports = ["PyJWT", "requests", "urllib3", "PyYAML", 
+autodoc_mock_imports = ["PyJWT", "requests", "urllib3", "PyYAML",
                         "patch-ng", "fasteners", "six", "node-semver", "distro",
-                        "pygments", "tqdm", "Jinja2", "MarkupSafe", "Jinja2", 
+                        "pygments", "tqdm", "Jinja2", "MarkupSafe", "Jinja2",
                         "python-dateutil", "configparse", "patch_ng", "yaml", "semver", "dateutil"]
 
 
@@ -89,7 +90,8 @@ html_context = {
     "github_user": "conan-io", # Username
     "github_repo": "docs", # Repo name
     "github_version": "develop2", # Version
-    "conf_py_path": "/" # Path in the checkout to the docs root
+    "conf_py_path": "/", # Path in the checkout to the docs root
+    "enable_cookies": os.getenv("ENABLE_COOKIES_BANNER", True)  # enable cookies banner
 }
 
 # Add any paths that contain templates here, relative to this directory.
@@ -429,7 +431,6 @@ notfound_pagename = 'Page Not Found'
 
 # Graphviz output format, one of png, svg
 graphviz_output_format = 'svg'
-
 
 # copy legacy redirects
 def copy_legacy_redirects(app, docname): # Sphinx expects two arguments

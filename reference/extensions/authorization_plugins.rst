@@ -42,7 +42,7 @@ This one is a Python script that receives an ``url`` as a parameter and outputs 
 access token. It can also return ``None`` to indicate that Conan should proceed with its normal login flow.
 
 This plugin is located at the path ``<CONAN_HOME>/extensions/plugins/auth_source.py`` and must be manually created with the name
-``auth_source.py``, containing a function named ``auth_source_plugin(url)``.
+``auth_source.py``, containing a function named ``auth_source_plugin(url, **kwargs)``.
 
 The order for retrieving the credentials is as follows:
 
@@ -53,7 +53,7 @@ Here we can see an example of a plugin implementation.
 
 .. code-block:: python
 
-    def auth_source_plugin(url):
+    def auth_source_plugin(url, **kwargs):
         if url.startswith("https://my-sources-user-password.my-org/"):
             return {'user': 'my-user', 'password': 'my-password'}
         elif url.startswith("https://my-private-token-sources.my-org/"):
