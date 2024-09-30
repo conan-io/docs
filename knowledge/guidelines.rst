@@ -53,7 +53,7 @@ Good practices
   from ConanCenter or forks of ``conan-center-index`` Github repo is to use them without any user or channel, like
   the ``zlib/1.3.1`` ConanCenter references, even for customization of the recipes and packages for those third party
   libraries.
-- The way to manage package quality, stage or maturity **promotions is by using different server repositories**, and the well known developers
+- The way to manage package quality, stage or maturity **promotions is by using different server repositories**, and the well known developer's
   best practices recommend to manage the pipelines by doing promotions (copying) immutable artifacts or packages between
   those different server repositories, for example copying packages from a ``staging`` repository to a ``production`` repository
   once they have passed some quality checks. But it is very important that this promotion do not change in any way those
