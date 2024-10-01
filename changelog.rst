@@ -3,6 +3,35 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.8.0 (30-Sept-2024)
+--------------------
+
+- Feature: Add support for iOS 18, watchOS 11, tvOS 18, visionOS 2 & macos 15. `#17012 <https://github.com/conan-io/conan/pull/17012>`_ . Docs `here <https://github.com/conan-io/docs/pull/3851>`__
+- Feature: Add Clang 19 support. `#17010 <https://github.com/conan-io/conan/pull/17010>`_ . Docs `here <https://github.com/conan-io/docs/pull/3851>`__
+- Feature: ``conan config list <pattern>`` to filter available configurations. `#17000 <https://github.com/conan-io/conan/pull/17000>`_ . Docs `here <https://github.com/conan-io/docs/pull/3853>`__
+- Feature: New ``auth_remote.py`` plugin for custom user authentication to Conan remotes. `#16942 <https://github.com/conan-io/conan/pull/16942>`_ . Docs `here <https://github.com/conan-io/docs/pull/3846>`__
+- Feature: New ``auth_source.py`` plugin for custom user authentication for generic downloads of sources. `#16942 <https://github.com/conan-io/conan/pull/16942>`_ . Docs `here <https://github.com/conan-io/docs/pull/3846>`__
+- Feature: Add `--envs-generation={false}` to :command:`conan install` and :command:`conan build` to disable the generation of virtualenvs (``conanbuildenv.sh|bat`` and ``conanrunenv.sh|bat``). `#16935 <https://github.com/conan-io/conan/pull/16935>`_ . Docs `here <https://github.com/conan-io/docs/pull/3855>`__
+- Feature: New ``tools.files.unzip:filter`` conf that allows to define ``data``, ``tar`` and ``fully_trusted`` extraction policies for tgz files. `#16918 <https://github.com/conan-io/conan/pull/16918>`_ . Docs `here <https://github.com/conan-io/docs/pull/3857>`__
+- Feature: ``get()`` and ``unzip()`` tools for ``source()`` learned a new ``extract_filter`` argument to define ``data``, ``tar`` and ``fully_trusted`` extraction policies for tgz files. `#16918 <https://github.com/conan-io/conan/pull/16918>`_ . Docs `here <https://github.com/conan-io/docs/pull/3857>`__
+- Feature: Add progress updates for large uploads (>100Mbs) every 10 seconds. `#16913 <https://github.com/conan-io/conan/pull/16913>`_
+- Feature: Implement ``conan config install-pkg --url=<repo-url>`` for initial definition of remote URL when no remotes are defined yet. `#16876 <https://github.com/conan-io/conan/pull/16876>`_ . Docs `here <https://github.com/conan-io/docs/pull/3854>`__
+- Feature: Allow building a compatible package still of the current profile one. `#16871 <https://github.com/conan-io/conan/pull/16871>`_
+- Feature: Allow bootstrapping (depending on another variant of yourself), even for the same version. `#16870 <https://github.com/conan-io/conan/pull/16870>`_
+- Feature: Allow ``[replace_requires]`` to replace the package name and ``self.dependencies`` still works with the old name. `#16443 <https://github.com/conan-io/conan/pull/16443>`_
+- Fix: Let ``CMakeToolchain`` defining ``CMAKE_SYSTEM_XXX`` even if ``user_toolchain`` is defined, but protected in case the toolchain really defines them. `#17036 <https://github.com/conan-io/conan/pull/17036>`_ . Docs `here <https://github.com/conan-io/docs/pull/3852>`__
+- Fix: Replace `|` character in generated CMake and Environment files. `#17024 <https://github.com/conan-io/conan/pull/17024>`_
+- Fix: Redirect the ``PkgConfig`` ``stderr`` to the exception raised. `#17020 <https://github.com/conan-io/conan/pull/17020>`_
+- Fix: Use always forward slashes in Windows subsystems ``bash`` path. `#16997 <https://github.com/conan-io/conan/pull/16997>`_
+- Fix: Better error messages when ``conan list --graph=<graph-json-file>`` file has issues. `#16936 <https://github.com/conan-io/conan/pull/16936>`_
+- Bugfix: `PkgConfigDeps.set_property()` was not setting properly all the available properties. `#17051 <https://github.com/conan-io/conan/pull/17051>`_
+- Bugfix: BazelDeps did not find DLL files as Conan does not model them in the Windows platform. `#17045 <https://github.com/conan-io/conan/pull/17045>`_
+- Bugfix: Do not skip dependencies of a package if it is not going to be skipped due to ``tools.graph:skip_binaries=False``. `#17033 <https://github.com/conan-io/conan/pull/17033>`_
+- Bugfix: Allow ``requires(..., package_id_mode)`` trait in case of diamonds to always use the recipe defined one irrespective of ``requires()`` order. `#16987 <https://github.com/conan-io/conan/pull/16987>`_
+- Bugfix: Propagate include_prerelease flag to intersection of VersionRange. `#16986 <https://github.com/conan-io/conan/pull/16986>`_
+- Bugfix: Raise error if invalid value passed to conf.get(check_type=bool). `#16976 <https://github.com/conan-io/conan/pull/16976>`_
+- Bugfix: Allow `remote_login` accept patterns. `#16942 <https://github.com/conan-io/conan/pull/16942>`_ . Docs `here <https://github.com/conan-io/docs/pull/3846>`__
+
 2.7.1 (11-Sept-2024)
 --------------------
 
