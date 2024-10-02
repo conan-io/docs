@@ -18,6 +18,8 @@ Let's start as usual cleaning the local cache and defining the correct repos:
 
     # Now clean packages and define remotes
     $ conan remove "*" -c  # Make sure no packages from last run
+
+    # If you did in previous sections, NO need to repeat this
     $ conan remote remove "*"  # Make sure no other remotes defined
     # Add products repo, you might need to adjust this URL
     # NOTE: The products repo is added first, it will have higher priority.
