@@ -1,5 +1,5 @@
-Products pipeline: decentralized build
-======================================
+Products pipeline: distributed build
+====================================
 
 
 The previous section used ``--build=missing`` to build all the necessary packages in the same CI machine.
@@ -9,6 +9,12 @@ Let's start as usual making sure we have a clean environment with the right repo
 
 .. code-block:: bash
 
+    # First clean the local "build" folder
+    $ pwd  # should be <path>/examples2/ci/game
+    $ rm -rf build  # clean the temporary build folder 
+    $ mkdir build && cd build # To put temporary files
+
+    # Now clean packages and define remotes
     $ conan remove "*" -c  # Make sure no packages from last run
     $ conan remote remove "*"  # Make sure no other remotes defined
     # Add products repo, you might need to adjust this URL
@@ -24,7 +30,8 @@ This is done with the following ``conan graph build-order`` command:
 
 .. code-block:: bash
 
-    $ conan graph build-order --requires=game/1.0 --build=missing --order-by=recipe --reduce --format=json > game_build_order.json
+    $ conan graph build-order --requires=game/1.0 --build=missing 
+      --order-by=recipe --reduce --format=json > game_build_order.json
 
 Note a few important points:
 
@@ -49,8 +56,7 @@ The resulting ``game_build_order.json`` looks like:
                             {
                                 "package_id": "de738ff5d09f0359b81da17c58256c619814a765",
                                 "binary": "Build",
-                                "build_args": "--requires=engine/1.0 --build=engine/1.0",
-                                
+                                "build_args": "--requires=engine/1.0 --build=engine/1.0",      
                             }
                         ]
                     ]
@@ -85,6 +91,21 @@ For convenience, in the same way that ``conan graph info ... --format=html > gra
    :align: center
 
 
-Note that this
-- not upload yet
-- html
+The resulting json contains an ``order`` element which is a list of lists. This arrangement is important, every element in the top list is a set of packages that can be built in parallel because they do not have any relationship among them. You can view this list as a list of "levels", in level 0, there are packages that have no dependencies to any other package being built, in level 1 there are packages that contain dependencies only to elements in level 0 and so on.
+
+Then, the order of the elements in the top list is important and must be respected. Until the build of all the packages in one list item has finished, it is not possible to start the build of the next "level".
+
+Using the information in the ``graph_build_order.json`` file, it is possible to execute the build of the necessary packages, in the same way that the previous section ``--build=missing`` did, but not directly managed by us.
+
+Taking the arguments from the json, the commands to execute would be:
+
+.. code-block:: bash
+
+    $ conan install --requires=engine/1.0 --build=engine/1.0
+    $ conan install --requires=game/1.0 --build=game/1.0
+
+We are executing these commands manually, but in practice, it would be a ``for`` loop in CI executing over the json output. We will see some Python code later for this. At this point we wanted to focus on the ``conan graph build-order`` command, but we haven't really explained how the build is distributed.
+
+Also note that inside every element there is an inner list of lists, the ``"packages"`` section, for all the binaries that must be built for a specific recipe for different configurations.
+
+Let's move now to see how a multi-product, multi-configuration build order can be computed.

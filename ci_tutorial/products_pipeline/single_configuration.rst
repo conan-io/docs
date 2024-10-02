@@ -8,6 +8,12 @@ Let's start by making sure we have a clean environment with the right repositori
 
 .. code-block:: bash
 
+    # First clean the local "build" folder
+    $ pwd  # should be <path>/examples2/ci/game
+    $ rm -rf build  # clean the temporary build folder 
+    $ mkdir build && cd build # To put temporary files
+
+    # Now clean packages and define remotes
     $ conan remove "*" -c  # Make sure no packages from last run
     $ conan remote remove "*"  # Make sure no other remotes defined
     # Add products repo, you might need to adjust this URL
