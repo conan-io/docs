@@ -224,7 +224,7 @@ If you want to create your own Authorizer, create a Python module in
 
 .. code-block:: python
 
-     from conans.errors import AuthenticationException, ForbiddenException
+     from conan.internal.errors import AuthenticationException, ForbiddenException
 
      def get_class():
          return MyAuthorizer()
