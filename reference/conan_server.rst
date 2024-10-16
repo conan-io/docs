@@ -86,7 +86,7 @@ Server Parameters
   
     ..  code-block:: bash 
         
-        docker run ... -p9300:9999 ... # Check Docker docs for that
+        docker run ... -p9999:9300 ... # Check Docker docs for that
         
         
     **server.conf**
