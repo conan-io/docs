@@ -318,4 +318,4 @@ scripts, and for some advanced CI flows that will be explained later.
 
 .. seealso::
 
-    - Continuous Integrations links.
+    - :ref:`CI tutorial<ci_tutorial>`.
