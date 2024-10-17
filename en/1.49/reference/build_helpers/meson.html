@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meson &mdash; conan 1.49.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+    <link rel="shortcut icon" href="../../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/en/latest/reference/build_helpers/meson.html" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=0d6769b8"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="RunEnvironment" href="run_environment.html" />
+    <link rel="prev" title="MSBuild" href="visual_studio.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/conan-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.49
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cheatsheet.html">Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../training_courses.html">Training Courses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versioning.html">Versioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../extending.html">Extending Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../howtos.html">Howtos</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../commands.html">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conanfile.html">conanfile.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generators.html">Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../profiles.html">Profiles</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../build_helpers.html">Build helpers</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cmake.html">CMake</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autotools.html">AutoToolsBuildEnvironment (configure/make)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="visual_studio.html">MSBuild</a></li>
+<li class="toctree-l3"><a class="reference internal" href="visual_studio.html#visualstudiobuildenvironment">VisualStudioBuildEnvironment</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Meson</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#constructor">Constructor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#methods">Methods</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="run_environment.html">RunEnvironment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tools.html">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../config_files.html">Configuration files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../env_vars.html">Environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hooks.html">Hooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conan_v2_mode.html">CONAN_V2_MODE</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../conan_v2.html">Conan migration guide to 2.0</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #eb8484;background-color: #ffcaca;padding: 3px;margin-bottom: 5px">
+              <p>This document is for a <b>"1.X" legacy</b> Conan version, <b>which is no longer recommended</b>. Please update to Conan 2, <a href="https://docs.conan.io/2/">click here to read the <b>Conan 2</b> documentation</a></p>
+            </div>
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          <!--@ OUTDATED_VERSION_PLACEHOLDER_BEGIN @
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/@LATEST_DOC_PAGE_URL@">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          @ OUTDATED_VERSION_PLACEHOLDER_END @-->
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="../build_helpers.html">Build helpers</a></li>
+      <li class="breadcrumb-item active">Meson</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/master/reference/build_helpers/meson.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="meson">
+<span id="meson-build-reference"></span><h1>Meson<a class="headerlink" href="#meson" title="Link to this heading"></a></h1>
+<p>If you are using <strong>Meson Build</strong> as your build system, you can use the <strong>Meson</strong> build helper.
+Specially useful with the <a class="reference internal" href="../generators/pkg_config.html#pkg-config-generator"><span class="std std-ref">pkg_config</span></a> that will generate the <em>.pc</em>
+files of our requirements, then <code class="docutils literal notranslate"><span class="pre">Meson()</span></code> build helper will locate them automatically.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">tools</span><span class="p">,</span> <span class="n">Meson</span>
+ <span class="kn">import</span> <span class="nn">os</span>
+
+ <span class="k">class</span> <span class="nc">ConanFileToolsTest</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+<span class="hll">     <span class="n">generators</span> <span class="o">=</span> <span class="s2">&quot;pkg_config&quot;</span>
+</span>     <span class="n">requires</span> <span class="o">=</span> <span class="s2">&quot;lib_a/0.1@conan/stable&quot;</span>
+     <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span>
+
+     <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="hll">         <span class="n">meson</span> <span class="o">=</span> <span class="n">Meson</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</span><span class="hll">         <span class="n">meson</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">build_folder</span><span class="o">=</span><span class="s2">&quot;build&quot;</span><span class="p">)</span>
+</span><span class="hll">         <span class="n">meson</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+</span></pre></div>
+</div>
+<section id="constructor">
+<h2>Constructor<a class="headerlink" href="#constructor" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Meson</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conanfile</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">build_type</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li><p><strong>conanfile</strong> (Required): Use <code class="docutils literal notranslate"><span class="pre">self</span></code> inside a <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code>.</p></li>
+<li><p><strong>backend</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Specify a backend to be used, otherwise it will use <code class="docutils literal notranslate"><span class="pre">&quot;Ninja&quot;</span></code>.</p></li>
+<li><p><strong>build_type</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Force to use a build type, ignoring the value from the settings.</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="Link to this heading"></a></h2>
+<section id="configure">
+<h3>configure()<a class="headerlink" href="#configure" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">configure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">defs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">source_folder</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">build_folder</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+              <span class="n">pkg_config_paths</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cache_build_folder</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">append_vcvars</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Configures Meson project with the given parameters.</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li><p><strong>args</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): A list of additional arguments to be passed to the <code class="docutils literal notranslate"><span class="pre">configure</span></code> script. Each argument will
+be escaped according to the current shell. No extra arguments will be added if <code class="docutils literal notranslate"><span class="pre">args=None</span></code>.</p></li>
+<li><p><strong>defs</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): A list of definitions.</p></li>
+<li><p><strong>source_folder</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Meson’s source directory where <code class="docutils literal notranslate"><span class="pre">meson.build</span></code> is located. The default value is the <code class="docutils literal notranslate"><span class="pre">self.source_folder</span></code>.
+Relative paths are allowed and will be relative to <code class="docutils literal notranslate"><span class="pre">self.source_folder</span></code>.</p></li>
+<li><p><strong>build_folder</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Meson’s output directory. The default value is the <code class="docutils literal notranslate"><span class="pre">self.build_folder</span></code> if <code class="docutils literal notranslate"><span class="pre">None</span></code> is specified.
+The <code class="docutils literal notranslate"><span class="pre">Meson</span></code> object will store <code class="docutils literal notranslate"><span class="pre">build_folder</span></code> internally for subsequent calls to <code class="docutils literal notranslate"><span class="pre">build()</span></code>.</p></li>
+<li><p><strong>pkg_config_paths</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): A list containing paths to locate the pkg-config files (<em>*.pc</em>). If <code class="docutils literal notranslate"><span class="pre">None</span></code>, it will be set to <code class="docutils literal notranslate"><span class="pre">conanfile.build_folder</span></code>.</p></li>
+<li><p><strong>cache_build_folder</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Subfolder to be used as build folder when building the package in the local cache.
+This argument doesn’t have effect when the package is being built in user folder with <strong class="command">conan build</strong> but overrides <strong>build_folder</strong> when working in the local cache.
+See <a class="reference internal" href="../conanfile/attributes.html#in-local-cache"><span class="std std-ref">self.in_local_cache</span></a>.</p></li>
+<li><p><strong>append_vcvars</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">False</span></code>): When a Visual Studio environment is activated by the build helper, append it to respect existing environment. <code class="docutils literal notranslate"><span class="pre">Meson</span></code> helper uses the Ninja generator and needs to call <code class="docutils literal notranslate"><span class="pre">vcvars</span></code> to set the VS environment. By default the <code class="docutils literal notranslate"><span class="pre">vcvars</span></code> is pre-pended to the environment, taking precedence. With <code class="docutils literal notranslate"><span class="pre">append_vcvars=True</span></code>, the <code class="docutils literal notranslate"><span class="pre">vcvars</span></code> will append to the end of the environment (for “list” environment variables, like <code class="docutils literal notranslate"><span class="pre">PATH</span></code>), instead of pre-pending, so the existing environment takes precedence.</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="build">
+<h3>build()<a class="headerlink" href="#build" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">build_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Builds Meson project with the given parameters.</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li><p><strong>args</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): A list of additional arguments to be passed to the <code class="docutils literal notranslate"><span class="pre">ninja</span></code> command. Each argument will be escaped
+according to the current shell. No extra arguments will be added if <code class="docutils literal notranslate"><span class="pre">args=None</span></code>.</p></li>
+<li><p><strong>build_dir</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Build folder. If <code class="docutils literal notranslate"><span class="pre">None</span></code> is specified the <code class="docutils literal notranslate"><span class="pre">build_folder</span></code> from <code class="docutils literal notranslate"><span class="pre">configure()</span></code> will be used.
+If <code class="docutils literal notranslate"><span class="pre">build_folder</span></code> from <code class="docutils literal notranslate"><span class="pre">configure()</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code>, it will be set to <code class="docutils literal notranslate"><span class="pre">conanfile.build_folder</span></code>.</p></li>
+<li><p><strong>targets</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Specifies the targets to build. The default <em>all</em> target will be built if <code class="docutils literal notranslate"><span class="pre">None</span></code> is specified.</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="test">
+<h3>test()<a class="headerlink" href="#test" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">build_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Executes ninja test target, which usually means building and running unit tests. When this function
+is called <a class="reference internal" href="../env_vars.html#env-vars-conan-run-tests"><span class="std std-ref">CONAN_RUN_TESTS</span></a> will be evaluated to check if tests should run.</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li><p><strong>args</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): A list of additional arguments to be passed to the <code class="docutils literal notranslate"><span class="pre">ninja</span></code> command. Each argument will be escaped
+according to the current shell. No extra arguments will be added if <code class="docutils literal notranslate"><span class="pre">args=None</span></code>.</p></li>
+<li><p><strong>build_dir</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Build folder. If <code class="docutils literal notranslate"><span class="pre">None</span></code> is specified the <code class="docutils literal notranslate"><span class="pre">build_folder</span></code> from <code class="docutils literal notranslate"><span class="pre">configure()</span></code> will be used.
+If <code class="docutils literal notranslate"><span class="pre">build_folder</span></code> from <code class="docutils literal notranslate"><span class="pre">configure()</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code>, it will be set to <code class="docutils literal notranslate"><span class="pre">conanfile.build_folder</span></code>.</p></li>
+<li><p><strong>targets</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Specifies the targets to be executed. The <em>test</em> target will be executed if <code class="docutils literal notranslate"><span class="pre">None</span></code> is specified.</p></li>
+</ul>
+</dd>
+</dl>
+<p>This method can be globally skipped by <code class="docutils literal notranslate"><span class="pre">tools.build:skip_test</span></code> [conf], or <code class="docutils literal notranslate"><span class="pre">CONAN_RUN_TESTS</span></code> environment variable.</p>
+</section>
+<section id="install">
+<h3>install()<a class="headerlink" href="#install" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">install</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">build_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Executes ninja install target.</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li><p><strong>args</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): A list of additional arguments to be passed to the <code class="docutils literal notranslate"><span class="pre">ninja</span></code> command. Each argument will be escaped
+according to the current shell. No extra arguments will be added if <code class="docutils literal notranslate"><span class="pre">args=None</span></code>.</p></li>
+<li><p><strong>build_dir</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Build folder. If <code class="docutils literal notranslate"><span class="pre">None</span></code> is specified the <code class="docutils literal notranslate"><span class="pre">build_folder</span></code> from <code class="docutils literal notranslate"><span class="pre">configure()</span></code> will be used.
+If <code class="docutils literal notranslate"><span class="pre">build_folder</span></code> from <code class="docutils literal notranslate"><span class="pre">configure()</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code>, it will be set to <code class="docutils literal notranslate"><span class="pre">conanfile.build_folder</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="meson-test">
+<h3>meson_test()<a class="headerlink" href="#meson-test" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">meson_test</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">build_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Executes <code class="docutils literal notranslate"><span class="pre">meson</span> <span class="pre">test</span></code> command.</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li><p><strong>args</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): A list of additional arguments to be passed to the <code class="docutils literal notranslate"><span class="pre">meson</span> <span class="pre">test</span></code> command. Each argument will be escaped
+according to the current shell. No extra arguments will be added if <code class="docutils literal notranslate"><span class="pre">args=None</span></code>.</p></li>
+<li><p><strong>build_dir</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Build folder. If <code class="docutils literal notranslate"><span class="pre">None</span></code> is specified the <code class="docutils literal notranslate"><span class="pre">build_folder</span></code> from <code class="docutils literal notranslate"><span class="pre">configure()</span></code> will be used.
+If <code class="docutils literal notranslate"><span class="pre">build_folder</span></code> from <code class="docutils literal notranslate"><span class="pre">configure()</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code>, it will be set to <code class="docutils literal notranslate"><span class="pre">conanfile.build_folder</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="meson-install">
+<h3>meson_install()<a class="headerlink" href="#meson-install" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">meson_install</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">build_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Executes <code class="docutils literal notranslate"><span class="pre">meson</span> <span class="pre">install</span></code> command.</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><ul class="simple">
+<li><p><strong>args</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): A list of additional arguments to be passed to the <code class="docutils literal notranslate"><span class="pre">meson</span> <span class="pre">install</span></code> command. Each argument will be escaped
+according to the current shell. No extra arguments will be added if <code class="docutils literal notranslate"><span class="pre">args=None</span></code>.</p></li>
+<li><p><strong>build_dir</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Build folder. If <code class="docutils literal notranslate"><span class="pre">None</span></code> is specified the <code class="docutils literal notranslate"><span class="pre">build_folder</span></code> from <code class="docutils literal notranslate"><span class="pre">configure()</span></code> will be used.
+If <code class="docutils literal notranslate"><span class="pre">build_folder</span></code> from <code class="docutils literal notranslate"><span class="pre">configure()</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code>, it will be set to <code class="docutils literal notranslate"><span class="pre">conanfile.build_folder</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+</section>
+<section id="example">
+<h2>Example<a class="headerlink" href="#example" title="Link to this heading"></a></h2>
+<p>A typical usage of the Meson build helper, if you want to be able to both execute <strong class="command">conan create</strong> and also build your package for a
+library locally (in your user folder, not in the local cache), could be:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">Meson</span>
+
+<span class="k">class</span> <span class="nc">HelloConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;hello&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span>
+    <span class="n">generators</span> <span class="o">=</span> <span class="s2">&quot;pkg_config&quot;</span>
+    <span class="n">exports_sources</span> <span class="o">=</span> <span class="s2">&quot;src/*&quot;</span>
+    <span class="n">requires</span> <span class="o">=</span> <span class="s2">&quot;zlib/1.2.11&quot;</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">meson</span> <span class="o">=</span> <span class="n">Meson</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">meson</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">source_folder</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/src&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_folder</span><span class="p">,</span>
+                        <span class="n">build_folder</span><span class="o">=</span><span class="s2">&quot;build&quot;</span><span class="p">)</span>
+        <span class="n">meson</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.h&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;include&quot;</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;src&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.lib&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.dll&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.dylib*&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.so&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.a&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">libs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;hello&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Note the <code class="docutils literal notranslate"><span class="pre">pkg_config</span></code> generator, which generates <em>.pc</em> files (<em>zlib.pc</em> from the example above ), which are understood by Meson to process
+dependencies information (no need for a <code class="docutils literal notranslate"><span class="pre">meson</span></code> generator).</p>
+<p>The layout is:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&lt;folder&gt;
+  | - conanfile.py
+  | - src
+      | - meson.build
+      | - hello.cpp
+      | - hello.h
+</pre></div>
+</div>
+<p>And the <em>meson.build</em> could be as simple as:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>project(&#39;hello&#39;,
+        &#39;cpp&#39;,
+        version : &#39;0.1.0&#39;
+        default_options : [&#39;cpp_std=c++11&#39;]
+        )
+
+library(&#39;hello&#39;,
+        [&#39;hello.cpp&#39;],
+        dependencies: [dependency(&#39;zlib&#39;)]
+        )
+</pre></div>
+</div>
+<p>This allows, to create the package with <strong class="command">conan create</strong> as well as to build the package locally:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>&lt;folder&gt;
+$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.<span class="w"> </span>user/testing
+<span class="c1"># Now local build</span>
+$<span class="w"> </span>mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
+$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>..
+$<span class="w"> </span>conan<span class="w"> </span>build<span class="w"> </span>..
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="visual_studio.html" class="btn btn-neutral float-left" title="MSBuild" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="run_environment.html" class="btn btn-neutral float-right" title="RunEnvironment" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2022, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 1.49
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/en/1.49/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

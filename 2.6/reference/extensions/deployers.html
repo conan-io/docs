@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Deployers &mdash; conan 2.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=045299b1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/conan.css?v=7d9e9f1e" />
+
+  
+    <link rel="shortcut icon" href="../../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/reference/extensions/deployers.html" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=ae39cb24"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Hooks" href="hooks.html" />
+    <link rel="prev" title="Command API" href="python_api/CommandAPI.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/conan-docs-logo-2.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.6
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../whatsnew.html">What’s new in Conan 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devops.html">Devops guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../commands.html">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conanfile.html">conanfile.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tools.html">Recipe tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../config_files.html">Configuration files</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../extensions.html">Extensions</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="python_requires.html">Python requires</a></li>
+<li class="toctree-l3"><a class="reference internal" href="custom_commands.html">Custom commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="custom_generators.html">Custom Conan generators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="python_api.html">Python API</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Deployers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hooks.html">Hooks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="binary_compatibility.html">Binary compatibility</a></li>
+<li class="toctree-l3"><a class="reference internal" href="profile_plugin.html">Profile plugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_wrapper.html">Command wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="package_signing.html">Package signing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../environment.html">Environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../binary_model.html">The binary model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conan_server.html">Conan Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../runners.html">Runners</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../knowledge.html">Knowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/reference/extensions/deployers.html">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="../extensions.html">Extensions</a></li>
+      <li class="breadcrumb-item active">Deployers</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/develop2/reference/extensions/deployers.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="deployers">
+<span id="reference-extensions-deployers"></span><h1>Deployers<a class="headerlink" href="#deployers" title="Link to this heading">¶</a></h1>
+<p>Deployers are a mechanism to facilitate copying files from one folder, usually the Conan cache, to user folders.
+While Conan provides two built-in ones (<code class="docutils literal notranslate"><span class="pre">full_deploy</span></code> and <code class="docutils literal notranslate"><span class="pre">direct_deploy</span></code>), users can easily manage their own
+with <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">config</span> <span class="pre">install</span></code>.</p>
+<p>Deployers run before generators, and they can change the target folders.
+For example, if the <code class="docutils literal notranslate"><span class="pre">--deployer=full_deploy</span></code> deployer runs before <code class="docutils literal notranslate"><span class="pre">CMakeDeps</span></code>,
+the files generated by <code class="docutils literal notranslate"><span class="pre">CMakeDeps</span></code> will point to the local copy in the user folder done by the <code class="docutils literal notranslate"><span class="pre">full_deploy</span></code> deployer,
+and not to the Conan cache. Multiple deployers can be specified by supplying more than one <code class="docutils literal notranslate"><span class="pre">--deployer=</span></code> argument,
+and they will be ran in order of appearance.</p>
+<p>Deployers can be multi-configuration. Running <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">install</span> <span class="pre">.</span> <span class="pre">--deployer=full_deploy</span></code> repeatedly for different profiles
+can achieve a fully self-contained project, including all the artifacts, binaries, and build files.
+This project will be completely independent of Conan and no longer require it at all to build.
+Use the <code class="docutils literal notranslate"><span class="pre">--deployer-folder</span></code> argument to change the base folder output path for the deployer as desired.</p>
+<section id="built-in-deployers">
+<h2>Built-in deployers<a class="headerlink" href="#built-in-deployers" title="Link to this heading">¶</a></h2>
+<section id="full-deploy">
+<span id="reference-extensions-deployer-full-deploy"></span><h3>full_deploy<a class="headerlink" href="#full-deploy" title="Link to this heading">¶</a></h3>
+<p>Deploys each package folder of every dependency to your recipe’s <code class="docutils literal notranslate"><span class="pre">output_folder</span></code> in a subfolder tree based on:</p>
+<ol class="arabic simple">
+<li><p>The build context</p></li>
+<li><p>The dependency name and version</p></li>
+<li><p>The build type</p></li>
+<li><p>The build arch</p></li>
+</ol>
+<p>Then every dependency will end up in a folder such as:</p>
+<p><code class="docutils literal notranslate"><span class="pre">[OUTPUT_FOLDER]/full_deploy/host/dep/0.1/Release/x86_64</span></code></p>
+<p>See a full example of the usage of <code class="docutils literal notranslate"><span class="pre">full_deploy</span></code> deployer in <a class="reference internal" href="../../examples/extensions/deployers/dev/development_deploy.html#examples-extensions-builtin-deployers-development"><span class="std std-ref">Creating a Conan-agnostic deploy of dependencies for developer use</span></a>.</p>
+</section>
+<section id="direct-deploy">
+<span id="reference-extensions-deployer-direct-deploy"></span><h3>direct_deploy<a class="headerlink" href="#direct-deploy" title="Link to this heading">¶</a></h3>
+<p>Same as <code class="docutils literal notranslate"><span class="pre">full_deploy</span></code>, but only processes your recipe’s <em>direct</em> dependencies.
+This deployer will output your dependencies in a tree folder such as:</p>
+<p><code class="docutils literal notranslate"><span class="pre">[OUTPUT_FOLDER]/direct_deploy/dep</span></code></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The built-in deployers are in <strong>preview</strong>.
+See <a class="reference internal" href="../../introduction.html#stability"><span class="std std-ref">the Conan stability</span></a> section for more information.</p>
+</div>
+</section>
+<section id="configuration">
+<h3>configuration<a class="headerlink" href="#configuration" title="Link to this heading">¶</a></h3>
+<p>Both the <code class="docutils literal notranslate"><span class="pre">full_deploy</span></code> and the <code class="docutils literal notranslate"><span class="pre">direct_deploy</span></code> understand when the conf <code class="docutils literal notranslate"><span class="pre">tools.deployer:symlinks</span></code> is set to <code class="docutils literal notranslate"><span class="pre">False</span></code>
+to disable deployers copying symlinks. This can be convenient in systems that do not support symlinks and could fail
+if deploying packages that contain symlinks.</p>
+</section>
+</section>
+<section id="custom-deployers">
+<h2>Custom deployers<a class="headerlink" href="#custom-deployers" title="Link to this heading">¶</a></h2>
+<p>Custom deployers can be managed via <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">config</span> <span class="pre">install</span></code>. When looking for a specific deployer,
+Conan will look in these locations for the deployer in the following order:</p>
+<ol class="arabic simple">
+<li><p>Absolute paths</p></li>
+<li><p>Relative to cwd</p></li>
+<li><p>In the <code class="docutils literal notranslate"><span class="pre">[CONAN_HOME]/extensions/deployers</span></code> folder</p></li>
+<li><p>As built-in deployers</p></li>
+</ol>
+<p>Conan will look for a <code class="docutils literal notranslate"><span class="pre">deploy()</span></code> method to call for each installed file.
+The function signature of your custom deployers should be as follows:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text"><strong>my_custom_deployer.py</strong></span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">deploy</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">output_folder</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</pre></div>
+</div>
+</div>
+<p>(Note that the arguments are passed as named parameters, so both the <code class="docutils literal notranslate"><span class="pre">graph</span></code> and <code class="docutils literal notranslate"><span class="pre">output_folder</span></code> names are mandatory)</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code> is mandatory even if not used, as new arguments can be added in future Conan versions, and those would break
+if <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code> is not defined.</p>
+<p>You can access your conanfile object with <code class="docutils literal notranslate"><span class="pre">graph.root.conanfile</span></code>.
+See <a class="reference internal" href="../conanfile/methods/generate.html#conan-conanfile-model-dependencies"><span class="std std-ref">ConanFile.dependencies</span></a> for information on how to iterate over its dependencies.
+Your custom deployer can now be invoked as if it were a built-in deployer using the filename in which it’s found,
+in this case <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">install</span> <span class="pre">.</span> <span class="pre">--deployer=my_custom_deployer</span></code>. Note that supplying the <strong>.py</strong> extension is optional.</p>
+<p>See the <a class="reference internal" href="../../examples/extensions/deployers/custom_deployers.html#examples-extensions-deployers"><span class="std std-ref">custom deployers</span></a> section for examples on how to implement your own deployers.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="python_api/CommandAPI.html" class="btn btn-neutral float-left" title="Command API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="hooks.html" class="btn btn-neutral float-right" title="Hooks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2024, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 2.6
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/2.6/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

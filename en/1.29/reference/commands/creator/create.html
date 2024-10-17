@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>conan create &mdash; conan 1.29.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/en/latest/reference/commands/creator/create.html" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=f073ef97"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="conan export" href="export.html" />
+    <link rel="prev" title="conan search" href="../consumer/search.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html">
+            
+              <img src="../../../_static/conan-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.29
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../versioning.html">Versioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../extending.html">Extending Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../howtos.html">Howtos</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../commands.html">Commands</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#consumer-commands">Consumer commands</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../../commands.html#creator-commands">Creator commands</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">conan create</a></li>
+<li class="toctree-l4"><a class="reference internal" href="export.html">conan export</a></li>
+<li class="toctree-l4"><a class="reference internal" href="export-pkg.html">conan export-pkg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="new.html">conan new</a></li>
+<li class="toctree-l4"><a class="reference internal" href="upload.html">conan upload</a></li>
+<li class="toctree-l4"><a class="reference internal" href="test.html">conan test</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#package-development-commands">Package development commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#misc-commands">Misc commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#json-output">JSON Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#return-codes">Return codes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../conanfile.html">conanfile.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generators.html">Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../profiles.html">Profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../build_helpers.html">Build helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools.html">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../config_files.html">Configuration files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../env_vars.html">Environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hooks.html">Hooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../conan_v2_mode.html">CONAN_V2_MODE</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../conan_v2.html">Road to Conan 2.0</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #eb8484;background-color: #ffcaca;padding: 3px;margin-bottom: 5px">
+              <p>This document is for a <b>"1.X" legacy</b> Conan version, <b>which is no longer recommended</b>. Please update to Conan 2, <a href="https://docs.conan.io/2/">click here to read the <b>Conan 2</b> documentation</a></p>
+            </div>
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          <!--@ OUTDATED_VERSION_PLACEHOLDER_BEGIN @
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/@LATEST_DOC_PAGE_URL@">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          @ OUTDATED_VERSION_PLACEHOLDER_END @-->
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="../../commands.html">Commands</a></li>
+      <li class="breadcrumb-item active">conan create</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/master/reference/commands/creator/create.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="conan-create">
+<span id="id1"></span><h1>conan create<a class="headerlink" href="#conan-create" title="Link to this heading"></a></h1>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span><span class="o">[</span>-h<span class="o">]</span><span class="w"> </span><span class="o">[</span>-j<span class="w"> </span>JSON<span class="o">]</span><span class="w"> </span><span class="o">[</span>-k<span class="o">]</span><span class="w"> </span><span class="o">[</span>-kb<span class="o">]</span><span class="w"> </span><span class="o">[</span>-ne<span class="o">]</span><span class="w"> </span><span class="o">[</span>-tbf<span class="w"> </span>TEST_BUILD_FOLDER<span class="o">]</span>
+<span class="w">               </span><span class="o">[</span>-tf<span class="w"> </span>TEST_FOLDER<span class="o">]</span><span class="w"> </span><span class="o">[</span>--ignore-dirty<span class="o">]</span><span class="w"> </span><span class="o">[</span>-m<span class="w"> </span><span class="o">[</span>MANIFESTS<span class="o">]]</span>
+<span class="w">               </span><span class="o">[</span>-mi<span class="w"> </span><span class="o">[</span>MANIFESTS_INTERACTIVE<span class="o">]]</span><span class="w"> </span><span class="o">[</span>-v<span class="w"> </span><span class="o">[</span>VERIFY<span class="o">]]</span><span class="w"> </span><span class="o">[</span>-b<span class="w"> </span><span class="o">[</span>BUILD<span class="o">]]</span>
+<span class="w">               </span><span class="o">[</span>-r<span class="w"> </span>REMOTE<span class="o">]</span><span class="w"> </span><span class="o">[</span>-u<span class="o">]</span><span class="w"> </span><span class="o">[</span>-l<span class="w"> </span><span class="o">[</span>LOCKFILE<span class="o">]]</span><span class="w"> </span><span class="o">[</span>-e<span class="w"> </span>ENV_HOST<span class="o">]</span>
+<span class="w">               </span><span class="o">[</span>-e:b<span class="w"> </span>ENV_BUILD<span class="o">]</span><span class="w"> </span><span class="o">[</span>-e:h<span class="w"> </span>ENV_HOST<span class="o">]</span><span class="w"> </span><span class="o">[</span>-o<span class="w"> </span>OPTIONS_HOST<span class="o">]</span>
+<span class="w">               </span><span class="o">[</span>-o:b<span class="w"> </span>OPTIONS_BUILD<span class="o">]</span><span class="w"> </span><span class="o">[</span>-o:h<span class="w"> </span>OPTIONS_HOST<span class="o">]</span>
+<span class="w">               </span><span class="o">[</span>-pr<span class="w"> </span>PROFILE_HOST<span class="o">]</span><span class="w"> </span><span class="o">[</span>-pr:b<span class="w"> </span>PROFILE_BUILD<span class="o">]</span>
+<span class="w">               </span><span class="o">[</span>-pr:h<span class="w"> </span>PROFILE_HOST<span class="o">]</span><span class="w"> </span><span class="o">[</span>-s<span class="w"> </span>SETTINGS_HOST<span class="o">]</span>
+<span class="w">               </span><span class="o">[</span>-s:b<span class="w"> </span>SETTINGS_BUILD<span class="o">]</span><span class="w"> </span><span class="o">[</span>-s:h<span class="w"> </span>SETTINGS_HOST<span class="o">]</span>
+<span class="w">               </span>path<span class="w"> </span><span class="o">[</span>reference<span class="o">]</span>
+</pre></div>
+</div>
+<p>Builds a binary package for a recipe (conanfile.py).</p>
+<p>Uses the specified configuration in a profile or in -s settings, -o
+options, etc. If a ‘test_package’ folder (the name can be configured
+with -tf) is found, the command will run the consumer project to ensure
+that the package has been created correctly. Check ‘conan test’ command
+to know more about ‘test_folder’ project.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>positional arguments:
+  path                  Path to a folder containing a conanfile.py or to a
+                        recipe file e.g., my_folder/conanfile.py
+  reference             user/channel, version@user/channel or
+                        pkg/version@user/channel (if name or version declared
+                        in conanfile.py, they should match)
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -j JSON, --json JSON  json file path where the install information will be
+                        written to
+  -k, -ks, --keep-source
+                        Do not remove the source folder in the local cache,
+                        even if the recipe changed. Use this for testing
+                        purposes only
+  -kb, --keep-build     Do not remove the build folder in local cache. Implies
+                        --keep-source. Use this for testing purposes only
+  -ne, --not-export     Do not export the conanfile.py
+  -tbf TEST_BUILD_FOLDER, --test-build-folder TEST_BUILD_FOLDER
+                        Working directory for the build of the test project.
+  -tf TEST_FOLDER, --test-folder TEST_FOLDER
+                        Alternative test folder name. By default it is
+                        &quot;test_package&quot;. Use &quot;None&quot; to skip the test stage
+  --ignore-dirty        When using the &quot;scm&quot; feature with &quot;auto&quot; values,
+                        capture the revision and url even if there are
+                        uncommitted changes
+  -m [MANIFESTS], --manifests [MANIFESTS]
+                        Install dependencies manifests in folder for later
+                        verify. Default folder is .conan_manifests, but can be
+                        changed
+  -mi [MANIFESTS_INTERACTIVE], --manifests-interactive [MANIFESTS_INTERACTIVE]
+                        Install dependencies manifests in folder for later
+                        verify, asking user for confirmation. Default folder
+                        is .conan_manifests, but can be changed
+  -v [VERIFY], --verify [VERIFY]
+                        Verify dependencies manifests against stored ones
+  -b [BUILD], --build [BUILD]
+                        Optional, specify which packages to build from source.
+                        Combining multiple &#39;--build&#39; options on one command
+                        line is allowed. For dependencies, the optional
+                        &#39;build_policy&#39; attribute in their conanfile.py takes
+                        precedence over the command line parameter. Possible
+                        parameters: --build Force build for all packages, do
+                        not use binary packages. --build=never Disallow build
+                        for all packages, use binary packages or fail if a
+                        binary package is not found. Cannot be combined with
+                        other &#39;--build&#39; options. --build=missing Build
+                        packages from source whose binary package is not
+                        found. --build=outdated Build packages from source
+                        whose binary package was not generated from the latest
+                        recipe or is not found. --build=cascade Build packages
+                        from source that have at least one dependency being
+                        built from source. --build=[pattern] Build packages
+                        from source whose package reference matches the
+                        pattern. The pattern uses &#39;fnmatch&#39; style wildcards.
+                        Default behavior: If you omit the &#39;--build&#39; option,
+                        the &#39;build_policy&#39; attribute in conanfile.py will be
+                        used if it exists, otherwise the behavior is like &#39;--
+                        build=package name&#39;.
+  -r REMOTE, --remote REMOTE
+                        Look in the specified remote server
+  -u, --update          Will check the remote and in case a newer version
+                        and/or revision of the dependencies exists there, it
+                        will install those in the local cache. When using
+                        version ranges, it will install the latest version
+                        that satisfies the range. Also, if using revisions, it
+                        will update to the latest revision for the resolved
+                        version range.
+  -l [LOCKFILE], --lockfile [LOCKFILE]
+                        Path to a lockfile or folder containing &#39;conan.lock&#39;
+                        file. Lockfile can be updated if packages change
+  -e ENV_HOST, --env ENV_HOST
+                        Environment variables that will be set during the
+                        package build (host machine). e.g.: -e
+                        CXX=/usr/bin/clang++
+  -e:b ENV_BUILD, --env:build ENV_BUILD
+                        Environment variables that will be set during the
+                        package build (build machine). e.g.: -e:b
+                        CXX=/usr/bin/clang++
+  -e:h ENV_HOST, --env:host ENV_HOST
+                        Environment variables that will be set during the
+                        package build (host machine). e.g.: -e:h
+                        CXX=/usr/bin/clang++
+  -o OPTIONS_HOST, --options OPTIONS_HOST
+                        Define options values (host machine), e.g.: -o
+                        Pkg:with_qt=true
+  -o:b OPTIONS_BUILD, --options:build OPTIONS_BUILD
+                        Define options values (build machine), e.g.: -o:b
+                        Pkg:with_qt=true
+  -o:h OPTIONS_HOST, --options:host OPTIONS_HOST
+                        Define options values (host machine), e.g.: -o:h
+                        Pkg:with_qt=true
+  -pr PROFILE_HOST, --profile PROFILE_HOST
+                        Apply the specified profile to the host machine
+  -pr:b PROFILE_BUILD, --profile:build PROFILE_BUILD
+                        Apply the specified profile to the build machine
+  -pr:h PROFILE_HOST, --profile:host PROFILE_HOST
+                        Apply the specified profile to the host machine
+  -s SETTINGS_HOST, --settings SETTINGS_HOST
+                        Settings to build the package, overwriting the
+                        defaults (host machine). e.g.: -s compiler=gcc
+  -s:b SETTINGS_BUILD, --settings:build SETTINGS_BUILD
+                        Settings to build the package, overwriting the
+                        defaults (build machine). e.g.: -s:b compiler=gcc
+  -s:h SETTINGS_HOST, --settings:host SETTINGS_HOST
+                        Settings to build the package, overwriting the
+                        defaults (host machine). e.g.: -s:h compiler=gcc
+</pre></div>
+</div>
+<p><strong class="command">conan create . demo/testing</strong> is equivalent to:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span><span class="nb">export</span><span class="w"> </span>.<span class="w"> </span>demo/testing
+$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>hello/0.1@demo/testing<span class="w"> </span>--build<span class="o">=</span>hello
+<span class="c1"># package is created now, use test to test it</span>
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>test_package
+$<span class="w"> </span>conan<span class="w"> </span><span class="nb">test</span><span class="w"> </span>.<span class="w"> </span>hello/0.1@demo/testing
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Sometimes you need to <strong>skip/disable test stage</strong> to avoid a failure while creating the package,
+i.e: when you are cross compiling libraries and target code cannot be executed in current host platform.
+In that case you can skip/disable the test package stage:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.<span class="w"> </span>demo/testing<span class="w"> </span>--test-folder<span class="o">=</span>None
+</pre></div>
+</div>
+</div>
+<p><strong class="command">conan create</strong> executes methods of a <em>conanfile.py</em> in the following order:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">config_options()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">configure()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">requirements()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">package_id()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">build_requirements()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">build_id()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">system_requirements()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">source()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">imports()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">build()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">package()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">package_info()</span></code></p></li>
+</ol>
+<p>In case of installing a pre-built binary, steps from 5 to 11 will be skipped. Note that <code class="docutils literal notranslate"><span class="pre">deploy()</span></code> method is only used in
+<strong class="command">conan install</strong>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Installation of binaries can be accelerated setting up parallel downloads with the <code class="docutils literal notranslate"><span class="pre">general.parallel_download</span></code>
+<strong>experimental</strong> configuration in <a class="reference internal" href="../../config_files/conan.conf.html#conan-conf"><span class="std std-ref">conan.conf</span></a>.</p>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../consumer/search.html" class="btn btn-neutral float-left" title="conan search" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="export.html" class="btn btn-neutral float-right" title="conan export" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2020, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 1.29
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/en/1.29/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

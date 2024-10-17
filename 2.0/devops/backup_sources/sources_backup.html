@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Backing up third-party sources with Conan &mdash; conan 2.0.17 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=045299b1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/conan.css?v=7d9e9f1e" />
+
+  
+    <link rel="shortcut icon" href="../../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/devops/backup_sources/sources_backup.html" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=86415d92"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Creating an Artifactory backup repo for your sources" href="repositories/artifactory/creating_backup_sources_repo.html" />
+    <link rel="prev" title="Creating and hosting your own ConanCenter binaries" href="../conancenter/hosting_binaries.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/conan-docs-logo-2.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../whatsnew.html">What’s new in Conan 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../devops.html">Devops guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../using_conancenter.html">Using ConanCenter packages in production environments</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Backing up third-party sources with Conan</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="repositories/artifactory/creating_backup_sources_repo.html">Creating an Artifactory backup repo for your sources</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../metadata.html">Managing package metadata files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../versioning.html">Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../save_restore.html">Save and restore packages from/to the cache</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../knowledge.html">Knowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/devops/backup_sources/sources_backup.html">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../devops.html">Devops guide</a></li>
+      <li class="breadcrumb-item active">Backing up third-party sources with Conan</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/develop2/devops/backup_sources/sources_backup.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="backing-up-third-party-sources-with-conan">
+<span id="conan-backup-sources"></span><h1>Backing up third-party sources with Conan<a class="headerlink" href="#backing-up-third-party-sources-with-conan" title="Link to this heading">¶</a></h1>
+<p>For recipes and build scripts for open source, publicly available libraries,
+it is common practice to download the sources from a canonical source, like Github releases, or project download web pages.
+Keeping a record of the origin of these files is useful for traceability purposes, however,
+it is often not guaranteed that the files will be available in the long term,
+and a user in the future building the same recipe from source may encounter a problem.
+Conan can thus be configured to transparently retrieve sources from a configured mirror,
+without modifying the recipes or <cite>conandata.yml</cite>.
+Additionally, these sources can be transparently uploaded alongside the packages via <strong class="command">conan upload</strong>.</p>
+<p>The <em>sources backup</em> feature is intended for storing the downloaded recipe sources in a file server in your own infrastructure,
+allowing future reproducibility of your builds even in the case where the original download URLs are no longer accessible.</p>
+<p>The backup is triggered for calls to the <a class="reference internal" href="../../reference/tools/files/downloads.html#conan-tools-files-get"><span class="std std-ref">download</span></a> and <a class="reference internal" href="../../reference/tools/files/downloads.html#conan-tools-files-get"><span class="std std-ref">get</span></a> methods
+when a <code class="docutils literal notranslate"><span class="pre">sha256</span></code> file signature is provided.</p>
+<section id="configuration-overview">
+<span id="backup-sources-config"></span><h2>Configuration overview<a class="headerlink" href="#configuration-overview" title="Link to this heading">¶</a></h2>
+<p>This feature is controlled by a few <a class="reference internal" href="../../reference/config_files/global_conf.html#reference-config-files-global-conf"><span class="std std-ref">global.conf</span></a> items:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">core.sources:download_cache</span></code>: Local path to store the sources backups to.
+<em>If not set, the default Conan home cache path will be used.</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">core.sources:download_urls</span></code>: Ordered list of URLs that Conan will try to download the sources from,
+where <code class="docutils literal notranslate"><span class="pre">origin</span></code> represents the original URL passed to <code class="docutils literal notranslate"><span class="pre">get</span></code>/<code class="docutils literal notranslate"><span class="pre">download</span></code> from <cite>conandata.yml</cite>.
+This allows to control the fetch order, either <code class="docutils literal notranslate"><span class="pre">[&quot;origin&quot;,</span> <span class="pre">&quot;https://your.backup/remote/&quot;]</span></code>
+to look into and fetch from your backup remote only if and when the original source is not present,
+or <code class="docutils literal notranslate"><span class="pre">[&quot;https://your.backup/remote/&quot;,</span> <span class="pre">&quot;origin&quot;]</span></code> to prefer your backup server ahead of the recipes’ canonical links.
+Being a list, multiple remotes are also possible. <code class="docutils literal notranslate"><span class="pre">[&quot;origin&quot;]</span></code> <em>by default</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">core.sources:upload_url</span></code>: URL of the remote to upload the backups to when calling <strong class="command">conan upload</strong>,
+which might or might not be different from any of the URLs defined for download. <em>Empty by default</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">core.sources:exclude_urls</span></code>: List of origins to skip backing up.
+If the URL passed to <code class="docutils literal notranslate"><span class="pre">get</span></code>/<code class="docutils literal notranslate"><span class="pre">download</span></code> starts with any of the origins included in this list,
+the source won’t be uploaded to the backup remote when calling <strong class="command">conan upload</strong>. <em>Empty by default</em></p></li>
+</ul>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading">¶</a></h2>
+<p>Let’s overview how the feature works by providing an example usage from beginning to end:</p>
+<p>In summary, it looks something like:</p>
+<ul class="simple">
+<li><p>A remote backup repository is set up. This should allow <code class="docutils literal notranslate"><span class="pre">PUT</span></code> and <code class="docutils literal notranslate"><span class="pre">GET</span></code> HTTP methods to modify and fetch its contents.
+If access credentials are desired (which is strongly recommended for uploading permissions),
+you can use the <a class="reference internal" href="../../reference/config_files/source_credentials.html#reference-config-files-source-credentials"><span class="std std-ref">source_credentials.json</span></a> feature.
+<a class="reference internal" href="#backup-sources-setup-remote"><span class="std std-ref">See below</span></a> if you are in need for configuring your own.</p></li>
+<li><p>The remote’s URL can then be set in <code class="docutils literal notranslate"><span class="pre">core.sources:download_urls</span></code> and <code class="docutils literal notranslate"><span class="pre">core.sources:upload_url</span></code>.</p></li>
+<li><p>In your recipe’s <code class="docutils literal notranslate"><span class="pre">source()</span></code> method, ensure the relevant <code class="docutils literal notranslate"><span class="pre">get</span></code>/<code class="docutils literal notranslate"><span class="pre">download</span></code>
+calls supply the <code class="docutils literal notranslate"><span class="pre">sha256</span></code> signature of the downloaded files.</p></li>
+<li><p>Set <code class="docutils literal notranslate"><span class="pre">core.sources:download_cache</span></code> in your <a class="reference internal" href="../../reference/config_files/global_conf.html#reference-config-files-global-conf"><span class="std std-ref">global.conf</span></a> file if a custom location is desired,
+else the default cache folder will be used</p></li>
+<li><p>Run Conan normally, creating packages etc.</p></li>
+<li><dl class="simple">
+<dt>Once some sources have been locally downloaded, the folder pointed to by <code class="docutils literal notranslate"><span class="pre">core.sources:download_cache</span></code> will contain, for each downloaded file:</dt><dd><ul>
+<li><p>A blob file (no extensions) with the name of the <code class="docutils literal notranslate"><span class="pre">sha256</span></code> signature provided in <code class="docutils literal notranslate"><span class="pre">get</span></code>/<code class="docutils literal notranslate"><span class="pre">download</span></code>.</p></li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">.json</span></code> file which will also have the name of the <code class="docutils literal notranslate"><span class="pre">sha256</span></code> signature,
+that will contain information about which references and which mirrors this blob belongs to.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>Calling <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">upload</span></code> will now optionally upload the backups for the matching references if <code class="docutils literal notranslate"><span class="pre">core.sources:upload_url</span></code> is set.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference internal" href="#backup-sources-setup-remote"><span class="std std-ref">See below</span></a> for a guide on how to configure your own backup server</p>
+</div>
+<section id="setting-up-the-necessary-configs">
+<h3>Setting up the necessary configs<a class="headerlink" href="#setting-up-the-necessary-configs" title="Link to this heading">¶</a></h3>
+<p>The <a class="reference internal" href="../../reference/config_files/global_conf.html#reference-config-files-global-conf"><span class="std std-ref">global.conf</span></a> file should contain the
+<code class="docutils literal notranslate"><span class="pre">core.sources:download_urls</span></code></p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">global.conf</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>core.sources:download_urls=[&quot;https://myteam.myorg.com/artifactory/backup-sources/&quot;, &quot;origin&quot;]
+</pre></div>
+</div>
+</div>
+<p>You might want to add extra confs based on your use case, as described <a class="reference internal" href="#backup-sources-config"><span class="std std-ref">in the beginning of this document</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The recommended approach for dealing with the configuration of CI workers and developers in your organization is
+to install the configs using the <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">config</span> <span class="pre">install</span></code> command on a repository. Read more <a class="reference internal" href="../../reference/commands/config.html#reference-commands-conan-config-install"><span class="std std-ref">here</span></a></p>
+</div>
+</section>
+<section id="run-conan-as-normal">
+<h3>Run Conan as normal<a class="headerlink" href="#run-conan-as-normal" title="Link to this heading">¶</a></h3>
+<p>With the above steps completed, Conan can now be used as normal, and for every downloaded source,
+Conan will first look into the folder indicated in <code class="docutils literal notranslate"><span class="pre">core.sources:download_cache</span></code>, and if not found there,
+will traverse <code class="docutils literal notranslate"><span class="pre">core.sources:download_urls</span></code> until it find the file or fails,
+and store a local copy in the same <code class="docutils literal notranslate"><span class="pre">core.sources:download_cache</span></code> location.</p>
+<p>When the backup is fetched from the the backup remote, a message like what follows will be shown to the user:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">The client will now print information regarding from which remote it was capable of downloading the sources</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ conan create . --version=1.3
+
+...
+
+======== Installing packages ========
+zlib/1.3: Calling source() in /Users/ruben/.conan2/p/zlib0f4e45286ecd1/s/src
+zlib/1.3: Sources for [&#39;https://zlib.net/fossils/zlib-1.3.tar.gz&#39;, &#39;https://github.com/madler/zlib/releases/download/v1.3/zlib-1.3.tar.gz&#39;]
+          found in remote backup https://myteam.myorg.com/artifactory/backup-sources
+
+-------- Installing package zlib/1.3 (1 of 1) --------
+
+...
+</pre></div>
+</div>
+</div>
+<p>If we now again try to run this, we’ll find that no download is performed and the locally stored version of the files is used.</p>
+</section>
+<section id="upload-the-packages">
+<h3>Upload the packages<a class="headerlink" href="#upload-the-packages" title="Link to this heading">¶</a></h3>
+<p>Once a package has been created as shown above, when a call to <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">upload</span> <span class="pre">zlib/1.3</span> <span class="pre">-c</span></code> is performed
+to upload the resulting binary to your Conan repository, it will also upload the source backups for that same reference
+to your backups remote if configured to do so,
+and future source downloads of this recipe will use the newly updated contents when necessary.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>See <a class="reference internal" href="../../examples/commands/pkglists.html#examples-commands-pkglists"><span class="std std-ref">the packages list feature</span></a> for a way to only upload the packages that have been built</p>
+</div>
+<p>In case there’s a need to upload backups for sources not linked to any package, or for packages that are already on the remote and would therefore be skipped during upload, the <strong class="command">conan cache backup-upload</strong> command can be used to address this scenario.</p>
+</section>
+<section id="creating-the-backup-repository">
+<span id="backup-sources-setup-remote"></span><h3>Creating the backup repository<a class="headerlink" href="#creating-the-backup-repository" title="Link to this heading">¶</a></h3>
+<p>You can also set up your own remote backup repository instead of relying on an already available one.
+While an Artifactory generic repository (available for free with Artifactory CE) is recommend for this purpose,
+any simple server that allows <code class="docutils literal notranslate"><span class="pre">PUT</span></code> and <code class="docutils literal notranslate"><span class="pre">GET</span></code> HTTP methods to modify and fetch its contents is sufficient.</p>
+<p>Read the following section for instructions on how to create a generic Artifactory backup repo and how to give it public read permissions,
+while keeping write access only for authorized agents</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="repositories/artifactory/creating_backup_sources_repo.html">Creating an Artifactory backup repo for your sources</a></li>
+</ul>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../conancenter/hosting_binaries.html" class="btn btn-neutral float-left" title="Creating and hosting your own ConanCenter binaries" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="repositories/artifactory/creating_backup_sources_repo.html" class="btn btn-neutral float-right" title="Creating an Artifactory backup repo for your sources" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2024, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 2.0
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/2.0/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

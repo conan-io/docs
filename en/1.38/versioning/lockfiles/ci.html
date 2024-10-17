@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lockfiles in Continuous Integration &mdash; conan 1.38.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+    <link rel="shortcut icon" href="../../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/en/latest/versioning/lockfiles/ci.html" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=00e097a7"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Mastering Conan" href="../../mastering.html" />
+    <link rel="prev" title="Lockfile bundles" href="bundle.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/conan-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.38
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cheatsheet.html">Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../training_courses.html">Training Courses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../versioning.html">Versioning</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html">Introduction to versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../version_ranges.html">Version ranges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../revisions.html">Package Revisions</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../lockfiles.html">Lockfiles</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configurations.html">Multiple configurations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evolving.html">Evolving lockfiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="build_order.html">Build order in lockfiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bundle.html">Lockfile bundles</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Lockfiles in Continuous Integration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#repositories">Repositories</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#package-pipeline">Package pipeline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#products-pipeline">Products pipeline</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../extending.html">Extending Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../conan_v2.html">Road to Conan 2.0</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #eb8484;background-color: #ffcaca;padding: 3px;margin-bottom: 5px">
+              <p>This document is for a <b>"1.X" legacy</b> Conan version, <b>which is no longer recommended</b>. Please update to Conan 2, <a href="https://docs.conan.io/2/">click here to read the <b>Conan 2</b> documentation</a></p>
+            </div>
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          <!--@ OUTDATED_VERSION_PLACEHOLDER_BEGIN @
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/@LATEST_DOC_PAGE_URL@">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          @ OUTDATED_VERSION_PLACEHOLDER_END @-->
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../versioning.html">Versioning</a></li>
+          <li class="breadcrumb-item"><a href="../lockfiles.html">Lockfiles</a></li>
+      <li class="breadcrumb-item active">Lockfiles in Continuous Integration</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/master/versioning/lockfiles/ci.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="lockfiles-in-continuous-integration">
+<span id="versioning-lockfiles-ci"></span><h1>Lockfiles in Continuous Integration<a class="headerlink" href="#lockfiles-in-continuous-integration" title="Link to this heading"></a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This is an <strong>experimental</strong> feature subject to breaking changes in future releases.</p>
+</div>
+<p>This section provides an example of application of the <strong>lockfiles</strong> in a Continuous Integration
+case. It doesn’t aim to present a complete solution or the only possible one, depending on the
+project, the team, the requirements, the constraints, etc., other approaches might be recommended.</p>
+<p>In this section we are going to use the same packages than in the previous one, defining this
+dependency graph.</p>
+<a class="reference internal image-reference" href="../../_images/conan_lock_build_order.png"><img alt="../../_images/conan_lock_build_order.png" class="align-center" src="../../_images/conan_lock_build_order.png" style="width: 400px; height: 200px;" /></a>
+<p>The example scenario is a developer doing some changes in <code class="docutils literal notranslate"><span class="pre">libb</span></code>, that include bumping the
+version to <code class="docutils literal notranslate"><span class="pre">libb/0.2</span></code>. We will structure the CI in two parts:</p>
+<ul class="simple">
+<li><p>Building <code class="docutils literal notranslate"><span class="pre">libb/0.2&#64;user/testing</span></code> to check that it is working fine.</p></li>
+<li><p>Building the downstream applications <code class="docutils literal notranslate"><span class="pre">app1/0.1&#64;user/testing</span></code> and <code class="docutils literal notranslate"><span class="pre">app2/0.2&#64;user/testing</span></code>
+to check if they build correctly, or if they are broken by those changes.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The code used in this section, including a <em>build.py</em> script to reproduce it, is in the
+examples repository: <a class="reference external" href="https://github.com/conan-io/examples">https://github.com/conan-io/examples</a>. You can go step by step
+reproducing this example while reading the below documentation.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/conan-io/examples.git
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>features/lockfiles/ci
+<span class="c1"># $ python build.py only to run the full example, but better go step by step</span>
+</pre></div>
+</div>
+</div>
+<p>The example in this section uses <code class="docutils literal notranslate"><span class="pre">full_version_mode</span></code>, that is, if a package changes any part of its version, its consumers will
+need to build a new binary because a new <code class="docutils literal notranslate"><span class="pre">package_id</span></code> will be computed.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>general.default_package_id_mode<span class="o">=</span>full_version_mode
+</pre></div>
+</div>
+<p>This example will use version ranges, and it is not necessary to have revisions enabled. It also does not require
+a server, everything can be reproduced locally, although the usage of different repositories will be introduced.</p>
+<section id="repositories">
+<h2>Repositories<a class="headerlink" href="#repositories" title="Link to this heading"></a></h2>
+<p>When a developer does some changes, the CI wants to build those changes, create packages, and check if everything
+is ok. But while checking it, it is better to not pollute the main Conan remote repository with temporary packages
+until we are fully sure that it is not breaking anything. So we could use 2 repositories:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">conan-develop</span></code>: this would be the team/project reference repository. Developers and CI will use this by default to
+retrieve Conan packages with precompiled binaries. Similarly to a git “develop” branch, it could be assumed that
+the packages in this repository work correctly, have been tested before being put there. It could also be expected
+that the repository contains pre-compiled binaries, so building from sources shouldn’t be necessary.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">conan-build</span></code>: a repository mainly for CI purposes. When CI is creating packages in a pipeline, it can put those
+packages in this repository, so they can still be used in the CI pipelines, be fetched by some build agents to
+build other packages. These temporary packages will not disrupt the operations and usage of <code class="docutils literal notranslate"><span class="pre">conan-develop</span></code>
+repository used by other CI jobs and developers.</p></li>
+</ul>
+<p>Let’s create the first version of the packages, for both Debug and Release configurations:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>liba<span class="w"> </span>liba/0.1@user/testing<span class="w"> </span>-s<span class="w"> </span><span class="nv">build_type</span><span class="o">=</span>Release
+$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>libb<span class="w"> </span>libb/0.1@user/testing<span class="w"> </span>-s<span class="w"> </span><span class="nv">build_type</span><span class="o">=</span>Release
+$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>libc<span class="w"> </span>libc/0.1@user/testing<span class="w"> </span>-s<span class="w"> </span><span class="nv">build_type</span><span class="o">=</span>Release
+$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>libd<span class="w"> </span>libd/0.1@user/testing<span class="w"> </span>-s<span class="w"> </span><span class="nv">build_type</span><span class="o">=</span>Release
+$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>app1<span class="w"> </span>app1/0.1@user/testing<span class="w"> </span>-s<span class="w"> </span><span class="nv">build_type</span><span class="o">=</span>Release
+$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>app2<span class="w"> </span>app2/0.1@user/testing<span class="w"> </span>-s<span class="w"> </span><span class="nv">build_type</span><span class="o">=</span>Release
+$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>liba<span class="w"> </span>liba/0.1@user/testing<span class="w"> </span>-s<span class="w"> </span><span class="nv">build_type</span><span class="o">=</span>Debug
+...
+</pre></div>
+</div>
+<p>Now let’s say that one developer does some change to <code class="docutils literal notranslate"><span class="pre">libb</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>vim<span class="w"> </span>libb/conanfile.py
+<span class="c1"># do some changes and save</span>
+</pre></div>
+</div>
+<p>These changes are local in this example, in reality they will be typically in the form of a Pull Request,
+wanting to merge those changes in the main “develop” branch.</p>
+</section>
+<section id="package-pipeline">
+<h2>Package pipeline<a class="headerlink" href="#package-pipeline" title="Link to this heading"></a></h2>
+<p>The first thing the CI will do is to build <code class="docutils literal notranslate"><span class="pre">libb/0.2&#64;user/testing</span></code> package, containing the developer
+changes, for different configurations. As we want to make sure that all different configurations are
+built with the same versions of the dependencies, the first thing is to capture a “base” lockfile of
+the dependencies of <code class="docutils literal notranslate"><span class="pre">libb</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>libb
+$<span class="w"> </span>conan<span class="w"> </span>lock<span class="w"> </span>create<span class="w"> </span>conanfile.py<span class="w"> </span>--name<span class="o">=</span>libb<span class="w"> </span>--version<span class="o">=</span><span class="m">0</span>.2<span class="w"> </span>--user<span class="o">=</span>user<span class="w"> </span>--channel<span class="o">=</span>testing
+<span class="w">  </span>--lockfile-out<span class="o">=</span>../locks/libb_deps_base.lock<span class="w"> </span>--base
+</pre></div>
+</div>
+<p>This will capture the <em>libb_deps_base.lock</em> file with the versions of <code class="docutils literal notranslate"><span class="pre">libb</span></code> dependencies, in this case
+<code class="docutils literal notranslate"><span class="pre">liba/0.1&#64;user/testing</span></code>. Now that we have this file, new versions of <code class="docutils literal notranslate"><span class="pre">liba</span></code> could be created, but they
+will not be used:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>..
+$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>liba<span class="w"> </span>liba/0.2@user/testing
+</pre></div>
+</div>
+<p>We want to test the changes for several different configurations, so the first step would be to derive a new
+lockfile for each configuration/profile from the <em>libb_deps_base.lock</em>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>libb
+
+<span class="c1"># Derive one lockfile per profile/configuration</span>
+$<span class="w"> </span>conan<span class="w"> </span>lock<span class="w"> </span>create<span class="w"> </span>conanfile.py<span class="w"> </span>--name<span class="o">=</span>libb<span class="w"> </span>--version<span class="o">=</span><span class="m">0</span>.2
+<span class="w">  </span>--user<span class="o">=</span>user<span class="w"> </span>--channel<span class="o">=</span>testing<span class="w"> </span>--lockfile<span class="o">=</span>../locks/libb_deps_base.lock
+<span class="w">  </span>--lockfile-out<span class="o">=</span>../locks/libb_deps_debug.lock<span class="w"> </span>-s<span class="w"> </span><span class="nv">build_type</span><span class="o">=</span>Debug
+$<span class="w"> </span>conan<span class="w"> </span>lock<span class="w"> </span>create<span class="w"> </span>conanfile.py<span class="w"> </span>--name<span class="o">=</span>libb<span class="w"> </span>--version<span class="o">=</span><span class="m">0</span>.2
+<span class="w">  </span>--user<span class="o">=</span>user<span class="w"> </span>--channel<span class="o">=</span>testing<span class="w"> </span>--lockfile<span class="o">=</span>../locks/libb_deps_base.lock
+<span class="w">  </span>--lockfile-out<span class="o">=</span>../locks/libb_deps_release.lock
+
+<span class="c1"># Create the package binaries, one with each lockfile</span>
+$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.<span class="w"> </span>libb/0.2@user/testing<span class="w"> </span>--lockfile<span class="o">=</span>../locks/libb_deps_release.lock
+$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.<span class="w"> </span>libb/0.2@user/testing<span class="w"> </span>--lockfile<span class="o">=</span>../locks/libb_deps_debug.lock
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is important to note that it is not necessary to build all configurations in this build agent.
+One of the advantages of using lockfiles is that the build can be delegated to other agents,
+as long as they get the right commit of <code class="docutils literal notranslate"><span class="pre">libb</span></code> repo and the lockfile, they can build
+the desired package with the right dependencies.</p>
+</div>
+<p>Once everything is building ok, and <code class="docutils literal notranslate"><span class="pre">libb/0.2&#64;user/testing</span></code> package is created correctly for all profiles,
+we want to check if this new version can be integrated safely in its consumers. When using revisions (not
+this example), it is important to capture the recipe revision, and lock it too. We can capture the recipe
+revision doing an export, creating a new <em>libb_base.lock</em> lockfile:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span><span class="nb">export</span><span class="w"> </span>.<span class="w"> </span>libb/0.2@user/testing<span class="w"> </span>--lockfile<span class="o">=</span>../locks/libb_deps_base.lock
+<span class="w">  </span>--lockfile-out<span class="o">=</span>../locks/libb_base.lock
+</pre></div>
+</div>
+</section>
+<section id="products-pipeline">
+<h2>Products pipeline<a class="headerlink" href="#products-pipeline" title="Link to this heading"></a></h2>
+<p>There is an important question to be addressed: <strong>when a package changes, what other packages
+consuming it should be rebuilt to account for this change?</strong>. The problem might be harder than
+it seems at first sight, or from the observation of the graph above. It shows that <code class="docutils literal notranslate"><span class="pre">libd/0.1</span></code>
+has a dependency to <code class="docutils literal notranslate"><span class="pre">libb/0.1</span></code>, does it mean that a new <code class="docutils literal notranslate"><span class="pre">libb/0.2</span></code> should produce a re-build
+of <code class="docutils literal notranslate"><span class="pre">libd/0.1</span></code> to link with the new version? Not always, if <code class="docutils literal notranslate"><span class="pre">libd</span></code> had a pinned dependency
+and not a version range, it will never resolve to the new version, and then it doesn’t and it
+cannot be rebuilt unless some developer makes some changes to <code class="docutils literal notranslate"><span class="pre">libd</span></code> and bumps the requirement.</p>
+<p>In this example, <code class="docutils literal notranslate"><span class="pre">libd</span></code> contains a version range, and if we evaluate it, we will see that the
+new <code class="docutils literal notranslate"><span class="pre">libb/0.2</span></code> version lies within the range, and then yes, it needs a new binary to be built,
+otherwise our repository of packages will have missing binaries.</p>
+<p>One important problem is the combinatoric explosion that happens downstream. Projects evolve and
+packages will eventually have many versions and even many revisions. In our example, we could
+have in our repository many <code class="docutils literal notranslate"><span class="pre">libd/0.0.1</span></code>, <code class="docutils literal notranslate"><span class="pre">libd/0.0.2</span></code>, …, <code class="docutils literal notranslate"><span class="pre">libd/0.0.34</span></code> versions, all of
+them with a requirement to <code class="docutils literal notranslate"><span class="pre">libb</span></code>. Each one could be in turn consumed by multiple <code class="docutils literal notranslate"><span class="pre">app1</span></code> versions.</p>
+<p>We could think to consider as consumer only the latest version of <code class="docutils literal notranslate"><span class="pre">libd</span></code>. But it is also totally
+possible that some developer has already uploaded a <code class="docutils literal notranslate"><span class="pre">libd/2.0</span></code> version, with a breaking new API,
+aimed for the next major version of <code class="docutils literal notranslate"><span class="pre">app1</span></code>.</p>
+<p>So the only alternative to be both efficient and have a robust Continuous Integration of changes in
+our core “products” is to explictly define those “products”. In our case we will define that our
+products are <code class="docutils literal notranslate"><span class="pre">app1/0.1&#64;user/testing</span></code> and <code class="docutils literal notranslate"><span class="pre">app2/0.1&#64;user/testing</span></code>. This product definition could
+change as we keep doing releases of our products to our customers.</p>
+<p>The first step in the products pipeline would be to capture the lockfiles for the different configurations
+we want to build for our products. As explained above, we can first capture a “base” lockfile of
+<code class="docutils literal notranslate"><span class="pre">app1/0.1&#64;user/testing</span></code>, using the previous <em>libb_base.lock</em>, to make sure that we are using the locked
+versions for both <code class="docutils literal notranslate"><span class="pre">libb/0.2&#64;user/testing</span></code> and <code class="docutils literal notranslate"><span class="pre">liba/0.1&#64;user/testing</span></code>, as this was the snapshot of
+existing versions when the CI pipeline started, even if later a <code class="docutils literal notranslate"><span class="pre">liba/0.2&#64;user/testing</span></code> was created.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>lock<span class="w"> </span>create<span class="w"> </span>--reference<span class="o">=</span>app1/0.1@user/testing<span class="w"> </span>--lockfile<span class="o">=</span>locks/libb_base.lock
+<span class="w">  </span>--lockfile-out<span class="o">=</span>locks/app1_base.lock<span class="w"> </span>--base
+</pre></div>
+</div>
+<p>The <em>app1_base.lock</em> lockfile will capture and lock <code class="docutils literal notranslate"><span class="pre">libd/0.1&#64;user/testing</span></code> and <code class="docutils literal notranslate"><span class="pre">libc/0.1&#64;user/testing</span></code>.
+Now, even if those packages also got new versions, they will not be used, even if they fit in the version range.
+The <em>app1_base.lock</em> lockfile can be in turn used to capture complete lockfiles, one per profile/configuration:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>lock<span class="w"> </span>create<span class="w"> </span>--reference<span class="o">=</span>app1/0.1@user/testing<span class="w"> </span>--lockfile<span class="o">=</span>locks/app1_base.lock
+<span class="w">  </span>--lockfile-out<span class="o">=</span>locks/app1_release.lock
+$<span class="w"> </span>conan<span class="w"> </span>lock<span class="w"> </span>create<span class="w"> </span>--reference<span class="o">=</span>app1/0.1@user/testing<span class="w"> </span>--lockfile<span class="o">=</span>locks/app1_base.lock
+<span class="w">  </span>--lockfile-out<span class="o">=</span>locks/app1_debug.lock<span class="w"> </span>-s<span class="w"> </span><span class="nv">build_type</span><span class="o">=</span>Debug
+</pre></div>
+</div>
+<p>The build-order can now be computed, also for each configuration:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>lock<span class="w"> </span>build-order<span class="w"> </span>locks/app1_release.lock<span class="w"> </span>--json<span class="o">=</span>bo_release.json
+<span class="o">[[[</span><span class="s1">&#39;libd/0.1@user/testing&#39;</span>,<span class="w"> </span><span class="s1">&#39;b03c813b34cfab7a095fd903f7e8df2114e2b858&#39;</span>,<span class="w"> </span><span class="s1">&#39;host&#39;</span>,<span class="w"> </span><span class="s1">&#39;4&#39;</span><span class="o">]]</span>,
+<span class="w"> </span><span class="o">[[</span><span class="s1">&#39;app1/0.1@user/testing&#39;</span>,<span class="w"> </span><span class="s1">&#39;15d2c695ed8d421c0d8932501fc654c8083e6582&#39;</span>,<span class="w"> </span><span class="s1">&#39;host&#39;</span>,<span class="w"> </span><span class="s1">&#39;3&#39;</span><span class="o">]]]</span>
+
+$<span class="w"> </span>conan<span class="w"> </span>lock<span class="w"> </span>build-order<span class="w"> </span>locks/app1_debug.lock<span class="w"> </span>--json<span class="o">=</span>bo_debug.json
+<span class="o">[[[</span><span class="s1">&#39;libd/0.1@user/testing&#39;</span>,<span class="w"> </span><span class="s1">&#39;67a26cfbef78ad4905bec085664768c209d14fda&#39;</span>,<span class="w"> </span><span class="s1">&#39;host&#39;</span>,<span class="w"> </span><span class="s1">&#39;4&#39;</span><span class="o">]]</span>,
+<span class="w"> </span><span class="o">[[</span><span class="s1">&#39;app1/0.1@user/testing&#39;</span>,<span class="w"> </span><span class="s1">&#39;680239a70c97f93d4d3dba4dec1b148d45ed087a&#39;</span>,<span class="w"> </span><span class="s1">&#39;host&#39;</span>,<span class="w"> </span><span class="s1">&#39;3&#39;</span><span class="o">]]]</span>
+</pre></div>
+</div>
+<p>The build order tells that we need to build <code class="docutils literal notranslate"><span class="pre">libd/0.1&#64;user/testing</span></code> and <code class="docutils literal notranslate"><span class="pre">app1/0.1&#64;user/testing</span></code>
+in that order, for both Release and Debug configurations (again this can also be delegated to other build agents)</p>
+<p>That build can be done with command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>libd/0.1@user/testing<span class="w"> </span>--build<span class="o">=</span>libd/0.1@user/testing<span class="w"> </span>--lockfile<span class="o">=</span>locks/app1_release.lock
+<span class="w">  </span>--lockfile-out<span class="o">=</span>locks/app1_release_updated.lock
+</pre></div>
+</div>
+<p>Note that we are creating a new temporary <em>app1_release_updated.lock</em> lockfile, that will contain and lock
+the binary produced by the build of <code class="docutils literal notranslate"><span class="pre">libd</span></code>. If this was implemented in CI, the <em>app1_release.lock</em> would
+be sent to the build agent, and it would return a modified <em>app1_release_updated.lock</em>. The way to
+integrate this information into the existing lockfile, necessary to keep building other downstream packages
+is:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>lock<span class="w"> </span>update<span class="w"> </span>locks/app1_release.lock<span class="w"> </span>locks/app1_release_updated.lock
+</pre></div>
+</div>
+<p>Now that <em>locks/app1_release.lock</em> is updated we could launch in exactly the same way the build of <code class="docutils literal notranslate"><span class="pre">app1</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>app1/0.1@user/testing<span class="w"> </span>--build<span class="o">=</span>app1/0.1@user/testing<span class="w"> </span>--lockfile<span class="o">=</span>locks/app1_release.lock
+<span class="w">  </span>--lockfile-out<span class="o">=</span>locks/app1_release_updated.lock
+</pre></div>
+</div>
+<p>The process will be repeated (or it could also run in parallel) for the Debug configuration.</p>
+<p>After the <code class="docutils literal notranslate"><span class="pre">app1/0.1&#64;user/testing</span></code> product pipeline finishes, then the <code class="docutils literal notranslate"><span class="pre">app2/0.2&#64;user/testing</span></code> one will
+be started. With this setup and example, it is very important that the products pipelines are ran sequentially,
+otherwise it is possible that the same binaries are unnecesarily built more than once.</p>
+<p>When the products pipeline finishes it means that the changes proposed by the developer in their Pull Request that
+would result in a new <code class="docutils literal notranslate"><span class="pre">libb/0.2&#64;user/testing</span></code> package are safe to be merged and will be integrated in our
+product packages without problems. When the Pull Request is merged there might be two alternatives:</p>
+<ul class="simple">
+<li><p>The merge is a merge commit, with a different revision and possible different source as the result of a real merge,
+than the source used in this CI job. Then it is necessary to fire again a new job that will build these packages.</p></li>
+<li><p>If the merge is a clean fast-forward, then the packages that were built in this job would be valid, and could be
+copied from the repository <code class="docutils literal notranslate"><span class="pre">conan-build</span></code> to the <code class="docutils literal notranslate"><span class="pre">conan-develop</span></code>.</p></li>
+</ul>
+<p>After the <code class="docutils literal notranslate"><span class="pre">app1</span></code> lockfile is created it could be possible to install all the binaries referenced in
+that lockfile using the <strong class="command">conan lock install</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>lock<span class="w"> </span>install<span class="w"> </span>app1_release_updated.lock<span class="w"> </span>-g<span class="w"> </span>deploy
+</pre></div>
+</div>
+<p>It is also possible to use this command for just installing the recipes but not the binaries adding
+the <code class="docutils literal notranslate"><span class="pre">--recipes</span></code> argument:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>lock<span class="w"> </span>install<span class="w"> </span>app1_release_updated.lock<span class="w"> </span>--recipes
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="bundle.html" class="btn btn-neutral float-left" title="Lockfile bundles" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../mastering.html" class="btn btn-neutral float-right" title="Mastering Conan" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2020, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 1.38
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/en/1.38/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

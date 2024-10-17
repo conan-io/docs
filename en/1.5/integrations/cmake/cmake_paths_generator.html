@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>cmake_paths generator &mdash; conan 1.5.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=73275c37"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="cmake_find_package generator" href="cmake_find_package_generator.html" />
+    <link rel="prev" title="cmake_multi generator" href="cmake_multi_generator.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=GTM-WK44ZFM"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'GTM-WK44ZFM');
+</script>
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/conan_logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.5
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../integrations.html">Integrations</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../cmake.html"> CMake</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cmake_generator.html"><code class="docutils literal notranslate"><span class="pre">cmake</span></code> generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cmake_multi_generator.html"><code class="docutils literal notranslate"><span class="pre">cmake_multi</span></code> generator</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">cmake_paths</span></code> generator</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#included-as-a-toolchain">Included as a toolchain</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#included-using-the-cmake-project-project-name-include">Included using the CMAKE_PROJECT_&lt;PROJECT-NAME&gt;_INCLUDE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#included-in-your-cmakelists-txt">Included in your CMakeLists.txt</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cmake_find_package_generator.html"><code class="docutils literal notranslate"><span class="pre">cmake_find_package</span></code> generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="build_automation.html">Build automation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="find_packages.html">Find Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../makefile.html">Autotools: configure/make</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../visual_studio.html"> Visual Studio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../xcode.html">  Apple/Xcode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gcc.html">Compilers on command line</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../android_studio.html"> Android Studio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../clion.html"> CLion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ninja.html">Ninja, NMake, Borland</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pkg_config_pc_files.html">pkg-config and pc files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../boost_build.html"> Boost Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qmake.html">QMake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../premake.html"> Premake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qbs.html">qbs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../meson.html"> Meson Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../docker.html"> Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../git.html"> Git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../jenkins.html"> Jenkins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../travisci.html"> Travis Ci</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../appveyor.html"> Appveyor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gitlab.html"> Gitlab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../circleci.html"> Circle CI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../youcompleteme.html">YouCompleteMe (vim)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scons.html"> SCons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../other.html">Custom integrations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #eb8484;background-color: #ffcaca;padding: 3px;margin-bottom: 5px">
+              <p>This document is for a <b>"1.X" legacy</b> Conan version, <b>which is no longer recommended</b>. Please update to Conan 2, <a href="https://docs.conan.io/2/">click here to read the <b>Conan 2</b> documentation</a></p>
+            </div>
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          <!--@ OUTDATED_VERSION_PLACEHOLDER_BEGIN @
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/@LATEST_DOC_PAGE_URL@">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          @ OUTDATED_VERSION_PLACEHOLDER_END @-->
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../integrations.html">Integrations</a></li>
+          <li class="breadcrumb-item"><a href="../cmake.html"> CMake</a></li>
+      <li class="breadcrumb-item active"><code class="docutils literal notranslate"><span class="pre">cmake_paths</span></code> generator</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/integrations/cmake/cmake_paths_generator.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cmake-paths-generator">
+<span id="id1"></span><h1><code class="docutils literal notranslate"><span class="pre">cmake_paths</span></code> generator<a class="headerlink" href="#cmake-paths-generator" title="Link to this heading"></a></h1>
+<p>This generator is especially useful if you are using <code class="docutils literal notranslate"><span class="pre">CMake</span></code> based only on the <code class="docutils literal notranslate"><span class="pre">find_package</span></code>
+feature to locate the dependencies.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">cmake_paths</span></code> generator creates a file named <code class="docutils literal notranslate"><span class="pre">conan_paths.cmake</span></code> declaring:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">CMAKE_MODULE_PATH</span></code> with the folders of the required packages, to allow CMake to locate the included cmake scripts and <code class="docutils literal notranslate"><span class="pre">FindXXX.cmake</span></code> files.
+The folder containing the <code class="docutils literal notranslate"><span class="pre">conan_paths.cmake</span></code> (<cite>self.install_folder</cite> when used in a recipe) is also included,
+so any custom file will be located too. Check <a class="reference internal" href="cmake_find_package_generator.html#cmake-find-package-generator"><span class="std std-ref">cmake_find_package</span></a> generator.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CMAKE_PREFIX_PATH</span></code> used by <code class="docutils literal notranslate"><span class="pre">FIND_LIBRARY()</span></code> to locate library files (.a, .lib, .so, .dll) in your packages.</p></li>
+</ul>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">conanfile.txt</span><a class="headerlink" href="#id2" title="Link to this code"></a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[requires]
+zlib/1.2.11@conan/stable
+...
+
+[generators]
+cmake_paths
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">CMakeList.txt</span><a class="headerlink" href="#id3" title="Link to this code"></a></div>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.0</span><span class="p">)</span>
+<span class="nb">project</span><span class="p">(</span><span class="s">helloworld</span><span class="p">)</span>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">helloworld</span><span class="w"> </span><span class="s">hello.c</span><span class="p">)</span>
+<span class="hll"><span class="nb">find_package</span><span class="p">(</span><span class="s">Zlib</span><span class="p">)</span>
+</span><span class="nb">if</span><span class="p">(</span><span class="s">ZLIB_FOUND</span><span class="p">)</span>
+<span class="w">   </span><span class="nb">include_directories</span><span class="p">(</span><span class="o">${</span><span class="nv">ZLIB_INCLUDE_DIRS</span><span class="o">}</span><span class="p">)</span>
+<span class="w">   </span><span class="nb">target_link_libraries</span><span class="w"> </span><span class="p">(</span><span class="s">helloworld</span><span class="w"> </span><span class="o">${</span><span class="nv">ZLIB_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>In the example above, the <code class="docutils literal notranslate"><span class="pre">zlib/1.2.11&#64;conan/stable</span></code> package is not packaging a custom <code class="docutils literal notranslate"><span class="pre">FindZLIB.cmake</span></code> file, but the <code class="docutils literal notranslate"><span class="pre">FindZLIB.cmake</span></code>
+included in the CMake installation directory (<cite>/Modules</cite>) will locate the zlib library from the Conan package because of the <code class="docutils literal notranslate"><span class="pre">CMAKE_PREFIX_PATH</span></code>
+used by the <code class="docutils literal notranslate"><span class="pre">FIND_LIBRARY()</span></code>.</p>
+<p>If the <code class="docutils literal notranslate"><span class="pre">zlib/1.2.11&#64;conan/stable</span></code> would had included a custom <code class="docutils literal notranslate"><span class="pre">FindZLIB.cmake</span></code> in the package root folder or any declared <a class="reference internal" href="../../reference/conanfile/attributes.html#cpp-info-attributes-reference"><span class="std std-ref">self.cpp_info.builddirs</span></a>,
+it would have been located because of the <code class="docutils literal notranslate"><span class="pre">CMAKE_MODULE_PATH</span></code> variable.</p>
+<p>You can use the generated <code class="docutils literal notranslate"><span class="pre">conan_paths.cmake</span></code> file as a <strong>cmake toolchain</strong> or including it in a <strong>CMakeLists.txt</strong> of even including it in another toolchain:</p>
+<section id="included-as-a-toolchain">
+<h2>Included as a toolchain<a class="headerlink" href="#included-as-a-toolchain" title="Link to this heading"></a></h2>
+<p>Without modifying your <strong>CMakeLists.txt</strong> file you can use the <code class="docutils literal notranslate"><span class="pre">conan_paths.cmake</span></code> as a toolchain:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w"> </span>$<span class="w"> </span>mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
+<span class="w"> </span>$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>..
+<span class="hll"><span class="w"> </span>$<span class="w"> </span>cmake<span class="w"> </span>..<span class="w"> </span>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span>conan_paths.cmake<span class="w"> </span>-G<span class="w"> </span><span class="s2">&quot;Unix Makefiles&quot;</span><span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release
+</span><span class="w"> </span>$<span class="w"> </span>cmake<span class="w"> </span>--build<span class="w"> </span>.
+</pre></div>
+</div>
+</section>
+<section id="included-using-the-cmake-project-project-name-include">
+<h2>Included using the CMAKE_PROJECT_&lt;PROJECT-NAME&gt;_INCLUDE<a class="headerlink" href="#included-using-the-cmake-project-project-name-include" title="Link to this heading"></a></h2>
+<p>With <code class="docutils literal notranslate"><span class="pre">CMAKE_PROJECT_&lt;PROJECT-NAME&gt;_INCLUDE</span></code> you can specify a file to be included by the project() command.
+If you already have a toolchain file you can use this variable to include the <code class="docutils literal notranslate"><span class="pre">conan_paths.cmake</span></code>
+and insert your toolchain with the <code class="docutils literal notranslate"><span class="pre">CMAKE_TOOLCHAIN_FILE</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
+$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>..
+$<span class="w"> </span>cmake<span class="w"> </span>..<span class="w"> </span>-G<span class="w"> </span><span class="s2">&quot;Unix Makefiles&quot;</span><span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release<span class="w"> </span>-DCMAKE_PROJECT_helloworld_INCLUDE<span class="o">=</span>build/conan_paths.cmake
+$<span class="w"> </span>cmake<span class="w"> </span>--build<span class="w"> </span>.
+</pre></div>
+</div>
+</section>
+<section id="included-in-your-cmakelists-txt">
+<h2>Included in your CMakeLists.txt<a class="headerlink" href="#included-in-your-cmakelists-txt" title="Link to this heading"></a></h2>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">CMakeList.txt</span><a class="headerlink" href="#id4" title="Link to this code"></a></div>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.0</span><span class="p">)</span>
+<span class="nb">project</span><span class="p">(</span><span class="s">helloworld</span><span class="p">)</span>
+<span class="hll"><span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_BINARY_DIR</span><span class="o">}</span><span class="s">/conan_paths.cmake</span><span class="p">)</span>
+</span><span class="nb">add_executable</span><span class="p">(</span><span class="s">helloworld</span><span class="w"> </span><span class="s">hello.c</span><span class="p">)</span>
+<span class="nb">find_package</span><span class="p">(</span><span class="s">Zlib</span><span class="p">)</span>
+<span class="nb">if</span><span class="p">(</span><span class="s">ZLIB_FOUND</span><span class="p">)</span>
+<span class="w">   </span><span class="nb">include_directories</span><span class="p">(</span><span class="o">${</span><span class="nv">ZLIB_INCLUDE_DIRS</span><span class="o">}</span><span class="p">)</span>
+<span class="w">   </span><span class="nb">target_link_libraries</span><span class="w"> </span><span class="p">(</span><span class="s">helloworld</span><span class="w"> </span><span class="o">${</span><span class="nv">ZLIB_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
+$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>..
+$<span class="w"> </span>cmake<span class="w"> </span>..<span class="w"> </span>-G<span class="w"> </span><span class="s2">&quot;Unix Makefiles&quot;</span><span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release
+$<span class="w"> </span>cmake<span class="w"> </span>--build<span class="w"> </span>.
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Check the section <a class="reference internal" href="../../reference/generators/cmake_paths.html#cmake-paths-generator-reference"><span class="std std-ref">Reference/Generators/cmake_paths</span></a> to read more about this generator.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">CMAKE_MODULE_PATH</span></code> and <code class="docutils literal notranslate"><span class="pre">CMAKE_PREFIX_PATH</span></code> contain the paths to the <code class="docutils literal notranslate"><span class="pre">builddirs</span></code> of every required package.
+By default, the root package folder is the only declared <code class="docutils literal notranslate"><span class="pre">builddirs</span></code> directory.
+Check the <a class="reference internal" href="../../reference/conanfile/attributes.html#cpp-info-attributes-reference"><span class="std std-ref">Reference/conanfile.py/attributes</span></a>.</p>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cmake_multi_generator.html" class="btn btn-neutral float-left" title="cmake_multi generator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cmake_find_package_generator.html" class="btn btn-neutral float-right" title="cmake_find_package generator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2018, JFrog.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 1.5
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/en/1.5/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

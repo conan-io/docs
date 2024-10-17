@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Python requires &mdash; conan 2.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=045299b1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/conan.css?v=7d9e9f1e" />
+
+  
+    <link rel="shortcut icon" href="../../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/reference/extensions/python_requires.html" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=ae39cb24"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Custom commands" href="custom_commands.html" />
+    <link rel="prev" title="Extensions" href="../extensions.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/conan-docs-logo-2.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.6
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../whatsnew.html">What’s new in Conan 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devops.html">Devops guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../commands.html">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conanfile.html">conanfile.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tools.html">Recipe tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../config_files.html">Configuration files</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../extensions.html">Extensions</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Python requires</a></li>
+<li class="toctree-l3"><a class="reference internal" href="custom_commands.html">Custom commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="custom_generators.html">Custom Conan generators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="python_api.html">Python API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="deployers.html">Deployers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hooks.html">Hooks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="binary_compatibility.html">Binary compatibility</a></li>
+<li class="toctree-l3"><a class="reference internal" href="profile_plugin.html">Profile plugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_wrapper.html">Command wrapper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="package_signing.html">Package signing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../environment.html">Environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../binary_model.html">The binary model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conan_server.html">Conan Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../runners.html">Runners</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../knowledge.html">Knowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/reference/extensions/python_requires.html">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="../extensions.html">Extensions</a></li>
+      <li class="breadcrumb-item active">Python requires</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/develop2/reference/extensions/python_requires.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="python-requires">
+<span id="reference-extensions-python-requires"></span><h1>Python requires<a class="headerlink" href="#python-requires" title="Link to this heading">¶</a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">python_requires</span></code> feature is a very convenient way to share files and code between
+different recipes. A python require is a special recipe that does not create packages and
+it is just intended to be reused by other recipes.</p>
+<p>A very simple recipe that we want to reuse could be:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+<span class="n">myvar</span> <span class="o">=</span> <span class="mi">123</span>
+
+<span class="k">def</span> <span class="nf">myfunct</span><span class="p">():</span>
+    <span class="k">return</span> <span class="mi">234</span>
+
+<span class="k">class</span> <span class="nc">Pkg</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;pyreq&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+    <span class="n">package_type</span> <span class="o">=</span> <span class="s2">&quot;python-require&quot;</span>
+</pre></div>
+</div>
+<p>And then we will make it available to other packages with <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">create</span> <span class="pre">.</span></code>. Note that a <code class="docutils literal notranslate"><span class="pre">python-require</span></code>
+package does not create binaries, it is just the recipe part.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.
+<span class="c1"># It will only export the recipe, but will NOT create binaries</span>
+<span class="c1"># python-requires do NOT have binaries</span>
+</pre></div>
+</div>
+<p>We can reuse the above recipe functionality declaring the dependency in the <code class="docutils literal notranslate"><span class="pre">python_requires</span></code>
+attribute and we can access its members using <code class="docutils literal notranslate"><span class="pre">self.python_requires[&quot;&lt;name&gt;&quot;].module</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+<span class="k">class</span> <span class="nc">Pkg</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;pkg&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+    <span class="n">python_requires</span> <span class="o">=</span> <span class="s2">&quot;pyreq/0.1&quot;</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">python_requires</span><span class="p">[</span><span class="s2">&quot;pyreq&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">myvar</span>  <span class="c1"># v will be 123</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">python_requires</span><span class="p">[</span><span class="s2">&quot;pyreq&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">myfunct</span><span class="p">()</span>  <span class="c1"># f will be 234</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.
+...
+pkg/0.1:<span class="w"> </span><span class="m">123</span>,<span class="w"> </span><span class="m">234</span>
+</pre></div>
+</div>
+<p>Python requires can also use version ranges, and this can be recommended in many cases if those <code class="docutils literal notranslate"><span class="pre">python-requires</span></code>
+need to evolve over time:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+<span class="k">class</span> <span class="nc">Pkg</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">python_requires</span> <span class="o">=</span> <span class="s2">&quot;pyreq/[&gt;=1.0 &lt;2]&quot;</span>
+</pre></div>
+</div>
+<p>It is also possible to require more than 1 <code class="docutils literal notranslate"><span class="pre">python-requires</span></code> with <code class="docutils literal notranslate"><span class="pre">python_requires</span> <span class="pre">=</span> <span class="pre">&quot;pyreq/0.1&quot;,</span> <span class="pre">&quot;other/1.2&quot;</span></code></p>
+</section>
+<section id="extending-base-classes">
+<h2>Extending base classes<a class="headerlink" href="#extending-base-classes" title="Link to this heading">¶</a></h2>
+<p>A common use case would be to declare a base class with methods we want to reuse in several
+recipes via inheritance. We’d write this base class in a python-requires package:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+<span class="k">class</span> <span class="nc">MyBase</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;My cool source!&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;My cool build!&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;My cool package!&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;My cool package_info!&quot;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">PyReq</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;pyreq&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+    <span class="n">package_type</span> <span class="o">=</span> <span class="s2">&quot;python-require&quot;</span>
+</pre></div>
+</div>
+<p>And make it available for reuse with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.
+</pre></div>
+</div>
+<p>Note that there are two classes in the recipe file:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">MyBase</span></code> is the one intended for inheritance and doesn’t extend <code class="docutils literal notranslate"><span class="pre">ConanFile</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PyReq</span></code> is the one that defines the current package being exported, it is the recipe
+for the reference <code class="docutils literal notranslate"><span class="pre">pyreq/0.1</span></code>.</p></li>
+</ul>
+</div></blockquote>
+<p>Once the package with the base class we want to reuse is available we can use it in other
+recipes to inherit the functionality from that base class. We’d need to declare the
+<code class="docutils literal notranslate"><span class="pre">python_requires</span></code> as we did before and we’d need to tell Conan the base classes to use
+in the attribute <code class="docutils literal notranslate"><span class="pre">python_requires_extend</span></code>. Here our recipe will inherit from the
+class <code class="docutils literal notranslate"><span class="pre">MyBase</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+<span class="k">class</span> <span class="nc">Pkg</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;pkg&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+    <span class="n">python_requires</span> <span class="o">=</span> <span class="s2">&quot;pyreq/0.1&quot;</span>
+    <span class="n">python_requires_extend</span> <span class="o">=</span> <span class="s2">&quot;pyreq.MyBase&quot;</span>
+</pre></div>
+</div>
+<p>The resulting inheritance is equivalent to declare our <code class="docutils literal notranslate"><span class="pre">Pkg</span></code> class as <code class="docutils literal notranslate"><span class="pre">class</span> <span class="pre">Pkg(pyreq.MyBase,</span> <span class="pre">ConanFile)</span></code>.
+So creating the package we can see how the methods from the base class are reused:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.
+...
+pkg/0.1:<span class="w"> </span>My<span class="w"> </span>cool<span class="w"> </span>source!
+pkg/0.1:<span class="w"> </span>My<span class="w"> </span>cool<span class="w"> </span>build!
+pkg/0.1:<span class="w"> </span>My<span class="w"> </span>cool<span class="w"> </span>package!
+pkg/0.1:<span class="w"> </span>My<span class="w"> </span>cool<span class="w"> </span>package_info!
+...
+</pre></div>
+</div>
+<p>In general, base class attributes are not inherited, and should be avoided as much as possible.
+There are method alternatives to some of them like <code class="docutils literal notranslate"><span class="pre">export()</span></code> or <code class="docutils literal notranslate"><span class="pre">set_version()</span></code>.
+For exceptional situations, see the <code class="docutils literal notranslate"><span class="pre">init()</span></code> method documentation for more information to extend inherited attributes.</p>
+<p>It is possible to re-implement some of the base class methods, and also to call the base class
+method explicitly, with the Python <code class="docutils literal notranslate"><span class="pre">super()</span></code> syntax:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+<span class="k">class</span> <span class="nc">Pkg</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;pkg&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+    <span class="n">python_requires</span> <span class="o">=</span> <span class="s2">&quot;pyreq/0.1&quot;</span>
+    <span class="n">python_requires_extend</span> <span class="o">=</span> <span class="s2">&quot;pyreq.MyBase&quot;</span>
+
+    <span class="k">def</span> <span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">source</span><span class="p">()</span>  <span class="c1"># call the base class method</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;MY OWN SOURCE&quot;</span><span class="p">)</span> <span class="c1"># Your own implementation</span>
+</pre></div>
+</div>
+<p>It is not mandatory to call the base class method, a full overwrite without calling <code class="docutils literal notranslate"><span class="pre">super()</span></code> is possible. Also the call order can be changed, and calling your own code, then <code class="docutils literal notranslate"><span class="pre">super()</span></code> is possible.</p>
+</section>
+<section id="reusing-files">
+<h2>Reusing files<a class="headerlink" href="#reusing-files" title="Link to this heading">¶</a></h2>
+<p>It is possible to access the files exported by a recipe that is used with <code class="docutils literal notranslate"><span class="pre">python_requires</span></code>.
+We could have this recipe, together with a <em>myfile.txt</em> file containing the “Hello” text.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+<span class="k">class</span> <span class="nc">PyReq</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;pyreq&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;1.0&quot;</span>
+    <span class="n">package_type</span> <span class="o">=</span> <span class="s2">&quot;python-require&quot;</span>
+    <span class="n">exports</span> <span class="o">=</span> <span class="s2">&quot;*&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Hello&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>myfile.txt
+$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.
+</pre></div>
+</div>
+<p>Now that the python-require has been created, we can access its path (the place where <em>myfile.txt</em> is) with the
+<code class="docutils literal notranslate"><span class="pre">path</span></code> attribute:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+<span class="kn">from</span> <span class="nn">conan.tools.files</span> <span class="kn">import</span> <span class="n">load</span>
+
+<span class="k">class</span> <span class="nc">Pkg</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">python_requires</span> <span class="o">=</span> <span class="s2">&quot;pyreq/0.1&quot;</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">pyreq_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">python_requires</span><span class="p">[</span><span class="s2">&quot;pyreq&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">path</span>
+        <span class="n">myfile_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pyreq_path</span><span class="p">,</span> <span class="s2">&quot;myfile.txt&quot;</span><span class="p">)</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">myfile_path</span><span class="p">)</span>  <span class="c1"># content = &quot;Hello&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+        <span class="c1"># we could also copy the file, instead of reading it</span>
+</pre></div>
+</div>
+<p>Note that only <code class="docutils literal notranslate"><span class="pre">exports</span></code> works for this case, but not <code class="docutils literal notranslate"><span class="pre">exports_sources</span></code>.</p>
+</section>
+<section id="testing-python-requires">
+<h2>Testing python-requires<a class="headerlink" href="#testing-python-requires" title="Link to this heading">¶</a></h2>
+<p>It is possible to test with <code class="docutils literal notranslate"><span class="pre">test_package</span></code> a <code class="docutils literal notranslate"><span class="pre">python_require</span></code>, by adding a <code class="docutils literal notranslate"><span class="pre">test_package/conanfile.py</span></code>:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">conanfile.py</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+<span class="k">def</span> <span class="nf">mynumber</span><span class="p">():</span>
+    <span class="k">return</span> <span class="mi">42</span>
+
+<span class="k">class</span> <span class="nc">PyReq</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;pyreq&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;1.0&quot;</span>
+    <span class="n">package_type</span> <span class="o">=</span> <span class="s2">&quot;python-require&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">test_package/conanfile.py</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+<span class="k">class</span> <span class="nc">Tool</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+
+    <span class="c1"># Literal &quot;tested_reference_str&quot;, Conan will dynamically replace it</span>
+    <span class="n">python_requires</span> <span class="o">=</span> <span class="s2">&quot;tested_reference_str&quot;</span>
+
+    <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">pyreq</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">python_requires</span><span class="p">[</span><span class="s2">&quot;pyreq&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">module</span>
+        <span class="n">mynumber</span> <span class="o">=</span> <span class="n">pyreq</span><span class="o">.</span><span class="n">mynumber</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">!!!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mynumber</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">python_requires</span> <span class="pre">=</span> <span class="pre">&quot;tested_reference_str&quot;</span></code> is mandatory from Conan 2.1. Automatic injection of <code class="docutils literal notranslate"><span class="pre">python_requires</span></code>
+without this declaration is deprecated and it will be removed in future versions.</p>
+<p>Note that the <code class="docutils literal notranslate"><span class="pre">test_package/conanfile.py</span></code> does not need any type of declaration of the <code class="docutils literal notranslate"><span class="pre">python_requires</span></code>, this is done
+automatically and implicitly. We can now create and test it with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.
+...
+pyreq/0.1<span class="w"> </span><span class="o">(</span><span class="nb">test</span><span class="w"> </span>package<span class="o">)</span>:<span class="w"> </span><span class="m">42</span>!!!
+</pre></div>
+</div>
+</section>
+<section id="effect-in-package-id">
+<h2>Effect in package_id<a class="headerlink" href="#effect-in-package-id" title="Link to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">python_requires</span></code> will affect the <code class="docutils literal notranslate"><span class="pre">package_id</span></code> of the <strong>consumer packages</strong> using those dependencies.
+By default, the policy is <code class="docutils literal notranslate"><span class="pre">minor_mode</span></code>, which means:</p>
+<ul class="simple">
+<li><p>Changes to the <strong>patch</strong> version of the <strong>revision</strong> of a python-require will not affect the package ID. So depending
+on <code class="docutils literal notranslate"><span class="pre">&quot;pyreq/1.2.3&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;pyreq/1.2.4&quot;</span></code> will result in identical package ID (both will be mapped
+to <code class="docutils literal notranslate"><span class="pre">&quot;pyreq/1.2.Z&quot;</span></code> in the hash computation). Bump the patch version if you want to change your
+common code, but you don’t want the consumers to be affected or to fire a re-build of the dependants.</p></li>
+<li><p>Changes to the <strong>minor</strong> version will produce a different package ID. So if you depend
+on <code class="docutils literal notranslate"><span class="pre">&quot;pyreq/1.2.3&quot;</span></code>, and you bump the version to <code class="docutils literal notranslate"><span class="pre">&quot;pyreq/1.3.0&quot;</span></code>, then, you will need to build
+new binaries that are using that new python-require. Bump the minor or major version if you want to
+make sure that packages requiring this python-require will be built using these changes in the code.</p></li>
+</ul>
+<p>In most cases using a version-range <code class="docutils literal notranslate"><span class="pre">python_requires</span> <span class="pre">=</span> <span class="pre">&quot;pyreq/[&gt;=1.0</span> <span class="pre">&lt;2.0]&quot;</span></code> is the right approach, because that means
+the <strong>major</strong> version bumps are not included because they would require changes in the consumers themselves. It is then
+possible to release a new major version of the <code class="docutils literal notranslate"><span class="pre">pyreq/2.0</span></code>, and have consumers gradually change their requirements to
+<code class="docutils literal notranslate"><span class="pre">python_requires</span> <span class="pre">=</span> <span class="pre">&quot;pyreq/[&gt;=2.0</span> <span class="pre">&lt;3.0]&quot;</span></code>, fix the recipes, and move forward without breaking the whole project.</p>
+<p>As with the regular <code class="docutils literal notranslate"><span class="pre">requires</span></code>, this default can be customized with the <code class="docutils literal notranslate"><span class="pre">core.package_id:default_python_mode</span></code> configuration.</p>
+<p>It is also possible to customize the effect of <code class="docutils literal notranslate"><span class="pre">python_requires</span></code> per package, using the <code class="docutils literal notranslate"><span class="pre">package_id()</span></code>
+method:</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+<span class="k">class</span> <span class="nc">Pkg</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">python_requires</span> <span class="o">=</span><span class="s2">&quot;pyreq/[&gt;=1.0]&quot;</span>
+    <span class="k">def</span> <span class="nf">package_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">python_requires</span><span class="o">.</span><span class="n">patch_mode</span><span class="p">()</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="resolution-of-python-requires">
+<h2>Resolution of python_requires<a class="headerlink" href="#resolution-of-python-requires" title="Link to this heading">¶</a></h2>
+<p>There are few important things that should be taken into account when using <code class="docutils literal notranslate"><span class="pre">python_requires</span></code>:</p>
+<ul class="simple">
+<li><p>Python requires recipes are loaded by the interpreter just once, and they are common to
+all consumers. Do not use any global state in the <code class="docutils literal notranslate"><span class="pre">python_requires</span></code> recipes.</p></li>
+<li><p>Python requires are private to the consumers. They are not transitive. Different consumers
+can require different versions of the same <code class="docutils literal notranslate"><span class="pre">python-require</span></code>. Being private, they cannot
+be overridden from downstream in any way.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">python_requires</span></code> cannot use regular <code class="docutils literal notranslate"><span class="pre">requires</span></code> or <code class="docutils literal notranslate"><span class="pre">tool_requires</span></code> themselves. Having a <code class="docutils literal notranslate"><span class="pre">requirements()</span></code> (and similar)
+methods to be inherited by recipes is possible and allowed, but the <code class="docutils literal notranslate"><span class="pre">python_requires</span></code> class itself cannot use them.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">python_requires</span></code> cannot be “aliased”.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">python_requires</span></code> can use native python <code class="docutils literal notranslate"><span class="pre">import</span></code> to other python files, as long as these are
+exported together with the recipe.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">python_requires</span></code> can be used as editable packages too.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">python_requires</span></code> are locked in lockfiles, to guarantee reproducibility, in the same way that other <code class="docutils literal notranslate"><span class="pre">requires</span></code> and <code class="docutils literal notranslate"><span class="pre">tool_requires</span></code> are locked.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Best practices</strong></p>
+<ul class="simple">
+<li><p>Even if <code class="docutils literal notranslate"><span class="pre">python-requires</span></code> can <code class="docutils literal notranslate"><span class="pre">python_requires</span></code> transitively other <code class="docutils literal notranslate"><span class="pre">python-requires</span></code> recipes, this is discouraged. Multiple level inheritance and reuse can become quite complex and difficult to manage, it is recommended to keep the hierarchy flat.</p></li>
+<li><p>Do not try to mix Python inheritance with <code class="docutils literal notranslate"><span class="pre">python_requires_extend</span></code> inheritance mechanisms, they are incompatible and can break.</p></li>
+<li><p>Do not use multiple inheritance for <code class="docutils literal notranslate"><span class="pre">python-requires</span></code></p></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../extensions.html" class="btn btn-neutral float-left" title="Extensions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="custom_commands.html" class="btn btn-neutral float-right" title="Custom commands" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2024, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 2.6
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/2.6/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

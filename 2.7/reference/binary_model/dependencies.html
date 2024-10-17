@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The effect of dependencies on package_id &mdash; conan 2.7.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=045299b1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../_static/tabs.css?v=a5c4661c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/conan.css?v=7d9e9f1e" />
+
+  
+    <link rel="shortcut icon" href="../../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/reference/binary_model/dependencies.html" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=7b940564"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Extending the binary model" href="extending.html" />
+    <link rel="prev" title="How settings and options of a recipe influence its package ID" href="settings_and_options.html" />
+
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/conan-docs-logo-2.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.7
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../whatsnew.html">What’s new in Conan 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devops.html">Devops guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../commands.html">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conanfile.html">conanfile.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tools.html">Recipe tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../config_files.html">Configuration files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extensions.html">Extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../environment.html">Environment variables</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../binary_model.html">The binary model</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="package_id.html">How the <code class="docutils literal notranslate"><span class="pre">package_id</span></code> is computed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="settings_and_options.html">How settings and options of a recipe influence its package ID</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">The effect of dependencies on <code class="docutils literal notranslate"><span class="pre">package_id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="extending.html">Extending the binary model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="custom_compatibility.html">Customizing the binary compatibility</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../conan_server.html">Conan Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../runners.html">Runners</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../knowledge.html">Knowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/reference/binary_model/dependencies.html">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="../binary_model.html">The binary model</a></li>
+      <li class="breadcrumb-item active">The effect of dependencies on <code class="docutils literal notranslate"><span class="pre">package_id</span></code></li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/develop2/reference/binary_model/dependencies.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="the-effect-of-dependencies-on-package-id">
+<span id="reference-binary-model-dependencies"></span><h1>The effect of dependencies on <code class="docutils literal notranslate"><span class="pre">package_id</span></code><a class="headerlink" href="#the-effect-of-dependencies-on-package-id" title="Link to this heading">¶</a></h1>
+<p>When a given package depends on a another package and uses it, the effect of dependencies can be different based on the package types:</p>
+<p>For libraries:</p>
+<ul class="simple">
+<li><p><strong>Non-embed mode</strong>: When an application or a shared library depends on another shared library, or when a static library depends on another static library, the “consumer” library does not do a copy of the binary artifacts of the “dependency” at all. We call it non-embed mode, the dependency binaries are not being linked or embedded in the consumer. This assumes that there are not inlined functionalities in the dependency headers, and the headers are pure interface and not implementation.</p></li>
+<li><p><strong>Embed mode</strong>: When an application or a shared library depends on a header-only or a static-library, the dependencies binaries are copied or partially copied (depending on the linker) in the consumer binary. Also when a static library depends on a header-only library, it is considered that there will be embedding in the consumer binary of such headers, as they will also contain the implementation, it is impossible that they are a pure interface.</p></li>
+</ul>
+<p>For applications (<code class="docutils literal notranslate"><span class="pre">tool_requires</span></code>):</p>
+<ul class="simple">
+<li><p><strong>Build mode</strong>: When some package uses a <code class="docutils literal notranslate"><span class="pre">tool_requires</span></code> of another package, the binary artifacts in the dependency are never copied or embedded.</p></li>
+</ul>
+<section id="non-embed-mode">
+<h2>Non-embed mode<a class="headerlink" href="#non-embed-mode" title="Link to this heading">¶</a></h2>
+<p>When we list the binaries of a package like <code class="docutils literal notranslate"><span class="pre">openssl</span></code> with dependencies:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>list<span class="w"> </span>openssl/3.1.2:*<span class="w"> </span>-r<span class="o">=</span>conancenter
+conancenter
+<span class="w">  </span>openssl
+<span class="w">    </span>openssl/3.1.2
+<span class="w">      </span>revisions
+<span class="w">        </span>8879e931d726a8aad7f372e28470faa1<span class="w"> </span><span class="o">(</span><span class="m">2023</span>-09-13<span class="w"> </span><span class="m">18</span>:52:54<span class="w"> </span>UTC<span class="o">)</span>
+<span class="w">          </span>packages
+<span class="w">            </span>0348efdcd0e319fb58ea747bb94dbd88850d6dd1<span class="w">  </span><span class="c1"># package_id</span>
+<span class="w">              </span>info
+<span class="w">                </span>options
+<span class="w">                  </span>shared:<span class="w"> </span>True
+<span class="w">                </span>...
+<span class="hll"><span class="w">                </span>requires
+</span><span class="hll"><span class="w">                  </span>zlib/1.3.Z
+</span></pre></div>
+</div>
+<p>This binary was a <code class="docutils literal notranslate"><span class="pre">shared</span></code> library, linking with <code class="docutils literal notranslate"><span class="pre">zlib</span></code> as a shared library.
+This means it was using “non-embed” mode. The default of non-embed mode is <code class="docutils literal notranslate"><span class="pre">minor_mode</span></code>, which means:</p>
+<ul class="simple">
+<li><p>All <code class="docutils literal notranslate"><span class="pre">zlib</span></code> patch versions will be mapped to the same <code class="docutils literal notranslate"><span class="pre">zlib/1.3.Z</span></code>. This means that if our <code class="docutils literal notranslate"><span class="pre">openssl/3.1.2</span></code> package binary <code class="docutils literal notranslate"><span class="pre">0348efdcd0e319fb58ea747bb94dbd88850d6dd1</span></code> binary is considered binary compatible with all <code class="docutils literal notranslate"><span class="pre">zlib/1.3.Z</span></code> versions (for any <code class="docutils literal notranslate"><span class="pre">Z</span></code>), and will not require to rebuild the <code class="docutils literal notranslate"><span class="pre">openssl</span></code> binary.</p></li>
+<li><p>New <code class="docutils literal notranslate"><span class="pre">zlib</span></code> minor versions, like <code class="docutils literal notranslate"><span class="pre">zlib/1.4.0</span></code> will result in a “minor-mode” identifier like <code class="docutils literal notranslate"><span class="pre">zlib/1.4.Z</span></code>, and then, it will require a new <code class="docutils literal notranslate"><span class="pre">openssl/3.1.2</span></code> package binary, with a new <code class="docutils literal notranslate"><span class="pre">package_id</span></code></p></li>
+</ul>
+</section>
+<section id="embed-mode">
+<h2>Embed mode<a class="headerlink" href="#embed-mode" title="Link to this heading">¶</a></h2>
+<p>The following commands illustrate the concept of embed-mode. We create a <code class="docutils literal notranslate"><span class="pre">dep/0.1</span></code> package with a static library, and then we create a <code class="docutils literal notranslate"><span class="pre">app/0.1</span></code> package with an executable that links with static library inside <code class="docutils literal notranslate"><span class="pre">dep/0.1</span></code>. We can use the <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">new</span></code> command for quickly creating these two packages:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>mkdir<span class="w"> </span>dep<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>dep
+$<span class="w"> </span>conan<span class="w"> </span>new<span class="w"> </span>cmake_lib<span class="w"> </span>-d<span class="w"> </span><span class="nv">name</span><span class="o">=</span>dep<span class="w"> </span>-d<span class="w"> </span><span class="nv">version</span><span class="o">=</span><span class="m">0</span>.1
+$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.<span class="w"> </span>-tf<span class="o">=</span><span class="s2">&quot;&quot;</span>
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>..<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>mkdir<span class="w"> </span>app<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>app
+$<span class="w"> </span>conan<span class="w"> </span>new<span class="w"> </span>cmake_exe<span class="w"> </span>-d<span class="w"> </span><span class="nv">name</span><span class="o">=</span>app<span class="w"> </span>-d<span class="w"> </span><span class="nv">version</span><span class="o">=</span><span class="m">0</span>.1<span class="w"> </span>-d<span class="w"> </span><span class="nv">requires</span><span class="o">=</span>dep/0.1
+$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.
+dep/0.1:<span class="w"> </span>Hello<span class="w"> </span>World<span class="w"> </span>Release!
+...
+app/0.1:<span class="w"> </span>Hello<span class="w"> </span>World<span class="w"> </span>Release!
+</pre></div>
+</div>
+<p>If we now list the <code class="docutils literal notranslate"><span class="pre">app/0.1</span></code> binaries, we will see the binary just created:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">  </span>$<span class="w"> </span>conan<span class="w"> </span>list<span class="w"> </span>app/0.1:*
+<span class="w">  </span>Local<span class="w"> </span>Cache
+<span class="w">    </span>app/0.1
+<span class="w">      </span>revisions
+<span class="w">        </span>632e236936211ac2293ec33339ce582b<span class="w"> </span><span class="o">(</span><span class="m">2023</span>-09-25<span class="w"> </span><span class="m">22</span>:34:17<span class="w"> </span>UTC<span class="o">)</span>
+<span class="w">          </span>packages
+<span class="w">            </span>3ca530d20914cf632eb00efbccc564da48190314
+<span class="w">              </span>info
+<span class="w">                </span>settings
+<span class="w">                  </span>...
+<span class="hll"><span class="w">                </span>requires
+</span><span class="hll"><span class="w">                  </span>dep/0.1#d125304fb1fb088d5b92d4f8135f4dff:9bdee485ef71c14ac5f8a657202632bdb8b4482b
+</span></pre></div>
+</div>
+<p>It is now visible that the <code class="docutils literal notranslate"><span class="pre">app/0.1</span></code> package-id depends on the full identifier of the <code class="docutils literal notranslate"><span class="pre">dep/0.1</span></code> dependency, that includes both its recipe revision and <code class="docutils literal notranslate"><span class="pre">package_id</span></code>.</p>
+<p>If we do a change now to the <code class="docutils literal notranslate"><span class="pre">dep</span></code> code, and re-create the <code class="docutils literal notranslate"><span class="pre">dep/0.1</span></code> package , even if we don’t bump the version, it will create a new recipe revision:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>../dep
+<span class="c1"># Change the &quot;src/dep.cpp&quot; code to print a new message, like &quot;Hello Moon&quot;</span>
+$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.<span class="w"> </span>-tf<span class="o">=</span><span class="s2">&quot;&quot;</span>
+<span class="c1"># New recipe revision dep/0.1#1c90e8b8306c359b103da31faeee824c</span>
+</pre></div>
+</div>
+<p>So if we try now to install <code class="docutils literal notranslate"><span class="pre">app/0.1</span></code> binary, it will fail with a “missing binary” error:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>  $ conan install --requires=app/0.1
+  ERROR: Missing binary: app/0.1:ef2b5ed33d26b35b9147c90b27b217e2c7bde2d0
+
+  app/0.1: WARN: Can&#39;t find a &#39;app/0.1&#39; package binary &#39;ef2b5ed33d26b35b9147c90b27b217e2c7bde2d0&#39; for the configuration:
+  [settings]
+  ...
+<span class="hll">  [requires]
+</span><span class="hll">  dep/0.1#1c90e8b8306c359b103da31faeee824c:9bdee485ef71c14ac5f8a657202632bdb8b4482b
+</span>
+  ERROR: Missing prebuilt package for &#39;app/0.1&#39;
+</pre></div>
+</div>
+<p>As the <code class="docutils literal notranslate"><span class="pre">app</span></code> executable links with the <code class="docutils literal notranslate"><span class="pre">dep</span></code> static library, it needs to be rebuilt to include the latest changes, even if <code class="docutils literal notranslate"><span class="pre">dep/0.1</span></code> didn’t bump its version, <code class="docutils literal notranslate"><span class="pre">app/0.1</span></code> depends on “embed-mode” on <code class="docutils literal notranslate"><span class="pre">dep/0.1</span></code>, so it wil use down to the <code class="docutils literal notranslate"><span class="pre">package_id</span></code> of such dependency identifier.</p>
+<p>Let’s build the new <code class="docutils literal notranslate"><span class="pre">app/0.1</span></code> binary:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">  </span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>../app
+<span class="w">  </span>$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.
+<span class="hll"><span class="w">  </span>dep/0.1:<span class="w"> </span>Hello<span class="w"> </span>Moon<span class="w"> </span>Release!<span class="w">  </span><span class="c1"># Message changed to Moon</span>
+</span><span class="w">  </span>...
+<span class="w">  </span>app/0.1:<span class="w"> </span>Hello<span class="w"> </span>World<span class="w"> </span>Release!
+</pre></div>
+</div>
+<p>Now we will have two <code class="docutils literal notranslate"><span class="pre">app/0.1</span></code> different binaries:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">  </span>$<span class="w"> </span>conan<span class="w"> </span>list<span class="w"> </span><span class="s2">&quot;app/0.1:*&quot;</span>
+<span class="w">  </span>Local<span class="w"> </span>Cache
+<span class="w">    </span>app
+<span class="w">      </span>app/0.1
+<span class="w">        </span>revisions
+<span class="w">          </span>632e236936211ac2293ec33339ce582b<span class="w"> </span><span class="o">(</span><span class="m">2023</span>-09-25<span class="w"> </span><span class="m">22</span>:49:32<span class="w"> </span>UTC<span class="o">)</span>
+<span class="w">            </span>packages
+<span class="w">              </span>3ca530d20914cf632eb00efbccc564da48190314
+<span class="w">                </span>info
+<span class="w">                  </span>settings
+<span class="w">                    </span>...
+<span class="hll"><span class="w">                  </span>requires
+</span><span class="hll"><span class="w">                    </span>dep/0.1#d125304fb1fb088d5b92d4f8135f4dff:9bdee485ef71c14ac5f8a657202632bdb8b4482b
+</span><span class="w">              </span>ef2b5ed33d26b35b9147c90b27b217e2c7bde2d0
+<span class="w">                </span>info
+<span class="w">                  </span>settings
+<span class="w">                    </span>...
+<span class="hll"><span class="w">                  </span>requires
+</span><span class="hll"><span class="w">                    </span>dep/0.1#1c90e8b8306c359b103da31faeee824c:9bdee485ef71c14ac5f8a657202632bdb8b4482b
+</span></pre></div>
+</div>
+<p>We will have these two different binaries, one of them linking with the first revision of the <code class="docutils literal notranslate"><span class="pre">dep/0.1</span></code> dependency (with the “Hello World” message), and the other binary with the other <code class="docutils literal notranslate"><span class="pre">package_id</span></code> linked with the second revision of the <code class="docutils literal notranslate"><span class="pre">dep/0.1</span></code> dependency (with the “Hello Moon” message).</p>
+<p>The above described mode is called <code class="docutils literal notranslate"><span class="pre">full_mode</span></code>, and it is the default for the <code class="docutils literal notranslate"><span class="pre">embed_mode</span></code>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="settings_and_options.html" class="btn btn-neutral float-left" title="How settings and options of a recipe influence its package ID" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="extending.html" class="btn btn-neutral float-right" title="Extending the binary model" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2024, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 2.7
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/2.7/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

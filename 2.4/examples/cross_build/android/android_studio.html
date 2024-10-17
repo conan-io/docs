@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Integrating Conan in Android Studio &mdash; conan 2.4.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=045299b1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/conan.css?v=7d9e9f1e" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/examples/cross_build/android/android_studio.html" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=e9ebdb8f"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Configuration files examples" href="../../config_files.html" />
+    <link rel="prev" title="Cross building to Android with the NDK" href="ndk.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html">
+            
+              <img src="../../../_static/conan-docs-logo-2.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.4
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../whatsnew.html">What’s new in Conan 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../devops.html">Devops guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integrations.html">Integrations</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../examples.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../conanfile.html">ConanFile methods examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../extensions.html">Conan extensions examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools.html">Conan recipe tools examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../cross_build.html">Cross-building examples</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../toolchain_packages.html">Creating a Conan package for a toolchain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ndk.html">Cross building to Android with the NDK</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Integrating Conan in Android Studio</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../config_files.html">Configuration files examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../graph.html">Graph examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dev_flow.html">Developer tools and flows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../commands.html">Conan commands examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../runners.html">Conan runners examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../knowledge.html">Knowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/examples/cross_build/android/android_studio.html">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../examples.html">Examples</a></li>
+          <li class="breadcrumb-item"><a href="../../cross_build.html">Cross-building examples</a></li>
+      <li class="breadcrumb-item active">Integrating Conan in Android Studio</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/develop2/examples/cross_build/android/android_studio.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="integrating-conan-in-android-studio">
+<span id="examples-cross-build-android-studio"></span><h1>Integrating Conan in Android Studio<a class="headerlink" href="#integrating-conan-in-android-studio" title="Link to this heading">¶</a></h1>
+<p>At the <a class="reference internal" href="ndk.html#examples-cross-build-android-ndk"><span class="std std-ref">Cross building to Android with the NDK</span></a> we learned how to build a package
+for Android using the NDK. In this example we are going to learn how to do it with the Android Studio and how to use
+the libraries in a real Android application.</p>
+<section id="creating-a-new-project">
+<h2>Creating a new project<a class="headerlink" href="#creating-a-new-project" title="Link to this heading">¶</a></h2>
+<p>First of all, download and install the <a class="reference external" href="https://developer.android.com/studio">Android Studio IDE</a>.</p>
+<p>Then create a <code class="docutils literal notranslate"><span class="pre">new</span> <span class="pre">project</span></code> selecting <code class="docutils literal notranslate"><span class="pre">Native</span> <span class="pre">C++</span></code> from the templates.</p>
+<p>In the next wizard window, select a name for your application, for example <cite>MyConanApplication</cite>, you can leave the
+“Minimum SDK” with the suggested value (21 in our case), but remember the value as we are using it later in the Conan
+profile at <code class="docutils literal notranslate"><span class="pre">os.api_level`</span></code></p>
+<p>Select a “C++ Standard” in the next window, again, remember the choice as later we should use the same in the profile at
+<code class="docutils literal notranslate"><span class="pre">compiler.cppstd</span></code>.</p>
+<p>In the project generated with the wizard we have a folder <code class="docutils literal notranslate"><span class="pre">cpp</span></code> with a <code class="docutils literal notranslate"><span class="pre">native-lib.cpp</span></code>. We are going to modify that
+file to use <code class="docutils literal notranslate"><span class="pre">zlib</span></code> and print a message with the used <code class="docutils literal notranslate"><span class="pre">zlib</span></code> version. Copy only the highlighted lines, it is important
+to keep the function name.</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">native-lib.cpp</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;jni.h&gt;</span>
+<span class="w"> </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
+<span class="hll"><span class="w"> </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;zlib.h&quot;</span>
+</span>
+<span class="w"> </span><span class="k">extern</span><span class="w"> </span><span class="s">&quot;C&quot;</span><span class="w"> </span><span class="n">JNIEXPORT</span><span class="w"> </span><span class="n">jstring</span><span class="w"> </span><span class="n">JNICALL</span>
+<span class="w"> </span><span class="n">Java_com_example_myconanapp_MainActivity_stringFromJNI</span><span class="p">(</span>
+<span class="w">         </span><span class="n">JNIEnv</span><span class="o">*</span><span class="w"> </span><span class="n">env</span><span class="p">,</span>
+<span class="w">         </span><span class="n">jobject</span><span class="w"> </span><span class="cm">/* this */</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="hll"><span class="w">     </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">hello</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Hello from C++, zlib version: &quot;</span><span class="p">;</span>
+</span><span class="hll"><span class="w">     </span><span class="n">hello</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">zlibVersion</span><span class="p">());</span>
+</span><span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">env</span><span class="o">-&gt;</span><span class="n">NewStringUTF</span><span class="p">(</span><span class="n">hello</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+<span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>Now we are going to learn how to introduce a requirement to the <code class="docutils literal notranslate"><span class="pre">zlib</span></code> library and how to prepare our project.</p>
+</section>
+<section id="introducing-dependencies-with-conan">
+<h2>Introducing dependencies with Conan<a class="headerlink" href="#introducing-dependencies-with-conan" title="Link to this heading">¶</a></h2>
+<section id="conanfile-txt">
+<h3>conanfile.txt<a class="headerlink" href="#conanfile-txt" title="Link to this heading">¶</a></h3>
+<p>We need to provide the <code class="docutils literal notranslate"><span class="pre">zlib</span></code> package with Conan. Create a file <code class="docutils literal notranslate"><span class="pre">conanfile.txt</span></code> in the <code class="docutils literal notranslate"><span class="pre">cpp</span></code> folder:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">conanfile.txt</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[requires]
+zlib/1.2.12
+
+[generators]
+CMakeToolchain
+CMakeDeps
+
+[layout]
+cmake_layout
+</pre></div>
+</div>
+</div>
+</section>
+<section id="build-gradle">
+<h3>build.gradle<a class="headerlink" href="#build-gradle" title="Link to this heading">¶</a></h3>
+<p>We are going to automate calling <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">install</span></code> before building the Android project, so the requires are prepared,
+open the <code class="docutils literal notranslate"><span class="pre">build.gradle</span></code> file in the <code class="docutils literal notranslate"><span class="pre">My_Conan_App.app</span></code> (Find it in the <cite>Gradle Scripts</cite> section of the Android project view).
+Paste the <code class="docutils literal notranslate"><span class="pre">task</span> <span class="pre">conanInstall</span></code> contents after the <code class="docutils literal notranslate"><span class="pre">plugins</span></code> and before the <code class="docutils literal notranslate"><span class="pre">android</span></code> elements:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">build.gradle</span><a class="headerlink" href="#id3" title="Link to this code">¶</a></div>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">plugins</span><span class="w"> </span><span class="o">{</span>
+<span class="w"> </span><span class="o">...</span>
+<span class="o">}</span>
+
+
+<span class="n">task</span><span class="w"> </span><span class="n">conanInstall</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="kt">def</span><span class="w"> </span><span class="n">conanExecutable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;conan&quot;</span><span class="w"> </span><span class="c1">// define the path to your conan installation</span>
+<span class="w">    </span><span class="kt">def</span><span class="w"> </span><span class="n">buildDir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">File</span><span class="o">(</span><span class="s2">&quot;app/build&quot;</span><span class="o">)</span>
+<span class="w">    </span><span class="n">buildDir</span><span class="o">.</span><span class="na">mkdirs</span><span class="o">()</span>
+<span class="w">    </span><span class="o">[</span><span class="s2">&quot;Debug&quot;</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;Release&quot;</span><span class="o">].</span><span class="na">each</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">build_type</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">        </span><span class="o">[</span><span class="s2">&quot;armv7&quot;</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;armv8&quot;</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;x86&quot;</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;x86_64&quot;</span><span class="o">].</span><span class="na">each</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">arch</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">            </span><span class="kt">def</span><span class="w"> </span><span class="n">cmd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">conanExecutable</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot; install &quot;</span><span class="w"> </span><span class="o">+</span>
+<span class="w">                      </span><span class="s2">&quot;../src/main/cpp --profile android -s build_type=&quot;</span><span class="o">+</span><span class="w"> </span><span class="n">build_type</span><span class="w"> </span><span class="o">+</span><span class="s2">&quot; -s arch=&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">arch</span><span class="w"> </span><span class="o">+</span>
+<span class="w">                      </span><span class="s2">&quot; --build missing -c tools.cmake.cmake_layout:build_folder_vars=[&#39;settings.arch&#39;]&quot;</span>
+<span class="w">            </span><span class="n">print</span><span class="o">(</span><span class="s2">&quot;&gt;&gt; ${cmd} \n&quot;</span><span class="o">)</span>
+
+<span class="w">            </span><span class="kt">def</span><span class="w"> </span><span class="n">sout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">StringBuilder</span><span class="o">(),</span><span class="w"> </span><span class="n">serr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">StringBuilder</span><span class="o">()</span>
+<span class="w">            </span><span class="kt">def</span><span class="w"> </span><span class="n">proc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cmd</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="kc">null</span><span class="o">,</span><span class="w"> </span><span class="n">buildDir</span><span class="o">)</span>
+<span class="w">            </span><span class="n">proc</span><span class="o">.</span><span class="na">consumeProcessOutput</span><span class="o">(</span><span class="n">sout</span><span class="o">,</span><span class="w"> </span><span class="n">serr</span><span class="o">)</span>
+<span class="w">            </span><span class="n">proc</span><span class="o">.</span><span class="na">waitFor</span><span class="o">()</span>
+<span class="w">            </span><span class="n">println</span><span class="w"> </span><span class="s2">&quot;$sout $serr&quot;</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="n">proc</span><span class="o">.</span><span class="na">exitValue</span><span class="o">()</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">                </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Exception</span><span class="o">(</span><span class="s2">&quot;out&gt; $sout err&gt; $serr&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;\nCommand: ${cmd}&quot;</span><span class="o">)</span>
+<span class="w">            </span><span class="o">}</span>
+<span class="w">        </span><span class="o">}</span>
+<span class="w">    </span><span class="o">}</span>
+<span class="o">}</span>
+
+<span class="n">android</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">compileSdk</span><span class="w"> </span><span class="mi">32</span>
+
+<span class="w">    </span><span class="n">defaultConfig</span><span class="w"> </span><span class="o">{</span>
+
+<span class="o">...</span>
+</pre></div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">conanInstall</span></code> task is calling <strong class="command">conan install</strong> for Debug/Release and for each architecture we want to build, you
+can adjust these values to match your requirements.</p>
+<p>If we focus on the <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">install</span></code> task we can see:</p>
+<blockquote>
+<div><ol class="arabic">
+<li><p>We are passing a <code class="docutils literal notranslate"><span class="pre">--profile</span> <span class="pre">android</span></code>, so we need to create the proile. Go to the <code class="docutils literal notranslate"><span class="pre">profiles</span></code> folder in the
+conan config home directory (check it running <strong class="command">conan config home</strong>) and create a file named <code class="docutils literal notranslate"><span class="pre">android</span></code>
+with the following contents:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>include(default)
+
+[settings]
+os=Android
+os.api_level=21
+compiler=clang
+compiler.version=12
+compiler.libcxx=c++_static
+compiler.cppstd=14
+
+[conf]
+tools.android:ndk_path=/Users/luism/Library/Android/sdk/ndk/21.4.7075529/
+</pre></div>
+</div>
+<p>You might need to modify:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">tools.android:ndk_path</span></code> conf: The location of the NDK provided by Android Studio. You should be able to see the path
+to the NDK if you open the <code class="docutils literal notranslate"><span class="pre">cpp/includes</span></code> folder in your IDE.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">compiler.version</span></code>: Check the NDK documentation or find a <code class="docutils literal notranslate"><span class="pre">bin</span></code> folder containing the compiler executables like
+<code class="docutils literal notranslate"><span class="pre">x86_64-linux-android31-clang</span></code>. In a Macos installation it is found in the NDK path + <code class="docutils literal notranslate"><span class="pre">toolchains/llvm/prebuilt/darwin-x86_64/bin</span></code>.
+Run <code class="docutils literal notranslate"><span class="pre">./x86_64-linux-android31-clang</span> <span class="pre">--version</span></code> to check the running <code class="docutils literal notranslate"><span class="pre">clang</span></code> version and adjust the profile.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">compiler.libcxx</span></code>: The supported values are <code class="docutils literal notranslate"><span class="pre">c++_static</span></code> and <code class="docutils literal notranslate"><span class="pre">c++_shared</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">compiler.cppstd</span></code>: The C++ standard version, this should be the value you selected in the Wizard.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">os.api_level</span></code>: Use the same value you selected in the Wizard.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>We are passing <code class="docutils literal notranslate"><span class="pre">-c</span> <span class="pre">tools.cmake.cmake_layout:build_folder_vars=['settings.arch']</span></code>, thanks to that, Conan will create a different
+folder for the specified <code class="docutils literal notranslate"><span class="pre">settings.arch</span></code> so we can have all the configurations available at the same time.</p></li>
+</ol>
+</div></blockquote>
+<p>To make Conan work we need to pass CMake a custom toolchain. We can do it introducing a single line in the same file, in the
+<code class="docutils literal notranslate"><span class="pre">android/defaultConfig/externalNativeBuild/cmake</span></code> element:</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">build.gradle</span><a class="headerlink" href="#id4" title="Link to this code">¶</a></div>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">android</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">compileSdk</span><span class="w"> </span><span class="mi">32</span>
+
+<span class="w">    </span><span class="n">defaultConfig</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="n">applicationId</span><span class="w"> </span><span class="s2">&quot;com.example.myconanapp&quot;</span>
+<span class="w">        </span><span class="n">minSdk</span><span class="w"> </span><span class="mi">21</span>
+<span class="w">        </span><span class="n">targetSdk</span><span class="w"> </span><span class="mi">21</span>
+<span class="w">        </span><span class="n">versionCode</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">        </span><span class="n">versionName</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span>
+
+<span class="w">        </span><span class="n">testInstrumentationRunner</span><span class="w"> </span><span class="s2">&quot;androidx.test.runner.AndroidJUnitRunner&quot;</span>
+<span class="w">        </span><span class="n">externalNativeBuild</span><span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="n">cmake</span><span class="w"> </span><span class="o">{</span>
+<span class="w">                </span><span class="n">cppFlags</span><span class="w"> </span><span class="s1">&#39;-v&#39;</span>
+<span class="hll"><span class="w">                </span><span class="n">arguments</span><span class="o">(</span><span class="s2">&quot;-DCMAKE_TOOLCHAIN_FILE=conan_android_toolchain.cmake&quot;</span><span class="o">)</span>
+</span><span class="w">            </span><span class="o">}</span>
+<span class="w">        </span><span class="o">}</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="conan-android-toolchain-cmake">
+<h3>conan_android_toolchain.cmake<a class="headerlink" href="#conan-android-toolchain-cmake" title="Link to this heading">¶</a></h3>
+<p>Create a file called <code class="docutils literal notranslate"><span class="pre">conan_android_toolchain.cmake</span></code> in the <code class="docutils literal notranslate"><span class="pre">cpp</span></code> folder, that file will be responsible
+of including the right toolchain depending on the <code class="docutils literal notranslate"><span class="pre">ANDROID_ABI</span></code> variable that indicates the build configuration that
+the IDE is currently running:</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">conan_android_toolchain.cmake</span><a class="headerlink" href="#id5" title="Link to this code">¶</a></div>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="c"># During multiple stages of CMake configuration, the toolchain file is processed and command-line</span>
+<span class="w"> </span><span class="c"># variables may not be always available. The script exits prematurely if essential variables are absent.</span>
+
+<span class="w"> </span><span class="nb">if</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="s">NOT</span><span class="w"> </span><span class="s">ANDROID_ABI</span><span class="w"> </span><span class="s">OR</span><span class="w"> </span><span class="s">NOT</span><span class="w"> </span><span class="s">CMAKE_BUILD_TYPE</span><span class="w"> </span><span class="p">)</span>
+<span class="w">     </span><span class="nb">return</span><span class="p">()</span>
+<span class="w"> </span><span class="nb">endif</span><span class="p">()</span>
+<span class="w"> </span><span class="nb">if</span><span class="p">(</span><span class="o">${</span><span class="nv">ANDROID_ABI</span><span class="o">}</span><span class="w"> </span><span class="s">STREQUAL</span><span class="w"> </span><span class="s2">&quot;x86_64&quot;</span><span class="p">)</span>
+<span class="w">     </span><span class="nb">include</span><span class="p">(</span><span class="s2">&quot;${CMAKE_CURRENT_LIST_DIR}/build/x86_64/${CMAKE_BUILD_TYPE}/generators/conan_toolchain.cmake&quot;</span><span class="p">)</span>
+<span class="w"> </span><span class="nb">elseif</span><span class="p">(</span><span class="o">${</span><span class="nv">ANDROID_ABI</span><span class="o">}</span><span class="w"> </span><span class="s">STREQUAL</span><span class="w"> </span><span class="s2">&quot;x86&quot;</span><span class="p">)</span>
+<span class="w">     </span><span class="nb">include</span><span class="p">(</span><span class="s2">&quot;${CMAKE_CURRENT_LIST_DIR}/build/x86/${CMAKE_BUILD_TYPE}/generators/conan_toolchain.cmake&quot;</span><span class="p">)</span>
+<span class="w"> </span><span class="nb">elseif</span><span class="p">(</span><span class="o">${</span><span class="nv">ANDROID_ABI</span><span class="o">}</span><span class="w"> </span><span class="s">STREQUAL</span><span class="w"> </span><span class="s2">&quot;arm64-v8a&quot;</span><span class="p">)</span>
+<span class="w">     </span><span class="nb">include</span><span class="p">(</span><span class="s2">&quot;${CMAKE_CURRENT_LIST_DIR}/build/armv8/${CMAKE_BUILD_TYPE}/generators/conan_toolchain.cmake&quot;</span><span class="p">)</span>
+<span class="w"> </span><span class="nb">elseif</span><span class="p">(</span><span class="o">${</span><span class="nv">ANDROID_ABI</span><span class="o">}</span><span class="w"> </span><span class="s">STREQUAL</span><span class="w"> </span><span class="s2">&quot;armeabi-v7a&quot;</span><span class="p">)</span>
+<span class="w">     </span><span class="nb">include</span><span class="p">(</span><span class="s2">&quot;${CMAKE_CURRENT_LIST_DIR}/build/armv7/${CMAKE_BUILD_TYPE}/generators/conan_toolchain.cmake&quot;</span><span class="p">)</span>
+<span class="w"> </span><span class="nb">else</span><span class="p">()</span>
+<span class="w">     </span><span class="nb">message</span><span class="p">(</span><span class="s">FATAL</span><span class="w"> </span><span class="s2">&quot;Not supported configuration&quot;</span><span class="p">)</span>
+<span class="w"> </span><span class="nb">endif</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="cmakelists-txt">
+<h3>CMakeLists.txt<a class="headerlink" href="#cmakelists-txt" title="Link to this heading">¶</a></h3>
+<p>Finally, we need to modify the <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> to link with the <code class="docutils literal notranslate"><span class="pre">zlib</span></code> library:</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">CMakeLists.txt</span><a class="headerlink" href="#id6" title="Link to this code">¶</a></div>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.18.1</span><span class="p">)</span>
+<span class="nb">project</span><span class="p">(</span><span class="s2">&quot;myconanapp&quot;</span><span class="p">)</span>
+<span class="nb">add_library</span><span class="p">(</span><span class="s">myconanapp</span><span class="w"> </span><span class="s">SHARED</span><span class="w"> </span><span class="s">native-lib.cpp</span><span class="p">)</span>
+
+<span class="nb">find_library</span><span class="p">(</span><span class="s">log-lib</span><span class="w"> </span><span class="s">log</span><span class="p">)</span>
+
+<span class="hll"><span class="nb">find_package</span><span class="p">(</span><span class="s">ZLIB</span><span class="w"> </span><span class="s">CONFIG</span><span class="p">)</span>
+</span>
+<span class="hll"><span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">myconanapp</span><span class="w"> </span><span class="o">${</span><span class="nv">log-lib</span><span class="o">}</span><span class="w"> </span><span class="s">ZLIB::ZLIB</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="building-the-application">
+<h2>Building the application<a class="headerlink" href="#building-the-application" title="Link to this heading">¶</a></h2>
+<p>If we build our project we can see that <cite>conan install</cite> is called multiple times building the different configurations
+of <code class="docutils literal notranslate"><span class="pre">zlib</span></code>.</p>
+<p>Then if we run the application in a Virtual Device or in a real device pairing it with the QR code we can see:</p>
+<p><a class="reference internal" href="../../../_images/zlib_1_2_11.png"><img alt="Android application showing the zlib 1.2.11" src="../../../_images/zlib_1_2_11.png" style="width: 400px;" /></a></p>
+<p>Once we have our project configured, it is very easy to change our dependencies and keep developing the application, for example,
+we can edit the <code class="docutils literal notranslate"><span class="pre">conanfile.txt</span></code> file and change the <code class="docutils literal notranslate"><span class="pre">zlib</span></code> to the version <code class="docutils literal notranslate"><span class="pre">1.12.2</span></code>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[requires]
+zlib/1.2.12
+
+[generators]
+CMakeToolchain
+CMakeDeps
+
+[layout]
+cmake_layout
+</pre></div>
+</div>
+<p>If we click build and then run the application, we will see that the zlib dependency has been updated:</p>
+<p><a class="reference internal" href="../../../_images/zlib_1_2_12.jpg"><img alt="Android application showing the zlib 1.2.12" src="../../../_images/zlib_1_2_12.jpg" style="width: 400px;" /></a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="ndk.html" class="btn btn-neutral float-left" title="Cross building to Android with the NDK" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../config_files.html" class="btn btn-neutral float-right" title="Configuration files examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2024, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 2.4
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/2.4/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

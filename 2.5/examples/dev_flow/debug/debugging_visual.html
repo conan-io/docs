@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Debugging shared libraries with Visual Studio &mdash; conan 2.5.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=045299b1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/conan.css?v=7d9e9f1e" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/examples/dev_flow/debug/debugging_visual.html" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=3c4615cf"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Using a MinGW as tool_requires to build with gcc in Windows" href="../tool_requires/mingw.html" />
+    <link rel="prev" title="Debugging and stepping into dependencies" href="step_into_dependencies.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html">
+            
+              <img src="../../../_static/conan-docs-logo-2.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.5
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../whatsnew.html">What’s new in Conan 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../devops.html">Devops guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integrations.html">Integrations</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../examples.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../conanfile.html">ConanFile methods examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../extensions.html">Conan extensions examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools.html">Conan recipe tools examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cross_build.html">Cross-building examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../config_files.html">Configuration files examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../graph.html">Graph examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../dev_flow.html">Developer tools and flows</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="step_into_dependencies.html">Debugging and stepping into dependencies</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Debugging shared libraries with Visual Studio</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tool_requires/mingw.html">Using a MinGW as tool_requires to build with gcc in Windows</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../commands.html">Conan commands examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../runners.html">Conan runners examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../knowledge.html">Knowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/examples/dev_flow/debug/debugging_visual.html">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../examples.html">Examples</a></li>
+          <li class="breadcrumb-item"><a href="../../dev_flow.html">Developer tools and flows</a></li>
+      <li class="breadcrumb-item active">Debugging shared libraries with Visual Studio</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/develop2/examples/dev_flow/debug/debugging_visual.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="debugging-shared-libraries-with-visual-studio">
+<span id="examples-dev-flow-debug-visual"></span><h1>Debugging shared libraries with Visual Studio<a class="headerlink" href="#debugging-shared-libraries-with-visual-studio" title="Link to this heading">¶</a></h1>
+<p>In the previous example we discussed how to debug dependencies in Visual Studio, but when using Conan dependencies in a project it is
+possible that the original build folder and build files don’t exist. Conan packages don’t contain the necessary
+information for debugging libraries with Visual Studio by default, this information is stored in PDBs that are
+generated during the compilation of the libraries. When using Conan these PDBs are generated in the build folder,
+which is only needed during the building of the libraries. For that reason it’s a common operation to clean the Conan
+cache with <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">cache</span> <span class="pre">clean</span></code> to remove the build folder and save disk space.</p>
+<p>For these cases where the build folder is not present we created a hook that copies the PDBs generated in the build folder to the
+package folder. This behavior can’t be forced by default because PDB files are usually larger than the whole package,
+and it would greatly increase the package sizes.</p>
+<p>This section will follow some examples on how to debug a project in different cases to show how users can make use of
+the PDB hook.</p>
+<section id="creating-a-project-and-debugging-as-usual">
+<h2>Creating a project and debugging as usual<a class="headerlink" href="#creating-a-project-and-debugging-as-usual" title="Link to this heading">¶</a></h2>
+<p>First we will debug our project as usual, as it is explained in more detail in the <a class="reference internal" href="step_into_dependencies.html#examples-dev-flow-debug-step-into"><span class="std std-ref">previous example</span></a>
+We can start building our dependencies from sources as in the previous section, only this time we will build them as
+shared. To begin with, clone the sources needed for the example from the <a class="reference external" href="https://github.com/conan-io/examples2">examples2 repository</a>
+in GitHub and create the project.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/conan-io/examples2.git
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>examples2/tutorial/consuming_packages/simple_cmake_project
+$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>.<span class="w"> </span>-o<span class="o">=</span><span class="s2">&quot;*:shared=True&quot;</span><span class="w"> </span>-s<span class="w"> </span><span class="nv">build_type</span><span class="o">=</span>Debug<span class="w"> </span>--build<span class="o">=</span><span class="s2">&quot;zlib/*&quot;</span>
+...
+Install<span class="w"> </span>finished<span class="w"> </span>successfully
+
+<span class="c1"># CMake presets require CMake&gt;=3.23</span>
+$<span class="w"> </span>cmake<span class="w"> </span>--preset<span class="o">=</span>conan-default
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We will only cover the case where the dependencies are built as shared because the PDBs and how they are linked
+to the libraries works differently for static libraries.</p>
+</div>
+<p>We can now open the solution <code class="docutils literal notranslate"><span class="pre">compressor.sln</span></code> to open our project in Visual Studio and debug it as explained in the
+previous example. Setting a breakpoint in line 22, running the debugger and using the step into will allow us to debug
+inside our dependency file <code class="docutils literal notranslate"><span class="pre">deflate.c</span></code>.</p>
+<img alt="Debugging with build files in cache" src="../../../_images/debug_with_build_files.png" />
+<p>In this case the original build files were all present so the debugger worked as usual. Next we will see how the
+debugger works after removing the build files from the Conan cache.</p>
+</section>
+<section id="removing-build-files-from-the-conan-cache">
+<h2>Removing build files from the Conan cache<a class="headerlink" href="#removing-build-files-from-the-conan-cache" title="Link to this heading">¶</a></h2>
+<p>There are multiple reasons that can cause the build files to not be present after the dependencies are compiled. We
+will clean our build files from the cache to simulate one of those cases using <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">cache</span> <span class="pre">clean</span></code>. The <code class="docutils literal notranslate"><span class="pre">--build</span></code>
+flag makes sure that we only remove the build files, as we will need our source files for this example.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>list<span class="w"> </span><span class="s2">&quot;zlib/1.2.11:*&quot;</span>
+$<span class="w"> </span>conan<span class="w"> </span>cache<span class="w"> </span>path<span class="w"> </span>--folder<span class="w"> </span>build<span class="w"> </span>zlib/1.2.11:17b26a16efb893750e4481f98a154db2934ead88
+$<span class="w"> </span>conan<span class="w"> </span>cache<span class="w"> </span>clean<span class="w"> </span>zlib/1.2.11<span class="w"> </span>--build
+$<span class="w"> </span>conan<span class="w"> </span>cache<span class="w"> </span>path<span class="w"> </span>--folder<span class="w"> </span>build<span class="w"> </span>zlib/1.2.11:17b26a16efb893750e4481f98a154db2934ead88
+</pre></div>
+</div>
+<p>After closing and reopening our solution in Visual Studio, we can try to debug again. If you try to step into the
+dependency, with the breakpoint on line 22, you will notice it will directly skip over to the next line as Visual Studio
+doesn’t have any information on the dependencies to debug.</p>
+</section>
+<section id="installing-a-hook-to-copy-the-pdbs-to-the-package-folder">
+<h2>Installing a hook to copy the PDBs to the package folder<a class="headerlink" href="#installing-a-hook-to-copy-the-pdbs-to-the-package-folder" title="Link to this heading">¶</a></h2>
+<p>To solve the issue of not having the PDBs in the package folder, we created a hook that copies the PDBs from the build
+folder to the package folder.
+The hook is available in the <a class="reference external" href="https://github.com/conan-io/conan-extensions">conan-extensions repository</a>.
+Installing the whole repository will work, but we recommend to only install the hooks folder from the
+<code class="docutils literal notranslate"><span class="pre">conan-extensions</span></code> repository with:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ conan config install https://github.com/conan-io/conan-extensions.git -sf=extensions/hooks -tf=extensions/hooks
+</pre></div>
+</div>
+<p>The hook is made so it won’t run by default, as it can increase the package size significantly. As explained in the
+<a class="reference internal" href="../../../reference/extensions/hooks.html#reference-extensions-hooks"><span class="std std-ref">hooks documentation</span></a>, we need to change the name of our hook to start with <code class="docutils literal notranslate"><span class="pre">hook_</span></code>.
+To locate the path where the hook was placed, run the command <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">config</span> <span class="pre">home</span></code> to find
+your local cache path and go to the <code class="docutils literal notranslate"><span class="pre">extensions/hooks</span></code> folder to rename the <code class="docutils literal notranslate"><span class="pre">_hook_copy_pdbs_to_package.py</span></code> file.
+Be aware that this hook will run everytime a <code class="docutils literal notranslate"><span class="pre">package()</span></code> method is run, to disable the hook just rename the hook back
+to start with <code class="docutils literal notranslate"><span class="pre">_hook_</span></code>.</p>
+<p>The hook is implemented as a post-package hook, which means that it will execute after the package is created through the
+<code class="docutils literal notranslate"><span class="pre">package()</span></code> method of a recipe. This avoids any potential issue, as the order will be as follows:</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">build()</span></code> method of the recipe is executed, generating the DLLs and PDBs</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">package()</span></code> method of the recipe is executed, copying the necessary files to the package folder (in this case the DLLs but not the PDBs)</p></li>
+<li><p>The hook is executed copying the PDBs from the build folder next to its DLL for every DLL in the package</p></li>
+</ul>
+<p>The hook makes use of the <code class="docutils literal notranslate"><span class="pre">dumpbin</span></code> tool which is included in the Visual Studio installation. This tool allows us
+to get information of a DLL, in this case the path where its associated PDB is located. It will be used for every DLL
+in the package to locate its PDB to copy it to the package folder.</p>
+<p>For more information on how PDBs work with Visual and how we used it to create the hook can be found in the
+<a class="reference external" href="https://github.com/conan-io/conan-extensions/blob/main/hooks/README.md">hook readme</a>.</p>
+</section>
+<section id="debugging-without-build-files">
+<h2>Debugging without build files<a class="headerlink" href="#debugging-without-build-files" title="Link to this heading">¶</a></h2>
+<p>After installing the hook we will create again the project from sources so the hook can now copy the PDBs to the package
+folder alongside the package DLLs so they can be found by the debugger.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>.<span class="w"> </span>-o<span class="o">=</span><span class="s2">&quot;*:shared=True&quot;</span><span class="w"> </span>-s<span class="w"> </span><span class="nv">build_type</span><span class="o">=</span>Debug<span class="w"> </span>--build<span class="o">=</span><span class="s2">&quot;zlib/*&quot;</span>
+...
+zlib/1.2.11:<span class="w"> </span>Calling<span class="w"> </span>package<span class="o">()</span>
+...
+<span class="o">[</span>HOOK<span class="w"> </span>-<span class="w"> </span>hook_copy_pdbs_to_package.py<span class="o">]</span><span class="w"> </span>post_package<span class="o">()</span>:<span class="w"> </span>PDBs<span class="w"> </span>post<span class="w"> </span>package<span class="w"> </span>hook<span class="w"> </span>running
+...
+Install<span class="w"> </span>finished<span class="w"> </span>successfully
+
+<span class="c1"># CMake presets require CMake&gt;=3.23</span>
+$<span class="w"> </span>cmake<span class="w"> </span>--preset<span class="o">=</span>conan-default
+</pre></div>
+</div>
+<p>Notice that when running the conan install now you will see the outputs of the hook running after the call to <code class="docutils literal notranslate"><span class="pre">package()</span></code>.
+To test the hook we can clean the cache again to remove the build files, this includes the sources used to build the
+library and the PDBs that were originally generated.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>cache<span class="w"> </span>clean<span class="w"> </span>zlib/1.2.11<span class="w"> </span>--build
+</pre></div>
+</div>
+<p>Open the solution in Visual Studio again and start the debugger. When you try to step into the dependency in line 22, an error
+message will pop up telling us the file was not found and it will ask where the file is located. We can close this window
+and it will give the option to view the disassembly which can be debugged thanks to the PDB. The PDB only contains the
+debugging information but Visual Studio is missing the source files, so it won’t be able to debug over those as it did
+initially.</p>
+<img alt="Debugging without build files in cache" src="../../../_images/source_file_not_found.png" />
+</section>
+<section id="locating-the-sources-path-for-the-debugger">
+<h2>Locating the sources path for the debugger<a class="headerlink" href="#locating-the-sources-path-for-the-debugger" title="Link to this heading">¶</a></h2>
+<p>Visual Studio won’t be able to find te source files by itself after deleting the original build files. To be able to
+debug over the source files, there’s an option to manually set the source folder path so that it’s possible to debug over the source files. This
+requires that the source files for the dependency exist. In our case we can get the location of this source files
+by running a <code class="docutils literal notranslate"><span class="pre">`conan</span> <span class="pre">cache</span> <span class="pre">path</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ conan cache path --folder source zlib/1.2.11
+</pre></div>
+</div>
+<p>In case this source path is not present we can use a config to download the sources again.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ conan install . -o=&quot;*:shared=True&quot; -s build_type=Debug -c:a=&quot;tools.build:download_source=True&quot;
+</pre></div>
+</div>
+<p>Once we have the source path we can set it in Visual Studio so the debugger can find the source files. Right click on
+the solution in the Solution Explorer and select Properties. Go to Debug Source Files in the Common Properties section
+and add our source path.</p>
+<img alt="Setting source path" src="../../../_images/add_path_to_debug_source_files.png" />
+<p>Starting the debugger again will allow to step into the code of the dependency as in the first example we did.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If there are patches to the source files we won’t be able to debug over the modified files, as we are using the
+files from the source folder and the patches are applied in a later step right before being compiled in the build folder.</p>
+<p>Any modification to the source files will not allow debugging over them, as Visual Studio does a checksum check, so
+they need to be the exact same files as when the libraries were compiled.</p>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="step_into_dependencies.html" class="btn btn-neutral float-left" title="Debugging and stepping into dependencies" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../tool_requires/mingw.html" class="btn btn-neutral float-right" title="Using a MinGW as tool_requires to build with gcc in Windows" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2024, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 2.5
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/2.5/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

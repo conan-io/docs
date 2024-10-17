@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cheatsheet &mdash; conan 1.62.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+    <link rel="shortcut icon" href="_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/cheatsheet.html" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=82dc912d"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Videos and links" href="videos.html" />
+    <link rel="prev" title="Hooks" href="reference/hooks.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/conan-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.62
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conan_v2.html">Conan migration guide to 2.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="training_courses.html">Training Courses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="versioning.html">Versioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extending.html">Extending Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Cheatsheet</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#single-page-graphical-format">Single-Page Graphical Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#community-created-format">Community-Created Format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#setup-and-configuration">Setup and configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configurations">Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#profiles">Profiles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#remote-repositories">Remote repositories</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#consuming-packages">Consuming packages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#using-packages-in-an-application">Using packages in an application</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#downloading-packages">Downloading packages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-local-cache">The local cache</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#using-packages-as-standalone-applications">Using packages as standalone applications</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#searching-and-introspecting-packages">Searching and introspecting packages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#searching-packages">Searching packages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#inspecting-packages">Inspecting packages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#visualizing-dependencies">Visualizing dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#creating-packages">Creating packages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#package-terminology">Package terminology</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#creating-a-basic-package">Creating a basic package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-package-recipe">The package recipe</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#specifying-build-configuration-items">Specifying build configuration items</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#versioning">Versioning</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#managing-dependencies">Managing dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#uploading-packages-to-a-remote-repository">Uploading packages to a remote repository</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#important-points-for-enterprises">Important points for enterprises</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #eb8484;background-color: #ffcaca;padding: 3px;margin-bottom: 5px">
+              <p>This document is for a <b>"1.X" legacy</b> Conan version, <b>which is no longer recommended</b>. Please update to Conan 2, <a href="https://docs.conan.io/2/">click here to read the <b>Conan 2</b> documentation</a></p>
+            </div>
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          <!--@ OUTDATED_VERSION_PLACEHOLDER_BEGIN @
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/@LATEST_DOC_PAGE_URL@">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          @ OUTDATED_VERSION_PLACEHOLDER_END @-->
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Cheatsheet</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/master/cheatsheet.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cheatsheet">
+<h1>Cheatsheet<a class="headerlink" href="#cheatsheet" title="Link to this heading"></a></h1>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>We are actively working to finalize the <em>Conan 2.0 Release</em>. Some of the information on this page references
+<strong>deprecated</strong> features which will not be carried forward with the new release. It’s important to check the
+<a class="reference internal" href="conan_v2.html#conan2-migration-guide"><span class="std std-ref">Migration Guidelines</span></a> to ensure you are using the most up to date features.</p>
+</div>
+<section id="single-page-graphical-format">
+<h2>Single-Page Graphical Format<a class="headerlink" href="#single-page-graphical-format" title="Link to this heading"></a></h2>
+<p>JFrog has created the following visual cheatsheet for basic Conan commands and
+concepts which users can print out and use as a handy reference. It is available
+as both a PDF and PNG.</p>
+<blockquote>
+<div><p><a class="reference download internal" download="" href="_downloads/3c6edd509ea075afab687d1adffae7c4/conan-cheatsheet.pdf"><code class="xref download docutils literal notranslate"><span class="pre">PDF</span> <span class="pre">Format</span></code></a></p>
+<p><a class="reference download internal" download="" href="_downloads/c407120b7c68fc46b3c22f5124d1fc80/conan-cheatsheet.png"><code class="xref download docutils literal notranslate"><span class="pre">PNG</span> <span class="pre">Format</span></code></a></p>
+</div></blockquote>
+<a class="reference internal image-reference" href="_images/conan-cheatsheet.png"><img alt="_images/conan-cheatsheet.png" class="align-center" src="_images/conan-cheatsheet.png" style="width: 800px; height: 600px;" /></a>
+</section>
+<section id="community-created-format">
+<h2>Community-Created Format<a class="headerlink" href="#community-created-format" title="Link to this heading"></a></h2>
+<p>Community contributors have also created the following extended cheatsheet
+providing a more narrative and workflow-centric cheatsheet. It is effectively, a
+single-page summary of other docs pages which community users found most
+relevant to daily Conan operations.</p>
+<nav class="contents local" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#setup-and-configuration" id="id12">Setup and configuration</a></p>
+<ul>
+<li><p><a class="reference internal" href="#installation" id="id13">Installation</a></p></li>
+<li><p><a class="reference internal" href="#configurations" id="id14">Configurations</a></p></li>
+<li><p><a class="reference internal" href="#profiles" id="id15">Profiles</a></p></li>
+<li><p><a class="reference internal" href="#remote-repositories" id="id16">Remote repositories</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#consuming-packages" id="id17">Consuming packages</a></p>
+<ul>
+<li><p><a class="reference internal" href="#using-packages-in-an-application" id="id18">Using packages in an application</a></p></li>
+<li><p><a class="reference internal" href="#downloading-packages" id="id19">Downloading packages</a></p></li>
+<li><p><a class="reference internal" href="#the-local-cache" id="id20">The local cache</a></p></li>
+<li><p><a class="reference internal" href="#using-packages-as-standalone-applications" id="id21">Using packages as standalone applications</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#searching-and-introspecting-packages" id="id22">Searching and introspecting packages</a></p>
+<ul>
+<li><p><a class="reference internal" href="#searching-packages" id="id23">Searching packages</a></p></li>
+<li><p><a class="reference internal" href="#inspecting-packages" id="id24">Inspecting packages</a></p></li>
+<li><p><a class="reference internal" href="#visualizing-dependencies" id="id25">Visualizing dependencies</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#creating-packages" id="id26">Creating packages</a></p>
+<ul>
+<li><p><a class="reference internal" href="#package-terminology" id="id27">Package terminology</a></p></li>
+<li><p><a class="reference internal" href="#creating-a-basic-package" id="id28">Creating a basic package</a></p></li>
+<li><p><a class="reference internal" href="#the-package-recipe" id="id29">The package recipe</a></p>
+<ul>
+<li><p><a class="reference internal" href="#python-requires" id="id30">Python requires</a></p></li>
+<li><p><a class="reference internal" href="#hooks" id="id31">Hooks</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#specifying-build-configuration-items" id="id32">Specifying build configuration items</a></p>
+<ul>
+<li><p><a class="reference internal" href="#settings" id="id33">Settings</a></p></li>
+<li><p><a class="reference internal" href="#options" id="id34">Options</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#versioning" id="id35">Versioning</a></p>
+<ul>
+<li><p><a class="reference internal" href="#versions" id="id36">Versions</a></p></li>
+<li><p><a class="reference internal" href="#revisions" id="id37">Revisions</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#managing-dependencies" id="id38">Managing dependencies</a></p>
+<ul>
+<li><p><a class="reference internal" href="#specifying-dependencies" id="id39">Specifying dependencies</a></p></li>
+<li><p><a class="reference internal" href="#package-id-calculation-modes" id="id40">Package ID calculation modes</a></p></li>
+<li><p><a class="reference internal" href="#resolving-dependency-conflicts" id="id41">Resolving dependency conflicts</a></p></li>
+<li><p><a class="reference internal" href="#lockfiles" id="id42">Lockfiles</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#uploading-packages-to-a-remote-repository" id="id43">Uploading packages to a remote repository</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#important-points-for-enterprises" id="id44">Important points for enterprises</a></p></li>
+</ul>
+</nav>
+<section id="setup-and-configuration">
+<h3><a class="toc-backref" href="#id12" role="doc-backlink">Setup and configuration</a><a class="headerlink" href="#setup-and-configuration" title="Link to this heading"></a></h3>
+<section id="installation">
+<h4><a class="toc-backref" href="#id13" role="doc-backlink">Installation</a><a class="headerlink" href="#installation" title="Link to this heading"></a></h4>
+<p>Conan is available as a Python package, and the recommended way to install is via pip:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>conan
+$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>conan<span class="w"> </span>--upgrade
+</pre></div>
+</div>
+<p>There are <a class="reference external" href="https://conan.io/downloads.html">other methods of installation</a> available, including standalone installers,
+which don’t require a Python installation.</p>
+<p>See <a class="reference external" href="https://docs.conan.io/en/latest/installation.html">Install</a> docs.</p>
+</section>
+<section id="configurations">
+<h4><a class="toc-backref" href="#id14" role="doc-backlink">Configurations</a><a class="headerlink" href="#configurations" title="Link to this heading"></a></h4>
+<p>Configurations contain <a class="reference internal" href="#hooks">hooks</a>, <a class="reference internal" href="#profiles">profiles</a>, <a class="reference internal" href="#remote-repositories">remote repositories</a> and <a class="reference internal" href="#settings">settings</a>, making them available for builds once
+installed. They are installed from a folder, zip, URL or git repo, and the installed items are recorded in
+~/.conan/conan.conf.</p>
+<p>Install configurations:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>config<span class="w"> </span>install<span class="w"> </span>&lt;item&gt;<span class="w">  </span><span class="c1"># Copy the relevant contents from &lt;item&gt; to the user&#39;s ~/.conan directory.</span>
+
+$<span class="w"> </span>conan<span class="w"> </span>config<span class="w"> </span>install<span class="w"> </span>./my_config.conf
+</pre></div>
+</div>
+<p>Alternatively, copying files and editing conan.conf can be done manually.</p>
+<p>Set up configurations:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>config<span class="w"> </span>init<span class="w">     </span><span class="c1"># Initialize Conan configuration files. If some are already present, missing files only are</span>
+<span class="w">                        </span><span class="c1"># created</span>
+</pre></div>
+</div>
+<p>Set configuration values:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>&lt;section&gt;.&lt;config&gt;<span class="o">=</span>&lt;value&gt;
+
+$<span class="w"> </span>conan<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>log.level<span class="o">=</span><span class="m">10</span>
+$<span class="w"> </span>conan<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>log.print_run_commands<span class="o">=</span>False<span class="w">  </span><span class="c1"># Make conan less verbose</span>
+</pre></div>
+</div>
+<p>Inspect configurations:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>config<span class="w"> </span>home<span class="w">     </span><span class="c1"># See the Conan home directory</span>
+
+$<span class="w"> </span>conan<span class="w"> </span>config<span class="w"> </span>get<span class="w"> </span><span class="o">[</span>&lt;section&gt;.&lt;config&gt;<span class="o">]</span><span class="w">  </span><span class="c1"># Show some or all configuration items</span>
+
+$<span class="w"> </span>conan<span class="w"> </span>config<span class="w"> </span>get<span class="w">                       </span><span class="c1"># Show the full conan.conf file</span>
+$<span class="w"> </span>conan<span class="w"> </span>config<span class="w"> </span>get<span class="w"> </span>log.level<span class="w">             </span><span class="c1"># Show the &quot;level&quot; item in the &quot;log&quot; section</span>
+</pre></div>
+</div>
+<p>See <a class="reference external" href="https://docs.conan.io/en/latest/reference/commands/consumer/config.html">conan config</a> reference.</p>
+</section>
+<section id="profiles">
+<h4><a class="toc-backref" href="#id15" role="doc-backlink">Profiles</a><a class="headerlink" href="#profiles" title="Link to this heading"></a></h4>
+<p>Profiles allow users to set aspects of the build configuration. This includes <a class="reference internal" href="#settings">settings</a>, <a class="reference internal" href="#options">options</a>, environment variables
+and tool requirements. They can be installed into ~/.conan/profiles. They can also be stored in project directories,
+which can be useful for specific compilation cases, for example cross-compiling.</p>
+<p>Profiles are stored in text files with no file extension. An example profile:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>CROSS_GCC=arm-linux-gnueabihf
+
+include(default)              # Can include other configurations, for example the default configuration
+
+[settings]
+os=Linux
+compiler=gcc
+compiler.version=6
+compiler.libcxx=libstdc++11
+build_type=Release
+arch=armv7
+os_build=Linux
+arch_build=x86_64
+OpenSSL:compiler.version=4.8  # Dependency-specific value
+
+[options]
+shared=True
+
+[env]                         # Environment variables
+CC=$CROSS_GCC-gcc             # Strings can be defined and substituted
+CXX=$CROSS_GCC-g++
+
+[tool_requires]               # Requirements for package builds only
+cmake/3.16.3                  # Specifying tool requirements here rather than in the recipe makes them less binding
+</pre></div>
+</div>
+<p>List profiles:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>profile<span class="w"> </span>list
+</pre></div>
+</div>
+<p>Show a profile:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>profile<span class="w"> </span>show<span class="w"> </span>&lt;profile&gt;
+
+$<span class="w"> </span>conan<span class="w"> </span>profile<span class="w"> </span>show<span class="w"> </span>default
+</pre></div>
+</div>
+<p>Use profile while executing command (e.g., <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">install</span></code> or <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">create</span></code>):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>&lt;command&gt;<span class="w"> </span>.<span class="w"> </span>-pr<span class="o">=</span>&lt;profile1&gt;<span class="w"> </span>-pr<span class="o">=</span>&lt;profile2&gt;<span class="w">  </span><span class="c1"># Use installed profile name, or file path</span>
+<span class="w">                                                   </span><span class="c1"># Composable, last -pr wins for conflicts</span>
+</pre></div>
+</div>
+<p>See <a class="reference external" href="https://docs.conan.io/en/latest/reference/commands/misc/profile.html">conan profile</a> reference.</p>
+</section>
+<section id="remote-repositories">
+<h4><a class="toc-backref" href="#id16" role="doc-backlink">Remote repositories</a><a class="headerlink" href="#remote-repositories" title="Link to this heading"></a></h4>
+<p>Conan Center is configured by default.</p>
+<p>List configured remotes:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>remote<span class="w"> </span>list
+</pre></div>
+</div>
+<p>Add remote:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>&lt;remote<span class="w"> </span>ID&gt;<span class="w"> </span>&lt;URL<span class="w"> </span>of<span class="w"> </span>remote<span class="w"> </span>repo&gt;
+</pre></div>
+</div>
+<p>See <a class="reference external" href="https://docs.conan.io/en/latest/reference/commands/misc/remote.html">conan remote</a> reference.</p>
+</section>
+</section>
+<section id="consuming-packages">
+<h3><a class="toc-backref" href="#id17" role="doc-backlink">Consuming packages</a><a class="headerlink" href="#consuming-packages" title="Link to this heading"></a></h3>
+<section id="using-packages-in-an-application">
+<h4><a class="toc-backref" href="#id18" role="doc-backlink">Using packages in an application</a><a class="headerlink" href="#using-packages-in-an-application" title="Link to this heading"></a></h4>
+<ol class="arabic simple">
+<li><p>Write a conanfile.txt. This captures the project configuration:</p></li>
+</ol>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[requires]                     # The Conan packages which are used in the application
+boost/1.72.0                   # Versions override versions upstream in the dependency graph
+poco/1.9.4
+
+[tool_requires]                # The Conan packages which are used to build the application
+7zip/16.00
+
+[generators]                   # Generators create build system files that capture the dependency information,
+cmake                          # as well as configuration information from Conan settings and options
+
+[options]                      # Options here override options upstream in the dependency graph
+boost:shared=True              # Options can be specified on a per-package basis for dependencies
+poco:shared=True
+
+[imports]                      # Copies files from the cache to the current working directory
+bin, *.dll -&gt; ./bin            # Copies all .dll files from the packages&#39; bin/ folder to the local bin/ folder
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Get dependencies and generate build system files via <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">install</span></code></p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>.<span class="w"> </span><span class="o">[</span>-o<span class="w"> </span>&lt;package&gt;:&lt;option&gt;<span class="o">=</span>&lt;value&gt;<span class="o">]</span><span class="w">  </span><span class="c1"># Specify options, e.g. shared=True</span>
+<span class="w">                  </span><span class="o">[</span>-s<span class="w"> </span>&lt;package&gt;:&lt;setting&gt;<span class="o">=</span>&lt;value&gt;<span class="o">]</span><span class="w"> </span><span class="c1"># Specify settings, e.g. build_type=Debug</span>
+<span class="w">                                                   </span><span class="c1"># &lt;package&gt; is optional: if not specified, the option/setting</span>
+<span class="w">                                                   </span><span class="c1"># applies to all dependencies</span>
+<span class="w">                  </span><span class="o">[</span>-r<span class="o">=</span>&lt;remote<span class="w"> </span>ID&gt;<span class="o">]</span><span class="w">                 </span><span class="c1"># Download dependencies from only the specified remote</span>
+<span class="w">                  </span><span class="o">[</span>-g<span class="o">=</span>&lt;generator&gt;<span class="o">]</span><span class="w">                 </span><span class="c1"># Specify generators at the command line</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>#include interface files to the Conan packages in the source code</p></li>
+<li><p>Modify the build system to use the files output from the Generator</p></li>
+<li><p>Build the application using the build system</p></li>
+</ol>
+</section>
+<section id="downloading-packages">
+<h4><a class="toc-backref" href="#id19" role="doc-backlink">Downloading packages</a><a class="headerlink" href="#downloading-packages" title="Link to this heading"></a></h4>
+<p>Download a package, if it isn’t already in <a class="reference internal" href="#the-local-cache">the local cache</a>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>&lt;package&gt;/&lt;version&gt;@<span class="o">[</span>&lt;user&gt;/&lt;channel&gt;#&lt;revision&gt;<span class="o">]</span>
+<span class="w">                </span><span class="o">[</span>-r<span class="o">=</span>&lt;remote<span class="w"> </span>ID&gt;<span class="o">]</span><span class="w">                                    </span><span class="c1"># Download dependencies from only the specified remote</span>
+
+
+$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>.<span class="w">  </span><span class="c1"># Install a package requirement from a conanfile.txt, saved in your current directory, with all</span>
+<span class="w">                   </span><span class="c1"># options and settings coming from your default profile</span>
+
+$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>.<span class="w"> </span>-o<span class="w"> </span>pkg_name:use_debug_mode<span class="o">=</span>on<span class="w"> </span>-s<span class="w"> </span><span class="nv">compiler</span><span class="o">=</span>clang<span class="w">   </span><span class="c1"># As above, but override one option and one</span>
+<span class="w">                                                                    </span><span class="c1"># setting</span>
+</pre></div>
+</div>
+<p>See <a class="reference external" href="https://docs.conan.io/en/latest/reference/commands/consumer/install.html">conan install</a> reference.</p>
+</section>
+<section id="the-local-cache">
+<h4><a class="toc-backref" href="#id20" role="doc-backlink">The local cache</a><a class="headerlink" href="#the-local-cache" title="Link to this heading"></a></h4>
+<p>The local package cache is located at ~/.conan/data by default (but this is configurable).</p>
+<p>Clear packages from cache:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>remove<span class="w"> </span><span class="s2">&quot;&lt;package&gt;&quot;</span><span class="w"> </span>--force<span class="w">  </span><span class="c1"># &lt;package&gt; can include wildcards</span>
+
+$<span class="w"> </span>conan<span class="w"> </span>remove<span class="w"> </span><span class="s1">&#39;boost/*&#39;</span><span class="w">                     </span><span class="c1"># Remove all versions of Boost</span>
+$<span class="w"> </span>conan<span class="w"> </span>remove<span class="w"> </span><span class="s1">&#39;mypackage/1.2@user/channel&#39;</span><span class="w">  </span><span class="c1"># Remove all revisions of mypackage/1.2@user/channel</span>
+</pre></div>
+</div>
+<p>See <a class="reference external" href="https://docs.conan.io/en/latest/reference/commands/misc/remove.html">conan remove</a> reference.</p>
+</section>
+<section id="using-packages-as-standalone-applications">
+<h4><a class="toc-backref" href="#id21" role="doc-backlink">Using packages as standalone applications</a><a class="headerlink" href="#using-packages-as-standalone-applications" title="Link to this heading"></a></h4>
+<p>Packages can either be copied to the local project folder and run from there, or run directly from the local cache.</p>
+<p>In the <a class="reference external" href="#using-conan-packages-in-an-application">conanfile.txt</a>, this can be done in the [imports] or [generators] section. See below for the relevant
+generators. In <a class="reference internal" href="#the-package-recipe">the package recipe</a>, this can be done using the <code class="docutils literal notranslate"><span class="pre">imports()</span></code> or <code class="docutils literal notranslate"><span class="pre">deploy()</span></code> methods.</p>
+<p>Prepare packages for use via the command line:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>.<span class="w"> </span>-g<span class="o">=</span>deploy<span class="w">         </span><span class="c1"># Copy dependencies to current folder</span>
+$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>.<span class="w"> </span>-g<span class="o">=</span>virtualrunenv<span class="w">  </span><span class="c1"># Create shell scripts to activate and deactivate environments where you can run</span>
+<span class="w">                                    </span><span class="c1"># dependencies from the local cache</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="searching-and-introspecting-packages">
+<h3><a class="toc-backref" href="#id22" role="doc-backlink">Searching and introspecting packages</a><a class="headerlink" href="#searching-and-introspecting-packages" title="Link to this heading"></a></h3>
+<section id="searching-packages">
+<h4><a class="toc-backref" href="#id23" role="doc-backlink">Searching packages</a><a class="headerlink" href="#searching-packages" title="Link to this heading"></a></h4>
+<p>Recipes and binaries can be searched in the local cache or remotes.</p>
+<p>List names of packages in local cache:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>search<span class="w">              </span><span class="c1"># List names of packages in local cache</span>
+</pre></div>
+</div>
+<p>Show package recipes or builds of a package:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>search<span class="w"> </span>&lt;package&gt;/&lt;revision&gt;@&lt;user&gt;/&lt;channel&gt;<span class="w">  </span><span class="c1"># Output depends on how much of a package reference is given.</span>
+<span class="w">                                                      </span><span class="c1"># Wildcards are supported</span>
+<span class="w">               </span><span class="o">[</span>--table<span class="o">=</span>file.html<span class="o">]</span><span class="w">                    </span><span class="c1"># Save output in an HTML file</span>
+<span class="w">               </span><span class="o">[</span>-r<span class="o">=</span>&lt;remote&gt;<span class="o">]</span><span class="w">                          </span><span class="c1"># Look in a remote repository (default is the local cache)</span>
+
+$<span class="w"> </span>conan<span class="w"> </span>search<span class="w"> </span>mylib/1.0@user/channel<span class="w">                 </span><span class="c1"># Show all packages of mylib/1.0@user/channel in the local cache</span>
+$<span class="w"> </span>conan<span class="w"> </span>search<span class="w"> </span><span class="s2">&quot;zlib/*&quot;</span><span class="w"> </span>-r<span class="o">=</span>all<span class="w">                        </span><span class="c1"># Show all versions of zlib in all remotes</span>
+</pre></div>
+</div>
+<p>Show revisions of a package:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>search<span class="w"> </span>&lt;package&gt;/&lt;revision&gt;@&lt;user&gt;/&lt;channel&gt;<span class="w"> </span>--revisions
+</pre></div>
+</div>
+<p>See <a class="reference external" href="https://docs.conan.io/en/latest/reference/commands/consumer/search.html">conan search</a> reference.</p>
+</section>
+<section id="inspecting-packages">
+<h4><a class="toc-backref" href="#id24" role="doc-backlink">Inspecting packages</a><a class="headerlink" href="#inspecting-packages" title="Link to this heading"></a></h4>
+<p>Print the package recipe in full:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>get<span class="w"> </span>&lt;package&gt;/&lt;revision&gt;@&lt;user&gt;/&lt;channel&gt;
+
+$<span class="w"> </span>conan<span class="w"> </span>get<span class="w"> </span>boost/1.74.0
+</pre></div>
+</div>
+<p>Print attributes of the package recipe:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>inspect<span class="w"> </span>&lt;package&gt;/&lt;revision&gt;@&lt;user&gt;/&lt;channel&gt;
+
+$<span class="w"> </span>conan<span class="w"> </span>inspect<span class="w"> </span>boost/1.74.0
+</pre></div>
+</div>
+<p>See <a class="reference external" href="https://docs.conan.io/en/latest/reference/commands/consumer/get.html">conan get</a> and <a class="reference external" href="https://docs.conan.io/en/latest/reference/commands/misc/inspect.html">conan
+inspect</a> reference.</p>
+</section>
+<section id="visualizing-dependencies">
+<h4><a class="toc-backref" href="#id25" role="doc-backlink">Visualizing dependencies</a><a class="headerlink" href="#visualizing-dependencies" title="Link to this heading"></a></h4>
+<p>Show a dependency graph for the package or application:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>info<span class="w"> </span>.<span class="w"> </span><span class="o">[</span>--graph<span class="o">=</span>file.html<span class="o">]</span><span class="w">  </span><span class="c1"># Save output in an HTML file</span>
+</pre></div>
+</div>
+<p>See <a class="reference external" href="https://docs.conan.io/en/latest/reference/commands/consumer/info.html">conan info</a> reference.</p>
+</section>
+</section>
+<section id="creating-packages">
+<h3><a class="toc-backref" href="#id26" role="doc-backlink">Creating packages</a><a class="headerlink" href="#creating-packages" title="Link to this heading"></a></h3>
+<section id="package-terminology">
+<h4><a class="toc-backref" href="#id27" role="doc-backlink">Package terminology</a><a class="headerlink" href="#package-terminology" title="Link to this heading"></a></h4>
+<p>Each package recipe relates to a single package. However, a package can be built in different ways.</p>
+<p>A reference is used to identify packages:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&lt;package&gt;/&lt;version&gt;@&lt;user&gt;/&lt;channel&gt;#RREV:PACKAGE_ID#PREV
+</pre></div>
+</div>
+<p>The recipe reference is used to identify a certain version of a recipe:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&lt;package&gt;/&lt;version&gt;@&lt;user&gt;/&lt;channel&gt;  # &lt;package&gt; and &lt;version&gt; are defined in the recipe; &lt;user&gt; and &lt;channel&gt; are
+                                      # defined by the user when exporting the package
+
+lib/1.0@conan/stable
+</pre></div>
+</div>
+<p>The package ID is a SHA-1 hash calculated from the build <a class="reference internal" href="#options">options</a> and <a class="reference internal" href="#settings">settings</a> and from dependencies (according to
+certain <a class="reference external" href="#package-id-calculation-modes">modes</a>).</p>
+<p>See <a class="reference internal" href="#revisions">Revisions</a> for further details of the recipe revision and package revision (RREV and PREV).</p>
+</section>
+<section id="creating-a-basic-package">
+<h4><a class="toc-backref" href="#id28" role="doc-backlink">Creating a basic package</a><a class="headerlink" href="#creating-a-basic-package" title="Link to this heading"></a></h4>
+<p>Create a template package:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>new<span class="w"> </span>&lt;package&gt;/&lt;version&gt;@<span class="o">[</span>&lt;user&gt;/&lt;channel&gt;<span class="o">]</span><span class="w">  </span><span class="c1"># &lt;user&gt;/&lt;channel&gt; is not specified in Conan Center, but otherwise they should be</span>
+<span class="w">            </span><span class="o">[</span>-t<span class="o">]</span><span class="w">                                    </span><span class="c1"># Create a recipe for a basic test to verify the package was created successfully</span>
+<span class="w">            </span><span class="o">[</span>-s<span class="o">]</span><span class="w">                                    </span><span class="c1"># Create a recipe/source template for a package with local source code</span>
+</pre></div>
+</div>
+<p>Build a package from a <a class="reference external" href="#the-package-recipe">recipe</a> and store it in the local cache:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.<span class="w"> </span>&lt;user&gt;/&lt;channel&gt;<span class="w"> </span><span class="o">[</span>-o<span class="w"> </span>&lt;package&gt;:&lt;option&gt;<span class="o">=</span>&lt;value&gt;<span class="o">]</span><span class="w">   </span><span class="c1"># Specify options, for example shared=True.</span>
+<span class="w">                                  </span><span class="o">[</span>-s<span class="w"> </span>&lt;package&gt;:&lt;setting&gt;<span class="o">=</span>&lt;value&gt;<span class="o">]</span><span class="w">  </span><span class="c1"># Specify settings, for example build_type=Debug.</span>
+<span class="w">                                                                    </span><span class="c1"># If &lt;package&gt; is not specified, the option and</span>
+<span class="w">                                                                    </span><span class="c1"># setting applies to all dependencies.</span>
+<span class="w">                                  </span><span class="o">[</span>-pr<span class="o">=</span>&lt;profile<span class="w"> </span>name&gt;<span class="o">]</span><span class="w">              </span><span class="c1"># If -pr is not specified, the default profile is used</span>
+<span class="w">                                  </span><span class="o">[</span>--build<span class="o">=</span>missing<span class="o">]</span><span class="w">                 </span><span class="c1"># Build all dependencies if they can&#39;t be downloaded</span>
+</pre></div>
+</div>
+<p>See <a class="reference external" href="https://docs.conan.io/en/latest/reference/commands/creator/new.html">conan new</a> and <a class="reference external" href="https://docs.conan.io/en/latest/reference/commands/creator/create.html">conan
+create</a> reference.</p>
+</section>
+<section id="the-package-recipe">
+<h4><a class="toc-backref" href="#id29" role="doc-backlink">The package recipe</a><a class="headerlink" href="#the-package-recipe" title="Link to this heading"></a></h4>
+<p>A package recipe is a Python class, defined in a file called conanfile.py:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MypackageConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="o">...</span>                                                <span class="c1"># Various package metadata</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span>  <span class="c1"># Defines available settings</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;shared&quot;</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]}</span>                <span class="c1"># Defines available options and defaults. &quot;shared&quot; is a common</span>
+                                                       <span class="c1"># option which specifies whether a library is static or shared</span>
+
+    <span class="n">default_options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;shared&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+    <span class="n">requires</span> <span class="o">=</span> <span class="s2">&quot;requiredlib/0.1@user/stable&quot;</span>           <span class="c1"># Defines package requirements</span>
+    <span class="n">tool_requires</span> <span class="o">=</span> <span class="s2">&quot;tool_a/0.2@user/testing&quot;</span>          <span class="c1"># Defines requirements that are only used when the package is</span>
+                                                       <span class="c1"># built. These should be build and test tools only</span>
+    <span class="n">generators</span> <span class="o">=</span> <span class="s2">&quot;cmake&quot;</span>                               <span class="c1"># Generator for the package: specifies which build system</span>
+                                                       <span class="c1"># type will be generated</span>
+
+    <span class="k">def</span> <span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>                                                <span class="c1"># Obtains the source code for the project</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;git clone https://github.com/conan-io/hello.git&quot;</span><span class="p">)</span>  <span class="c1"># self.run() executes any command in the native shell</span>
+        <span class="n">tools</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://github.com/conan-io/hello/&quot;</span> <span class="o">+</span>             <span class="c1"># tools.get() downloads, unzips, and then removes the .zip file</span>
+                  <span class="s2">&quot;archive/refs/heads/master.zip&quot;</span><span class="p">)</span>                   <span class="c1"># The tools module contains a lot of helper methods for common</span>
+        <span class="o">...</span>                                                          <span class="c1"># tasks, and using them is often preferable to using self.run()</span>
+                                                                     <span class="c1"># See the link below for more information</span>
+
+    <span class="k">def</span> <span class="nf">build_requirements</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>                                    <span class="c1"># Responsible for specifying non-trivial build requirements logic</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">myoption1</span><span class="p">:</span>                                   <span class="c1"># Specify a conditional tool requirement</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tool_requires</span><span class="p">(</span><span class="s2">&quot;zlib/1.2@user/testing&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>                                                 <span class="c1"># Responsible for invoking the build system</span>
+        <span class="n">cmake</span> <span class="o">=</span> <span class="n">CMake</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>                                          <span class="c1"># Helper classes are available for several build systems</span>
+        <span class="o">...</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;bin/unittests&quot;</span><span class="p">)</span>                                    <span class="c1"># Run unit tests compiled earlier in the build() method</span>
+
+    <span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>                                               <span class="c1"># Responsible for capturing build artifacts</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.h&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;include&quot;</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;hello&quot;</span><span class="p">)</span>                 <span class="c1"># self.copy() copies files from the cache to the project folder</span>
+        <span class="o">...</span>
+
+    <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>                                          <span class="c1"># Responsible for defining variables that are</span>
+                                                                     <span class="c1"># passed to package consumers, for example</span>
+                                                                     <span class="c1"># library or include directories</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">libs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;hello&quot;</span><span class="p">]</span>                               <span class="c1"># The cpp_info dictionary contains these variables</span>
+        <span class="o">...</span>
+
+    <span class="k">def</span> <span class="nf">requirements</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>                                          <span class="c1"># Responsible for specifying non-trivial requirements logic</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">myoption2</span><span class="p">:</span>                                   <span class="c1"># Specify a conditional requirement</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">requires</span><span class="p">(</span><span class="s2">&quot;requiredlib2/0.3@user/stable&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">package_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>                                            <span class="c1"># Responsible for overriding the way the package</span>
+                                                                     <span class="c1"># ID is calculated from the default, for this package only</span>
+        <span class="n">default_package_id_mode</span> <span class="o">=</span> <span class="n">full_version_mode</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">compiler</span><span class="o">.</span><span class="n">version</span> <span class="o">==</span> <span class="s2">&quot;4.9&quot;</span><span class="p">:</span>                  <span class="c1"># Make compiler versions 4.8 and 4.7 compatible</span>
+                                                                     <span class="c1"># with version4.9: i.e., they all result in the same package ID</span>
+
+            <span class="k">for</span> <span class="n">version</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;4.8&quot;</span><span class="p">,</span> <span class="s2">&quot;4.7&quot;</span><span class="p">):</span>
+                <span class="n">compatible_pkg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+                <span class="n">compatible_pkg</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">compiler</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="n">version</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">compatible_packages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">compatible_pkg</span><span class="p">)</span>      <span class="c1"># The compatible_packages property is used to</span>
+                                                                     <span class="c1"># define this behaviour</span>
+
+    <span class="k">def</span> <span class="nf">imports</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>                                               <span class="c1"># Copies dependency files from the local cache</span>
+        <span class="o">...</span>                                                          <span class="c1"># to the project directory</span>
+
+    <span class="k">def</span> <span class="nf">deploy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>                                                <span class="c1"># Installs the project, which can include</span>
+        <span class="o">...</span>                                                          <span class="c1"># copying build artifacts</span>
+</pre></div>
+</div>
+<p>See <a class="reference external" href="https://docs.conan.io/en/1.36/reference/tools.html">tools</a> reference.</p>
+<section id="python-requires">
+<h5><a class="toc-backref" href="#id30" role="doc-backlink">Python requires</a><a class="headerlink" href="#python-requires" title="Link to this heading"></a></h5>
+<p>Python requires allow the re-use of python code across multiple recipes. Complex dependency graphs can be produced,
+and the <a class="reference external" href="#managing-dependencies">same concepts</a> apply with python requires as with normal package requirements.</p>
+<p>Export a conanfile.py:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span><span class="nb">export</span><span class="w"> </span>.<span class="w"> </span>&lt;user&gt;/&lt;channel&gt;
+</pre></div>
+</div>
+<p>Use the exported conanfile.py:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ConsumerConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">python_requires</span> <span class="o">=</span> <span class="s2">&quot;&lt;package&gt;/&lt;version&gt;@&lt;user&gt;/&lt;channel&gt;&quot;</span>  <span class="c1"># To use functions and variables from the exported conanfile.py</span>
+    <span class="n">python_requires_extend</span> <span class="o">=</span> <span class="s2">&quot;&lt;package&gt;.&lt;base class name&gt;&quot;</span>    <span class="c1"># To inherit from a full class in the exported conanfile.py</span>
+
+        <span class="o">...</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">python_requires</span><span class="p">[</span><span class="s2">&quot;&lt;package&gt;&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">func</span><span class="p">()</span>           <span class="c1"># To call the method func() from the exported conanfile.py</span>
+</pre></div>
+</div>
+<p>See <a class="reference external" href="https://docs.conan.io/en/latest/reference/commands/creator/export.html">conan export</a> reference.</p>
+</section>
+<section id="hooks">
+<h5><a class="toc-backref" href="#id31" role="doc-backlink">Hooks</a><a class="headerlink" href="#hooks" title="Link to this heading"></a></h5>
+<p>Hooks are recipe methods which are defined globally. They should not affect the built binary. There are <code class="docutils literal notranslate"><span class="pre">pre</span></code> and
+<code class="docutils literal notranslate"><span class="pre">post</span></code> hooks for many methods in the recipe. Hooks reside in ~/.conan/hooks, and are include in ~/.conan/conan.conf
+under the [hooks] section.</p>
+<p>Install a hook:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>config<span class="w"> </span>install<span class="w">  </span><span class="c1"># In the directory containing the python script with the hook</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="specifying-build-configuration-items">
+<h4><a class="toc-backref" href="#id32" role="doc-backlink">Specifying build configuration items</a><a class="headerlink" href="#specifying-build-configuration-items" title="Link to this heading"></a></h4>
+<section id="settings">
+<h5><a class="toc-backref" href="#id33" role="doc-backlink">Settings</a><a class="headerlink" href="#settings" title="Link to this heading"></a></h5>
+<p>Settings are configuration items which generally apply to all builds of all packages in the dependency tree.
+<cite>compiler</cite>, <cite>os</cite>, <cite>arch</cite>, and <cite>build_type</cite> (<cite>Release</cite>/<cite>Debug</cite>) are some of the most common.</p>
+<p>Available settings are defined in a global settings file: ~/.conan/settings.yml. The settings for a given package are
+defined in <a class="reference internal" href="#the-package-recipe">the package recipe</a>.</p>
+<p>Settings can then be set via <a class="reference internal" href="#profiles">profiles</a> or via arguments to <a class="reference external" href="#using-conan-packages-in-an-application">conan install</a> or <a class="reference external" href="#creating-a-basic-package">conan create</a>.</p>
+</section>
+<section id="options">
+<h5><a class="toc-backref" href="#id34" role="doc-backlink">Options</a><a class="headerlink" href="#options" title="Link to this heading"></a></h5>
+<p>Options are configuration items which are generally package-specific.</p>
+<p>The available options for a package are defined in <a class="reference internal" href="#the-package-recipe">the package recipe</a>.</p>
+<p>Options can then be set via <a class="reference internal" href="#profiles">profiles</a>, an application’s <a class="reference external" href="#using-conan-packages-in-an-application">Conanfile.txt</a>, or via arguments to <a class="reference external" href="#using-conan-packages-in-an-application">conan install</a> or
+<a class="reference external" href="#creating-a-basic-package">conan create</a>.</p>
+</section>
+</section>
+<section id="versioning">
+<h4><a class="toc-backref" href="#id35" role="doc-backlink">Versioning</a><a class="headerlink" href="#versioning" title="Link to this heading"></a></h4>
+<section id="versions">
+<h5><a class="toc-backref" href="#id36" role="doc-backlink">Versions</a><a class="headerlink" href="#versions" title="Link to this heading"></a></h5>
+<p>Packages are specified whenever a package is created, and whenever a recipe is consumed via a recipe reference.</p>
+<p>Specify ranges:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[&gt;min_ver &lt;max_ver] - specify a version range
+[*]                 - specify any version
+[~maj.min]          - specify any patch in v[maj].[min]
+</pre></div>
+</div>
+<p>The version taken is otherwise the maximum available.</p>
+</section>
+<section id="revisions">
+<h5><a class="toc-backref" href="#id37" role="doc-backlink">Revisions</a><a class="headerlink" href="#revisions" title="Link to this heading"></a></h5>
+<p>Revisions allow changes to a package without increasing the version number or overwriting the existing version number.
+They are disabled by default.</p>
+<p>There are two types of revisions:</p>
+<ul class="simple">
+<li><p>“Recipe Revisions” (RREV) - Revision of the recipe and sources</p></li>
+<li><p>“Package Revisions” (PREV) - Revision of a binary package</p></li>
+</ul>
+<p>The recipe revision (RREV) is a SHA-1 hash calculated over the <cite>conan_manifest.txt</cite>, which contains the individual
+hashes of the <cite>conanfile.py</cite> and all the files exported with <cite>exports</cite> and <cite>exports_sources</cite>. If the <cite>scm</cite> feature is
+used, Conan can also formulate the recipe revision directly from the version control system. Conan only holds one recipe
+revision in the local cache. Many recipe revisions can be stored in remote repositories. This helps differentiate
+between packages that have been changed and built without changing the version number. Recipe revisions can be specified
+wherever a recipe is consumed. If a recipe revision is not specified, the latest revision is used.</p>
+<p>The package revision (PREV) is a SHA-1 hash calculated over the binary contents of the package directory after the build
+and package steps are completed. Package revisions provide the most precise identification for a built package. They are
+very rarely used directly by users in commands or configurations, because it’s fairly impactical to do so. Instead, they
+are generally managed by the use of “Lockfiles”.</p>
+<p>Enable revisions:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>general.revisions_enabled<span class="o">=</span>True
+</pre></div>
+</div>
+</section>
+</section>
+<section id="managing-dependencies">
+<h4><a class="toc-backref" href="#id38" role="doc-backlink">Managing dependencies</a><a class="headerlink" href="#managing-dependencies" title="Link to this heading"></a></h4>
+<section id="specifying-dependencies">
+<h5><a class="toc-backref" href="#id39" role="doc-backlink">Specifying dependencies</a><a class="headerlink" href="#specifying-dependencies" title="Link to this heading"></a></h5>
+<p>Main application dependencies are set in the [requires] section of <a class="reference external" href="#using-conan-packages-in-an-application">Conanfile.txt</a>.</p>
+<p>Package dependencies - normal requirements, tool requirements, conditional requirements - are set in <a class="reference internal" href="#the-package-recipe">the package recipe</a>.</p>
+</section>
+<section id="package-id-calculation-modes">
+<h5><a class="toc-backref" href="#id40" role="doc-backlink">Package ID calculation modes</a><a class="headerlink" href="#package-id-calculation-modes" title="Link to this heading"></a></h5>
+<p>Conan performs dependency resolution via the calculation of package IDs. A package ID is calculated for a desired
+dependency, and then Conan searches for that package ID.</p>
+<p>The package ID calculation, and therefore the dependency resolution, is affected by the default_package_id_mode and the
+default_python_requires_id_mode. They determine what exactly affects the calculation: which parts of version numbers;
+package revisions; immediate or transitive dependencies. This relates to both normal requirements and <a class="reference internal" href="#python-requires">Python
+requires</a>. By default, only the main version number of direct dependencies are taken into account when calculating the
+package ID.</p>
+<p>These modes can be set in the [general] section of <a class="reference internal" href="#configurations">configurations</a>, and in <a class="reference internal" href="#the-package-recipe">the package recipe</a>.</p>
+</section>
+<section id="resolving-dependency-conflicts">
+<h5><a class="toc-backref" href="#id41" role="doc-backlink">Resolving dependency conflicts</a><a class="headerlink" href="#resolving-dependency-conflicts" title="Link to this heading"></a></h5>
+<p>Versions defined in the <a class="reference external" href="#using-conan-packages-in-an-application">conanfile.txt</a> take precedence over versions specified by dependencies. This can be used to
+resolve conflicts by dictating the use of only one version throughout the whole dependency graph.</p>
+</section>
+<section id="lockfiles">
+<h5><a class="toc-backref" href="#id42" role="doc-backlink">Lockfiles</a><a class="headerlink" href="#lockfiles" title="Link to this heading"></a></h5>
+<p>Lockfiles allow a snapshot of a dependency graph used for a build to be taken, and the build to be reproduced exactly at
+a later time.</p>
+<p>Create a lockfile:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>lock<span class="w"> </span>create<span class="w"> </span>&lt;package&gt;/conanfile.py<span class="w"> </span>--user<span class="o">=</span>&lt;user&gt;<span class="w"> </span>--channel<span class="o">=</span>&lt;channel&gt;
+</pre></div>
+</div>
+<p>Use lockfile during <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">create</span></code> or <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">install</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>&lt;command&gt;<span class="w"> </span>--lockfile<span class="w"> </span>conan.lock
+</pre></div>
+</div>
+<p>See <a class="reference external" href="https://docs.conan.io/en/latest/reference/commands/misc/lock.html">conan lock</a> reference.</p>
+</section>
+</section>
+<section id="uploading-packages-to-a-remote-repository">
+<h4><a class="toc-backref" href="#id43" role="doc-backlink">Uploading packages to a remote repository</a><a class="headerlink" href="#uploading-packages-to-a-remote-repository" title="Link to this heading"></a></h4>
+<p>Packages are not uploaded to a remote repository automatically. This needs to be done manually.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>upload<span class="w"> </span><span class="s2">&quot;&lt;package&gt;&quot;</span><span class="w"> </span>-r<span class="w"> </span>&lt;remote<span class="w"> </span>ID&gt;<span class="w">  </span><span class="c1"># Wildcards can be specified to upload multiple packages</span>
+<span class="w">               </span><span class="o">[</span>--all<span class="o">]</span><span class="w">                     </span><span class="c1"># Upload all binaries and their recipes (recipes only uploaded by default)</span>
+<span class="w">               </span><span class="o">[</span>--confirm<span class="o">]</span><span class="w">                 </span><span class="c1"># Auto-confirm</span>
+</pre></div>
+</div>
+<p>See <a class="reference external" href="https://docs.conan.io/en/latest/reference/commands/creator/upload.html">conan upload</a> reference.</p>
+</section>
+</section>
+<section id="important-points-for-enterprises">
+<h3><a class="toc-backref" href="#id44" role="doc-backlink">Important points for enterprises</a><a class="headerlink" href="#important-points-for-enterprises" title="Link to this heading"></a></h3>
+<p>Versioning, revisioning and dependency resolution should be consistent across a company. <a class="reference internal" href="#configurations">Configurations</a> should be
+synchronised across all developers, in particular <a class="reference internal" href="#package-id-calculation-modes">package id calculation modes</a>.</p>
+<p>In a CI/CD system, use <a class="reference internal" href="#lockfiles">lockfiles</a> throughout, so that builds are reproducible.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="reference/hooks.html" class="btn btn-neutral float-left" title="Hooks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="videos.html" class="btn btn-neutral float-right" title="Videos and links" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2022, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 1.62
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/en/1.62/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

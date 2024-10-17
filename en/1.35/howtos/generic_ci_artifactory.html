@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Use a generic CI with Conan and Artifactory &mdash; conan 1.35.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+    <link rel="shortcut icon" href="../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/en/latest/howtos/generic_ci_artifactory.html" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=c6d9a2e2"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Compiler sanitizers" href="sanitizers.html" />
+    <link rel="prev" title="How to check the version of the Conan client inside a conanfile" href="check_conan_version_in_conanfile.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/conan-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.35
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../training_courses.html">Training Courses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versioning.html">Versioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Extending Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../howtos.html">Howtos</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="header_only.html">How to package header-only libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cmake_launch.html">How to launch conan install from cmake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="visual_studio_packages.html">How to create and reuse packages based on Visual Studio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="makefiles.html">Creating and reusing packages based on Makefiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manage_gcc_abi.html">How to manage the GCC &gt;= 5 ABI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vs2017_cmake.html">Using Visual Studio 2017 - CMake integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intel_compiler.html">Working with Intel compiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manage_cpp_standard.html">How to manage C++ standard [EXPERIMENTAL]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run_conan_in_docker.html">How to use Docker to create and cross-build C and C++ Conan packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_code_reuse.html">How to reuse Python code in recipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_generators.html">How to create and share a custom generator with generator packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manage_shared_libraries.html">How to manage shared libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cmake_install.html">How to reuse cmake install for package() method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collaborate_packages.html">How to collaborate with other users’ packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="link_apple_framework.html">How to link with Apple Frameworks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="link_apple_framework.html#how-to-package-apple-frameworks">How to package Apple Frameworks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collect_licenses.html">How to collect licenses of dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extract_licenses_from_headers.html">How to extract licenses from headers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="capture_version.html">How to dynamically define the name and version of a package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="capture_version.html#how-to-capture-package-version-from-scm-git">How to capture package version from SCM: git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="capture_version.html#how-to-capture-package-version-from-scm-svn">How to capture package version from SCM: svn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="capture_version.html#how-to-capture-package-version-from-text-or-build-files">How to capture package version from text or build files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="other_languages_package_manager.html">How to use Conan as other language package manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="use_tls_certificates.html">How to manage SSL (TLS) certificates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="check_conan_version_in_conanfile.html">How to check the version of the Conan client inside a conanfile</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Use a generic CI with Conan and Artifactory</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#uploading-the-buildinfo">Uploading the BuildInfo</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#extracting-build-info-from-the-conan-trace-log">Extracting build-info from the Conan trace log</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#generating-build-info-from-lockfiles-information">Generating build info from lockfiles information</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sanitizers.html">Compiler sanitizers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../conan_v2.html">Road to Conan 2.0</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #eb8484;background-color: #ffcaca;padding: 3px;margin-bottom: 5px">
+              <p>This document is for a <b>"1.X" legacy</b> Conan version, <b>which is no longer recommended</b>. Please update to Conan 2, <a href="https://docs.conan.io/2/">click here to read the <b>Conan 2</b> documentation</a></p>
+            </div>
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          <!--@ OUTDATED_VERSION_PLACEHOLDER_BEGIN @
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/@LATEST_DOC_PAGE_URL@">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          @ OUTDATED_VERSION_PLACEHOLDER_END @-->
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../howtos.html">Howtos</a></li>
+      <li class="breadcrumb-item active">Use a generic CI with Conan and Artifactory</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/master/howtos/generic_ci_artifactory.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="use-a-generic-ci-with-conan-and-artifactory">
+<h1>Use a generic CI with Conan and Artifactory<a class="headerlink" href="#use-a-generic-ci-with-conan-and-artifactory" title="Link to this heading"></a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Some problems regarding the use of BuildInfo with Conan packages <a class="reference external" href="https://www.jfrog.com/jira/browse/RTFACT-9343">have been reported</a>. If the BuildInfo contains artifacts that have
+the same checksum as other artifacts, this may result in losing the path of the artifact in the
+BuildInfo in Artifactory and also fail in the promotion process.</p>
+<p>We are currently working along with the Artifactory team to solve those problems. Until this
+issue gets fixed, we do not recommend using BuildInfo’s for Conan.</p>
+</div>
+<section id="uploading-the-buildinfo">
+<h2>Uploading the BuildInfo<a class="headerlink" href="#uploading-the-buildinfo" title="Link to this heading"></a></h2>
+<p>If you are using <a class="reference internal" href="../integrations/ci/jenkins.html#jenkins-integration"><span class="std std-ref">Jenkins with Conan and Artifactory</span></a>, along with the
+<a class="reference external" href="https://www.jfrog.com/confluence/display/JFROG/Jenkins+Artifactory+Plug-in">Jenkins Artifactory Plugin</a>,
+any Conan package downloaded or uploaded during your build will be automatically recorded in
+the BuildInfo json file, that will be automatically uploaded to the specified Artifactory instance.</p>
+<p>However, using the <cite>conan_build_info</cite> command, you can gather and upload that information using other
+CI infrastructure. There are two possible ways of using this commmand:</p>
+<section id="extracting-build-info-from-the-conan-trace-log">
+<h3>Extracting build-info from the Conan trace log<a class="headerlink" href="#extracting-build-info-from-the-conan-trace-log" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>Before calling Conan the first time in your build, set the environment variable <cite>CONAN_TRACE_FILE</cite> to a
+file path. The generated file will contain the <a class="reference external" href="https://www.jfrog.com/confluence/display/JFROG/Build+Integration#BuildIntegration-BuildInfoJSON">BuildInfo json</a>.</p></li>
+<li><p>You also need to create the <a class="reference internal" href="../reference/config_files/artifacts.properties.html#artifacts-properties"><span class="std std-ref">artifacts.properties</span></a> file in your Conan home containing the build
+information. All this properties will be automatically associated to all the published artifacts.</p></li>
+</ol>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>artifact_property_build.name=MyBuild
+artifact_property_build.number=23
+artifact_property_build.timestamp=1487676992
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Call Conan as many times as you need.  For example, if you are testing a Conan package and uploading it at the end, you will run
+something similar to:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.<span class="w"> </span>user/stable<span class="w"> </span><span class="c1"># Will retrieve the dependencies and create the package</span>
+$<span class="w"> </span>conan<span class="w"> </span>upload<span class="w"> </span>mypackage/1.0@user/stable<span class="w"> </span>-r<span class="w"> </span>artifactory
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Call the command <cite>conan_build_info</cite> passing the path to the generated Conan traces file and a parameter <code class="docutils literal notranslate"><span class="pre">--output</span></code> to
+indicate the output file. You can also, delete the traces.log` file` otherwise while the <cite>CONAN_TRACE_FILE</cite> is present, any
+Conan command will keep appending actions.</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan_build_info<span class="w"> </span>/tmp/traces.log<span class="w"> </span>--output<span class="w"> </span>/tmp/build_info.json
+$<span class="w"> </span>rm<span class="w"> </span>/tmp/traces.log
+</pre></div>
+</div>
+<ol class="arabic" start="5">
+<li><p>Edit the <cite>build_info.json</cite> file to append <code class="docutils literal notranslate"><span class="pre">name</span></code> (build name), <code class="docutils literal notranslate"><span class="pre">number</span></code> (build number) and the <code class="docutils literal notranslate"><span class="pre">started</span></code> (started date) and
+any other field that you need according to the <a class="reference external" href="https://github.com/jfrog/build-info">Build Info json format</a>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">started</span></code> field has to be in the format: <code class="docutils literal notranslate"><span class="pre">yyyy-MM-dd'T'HH:mm:ss.SSSZ</span></code></p>
+<p>To edit the file you can import the json file using the programming language you are using in your framework, groovy, java, python…</p>
+</li>
+<li><p>Push the json file to Artifactory, using the REST-API:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span>-u&lt;username&gt;:&lt;password&gt;<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Content-type: application/json&quot;</span><span class="w"> </span>-T<span class="w"> </span>/tmp/build_info.json<span class="w"> </span><span class="s2">&quot;http://host:8081/artifactory/api/build&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="generating-build-info-from-lockfiles-information">
+<h3>Generating build info from lockfiles information<a class="headerlink" href="#generating-build-info-from-lockfiles-information" title="Link to this heading"></a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This is an <strong>experimental</strong> feature subject to breaking changes in future releases.</p>
+</div>
+<p>To maintain compatibility with the current implementation of the <code class="docutils literal notranslate"><span class="pre">conan_build_info</span></code> command, this
+version must be invoked using the argument <code class="docutils literal notranslate"><span class="pre">--v2</span></code> before any subcommand.</p>
+<p>1. To begin associating the build information to the uploaded packages the first thing
+is calling to the <code class="docutils literal notranslate"><span class="pre">start</span></code> subcommand of <code class="docutils literal notranslate"><span class="pre">conan_build_info</span></code>. This will set the
+<cite>artifact_property_build.name</cite> and <cite>artifact_property_build.name</cite> properties in the
+<a class="reference internal" href="../reference/config_files/artifacts.properties.html#artifacts-properties"><span class="std std-ref">artifacts.properties</span></a>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan_build_info<span class="w"> </span>--v2<span class="w"> </span>start<span class="w"> </span>MyBuildName<span class="w"> </span><span class="m">42</span>
+</pre></div>
+</div>
+<p>2. Call Conan using <a class="reference internal" href="../versioning/lockfiles.html#versioning-lockfiles"><span class="std std-ref">lockfiles</span></a> to create information for the
+<a class="reference external" href="https://github.com/jfrog/build-info">Build Info json format</a>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>mypackage
+$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.<span class="w"> </span>mypackage/1.0@user/stable<span class="w"> </span><span class="c1"># We create one package</span>
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>..<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>consumer
+$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>.<span class="w"> </span><span class="c1"># Consumes mypackage, generates a lockfile</span>
+$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.<span class="w"> </span>consumer/1.0@user/stable<span class="w"> </span>--lockfile<span class="w"> </span>conan.lock
+$<span class="w"> </span>conan<span class="w"> </span>upload<span class="w"> </span><span class="s2">&quot;*&quot;</span><span class="w"> </span>-c<span class="w"> </span>-r<span class="w"> </span><span class="nb">local</span><span class="w"> </span><span class="c1"># Upload all packages to local remotes</span>
+</pre></div>
+</div>
+<p>3. Create build information based on the contents of the generated <cite>conan.lock</cite> lockfile and the
+information retrieved from the remote (the authentication is for the remote where you uploaded the
+packages).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan_build_info<span class="w"> </span>--v2<span class="w"> </span>create<span class="w"> </span>buildinfo.json<span class="w"> </span>--lockfile<span class="w"> </span>conan.lock<span class="w"> </span>--user<span class="w"> </span>admin<span class="w"> </span>--password<span class="w"> </span>password
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Publish the build information to Artifactory with the <code class="docutils literal notranslate"><span class="pre">publish</span></code> subcommand:</p></li>
+</ol>
+<p>Using user and password</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan_build_info<span class="w"> </span>--v2<span class="w"> </span>publish<span class="w"> </span>buildinfo.json<span class="w"> </span>--url<span class="w"> </span>http://localhost:8081/artifactory<span class="w"> </span>--user<span class="w"> </span>admin<span class="w"> </span>--password<span class="w"> </span>password
+</pre></div>
+</div>
+<p>or an API key:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan_build_info<span class="w"> </span>--v2<span class="w"> </span>publish<span class="w"> </span>buildinfo.json<span class="w"> </span>--url<span class="w"> </span>http://localhost:8081/artifactory<span class="w"> </span>--apikey<span class="w"> </span>apikey
+</pre></div>
+</div>
+<p>5. If the whole process has finished and you don’t want to continue associating the build number and
+build name to the files uploaded to Artifactory then you can use the <code class="docutils literal notranslate"><span class="pre">stop</span></code> subcommand:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan_build_info<span class="w"> </span>--v2<span class="w"> </span>stop
+</pre></div>
+</div>
+<p>It is also possible to merge different build info files using the <code class="docutils literal notranslate"><span class="pre">update</span></code> subcommand. This is
+useful in CI when <a class="reference external" href="https://github.com/conan-io/examples/tree/master/features/lockfiles/ci">many slaves</a>
+are generating different build info files.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan_build_info<span class="w"> </span>--v2<span class="w"> </span>update<span class="w"> </span>buildinfo1.json<span class="w"> </span>buildinfo2.json<span class="w"> </span>--output-file<span class="w"> </span>mergedbuildinfo.json
+</pre></div>
+</div>
+<p>You can check the complete <a class="reference internal" href="../reference/commands/misc/conan_build_info.html#conan-build-info"><span class="std std-ref">conan_build_info reference</span></a>.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="check_conan_version_in_conanfile.html" class="btn btn-neutral float-left" title="How to check the version of the Conan client inside a conanfile" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="sanitizers.html" class="btn btn-neutral float-right" title="Compiler sanitizers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2020, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 1.35
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/en/1.35/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

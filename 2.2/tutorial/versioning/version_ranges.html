@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Version ranges &mdash; conan 2.2.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=045299b1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/conan.css?v=7d9e9f1e" />
+
+  
+    <link rel="shortcut icon" href="../../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/tutorial/versioning/version_ranges.html" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=85e56e6b"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Revisions" href="revisions.html" />
+    <link rel="prev" title="Versions" href="versions.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/conan-docs-logo-2.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../whatsnew.html">What’s new in Conan 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../tutorial.html">Tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../consuming_packages.html">Consuming packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conan_repositories.html">Working with Conan repositories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_packages.html">Developing packages locally</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../versioning.html">Versioning</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="versions.html">Versions</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Version ranges</a></li>
+<li class="toctree-l3"><a class="reference internal" href="revisions.html">Revisions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lockfiles.html">Lockfiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="conflicts.html">Dependencies conflicts</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../other_features.html">Other important Conan features</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../devops.html">Devops guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../knowledge.html">Knowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/tutorial/versioning/version_ranges.html">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../tutorial.html">Tutorial</a></li>
+          <li class="breadcrumb-item"><a href="../versioning.html">Versioning</a></li>
+      <li class="breadcrumb-item active">Version ranges</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/develop2/tutorial/versioning/version_ranges.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="version-ranges">
+<span id="tutorial-versioning-version-ranges"></span><h1>Version ranges<a class="headerlink" href="#version-ranges" title="Link to this heading">¶</a></h1>
+<p>In the previous section, we ended with several versions of the <code class="docutils literal notranslate"><span class="pre">pkg</span></code> package.
+Let’s remove them and create the following simple project:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">pkg/conanfile.py</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+<span class="k">class</span> <span class="nc">pkgRecipe</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;pkg&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">app/conanfile.py</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+<span class="k">class</span> <span class="nc">appRecipe</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;app&quot;</span>
+    <span class="n">requires</span> <span class="o">=</span> <span class="s2">&quot;pkg/1.0&quot;</span>
+</pre></div>
+</div>
+</div>
+<p>Let’s create <code class="docutils literal notranslate"><span class="pre">pkg/1.0</span></code> and install <code class="docutils literal notranslate"><span class="pre">app</span></code>, to see it requires <code class="docutils literal notranslate"><span class="pre">pkg/1.0</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>remove<span class="w"> </span><span class="s2">&quot;pkg*&quot;</span><span class="w"> </span>-c
+$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>pkg<span class="w"> </span>--version<span class="o">=</span><span class="m">1</span>.0
+...<span class="w"> </span>pkg/1.0<span class="w"> </span>...
+$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>app
+...
+Requirements
+<span class="w">    </span>pkg/1.0
+</pre></div>
+</div>
+<p>Then, if we create a new version of <code class="docutils literal notranslate"><span class="pre">pkg/1.1</span></code>, it will not automatically be used by <code class="docutils literal notranslate"><span class="pre">app</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>pkg<span class="w"> </span>--version<span class="o">=</span><span class="m">1</span>.1
+...<span class="w"> </span>pkg/1.0<span class="w"> </span>...
+<span class="c1"># Note how this still uses the previous 1.0 version</span>
+$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>app
+...
+Requirements
+<span class="w">    </span>pkg/1.0
+</pre></div>
+</div>
+<p>So we could modify <code class="docutils literal notranslate"><span class="pre">app</span></code> conanfile to explicitly use the new <code class="docutils literal notranslate"><span class="pre">pkg/1.1</span></code> version, but instead of that,
+let’s use the following version-range expression (introduced by the <code class="docutils literal notranslate"><span class="pre">[expression]</span></code> brackets):</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">app/conanfile.py</span><a class="headerlink" href="#id3" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+<span class="k">class</span> <span class="nc">appRecipe</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;app&quot;</span>
+    <span class="n">requires</span> <span class="o">=</span> <span class="s2">&quot;pkg/[&gt;=1.0 &lt;2.0]&quot;</span>
+</pre></div>
+</div>
+</div>
+<p>When we now install the dependencies of <code class="docutils literal notranslate"><span class="pre">app</span></code>, it will automatically use the latest version in the
+range, even if we create a new one, without needing to modify the <code class="docutils literal notranslate"><span class="pre">app</span></code> conanfile:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># this will now use the newer 1.1</span>
+$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>app
+...
+Requirements
+<span class="w">    </span>pkg/1.1
+
+$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>pkg<span class="w"> </span>--version<span class="o">=</span><span class="m">1</span>.2
+...<span class="w"> </span>pkg/1.2<span class="w"> </span>...
+<span class="c1"># Now it will automatically use the newest 1.2</span>
+$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>app
+...
+Requirements
+<span class="w">    </span>pkg/1.2
+</pre></div>
+</div>
+<p>This holds as long as the newer version lies within the defined range, if we create a <code class="docutils literal notranslate"><span class="pre">pkg/2.0</span></code> version,
+<code class="docutils literal notranslate"><span class="pre">app</span></code> will not use it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>pkg<span class="w"> </span>--version<span class="o">=</span><span class="m">2</span>.0
+...<span class="w"> </span>pkg/2.0<span class="w"> </span>...
+<span class="c1"># Conan will use the latest in the range</span>
+$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>app
+...
+Requirements
+<span class="w">    </span>pkg/1.2
+</pre></div>
+</div>
+<p>When using version ranges, versions in the cache are preferred over remote ones, so if you have a local
+<code class="docutils literal notranslate"><span class="pre">pkg/1.2</span></code> package, it will be used instead of the remote one, even if the remote one is newer.
+To ensure you use the latest available one, you can use the <code class="docutils literal notranslate"><span class="pre">--update</span></code> argument in the <code class="docutils literal notranslate"><span class="pre">install</span></code>/<code class="docutils literal notranslate"><span class="pre">create</span></code> command.</p>
+<p>Version ranges can be defined in several places:</p>
+<ul class="simple">
+<li><p>In <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code> recipes <code class="docutils literal notranslate"><span class="pre">requires</span></code>, <code class="docutils literal notranslate"><span class="pre">tool_requires</span></code>, <code class="docutils literal notranslate"><span class="pre">test_requires</span></code>, <code class="docutils literal notranslate"><span class="pre">python_requires</span></code></p></li>
+<li><p>In <code class="docutils literal notranslate"><span class="pre">conanfile.txt</span></code> files in <code class="docutils literal notranslate"><span class="pre">[requires]</span></code>, <code class="docutils literal notranslate"><span class="pre">[tool_requires]</span></code>, <code class="docutils literal notranslate"><span class="pre">[test_requires]</span></code> sections</p></li>
+<li><p>In command line arguments like <code class="docutils literal notranslate"><span class="pre">--requires=</span></code> and <code class="docutils literal notranslate"><span class="pre">--tool_requires</span></code>.</p></li>
+<li><p>In profiles <code class="docutils literal notranslate"><span class="pre">[tool_requires]</span></code> section</p></li>
+</ul>
+<section id="semantic-versioning">
+<h2>Semantic versioning<a class="headerlink" href="#semantic-versioning" title="Link to this heading">¶</a></h2>
+<p>The semantic versioning specification or <a class="reference external" href="https://semver.org/">semver</a>, specifies that packages should
+be versioned using always 3 dot-separated digits like <code class="docutils literal notranslate"><span class="pre">MAJOR.MINOR.PATCH</span></code>, with very specific meanings for each digit.</p>
+<p>Conan extends the semver specification to any number of digits, and also allows to include lowercase letters in it.
+This was done because during 1.X a lot of experience and feedback from users was gathered, and it became evident
+than in C++ the versioning scheme is often more complex, and users were demanding more flexibility, allowing
+versions like <code class="docutils literal notranslate"><span class="pre">1.2.3.a.8</span></code> if necessary.</p>
+<p>Conan versions non-digit identifiers follow the same rules as package names, they can only contain lowercase letters.
+This is to avoid <code class="docutils literal notranslate"><span class="pre">1.2.3-Beta</span></code> to be a different version than <code class="docutils literal notranslate"><span class="pre">1.2.3-beta</span></code> which can be problematic, even a
+security risk.</p>
+<p>The ordering of versions when necessary (for example to decide which is the latest version in a version range)
+is done by comparing individually each dot-separated entity in the version, from left to right. Digits will be
+compared numerically, so 2 &lt; 11, and entries containing letters will be compared alphabetically (even if they
+also contain some numbers).</p>
+<p>Similarly to the semver specification, Conan can manage <strong>prereleases</strong> and <strong>builds</strong> in the form:
+<code class="docutils literal notranslate"><span class="pre">VERSION-prerelease+build</span></code>.
+Conan will also order pre-releases and builds according to the same rules, and each one of them can also
+contain an arbitrary number of items, like <code class="docutils literal notranslate"><span class="pre">1.2.3-pre.1.2.1+build.45.a</span></code>.
+Note that the semver standard does not apply any ordering to builds, but Conan does, with the same logic that
+is used to order the main version and the pre-releases.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Note that the ordering of pre-releases can be confusing at times. A pre-release happens earlier in
+time than the release it is qualifying. So <code class="docutils literal notranslate"><span class="pre">1.1-alpha.1</span></code> is older than <code class="docutils literal notranslate"><span class="pre">1.1</span></code>, not newer.</p>
+</div>
+</section>
+<section id="range-expressions">
+<span id="tutorial-version-ranges-expressions"></span><h2>Range expressions<a class="headerlink" href="#range-expressions" title="Link to this heading">¶</a></h2>
+<p>Range expressions can have comparison operators for the lower and higher bounds, separated with a space.
+Also, lower bounds and upper bounds in isolation are permitted, though they are generally not recommended
+under normal versioning schemes, specially the lower bound only. <code class="docutils literal notranslate"><span class="pre">requires</span> <span class="pre">=</span> <span class="pre">&quot;pkg/[&gt;=1.0</span> <span class="pre">&lt;2.0]&quot;</span></code> will
+include versions like 1.0, 1.2.3 and 1.9, but will not include 0.3, 2.0 or 2.1 versions.</p>
+<p>The tilde <code class="docutils literal notranslate"><span class="pre">~</span></code> operator can be used to define an “approximately” equal version range. <code class="docutils literal notranslate"><span class="pre">requires</span> <span class="pre">=</span> <span class="pre">&quot;pkg/[~1]&quot;</span></code>
+will include versions 1.3 and 1.8.1, but will exclude versions like 0.8 or 2.0. Likewise
+<code class="docutils literal notranslate"><span class="pre">requires</span> <span class="pre">=</span> <span class="pre">&quot;pkg/[~2.5]&quot;</span></code> will include 2.5.0 and 2.5.3, but exclude 2.1, 2.7, 2.8.</p>
+<p>The caret <code class="docutils literal notranslate"><span class="pre">^</span></code> operator is very similar to the tilde, but allowing variability over the last defined digit.
+<code class="docutils literal notranslate"><span class="pre">requires</span> <span class="pre">=</span> <span class="pre">&quot;pkg/[^1.2]&quot;</span></code> will include 1.2.1, 1.3 and 1.51, but will exclude 1.0, 2, 2.0.</p>
+<p>It is also possible to apply multiple conditions with the OR operator, like <code class="docutils literal notranslate"><span class="pre">requires</span> <span class="pre">=</span> <span class="pre">&quot;pkg/[&gt;1</span> <span class="pre">&lt;2.0</span> <span class="pre">||</span> <span class="pre">^3.2]&quot;</span></code>
+but this kind of complex expressions is not recommended in practice and should only be used in very extreme cases.</p>
+<p>Finally, note that pre-releases are not resolved by default. The way to include them in the range is to
+explicitly enable them with either the <code class="docutils literal notranslate"><span class="pre">include_prerelease</span></code> option (<code class="docutils literal notranslate"><span class="pre">requires</span> <span class="pre">=</span> <span class="pre">&quot;pkg/[&gt;1</span> <span class="pre">&lt;2,</span> <span class="pre">include_prerelease]&quot;</span></code>),
+or via the <code class="docutils literal notranslate"><span class="pre">core.version_ranges:resolve_prereleases=True</span></code> configuration. In this example, 1.0-pre.1 and 1.5.1-pre1 will be included,
+but 2.0-pre1 would be excluded.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>While it is possible to hardcode the <code class="docutils literal notranslate"><span class="pre">include_prerelease</span></code> in the <code class="docutils literal notranslate"><span class="pre">requires</span></code> version range, it is not recommended generally.
+Pre-releases should be opt-in, and controlled by the user, who decides if they want to use pre-releases.
+Also, note that the <code class="docutils literal notranslate"><span class="pre">include_prereleases</span></code> receives no argument, hence it’s not possible to deactivate prereleases with <code class="docutils literal notranslate"><span class="pre">include_prerelease=False</span></code>.</p>
+</div>
+<p>For more information about valid range expressions go to <a class="reference internal" href="../../reference/conanfile/attributes.html#version-ranges-reference"><span class="std std-ref">Requires reference</span></a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="versions.html" class="btn btn-neutral float-left" title="Versions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="revisions.html" class="btn btn-neutral float-right" title="Revisions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2024, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 2.2
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/2.2/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

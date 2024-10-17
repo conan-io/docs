@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Custom command: Clean old recipe and package revisions &mdash; conan 2.5.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=045299b1" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/conan.css?v=7d9e9f1e" />
+
+  
+    <link rel="shortcut icon" href="../../../../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/examples/extensions/commands/clean/custom_command_clean_revisions.html" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../_static/documentation_options.js?v=3c4615cf"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Builtin deployers" href="../../deployers/builtin_deployers.html" />
+    <link rel="prev" title="Custom commands" href="../custom_commands.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html">
+            
+              <img src="../../../../_static/conan-docs-logo-2.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.5
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../whatsnew.html">What’s new in Conan 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../devops.html">Devops guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../integrations.html">Integrations</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../examples.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../conanfile.html">ConanFile methods examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../../extensions.html">Conan extensions examples</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../custom_commands.html">Custom commands</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Custom command: Clean old recipe and package revisions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../deployers/builtin_deployers.html">Builtin deployers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../deployers/custom_deployers.html">Custom deployers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tools.html">Conan recipe tools examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cross_build.html">Cross-building examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../config_files.html">Configuration files examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../graph.html">Graph examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_flow.html">Developer tools and flows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../commands.html">Conan commands examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../runners.html">Conan runners examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge.html">Knowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/examples/extensions/commands/clean/custom_command_clean_revisions.html">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../../examples.html">Examples</a></li>
+          <li class="breadcrumb-item"><a href="../../../extensions.html">Conan extensions examples</a></li>
+          <li class="breadcrumb-item"><a href="../custom_commands.html">Custom commands</a></li>
+      <li class="breadcrumb-item active">Custom command: Clean old recipe and package revisions</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/develop2/examples/extensions/commands/clean/custom_command_clean_revisions.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="custom-command-clean-old-recipe-and-package-revisions">
+<span id="examples-extensions-commands-clean-revisions"></span><h1>Custom command: Clean old recipe and package revisions<a class="headerlink" href="#custom-command-clean-old-recipe-and-package-revisions" title="Link to this heading">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is mostly an example command. The built-in <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">remove</span> <span class="pre">*#!latest</span></code> syntax,
+meaning “all revisions but the latest” would probably be enough for this use case,
+without needing this custom command.</p>
+</div>
+<p>Please, first clone the sources to recreate this project. You can find them in the
+<a class="reference external" href="https://github.com/conan-io/examples2">examples2 repository</a> in GitHub:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/conan-io/examples2.git
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>examples2/examples/extensions/commands/clean
+</pre></div>
+</div>
+<p>In this example we are going to see how to create/use a custom command: <strong class="command">conan clean</strong>. It removes
+every recipe and its package revisions from the local cache or the remotes, except the latest package revision from
+the latest recipe one.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To understand better this example, it is highly recommended to read previously the <a class="reference internal" href="../../../../reference/extensions/custom_commands.html#reference-commands-custom-commands"><span class="std std-ref">Custom commands reference</span></a>.</p>
+</div>
+<section id="locate-the-command">
+<h2>Locate the command<a class="headerlink" href="#locate-the-command" title="Link to this heading">¶</a></h2>
+<p>Copy the command file <code class="docutils literal notranslate"><span class="pre">cmd_clean.py</span></code> into your <code class="docutils literal notranslate"><span class="pre">[YOUR_CONAN_HOME]/extensions/commands/</span></code> folder (create it if it’s not there).
+If you don’t know where <code class="docutils literal notranslate"><span class="pre">[YOUR_CONAN_HOME]</span></code> is located, you can run <strong class="command">conan config home</strong> to check it.</p>
+</section>
+<section id="run-it">
+<h2>Run it<a class="headerlink" href="#run-it" title="Link to this heading">¶</a></h2>
+<p>Now, you should be able to see the new command in your command prompt:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>-h
+...
+Custom<span class="w"> </span>commands
+clean<span class="w">        </span>Deletes<span class="w"> </span><span class="o">(</span>from<span class="w"> </span><span class="nb">local</span><span class="w"> </span>cache<span class="w"> </span>or<span class="w"> </span>remotes<span class="o">)</span><span class="w"> </span>all<span class="w"> </span>recipe<span class="w"> </span>and<span class="w"> </span>package<span class="w"> </span>revisions<span class="w"> </span>but<span class="w"> </span>the
+<span class="w">               </span>latest<span class="w"> </span>package<span class="w"> </span>revision<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>latest<span class="w"> </span>recipe<span class="w"> </span>revision.
+
+$<span class="w"> </span>conan<span class="w"> </span>clean<span class="w"> </span>-h
+usage:<span class="w"> </span>conan<span class="w"> </span>clean<span class="w"> </span><span class="o">[</span>-h<span class="o">]</span><span class="w"> </span><span class="o">[</span>-r<span class="w"> </span>REMOTE<span class="o">]</span><span class="w"> </span><span class="o">[</span>--force<span class="o">]</span>
+
+Deletes<span class="w"> </span><span class="o">(</span>from<span class="w"> </span><span class="nb">local</span><span class="w"> </span>cache<span class="w"> </span>or<span class="w"> </span>remotes<span class="o">)</span><span class="w"> </span>all<span class="w"> </span>recipe<span class="w"> </span>and<span class="w"> </span>package<span class="w"> </span>revisions<span class="w"> </span>but
+the<span class="w"> </span>latest<span class="w"> </span>package<span class="w"> </span>revision<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>latest<span class="w"> </span>recipe<span class="w"> </span>revision.
+
+optional<span class="w"> </span>arguments:
+<span class="w">  </span>-h,<span class="w"> </span>--help<span class="w">            </span>show<span class="w"> </span>this<span class="w"> </span><span class="nb">help</span><span class="w"> </span>message<span class="w"> </span>and<span class="w"> </span><span class="nb">exit</span>
+<span class="w">  </span>-r<span class="w"> </span>REMOTE,<span class="w"> </span>--remote<span class="w"> </span>REMOTE
+<span class="w">                        </span>Will<span class="w"> </span>remove<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>specified<span class="w"> </span>remote
+<span class="w">  </span>--force<span class="w">               </span>Remove<span class="w"> </span>without<span class="w"> </span>requesting<span class="w"> </span>a<span class="w"> </span>confirmation
+</pre></div>
+</div>
+<p>Finally, if you execute <strong class="command">conan clean</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>clean
+Do<span class="w"> </span>you<span class="w"> </span>want<span class="w"> </span>to<span class="w"> </span>remove<span class="w"> </span>all<span class="w"> </span>the<span class="w"> </span>recipes<span class="w"> </span>revisions<span class="w"> </span>and<span class="w"> </span>their<span class="w"> </span>packages<span class="w"> </span>ones,<span class="w"> </span>except<span class="w"> </span>the<span class="w"> </span>latest<span class="w"> </span>package<span class="w"> </span>revision<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>latest<span class="w"> </span>recipe<span class="w"> </span>one?<span class="w"> </span><span class="o">(</span>yes/no<span class="o">)</span>:<span class="w"> </span>yes
+other/1.0
+Removed<span class="w"> </span>package<span class="w"> </span>revision:<span class="w"> </span>other/1.0#31da245c3399e4124e39bd4f77b5261f:da39a3ee5e6b4b0d3255bfef95601890afd80709#a16985deb2e1aa73a8480faad22b722c<span class="w"> </span><span class="o">[</span>Local<span class="w"> </span>cache<span class="o">]</span>
+Removed<span class="w"> </span>recipe<span class="w"> </span>revision:<span class="w"> </span>other/1.0#721995a35b1a8d840ce634ea1ac71161<span class="w"> </span>and<span class="w"> </span>all<span class="w"> </span>its<span class="w"> </span>package<span class="w"> </span>revisions<span class="w"> </span><span class="o">[</span>Local<span class="w"> </span>cache<span class="o">]</span>
+hello/1.0
+Removed<span class="w"> </span>package<span class="w"> </span>revision:<span class="w"> </span>hello/1.0#9a77cdcff3a539b5b077dd811b2ae3b0:da39a3ee5e6b4b0d3255bfef95601890afd80709#cee90a74944125e7e9b4f74210bfec3f<span class="w"> </span><span class="o">[</span>Local<span class="w"> </span>cache<span class="o">]</span>
+Removed<span class="w"> </span>package<span class="w"> </span>revision:<span class="w"> </span>hello/1.0#9a77cdcff3a539b5b077dd811b2ae3b0:da39a3ee5e6b4b0d3255bfef95601890afd80709#7cddd50952de9935d6c3b5b676a34c48<span class="w"> </span><span class="o">[</span>Local<span class="w"> </span>cache<span class="o">]</span>
+libcxx/0.1
+</pre></div>
+</div>
+<p>Nothing should happen if you run it again:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>clean
+Do<span class="w"> </span>you<span class="w"> </span>want<span class="w"> </span>to<span class="w"> </span>remove<span class="w"> </span>all<span class="w"> </span>the<span class="w"> </span>recipes<span class="w"> </span>revisions<span class="w"> </span>and<span class="w"> </span>their<span class="w"> </span>packages<span class="w"> </span>ones,<span class="w"> </span>except<span class="w"> </span>the<span class="w"> </span>latest<span class="w"> </span>package<span class="w"> </span>revision<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>latest<span class="w"> </span>recipe<span class="w"> </span>one?<span class="w"> </span><span class="o">(</span>yes/no<span class="o">)</span>:<span class="w"> </span>yes
+other/1.0
+hello/1.0
+libcxx/0.1
+</pre></div>
+</div>
+</section>
+<section id="code-tour">
+<h2>Code tour<a class="headerlink" href="#code-tour" title="Link to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">clean</span></code> command has the following code:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">cmd_clean.py</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conan.api.conan_api</span> <span class="kn">import</span> <span class="n">ConanAPI</span>
+<span class="kn">from</span> <span class="nn">conan.api.output</span> <span class="kn">import</span> <span class="n">ConanOutput</span><span class="p">,</span> <span class="n">Color</span>
+<span class="kn">from</span> <span class="nn">conan.cli.command</span> <span class="kn">import</span> <span class="n">OnceArgument</span><span class="p">,</span> <span class="n">conan_command</span>
+<span class="kn">from</span> <span class="nn">conans.client.userio</span> <span class="kn">import</span> <span class="n">UserInput</span>
+
+
+<span class="n">recipe_color</span> <span class="o">=</span> <span class="n">Color</span><span class="o">.</span><span class="n">BRIGHT_BLUE</span>
+<span class="n">removed_color</span> <span class="o">=</span> <span class="n">Color</span><span class="o">.</span><span class="n">BRIGHT_YELLOW</span>
+
+
+<span class="nd">@conan_command</span><span class="p">(</span><span class="n">group</span><span class="o">=</span><span class="s2">&quot;Custom commands&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">clean</span><span class="p">(</span><span class="n">conan_api</span><span class="p">:</span> <span class="n">ConanAPI</span><span class="p">,</span> <span class="n">parser</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Deletes (from local cache or remotes) all recipe and package revisions but</span>
+<span class="sd">    the latest package revision from the latest recipe revision.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-r&#39;</span><span class="p">,</span> <span class="s1">&#39;--remote&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="n">OnceArgument</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Will remove from the specified remote&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--force&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Remove without requesting a confirmation&#39;</span><span class="p">)</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">confirmation</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">args</span><span class="o">.</span><span class="n">force</span> <span class="ow">or</span> <span class="n">ui</span><span class="o">.</span><span class="n">request_boolean</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+
+    <span class="n">ui</span> <span class="o">=</span> <span class="n">UserInput</span><span class="p">(</span><span class="n">non_interactive</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">ConanOutput</span><span class="p">()</span>
+    <span class="n">remote</span> <span class="o">=</span> <span class="n">conan_api</span><span class="o">.</span><span class="n">remotes</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">remote</span><span class="p">)</span> <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">remote</span> <span class="k">else</span> <span class="kc">None</span>
+    <span class="n">output_remote</span> <span class="o">=</span> <span class="n">remote</span> <span class="ow">or</span> <span class="s2">&quot;Local cache&quot;</span>
+
+    <span class="c1"># Getting all the recipes</span>
+    <span class="n">recipes</span> <span class="o">=</span> <span class="n">conan_api</span><span class="o">.</span><span class="n">search</span><span class="o">.</span><span class="n">recipes</span><span class="p">(</span><span class="s2">&quot;*/*&quot;</span><span class="p">,</span> <span class="n">remote</span><span class="o">=</span><span class="n">remote</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">recipes</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">confirmation</span><span class="p">(</span><span class="s2">&quot;Do you want to remove all the recipes revisions and their packages ones, &quot;</span>
+                                    <span class="s2">&quot;except the latest package revision from the latest recipe one?&quot;</span><span class="p">):</span>
+        <span class="k">return</span>
+    <span class="k">for</span> <span class="n">recipe</span> <span class="ow">in</span> <span class="n">recipes</span><span class="p">:</span>
+        <span class="n">out</span><span class="o">.</span><span class="n">writeln</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">recipe</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="n">recipe_color</span><span class="p">)</span>
+        <span class="n">all_rrevs</span> <span class="o">=</span> <span class="n">conan_api</span><span class="o">.</span><span class="n">list</span><span class="o">.</span><span class="n">recipe_revisions</span><span class="p">(</span><span class="n">recipe</span><span class="p">,</span> <span class="n">remote</span><span class="o">=</span><span class="n">remote</span><span class="p">)</span>
+        <span class="n">latest_rrev</span> <span class="o">=</span> <span class="n">all_rrevs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">all_rrevs</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">rrev</span> <span class="ow">in</span> <span class="n">all_rrevs</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">rrev</span> <span class="o">!=</span> <span class="n">latest_rrev</span><span class="p">:</span>
+                <span class="n">conan_api</span><span class="o">.</span><span class="n">remove</span><span class="o">.</span><span class="n">recipe</span><span class="p">(</span><span class="n">rrev</span><span class="p">,</span> <span class="n">remote</span><span class="o">=</span><span class="n">remote</span><span class="p">)</span>
+                <span class="n">out</span><span class="o">.</span><span class="n">writeln</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Removed recipe revision: </span><span class="si">{</span><span class="n">rrev</span><span class="o">.</span><span class="n">repr_notime</span><span class="p">()</span><span class="si">}</span><span class="s2"> &quot;</span>
+                            <span class="sa">f</span><span class="s2">&quot;and all its package revisions [</span><span class="si">{</span><span class="n">output_remote</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="n">removed_color</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">packages</span> <span class="o">=</span> <span class="n">conan_api</span><span class="o">.</span><span class="n">list</span><span class="o">.</span><span class="n">packages_configurations</span><span class="p">(</span><span class="n">rrev</span><span class="p">,</span> <span class="n">remote</span><span class="o">=</span><span class="n">remote</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">package_ref</span> <span class="ow">in</span> <span class="n">packages</span><span class="p">:</span>
+                    <span class="n">all_prevs</span> <span class="o">=</span> <span class="n">conan_api</span><span class="o">.</span><span class="n">list</span><span class="o">.</span><span class="n">package_revisions</span><span class="p">(</span><span class="n">package_ref</span><span class="p">,</span> <span class="n">remote</span><span class="o">=</span><span class="n">remote</span><span class="p">)</span>
+                    <span class="n">latest_prev</span> <span class="o">=</span> <span class="n">all_prevs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">all_prevs</span> <span class="k">else</span> <span class="kc">None</span>
+                    <span class="k">for</span> <span class="n">prev</span> <span class="ow">in</span> <span class="n">all_prevs</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">prev</span> <span class="o">!=</span> <span class="n">latest_prev</span><span class="p">:</span>
+                        <span class="n">conan_api</span><span class="o">.</span><span class="n">remove</span><span class="o">.</span><span class="n">package</span><span class="p">(</span><span class="n">prev</span><span class="p">,</span> <span class="n">remote</span><span class="o">=</span><span class="n">remote</span><span class="p">)</span>
+                        <span class="n">out</span><span class="o">.</span><span class="n">writeln</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Removed package revision: </span><span class="si">{</span><span class="n">prev</span><span class="o">.</span><span class="n">repr_notime</span><span class="p">()</span><span class="si">}</span><span class="s2"> [</span><span class="si">{</span><span class="n">output_remote</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="n">removed_color</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Let’s analyze the most important parts.</p>
+<section id="parser">
+<h3>parser<a class="headerlink" href="#parser" title="Link to this heading">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">parser</span></code> param is an instance of the Python command-line parsing <code class="docutils literal notranslate"><span class="pre">argparse.ArgumentParser</span></code>,
+so if you want to know more about its API, visit <a class="reference external" href="https://docs.python.org/3/library/argparse.html">its official website</a>.</p>
+</section>
+<section id="user-input-and-user-output">
+<h3>User input and user output<a class="headerlink" href="#user-input-and-user-output" title="Link to this heading">¶</a></h3>
+<p>Important classes to manage user input and user output:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ui</span> <span class="o">=</span> <span class="n">UserInput</span><span class="p">(</span><span class="n">non_interactive</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">ConanOutput</span><span class="p">()</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">UserInput(non_interactive)</span></code>: class to manage user inputs. In this example we’re using <code class="docutils literal notranslate"><span class="pre">ui.request_boolean(&quot;Do</span> <span class="pre">you</span> <span class="pre">want</span> <span class="pre">to</span> <span class="pre">proceed?&quot;)</span></code>,
+so it’ll be automatically translated to <code class="docutils literal notranslate"><span class="pre">Do</span> <span class="pre">you</span> <span class="pre">want</span> <span class="pre">to</span> <span class="pre">proceed?</span> <span class="pre">(yes/no):</span></code> in the command prompt.
+<strong>Note</strong>: you can use <code class="docutils literal notranslate"><span class="pre">UserInput(non_interactive=conan_api.config.get(&quot;core:non_interactive&quot;))</span></code> too.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ConanOutput()</span></code>: class to manage user outputs. In this example, we’re using only <code class="docutils literal notranslate"><span class="pre">out.writeln(message,</span> <span class="pre">fg=None,</span> <span class="pre">bg=None)</span></code>
+where <code class="docutils literal notranslate"><span class="pre">fg</span></code> is the font foreground, and <code class="docutils literal notranslate"><span class="pre">bg</span></code> is the font background. Apart from that, you have some predefined methods
+like <code class="docutils literal notranslate"><span class="pre">out.info()</span></code>, <code class="docutils literal notranslate"><span class="pre">out.success()</span></code>, <code class="docutils literal notranslate"><span class="pre">out.error()</span></code>, etc.</p></li>
+</ul>
+</section>
+<section id="conan-public-api">
+<h3>Conan public API<a class="headerlink" href="#conan-public-api" title="Link to this heading">¶</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This feature is experimental and subject to breaking changes.
+See <a class="reference internal" href="../../../../introduction.html#stability"><span class="std std-ref">the Conan stability</span></a> section for more information.</p>
+</div>
+<p>The most important part of this example is the usage of the Conan API via <code class="docutils literal notranslate"><span class="pre">conan_api</span></code> parameter. These are some examples
+which are being used in this custom command:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">conan_api</span><span class="o">.</span><span class="n">remotes</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">remote</span><span class="p">)</span>
+<span class="n">conan_api</span><span class="o">.</span><span class="n">search</span><span class="o">.</span><span class="n">recipes</span><span class="p">(</span><span class="s2">&quot;*/*&quot;</span><span class="p">,</span> <span class="n">remote</span><span class="o">=</span><span class="n">remote</span><span class="p">)</span>
+<span class="n">conan_api</span><span class="o">.</span><span class="n">list</span><span class="o">.</span><span class="n">recipe_revisions</span><span class="p">(</span><span class="n">recipe</span><span class="p">,</span> <span class="n">remote</span><span class="o">=</span><span class="n">remote</span><span class="p">)</span>
+<span class="n">conan_api</span><span class="o">.</span><span class="n">remove</span><span class="o">.</span><span class="n">recipe</span><span class="p">(</span><span class="n">rrev</span><span class="p">,</span> <span class="n">remote</span><span class="o">=</span><span class="n">remote</span><span class="p">)</span>
+<span class="n">conan_api</span><span class="o">.</span><span class="n">list</span><span class="o">.</span><span class="n">packages_configurations</span><span class="p">(</span><span class="n">rrev</span><span class="p">,</span> <span class="n">remote</span><span class="o">=</span><span class="n">remote</span><span class="p">)</span>
+<span class="n">conan_api</span><span class="o">.</span><span class="n">list</span><span class="o">.</span><span class="n">package_revisions</span><span class="p">(</span><span class="n">package_ref</span><span class="p">,</span> <span class="n">remote</span><span class="o">=</span><span class="n">remote</span><span class="p">)</span>
+<span class="n">conan_api</span><span class="o">.</span><span class="n">remove</span><span class="o">.</span><span class="n">package</span><span class="p">(</span><span class="n">prev</span><span class="p">,</span> <span class="n">remote</span><span class="o">=</span><span class="n">remote</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">conan_api.remotes.get(...)</span></code>: <code class="docutils literal notranslate"><span class="pre">[RemotesAPI]</span></code> Returns a RemoteRegistry given the remote name.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">conan_api.search.recipes(...)</span></code>: <code class="docutils literal notranslate"><span class="pre">[SearchAPI]</span></code> Returns a list with all the recipes matching the given pattern.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">conan_api.list.recipe_revisions(...)</span></code>: <code class="docutils literal notranslate"><span class="pre">[ListAPI]</span></code> Returns a list with all the recipe revisions given a recipe reference.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">conan_api.list.packages_configurations(...)</span></code>: <code class="docutils literal notranslate"><span class="pre">[ListAPI]</span></code> Returns the list of different configurations (package_id’s) for a recipe revision.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">conan_api.list.package_revisions(...)</span></code>: <code class="docutils literal notranslate"><span class="pre">[ListAPI]</span></code> Returns the list of package revisions for a given recipe revision.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">conan_api.remove.recipe(...)</span></code>: <code class="docutils literal notranslate"><span class="pre">[RemoveAPI]</span></code> Removes the given recipe revision.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">conan_api.remove.package(...)</span></code>: <code class="docutils literal notranslate"><span class="pre">[RemoveAPI]</span></code> Removes the given package revision.</p></li>
+</ul>
+<p>Besides that, it deserves especial attention these lines:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">all_rrevs</span> <span class="o">=</span> <span class="n">conan_api</span><span class="o">.</span><span class="n">list</span><span class="o">.</span><span class="n">recipe_revisions</span><span class="p">(</span><span class="n">recipe</span><span class="p">,</span> <span class="n">remote</span><span class="o">=</span><span class="n">remote</span><span class="p">)</span>
+<span class="n">latest_rrev</span> <span class="o">=</span> <span class="n">all_rrevs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">all_rrevs</span> <span class="k">else</span> <span class="kc">None</span>
+
+<span class="o">...</span>
+
+<span class="n">packages</span> <span class="o">=</span> <span class="n">conan_api</span><span class="o">.</span><span class="n">list</span><span class="o">.</span><span class="n">packages_configurations</span><span class="p">(</span><span class="n">rrev</span><span class="p">,</span> <span class="n">remote</span><span class="o">=</span><span class="n">remote</span><span class="p">)</span>
+
+<span class="o">...</span>
+
+<span class="n">all_prevs</span> <span class="o">=</span> <span class="n">conan_api</span><span class="o">.</span><span class="n">list</span><span class="o">.</span><span class="n">package_revisions</span><span class="p">(</span><span class="n">package_ref</span><span class="p">,</span> <span class="n">remote</span><span class="o">=</span><span class="n">remote</span><span class="p">)</span>
+<span class="n">latest_prev</span> <span class="o">=</span> <span class="n">all_prevs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">all_prevs</span> <span class="k">else</span> <span class="kc">None</span>
+</pre></div>
+</div>
+<p>Basically, these API calls are returning a list of recipe revisions and package ones
+respectively, but we’re saving the first element as the latest one because these calls are
+getting an ordered list always.</p>
+<p>If you want to know more about the Conan API, visit the <a class="reference internal" href="../../../../reference/extensions/python_api/ConanAPI.html#reference-python-api-conan-api"><span class="std std-ref">ConanAPI section</span></a></p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../custom_commands.html" class="btn btn-neutral float-left" title="Custom commands" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../deployers/builtin_deployers.html" class="btn btn-neutral float-right" title="Builtin deployers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2024, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 2.5
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/2.5/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

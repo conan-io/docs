@@ -1,0 +1,2147 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Changelog &mdash; conan 1.4.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=c97b86a3"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Troubleshooting" href="faq/troubleshooting.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=GTM-WK44ZFM"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'GTM-WK44ZFM');
+</script>
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/conan_logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.4
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#june-2018">1.4.5 (22-June-2018)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">1.4.4 (11-June-2018)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">1.4.3 (6-June-2018)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">1.4.2 (4-June-2018)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#may-2018">1.4.1 (31-May-2018)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">1.4.0 (30-May-2018)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">1.3.3 (10-May-2018)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">1.3.2 (7-May-2018)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id8">1.3.1 (3-May-2018)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#april-2018">1.3.0 (30-April-2018)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#apr-2017">1.2.3 (10-Apr-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#apr-2018">1.2.1 (3-Apr-2018)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mar-2018">1.2.0 (28-Mar-2018)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">1.1.1 (5-Mar-2018)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#feb-2018">1.1.0 (27-Feb-2018)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#january-2018">1.0.4 (30-January-2018)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id10">1.0.3 (22-January-2018)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id11">1.0.2 (16-January-2018)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id12">1.0.1 (12-January-2018)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id13">1.0.0 (10-January-2018)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#beta5-8-january-2018">1.0.0-beta5 (8-January-2018)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#beta4-4-january-2018">1.0.0-beta4 (4-January-2018)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#beta3-28-december-2017">1.0.0-beta3 (28-December-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#beta2-23-december-2017">1.0.0-beta2 (23-December-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#december-2017">0.30.3 (15-December-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id14">0.30.2 (14-December-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id15">0.30.1 (12-December-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id16">0.29.2 (2-December-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#november-2017">0.29.1 (23-November-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id17">0.29.0 (21-November-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#october-2017">0.28.1 (31-October-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id18">0.28.0 (26-October-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#september-2017">0.27.0 (20-September-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id19">0.26.1 (05-September-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#august-2017">0.26.0 (31-August-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#july-2017">0.25.1 (20-July-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id20">0.25.0 (19-July-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#june-2017">0.24.0 (15-June-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id21">0.23.1 (05-June-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id22">0.23.0 (01-June-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#may-2017">0.22.3 (03-May-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#april-2017">0.22.2 (20-April-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id23">0.22.1 (18-April-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id24">0.22.0 (18-April-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id25">0.21.2 (04-April-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#march-2017">0.21.1 (23-March-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id26">0.21.0 (21-March-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id27">0.20.3 (06-March-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id28">0.20.2 (02-March-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id29">0.20.1 (01-March-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#february-2017">0.20.0 (27-February-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id30">0.19.3 (27-February-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id31">0.19.2 (15-February-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id32">0.19.1 (02-February-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#january-2017">0.19.0 (31-January-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id33">0.18.1 (11-January-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id34">0.18.0 (3-January-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#december-2016">0.17.2 (21-December-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id35">0.17.1 (15-December-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id36">0.17.0 (13-December-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id37">0.16.1 (05-December-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#november-2016">0.16.0 (19-November-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id38">0.15.0 (08-November-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#october-2016">0.14.1 (20-October-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id39">0.14.0 (20-October-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id40">0.13.3 (13-October-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id41">0.13.0 (03-October-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#september-2016">0.12.0 (13-September-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#august-2016">0.11.1 (31-August-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id42">0.11.0 (3-August-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#june-2016">0.10.0 (29-June-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#may-2016">0.9.2 (11-May-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id43">0.9 (3-May-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mar-2016">0.8.4 (28-Mar-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id44">0.8 (15-Mar-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#feb-2016">0.7 (5-Feb-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#jan-2016">0.6 (11-Jan-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dec-2015">0.5 (18-Dec-2015)</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #eb8484;background-color: #ffcaca;padding: 3px;margin-bottom: 5px">
+              <p>This document is for a <b>"1.X" legacy</b> Conan version, <b>which is no longer recommended</b>. Please update to Conan 2, <a href="https://docs.conan.io/2/">click here to read the <b>Conan 2</b> documentation</a></p>
+            </div>
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          <!--@ OUTDATED_VERSION_PLACEHOLDER_BEGIN @
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/@LATEST_DOC_PAGE_URL@">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          @ OUTDATED_VERSION_PLACEHOLDER_END @-->
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Changelog</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/changelog.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="changelog">
+<span id="id1"></span><h1>Changelog<a class="headerlink" href="#changelog" title="Link to this heading"></a></h1>
+<p>Check <a class="reference external" href="https://github.com/conan-io/conan">https://github.com/conan-io/conan</a> for issues and more details about development, contributors, etc.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Conan 1.4 shouldn’t break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
+Please read more <a class="reference internal" href="introduction.html#stability"><span class="std std-ref">about Conan stability</span></a>.</p>
+</div>
+<section id="june-2018">
+<h2>1.4.5 (22-June-2018)<a class="headerlink" href="#june-2018" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Bugfix: The package_id recipe method was being called twice causing issues with info objects being populated with wrong information.</p></li>
+</ul>
+</section>
+<section id="id2">
+<h2>1.4.4 (11-June-2018)<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Bugfix: Fix link order with private requirements.</p></li>
+<li><p>Bugfix: Removed duplicate <cite>-std</cite> flag in CMake &lt; 3 or when the standard is not yet supported by <cite>CMAKE_CXX_STANDARD</cite>.</p></li>
+<li><p>Bugfix: Check <cite>scm</cite> attribute to avoid breaking recipes with already defined one.</p></li>
+<li><p>Feature: Conan workspaces.</p></li>
+</ul>
+</section>
+<section id="id3">
+<h2>1.4.3 (6-June-2018)<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Bugfix: Added system libraries to the cmake_find_package generator.</p></li>
+<li><p>Fix: Added SIGTERM signal handler to quit safely.</p></li>
+<li><p>Bugfix: Fixed miss-detection of gcc 1 when no gcc was on a Linux machine.</p></li>
+</ul>
+</section>
+<section id="id4">
+<h2>1.4.2 (4-June-2018)<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Bugfix: Fixed multi-config packages.</p></li>
+<li><p>Bugfix: Fixed <cite>cppstd</cite> management with CMake and 20 standard version.</p></li>
+</ul>
+</section>
+<section id="may-2018">
+<h2>1.4.1 (31-May-2018)<a class="headerlink" href="#may-2018" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Bugfix: Solved issue with symlinks making recipes to fail with <cite>self.copy</cite>.</p></li>
+<li><p>Bugfix: Fixed c++20 standard usage with modern compilers and the creation of the <code class="docutils literal notranslate"><span class="pre">settings.yml</span></code> containing the settings values.</p></li>
+<li><p>Bugfix: Fixed error with cased directory names in Windows.</p></li>
+<li><p>BugFix: Modified confusing warning message in the SCM tool when the remote couldn’t be detected.</p></li>
+</ul>
+</section>
+<section id="id5">
+<h2>1.4.0 (30-May-2018)<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Feature: Added <code class="docutils literal notranslate"><span class="pre">scm</span></code> conanfile attribute, to easily clone/checkout from remote repositories and
+to capture the remote and commit in the exported recipe when the recipe and the sources lives in the same repository.
+Read more in “<a class="reference internal" href="creating_packages/external_repo.html#external-repo"><span class="std std-ref">Recipe and sources in a different repo</span></a>” and “<a class="reference internal" href="creating_packages/package_repo.html#package-repo"><span class="std std-ref">Recipe and sources in the same repo</span></a>”.</p></li>
+<li><p>Feature: Added <code class="docutils literal notranslate"><span class="pre">cmake_paths</span></code> generator to create a file setting <code class="docutils literal notranslate"><span class="pre">CMAKE_MODULE_PATH</span></code> and <code class="docutils literal notranslate"><span class="pre">CMAKE_PREFIX_PATH</span></code> to the packages folders.
+It can be used as a CMake toolchain to perform a transparent CMake usage, without include any line of cmake code related to Conan.
+Read more <a class="reference internal" href="integrations/cmake/cmake_paths_generator.html#cmake-paths-generator"><span class="std std-ref">here</span></a>.</p></li>
+<li><p>Feature: Added <code class="docutils literal notranslate"><span class="pre">cmake_find_package</span></code> generator that generates one <code class="docutils literal notranslate"><span class="pre">FindXXX.cmake</span></code> file per each dependency both with classic CMake approach and modern
+using transitive CMake targets. Read more <a class="reference internal" href="integrations/cmake/cmake_find_package_generator.html#cmake-find-package-generator"><span class="std std-ref">here</span></a>.</p></li>
+<li><p>Feature: Added <strong class="command">conan search --json</strong> json output to the command.</p></li>
+<li><p>Feature: CMake build helper now sets <code class="docutils literal notranslate"><span class="pre">PKG_CONFIG_PATH</span></code> automatically and receives new parameter <code class="docutils literal notranslate"><span class="pre">pkg_config_paths</span></code> to override it.</p></li>
+<li><p>Feature: CMake build helper doesn’t require to specify “arch” nor “compiler” anymore when the generator is “Unix Makefiles”.</p></li>
+<li><p>Feature: Introduced default settings for GCC 8, Clang 7.</p></li>
+<li><p>Feature: Introduced support for c++ language standard c++20.</p></li>
+<li><p>Feature: Auto-managed <code class="docutils literal notranslate"><span class="pre">fPIC</span></code> option in AutoTools build helper.</p></li>
+<li><p>Feature: <code class="docutils literal notranslate"><span class="pre">tools.vcvars_command()</span></code> and <code class="docutils literal notranslate"><span class="pre">tools.vcvars_dict()</span></code> now take <code class="docutils literal notranslate"><span class="pre">vcvars_ver</span></code> and <code class="docutils literal notranslate"><span class="pre">winsdk_version</span></code> as parameters.</p></li>
+<li><p>Feature: <code class="docutils literal notranslate"><span class="pre">tools.vcvars_dict()</span></code> gets only the env vars set by vcvars with new parameter <code class="docutils literal notranslate"><span class="pre">only_diff=True</span></code>.</p></li>
+<li><p>Feature: Generator <code class="docutils literal notranslate"><span class="pre">virtualbuildenv</span></code> now sets Visual Studio env vars via <code class="docutils literal notranslate"><span class="pre">tool.vcvars_dict()</span></code>.</p></li>
+<li><p>Feature: New tools for Apple development including XCRun wrapper.</p></li>
+<li><p>Fix: Message “Package ‘1’ created” in package commands with <code class="docutils literal notranslate"><span class="pre">short_paths=True</span></code> now shows package ID.</p></li>
+<li><p>Fix: <code class="docutils literal notranslate"><span class="pre">tools.vcvars_dict()</span></code> failing to create dictionary due to newlines in vcvars command output.</p></li>
+<li><p>Bugfix: <code class="docutils literal notranslate"><span class="pre">tools.which()</span></code> returning directories instead of only files.</p></li>
+<li><p>Bugfix: Inconsistent local cache when developing a recipe with <code class="docutils literal notranslate"><span class="pre">short_paths=True</span></code>.</p></li>
+<li><p>Bugfix: Fixed reusing MSBuild() helper object for multi-configuration packages.</p></li>
+<li><p>Bugfix: Fixed authentication using env vars such as <code class="docutils literal notranslate"><span class="pre">CONAN_PASSWORD</span></code> when <code class="docutils literal notranslate"><span class="pre">CONAN_NON_INTERACTIVE=True</span></code>.</p></li>
+<li><p>Bugfix: Fixed Android api_level was not used to adjust CMAKE_SYSTEM_VERSION.</p></li>
+<li><p>Bugfix: Fixed MSBuild() build helper creating empty XML node for runtime when the setting was not declared.</p></li>
+<li><p>Bugfix: Fixed <code class="docutils literal notranslate"><span class="pre">default_options</span></code> not supporting <code class="docutils literal notranslate"><span class="pre">=</span></code> in value when specified as tuple.</p></li>
+<li><p>Bugfix: AutoToolsBuildEnvironment build helper’s <code class="docutils literal notranslate"><span class="pre">pkg_config_paths</span></code> parameter now sets paths relative to the install folder or absolute
+ones if provided.</p></li>
+</ul>
+</section>
+<section id="id6">
+<h2>1.3.3 (10-May-2018)<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Bugfix: Fixed encoding issues writing to files and calculating md5 sums.</p></li>
+</ul>
+</section>
+<section id="id7">
+<h2>1.3.2 (7-May-2018)<a class="headerlink" href="#id7" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Bugfix: Fixed broken <code class="docutils literal notranslate"><span class="pre">run_in_windows_bash</span></code> due to wrong argument.</p></li>
+<li><p>Bugfix: Fixed <code class="docutils literal notranslate"><span class="pre">VisualStudioBuildEnvironment</span></code> when toolset was not defined.</p></li>
+<li><p>Bugfix: Fixed md5 computation of conan .tgz files for recipe, exported sources and packages due to file ordering and flags.</p></li>
+<li><p>Bugfix: Fixed <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">download</span> <span class="pre">-p=wrong_id</span></code> command</p></li>
+<li><p>Fix: Added apple-clang 9.1</p></li>
+</ul>
+</section>
+<section id="id8">
+<h2>1.3.1 (3-May-2018)<a class="headerlink" href="#id8" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Bugfix: Fixed regression with <code class="docutils literal notranslate"><span class="pre">AutoToolsBuildEnvironment</span></code> build helper that raised exception with not supported architectures during the calculation of the GNU triplet.</p></li>
+<li><p>Bugfix: Fixed <code class="docutils literal notranslate"><span class="pre">pkg_config</span></code> generator, previously crashing when there was no library directories in the requirements.</p></li>
+<li><p>Bugfix: Fixed <code class="docutils literal notranslate"><span class="pre">conanfile.run()</span></code> with <code class="docutils literal notranslate"><span class="pre">win_bash=True</span></code>  quoting the paths correctly.</p></li>
+<li><p>Bugfix: Recovered parameter “append” to the <code class="docutils literal notranslate"><span class="pre">tools.save</span></code> function.</p></li>
+<li><p>Bugfix: Added support (documented but missing) to delete options in <code class="docutils literal notranslate"><span class="pre">package_id()</span></code> method using <code class="docutils literal notranslate"><span class="pre">del</span> <span class="pre">self.info.options.&lt;option&gt;</span></code></p></li>
+</ul>
+</section>
+<section id="april-2018">
+<h2>1.3.0 (30-April-2018)<a class="headerlink" href="#april-2018" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Feature: Added new build types to default <code class="docutils literal notranslate"><span class="pre">settings.yml</span></code>: <strong>RelWithDebInfo</strong> and <strong>MinSizeRel</strong>.
+Compiler flags will be automatically defined in build helpers that do not understand them (<code class="docutils literal notranslate"><span class="pre">MSBuild</span></code>, <code class="docutils literal notranslate"><span class="pre">AutotoolsBuildEnvironment</span></code>)</p></li>
+<li><p>Feature: Improved package integrity. Interrupted downloads or builds shouldn’t leave corrupted packages.</p></li>
+<li><p>Feature: Added <strong class="command">conan upload --json</strong> json output to the command.</p></li>
+<li><p>Feature: new <strong class="command">conan remove --locks</strong> to clear cache locks. Useful when killing conan.</p></li>
+<li><p>Feature: New <strong>CircleCI</strong> template scripts can be generated with the <strong class="command">conan new</strong> command.</p></li>
+<li><p>Feature: The CMake() build helper manages the fPIC flag automatically based on the options <code class="docutils literal notranslate"><span class="pre">fPIC</span></code> and <code class="docutils literal notranslate"><span class="pre">shared</span></code> when present.</p></li>
+<li><p>Feature: Allowing requiring color output with <code class="docutils literal notranslate"><span class="pre">CONAN_COLOR_DISPLAY=1</span></code> environment variable.
+If <code class="docutils literal notranslate"><span class="pre">CONAN_COLOR_DISPLAY</span></code> is not set rely on tty detection for colored output.</p></li>
+<li><p>Feature: New <strong class="command">conan remote rename</strong> and <strong class="command">conan add --force</strong> commands to handle remotes.</p></li>
+<li><p>Feature: Added parameter <code class="docutils literal notranslate"><span class="pre">use_env</span></code> to the <code class="docutils literal notranslate"><span class="pre">MSBuild().build()</span></code> build helper method to control the <code class="docutils literal notranslate"><span class="pre">/p:UseEnv</span></code> msbuild argument.</p></li>
+<li><p>Feature: Timeout for downloading files from remotes is now configurable (defaulted to 60 seconds)</p></li>
+<li><p>Feature: Improved Autotools build helper with new parameters and automatic set of <code class="docutils literal notranslate"><span class="pre">--prefix</span></code> to <code class="docutils literal notranslate"><span class="pre">self.package_folder</span></code>.</p></li>
+<li><p>Feature: Added new tool to compose GNU like triplets for cross-building: <code class="docutils literal notranslate"><span class="pre">tools.get_gnu_triplet()</span></code></p></li>
+<li><p>Fix: Use International Units for download/upload transfer sizes (Mb, Kb, etc).</p></li>
+<li><p>Fix: Removed duplicated paths in <code class="docutils literal notranslate"><span class="pre">cmake_multi</span></code> generated files.</p></li>
+<li><p>Fix: Removed false positive linter warning for local imports.</p></li>
+<li><p>Fix: Improved command line help for positional arguments</p></li>
+<li><p>Fix <strong class="command">-ks</strong> alias for <strong class="command">--keep-source</strong> argument in <strong class="command">conan create</strong> and <strong class="command">conan export</strong>.</p></li>
+<li><p>Fix: removed confusing warnings when <code class="docutils literal notranslate"><span class="pre">self.copy()</span></code> doesn’t copy files in the <code class="docutils literal notranslate"><span class="pre">package()</span></code> method.</p></li>
+<li><p>Fix: <code class="docutils literal notranslate"><span class="pre">None</span></code> is now a possible value for settings with nested subsettings in <code class="docutils literal notranslate"><span class="pre">settings.yml</span></code>.</p></li>
+<li><p>Fix: if <code class="docutils literal notranslate"><span class="pre">vcvars_command</span></code> is called and Visual is not found, raise an error instead of warning.</p></li>
+<li><p>Bugfix: <code class="docutils literal notranslate"><span class="pre">self.env_info.paths</span></code> and <code class="docutils literal notranslate"><span class="pre">self.env_info.PATHS</span></code> both map now to PATHS env-var.</p></li>
+<li><p>Bugfix: Local flow was not correctly recovering state for option values.</p></li>
+<li><p>Bugfix: Windows NTFS permissions failed in case USERDOMAIN env-var was not defined.</p></li>
+<li><p>Bugfix: Fixed generator <code class="docutils literal notranslate"><span class="pre">pkg_config</span></code> when there are absolute paths (not use prefix)</p></li>
+<li><p>Bugfix: Fixed parsing of settings values with <code class="docutils literal notranslate"><span class="pre">&quot;=&quot;</span></code> character in conaninfo.txt files.</p></li>
+<li><p>Bugfix: Fixed misdetection of MSYS environments (generation of default profile)</p></li>
+<li><p>Bugfix: Fixed string scaping in CMake files for preprocessor definitions.</p></li>
+<li><p>Bugfix: <code class="docutils literal notranslate"><span class="pre">upload</span> <span class="pre">--no-overwrite</span></code> failed when the remote package didn’t exist.</p></li>
+<li><p>Bugfix: Don’t raise an error if <code class="docutils literal notranslate"><span class="pre">detect_windows_subsystem</span></code> doesn’t detect a subsystem.</p></li>
+</ul>
+</section>
+<section id="apr-2017">
+<h2>1.2.3 (10-Apr-2017)<a class="headerlink" href="#apr-2017" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Bugfix: Removed invalid version field from scons generator.</p></li>
+</ul>
+</section>
+<section id="apr-2018">
+<h2>1.2.1 (3-Apr-2018)<a class="headerlink" href="#apr-2018" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Feature: Support for <cite>apple-clang 9.1</cite></p></li>
+<li><p>Bugfix: <cite>compiler_args</cite> generator manage correctly the flag for the <cite>cppstd</cite> setting.</p></li>
+<li><p>Bugfix: Replaced exception with a warning message (recommending the <cite>six</cite> module) when using <cite>StringIO</cite> class from the <cite>io</cite> module.</p></li>
+</ul>
+</section>
+<section id="mar-2018">
+<h2>1.2.0 (28-Mar-2018)<a class="headerlink" href="#mar-2018" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Feature: The command <strong class="command">conan build</strong> has new <code class="docutils literal notranslate"><span class="pre">--configure,</span> <span class="pre">--build,</span> <span class="pre">--install</span></code> arguments to control the different stages of the
+<code class="docutils literal notranslate"><span class="pre">build()</span></code> method.</p></li>
+<li><p>Feature: The command <strong class="command">conan export-pkg</strong> now has a <strong class="command">--package-folder</strong> that can be used to export an exact copy of the
+provided folder, irrespective of the <code class="docutils literal notranslate"><span class="pre">package()</span></code> method. It assumes the package has been locally created with a previous
+<strong class="command">conan package</strong> or with a <strong class="command">conan build</strong> using a <code class="docutils literal notranslate"><span class="pre">cmake.install()</span></code> or equivalent feature.</p></li>
+<li><p>Feature: New <code class="docutils literal notranslate"><span class="pre">json</span></code> generator, generates a json file with machine readable information from dependencies.</p></li>
+<li><p>Feature: Improved proxies configuration with <code class="docutils literal notranslate"><span class="pre">no_proxy_match</span></code> configuration variable.</p></li>
+<li><p>Feature: New <strong class="command">conan upload</strong> parameter <strong class="command">--no-overwrite</strong> to forbid the overwriting of recipe/packages if they have
+changed.</p></li>
+<li><p>Feature: Exports are now copied to <code class="docutils literal notranslate"><span class="pre">source_folder</span></code> when doing <strong class="command">conan source</strong>.</p></li>
+<li><p>Feature: <code class="docutils literal notranslate"><span class="pre">tools.vcvars()</span></code> context manager has no effect if platform is different from Windows.</p></li>
+<li><p>Feature: <strong class="command">conan download</strong> has new optional argument <strong class="command">--recipe</strong> to download only the recipe of a package.</p></li>
+<li><p>Feature: Added <code class="docutils literal notranslate"><span class="pre">CONAN_NON_INTERACTIVE</span></code> environment variable to disable interactive prompts.</p></li>
+<li><p>Feature: Improved <code class="docutils literal notranslate"><span class="pre">MSbuild()</span></code> build helper using <code class="docutils literal notranslate"><span class="pre">vcvars()</span></code> and generating property file to adjust the runtime automatically.
+New method <code class="docutils literal notranslate"><span class="pre">get_command()</span></code> with the call to <code class="docutils literal notranslate"><span class="pre">msbuild</span></code> tool. Deprecates <code class="docutils literal notranslate"><span class="pre">tools.build_sln_command()</span></code> and <code class="docutils literal notranslate"><span class="pre">tools.msvc_build_command()</span></code>.</p></li>
+<li><p>Feature: Support for clang 6.0 correctly managing cppstd flags.</p></li>
+<li><p>Feature: Added configuration to specify a client certificate to connect to SSL server.</p></li>
+<li><p>Feature: Improved <code class="docutils literal notranslate"><span class="pre">ycm</span></code> generator to show json dependencies.</p></li>
+<li><p>Feature: Experimental <code class="docutils literal notranslate"><span class="pre">--json</span></code> parameter for <strong class="command">conan install</strong> and <strong class="command">conan create</strong> to generate a JSON file with install information.</p></li>
+<li><p>Fix: <strong class="command">conan install --build</strong> does not absorb more than one parameter.</p></li>
+<li><p>Fix: Made conanfile templates generated with <strong class="command">conan new</strong> PEP8 compliant.</p></li>
+<li><p>Fix: <strong class="command">conan search</strong> output improved when there are no packages for the given reference.</p></li>
+<li><p>Fix: Made <strong class="command">conan download</strong> also retrieve sources.</p></li>
+<li><p>Fix: Pylint now runs as an external process.</p></li>
+<li><p>Fix: Made <code class="docutils literal notranslate"><span class="pre">self.user</span></code> and <code class="docutils literal notranslate"><span class="pre">self.channel</span></code> available in test_package.</p></li>
+<li><p>Fix: Made files writable after a <code class="docutils literal notranslate"><span class="pre">deploy()</span></code> or <code class="docutils literal notranslate"><span class="pre">imports()</span></code> when <code class="docutils literal notranslate"><span class="pre">CONAN_READ_ONLY_CACHE`</span></code>/<code class="docutils literal notranslate"><span class="pre">general.read_only_cache</span></code>
+environment/config variable is <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
+<li><p>Fix: Linter showing warnings with <code class="docutils literal notranslate"><span class="pre">cpp_info</span></code> object in <code class="docutils literal notranslate"><span class="pre">deploy()</span></code> method.</p></li>
+<li><p>Fix: Disabled linter for Conan pyinstaller as it was not able to find the python modules.</p></li>
+<li><p>Fix: <strong class="command">conan user -r=remote_name</strong> showed all users for all remotes, not the one given.</p></li>
+<li><p>BugFix: Python reuse code failing to import module in <code class="docutils literal notranslate"><span class="pre">package_info()</span></code>.</p></li>
+<li><p>BugFix: Added escapes for backslashes in <code class="docutils literal notranslate"><span class="pre">cmake</span></code> generator.</p></li>
+<li><p>BugFix: <strong class="command">conan config install</strong> now raises error if <strong class="command">git clone</strong> fails.</p></li>
+<li><p>BugFix: Alias resolution not working in diamond shaped dependency trees.</p></li>
+<li><p>BugFix: Fixed builds with Cygwin/MSYS2 failing in Windows with <cite>self.short_paths=True</cite> and NTFS file systems due to ACL permissions.</p></li>
+<li><p>BugFix: Failed to adjust architecture when running Conan platform detection in ARM devices.</p></li>
+<li><p>BugFix: Output to StringIO failing in Python 2.</p></li>
+<li><p>BugFix: <strong class="command">conan profile update</strong> not working to update <code class="docutils literal notranslate"><span class="pre">[env]</span></code> section.</p></li>
+<li><p>BugFix: <strong class="command">conan search</strong> not creating default remotes when running it as the very first command after Conan installation.</p></li>
+<li><p>BugFix: Package folder was not cleaned after the installation and download of a package had failed.</p></li>
+</ul>
+</section>
+<section id="id9">
+<h2>1.1.1 (5-Mar-2018)<a class="headerlink" href="#id9" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Feature: <code class="docutils literal notranslate"><span class="pre">build_sln_command()</span></code> and <code class="docutils literal notranslate"><span class="pre">msvc_build_command()</span></code> receive a new optional parameter <code class="docutils literal notranslate"><span class="pre">platforms</span></code> to match the definition of the <em>.sln</em> Visual Studio project architecture. (Typically Win32 vs x86 problem).</p></li>
+<li><p>Bufix:  Flags for Visual Studio command (cl.exe) using “-” instead of “/” to avoid problems in builds using AutoTools scripts with Visual Studio compiler.</p></li>
+<li><p>Bugfix: Visual Studio runtime flags adjusted correctly in <code class="docutils literal notranslate"><span class="pre">AutoToolsBuildEnvironment()</span></code> build helper</p></li>
+<li><p>Bugfix: <code class="docutils literal notranslate"><span class="pre">AutoToolsBuildEnvironment()</span></code> build helper now adjust the correct build flag, not using eabi suffix, for architecture x86.</p></li>
+</ul>
+</section>
+<section id="feb-2018">
+<h2>1.1.0 (27-Feb-2018)<a class="headerlink" href="#feb-2018" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Feature: New <strong class="command">conan create --keep-build</strong> option that allows re-packaging from conan local cache, without re-building.</p></li>
+<li><p>Feature: <strong class="command">conan search &lt;pattern&gt; -r=all</strong> now searches in all defined remotes.</p></li>
+<li><p>Feature: Added setting <code class="docutils literal notranslate"><span class="pre">cppstd</span></code> to manage the C++ standard. Also improved build helpers to adjust the standard automatically when the user activates the setting. <code class="docutils literal notranslate"><span class="pre">AutoToolsBuildEnvironment()</span></code>, <code class="docutils literal notranslate"><span class="pre">CMake()</span></code>, <code class="docutils literal notranslate"><span class="pre">MSBuild()</span></code> and <code class="docutils literal notranslate"><span class="pre">VisualStudioBuildEnvironment()</span></code>.</p></li>
+<li><p>Feature: New <code class="docutils literal notranslate"><span class="pre">compiler_args</span></code> generator, for directly calling the compiler from command line, for multiple compilers: VS, gcc, clang.</p></li>
+<li><p>Feature: Defined <code class="docutils literal notranslate"><span class="pre">sysrequires_mode</span></code> variable (<code class="docutils literal notranslate"><span class="pre">CONAN_SYSREQUIRES_MODE</span></code> env-var) with values <code class="docutils literal notranslate"><span class="pre">enabled,</span> <span class="pre">verify,</span> <span class="pre">disabled</span></code> to control the installation of system dependencies via <code class="docutils literal notranslate"><span class="pre">SystemPackageTool</span></code> typically used in <a class="reference internal" href="reference/conanfile/methods.html#method-system-requirements"><span class="std std-ref">system_requirements()</span></a>.</p></li>
+<li><p>Feature: automatically apply <code class="docutils literal notranslate"><span class="pre">pythonpath</span></code> environment variable for dependencies containing python code to be reused to recipe <code class="docutils literal notranslate"><span class="pre">source()</span></code>, <code class="docutils literal notranslate"><span class="pre">build()</span></code>, <code class="docutils literal notranslate"><span class="pre">package()</span></code> methods.</p></li>
+<li><p>Feature: <code class="docutils literal notranslate"><span class="pre">CMake</span></code> new <code class="docutils literal notranslate"><span class="pre">patch_config_paths()</span></code> methods that will replace absolute paths to conan package path variables, so cmake find scripts are relocatable.</p></li>
+<li><p>Feature: new <strong class="command">--test-build-folder</strong> command line argument to define the location of the <em>test_package</em> build folder, and new conan.conf <code class="docutils literal notranslate"><span class="pre">temp_test_folder</span></code> and environment variable <code class="docutils literal notranslate"><span class="pre">CONAN_TEMP_TEST_FOLDER</span></code>, that if set to True will automatically clean the test_package build folder after running.</p></li>
+<li><p>Feature: Conan manages relative urls for upload/download to allow access the server from different configured networks or in domain subdirectories.</p></li>
+<li><p>Feature: Added <code class="docutils literal notranslate"><span class="pre">CONAN_SKIP_VS_PROJECTS_UPGRADE</span></code> environment variable to skip the upgrade of Visual Studio project when using <a class="reference internal" href="reference/tools.html#build-sln-commmand"><span class="std std-ref">build_sln_commmand</span></a>, the <a class="reference internal" href="reference/tools.html#msvc-build-command"><span class="std std-ref">msvc_build_command</span></a> and the <a class="reference internal" href="reference/build_helpers/visual_studio.html#msbuild"><span class="std std-ref">MSBuild()</span></a> build helper.</p></li>
+<li><p>Feature: Improved detection of Visual Studio installations, possible to prioritize between multiple installed Visual tools with the <code class="docutils literal notranslate"><span class="pre">CONAN_VS_INSTALLATION_PREFERENCE</span></code> env-var and <code class="docutils literal notranslate"><span class="pre">vs_installation_preference</span></code> conan.conf variable.</p></li>
+<li><p>Feature: Added <code class="docutils literal notranslate"><span class="pre">keep_path</span></code> parameter to <code class="docutils literal notranslate"><span class="pre">self.copy()</span></code> within the <code class="docutils literal notranslate"><span class="pre">imports()</span></code> method.</p></li>
+<li><p>Feature: Added <code class="docutils literal notranslate"><span class="pre">[build_requires]</span></code> section to <em>conanfile.txt</em>.</p></li>
+<li><p>Feature: Added new <strong class="command">conan help &lt;command&gt;</strong> command, as an alternative to <strong class="command">--help</strong>.</p></li>
+<li><p>Feature: Added <code class="docutils literal notranslate"><span class="pre">target</span></code> parameter to <code class="docutils literal notranslate"><span class="pre">AutoToolsBuildEnvironment.make</span></code> method, allowing to select build target on running make</p></li>
+<li><p>Feature: The <code class="docutils literal notranslate"><span class="pre">CONAN_MAKE_PROGRAM</span></code> environment variable now it is used by the <code class="docutils literal notranslate"><span class="pre">CMake()</span></code> build helper to set a custom make program.</p></li>
+<li><p>Feature: Added <strong class="command">--verify-ssl</strong> optional parameter to <strong class="command">conan config install</strong> to allow self-signed SSL certificates in download.</p></li>
+<li><p>Feature: <code class="docutils literal notranslate"><span class="pre">tools.get_env()</span></code> helper method to automatically convert environment variables to python types.</p></li>
+<li><p>Fix: Added a visible warning about <code class="docutils literal notranslate"><span class="pre">libcxx</span></code> compatibility and the detected one for the default profile.</p></li>
+<li><p>Fix: Wrong detection of compiler in OSX for gcc frontend to clang.</p></li>
+<li><p>Fix: Disabled <em>conanbuildinfo.cmake</em> compiler checks for unknown compilers.</p></li>
+<li><p>Fix: <code class="docutils literal notranslate"><span class="pre">visual_studio</span></code> generator added missing <em>ResourceCompile</em> information.</p></li>
+<li><p>Fix: Don’t output password from URL for <strong class="command">conan config install</strong> command.</p></li>
+<li><p>Fix: Signals exit with error code instead of 0.</p></li>
+<li><p>Fix: Added package versions to generated SCons file.</p></li>
+<li><p>Fix: Error message when package was not found in remotes has been improved.</p></li>
+<li><p>Fix: <strong class="command">conan profile</strong> help message.</p></li>
+<li><p>Fix: Use gcc architecture flags -m32, -m64 for MinGW as well.</p></li>
+<li><p>Fix: <code class="docutils literal notranslate"><span class="pre">CMake()</span></code> helper do not require settins if <code class="docutils literal notranslate"><span class="pre">CONAN_CMAKE_GENERATOR</span></code> is defined.</p></li>
+<li><p>Fix: improved output of package remote origins.</p></li>
+<li><p>Fix: Profiles files use same structure as <strong class="command">conan profile show</strong> command.</p></li>
+<li><p>Fix: <em>conanpath.bat</em> file is removed after conan Windows installer uninstall.</p></li>
+<li><p>Fix: Do not add GCC-style flags -m32, -m64, -g, -s to MSVC when using <code class="docutils literal notranslate"><span class="pre">AutoToolsBuildEnvironment</span></code></p></li>
+<li><p>Fix: “Can’t find a binary package” message now includes the Package ID.</p></li>
+<li><p>Fix: added clang 5.0 and gcc 7.3 to default <em>settings.yml</em>.</p></li>
+<li><p>Bugfix:  <code class="docutils literal notranslate"><span class="pre">build_id()</span></code> logic does not apply unless the <code class="docutils literal notranslate"><span class="pre">build_id</span></code> is effectively changed.</p></li>
+<li><p>Bugfix: <code class="docutils literal notranslate"><span class="pre">self.install_folder</span></code> was not correctly set in all necessary cases.</p></li>
+<li><p>Bugfix: <strong class="command">--update</strong> option does not ignore local packages for version-ranges.</p></li>
+<li><p>Bugfix: Set <code class="docutils literal notranslate"><span class="pre">self.develop=True</span></code> for <code class="docutils literal notranslate"><span class="pre">export-pkg</span></code> command.</p></li>
+<li><p>Bugfix: Server HTTP responses were incorrectly captured, not showing errors for some server errors.</p></li>
+<li><p>Bugfix: Fixed <code class="docutils literal notranslate"><span class="pre">config</span></code> section update for sequential calls over the python API.</p></li>
+<li><p>Bugfix: Fixed wrong <code class="docutils literal notranslate"><span class="pre">self.develop</span></code> set to <code class="docutils literal notranslate"><span class="pre">False</span></code> for <strong class="command">conan create</strong> with <em>test_package</em>.</p></li>
+<li><p>Deprecation: Removed <strong>conan-transit</strong> from default remotes registry.</p></li>
+</ul>
+</section>
+<section id="january-2018">
+<h2>1.0.4 (30-January-2018)<a class="headerlink" href="#january-2018" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Bugfix: Fixed default profile defined in <em>conan.conf</em> that includes another profile</p></li>
+<li><p>Bugfix: added missing management of <code class="docutils literal notranslate"><span class="pre">sysroot</span></code> in <em>conanbuildinfo.txt</em> affecting <strong class="command">conan build</strong> and <em>test_package</em>.</p></li>
+<li><p>Bugfix: Fixed warning in <strong class="command">conan source</strong> because of incorrect management of settings.</p></li>
+<li><p>Bugfix: Fixed priority order of environment variables defined in included profiles</p></li>
+<li><p>Bugfix: NMake error for parallel builds from the <code class="docutils literal notranslate"><span class="pre">CMake</span></code> build helper have been fixed</p></li>
+<li><p>Bugfix: Fixed options pattern not applied to root node (<code class="docutils literal notranslate"><span class="pre">-o</span> <span class="pre">*:shared=True</span></code> not working for consuming package)</p></li>
+<li><p>Bugfix: Fixed shadowed options by package name (<code class="docutils literal notranslate"><span class="pre">-o</span> <span class="pre">*:shared=True</span> <span class="pre">-o</span> <span class="pre">Pkg:other=False</span></code> was not applying <code class="docutils literal notranslate"><span class="pre">shared</span></code> value to Pkg)</p></li>
+<li><p>Fix: Using <code class="docutils literal notranslate"><span class="pre">filter_known_paths=False</span></code> as default to <code class="docutils literal notranslate"><span class="pre">vcvars_dict()</span></code> helper.</p></li>
+<li><p>Fix: Fixed wrong package name for output messages regarding build-requires</p></li>
+<li><p>Fix: Added correct metadata to conan.exe when generated via pyinstaller</p></li>
+</ul>
+</section>
+<section id="id10">
+<h2>1.0.3 (22-January-2018)<a class="headerlink" href="#id10" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Bugfix: Correct load of stored settings in conaninfo.txt (for <strong class="command">conan build</strong>) when <code class="docutils literal notranslate"><span class="pre">configure()</span></code> remove some setting.</p></li>
+<li><p>Bugfix: Correct use of unix paths in Windows subsystems (msys, cygwing) when needed.</p></li>
+<li><p>Fix: fixed wrong message for <strong class="command">conan alias --help</strong>.</p></li>
+<li><p>Fix: Normalized all arguments to <strong class="command">--xxx-folder</strong> in command line help.</p></li>
+</ul>
+</section>
+<section id="id11">
+<h2>1.0.2 (16-January-2018)<a class="headerlink" href="#id11" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Fix: Adding a warning message for simultaneous use of <code class="docutils literal notranslate"><span class="pre">os</span></code> and <code class="docutils literal notranslate"><span class="pre">os_build</span></code> settings.</p></li>
+<li><p>Fix: Do not raise error from <em>conanbuildinfo.cmake</em> for Intel MSVC toolsets.</p></li>
+<li><p>Fix: Added more architectures to default <em>settings.yml</em> <code class="docutils literal notranslate"><span class="pre">arch_build</span></code> setting.</p></li>
+<li><p>Fix: using <strong class="command">--xxx-folder</strong> in command line help messages.</p></li>
+<li><p>Bugfix: using quotes for Windows bash path with spaces.</p></li>
+<li><p>Bugfix: vcvars/vcvars_dict not including windows and windows/system32 directories in the path.</p></li>
+</ul>
+</section>
+<section id="id12">
+<h2>1.0.1 (12-January-2018)<a class="headerlink" href="#id12" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Fix: <strong class="command">conan new</strong> does not generate cross-building (like <code class="docutils literal notranslate"><span class="pre">os_build</span></code>) settings by default. They make only sense for dev-tools used as <code class="docutils literal notranslate"><span class="pre">build_requires</span></code></p></li>
+<li><p>Fix: <em>conaninfo.txt</em> file does not dump settings with None values</p></li>
+</ul>
+</section>
+<section id="id13">
+<h2>1.0.0 (10-January-2018)<a class="headerlink" href="#id13" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Bugfix: Fixed bug from <code class="docutils literal notranslate"><span class="pre">remove_from_path</span></code> due to Windows path backslash</p></li>
+<li><p>Bugfix: Compiler detection in <em>conanbuildinfo.cmake</em> for Visual Studio using toolchains like LLVM (Clang)</p></li>
+<li><p>Bugfix: Added quotes to bash path.</p></li>
+</ul>
+</section>
+<section id="beta5-8-january-2018">
+<h2>1.0.0-beta5 (8-January-2018)<a class="headerlink" href="#beta5-8-january-2018" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Fix: Errors from remotes different to a 404 will raise an error. Disconnected remotes have to be removed from remotes or use explicit remote with <code class="docutils literal notranslate"><span class="pre">-r</span> <span class="pre">myremote</span></code></p></li>
+<li><p>Fix: cross-building message when building different architecture in same OS</p></li>
+<li><p>Fix: <strong class="command">conan profile show</strong> now shows profile with same syntax as profile files</p></li>
+<li><p>Fix: generated test code in <strong class="command">conan new</strong> templates will not run example app if cross building.</p></li>
+<li><p>Fix: <strong class="command">conan export-pkg</strong> uses the <em>conanfile.py</em> folder as the default <strong class="command">--source-folder</strong>.</p></li>
+<li><p>Bugfix: <strong class="command">conan download</strong> didn’t download recipe if there are no binaries. Force recipe download.</p></li>
+<li><p>Bugfix: Fixed blocked <code class="docutils literal notranslate"><span class="pre">self.run()</span></code> when stderr outputs large tests, due to full pipe.</p></li>
+</ul>
+</section>
+<section id="beta4-4-january-2018">
+<h2>1.0.0-beta4 (4-January-2018)<a class="headerlink" href="#beta4-4-january-2018" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Feature: <code class="docutils literal notranslate"><span class="pre">run_in_windows_bash</span></code> accepts a dict of environment variables to be prioritised inside the bash shell, mainly intended to control the priority of the tools in the path. Use with <code class="docutils literal notranslate"><span class="pre">vcvars</span></code> context manager and <code class="docutils literal notranslate"><span class="pre">vcvars_dict</span></code>, that returns the PATH environment variable only with the Visual Studio related directories</p></li>
+<li><p>Fix: Adding all values to <code class="docutils literal notranslate"><span class="pre">arch_target</span></code></p></li>
+<li><p>Fix: <strong class="command">conan new</strong> templates now use new <code class="docutils literal notranslate"><span class="pre">os_build</span></code> and <code class="docutils literal notranslate"><span class="pre">arch_build</span></code> settings</p></li>
+<li><p>Fix: Updated <code class="docutils literal notranslate"><span class="pre">CMake</span></code> helper to account for <code class="docutils literal notranslate"><span class="pre">os_build</span></code> and <code class="docutils literal notranslate"><span class="pre">arch_build</span></code> new settings</p></li>
+<li><p>Fix: Automatic creation of <em>default</em> profile when it is needed by another one (like <code class="docutils literal notranslate"><span class="pre">include(default)</span></code>)</p></li>
+<li><p>BugFix: Failed installation (non existing package) was leaving lock files in the cache, reporting a package for <strong class="command">conan search</strong>.</p></li>
+<li><p>BugFix: Environment variables are now applied to <code class="docutils literal notranslate"><span class="pre">build_requirements()</span></code> for <strong class="command">conan install .</strong>.</p></li>
+<li><p>BugFix: Dependency graph was raising conflicts for diamonds with <strong>alias</strong> packages.</p></li>
+<li><p>BugFix: Fixed <strong class="command">conan export-pkg</strong> after a <strong class="command">conan install</strong> when recipe has options.</p></li>
+</ul>
+</section>
+<section id="beta3-28-december-2017">
+<h2>1.0.0-beta3 (28-December-2017)<a class="headerlink" href="#beta3-28-december-2017" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Fix: Upgraded pylint and astroid to latest</p></li>
+<li><p>Fix: Fixed <code class="docutils literal notranslate"><span class="pre">build_requires</span></code> with transitive dependencies to other build_requires</p></li>
+<li><p>Fix: Improved pyinstaller creation of executable, to allow for py3-64 bits (windows)</p></li>
+<li><p>Deprecation: removed all <strong class="command">--some_argument</strong>, use instead <strong class="command">--some-argument</strong> in command line.</p></li>
+</ul>
+</section>
+<section id="beta2-23-december-2017">
+<h2>1.0.0-beta2 (23-December-2017)<a class="headerlink" href="#beta2-23-december-2017" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Feature: New command line UI. Most commands use now the path to the package recipe, like <strong class="command">conan export . user/testing</strong> or
+<strong class="command">conan create folder/myconanfile.py user/channel</strong>.</p></li>
+<li><p>Feature: Better cross-compiling. New settings model for <code class="docutils literal notranslate"><span class="pre">os_build</span></code>, <code class="docutils literal notranslate"><span class="pre">arch_build</span></code>, <code class="docutils literal notranslate"><span class="pre">os_target</span></code>, <code class="docutils literal notranslate"><span class="pre">arch_target</span></code>.</p></li>
+<li><p>Feature: Better Windows OSS ecosystem, with utilities and settings model for MSYS, Cygwin, Mingw, WSL</p></li>
+<li><p>Feature: <code class="docutils literal notranslate"><span class="pre">package()</span></code> will not warn of not copied files for known use cases.</p></li>
+<li><p>Feature: reduce the scope of definition of <code class="docutils literal notranslate"><span class="pre">cpp_info</span></code>, <code class="docutils literal notranslate"><span class="pre">env_info</span></code>, <code class="docutils literal notranslate"><span class="pre">user_info</span></code> attributes to <code class="docutils literal notranslate"><span class="pre">package_info()</span></code>
+method, to avoid unexpected errors.</p></li>
+<li><p>Feature: extended the use of addressing folder and conanfiles with different names for <code class="docutils literal notranslate"><span class="pre">source</span></code>, <code class="docutils literal notranslate"><span class="pre">package</span></code> and <code class="docutils literal notranslate"><span class="pre">export-pkg</span></code>
+commands</p></li>
+<li><p>Feature: added support for Zypper system package tool</p></li>
+<li><p>Fix: Fixed application of build requires from profiles that didn’t apply to requires in recipes</p></li>
+<li><p>Fix: Improved “test package” message in output log</p></li>
+<li><p>Fix: updated CI templates generated with <strong class="command">conan new</strong></p></li>
+<li><p>Deprecation: Removed <code class="docutils literal notranslate"><span class="pre">self.copy_headers</span></code> and family for the <code class="docutils literal notranslate"><span class="pre">package()</span></code> method</p></li>
+<li><p>Deprecation: Removed <code class="docutils literal notranslate"><span class="pre">self.conanfile_directory</span></code> attribute.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a beta release, shouldn’t be installed unless you do it explicitly</p>
+<p>$ pip install conan==1.0.0b2 –upgrade</p>
+<p><strong>Breaking changes</strong></p>
+<ul class="simple">
+<li><p>The new command line UI breaks command line tools and integration. Most cases, just add a <strong class="command">.</strong> to the command.</p></li>
+<li><p>Removed <code class="docutils literal notranslate"><span class="pre">self.copy_headers</span></code>, <code class="docutils literal notranslate"><span class="pre">self.copy_libs</span></code>, methods for <code class="docutils literal notranslate"><span class="pre">package()</span></code>. Use <code class="docutils literal notranslate"><span class="pre">self.copy()</span></code> instead.</p></li>
+<li><p>Removed <code class="docutils literal notranslate"><span class="pre">self.conanfile_directory</span></code> attribute. Use <code class="docutils literal notranslate"><span class="pre">self.source_folder</span></code>, <code class="docutils literal notranslate"><span class="pre">self.build_folder</span></code>, etc.
+instead</p></li>
+</ul>
+</div>
+</section>
+<section id="december-2017">
+<h2>0.30.3 (15-December-2017)<a class="headerlink" href="#december-2017" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Reverted <code class="docutils literal notranslate"><span class="pre">CMake()</span></code> and <code class="docutils literal notranslate"><span class="pre">Meson()</span></code> build helpers to keep old behavior.</p></li>
+<li><p>Forced Astroid dependency to &lt; 1.6 because of py3 issues.</p></li>
+</ul>
+</section>
+<section id="id14">
+<h2>0.30.2 (14-December-2017)<a class="headerlink" href="#id14" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Fix: <code class="docutils literal notranslate"><span class="pre">CMake()</span></code> and <code class="docutils literal notranslate"><span class="pre">Meson()</span></code> build helpers and relative directories regression.</p></li>
+<li><p>Fix: <code class="docutils literal notranslate"><span class="pre">ycm</span></code> generator, removed the access of <code class="docutils literal notranslate"><span class="pre">cpp_info</span></code> to generators, keeping the access to <code class="docutils literal notranslate"><span class="pre">deps_cpp_info</span></code>.</p></li>
+</ul>
+</section>
+<section id="id15">
+<h2>0.30.1 (12-December-2017)<a class="headerlink" href="#id15" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Feature: Introduced major versions for gcc (5, 6, 7) as defaults settings for OSS packages, as minors are compatible by default</p></li>
+<li><p>Feature: <code class="docutils literal notranslate"><span class="pre">VisualStudioBuildEnvironment</span></code> has added more compilation and link flags.</p></li>
+<li><p>Feature: new <code class="docutils literal notranslate"><span class="pre">MSBuild()</span></code> build helper that wraps the call to <code class="docutils literal notranslate"><span class="pre">msvc_build_command()</span></code> with the correct application of environment
+variables with the improved <code class="docutils literal notranslate"><span class="pre">VisualStudioBuildEnvironment</span></code></p></li>
+<li><p>Feature: <code class="docutils literal notranslate"><span class="pre">CMake</span></code> and <code class="docutils literal notranslate"><span class="pre">Meson</span></code> build helpers got a new <code class="docutils literal notranslate"><span class="pre">cache_build_dir</span></code> argument for <code class="docutils literal notranslate"><span class="pre">configure(cache_build_dir=None)</span></code>
+that will be used to define a build directory while the package is being built in local cache, but not when built locally</p></li>
+<li><p>Feature: <code class="docutils literal notranslate"><span class="pre">conanfiles</span></code> got a new <code class="docutils literal notranslate"><span class="pre">apply_env</span></code> attribute, defaulted to <code class="docutils literal notranslate"><span class="pre">True</span></code>. If false, the environment variables from
+dependencies will not be automatically applied. Useful if you don’t want some dependency adding itself to the PATH by default,
+for example</p></li>
+<li><p>Feature: allow recipes to use and run python code installed with <strong class="command">conan config install</strong>.</p></li>
+<li><p>Feature: <code class="docutils literal notranslate"><span class="pre">conanbuildinfo.cmake</span></code> now has <code class="docutils literal notranslate"><span class="pre">KEEP_RPATHS</span></code> as argument to keep the RPATHS, as opposed to old SKIP_RPATH which
+was confusing. Also, it uses set(CMAKE_INSTALL_NAME_DIR “”) to keep the old behavior even for CMake &gt;= 3.9</p></li>
+<li><p>Feature: <strong class="command">conan info</strong> is able to get profile information from the previous install, instead of requiring it as input again</p></li>
+<li><p>Feature: <code class="docutils literal notranslate"><span class="pre">tools.unix_path</span></code> support MSYS, Cygwin, WSL path flavors</p></li>
+<li><p>Feature: added <code class="docutils literal notranslate"><span class="pre">destination</span></code> folder argument to <code class="docutils literal notranslate"><span class="pre">tools.get()</span></code> function</p></li>
+<li><p>Feature: <code class="docutils literal notranslate"><span class="pre">SystemPackageTool</span></code> for apt-get now uses <strong class="command">--no-install-recommends</strong> automatically.</p></li>
+<li><p>Feature: <code class="docutils literal notranslate"><span class="pre">visual_studio_multi</span></code> generator now uses toolsets instead of IDE version to identify files.</p></li>
+<li><p>Fix: generators failures print traces to help debugging</p></li>
+<li><p>Fix: typos in generator names, or non-existing generator now raise an Error instead of a warning</p></li>
+<li><p>Fix: <code class="docutils literal notranslate"><span class="pre">short_paths</span></code> feature is active by default in Windows. If you want to opt-out, you can use <code class="docutils literal notranslate"><span class="pre">CONAN_USER_HOME_SHORT=None</span></code></p></li>
+<li><p>Fix: <code class="docutils literal notranslate"><span class="pre">SystemPackageTool</span></code> doesn’t use sudo in Windows</p></li>
+<li><p>BugFix: Not using parallel builds for Visual&lt;10 in CMake build helper.</p></li>
+<li><p>Deprecation: <code class="docutils literal notranslate"><span class="pre">conanfile_directory`</span> <span class="pre">shouldn't</span> <span class="pre">be</span> <span class="pre">used</span> <span class="pre">anymore</span> <span class="pre">in</span> <span class="pre">recipes.</span> <span class="pre">Use</span> <span class="pre">``source_folder</span></code>, <code class="docutils literal notranslate"><span class="pre">build_folder</span></code>, etc.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Breaking changes</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">scopes</span></code> have been completely removed. You can use environment variables, or the <code class="docutils literal notranslate"><span class="pre">conanfile.develop</span></code> or <code class="docutils literal notranslate"><span class="pre">conanfile.in_local_cache</span></code>
+attributes instead.</p></li>
+<li><p>Command <em>test_package</em> has been removed. Use <strong class="command">conan create`</strong> instead, and <strong class="command">conan test`</strong> for just running package tests.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">werror</span></code> behavior is now by default. Dependencies conflicts will now error, and have to be fixed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">short_paths</span></code> feature is again active by default in Windows, even with Py3.6 and system LongPathsEnabled.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ConfigureEnvironment</span></code> and <code class="docutils literal notranslate"><span class="pre">GCC</span></code> build helpers have been completely removed</p></li>
+</ul>
+</div>
+</section>
+<section id="id16">
+<h2>0.29.2 (2-December-2017)<a class="headerlink" href="#id16" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Updated python cryptography requirement for OSX due the pyOpenSSL upgrade. See more: <a class="reference external" href="https://pypi.org/project/pyOpenSSL/">https://pypi.org/project/pyOpenSSL/</a></p></li>
+</ul>
+</section>
+<section id="november-2017">
+<h2>0.29.1 (23-November-2017)<a class="headerlink" href="#november-2017" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Support for OSX High Sierra</p></li>
+<li><p>Reverted concurrency locks to counters, removed <code class="docutils literal notranslate"><span class="pre">psutil</span></code> dependency</p></li>
+<li><p>Implemented migration for settings.yml (for new VS toolsets)</p></li>
+<li><p>Fixed encoding issues in conan_server</p></li>
+</ul>
+</section>
+<section id="id17">
+<h2>0.29.0 (21-November-2017)<a class="headerlink" href="#id17" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Feature: Support for WindowsStore (WinRT, UWP)</p></li>
+<li><p>Feature: Support for Visual Studio Toolsets.</p></li>
+<li><p>Feature: New <code class="docutils literal notranslate"><span class="pre">boost-build</span></code> generator for generic bjam (not only Boost)</p></li>
+<li><p>Feature: new <code class="docutils literal notranslate"><span class="pre">tools.PkgConfig</span></code> helper to parse pkg-config (.pc) files.</p></li>
+<li><p>Feature: Added <code class="docutils literal notranslate"><span class="pre">self.develop</span></code> conanfile variable. It is true for <strong class="command">conan create</strong> packages and for local development.</p></li>
+<li><p>Feature: Added <code class="docutils literal notranslate"><span class="pre">self.keep_imports</span></code> to avoid removal of imported files in the <code class="docutils literal notranslate"><span class="pre">build()</span></code> method. Convenient for re-packaging.</p></li>
+<li><p>Feature: Autodected MSYS2 for <code class="docutils literal notranslate"><span class="pre">SystemPackageTool</span></code></p></li>
+<li><p>Feature: <code class="docutils literal notranslate"><span class="pre">AutoToolsBuildEnvironment</span></code> now auto-loads <code class="docutils literal notranslate"><span class="pre">pkg_config_path</span></code> (to use with <code class="docutils literal notranslate"><span class="pre">pkg_config</span></code> generator)</p></li>
+<li><p>Feature: Changed search for profiles. Profiles not found in the default <code class="docutils literal notranslate"><span class="pre">profiles</span></code> folder, will be searched for locally. Use <code class="docutils literal notranslate"><span class="pre">./myprofile</span></code> to force local search only.</p></li>
+<li><p>Feature: Parallel builds for Visual Studio (previously it was only parallel compilation within builds)</p></li>
+<li><p>Feature: implemented syntax to check options with <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">&quot;something&quot;</span> <span class="pre">in</span> <span class="pre">self.options.myoption</span></code></p></li>
+<li><p>Fix: Fixed CMake dependency graph when using TARGETS, that produced wrong link order for transitive dependencies.</p></li>
+<li><p>Fix: Trying to download the <code class="docutils literal notranslate"><span class="pre">exports_sources</span></code> is not longer done if such attribute is not defined</p></li>
+<li><p>Fix: Added output directories in <code class="docutils literal notranslate"><span class="pre">cmake</span></code> generator for RelWithDebInfo and MinSizeRel configs</p></li>
+<li><p>Fix: Locks for concurrent access to local cache now use process IDs (PIDs) to handle interruptions and inconsistent states. Also, adding messages when locking.</p></li>
+<li><p>Fix: Not remove the .zip file after a <strong class="command">conan config install</strong> if such file is local</p></li>
+<li><p>Fix: Fixed <code class="docutils literal notranslate"><span class="pre">CMake.test()</span></code> for the Ninja generator</p></li>
+<li><p>Fix: Do not crete local conaninfo.txt file for <strong class="command">conan install &lt;pkg-ref&gt;</strong> commands.</p></li>
+<li><p>Fix: Solved issue with multiple repetitions of the same command line argument</p></li>
+<li><p>BugFix: Don’t rebuild conan created (with conan-create) packages when <code class="docutils literal notranslate"><span class="pre">build_policy=&quot;always&quot;</span></code></p></li>
+<li><p>BugFix: <strong class="command">conan copy</strong> was always copying binaries, now can copy only recipes</p></li>
+<li><p>BugFix: A bug in download was causing appends insteads of overwriting for repeated downloads.</p></li>
+<li><p>Development: Large restructuring of files (new cmd and build folders)</p></li>
+<li><p>Deprecation: Removed old CMake helper methods (only valid constructor is <code class="docutils literal notranslate"><span class="pre">CMake(self)</span></code>)</p></li>
+<li><p>Deprecation: Removed old <code class="docutils literal notranslate"><span class="pre">conan_info()</span></code> method, that was superseded by <code class="docutils literal notranslate"><span class="pre">package_id()</span></code></p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Breaking changes</strong></p>
+<ul class="simple">
+<li><p>CMAKE_LIBRARY_OUTPUT_DIRECTORY definition has been introduced in <code class="docutils literal notranslate"><span class="pre">conan_basic_setup()</span></code>, it will send shared libraries .so
+to the <code class="docutils literal notranslate"><span class="pre">lib</span></code> folder in Linux systems. Right now it was undefined.</p></li>
+<li><p>Profile search logic has slightly changed. For <code class="docutils literal notranslate"><span class="pre">-pr=myprofile</span></code>, such profile will be searched both in the default folder
+and in the local one if not existing. Use <code class="docutils literal notranslate"><span class="pre">-pr=./myprofile</span></code> to force local search only.</p></li>
+<li><p>The <strong class="command">conan copy</strong> command has been fixed. To copy all binaries, it is necessary to explicit <strong class="command">--all</strong>, as other commands do.</p></li>
+<li><p>The only valid use of CMake helper is <code class="docutils literal notranslate"><span class="pre">CMake(self)</span></code> syntax.</p></li>
+<li><p>If using <code class="docutils literal notranslate"><span class="pre">conan_info()</span></code>, replace it with <code class="docutils literal notranslate"><span class="pre">package_id()</span></code>.</p></li>
+<li><p>Removed environment variable <code class="docutils literal notranslate"><span class="pre">CONAN_CMAKE_TOOLSET</span></code>, now the toolset can be specified as a subsetting of Visual Studio compiler or specified in the build helpers.</p></li>
+</ul>
+</div>
+</section>
+<section id="october-2017">
+<h2>0.28.1 (31-October-2017)<a class="headerlink" href="#october-2017" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>BugFix: Downloading (<code class="docutils literal notranslate"><span class="pre">tools.download</span></code>) of files with <code class="docutils literal notranslate"><span class="pre">content-encoding=gzip</span></code> were raising an exception
+because the downloaded content length didn’t match the http header <code class="docutils literal notranslate"><span class="pre">content-length</span></code></p></li>
+</ul>
+</section>
+<section id="id18">
+<h2>0.28.0 (26-October-2017)<a class="headerlink" href="#id18" title="Link to this heading"></a></h2>
+<p>This is a big release, with many important and core changes. Also with a huge number of community contributions,
+thanks very much!</p>
+<ul class="simple">
+<li><p>Feature: Major revamp of most conan commands, making command line arguments homogeneous. Much
+better development flow adapting to user layouts, with <code class="docutils literal notranslate"><span class="pre">install-folder</span></code>, <code class="docutils literal notranslate"><span class="pre">source-folder</span></code>,
+<code class="docutils literal notranslate"><span class="pre">build-folder</span></code>, <code class="docutils literal notranslate"><span class="pre">package-folder</span></code>.</p></li>
+<li><p>Feature: new <code class="docutils literal notranslate"><span class="pre">deploy()</span></code> method, useful for installing binaries from conan packages</p></li>
+<li><p>Feature: Implemented some <strong>concurrency</strong> support for the conan local cache. Parallel <strong class="command">conan install</strong>
+and <strong class="command">conan create</strong> for different configurations should be possible.</p></li>
+<li><p>Feature: options now allow patterns in command line: <code class="docutils literal notranslate"><span class="pre">-o</span> <span class="pre">*:myoption=myvalue</span></code> applies to all packages</p></li>
+<li><p>Feature: new <code class="docutils literal notranslate"><span class="pre">pc</span></code> generator that generates files from dependencies for <code class="docutils literal notranslate"><span class="pre">pkg-config</span></code></p></li>
+<li><p>Feature: new <code class="docutils literal notranslate"><span class="pre">Meson</span></code> helper, similar to <code class="docutils literal notranslate"><span class="pre">CMake</span></code> for Meson build system. Works well with <code class="docutils literal notranslate"><span class="pre">pc</span></code> generator.</p></li>
+<li><p>Feature: Support for read-only cache with <code class="docutils literal notranslate"><span class="pre">CONAN_READ_ONLY_CACHE</span></code> environment variable</p></li>
+<li><p>Feature: new <code class="docutils literal notranslate"><span class="pre">visual_studio_multi</span></code> generator to load Debug/Release, 32/64 configs at once</p></li>
+<li><p>Feature: new <code class="docutils literal notranslate"><span class="pre">tools.which</span></code> helper to locate executables</p></li>
+<li><p>Feature: new <strong class="command">conan --help</strong> layout</p></li>
+<li><p>Feature: allow to override compiler version in <code class="docutils literal notranslate"><span class="pre">vcvars_command</span></code></p></li>
+<li><p>Feature: <strong class="command">conan user</strong> interactive (and not exposed) password input for empty <code class="docutils literal notranslate"><span class="pre">-p</span></code> argument</p></li>
+<li><p>Feature: Support for <code class="docutils literal notranslate"><span class="pre">PacManTool</span></code> for <code class="docutils literal notranslate"><span class="pre">system_requirements()</span></code> for ArchLinux</p></li>
+<li><p>Feature: Define VS toolset in <code class="docutils literal notranslate"><span class="pre">CMake</span></code> constructor and from environment variable CONAN_CMAKE_TOOLSET</p></li>
+<li><p>Feature: <strong class="command">conan create</strong> now accepts <code class="docutils literal notranslate"><span class="pre">werror</span></code> argument</p></li>
+<li><p>Feature: <code class="docutils literal notranslate"><span class="pre">AutoToolsBuildEnvironment</span></code> can use <code class="docutils literal notranslate"><span class="pre">CONAN_MAKE_PROGRAM</span></code> env-var to define make program</p></li>
+<li><p>Feature: added xcode9 for apple-clang 9.0, clang 5 to default settings.yml</p></li>
+<li><p>Feature: deactivation of <code class="docutils literal notranslate"><span class="pre">short_paths</span></code> in Windows 10 with Py3.6 and long path support is automatic</p></li>
+<li><p>Feature: show unzip progress by percentage, not by file (do not clutters output)</p></li>
+<li><p>Feature: do not use <code class="docutils literal notranslate"><span class="pre">sudo</span></code> for system requirements if already running as root</p></li>
+<li><p>Feature: <code class="docutils literal notranslate"><span class="pre">tools.download</span></code> able to use headers/auth</p></li>
+<li><p>Feature: conan does not longer generate bytecode from recipes (no more .pyc, and more efficient)</p></li>
+<li><p>Feature: add parallel argument to <code class="docutils literal notranslate"><span class="pre">build_sln_command</span></code> for VS</p></li>
+<li><p>Feature: Show warning if vs150comntools is an invalid path</p></li>
+<li><p>Feature: <code class="docutils literal notranslate"><span class="pre">tools.get()</span></code> now has arguments for hash checking</p></li>
+<li><p>Fix: upload pattern now accepts <code class="docutils literal notranslate"><span class="pre">Pkg/*</span></code></p></li>
+<li><p>Fix: improved downloader, make more robust, better streaming</p></li>
+<li><p>Fix: <code class="docutils literal notranslate"><span class="pre">tools.patch</span></code> now support adding/removal of files</p></li>
+<li><p>Fix: The <code class="docutils literal notranslate"><span class="pre">default</span></code> profile is no longer taken as a base and merged with user profile.
+Use explicit <code class="docutils literal notranslate"><span class="pre">include(default)</span></code> instead.</p></li>
+<li><p>Fix: properly manage x86 as cross building with autotools</p></li>
+<li><p>Fix: <code class="docutils literal notranslate"><span class="pre">tools.unzip</span></code> removed unnecessary long-paths check in Windows</p></li>
+<li><p>Fix: <code class="docutils literal notranslate"><span class="pre">package_info()</span></code> is no longer executed at install for the consumer conanfile.py</p></li>
+<li><p>BugFix: source folder was not being correctly removed when recipe was updated</p></li>
+<li><p>BugFix: fixed <code class="docutils literal notranslate"><span class="pre">CMAKE_C_FLAGS_DEBUG</span></code> definition in <code class="docutils literal notranslate"><span class="pre">cmake</span></code> generator</p></li>
+<li><p>BugFix: <code class="docutils literal notranslate"><span class="pre">CMAKE_SYSTEM_NAME</span></code> is now Darwin for iOS, watchOS and tvOS</p></li>
+<li><p>BugFix: <code class="docutils literal notranslate"><span class="pre">xcode</span></code> generator fixed handling of compiler flags</p></li>
+<li><p>BugFix: pyinstaller hidden import that broke .deb installer</p></li>
+<li><p>BugFix: <strong class="command">conan profile list</strong> when local files matched profile names</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Breaking changes</strong></p>
+<p>This is an important release towards stabilizing conan and moving out of beta. Some breaking changes have been done,
+but mostly to command line arguments, so they should be easy to fix. Package recipes or existing packages shouldn’t break.
+Please <strong>update</strong>, it is very important to ease the transition of future stable releases. Do not hesitate to ask questions,
+or for help if you need it. This is a possibly not complete list of things to take into account:</p>
+<ul class="simple">
+<li><p>The command <strong class="command">conan install</strong> doesn’t accept <code class="docutils literal notranslate"><span class="pre">cwd</span></code> anymore, to change the directory where the generator
+files are written, use the <strong class="command">--install-folder</strong> parameter.</p></li>
+<li><p>The command <strong class="command">conan install</strong> doesn’t accept <strong class="command">--all</strong> anymore. Use <strong class="command">conan download &lt;ref&gt;</strong> instead.</p></li>
+<li><p>The command <strong class="command">conan build</strong> now requires the path to the <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code> (optional before)</p></li>
+<li><p>The command <strong class="command">conan package</strong> not longer re-package a package in the local cache, now it only
+operates in a user local folder. The recommended way to re-package a package is using <strong class="command">conan build</strong> and then
+<strong class="command">conan export-pkg</strong>.</p></li>
+<li><p>Removed <strong class="command">conan package_files</strong> in favor of a new command <strong class="command">conan export-pkg</strong>. It requires a local recipe
+with a <code class="docutils literal notranslate"><span class="pre">package()</span></code> method.</p></li>
+<li><p>The command <strong class="command">conan source</strong> no longer operates in the local cache. now it only operates in a user local folder.
+If you used <strong class="command">conan source</strong> with a reference to workaround the concurrency, now it natively supported, you
+can remove the command call and trust concurrent install processes.</p></li>
+<li><p>The command <strong class="command">conan imports</strong> doesn’t accept <code class="docutils literal notranslate"><span class="pre">-d,</span> <span class="pre">--dest</span></code> anymore, use <strong class="command">--imports-folder</strong> parameter instead.</p></li>
+<li><p>If you specify a profile in a conan command, like conan create or conan install the base profile <em>~/.conan/profiles/default</em> won’t be
+applied. Use explicit <code class="docutils literal notranslate"><span class="pre">include</span></code> to keep the old behavior.</p></li>
+</ul>
+</div>
+</section>
+<section id="september-2017">
+<h2>0.27.0 (20-September-2017)<a class="headerlink" href="#september-2017" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Feature: <strong class="command">conan config install &lt;url&gt;</strong> new command. Will install remotes, profiles, settings, conan.conf and other files into the local conan installation. Perfect to synchronize configuration among teams</p></li>
+<li><p>Feature: improved traceback printing when errors are raised for more context. Configurable via env</p></li>
+<li><p>Feature: filtering out non existing directories in <code class="docutils literal notranslate"><span class="pre">cpp_info</span></code> (include, lib, etc), so some build systems don’t complain about them.</p></li>
+<li><p>Feature: Added include directories to ResourceCompiler and to MIDL compiler in <code class="docutils literal notranslate"><span class="pre">visual_studio</span></code> generator</p></li>
+<li><p>Feature: new <code class="docutils literal notranslate"><span class="pre">visual_studio_legacy</span></code> generator for Visual Studio 2008</p></li>
+<li><p>Feature: show path where manifests are locally stored</p></li>
+<li><p>Feature: <code class="docutils literal notranslate"><span class="pre">replace_in_file</span></code> now raises error if replacement is not done (opt-out parameter)</p></li>
+<li><p>Feature: enabled in conan.conf <code class="docutils literal notranslate"><span class="pre">[proxies]</span></code> section <code class="docutils literal notranslate"><span class="pre">no_proxy=url1,url2</span></code> configuration (to skip proxying for those URLs), as well as <code class="docutils literal notranslate"><span class="pre">http=None</span></code> and <code class="docutils literal notranslate"><span class="pre">https=None</span></code> to explicitly disable them.</p></li>
+<li><p>Feature: new conanfile <code class="docutils literal notranslate"><span class="pre">self.in_local_cache</span></code> attribute for conditional logic to apply in user folders local commands</p></li>
+<li><p>Feature: <code class="docutils literal notranslate"><span class="pre">CONAN_USER_HOME_SHORT=None</span></code> can disable the usage of <code class="docutils literal notranslate"><span class="pre">short_paths</span></code> in Windows, for modern Windows that enable long paths at the system level</p></li>
+<li><p>Feature: <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">&quot;arm&quot;</span> <span class="pre">in</span> <span class="pre">self.settings.arch</span></code> is now a valid check (without casting to str(self.settings.arch))</p></li>
+<li><p>Feature: added cwd`` argument to <strong class="command">conan source</strong> local method.</p></li>
+<li><p>Fix: unzip crashed for 0 Bytes zip files</p></li>
+<li><p>Fix: <code class="docutils literal notranslate"><span class="pre">collect_libs</span></code> moved to the <code class="docutils literal notranslate"><span class="pre">tools</span></code> module</p></li>
+<li><p>Bugfix: fixed wrong regex in <code class="docutils literal notranslate"><span class="pre">deps_cpp_info</span></code> causing issues with dots and dashes in package names</p></li>
+<li><p>Development: Several internal refactors (tools module, installer), testing (using VS2015 as default, removing VS 12 in testing). Conditional CI in travis for faster builds in developers, downgrading to CMake 3.7 in appveyor</p></li>
+<li><p>Deprecation: <code class="docutils literal notranslate"><span class="pre">dev_requires</span></code> have been removed (it was not documented, but accessible via the <code class="docutils literal notranslate"><span class="pre">requires(dev=True)</span></code> parameter. Superseded by <code class="docutils literal notranslate"><span class="pre">build_requires</span></code>.</p></li>
+<li><p>Deprecation: sources tgz files for exported sources no longer contain “.c_src” subfolder. Packages created with 0.27 will be incompatible with conan &lt; 0.25</p></li>
+</ul>
+</section>
+<section id="id19">
+<h2>0.26.1 (05-September-2017)<a class="headerlink" href="#id19" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Feature: added apple-clang 9.0 to default settings.</p></li>
+<li><p>Fix: <strong class="command">conan copy</strong> command now supports symlinks.</p></li>
+<li><p>Fix: fixed removal of “export_source” folder when files have no permissions</p></li>
+<li><p>Bugfix: fixed parsing of <em>conanbuildinfo.txt</em> with package names containing dots.</p></li>
+</ul>
+</section>
+<section id="august-2017">
+<h2>0.26.0 (31-August-2017)<a class="headerlink" href="#august-2017" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Feature: <strong class="command">conan profile</strong> command has implemented <code class="docutils literal notranslate"><span class="pre">update</span></code>, <code class="docutils literal notranslate"><span class="pre">new</span></code>, <code class="docutils literal notranslate"><span class="pre">remove</span></code> subcommands, with detect``, to allow creation, edition and management of profiles.</p></li>
+<li><p>Feature: <strong class="command">conan package_files</strong> command now can call recipe <code class="docutils literal notranslate"><span class="pre">package()</span></code> method if build_folder`` or source_folder`` arguments are defined</p></li>
+<li><p>Feature: graph loading algorithm improved to avoid repeating nodes. Results in much faster times for dense graphs, and avoids duplications of private requirements.</p></li>
+<li><p>Feature: authentication based on environment variables. Allows very long processes without tokens being expired.</p></li>
+<li><p>Feature: Definition of Visual Studio runtime setting <code class="docutils literal notranslate"><span class="pre">MD</span></code> or <code class="docutils literal notranslate"><span class="pre">MDd</span></code> is now automatic based on build type, not necessary to default in profile.</p></li>
+<li><p>Feature: Capturing <code class="docutils literal notranslate"><span class="pre">SystemExit</span></code> to return user error codes to the system with <code class="docutils literal notranslate"><span class="pre">sys.exit(code)</span></code></p></li>
+<li><p>Feature: Added SKIP_RPATH argument to cmake <code class="docutils literal notranslate"><span class="pre">conan_basic_setup()</span></code> function</p></li>
+<li><p>Feature: Optimized uploads, now uploads will be skipped if there are no changes, irrespective of timestamp</p></li>
+<li><p>Feature: Automatic detection of VS 15-2017, via both a <code class="docutils literal notranslate"><span class="pre">vs150comntools</span></code> variable, and using <code class="docutils literal notranslate"><span class="pre">vswhere.exe</span></code></p></li>
+<li><p>Feature: Added NO_OUTPUT_DIRS argument to cmake <code class="docutils literal notranslate"><span class="pre">conan_basic_setup()</span></code> function</p></li>
+<li><p>Feature: Add support for Chocolatey system package manager for Windows.</p></li>
+<li><p>Feature: Improved in conan user home and path storage configuration, better error checks.</p></li>
+<li><p>Feature: <code class="docutils literal notranslate"><span class="pre">export</span></code> command is now able to export recipes without name or version, specifying the full reference.</p></li>
+<li><p>Feature: Added new default settings, Arduino, gcc-7.2</p></li>
+<li><p>Feature: Add conan settings to cmake generated file</p></li>
+<li><p>Feature: new <code class="docutils literal notranslate"><span class="pre">tools.replace_prefix_in_pc_file()</span></code> function to help with .pc files.</p></li>
+<li><p>Feature: Adding support for system package tool <code class="docutils literal notranslate"><span class="pre">pkgutil</span></code> on Solaris</p></li>
+<li><p>Feature: <strong class="command">conan remote update</strong> now allows <strong class="command">--insert</strong> argument to change remote order</p></li>
+<li><p>Feature: Add <code class="docutils literal notranslate"><span class="pre">verbose</span></code> definition to <code class="docutils literal notranslate"><span class="pre">CMake</span></code> helper.</p></li>
+<li><p>Fix: <strong class="command">conan package</strong> working locally failed if not specified build_folder</p></li>
+<li><p>Fix: Search when using wildcards for version like <code class="docutils literal notranslate"><span class="pre">Pkg/*&#64;user/channel</span></code></p></li>
+<li><p>Fix: Change current working directory to the conanfile.py one before loading it, so relative python imports or code work.</p></li>
+<li><p>Fix: <code class="docutils literal notranslate"><span class="pre">package_files</span></code> command now works with <code class="docutils literal notranslate"><span class="pre">short_paths</span></code> too.</p></li>
+<li><p>Fix: adding missing require of tested package in test_package/conanfile build() method</p></li>
+<li><p>Fix: path joining in <code class="docutils literal notranslate"><span class="pre">vcvars_command</span></code> for custom VS paths defined via env-vars</p></li>
+<li><p>Fix: better managing string escaping in CMake variables</p></li>
+<li><p>Fix: <code class="docutils literal notranslate"><span class="pre">ExecutablePath</span></code> assignment has been removed from the <code class="docutils literal notranslate"><span class="pre">visual_studio</span></code> generator.</p></li>
+<li><p>Fix: removing <code class="docutils literal notranslate"><span class="pre">export_source</span></code> folder containing exported code, fix issues with read-only files and keeps cache consistency better.</p></li>
+<li><p>Fix: Accept 100 return code from yum check-update</p></li>
+<li><p>Fix: importing *.so files from the <strong class="command">conan new</strong> generated test templates</p></li>
+<li><p>Fix: progress bars display when download/uploads are not multipart (reported size 0)</p></li>
+<li><p>Bugfix: fixed wrong OSX <code class="docutils literal notranslate"><span class="pre">DYLD_LIBRARY_PATH</span></code> variable for virtual environments</p></li>
+<li><p>Bugfix: <code class="docutils literal notranslate"><span class="pre">FileCopier</span></code> had a bug that affected <code class="docutils literal notranslate"><span class="pre">self.copy()</span></code> commands, changing base reference directory.</p></li>
+</ul>
+</section>
+<section id="july-2017">
+<h2>0.25.1 (20-July-2017)<a class="headerlink" href="#july-2017" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Bugfix: Build requires are now applied correctly to test_package projects.</p></li>
+<li><p>Fix: Fixed search command to print an error when –table parameter is used without a reference.</p></li>
+<li><p>Fix: install() method of the CMake() helper, allows parallel building, change build folder and custom parameters.</p></li>
+<li><p>Fix: Controlled errors in migration, print warning if conan is not able to remove a package directory.</p></li>
+</ul>
+</section>
+<section id="id20">
+<h2>0.25.0 (19-July-2017)<a class="headerlink" href="#id20" title="Link to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This release introduces a new layout for the local cache, with dedicated <code class="docutils literal notranslate"><span class="pre">export_source</span></code> folder to store the source code exported with <code class="docutils literal notranslate"><span class="pre">exports_sources</span></code> feature, which is much cleaner than the old <code class="docutils literal notranslate"><span class="pre">.c_src</span></code> subfolder. A migration is included to remove from the local cache packages with the old layout.</p>
+</div>
+<ul class="simple">
+<li><p>Feature: new <strong class="command">conan create</strong> command that supersedes <em>test_package</em> for creating and testing package. It works even without the test_package folder, and have improved management for user, channel. The test_package recipe no longer defines <code class="docutils literal notranslate"><span class="pre">requires</span></code></p></li>
+<li><p>Feature: new <strong class="command">conan get</strong> command that display (with syntax highlight) package recipes, and any other file from conan: recipes, conaninfo.txt, manifests, etc.</p></li>
+<li><p>Feature: new <strong class="command">conan alias</strong> command that creates a special package recipe, that works like an <strong>alias</strong> or a <strong>proxy</strong> to other package, allowing easy definition and transparent management of “using the latest minor” and similar policies. Those special alias packages do not appear in the dependency graph.</p></li>
+<li><p>Feature: new <strong class="command">conan search --table=file.html</strong> command that will output an html file with a graphical representation of available binaries</p></li>
+<li><p>Feature: created <strong>default profile</strong>, that replace the <code class="docutils literal notranslate"><span class="pre">[settings_default]</span></code> in <strong>conan.conf</strong> and augments it, allowing to define more things like env-vars, options, build_requires, etc.</p></li>
+<li><p>Feature: new <code class="docutils literal notranslate"><span class="pre">self.user_info</span></code> member that can be used in <code class="docutils literal notranslate"><span class="pre">package_info()</span></code> to define custom user variables, that will be translated to general purpose variables by generators.</p></li>
+<li><p>Feature: <strong class="command">conan remove</strong> learned the <strong class="command">--outdated</strong> argument, to remove those binary packages that are outdated from the recipe, both from local cache and remotes</p></li>
+<li><p>Feature: <strong class="command">conan search</strong> learned the <strong class="command">--outdated</strong> argument, to show only those binary packages that are outdated from the recipe, both from local cache and remotes</p></li>
+<li><p>Feature: Automatic management <code class="docutils literal notranslate"><span class="pre">CMAKE_TOOLCHAIN_FILE</span></code> in <code class="docutils literal notranslate"><span class="pre">CMake</span></code> helper for cross-building.</p></li>
+<li><p>Feature: created <code class="docutils literal notranslate"><span class="pre">conan_api</span></code>, a python API interface to conan functionality.</p></li>
+<li><p>Feature: new <code class="docutils literal notranslate"><span class="pre">cmake.install()</span></code> method of <code class="docutils literal notranslate"><span class="pre">CMake</span></code> helper.</p></li>
+<li><p>Feature: <code class="docutils literal notranslate"><span class="pre">short_paths</span></code> feature now applies also to <code class="docutils literal notranslate"><span class="pre">exports_sources</span></code></p></li>
+<li><p>Feature: <code class="docutils literal notranslate"><span class="pre">SystemPackageTool</span></code> now supports <strong>FreeBSD</strong> system packages</p></li>
+<li><p>Feature: <code class="docutils literal notranslate"><span class="pre">build_requires</span></code> now manage options too, also default options in package recipes</p></li>
+<li><p>Feature: <strong class="command">conan build</strong> learned new <strong class="command">--package_folder</strong> argument, useful if the build system perform the packaging</p></li>
+<li><p>Feature: <code class="docutils literal notranslate"><span class="pre">CMake</span></code> helper now defines by default <code class="docutils literal notranslate"><span class="pre">CMAKE_INSTALL_PREFIX</span></code> pointing to the current package_folder, so <code class="docutils literal notranslate"><span class="pre">cmake.install()</span></code> can transparently execute the packaging.</p></li>
+<li><p>Feature: improved command UX with cwd`` arguments to allow define the current directory for the command</p></li>
+<li><p>Feature: improved <code class="docutils literal notranslate"><span class="pre">VisualStudioBuildEnvironment</span></code></p></li>
+<li><p>Feature: transfers now show size (MB, KB) of download/uploaded files, and current status of transfer.</p></li>
+<li><p>Feature: <strong class="command">conan new</strong> now has arguments to generate CI scripts for Gitlab CI.</p></li>
+<li><p>Feature: Added <code class="docutils literal notranslate"><span class="pre">MinRelSize</span></code> and <code class="docutils literal notranslate"><span class="pre">RelWithDebInfo</span></code> management in <code class="docutils literal notranslate"><span class="pre">CMake</span></code> helper.</p></li>
+<li><p>Fix: make <code class="docutils literal notranslate"><span class="pre">mkdir</span></code>, <code class="docutils literal notranslate"><span class="pre">rmdir</span></code>, <code class="docutils literal notranslate"><span class="pre">relative_dirs</span></code> available for import from <strong class="command">conans</strong> module.</p></li>
+<li><p>Fix: improved detection of Visual Studio default under cygwin environment.</p></li>
+<li><p>Fix: <code class="docutils literal notranslate"><span class="pre">package_files</span></code> now allows symlinks</p></li>
+<li><p>Fix: Windows installer now includes conan_build_info tool.</p></li>
+<li><p>Fix: appending environment variables instead of overwriting them when they come from different origins: upstream dependencies and profiles.</p></li>
+<li><p>Fix: made opt-in the check of package integrity before uploads, it was taking too much time, and provide little value for most users.</p></li>
+<li><p>Fix: Package recipe linter removed some false positives</p></li>
+<li><p>Fix: default settings from conan.conf do not fail for constrained settings in recipes.</p></li>
+<li><p>Fix: Allowing to define package remote with <strong class="command">conan remote add_ref</strong> before download/upload.</p></li>
+<li><p>Fix: removed duplicated BUILD_SHARED_LIBS in test_package</p></li>
+<li><p>Fix: add “rhel” to list of distros using yum.</p></li>
+<li><p>Bugfix: allowing relative paths in <code class="docutils literal notranslate"><span class="pre">exports</span></code> and <code class="docutils literal notranslate"><span class="pre">exports_sources</span></code> fields</p></li>
+<li><p>Bugfix: allow custom user generators with underscore</p></li>
+</ul>
+</section>
+<section id="june-2017">
+<h2>0.24.0 (15-June-2017)<a class="headerlink" href="#june-2017" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Feature: <strong class="command">conan new</strong> new arguments to generate <strong>Travis-CI</strong> and <strong>Appveyor</strong> files for Continuous Integration</p></li>
+<li><p>Feature: Profile files with <code class="docutils literal notranslate"><span class="pre">include()</span></code> and variable declaration</p></li>
+<li><p>Feature: Added <code class="docutils literal notranslate"><span class="pre">RelWithDebInfo/MinRelSize</span></code> to cmake generators</p></li>
+<li><p>Feature: Improved linter, removing false positives due to dynamic conanfile attributes</p></li>
+<li><p>Feature: Added <code class="docutils literal notranslate"><span class="pre">tools.ftp_download()</span></code> function for FTP retrieval</p></li>
+<li><p>Feature: Managing symlinks between folders.</p></li>
+<li><p>Feature: <strong class="command">conan remote add</strong> command learned new insert`` option to add remotes in specific order.</p></li>
+<li><p>Feature: support multi-config in the <code class="docutils literal notranslate"><span class="pre">SCons</span></code> generator</p></li>
+<li><p>Feature: support for gcc 7.1+ detection</p></li>
+<li><p>Feature: <code class="docutils literal notranslate"><span class="pre">tools</span></code> now are using global <code class="docutils literal notranslate"><span class="pre">requests</span></code> and <code class="docutils literal notranslate"><span class="pre">output</span></code> instances. Proxies will work for <code class="docutils literal notranslate"><span class="pre">tools.download()</span></code></p></li>
+<li><p>Feature: json`` parameter added to <strong class="command">conan info`</strong> command to create a JSON with the <code class="docutils literal notranslate"><span class="pre">build_order</span></code>.</p></li>
+<li><p>Fix: update default repos, now pointing to Bintray.</p></li>
+<li><p>Fix: printing <code class="docutils literal notranslate"><span class="pre">outdated</span> <span class="pre">from</span> <span class="pre">recipe</span></code> also for remotes</p></li>
+<li><p>Fix: Fix required slash in <code class="docutils literal notranslate"><span class="pre">configure_dir</span></code> of <code class="docutils literal notranslate"><span class="pre">AutoToolsBuildEnvironment</span></code></p></li>
+<li><p>Fix: command <code class="docutils literal notranslate"><span class="pre">new</span></code> with very short names, now errors earlier.</p></li>
+<li><p>Fix: better error detection for incorrect <code class="docutils literal notranslate"><span class="pre">Conanfile.py</span></code> letter case.</p></li>
+<li><p>Fix: Improved some cmake robustness using quotes to avoid cmake errors</p></li>
+<li><p>BugFix: Fixed incorrect firing of building due to build`` patterns error</p></li>
+<li><p>BugFix: Fixed bug with options incorrectly applied to <code class="docutils literal notranslate"><span class="pre">build_requires</span></code> and crashing</p></li>
+<li><p>Refactor: internal refactors toward having a python api to conan functionality</p></li>
+</ul>
+</section>
+<section id="id21">
+<h2>0.23.1 (05-June-2017)<a class="headerlink" href="#id21" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>BugFix: Fixed bug while packaging symlinked folders in build folder, and target not being packaged.</p></li>
+<li><p>Relaxed OSX requirement of pyopenssl to &lt;18</p></li>
+</ul>
+</section>
+<section id="id22">
+<h2>0.23.0 (01-June-2017)<a class="headerlink" href="#id22" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Feature: new <code class="docutils literal notranslate"><span class="pre">build_requires</span></code> field and <code class="docutils literal notranslate"><span class="pre">build_requirements()</span></code> in package recipes</p></li>
+<li><p>Feature: improved commands (source, build, package, package_files) and workflows for local development of packages in user folders.</p></li>
+<li><p>Feature: implemented <code class="docutils literal notranslate"><span class="pre">no_copy_source</span></code> attribute in recipes to avoid the copy of source code from “source” to “build folder”. Created new <code class="docutils literal notranslate"><span class="pre">self.source_folder</span></code>, <code class="docutils literal notranslate"><span class="pre">self.build_folder</span></code>, <code class="docutils literal notranslate"><span class="pre">self.package_folder</span></code> for recipes to use.</p></li>
+<li><p>Feature: improved <code class="docutils literal notranslate"><span class="pre">qmake</span></code> generator with multi-config support, resource directories</p></li>
+<li><p>Feature: improved exception capture and formatting for all recipe user methods exceptions</p></li>
+<li><p>Feature: new <code class="docutils literal notranslate"><span class="pre">tools.sha256()</span></code> method</p></li>
+<li><p>Feature: folder symlinks working now for packages and upload/download</p></li>
+<li><p>Feature: added <code class="docutils literal notranslate"><span class="pre">set_find_paths()</span></code> to <code class="docutils literal notranslate"><span class="pre">cmake-multi</span></code>, to set CMake FindXXX.cmake paths. This will work only for single-config build-systems.</p></li>
+<li><p>Feature: using environment variables for <code class="docutils literal notranslate"><span class="pre">configure()</span></code>, <code class="docutils literal notranslate"><span class="pre">requirements()</span></code> and <code class="docutils literal notranslate"><span class="pre">test()</span></code> methods</p></li>
+<li><p>Feature: added a <code class="docutils literal notranslate"><span class="pre">pylintrc</span></code> environment variable in <code class="docutils literal notranslate"><span class="pre">conan.conf</span></code> to define a PYLINTRC file with custom style definitions (like indents).</p></li>
+<li><p>Feature: fixed <code class="docutils literal notranslate"><span class="pre">vcvars</span></code> architecture setting</p></li>
+<li><p>Fix: Make <code class="docutils literal notranslate"><span class="pre">cacert.pem</span></code> folder use CONAN_USER_HOME if existing</p></li>
+<li><p>Fix: fixed <code class="docutils literal notranslate"><span class="pre">options=a=b</span></code> option definition</p></li>
+<li><p>Fix: <code class="docutils literal notranslate"><span class="pre">package_files</span></code> command allows force`` argument to overwrite existing instead of failing</p></li>
+<li><p>BugFix: Package names with underscore when parsing <code class="docutils literal notranslate"><span class="pre">conanbuildinfo.txt</span></code></p></li>
+</ul>
+</section>
+<section id="may-2017">
+<h2>0.22.3 (03-May-2017)<a class="headerlink" href="#may-2017" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Fix: Fixed CMake generator (in targets mode) with linker/exe flags like –framework XXX containing spaces.</p></li>
+</ul>
+</section>
+<section id="april-2017">
+<h2>0.22.2 (20-April-2017)<a class="headerlink" href="#april-2017" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Fix: Fixed regression with usernames starting with non-alphabetical characters, introduced by 0.22.0</p></li>
+</ul>
+</section>
+<section id="id23">
+<h2>0.22.1 (18-April-2017)<a class="headerlink" href="#id23" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Fix: “-” symbol available again in usernames.</p></li>
+<li><p>Fix: Added <code class="docutils literal notranslate"><span class="pre">future</span></code> requirement to solve an error with pyinstaller generating the Windows installer.</p></li>
+</ul>
+</section>
+<section id="id24">
+<h2>0.22.0 (18-April-2017)<a class="headerlink" href="#id24" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Feature: <code class="docutils literal notranslate"><span class="pre">[build_requires]</span></code> can now be declared in <code class="docutils literal notranslate"><span class="pre">profiles</span></code> and apply them to build packages. Those requirements are only installed if the package is required to build from sources, and do not affect its package ID hash, and it is not necessary to define them in the package recipe. Ideal for testing libraries, cross compiling toolchains (like Android), development tools, etc.</p></li>
+<li><p>Feature: Much improved support for cross-building. Support for cross-building to <strong>Android</strong> provided, with toolchains installable via <code class="docutils literal notranslate"><span class="pre">build_requires</span></code>.</p></li>
+<li><p>Feature: New <code class="docutils literal notranslate"><span class="pre">package_files</span></code> command, that is able to create binary packages directly from user files, without needing to define <code class="docutils literal notranslate"><span class="pre">build()</span></code> or <code class="docutils literal notranslate"><span class="pre">package()</span></code> methods in the the recipes.</p></li>
+<li><p>Feature: command <strong class="command">conan new</strong> with a new bare`` option that will create a minimal package recipe, usable with the <code class="docutils literal notranslate"><span class="pre">package_files</span></code> command.</p></li>
+<li><p>Feature: Improved <code class="docutils literal notranslate"><span class="pre">CMake</span></code> helper, with <code class="docutils literal notranslate"><span class="pre">test()</span></code> method, automatic setting of BUILD_SHARED_LIBS, better management of variables, support for parallel compilation in MSVC (via /MP)</p></li>
+<li><p>Feature: new <code class="docutils literal notranslate"><span class="pre">tools.msvc_build_command()</span></code> helper that both sets the Visual vcvars and calls Visual to build the solution. Also <code class="docutils literal notranslate"><span class="pre">vcvars_command</span></code> is improved to return non-empty string even if vcvars is set, for easier concatenation.</p></li>
+<li><p>Feature: Added package recipe linter, warning for potential errors and also about Python 3 incompatibilities when running from Python 2. Enabled by default can be opt-out.</p></li>
+<li><p>Feature: Improvements in HTML output of <strong class="command">conan info --graph</strong>.</p></li>
+<li><p>Feature: allow custom path to bash, as configuration and environment variable.</p></li>
+<li><p>Fix: Not issuing an unused variable warning in CMake for the CONAN_EXPORTED variable</p></li>
+<li><p>Fix: added new <code class="docutils literal notranslate"><span class="pre">mips</span></code> architectures and latest compiler versions to default settings.yml</p></li>
+<li><p>Fix: Unified username allowed patterns to those used in package references.</p></li>
+<li><p>Fix: hardcoded vs15 version in tools.vcvars</p></li>
+<li><p>BugFix: Clean crash and improved error messages when manifests mistmatch exists in conan upload.</p></li>
+</ul>
+</section>
+<section id="id25">
+<h2>0.21.2 (04-April-2017)<a class="headerlink" href="#id25" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Bugfix: virtualenv generator quoting environment variables in Windows.</p></li>
+</ul>
+</section>
+<section id="march-2017">
+<h2>0.21.1 (23-March-2017)<a class="headerlink" href="#march-2017" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>BugFix: Fixed missing dependencies in <code class="docutils literal notranslate"><span class="pre">AutoToolsBuildEnvironment</span></code></p></li>
+<li><p>BugFix: Escaping single quotes in html graph of <strong class="command">conan info --graph=file.html</strong>.</p></li>
+<li><p>BugFix: Fixed loading of auth plugins in conan_server</p></li>
+<li><p>BugFix: Fixed <code class="docutils literal notranslate"><span class="pre">visual_studio</span></code> generator creating XML with dots.</p></li>
+</ul>
+</section>
+<section id="id26">
+<h2>0.21.0 (21-March-2017)<a class="headerlink" href="#id26" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Feature: <strong class="command">conan info --graph</strong> or graph=file.html`` will generate a dependency graph representation in dot or html formats.</p></li>
+<li><p>Feature: Added better support and tests for Solaris Sparc.</p></li>
+<li><p>Feature: custom authenticators are now possible in <strong class="command">conan_server`</strong> with plugins.</p></li>
+<li><p>Feature: extended <strong class="command">conan info</strong> command with path information and filter by packages.</p></li>
+<li><p>Feature: enabled conditional binary packages removal with <strong class="command">conan remove</strong> with query syntax</p></li>
+<li><p>Feature: enabled generation and validation of manifests from <em>test_package</em>.</p></li>
+<li><p>Feature: allowing <code class="docutils literal notranslate"><span class="pre">options</span></code> definitions in profiles</p></li>
+<li><p>Feature: new <code class="docutils literal notranslate"><span class="pre">RunEnvironment</span></code> helper, that makes easier to run binaries from dependent packages</p></li>
+<li><p>Feature: new <code class="docutils literal notranslate"><span class="pre">virtualrunenv</span></code> generator that activates environment variable for execution of binaries from installed packages, without requiring <code class="docutils literal notranslate"><span class="pre">imports</span></code> of shared libraries.</p></li>
+<li><p>Feature: adding new version modes for ABI compatibility definition in <code class="docutils literal notranslate"><span class="pre">package_id()</span></code>.</p></li>
+<li><p>Feature: Extended <strong class="command">conan new</strong> command with new option for <code class="docutils literal notranslate"><span class="pre">exports_sources</span></code> example recipe.</p></li>
+<li><p>Feature: <code class="docutils literal notranslate"><span class="pre">CMake</span></code> helper defining parallel builds for gcc-like compilers via jN``, allowing user definition with environment variable and in conan.conf.</p></li>
+<li><p>Feature: <strong class="command">conan profile`</strong> command now show profiles in alphabetical order.</p></li>
+<li><p>Feature: extended <code class="docutils literal notranslate"><span class="pre">visual_studio</span></code> generator with more information and binary paths for execution with DLLs paths.</p></li>
+<li><p>Feature: Allowing relative paths with $PROFILE_DIR place holder in <code class="docutils literal notranslate"><span class="pre">profiles</span></code></p></li>
+<li><p>Fix: using only file checksums to decide for modified recipe in remote, for possible concurrent builds &amp; uploads.</p></li>
+<li><p>Fix: Improved build`` modes management, with better checks and allowing multiple definitions and mixtures of conditions</p></li>
+<li><p>Fix: Replaced warning for non-matching OS to one message stating the cross-build</p></li>
+<li><p>Fix: local <strong class="command">conan source`</strong> command (working in user folder) now properly executes the equivalent of <code class="docutils literal notranslate"><span class="pre">exports</span></code> functionality</p></li>
+<li><p>Fix: Setting command line arguments to cmake command as CMake flags, while using the TARGETS approach. Otherwise, arch flags like -m32 -m64 for gcc were not applied.</p></li>
+<li><p>BugFix: fixed <strong class="command">conan imports</strong> destination folder issue.</p></li>
+<li><p>BugFix: Allowing environment variables with spaces</p></li>
+<li><p>BugFix: fix for CMake with targets usage of multiple flags.</p></li>
+<li><p>BugFix: Fixed crash of <code class="docutils literal notranslate"><span class="pre">cmake_multi</span></code> generator for “multi-config” packages.</p></li>
+</ul>
+</section>
+<section id="id27">
+<h2>0.20.3 (06-March-2017)<a class="headerlink" href="#id27" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Fix: Added opt-out for <code class="docutils literal notranslate"><span class="pre">CMAKE_SYSTEM_NAME</span></code> automatically added when cross-building, causing users
+providing their own cross-build to fail</p></li>
+<li><p>BugFix: Corrected usage of <code class="docutils literal notranslate"><span class="pre">CONAN_CFLAGS</span></code> instead of <code class="docutils literal notranslate"><span class="pre">CONAN_C_FLAGS</span></code> in cmake targets</p></li>
+</ul>
+</section>
+<section id="id28">
+<h2>0.20.2 (02-March-2017)<a class="headerlink" href="#id28" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Fix: Regression of <code class="docutils literal notranslate"><span class="pre">visual_studio``generator</span> <span class="pre">using</span> <span class="pre">``%(ExecutablePath)</span></code> instead of <code class="docutils literal notranslate"><span class="pre">$(ExecutablePath)</span></code></p></li>
+<li><p>Fix: Regression for build=outdated –build=Pkg`` install pattern</p></li>
+</ul>
+</section>
+<section id="id29">
+<h2>0.20.1 (01-March-2017)<a class="headerlink" href="#id29" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Fix: Disabled the use of cached settings and options from installed <code class="docutils literal notranslate"><span class="pre">conaninfo.txt</span></code></p></li>
+<li><p>Fix: Revert the use of quotes in <code class="docutils literal notranslate"><span class="pre">cmake</span></code> generator for flags.</p></li>
+<li><p>Fix: Allow comments in artifacts.properties</p></li>
+<li><p>Fix: Added missing commit for CMake new helpers</p></li>
+</ul>
+</section>
+<section id="february-2017">
+<h2>0.20.0 (27-February-2017)<a class="headerlink" href="#february-2017" title="Link to this heading"></a></h2>
+<p><strong>NOTE:</strong> It is important that if you upgrade to this version, all the clients connected to the same
+remote, should upgrade too. Packages created with conan&gt;=0.20.0 might not be usable with conan older conan clients.</p>
+<ul class="simple">
+<li><p>Feature: Largely improved management of <strong>environment variables</strong>, declaration in <code class="docutils literal notranslate"><span class="pre">package_info()</span></code>,
+definition in profiles, in command line, per package, propagation to consumers.</p></li>
+<li><p>Feature: New build helpers <code class="docutils literal notranslate"><span class="pre">AutotoolsBuildEnvironment</span></code>, <code class="docutils literal notranslate"><span class="pre">VisualStudioBuildEnvironment</span></code>, which
+deprecate <code class="docutils literal notranslate"><span class="pre">ConfigureEnvironment</span></code>, with much better usage of environment variables</p></li>
+<li><p>Feature: New <code class="docutils literal notranslate"><span class="pre">virtualbuildenv</span></code> generator that will generate a composable environment with build
+information from installed dependencies.</p></li>
+<li><p>Feature: New <code class="docutils literal notranslate"><span class="pre">build_id()</span></code> recipe method that allows to define logic to build once, and package
+multiple times without building. E.g.: build once both debug and release artifacts, then package
+separately.</p></li>
+<li><p>Feature: <strong>Multi-config packages</strong>. Now packages can provide multi-configuration packages, like
+both debug/release artifacts in the same package, with <code class="docutils literal notranslate"><span class="pre">self.cpp_info.debug.libs</span> <span class="pre">=</span> <span class="pre">[...]</span></code> syntax.
+Not restricted to debug/release, can be used for other purposes.</p></li>
+<li><p>Feature: new <strong class="command">conan config</strong> command to manage, edit, display <code class="docutils literal notranslate"><span class="pre">conan.conf</span></code> entries</p></li>
+<li><p>Feature: <a class="reference internal" href="reference/build_helpers/cmake.html#cmake-reference"><span class="std std-ref">Improvements</span></a> to <code class="docutils literal notranslate"><span class="pre">CMake</span></code> build helper, now it has <code class="docutils literal notranslate"><span class="pre">configure()</span></code> and <code class="docutils literal notranslate"><span class="pre">build()</span></code> methods
+for common operations.</p></li>
+<li><p>Feature: Improvements to <code class="docutils literal notranslate"><span class="pre">SystemPackageTool</span></code> with detection of installed packages, improved
+implementation, installation of multi-name packages.</p></li>
+<li><p>Feature: Unzip with <code class="docutils literal notranslate"><span class="pre">tools.unzip</span></code> maintaining permissions (Linux, OSX)</p></li>
+<li><p>Feature: <strong class="command">conan info</strong> command now allows profiles too</p></li>
+<li><p>Feature: new tools <code class="docutils literal notranslate"><span class="pre">unix_path()</span></code>, <code class="docutils literal notranslate"><span class="pre">escape_windows_cmd()</span></code>, <code class="docutils literal notranslate"><span class="pre">run_in_windows_bash()</span></code>, useful
+for autotools projects in Win/MinGW/Msys</p></li>
+<li><p>Feature: new context manager <code class="docutils literal notranslate"><span class="pre">tools.chdir</span></code>, to temporarily change directory.</p></li>
+<li><p>Feature: CMake using <code class="docutils literal notranslate"><span class="pre">CMAKE_SYSTEM_NAME</span></code> for cross-compiling.</p></li>
+<li><p>Feature: Artifactory build-info extraction from traces</p></li>
+<li><p>Feature: Attach custom headers to artifacts uploads with an <cite>artifacts.properties</cite> file.</p></li>
+<li><p>Feature: allow and copy symlinks while <strong class="command">conan export</strong></p></li>
+<li><p>Fix: removing quotes in some cmake variables that were generating incorrect builds</p></li>
+<li><p>Fix: providing better error messages for non existing binaries, with links to the docs</p></li>
+<li><p>Fix: improved error messages if <code class="docutils literal notranslate"><span class="pre">tools.patch</span></code> failed</p></li>
+<li><p>Fix: adding <code class="docutils literal notranslate"><span class="pre">resdirs</span></code> to <code class="docutils literal notranslate"><span class="pre">cpp_info</span></code> propagated information, and cmake variables, for directories
+containing resources and other data.</p></li>
+<li><p>Fix: printing error messages if a build`` policy doesn’t match any package</p></li>
+<li><p>Fix: managing VS2017 by <code class="docutils literal notranslate"><span class="pre">tools</span></code>. Still the manual definition of <code class="docutils literal notranslate"><span class="pre">vs150comntools</span></code> required.</p></li>
+<li><p>Bug fix: crashes when not supported characters were dumped to terminal by logger</p></li>
+<li><p>Bug fix: wrong executable path in Visual Studio generator</p></li>
+</ul>
+</section>
+<section id="id30">
+<h2>0.19.3 (27-February-2017)<a class="headerlink" href="#id30" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Fix: backward compatibility for new environment variables. New features to be introduced in 0.20
+will produce that <code class="docutils literal notranslate"><span class="pre">conaninfo.txt</span></code> will not be correctly parsed, and then package would be “missing”.
+This will happen for packages created with 0.20, and consumed with older than 0.19.3</p></li>
+</ul>
+<p>NOTE: It is important that you upgrade at least to this version if you are using remotes with packages
+that might be created with latest conan releases (like conan.io).</p>
+</section>
+<section id="id31">
+<h2>0.19.2 (15-February-2017)<a class="headerlink" href="#id31" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Bug fix: Fixed bug with remotes behind proxies</p></li>
+<li><p>Bug fix: Fixed bug with <code class="docutils literal notranslate"><span class="pre">exports_sources</span></code> feature and nested folders</p></li>
+</ul>
+</section>
+<section id="id32">
+<h2>0.19.1 (02-February-2017)<a class="headerlink" href="#id32" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Bug fix: Fixed issue with <strong class="command">conan copy`</strong> followed by <strong class="command">conan upload`</strong> due to the new <code class="docutils literal notranslate"><span class="pre">exports_sources</span></code>
+feature.</p></li>
+</ul>
+</section>
+<section id="january-2017">
+<h2>0.19.0 (31-January-2017)<a class="headerlink" href="#january-2017" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Feature: <code class="docutils literal notranslate"><span class="pre">exports_sources</span></code> allows to snapshot sources (like <code class="docutils literal notranslate"><span class="pre">exports</span></code>) but retrieve them strictly
+when necessary, to build from sources. This can largely improve install times for package recipes
+containing sources</p></li>
+<li><p>Feature: new configurable <strong>tracer</strong> able to create structured logs of conan actions: commands, API calls, etc</p></li>
+<li><p>Feature: new logger for <code class="docutils literal notranslate"><span class="pre">self.run</span></code> actions, able to log information from builds and other commands
+to files, that can afterwards be packaged together with the binaries.</p></li>
+<li><p>Feature: support for <strong>Solaris SunOS</strong></p></li>
+<li><p>Feature: <code class="docutils literal notranslate"><span class="pre">Version</span></code> helper improved with <code class="docutils literal notranslate"><span class="pre">patch,</span> <span class="pre">pre,</span> <span class="pre">build</span></code> capabilities to handle <code class="docutils literal notranslate"><span class="pre">1.3.4-alpha2+build1</span></code> versions</p></li>
+<li><p>Feature: compress level of tgz is now configurable via <code class="docutils literal notranslate"><span class="pre">CONAN_COMPRESSION_LEVEL</span></code> environment variable,
+default 9. Reducing it can lead to faster compression times, at the expense of slightly bigger archives</p></li>
+<li><p>Feature: Add <strong>powershell</strong> support for virtualenv generator in Windows</p></li>
+<li><p>Feature: Improved <code class="docutils literal notranslate"><span class="pre">system_requirements()</span></code> raising errors when failing, retrying if not successful,
+being able to execute in user space for local recipes</p></li>
+<li><p>Feature: new cmake helper macro <code class="docutils literal notranslate"><span class="pre">conan_target_link_libraries()</span></code>.</p></li>
+<li><p>Feature: new cmake <code class="docutils literal notranslate"><span class="pre">CONAN_EXPORTED</span></code> variable, can be used in CMakeLists.txt to differentiate building
+in the local conan cache as package and building in user space</p></li>
+<li><p>Fix: improving the caching of options from <strong class="command">conan install</strong> in conaninfo.txt and precedence.</p></li>
+<li><p>Fix: conan definition of cmake output dirs has been disabled for <code class="docutils literal notranslate"><span class="pre">cmake_multi</span></code> generator</p></li>
+<li><p>Fix: <code class="docutils literal notranslate"><span class="pre">imports()</span></code> now uses environment variables at “conan install” (but not at “conan imports” yet)</p></li>
+<li><p>Fix: <code class="docutils literal notranslate"><span class="pre">conan_info()</span></code> method has been renamed to <code class="docutils literal notranslate"><span class="pre">package_id()</span></code>. Backward compatibility is maintained,
+but it is strongly encouraged to use the new name.</p></li>
+<li><p>Fix: <code class="docutils literal notranslate"><span class="pre">conan_find_libraries</span></code> now use the NO_CMAKE_FIND_ROOT_PATH parameter for avoiding issue while cross-compiling</p></li>
+<li><p>Fix: disallowing duplicate URLs in remotes, better error management</p></li>
+<li><p>Fix: improved error message for wildcard uploads not matching any package</p></li>
+<li><p>Fix: remove deprecated <code class="docutils literal notranslate"><span class="pre">platform.linux_distribution()</span></code>, using new “distro” package</p></li>
+<li><p>Bugfix: fixed management of <code class="docutils literal notranslate"><span class="pre">VerifySSL</span></code> parameter for remotes</p></li>
+<li><p>Bugfix: fixed misdetection of compiler version in conanbuildinfo.cmake for apple-clang</p></li>
+<li><p>Bugfix: fixed trailing slash in remotes URLs producing crashes</p></li>
+<li><p>Refactor: A big refactor has been do to <code class="docutils literal notranslate"><span class="pre">options</span></code>. Nested options are no longer supported, and
+<code class="docutils literal notranslate"><span class="pre">option.suboption</span></code> will be managed as a single string option.</p></li>
+</ul>
+<p>This has been a huge release with contributors of 11 developers. Thanks very much to all of them!</p>
+</section>
+<section id="id33">
+<h2>0.18.1 (11-January-2017)<a class="headerlink" href="#id33" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Bug Fix: Handling of transitive private dependencies in modern cmake targets</p></li>
+<li><p>Bug Fix: Missing quotes in CMake macro for modern cmake targets</p></li>
+<li><p>Bug Fix: Handling LINK_FLAGS in cmake modern targets</p></li>
+<li><p>Bug Fix: Environment variables no propagating to test project with test_package command</p></li>
+</ul>
+</section>
+<section id="id34">
+<h2>0.18.0 (3-January-2017)<a class="headerlink" href="#id34" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Feature: uploads and downloads with <strong>retries</strong> on failures. This helps to avoid having to fully
+rebuild on CI when a network transfer fails</p></li>
+<li><p>Feature: added <strong>SCons</strong> generator</p></li>
+<li><p>Feature: support for <strong>Python 3.6</strong>, with several fixes. Added Python 3.6 to CI.</p></li>
+<li><p>Feature: show package dates in <strong class="command">conan info</strong> command</p></li>
+<li><p>Feature: new <code class="docutils literal notranslate"><span class="pre">cmake_multi</span></code> generator for multi-configuration IDEs like Visual Studio and XCode</p></li>
+<li><p>Feature: support for <strong>Visual Studio 2017</strong>, VS-15</p></li>
+<li><p>Feature: <strong>FreeBSD</strong> now passes test suite</p></li>
+<li><p>Feature: <strong class="command">conan upload</strong> showing error messages or URL of remote</p></li>
+<li><p>Feature: <strong>wildcard or pattern upload</strong>. Useful to upload multiple packages to a remote.</p></li>
+<li><p>Feature: allow defining <strong>settings as environment variables</strong>. Useful for use cases like dockerized builds.</p></li>
+<li><p>Feature: improved help`` messages</p></li>
+<li><p>Feature: cmake helper tools to launch conan directly from cmake</p></li>
+<li><p>Added <strong>code coverage</strong> for code repository</p></li>
+<li><p>Fix: conan.io badges when containing dash</p></li>
+<li><p>Fix: manifests errors due to generated .pyc files</p></li>
+<li><p>Bug Fix: unicode error messages crashes</p></li>
+<li><p>Bug Fix: duplicated build of same binary package for private dependencies</p></li>
+<li><p>Bug Fix: duplicated requirement if using version-ranges and <code class="docutils literal notranslate"><span class="pre">requirements()</span></code> method.</p></li>
+</ul>
+</section>
+<section id="december-2016">
+<h2>0.17.2 (21-December-2016)<a class="headerlink" href="#december-2016" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Bug Fix: ConfigureEnvironment helper ignoring libcxx setting. #791</p></li>
+</ul>
+</section>
+<section id="id35">
+<h2>0.17.1 (15-December-2016)<a class="headerlink" href="#id35" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Bug Fix: conan install –all generating corrupted packages. Thanks to &#64;yogeva</p></li>
+<li><p>Improved case sensitive folder management.</p></li>
+<li><p>Fix: appveyor links in README.</p></li>
+</ul>
+</section>
+<section id="id36">
+<h2>0.17.0 (13-December-2016)<a class="headerlink" href="#id36" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Feature: support for <strong>modern cmake</strong> with cmake <code class="docutils literal notranslate"><span class="pre">INTERFACE</span> <span class="pre">IMPORTED</span></code> targets defined per package</p></li>
+<li><p>Feature: support for more advanced queries in search.</p></li>
+<li><p>Feature: new <code class="docutils literal notranslate"><span class="pre">profile</span> <span class="pre">list|show</span></code> command, able to list or show details of profiles</p></li>
+<li><p>Feature: adding preliminary support for <strong>FreeBSD</strong></p></li>
+<li><p>Feature: added new <code class="docutils literal notranslate"><span class="pre">description</span></code> field, to document package contents.</p></li>
+<li><p>Feature: generation of <strong>imports manifest</strong> and <strong class="command">conan imports --undo</strong> functionality to remove
+imported files</p></li>
+<li><p>Feature: optional SSL certificate verification for remotes, to allow self signed certificates</p></li>
+<li><p>Feature: allowing custom paths in profiles, so profiles can be easily shared in teams, just
+inside the source repository or elsewhere.</p></li>
+<li><p>Feature: fields <code class="docutils literal notranslate"><span class="pre">user</span></code> and <code class="docutils literal notranslate"><span class="pre">channel</span></code> now available in conan recipes. That allows to declare
+requirements for the same user/channel as the current package.</p></li>
+<li><p>Feature: improved conan.io package web, adding description.</p></li>
+<li><p>Fix: allow to modify cmake generator in <code class="docutils literal notranslate"><span class="pre">CMake</span></code> helper class.</p></li>
+<li><p>Fix: added <code class="docutils literal notranslate"><span class="pre">strip</span></code> parameter to <code class="docutils literal notranslate"><span class="pre">tools.patch()</span></code> utility</p></li>
+<li><p>Fix: removed unused dependency to Boto</p></li>
+<li><p>Fix: wrong line endings in Windows for conan.conf</p></li>
+<li><p>Fix: proper automatic use of <code class="docutils literal notranslate"><span class="pre">txt</span></code> and <code class="docutils literal notranslate"><span class="pre">env</span></code> generators in <em>test_package</em></p></li>
+<li><p>Bug fix: solved problem when uploading python packages that generated .pyc at execution</p></li>
+<li><p>Bug fix: crash when duplicate requires were declared in conanfile</p></li>
+<li><p>Bug fix: crash with existing imported files with symlinks</p></li>
+<li><p>Bug fix: options missing in “copy install command to clipboard” in web</p></li>
+</ul>
+</section>
+<section id="id37">
+<h2>0.16.1 (05-December-2016)<a class="headerlink" href="#id37" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Solved bug with <em>test_package</em> with arguments, like scopes.</p></li>
+</ul>
+</section>
+<section id="november-2016">
+<h2>0.16.0 (19-November-2016)<a class="headerlink" href="#november-2016" title="Link to this heading"></a></h2>
+<p><strong>Upgrade</strong>: The build=outdated`` feature had a change in the hash computation, it might report
+outdated binaries from recipes. You can re-build the binaries or ignore it (if you haven’t changed
+your recipes without re-generating binaries)</p>
+<ul class="simple">
+<li><p>Feature: <strong>version ranges</strong>. Conan now supports defining requirements with version range expressions
+like <code class="docutils literal notranslate"><span class="pre">Pkg/[&gt;1.2,&lt;1.9||1.0.1]&#64;user/channel</span></code>. Check the <a class="reference internal" href="mastering/version_ranges.html#version-ranges"><span class="std std-ref">version ranges reference</span></a> for details</p></li>
+<li><p>Feature: decoupled <code class="docutils literal notranslate"><span class="pre">imports</span></code> from normal install. Now <strong class="command">conan install --no-imports</strong> skips the
+imports section.</p></li>
+<li><p>Feature: new <strong class="command">conan imports</strong> command that will execute the imports section without running install</p></li>
+<li><p>Feature: <strong>overriding settings per package</strong>. Now it is possible to specify individual settings
+for each package. This can be specified both in the command line and in <code class="docutils literal notranslate"><span class="pre">profiles</span></code></p></li>
+<li><p>Feature: <strong>environment variables</strong> definition in the command line, global and per package. This
+allows to define specific environment variables as the compiler (CC, CXX) for a specific package.
+These environment variables can also be defined in <code class="docutils literal notranslate"><span class="pre">profiles</span></code>. Check <a class="reference internal" href="reference/profiles.html#profiles"><span class="std std-ref">profiles reference</span></a></p></li>
+<li><p>Feature: Now conan files copies handle <strong>symlinks</strong>, so files are not duplicated. This will
+save some space and improve download speed in some large packages. To enable it, use
+<code class="docutils literal notranslate"><span class="pre">self.copy(...,</span> <span class="pre">links=True)</span></code></p></li>
+<li><p>Fix: Enabling correct use of <strong>MSYS</strong> in Windows, by using the Windows <code class="docutils literal notranslate"><span class="pre">C:/...</span></code> path instead of
+the MSYS ones</p></li>
+<li><p>Fix: Several fixes in <strong class="command">conan search</strong>, both local and in remotes</p></li>
+<li><p>Fix: Manifests line endings and order fix, and hash computation fixed (it had wrong ordering)</p></li>
+<li><p>Fix: Removed http-&gt;https redirection in conan_server that produced some issues for SSL reversed
+proxies</p></li>
+<li><p>Fix: Taking into account “ANY” definition of settings and options</p></li>
+<li><p>Fix: Improved some error messages and failures to encode OS errors with unicode characters</p></li>
+<li><p>Update: added new arch <code class="docutils literal notranslate"><span class="pre">ppc64</span></code> to default settings</p></li>
+<li><p>Update: updated python-requests library version</p></li>
+<li><p>Fix: Using <code class="docutils literal notranslate"><span class="pre">generator()</span></code> instead of compiler to decide on cmake multi-configuration for Ninja+cl
+builds</p></li>
+<li><p>Improved and completed documentation</p></li>
+</ul>
+</section>
+<section id="id38">
+<h2>0.15.0 (08-November-2016)<a class="headerlink" href="#id38" title="Link to this heading"></a></h2>
+<p><strong>Upgrade</strong>: If you were using the <code class="docutils literal notranslate"><span class="pre">short_paths</span></code> feature in Windows for packages with long paths, please
+reset your local cache. You could manually remove packages or just run <strong class="command">conan remove &quot;*&quot;</strong></p>
+<ul class="simple">
+<li><p>Feature: New build=outdated`` functionality, that allows to build the binary packages for
+those dependencies whose recipe has been changed, or if the binary is not existing. Each
+binary package stores a hash of the recipe to know if they have to be regenerated (are outdated).
+This information is also provided in the <strong class="command">conan search &lt;ref&gt;`</strong> command. Useful for package
+creators and CI.</p></li>
+<li><p>Feature: Extended the <code class="docutils literal notranslate"><span class="pre">short_paths</span></code> feature for Windows path limit to the <code class="docutils literal notranslate"><span class="pre">package</span></code> folder, so package
+with very long paths, typically in headers in nested folder hierarchies are supported.</p></li>
+<li><p>Feature: New <code class="docutils literal notranslate"><span class="pre">tool.build_sln_command()</span></code> helper to <code class="docutils literal notranslate"><span class="pre">build()</span></code> Microsoft Visual Studio solution (.sln)
+projects</p></li>
+<li><p>Feature: Extended the <code class="docutils literal notranslate"><span class="pre">source</span></code> and <code class="docutils literal notranslate"><span class="pre">package</span></code> command, so together with <code class="docutils literal notranslate"><span class="pre">build</span></code> they can be fully
+executed in a user folder, as a convenience for package creation and testing.</p></li>
+<li><p>Feature: Extending the scope of <code class="docutils literal notranslate"><span class="pre">tools.pythonpath</span></code> to work in local commands too</p></li>
+<li><p>Improved the parsing of <code class="docutils literal notranslate"><span class="pre">profiles</span></code> and better error messages</p></li>
+<li><p>Not adding <code class="docutils literal notranslate"><span class="pre">-s</span></code> compiler flag for clang, as it doesn’t use it.</p></li>
+<li><p>Automatic generation of <em>conanenv.txt</em> in local cache, warnings if using local commands and no
+<code class="docutils literal notranslate"><span class="pre">conanbuildinfo.txt</span></code> and no <em>conanenv.txt</em> are present to cache the information form install</p></li>
+<li><p>Fix: Fixed bug when using empty initial requirements (<code class="docutils literal notranslate"><span class="pre">requires</span> <span class="pre">=</span> <span class="pre">&quot;&quot;</span></code>)</p></li>
+<li><p>Fix: Added <code class="docutils literal notranslate"><span class="pre">glob</span></code> hidden import to pyinstaller</p></li>
+<li><p>Fix: Fixed minor bugs with <code class="docutils literal notranslate"><span class="pre">short_paths</span></code> as local search not listing packages</p></li>
+<li><p>Fix: Fixed problem with virtual envs in Windows with paths separator (using / instead of )</p></li>
+<li><p>Fix: Fixed parsing of conanbuildinfo.txt, so the root folder for each dependency is available in local
+commands too</p></li>
+<li><p>Fix: Fixed bug in <em>test_package</em> with the test project using the <code class="docutils literal notranslate"><span class="pre">requirements()</span></code> method.</p></li>
+</ul>
+</section>
+<section id="october-2016">
+<h2>0.14.1 (20-October-2016)<a class="headerlink" href="#october-2016" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Fixed bug with <cite>short_paths</cite> feature in windows.</p></li>
+<li><p>Improved error messages for non-valid <cite>profile</cite> test files.</p></li>
+<li><p>Remove downloaded tgz package files from remotes after decompress them.</p></li>
+<li><p>Fixes bug with <cite>install –all</cite> and short_paths</p></li>
+</ul>
+</section>
+<section id="id39">
+<h2>0.14.0 (20-October-2016)<a class="headerlink" href="#id39" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Feature: Added profiles, as user predefined settings and environment variables (as CC and CXX
+for compiler paths). They are stored in files in the conan cache, so they can be easily edited,
+added, and shared. Use them with <strong class="command">conan install --profile=name</strong></p></li>
+<li><p>Feature: <code class="docutils literal notranslate"><span class="pre">short_paths</span></code> feature for Windows now also handle long paths for the final package,
+in case that a user library has a very long final name, with nested subfolders.</p></li>
+<li><p>Feature: Added <code class="docutils literal notranslate"><span class="pre">tools.cpu_count()</span></code> as a helper to retrieve the number of cores, so it can be
+used in concurrent builds</p></li>
+<li><p>Feature: Detects cycles in the dependency graph, and raise error instead of exhausting recursion
+limits</p></li>
+<li><p>Feature: Conan learned the werror`` option that will raise error and stop installation under
+some cases treated as warnings otherwise: Duplicated dependencies, or dependencies conflicts</p></li>
+<li><p>Feature: New <code class="docutils literal notranslate"><span class="pre">env</span></code> generator that generates a text file with the environment variables defined
+by dependencies, so it can be stored. Such file is parsed by <strong class="command">conan build</strong> to be able to use
+such environment variables for <code class="docutils literal notranslate"><span class="pre">self.deps_env_info</span></code> too, in the same way it uses the <code class="docutils literal notranslate"><span class="pre">txt</span></code>
+generator to load variables for <code class="docutils literal notranslate"><span class="pre">self.deps_cpp_info</span></code>.</p></li>
+<li><p>Fix: Do not print progress bars when output is a file</p></li>
+<li><p>Fix: Improved the local conan search, using options too in the query <strong class="command">conan search -q option=value</strong></p></li>
+<li><p>Fix: Boto dependency updated to 2.43.0 (necessary for ArchLinux)</p></li>
+<li><p>Fix: Simplified the <strong class="command">conan package</strong> command, removing unused and confusing options, and more
+informative messages about errors and utility of this command.</p></li>
+<li><p>Fix: More fixes and improvements on <code class="docutils literal notranslate"><span class="pre">ConfigureEnvironment</span></code>, mainly for Windows</p></li>
+<li><p>Fix: Conan now does not generate a <code class="docutils literal notranslate"><span class="pre">conanbuildinfo.txt</span></code> file when doing <strong class="command">conan install &lt;PkgRef&gt;</strong>.</p></li>
+<li><p>Bug fix: Files of a package recipe are “touched” to update their timestamps to current time when
+retrieved, otherwise some build systems as Ninja can have problems with them.</p></li>
+<li><p>Bug fix: <code class="docutils literal notranslate"><span class="pre">qmake</span></code> generator now uses quotes to handle paths with spaces</p></li>
+<li><p>Bug fix: Fixed <code class="docutils literal notranslate"><span class="pre">OSInfo</span></code> to return the short distro name instead of the long one.</p></li>
+<li><p>Bug fix: fixed transitivy of <code class="docutils literal notranslate"><span class="pre">private</span></code> dependencies</p></li>
+</ul>
+</section>
+<section id="id40">
+<h2>0.13.3 (13-October-2016)<a class="headerlink" href="#id40" title="Link to this heading"></a></h2>
+<p>This minor solves some problems with <code class="docutils literal notranslate"><span class="pre">ConfigureEnvironment</span></code>, mainly for Windows, but also fixes
+other things:</p>
+<ul class="simple">
+<li><p>Fixed concatenation problems in Windows for several environment variables. Fixed problems with
+path with spaces</p></li>
+<li><p>A batch file is created in Windows to be called, as <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">defined</span></code> structures doesn’t seem to
+work in the command line.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">vcvars_command</span></code> from <code class="docutils literal notranslate"><span class="pre">tools</span></code> now checks the Visual Studio environment variable, if it is
+already set, it will check it with the current project settings, throwing an error if not matching,
+returning an empty command if matches.</p></li>
+<li><p>Added a <code class="docutils literal notranslate"><span class="pre">compile_flags</span></code> property to <code class="docutils literal notranslate"><span class="pre">ConfigureEnvironment</span></code>, to be passed in the command line
+to the compiler, but not as environment variables</p></li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">defines</span></code> to environment for nix systems, it was not being handled before</p></li>
+<li><p>Added new tests, compiling simple projects and diamond dependencies with cmake, cl (msvc), gcc (gcc in linux, mingw in win)
+and clang (OSX), for a better coverage of the <code class="docutils literal notranslate"><span class="pre">ConfigureEnvironment</span></code> functionality.</p></li>
+<li><p>Fixed wrong <code class="docutils literal notranslate"><span class="pre">CPP_INCLUDE_PATH</span></code>, it is now <code class="docutils literal notranslate"><span class="pre">CPLUS_INCLUDE_PATH</span></code></p></li>
+</ul>
+</section>
+<section id="id41">
+<h2>0.13.0 (03-October-2016)<a class="headerlink" href="#id41" title="Link to this heading"></a></h2>
+<p><strong>IMPORTANT UPGRADE ISSUE:</strong> There was a small error in the computation of binary packages IDs, that
+has been addressed by conan 0.13. It affects to third level (and higher) binary packages, i.e. A
+and B in A-&gt;B-&gt;C-&gt;D, which binaries <strong>must</strong> be regenerated for the new hashes. If you don’t plan
+to provide support for older conan releases (&lt;=0.12), which would be reasonable, you should remove
+all binaries first (<strong class="command">conan remove -p</strong>, works both locally and remotely), then re-build your binaries.</p>
+<p>Features:</p>
+<ul class="simple">
+<li><p>Streaming from/to disk for all uploads/downloads. Previously, this was done for memory, but conan
+started to have issues for huge packages (&gt;many hundreds Mbs), that sometimes could be alleviated
+using Python 64 bits distros. This issues should be alleviated now</p></li>
+<li><p>New security system that allows capturing and checking the package recipes and binaries manifests
+into user folders (project or any other folder). That ensures that packages cannot be replaced,
+hacked, forged, changed or wrongly edited, either locally or in any remote server, without notice.</p></li>
+<li><p>Possible to handle and reuse python code in recipes. Actually, conan can be used as a package
+manager for python, by adding the package path to <code class="docutils literal notranslate"><span class="pre">env_info.PYTHONPATH</span></code>. Useful if you want to
+reuse common python code between different package recipes.</p></li>
+<li><p>Avoiding re-compress the tgz for packages after uploads if it didn’t change.</p></li>
+<li><p>New command <strong class="command">conan source</strong> that executes the <code class="docutils literal notranslate"><span class="pre">source()</span></code> method of a given conanfile. Very
+useful for CI, if desired to run in parallel the construction of different binaries.</p></li>
+<li><p>New propagation of <code class="docutils literal notranslate"><span class="pre">cpp_info</span></code>, so it now allows for capturing binary packages libraries with new
+<code class="docutils literal notranslate"><span class="pre">collect_libs()</span></code> helper, and access to created binaries to compute the <code class="docutils literal notranslate"><span class="pre">package_info()</span></code> in general.</p></li>
+<li><p>Command <em>test_package</em> now allows the update`` option, to automatically update dependencies.</p></li>
+<li><p>Added new architectures for <code class="docutils literal notranslate"><span class="pre">ppc64le</span></code> and detection for <code class="docutils literal notranslate"><span class="pre">AArch64</span></code></p></li>
+<li><p>New methods for defining requires effect over binary packages ID (hash) in <code class="docutils literal notranslate"><span class="pre">conan_info()</span></code></p></li>
+<li><p>Many bugs fixes: error in <code class="docutils literal notranslate"><span class="pre">tools.download</span></code> with python 3, restore correct prompt in virtualenvs,
+bug if removing an option in <code class="docutils literal notranslate"><span class="pre">config_options()</span></code>, setup.py bug…</p></li>
+</ul>
+<p>This release has contributions from &#64;tru, &#64;raulbocanegra, &#64;tivek, &#64;mathieu, and the feedback of many
+other conan users, thanks very much to all of them!</p>
+</section>
+<section id="september-2016">
+<h2>0.12.0 (13-September-2016)<a class="headerlink" href="#september-2016" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Major changes to <strong>search</strong> api and commands. Decoupled the search of package recipes, from the
+search of binary packages.</p></li>
+<li><p>Fixed bug that didn’t allow to <code class="docutils literal notranslate"><span class="pre">export</span></code> or <code class="docutils literal notranslate"><span class="pre">upload</span></code> packages with settings restrictions if the
+restrictions didn’t match the host settings</p></li>
+<li><p>Allowing disabling color output with <code class="docutils literal notranslate"><span class="pre">CONAN_COLOR_DISPLAY=0</span></code> environment variable, or to configure
+color schema for light console backgrounds with <code class="docutils literal notranslate"><span class="pre">CONAN_COLOR_DARK=1</span></code> environment variable</p></li>
+<li><p>Imports can use absolute paths, and files copied from local conan cache to those paths will not
+be removed when <strong class="command">conan install</strong>. Can be used as a way to install machine-wise things (outside
+conan local cache)</p></li>
+<li><p>More robust handling of failing transfers (network disconnect), and inconsistent status after such</p></li>
+<li><p>Large internal refactor for storage managers. Improved implementations and decoupling between
+server and client</p></li>
+<li><p>Fixed slow <strong class="command">conan remove</strong> for caches with many packages due to slow deletion of empty folders</p></li>
+<li><p>Always allowing explicit options scopes, <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">o</span> <span class="pre">Package:option=value</span></code> as well as the implicit
+<code class="docutils literal notranslate"><span class="pre">-o</span> <span class="pre">option=value</span></code> for current <code class="docutils literal notranslate"><span class="pre">Package</span></code>, for consistency</p></li>
+<li><p>Fixed some bugs in client-server auth process.</p></li>
+<li><p>Allow to extract <code class="docutils literal notranslate"><span class="pre">.tar</span></code> files in <code class="docutils literal notranslate"><span class="pre">tools.unzip()</span></code></p></li>
+<li><p>Some helpers for <code class="docutils literal notranslate"><span class="pre">conan_info()</span></code>, as <code class="docutils literal notranslate"><span class="pre">self.info.requires.clear()</span></code> and removal of settings and options</p></li>
+</ul>
+</section>
+<section id="august-2016">
+<h2>0.11.1 (31-August-2016)<a class="headerlink" href="#august-2016" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>New error reporting for failures in conanfiles, including line number and offending line, much
+easier for package creators</p></li>
+<li><p>Removed message requesting to create an account in <strong>conan.io</strong> for other remotes</p></li>
+<li><p>Removed localhost:9300 remote that was added by default mostly for demo purposes. Clarified in docs.</p></li>
+<li><p>Fixed usernames case-sensitivity in conan_server, due to ConfigParser it was forcing lowercase</p></li>
+<li><p>Handling unicode characters in remote responses, fixed crash</p></li>
+<li><p>Added new compilers gcc 6.2, clang 8.0 to the default <code class="docutils literal notranslate"><span class="pre">settings.yml</span></code></p></li>
+<li><p>Bumped cryptography, boto and other conan dependencies, mostly for ArchLinux compatibility and
+new OSX security changes</p></li>
+</ul>
+</section>
+<section id="id42">
+<h2>0.11.0 (3-August-2016)<a class="headerlink" href="#id42" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>New solution for the path length limit in Windows, more robust and complete. Package conanfile.py
+just have to declare an attribute <code class="docutils literal notranslate"><span class="pre">short_paths=True</span></code> and everything will be managed. The old
+approach is deprecated and totally removed, so no shorts_paths.conf file is necessary. It should
+fix also the issues with uploads/retrievals.</p></li>
+<li><p>New <code class="docutils literal notranslate"><span class="pre">virtualenv</span></code> generator that generates <code class="docutils literal notranslate"><span class="pre">activate</span></code> and <code class="docutils literal notranslate"><span class="pre">deactivate</span></code> scripts that set
+environment variables in the current shell. It is very useful, for example to install tools
+(like CMake, MinGW) with conan packages, so multiple versions can be installed in the same machine,
+and switch between them just by activating such virtual environments. Packages for MinGW and CMake
+are already available as a demo</p></li>
+<li><p>ConfigureEnvironment takes into account environment variables, defined in packages in new <code class="docutils literal notranslate"><span class="pre">env_info</span></code>,
+which is similar to <code class="docutils literal notranslate"><span class="pre">cpp_info</span></code> but for environment information (like paths).</p></li>
+<li><p>New per-package <code class="docutils literal notranslate"><span class="pre">build_policy</span></code>, which can be set to <code class="docutils literal notranslate"><span class="pre">always</span></code> or <code class="docutils literal notranslate"><span class="pre">missing</span></code>, so it is not
+necessary to create packages or specify the build`` parameter in command line. Useful for example
+in header only libraries or to create packages that always get the latest code from a branch in a github
+repository.</p></li>
+<li><p>Command <strong class="command">conan test_package`</strong> now executes by default a <strong class="command">conan export</strong> with smarter package
+reference deduction. It is introduced as opt-out behavior.</p></li>
+<li><p>Conan :command`export` command avoids copying <em>test_package/build</em> temporary files in case of <code class="docutils literal notranslate"><span class="pre">export=*</span></code></p></li>
+<li><p>Now, <code class="docutils literal notranslate"><span class="pre">package_info()</span></code> allows absolute paths in <code class="docutils literal notranslate"><span class="pre">includedir</span></code>, <code class="docutils literal notranslate"><span class="pre">libdirs</span></code> and <code class="docutils literal notranslate"><span class="pre">bindirs</span></code>, so
+wrapper packages can be defined that use system or manually installed libraries.</p></li>
+<li><p>LDFLAGS in <code class="docutils literal notranslate"><span class="pre">ConfigureEnvironment</span></code> management of OSX frameworks.</p></li>
+<li><p>Options allow the <code class="docutils literal notranslate"><span class="pre">ANY</span></code> value, so such option would accept any value. For example a commit of a
+git repository, useful to create packages that can build any specific commit of a git repo.</p></li>
+<li><p>Added gcc 5.4 to the default settings, as well as MinGW options (Exceptions, threads…)</p></li>
+<li><p>Command <strong class="command">conan info</strong> learned a new option to output the packages from a project dependency tree that
+should be rebuilt in case of a modification of a certain package. It outputs a machine readable <strong>ordered</strong>
+list of packages to be built in that order. Useful for CI systems.</p></li>
+<li><p>Better management of incomplete, dirty or failed <code class="docutils literal notranslate"><span class="pre">source</span></code> directories (e.g. in case of a user
+interrupting with Ctrl+C a git clone inside the <code class="docutils literal notranslate"><span class="pre">source()</span></code> method.</p></li>
+<li><p>Added tools for easier detection of different OS versions and distributions, as well as command
+wrappers to install system packages (apt, yum). They use <code class="docutils literal notranslate"><span class="pre">sudo</span></code> via a new environment variable
+CONAN_SYSREQUIRES_SUDO, so using sudo is opt-in/out, for users with different sudo needs. Useful for <code class="docutils literal notranslate"><span class="pre">system_requirements()</span></code></p></li>
+<li><p>Deprecated the <code class="docutils literal notranslate"><span class="pre">config()</span></code> method (still works, for backwards compatibility), but has been replaced
+by a <code class="docutils literal notranslate"><span class="pre">config_options()</span></code> to modify options based on settings, and a <code class="docutils literal notranslate"><span class="pre">configure()</span></code> method for
+most use cases. This removes a nasty behaviour of having the <code class="docutils literal notranslate"><span class="pre">config()</span></code> method called twice with
+side effects.</p></li>
+<li><p>Now, running a <strong class="command">conan install MyLib/0.1&#64;user/channel</strong> to directly install packages without any
+consuming project, is also able to generate files with the <code class="docutils literal notranslate"><span class="pre">-g</span></code> option. Useful for installing
+tool packages (MinGW, CMake) and generate <code class="docutils literal notranslate"><span class="pre">virtualenvs</span></code>.</p></li>
+<li><p>Many small fixes and improvements: detect compiler bug in Py3, search was crashing for remotes,
+conan new failed if the package name had a dash, etc.</p></li>
+<li><p>Improved some internal duplications of code, refactored many tests.</p></li>
+</ul>
+<p>This has been a big release. Practically 100% of the released features are thanks to active users
+feedback and contributions. Thanks very much again to all of them!</p>
+</section>
+<section id="june-2016">
+<h2>0.10.0 (29-June-2016)<a class="headerlink" href="#june-2016" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>conan new</strong> command, that creates conan package conanfile.py templates, with a <em>test_package</em> package test (-t option),
+also for header only packages (-i option)</p></li>
+<li><p>Definition of <strong>scopes</strong>. There is a default <strong>dev</strong> scope for the user project, but any other scope (test, profile…) can be defined and used in packages. They can be used to fire extra processes (as running tests), but they do not affect the package binares, and are not included in the package IDs (hash).</p></li>
+<li><p>Definition of <strong>dev_requires</strong>. Those are requirements that are only retrieved when the package is in <strong>dev</strong> scope, otherwise they are not. They do not affect the binary packages. Typical use cases would be test libraries or build scripts.</p></li>
+<li><p>Allow <strong>shorter paths</strong> for specific packages, which can be necessary to build packages with very long path names (e.g. Qt) in Windows.</p></li>
+<li><p>Support for bzip2 and gzip decompression in <code class="docutils literal notranslate"><span class="pre">tools</span></code></p></li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">package_folder</span></code> attribute to conanfile, so the <code class="docutils literal notranslate"><span class="pre">package()</span></code> method can for example call <code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">install</span></code> to create the package.</p></li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">CONAN_CMAKE_GENERATOR</span></code> environment variable that allows to override the <code class="docutils literal notranslate"><span class="pre">CMake</span></code> default generator. That can be useful to build with Ninja instead of the default Unix Makefiles</p></li>
+<li><p>Improved <code class="docutils literal notranslate"><span class="pre">ConfigureEnvironment</span></code> with include paths in CFLAGS and CPPFLAGS, and fixed bug.</p></li>
+<li><p>New <strong class="command">conan user --clean</strong> option, to completely remove all user data for all remotes.</p></li>
+<li><p>Allowed to raise <code class="docutils literal notranslate"><span class="pre">Exceptions</span></code> in <code class="docutils literal notranslate"><span class="pre">config()</span></code> method, so it is easier for package creators to raise under non-supported configurations</p></li>
+<li><p>Fixed many small bugs and other small improvements</p></li>
+</ul>
+<p>As always, thanks very much to all contributors and users providing feedback.</p>
+</section>
+<section id="may-2016">
+<h2>0.9.2 (11-May-2016)<a class="headerlink" href="#may-2016" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Fixed download bug</strong> that made it specially slow to download, even crash. Thanks to github &#64;melmdk for fixing it.</p></li>
+<li><p><strong>Fixed cmake check of CLang</strong>, it was being skipped</p></li>
+<li><p><strong>Improved performance</strong>. Check for updates has been removed from install, made it opt-in in <strong class="command">conan info</strong> command, as it
+was very slow, seriously affecting performance of large projects.</p></li>
+<li><p>Improved internal representation of graph, also improves performance for large projects.</p></li>
+<li><p>Fixed bug in <strong class="command">conan install --update</strong>.</p></li>
+</ul>
+</section>
+<section id="id43">
+<h2>0.9 (3-May-2016)<a class="headerlink" href="#id43" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Python 3</strong> “experimental” support. Now the main conan codebase is Python 2 and 3 compatible.
+Python 2 still the reference platform, Python 3 stable support in next releases.</p></li>
+<li><p>Create and share your <strong>own custom generators for any build system or tool</strong>. With “generator packages”,
+you can write a generator just as any other package, upload it, modify and version it, etc. Require
+them by reference, as any other package, and pull it into your projects dynamically.</p></li>
+<li><p><strong>Premake4</strong> initial experimental support via a generator package.</p></li>
+<li><p>Very large <strong>re-write of the documentation</strong>. New “creating packages” sections with in-source and out-source explicit examples.
+Please read it! :)</p></li>
+<li><p>Improved <strong class="command">conan test</strong>. Renamed <code class="docutils literal notranslate"><span class="pre">test</span></code> to <em>test_package</em> both for the command and the folder,
+but backwards compatibility remains. Custom folder name also possible.
+<strong>Adapted test layout</strong> might require minor changes to your package test,
+automatic warnings added for your convenience.</p></li>
+<li><p>Upgraded pyinstaller to generate binary OS installers from 2.X to 3.1</p></li>
+<li><p><strong class="command">conan search</strong> now has command line options:, less verbose, verbose, extra verbose</p></li>
+<li><p>Added variable with full list of dependencies in conanbuildinfo.cmake</p></li>
+<li><p>Several minor bugfixes (check github issues)</p></li>
+<li><p>Improved <strong class="command">conan user</strong> to manage user login to multiple remotes</p></li>
+</ul>
+</section>
+<section id="mar-2016">
+<h2>0.8.4 (28-Mar-2016)<a class="headerlink" href="#mar-2016" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Fixed linker problems with the new apple-clang 7.3 due to libraries with no setted timestamp.</p></li>
+<li><p>Added apple-clang 7.3 to default settings</p></li>
+<li><p>Fixed default libcxx for apple-clang in auto detection of base conan.conf</p></li>
+</ul>
+</section>
+<section id="id44">
+<h2>0.8 (15-Mar-2016)<a class="headerlink" href="#id44" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>New <strong>conan remote</strong> command to manage remotes. Redesigned remotes architecture, now allows
+to work with several remotes in a more consistent, powerful and “git-like” way. New remotes
+registry keeps track of the remote of every installed package, and this information is shown
+in <strong class="command">conan info</strong> command too. Also, it keeps different user logins for different remotes, to
+improve support in corporate environments running in-house servers.</p></li>
+<li><p>New <strong>update</strong> functionality. Now it is possible to <strong class="command">conan install --update</strong> to update packages
+that became obsolete because new ones were uploaded to the corresponding remote. Conan commands
+as install and info show information about the status of the local packages compared with the
+remote ones. In this way, using latest versions during development is much more natural.</p></li>
+<li><p>Added new <strong>compiler.libcxx</strong> setting in order to support the different c++ standard libraries.
+It can take libstdc++, libstdc++11 or libc++ values to take into account different standard
+libraries for modern gcc and clang compilers. It is also possible to remove not needed settings,
+like this one in pure C projects, with the new syntax: <code class="docutils literal notranslate"><span class="pre">del</span> <span class="pre">self.settings.compiler.libcxx</span></code></p></li>
+<li><p>Conan <strong>virtual environment</strong>: Define a custom conan directory with <strong>CONAN_USER_HOME</strong> env variable,
+and have a per project or per workspace storage for your dependencies. So you can isolate your
+dependencies and even bundle them within your project, by just setting the CONAN_USER_HOME
+variable to your <code class="docutils literal notranslate"><span class="pre">&lt;project&gt;/deps</span></code> folder, for example. This also improves support for continuous
+integration CI systems, in which many builds from different users could be run in parallel.</p></li>
+<li><p>Better conanfile download method. More stable and now checks (opt-out) the <strong>ssl certificates</strong>.</p></li>
+<li><p>Lots of improvements: Increased library name length limit, Improved and cleaner output messages.</p></li>
+<li><p>Fixed several minor bugs: removing empty folders, case sensitive exports, arm settings detection.</p></li>
+<li><p>Introduced the concept of <strong>“package recipe”</strong> that refers to conanfile.py and exported files.</p></li>
+<li><p>Improved settings display in web, with new “copy install command to clipboard” to assist in
+installing packages discovered in web.</p></li>
+<li><p>The OSX installer, problematic with latest OSX releases, has been deprecated in favour
+of homebrew and pip install procedures.</p></li>
+</ul>
+</section>
+<section id="feb-2016">
+<h2>0.7 (5-Feb-2016)<a class="headerlink" href="#feb-2016" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Custom conanfile names are allowed for developing. With file`` option you can define
+the file you want to use, allowing for <code class="docutils literal notranslate"><span class="pre">.conaninfo.txt</span></code> or having multiple <code class="docutils literal notranslate"><span class="pre">conanfile_dev.py</span></code>,
+<code class="docutils literal notranslate"><span class="pre">conanfile_test.py</span></code> besides the standard <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code> which is used for sharing the package.
+Inheritance is allowed, e.g. <code class="docutils literal notranslate"><span class="pre">conanfile_dev.py</span></code> might extend/inherit from <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code>.</p></li>
+<li><p>New <strong class="command">conan copy</strong> command that can be used to copy/rename packages, promote them between channels,
+forking other users packages.</p></li>
+<li><p>New all`` and package`` options for <strong class="command">conan install</strong> that allows to download one, several,
+or all package configurations for a given reference.</p></li>
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">patch()</span></code> tool to easily patch sources if necessary.</p></li>
+<li><p>New <strong>qmake</strong> and <strong>qbs</strong> generators</p></li>
+<li><p>Upload of conanfile <strong>exported</strong> files is also <strong>tgz’d</strong>, allowing fast upload/downloads of
+full sources if desired, avoiding retrieval of sources from externals sources.</p></li>
+<li><p><strong class="command">conan info</strong> command improved showing info of current project too</p></li>
+<li><p>Output of <code class="docutils literal notranslate"><span class="pre">run()</span></code> can be redirected to buffer string for processing, or even removed.</p></li>
+<li><p>Added <strong>proxy</strong> configuration to conan.conf for users behinds proxies.</p></li>
+<li><p>Large improvements in commands output, prefixed with package reference, and much clear.</p></li>
+<li><p>Updated settings for more versions of gcc and new arm architectures</p></li>
+<li><p>Treat dependencies includes as SYSTEM in cmake, so no warnings are raised</p></li>
+<li><p>Deleting source folder after <strong class="command">conan export</strong> so no manual removal is needed</p></li>
+<li><p>Normalizing to CRLF generated user files in Win</p></li>
+<li><p>Better detection and checks for compilers as VS, apple-clang</p></li>
+<li><p>Fixed CMAKE_SHARED_LINKER_FLAGS typo in cmake files</p></li>
+<li><p>Large internal refactor in generators</p></li>
+</ul>
+</section>
+<section id="jan-2016">
+<h2>0.6 (11-Jan-2016)<a class="headerlink" href="#jan-2016" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>New cmake variables in cmake generator to make FindPackage work better thanks to the underlaying FindLibrary. Now many FindXXX.cmake work “as-is” and the package creator does not have to create a custom override, and consumers can use packages transparently with the originals FindXXX.cmakes</p></li>
+<li><p>New “conan info” command that shows the full dependency graph and details (license, author, url, dependants, dependencies) for each dependency.</p></li>
+<li><p>New environment helper with a ConfigureEnvironment class, that is able to translate conan information to autotools configure environment definition</p></li>
+<li><p>Relative importing from conanfiles now is possible. So if you have common functionality between different packages, you can reuse those python files by importing them from the conanfile.py. Note that export=”…” might be necessary, as packages as to be self-contained.</p></li>
+<li><p>Added YouCompleteMe generator for vim auto-completion of dependencies.</p></li>
+<li><p>New “conanfile_directory” property that points to the file in which the conanfile.py is located. This helps if using the conanfile.py “build” method to build your own project as a project, not a package, to be able to use any workflow, out-of-source builds, etc.</p></li>
+<li><p>Many edits and improvements in help, docs, output messages for many commands.</p></li>
+<li><p>All cmake syntax in modern lowercase</p></li>
+<li><p>Fixed several minor bugs: gcc detection failure when gcc not installed, missing import, copying source-&gt;build failing when symlinks</p></li>
+</ul>
+</section>
+<section id="dec-2015">
+<h2>0.5 (18-Dec-2015)<a class="headerlink" href="#dec-2015" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>New cmake functionality allows package creators to provide cmake finders, so that package consumers
+can use their CMakeLists.txt with typical FindXXX.cmake files, without any change to them. CMake CONAN_CMAKE_MODULES_PATH
+added, so that package creators can provide any additional cmake scripts for consumers.</p></li>
+<li><p>Now it is possible to generate out-of-source and multiple configuration installations for the
+same project, so you can switch between them without having to <strong class="command">conan install</strong> again. Check <a class="reference internal" href="using_packages/workflows.html#workflows"><span class="std std-ref">the new workflows</span></a></p></li>
+<li><p>New qmake generator (thanks &#64;dragly)</p></li>
+<li><p>Improved removal/deletion of folders with shutil.rmtree, so <strong class="command">conan remove</strong> commands and other
+processes requiring deletion of folders do not fail due to permissions and require manual deletion.
+This is an improvement, especially in Win.</p></li>
+<li><p>Created <code class="docutils literal notranslate"><span class="pre">pip</span></code> package, so conan can be installed via: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">conan</span></code></p></li>
+<li><p>Released <code class="docutils literal notranslate"><span class="pre">pyinstaller</span></code> code for the creation of binaries from conan python source code. Distros package creators can
+create packages for the conan apps easily from those binaries.</p></li>
+<li><p>Added md5, sha1, sha256 helpers in <code class="docutils literal notranslate"><span class="pre">tools</span></code>, so external downloads from <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code> files <code class="docutils literal notranslate"><span class="pre">source()</span></code>
+can be checked.</p></li>
+<li><p>Added latest gcc versions to default <code class="docutils literal notranslate"><span class="pre">settings.yml</span></code></p></li>
+<li><p>Added CI support for conan development: travis-ci, appveyor</p></li>
+<li><p>Improved human-readability for download progress, help messages.</p></li>
+<li><p>Minor bug fixes</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="faq/troubleshooting.html" class="btn btn-neutral float-left" title="Troubleshooting" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2018, JFrog.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 1.4
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/en/1.4/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

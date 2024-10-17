@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Local Recipes Index Repository &mdash; conan 2.4.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=045299b1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/conan.css?v=7d9e9f1e" />
+
+  
+    <link rel="shortcut icon" href="../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/devops/devops_local_recipes_index.html" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=e9ebdb8f"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Backing up third-party sources with Conan" href="backup_sources/sources_backup.html" />
+    <link rel="prev" title="Creating and hosting your own ConanCenter binaries" href="conancenter/hosting_binaries.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/conan-docs-logo-2.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.4
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What’s new in Conan 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../devops.html">Devops guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="using_conancenter.html">Using ConanCenter packages in production environments</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Local Recipes Index Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backup_sources/sources_backup.html">Backing up third-party sources with Conan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metadata.html">Managing package metadata files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning.html">Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="save_restore.html">Save and restore packages from/to the cache</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vendoring.html">Vendoring dependencies in Conan packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../knowledge.html">Knowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/devops/devops_local_recipes_index.html">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../devops.html">Devops guide</a></li>
+      <li class="breadcrumb-item active">Local Recipes Index Repository</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/develop2/devops/devops_local_recipes_index.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="local-recipes-index-repository">
+<span id="devops-local-recipes-index"></span><h1>Local Recipes Index Repository<a class="headerlink" href="#local-recipes-index-repository" title="Link to this heading">¶</a></h1>
+<p>The <strong>Local Recipes Index</strong> is a repository type introduced in Conan to enhance
+flexibility in managing C/C++ package recipes. This repository type allows users to
+use a local directory as a Conan remote, where the directory structure mirrors that of
+the <cite>conan-center-index</cite> GitHub repository.</p>
+<p>This setup is particularly useful for:</p>
+<ul class="simple">
+<li><p>Building binaries from a private <cite>conan-center-index</cite> fork.</p></li>
+<li><p>Sharing your own recipes for certain libraries or tools that, due to licensing
+restrictions or proprietary nature, are not suitable for ConanCenter. Check how you can
+use it for this purpose in the dedicated section of the documentation
+<a class="reference internal" href="../tutorial/conan_repositories/setup_local_recipes_index.html#setup-local-recipes-index"><span class="std std-ref">Local Recipes Index Repository</span></a>.</p></li>
+</ul>
+<section id="building-binaries-from-a-private-conan-center-index-fork">
+<h2>Building Binaries from a private <cite>conan-center-index</cite> fork<a class="headerlink" href="#building-binaries-from-a-private-conan-center-index-fork" title="Link to this heading">¶</a></h2>
+<p>As we already introduced in the <a class="reference internal" href="../devops.html#devops"><span class="std std-ref">previous section of the Conan DevOps Guide</span></a>
+some organizations, particularly large enterprises, prefer not to use binaries downloaded
+from the internet. Instead, they build their own binaries in-house using the
+<cite>conan-center-index</cite> recipes. These organizations often need to customize these recipes to
+meet unique requirements that are not applicable to the broader community, making such
+contributions unsuitable for the upstream repository.</p>
+<p>The <cite>local-recipes-index</cite> allows users to maintain a local folder with the same structure
+as the <cite>conan-center-index</cite> GitHub repository, using it as a source for package recipes.
+This new type of repository is recipes-only, necessitating the construction of package
+binaries from source on each machine where the package is used. For sharing binaries
+across teams, we continue to recommend <a class="reference internal" href="../tutorial/conan_repositories/setting_up_conan_remotes/artifactory/artifactory_ce_cpp.html#artifactory-ce-cpp"><span class="std std-ref">using a Conan remote server like Artifactory</span></a> for production purposes.</p>
+<a class="reference internal image-reference" href="../_images/local-repo-general-flow-diagram.png"><img alt="../_images/local-repo-general-flow-diagram.png" class="align-center" src="../_images/local-repo-general-flow-diagram.png" style="width: 100%;" /></a>
+<p>The <cite>local-recipes-index</cite> repository allows you to easily build binaries from a fork of
+<cite>conan-center-index</cite>, and then hosting them on a Conan remote repository like Artifactory.
+The main difference with the process explained in the <a class="reference internal" href="../devops.html#devops"><span class="std std-ref">previous section</span></a> is
+the ability to immediately test multiple local changes without the need to export each
+time a recipe is modified.</p>
+<p>Note that in this case, mixing binaries from ConanCenter with locally built binaries is
+not recommended for several reasons:</p>
+<ul class="simple">
+<li><p>Binary compatibility: There may be small differences in setup between the ConanCenter CI
+and the user’s CI. Maintaining a consistent setup for all binaries can mitigate some
+issues.</p></li>
+<li><p>Full control over builds: Building all binaries yourself ensures you have complete
+control over the compilation environment and dependency versions.</p></li>
+</ul>
+<p>Instead, it’s recommended to build all your direct and transitive dependencies from the fork.
+To begin, remove the upstream ConanCenter as it will not be used, everything will come
+from our own fork:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>remote<span class="w"> </span>remove<span class="w"> </span>conancenter
+</pre></div>
+</div>
+<p>Then we will clone our fork (in this case, we are cloning directly the upstream for demo
+purposes, but you would be cloning your fork instead):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/conan-io/conan-center-index
+</pre></div>
+</div>
+<p>Add this as our <cite>mycenter</cite> remote:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add the mycenter remote pointing to the local folder</span>
+$<span class="w"> </span>conan<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>mycenter<span class="w"> </span>./conan-center-index
+</pre></div>
+</div>
+<p>And that’s all! Now you’re set to list and use packages from your <cite>conan-center-index</cite> local folder:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>list<span class="w"> </span><span class="s2">&quot;zlib/*&quot;</span><span class="w"> </span>-r<span class="o">=</span>mycenter
+mycenter
+<span class="w">  </span>zlib
+<span class="w">    </span>zlib/1.2.11
+<span class="w">    </span>zlib/1.2.12
+<span class="w">    </span>zlib/1.2.13
+<span class="w">    </span>zlib/1.3
+<span class="w">    </span>zlib/1.3.1
+</pre></div>
+</div>
+<p>We can also install packages from this repo, for example we can do:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>--requires<span class="o">=</span>zlib/1.3
+...
+<span class="o">========</span><span class="w"> </span>Computing<span class="w"> </span>dependency<span class="w"> </span><span class="nv">graph</span><span class="w"> </span><span class="o">========</span>
+zlib/1.3:<span class="w"> </span>Not<span class="w"> </span>found<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nb">local</span><span class="w"> </span>cache,<span class="w"> </span>looking<span class="w"> </span><span class="k">in</span><span class="w"> </span>remotes...
+zlib/1.3:<span class="w"> </span>Checking<span class="w"> </span>remote:<span class="w"> </span>mycenter
+zlib/1.3:<span class="w"> </span>Downloaded<span class="w"> </span>recipe<span class="w"> </span>revision<span class="w"> </span>5c0f3a1a222eebb6bff34980bcd3e024
+Graph<span class="w"> </span>root
+<span class="w">    </span>cli
+Requirements
+<span class="w">    </span>zlib/1.3#5c0f3a1a222eebb6bff34980bcd3e024<span class="w"> </span>-<span class="w"> </span>Downloaded<span class="w"> </span><span class="o">(</span>mycenter<span class="o">)</span>
+
+<span class="o">========</span><span class="w"> </span>Computing<span class="w"> </span>necessary<span class="w"> </span><span class="nv">packages</span><span class="w"> </span><span class="o">========</span>
+Requirements
+<span class="w">    </span>zlib/1.3#5c0f3a1a222eebb6bff34980bcd3e024:72c852c5f0ae27ca0b1741e5fd7c8b8be91a590a<span class="w"> </span>-<span class="w"> </span>Missing
+ERROR:<span class="w"> </span>Missing<span class="w"> </span>binary:<span class="w"> </span>zlib/1.3:72c852c5f0ae27ca0b1741e5fd7c8b8be91a590a
+</pre></div>
+</div>
+<p>As we can see, Conan managed to get the recipe for <code class="docutils literal notranslate"><span class="pre">zlib/1.3</span></code> from <code class="docutils literal notranslate"><span class="pre">mycenter</span></code>, but
+then it failed because there is no binary. This is expected, <strong>the repository only contains
+the recipes, but not the binaries</strong>. We can build the binary from source with
+<code class="docutils literal notranslate"><span class="pre">--build=missing</span></code> argument:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>--requires<span class="o">=</span>zlib/1.3<span class="w"> </span>--build<span class="o">=</span>missing
+...
+zlib/1.3:<span class="w"> </span>package<span class="o">()</span>:<span class="w"> </span>Packaged<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="s1">&#39;.h&#39;</span><span class="w"> </span>files:<span class="w"> </span>zconf.h,<span class="w"> </span>zlib.h
+zlib/1.3:<span class="w"> </span>package<span class="o">()</span>:<span class="w"> </span>Packaged<span class="w"> </span><span class="m">1</span><span class="w"> </span>file:<span class="w"> </span>LICENSE
+zlib/1.3:<span class="w"> </span>package<span class="o">()</span>:<span class="w"> </span>Packaged<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="s1">&#39;.a&#39;</span><span class="w"> </span>file:<span class="w"> </span>libz.a
+zlib/1.3:<span class="w"> </span>Created<span class="w"> </span>package<span class="w"> </span>revision<span class="w"> </span>0466b3475bcac5c2ce37bb5deda835c3
+zlib/1.3:<span class="w"> </span>Package<span class="w"> </span><span class="s1">&#39;72c852c5f0ae27ca0b1741e5fd7c8b8be91a590a&#39;</span><span class="w"> </span>created
+zlib/1.3:<span class="w"> </span>Full<span class="w"> </span>package<span class="w"> </span>reference:<span class="w"> </span>zlib/1.3#5c0f3a1a222eebb6bff34980bcd3e024:72c852c5f0ae27ca0b1741e5fd7c8b8be91a590a#0466b3475bcac5c2ce37bb5deda835c3
+zlib/1.3:<span class="w"> </span>Package<span class="w"> </span>folder<span class="w"> </span>/home/conan/.conan2/p/b/zlib1ed9fe13537a2/p
+WARN:<span class="w"> </span>deprecated:<span class="w"> </span>Usage<span class="w"> </span>of<span class="w"> </span>deprecated<span class="w"> </span>Conan<span class="w"> </span><span class="m">1</span>.X<span class="w"> </span>features<span class="w"> </span>that<span class="w"> </span>will<span class="w"> </span>be<span class="w"> </span>removed<span class="w"> </span><span class="k">in</span><span class="w"> </span>Conan<span class="w"> </span><span class="m">2</span>.X:
+WARN:<span class="w"> </span>deprecated:<span class="w">     </span><span class="s1">&#39;cpp_info.names&#39;</span><span class="w"> </span>used<span class="w"> </span><span class="k">in</span>:<span class="w"> </span>zlib/1.3
+
+<span class="o">========</span><span class="w"> </span>Finalizing<span class="w"> </span>install<span class="w"> </span><span class="o">(</span>deploy,<span class="w"> </span>generators<span class="o">)</span><span class="w"> </span><span class="o">========</span>
+cli:<span class="w"> </span>Generating<span class="w"> </span>aggregated<span class="w"> </span>env<span class="w"> </span>files
+cli:<span class="w"> </span>Generated<span class="w"> </span>aggregated<span class="w"> </span>env<span class="w"> </span>files:<span class="w"> </span><span class="o">[</span><span class="s1">&#39;conanbuild.sh&#39;</span>,<span class="w"> </span><span class="s1">&#39;conanrun.sh&#39;</span><span class="o">]</span>
+Install<span class="w"> </span>finished<span class="w"> </span>successfully
+</pre></div>
+</div>
+<p>We can see now the binary package in our local cache:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>list<span class="w"> </span><span class="s2">&quot;zlib:*&quot;</span>
+Local<span class="w"> </span>Cache
+<span class="w">  </span>zlib
+<span class="w">    </span>zlib/1.3
+<span class="w">    </span>revisions
+<span class="w">      </span>5c0f3a1a222eebb6bff34980bcd3e024<span class="w"> </span><span class="o">(</span><span class="m">2024</span>-04-10<span class="w"> </span><span class="m">11</span>:50:34<span class="w"> </span>UTC<span class="o">)</span>
+<span class="w">      </span>packages
+<span class="w">        </span>72c852c5f0ae27ca0b1741e5fd7c8b8be91a590a
+<span class="w">        </span>info
+<span class="w">          </span>settings
+<span class="w">            </span>arch:<span class="w"> </span>x86_64
+<span class="w">            </span>build_type:<span class="w"> </span>Release
+<span class="w">            </span>compiler:<span class="w"> </span>gcc
+<span class="w">            </span>compiler.version:<span class="w"> </span><span class="m">9</span>
+<span class="w">            </span>os:<span class="w"> </span>Linux
+<span class="w">          </span>options
+<span class="w">            </span>fPIC:<span class="w"> </span>True
+<span class="w">            </span>shared:<span class="w"> </span>False
+</pre></div>
+</div>
+<p>Finally, upload the binary package to our Artifactory repository to make it available for
+our organization, users and CI jobs:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>myartifactoryrepo<span class="w"> </span>&lt;artifactory_url&gt;
+$<span class="w"> </span>conan<span class="w"> </span>upload<span class="w"> </span>zlib*<span class="w"> </span>-r<span class="o">=</span>myartifactoryrepo<span class="w"> </span>-c
+</pre></div>
+</div>
+<p>This way, consumers of the packages will not only enjoy the pre-compiled binaries and
+avoid having to always re-build from source all dependencies, but that will also provide
+stronger guarantees that the dependencies build and work correctly, that all dependencies
+and transitive dependencies play well together, etc. Decoupling the binary creation
+process from the binary consumption process is the way to achieve faster and more reliable
+usage of dependencies.</p>
+<p>Remember, in a production setting, the <cite>conan upload</cite> command should be executed by CI,
+not developers, following the <a class="reference internal" href="../knowledge/guidelines.html#guidelines"><span class="std std-ref">Conan guidelines</span></a>. This approach ensures
+that package consumers enjoy pre-compiled binaries and consistency across dependencies.</p>
+</section>
+<section id="modifying-the-local-recipes-index-repository-files">
+<h2>Modifying the local-recipes-index repository files<a class="headerlink" href="#modifying-the-local-recipes-index-repository-files" title="Link to this heading">¶</a></h2>
+<p>One of the advantages of this approach is that all the changes that we do in every single
+recipe are automatically available for the Conan client. For example, changes to the
+<cite>recipes/zlib/config.yml</cite> file are immediately recognized by the Conan client. If you
+edit that file and remove all versions but the latest and then we <cite>list</cite> the recipes:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>list<span class="w"> </span><span class="s2">&quot;zlib/*&quot;</span><span class="w"> </span>-r<span class="o">=</span>mycenter
+mycenter
+<span class="w">  </span>zlib
+<span class="w">    </span>zlib/1.3.1
+</pre></div>
+</div>
+<p>When some of the recipes change, then note that the current Conan home already contains a
+cached copy of the package, so it will not update it unless we explicitly use the
+<code class="docutils literal notranslate"><span class="pre">--update</span></code>, as any other Conan remote.</p>
+<p>So if we do a change in the <code class="docutils literal notranslate"><span class="pre">zlib</span></code> recipe in <code class="docutils literal notranslate"><span class="pre">recipes/zlib/all/conanfile.py</span></code> and
+repeat:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>--requires<span class="o">=</span>zlib/1.3.1<span class="w"> </span>-r<span class="o">=</span>mycenter<span class="w"> </span>--update<span class="w"> </span>--build<span class="o">=</span>missing
+</pre></div>
+</div>
+<p>We will immediately have the new package binary locally built from source from the new
+modified recipe in our Conan home.</p>
+</section>
+<section id="using-local-recipes-index-repositories-in-production">
+<h2>Using local-recipes-index Repositories in Production<a class="headerlink" href="#using-local-recipes-index-repositories-in-production" title="Link to this heading">¶</a></h2>
+<p>Several important points should be considered when using this new feature:</p>
+<ul class="simple">
+<li><p>It is designed for <strong>third-party packages</strong>, where recipes in one repository are creating
+packages with sources located elsewhere. To package your own code, the standard practice
+of adding <cite>conanfile.py</cite> recipes along with the source code and using the standard
+<cite>conan create</cite> flow is recommended.</p></li>
+<li><p>The <cite>local-recipes-index</cite> repositories point to <strong>local folders in the filesystem</strong>.
+While users may choose to sync that folder with a git repository or other version
+control mechanisms, Conan is agnostic to this, as it is only aware of the folder in the
+filesystem that points to the (current) state of the repository. Users may choose to run
+git commands directly to switch branches/commit/tags and Conan will automatically
+recognise the changes</p></li>
+<li><p>This approach operates at the source level and does not generate package binaries. For
+deployment for development and production environments, the use of a remote package
+server such as Artifactory is crucial. It’s important to note that this feature is not a
+replacement for Conan’s remote package servers, which play a vital role in hosting
+packages for regular use.</p></li>
+<li><p>Also, note that a server remote can retain a history of changes storing multiple recipe
+revisions. In contrast, a <cite>local-recipes-index</cite> remote can only represent a single
+snapshot at any given time.</p></li>
+</ul>
+<p>Furthermore, this feature does not support placing server URLs directly in recipes; remote
+repositories must be explicitly added with <cite>conan remote add</cite>. Decoupling abstract package
+requirements, such as “zlib/1.3.1”, from their specific origins is crucial to resolving
+dependencies correctly and leveraging Conan’s graph capabilities, including version
+conflict detection and resolution, version-ranges resolution, <a class="reference internal" href="versioning/resolve_prereleases.html#resolve-prereleases-summary"><span class="std std-ref">opting into
+pre-releases</span></a>, <a class="reference internal" href="../reference/config_files/profiles.html#reference-config-files-profiles-platform-requires"><span class="std std-ref">platform_requires</span></a>, <a class="reference internal" href="../reference/config_files/profiles.html#reference-config-files-profiles-replace-requires"><span class="std std-ref">replace_requires</span></a>, etc. This separation also facilitates
+the implementation of modern DevOps practices, such as package immutability, full
+relocatability and package promotions.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../tutorial/conan_repositories/setup_local_recipes_index.html#setup-local-recipes-index"><span class="std std-ref">Using Local-Recipes-Index repositories to share your libraries</span></a></p></li>
+<li><p><a class="reference external" href="https://blog.conan.io/2024/04/23/Introducing-local-recipes-index-remote.html">Introducing the Local-Recipes-Index Post</a></p></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="conancenter/hosting_binaries.html" class="btn btn-neutral float-left" title="Creating and hosting your own ConanCenter binaries" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="backup_sources/sources_backup.html" class="btn btn-neutral float-right" title="Backing up third-party sources with Conan" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2024, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 2.4
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/2.4/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

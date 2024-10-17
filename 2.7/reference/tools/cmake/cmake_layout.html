@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>cmake_layout &mdash; conan 2.7.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=045299b1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css?v=a5c4661c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/conan.css?v=7d9e9f1e" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/reference/tools/cmake/cmake_layout.html" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=7b940564"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="conan.tools.CppInfo" href="../cpp_info.html" />
+    <link rel="prev" title="CMake" href="cmake.html" />
+
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html">
+            
+              <img src="../../../_static/conan-docs-logo-2.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.7
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../whatsnew.html">What’s new in Conan 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../devops.html">Devops guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../commands.html">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../conanfile.html">conanfile.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../tools.html">Recipe tools</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../android.html">conan.tools.android</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../apple.html">conan.tools.apple</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build.html">conan.tools.build</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../cmake.html">conan.tools.cmake</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="cmakedeps.html">CMakeDeps</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cmaketoolchain.html">CMakeToolchain</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cmake.html">CMake</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">cmake_layout</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../cpp_info.html">conan.tools.CppInfo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../env.html">conan.tools.env</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../files.html">conan.tools.files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../gnu.html">conan.tools.gnu</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../google.html">conan.tools.google</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../intel.html">conan.tools.intel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../layout.html">conan.tools.layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../meson.html">conan.tools.meson</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../microsoft.html">conan.tools.microsoft</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../qbs.html">conan.tools.qbs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scm.html">conan.tools.scm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scons.html">conan.tools.scons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../system.html">conan.tools.system</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../config_files.html">Configuration files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../extensions.html">Extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../environment.html">Environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../binary_model.html">The binary model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../conan_server.html">Conan Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../runners.html">Runners</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../knowledge.html">Knowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/reference/tools/cmake/cmake_layout.html">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="../../tools.html">Recipe tools</a></li>
+          <li class="breadcrumb-item"><a href="../cmake.html">conan.tools.cmake</a></li>
+      <li class="breadcrumb-item active">cmake_layout</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/develop2/reference/tools/cmake/cmake_layout.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cmake-layout">
+<span id="id1"></span><h1>cmake_layout<a class="headerlink" href="#cmake-layout" title="Link to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">cmake_layout()</span></code> sets the <a class="reference internal" href="../../conanfile/attributes.html#conan-conanfile-attributes-folders"><span class="std std-ref">folders</span></a> and
+<a class="reference internal" href="../../conanfile/attributes.html#conan-conanfile-attributes-cpp"><span class="std std-ref">cpp</span></a> attributes to follow the structure of a typical CMake project.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conan.tools.cmake</span> <span class="kn">import</span> <span class="n">cmake_layout</span>
+
+<span class="k">def</span> <span class="nf">layout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">cmake_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To try it you can use the <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">new</span> <span class="pre">cmake_lib</span> <span class="pre">-d</span> <span class="pre">name=hello</span> <span class="pre">-d</span> <span class="pre">version=1.0</span></code> template.</p>
+</div>
+<p>The assigned values depend on the CMake generator that will be used.
+It can be defined with the <code class="docutils literal notranslate"><span class="pre">tools.cmake.cmaketoolchain:generator</span></code> [conf] entry or passing it in the recipe to the
+<code class="docutils literal notranslate"><span class="pre">cmake_layout(self,</span> <span class="pre">cmake_generator)</span></code> function. The assigned values are different if it is a
+multi-config generator (like Visual Studio or Xcode), or a single-config generator (like Unix Makefiles).</p>
+<p>These are the values assigned by the <code class="docutils literal notranslate"><span class="pre">cmake_layout</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">conanfile.folders.source</span></code>: <em>src_folder</em> argument or <code class="docutils literal notranslate"><span class="pre">.</span></code> if not specified.</p></li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">conanfile.folders.build</span></code>:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">build</span></code>: if the cmake generator is multi-configuration.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">build/Debug</span></code> or <code class="docutils literal notranslate"><span class="pre">build/Release</span></code>: if the cmake generator is single-configuration, depending on the
+build_type.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">&quot;build&quot;</span></code> string, can be defined to other value by the <code class="docutils literal notranslate"><span class="pre">build_folder</span></code> argument.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">conanfile.folders.generators</span></code>: <code class="docutils literal notranslate"><span class="pre">build/generators</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">conanfile.cpp.source.includedirs</span></code>: <code class="docutils literal notranslate"><span class="pre">[&quot;include&quot;]</span></code></p></li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">conanfile.cpp.build.libdirs</span></code> and <code class="docutils literal notranslate"><span class="pre">conanfile.cpp.build.bindirs</span></code>:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">[&quot;Release&quot;]</span></code> or <code class="docutils literal notranslate"><span class="pre">[&quot;Debug&quot;]</span></code> for a multi-configuration cmake generator.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.</span></code> for a single-configuration cmake generator.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<section id="reference">
+<h2>Reference<a class="headerlink" href="#reference" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="conan.tools.cmake.layout.cmake_layout">
+<span class="sig-name descname"><span class="pre">cmake_layout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conanfile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src_folder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">build_folder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'build'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conan.tools.cmake.layout.cmake_layout" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>conanfile</strong> – The current recipe object. Always use <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p></li>
+<li><p><strong>generator</strong> – Allow defining the CMake generator. In most cases it doesn’t need to be passed, as it will get the value from the configuration              <code class="docutils literal notranslate"><span class="pre">tools.cmake.cmaketoolchain:generator</span></code>, or it will automatically deduce the generator from the <code class="docutils literal notranslate"><span class="pre">settings</span></code></p></li>
+<li><p><strong>src_folder</strong> – Value for <code class="docutils literal notranslate"><span class="pre">conanfile.folders.source</span></code>, change it if your source code
+(and CMakeLists.txt) is in a subfolder.</p></li>
+<li><p><strong>build_folder</strong> – Specify the name of the “base” build folder. The default is “build”, but
+if that folder name is used by the project, a different one can be defined</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="conf">
+<h2>conf<a class="headerlink" href="#conf" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">cmake_layout</span></code> is affected by these <code class="docutils literal notranslate"><span class="pre">[conf]</span></code> variables:</p>
+<ul class="simple">
+<li><p><strong>tools.cmake.cmake_layout:build_folder_vars</strong> list of settings, options, <code class="docutils literal notranslate"><span class="pre">self.name</span></code> and <code class="docutils literal notranslate"><span class="pre">self.version</span></code> and constants <code class="docutils literal notranslate"><span class="pre">const.xxx</span></code> to
+customize the <code class="docutils literal notranslate"><span class="pre">conanfile.folders.build</span></code> folder. See section <a class="reference internal" href="#cmake-layout-multi-name"><span class="std std-ref">Multi-setting/option cmake_layout</span></a> below.</p></li>
+<li><p><strong>tools.cmake.cmake_layout:build_folder</strong> (<em>new since Conan 2.2.0</em>)(<em>experimental</em>) uses its value as the base folder of the <code class="docutils literal notranslate"><span class="pre">conanfile.folders.build</span></code>
+for local builds.</p></li>
+<li><p><strong>tools.cmake.cmake_layout:test_folder</strong> (<em>new since Conan 2.2.0</em>)(<em>experimental</em>) uses its value as the base folder of the <code class="docutils literal notranslate"><span class="pre">conanfile.folders.build</span></code>
+for test_package builds. If that value is <code class="docutils literal notranslate"><span class="pre">$TMP</span></code>, Conan will create and use a temporal folder.</p></li>
+</ul>
+</section>
+<section id="multi-setting-option-cmake-layout">
+<span id="cmake-layout-multi-name"></span><h2>Multi-setting/option cmake_layout<a class="headerlink" href="#multi-setting-option-cmake-layout" title="Link to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">folders.build</span></code> and <code class="docutils literal notranslate"><span class="pre">conanfile.folders.generators</span></code> can be customized to take into account the <code class="docutils literal notranslate"><span class="pre">settings</span></code>
+and <code class="docutils literal notranslate"><span class="pre">options</span></code> and not only the <code class="docutils literal notranslate"><span class="pre">build_type</span></code>. Use the <code class="docutils literal notranslate"><span class="pre">tools.cmake.cmake_layout:build_folder_vars</span></code>
+conf to declare a list of settings, options and/or <code class="docutils literal notranslate"><span class="pre">self.name</span></code> and <code class="docutils literal notranslate"><span class="pre">self.version</span></code> and user constants:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conan<span class="w"> </span>install<span class="w"> </span>.<span class="w"> </span>-c<span class="w"> </span>tools.cmake.cmake_layout:build_folder_vars<span class="o">=</span><span class="s2">&quot;[&#39;settings.compiler&#39;, &#39;options.shared&#39;]&quot;</span>
+</pre></div>
+</div>
+<p>For the previous example, the values assigned by the <code class="docutils literal notranslate"><span class="pre">cmake_layout</span></code> (installing the Release/static default
+configuration) would be:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">conanfile.folders.build</span></code>:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">build/apple-clang-shared_false</span></code>: if the cmake generator is multi-configuration.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">build/apple-clang-shared_false/Debug</span></code>: if the cmake generator is single-configuration.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">conanfile.folders.generators</span></code>: <code class="docutils literal notranslate"><span class="pre">build/generators</span></code></p></li>
+</ul>
+<p>If we repeat the previous install with a different configuration:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conan<span class="w"> </span>install<span class="w"> </span>.<span class="w"> </span>-o<span class="w"> </span><span class="nv">shared</span><span class="o">=</span>True<span class="w"> </span>-c<span class="w"> </span>tools.cmake.cmake_layout:build_folder_vars<span class="o">=</span><span class="s2">&quot;[&#39;settings.compiler&#39;, &#39;options.shared&#39;]&quot;</span>
+</pre></div>
+</div>
+<p>The values assigned by the <code class="docutils literal notranslate"><span class="pre">cmake_layout</span></code> (installing the Release/shared configuration) would be:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">conanfile.folders.build</span></code>:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">build/apple-clang-shared_true</span></code>: if the cmake generator is multi-configuration.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">build/apple-clang-shared_true/Debug</span></code>: if the cmake generator is single-configuration.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">conanfile.folders.generators</span></code>: <code class="docutils literal notranslate"><span class="pre">build-apple-clang-shared_true/generators</span></code></p></li>
+</ul>
+<p>So we can keep separated folders for any number of different configurations that we want to install.
+Recipe attributes like name and version and user constants can also be used:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>.<span class="w"> </span>-c<span class="w"> </span>tools.cmake.cmake_layout:build_folder_vars<span class="o">=</span><span class="s2">&quot;[&#39;const.myvalue, &#39;self.name&#39;]&quot;</span>
+</pre></div>
+</div>
+<p>And it will create folders like <code class="docutils literal notranslate"><span class="pre">build/myvalue-pkgname</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">CMakePresets.json</span></code> file generated at the <a class="reference internal" href="cmaketoolchain.html#conan-tools-cmaketoolchain"><span class="std std-ref">CMakeToolchain</span></a>
+generator, will also take this <code class="docutils literal notranslate"><span class="pre">tools.cmake.cmake_layout:build_folder_vars</span></code> config into account to generate different
+names for the presets, being very handy to install N configurations and building our project for any of them by
+selecting the chosen preset.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cmake.html" class="btn btn-neutral float-left" title="CMake" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../cpp_info.html" class="btn btn-neutral float-right" title="conan.tools.CppInfo" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2024, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 2.7
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/2.7/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

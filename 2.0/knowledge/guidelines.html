@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Core guidelines &mdash; conan 2.0.17 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=045299b1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/conan.css?v=7d9e9f1e" />
+
+  
+    <link rel="shortcut icon" href="../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/knowledge/guidelines.html" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=86415d92"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="FAQ" href="faq.html" />
+    <link rel="prev" title="Cheat sheet" href="cheatsheet.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/conan-docs-logo-2.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What’s new in Conan 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devops.html">Devops guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../knowledge.html">Knowledge</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cheatsheet.html">Cheat sheet</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Core guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="videos.html">Videos</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/knowledge/guidelines.html">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../knowledge.html">Knowledge</a></li>
+      <li class="breadcrumb-item active">Core guidelines</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/develop2/knowledge/guidelines.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="core-guidelines">
+<h1>Core guidelines<a class="headerlink" href="#core-guidelines" title="Link to this heading">¶</a></h1>
+<section id="good-practices">
+<h2>Good practices<a class="headerlink" href="#good-practices" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>build() should be simple, prepare the builds in generate() instead</strong>:
+The recipes’ <code class="docutils literal notranslate"><span class="pre">generate()</span></code> method purpose is to prepare the build as much as possible.
+Users calling <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">install</span></code> will execute this method, and the generated files should
+allow users to do “native” builds (calling directly “cmake”, “meson”, etc.) as easy as possible.
+Thus, avoiding as much as possible any logic in the <code class="docutils literal notranslate"><span class="pre">build()</span></code> method, and moving it to
+the <code class="docutils literal notranslate"><span class="pre">generate()</span></code> method helps developers achieve the same build locally as the one that
+would be produced by a <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">create</span></code> build in the local cache.</p></li>
+<li><p><strong>Always use your own profiles in production</strong>, instead of relying on the auto-detected profile,
+as the output of such auto detection can vary over time, resulting in unexpected results.
+Profiles (and many other configuration), can be managed with <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">config</span> <span class="pre">install</span></code>.</p></li>
+<li><p><strong>Developers should not be able to upload to “development” and “production” repositories</strong> in the server.
+Only CI builds have write permissions in the server. Developers should only have read permissions and
+at most to some “playground” repositories used to work and share things with colleagues,
+but which packages are never used, moved or copied to the development or production repositories.</p></li>
+<li><p><strong>The test_package purpose is to validate the correct creation of the package, not for functional testing</strong>. The <code class="docutils literal notranslate"><span class="pre">test_package</span></code> purpose is to check that the package has been correctly created (that is,
+that it has correctly packaged the headers, the libraries, etc, in the right folders), not that
+the functionality of the package is correct. Then, it should be kept as simple as possible, like
+building and running an executable that uses the headers and links against a packaged library
+should be enough. Such execution should be as simple as possible too. Any kind of
+unit and functional tests should be done in the <code class="docutils literal notranslate"><span class="pre">build()</span></code> method.</p></li>
+<li><p><strong>All input sources must be common for all binary configurations</strong>: All the “source” inputs, including the <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code>, the <code class="docutils literal notranslate"><span class="pre">conandata.yml</span></code>, the <code class="docutils literal notranslate"><span class="pre">exports</span></code> and <code class="docutils literal notranslate"><span class="pre">exports_source</span></code>, the <code class="docutils literal notranslate"><span class="pre">source()</span></code> method, patches applied in the <code class="docutils literal notranslate"><span class="pre">source()</span></code> method, cannot be conditional to anything, platform, OS or compiler, as they are shared among all configurations. Furthermore, the line endings for all these things should be the same, it is recommended to use always just line-feeds in all platforms, and do not convert or checkout to <code class="docutils literal notranslate"><span class="pre">crlf</span></code> in Windows, as that will cause different recipe revisions.</p></li>
+<li><p><strong>Keep ``python_requires`` as simple as possible</strong>. Avoid transitive <code class="docutils literal notranslate"><span class="pre">python_requires</span></code>, keep them
+as reduced as possible, and at most, require them explicitly in a “flat” structure, without
+<code class="docutils literal notranslate"><span class="pre">python_requires</span></code> requiring other <code class="docutils literal notranslate"><span class="pre">python_requires</span></code>. Avoid inheritance (via <code class="docutils literal notranslate"><span class="pre">python_requires_extend</span></code>)
+if not strictly necessary, and avoid multiple inheritance at all costs, as it is extremely
+complicated, and it does not work the same as the built-in Python one.</p></li>
+<li><p>At the moment the <strong>Conan cache is not concurrent</strong>. Avoid any kind of concurrency or parallelism,
+for example different parallel CI jobs should use different caches (with CONAN_HOME env-var). This might
+change in the future and we will work on providing concurrency in the cache, but until then,
+use isolated caches for concurrent tasks.</p></li>
+<li><p><strong>Avoid ‘force’ and ‘override’ traits as a versioning mechanism.</strong> The <code class="docutils literal notranslate"><span class="pre">force</span></code> and <code class="docutils literal notranslate"><span class="pre">override</span></code> traits to
+solve conflicts are not recommended as a general versioning solution, just as a temporary workaround to solve
+a version conflict. Its usage should be avoided whenever possible, and updating versions or version ranges in
+the graph to avoid the conflicts without overrides and forces is the recommended approach.</p></li>
+<li><p><strong>Please, do not abuse ‘tool_requires’</strong>. Those are intended only for executables like <code class="docutils literal notranslate"><span class="pre">cmake</span></code> and <code class="docutils literal notranslate"><span class="pre">ninja</span></code> running in the “build”
+context, not for libraries or library-like dependencies, that must use <code class="docutils literal notranslate"><span class="pre">requires</span></code> or <code class="docutils literal notranslate"><span class="pre">test_requires</span></code>.</p></li>
+</ul>
+</section>
+<section id="forbidden-practices">
+<h2>Forbidden practices<a class="headerlink" href="#forbidden-practices" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Conan is not re-entrant</strong>: Calling the Conan process from Conan itself cannot be done. That includes calling
+Conan from recipe code, hooks, plugins, and basically every code that already executes when
+Conan is called. Doing it will result in undefined behavior. For example it is not valid
+to run <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">search</span></code> from a <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code>. This includes indirect calls, like running
+Conan from a build script (like <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>) while this build script is already being
+executed as a result of a Conan invocation. For the same reason <strong>Conan Python API cannot be used from recipes</strong>: The Conan Python API can only be called from Conan custom commands or from user Python scripts,
+but never from <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code> recipes, hooks, extensions, plugins, or any other code
+executed by Conan.</p></li>
+<li><p><strong>Settings and configuration (conf) are read-only in recipes</strong>: The settings and configuration cannot be defined or assigned values in recipes. Something like <code class="docutils literal notranslate"><span class="pre">self.settings.compiler</span> <span class="pre">=</span> <span class="pre">&quot;gcc&quot;</span></code> in recipes shouldn’t be done. That is undefined behavior and can crash at any time, or just be ignored. Settings and configuration can only be defined in profiles, in command line arguments or in the <code class="docutils literal notranslate"><span class="pre">profile.py</span></code> plugin.</p></li>
+<li><p><strong>Recipes reserved names</strong>: Conan <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code> recipes user attributes and methods should always start with <code class="docutils literal notranslate"><span class="pre">_</span></code>.
+Conan reserves the “public” namespace for all attributes and methods, and <code class="docutils literal notranslate"><span class="pre">_conan</span></code> for
+private ones. Using any non-documented Python function, method, class, attribute, even if
+it is “public” in the Python sense, is undefined behavior if such element is not documented
+in this documentation.</p></li>
+<li><p><strong>Conan artifacts are immutable</strong>: Conan packages and artifacts, once they are in the Conan cache, they are assumed to be immutable.
+Any attempt to modify the exported sources, the recipe, the conandata.yml or any of the exported
+or the packaged artifacts, is undefined behavior. For example, it is not possible to modify the
+contents of a package inside the  <code class="docutils literal notranslate"><span class="pre">package_info()</span></code> method or the <code class="docutils literal notranslate"><span class="pre">package_id()</span></code> method, those
+methods should never modify, delete or create new files inside the packages. If you need to modify
+some package, you might use your own custom <code class="docutils literal notranslate"><span class="pre">deployer</span></code>.</p></li>
+<li><p><strong>Conan cache paths are internal implementation detail</strong>: The Conan cache paths are an internal implementation detail. Conan recipes provide abstractions
+like <code class="docutils literal notranslate"><span class="pre">self.build_folder</span></code> to represent the necessary information about folders, and commands
+like <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">cache</span> <span class="pre">path</span></code> to get information of the current folders. The Conan cache might
+be checked while debugging, as read-only, but it is not allowed to edit, modify or delete
+artifacts or files from the Conan cache by any other means that Conan command line or public API.</p></li>
+<li><p><strong>Sources used in recipes must be immutable</strong>. Once a recipe is exported to the Conan cache, it is expected that the sources are immutable, that is, that retrieving the sources in the future will always retrieve the exact same sources. It is not allowed to use moving targets like a <code class="docutils literal notranslate"><span class="pre">git</span></code> branch or a download of a file that is continuously rewritten in the server. <code class="docutils literal notranslate"><span class="pre">git</span></code> checkouts must be of an immutable tag or a commit, and <code class="docutils literal notranslate"><span class="pre">download()/get()</span></code> must use checksums to verify the server files doesn’t change. Not using immutable sources will be undefined behavior.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cheatsheet.html" class="btn btn-neutral float-left" title="Cheat sheet" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="faq.html" class="btn btn-neutral float-right" title="FAQ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2024, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 2.0
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/2.0/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

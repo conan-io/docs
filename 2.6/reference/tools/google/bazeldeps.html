@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BazelDeps &mdash; conan 2.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=045299b1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/conan.css?v=7d9e9f1e" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/reference/tools/google/bazeldeps.html" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=ae39cb24"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="BazelToolchain" href="bazeltoolchain.html" />
+    <link rel="prev" title="Bazel" href="bazel.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html">
+            
+              <img src="../../../_static/conan-docs-logo-2.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.6
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../whatsnew.html">What’s new in Conan 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../devops.html">Devops guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../commands.html">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../conanfile.html">conanfile.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../tools.html">Recipe tools</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../android.html">conan.tools.android</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../apple.html">conan.tools.apple</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build.html">conan.tools.build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cmake.html">conan.tools.cmake</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cpp_info.html">conan.tools.CppInfo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../env.html">conan.tools.env</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../files.html">conan.tools.files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../gnu.html">conan.tools.gnu</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../google.html">conan.tools.google</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="bazel.html">Bazel</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">BazelDeps</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bazeltoolchain.html">BazelToolchain</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../intel.html">conan.tools.intel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../layout.html">conan.tools.layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../meson.html">conan.tools.meson</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../microsoft.html">conan.tools.microsoft</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../qbs.html">conan.tools.qbs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scm.html">conan.tools.scm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scons.html">conan.tools.scons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../system.html">conan.tools.system</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../config_files.html">Configuration files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../extensions.html">Extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../environment.html">Environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../binary_model.html">The binary model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../conan_server.html">Conan Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../runners.html">Runners</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../knowledge.html">Knowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/reference/tools/google/bazeldeps.html">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="../../tools.html">Recipe tools</a></li>
+          <li class="breadcrumb-item"><a href="../google.html">conan.tools.google</a></li>
+      <li class="breadcrumb-item active">BazelDeps</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/develop2/reference/tools/google/bazeldeps.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="bazeldeps">
+<span id="conan-tools-google-bazeldeps"></span><h1>BazelDeps<a class="headerlink" href="#bazeldeps" title="Link to this heading">¶</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This feature is experimental and subject to breaking changes.
+See <a class="reference internal" href="../../../introduction.html#stability"><span class="std std-ref">the Conan stability</span></a> section for more information.</p>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">BazelDeps</span></code> is the dependencies generator for Bazel. Generates a <em>&lt;REPOSITORY&gt;/BUILD.bazel</em> file per dependency,
+where the <em>&lt;REPOSITORY&gt;/</em> folder is the Conan recipe reference name by default, e.g., <em>mypkg/BUILD.bazel</em>. Apart from
+that, it also generates Bazel 6.x compatible file like <em>dependencies.bzl</em>, and other Bazel &gt;= 7.1 compatible ones
+like <em>conan_deps_module_extension.bzl</em> and <em>conan_deps_repo_rules.bzl</em>. All of them contain the logic to load
+all your Conan dependencies through your <em>WORKSPACE</em> | <em>MODULE.bazel</em>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">BazelDeps</span></code> generator can be used by name in conanfiles:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">conanfile.py</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Pkg</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">generators</span> <span class="o">=</span> <span class="s2">&quot;BazelDeps&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">conanfile.txt</span><a class="headerlink" href="#id3" title="Link to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[generators]
+BazelDeps
+</pre></div>
+</div>
+</div>
+<p>And it can also be fully instantiated in the conanfile <code class="docutils literal notranslate"><span class="pre">generate()</span></code> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+<span class="kn">from</span> <span class="nn">conan.tools.google</span> <span class="kn">import</span> <span class="n">BazelDeps</span>
+
+<span class="k">class</span> <span class="nc">App</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span>
+    <span class="n">requires</span> <span class="o">=</span> <span class="s2">&quot;zlib/1.2.11&quot;</span>
+
+    <span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">bz</span> <span class="o">=</span> <span class="n">BazelDeps</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">bz</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
+</pre></div>
+</div>
+<section id="generated-files">
+<h2>Generated files<a class="headerlink" href="#generated-files" title="Link to this heading">¶</a></h2>
+<p>When the <code class="docutils literal notranslate"><span class="pre">BazelDeps</span></code> generator is used, every invocation of <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">install</span></code> will
+generate several bazel files. For the <em>conanfile.py</em>
+above, for example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>.
+.
+├──<span class="w"> </span>BUILD.bazel
+├──<span class="w"> </span>conanfile.py
+├──<span class="w"> </span>dependencies.bzl
+└──<span class="w"> </span>zlib
+<span class="w">    </span>└──<span class="w"> </span>BUILD.bazel
+</pre></div>
+</div>
+<p>Every <strong class="command">conan install</strong> generates these files:</p>
+<ul class="simple">
+<li><p><em>BUILD.bazel</em>: An empty file aimed to be alongside the <em>dependencies.bzl</em> one.
+More information <a class="reference external" href="https://bazel.build/concepts/build-files">here</a>.</p></li>
+<li><p><em>zlib/BUILD.bazel</em>: contains all the targets that you can load from any of your <em>BUILD</em> files. More information in
+<a class="reference internal" href="#conan-tools-google-bazeldeps-customization"><span class="std std-ref">Customization</span></a>.</p></li>
+<li><p><em>dependencies.bzl</em>: (Bazel 6.x compatible) this file tells your Bazel <em>WORKSPACE</em> how to load the dependencies.</p></li>
+<li><p><em>conan_deps_module_extension.bzl</em>: (since <a class="reference external" href="https://github.com/conan-io/conan/releases/tag/2.4.0">Conan 2.4.0</a>)(Bazel &gt;= 7.1 compatible)
+This file is used to load each dependency as repository.</p></li>
+<li><p><em>conan_deps_repo_rules.bzl</em>: (since <a class="reference external" href="https://github.com/conan-io/conan/releases/tag/2.4.0">Conan 2.4.0</a>)(Bazel &gt;= 7.1 compatible)
+The rule provided by this file is used to create a repository.
+It is not intended to be used by consumers but by <em>conan_deps_module_extension.bzl</em>.</p></li>
+</ul>
+<p>Let’s check the content of the files created:</p>
+<p><strong>Bazel 6.x compatible</strong></p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">dependencies.bzl</span><a class="headerlink" href="#id4" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># This Bazel module should be loaded by your WORKSPACE file.</span>
+<span class="c1"># Add these lines to your WORKSPACE one (assuming that you&#39;re using the &quot;bazel_layout&quot;):</span>
+<span class="c1"># load(&quot;@//conan:dependencies.bzl&quot;, &quot;load_conan_dependencies&quot;)</span>
+<span class="c1"># load_conan_dependencies()</span>
+
+<span class="k">def</span> <span class="nf">load_conan_dependencies</span><span class="p">():</span>
+    <span class="n">native</span><span class="o">.</span><span class="n">new_local_repository</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;zlib&quot;</span><span class="p">,</span>
+        <span class="n">path</span><span class="o">=</span><span class="s2">&quot;/path/to/conan/package/folder/&quot;</span><span class="p">,</span>
+        <span class="n">build_file</span><span class="o">=</span><span class="s2">&quot;/your/current/working/directory/zlib/BUILD.bazel&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p><strong>Bazel &gt;= 7.1 compatible</strong></p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">conan_deps_repo_rules.bzl</span><a class="headerlink" href="#id5" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># This bazel repository rule is used to load Conan dependencies into the Bazel workspace.</span>
+<span class="c1"># It&#39;s used by a generated module file that provides information about the conan packages.</span>
+<span class="c1"># Each conan package is loaded into a bazel repository rule, with having the name of the</span>
+<span class="c1"># package. The whole method is based on symlinks to not copy the whole package into the</span>
+<span class="c1"># Bazel workspace, which is expensive.</span>
+<span class="k">def</span> <span class="nf">_conan_dependency_repo</span><span class="p">(</span><span class="n">rctx</span><span class="p">):</span>
+    <span class="n">package_path</span> <span class="o">=</span> <span class="n">rctx</span><span class="o">.</span><span class="n">workspace_root</span><span class="o">.</span><span class="n">get_child</span><span class="p">(</span><span class="n">rctx</span><span class="o">.</span><span class="n">attr</span><span class="o">.</span><span class="n">package_path</span><span class="p">)</span>
+
+    <span class="n">child_packages</span> <span class="o">=</span> <span class="n">package_path</span><span class="o">.</span><span class="n">readdir</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">child_packages</span><span class="p">:</span>
+        <span class="n">rctx</span><span class="o">.</span><span class="n">symlink</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">child</span><span class="o">.</span><span class="n">basename</span><span class="p">)</span>
+
+    <span class="n">rctx</span><span class="o">.</span><span class="n">symlink</span><span class="p">(</span><span class="n">rctx</span><span class="o">.</span><span class="n">attr</span><span class="o">.</span><span class="n">build_file_path</span><span class="p">,</span> <span class="s2">&quot;BUILD.bazel&quot;</span><span class="p">)</span>
+
+<span class="n">conan_dependency_repo</span> <span class="o">=</span> <span class="n">repository_rule</span><span class="p">(</span>
+    <span class="n">implementation</span> <span class="o">=</span> <span class="n">_conan_dependency_repo</span><span class="p">,</span>
+    <span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;package_path&quot;</span><span class="p">:</span> <span class="n">attr</span><span class="o">.</span><span class="n">string</span><span class="p">(</span>
+            <span class="n">mandatory</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="n">doc</span> <span class="o">=</span> <span class="s2">&quot;The path to the Conan package in conan cache.&quot;</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="s2">&quot;build_file_path&quot;</span><span class="p">:</span> <span class="n">attr</span><span class="o">.</span><span class="n">string</span><span class="p">(</span>
+            <span class="n">mandatory</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="n">doc</span> <span class="o">=</span> <span class="s2">&quot;The path to the BUILD file.&quot;</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">conan_deps_module_extension.bzl</span><a class="headerlink" href="#id6" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># This module provides a repo for each requires-dependency in your conanfile.</span>
+<span class="c1"># It&#39;s generated by the BazelDeps, and should be used in your Module.bazel file.</span>
+<span class="n">load</span><span class="p">(</span><span class="s2">&quot;:conan_deps_repo_rules.bzl&quot;</span><span class="p">,</span> <span class="s2">&quot;conan_dependency_repo&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">_load_dependenies_impl</span><span class="p">(</span><span class="n">mctx</span><span class="p">):</span>
+    <span class="n">conan_dependency_repo</span><span class="p">(</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;zlib&quot;</span><span class="p">,</span>
+        <span class="n">package_path</span> <span class="o">=</span> <span class="s2">&quot;/path/to/conan/package/folder/&quot;</span><span class="p">,</span>
+        <span class="n">build_file_path</span> <span class="o">=</span> <span class="s2">&quot;/your/current/working/directory/zlib/BUILD.bazel&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">mctx</span><span class="o">.</span><span class="n">extension_metadata</span><span class="p">(</span>
+        <span class="c1"># It will only warn you if any direct</span>
+        <span class="c1"># dependency is not imported by the &#39;use_repo&#39; or even it is imported</span>
+        <span class="c1"># but not created. Notice that root_module_direct_dev_deps can not be None as we</span>
+        <span class="c1"># are giving &#39;all&#39; value to root_module_direct_deps.</span>
+        <span class="c1"># Fix the &#39;use_repo&#39; calls by running &#39;bazel mod tidy&#39;</span>
+        <span class="n">root_module_direct_deps</span> <span class="o">=</span> <span class="s1">&#39;all&#39;</span><span class="p">,</span>
+        <span class="n">root_module_direct_dev_deps</span> <span class="o">=</span> <span class="p">[],</span>
+
+        <span class="c1"># Prevent writing function content to lockfiles:</span>
+        <span class="c1"># - https://bazel.build/rules/lib/builtins/module_ctx#extension_metadata</span>
+        <span class="c1"># Important for remote build. Actually it&#39;s not reproducible, as local paths will</span>
+        <span class="c1"># be different on different machines. But we assume that conan works correctly here.</span>
+        <span class="c1"># IMPORTANT: Not compatible with bazel &lt; 7.1</span>
+        <span class="n">reproducible</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="n">conan_extension</span> <span class="o">=</span> <span class="n">module_extension</span><span class="p">(</span>
+    <span class="n">implementation</span> <span class="o">=</span> <span class="n">_load_dependenies_impl</span><span class="p">,</span>
+    <span class="n">os_dependent</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">arch_dependent</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Given the examples above, and imagining that your <em>WORKSPACE</em> | <em>MODULE.bazel</em> is at the same directory,
+you would have to add these lines in there:</p>
+<p><strong>Bazel 6.x compatible</strong></p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">WORKSPACE</span><a class="headerlink" href="#id7" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;@//:dependencies.bzl&quot;</span><span class="p">,</span> <span class="s2">&quot;load_conan_dependencies&quot;</span><span class="p">)</span>
+<span class="n">load_conan_dependencies</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p><strong>Bazel &gt;= 7.1 compatible</strong></p>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">MODULE.bazel</span><a class="headerlink" href="#id8" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">load_conan_dependencies</span> <span class="o">=</span> <span class="n">use_extension</span><span class="p">(</span><span class="s2">&quot;//:conan_deps_module_extension.bzl&quot;</span><span class="p">,</span> <span class="s2">&quot;conan_extension&quot;</span><span class="p">)</span>
+<span class="c1"># use_repo(load_conan_dependencies, &quot;dep1&quot;, &quot;dep2&quot;, ..., &quot;depN&quot;)</span>
+<span class="n">use_repo</span><span class="p">(</span><span class="n">load_conan_dependencies</span><span class="p">,</span> <span class="s2">&quot;zlib&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>As you can observe, the <em>zlib/BUILD.bazel</em> defines these global targets:</p>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">zlib/BUILD.bazel</span><a class="headerlink" href="#id9" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Components precompiled libs</span>
+<span class="c1"># Root package precompiled libs</span>
+<span class="n">cc_import</span><span class="p">(</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;z_precompiled&quot;</span><span class="p">,</span>
+    <span class="n">static_library</span> <span class="o">=</span> <span class="s2">&quot;lib/libz.a&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Components libraries declaration</span>
+<span class="c1"># Package library declaration</span>
+<span class="n">cc_library</span><span class="p">(</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;zlib&quot;</span><span class="p">,</span>
+    <span class="n">hdrs</span> <span class="o">=</span> <span class="n">glob</span><span class="p">([</span>
+        <span class="s2">&quot;include/**&quot;</span><span class="p">,</span>
+    <span class="p">]),</span>
+    <span class="n">includes</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;include&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="n">visibility</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;//visibility:public&quot;</span><span class="p">],</span>
+    <span class="n">deps</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;:z_precompiled&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+
+<span class="c1"># Filegroup library declaration</span>
+<span class="n">filegroup</span><span class="p">(</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;zlib_binaries&quot;</span><span class="p">,</span>
+    <span class="n">srcs</span> <span class="o">=</span> <span class="n">glob</span><span class="p">([</span>
+        <span class="s2">&quot;bin/**&quot;</span><span class="p">,</span>
+    <span class="p">]),</span>
+    <span class="n">visibility</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;//visibility:public&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">zlib</span></code>: bazel library target. The label used to depend on it would be <code class="docutils literal notranslate"><span class="pre">&#64;zlib//:zlib</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">zlib_binaries</span></code>: bazel filegroup target. The label used to depend on it would be <code class="docutils literal notranslate"><span class="pre">&#64;zlib//:zlib_binaries</span></code>.</p></li>
+</ul>
+<p>You can put all the files generated by <code class="docutils literal notranslate"><span class="pre">BazelDeps</span></code> into another folder using the <code class="docutils literal notranslate"><span class="pre">bazel_layout</span></code>:</p>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">conanfile.py</span><a class="headerlink" href="#id10" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+<span class="kn">from</span> <span class="nn">conan.tools.google</span> <span class="kn">import</span> <span class="n">BazelDeps</span><span class="p">,</span> <span class="n">bazel_layout</span>
+
+<span class="k">class</span> <span class="nc">App</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span>
+    <span class="n">requires</span> <span class="o">=</span> <span class="s2">&quot;zlib/1.2.11&quot;</span>
+
+    <span class="k">def</span> <span class="nf">layout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">bazel_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">bz</span> <span class="o">=</span> <span class="n">BazelDeps</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">bz</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Running again the <strong class="command">conan install</strong> command, we now get this structure:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>.
+.
+├──<span class="w"> </span>conan
+│<span class="w">   </span>├──<span class="w"> </span>BUILD.bazel
+│<span class="w">   </span>├──<span class="w"> </span>dependencies.bzl
+│<span class="w">   </span>├──<span class="w"> </span>conan_deps_module_extension.bzl
+│<span class="w">   </span>├──<span class="w"> </span>conan_deps_repo_rules.bzl
+│<span class="w">   </span>└──<span class="w"> </span>zlib
+│<span class="w">       </span>└──<span class="w"> </span>BUILD.bazel
+└──<span class="w"> </span>conanfile.py
+</pre></div>
+</div>
+<p>Now your Conan-bazel files were generated in the <em>conan/</em> folder, your WORKSPACE will look like:</p>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">WORKSPACE</span><a class="headerlink" href="#id11" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;@//conan:dependencies.bzl&quot;</span><span class="p">,</span> <span class="s2">&quot;load_conan_dependencies&quot;</span><span class="p">)</span>
+<span class="n">load_conan_dependencies</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Or your MODULE.bazel:</p>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">MODULE.bazel</span><a class="headerlink" href="#id12" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">load_conan_dependencies</span> <span class="o">=</span> <span class="n">use_extension</span><span class="p">(</span><span class="s2">&quot;//conan:conan_deps_module_extension.bzl&quot;</span><span class="p">,</span> <span class="s2">&quot;conan_extension&quot;</span><span class="p">)</span>
+<span class="n">use_repo</span><span class="p">(</span><span class="n">load_conan_dependencies</span><span class="p">,</span> <span class="s2">&quot;zlib&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="customization">
+<span id="conan-tools-google-bazeldeps-customization"></span><h2>Customization<a class="headerlink" href="#customization" title="Link to this heading">¶</a></h2>
+<section id="naming">
+<h3>Naming<a class="headerlink" href="#naming" title="Link to this heading">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">&lt;REPOSITORY&gt;/BUILD.bazel</span></code> file contains all the targets declared by the dependency. Both the <code class="docutils literal notranslate"><span class="pre">&lt;REPOSITORY&gt;/</span></code> folder and the targets
+declared in there will be named following these rules by default:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>For packages, it uses the package name as folder/target name, e.g., package <code class="docutils literal notranslate"><span class="pre">zlib/1.2.11</span></code> will have:</dt><dd><ul>
+<li><p>Folder: <code class="docutils literal notranslate"><span class="pre">zlib/BUILD.bazel</span></code>.</p></li>
+<li><p>Global target: <code class="docutils literal notranslate"><span class="pre">zlib</span></code>.</p></li>
+<li><p>How it can be consumed: <code class="docutils literal notranslate"><span class="pre">&#64;zlib//:zlib</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>For components, the package name + hyphen + component name, e.g., package <code class="docutils literal notranslate"><span class="pre">openssl/3.1.4</span></code> will have:</dt><dd><ul>
+<li><p>Folder: <code class="docutils literal notranslate"><span class="pre">openssl/BUILD.bazel</span></code>.</p></li>
+<li><p>Global target: <code class="docutils literal notranslate"><span class="pre">openssl</span></code>.</p></li>
+<li><p>Components targets: <code class="docutils literal notranslate"><span class="pre">openssl-ssl</span></code>, and <code class="docutils literal notranslate"><span class="pre">openssl-crypto</span></code>.</p></li>
+<li><dl class="simple">
+<dt>How it can be consumed:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;openssl//:openssl</span></code> (global one which includes all the components)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;openssl//:openssl-ssl</span></code> (component one)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;openssl//:openssl-crypto</span></code> (component one)</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>You can change that default behavior with the <code class="docutils literal notranslate"><span class="pre">bazel_target_name</span></code> and the <code class="docutils literal notranslate"><span class="pre">bazel_repository_name</span></code> properties.
+See <a class="reference internal" href="#conan-tools-google-bazeldeps-properties"><span class="std std-ref">Properties section below</span></a>.</p>
+</section>
+</section>
+<section id="reference">
+<h2>Reference<a class="headerlink" href="#reference" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="conan.tools.google.BazelDeps">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BazelDeps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conanfile</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conan.tools.google.BazelDeps" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>conanfile</strong> – <code class="docutils literal notranslate"><span class="pre">&lt;</span> <span class="pre">ConanFile</span> <span class="pre">object</span> <span class="pre">&gt;</span></code> The current recipe object. Always use <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="conan.tools.google.BazelDeps.build_context_activated">
+<span class="sig-name descname"><span class="pre">build_context_activated</span></span><a class="headerlink" href="#conan.tools.google.BazelDeps.build_context_activated" title="Link to this definition">¶</a></dt>
+<dd><p>Activates the build context for the specified Conan package names.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conan.tools.google.BazelDeps.generate">
+<span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#conan.tools.google.BazelDeps.generate" title="Link to this definition">¶</a></dt>
+<dd><p>Generates all the targets &lt;DEP&gt;/BUILD.bazel files, a dependencies.bzl (for bazel&lt;7), a
+conan_deps_repo_rules.bzl and a conan_deps_module_extension.bzl file (for bazel&gt;=7.1) one in the
+build folder.</p>
+<p>In case of bazel &lt; 7, it’s important to highlight that the <code class="docutils literal notranslate"><span class="pre">dependencies.bzl</span></code> file should
+be loaded by your WORKSPACE Bazel file:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;@//[BUILD_FOLDER]:dependencies.bzl&quot;</span><span class="p">,</span> <span class="s2">&quot;load_conan_dependencies&quot;</span><span class="p">)</span>
+<span class="n">load_conan_dependencies</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>In case of bazel &gt;= 7.1, the <code class="docutils literal notranslate"><span class="pre">conan_deps_module_extension.bzl</span></code> file should be loaded by your
+Module.bazel file, e.g. like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">load_conan_dependencies</span> <span class="o">=</span> <span class="n">use_extension</span><span class="p">(</span>
+    <span class="s2">&quot;//build:conan_deps_module_extension.bzl&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;conan_extension&quot;</span>
+<span class="p">)</span>
+<span class="n">use_repo</span><span class="p">(</span><span class="n">load_conan_dependencies</span><span class="p">,</span> <span class="s2">&quot;dep-1&quot;</span><span class="p">,</span> <span class="s2">&quot;dep-2&quot;</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<section id="build-context-activated">
+<h3>build_context_activated<a class="headerlink" href="#build-context-activated" title="Link to this heading">¶</a></h3>
+<p>When you have a <strong>build-requirement</strong>, by default, the Bazel files are not generated.
+But you can activate it using the <strong>build_context_activated</strong> attribute:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">build_requirements</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">tool_requires</span><span class="p">(</span><span class="s2">&quot;my_tool/0.0.1&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">layout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">bazel_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">bz</span> <span class="o">=</span> <span class="n">BazelDeps</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="c1"># generate the build-mytool/BUILD.bazel file for the tool require</span>
+    <span class="n">bz</span><span class="o">.</span><span class="n">build_context_activated</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;my_tool&quot;</span><span class="p">]</span>
+    <span class="n">bz</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Running the <strong class="command">conan install</strong> command, the structure created is as follows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>.<span class="w"> </span>-pr:b<span class="w"> </span>default
+.
+├──<span class="w"> </span>conan
+│<span class="w">   </span>├──<span class="w"> </span>BUILD.bazel
+│<span class="w">   </span>├──<span class="w"> </span>build-my_tool
+│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>BUILD.bazel
+│<span class="w">   </span>├──<span class="w"> </span>conan_deps_module_extension.bzl
+│<span class="w">   </span>├──<span class="w"> </span>conan_deps_repo_rules.bzl
+│<span class="w">   </span>└──<span class="w"> </span>dependencies.bzl
+└──<span class="w"> </span>conanfile.py
+</pre></div>
+</div>
+<p>Notice that <em>my_tool</em> Bazel folder is prefixed with <code class="docutils literal notranslate"><span class="pre">build-</span></code> which indicates that it’s being used in the build context.</p>
+</section>
+<section id="properties">
+<span id="conan-tools-google-bazeldeps-properties"></span><h3>Properties<a class="headerlink" href="#properties" title="Link to this heading">¶</a></h3>
+<p>The following properties affect the <code class="docutils literal notranslate"><span class="pre">BazelDeps</span></code> generator:</p>
+<ul class="simple">
+<li><p><strong>bazel_target_name</strong> property will define the name of the target declared in the <code class="docutils literal notranslate"><span class="pre">&lt;REPOSITORY&gt;/BUILD.bazel</span></code>.
+This property can be defined at both global and component <code class="docutils literal notranslate"><span class="pre">cpp_info</span></code> level.</p></li>
+<li><p><strong>bazel_repository_name</strong> property will define the name of the folder where the dependency <em>BUILD.bazel</em> will be
+allocated. This property can only be defined at global <code class="docutils literal notranslate"><span class="pre">cpp_info</span></code> level.</p></li>
+</ul>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">set_property</span><span class="p">(</span><span class="s2">&quot;bazel_target_name&quot;</span><span class="p">,</span> <span class="s2">&quot;my_target&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">set_property</span><span class="p">(</span><span class="s2">&quot;bazel_repository_name&quot;</span><span class="p">,</span> <span class="s2">&quot;my_repo&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s2">&quot;mycomponent&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">set_property</span><span class="p">(</span><span class="s2">&quot;bazel_target_name&quot;</span><span class="p">,</span> <span class="s2">&quot;component_name&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../../../examples/tools/google/bazeltoolchain/build_simple_bazel_project.html#examples-tools-bazel-toolchain-build-simple-bazel-project"><span class="std std-ref">Build a simple Bazel project using Conan</span></a></p></li>
+<li><p><a class="reference internal" href="../../../examples/tools/google/bazeltoolchain/build_simple_bazel_7x_project.html#examples-tools-bazel-7x-toolchain-build-simple-bazel-project"><span class="std std-ref">Build a simple Bazel 7.x project using Conan</span></a></p></li>
+</ul>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="bazel.html" class="btn btn-neutral float-left" title="Bazel" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="bazeltoolchain.html" class="btn btn-neutral float-right" title="BazelToolchain" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2024, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 2.6
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/2.6/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

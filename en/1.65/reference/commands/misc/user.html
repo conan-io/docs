@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>conan user &mdash; conan 1.65.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/conan.css?v=f9087e22" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/reference/commands/misc/user.html" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=0c8760e3"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="conan imports" href="imports.html" />
+    <link rel="prev" title="conan remote" href="remote.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html">
+            
+              <img src="../../../_static/conan-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.65
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../conan_v2.html">Conan migration guide to 2.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../training_courses.html">Training Courses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../versioning.html">Versioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../extending.html">Extending Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../howtos.html">Howtos</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../commands.html">Commands</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#consumer-commands">Consumer commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#creator-commands">Creator commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#package-development-commands">Package development commands</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../../commands.html#misc-commands">Misc commands</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="profile.html">conan profile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="remote.html">conan remote</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">conan user</a></li>
+<li class="toctree-l4"><a class="reference internal" href="imports.html">conan imports</a></li>
+<li class="toctree-l4"><a class="reference internal" href="copy.html">conan copy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="download.html">conan download</a></li>
+<li class="toctree-l4"><a class="reference internal" href="remove.html">conan remove</a></li>
+<li class="toctree-l4"><a class="reference internal" href="alias.html">conan alias</a></li>
+<li class="toctree-l4"><a class="reference internal" href="inspect.html">conan inspect</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lock.html">conan lock</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lock.html#conan-lock-bundle">conan lock bundle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="help.html">conan help</a></li>
+<li class="toctree-l4"><a class="reference internal" href="conan_build_info.html">conan_build_info v1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="conan_build_info.html#conan-build-info-v2">conan_build_info v2</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#json-output">JSON Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#return-codes">Return codes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../conanfile.html">conanfile.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generators.html">Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../profiles.html">Profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../build_helpers.html">Build helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools.html">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../config_files.html">Configuration files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../env_vars.html">Environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hooks.html">Hooks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cheatsheet.html">Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #eb8484;background-color: #ffcaca;padding: 3px;margin-bottom: 5px">
+              <p>This document is for a <b>"1.X" legacy</b> Conan version, <b>which is no longer recommended</b>. Please update to Conan 2, <a href="https://docs.conan.io/2/">click here to read the <b>Conan 2</b> documentation</a></p>
+            </div>
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          <!--@ OUTDATED_VERSION_PLACEHOLDER_BEGIN @
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/@LATEST_DOC_PAGE_URL@">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          @ OUTDATED_VERSION_PLACEHOLDER_END @-->
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="../../commands.html">Commands</a></li>
+      <li class="breadcrumb-item active">conan user</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/master/reference/commands/misc/user.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="conan-user">
+<span id="id1"></span><h1>conan user<a class="headerlink" href="#conan-user" title="Link to this heading"></a></h1>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>user<span class="w"> </span><span class="o">[</span>-h<span class="o">]</span><span class="w"> </span><span class="o">[</span>-c<span class="o">]</span><span class="w"> </span><span class="o">[</span>-p<span class="w"> </span><span class="o">[</span>PASSWORD<span class="o">]]</span><span class="w"> </span><span class="o">[</span>-r<span class="w"> </span>REMOTE<span class="o">]</span><span class="w"> </span><span class="o">[</span>-j<span class="w"> </span>JSON<span class="o">]</span><span class="w"> </span><span class="o">[</span>-s<span class="o">]</span><span class="w"> </span><span class="o">[</span>name<span class="o">]</span>
+</pre></div>
+</div>
+<p>Authenticates against a remote with user/pass, caching the auth token.</p>
+<p>Useful to avoid the user and password being requested later. e.g. while
+you’re uploading a package.  You can have one user for each remote.
+Changing the user, or introducing the password is only necessary to
+perform changes in remote packages.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>positional arguments:
+  name                  Username you want to use. If no name is provided it
+                        will show the current user
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -c, --clean           Remove user and tokens for all remotes
+  -p [PASSWORD], --password [PASSWORD]
+                        User password. Use double quotes if password with
+                        spacing, and escape quotes if existing. If empty, the
+                        password is requested interactively (not exposed)
+  -r REMOTE, --remote REMOTE
+                        Use the specified remote server
+  -j JSON, --json JSON  json file path where the user list will be written to
+  -s, --skip-auth       Skips the authentication with the server if there are
+                        local stored credentials. It doesn&#39;t check if the
+                        current credentials are valid or not
+</pre></div>
+</div>
+<p>After a successful login the auth token is stored in the local database (see <a class="reference internal" href="../../env_vars.html#env-vars-conan-login-encryption-key"><span class="std std-ref">CONAN_LOGIN_ENCRYPTION_KEY</span></a>
+to add a basic level of security).</p>
+<p><strong>Examples</strong>:</p>
+<ul>
+<li><p>List my user for each remote:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>user
+Current<span class="w"> </span>user<span class="w"> </span>of<span class="w"> </span>remote<span class="w"> </span><span class="s1">&#39;conancenter&#39;</span><span class="w"> </span><span class="nb">set</span><span class="w"> </span>to:<span class="w"> </span><span class="s1">&#39;None&#39;</span><span class="w"> </span><span class="o">(</span>anonymous<span class="o">)</span>
+Current<span class="w"> </span>user<span class="w"> </span>of<span class="w"> </span>remote<span class="w"> </span><span class="s1">&#39;myprivateremote&#39;</span><span class="w"> </span><span class="nb">set</span><span class="w"> </span>to:<span class="w"> </span><span class="s1">&#39;danimtb&#39;</span><span class="w"> </span><span class="o">[</span>Authenticated<span class="o">]</span>
+Current<span class="w"> </span>user<span class="w"> </span>of<span class="w"> </span>remote<span class="w"> </span><span class="s1">&#39;otherremote&#39;</span><span class="w"> </span><span class="nb">set</span><span class="w"> </span>to:<span class="w"> </span><span class="s1">&#39;None&#39;</span><span class="w"> </span><span class="o">(</span>anonymous<span class="o">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Change <strong>bar</strong> remote user to <strong>foo</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>user<span class="w"> </span>foo<span class="w"> </span>-r<span class="w"> </span>bar
+Changed<span class="w"> </span>user<span class="w"> </span>of<span class="w"> </span>remote<span class="w"> </span><span class="s1">&#39;bar&#39;</span><span class="w"> </span>from<span class="w"> </span><span class="s1">&#39;None&#39;</span><span class="w"> </span><span class="o">(</span>anonymous<span class="o">)</span><span class="w"> </span>to<span class="w"> </span><span class="s1">&#39;foo&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Change <strong>bar</strong> remote user to <strong>foo</strong>, authenticating against the remote and storing the
+user and authentication token locally, so a later upload won’t require entering credentials:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>user<span class="w"> </span>foo<span class="w"> </span>-r<span class="w"> </span>bar<span class="w"> </span>-p<span class="w"> </span>mypassword
+</pre></div>
+</div>
+</li>
+<li><p>Authenticate against the remote only if we don’t have credentials stored locally. It will not check
+if the credentials are valid or not:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>user<span class="w"> </span>foo<span class="w"> </span>-r<span class="w"> </span>bar<span class="w"> </span>-p<span class="w"> </span>mypassword<span class="w"> </span>--skip-auth
+</pre></div>
+</div>
+</li>
+<li><p>Clean all local users and tokens:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>user<span class="w"> </span>--clean
+</pre></div>
+</div>
+</li>
+<li><p>Change <strong>bar</strong> remote user to <strong>foo</strong>, <strong>asking user password</strong> to authenticate against the
+remote and storing the user and authentication token locally, so a later upload won’t require entering credentials:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ conan user foo -r bar -p
+Please enter a password for &quot;foo&quot; account:
+Change &#39;bar&#39; user from None (anonymous) to foo
+</pre></div>
+</div>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The password is not stored in the client computer at any moment. Conan uses
+<a class="reference external" href="https://en.wikipedia.org/wiki/JSON_Web_Token">JWT</a>, so it gets a token (expirable by the
+server) checking the password against the remote credentials. If the password is correct, an
+authentication token will be obtained, and that token is the information cached locally. For
+any subsequent interaction with the remotes, the Conan client will only use that JWT token.</p>
+</div>
+<section id="using-environment-variables">
+<h2>Using environment variables<a class="headerlink" href="#using-environment-variables" title="Link to this heading"></a></h2>
+<p>The <a class="reference internal" href="../../env_vars.html#env-vars-conan-login-username"><span class="std std-ref">CONAN_LOGIN_USERNAME</span></a> and <a class="reference internal" href="../../env_vars.html#env-vars-conan-password"><span class="std std-ref">CONAN_PASSWORD</span></a> environment variables allow
+defining the user and the password in the environment.
+If those environment variables are defined, the user input will no be necessary whenever the user or
+password are requested. Values for user and password will be automatically taken from the
+environment variables without any interactive input.</p>
+<p>This applies also to the <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">user</span></code> command, if you want to force the authentication in some
+scripts, without requiring to put the password in plain text, the following can be done:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>user<span class="w"> </span>--clean<span class="w">  </span><span class="c1"># remove previous auth tokens</span>
+$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">CONAN_PASSWORD</span><span class="o">=</span>mypassword
+$<span class="w"> </span>conan<span class="w"> </span>user<span class="w"> </span>mysyusername<span class="w"> </span>-p<span class="w"> </span>-r<span class="o">=</span>myremote
+Please<span class="w"> </span>enter<span class="w"> </span>a<span class="w"> </span>password<span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="s2">&quot;mysusername&quot;</span><span class="w"> </span>account:<span class="w"> </span>Got<span class="w"> </span>password<span class="w"> </span><span class="s1">&#39;******&#39;</span><span class="w"> </span>from<span class="w"> </span>environment
+Changed<span class="w"> </span>user<span class="w"> </span>of<span class="w"> </span>remote<span class="w"> </span><span class="s1">&#39;myremote&#39;</span><span class="w"> </span>from<span class="w"> </span><span class="s1">&#39;None&#39;</span><span class="w"> </span><span class="o">(</span>anonymous<span class="o">)</span><span class="w"> </span>to<span class="w"> </span><span class="s1">&#39;mysusername&#39;</span>
+$<span class="w"> </span>conan<span class="w"> </span>upload<span class="w"> </span>zlib*<span class="w"> </span>-r<span class="o">=</span>myremote<span class="w"> </span>--all<span class="w"> </span>--confirm
+</pre></div>
+</div>
+<p>In this example, <strong class="command">conan user mysyusername -p -r=myremote</strong> will interactively request a password
+if <code class="docutils literal notranslate"><span class="pre">CONAN_PASSWORD</span></code> is not defined.</p>
+<p>The environment variable <a class="reference internal" href="../../env_vars.html#env-vars-non-interactive"><span class="std std-ref">CONAN_NON_INTERACTIVE</span></a> (or <code class="docutils literal notranslate"><span class="pre">general.non_interactive</span></code> in <em>conan.conf</em>)
+can be defined to guarantee that an error will be raise if user input is required, to avoid stalls in CI
+builds.</p>
+<p>Note that defining <code class="docutils literal notranslate"><span class="pre">CONAN_LOGIN_USERNAME</span></code> and/or <code class="docutils literal notranslate"><span class="pre">CONAN_PASSWORD</span></code> do not perform in any case an
+authentication request against the server. Only when the server request credentials
+(or a explicit <strong class="command">conan user -p</strong> is done), they will be used as an alternative source rather than interactive user input. This means that for servers like Artifactory that allow enabling <em>“Hide Existence of Unauthorized Resource”</em> modes, it will be necessary to explicitly call <strong class="command">conan user -p</strong> before downloading or uploading anything from the server, otherwise, Artifactory will return 404 errors instead of requesting authentication.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="remote.html" class="btn btn-neutral float-left" title="conan remote" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="imports.html" class="btn btn-neutral float-right" title="conan imports" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2024, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 1.65
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/en/1.65/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>
