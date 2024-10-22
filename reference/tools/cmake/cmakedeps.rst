@@ -252,7 +252,7 @@ The following properties affect the CMakeDeps generator:
 - **system_package_version**: version of the package used to generate the ``<PackageName>ConfigVersion.cmake`` file. Can be useful when creating system packages or other wrapper packages, where the conan package version is different to the eventually referenced package version to keep compatibility to ``find_package(<PackageName> <Version>)`` calls.
 - **cmake_additional_variables_prefixes**: List of prefixes to be used when creating CMake variables in the config
   files. These variables are created with ``file_name`` as prefix by default, but setting this property will create
-  additional variables with the specified prefixes.
+  additional variables with the specified prefixes alongside the default ``file_name`` one.
 
 Example:
 
@@ -288,9 +288,7 @@ Overwrite properties from the consumer side using CMakeDeps.set_property()
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Using ``CMakeDeps.set_property()`` method you can overwrite the property values set by the
-Conan recipes from the consumer. This can be done for `cmake_file_name`,
-`cmake_target_name`, `cmake_find_mode`, `cmake_module_file_name` and
-`cmake_module_target_name` properties. Let's see an example of how this works:
+Conan recipes from the consumer. This can be done for every property listed above.
 
 Imagine we have a *compressor/1.0* package that depends on *zlib/1.2.11*. The *zlib* recipe
 defines some properties:
