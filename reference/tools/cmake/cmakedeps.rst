@@ -248,11 +248,11 @@ The following properties affect the CMakeDeps generator:
 - **cmake_set_interface_link_directories**: boolean value that should be only used by dependencies that don't declare `self.cpp_info.libs` but have ``#pragma comment(lib, "foo")`` (automatic link) declared at the public headers. Those dependencies should
   add this property to their *conanfile.py* files at root ``cpp_info`` level (components not supported for now).
 - **nosoname**: boolean value that should be used only by dependencies that are defined as ``SHARED`` and represent a library built without the ``soname`` flag option.
-- **cmake_config_version_compat**: (preview) By default ``SameMajorVersion``, it can take the values ``"AnyNewerVersion", "SameMajorVersion", "SameMinorVersion", "ExactVersion"``. It will use that policy in the generated ``<PackageName>ConfigVersion.cmake`` file
+- **cmake_config_version_compat**: By default ``SameMajorVersion``, it can take the values ``"AnyNewerVersion", "SameMajorVersion", "SameMinorVersion", "ExactVersion"``. It will use that policy in the generated ``<PackageName>ConfigVersion.cmake`` file
 - **system_package_version**: version of the package used to generate the ``<PackageName>ConfigVersion.cmake`` file. Can be useful when creating system packages or other wrapper packages, where the conan package version is different to the eventually referenced package version to keep compatibility to ``find_package(<PackageName> <Version>)`` calls.
 - **cmake_additional_variables_prefixes**: List of prefixes to be used when creating CMake variables in the config
   files. These variables are created with ``file_name`` as prefix by default, but setting this property will create
-  additional variables with the specified prefixes.
+  additional variables with the specified prefixes alongside the default ``file_name`` one.
 
 Example:
 
@@ -288,9 +288,8 @@ Overwrite properties from the consumer side using CMakeDeps.set_property()
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Using ``CMakeDeps.set_property()`` method you can overwrite the property values set by the
-Conan recipes from the consumer. This can be done for `cmake_file_name`,
-`cmake_target_name`, `cmake_find_mode`, `cmake_module_file_name` and
-`cmake_module_target_name` properties. Let's see an example of how this works:
+Conan recipes from the consumer. This can be done for every property listed above,
+except for ``cmake_target_aliases``.
 
 Imagine we have a *compressor/1.0* package that depends on *zlib/1.2.11*. The *zlib* recipe
 defines some properties:
