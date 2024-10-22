@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>conan.tools.build &mdash; conan 2.5.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=045299b1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/conan.css?v=7d9e9f1e" />
+
+  
+    <link rel="shortcut icon" href="../../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/reference/tools/build.html" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=3c4615cf"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="conan.tools.cmake" href="cmake.html" />
+    <link rel="prev" title="conan.tools.apple.fix_apple_shared_install_name()" href="apple/other.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/conan-docs-logo-2.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.5
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../whatsnew.html">What’s new in Conan 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devops.html">Devops guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../commands.html">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conanfile.html">conanfile.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../tools.html">Recipe tools</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="android.html">conan.tools.android</a></li>
+<li class="toctree-l3"><a class="reference internal" href="apple.html">conan.tools.apple</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">conan.tools.build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cmake.html">conan.tools.cmake</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cpp_info.html">conan.tools.CppInfo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="env.html">conan.tools.env</a></li>
+<li class="toctree-l3"><a class="reference internal" href="files.html">conan.tools.files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gnu.html">conan.tools.gnu</a></li>
+<li class="toctree-l3"><a class="reference internal" href="google.html">conan.tools.google</a></li>
+<li class="toctree-l3"><a class="reference internal" href="intel.html">conan.tools.intel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="layout.html">conan.tools.layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="meson.html">conan.tools.meson</a></li>
+<li class="toctree-l3"><a class="reference internal" href="microsoft.html">conan.tools.microsoft</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scm.html">conan.tools.scm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scons.html">conan.tools.scons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="system.html">conan.tools.system</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../config_files.html">Configuration files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extensions.html">Extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../environment.html">Environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../binary_model.html">The binary model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conan_server.html">Conan Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../runners.html">Runners</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../knowledge.html">Knowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/reference/tools/build.html">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="../tools.html">Recipe tools</a></li>
+      <li class="breadcrumb-item active">conan.tools.build</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/develop2/reference/tools/build.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="conan-tools-build">
+<span id="id1"></span><h1>conan.tools.build<a class="headerlink" href="#conan-tools-build" title="Link to this heading">¶</a></h1>
+<section id="building">
+<h2>Building<a class="headerlink" href="#building" title="Link to this heading">¶</a></h2>
+<section id="conan-tools-build-build-jobs">
+<h3>conan.tools.build.build_jobs()<a class="headerlink" href="#conan-tools-build-build-jobs" title="Link to this heading">¶</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="conan.tools.build.cpu.build_jobs">
+<span class="sig-name descname"><span class="pre">build_jobs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conanfile</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conan.tools.build.cpu.build_jobs" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the number of CPUs available for parallel builds.
+It returns the configuration value for <code class="docutils literal notranslate"><span class="pre">tools.build:jobs</span></code> if exists, otherwise,
+it defaults to the helper function <code class="docutils literal notranslate"><span class="pre">_cpu_count()</span></code>.
+<code class="docutils literal notranslate"><span class="pre">_cpu_count()</span></code> reads cgroup to detect the configured number of CPUs.
+Currently, there are two versions of cgroup available.</p>
+<p>In the case of cgroup v1, if the data in cgroup is invalid, processor detection comes into play.
+Whenever processor detection is not enabled, <code class="docutils literal notranslate"><span class="pre">build_jobs()</span></code> will safely return 1.</p>
+<p>In the case of cgroup v2, if no limit is set, processor detection is used. When the limit is set,
+the behavior is as described in cgroup v1.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>conanfile</strong> – The current recipe object. Always use <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">int</span></code> with the number of jobs</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="conan-tools-build-cross-building">
+<span id="id2"></span><h3>conan.tools.build.cross_building()<a class="headerlink" href="#conan-tools-build-cross-building" title="Link to this heading">¶</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="conan.tools.build.cross_building.cross_building">
+<span class="sig-name descname"><span class="pre">cross_building</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conanfile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_x64_x86</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conan.tools.build.cross_building.cross_building" title="Link to this definition">¶</a></dt>
+<dd><p>Check if we are cross building comparing the <em>build</em> and <em>host</em> settings. Returns <code class="docutils literal notranslate"><span class="pre">True</span></code>
+in the case that we are cross-building.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>conanfile</strong> – The current recipe object. Always use <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p></li>
+<li><p><strong>skip_x64_x86</strong> – Do not consider cross building when building to 32 bits from 64 bits:
+x86_64 to x86, sparcv9 to sparc or ppc64 to ppc32</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">bool</span></code> value from <code class="docutils literal notranslate"><span class="pre">tools.build.cross_building:cross_build</span></code> if exists, otherwise,
+it returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if we are cross-building, else, <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="conan-tools-build-can-run">
+<span id="id3"></span><h3>conan.tools.build.can_run()<a class="headerlink" href="#conan-tools-build-can-run" title="Link to this heading">¶</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="conan.tools.build.cross_building.can_run">
+<span class="sig-name descname"><span class="pre">can_run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conanfile</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conan.tools.build.cross_building.can_run" title="Link to this definition">¶</a></dt>
+<dd><p>Validates whether is possible to run a non-native app on the same architecture.
+It’s a useful feature for the case your architecture can run more than one target.
+For instance, Mac M1 machines can run both <cite>armv8</cite> and <cite>x86_64</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>conanfile</strong> – The current recipe object. Always use <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">bool</span></code> value from <code class="docutils literal notranslate"><span class="pre">tools.build.cross_building:can_run</span></code> if exists, otherwise,
+it returns <code class="docutils literal notranslate"><span class="pre">False</span></code> if we are cross-building, else, <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<section id="cppstd">
+<h2>Cppstd<a class="headerlink" href="#cppstd" title="Link to this heading">¶</a></h2>
+<section id="conan-tools-build-check-min-cppstd">
+<span id="id4"></span><h3>conan.tools.build.check_min_cppstd()<a class="headerlink" href="#conan-tools-build-check-min-cppstd" title="Link to this heading">¶</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="conan.tools.build.cppstd.check_min_cppstd">
+<span class="sig-name descname"><span class="pre">check_min_cppstd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conanfile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cppstd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gnu_extensions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conan.tools.build.cppstd.check_min_cppstd" title="Link to this definition">¶</a></dt>
+<dd><p>Check if current cppstd fits the minimal version required.</p>
+<blockquote>
+<div><p>In case the current cppstd doesn’t fit the minimal version required
+by cppstd, a ConanInvalidConfiguration exception will be raised.</p>
+<p>settings.compiler.cppstd must be defined, otherwise ConanInvalidConfiguration is raised</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>conanfile</strong> – The current recipe object. Always use <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p></li>
+<li><p><strong>cppstd</strong> – Minimal cppstd version required</p></li>
+<li><p><strong>gnu_extensions</strong> – GNU extension is required (e.g gnu17)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="conan-tools-build-check-max-cppstd">
+<span id="id5"></span><h3>conan.tools.build.check_max_cppstd()<a class="headerlink" href="#conan-tools-build-check-max-cppstd" title="Link to this heading">¶</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="conan.tools.build.cppstd.check_max_cppstd">
+<span class="sig-name descname"><span class="pre">check_max_cppstd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conanfile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cppstd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gnu_extensions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conan.tools.build.cppstd.check_max_cppstd" title="Link to this definition">¶</a></dt>
+<dd><p>Check if current cppstd fits the maximum version required.</p>
+<blockquote>
+<div><p>In case the current cppstd doesn’t fit the maximum version required
+by cppstd, a ConanInvalidConfiguration exception will be raised.</p>
+<p>settings.compiler.cppstd must be defined, otherwise ConanInvalidConfiguration is raised</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>conanfile</strong> – The current recipe object. Always use <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p></li>
+<li><p><strong>cppstd</strong> – Maximum cppstd version required</p></li>
+<li><p><strong>gnu_extensions</strong> – GNU extension is required (e.g gnu17)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="conan-tools-build-valid-min-cppstd">
+<h3>conan.tools.build.valid_min_cppstd()<a class="headerlink" href="#conan-tools-build-valid-min-cppstd" title="Link to this heading">¶</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="conan.tools.build.cppstd.valid_min_cppstd">
+<span class="sig-name descname"><span class="pre">valid_min_cppstd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conanfile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cppstd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gnu_extensions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conan.tools.build.cppstd.valid_min_cppstd" title="Link to this definition">¶</a></dt>
+<dd><p>Validate if current cppstd fits the minimal version required.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>conanfile</strong> – The current recipe object. Always use <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p></li>
+<li><p><strong>cppstd</strong> – Minimal cppstd version required</p></li>
+<li><p><strong>gnu_extensions</strong> – GNU extension is required (e.g gnu17). This option ONLY works on Linux.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True, if current cppstd matches the required cppstd version. Otherwise, False.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="conan-tools-build-valid-max-cppstd">
+<h3>conan.tools.build.valid_max_cppstd()<a class="headerlink" href="#conan-tools-build-valid-max-cppstd" title="Link to this heading">¶</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="conan.tools.build.cppstd.valid_max_cppstd">
+<span class="sig-name descname"><span class="pre">valid_max_cppstd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conanfile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cppstd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gnu_extensions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conan.tools.build.cppstd.valid_max_cppstd" title="Link to this definition">¶</a></dt>
+<dd><p>Validate if current cppstd fits the maximum version required.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>conanfile</strong> – The current recipe object. Always use <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p></li>
+<li><p><strong>cppstd</strong> – Maximum cppstd version required</p></li>
+<li><p><strong>gnu_extensions</strong> – GNU extension is required (e.g gnu17). This option ONLY works on Linux.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True, if current cppstd matches the required cppstd version. Otherwise, False.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="conan-tools-build-default-cppstd">
+<h3>conan.tools.build.default_cppstd()<a class="headerlink" href="#conan-tools-build-default-cppstd" title="Link to this heading">¶</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="conan.tools.build.cppstd.default_cppstd">
+<span class="sig-name descname"><span class="pre">default_cppstd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conanfile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compiler</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compiler_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conan.tools.build.cppstd.default_cppstd" title="Link to this definition">¶</a></dt>
+<dd><p>Get the default <code class="docutils literal notranslate"><span class="pre">compiler.cppstd</span></code> for the “conanfile.settings.compiler” and “conanfile
+settings.compiler_version” or for the parameters “compiler” and “compiler_version” if specified.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>conanfile</strong> – The current recipe object. Always use <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p></li>
+<li><p><strong>compiler</strong> – Name of the compiler e.g. gcc</p></li>
+<li><p><strong>compiler_version</strong> – Version of the compiler e.g. 12</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The default <code class="docutils literal notranslate"><span class="pre">compiler.cppstd</span></code> for the specified compiler</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="conan-tools-build-supported-cppstd">
+<h3>conan.tools.build.supported_cppstd()<a class="headerlink" href="#conan-tools-build-supported-cppstd" title="Link to this heading">¶</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="conan.tools.build.cppstd.supported_cppstd">
+<span class="sig-name descname"><span class="pre">supported_cppstd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conanfile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compiler</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compiler_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conan.tools.build.cppstd.supported_cppstd" title="Link to this definition">¶</a></dt>
+<dd><p>Get a list of supported <code class="docutils literal notranslate"><span class="pre">compiler.cppstd</span></code> for the “conanfile.settings.compiler” and
+“conanfile.settings.compiler_version” or for the parameters “compiler” and “compiler_version”
+if specified.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>conanfile</strong> – The current recipe object. Always use <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p></li>
+<li><p><strong>compiler</strong> – Name of the compiler e.g: gcc</p></li>
+<li><p><strong>compiler_version</strong> – Version of the compiler e.g: 12</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a list of supported <code class="docutils literal notranslate"><span class="pre">cppstd</span></code> values.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="conan-tools-build-cppstd-flag">
+<h3>conan.tools.build.cppstd_flag()<a class="headerlink" href="#conan-tools-build-cppstd-flag" title="Link to this heading">¶</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="conan.tools.build.flags.cppstd_flag">
+<span class="sig-name descname"><span class="pre">cppstd_flag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conanfile</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#conan.tools.build.flags.cppstd_flag" title="Link to this definition">¶</a></dt>
+<dd><p>Returns flags specific to the C++ standard based on the <code class="docutils literal notranslate"><span class="pre">conanfile.settings.compiler</span></code>,
+<code class="docutils literal notranslate"><span class="pre">conanfile.settings.compiler.version</span></code> and <code class="docutils literal notranslate"><span class="pre">conanfile.settings.compiler.cppstd</span></code>.</p>
+<p>It also considers when using GNU extension in <code class="docutils literal notranslate"><span class="pre">settings.compiler.cppstd</span></code>, reflecting it in the
+compiler flag. Currently, it supports GCC, Clang, AppleClang, MSVC, Intel, MCST-LCC.</p>
+<p>In case there is no <code class="docutils literal notranslate"><span class="pre">settings.compiler</span></code> or <code class="docutils literal notranslate"><span class="pre">settings.cppstd</span></code> in the profile, the result will
+be an <strong>empty string</strong>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>conanfile</strong> – The current recipe object. Always use <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">str</span></code> with the standard C++ flag used by the compiler. e.g. “-std=c++11”, “/std:c++latest”</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<section id="cstd">
+<h2>cstd<a class="headerlink" href="#cstd" title="Link to this heading">¶</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This feature is experimental and subject to breaking changes.
+See <a class="reference internal" href="../../introduction.html#stability"><span class="std std-ref">the Conan stability</span></a> section for more information.</p>
+</div>
+<section id="conan-tools-build-check-min-cstd">
+<span id="id6"></span><h3>conan.tools.build.check_min_cstd()<a class="headerlink" href="#conan-tools-build-check-min-cstd" title="Link to this heading">¶</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="conan.tools.build.cstd.check_min_cstd">
+<span class="sig-name descname"><span class="pre">check_min_cstd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conanfile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cstd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gnu_extensions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conan.tools.build.cstd.check_min_cstd" title="Link to this definition">¶</a></dt>
+<dd><p>Check if current cstd fits the minimal version required.</p>
+<blockquote>
+<div><p>In case the current cstd doesn’t fit the minimal version required
+by cstd, a ConanInvalidConfiguration exception will be raised.</p>
+<ol class="arabic simple">
+<li><p>If settings.compiler.cstd, the tool will use settings.compiler.cstd to compare</p></li>
+<li><p>It not settings.compiler.cstd, the tool will use compiler to compare (reading the
+default from cstd_default)</p></li>
+<li><p>If not settings.compiler is present (not declared in settings) will raise because it
+cannot compare.</p></li>
+<li><p>If can not detect the default cstd for settings.compiler, a exception will be raised.</p></li>
+</ol>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>conanfile</strong> – The current recipe object. Always use <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p></li>
+<li><p><strong>cstd</strong> – Minimal cstd version required</p></li>
+<li><p><strong>gnu_extensions</strong> – GNU extension is required (e.g gnu17)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="conan-tools-build-check-max-cstd">
+<span id="id7"></span><h3>conan.tools.build.check_max_cstd()<a class="headerlink" href="#conan-tools-build-check-max-cstd" title="Link to this heading">¶</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="conan.tools.build.cstd.check_max_cstd">
+<span class="sig-name descname"><span class="pre">check_max_cstd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conanfile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cstd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gnu_extensions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conan.tools.build.cstd.check_max_cstd" title="Link to this definition">¶</a></dt>
+<dd><p>Check if current cstd fits the maximum version required.</p>
+<blockquote>
+<div><p>In case the current cstd doesn’t fit the maximum version required
+by cstd, a ConanInvalidConfiguration exception will be raised.</p>
+<ol class="arabic simple">
+<li><p>If settings.compiler.cstd, the tool will use settings.compiler.cstd to compare</p></li>
+<li><p>It not settings.compiler.cstd, the tool will use compiler to compare (reading the
+default from cstd_default)</p></li>
+<li><p>If not settings.compiler is present (not declared in settings) will raise because it
+cannot compare.</p></li>
+<li><p>If can not detect the default cstd for settings.compiler, a exception will be raised.</p></li>
+</ol>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>conanfile</strong> – The current recipe object. Always use <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p></li>
+<li><p><strong>cstd</strong> – Maximum cstd version required</p></li>
+<li><p><strong>gnu_extensions</strong> – GNU extension is required (e.g gnu17)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="conan-tools-build-valid-min-cstd">
+<h3>conan.tools.build.valid_min_cstd()<a class="headerlink" href="#conan-tools-build-valid-min-cstd" title="Link to this heading">¶</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="conan.tools.build.cstd.valid_min_cstd">
+<span class="sig-name descname"><span class="pre">valid_min_cstd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conanfile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cstd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gnu_extensions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conan.tools.build.cstd.valid_min_cstd" title="Link to this definition">¶</a></dt>
+<dd><p>Validate if current cstd fits the minimal version required.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>conanfile</strong> – The current recipe object. Always use <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p></li>
+<li><p><strong>cstd</strong> – Minimal cstd version required</p></li>
+<li><p><strong>gnu_extensions</strong> – GNU extension is required (e.g gnu17). This option ONLY works on Linux.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True, if current cstd matches the required cstd version. Otherwise, False.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="conan-tools-build-valid-max-cstd">
+<h3>conan.tools.build.valid_max_cstd()<a class="headerlink" href="#conan-tools-build-valid-max-cstd" title="Link to this heading">¶</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="conan.tools.build.cstd.valid_max_cstd">
+<span class="sig-name descname"><span class="pre">valid_max_cstd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conanfile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cstd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gnu_extensions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conan.tools.build.cstd.valid_max_cstd" title="Link to this definition">¶</a></dt>
+<dd><p>Validate if current cstd fits the maximum version required.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>conanfile</strong> – The current recipe object. Always use <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p></li>
+<li><p><strong>cstd</strong> – Maximum cstd version required</p></li>
+<li><p><strong>gnu_extensions</strong> – GNU extension is required (e.g gnu17). This option ONLY works on Linux.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True, if current cstd matches the required cstd version. Otherwise, False.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="conan-tools-build-supported-cstd">
+<h3>conan.tools.build.supported_cstd()<a class="headerlink" href="#conan-tools-build-supported-cstd" title="Link to this heading">¶</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="conan.tools.build.cstd.supported_cstd">
+<span class="sig-name descname"><span class="pre">supported_cstd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conanfile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compiler</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compiler_version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conan.tools.build.cstd.supported_cstd" title="Link to this definition">¶</a></dt>
+<dd><p>Get a list of supported <code class="docutils literal notranslate"><span class="pre">compiler.cstd</span></code> for the “conanfile.settings.compiler” and
+“conanfile.settings.compiler_version” or for the parameters “compiler” and “compiler_version”
+if specified.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>conanfile</strong> – The current recipe object. Always use <code class="docutils literal notranslate"><span class="pre">self</span></code>.</p></li>
+<li><p><strong>compiler</strong> – Name of the compiler e.g: gcc</p></li>
+<li><p><strong>compiler_version</strong> – Version of the compiler e.g: 12</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a list of supported <code class="docutils literal notranslate"><span class="pre">cstd</span></code> values.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="apple/other.html" class="btn btn-neutral float-left" title="conan.tools.apple.fix_apple_shared_install_name()" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cmake.html" class="btn btn-neutral float-right" title="conan.tools.cmake" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2024, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 2.5
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/2.5/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

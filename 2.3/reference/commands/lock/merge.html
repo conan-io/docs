@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>conan lock merge &mdash; conan 2.3.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=045299b1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/conan.css?v=7d9e9f1e" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/reference/commands/lock/merge.html" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=5048a02b"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="conan lock remove" href="remove.html" />
+    <link rel="prev" title="conan lock create" href="create.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html">
+            
+              <img src="../../../_static/conan-docs-logo-2.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.3
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../whatsnew.html">What’s new in Conan 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../devops.html">Devops guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../commands.html">Commands</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../cache.html">conan cache</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../config.html">conan config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../graph.html">conan graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../inspect.html">conan inspect</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../install.html">conan install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../list.html">conan list</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../lock.html">conan lock</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="add.html">conan lock add</a></li>
+<li class="toctree-l4"><a class="reference internal" href="create.html">conan lock create</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">conan lock merge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="remove.html">conan lock remove</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../pkglist.html">conan pkglist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../profile.html">conan profile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../remove.html">conan remove</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../remote.html">conan remote</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../search.html">conan search</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../version.html">conan version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build.html">conan build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../create.html">conan create</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../download.html">conan download</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../editable.html">conan editable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../export.html">conan export</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../export-pkg.html">conan export-pkg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../new.html">conan new</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../source.html">conan source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../test.html">conan test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../upload.html">conan upload</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../formatters/graph_info_json_formatter.html">Formatter: Graph-info JSON</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../conanfile.html">conanfile.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools.html">Recipe tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../config_files.html">Configuration files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../extensions.html">Extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../environment.html">Environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../binary_model.html">The binary model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../conan_server.html">Conan Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../runners.html">Runners</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../knowledge.html">Knowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/reference/commands/lock/merge.html">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="../../commands.html">Commands</a></li>
+          <li class="breadcrumb-item"><a href="../lock.html">conan lock</a></li>
+      <li class="breadcrumb-item active">conan lock merge</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/develop2/reference/commands/lock/merge.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="conan-lock-merge">
+<h1>conan lock merge<a class="headerlink" href="#conan-lock-merge" title="Link to this heading">¶</a></h1>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ conan lock merge -h
+WARN: Downgrading cache from Conan 2.5.0 to 2.3.2
+WARN: Applying downgrade migration 2.4_1-migrate.py
+Migration: Successfully updated cppstd_compat.py
+usage: conan lock merge [-h] [-v [V]] [-cc CORE_CONF] [--lockfile LOCKFILE]
+                        [--lockfile-out LOCKFILE_OUT]
+
+Merge 2 or more lockfiles.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -v [V]                Level of detail of the output. Valid options from less
+                        verbose to more verbose: -vquiet, -verror, -vwarning,
+                        -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
+                        -vvv or -vtrace
+  -cc CORE_CONF, --core-conf CORE_CONF
+                        Global configuration for Conan
+  --lockfile LOCKFILE   Path to lockfile to be merged
+  --lockfile-out LOCKFILE_OUT
+                        Filename of the created lockfile
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">lock</span> <span class="pre">merge</span></code> command takes 2 or more lockfiles and aggregate them, producing one final lockfile.
+For example, if we have 2 lockfiles <code class="docutils literal notranslate"><span class="pre">lock1.lock</span></code> and <code class="docutils literal notranslate"><span class="pre">lock2.lock</span></code>, we can merge both in a final <code class="docutils literal notranslate"><span class="pre">conan.lock</span></code> one:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># we have 2 lockfiles lock1.lock and lock2.lock</span>
+$<span class="w"> </span>conan<span class="w"> </span>lock<span class="w"> </span>add<span class="w"> </span>--requires<span class="o">=</span>pkg/1.1<span class="w"> </span>--lockfile-out<span class="o">=</span>lock1.lock
+$<span class="w"> </span>cat<span class="w"> </span>lock1.lock
+<span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;version&quot;</span>:<span class="w"> </span><span class="s2">&quot;0.5&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;requires&quot;</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">        </span><span class="s2">&quot;pkg/1.1&quot;</span>,
+<span class="w">    </span><span class="o">]</span>,
+<span class="w">    </span><span class="s2">&quot;build_requires&quot;</span>:<span class="w"> </span><span class="o">[]</span>,
+<span class="w">    </span><span class="s2">&quot;python_requires&quot;</span>:<span class="w"> </span><span class="o">[]</span>
+<span class="o">}</span>
+
+$<span class="w"> </span>conan<span class="w"> </span>lock<span class="w"> </span>add<span class="w"> </span>--requires<span class="o">=</span>other/2.1<span class="w"> </span>--build-requires<span class="o">=</span>tool/3.2<span class="w"> </span>--lockfile-out<span class="o">=</span>lock2.lock
+$<span class="w"> </span>cat<span class="w"> </span>lock2.lock
+<span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;version&quot;</span>:<span class="w"> </span><span class="s2">&quot;0.5&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;requires&quot;</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">        </span><span class="s2">&quot;other/2.1&quot;</span>
+<span class="w">    </span><span class="o">]</span>,
+<span class="w">    </span><span class="s2">&quot;build_requires&quot;</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">        </span><span class="s2">&quot;tool/3.2&quot;</span>
+<span class="w">    </span><span class="o">]</span>,
+<span class="w">    </span><span class="s2">&quot;python_requires&quot;</span>:<span class="w"> </span><span class="o">[]</span>
+<span class="o">}</span>
+
+<span class="c1"># we can merge both</span>
+$<span class="w"> </span>conan<span class="w"> </span>lock<span class="w"> </span>merge<span class="w"> </span>--lockfile<span class="o">=</span>lock1.lock<span class="w"> </span>--lockfile<span class="o">=</span>lock2.lock
+$<span class="w"> </span>cat<span class="w"> </span>conan.lock
+<span class="o">{</span>
+<span class="w">    </span><span class="s2">&quot;version&quot;</span>:<span class="w"> </span><span class="s2">&quot;0.5&quot;</span>,
+<span class="w">    </span><span class="s2">&quot;requires&quot;</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">        </span><span class="s2">&quot;pkg/1.1&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;other/2.1&quot;</span>
+<span class="w">    </span><span class="o">]</span>,
+<span class="w">    </span><span class="s2">&quot;build_requires&quot;</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">        </span><span class="s2">&quot;tool/3.2&quot;</span>
+<span class="w">    </span><span class="o">]</span>,
+<span class="w">    </span><span class="s2">&quot;python_requires&quot;</span>:<span class="w"> </span><span class="o">[]</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Similar to the <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">lock</span> <span class="pre">add</span></code> command, the <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">lock</span> <span class="pre">merge</span></code>:</p>
+<ul class="simple">
+<li><p>Does keep strict sorting of the lists of versions</p></li>
+<li><p>It does not perform any kind of validation if the packages or versions exist or not, or if they belong to a given dependency graph</p></li>
+<li><p>It is a basic processing of the json files, aggregating them.</p></li>
+<li><p>It doesn’t guarantee that the lockfile will be complete, might require <code class="docutils literal notranslate"><span class="pre">--lockfile-partial</span></code> if not</p></li>
+<li><p>Recipe revisions, if defined, must contain the timestamp to be sorted correctly.</p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<ul class="simple">
+<li><p>It is forbidden to manually manipulate a Conan lockfile, changing the strict sorting of references, and that could result in
+any arbitrary undefined behavior.</p></li>
+<li><p>Recall that it is not possible to <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">lock</span> <span class="pre">add</span></code> a version range. The version might be not fully complete (like not providing
+the revision), but it must be an exact version.</p></li>
+</ul>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>To better understand <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">lock</span> <span class="pre">merge</span></code>, it is recommended to first understand lockfiles in general,
+visit the <a class="reference internal" href="../../../tutorial/versioning/lockfiles.html#tutorial-versioning-lockfiles"><span class="std std-ref">lockfiles tutorial</span></a> for a practical introduction to lockfiles.</p>
+</div>
+<p>This <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">lock</span> <span class="pre">merge</span></code> command can be useful to consolidate in a single lockfile when for some reasons there are several lockfiles
+that have diverged. A use case would be to create a multi-configuration lockfile that contains all necessary locked versions for
+all OSs (Linux, Windows, etc), even if there are conditional dependencies in the graph for the different OSs. At some point when
+testing a new dependency version, for example, <code class="docutils literal notranslate"><span class="pre">pkg/3.4</span></code> new version, when previously <code class="docutils literal notranslate"><span class="pre">pkg/3.3</span></code> was already in the graph, we
+might want to have such a new lockfile cleaning the previous <code class="docutils literal notranslate"><span class="pre">pkg/3.3</span></code>. If we apply the <code class="docutils literal notranslate"><span class="pre">--lockfile-clean</span></code> argument that will
+remove the non-used versions in the lockfile, but that will also remove the OS-dependant dependencies. So something like this could be
+done: lets say that we have this lockfile (simplified, removed revisions for simplicity) as the result of testing a new <code class="docutils literal notranslate"><span class="pre">pkgb/0.2</span></code> version
+for our main product <code class="docutils literal notranslate"><span class="pre">app1/0.1</span></code>:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">app.lock</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.5&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;requires&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="s2">&quot;pkgb/0.2&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;pkgb/0.1&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;pkgawin/0.1&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;pkganix/0.1&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">&quot;app1/0.1&quot;</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">pkgawin</span></code> and <code class="docutils literal notranslate"><span class="pre">pkganix</span></code> are dependencies that exist exclusively in Windows and Linux respectively. Everything looks good,
+<code class="docutils literal notranslate"><span class="pre">pkgb/0.2</span></code> new version works fine with our app, and we want to clean the unused things from the lockfile:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>lock<span class="w"> </span>create<span class="w"> </span>--requires<span class="o">=</span>app1/0.1<span class="w"> </span>--lockfile<span class="o">=</span>app.lock<span class="w"> </span>--lockfile-out<span class="o">=</span>win.lock<span class="w"> </span>-s<span class="w"> </span><span class="nv">os</span><span class="o">=</span>Windows<span class="w"> </span>--lockfile-clean
+<span class="c1"># Note how both pkgb/0.1 and pkganix are gone</span>
+$<span class="w"> </span>cat<span class="w"> </span>win.lock
+<span class="o">{</span>
+<span class="w">  </span><span class="s2">&quot;version&quot;</span>:<span class="w"> </span><span class="s2">&quot;0.5&quot;</span>,
+<span class="w">  </span><span class="s2">&quot;requires&quot;</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">      </span><span class="s2">&quot;pkgb/0.2&quot;</span>,
+<span class="w">      </span><span class="s2">&quot;pkgawin/0.1&quot;</span>,
+<span class="w">      </span><span class="s2">&quot;app1/0.1&quot;</span>
+<span class="w">  </span><span class="o">]</span>
+<span class="o">}</span>
+$<span class="w"> </span>conan<span class="w"> </span>lock<span class="w"> </span>create<span class="w"> </span>--requires<span class="o">=</span>app1/0.1<span class="w"> </span>--lockfile<span class="o">=</span>app.lock<span class="w"> </span>--lockfile-out<span class="o">=</span>nix.lock<span class="w"> </span>-s<span class="w"> </span><span class="nv">os</span><span class="o">=</span>Linux<span class="w"> </span>--lockfile-clean
+<span class="c1"># Note how both pkgb/0.1 and pkgawin are gone</span>
+$<span class="w"> </span>cat<span class="w"> </span>win.lock
+<span class="o">{</span>
+<span class="w">  </span><span class="s2">&quot;version&quot;</span>:<span class="w"> </span><span class="s2">&quot;0.5&quot;</span>,
+<span class="w">  </span><span class="s2">&quot;requires&quot;</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">      </span><span class="s2">&quot;pkgb/0.2&quot;</span>,
+<span class="w">      </span><span class="s2">&quot;pkganix/0.1&quot;</span>,
+<span class="w">      </span><span class="s2">&quot;app1/0.1&quot;</span>
+<span class="w">  </span><span class="o">]</span>
+<span class="o">}</span>
+<span class="w">  </span><span class="c1"># Finally, merge the 2 clean lockfiles, for keeping just 1 for next iteration</span>
+$<span class="w"> </span>conan<span class="w"> </span>lock<span class="w"> </span>merge<span class="w"> </span>--lockfile<span class="o">=</span>win.lock<span class="w"> </span>--lockfile<span class="o">=</span>nix.lock<span class="w"> </span>--lockfile-out<span class="o">=</span>final.lock
+$<span class="w"> </span>cat<span class="w"> </span>final.lock
+<span class="o">{</span>
+<span class="w">  </span><span class="s2">&quot;version&quot;</span>:<span class="w"> </span><span class="s2">&quot;0.5&quot;</span>,
+<span class="w">  </span><span class="s2">&quot;requires&quot;</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">      </span><span class="s2">&quot;pkgb/0.2&quot;</span>,
+<span class="w">      </span><span class="s2">&quot;pkgawin/0.1&quot;</span>,
+<span class="w">      </span><span class="s2">&quot;pkganix/0.1&quot;</span>,
+<span class="w">      </span><span class="s2">&quot;app1/0.1&quot;</span>
+<span class="w">  </span><span class="o">]</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="create.html" class="btn btn-neutral float-left" title="conan lock create" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="remove.html" class="btn btn-neutral float-right" title="conan lock remove" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2024, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 2.3
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/2.3/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

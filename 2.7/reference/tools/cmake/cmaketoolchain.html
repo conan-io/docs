@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CMakeToolchain &mdash; conan 2.7.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=045299b1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css?v=a5c4661c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/conan.css?v=7d9e9f1e" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/reference/tools/cmake/cmaketoolchain.html" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=7b940564"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="CMake" href="cmake.html" />
+    <link rel="prev" title="CMakeDeps" href="cmakedeps.html" />
+
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html">
+            
+              <img src="../../../_static/conan-docs-logo-2.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.7
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../whatsnew.html">What’s new in Conan 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../devops.html">Devops guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../commands.html">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../conanfile.html">conanfile.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../tools.html">Recipe tools</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../android.html">conan.tools.android</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../apple.html">conan.tools.apple</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build.html">conan.tools.build</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../cmake.html">conan.tools.cmake</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="cmakedeps.html">CMakeDeps</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">CMakeToolchain</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cmake.html">CMake</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cmake_layout.html">cmake_layout</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../cpp_info.html">conan.tools.CppInfo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../env.html">conan.tools.env</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../files.html">conan.tools.files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../gnu.html">conan.tools.gnu</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../google.html">conan.tools.google</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../intel.html">conan.tools.intel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../layout.html">conan.tools.layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../meson.html">conan.tools.meson</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../microsoft.html">conan.tools.microsoft</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../qbs.html">conan.tools.qbs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scm.html">conan.tools.scm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scons.html">conan.tools.scons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../system.html">conan.tools.system</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../config_files.html">Configuration files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../extensions.html">Extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../environment.html">Environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../binary_model.html">The binary model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../conan_server.html">Conan Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../runners.html">Runners</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../knowledge.html">Knowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/reference/tools/cmake/cmaketoolchain.html">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="../../tools.html">Recipe tools</a></li>
+          <li class="breadcrumb-item"><a href="../cmake.html">conan.tools.cmake</a></li>
+      <li class="breadcrumb-item active">CMakeToolchain</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/develop2/reference/tools/cmake/cmaketoolchain.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cmaketoolchain">
+<span id="conan-tools-cmaketoolchain"></span><span id="conan-cmake-toolchain"></span><h1>CMakeToolchain<a class="headerlink" href="#cmaketoolchain" title="Link to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">CMakeToolchain</span></code> is the toolchain generator for CMake. It produces the toolchain file that can be used in the
+command line invocation of CMake with the <code class="docutils literal notranslate"><span class="pre">-DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake</span></code>. This generator translates
+the current package configuration, settings, and options, into CMake toolchain syntax.</p>
+<p>It can be declared as:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+<span class="k">class</span> <span class="nc">Pkg</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">generators</span> <span class="o">=</span> <span class="s2">&quot;CMakeToolchain&quot;</span>
+</pre></div>
+</div>
+<p>Or fully instantiated in the <code class="docutils literal notranslate"><span class="pre">generate()</span></code> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+<span class="kn">from</span> <span class="nn">conan.tools.cmake</span> <span class="kn">import</span> <span class="n">CMakeToolchain</span>
+
+<span class="k">class</span> <span class="nc">App</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span>
+    <span class="n">requires</span> <span class="o">=</span> <span class="s2">&quot;hello/0.1&quot;</span>
+    <span class="n">generators</span> <span class="o">=</span> <span class="s2">&quot;CMakeDeps&quot;</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;shared&quot;</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span> <span class="s2">&quot;fPIC&quot;</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]}</span>
+    <span class="n">default_options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;shared&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;fPIC&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">tc</span> <span class="o">=</span> <span class="n">CMakeToolchain</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">tc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s2">&quot;MYVAR&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;MYVAR_VALUE&quot;</span>
+        <span class="n">tc</span><span class="o">.</span><span class="n">preprocessor_definitions</span><span class="p">[</span><span class="s2">&quot;MYDEFINE&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;MYDEF_VALUE&quot;</span>
+        <span class="n">tc</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">CMakeToolchain</span></code> is intended to run with the <code class="docutils literal notranslate"><span class="pre">CMakeDeps</span></code> dependencies generator. Please do not use other
+CMake legacy generators (like <code class="docutils literal notranslate"><span class="pre">cmake</span></code>, or <code class="docutils literal notranslate"><span class="pre">cmake_paths</span></code>) with it.</p>
+</div>
+<section id="generated-files">
+<h2>Generated files<a class="headerlink" href="#generated-files" title="Link to this heading">¶</a></h2>
+<p>This will generate the following files after a <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">install</span></code> (or when building the package
+in the cache) with the information provided in the <code class="docutils literal notranslate"><span class="pre">generate()</span></code> method as well as information
+translated from the current <code class="docutils literal notranslate"><span class="pre">settings</span></code>:</p>
+<ul>
+<li><p><strong>conan_toolchain.cmake</strong>: containing the translation of Conan settings to CMake variables.
+Some things that will be defined in this file:</p>
+<ul class="simple">
+<li><p>Definition of the CMake generator platform and generator toolset</p></li>
+<li><p>Definition of the <code class="docutils literal notranslate"><span class="pre">CMAKE_POSITION_INDEPENDENT_CODE</span></code>, based on <code class="docutils literal notranslate"><span class="pre">fPIC</span></code> option.</p></li>
+<li><p>Definition of the C++ standard as necessary</p></li>
+<li><p>Definition of the standard library used for C++</p></li>
+<li><p>Deactivation of rpaths in OSX</p></li>
+<li><p>Definition of <code class="docutils literal notranslate"><span class="pre">CMAKE_VS_DEBUGGER_ENVIRONMENT</span></code> when on Windows with Visual Studio.
+This sets up the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> environment variable to point to directories containing DLLs,
+to allow debugging directly from the Visual Studio IDE without copying DLLs (requires CMake 3.27).</p></li>
+<li><p>Definition of <code class="docutils literal notranslate"><span class="pre">CONAN_RUNTIME_LIB_DIRS</span></code> to allow collecting runtime dependencies (shared libraries),
+see below for details.</p></li>
+</ul>
+</li>
+<li><p><strong>conanvcvars.bat</strong>: In some cases, the Visual Studio environment needs to be defined correctly for building,
+like when using the Ninja or NMake generators. If necessary, the <code class="docutils literal notranslate"><span class="pre">CMakeToolchain</span></code> will generate this script,
+so defining the correct Visual Studio prompt is easier.</p></li>
+<li><p><strong>CMakePresets.json</strong>: This toolchain generates a standard <cite>CMakePresets.json</cite> file. For
+more information, refer to the documentation <a class="reference external" href="https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html">here</a>. It currently uses
+version “3” of the JSON schema. Conan adds <em>configure</em>, <em>build</em>, and <em>test</em> preset
+entries to the JSON file:</p>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="simple">
+<dt><cite>configurePresets</cite> storing the following information:</dt><dd><ul>
+<li><p>The <cite>generator</cite> to be used.</p></li>
+<li><p>The path to the <cite>conan_toolchain.cmake</cite>.</p></li>
+<li><p>Cache variables corresponding to the specified settings that cannot work if
+specified in the toolchain.</p></li>
+<li><p>The <cite>CMAKE_BUILD_TYPE</cite> variable for single-configuration generators.</p></li>
+<li><p>The <cite>BUILD_TESTING</cite> variable set to <cite>OFF</cite> when the configuration
+<cite>tools.build:skip_test</cite> is true.</p></li>
+<li><p>An environment section, setting all the environment information related to the
+<a class="reference internal" href="../env/virtualbuildenv.html#conan-tools-env-virtualbuildenv"><span class="std std-ref">VirtualBuildEnv</span></a>, if applicable. This
+environment can be modified in the <cite>generate()</cite> method of the recipe by passing
+an environment through the <cite>CMakeToolchain.presets_build_environment</cite> attribute.
+Generation of this section can be skipped by using the
+<cite>tools.cmake.cmaketoolchain:presets_environment</cite> configuration.</p></li>
+<li><p>By default, preset names will be <cite>conan-xxxx</cite>, but the “conan-” prefix can be
+customized with the <cite>CMakeToolchain.presets_prefix = “conan”</cite> attribute.</p></li>
+<li><p>Preset names are controlled by the <cite>layout()</cite> <cite>self.folders.build_folder_vars</cite>
+definition, which can contain a list of settings, options,
+<code class="docutils literal notranslate"><span class="pre">self.name</span></code> and <code class="docutils literal notranslate"><span class="pre">self.version</span></code> and constants <code class="docutils literal notranslate"><span class="pre">const.xxx</span></code> like
+<cite>[“settings.compiler”, “settings.arch”, “options.shared”, “const.myname”]</cite>.</p></li>
+<li><p>If CMake is found as a direct <cite>tool_requires</cite> dependency, or if
+<cite>tools.cmake:cmake_program</cite> is set, the configure preset will include a
+<cite>cmakeExecutable</cite> field. This field represents the path to the CMake executable
+to be used for this preset. As stated in the CMake documentation, this field is
+reserved for use by IDEs and is not utilized by CMake itself.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><cite>buildPresets</cite> storing the following information:</dt><dd><ul>
+<li><p>The <cite>configurePreset</cite> associated with this build preset.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><cite>testPresets</cite> storing the following information:</dt><dd><ul>
+<li><p>The <cite>configurePreset</cite> associated with this build preset.</p></li>
+<li><p>An environment section, setting all the environment information related to the
+<a class="reference internal" href="../env/virtualrunenv.html#conan-tools-env-virtualrunenv"><span class="std std-ref">VirtualRunEnv</span></a>, if applicable. This
+environment can be modified in the <cite>generate()</cite> method of the recipe by passing
+an environment through the <cite>CMakeToolchain.presets_run_environment</cite> attribute.
+Please note that since this preset inherits from a <cite>configurePreset</cite>, it will
+also inherit its environment. Generation of this section can be skipped by using
+the`tools.cmake.cmaketoolchain:presets_environment` configuration.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>CMakeUserPresets.json</strong>:  If you declare a <code class="docutils literal notranslate"><span class="pre">layout()</span></code> in the recipe and your
+<code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> file is found at the <code class="docutils literal notranslate"><span class="pre">conanfile.source_folder</span></code> folder, a
+<code class="docutils literal notranslate"><span class="pre">CMakeUserPresets.json</span></code> file will be generated (if doesn’t exist already) including
+automatically the <code class="docutils literal notranslate"><span class="pre">CMakePresets.json</span></code> (at the <code class="docutils literal notranslate"><span class="pre">conanfile.generators_folder</span></code>) to
+allow your IDE (Visual Studio, Visual Studio Code, CLion…) or <code class="docutils literal notranslate"><span class="pre">cmake</span></code> tool to locate
+the <code class="docutils literal notranslate"><span class="pre">CMakePresets.json</span></code>. The location of the generated <code class="docutils literal notranslate"><span class="pre">CMakeUserPresets.json</span></code> can
+be further tweaked by the <code class="docutils literal notranslate"><span class="pre">user_presets_path</span></code> attribute, as documented below. The
+version schema of the generated <code class="docutils literal notranslate"><span class="pre">CMakeUserPresets.json</span></code> is “4” and requires CMake &gt;=
+3.23.
+The file name of this file can be configured with the <code class="docutils literal notranslate"><span class="pre">CMakeToolchain.user_presets_path</span> <span class="pre">=</span> <span class="pre">&quot;CMakeUserPresets.json&quot;`</span></code>
+attribute, so if you want to generate a “ConanPresets.json” instead to be included from your own file,
+you can define <code class="docutils literal notranslate"><span class="pre">tc.user_presets_path</span> <span class="pre">=</span> <span class="pre">&quot;ConanPresets.jon&quot;</span></code> in the <code class="docutils literal notranslate"><span class="pre">generate()</span></code> method.
+See <a class="reference internal" href="../../../examples/tools/cmake/cmake_toolchain/extend_own_cmake_presets.html#examples-tools-cmake-toolchain-build-project-extend-presets"><span class="std std-ref">extending your own CMake presets</span></a> for a full example.</p>
+<p><strong>Note:</strong> Conan will skip the generation of the <code class="docutils literal notranslate"><span class="pre">CMakeUserPresets.json</span></code> if it already exists and was not
+generated by Conan.</p>
+<p><strong>Note:</strong> To list all available presets, use the <code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">--list-presets</span></code> command:</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The version schema of the generated <code class="docutils literal notranslate"><span class="pre">CMakeUserPresets.json</span></code> is 4 (compatible
+with CMake&gt;=3.23) and the schema for the <code class="docutils literal notranslate"><span class="pre">CMakePresets.json</span></code> is 3 (compatible with
+CMake&gt;=3.21).</p>
+</div>
+<section id="conan-runtime-lib-dirs">
+<h3>CONAN_RUNTIME_LIB_DIRS<a class="headerlink" href="#conan-runtime-lib-dirs" title="Link to this heading">¶</a></h3>
+<p>This variable in the generated <code class="docutils literal notranslate"><span class="pre">conan_toolchain.cmake</span></code> file contains a list of directories
+that contain runtime libraries (like DLLs)
+from all dependencies in the host context. This is intended to be used when relying on
+CMake functionality to collect shared libraries to create a relocatable bundle, as
+per the example below.</p>
+<p>Just pass the <code class="docutils literal notranslate"><span class="pre">CONAN_RUNTIME_LIB_DIRS</span></code> variable to the <code class="docutils literal notranslate"><span class="pre">DIRECTORIES</span></code> argument
+in the <code class="docutils literal notranslate"><span class="pre">install(RUNTIME_DEPENDENCY_SET</span> <span class="pre">...)`</span></code> invocation.</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">install</span><span class="p">(</span><span class="s">RUNTIME_DEPENDENCY_SET</span><span class="w"> </span><span class="s">my_app_deps</span>
+<span class="w">    </span><span class="s">PRE_EXCLUDE_REGEXES</span>
+<span class="w">        </span><span class="s s-Multiline">[[api-ms-win-.*]]</span>
+<span class="w">        </span><span class="s s-Multiline">[[ext-ms-.*]]</span>
+<span class="w">        </span><span class="s s-Multiline">[[kernel32\.dll]]</span>
+<span class="w">        </span><span class="s s-Multiline">[[libc\.so\..*]]</span><span class="w"> </span><span class="s s-Multiline">[[libgcc_s\.so\..*]]</span><span class="w"> </span><span class="s s-Multiline">[[libm\.so\..*]]</span><span class="w"> </span><span class="s s-Multiline">[[libstdc\+\+\.so\..*]]</span>
+<span class="w">    </span><span class="s">POST_EXCLUDE_REGEXES</span>
+<span class="w">        </span><span class="s s-Multiline">[[.*/system32/.*\.dll]]</span>
+<span class="w">        </span><span class="s s-Multiline">[[^/lib.*]]</span>
+<span class="w">        </span><span class="s s-Multiline">[[^/usr/lib.*]]</span>
+<span class="w">    </span><span class="s">DIRECTORIES</span><span class="w"> </span><span class="o">${</span><span class="nv">CONAN_RUNTIME_LIB_DIRS</span><span class="o">}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="customization">
+<h2>Customization<a class="headerlink" href="#customization" title="Link to this heading">¶</a></h2>
+<section id="preprocessor-definitions">
+<h3>preprocessor_definitions<a class="headerlink" href="#preprocessor-definitions" title="Link to this heading">¶</a></h3>
+<p>This attribute allows defining compiler preprocessor definitions, for multiple configurations (Debug, Release, etc).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">tc</span> <span class="o">=</span> <span class="n">CMakeToolchain</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="n">tc</span><span class="o">.</span><span class="n">preprocessor_definitions</span><span class="p">[</span><span class="s2">&quot;MYDEF&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;MyValue&quot;</span>
+    <span class="n">tc</span><span class="o">.</span><span class="n">preprocessor_definitions</span><span class="o">.</span><span class="n">debug</span><span class="p">[</span><span class="s2">&quot;MYCONFIGDEF&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;MyDebugValue&quot;</span>
+    <span class="n">tc</span><span class="o">.</span><span class="n">preprocessor_definitions</span><span class="o">.</span><span class="n">release</span><span class="p">[</span><span class="s2">&quot;MYCONFIGDEF&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;MyReleaseValue&quot;</span>
+    <span class="c1"># Setting to None will add the definition with no value</span>
+    <span class="n">tc</span><span class="o">.</span><span class="n">preprocessor_definitions</span><span class="p">[</span><span class="s2">&quot;NOVALUE_DEF&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">tc</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This will be translated to:</p>
+<ul class="simple">
+<li><p>One <code class="docutils literal notranslate"><span class="pre">add_compile_definitions()</span></code> definition for <code class="docutils literal notranslate"><span class="pre">MYDEF</span></code> in <code class="docutils literal notranslate"><span class="pre">conan_toolchain.cmake</span></code> file.</p></li>
+<li><p>One <code class="docutils literal notranslate"><span class="pre">add_compile_definitions()</span></code> definition, using a cmake generator expression in <code class="docutils literal notranslate"><span class="pre">conan_toolchain.cmake</span></code> file,
+using the different values for different configurations.</p></li>
+</ul>
+</section>
+<section id="cache-variables">
+<span id="conan-cmake-toolchain-cache-variables"></span><h3>cache_variables<a class="headerlink" href="#cache-variables" title="Link to this heading">¶</a></h3>
+<p>This attribute allows defining CMake cache-variables. These variables, unlike the <code class="docutils literal notranslate"><span class="pre">variables</span></code>, are single-config. They
+will be stored in the <code class="docutils literal notranslate"><span class="pre">CMakePresets.json</span></code> file (at the <cite>cacheVariables</cite> in the <cite>configurePreset</cite>) and will be
+applied with <code class="docutils literal notranslate"><span class="pre">-D</span></code> arguments when calling <code class="docutils literal notranslate"><span class="pre">cmake.configure</span></code> using the <a class="reference internal" href="../cmake.html#conan-tools-cmake"><span class="std std-ref">CMake() build helper</span></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">tc</span> <span class="o">=</span> <span class="n">CMakeToolchain</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="n">tc</span><span class="o">.</span><span class="n">cache_variables</span><span class="p">[</span><span class="s2">&quot;foo&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">tc</span><span class="o">.</span><span class="n">cache_variables</span><span class="p">[</span><span class="s2">&quot;foo2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">tc</span><span class="o">.</span><span class="n">cache_variables</span><span class="p">[</span><span class="s2">&quot;var&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;23&quot;</span>
+</pre></div>
+</div>
+<p>The booleans assigned to a cache_variable will be translated to <code class="docutils literal notranslate"><span class="pre">ON</span></code> and <code class="docutils literal notranslate"><span class="pre">OFF</span></code> symbols in CMake.</p>
+</section>
+<section id="variables">
+<h3>variables<a class="headerlink" href="#variables" title="Link to this heading">¶</a></h3>
+<p>This attribute allows defining CMake variables, for multiple configurations (Debug,
+Release, etc). These variables should be used to define things related to the toolchain
+and for the majority of cases
+<a class="reference internal" href="#conan-cmake-toolchain-cache-variables"><span class="std std-ref">cache_variables</span></a> is what you probably want to
+use. Also, take into account that as these variables are defined inside the
+<em>conan_toolchain.cmake</em> file, and the toolchain is loaded several times by CMake, the
+definition of these variables will be done at those points as well.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">tc</span> <span class="o">=</span> <span class="n">CMakeToolchain</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="n">tc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s2">&quot;MYVAR&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;MyValue&quot;</span>
+    <span class="n">tc</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">debug</span><span class="p">[</span><span class="s2">&quot;MYCONFIGVAR&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;MyDebugValue&quot;</span>
+    <span class="n">tc</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">release</span><span class="p">[</span><span class="s2">&quot;MYCONFIGVAR&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;MyReleaseValue&quot;</span>
+    <span class="n">tc</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This will be translated to:</p>
+<ul class="simple">
+<li><p>One <code class="docutils literal notranslate"><span class="pre">set()</span></code> definition for <code class="docutils literal notranslate"><span class="pre">MYVAR</span></code> in <code class="docutils literal notranslate"><span class="pre">conan_toolchain.cmake</span></code> file.</p></li>
+<li><p>One <code class="docutils literal notranslate"><span class="pre">set()</span></code> definition, using a cmake generator expression in <code class="docutils literal notranslate"><span class="pre">conan_toolchain.cmake</span></code> file,
+using the different values for different configurations.</p></li>
+</ul>
+<p>The booleans assigned to a variable will be translated to <code class="docutils literal notranslate"><span class="pre">ON</span></code> and <code class="docutils literal notranslate"><span class="pre">OFF</span></code> symbols in CMake:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">tc</span> <span class="o">=</span> <span class="n">CMakeToolchain</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="n">tc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s2">&quot;FOO&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">tc</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s2">&quot;VAR&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">tc</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Will generate the sentences: <code class="docutils literal notranslate"><span class="pre">set(FOO</span> <span class="pre">ON</span> <span class="pre">...)</span></code> and <code class="docutils literal notranslate"><span class="pre">set(VAR</span> <span class="pre">OFF</span> <span class="pre">...)</span></code>.</p>
+</section>
+<section id="user-presets-path">
+<h3>user_presets_path<a class="headerlink" href="#user-presets-path" title="Link to this heading">¶</a></h3>
+<p>This attribute allows specifying the location of the generated <code class="docutils literal notranslate"><span class="pre">CMakeUserPresets.json</span></code> file.
+Accepted values:</p>
+<ul class="simple">
+<li><p>An absolute path</p></li>
+<li><p>A path relative to <code class="docutils literal notranslate"><span class="pre">self.source_folder</span></code></p></li>
+<li><p>The boolean value <code class="docutils literal notranslate"><span class="pre">False</span></code>, to suppress the generation of the file altogether.</p></li>
+</ul>
+<p>For example, we can prevent the generator from creating <code class="docutils literal notranslate"><span class="pre">CMakeUserPresets.json</span></code> in the
+following way:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">tc</span> <span class="o">=</span> <span class="n">CMakeToolchain</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="n">tc</span><span class="o">.</span><span class="n">user_presets_path</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">tc</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="presets-build-environment-presets-run-environment">
+<h3>presets_build_environment, presets_run_environment<a class="headerlink" href="#presets-build-environment-presets-run-environment" title="Link to this heading">¶</a></h3>
+<p>These attributes enable the modification of the build and run environments associated with
+the presets, respectively, by assigning an
+<a class="reference internal" href="../env/environment.html#conan-tools-env-environment-model"><span class="std std-ref">Environment</span></a>. This can be accomplished in the
+<cite>generate()</cite> method.</p>
+<p>For example, you can override the value of an environment variable already set in the
+build environment:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">buildenv</span> <span class="o">=</span> <span class="n">VirtualBuildEnv</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="n">buildenv</span><span class="o">.</span><span class="n">environment</span><span class="p">()</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s2">&quot;MY_BUILD_VAR&quot;</span><span class="p">,</span> <span class="s2">&quot;MY_BUILDVAR_VALUE_OVERRIDDEN&quot;</span><span class="p">)</span>
+    <span class="n">buildenv</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
+
+    <span class="n">tc</span> <span class="o">=</span> <span class="n">CMakeToolchain</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="n">tc</span><span class="o">.</span><span class="n">presets_build_environment</span> <span class="o">=</span> <span class="n">buildenv</span><span class="o">.</span><span class="n">environment</span><span class="p">()</span>
+    <span class="n">tc</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Or generate a new environment and compose it with an already existing one:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">runenv</span> <span class="o">=</span> <span class="n">VirtualRunEnv</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="n">runenv</span><span class="o">.</span><span class="n">environment</span><span class="p">()</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s2">&quot;MY_RUN_VAR&quot;</span><span class="p">,</span> <span class="s2">&quot;MY_RUNVAR_SET_IN_GENERATE&quot;</span><span class="p">)</span>
+    <span class="n">runenv</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
+
+    <span class="n">env</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">()</span>
+    <span class="n">env</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s2">&quot;MY_ENV_VAR&quot;</span><span class="p">,</span> <span class="s2">&quot;MY_ENV_VAR_VALUE&quot;</span><span class="p">)</span>
+    <span class="n">env</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">vars</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;run&quot;</span><span class="p">)</span>
+    <span class="n">env</span><span class="o">.</span><span class="n">save_script</span><span class="p">(</span><span class="s2">&quot;other_env&quot;</span><span class="p">)</span>
+
+    <span class="n">tc</span> <span class="o">=</span> <span class="n">CMakeToolchain</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="n">tc</span><span class="o">.</span><span class="n">presets_run_environment</span> <span class="o">=</span> <span class="n">runenv</span><span class="o">.</span><span class="n">environment</span><span class="p">()</span><span class="o">.</span><span class="n">compose_env</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+    <span class="n">tc</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="extra-compilation-flags">
+<h3>Extra compilation flags<a class="headerlink" href="#extra-compilation-flags" title="Link to this heading">¶</a></h3>
+<p>You can use the following attributes to append extra compilation flags to the toolchain:</p>
+<ul class="simple">
+<li><p><strong>extra_cxxflags</strong> (defaulted to <code class="docutils literal notranslate"><span class="pre">[]</span></code>) for additional cxxflags</p></li>
+<li><p><strong>extra_cflags</strong> (defaulted to <code class="docutils literal notranslate"><span class="pre">[]</span></code>) for additional cflags</p></li>
+<li><p><strong>extra_sharedlinkflags</strong> (defaulted to <code class="docutils literal notranslate"><span class="pre">[]</span></code>) for additional shared link flags</p></li>
+<li><p><strong>extra_exelinkflags</strong> (defaulted to <code class="docutils literal notranslate"><span class="pre">[]</span></code>) for additional exe link flags</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>flags order of preference</strong>: Flags specified in the <cite>tools.build</cite> configuration,
+such as <cite>cxxflags</cite>, <cite>cflags</cite>, <cite>sharedlinkflags</cite> and <cite>exelinkflags</cite>, will
+always take precedence over those set by the CMakeToolchain attributes.</p>
+</div>
+</section>
+<section id="presets-prefix">
+<h3>presets_prefix<a class="headerlink" href="#presets-prefix" title="Link to this heading">¶</a></h3>
+<p>By default it is <code class="docutils literal notranslate"><span class="pre">&quot;conan&quot;</span></code>, and it will generate CMake presets named “conan-xxxx”.
+This is done to avoid potential name clashes with users own presets.</p>
+</section>
+<section id="absolute-paths">
+<h3>absolute_paths<a class="headerlink" href="#absolute-paths" title="Link to this heading">¶</a></h3>
+<p>By default, <code class="docutils literal notranslate"><span class="pre">CMakeToolchain</span></code> will generate relative paths. For example the <code class="docutils literal notranslate"><span class="pre">CMakeUserPresets.json</span></code> will have a
+relative path to the included <code class="docutils literal notranslate"><span class="pre">CMakePresets.json</span></code> (both files generated by <code class="docutils literal notranslate"><span class="pre">CMakeToolchain</span></code>), and the
+<code class="docutils literal notranslate"><span class="pre">CMakePresets.json</span></code> file will have a relative path to the <code class="docutils literal notranslate"><span class="pre">conan_toolchain.cmake</span></code> file defined in its <code class="docutils literal notranslate"><span class="pre">toolchainFile</span></code>
+field, that will be relative to the build folder, as specified by the CMake presets documentation.</p>
+<p>If for some reason using absolute paths was desired, it is possible to do it with:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">tc</span> <span class="o">=</span> <span class="n">CMakeToolchain</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="n">tc</span><span class="o">.</span><span class="n">absolute_paths</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">tc</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="using-a-custom-toolchain-file">
+<h3>Using a custom toolchain file<a class="headerlink" href="#using-a-custom-toolchain-file" title="Link to this heading">¶</a></h3>
+<p>There are two ways of providing custom CMake toolchain files:</p>
+<ul>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">conan_toolchain.cmake</span></code> file can be completely skipped and replaced by a user one, defining the
+<code class="docutils literal notranslate"><span class="pre">tools.cmake.cmaketoolchain:toolchain_file=&lt;filepath&gt;</span></code> configuration value. Note this approach will translate
+all the toolchain responsibility to the user provided toolchain, but things like locating the necessary <code class="docutils literal notranslate"><span class="pre">xxx-config.cmake</span></code>
+files from dependencies can be challenging without some help. For this reason, using the following
+<code class="docutils literal notranslate"><span class="pre">tools.cmake.cmaketoolchain:user_toolchain</span></code> is recommended in most cases, and if necessary,
+using <code class="docutils literal notranslate"><span class="pre">tools.cmake.cmaketoolchain:enabled_blocks</span></code> can be used.</p></li>
+<li><p>A custom user toolchain file can be added (included from) to the <code class="docutils literal notranslate"><span class="pre">conan_toolchain.cmake</span></code> one, by using the
+<code class="docutils literal notranslate"><span class="pre">user_toolchain</span></code> block described below, and defining the <code class="docutils literal notranslate"><span class="pre">tools.cmake.cmaketoolchain:user_toolchain=[&quot;&lt;filepath&gt;&quot;]</span></code>
+configuration value.</p>
+<p>The configuration <code class="docutils literal notranslate"><span class="pre">tools.cmake.cmaketoolchain:user_toolchain=[&quot;&lt;filepath&gt;&quot;]</span></code> can be defined in the <code class="docutils literal notranslate"><span class="pre">global.conf</span></code>.
+but also creating a Conan package for your toolchain and using <code class="docutils literal notranslate"><span class="pre">self.conf_info</span></code> to declare the toolchain file:</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+<span class="k">class</span> <span class="nc">MyToolchainPackage</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">package_folder</span><span class="p">,</span> <span class="s2">&quot;mytoolchain.cmake&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conf_info</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s2">&quot;tools.cmake.cmaketoolchain:user_toolchain&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">f</span><span class="p">])</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>If you declare the previous package as a <code class="docutils literal notranslate"><span class="pre">tool_require</span></code>, the toolchain will be automatically applied.</p>
+</li>
+<li><p>If you have more than one <code class="docutils literal notranslate"><span class="pre">tool_requires</span></code> defined, you can easily append all the user toolchain values
+together using the <code class="docutils literal notranslate"><span class="pre">append</span></code> method in each of them, for instance:</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+<span class="k">class</span> <span class="nc">MyToolRequire</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">package_folder</span><span class="p">,</span> <span class="s2">&quot;mytoolchain.cmake&quot;</span><span class="p">)</span>
+        <span class="c1"># Appending the value to any existing one</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conf_info</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;tools.cmake.cmaketoolchain:user_toolchain&quot;</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>So, they’ll be automatically applied by your <code class="docutils literal notranslate"><span class="pre">CMakeToolchain</span></code> generator without writing any extra code:</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+<span class="kn">from</span> <span class="nn">conan.tools.cmake</span> <span class="kn">import</span> <span class="n">CMake</span>
+<span class="k">class</span> <span class="nc">Pkg</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span>
+    <span class="n">exports_sources</span> <span class="o">=</span> <span class="s2">&quot;CMakeLists.txt&quot;</span>
+    <span class="n">tool_requires</span> <span class="o">=</span> <span class="s2">&quot;toolchain1/0.1&quot;</span><span class="p">,</span> <span class="s2">&quot;toolchain2/0.1&quot;</span>
+    <span class="n">generators</span> <span class="o">=</span> <span class="s2">&quot;CMakeToolchain&quot;</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">cmake</span> <span class="o">=</span> <span class="n">CMake</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">cmake</span><span class="o">.</span><span class="n">configure</span><span class="p">()</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Important notes</strong></p>
+<ul class="simple">
+<li><p>In most cases, <code class="docutils literal notranslate"><span class="pre">tools.cmake.cmaketoolchain:user_toolchain</span></code> will be preferred over <code class="docutils literal notranslate"><span class="pre">tools.cmake.cmaketoolchain:toolchain_file</span></code></p></li>
+<li><p>The definition of a <code class="docutils literal notranslate"><span class="pre">tools.cmake.cmaketoolchain:user_toolchain</span></code> inhibits the automatic definition of
+<code class="docutils literal notranslate"><span class="pre">CMAKE_SYSTEM_NAME</span></code>, <code class="docutils literal notranslate"><span class="pre">CMAKE_SYSTEM_VERSION</span></code> and <code class="docutils literal notranslate"><span class="pre">CMAKE_SYSTEM_PROCESSOR</span></code> that Conan would try to auto-detect
+in cases of cross-building, and the user toolchains should provide these values or use other confs such as
+<code class="docutils literal notranslate"><span class="pre">tools.cmake.cmaketoolchain:system_name</span></code>.</p></li>
+<li><p>The usage of <code class="docutils literal notranslate"><span class="pre">tools.cmake.cmaketoolchain:enabled_blocks</span></code> can be used together with <code class="docutils literal notranslate"><span class="pre">tools.cmake.cmaketoolchain:user_toolchain</span></code>
+to enable only certain blocks but avoid CMakeToolchain to override CMake values defined in the user toolchain
+file.</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="extending-and-advanced-customization">
+<h2>Extending and advanced customization<a class="headerlink" href="#extending-and-advanced-customization" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">CMakeToolchain</span></code> implements a powerful capability for extending and customizing the resulting toolchain file.</p>
+<p>The contents are organized by <code class="docutils literal notranslate"><span class="pre">blocks</span></code> that can be customized. The following predefined blocks are available,
+and added in this order:</p>
+<ul>
+<li><p><strong>user_toolchain</strong>: Allows to include user toolchains from the <code class="docutils literal notranslate"><span class="pre">conan_toolchain.cmake</span></code> file.
+If the configuration <code class="docutils literal notranslate"><span class="pre">tools.cmake.cmaketoolchain:user_toolchain=[&quot;xxxx&quot;,</span> <span class="pre">&quot;yyyy&quot;]</span></code> is defined, its values will be <code class="docutils literal notranslate"><span class="pre">include(xxx)\ninclude(yyyy)</span></code> as the
+first lines in <code class="docutils literal notranslate"><span class="pre">conan_toolchain.cmake</span></code>.</p></li>
+<li><p><strong>generic_system</strong>: Defines <code class="docutils literal notranslate"><span class="pre">CMAKE_SYSTEM_NAME</span></code>, <code class="docutils literal notranslate"><span class="pre">CMAKE_SYSTEM_VERSION</span></code>, <code class="docutils literal notranslate"><span class="pre">CMAKE_SYSTEM_PROCESSOR</span></code>,
+<code class="docutils literal notranslate"><span class="pre">CMAKE_GENERATOR_PLATFORM</span></code>, <code class="docutils literal notranslate"><span class="pre">CMAKE_GENERATOR_TOOLSET</span></code></p></li>
+<li><p><strong>compilers</strong>: Defines <code class="docutils literal notranslate"><span class="pre">CMAKE_&lt;LANG&gt;_COMPILER</span></code> for different languages, as defined by <code class="docutils literal notranslate"><span class="pre">tools.build:compiler_executables</span></code> configuration.</p></li>
+<li><p><strong>android_system</strong>: Defines <code class="docutils literal notranslate"><span class="pre">ANDROID_PLATFORM</span></code>, <code class="docutils literal notranslate"><span class="pre">ANDROID_STL</span></code>, <code class="docutils literal notranslate"><span class="pre">ANDROID_ABI</span></code> and includes <code class="docutils literal notranslate"><span class="pre">ANDROID_NDK_PATH/build/cmake/android.toolchain.cmake</span></code>
+where <code class="docutils literal notranslate"><span class="pre">ANDROID_NDK_PATH</span></code> comes defined in <code class="docutils literal notranslate"><span class="pre">tools.android:ndk_path</span></code> configuration value.</p></li>
+<li><p><strong>apple_system</strong>: Defines <code class="docutils literal notranslate"><span class="pre">CMAKE_OSX_ARCHITECTURES</span></code> (see the <a class="reference internal" href="#conan-tools-cmaketoolchain-universal-binaries"><span class="std std-ref">universal binaries section</span></a>), <code class="docutils literal notranslate"><span class="pre">CMAKE_OSX_SYSROOT</span></code> for Apple systems.</p></li>
+<li><p><strong>fpic</strong>: Defines the <code class="docutils literal notranslate"><span class="pre">CMAKE_POSITION_INDEPENDENT_CODE</span></code> when there is a <code class="docutils literal notranslate"><span class="pre">options.fPIC</span></code></p></li>
+<li><p><strong>arch_flags</strong>: Defines C/C++ flags like <code class="docutils literal notranslate"><span class="pre">-m32,</span> <span class="pre">-m64</span></code> when necessary.</p></li>
+<li><p><strong>linker_scripts</strong>: Defines the flags for any provided linker scripts.</p></li>
+<li><p><strong>libcxx</strong>: Defines <code class="docutils literal notranslate"><span class="pre">-stdlib=libc++</span></code> flag when necessary as well as <code class="docutils literal notranslate"><span class="pre">_GLIBCXX_USE_CXX11_ABI</span></code>.</p></li>
+<li><p><strong>vs_runtime</strong>: Defines the <code class="docutils literal notranslate"><span class="pre">CMAKE_MSVC_RUNTIME_LIBRARY</span></code> variable, as a generator expression for multiple configurations.</p></li>
+<li><p><strong>cppstd</strong>: defines <code class="docutils literal notranslate"><span class="pre">CMAKE_CXX_STANDARD</span></code>, <code class="docutils literal notranslate"><span class="pre">CMAKE_CXX_EXTENSIONS</span></code></p></li>
+<li><p><strong>parallel</strong>: defines <code class="docutils literal notranslate"><span class="pre">/MP</span></code> parallel build flag for Visual.</p></li>
+<li><p><strong>cmake_flags_init</strong>: defines <code class="docutils literal notranslate"><span class="pre">CMAKE_XXX_FLAGS</span></code> variables based on previously defined Conan variables. The blocks above only define <code class="docutils literal notranslate"><span class="pre">CONAN_XXX</span></code> variables, and this block will define CMake ones like <code class="docutils literal notranslate"><span class="pre">set(CMAKE_CXX_FLAGS_INIT</span> <span class="pre">&quot;${CONAN_CXX_FLAGS}&quot;</span> <span class="pre">CACHE</span> <span class="pre">STRING</span> <span class="pre">&quot;&quot;</span> <span class="pre">FORCE)`</span></code>.</p></li>
+<li><p><strong>try_compile</strong>: Stop processing the toolchain, skipping the blocks below this one, if <code class="docutils literal notranslate"><span class="pre">IN_TRY_COMPILE</span></code> CMake property is defined.</p></li>
+<li><p><strong>find_paths</strong>: Defines <code class="docutils literal notranslate"><span class="pre">CMAKE_FIND_PACKAGE_PREFER_CONFIG</span></code>, <code class="docutils literal notranslate"><span class="pre">CMAKE_MODULE_PATH</span></code>, <code class="docutils literal notranslate"><span class="pre">CMAKE_PREFIX_PATH</span></code> so the generated files from <code class="docutils literal notranslate"><span class="pre">CMakeDeps</span></code> are found.</p></li>
+<li><p><strong>rpath</strong>: Defines <code class="docutils literal notranslate"><span class="pre">CMAKE_SKIP_RPATH</span></code>. By default it is disabled, and it is needed to define <code class="docutils literal notranslate"><span class="pre">self.blocks[&quot;rpath&quot;].skip_rpath=True</span></code> if you want to activate <code class="docutils literal notranslate"><span class="pre">CMAKE_SKIP_RPATH</span></code></p></li>
+<li><p><strong>shared</strong>: defines <code class="docutils literal notranslate"><span class="pre">BUILD_SHARED_LIBS</span></code>.</p></li>
+<li><p><strong>output_dirs</strong>: Define the <code class="docutils literal notranslate"><span class="pre">CMAKE_INSTALL_XXX</span></code> variables.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>CMAKE_INSTALL_PREFIX</strong>: Is set with the <code class="docutils literal notranslate"><span class="pre">package_folder</span></code>, so if a “cmake install” operation is run, the artifacts go
+to that location.</p></li>
+<li><p><strong>CMAKE_INSTALL_BINDIR</strong>, <strong>CMAKE_INSTALL_SBINDIR</strong> and <strong>CMAKE_INSTALL_LIBEXECDIR</strong>: Set by default to <code class="docutils literal notranslate"><span class="pre">bin</span></code>.</p></li>
+<li><p><strong>CMAKE_INSTALL_LIBDIR</strong>: Set by default to <code class="docutils literal notranslate"><span class="pre">lib</span></code>.</p></li>
+<li><p><strong>CMAKE_INSTALL_INCLUDEDIR</strong> and <strong>CMAKE_INSTALL_OLDINCLUDEDIR</strong>: Set by default to <code class="docutils literal notranslate"><span class="pre">include</span></code>.</p></li>
+<li><p><strong>CMAKE_INSTALL_DATAROOTDIR</strong>: Set by default to <code class="docutils literal notranslate"><span class="pre">res</span></code>.</p></li>
+</ul>
+<p>If you want to change the default values, adjust the <code class="docutils literal notranslate"><span class="pre">cpp.package</span></code> object at the <code class="docutils literal notranslate"><span class="pre">layout()</span></code> method:</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">layout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="c1"># For CMAKE_INSTALL_BINDIR, CMAKE_INSTALL_SBINDIR and CMAKE_INSTALL_LIBEXECDIR, takes the first value:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">package</span><span class="o">.</span><span class="n">bindirs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;mybin&quot;</span><span class="p">]</span>
+    <span class="c1"># For CMAKE_INSTALL_LIBDIR, takes the first value:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">package</span><span class="o">.</span><span class="n">libdirs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;mylib&quot;</span><span class="p">]</span>
+    <span class="c1"># For CMAKE_INSTALL_INCLUDEDIR, CMAKE_INSTALL_OLDINCLUDEDIR, takes the first value:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">package</span><span class="o">.</span><span class="n">includedirs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;myinclude&quot;</span><span class="p">]</span>
+    <span class="c1"># For CMAKE_INSTALL_DATAROOTDIR, takes the first value:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">package</span><span class="o">.</span><span class="n">resdirs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;myres&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is <strong>not valid</strong> to change the self.cpp_info  at the <code class="docutils literal notranslate"><span class="pre">package_info()</span></code> method, the <code class="docutils literal notranslate"><span class="pre">self.cpp.package</span></code>
+needs to be defined instead.</p>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>variables</strong>: Define CMake variables from the <code class="docutils literal notranslate"><span class="pre">CMakeToolchain.variables</span></code> attribute.</p></li>
+<li><p><strong>preprocessor</strong>: Define preprocessor directives from <code class="docutils literal notranslate"><span class="pre">CMakeToolchain.preprocessor_definitions</span></code> attribute</p></li>
+</ul>
+<section id="customizing-the-content-blocks">
+<h3>Customizing the content blocks<a class="headerlink" href="#customizing-the-content-blocks" title="Link to this heading">¶</a></h3>
+<p>Every block can be customized in different ways (recall to call <code class="docutils literal notranslate"><span class="pre">tc.generate()</span></code> after the customization):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># tc.generate() should be called at the end of every one</span>
+
+<span class="c1"># remove an existing block, the generated conan_toolchain.cmake</span>
+<span class="c1"># will not contain code for that block at all</span>
+<span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">tc</span> <span class="o">=</span> <span class="n">CMakeToolchain</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="n">tc</span><span class="o">.</span><span class="n">blocks</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;generic_system&quot;</span><span class="p">)</span>
+
+<span class="c1"># remove several blocks</span>
+<span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">tc</span> <span class="o">=</span> <span class="n">CMakeToolchain</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="n">tc</span><span class="o">.</span><span class="n">blocks</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;generic_system&quot;</span><span class="p">,</span> <span class="s2">&quot;cmake_flags_init&quot;</span><span class="p">)</span>
+
+<span class="c1"># LEGACY: keep one block, remove all the others</span>
+<span class="c1"># If you want to generate conan_toolchain.cmake with only that</span>
+<span class="c1"># block. Use &quot;tc.blocks.enabled()&quot; instead</span>
+<span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">tc</span> <span class="o">=</span> <span class="n">CMakeToolchain</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="c1"># this still leaves blocks &quot;variables&quot; and &quot;preprocessor&quot;</span>
+    <span class="c1"># use &quot;tc.blocks.enabled()&quot;&quot; instead</span>
+    <span class="n">tc</span><span class="o">.</span><span class="n">blocks</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;generic_system&quot;</span><span class="p">)</span>
+
+<span class="c1"># LEGACY: keep several blocks, remove the other blocks</span>
+<span class="c1"># Use &quot;tc.blocks.enabled()&quot; instead</span>
+<span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">tc</span> <span class="o">=</span> <span class="n">CMakeToolchain</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="c1"># this still leaves blocks &quot;variables&quot; and &quot;preprocessor&quot;</span>
+    <span class="c1"># use &quot;tc.blocks.enabled()&quot; instead</span>
+    <span class="n">tc</span><span class="o">.</span><span class="n">blocks</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;generic_system&quot;</span><span class="p">,</span> <span class="s2">&quot;cmake_flags_init&quot;</span><span class="p">)</span>
+
+<span class="c1"># keep several blocks, remove the other blocks</span>
+<span class="c1"># This can be done from configuration with</span>
+<span class="c1"># tools.cmake.cmaketoolchain:enabled_blocs</span>
+<span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">tc</span> <span class="o">=</span> <span class="n">CMakeToolchain</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="c1"># Discard all the other blocks except ``generic_system``</span>
+    <span class="n">tc</span><span class="o">.</span><span class="n">blocks</span><span class="o">.</span><span class="n">enabled</span><span class="p">(</span><span class="s2">&quot;generic_system&quot;</span><span class="p">)</span>
+
+<span class="c1"># iterate blocks</span>
+<span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">tc</span> <span class="o">=</span> <span class="n">CMakeToolchain</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">block_name</span> <span class="ow">in</span> <span class="n">tc</span><span class="o">.</span><span class="n">blocks</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="c1"># do something with block_name</span>
+    <span class="k">for</span> <span class="n">block_name</span><span class="p">,</span> <span class="n">block</span> <span class="ow">in</span> <span class="n">tc</span><span class="o">.</span><span class="n">blocks</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="c1"># do something with block_name and block</span>
+
+<span class="c1"># modify the template of an existing block</span>
+<span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">tc</span> <span class="o">=</span> <span class="n">CMakeToolchain</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="n">tmp</span> <span class="o">=</span> <span class="n">tc</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="s2">&quot;generic_system&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">template</span>
+    <span class="n">new_tmp</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>  <span class="c1"># replace, fully replace, append...</span>
+    <span class="n">tc</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="s2">&quot;generic_system&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">template</span> <span class="o">=</span> <span class="n">new_tmp</span>
+
+<span class="c1"># modify one or more variables of the context</span>
+<span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">tc</span> <span class="o">=</span> <span class="n">CMakeToolchain</span><span class="p">(</span><span class="n">conanfile</span><span class="p">)</span>
+    <span class="c1"># block.values is the context dictionary</span>
+    <span class="n">toolset</span> <span class="o">=</span> <span class="n">tc</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="s2">&quot;generic_system&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="s2">&quot;toolset&quot;</span><span class="p">]</span>
+    <span class="n">tc</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="s2">&quot;generic_system&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="s2">&quot;toolset&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;other_toolset&quot;</span>
+
+<span class="c1"># modify the whole context values</span>
+<span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">tc</span> <span class="o">=</span> <span class="n">CMakeToolchain</span><span class="p">(</span><span class="n">conanfile</span><span class="p">)</span>
+    <span class="n">tc</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="s2">&quot;generic_system&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;toolset&quot;</span><span class="p">:</span> <span class="s2">&quot;other_toolset&quot;</span><span class="p">}</span>
+
+<span class="c1"># modify the context method of an existing block</span>
+<span class="kn">import</span> <span class="nn">types</span>
+
+<span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">tc</span> <span class="o">=</span> <span class="n">CMakeToolchain</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="n">generic_block</span> <span class="o">=</span> <span class="n">toolchain</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="s2">&quot;generic_system&quot;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">context</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="bp">self</span>  <span class="c1"># Your own custom logic here</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;toolset&quot;</span><span class="p">:</span> <span class="s2">&quot;other_toolset&quot;</span><span class="p">}</span>
+    <span class="n">generic_block</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">MethodType</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">generic_block</span><span class="p">)</span>
+
+<span class="c1"># completely replace existing block</span>
+<span class="kn">from</span> <span class="nn">conan.tools.cmake</span> <span class="kn">import</span> <span class="n">CMakeToolchain</span>
+
+<span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">tc</span> <span class="o">=</span> <span class="n">CMakeToolchain</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="c1"># this could go to a python_requires</span>
+    <span class="k">class</span> <span class="nc">MyGenericBlock</span><span class="p">:</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="s2">&quot;HelloWorld&quot;</span>
+
+        <span class="k">def</span> <span class="nf">context</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">{}</span>
+
+    <span class="n">tc</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="s2">&quot;generic_system&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">MyGenericBlock</span>
+
+<span class="c1"># add a completely new block</span>
+<span class="kn">from</span> <span class="nn">conan.tools.cmake</span> <span class="kn">import</span> <span class="n">CMakeToolchain</span>
+<span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">tc</span> <span class="o">=</span> <span class="n">CMakeToolchain</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="c1"># this could go to a python_requires</span>
+    <span class="k">class</span> <span class="nc">MyBlock</span><span class="p">:</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="s2">&quot;Hello {{myvar}}!!!&quot;</span>
+
+        <span class="k">def</span> <span class="nf">context</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;myvar&quot;</span><span class="p">:</span> <span class="s2">&quot;World&quot;</span><span class="p">}</span>
+
+    <span class="n">tc</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="s2">&quot;mynewblock&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">MyBlock</span>
+</pre></div>
+</div>
+<p>It is possible to select which blocks are active from configuration in profiles, using the
+<code class="docutils literal notranslate"><span class="pre">tools.cmake.cmaketoolchain:enabled_blocks</span></code> configuration. This is a list of blocks, so doing:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">conf</span><span class="p">]</span>
+<span class="n">tools</span><span class="o">.</span><span class="n">cmake</span><span class="o">.</span><span class="n">cmaketoolchain</span><span class="p">:</span><span class="n">enabled_blocks</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;generic_system&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Will leave only the <code class="docutils literal notranslate"><span class="pre">generic_system</span></code> block, and discard all others.
+This feature can be used for example when users are providing their own toolchain files, and they don’t
+need Conan <code class="docutils literal notranslate"><span class="pre">CMakeToolchain</span></code> to define any flags or CMake variables, except for the necessary paths so
+dependencies can be found. For this case, it should be possible to do something like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">conf</span><span class="p">]</span>
+<span class="n">tools</span><span class="o">.</span><span class="n">cmake</span><span class="o">.</span><span class="n">cmaketoolchain</span><span class="p">:</span><span class="n">user_toolchain</span><span class="o">+=</span><span class="n">my_user_toolchain</span><span class="o">.</span><span class="n">cmake</span>
+<span class="n">tools</span><span class="o">.</span><span class="n">cmake</span><span class="o">.</span><span class="n">cmaketoolchain</span><span class="p">:</span><span class="n">enabled_blocks</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;find_paths&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>For more information about these blocks, please have a look at the source code.</p>
+</section>
+</section>
+<section id="cross-building">
+<h2>Cross building<a class="headerlink" href="#cross-building" title="Link to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">generic_system</span></code> block contains some basic cross-building capabilities. In the general
+case, the user would want to provide their own user toolchain defining all the specifics,
+which can be done with the configuration <code class="docutils literal notranslate"><span class="pre">tools.cmake.cmaketoolchain:user_toolchain</span></code>. If
+this conf value is defined, the <code class="docutils literal notranslate"><span class="pre">generic_system</span></code> block will include the provided file or files, but
+no further define any CMake variable for cross-building.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">user_toolchain</span></code> is not defined and Conan detects it is cross-building, because the build
+and host profiles contain different OS or architecture, it will try to define the following
+variables:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">CMAKE_SYSTEM_NAME</span></code>: <code class="docutils literal notranslate"><span class="pre">tools.cmake.cmaketoolchain:system_name</span></code> configuration if
+defined, otherwise, it will try to autodetect it. This block will consider
+cross-building if Android systems (that is managed by other blocks), and not 64bits to
+32bits builds in x86_64, sparc and ppc systems.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CMAKE_SYSTEM_VERSION</span></code>: <code class="docutils literal notranslate"><span class="pre">tools.cmake.cmaketoolchain:system_version</span></code> conf if defined, otherwise
+<code class="docutils literal notranslate"><span class="pre">os.version</span></code> subsetting (host) when defined. On Apple systems, this <code class="docutils literal notranslate"><span class="pre">os.version</span></code> is converted to the corresponding Darwin version.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CMAKE_SYSTEM_PROCESSOR</span></code>: <code class="docutils literal notranslate"><span class="pre">tools.cmake.cmaketoolchain:system_processor</span></code> conf if defined, otherwise
+<code class="docutils literal notranslate"><span class="pre">arch</span></code> setting (host) if defined</p></li>
+</ul>
+</section>
+<section id="support-for-universal-binaries-in-macos">
+<span id="conan-tools-cmaketoolchain-universal-binaries"></span><h2>Support for Universal Binaries in macOS<a class="headerlink" href="#support-for-universal-binaries-in-macos" title="Link to this heading">¶</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This feature is experimental and subject to breaking changes.
+See <a class="reference internal" href="../../../introduction.html#stability"><span class="std std-ref">the Conan stability</span></a> section for more information.</p>
+</div>
+<p>Starting in Conan 2.2.0, there’s preliminary support for building universal binaries on
+macOS using CMakeToolchain. To specify multiple architectures for a universal binary in
+Conan, use the <cite>|</cite> separator when defining the architecture in the settings. This approach
+enables passing a list of architectures. For example, running:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conan<span class="w"> </span>create<span class="w"> </span>.<span class="w"> </span>--name<span class="o">=</span>mylibrary<span class="w"> </span>--version<span class="o">=</span><span class="m">1</span>.0<span class="w"> </span>-s<span class="o">=</span><span class="s2">&quot;arch=armv8|x86_64&quot;</span>
+</pre></div>
+</div>
+<p>will create a universal binary for <em>mylibrary</em> containing both <code class="docutils literal notranslate"><span class="pre">armv8</span></code> and <code class="docutils literal notranslate"><span class="pre">x86_64</span></code>
+architectures, by setting <code class="docutils literal notranslate"><span class="pre">CMAKE_OSX_ARCHITECTURES</span></code> with a value of <code class="docutils literal notranslate"><span class="pre">arm64;x86_64</span></code> in
+the <em>conan_toolchain.cmake</em> file.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>It is important to note that this method is not applicable to build systems other than
+CMake.</p>
+<p>Be aware that this feature is primarily beneficial for building final univeral
+binaries for release purposes. The default Conan behavior of managing one binary per
+architecture generally provides a more reliable and trouble-free experience. Users
+should be cautious and not overly rely on this feature for broader use cases.</p>
+</div>
+</section>
+<section id="reference">
+<h2>Reference<a class="headerlink" href="#reference" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="conan.tools.cmake.toolchain.toolchain.CMakeToolchain">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CMakeToolchain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conanfile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conan.tools.cmake.toolchain.toolchain.CMakeToolchain" title="Link to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="conan.tools.cmake.toolchain.toolchain.CMakeToolchain.generate">
+<span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#conan.tools.cmake.toolchain.toolchain.CMakeToolchain.generate" title="Link to this definition">¶</a></dt>
+<dd><p>This method will save the generated files to the conanfile.generators_folder</p>
+</dd></dl>
+
+</dd></dl>
+
+<section id="conf">
+<span id="conan-cmake-toolchain-conf"></span><h3>conf<a class="headerlink" href="#conf" title="Link to this heading">¶</a></h3>
+<p>CMakeToolchain is affected by these <code class="docutils literal notranslate"><span class="pre">[conf]</span></code> variables:</p>
+<ul class="simple">
+<li><p><strong>tools.cmake.cmaketoolchain:toolchain_file</strong> user toolchain file to replace the <code class="docutils literal notranslate"><span class="pre">conan_toolchain.cmake</span></code> one.</p></li>
+<li><p><strong>tools.cmake.cmaketoolchain:user_toolchain</strong> list of user toolchains to be included from the <code class="docutils literal notranslate"><span class="pre">conan_toolchain.cmake</span></code> file.</p></li>
+<li><p><strong>tools.android:ndk_path</strong> value for <code class="docutils literal notranslate"><span class="pre">ANDROID_NDK_PATH</span></code>.</p></li>
+<li><p><strong>tools.android:cmake_legacy_toolchain</strong>: boolean value for <code class="docutils literal notranslate"><span class="pre">ANDROID_USE_LEGACY_TOOLCHAIN_FILE</span></code>. It will only be defined in <code class="docutils literal notranslate"><span class="pre">conan_toolchain.cmake</span></code> if given a value. This is
+taken into account by the CMake toolchain inside the Android NDK specified in the <code class="docutils literal notranslate"><span class="pre">tools.android:ndk_path</span></code> config, for versions <code class="docutils literal notranslate"><span class="pre">r23c</span></code> and above.
+It may be useful to set this to <code class="docutils literal notranslate"><span class="pre">False</span></code> if compiler flags are defined via <code class="docutils literal notranslate"><span class="pre">tools.build:cflags</span></code> or <code class="docutils literal notranslate"><span class="pre">tools.build:cxxflags</span></code> to prevent Android’s legacy CMake toolchain
+from overriding the values. If setting this to <code class="docutils literal notranslate"><span class="pre">False</span></code>, please ensure you are using CMake 3.21 or above.</p></li>
+<li><p><strong>tools.cmake.cmaketoolchain:system_name</strong> is not necessary in most cases and is only used to force-define <code class="docutils literal notranslate"><span class="pre">CMAKE_SYSTEM_NAME</span></code>.</p></li>
+<li><p><strong>tools.cmake.cmaketoolchain:system_version</strong> is not necessary in most cases and is only used to force-define <code class="docutils literal notranslate"><span class="pre">CMAKE_SYSTEM_VERSION</span></code>.</p></li>
+<li><p><strong>tools.cmake.cmaketoolchain:system_processor</strong> is not necessary in most cases and is only used to force-define <code class="docutils literal notranslate"><span class="pre">CMAKE_SYSTEM_PROCESSOR</span></code>.</p></li>
+<li><p><strong>tools.cmake.cmaketoolchain:enabled_blocks</strong> define which blocks are enabled and discard the others.</p></li>
+<li><p><strong>tools.cmake.cmaketoolchain:extra_variables</strong>: dict-like python object which specifies the CMake variable name and value. The value can be a plain string, a number or a dict-like python object which must specify the <code class="docutils literal notranslate"><span class="pre">value</span></code> (string/number) , <code class="docutils literal notranslate"><span class="pre">cache</span></code> (boolean), <code class="docutils literal notranslate"><span class="pre">type</span></code> (CMake cache type) and optionally, <code class="docutils literal notranslate"><span class="pre">docstring</span></code> (string: defaulted to variable name) and <code class="docutils literal notranslate"><span class="pre">force</span></code> (boolean) keys. It can override CMakeToolchain defined variables, for which users are at their own risk. E.g.</p></li>
+</ul>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[conf]
+tools.cmake.cmaketoolchain:extra_variables={&#39;MY_CMAKE_VAR&#39;: &#39;MyValue&#39;}
+</pre></div>
+</div>
+<p>Resulting in:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span><span class="p">(</span><span class="s">MY_CMAKE_VAR</span><span class="w"> </span><span class="s2">&quot;MyValue&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Which will be injected later so it can override default Conan variables.</p>
+<p>Another advanced usage:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>tools.cmake.cmaketoolchain:extra_variables={&#39;MyIntegerVariable&#39;: 42, &#39;CMAKE_GENERATOR_INSTANCE&#39;: &#39;${ENV}/buildTools/&#39;}
+tools.cmake.cmaketoolchain:extra_variables*={&#39;CACHED_VAR&#39;: {&#39;value&#39;: &#39;/var/run&#39;, &#39;cache&#39;: True, &#39;type&#39;: &#39;PATH&#39;, &#39;docstring&#39;: &#39;test cache var&#39;, &#39;force&#39;: True}}
+</pre></div>
+</div>
+<p>Resulting in:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span><span class="p">(</span><span class="s">MyIntegerVariable</span><span class="w"> </span><span class="s">42</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_GENERATOR_INSTANCE</span><span class="w"> </span><span class="s2">&quot;${ENV}/buildTools/&quot;</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CACHED_VAR</span><span class="w"> </span><span class="s2">&quot;/var/run&quot;</span><span class="w"> </span><span class="s">CACHE</span><span class="w"> </span><span class="s">BOOL</span><span class="w"> </span><span class="s2">&quot;test cache var&quot;</span><span class="w"> </span><span class="s">FORCE</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This block injects <code class="docutils literal notranslate"><span class="pre">$</span></code> which will be expanded later. It also defines a cache variable of type <code class="docutils literal notranslate"><span class="pre">PATH</span></code>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Use the <a class="reference internal" href="../../config_files/global_conf.html#configuration-data-operators"><span class="std std-ref">configuration data operator</span></a> <code class="docutils literal notranslate"><span class="pre">*=</span></code> to <strong>update</strong> (instead of redefining) conf variables already set in profiles or the global configuration.</p>
+</div>
+<ul class="simple">
+<li><p><strong>tools.cmake.cmaketoolchain:toolset_arch</strong>: Will add the <code class="docutils literal notranslate"><span class="pre">,host=xxx</span></code> specifier in the <code class="docutils literal notranslate"><span class="pre">CMAKE_GENERATOR_TOOLSET</span></code> variable of <code class="docutils literal notranslate"><span class="pre">conan_toolchain.cmake</span></code> file.</p></li>
+<li><p><strong>tools.cmake.cmaketoolchain:toolset_cuda</strong>: (Experimental) Will add the <code class="docutils literal notranslate"><span class="pre">,cuda=xxx</span></code> specifier in the <code class="docutils literal notranslate"><span class="pre">CMAKE_GENERATOR_TOOLSET</span></code> variable of <code class="docutils literal notranslate"><span class="pre">conan_toolchain.cmake</span></code> file.</p></li>
+<li><p><strong>tools.cmake.cmake_layout:build_folder_vars</strong>: Settings, Options, <code class="docutils literal notranslate"><span class="pre">self.name</span></code> and <code class="docutils literal notranslate"><span class="pre">self.version</span></code> and constants <code class="docutils literal notranslate"><span class="pre">const.uservalue</span></code> that will produce a different build folder and different CMake presets names.</p></li>
+<li><p><strong>tools.cmake.cmaketoolchain:presets_environment</strong>: Set to <code class="docutils literal notranslate"><span class="pre">'disabled'</span></code> to prevent the addition of the environment section to the generated CMake presets.</p></li>
+<li><p><strong>tools.build:cxxflags</strong> list of extra C++ flags that will be appended to <code class="docutils literal notranslate"><span class="pre">CMAKE_CXX_FLAGS_INIT</span></code>.</p></li>
+<li><p><strong>tools.build:cflags</strong> list of extra of pure C flags that will be appended to <code class="docutils literal notranslate"><span class="pre">CMAKE_C_FLAGS_INIT</span></code>.</p></li>
+<li><p><strong>tools.build:sharedlinkflags</strong> list of extra linker flags that will be appended to <code class="docutils literal notranslate"><span class="pre">CMAKE_SHARED_LINKER_FLAGS_INIT</span></code>.</p></li>
+<li><p><strong>tools.build:exelinkflags</strong> list of extra linker flags that will be appended to <code class="docutils literal notranslate"><span class="pre">CMAKE_EXE_LINKER_FLAGS_INIT</span></code>.</p></li>
+<li><p><strong>tools.build:defines</strong> list of preprocessor definitions that will be used by <code class="docutils literal notranslate"><span class="pre">add_definitions()</span></code>.</p></li>
+<li><p><strong>tools.apple:sdk_path</strong> value for <code class="docutils literal notranslate"><span class="pre">CMAKE_OSX_SYSROOT</span></code>. In the general case it’s not needed and will be passed to CMake by the settings values.</p></li>
+<li><p><strong>tools.apple:enable_bitcode</strong> boolean value to enable/disable Bitcode Apple Clang flags, e.g., <code class="docutils literal notranslate"><span class="pre">CMAKE_XCODE_ATTRIBUTE_ENABLE_BITCODE</span></code>.</p></li>
+<li><p><strong>tools.apple:enable_arc</strong> boolean value to enable/disable ARC Apple Clang flags, e.g., <code class="docutils literal notranslate"><span class="pre">CMAKE_XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC</span></code>.</p></li>
+<li><p><strong>tools.apple:enable_visibility</strong> boolean value to enable/disable Visibility Apple Clang flags, e.g., <code class="docutils literal notranslate"><span class="pre">CMAKE_XCODE_ATTRIBUTE_GCC_SYMBOLS_PRIVATE_EXTERN</span></code>.</p></li>
+<li><p><strong>tools.build:sysroot</strong> defines the value of <code class="docutils literal notranslate"><span class="pre">CMAKE_SYSROOT</span></code>.</p></li>
+<li><p><strong>tools.microsoft:winsdk_version</strong> Defines the <code class="docutils literal notranslate"><span class="pre">CMAKE_SYSTEM_VERSION</span></code> or the <code class="docutils literal notranslate"><span class="pre">CMAKE_GENERATOR_PLATFORM</span></code> according to CMake policy <code class="docutils literal notranslate"><span class="pre">CMP0149</span></code>.</p></li>
+<li><p><strong>tools.build:compiler_executables</strong> dict-like Python object which specifies the
+compiler as key and the compiler executable path as value. Those keys will be mapped as
+follows:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">c</span></code>: will set <code class="docutils literal notranslate"><span class="pre">CMAKE_C_COMPILER</span></code> in <em>conan_toolchain.cmake</em>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cpp</span></code>: will set <code class="docutils literal notranslate"><span class="pre">CMAKE_CXX_COMPILER</span></code> in <em>conan_toolchain.cmake</em>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RC</span></code>: will set <code class="docutils literal notranslate"><span class="pre">CMAKE_RC_COMPILER</span></code> in <em>conan_toolchain.cmake</em>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">objc</span></code>: will set <code class="docutils literal notranslate"><span class="pre">CMAKE_OBJC_COMPILER</span></code> in <em>conan_toolchain.cmake</em>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">objcpp</span></code>: will set <code class="docutils literal notranslate"><span class="pre">CMAKE_OBJCXX_COMPILER</span></code> in <em>conan_toolchain.cmake</em>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cuda</span></code>: will set <code class="docutils literal notranslate"><span class="pre">CMAKE_CUDA_COMPILER</span></code> in <em>conan_toolchain.cmake</em>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fortran</span></code>: will set <code class="docutils literal notranslate"><span class="pre">CMAKE_Fortran_COMPILER</span></code> in <em>conan_toolchain.cmake</em>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">asm</span></code>: will set <code class="docutils literal notranslate"><span class="pre">CMAKE_ASM_COMPILER</span></code> in <em>conan_toolchain.cmake</em>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hip</span></code>: will set <code class="docutils literal notranslate"><span class="pre">CMAKE_HIP_COMPILER</span></code> in <em>conan_toolchain.cmake</em>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ispc</span></code>: will set <code class="docutils literal notranslate"><span class="pre">CMAKE_ISPC_COMPILER</span></code> in <em>conan_toolchain.cmake</em>.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cmakedeps.html" class="btn btn-neutral float-left" title="CMakeDeps" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cmake.html" class="btn btn-neutral float-right" title="CMake" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2024, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 2.7
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/2.7/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

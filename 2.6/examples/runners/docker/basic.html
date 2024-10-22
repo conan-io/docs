@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Creating a Conan package using a Docker runner &mdash; conan 2.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=045299b1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/conan.css?v=7d9e9f1e" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/examples/runners/docker/basic.html" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=ae39cb24"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Using a docker runner configfile to parameterize a Dockerfile" href="configfile_build_args.html" />
+    <link rel="prev" title="Conan runners examples" href="../../runners.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html">
+            
+              <img src="../../../_static/conan-docs-logo-2.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.6
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../whatsnew.html">What’s new in Conan 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../devops.html">Devops guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integrations.html">Integrations</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../examples.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../conanfile.html">ConanFile methods examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../extensions.html">Conan extensions examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools.html">Conan recipe tools examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cross_build.html">Cross-building examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../config_files.html">Configuration files examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../graph.html">Graph examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dev_flow.html">Developer tools and flows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../commands.html">Conan commands examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../runners.html">Conan runners examples</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Creating a Conan package using a Docker runner</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configfile_build_args.html">Using a docker runner configfile to parameterize a Dockerfile</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../knowledge.html">Knowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/examples/runners/docker/basic.html">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../examples.html">Examples</a></li>
+          <li class="breadcrumb-item"><a href="../../runners.html">Conan runners examples</a></li>
+      <li class="breadcrumb-item active">Creating a Conan package using a Docker runner</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/develop2/examples/runners/docker/basic.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="creating-a-conan-package-using-a-docker-runner">
+<span id="examples-runners-docker-basic"></span><h1>Creating a Conan package using a Docker runner<a class="headerlink" href="#creating-a-conan-package-using-a-docker-runner" title="Link to this heading">¶</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This feature is experimental and subject to breaking changes.
+See <a class="reference internal" href="../../../introduction.html#stability"><span class="std std-ref">the Conan stability</span></a> section for more information.</p>
+</div>
+<p>In this example we are going to see how to create the <code class="docutils literal notranslate"><span class="pre">zlib/1.3.1</span></code> Conan packge inside Docker using a runner. Let’s create two profiles and a Dockerfile inside our project folder.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>&lt;/my/runner/folder&gt;
+$<span class="w"> </span>tree
+.
+├──<span class="w"> </span>Dockerfile
+├──<span class="w"> </span>docker_example_build
+└──<span class="w"> </span>docker_example_host
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">docker_example_host</span></code> profile</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[settings]
+arch=x86_64
+build_type=Release
+compiler=gcc
+compiler.cppstd=gnu17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+[runner]
+type=docker
+dockerfile=&lt;/my/runner/folder&gt;
+cache=copy
+remove=true
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">docker_example_build</span></code> profile</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[settings]
+arch=x86_64
+build_type=Release
+compiler=gcc
+compiler.cppstd=gnu17
+compiler.libcxx=libstdc++11
+compiler.version=11
+os=Linux
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code></p>
+<div class="highlight-docker notranslate"><div class="highlight"><pre><span></span><span class="k">FROM</span><span class="w"> </span><span class="s">ubuntu:22.04</span>
+<span class="k">RUN</span><span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nv">DEBIAN_FRONTEND</span><span class="o">=</span>noninteractive<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>--no-install-recommends<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>build-essential<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>cmake<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>python3<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>python3-pip<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>python3-venv<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
+<span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>conan
+</pre></div>
+</div>
+<p>In this example we are going to start from a totally clean docker, without containers or images. In addition, we are going to have the conan cache also completely empty.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>list<span class="w"> </span><span class="s2">&quot;*:*&quot;</span>
+Found<span class="w"> </span><span class="m">0</span><span class="w"> </span>pkg/version<span class="w"> </span>recipes<span class="w"> </span>matching<span class="w"> </span>*<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nb">local</span><span class="w"> </span>cache
+
+$<span class="w"> </span>docker<span class="w"> </span>ps<span class="w"> </span>--all
+CONTAINER<span class="w"> </span>ID<span class="w">   </span>IMAGE<span class="w">     </span>COMMAND<span class="w">   </span>CREATED<span class="w">   </span>STATUS<span class="w">    </span>PORTS<span class="w">     </span>NAMES
+
+$<span class="w"> </span>docker<span class="w"> </span>images
+REPOSITORY<span class="w">   </span>TAG<span class="w">       </span>IMAGE<span class="w"> </span>ID<span class="w">   </span>CREATED<span class="w">   </span>SIZE
+</pre></div>
+</div>
+<p>Now, we are going to clone and build zlib from conan-center-index and create it using our new runner definition.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/conan-io/conan-center-index.git<span class="w"> </span>--depth<span class="o">=</span><span class="m">1</span>
+$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>./conan-center-index/recipes/zlib/all<span class="w"> </span>--version<span class="w"> </span><span class="m">1</span>.3.1<span class="w"> </span>-pr:h<span class="w"> </span>&lt;/my/runner/folder&gt;/docker_example_host<span class="w"> </span>-pr:b<span class="w"> </span>&lt;/my/runner/folder&gt;/docker_example_build
+</pre></div>
+</div>
+<p>If we split and analyze the command output, we can see what is happening and where the commands are being executed.</p>
+<ol class="arabic simple">
+<li><p>Standard conan execution.</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">========</span><span class="w"> </span>Exporting<span class="w"> </span>recipe<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span><span class="nv">cache</span><span class="w"> </span><span class="o">========</span>
+zlib/1.3.1:<span class="w"> </span>Exporting<span class="w"> </span>package<span class="w"> </span>recipe:<span class="w"> </span>&lt;/my/runner/folder&gt;/conan-center-index/recipes/zlib/all/conanfile.py
+zlib/1.3.1:<span class="w"> </span>exports:<span class="w"> </span>File<span class="w"> </span><span class="s1">&#39;conandata.yml&#39;</span><span class="w"> </span>found.<span class="w"> </span>Exporting<span class="w"> </span>it...
+zlib/1.3.1:<span class="w"> </span>Calling<span class="w"> </span>export_sources<span class="o">()</span>
+zlib/1.3.1:<span class="w"> </span>Copied<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="s1">&#39;.py&#39;</span><span class="w"> </span>file:<span class="w"> </span>conanfile.py
+zlib/1.3.1:<span class="w"> </span>Copied<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="s1">&#39;.yml&#39;</span><span class="w"> </span>file:<span class="w"> </span>conandata.yml
+zlib/1.3.1:<span class="w"> </span>Copied<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="s1">&#39;.patch&#39;</span><span class="w"> </span>file:<span class="w"> </span><span class="m">0001</span>-fix-cmake.patch
+zlib/1.3.1:<span class="w"> </span>Exported<span class="w"> </span>to<span class="w"> </span>cache<span class="w"> </span>folder:<span class="w"> </span>/Users/conan/.conan2/p/zlib95420566fc0dd/e
+zlib/1.3.1:<span class="w"> </span>Exported:<span class="w"> </span>zlib/1.3.1#e20364c96c45455608a72543f3a53133<span class="w"> </span><span class="o">(</span><span class="m">2024</span>-04-29<span class="w"> </span><span class="m">17</span>:03:44<span class="w"> </span>UTC<span class="o">)</span>
+
+<span class="o">========</span><span class="w"> </span>Input<span class="w"> </span><span class="nv">profiles</span><span class="w"> </span><span class="o">========</span>
+Profile<span class="w"> </span>host:
+<span class="o">[</span>settings<span class="o">]</span>
+<span class="nv">arch</span><span class="o">=</span>x86_64
+<span class="nv">build_type</span><span class="o">=</span>Release
+<span class="nv">compiler</span><span class="o">=</span>gcc
+compiler.cppstd<span class="o">=</span>gnu17
+compiler.libcxx<span class="o">=</span>libstdc++11
+compiler.version<span class="o">=</span><span class="m">11</span>
+<span class="nv">os</span><span class="o">=</span>Linux
+
+Profile<span class="w"> </span>build:
+<span class="o">[</span>settings<span class="o">]</span>
+<span class="nv">arch</span><span class="o">=</span>x86_64
+<span class="nv">build_type</span><span class="o">=</span>Release
+<span class="nv">compiler</span><span class="o">=</span>gcc
+compiler.cppstd<span class="o">=</span>gnu17
+compiler.libcxx<span class="o">=</span>libstdc++11
+compiler.version<span class="o">=</span><span class="m">11</span>
+<span class="nv">os</span><span class="o">=</span>Linux
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Build docker image</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>**********************************************
+*<span class="w"> </span>Building<span class="w"> </span>the<span class="w"> </span>Docker<span class="w"> </span>image:<span class="w"> </span>my-conan-runner<span class="w"> </span>*
+**********************************************
+
+Dockerfile<span class="w"> </span>path:<span class="w"> </span><span class="s1">&#39;&lt;/my/runner/folder&gt;/Dockerfile&#39;</span>
+Docker<span class="w"> </span>build<span class="w"> </span>context:<span class="w"> </span><span class="s1">&#39;&lt;/my/runner/folder&gt;&#39;</span>
+
+Step<span class="w"> </span><span class="m">1</span>/4<span class="w"> </span>:<span class="w"> </span>FROM<span class="w"> </span>ubuntu:22.04
+
+...
+
+---&gt;<span class="w"> </span>dba927bb0517
+Successfully<span class="w"> </span>built<span class="w"> </span>dba927bb0517
+Successfully<span class="w"> </span>tagged<span class="w"> </span>my-conan-runner:latest
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Save the local cache running <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">cache</span> <span class="pre">save</span></code>.</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>******************************************************************************************************************
+*<span class="w"> </span>Save<span class="w"> </span>host<span class="w"> </span>cache<span class="w"> </span><span class="k">in</span>:<span class="w"> </span>&lt;/my/runner/folder&gt;/conan-center-index/recipes/zlib/all/.conanrunner/local_cache_save.tgz<span class="w"> </span>*
+******************************************************************************************************************
+
+Found<span class="w"> </span><span class="m">1</span><span class="w"> </span>pkg/version<span class="w"> </span>recipes<span class="w"> </span>matching<span class="w"> </span>*<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nb">local</span><span class="w"> </span>cache
+Saving<span class="w"> </span>zlib/1.3.1:<span class="w"> </span>p/zlib95420566fc0dd
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Create and initialize the docker container.</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>*********************************
+*<span class="w"> </span>Creating<span class="w"> </span>the<span class="w"> </span>docker<span class="w"> </span>container<span class="w"> </span>*
+*********************************
+
+*****************************************
+*<span class="w"> </span>Container<span class="w"> </span>conan-runner-docker<span class="w"> </span>running<span class="w"> </span>*
+*****************************************
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>Check if the container has a conan version with the runner feature.</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>*******************************************
+*<span class="w"> </span>Running<span class="w"> </span><span class="k">in</span><span class="w"> </span>container:<span class="w"> </span><span class="s2">&quot;conan --version&quot;</span><span class="w"> </span>*
+*******************************************
+
+Conan<span class="w"> </span>version<span class="w"> </span><span class="m">2</span>.3.0
+</pre></div>
+</div>
+<ol class="arabic simple" start="6">
+<li><p>Initialize the container conan cache using the host copy running <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">cache</span> <span class="pre">restore</span></code>.</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>*********************************************************************************************************
+*<span class="w"> </span>Running<span class="w"> </span><span class="k">in</span><span class="w"> </span>container:<span class="w"> </span><span class="s2">&quot;conan cache restore &quot;</span>/root/conanrunner/all/.conanrunner/local_cache_save.tgz<span class="s2">&quot;&quot;</span><span class="w"> </span>*
+*********************************************************************************************************
+
+Restore:<span class="w"> </span>zlib/1.3.1<span class="w"> </span><span class="k">in</span><span class="w"> </span>p/zlib95420566fc0dd
+Local<span class="w"> </span>Cache
+zlib
+<span class="w">    </span>zlib/1.3.1
+<span class="w">    </span>revisions
+<span class="w">        </span>e20364c96c45455608a72543f3a53133<span class="w"> </span><span class="o">(</span><span class="m">2024</span>-04-29<span class="w"> </span><span class="m">17</span>:19:32<span class="w"> </span>UTC<span class="o">)</span>
+<span class="w">        </span>packages
+<span class="w">        </span>recipe_folder:<span class="w"> </span>p/zlib95420566fc0dd
+</pre></div>
+</div>
+<ol class="arabic simple" start="7">
+<li><p>Run the <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">create</span></code> inside the container and build zlib.</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>*****************************************************************************************************************************************************************************************************************************************************
+*<span class="w"> </span>Running<span class="w"> </span><span class="k">in</span><span class="w"> </span>container:<span class="w"> </span><span class="s2">&quot;conan create /root/conanrunner/all --version 1.3.1 -pr:h /root/conanrunner/all/.conanrunner/profiles/docker_example_host_1 -pr:b /root/conanrunner/all/.conanrunner/profiles/docker_example_build_0 -f json &gt; create.json&quot;</span><span class="w"> </span>*
+*****************************************************************************************************************************************************************************************************************************************************
+
+
+<span class="o">========</span><span class="w"> </span>Exporting<span class="w"> </span>recipe<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span><span class="nv">cache</span><span class="w"> </span><span class="o">========</span>
+zlib/1.3.1:<span class="w"> </span>Exporting<span class="w"> </span>package<span class="w"> </span>recipe:<span class="w"> </span>/root/conanrunner/all/conanfile.py
+zlib/1.3.1:<span class="w"> </span>exports:<span class="w"> </span>File<span class="w"> </span><span class="s1">&#39;conandata.yml&#39;</span><span class="w"> </span>found.<span class="w"> </span>Exporting<span class="w"> </span>it...
+zlib/1.3.1:<span class="w"> </span>Calling<span class="w"> </span>export_sources<span class="o">()</span>
+zlib/1.3.1:<span class="w"> </span>Copied<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="s1">&#39;.yml&#39;</span><span class="w"> </span>file:<span class="w"> </span>conandata.yml
+zlib/1.3.1:<span class="w"> </span>Copied<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="s1">&#39;.py&#39;</span><span class="w"> </span>file:<span class="w"> </span>conanfile.py
+zlib/1.3.1:<span class="w"> </span>Copied<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="s1">&#39;.patch&#39;</span><span class="w"> </span>file:<span class="w"> </span><span class="m">0001</span>-fix-cmake.patch
+zlib/1.3.1:<span class="w"> </span>Exported<span class="w"> </span>to<span class="w"> </span>cache<span class="w"> </span>folder:<span class="w"> </span>/root/.conan2/p/zlib95420566fc0dd/e
+zlib/1.3.1:<span class="w"> </span>Exported:<span class="w"> </span>zlib/1.3.1#e20364c96c45455608a72543f3a53133<span class="w"> </span><span class="o">(</span><span class="m">2024</span>-04-29<span class="w"> </span><span class="m">17</span>:19:32<span class="w"> </span>UTC<span class="o">)</span>
+
+<span class="o">========</span><span class="w"> </span>Input<span class="w"> </span><span class="nv">profiles</span><span class="w"> </span><span class="o">========</span>
+Profile<span class="w"> </span>host:
+<span class="o">[</span>settings<span class="o">]</span>
+<span class="nv">arch</span><span class="o">=</span>x86_64
+<span class="nv">build_type</span><span class="o">=</span>Release
+<span class="nv">compiler</span><span class="o">=</span>gcc
+compiler.cppstd<span class="o">=</span>gnu17
+compiler.libcxx<span class="o">=</span>libstdc++11
+compiler.version<span class="o">=</span><span class="m">11</span>
+<span class="nv">os</span><span class="o">=</span>Linux
+
+Profile<span class="w"> </span>build:
+<span class="o">[</span>settings<span class="o">]</span>
+<span class="nv">arch</span><span class="o">=</span>x86_64
+<span class="nv">build_type</span><span class="o">=</span>Release
+<span class="nv">compiler</span><span class="o">=</span>gcc
+compiler.cppstd<span class="o">=</span>gnu17
+compiler.libcxx<span class="o">=</span>libstdc++11
+compiler.version<span class="o">=</span><span class="m">11</span>
+<span class="nv">os</span><span class="o">=</span><span class="nv">Linux</span>
+
+
+<span class="o">========</span><span class="w"> </span>Computing<span class="w"> </span>dependency<span class="w"> </span><span class="nv">graph</span><span class="w"> </span><span class="o">========</span>
+Graph<span class="w"> </span>root
+<span class="w">    </span>cli
+Requirements
+<span class="w">    </span>zlib/1.3.1#e20364c96c45455608a72543f3a53133<span class="w"> </span>-<span class="w"> </span><span class="nv">Cache</span>
+
+<span class="o">========</span><span class="w"> </span>Computing<span class="w"> </span>necessary<span class="w"> </span><span class="nv">packages</span><span class="w"> </span><span class="o">========</span>
+zlib/1.3.1:<span class="w"> </span>Forced<span class="w"> </span>build<span class="w"> </span>from<span class="w"> </span><span class="nb">source</span>
+Requirements
+<span class="w">    </span>zlib/1.3.1#e20364c96c45455608a72543f3a53133:b647c43bfefae3f830561ca202b6cfd935b56205<span class="w"> </span>-<span class="w"> </span><span class="nv">Build</span>
+
+<span class="o">========</span><span class="w"> </span>Installing<span class="w"> </span><span class="nv">packages</span><span class="w"> </span><span class="o">========</span>
+zlib/1.3.1:<span class="w"> </span>Calling<span class="w"> </span>source<span class="o">()</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>/root/.conan2/p/zlib95420566fc0dd/s/src
+
+--------<span class="w"> </span>Installing<span class="w"> </span>package<span class="w"> </span>zlib/1.3.1<span class="w"> </span><span class="o">(</span><span class="m">1</span><span class="w"> </span>of<span class="w"> </span><span class="m">1</span><span class="o">)</span><span class="w"> </span>--------
+zlib/1.3.1:<span class="w"> </span>Building<span class="w"> </span>from<span class="w"> </span><span class="nb">source</span>
+zlib/1.3.1:<span class="w"> </span>Package<span class="w"> </span>zlib/1.3.1:b647c43bfefae3f830561ca202b6cfd935b56205
+zlib/1.3.1:<span class="w"> </span>Copying<span class="w"> </span>sources<span class="w"> </span>to<span class="w"> </span>build<span class="w"> </span>folder
+zlib/1.3.1:<span class="w"> </span>Building<span class="w"> </span>your<span class="w"> </span>package<span class="w"> </span><span class="k">in</span><span class="w"> </span>/root/.conan2/p/b/zlib8dd8e27348e8c/b
+zlib/1.3.1:<span class="w"> </span>Calling<span class="w"> </span>generate<span class="o">()</span>
+zlib/1.3.1:<span class="w"> </span>Generators<span class="w"> </span>folder:<span class="w"> </span>/root/.conan2/p/b/zlib8dd8e27348e8c/b/build/Release/generators
+zlib/1.3.1:<span class="w"> </span>CMakeToolchain<span class="w"> </span>generated:<span class="w"> </span>conan_toolchain.cmake
+zlib/1.3.1:<span class="w"> </span>CMakeToolchain<span class="w"> </span>generated:<span class="w"> </span>/root/.conan2/p/b/zlib8dd8e27348e8c/b/build/Release/generators/CMakePresets.json
+zlib/1.3.1:<span class="w"> </span>CMakeToolchain<span class="w"> </span>generated:<span class="w"> </span>/root/.conan2/p/b/zlib8dd8e27348e8c/b/src/CMakeUserPresets.json
+zlib/1.3.1:<span class="w"> </span>Generating<span class="w"> </span>aggregated<span class="w"> </span>env<span class="w"> </span>files
+zlib/1.3.1:<span class="w"> </span>Generated<span class="w"> </span>aggregated<span class="w"> </span>env<span class="w"> </span>files:<span class="w"> </span><span class="o">[</span><span class="s1">&#39;conanbuild.sh&#39;</span>,<span class="w"> </span><span class="s1">&#39;conanrun.sh&#39;</span><span class="o">]</span>
+zlib/1.3.1:<span class="w"> </span>Calling<span class="w"> </span>build<span class="o">()</span>
+zlib/1.3.1:<span class="w"> </span>Apply<span class="w"> </span>patch<span class="w"> </span><span class="o">(</span>conan<span class="o">)</span>:<span class="w"> </span>separate<span class="w"> </span>static/shared<span class="w"> </span>builds,<span class="w"> </span>disable<span class="w"> </span>debug<span class="w"> </span>suffix
+zlib/1.3.1:<span class="w"> </span>Running<span class="w"> </span>CMake.configure<span class="o">()</span>
+zlib/1.3.1:<span class="w"> </span>RUN:<span class="w"> </span>cmake<span class="w"> </span>-G<span class="w"> </span><span class="s2">&quot;Unix Makefiles&quot;</span><span class="w"> </span>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span><span class="s2">&quot;generators/conan_toolchain.cmake&quot;</span><span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="s2">&quot;/root/.conan2/p/b/zlib8dd8e27348e8c/p&quot;</span><span class="w"> </span>-DCMAKE_POLICY_DEFAULT_CMP0091<span class="o">=</span><span class="s2">&quot;NEW&quot;</span><span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span><span class="s2">&quot;Release&quot;</span><span class="w"> </span><span class="s2">&quot;/root/.conan2/p/b/zlib8dd8e27348e8c/b/src&quot;</span>
+--<span class="w"> </span>Using<span class="w"> </span>Conan<span class="w"> </span>toolchain:<span class="w"> </span>/root/.conan2/p/b/zlib8dd8e27348e8c/b/build/Release/generators/conan_toolchain.cmake
+--<span class="w"> </span>Conan<span class="w"> </span>toolchain:<span class="w"> </span>Setting<span class="w"> </span><span class="nv">CMAKE_POSITION_INDEPENDENT_CODE</span><span class="o">=</span>ON<span class="w"> </span><span class="o">(</span>options.fPIC<span class="o">)</span>
+--<span class="w"> </span>Conan<span class="w"> </span>toolchain:<span class="w"> </span>Setting<span class="w"> </span><span class="nv">BUILD_SHARED_LIBS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>OFF
+--<span class="w"> </span>The<span class="w"> </span>C<span class="w"> </span>compiler<span class="w"> </span>identification<span class="w"> </span>is<span class="w"> </span>GNU<span class="w"> </span><span class="m">11</span>.4.0
+--<span class="w"> </span>Detecting<span class="w"> </span>C<span class="w"> </span>compiler<span class="w"> </span>ABI<span class="w"> </span>info
+--<span class="w"> </span>Detecting<span class="w"> </span>C<span class="w"> </span>compiler<span class="w"> </span>ABI<span class="w"> </span>info<span class="w"> </span>-<span class="w"> </span><span class="k">done</span>
+--<span class="w"> </span>Check<span class="w"> </span><span class="k">for</span><span class="w"> </span>working<span class="w"> </span>C<span class="w"> </span>compiler:<span class="w"> </span>/usr/bin/cc<span class="w"> </span>-<span class="w"> </span>skipped
+--<span class="w"> </span>Detecting<span class="w"> </span>C<span class="w"> </span>compile<span class="w"> </span>features
+--<span class="w"> </span>Detecting<span class="w"> </span>C<span class="w"> </span>compile<span class="w"> </span>features<span class="w"> </span>-<span class="w"> </span><span class="k">done</span>
+--<span class="w"> </span>Looking<span class="w"> </span><span class="k">for</span><span class="w"> </span>sys/types.h
+--<span class="w"> </span>Looking<span class="w"> </span><span class="k">for</span><span class="w"> </span>sys/types.h<span class="w"> </span>-<span class="w"> </span>found
+--<span class="w"> </span>Looking<span class="w"> </span><span class="k">for</span><span class="w"> </span>stdint.h
+--<span class="w"> </span>Looking<span class="w"> </span><span class="k">for</span><span class="w"> </span>stdint.h<span class="w"> </span>-<span class="w"> </span>found
+--<span class="w"> </span>Looking<span class="w"> </span><span class="k">for</span><span class="w"> </span>stddef.h
+--<span class="w"> </span>Looking<span class="w"> </span><span class="k">for</span><span class="w"> </span>stddef.h<span class="w"> </span>-<span class="w"> </span>found
+--<span class="w"> </span>Check<span class="w"> </span>size<span class="w"> </span>of<span class="w"> </span>off64_t
+--<span class="w"> </span>Check<span class="w"> </span>size<span class="w"> </span>of<span class="w"> </span>off64_t<span class="w"> </span>-<span class="w"> </span><span class="k">done</span>
+--<span class="w"> </span>Looking<span class="w"> </span><span class="k">for</span><span class="w"> </span>fseeko
+--<span class="w"> </span>Looking<span class="w"> </span><span class="k">for</span><span class="w"> </span>fseeko<span class="w"> </span>-<span class="w"> </span>found
+--<span class="w"> </span>Looking<span class="w"> </span><span class="k">for</span><span class="w"> </span>unistd.h
+--<span class="w"> </span>Looking<span class="w"> </span><span class="k">for</span><span class="w"> </span>unistd.h<span class="w"> </span>-<span class="w"> </span>found
+--<span class="w"> </span>Renaming
+--<span class="w">     </span>/root/.conan2/p/b/zlib8dd8e27348e8c/b/src/zconf.h
+--<span class="w"> </span>to<span class="w"> </span><span class="s1">&#39;zconf.h.included&#39;</span><span class="w"> </span>because<span class="w"> </span>this<span class="w"> </span>file<span class="w"> </span>is<span class="w"> </span>included<span class="w"> </span>with<span class="w"> </span>zlib
+--<span class="w"> </span>but<span class="w"> </span>CMake<span class="w"> </span>generates<span class="w"> </span>it<span class="w"> </span>automatically<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>build<span class="w"> </span>directory.
+--<span class="w"> </span>Configuring<span class="w"> </span><span class="k">done</span>
+--<span class="w"> </span>Generating<span class="w"> </span><span class="k">done</span>
+--<span class="w"> </span>Build<span class="w"> </span>files<span class="w"> </span>have<span class="w"> </span>been<span class="w"> </span>written<span class="w"> </span>to:<span class="w"> </span>/root/.conan2/p/b/zlib8dd8e27348e8c/b/build/Release
+zlib/1.3.1:<span class="w"> </span>Running<span class="w"> </span>CMake.build<span class="o">()</span>
+zlib/1.3.1:<span class="w"> </span>RUN:<span class="w"> </span>cmake<span class="w"> </span>--build<span class="w"> </span><span class="s2">&quot;/root/.conan2/p/b/zlib8dd8e27348e8c/b/build/Release&quot;</span><span class="w"> </span>--<span class="w"> </span>-j16
+<span class="o">[</span><span class="w"> </span><span class="m">12</span>%<span class="o">]</span><span class="w"> </span>Building<span class="w"> </span>C<span class="w"> </span>object<span class="w"> </span>CMakeFiles/zlib.dir/adler32.c.o
+<span class="o">[</span><span class="w"> </span><span class="m">12</span>%<span class="o">]</span><span class="w"> </span>Building<span class="w"> </span>C<span class="w"> </span>object<span class="w"> </span>CMakeFiles/zlib.dir/compress.c.o
+<span class="o">[</span><span class="w"> </span><span class="m">18</span>%<span class="o">]</span><span class="w"> </span>Building<span class="w"> </span>C<span class="w"> </span>object<span class="w"> </span>CMakeFiles/zlib.dir/deflate.c.o
+<span class="o">[</span><span class="w"> </span><span class="m">25</span>%<span class="o">]</span><span class="w"> </span>Building<span class="w"> </span>C<span class="w"> </span>object<span class="w"> </span>CMakeFiles/zlib.dir/crc32.c.o
+<span class="o">[</span><span class="w"> </span><span class="m">31</span>%<span class="o">]</span><span class="w"> </span>Building<span class="w"> </span>C<span class="w"> </span>object<span class="w"> </span>CMakeFiles/zlib.dir/gzlib.c.o
+<span class="o">[</span><span class="w"> </span><span class="m">37</span>%<span class="o">]</span><span class="w"> </span>Building<span class="w"> </span>C<span class="w"> </span>object<span class="w"> </span>CMakeFiles/zlib.dir/gzread.c.o
+<span class="o">[</span><span class="w"> </span><span class="m">43</span>%<span class="o">]</span><span class="w"> </span>Building<span class="w"> </span>C<span class="w"> </span>object<span class="w"> </span>CMakeFiles/zlib.dir/gzclose.c.o
+<span class="o">[</span><span class="w"> </span><span class="m">56</span>%<span class="o">]</span><span class="w"> </span>Building<span class="w"> </span>C<span class="w"> </span>object<span class="w"> </span>CMakeFiles/zlib.dir/infback.c.o
+<span class="o">[</span><span class="w"> </span><span class="m">56</span>%<span class="o">]</span><span class="w"> </span>Building<span class="w"> </span>C<span class="w"> </span>object<span class="w"> </span>CMakeFiles/zlib.dir/gzwrite.c.o
+<span class="o">[</span><span class="w"> </span><span class="m">62</span>%<span class="o">]</span><span class="w"> </span>Building<span class="w"> </span>C<span class="w"> </span>object<span class="w"> </span>CMakeFiles/zlib.dir/inflate.c.o
+<span class="o">[</span><span class="w"> </span><span class="m">68</span>%<span class="o">]</span><span class="w"> </span>Building<span class="w"> </span>C<span class="w"> </span>object<span class="w"> </span>CMakeFiles/zlib.dir/inffast.c.o
+<span class="o">[</span><span class="w"> </span><span class="m">75</span>%<span class="o">]</span><span class="w"> </span>Building<span class="w"> </span>C<span class="w"> </span>object<span class="w"> </span>CMakeFiles/zlib.dir/trees.c.o
+<span class="o">[</span><span class="w"> </span><span class="m">81</span>%<span class="o">]</span><span class="w"> </span>Building<span class="w"> </span>C<span class="w"> </span>object<span class="w"> </span>CMakeFiles/zlib.dir/zutil.c.o
+<span class="o">[</span><span class="w"> </span><span class="m">87</span>%<span class="o">]</span><span class="w"> </span>Building<span class="w"> </span>C<span class="w"> </span>object<span class="w"> </span>CMakeFiles/zlib.dir/uncompr.c.o
+<span class="o">[</span><span class="w"> </span><span class="m">93</span>%<span class="o">]</span><span class="w"> </span>Building<span class="w"> </span>C<span class="w"> </span>object<span class="w"> </span>CMakeFiles/zlib.dir/inftrees.c.o
+<span class="o">[</span><span class="m">100</span>%<span class="o">]</span><span class="w"> </span>Linking<span class="w"> </span>C<span class="w"> </span>static<span class="w"> </span>library<span class="w"> </span>libz.a
+<span class="o">[</span><span class="m">100</span>%<span class="o">]</span><span class="w"> </span>Built<span class="w"> </span>target<span class="w"> </span>zlib
+zlib/1.3.1:<span class="w"> </span>Package<span class="w"> </span><span class="s1">&#39;b647c43bfefae3f830561ca202b6cfd935b56205&#39;</span><span class="w"> </span>built
+zlib/1.3.1:<span class="w"> </span>Build<span class="w"> </span>folder<span class="w"> </span>/root/.conan2/p/b/zlib8dd8e27348e8c/b/build/Release
+zlib/1.3.1:<span class="w"> </span>Generating<span class="w"> </span>the<span class="w"> </span>package
+zlib/1.3.1:<span class="w"> </span>Packaging<span class="w"> </span><span class="k">in</span><span class="w"> </span>folder<span class="w"> </span>/root/.conan2/p/b/zlib8dd8e27348e8c/p
+zlib/1.3.1:<span class="w"> </span>Calling<span class="w"> </span>package<span class="o">()</span>
+zlib/1.3.1:<span class="w"> </span>Running<span class="w"> </span>CMake.install<span class="o">()</span>
+zlib/1.3.1:<span class="w"> </span>RUN:<span class="w"> </span>cmake<span class="w"> </span>--install<span class="w"> </span><span class="s2">&quot;/root/.conan2/p/b/zlib8dd8e27348e8c/b/build/Release&quot;</span><span class="w"> </span>--prefix<span class="w"> </span><span class="s2">&quot;/root/.conan2/p/b/zlib8dd8e27348e8c/p&quot;</span>
+--<span class="w"> </span>Install<span class="w"> </span>configuration:<span class="w"> </span><span class="s2">&quot;Release&quot;</span>
+--<span class="w"> </span>Installing:<span class="w"> </span>/root/.conan2/p/b/zlib8dd8e27348e8c/p/lib/libz.a
+--<span class="w"> </span>Installing:<span class="w"> </span>/root/.conan2/p/b/zlib8dd8e27348e8c/p/include/zconf.h
+--<span class="w"> </span>Installing:<span class="w"> </span>/root/.conan2/p/b/zlib8dd8e27348e8c/p/include/zlib.h
+
+zlib/1.3.1:<span class="w"> </span>package<span class="o">()</span>:<span class="w"> </span>Packaged<span class="w"> </span><span class="m">1</span><span class="w"> </span>file:<span class="w"> </span>LICENSE
+zlib/1.3.1:<span class="w"> </span>package<span class="o">()</span>:<span class="w"> </span>Packaged<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="s1">&#39;.h&#39;</span><span class="w"> </span>files:<span class="w"> </span>zlib.h,<span class="w"> </span>zconf.h
+zlib/1.3.1:<span class="w"> </span>package<span class="o">()</span>:<span class="w"> </span>Packaged<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="s1">&#39;.a&#39;</span><span class="w"> </span>file:<span class="w"> </span>libz.a
+zlib/1.3.1:<span class="w"> </span>Created<span class="w"> </span>package<span class="w"> </span>revision<span class="w"> </span>fd85b1346d5377ae2465645768e62bf2
+zlib/1.3.1:<span class="w"> </span>Package<span class="w"> </span><span class="s1">&#39;b647c43bfefae3f830561ca202b6cfd935b56205&#39;</span><span class="w"> </span>created
+zlib/1.3.1:<span class="w"> </span>Full<span class="w"> </span>package<span class="w"> </span>reference:<span class="w"> </span>zlib/1.3.1#e20364c96c45455608a72543f3a53133:b647c43bfefae3f830561ca202b6cfd935b56205#fd85b1346d5377ae2465645768e62bf2
+zlib/1.3.1:<span class="w"> </span>Package<span class="w"> </span>folder<span class="w"> </span>/root/.conan2/p/b/zlib8dd8e27348e8c/p
+WARN:<span class="w"> </span>deprecated:<span class="w"> </span>Usage<span class="w"> </span>of<span class="w"> </span>deprecated<span class="w"> </span>Conan<span class="w"> </span><span class="m">1</span>.X<span class="w"> </span>features<span class="w"> </span>that<span class="w"> </span>will<span class="w"> </span>be<span class="w"> </span>removed<span class="w"> </span><span class="k">in</span><span class="w"> </span>Conan<span class="w"> </span><span class="m">2</span>.X:
+WARN:<span class="w"> </span>deprecated:<span class="w">     </span><span class="s1">&#39;cpp_info.names&#39;</span><span class="w"> </span>used<span class="w"> </span><span class="k">in</span>:<span class="w"> </span>zlib/1.3.1
+
+<span class="o">========</span><span class="w"> </span>Launching<span class="w"> </span><span class="nv">test_package</span><span class="w"> </span><span class="o">========</span>
+
+<span class="o">========</span><span class="w"> </span>Computing<span class="w"> </span>dependency<span class="w"> </span><span class="nv">graph</span><span class="w"> </span><span class="o">========</span>
+Graph<span class="w"> </span>root
+<span class="w">    </span>zlib/1.3.1<span class="w"> </span><span class="o">(</span><span class="nb">test</span><span class="w"> </span>package<span class="o">)</span>:<span class="w"> </span>/root/conanrunner/all/test_package/conanfile.py
+Requirements
+<span class="w">    </span>zlib/1.3.1#e20364c96c45455608a72543f3a53133<span class="w"> </span>-<span class="w"> </span><span class="nv">Cache</span>
+
+<span class="o">========</span><span class="w"> </span>Computing<span class="w"> </span>necessary<span class="w"> </span><span class="nv">packages</span><span class="w"> </span><span class="o">========</span>
+Requirements
+<span class="w">    </span>zlib/1.3.1#e20364c96c45455608a72543f3a53133:b647c43bfefae3f830561ca202b6cfd935b56205#fd85b1346d5377ae2465645768e62bf2<span class="w"> </span>-<span class="w"> </span><span class="nv">Cache</span>
+
+<span class="o">========</span><span class="w"> </span>Installing<span class="w"> </span><span class="nv">packages</span><span class="w"> </span><span class="o">========</span>
+zlib/1.3.1:<span class="w"> </span>Already<span class="w"> </span>installed!<span class="w"> </span><span class="o">(</span><span class="m">1</span><span class="w"> </span>of<span class="w"> </span><span class="m">1</span><span class="o">)</span>
+WARN:<span class="w"> </span>deprecated:<span class="w"> </span>Usage<span class="w"> </span>of<span class="w"> </span>deprecated<span class="w"> </span>Conan<span class="w"> </span><span class="m">1</span>.X<span class="w"> </span>features<span class="w"> </span>that<span class="w"> </span>will<span class="w"> </span>be<span class="w"> </span>removed<span class="w"> </span><span class="k">in</span><span class="w"> </span>Conan<span class="w"> </span><span class="m">2</span>.X:
+WARN:<span class="w"> </span>deprecated:<span class="w">     </span><span class="s1">&#39;cpp_info.names&#39;</span><span class="w"> </span>used<span class="w"> </span><span class="k">in</span>:<span class="w"> </span>zlib/1.3.1
+
+<span class="o">========</span><span class="w"> </span>Testing<span class="w"> </span>the<span class="w"> </span><span class="nv">package</span><span class="w"> </span><span class="o">========</span>
+Removing<span class="w"> </span>previously<span class="w"> </span>existing<span class="w"> </span><span class="s1">&#39;test_package&#39;</span><span class="w"> </span>build<span class="w"> </span>folder:<span class="w"> </span>/root/conanrunner/all/test_package/build/gcc-11-x86_64-gnu17-release
+zlib/1.3.1<span class="w"> </span><span class="o">(</span><span class="nb">test</span><span class="w"> </span>package<span class="o">)</span>:<span class="w"> </span>Test<span class="w"> </span>package<span class="w"> </span>build:<span class="w"> </span>build/gcc-11-x86_64-gnu17-release
+zlib/1.3.1<span class="w"> </span><span class="o">(</span><span class="nb">test</span><span class="w"> </span>package<span class="o">)</span>:<span class="w"> </span>Test<span class="w"> </span>package<span class="w"> </span>build<span class="w"> </span>folder:<span class="w"> </span>/root/conanrunner/all/test_package/build/gcc-11-x86_64-gnu17-release
+zlib/1.3.1<span class="w"> </span><span class="o">(</span><span class="nb">test</span><span class="w"> </span>package<span class="o">)</span>:<span class="w"> </span>Writing<span class="w"> </span>generators<span class="w"> </span>to<span class="w"> </span>/root/conanrunner/all/test_package/build/gcc-11-x86_64-gnu17-release/generators
+zlib/1.3.1<span class="w"> </span><span class="o">(</span><span class="nb">test</span><span class="w"> </span>package<span class="o">)</span>:<span class="w"> </span>Generator<span class="w"> </span><span class="s1">&#39;CMakeToolchain&#39;</span><span class="w"> </span>calling<span class="w"> </span><span class="s1">&#39;generate()&#39;</span>
+zlib/1.3.1<span class="w"> </span><span class="o">(</span><span class="nb">test</span><span class="w"> </span>package<span class="o">)</span>:<span class="w"> </span>CMakeToolchain<span class="w"> </span>generated:<span class="w"> </span>conan_toolchain.cmake
+zlib/1.3.1<span class="w"> </span><span class="o">(</span><span class="nb">test</span><span class="w"> </span>package<span class="o">)</span>:<span class="w"> </span>CMakeToolchain<span class="w"> </span>generated:<span class="w"> </span>/root/conanrunner/all/test_package/build/gcc-11-x86_64-gnu17-release/generators/CMakePresets.json
+zlib/1.3.1<span class="w"> </span><span class="o">(</span><span class="nb">test</span><span class="w"> </span>package<span class="o">)</span>:<span class="w"> </span>CMakeToolchain<span class="w"> </span>generated:<span class="w"> </span>/root/conanrunner/all/test_package/CMakeUserPresets.json
+zlib/1.3.1<span class="w"> </span><span class="o">(</span><span class="nb">test</span><span class="w"> </span>package<span class="o">)</span>:<span class="w"> </span>Generator<span class="w"> </span><span class="s1">&#39;CMakeDeps&#39;</span><span class="w"> </span>calling<span class="w"> </span><span class="s1">&#39;generate()&#39;</span>
+zlib/1.3.1<span class="w"> </span><span class="o">(</span><span class="nb">test</span><span class="w"> </span>package<span class="o">)</span>:<span class="w"> </span>CMakeDeps<span class="w"> </span>necessary<span class="w"> </span>find_package<span class="o">()</span><span class="w"> </span>and<span class="w"> </span>targets<span class="w"> </span><span class="k">for</span><span class="w"> </span>your<span class="w"> </span>CMakeLists.txt
+<span class="w">    </span>find_package<span class="o">(</span>ZLIB<span class="o">)</span>
+<span class="w">    </span>target_link_libraries<span class="o">(</span>...<span class="w"> </span>ZLIB::ZLIB<span class="o">)</span>
+zlib/1.3.1<span class="w"> </span><span class="o">(</span><span class="nb">test</span><span class="w"> </span>package<span class="o">)</span>:<span class="w"> </span>Generator<span class="w"> </span><span class="s1">&#39;VirtualRunEnv&#39;</span><span class="w"> </span>calling<span class="w"> </span><span class="s1">&#39;generate()&#39;</span>
+zlib/1.3.1<span class="w"> </span><span class="o">(</span><span class="nb">test</span><span class="w"> </span>package<span class="o">)</span>:<span class="w"> </span>Generating<span class="w"> </span>aggregated<span class="w"> </span>env<span class="w"> </span>files
+zlib/1.3.1<span class="w"> </span><span class="o">(</span><span class="nb">test</span><span class="w"> </span>package<span class="o">)</span>:<span class="w"> </span>Generated<span class="w"> </span>aggregated<span class="w"> </span>env<span class="w"> </span>files:<span class="w"> </span><span class="o">[</span><span class="s1">&#39;conanrun.sh&#39;</span>,<span class="w"> </span><span class="s1">&#39;conanbuild.sh&#39;</span><span class="o">]</span>
+
+<span class="o">========</span><span class="w"> </span>Testing<span class="w"> </span>the<span class="w"> </span>package:<span class="w"> </span><span class="nv">Building</span><span class="w"> </span><span class="o">========</span>
+zlib/1.3.1<span class="w"> </span><span class="o">(</span><span class="nb">test</span><span class="w"> </span>package<span class="o">)</span>:<span class="w"> </span>Calling<span class="w"> </span>build<span class="o">()</span>
+zlib/1.3.1<span class="w"> </span><span class="o">(</span><span class="nb">test</span><span class="w"> </span>package<span class="o">)</span>:<span class="w"> </span>Running<span class="w"> </span>CMake.configure<span class="o">()</span>
+zlib/1.3.1<span class="w"> </span><span class="o">(</span><span class="nb">test</span><span class="w"> </span>package<span class="o">)</span>:<span class="w"> </span>RUN:<span class="w"> </span>cmake<span class="w"> </span>-G<span class="w"> </span><span class="s2">&quot;Unix Makefiles&quot;</span><span class="w"> </span>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span><span class="s2">&quot;generators/conan_toolchain.cmake&quot;</span><span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span><span class="s2">&quot;/root/conanrunner/all/test_package&quot;</span><span class="w"> </span>-DCMAKE_POLICY_DEFAULT_CMP0091<span class="o">=</span><span class="s2">&quot;NEW&quot;</span><span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span><span class="s2">&quot;Release&quot;</span><span class="w"> </span><span class="s2">&quot;/root/conanrunner/all/test_package&quot;</span>
+--<span class="w"> </span>Using<span class="w"> </span>Conan<span class="w"> </span>toolchain:<span class="w"> </span>/root/conanrunner/all/test_package/build/gcc-11-x86_64-gnu17-release/generators/conan_toolchain.cmake
+--<span class="w"> </span>Conan<span class="w"> </span>toolchain:<span class="w"> </span>C++<span class="w"> </span>Standard<span class="w"> </span><span class="m">17</span><span class="w"> </span>with<span class="w"> </span>extensions<span class="w"> </span>ON
+--<span class="w"> </span>The<span class="w"> </span>C<span class="w"> </span>compiler<span class="w"> </span>identification<span class="w"> </span>is<span class="w"> </span>GNU<span class="w"> </span><span class="m">11</span>.4.0
+--<span class="w"> </span>Detecting<span class="w"> </span>C<span class="w"> </span>compiler<span class="w"> </span>ABI<span class="w"> </span>info
+--<span class="w"> </span>Detecting<span class="w"> </span>C<span class="w"> </span>compiler<span class="w"> </span>ABI<span class="w"> </span>info<span class="w"> </span>-<span class="w"> </span><span class="k">done</span>
+--<span class="w"> </span>Check<span class="w"> </span><span class="k">for</span><span class="w"> </span>working<span class="w"> </span>C<span class="w"> </span>compiler:<span class="w"> </span>/usr/bin/cc<span class="w"> </span>-<span class="w"> </span>skipped
+--<span class="w"> </span>Detecting<span class="w"> </span>C<span class="w"> </span>compile<span class="w"> </span>features
+--<span class="w"> </span>Detecting<span class="w"> </span>C<span class="w"> </span>compile<span class="w"> </span>features<span class="w"> </span>-<span class="w"> </span><span class="k">done</span>
+--<span class="w"> </span>Conan:<span class="w"> </span>Target<span class="w"> </span>declared<span class="w"> </span><span class="s1">&#39;ZLIB::ZLIB&#39;</span>
+--<span class="w"> </span>Configuring<span class="w"> </span><span class="k">done</span>
+--<span class="w"> </span>Generating<span class="w"> </span><span class="k">done</span>
+--<span class="w"> </span>Build<span class="w"> </span>files<span class="w"> </span>have<span class="w"> </span>been<span class="w"> </span>written<span class="w"> </span>to:<span class="w"> </span>/root/conanrunner/all/test_package/build/gcc-11-x86_64-gnu17-release
+zlib/1.3.1<span class="w"> </span><span class="o">(</span><span class="nb">test</span><span class="w"> </span>package<span class="o">)</span>:<span class="w"> </span>Running<span class="w"> </span>CMake.build<span class="o">()</span>
+zlib/1.3.1<span class="w"> </span><span class="o">(</span><span class="nb">test</span><span class="w"> </span>package<span class="o">)</span>:<span class="w"> </span>RUN:<span class="w"> </span>cmake<span class="w"> </span>--build<span class="w"> </span><span class="s2">&quot;/root/conanrunner/all/test_package/build/gcc-11-x86_64-gnu17-release&quot;</span><span class="w"> </span>--<span class="w"> </span>-j16
+<span class="o">[</span><span class="w"> </span><span class="m">50</span>%<span class="o">]</span><span class="w"> </span>Building<span class="w"> </span>C<span class="w"> </span>object<span class="w"> </span>CMakeFiles/test_package.dir/test_package.c.o
+<span class="o">[</span><span class="m">100</span>%<span class="o">]</span><span class="w"> </span>Linking<span class="w"> </span>C<span class="w"> </span>executable<span class="w"> </span>test_package
+<span class="o">[</span><span class="m">100</span>%<span class="o">]</span><span class="w"> </span>Built<span class="w"> </span>target<span class="w"> </span><span class="nv">test_package</span>
+
+<span class="o">========</span><span class="w"> </span>Testing<span class="w"> </span>the<span class="w"> </span>package:<span class="w"> </span>Executing<span class="w"> </span><span class="nb">test</span><span class="w"> </span><span class="o">========</span>
+zlib/1.3.1<span class="w"> </span><span class="o">(</span><span class="nb">test</span><span class="w"> </span>package<span class="o">)</span>:<span class="w"> </span>Running<span class="w"> </span>test<span class="o">()</span>
+zlib/1.3.1<span class="w"> </span><span class="o">(</span><span class="nb">test</span><span class="w"> </span>package<span class="o">)</span>:<span class="w"> </span>RUN:<span class="w"> </span>./test_package
+Compressed<span class="w"> </span>size<span class="w"> </span>is:<span class="w"> </span><span class="m">21</span>
+Compressed<span class="w"> </span>string<span class="w"> </span>is:<span class="w"> </span>Conan<span class="w"> </span>Package<span class="w"> </span>Manager
+Compressed<span class="w"> </span>size<span class="w"> </span>is:<span class="w"> </span><span class="m">22</span>
+Compressed<span class="w"> </span>string<span class="w"> </span>is:<span class="w"> </span>xsKHLNLOUMRE
+ZLIB<span class="w"> </span>VERSION:<span class="w"> </span><span class="m">1</span>.3.1
+</pre></div>
+</div>
+<ol class="arabic simple" start="8">
+<li><p>Copy just the package created inside the container using the <code class="docutils literal notranslate"><span class="pre">pkglist.json</span></code> info from the previous <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">create</span></code>, restore this new package inside the host cache running a <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">cache</span> <span class="pre">save</span></code> and remove the container.</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>**********************************************************************************************************************************
+*<span class="w"> </span>Running<span class="w"> </span><span class="k">in</span><span class="w"> </span>container:<span class="w"> </span><span class="s2">&quot;conan cache save --list=pkglist.json --file &quot;</span>/root/conanrunner/all<span class="s2">&quot;/.conanrunner/docker_cache_save.tgz&quot;</span><span class="w"> </span>*
+**********************************************************************************************************************************
+
+Saving<span class="w"> </span>zlib/1.3.1:<span class="w"> </span>p/zlib95420566fc0dd
+Saving<span class="w"> </span>zlib/1.3.1:b647c43bfefae3f830561ca202b6cfd935b56205:<span class="w"> </span>p/b/zlib8dd8e27348e8c/p
+Saving<span class="w"> </span>zlib/1.3.1:b647c43bfefae3f830561ca202b6cfd935b56205<span class="w"> </span>metadata:<span class="w"> </span>p/b/zlib8dd8e27348e8c/d/metadata
+Local<span class="w"> </span>Cache
+zlib
+<span class="w">    </span>zlib/1.3.1
+<span class="w">    </span>revisions
+<span class="w">        </span>e20364c96c45455608a72543f3a53133<span class="w"> </span><span class="o">(</span><span class="m">2024</span>-04-29<span class="w"> </span><span class="m">17</span>:19:32<span class="w"> </span>UTC<span class="o">)</span>
+<span class="w">        </span>packages
+<span class="w">            </span>b647c43bfefae3f830561ca202b6cfd935b56205
+<span class="w">            </span>revisions
+<span class="w">                </span>fd85b1346d5377ae2465645768e62bf2
+<span class="w">                </span>package_folder:<span class="w"> </span>p/b/zlib8dd8e27348e8c/p
+<span class="w">                </span>metadata_folder:<span class="w"> </span>p/b/zlib8dd8e27348e8c/d/metadata
+<span class="w">            </span>info
+<span class="w">                </span>settings
+<span class="w">                </span>os:<span class="w"> </span>Linux
+<span class="w">                </span>arch:<span class="w"> </span>x86_64
+<span class="w">                </span>compiler:<span class="w"> </span>gcc
+<span class="w">                </span>compiler.version:<span class="w"> </span><span class="m">11</span>
+<span class="w">                </span>build_type:<span class="w"> </span>Release
+<span class="w">                </span>options
+<span class="w">                </span>fPIC:<span class="w"> </span>True
+<span class="w">                </span>shared:<span class="w"> </span>False
+<span class="w">        </span>recipe_folder:<span class="w"> </span>p/zlib95420566fc0dd
+
+
+************************************************************************************************************************
+*<span class="w"> </span>Restore<span class="w"> </span>host<span class="w"> </span>cache<span class="w"> </span>from:<span class="w"> </span>&lt;/my/runner/folder&gt;/conan-center-index/recipes/zlib/all/.conanrunner/docker_cache_save.tgz<span class="w"> </span>*
+************************************************************************************************************************
+
+Restore:<span class="w"> </span>zlib/1.3.1<span class="w"> </span><span class="k">in</span><span class="w"> </span>p/zlib95420566fc0dd
+Restore:<span class="w"> </span>zlib/1.3.1:b647c43bfefae3f830561ca202b6cfd935b56205<span class="w"> </span><span class="k">in</span><span class="w"> </span>p/b/zlib8dd8e27348e8c/p
+Restore:<span class="w"> </span>zlib/1.3.1:b647c43bfefae3f830561ca202b6cfd935b56205<span class="w"> </span>metadata<span class="w"> </span><span class="k">in</span><span class="w"> </span>p/b/zlib8dd8e27348e8c/d/metadata
+
+**********************
+*<span class="w"> </span>Stopping<span class="w"> </span>container<span class="w"> </span>*
+**********************
+
+
+**********************
+*<span class="w"> </span>Removing<span class="w"> </span>container<span class="w"> </span>*
+**********************
+</pre></div>
+</div>
+<p>If we now check the status of our conan and docker cache, we will see the new zlib package compile for Linux and the new docker image. We don’t have any container because we define <code class="docutils literal notranslate"><span class="pre">remove=true</span></code></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>list<span class="w"> </span><span class="s2">&quot;*:*&quot;</span>
+Found<span class="w"> </span><span class="m">1</span><span class="w"> </span>pkg/version<span class="w"> </span>recipes<span class="w"> </span>matching<span class="w"> </span>*<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nb">local</span><span class="w"> </span>cache
+Local<span class="w"> </span>Cache
+<span class="w">  </span>zlib
+<span class="w">    </span>zlib/1.3.1
+<span class="w">    </span>revisions
+<span class="w">        </span>e20364c96c45455608a72543f3a53133<span class="w"> </span><span class="o">(</span><span class="m">2024</span>-04-29<span class="w"> </span><span class="m">17</span>:18:07<span class="w"> </span>UTC<span class="o">)</span>
+<span class="w">        </span>packages
+<span class="w">            </span>b647c43bfefae3f830561ca202b6cfd935b56205
+<span class="w">            </span>info
+<span class="w">                </span>settings
+<span class="w">                </span>arch:<span class="w"> </span>x86_64
+<span class="w">                </span>build_type:<span class="w"> </span>Release
+<span class="w">                </span>compiler:<span class="w"> </span>gcc
+<span class="w">                </span>compiler.version:<span class="w"> </span><span class="m">11</span>
+<span class="w">                </span>os:<span class="w"> </span>Linux
+<span class="w">                </span>options
+<span class="w">                </span>fPIC:<span class="w"> </span>True
+<span class="w">                </span>shared:<span class="w"> </span>False
+
+$<span class="w"> </span>docker<span class="w"> </span>ps<span class="w"> </span>--all
+CONTAINER<span class="w"> </span>ID<span class="w">   </span>IMAGE<span class="w">     </span>COMMAND<span class="w">   </span>CREATED<span class="w">   </span>STATUS<span class="w">    </span>PORTS<span class="w">     </span>NAMES
+
+$<span class="w"> </span>docker<span class="w"> </span>images
+REPOSITORY<span class="w">        </span>TAG<span class="w">       </span>IMAGE<span class="w"> </span>ID<span class="w">       </span>CREATED<span class="w">          </span>SIZE
+my-conan-runner<span class="w">   </span>latest<span class="w">    </span>383b905f352e<span class="w">   </span><span class="m">22</span><span class="w"> </span>minutes<span class="w"> </span>ago<span class="w">   </span>531MB
+ubuntu<span class="w">            </span><span class="m">22</span>.04<span class="w">     </span>437ec753bef3<span class="w">   </span><span class="m">12</span><span class="w"> </span>days<span class="w"> </span>ago<span class="w">      </span><span class="m">77</span>.9MB
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../../runners.html" class="btn btn-neutral float-left" title="Conan runners examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="configfile_build_args.html" class="btn btn-neutral float-right" title="Using a docker runner configfile to parameterize a Dockerfile" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2024, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 2.6
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/2.6/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

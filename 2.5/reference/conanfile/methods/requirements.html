@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>requirements() &mdash; conan 2.5.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=045299b1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/conan.css?v=7d9e9f1e" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/reference/conanfile/methods/requirements.html" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=3c4615cf"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="set_name()" href="set_name.html" />
+    <link rel="prev" title="package_info()" href="package_info.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html">
+            
+              <img src="../../../_static/conan-docs-logo-2.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.5
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../whatsnew.html">What’s new in Conan 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../devops.html">Devops guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../commands.html">Commands</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../conanfile.html">conanfile.py</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../attributes.html">Attributes</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../methods.html">Methods</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="build.html">build()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="build_id.html">build_id()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="build_requirements.html">build_requirements()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compatibility.html">compatibility()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="configure.html">configure()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config_options.html">config_options()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="deploy.html">deploy()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="export.html">export()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="export_sources.html">export_sources()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generate.html">generate()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="init.html">init()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="layout.html">layout()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="package.html">package()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="package_id.html">package_id()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="package_info.html">package_info()</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">requirements()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#package-type-trait-inferring">package_type trait inferring</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#default-traits-for-each-kind-of-requires">Default traits for each kind of requires</a></li>
+<li class="toctree-l4"><a class="reference internal" href="set_name.html">set_name()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="set_version.html">set_version()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="source.html">source()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system_requirements.html">system_requirements()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="test.html">test()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="validate.html">validate()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="validate_build.html">validate_build()</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../running_and_output.html">Running and output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools.html">Recipe tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../config_files.html">Configuration files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../extensions.html">Extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../environment.html">Environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../binary_model.html">The binary model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../conan_server.html">Conan Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../runners.html">Runners</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../knowledge.html">Knowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/reference/conanfile/methods/requirements.html">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="../../conanfile.html">conanfile.py</a></li>
+          <li class="breadcrumb-item"><a href="../methods.html">Methods</a></li>
+      <li class="breadcrumb-item active">requirements()</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/develop2/reference/conanfile/methods/requirements.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="requirements">
+<span id="reference-conanfile-methods-requirements"></span><h1>requirements()<a class="headerlink" href="#requirements" title="Link to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">requirements()</span></code> method is used to specify the dependencies of a package.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">requirements</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">requires</span><span class="p">(</span><span class="s2">&quot;zlib/1.2.11&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For simple cases the attribute syntax can be used, like <code class="docutils literal notranslate"><span class="pre">requires</span> <span class="pre">=</span> <span class="pre">&quot;zlib/1.2.11&quot;</span></code>.</p>
+<section id="requirement-traits">
+<h2>Requirement traits<a class="headerlink" href="#requirement-traits" title="Link to this heading">¶</a></h2>
+<p>Traits are properties of a requires clause. They determine how various parts of a
+dependency are treated and propagated by Conan. Values for traits are usually computed by
+Conan based on the dependency’s <a class="reference internal" href="../attributes.html#reference-conanfile-attributes-package-type"><span class="std std-ref">package_type</span></a>, but can
+also be specified manually.</p>
+<p>A good introduction to traits is provided in the <a class="reference external" href="https://youtu.be/kKGglzm5ous">Advanced Dependencies Model in Conan 2.0</a> presentation.</p>
+<p>In the example below <code class="docutils literal notranslate"><span class="pre">headers</span></code> and <code class="docutils literal notranslate"><span class="pre">libs</span></code> are traits.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">requires</span><span class="p">(</span><span class="s2">&quot;math/1.0&quot;</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">libs</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="headers">
+<h3>headers<a class="headerlink" href="#headers" title="Link to this heading">¶</a></h3>
+<p>Indicates that there are headers that are going to be <code class="docutils literal notranslate"><span class="pre">#included</span></code> from this package at
+compile time. The dependency will be in the host context.</p>
+</section>
+<section id="libs">
+<h3>libs<a class="headerlink" href="#libs" title="Link to this heading">¶</a></h3>
+<p>The dependency contains some library or artifact that will be used at link time of the
+consumer. This trait will typically be <code class="docutils literal notranslate"><span class="pre">True</span></code> for direct shared and static libraries,
+but could be false for indirect static libraries that are consumed via a shared library.
+The dependency will be in the host context.</p>
+</section>
+<section id="build">
+<h3>build<a class="headerlink" href="#build" title="Link to this heading">¶</a></h3>
+<p>This dependency is a build tool, an application or executable, like cmake, that is used
+exclusively at build time. It is not linked/embedded into binaries, and will be in the
+build context.</p>
+</section>
+<section id="run">
+<h3>run<a class="headerlink" href="#run" title="Link to this heading">¶</a></h3>
+<p>This dependency contains some executables, either apps or shared libraries that need to be
+available to execute (typically in the path, or other system env-vars). This trait can be
+<code class="docutils literal notranslate"><span class="pre">True</span></code> for <code class="docutils literal notranslate"><span class="pre">build=False</span></code>, in that case, the package will contain some executables that
+can run in the host system when installing it, typically like an end-user application.
+This trait can be <code class="docutils literal notranslate"><span class="pre">True</span></code> for <code class="docutils literal notranslate"><span class="pre">build=True</span></code>, the package will contain executables that
+will run in the build context, typically while being used to build other packages.</p>
+</section>
+<section id="visible">
+<h3>visible<a class="headerlink" href="#visible" title="Link to this heading">¶</a></h3>
+<p>This <code class="docutils literal notranslate"><span class="pre">require</span></code> will be propagated downstream, even if it doesn’t propagate <code class="docutils literal notranslate"><span class="pre">headers</span></code>,
+<code class="docutils literal notranslate"><span class="pre">libs</span></code> or <code class="docutils literal notranslate"><span class="pre">run</span></code> traits. Requirements that propagate downstream can cause version
+conflicts. This is typically <code class="docutils literal notranslate"><span class="pre">True</span></code>, because in most cases, having 2 different versions of
+the same library in the same dependency graph is at least complicated, if not directly
+violating ODR or causing linking errors. It can be set to <code class="docutils literal notranslate"><span class="pre">False</span></code> in advanced scenarios,
+when we want to use different versions of the same package during the build.</p>
+</section>
+<section id="transitive-headers">
+<h3>transitive_headers<a class="headerlink" href="#transitive-headers" title="Link to this heading">¶</a></h3>
+<p>If <code class="docutils literal notranslate"><span class="pre">True</span></code> the headers of the dependency will be visible downstream.</p>
+</section>
+<section id="transitive-libs">
+<h3>transitive_libs<a class="headerlink" href="#transitive-libs" title="Link to this heading">¶</a></h3>
+<p>If <code class="docutils literal notranslate"><span class="pre">True</span></code> the libraries to link with of the dependency will be visible downstream.</p>
+</section>
+<section id="test">
+<h3>test<a class="headerlink" href="#test" title="Link to this heading">¶</a></h3>
+<p>This requirement is a test library or framework, like Catch2 or gtest. It is mostly a
+library that needs to be included and linked, but that will not be propagated downstream.</p>
+</section>
+<section id="package-id-mode">
+<span id="reference-conanfile-methods-requirements-package-id-mode"></span><h3>package_id_mode<a class="headerlink" href="#package-id-mode" title="Link to this heading">¶</a></h3>
+<p>If the recipe wants to specify how the dependency version affects the current package
+<code class="docutils literal notranslate"><span class="pre">package_id</span></code>, can be directly specified here.</p>
+<p>While it could be also done in the <code class="docutils literal notranslate"><span class="pre">package_id()</span></code> method, it seems simpler to be able to
+specify it in the <code class="docutils literal notranslate"><span class="pre">requires</span></code> while avoiding some ambiguities.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># We set the package_id_mode so it is part of the package_id</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">tool_requires</span><span class="p">(</span><span class="s2">&quot;tool/1.1.1&quot;</span><span class="p">,</span> <span class="n">package_id_mode</span><span class="o">=</span><span class="s2">&quot;minor_mode&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Which would be equivalent to:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">package_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+  <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">requires</span><span class="p">[</span><span class="s2">&quot;tool&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">minor_mode</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="force">
+<h3>force<a class="headerlink" href="#force" title="Link to this heading">¶</a></h3>
+<p>This <code class="docutils literal notranslate"><span class="pre">requires</span></code> will force its version in the dependency graph upstream, overriding
+other existing versions even of transitive dependencies, and also solving potential
+existing conflicts. The downstream consumer’s <code class="docutils literal notranslate"><span class="pre">force</span></code> traits always have higher priority.</p>
+</section>
+<section id="override">
+<h3>override<a class="headerlink" href="#override" title="Link to this heading">¶</a></h3>
+<p>The same as the <code class="docutils literal notranslate"><span class="pre">force</span></code> trait, but not adding a <code class="docutils literal notranslate"><span class="pre">direct</span></code> dependency. If there is no
+transitive dependency to override, this <code class="docutils literal notranslate"><span class="pre">require</span></code> will be discarded. This trait only
+exists at the time of defining a <code class="docutils literal notranslate"><span class="pre">requires</span></code>, but it will not exist as an actual
+<code class="docutils literal notranslate"><span class="pre">requires</span></code> once the graph is fully evaluated</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Best practices</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">force</span></code> and <code class="docutils literal notranslate"><span class="pre">override</span></code> traits to solve conflicts are not recommended as a general versioning
+solution, just as a temporary workaround to solve a version conflict. Its usage should be avoided
+whenever possible, and updating versions or version ranges in the graph to avoid the conflicts without
+overrides and forces is the recommended approach.</p>
+</div>
+</section>
+<section id="direct">
+<h3>direct<a class="headerlink" href="#direct" title="Link to this heading">¶</a></h3>
+<p>If the dependency is a direct one, that is, it has explicitly been declared by the current
+recipe, or if it is a transitive one.</p>
+</section>
+<section id="options">
+<h3>options<a class="headerlink" href="#options" title="Link to this heading">¶</a></h3>
+<p>It is possible to define options values for dependencies as a trait:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">requires</span><span class="p">(</span><span class="s2">&quot;mydep/0.1&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;dep_option&quot;</span><span class="p">:</span> <span class="s2">&quot;value&quot;</span><span class="p">})</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Defining options values in recipes does not have strong guarantees, please check
+<a class="reference internal" href="../../../knowledge/faq.html#faq-different-options-values"><span class="std std-ref">this FAQ about options values for dependencies</span></a>. The recommended way
+to define options values is in profile files.</p>
+</div>
+</section>
+</section>
+</section>
+<section id="package-type-trait-inferring">
+<span id="reference-conanfile-package-type-trait-inferring"></span><h1>package_type trait inferring<a class="headerlink" href="#package-type-trait-inferring" title="Link to this heading">¶</a></h1>
+<p>Some traits are automatically inferred based on the value of the <code class="docutils literal notranslate"><span class="pre">package_type</span></code> if not explicitly set by the recipe.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">application</span></code>: <code class="docutils literal notranslate"><span class="pre">headers=False</span></code>, <code class="docutils literal notranslate"><span class="pre">libs=False</span></code>, <code class="docutils literal notranslate"><span class="pre">run=True</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">shared-library</span></code>: <code class="docutils literal notranslate"><span class="pre">run=True</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">static-library</span></code>: <code class="docutils literal notranslate"><span class="pre">run=False</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">header-library</span></code>: <code class="docutils literal notranslate"><span class="pre">headers=True</span></code>, <code class="docutils literal notranslate"><span class="pre">libs=False</span></code>, <code class="docutils literal notranslate"><span class="pre">run=False</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">build-scripts</span></code>: <code class="docutils literal notranslate"><span class="pre">headers=False</span></code>, <code class="docutils literal notranslate"><span class="pre">libs=False</span></code>, <code class="docutils literal notranslate"><span class="pre">run=True</span></code>, <code class="docutils literal notranslate"><span class="pre">visible=False</span></code></p></li>
+</ul>
+</div></blockquote>
+<p>Additionally, some additional traits are inferred on top of the above mentioned based on the <code class="docutils literal notranslate"><span class="pre">package_type</span></code> of the dependant:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">header-library</span></code>: <code class="docutils literal notranslate"><span class="pre">transitive_headers=True</span></code>, <code class="docutils literal notranslate"><span class="pre">transitive_libs=True</span></code></p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="default-traits-for-each-kind-of-requires">
+<h1>Default traits for each kind of requires<a class="headerlink" href="#default-traits-for-each-kind-of-requires" title="Link to this heading">¶</a></h1>
+<p>Each kind of requires sets some additional traits by default on top of the ones stated in the last section. Those are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">requires</span></code>: <code class="docutils literal notranslate"><span class="pre">build=False</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">build_requires</span></code>:  <code class="docutils literal notranslate"><span class="pre">headers=False</span></code>, <code class="docutils literal notranslate"><span class="pre">libs=False</span></code>, <code class="docutils literal notranslate"><span class="pre">build=True</span></code>, <code class="docutils literal notranslate"><span class="pre">visible=False</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tool_requires</span></code>: <code class="docutils literal notranslate"><span class="pre">headers=False</span></code>, <code class="docutils literal notranslate"><span class="pre">libs=False</span></code>, <code class="docutils literal notranslate"><span class="pre">build=True</span></code>, <code class="docutils literal notranslate"><span class="pre">run=True</span></code>, <code class="docutils literal notranslate"><span class="pre">visible=False</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">test_requires</span></code>: <code class="docutils literal notranslate"><span class="pre">headers=True</span></code>, <code class="docutils literal notranslate"><span class="pre">libs=True</span></code>, <code class="docutils literal notranslate"><span class="pre">build=False</span></code>, <code class="docutils literal notranslate"><span class="pre">visible=False</span></code>, <code class="docutils literal notranslate"><span class="pre">test=True</span></code></p></li>
+</ul>
+</div></blockquote>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="package_info.html" class="btn btn-neutral float-left" title="package_info()" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="set_name.html" class="btn btn-neutral float-right" title="set_name()" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2024, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 2.5
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/2.5/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

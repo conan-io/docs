@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Creating conan packages to install dev tools &mdash; conan 1.35.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+    <link rel="shortcut icon" href="../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/en/latest/devtools/create_installer_packages.html" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=c6d9a2e2"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Build requirements" href="build_requires.html" />
+    <link rel="prev" title="Running and deploying packages" href="running_packages.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/conan-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.35
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../training_courses.html">Training Courses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../devtools.html">Package apps and devtools</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="running_packages.html">Running and deploying packages</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Creating conan packages to install dev tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#using-the-tool-packages-in-other-recipes">Using the tool packages in other recipes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-the-tool-packages-in-your-system">Using the tool packages in your system</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="build_requires.html">Build requirements</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../versioning.html">Versioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Extending Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../conan_v2.html">Road to Conan 2.0</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #eb8484;background-color: #ffcaca;padding: 3px;margin-bottom: 5px">
+              <p>This document is for a <b>"1.X" legacy</b> Conan version, <b>which is no longer recommended</b>. Please update to Conan 2, <a href="https://docs.conan.io/2/">click here to read the <b>Conan 2</b> documentation</a></p>
+            </div>
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          <!--@ OUTDATED_VERSION_PLACEHOLDER_BEGIN @
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/@LATEST_DOC_PAGE_URL@">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          @ OUTDATED_VERSION_PLACEHOLDER_END @-->
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../devtools.html">Package apps and devtools</a></li>
+      <li class="breadcrumb-item active">Creating conan packages to install dev tools</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/master/devtools/create_installer_packages.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="creating-conan-packages-to-install-dev-tools">
+<span id="create-installer-packages"></span><h1>Creating conan packages to install dev tools<a class="headerlink" href="#creating-conan-packages-to-install-dev-tools" title="Link to this heading"></a></h1>
+<p>One of the most useful features of Conan is to package executables like compilers or build tools and
+distribute them in a controlled way to the team of developers. This way Conan helps not only with the
+graph of dependencies of the application itself, but also with all the ecosystem needed to generate the
+project, making it really easy to control everything involved in the deployed application.</p>
+<p>Those tools need to run in the working machine (the <code class="docutils literal notranslate"><span class="pre">build</span></code> machine) regardless of the <code class="docutils literal notranslate"><span class="pre">host</span></code> platform
+where the generated binaries will run. If those platforms are different, we are cross building software.</p>
+<p>In this section we cope with the general scenario where a library requires other tools to compile that are
+also packaged with Conan. Read this section first, and get more information specific to cross compiling in
+the dedicated section of the docs: <a class="reference internal" href="../systems_cross_building/cross_building.html#cross-building"><span class="std std-ref">Cross building</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Conan v1.24 introduced a new feature to declare a full profile for the <code class="docutils literal notranslate"><span class="pre">build</span></code> and the <code class="docutils literal notranslate"><span class="pre">host</span></code> machine,
+it is the preferred way to deal with this scenario. Older versions should rely on the deprecated
+settings <code class="docutils literal notranslate"><span class="pre">os_build</span></code> and <code class="docutils literal notranslate"><span class="pre">arch_build</span></code>. There is a small section below about those settings, for a full
+explanation read the docs matching your Conan client.</p>
+</div>
+<p>A Conan package for a tool is like any other package with an executable. Here it is a recipe for packaging
+the <code class="docutils literal notranslate"><span class="pre">nasm</span></code> tool for building assembler:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">tools</span>
+<span class="kn">from</span> <span class="nn">conans.errors</span> <span class="kn">import</span> <span class="n">ConanInvalidConfiguration</span>
+
+
+<span class="k">class</span> <span class="nc">NasmConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;nasm&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;2.13.02&quot;</span>
+    <span class="n">license</span> <span class="o">=</span> <span class="s2">&quot;BSD-2-Clause&quot;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://github.com/conan-io/conan-center-index&quot;</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Nasm for windows. Useful as a build_require.&quot;</span>
+
+    <span class="k">def</span> <span class="nf">configure</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">os</span> <span class="o">!=</span> <span class="s2">&quot;Windows&quot;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ConanInvalidConfiguration</span><span class="p">(</span><span class="s2">&quot;Only windows supported for nasm&quot;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">nasm_folder_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;nasm-</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">suffix</span> <span class="o">=</span> <span class="s2">&quot;win32&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">arch</span> <span class="o">==</span> <span class="s2">&quot;x86&quot;</span> <span class="k">else</span> <span class="s2">&quot;win64&quot;</span>
+        <span class="n">nasm_zip_name</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">.zip&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nasm_folder_name</span><span class="p">,</span> <span class="n">suffix</span><span class="p">)</span>
+        <span class="n">tools</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s2">&quot;http://www.nasm.us/pub/nasm/releasebuilds/&quot;</span>
+                       <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">,</span> <span class="n">suffix</span><span class="p">,</span> <span class="n">nasm_zip_name</span><span class="p">),</span> <span class="n">nasm_zip_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Downloading nasm: &quot;</span>
+                         <span class="s2">&quot;http://www.nasm.us/pub/nasm/releasebuilds&quot;</span>
+                         <span class="s2">&quot;/</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">,</span> <span class="n">suffix</span><span class="p">,</span> <span class="n">nasm_zip_name</span><span class="p">))</span>
+        <span class="n">tools</span><span class="o">.</span><span class="n">unzip</span><span class="p">(</span><span class="n">nasm_zip_name</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">nasm_zip_name</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nasm_folder_name</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;license*&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nasm_folder_name</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ignore_case</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">env_info</span><span class="o">.</span><span class="n">PATH</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">package_folder</span><span class="p">,</span> <span class="s2">&quot;bin&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>This recipe has nothing special: it doesn’t declare the <code class="docutils literal notranslate"><span class="pre">compiler</span></code> and <code class="docutils literal notranslate"><span class="pre">build_type</span></code> settings because it is downloading
+already available binaries, and it is declaring the information for their consumers as usual in the <a class="reference internal" href="../reference/conanfile/methods.html#method-package-info"><span class="std std-ref">package_info()</span></a> method:</p>
+<ul class="simple">
+<li><p>The <a class="reference internal" href="../reference/conanfile/attributes.html#cpp-info-attributes-reference"><span class="std std-ref">cpp_info</span></a> is not declared, so it will take its default values: the <code class="docutils literal notranslate"><span class="pre">bindirs</span></code> will point to the
+<code class="docutils literal notranslate"><span class="pre">bin</span></code> folder where the <code class="docutils literal notranslate"><span class="pre">nasm.exe</span></code> executable is packaged.</p></li>
+<li><p>In the <a class="reference internal" href="../reference/conanfile/attributes.html#env-info-attributes-reference"><span class="std std-ref">env_info</span></a> attribute, it is adding the <code class="docutils literal notranslate"><span class="pre">bin</span></code> folder to the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> environment variable.</p></li>
+</ul>
+<p>This two simple declarations are enough to reuse this tool in the scenarios we are detailing below.</p>
+<section id="using-the-tool-packages-in-other-recipes">
+<h2>Using the tool packages in other recipes<a class="headerlink" href="#using-the-tool-packages-in-other-recipes" title="Link to this heading"></a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This section refers to the <strong>experimental feature</strong> that is activated when using <code class="docutils literal notranslate"><span class="pre">--profile:build</span></code> and <code class="docutils literal notranslate"><span class="pre">--profile:host</span></code>
+in the command-line. It is currently under development, features can be added or removed in the following versions.</p>
+</div>
+<p>These kind of tools are not usually part of the application graph itself, they are needed only to build the library, so
+you should usually declare them as <a class="reference internal" href="build_requires.html#build-requires"><span class="std std-ref">build requirements</span></a>, in the recipe itself or in a profile.</p>
+<p>For example, there are many recipes that can take advantage of the <code class="docutils literal notranslate"><span class="pre">nasm</span></code> package we’ve seen above, like
+<a class="reference external" href="https://conan.io/center/flac?tab=recipe">flac</a> or <a class="reference external" href="https://conan.io/center/libx264?tab=recipe">libx264</a>
+that are already available in <a class="reference external" href="https://conan.io/center/">ConanCenter</a>. Those recipes will take advantage of <code class="docutils literal notranslate"><span class="pre">nasm</span></code>
+being in the PATH to run some assembly optimizations.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="k">class</span> <span class="nc">LibX264Conan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;libx264&quot;</span>
+     <span class="o">...</span>
+<span class="hll">     <span class="n">build_requires</span> <span class="o">=</span> <span class="s2">&quot;nasm/2.13.02&quot;</span>
+</span>
+     <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+         <span class="o">...</span> <span class="c1"># ``nasm.exe`` will be in the PATH here</span>
+
+     <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">libs</span> <span class="o">=</span> <span class="p">[</span><span class="o">...</span><span class="p">]</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../_images/conan-nasm.png"><img alt="../_images/conan-nasm.png" class="align-center" src="../_images/conan-nasm.png" style="width: 400px;" /></a>
+<p>The consumer recipe needs only to declare the corresponding <code class="docutils literal notranslate"><span class="pre">build_require</span></code> and Conan will take care
+of adding the required paths to the corresponding environment variables:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conan<span class="w"> </span>create<span class="w"> </span>path/to/libx264<span class="w"> </span>--profile:build<span class="o">=</span>windows<span class="w"> </span>--profile:host<span class="o">=</span>profile_host
+</pre></div>
+</div>
+<p>Here we are telling Conan to create the package for the <code class="docutils literal notranslate"><span class="pre">libx264</span></code> for the <code class="docutils literal notranslate"><span class="pre">host</span></code> platform defined
+in the profile <code class="docutils literal notranslate"><span class="pre">profile_host</span></code> file and to use the profile <code class="docutils literal notranslate"><span class="pre">windows</span></code> for all the build requirements
+that are in the <code class="docutils literal notranslate"><span class="pre">build</span></code> context. In other words: in this example we are running a Windows machine
+and we need a version of <code class="docutils literal notranslate"><span class="pre">nasm</span></code> compatible with this machine, so we are providing a <code class="docutils literal notranslate"><span class="pre">windows</span></code> profile
+for the <code class="docutils literal notranslate"><span class="pre">build</span></code> context, and we are generating the library for the <code class="docutils literal notranslate"><span class="pre">host</span></code> platform which is declared
+in the <code class="docutils literal notranslate"><span class="pre">profile_host</span></code> profile (read more about <a class="reference internal" href="build_requires.html#build-requires-context"><span class="std std-ref">build requires context</span></a>).</p>
+<p>Using two profiles forces Conan to make this distinction between recipes in the <code class="docutils literal notranslate"><span class="pre">build</span></code> context and those
+in the <code class="docutils literal notranslate"><span class="pre">host</span></code> context. It has several advantages:</p>
+<ul class="simple">
+<li><p>Recipes for these tools are regular recipes, no need to adapt them (before 1.24 they require special
+settings and some package ID customization).</p></li>
+<li><p>We provide a full profile for the <code class="docutils literal notranslate"><span class="pre">build</span></code> machine, so Conan is able to compile those build requirements
+from sources if they are not already available.</p></li>
+<li><p>Conan will add to the environment not only the path to the <code class="docutils literal notranslate"><span class="pre">bin</span></code> folder, but also it will populate
+the <code class="docutils literal notranslate"><span class="pre">DYLD_LIBRARY_PATH</span></code> and <code class="docutils literal notranslate"><span class="pre">LD_LIBRARY_PATH</span></code> variables that are needed to find the shared libraries
+that tool could need during runtime.</p></li>
+</ul>
+</section>
+<section id="using-the-tool-packages-in-your-system">
+<h2>Using the tool packages in your system<a class="headerlink" href="#using-the-tool-packages-in-your-system" title="Link to this heading"></a></h2>
+<p>A different scenario is when you want to use in your system the binaries generated by Conan, to achieve
+this objective you can use the <a class="reference internal" href="../mastering/virtualenv.html#virtual-environment-generator"><span class="std std-ref">virtualrunenv generator</span></a> to get your
+environment populated with the required variables.</p>
+<p>For example: Working in Windows with the <code class="docutils literal notranslate"><span class="pre">nasm</span></code> package we’ve already defined:</p>
+<ol class="arabic">
+<li><p>Create a separate folder from your project, this folder will handle our global development environment.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>mkdir<span class="w"> </span>my_cpp_environ
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>my_cpp_environ
+</pre></div>
+</div>
+</li>
+<li><p>Create a <em>conanfile.txt</em> file:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[requires]</span>
+<span class="na">nasm/2.13.02</span>
+<span class="c1"># You can add more tools here</span>
+
+<span class="k">[generators]</span>
+<span class="na">virtualrunenv</span>
+</pre></div>
+</div>
+</li>
+<li><p>Install them. Here it doesn’t matter if you use only the <code class="docutils literal notranslate"><span class="pre">host</span></code> profile or the <code class="docutils literal notranslate"><span class="pre">build</span></code> one too
+because the environment that is going to be populated includes only the root of the graph and its
+dependencies, without any build requirement. In any case, the <code class="docutils literal notranslate"><span class="pre">profile:host</span></code> needed is the one
+corresponding to the Windows machine where we are running these tests.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>.<span class="w"> </span>--profile:host<span class="o">=</span>windows<span class="w"> </span><span class="o">[</span>--profile:build<span class="o">=</span>windows<span class="o">]</span>
+</pre></div>
+</div>
+</li>
+<li><p>Activate the virtual environment in your shell:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>activate_run
+<span class="o">(</span>my_cpp_environ<span class="o">)</span>$
+</pre></div>
+</div>
+</li>
+<li><p>Check that the tools are in the path:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">(</span>my_cpp_environ<span class="o">)</span>$<span class="w"> </span>nasm<span class="w"> </span>--version
+
+&gt;<span class="w"> </span>NASM<span class="w"> </span>version<span class="w"> </span><span class="m">2</span>.13.02<span class="w"> </span>compiled<span class="w"> </span>on<span class="w"> </span>Dec<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="m">2019</span>
+</pre></div>
+</div>
+</li>
+<li><p>You can deactivate the virtual environment with the <em>deactivate.bat</em> script</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">(</span>my_cpp_environ<span class="o">)</span>$<span class="w"> </span>deactivate_run
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="running_packages.html" class="btn btn-neutral float-left" title="Running and deploying packages" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="build_requires.html" class="btn btn-neutral float-right" title="Build requirements" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2020, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 1.35
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/en/1.35/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

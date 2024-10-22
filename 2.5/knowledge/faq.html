@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ &mdash; conan 2.5.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=045299b1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/conan.css?v=7d9e9f1e" />
+
+  
+    <link rel="shortcut icon" href="../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/knowledge/faq.html" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=3c4615cf"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Videos" href="videos.html" />
+    <link rel="prev" title="Core guidelines" href="guidelines.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/conan-docs-logo-2.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.5
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What’s new in Conan 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devops.html">Devops guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../knowledge.html">Knowledge</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cheatsheet.html">Cheat sheet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guidelines.html">Core guidelines</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">FAQ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="videos.html">Videos</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/knowledge/faq.html">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../knowledge.html">Knowledge</a></li>
+      <li class="breadcrumb-item active">FAQ</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/develop2/knowledge/faq.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="faq">
+<span id="id1"></span><h1>FAQ<a class="headerlink" href="#faq" title="Link to this heading">¶</a></h1>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>There is a great community behind Conan with users helping each other in <a class="reference external" href="https://cppalliance.org/slack/">Cpplang Slack</a>.
+Please join us in the <code class="docutils literal notranslate"><span class="pre">#conan</span></code> channel!</p>
+</div>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading">¶</a></h2>
+<section id="error-missing-prebuilt-package">
+<h3>ERROR: Missing prebuilt package<a class="headerlink" href="#error-missing-prebuilt-package" title="Link to this heading">¶</a></h3>
+<p>When installing packages (with <strong class="command">conan install</strong> or <strong class="command">conan create</strong>) it is possible
+that you get an error like the following one:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ERROR: Missing binary: zlib/1.2.11:b1d267f77ddd5d10d06d2ecf5a6bc433fbb7eeed
+
+zlib/1.2.11: WARN: Can&#39;t find a &#39;zlib/1.2.11&#39; package binary &#39;b1d267f77ddd5d10d06d2ecf5a6bc433fbb7eeed&#39; for the configuration:
+[settings]
+arch=x86_64
+build_type=Release
+compiler=apple-clang
+compiler.cppstd=gnu11
+compiler.libcxx=libc++
+compiler.version=14
+os=Macos
+[options]
+fPIC=True
+shared=False
+
+ERROR: Missing prebuilt package for &#39;zlib/1.2.11&#39;. You can try:
+    - List all available packages using &#39;conan list &quot;{ref}:*&quot; -r=remote&#39;
+    - Explain missing binaries: replace &#39;conan install ...&#39; with &#39;conan graph explain ...&#39;
+    - Try to build locally from sources using the &#39;--build=zlib/1.2.11&#39; argument
+
+More Info at &#39;https://docs.conan.io/en/2/knowledge/faq.html#error-missing-prebuilt-package&#39;
+</pre></div>
+</div>
+<p>This means that the package recipe <code class="docutils literal notranslate"><span class="pre">zlib/1.2.11</span></code> exists, but for some reason there is no
+precompiled package for your current settings or options. Maybe the package creator didn’t build and
+shared pre-built packages at all and only uploaded the package recipe, or they are only
+providing packages for some platforms or compilers. E.g. the package creator built
+packages from the recipe for apple-clang 11, but you are using apple-clang 14.
+Also you may want to check your <cite>package ID mode</cite> as it may
+have an influence on the packages available for it.</p>
+<p>By default, Conan doesn’t build packages from sources. There are several possibilities to
+overcome this error:</p>
+<ul class="simple">
+<li><p>You can try to build the package for your settings from sources, indicating some build
+policy as argument, like <strong class="command">--build zlib*</strong> or <strong class="command">--build missing</strong>. If the
+package recipe and the source code work for your settings you will have your binaries
+built locally and ready for use.</p></li>
+<li><p>If building from sources fails, and you are using the <cite>conancenter</cite> remote, you can open
+an issue in <a class="reference external" href="https://github.com/conan-io/conan-center-index">the Conan Center Index repository</a></p></li>
+</ul>
+</section>
+<section id="error-invalid-setting">
+<span id="id2"></span><h3>ERROR: Invalid setting<a class="headerlink" href="#error-invalid-setting" title="Link to this heading">¶</a></h3>
+<p>It might happen sometimes, when you specify a setting not present in the defaults
+that you receive a message like this:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>.<span class="w"> </span>-s<span class="w"> </span>compiler.version<span class="o">=</span><span class="m">4</span>.19<span class="w"> </span>...
+
+ERROR:<span class="w"> </span>Invalid<span class="w"> </span>setting<span class="w"> </span><span class="s1">&#39;4.19&#39;</span><span class="w"> </span>is<span class="w"> </span>not<span class="w"> </span>a<span class="w"> </span>valid<span class="w"> </span><span class="s1">&#39;settings.compiler.version&#39;</span><span class="w"> </span>value.
+Possible<span class="w"> </span>values<span class="w"> </span>are<span class="w"> </span><span class="o">[</span><span class="s1">&#39;4.4&#39;</span>,<span class="w"> </span><span class="s1">&#39;4.5&#39;</span>,<span class="w"> </span><span class="s1">&#39;4.6&#39;</span>,<span class="w"> </span><span class="s1">&#39;4.7&#39;</span>,<span class="w"> </span><span class="s1">&#39;4.8&#39;</span>,<span class="w"> </span><span class="s1">&#39;4.9&#39;</span>,<span class="w"> </span><span class="s1">&#39;5.1&#39;</span>,<span class="w"> </span><span class="s1">&#39;5.2&#39;</span>,<span class="w"> </span><span class="s1">&#39;5.3&#39;</span>,<span class="w"> </span><span class="s1">&#39;5.4&#39;</span>,<span class="w"> </span><span class="s1">&#39;6.1&#39;</span>,<span class="w"> </span><span class="s1">&#39;6.2&#39;</span><span class="o">]</span>
+</pre></div>
+</div>
+<p>This doesn’t mean that such compiler version is not supported by Conan, it is just that it is not present in the actual
+defaults settings. You can find in your user home folder <code class="docutils literal notranslate"><span class="pre">~/.conan2/settings.yml</span></code> a settings file that you
+can modify, edit, add any setting or any value, with any nesting if necessary. See <a class="reference internal" href="../reference/config_files/settings.html#reference-config-files-settings-yml"><span class="std std-ref">settings.yml</span></a> to learn
+how you can customize your settings to model your binaries at your will.</p>
+<p>As long as your team or users have the same settings (<code class="docutils literal notranslate"><span class="pre">settings.yml</span></code> and <code class="docutils literal notranslate"><span class="pre">settings_user.yml</span></code> an be easily shared with the
+<code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">config</span> <span class="pre">install</span></code> command), everything will work. The <em>settings.yml</em> file is just a
+mechanism so users agree on a common spelling for typical settings. Also, if you think that some settings would
+be useful for many other conan users, please submit it as an issue or a pull request, so it is included in future
+releases.</p>
+<p>It is possible that some built-in helper or integrations, like <code class="docutils literal notranslate"><span class="pre">CMake</span></code> or <code class="docutils literal notranslate"><span class="pre">CMakeToolchain</span></code> will not understand the new added settings,
+don’t use them or even fail if you added some new unexpected value to existing settings.
+Such helpers as <code class="docutils literal notranslate"><span class="pre">CMake</span></code> are simple utilities to translate from conan settings to the respective
+build system syntax and command line arguments, so they can be extended or replaced with your own
+one that would handle your own private settings.</p>
+</section>
+<section id="error-authenticationexception">
+<h3>ERROR: AuthenticationException:<a class="headerlink" href="#error-authenticationexception" title="Link to this heading">¶</a></h3>
+<p>This error can happen, if there are no or false authentication credentials in the HTTP request from conan. To get more information try enabling the debug level for HTTP connections:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">http.client</span>
+<span class="n">http</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">HTTPConnection</span><span class="o">.</span><span class="n">debuglevel</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>One source of error can be the <code class="docutils literal notranslate"><span class="pre">.netrc</span></code> file, which is <a class="reference external" href="https://requests.readthedocs.io/en/latest/user/quickstart/#custom-headers">honored by the requests library</a>.</p>
+</section>
+<section id="error-obtaining-different-revisions-in-linux-and-windows">
+<span id="faq-different-revisions"></span><h3>ERROR: Obtaining different revisions in Linux and Windows<a class="headerlink" href="#error-obtaining-different-revisions-in-linux-and-windows" title="Link to this heading">¶</a></h3>
+<p>Git will (by default) checkout files in Windows systems using <code class="docutils literal notranslate"><span class="pre">CRLF</span></code> line endings, effectively producing different files than in Linux that files will use <code class="docutils literal notranslate"><span class="pre">LF</span></code> line endings. As files are different, the Conan recipe revision will be different from the revisions computed in other platforms such as Linux, resulting in missing the respective binaries in the other revision.</p>
+<p>Conan will not normalize or change in any way the source files, it is not its responsibility and there are risks of breaking things. The source control is the application changing the files, so that is a more correct place to handle this. It is necessary to instruct Git to do the checkout with the same line endings. This can be done several ways, for example, by adding a <code class="docutils literal notranslate"><span class="pre">.gitattributes</span></code> file to the project repository:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[auto]</span>
+<span class="w">  </span><span class="na">crlf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">false</span>
+</pre></div>
+</div>
+<p>Other approach would be to change the <code class="docutils literal notranslate"><span class="pre">.gitconfig</span></code> to change it globally. Modern editors (even Notepad) in Windows can perfectly work with files with <code class="docutils literal notranslate"><span class="pre">LF</span></code>, it is no longer necessary to change the line endings.</p>
+</section>
+<section id="defining-options-for-dependencies-in-conanfile-py-recipes-doesn-t-work">
+<span id="faq-different-options-values"></span><h3>Defining options for dependencies in conanfile.py recipes doesn’t work<a class="headerlink" href="#defining-options-for-dependencies-in-conanfile-py-recipes-doesn-t-work" title="Link to this heading">¶</a></h3>
+<p>Conan expands the dependency graph depth-first, this is important to be able to implement many of the very special C/C++ propagation
+logic (headers, static and shared libraries, applications, tool-requires, test-requires, conflicts, overrides, etc.).</p>
+<p>This means that when a <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code> declares something like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyPkg</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;mypkg&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+    <span class="n">default_options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;zlib/*:shared&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+    <span class="c1"># Or</span>
+    <span class="k">def</span> <span class="nf">requirements</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">requires</span><span class="p">(</span><span class="s2">&quot;zlib/1.3&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;shared&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>it cannot be always honored, and the <code class="docutils literal notranslate"><span class="pre">zlib</span></code> dependency might end with different <code class="docutils literal notranslate"><span class="pre">shared=False</span></code> option value.
+This in-recipe options values definition for dependencies only works if:</p>
+<ul class="simple">
+<li><p>There are no other packages depending on <code class="docutils literal notranslate"><span class="pre">zlib</span></code> in the graph</p></li>
+<li><p>There are other packages depending on <code class="docutils literal notranslate"><span class="pre">zlib</span></code> in the graph, but <code class="docutils literal notranslate"><span class="pre">mypkg/0.1</span></code> is the first require (the first branch
+in the dependency graph) that is required. That means that <code class="docutils literal notranslate"><span class="pre">requires</span> <span class="pre">=</span> <span class="pre">&quot;mypkg/0.1&quot;,</span> <span class="pre">&quot;zlib/1.3&quot;</span></code> will work and will have
+<code class="docutils literal notranslate"><span class="pre">zlib</span></code> as shared, but <code class="docutils literal notranslate"><span class="pre">requires</span> <span class="pre">=</span> <span class="pre">&quot;zlib/1.3&quot;,</span> <span class="pre">&quot;mypkg/0.1&quot;</span></code> will expand first <code class="docutils literal notranslate"><span class="pre">zlib</span></code> with its default, which is
+<code class="docutils literal notranslate"><span class="pre">shared=False</span></code> and when the <code class="docutils literal notranslate"><span class="pre">mypkg/0.1</span></code> is computed it will be too late to change <code class="docutils literal notranslate"><span class="pre">zlib</span></code> to be <code class="docutils literal notranslate"><span class="pre">shared=True</span></code>.</p></li>
+</ul>
+<p>In case there are some recipe that won’t work at all with some option of the dependency, the recommendation is to define
+a <code class="docutils literal notranslate"><span class="pre">validate()</span></code> method in the recipe to guarantee that it will raise an error if for some reason the upstream dependency
+doesn’t have the right options values.</p>
+<p>Conan might be able to show some (not guaranteed to be exhaustive) of these issues in the output of the Conan commands,
+please read it carefully.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Options</span> <span class="n">conflicts</span>
+    <span class="n">liba</span><span class="o">/</span><span class="mf">0.1</span><span class="p">:</span><span class="n">myoption</span><span class="o">=</span><span class="mi">1</span> <span class="p">(</span><span class="n">current</span> <span class="n">value</span><span class="p">)</span>
+        <span class="n">libc</span><span class="o">/</span><span class="mf">0.1</span><span class="o">-&gt;</span><span class="n">myoption</span><span class="o">=</span><span class="mi">2</span>
+    <span class="n">It</span> <span class="ow">is</span> <span class="n">recommended</span> <span class="n">to</span> <span class="n">define</span> <span class="n">options</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">profiles</span><span class="p">,</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">recipes</span>
+</pre></div>
+</div>
+<p>In general, it is more recommended to define options values in profile files, not in recipes.
+Recipe defined options always have precedence over options defined in profiles.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="guidelines.html" class="btn btn-neutral float-left" title="Core guidelines" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="videos.html" class="btn btn-neutral float-right" title="Videos" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2024, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 2.5
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/2.5/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

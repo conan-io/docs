@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Conan: A Python package manager &mdash; conan 1.43.4 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+    <link rel="shortcut icon" href="../../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/en/latest/howtos/other_languages_package_manager/python.html" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=2af4b9e7"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="How to manage SSL (TLS) certificates" href="../use_tls_certificates.html" />
+    <link rel="prev" title="Conan: A Go package manager" href="go.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/conan-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.43
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cheatsheet.html">Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../training_courses.html">Training Courses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versioning.html">Versioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../extending.html">Extending Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration.html">Configuration</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../howtos.html">Howtos</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../header_only.html">How to package header-only libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cmake_launch.html">How to launch conan install from cmake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../visual_studio_packages.html">How to create and reuse packages based on Visual Studio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../makefiles.html">Creating and reusing packages based on Makefiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manage_gcc_abi.html">How to manage the GCC &gt;= 5 ABI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vs2017_cmake.html">Using Visual Studio 2017 - CMake integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intel_compiler.html">Working with Intel compilers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manage_cpp_standard.html">How to manage C++ standard [EXPERIMENTAL]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../run_conan_in_docker.html">How to use Docker to create and cross-build C and C++ Conan packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../python_code_reuse.html">How to reuse Python code in recipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../custom_generators.html">How to create and share a custom generator with generator packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manage_shared_libraries.html">How to manage shared libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cmake_install.html">How to reuse cmake install for package() method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../collaborate_packages.html">How to collaborate with other users’ packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../link_apple_framework.html">How to link with Apple Frameworks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../link_apple_framework.html#how-to-package-apple-frameworks">How to package Apple Frameworks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../collect_licenses.html">How to collect licenses of dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extract_licenses_from_headers.html">How to extract licenses from headers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../capture_version.html">How to dynamically define the name and version of a package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../capture_version.html#how-to-capture-package-version-from-scm-git">How to capture package version from SCM: git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../capture_version.html#how-to-capture-package-version-from-scm-svn">How to capture package version from SCM: svn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../capture_version.html#how-to-capture-package-version-from-text-or-build-files">How to capture package version from text or build files</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../other_languages_package_manager.html">How to use Conan as other language package manager</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="go.html">Conan: A Go package manager</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Conan: A Python package manager</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#a-full-python-and-c-c-package-manager">A full Python and C/C++ package manager</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../use_tls_certificates.html">How to manage SSL (TLS) certificates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../check_conan_version_in_conanfile.html">How to check the version of the Conan client inside a conanfile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generic_ci_artifactory.html">Use a generic CI with Conan and Artifactory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sanitizers.html">Compiler sanitizers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../conan_v2.html">Conan migration guide to 2.0</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #eb8484;background-color: #ffcaca;padding: 3px;margin-bottom: 5px">
+              <p>This document is for a <b>"1.X" legacy</b> Conan version, <b>which is no longer recommended</b>. Please update to Conan 2, <a href="https://docs.conan.io/2/">click here to read the <b>Conan 2</b> documentation</a></p>
+            </div>
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          <!--@ OUTDATED_VERSION_PLACEHOLDER_BEGIN @
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/@LATEST_DOC_PAGE_URL@">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          @ OUTDATED_VERSION_PLACEHOLDER_END @-->
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../howtos.html">Howtos</a></li>
+          <li class="breadcrumb-item"><a href="../other_languages_package_manager.html">How to use Conan as other language package manager</a></li>
+      <li class="breadcrumb-item active">Conan: A Python package manager</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/master/howtos/other_languages_package_manager/python.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="conan-a-python-package-manager">
+<h1>Conan: A Python package manager<a class="headerlink" href="#conan-a-python-package-manager" title="Link to this heading"></a></h1>
+<p>Conan is a C and C++ package manager, and to deal with the vast variability of C and C++ build systems, compilers, configurations, etc., it
+was designed to be extremely flexible, to allow users the freedom to configure builds in virtually any manner required. This is one of the reasons to use Python as
+the scripting language for Conan package recipes.</p>
+<p>With this flexibility, Conan is able to do very different tasks: package
+<a class="reference external" href="https://blog.conan.io/2016/06/01/Building-and-packaging-C++-modules-in-VS2015.html">Visual Studio modules</a>,
+<a class="reference internal" href="go.html#go-package-manager"><span class="std std-ref">package Go code</span></a>, build packages from sources or from binaries retrieved from elsewhere, etc.</p>
+<p><a class="reference internal" href="../python_code_reuse.html#python-reuse"><span class="std std-ref">Python code can be reused and packaged with Conan</span></a> to share functionalities or tools among <em>conanfile.py</em> files. Here we can
+see a full example of Conan as a Python package manager.</p>
+<section id="a-full-python-and-c-c-package-manager">
+<h2>A full Python and C/C++ package manager<a class="headerlink" href="#a-full-python-and-c-c-package-manager" title="Link to this heading"></a></h2>
+<p>The real utility of this is that Conan is a C and C++ package manager. So, for example, you are able to create a Python package that wraps the functionality
+of the Poco C++ library. Poco itself has transitive (C/C++) dependencies, but they are already handled by
+Conan. Furthermore, a very interesting thing is that nothing has to be done in advance for that library, thanks to useful tools
+such as <strong>pybind11</strong>, that lets you easily create Python bindings.</p>
+<p>So let’s build a package with the following files:</p>
+<ul class="simple">
+<li><p><em>conanfile.py</em>: The package recipe.</p></li>
+<li><p><em>__init__.py</em>: A required file which should remain blank.</p></li>
+<li><p><em>pypoco.cpp</em>: The C++ code with the <code class="docutils literal notranslate"><span class="pre">pybind11</span></code> wrapper for Poco that generates a Python extension (a shared library that can be imported
+from Python).</p></li>
+<li><p><em>CMakeLists.txt</em>: The CMake build file that is able to compile <em>pypoco.cpp</em> into a Python extension (<em>pypoco.pyd</em> in Windows,
+<em>pypoco.so</em> in Linux)</p></li>
+<li><p><em>poco.py</em>: A Python file that makes use of the pypoco Python binary extension built with <em>pypoco.cpp</em>.</p></li>
+<li><p><em>test_package/conanfile.py</em>: A test consumer “convenience” recipe to create and test the package.</p></li>
+</ul>
+<p>The <em>pypoco.cpp</em> file can be coded easily thanks to the elegant <code class="docutils literal notranslate"><span class="pre">pybind11</span></code> library:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">pypoco.cpp</span><a class="headerlink" href="#id1" title="Link to this code"></a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;pybind11/pybind11.h&gt;</span>
+<span class="w"> </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;Poco/Random.h&quot;</span>
+
+<span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="n">Poco</span><span class="o">::</span><span class="n">Random</span><span class="p">;</span>
+<span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">py</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">pybind11</span><span class="p">;</span>
+
+<span class="w"> </span><span class="n">PYBIND11_PLUGIN</span><span class="p">(</span><span class="n">pypoco</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="n">py</span><span class="o">::</span><span class="k">module</span><span class="w"> </span><span class="n">m</span><span class="p">(</span><span class="s">&quot;pypoco&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;pybind11 example plugin&quot;</span><span class="p">);</span>
+<span class="w">     </span><span class="n">py</span><span class="o">::</span><span class="n">class_</span><span class="o">&lt;</span><span class="n">Random</span><span class="o">&gt;</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Random&quot;</span><span class="p">)</span>
+<span class="w">         </span><span class="p">.</span><span class="n">def</span><span class="p">(</span><span class="n">py</span><span class="o">::</span><span class="n">init</span><span class="o">&lt;&gt;</span><span class="p">())</span>
+<span class="w">         </span><span class="p">.</span><span class="n">def</span><span class="p">(</span><span class="s">&quot;nextFloat&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Random</span><span class="o">::</span><span class="n">nextFloat</span><span class="p">);</span>
+<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">ptr</span><span class="p">();</span>
+<span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>And the <em>poco.py</em> file is straightforward:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text"><em>poco.py</em></span><a class="headerlink" href="#id2" title="Link to this code"></a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="k">import</span><span class="w"> </span><span class="n">sys</span>
+<span class="w"> </span><span class="k">import</span><span class="w"> </span><span class="n">pypoco</span>
+
+<span class="w"> </span><span class="n">def</span><span class="w"> </span><span class="n">random_float</span><span class="p">()</span><span class="o">:</span>
+<span class="w">     </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pypoco</span><span class="p">.</span><span class="n">Random</span><span class="p">()</span>
+<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">nextFloat</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>The <em>conanfile.py</em> is a bit longer, but is still quite easy to understand:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text"><em>conanfile.py</em></span><a class="headerlink" href="#id3" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">tools</span><span class="p">,</span> <span class="n">CMake</span>
+
+ <span class="k">class</span> <span class="nc">PocoPyReuseConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;PocoPy&quot;</span>
+     <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+     <span class="n">requires</span> <span class="o">=</span> <span class="s2">&quot;poco/1.9.4&quot;</span><span class="p">,</span> <span class="s2">&quot;pybind11/2.3.0@conan/stable&quot;</span>
+     <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span>
+     <span class="n">exports</span> <span class="o">=</span> <span class="s2">&quot;*&quot;</span>
+     <span class="n">generators</span> <span class="o">=</span> <span class="s2">&quot;cmake&quot;</span>
+     <span class="n">build_policy</span> <span class="o">=</span> <span class="s2">&quot;missing&quot;</span>
+
+     <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+         <span class="n">cmake</span> <span class="o">=</span> <span class="n">CMake</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+         <span class="n">pythonpaths</span> <span class="o">=</span> <span class="s2">&quot;-DPYTHON_INCLUDE_DIR=C:/Python27/include -DPYTHON_LIBRARY=C:/Python27/libs/python27.lib&quot;</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s1">&#39;cmake </span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1"> -DEXAMPLE_PYTHON_VERSION=2.7&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">cmake</span><span class="o">.</span><span class="n">command_line</span><span class="p">,</span> <span class="n">pythonpaths</span><span class="p">))</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;cmake --build . </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">cmake</span><span class="o">.</span><span class="n">build_config</span><span class="p">)</span>
+
+     <span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s1">&#39;*.py*&#39;</span><span class="p">)</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.so&quot;</span><span class="p">)</span>
+
+     <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">env_info</span><span class="o">.</span><span class="n">PYTHONPATH</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">package_folder</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>The recipe now declares 2 <code class="docutils literal notranslate"><span class="pre">requires</span></code> that will be used to create the binary extension: the <strong>Poco library</strong> and the <strong>pybind11 library</strong>.</p>
+<p>As we are actually building C++ code, there are a few important things that we need:</p>
+<ul class="simple">
+<li><p>Input <code class="docutils literal notranslate"><span class="pre">settings</span></code> that define the OS, compiler, version and architecture we are using to build our extension. This is necessary because
+the binary we are building must match the architecture of the Python interpreter that we will be using.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">build()</span></code> method is actually used to invoke CMake. You may see that we had to hardcode the Python path in the example, as the <em>CMakeLists.txt</em>
+call to <code class="docutils literal notranslate"><span class="pre">find_package(PythonLibs)</span></code> didn’t find my Python installation in <em>C:/Python27</em>, even though that is a standard path. I have also added the <code class="docutils literal notranslate"><span class="pre">cmake</span></code>
+generator to be able to easily use the declared <code class="docutils literal notranslate"><span class="pre">requires</span></code> build information inside my <em>CMakeLists.txt</em>.</p></li>
+<li><p>The <em>CMakeLists.txt</em> is not posted here, but is basically the one used in the pybind11 example with just 2 lines to include the cmake file generated by Conan
+for dependencies. It can be inspected in the GitHub repo.</p></li>
+<li><p>Note that we are using Python 2.7 as an input option. If necessary, more options for other interpreters/architectures could be easily
+provided, as well as avoiding the hardcoded paths. Even the Python interpreter itself could be packaged in a Conan package.</p></li>
+</ul>
+<p>The above recipe will generate a different binary for different compilers or versions. As the binary is being wrapped by Python, we could
+avoid this and use the same binary for different setups, modifying this behavior with the <code class="docutils literal notranslate"><span class="pre">conan_info()</span></code> method.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span><span class="nb">export</span><span class="w"> </span>.<span class="w"> </span>memsharded/testing
+$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>pocopy/0.1@memsharded/testing<span class="w"> </span>-s<span class="w"> </span><span class="nv">arch</span><span class="o">=</span>x86<span class="w"> </span>-g<span class="w"> </span>virtualenv
+$<span class="w"> </span>activate
+$<span class="w"> </span>python
+&gt;&gt;&gt;<span class="w"> </span>import<span class="w"> </span>poco
+&gt;&gt;&gt;<span class="w"> </span>poco.random_float<span class="o">()</span>
+<span class="m">0</span>.697845458984375
+</pre></div>
+</div>
+<p>Now, the first invocation of <strong class="command">conan install</strong> will retrieve the dependencies and build the package. The next invocation will use the
+cached binaries and be much faster. Note how we have to specify <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">arch=x86</span></code> to match the architecture of the Python interpreter
+to be used, in our case, 32 bits.</p>
+<p>The output of the <strong class="command">conan install</strong> command also shows us the dependencies that are being pulled:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Requirements
+<span class="w">    </span>openssl/1.0.2t<span class="w"> </span>from<span class="w"> </span>conan.io
+<span class="w">    </span>poco/1.9.4<span class="w"> </span>from<span class="w"> </span>conan.io
+<span class="w">    </span>pocopy/0.1@memsharded/testing<span class="w"> </span>from<span class="w"> </span><span class="nb">local</span>
+<span class="w">    </span>pybind11/2.3.0@conan/stable<span class="w"> </span>from<span class="w"> </span>conan.io
+<span class="w">    </span>zlib/1.2.11<span class="w"> </span>from<span class="w"> </span>conan.io
+</pre></div>
+</div>
+<p>This is one of the great advantages of using Conan for this task, because by depending on Poco, other C and C++ transitive dependencies are retrieved
+and used in the application.</p>
+<p>For a deeper look into the code of these examples, please refer to
+<a class="reference external" href="https://github.com/memsharded/python-conan-packages">this github repo</a>. The above examples and code have only been tested on Win10, VS14u2,
+but may work on other configurations with little or no extra work.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="go.html" class="btn btn-neutral float-left" title="Conan: A Go package manager" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../use_tls_certificates.html" class="btn btn-neutral float-right" title="How to manage SSL (TLS) certificates" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2021, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 1.43
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/en/1.43/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

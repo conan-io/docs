@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CMakeToolchain: Using xxx-config.cmake files inside packages &mdash; conan 2.7.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=045299b1" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/tabs.css?v=a5c4661c" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/conan.css?v=7d9e9f1e" />
+
+  
+    <link rel="shortcut icon" href="../../../../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/examples/tools/cmake/cmake_toolchain/use_package_config_cmake.html" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../_static/documentation_options.js?v=7b940564"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Using CMakeToolchain with different generators: Ninja example" href="use_different_toolchain_generator.html" />
+    <link rel="prev" title="CMakeToolchain: Inject arbitrary CMake variables into dependencies" href="inject_cmake_variables.html" />
+
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html">
+            
+              <img src="../../../../_static/conan-docs-logo-2.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.7
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../whatsnew.html">What’s new in Conan 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../devops.html">Devops guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../integrations.html">Integrations</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../examples.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../conanfile.html">ConanFile methods examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../extensions.html">Conan extensions examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../../tools.html">Conan recipe tools examples</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../cmake.html">CMake</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="build_project_cmake_presets.html">CMakeToolchain: Building your project using CMakePresets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="extend_own_cmake_presets.html">CMakeToolchain: Extending your CMakePresets with Conan generated ones</a></li>
+<li class="toctree-l4"><a class="reference internal" href="inject_cmake_variables.html">CMakeToolchain: Inject arbitrary CMake variables into dependencies</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">CMakeToolchain: Using xxx-config.cmake files inside packages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="use_different_toolchain_generator.html">Using CMakeToolchain with different generators: Ninja example</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../files/files.html">File interaction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../meson/meson.html">Meson</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../google/bazel.html">Bazel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autotools/autotools.html">Autotools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scm/git/capture_scm/git_capture_scm.html">Capturing Git scm information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../microsoft/msbuild.html">MSBuild</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cross_build.html">Cross-building examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../config_files.html">Configuration files examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../graph.html">Graph examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_flow.html">Developer tools and flows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../commands.html">Conan commands examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../runners.html">Conan runners examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge.html">Knowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/examples/tools/cmake/cmake_toolchain/use_package_config_cmake.html">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../../examples.html">Examples</a></li>
+          <li class="breadcrumb-item"><a href="../../../tools.html">Conan recipe tools examples</a></li>
+          <li class="breadcrumb-item"><a href="../cmake.html">CMake</a></li>
+      <li class="breadcrumb-item active">CMakeToolchain: Using xxx-config.cmake files inside packages</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/develop2/examples/tools/cmake/cmake_toolchain/use_package_config_cmake.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cmaketoolchain-using-xxx-config-cmake-files-inside-packages">
+<span id="examples-tools-cmake-toolchain-use-package-config-cmake"></span><h1>CMakeToolchain: Using xxx-config.cmake files inside packages<a class="headerlink" href="#cmaketoolchain-using-xxx-config-cmake-files-inside-packages" title="Link to this heading">¶</a></h1>
+<p>Conan relies in the general case in the <code class="docutils literal notranslate"><span class="pre">package_info()</span></code> abstraction to allow packages built with any build system
+to be usable from any other package built with any other build system. In the CMake case, Conan relies on the
+<code class="docutils literal notranslate"><span class="pre">CMakeDeps</span></code> generator to generate <code class="docutils literal notranslate"><span class="pre">xxxx-config.cmake</span></code> files for every dependency, even if those dependencies
+didn’t generate one or aren’t built with CMake at all.</p>
+<p>ConanCenter users this abstraction, not packaging the <code class="docutils literal notranslate"><span class="pre">xxx-config.cmake</span></code> files, and using the information in <code class="docutils literal notranslate"><span class="pre">package_info()</span></code>.
+This is very important to provide as build-system agnostic as possible packages and be fair with different build systems,
+vendors and users. For example, there are many Conan users happily using native MSBuild (VS) projects without any CMake at all.
+If ConanCenter packages were only built using the in-package <code class="docutils literal notranslate"><span class="pre">config.cmake</span></code> files, this wouldn’t be possible.</p>
+<p>But the fact that ConanCenter does that, doesn’t mean that this is not possible or mandatory. It is perfectly possible
+to use the in-packages <code class="docutils literal notranslate"><span class="pre">xxx-config.cmake</span></code> files, dropping the usage of <code class="docutils literal notranslate"><span class="pre">CMakeDeps</span></code> generator.</p>
+<p>You can find the sources to recreate this example in the <a class="reference external" href="https://github.com/conan-io/examples2">examples2 repository</a> in GitHub:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/conan-io/examples2.git
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>examples2/examples/tools/cmake/pkg_config_files
+</pre></div>
+</div>
+<p>If we have a look to the <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">pkgRecipe</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;pkg&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+    <span class="o">...</span>
+
+    <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># No information provided, only the in-package .cmake is used here</span>
+        <span class="c1"># Other build systems or CMake via CMakeDeps will fail</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">builddirs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;pkg/cmake&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">set_property</span><span class="p">(</span><span class="s2">&quot;cmake_find_mode&quot;</span><span class="p">,</span> <span class="s2">&quot;none&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This is a very typical recipe, the main difference is the <code class="docutils literal notranslate"><span class="pre">package_info()</span></code> method. Three important things to notice:</p>
+<ul class="simple">
+<li><p>It doesn’t define fields like <code class="docutils literal notranslate"><span class="pre">self.cpp_info.libs</span> <span class="pre">=</span> <span class="pre">[&quot;mypkg&quot;]</span></code>. Conan will not be propagating this information to
+the consumer, the only place this information will be is inside the in-package <code class="docutils literal notranslate"><span class="pre">xxx-config.cmake</span></code> file</p></li>
+<li><p>Just in case there are some users still instantiating <code class="docutils literal notranslate"><span class="pre">CMakeDeps</span></code>, it is disabling the client side generation of the
+<code class="docutils literal notranslate"><span class="pre">xxx-config.cmake</span></code> file with <code class="docutils literal notranslate"><span class="pre">set_property(&quot;cmake_find_mode&quot;,</span> <span class="pre">&quot;none&quot;)</span></code></p></li>
+<li><p>It is defining that it will contain the build scripts (like the <code class="docutils literal notranslate"><span class="pre">xxx-config.cmake</span></code> package) inside that folder, to
+be located by consumers.</p></li>
+</ul>
+<p>So the responsibility of defining the package details has been transferred to the <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> that contains:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">add_library</span><span class="p">(</span><span class="s">mylib</span><span class="w"> </span><span class="s">src/pkg.cpp</span><span class="p">)</span><span class="w">  </span><span class="c"># Use a different name than the package, to make sure</span>
+
+<span class="nb">set_target_properties</span><span class="p">(</span><span class="s">mylib</span><span class="w"> </span><span class="s">PROPERTIES</span><span class="w"> </span><span class="s">PUBLIC_HEADER</span><span class="w"> </span><span class="s2">&quot;include/pkg.h&quot;</span><span class="p">)</span>
+<span class="nb">target_include_directories</span><span class="p">(</span><span class="s">mylib</span><span class="w"> </span><span class="s">PUBLIC</span>
+<span class="w">        </span><span class="o">$&lt;</span><span class="nv">BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include</span><span class="o">&gt;</span>
+<span class="w">        </span><span class="o">$&lt;</span><span class="nv">INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}</span><span class="o">&gt;</span>
+<span class="w">    </span><span class="p">)</span>
+
+<span class="c"># Use non default mypkgConfig name</span>
+<span class="nb">install</span><span class="p">(</span><span class="s">TARGETS</span><span class="w"> </span><span class="s">mylib</span><span class="w"> </span><span class="s">EXPORT</span><span class="w"> </span><span class="s">mypkgConfig</span><span class="p">)</span>
+<span class="nb">export</span><span class="p">(</span><span class="s">TARGETS</span><span class="w"> </span><span class="s">mylib</span>
+<span class="w">    </span><span class="s">NAMESPACE</span><span class="w"> </span><span class="s">mypkg::</span><span class="w">  </span><span class="c"># to simulate a different name and see it works</span>
+<span class="w">    </span><span class="s">FILE</span><span class="w"> </span><span class="s2">&quot;${CMAKE_CURRENT_BINARY_DIR}/mypkgConfig.cmake&quot;</span>
+<span class="p">)</span>
+<span class="nb">install</span><span class="p">(</span><span class="s">EXPORT</span><span class="w"> </span><span class="s">mypkgConfig</span>
+<span class="w">    </span><span class="s">DESTINATION</span><span class="w"> </span><span class="s2">&quot;${CMAKE_INSTALL_PREFIX}/pkg/cmake&quot;</span>
+<span class="w">    </span><span class="s">NAMESPACE</span><span class="w"> </span><span class="s">mypkg::</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>With that information, when <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">create</span></code> is executed:</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">build()</span></code> method will build the package</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">package()</span></code> method will call <code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">install</span></code>, which will create the <code class="docutils literal notranslate"><span class="pre">mypkgConfig.cmake</span></code> file</p></li>
+<li><p>It will be created in the package folder <code class="docutils literal notranslate"><span class="pre">pkg/cmake/mypkgConfig.cmake</span></code> file</p></li>
+<li><p>It will contain enough information for the headers, and it will create a <code class="docutils literal notranslate"><span class="pre">mypkg::mylib</span></code> target.</p></li>
+</ul>
+<p>Note that the details of the config filename, the namespace and the target are also not known by Conan,
+so this is also something that the consumer build scripts should know.</p>
+<p>This is enough to have a package with an internal <code class="docutils literal notranslate"><span class="pre">mypkgConfig.cmake</span></code> file that can be used by consumers.
+In this example code, the consumer is just the <code class="docutils literal notranslate"><span class="pre">test_package/conanfile.py</span></code>, but exactly the same wouldn
+apply to any arbitrary consumer.</p>
+<p>The consumer <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code> doesn’t need to use <code class="docutils literal notranslate"><span class="pre">CMakeDeps</span></code> at all, only <code class="docutils literal notranslate"><span class="pre">generators</span> <span class="pre">=</span> <span class="pre">&quot;CMakeToolchain&quot;</span></code>.
+Note that the <code class="docutils literal notranslate"><span class="pre">CMakeToolchain</span></code> generator is still necessary, because the <code class="docutils literal notranslate"><span class="pre">mypkgConfig.cmake</span></code> needs to
+be found inside the Conan cache. The <code class="docutils literal notranslate"><span class="pre">CMakeToolchain</span></code> generated <code class="docutils literal notranslate"><span class="pre">conan_toolchain.cmake</span></code> file contains
+these paths defined.</p>
+<p>The consumer <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> would be standard:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">find_package</span><span class="p">(</span><span class="s">mypkg</span><span class="w"> </span><span class="s">CONFIG</span><span class="w"> </span><span class="s">REQUIRED</span><span class="p">)</span>
+
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">example</span><span class="w"> </span><span class="s">src/example.cpp</span><span class="p">)</span>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">example</span><span class="w"> </span><span class="s">mypkg::mylib</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can verify it works with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.
+
+<span class="o">========</span><span class="w"> </span>Testing<span class="w"> </span>the<span class="w"> </span>package:<span class="w"> </span>Executing<span class="w"> </span><span class="nb">test</span><span class="w"> </span><span class="o">========</span>
+pkg/0.1<span class="w"> </span><span class="o">(</span><span class="nb">test</span><span class="w"> </span>package<span class="o">)</span>:<span class="w"> </span>Running<span class="w"> </span>test<span class="o">()</span>
+pkg/0.1<span class="w"> </span><span class="o">(</span><span class="nb">test</span><span class="w"> </span>package<span class="o">)</span>:<span class="w"> </span>RUN:<span class="w"> </span>Release<span class="se">\e</span>xample
+pkg/0.1:<span class="w"> </span>Hello<span class="w"> </span>World<span class="w"> </span>Release!
+pkg/0.1:<span class="w"> </span>_M_X64<span class="w"> </span>defined
+pkg/0.1:<span class="w"> </span>MSVC<span class="w"> </span>runtime:<span class="w"> </span>MultiThreadedDLL
+pkg/0.1:<span class="w"> </span>_MSC_VER1939
+pkg/0.1:<span class="w"> </span>_MSVC_LANG201402
+pkg/0.1:<span class="w"> </span>__cplusplus199711
+pkg/0.1<span class="w"> </span>test_package
+</pre></div>
+</div>
+<section id="important-considerations">
+<h2>Important considerations<a class="headerlink" href="#important-considerations" title="Link to this heading">¶</a></h2>
+<p>The presented approach has one limitation, it doesn’t work for multi-configuration IDEs.
+Implementing this approach won’t allow developers to directly switch from IDEs like Visual Studio from Release to Debug
+and viceversa, and it will require a <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">install</span></code> to change. It is not an issue at all for single-config setups,
+but for VS developers it can be a bit inconvenient. The team is working on the VS plugin that might help to mitigate this.
+The reason is a CMake limitation, <code class="docutils literal notranslate"><span class="pre">find_package()</span></code> can only find one configuration, and with <code class="docutils literal notranslate"><span class="pre">CMakeDeps</span></code> being dropped
+here, there is nothing that Conan can do to avoid this limitation.</p>
+<p>It is important to know that it is also the package author and the package <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> responsibility to correctly
+manage transitivity to other dependencies, and this is not trivial in some cases. There are risks that if not done
+correctly the in-package <code class="docutils literal notranslate"><span class="pre">xxx-config.cmake</span></code> file can locate its transitive dependencies elsewhere, like in the system,
+but not in the transtive Conan package dependencies.</p>
+<p>Finally, recall that these packages won’t be usable by other build systems rather than CMake.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="inject_cmake_variables.html" class="btn btn-neutral float-left" title="CMakeToolchain: Inject arbitrary CMake variables into dependencies" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="use_different_toolchain_generator.html" class="btn btn-neutral float-right" title="Using CMakeToolchain with different generators: Ninja example" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2024, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 2.7
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/2.7/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

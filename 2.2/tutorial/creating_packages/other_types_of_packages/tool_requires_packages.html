@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tool requires packages &mdash; conan 2.2.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=045299b1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/conan.css?v=7d9e9f1e" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/tutorial/creating_packages/other_types_of_packages/tool_requires_packages.html" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=85e56e6b"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Working with Conan repositories" href="../../conan_repositories.html" />
+    <link rel="prev" title="Package prebuilt binaries" href="package_prebuilt_binaries.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html">
+            
+              <img src="../../../_static/conan-docs-logo-2.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../whatsnew.html">What’s new in Conan 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Install</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../tutorial.html">Tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../consuming_packages.html">Consuming packages</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../creating_packages.html">Creating packages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../create_your_first_package.html">Create your first Conan package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../handle_sources_in_packages.html">Handle sources in packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../add_dependencies_to_packages.html">Add dependencies to packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../preparing_the_build.html">Preparing the build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configure_options_settings.html">Configure settings and options in recipes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build_packages.html">Build packages: the build() method</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../package_method.html">Package files: the package() method</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../define_package_information.html">Define information for consumers: the package_info() method</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../test_conan_packages.html">Testing Conan packages</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../other_types_of_packages.html">Other types of packages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="header_only_packages.html">Header-only packages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="package_prebuilt_binaries.html">Package prebuilt binaries</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Tool requires packages</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../conan_repositories.html">Working with Conan repositories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../developing_packages.html">Developing packages locally</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../versioning.html">Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../other_features.html">Other important Conan features</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../devops.html">Devops guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../knowledge.html">Knowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/tutorial/creating_packages/other_types_of_packages/tool_requires_packages.html">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../tutorial.html">Tutorial</a></li>
+          <li class="breadcrumb-item"><a href="../../creating_packages.html">Creating packages</a></li>
+          <li class="breadcrumb-item"><a href="../other_types_of_packages.html">Other types of packages</a></li>
+      <li class="breadcrumb-item active">Tool requires packages</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/develop2/tutorial/creating_packages/other_types_of_packages/tool_requires_packages.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="tool-requires-packages">
+<span id="tutorial-other-tool-requires-packages"></span><h1>Tool requires packages<a class="headerlink" href="#tool-requires-packages" title="Link to this heading">¶</a></h1>
+<p>In the “<a class="reference internal" href="../../consuming_packages/use_tools_as_conan_packages.html#consuming-packages-tool-requires"><span class="std std-ref">Using build tools as Conan packages</span></a>” section we learned how to use
+a tool require to build (or help building) our project or Conan package.
+In this section we are going to learn how to create a recipe for a tool require.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Best practice</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">tool_requires</span></code> and tool packages are intended for executable applications, like <code class="docutils literal notranslate"><span class="pre">cmake</span></code> or <code class="docutils literal notranslate"><span class="pre">ninja</span></code> that
+can be used as <code class="docutils literal notranslate"><span class="pre">tool_requires(&quot;cmake/[&gt;=3.25]&quot;)</span></code> by other packages to put those executables in their path. They
+are not intended for library-like dependencies (use <code class="docutils literal notranslate"><span class="pre">requires</span></code> for them), for test frameworks (use <code class="docutils literal notranslate"><span class="pre">test_requires</span></code>)
+or in general for anything that belongs to the “host” context of the final application. Do not abuse <code class="docutils literal notranslate"><span class="pre">tool_requires</span></code>
+for other purposes.</p>
+</div>
+<p>Please, first clone the sources to recreate this project. You can find them in the
+<a class="reference external" href="https://github.com/conan-io/examples2">examples2 repository</a> on GitHub:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/conan-io/examples2.git
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>examples2/tutorial/creating_packages/other_packages/tool_requires/tool
+</pre></div>
+</div>
+<section id="a-simple-tool-require-recipe">
+<h2>A simple tool require recipe<a class="headerlink" href="#a-simple-tool-require-recipe" title="Link to this heading">¶</a></h2>
+<p>This is a recipe for a (fake) application that receiving a path returns 0 if the path is secure.
+We can check how the following simple recipe covers most of the <code class="docutils literal notranslate"><span class="pre">tool-require</span></code> use-cases:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">conanfile.py</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+<span class="kn">from</span> <span class="nn">conan.tools.cmake</span> <span class="kn">import</span> <span class="n">CMakeToolchain</span><span class="p">,</span> <span class="n">CMake</span><span class="p">,</span> <span class="n">cmake_layout</span>
+<span class="kn">from</span> <span class="nn">conan.tools.files</span> <span class="kn">import</span> <span class="n">copy</span>
+
+
+<span class="k">class</span> <span class="nc">secure_scannerRecipe</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;secure_scanner&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;1.0&quot;</span>
+    <span class="n">package_type</span> <span class="o">=</span> <span class="s2">&quot;application&quot;</span>
+
+    <span class="c1"># Binary configuration</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span>
+
+    <span class="c1"># Sources are located in the same place as this recipe, copy them to the recipe</span>
+    <span class="n">exports_sources</span> <span class="o">=</span> <span class="s2">&quot;CMakeLists.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;src/*&quot;</span>
+
+    <span class="k">def</span> <span class="nf">layout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">cmake_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">tc</span> <span class="o">=</span> <span class="n">CMakeToolchain</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">tc</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">cmake</span> <span class="o">=</span> <span class="n">CMake</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">cmake</span><span class="o">.</span><span class="n">configure</span><span class="p">()</span>
+        <span class="n">cmake</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">extension</span> <span class="o">=</span> <span class="s2">&quot;.exe&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings_build</span><span class="o">.</span><span class="n">os</span> <span class="o">==</span> <span class="s2">&quot;Windows&quot;</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;*secure_scanner</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">extension</span><span class="p">),</span>
+             <span class="bp">self</span><span class="o">.</span><span class="n">build_folder</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">package_folder</span><span class="p">,</span> <span class="s2">&quot;bin&quot;</span><span class="p">),</span> <span class="n">keep_path</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buildenv_info</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s2">&quot;MY_VAR&quot;</span><span class="p">,</span> <span class="s2">&quot;23&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>There are few relevant things in this recipe:</p>
+<ol class="arabic simple">
+<li><p>It declares <code class="docutils literal notranslate"><span class="pre">package_type</span> <span class="pre">=</span> <span class="pre">&quot;application&quot;</span></code>, this is optional but convenient, it will indicate conan that the current
+package doesn’t contain headers or libraries to be linked. The consumers will know that this package is an application.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">package()</span></code> method is packaging the executable into the <code class="docutils literal notranslate"><span class="pre">bin/</span></code> folder, that is declared by default as a bindir:
+<code class="docutils literal notranslate"><span class="pre">self.cpp_info.bindirs</span> <span class="pre">=</span> <span class="pre">[&quot;bin&quot;]</span></code>.</p></li>
+<li><p>In the <code class="docutils literal notranslate"><span class="pre">package_info()</span></code> method, we are using <code class="docutils literal notranslate"><span class="pre">self.buildenv_info</span></code> to define a environment variable <code class="docutils literal notranslate"><span class="pre">MY_VAR</span></code>
+that will also be available in the consumer.</p></li>
+</ol>
+<p>Let’s create a binary package for the tool_require:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.
+...
+secure_scanner/1.0:<span class="w"> </span>Calling<span class="w"> </span>package<span class="o">()</span>
+secure_scanner/1.0:<span class="w"> </span>Copied<span class="w"> </span><span class="m">1</span><span class="w"> </span>file:<span class="w"> </span>secure_scanner
+secure_scanner/1.0<span class="w"> </span>package<span class="o">()</span>:<span class="w"> </span>Packaged<span class="w"> </span><span class="m">1</span><span class="w"> </span>file:<span class="w"> </span>secure_scanner
+...
+Security<span class="w"> </span>Scanner:<span class="w"> </span>The<span class="w"> </span>path<span class="w"> </span><span class="s1">&#39;mypath&#39;</span><span class="w"> </span>is<span class="w"> </span>secure!
+</pre></div>
+</div>
+<p>Let’s review the <code class="docutils literal notranslate"><span class="pre">test_package/conanfile.py</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+
+<span class="k">class</span> <span class="nc">secure_scannerTestConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span>
+
+    <span class="k">def</span> <span class="nf">build_requirements</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tool_requires</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tested_reference_str</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">extension</span> <span class="o">=</span> <span class="s2">&quot;.exe&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings_build</span><span class="o">.</span><span class="n">os</span> <span class="o">==</span> <span class="s2">&quot;Windows&quot;</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;secure_scanner</span><span class="si">{}</span><span class="s2"> mypath&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">extension</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>We are requiring the <code class="docutils literal notranslate"><span class="pre">secure_scanner</span></code> package as <code class="docutils literal notranslate"><span class="pre">tool_require</span></code> doing <code class="docutils literal notranslate"><span class="pre">self.tool_requires(self.tested_reference_str)</span></code>.
+In the <code class="docutils literal notranslate"><span class="pre">test()</span></code> method we are running the application, because it is available in the PATH. In the
+next example we are going to see why the executables from a <code class="docutils literal notranslate"><span class="pre">tool_require</span></code> are available in the consumers.</p>
+<p>So, let’s create a consumer recipe to test if we can run the <code class="docutils literal notranslate"><span class="pre">secure_scanner</span></code> application of the <code class="docutils literal notranslate"><span class="pre">tool_require</span></code> and
+read the environment variable. Go to the <cite>examples2/tutorial/creating_packages/other_packages/tool_requires/consumer</cite>
+folder:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">conanfile.py</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+<span class="k">class</span> <span class="nc">MyConsumer</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;my_consumer&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;1.0&quot;</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span>
+    <span class="n">tool_requires</span> <span class="o">=</span> <span class="s2">&quot;secure_scanner/1.0&quot;</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">extension</span> <span class="o">=</span> <span class="s2">&quot;.exe&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings_build</span><span class="o">.</span><span class="n">os</span> <span class="o">==</span> <span class="s2">&quot;Windows&quot;</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;secure_scanner</span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">extension</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_folder</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings_build</span><span class="o">.</span><span class="n">os</span> <span class="o">!=</span> <span class="s2">&quot;Windows&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;echo MY_VAR=$MY_VAR&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;set MY_VAR&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>In this simple recipe we are declaring a <code class="docutils literal notranslate"><span class="pre">tool_require</span></code> to <code class="docutils literal notranslate"><span class="pre">secure_scanner/1.0</span></code> and we are calling directly the packaged
+application <code class="docutils literal notranslate"><span class="pre">secure_scanner</span></code> in the <code class="docutils literal notranslate"><span class="pre">build()</span></code> method, also printing the value of the <code class="docutils literal notranslate"><span class="pre">MY_VAR</span></code> env variable.</p>
+<p>If we build the consumer:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>build<span class="w"> </span>.
+
+--------<span class="w"> </span>Installing<span class="w"> </span><span class="o">(</span>downloading,<span class="w"> </span>building<span class="o">)</span><span class="w"> </span>binaries...<span class="w"> </span>--------
+secure_scanner/1.0:<span class="w"> </span>Already<span class="w"> </span>installed!
+
+--------<span class="w"> </span>Finalizing<span class="w"> </span>install<span class="w"> </span><span class="o">(</span>deploy,<span class="w"> </span>generators<span class="o">)</span><span class="w"> </span>--------
+...
+conanfile.py<span class="w"> </span><span class="o">(</span>my_consumer/1.0<span class="o">)</span>:<span class="w"> </span>RUN:<span class="w"> </span>secure_scanner<span class="w"> </span>/Users/luism/workspace/examples2/tutorial/creating_packages/other_packages/tool_requires/consumer
+...
+Security<span class="w"> </span>Scanner:<span class="w"> </span>The<span class="w"> </span>path<span class="w"> </span><span class="s1">&#39;/Users/luism/workspace/examples2/tutorial/creating_packages/other_packages/tool_requires/consumer&#39;</span><span class="w"> </span>is<span class="w"> </span>secure!
+...
+<span class="nv">MY_VAR</span><span class="o">=</span><span class="m">23</span>
+</pre></div>
+</div>
+<p>We can see that the executable returned 0 (because our folder is secure) and it printed <code class="docutils literal notranslate"><span class="pre">Security</span> <span class="pre">Scanner:</span> <span class="pre">The</span> <span class="pre">path</span> <span class="pre">is</span> <span class="pre">secure!</span></code> message.
+It also printed the “23” value assigned to <code class="docutils literal notranslate"><span class="pre">MY_VAR</span></code> but, why are these automatically available?</p>
+<ul class="simple">
+<li><p>The generators <code class="docutils literal notranslate"><span class="pre">VirtualBuildEnv</span></code> and <code class="docutils literal notranslate"><span class="pre">VirtualRunEnv</span></code> are automatically used.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">VirtualRunEnv</span></code> is reading the <code class="docutils literal notranslate"><span class="pre">tool-requires</span></code> and is creating a launcher like <code class="docutils literal notranslate"><span class="pre">conanbuildenv-release-x86_64.sh</span></code> appending
+all <code class="docutils literal notranslate"><span class="pre">cpp_info.bindirs</span></code> to the <code class="docutils literal notranslate"><span class="pre">PATH</span></code>, all the <code class="docutils literal notranslate"><span class="pre">cpp_info.libdirs</span></code> to the <code class="docutils literal notranslate"><span class="pre">LD_LIBRARY_PATH</span></code> environment variable and
+declaring each variable of <code class="docutils literal notranslate"><span class="pre">self.buildenv_info</span></code>.</p></li>
+<li><p>Every time conan executes the <code class="docutils literal notranslate"><span class="pre">self.run</span></code>, by default, activates the <code class="docutils literal notranslate"><span class="pre">conanbuild.sh</span></code> file before calling any command.
+The <code class="docutils literal notranslate"><span class="pre">conanbuild.sh</span></code> is including the <code class="docutils literal notranslate"><span class="pre">conanbuildenv-release-x86_64.sh</span></code>, so the application is in the PATH
+and the enviornment variable “MYVAR” has the value declared in the tool-require.</p></li>
+</ul>
+</section>
+<section id="removing-settings-in-package-id">
+<h2>Removing settings in package_id()<a class="headerlink" href="#removing-settings-in-package-id" title="Link to this heading">¶</a></h2>
+<p>With the previous recipe, if we call <strong class="command">conan create</strong> with different setting like different compiler versions, we will get
+different binary packages with a different <code class="docutils literal notranslate"><span class="pre">package</span> <span class="pre">ID</span></code>. This might be convenient to, for example, keep better traceability of
+our tools. In this case, the <a class="reference internal" href="../../../reference/extensions/binary_compatibility.html#reference-extensions-binary-compatibility"><span class="std std-ref">compatibility.py</span></a> plugin can help to locate the best matching binary in case Conan doesn’t find the
+binary for our specific compiler version.</p>
+<p>But in some cases we might want to just generate a binary taking into account only the <code class="docutils literal notranslate"><span class="pre">os</span></code>, <code class="docutils literal notranslate"><span class="pre">arch</span></code> or at most
+adding the <code class="docutils literal notranslate"><span class="pre">build_type</span></code> to know if the application is built for Debug or Release. We can add a <code class="docutils literal notranslate"><span class="pre">package_id()</span></code> method
+to remove them:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">conanfile.py</span><a class="headerlink" href="#id3" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+<span class="kn">from</span> <span class="nn">conan.tools.cmake</span> <span class="kn">import</span> <span class="n">CMakeToolchain</span><span class="p">,</span> <span class="n">CMake</span><span class="p">,</span> <span class="n">cmake_layout</span>
+<span class="kn">from</span> <span class="nn">conan.tools.files</span> <span class="kn">import</span> <span class="n">copy</span>
+
+
+<span class="k">class</span> <span class="nc">secure_scannerRecipe</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;secure_scanner&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;1.0&quot;</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span>
+    <span class="o">...</span>
+
+    <span class="k">def</span> <span class="nf">package_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">compiler</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">build_type</span>
+</pre></div>
+</div>
+</div>
+<p>So, if we call <strong class="command">conan create</strong> with different <code class="docutils literal notranslate"><span class="pre">build_type</span></code> we will get exactly the same <code class="docutils literal notranslate"><span class="pre">package_id</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.
+...
+Package<span class="w"> </span><span class="s1">&#39;82339cc4d6db7990c1830d274cd12e7c91ab18a1&#39;</span><span class="w"> </span>created
+
+$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.<span class="w"> </span>-s<span class="w"> </span><span class="nv">build_type</span><span class="o">=</span>Debug
+...
+Package<span class="w"> </span><span class="s1">&#39;82339cc4d6db7990c1830d274cd12e7c91ab18a1&#39;</span><span class="w"> </span>created
+</pre></div>
+</div>
+<p>We got the same binary <code class="docutils literal notranslate"><span class="pre">package_id</span></code>. The second <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">create</span> <span class="pre">.</span> <span class="pre">-s</span> <span class="pre">build_type=Debug</span></code> created and overwrote (created a newer package revision) of the previous Release binary, because they have the same <code class="docutils literal notranslate"><span class="pre">package_id</span></code> identifier. It is typical to create only the <code class="docutils literal notranslate"><span class="pre">Release</span></code> one, and if for any reason managing both Debug and Release binaries is intended, then the approach would be not removing the <code class="docutils literal notranslate"><span class="pre">del</span> <span class="pre">self.info.settings.build_type</span></code></p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><ul>
+<li><p><a class="reference internal" href="../../../examples/graph/tool_requires/using_protobuf.html#examples-graph-tool-requires-protobuf"><span class="std std-ref">Using the same requirement as a requires and as a tool_requires</span></a></p></li>
+</ul>
+</li>
+<li><p>Toolchains (compilers)</p></li>
+<li><p><a class="reference internal" href="../../../reference/conanfile/methods/package_info.html#reference-conanfile-methods-package-info-runenv-info"><span class="std std-ref">Usage of runenv_info</span></a></p></li>
+<li><p><a class="reference internal" href="../../../reference/binary_model/extending.html#binary-model-extending-cross-build-target-settings"><span class="std std-ref">More info on settings_target</span></a></p></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="package_prebuilt_binaries.html" class="btn btn-neutral float-left" title="Package prebuilt binaries" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../conan_repositories.html" class="btn btn-neutral float-right" title="Working with Conan repositories" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2024, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 2.2
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/2.2/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

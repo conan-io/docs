@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customizing the binary compatibility &mdash; conan 2.3.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=045299b1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/conan.css?v=7d9e9f1e" />
+
+  
+    <link rel="shortcut icon" href="../../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/reference/binary_model/custom_compatibility.html" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=5048a02b"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Conan Server" href="../conan_server.html" />
+    <link rel="prev" title="Extending the binary model" href="extending.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/conan-docs-logo-2.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.3
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../whatsnew.html">What’s new in Conan 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devops.html">Devops guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../commands.html">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conanfile.html">conanfile.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tools.html">Recipe tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../config_files.html">Configuration files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extensions.html">Extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../environment.html">Environment variables</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../binary_model.html">The binary model</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="package_id.html">How the <code class="docutils literal notranslate"><span class="pre">package_id</span></code> is computed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="settings_and_options.html">How settings and options of a recipe influence its package ID</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dependencies.html">The effect of dependencies on <code class="docutils literal notranslate"><span class="pre">package_id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="extending.html">Extending the binary model</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Customizing the binary compatibility</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../conan_server.html">Conan Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../runners.html">Runners</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../knowledge.html">Knowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/reference/binary_model/custom_compatibility.html">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="../binary_model.html">The binary model</a></li>
+      <li class="breadcrumb-item active">Customizing the binary compatibility</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/develop2/reference/binary_model/custom_compatibility.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="customizing-the-binary-compatibility">
+<h1>Customizing the binary compatibility<a class="headerlink" href="#customizing-the-binary-compatibility" title="Link to this heading">¶</a></h1>
+<p>The default binary compatibility requires an almost exact match of settings and options, and a versioned match
+of dependencies versions, as explained in the <a class="reference internal" href="dependencies.html#reference-binary-model-dependencies"><span class="std std-ref">previous section about dependencies</span></a>.</p>
+<p>In summary, the required binaries <code class="docutils literal notranslate"><span class="pre">package_id</span></code> when installing dependencies should match by default:</p>
+<ul class="simple">
+<li><p>All the settings in the <code class="docutils literal notranslate"><span class="pre">package_id</span></code> except <code class="docutils literal notranslate"><span class="pre">compiler.cppstd</span></code> should match exactly the ones provided in the input profiles, including the compiler version. So <code class="docutils literal notranslate"><span class="pre">compiler.version=9</span></code> is different than <code class="docutils literal notranslate"><span class="pre">compiler.version=9.1</span></code>.</p></li>
+<li><p>The default behavior will assume binary compatibility among different <code class="docutils literal notranslate"><span class="pre">compiler.cppstd</span></code> values for C++ packages, being able to fall back to other values rather than the one specified in the input profiles, if the <code class="docutils literal notranslate"><span class="pre">cppstd</span></code> required by the input profile does not exist. This is controlled by the <code class="docutils literal notranslate"><span class="pre">compatibility.py</span></code> plugin, that can be customized by users.</p></li>
+<li><p>All the options in the <code class="docutils literal notranslate"><span class="pre">package_id</span></code> should match exactly the ones provided in the input profiles.</p></li>
+<li><p>The versions of the dependencies should match:</p>
+<ul>
+<li><p>In case of “embedding dependencies”, should match the exact version, including the recipe-revision and the dependency <code class="docutils literal notranslate"><span class="pre">package_id</span></code>. The <code class="docutils literal notranslate"><span class="pre">package_revision</span></code> is never included as it is assumed to be ill-formed to have more than one <code class="docutils literal notranslate"><span class="pre">package_revision</span></code> for the same <code class="docutils literal notranslate"><span class="pre">package_id</span></code>.</p></li>
+<li><p>In case of “non-embedding dependencies”, the versions of the dependencies should match down to the <code class="docutils literal notranslate"><span class="pre">minor</span></code> version, being the <code class="docutils literal notranslate"><span class="pre">patch</span></code>, <code class="docutils literal notranslate"><span class="pre">recipe_revision</span></code> and further information not taken into account.</p></li>
+<li><p>In case of “tool dependencies”, the versions of the dependencies do not affect at all by default to the consumer <code class="docutils literal notranslate"><span class="pre">package_id</span></code>.</p></li>
+</ul>
+</li>
+</ul>
+<p>These rules can be customized and changed using different approaches, depending on the needs, as explained in following sections</p>
+<section id="customizing-binary-compatibility-of-settings-and-options">
+<h2>Customizing binary compatibility of settings and options<a class="headerlink" href="#customizing-binary-compatibility-of-settings-and-options" title="Link to this heading">¶</a></h2>
+<section id="information-erasure-in-package-id-method">
+<h3>Information erasure in package_id() method<a class="headerlink" href="#information-erasure-in-package-id-method" title="Link to this heading">¶</a></h3>
+<p>Recipes can <strong>erase</strong> information from their <code class="docutils literal notranslate"><span class="pre">package_id</span></code> using their <code class="docutils literal notranslate"><span class="pre">package_id()</span></code> method. For example, a package containing only an executable can decide to remove the information from <code class="docutils literal notranslate"><span class="pre">settings.compiler</span></code> and <code class="docutils literal notranslate"><span class="pre">settings.build_type</span></code> from their <code class="docutils literal notranslate"><span class="pre">package_id</span></code>, assuming that an executable built with any compiler will be valid, and that it is not necessary to store different binaries built with different compilers:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">package_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">compiler</span>
+    <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">build_type</span>
+</pre></div>
+</div>
+<p>It is also possible to assign a value for a given setting, for example if we want to have one single binary for all gcc versions included in the [&gt;=5 &lt;7&gt;] range, we could do:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">package_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">compiler</span> <span class="o">==</span> <span class="s2">&quot;gcc&quot;</span><span class="p">:</span>
+        <span class="n">version</span> <span class="o">=</span> <span class="n">Version</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">compiler</span><span class="o">.</span><span class="n">version</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">version</span> <span class="o">&gt;=</span> <span class="s2">&quot;5.0&quot;</span> <span class="ow">and</span> <span class="n">version</span> <span class="o">&lt;</span> <span class="s2">&quot;7.0&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">compiler</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;gcc5-6&quot;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Best practice</strong></p>
+<p>Note that information erasure in <code class="docutils literal notranslate"><span class="pre">package_id()</span></code> means that 1 single <code class="docutils literal notranslate"><span class="pre">package_id</span></code> will represent a whole range of different settings, but the information of what exact setting was used to create the binary will be lost, and only 1 binary can be created for that range. Re-creating the package with different settings in the range, will create a new binary that overwrites the previous one (with a new package-revision).</p>
+<p>If we want to be able to create, store and manage different binaries for different input settings, information erasure can’t be used, and using the below <code class="docutils literal notranslate"><span class="pre">compatibility</span></code> approaches is recommended.</p>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../../tutorial/creating_packages/configure_options_settings.html#creating-packages-configure-options-settings"><span class="std std-ref">Conan packages binary compatibility: the package ID</span></a></p></li>
+<li><p><a class="reference internal" href="../conanfile/methods/package_id.html#reference-conanfile-methods-package-id"><span class="std std-ref">package_id() method reference</span></a></p></li>
+</ul>
+</div>
+</section>
+<section id="the-compatibility-method">
+<h3>The compatibility() method<a class="headerlink" href="#the-compatibility-method" title="Link to this heading">¶</a></h3>
+<p>Recipes can define their binary compatibility rules, using their <code class="docutils literal notranslate"><span class="pre">compatibility()</span></code> method.
+For example, if we want that binaries
+built with gcc versions 4.8, 4.7 and 4.6 to be considered compatible with the ones compiled
+with 4.9 we could declare a <code class="docutils literal notranslate"><span class="pre">compatibility()</span></code> method like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compatibility</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">compiler</span> <span class="o">==</span> <span class="s2">&quot;gcc&quot;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">compiler</span><span class="o">.</span><span class="n">version</span> <span class="o">==</span> <span class="s2">&quot;4.9&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[{</span><span class="s2">&quot;settings&quot;</span><span class="p">:</span> <span class="p">[(</span><span class="s2">&quot;compiler.version&quot;</span><span class="p">,</span> <span class="n">v</span><span class="p">)]}</span>
+                <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;4.8&quot;</span><span class="p">,</span> <span class="s2">&quot;4.7&quot;</span><span class="p">,</span> <span class="s2">&quot;4.6&quot;</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>Read more about the <code class="docutils literal notranslate"><span class="pre">compatibility()</span></code> method in <a class="reference internal" href="../conanfile/methods/compatibility.html#reference-conanfile-methods-compatibility"><span class="std std-ref">the compatibility() method reference</span></a></p>
+</section>
+<section id="the-compatibility-py-plugin">
+<h3>The <code class="docutils literal notranslate"><span class="pre">compatibility.py</span></code> plugin<a class="headerlink" href="#the-compatibility-py-plugin" title="Link to this heading">¶</a></h3>
+<p>Compatibility can be defined globally via the <code class="docutils literal notranslate"><span class="pre">compatibility.py</span></code> plugin, in the same way that the <code class="docutils literal notranslate"><span class="pre">compatibility()</span></code> method does for one recipe, but for all packages globally.</p>
+<p>Check the binary compatibility <a class="reference internal" href="../extensions/binary_compatibility.html#reference-extensions-binary-compatibility"><span class="std std-ref">compatibility.py extension</span></a>.</p>
+</section>
+</section>
+<section id="customizing-binary-compatibility-of-dependencies-versions">
+<h2>Customizing binary compatibility of dependencies versions<a class="headerlink" href="#customizing-binary-compatibility-of-dependencies-versions" title="Link to this heading">¶</a></h2>
+<section id="global-default-package-id-modes">
+<h3>Global default package_id modes<a class="headerlink" href="#global-default-package-id-modes" title="Link to this heading">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">core.package_id:default_xxx</span></code> configurations defined in <code class="docutils literal notranslate"><span class="pre">global.conf</span></code> can be used to globally change the defaults of how dependencies affect their consumers</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="na">core.package_id</span><span class="o">:</span><span class="s">default_build_mode: By default, &#39;None&#39;</span>
+<span class="na">core.package_id</span><span class="o">:</span><span class="s">default_embed_mode: By default, &#39;full_mode&#39;</span>
+<span class="na">core.package_id</span><span class="o">:</span><span class="s">default_non_embed_mode: By default, &#39;minor_mode&#39;</span>
+<span class="na">core.package_id</span><span class="o">:</span><span class="s">default_python_mode: By default, &#39;minor_mode&#39;</span>
+<span class="na">core.package_id</span><span class="o">:</span><span class="s">default_unknown_mode: By default, &#39;semver_mode&#39;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Best practices</strong></p>
+<p>It is strongly recommended that the <code class="docutils literal notranslate"><span class="pre">core.package_id:default_xxx</span></code> should be global, consistent and immutable accross organizations. It can be confusing to change these defaults for different projects or teams, because it will result in missing binaries.</p>
+<p>It should also be consistent and shared with the consumers of generated packages if those packages are
+shared outside the organization, in that case sharing the <code class="docutils literal notranslate"><span class="pre">global.conf</span></code> file via <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">config</span> <span class="pre">install</span></code>
+could be recommended.</p>
+<p>Consider using the Conan defaults, they should be a good balance between efficiency and safety, ensuring exact re-building for embed cases, and good control via versions for non-embed cases.</p>
+</div>
+</section>
+<section id="custom-package-id-modes-for-recipe-consumers">
+<h3>Custom package_id modes for recipe consumers<a class="headerlink" href="#custom-package-id-modes-for-recipe-consumers" title="Link to this heading">¶</a></h3>
+<p>Recipes can define their default effect to their consumers, via some <code class="docutils literal notranslate"><span class="pre">package_id_xxxx_mode</span></code> attributes.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">package_id_embed_mode,</span> <span class="pre">package_id_non_embed_mode,</span> <span class="pre">package_id_unknown_mode</span></code> are class attributes that can be defined in recipes to define the effect they have on their consumers <code class="docutils literal notranslate"><span class="pre">package_id</span></code>. Can be declared as:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+<span class="k">class</span> <span class="nc">Pkg</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="n">package_id_embed_mode</span> <span class="o">=</span> <span class="s2">&quot;full_mode&quot;</span>
+    <span class="n">package_id_non_embed_mode</span> <span class="o">=</span> <span class="s2">&quot;patch_mode&quot;</span>
+    <span class="n">package_id_unknown_mode</span> <span class="o">=</span> <span class="s2">&quot;minor_mode&quot;</span>
+</pre></div>
+</div>
+<p>Read more in <a class="reference internal" href="../conanfile/attributes.html#reference-conanfile-attributes-package-id-modes"><span class="std std-ref">package_id_{embed,non_embed,python,unknown}_mode</span></a></p>
+</section>
+<section id="custom-package-id-from-recipe-dependencies">
+<h3>Custom package_id from recipe dependencies<a class="headerlink" href="#custom-package-id-from-recipe-dependencies" title="Link to this heading">¶</a></h3>
+<p>Recipes can define how their dependencies affect their <code class="docutils literal notranslate"><span class="pre">package_id</span></code>, using the <code class="docutils literal notranslate"><span class="pre">package_id_mode</span></code> trait:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+<span class="k">class</span> <span class="nc">Pkg</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">requirements</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">requires</span><span class="p">(</span><span class="s2">&quot;mydep/1.0&quot;</span><span class="p">,</span> <span class="n">package_id_mode</span><span class="o">=</span><span class="s2">&quot;patch_mode&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Using <code class="docutils literal notranslate"><span class="pre">package_id_mode</span></code> trait does not differentiate between the “embed” and “non-embed” cases, it is up to the user to define the correct value. It is likely that this approach should only be used for very special cases that do not have variability of shared/static libraries controlled via <code class="docutils literal notranslate"><span class="pre">options</span></code>.</p>
+<p>Note that the <code class="docutils literal notranslate"><span class="pre">requirements()</span></code> method is evaluated while the graph is being expanded, the dependencies do not exist yet (haven’t been computed), so it is not possible to know the dependencies options.
+In this case it might be preferred to use the <code class="docutils literal notranslate"><span class="pre">package_id()</span></code> method.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">package_id()</span></code> method can define how the dependencies affect the current package with:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+<span class="k">class</span> <span class="nc">Pkg</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">package_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">requires</span><span class="p">[</span><span class="s2">&quot;mydep&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">major_mode</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The different modes that can be used are defined in <a class="reference internal" href="../conanfile/attributes.html#reference-conanfile-attributes-package-id-modes"><span class="std std-ref">package_id_{embed,non_embed,python,unknown}_mode</span></a></p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="extending.html" class="btn btn-neutral float-left" title="Extending the binary model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../conan_server.html" class="btn btn-neutral float-right" title="Conan Server" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2024, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 2.3
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/2.3/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

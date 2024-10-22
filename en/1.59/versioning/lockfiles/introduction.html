@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Introduction &mdash; conan 1.59.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+    <link rel="shortcut icon" href="../../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/en/latest/versioning/lockfiles/introduction.html" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=1fa155a2"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Multiple configurations" href="configurations.html" />
+    <link rel="prev" title="Lockfiles" href="../lockfiles.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/conan-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.59
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../conan_v2.html">Conan migration guide to 2.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../training_courses.html">Training Courses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../versioning.html">Versioning</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html">Introduction to versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../version_ranges.html">Version ranges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../revisions.html">Package Revisions</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../lockfiles.html">Lockfiles</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Introduction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#locking-dependencies">Locking dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#immutability">Immutability</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#reproducibility">Reproducibility</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="configurations.html">Multiple configurations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="evolving.html">Evolving lockfiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="build_order.html">Build order in lockfiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bundle.html">Lockfile bundles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ci.html">Lockfiles in Continuous Integration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../extending.html">Extending Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cheatsheet.html">Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #eb8484;background-color: #ffcaca;padding: 3px;margin-bottom: 5px">
+              <p>This document is for a <b>"1.X" legacy</b> Conan version, <b>which is no longer recommended</b>. Please update to Conan 2, <a href="https://docs.conan.io/2/">click here to read the <b>Conan 2</b> documentation</a></p>
+            </div>
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          <!--@ OUTDATED_VERSION_PLACEHOLDER_BEGIN @
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/@LATEST_DOC_PAGE_URL@">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          @ OUTDATED_VERSION_PLACEHOLDER_END @-->
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../versioning.html">Versioning</a></li>
+          <li class="breadcrumb-item"><a href="../lockfiles.html">Lockfiles</a></li>
+      <li class="breadcrumb-item active">Introduction</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/master/versioning/lockfiles/introduction.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="introduction">
+<span id="versioning-lockfiles-introduction"></span><h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This is an <strong>experimental</strong> feature subject to breaking changes in future releases.</p>
+</div>
+<p>Let’s introduce lockfiles by example, with 2 packages, package <code class="docutils literal notranslate"><span class="pre">pkgb</span></code> that depends on  package <code class="docutils literal notranslate"><span class="pre">pkga</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The code used in this section, including a <em>build.py</em> script to reproduce it, is in the
+examples repository: <a class="reference external" href="https://github.com/conan-io/examples">https://github.com/conan-io/examples</a>. You can go step by step
+reproducing this example while reading the below documentation.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/conan-io/examples.git
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>features/lockfiles/intro
+<span class="c1"># $ python build.py only to run the full example, but better go step by step</span>
+</pre></div>
+</div>
+</div>
+<section id="locking-dependencies">
+<h2>Locking dependencies<a class="headerlink" href="#locking-dependencies" title="Link to this heading"></a></h2>
+<p>This example uses <code class="docutils literal notranslate"><span class="pre">full_version_mode</span></code>, that is, if a package changes any part of its version, its consumers will
+need to build a new binary because a new <code class="docutils literal notranslate"><span class="pre">package_id</span></code> will be computed. This example will use version ranges, and
+it is not necessary to have revisions enabled. It also does not require a server, everything can be reproduced locally.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>config<span class="w"> </span><span class="nb">set</span><span class="w"> </span>general.default_package_id_mode<span class="o">=</span>full_version_mode
+</pre></div>
+</div>
+<p>Let’s start by creating from the recipe and source in the <code class="docutils literal notranslate"><span class="pre">pkga</span></code> folder, a first <code class="docutils literal notranslate"><span class="pre">pkg/0.1&#64;user/testing</span></code>
+package in our local cache:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>pkga<span class="w"> </span>pkga/0.1@user/testing
+</pre></div>
+</div>
+<p>Now we want to start developing and testing the code for <code class="docutils literal notranslate"><span class="pre">pkgb</span></code>, but we want to create a “snapshot” of the
+dependency graph, to isolate our development from possible changes (note that the recipe in <em>pkgb/conanfile.py</em>
+contains a require like <code class="docutils literal notranslate"><span class="pre">requires</span> <span class="pre">=</span> <span class="pre">&quot;pkga/[&gt;0.0]&#64;user/testing&quot;</span></code>).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>pkgb
+$<span class="w"> </span>conan<span class="w"> </span>lock<span class="w"> </span>create<span class="w"> </span>conanfile.py<span class="w"> </span>--user<span class="o">=</span>user<span class="w"> </span>--channel<span class="o">=</span>testing<span class="w"> </span>--lockfile-out<span class="o">=</span>locks/pkgb_deps.lock
+</pre></div>
+</div>
+<p>This will create a <em>pkgb_deps.lock</em> file in the <em>locks</em> folder. Note that we have passed the user and channel of the future
+package that we will create as <code class="docutils literal notranslate"><span class="pre">--user=user</span> <span class="pre">--channel=testing</span></code>.</p>
+<p>Let’s have a look at the lockfile:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;graph_lock&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;nodes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;0&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;ref&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pkgb/0.1@user/testing&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;options&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;shared=False&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;requires&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;1&quot;</span><span class="p">],</span>
+<span class="w">                </span><span class="nt">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;..\\conanfile.py&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;context&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;host&quot;</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;1&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;ref&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pkga/0.1@user/testing&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;options&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;package_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;4024617540c4f240a6a5e8911b0de9ef38a11a72&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;prev&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;context&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;host&quot;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;revisions_enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.4&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;profile_host&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;[settings]\narch=x86_64\narch_build=x86_64\nbuild_type=Release\ncompiler=Visual Studio\ncompiler.runtime=MD\ncompiler.version=15\nos=Windows\nos_build=Windows\n[options]\n[tool_requires]\n[env]\n&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>We can see the <code class="docutils literal notranslate"><span class="pre">pkga/0.1&#64;user/testing</span></code> dependency in the lockfile, together with its <code class="docutils literal notranslate"><span class="pre">package_id</span></code>. This
+dependency is fully locked. The <code class="docutils literal notranslate"><span class="pre">pkgb/0.1&#64;user/testing</span></code> doesn’t have a <code class="docutils literal notranslate"><span class="pre">package_id</span></code> yet, because so far it
+is just a local <em>conanfile.py</em> as a consumer, not a package. But the <code class="docutils literal notranslate"><span class="pre">user/testing</span></code> user and channel are already defined.</p>
+<p>It is important to note that the <em>pkgb_deps.lock</em> lockfile contains the current <code class="docutils literal notranslate"><span class="pre">profile</span></code> for the current configuration.</p>
+<p>At this moment we have captured the dependency graph for <code class="docutils literal notranslate"><span class="pre">pkgb</span></code>. Now, it would be possible that a new version
+of <code class="docutils literal notranslate"><span class="pre">pkga</span></code> is created:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>..
+<span class="c1"># The recipe generates different package code depending on the version, automatically</span>
+$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>pkga<span class="w"> </span>pkga/0.2@user/testing
+</pre></div>
+</div>
+<p>If now we install and build our code in <code class="docutils literal notranslate"><span class="pre">pkgb</span></code> we would get:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>mkdir<span class="w"> </span>pkgb/build
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>pkgb/build
+$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>..
+&gt;<span class="w"> </span>...<span class="w"> </span>pkga/0.2@user/testing<span class="w"> </span>from<span class="w"> </span><span class="nb">local</span><span class="w"> </span>cache<span class="w"> </span>-<span class="w"> </span>Cache
+<span class="c1"># Example for VS, use your compiler here</span>
+$<span class="w"> </span>cmake<span class="w"> </span>../src<span class="w"> </span>-G<span class="w"> </span><span class="s2">&quot;Visual Studio 15 Win64&quot;</span>
+$<span class="w"> </span>cmake<span class="w"> </span>--build<span class="w"> </span>.<span class="w"> </span>--config<span class="w"> </span>Release
+$<span class="w"> </span>./bin/greet
+HelloA<span class="w"> </span><span class="m">0</span>.2<span class="w"> </span>Release
+HelloB<span class="w"> </span>Release!
+Greetings<span class="w"> </span>Release!
+</pre></div>
+</div>
+<p>But as explained above, the purpose of the lockfile is to capture the dependencies and use them later.
+Let’s pass the lockfile as an argument to guarantee the usage of the locked <code class="docutils literal notranslate"><span class="pre">pkga/0.1&#64;user/testing</span></code> dependency:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>..<span class="w"> </span>--lockfile<span class="o">=</span>../locks/pkgb_deps.lock
+&gt;<span class="w"> </span>...<span class="w"> </span>pkga/0.1@user/testing<span class="w"> </span>from<span class="w"> </span><span class="nb">local</span><span class="w"> </span>cache<span class="w"> </span>-<span class="w"> </span>Cache
+$<span class="w"> </span>cmake<span class="w"> </span>../src<span class="w"> </span>-G<span class="w"> </span><span class="s2">&quot;Visual Studio 15 Win64&quot;</span>
+$<span class="w"> </span>cmake<span class="w"> </span>--build<span class="w"> </span>.<span class="w"> </span>--config<span class="w"> </span>Release
+$<span class="w"> </span>./bin/greet
+HelloA<span class="w"> </span><span class="m">0</span>.1<span class="w"> </span>Release
+HelloB<span class="w"> </span>Release!
+Greetings<span class="w"> </span>Release!
+</pre></div>
+</div>
+<p>That’s it. We managed to depend on <code class="docutils literal notranslate"><span class="pre">pkga/0.1&#64;user/testing</span></code> instead of the <code class="docutils literal notranslate"><span class="pre">pkga/0.2&#64;user/testing</span></code> although the later
+satisfies the version range and is available in the cache. Using the same dependency was possible because we used the information stored in the lockfile.</p>
+</section>
+<section id="immutability">
+<h2>Immutability<a class="headerlink" href="#immutability" title="Link to this heading"></a></h2>
+<p>A core concept of lockfiles is their immutability and the integrity of its data:</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The information stored in a lockfile cannot be changed. Any attempt to modify locked data will result in
+an error.</p>
+</div>
+<p>For example, if now we try to do a <strong class="command">conan install</strong> that also builds <code class="docutils literal notranslate"><span class="pre">pkga</span></code> from source:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>..<span class="w"> </span>--lockfile<span class="o">=</span>../locks/pkgb_deps.lock<span class="w"> </span>--build<span class="o">=</span>pkga
+ERROR:<span class="w"> </span>Cannot<span class="w"> </span>build<span class="w"> </span><span class="s1">&#39;pkga/0.1@user/testing&#39;</span><span class="w"> </span>because<span class="w"> </span>it<span class="w"> </span>is<span class="w"> </span>already<span class="w"> </span>locked<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>input<span class="w"> </span>lockfile
+</pre></div>
+</div>
+<p>It is an error, because the <code class="docutils literal notranslate"><span class="pre">pkga/0.1&#64;user/testing</span></code> dependency was fully locked. When the lockfile was created, the
+<code class="docutils literal notranslate"><span class="pre">pkga/0.1&#64;user/testing</span></code> was found, including a binary, and that information was stored. Every time this lockfile is
+used, it assumes this package and binary exist and it will try to get them, but it will never allow to re-build, because
+that can violate the integrity of the lockfile. For example, if we were using <code class="docutils literal notranslate"><span class="pre">package_revision_mode</span></code>, a new binary
+of <code class="docutils literal notranslate"><span class="pre">pkga</span></code> would produce new package-ids of all its consumers, that will not match the package-ids stored in the lockfile.</p>
+<p>It is possible though to control what is being locked with the <code class="docutils literal notranslate"><span class="pre">--build</span></code> argument provided to the <strong class="command">conan lock create</strong>
+command.</p>
+<p>The same principle applies if we try to create a package for <code class="docutils literal notranslate"><span class="pre">pkgb</span></code> and it tries to alter the user and channel <code class="docutils literal notranslate"><span class="pre">user/testing</span></code>
+that were provided at the time of the <strong class="command">conan lock create</strong> command used above.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>..
+$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.<span class="w"> </span>user/stable<span class="w"> </span>--lockfile<span class="o">=</span>locks/pkgb_deps.locked
+ERROR:<span class="w"> </span>Attempt<span class="w"> </span>to<span class="w"> </span>modify<span class="w"> </span>locked<span class="w"> </span>pkgb/0.1@user/testing<span class="w"> </span>to<span class="w"> </span>pkgb/0.1@user/stable
+</pre></div>
+</div>
+<p>Again, it is important to keep the integrity. Package recipes can have conditional or parameterized dependencies, based on
+user and channel for example. If we try to create the <code class="docutils literal notranslate"><span class="pre">pkgb</span></code> package with different user and channel, it could result in
+a different dependency graph, totally incompatible with the one captured in the lockfile. If <code class="docutils literal notranslate"><span class="pre">pkgb/0.1&#64;user/testing</span></code> was stored in
+the lockfile, any command using this lockfile must respect and keep it without changes.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A package in a lockfile is fully locked if it contains a <code class="docutils literal notranslate"><span class="pre">prev</span></code> (package revision) field defined.
+Fully locked packages cannot be built from sources. Partially locked packages do not contain a <code class="docutils literal notranslate"><span class="pre">prev</span></code>
+defined. They lock the reference and the package-id, and they can be built from sources.</p>
+</div>
+</section>
+<section id="reproducibility">
+<h2>Reproducibility<a class="headerlink" href="#reproducibility" title="Link to this heading"></a></h2>
+<p>That doesn’t mean that a lockfile cannot evolve at all. Using the <strong class="command">--lockfile</strong> argument, we are able to create
+<code class="docutils literal notranslate"><span class="pre">pkgb/0.1&#64;user/testing</span></code> guaranteeing it is being created depending on <code class="docutils literal notranslate"><span class="pre">pkga/0.1&#64;user/testing</span></code>. Additionally, if we use the
+<strong class="command">--lockfile-out</strong> argument, we can obtain an updated version of the lockfile:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.<span class="w"> </span>user/testing<span class="w"> </span>--lockfile<span class="o">=</span>locks/pkgb_deps.lock<span class="w"> </span>--lockfile-out<span class="o">=</span>locks/pkgb.lock
+</pre></div>
+</div>
+<p>And if we inspect the new <em>locks/pkgb.lock</em> file:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{
+    ...
+    &quot;0&quot;: {
+        &quot;ref&quot;: &quot;pkgb/0.1@user/testing&quot;,
+        &quot;options&quot;: &quot;shared=False&quot;,
+        &quot;package_id&quot;: &quot;2418b211603ca0a3858d9dd1fc1108d54a4cab99&quot;,
+        &quot;prev&quot;: &quot;0&quot;,
+        &quot;modified&quot;: true,
+        &quot;requires&quot;: [&quot;1&quot;],
+        &quot;context&quot;: &quot;host&quot;
+    }
+    ...
+}
+</pre></div>
+</div>
+<p>Note that some fields of the lockfile are now completed, as the modified flag, that indicates that
+<code class="docutils literal notranslate"><span class="pre">pkgb</span></code> was built in the conan create command. That information can be useful in the CI environment
+to know which packages were built by different jobs. Those modified flags can be reset using the
+<strong class="command">conan lock clean-modified</strong>.
+Also, it can be appreciated in <em>locks/pkgb.lock</em> that now <code class="docutils literal notranslate"><span class="pre">pkgb/0.1&#64;user/testing</span></code> is fully locked, as a
+package (not a local <em>conanfile.py</em>), and contains a <code class="docutils literal notranslate"><span class="pre">package_id</span></code>. So if we try to use this new
+file for creating the package again, it will error, as a package that is fully locked cannot be
+rebuilt:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.<span class="w"> </span>user/testing<span class="w"> </span>--lockfile<span class="o">=</span>locks/pkgb.lock
+ERROR:<span class="w"> </span>Attempt<span class="w"> </span>to<span class="w"> </span>modify<span class="w"> </span>locked<span class="w"> </span>pkgb/0.1@user/testing<span class="w"> </span>to<span class="w"> </span>pkgb/0.1@user/testing
+</pre></div>
+</div>
+<p>But we can reproduce the same set of dependencies and the creation of <code class="docutils literal notranslate"><span class="pre">pkgb</span></code>, using the <em>pkgb_deps.lock</em> lockfile:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.<span class="w"> </span>user/testing<span class="w"> </span>--lockfile<span class="o">=</span>locks/pkgb_deps.lock<span class="w"> </span><span class="c1"># OK</span>
+</pre></div>
+</div>
+<p>The <em>pkgb.lock</em> can be used later in time to install the <code class="docutils literal notranslate"><span class="pre">pkgb</span></code> application (the <code class="docutils literal notranslate"><span class="pre">pkgb</span></code> <em>conanfile.py</em> contains a <code class="docutils literal notranslate"><span class="pre">deploy()</span></code>
+method for convenience for this example), and get the same package and dependencies:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>..
+$<span class="w"> </span>mkdir<span class="w"> </span>consume
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>consume
+$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>pkgb/0.1@user/testing<span class="w"> </span>--lockfile<span class="o">=</span>../pkgb/locks/pkgb.lock
+$<span class="w"> </span>./bin/greet
+HelloA<span class="w"> </span><span class="m">0</span>.1<span class="w"> </span>Release
+HelloB<span class="w"> </span>Release!
+Greetings<span class="w"> </span>Release!
+</pre></div>
+</div>
+<p>As long as we have the <em>pkgb.lock</em> lockfile, we will be able to robustly reproduce this install, even if the packages were
+uploaded to a server, if there are new versions that satisfy the version ranges, etc.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>All the examples and documentation of this section is done with version ranges and revisions disabled.
+Lockfiles also work and can lock both recipe and package revisions, with the same behavior as
+version-ranges. All is necessary is to enable revisions. The only current limitation is that the local
+cache cannot store more than one revision at a time, but that is a limitation of the cache and unrelated
+to lockfiles.</p>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../lockfiles.html" class="btn btn-neutral float-left" title="Lockfiles" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="configurations.html" class="btn btn-neutral float-right" title="Multiple configurations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2022, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 1.59
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/en/1.59/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

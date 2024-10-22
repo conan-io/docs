@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cross building &mdash; conan 1.12.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=c976af01"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Windows Subsystems" href="windows_subsystems.html" />
+    <link rel="prev" title="Systems and cross building" href="../systems_cross_building.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=GTM-WK44ZFM"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'GTM-WK44ZFM');
+</script>
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/conan_logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.12
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Cross building</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gnu-triplet-convention">GNU triplet convention</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-settings">Conan settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cross-building-with-conan">Cross building with Conan</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#using-profiles">Using profiles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#using-build-requires">Using build requires</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#using-docker-images">Using Docker images</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#preparing-recipes-to-be-cross-compiled">Preparing recipes to be cross-compiled</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#arm-architecture-reference">ARM architecture reference</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="windows_subsystems.html">Windows Subsystems</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Extending Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #eb8484;background-color: #ffcaca;padding: 3px;margin-bottom: 5px">
+              <p>This document is for a <b>"1.X" legacy</b> Conan version, <b>which is no longer recommended</b>. Please update to Conan 2, <a href="https://docs.conan.io/2/">click here to read the <b>Conan 2</b> documentation</a></p>
+            </div>
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          <!--@ OUTDATED_VERSION_PLACEHOLDER_BEGIN @
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/@LATEST_DOC_PAGE_URL@">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          @ OUTDATED_VERSION_PLACEHOLDER_END @-->
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../systems_cross_building.html">Systems and cross building</a></li>
+      <li class="breadcrumb-item active">Cross building</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/master/systems_cross_building/cross_building.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cross-building">
+<span id="id1"></span><h1>Cross building<a class="headerlink" href="#cross-building" title="Link to this heading"></a></h1>
+<p>Cross building is compiling a library or executable in one platform to be used in a different one.</p>
+<p>Cross-compilation is used to build software for embedded devices where you don’t have an operating system
+nor a compiler available. Also for building software for not too fast devices, like an Android machine, a Raspberry PI etc.</p>
+<p>To cross build code you need the right toolchain.
+A toolchain is basically a compiler with a set of libraries matching the <code class="docutils literal notranslate"><span class="pre">host</span></code> platform.</p>
+<section id="gnu-triplet-convention">
+<h2>GNU triplet convention<a class="headerlink" href="#gnu-triplet-convention" title="Link to this heading"></a></h2>
+<p>According to the GNU convention, there are three platforms involved in the software building:</p>
+<ul class="simple">
+<li><p><strong>Build platform:</strong> The platform on which the compilation tools are executed</p></li>
+<li><p><strong>Host platform:</strong> The platform on which the code will run</p></li>
+<li><p><strong>Target platform:</strong> Only when building a compiler, this is the platform that the compiler will
+generate code for</p></li>
+</ul>
+<p>When you are building code for your own machine it’s called <strong>native building</strong>, where the <code class="docutils literal notranslate"><span class="pre">build</span></code>
+and the <code class="docutils literal notranslate"><span class="pre">host</span></code> platforms are the same. The <code class="docutils literal notranslate"><span class="pre">target</span></code> platform is not defined in this situation.</p>
+<p>When you are building code for a different platform, it’s called <strong>cross building</strong>, where the <code class="docutils literal notranslate"><span class="pre">build</span></code>
+platform is different from the <code class="docutils literal notranslate"><span class="pre">host</span></code> platform. The <code class="docutils literal notranslate"><span class="pre">target</span></code> platform is not defined in this situation.</p>
+<p>The use of the <code class="docutils literal notranslate"><span class="pre">target</span></code> platform is rarely needed, only makes sense when you are building a compiler. For instance,
+when you are building in your Linux machine a GCC compiler that will run on Windows, to generate code for Android.
+Here, the <code class="docutils literal notranslate"><span class="pre">build</span></code> is your Linux computer, the <code class="docutils literal notranslate"><span class="pre">host</span></code> is the Windows computer and the <code class="docutils literal notranslate"><span class="pre">target</span></code> is Android.</p>
+</section>
+<section id="conan-settings">
+<h2>Conan settings<a class="headerlink" href="#conan-settings" title="Link to this heading"></a></h2>
+<p>From version 1.0, Conan introduces new settings to model the GNU convention triplet:</p>
+<p><code class="docutils literal notranslate"><span class="pre">build</span></code> platform settings:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>os_build</strong>: Operating system of the <code class="docutils literal notranslate"><span class="pre">build</span></code> system.</p></li>
+<li><p><strong>arch_build</strong>: Architecture system of the <code class="docutils literal notranslate"><span class="pre">build</span></code> system.</p></li>
+</ul>
+<p>These settings are detected the first time you run Conan with the same values than the <code class="docutils literal notranslate"><span class="pre">host</span></code> settings,
+so by default, we are doing <strong>native building</strong>. Probably you will never need to change the value
+of this settings because they describe where are you running Conan.</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">host</span></code> platform settings:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>os</strong>: Operating system of the <code class="docutils literal notranslate"><span class="pre">host</span></code> system.</p></li>
+<li><p><strong>arch</strong>: Architecture of the <code class="docutils literal notranslate"><span class="pre">host</span></code> system.</p></li>
+<li><p><strong>compiler</strong>: Compiler of the <code class="docutils literal notranslate"><span class="pre">host</span></code> system (to declare compatibility of libs in the host platform)</p></li>
+<li><p>… (all the regular settings)</p></li>
+</ul>
+<p>These settings are the regular Conan settings, already present before supporting the GNU triplet convention.
+If you are cross building you have to change them according to the <code class="docutils literal notranslate"><span class="pre">host</span></code> platform.</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">target</span></code> platform:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>os_target</strong>: Operating system of the <code class="docutils literal notranslate"><span class="pre">target</span></code> system.</p></li>
+<li><p><strong>arch_target</strong>: Architecture of the <code class="docutils literal notranslate"><span class="pre">target</span></code> system.</p></li>
+</ul>
+<p>If you are building a compiler, specify with these settings where the compiled code will run.</p>
+</div></blockquote>
+</section>
+<section id="cross-building-with-conan">
+<h2>Cross building with Conan<a class="headerlink" href="#cross-building-with-conan" title="Link to this heading"></a></h2>
+<p>If you want to cross-build a Conan package, for example, in your Linux machine, build the <cite>zlib</cite>
+Conan package for Windows, you need to indicate to Conan where to find your cross-compiler/toolchain.</p>
+<p>There are two approaches:</p>
+<ul class="simple">
+<li><p>Install the toolchain in your computer and use a <code class="docutils literal notranslate"><span class="pre">profile</span></code> to declare the settings and
+point to the needed tools/libraries in the toolchain using the <code class="docutils literal notranslate"><span class="pre">[env]</span></code> section to declare, at least,
+the <code class="docutils literal notranslate"><span class="pre">CC</span></code> and <code class="docutils literal notranslate"><span class="pre">CXX</span></code> environment variables.</p></li>
+<li><p>Package the toolchain as a Conan package and include it as a <code class="docutils literal notranslate"><span class="pre">build_require</span></code>.</p></li>
+</ul>
+<section id="using-profiles">
+<h3>Using profiles<a class="headerlink" href="#using-profiles" title="Link to this heading"></a></h3>
+<p>Create a profile with:</p>
+<ul class="simple">
+<li><p>A <strong>[settings]</strong> section containing the needed settings: <code class="docutils literal notranslate"><span class="pre">os_build</span></code>, <code class="docutils literal notranslate"><span class="pre">arch_build</span></code> and the regular
+settings <code class="docutils literal notranslate"><span class="pre">os</span></code>, <code class="docutils literal notranslate"><span class="pre">arch</span></code>, <code class="docutils literal notranslate"><span class="pre">compiler</span></code>, <code class="docutils literal notranslate"><span class="pre">build_type</span></code> and so on.</p></li>
+<li><p>An <strong>[env]</strong> section with a PATH variable pointing to your installed toolchain. Also any other variable
+that the toolchain expects (read the docs of your compiler). Some build systems need a variable <code class="docutils literal notranslate"><span class="pre">SYSROOT</span></code> to locate
+where the host system libraries and tools are.</p></li>
+</ul>
+<section id="linux-to-windows">
+<h4>Linux to Windows<a class="headerlink" href="#linux-to-windows" title="Link to this heading"></a></h4>
+<ul>
+<li><p>Install the needed toolchain, in ubuntu:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">g++-mingw-w64</span> <span class="pre">gcc-mingw-w64</span></code></p>
+</div></blockquote>
+</li>
+<li><p>Create a file named <strong>linux_to_win64</strong> with the contents:</p></li>
+</ul>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$toolchain=/usr/x86_64-w64-mingw32 # Adjust this path
+target_host=x86_64-w64-mingw32
+cc_compiler=gcc
+cxx_compiler=g++
+
+[env]
+CONAN_CMAKE_FIND_ROOT_PATH=$toolchain
+CHOST=$target_host
+AR=$target_host-ar
+AS=$target_host-as
+RANLIB=$target_host-ranlib
+CC=$target_host-$cc_compiler
+CXX=$target_host-$cxx_compiler
+STRIP=$target_host-strip
+RC=$target_host-windres
+
+[settings]
+# We are building in Ubuntu Linux
+os_build=Linux
+arch_build=x86_64
+
+# We are cross building to Windows
+os=Windows
+arch=x86_64
+compiler=gcc
+
+# Adjust to the gcc version of your MinGW package
+compiler.version=7.3
+compiler.libcxx=libstdc++11
+build_type=Release
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Clone an example recipe or use your own recipe:</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/memsharded/conan-hello.git
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Call <strong class="command">conan create</strong> using the created <strong>linux_to_win64</strong></p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>conan-hello<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.<span class="w"> </span>conan/testing<span class="w"> </span>--profile<span class="w"> </span>../linux_to_win64
+...
+<span class="o">[</span><span class="w"> </span><span class="m">50</span>%<span class="o">]</span><span class="w"> </span>Building<span class="w"> </span>CXX<span class="w"> </span>object<span class="w"> </span>CMakeFiles/example.dir/example.cpp.obj
+<span class="o">[</span><span class="m">100</span>%<span class="o">]</span><span class="w"> </span>Linking<span class="w"> </span>CXX<span class="w"> </span>executable<span class="w"> </span>bin/example.exe
+<span class="o">[</span><span class="m">100</span>%<span class="o">]</span><span class="w"> </span>Built<span class="w"> </span>target<span class="w"> </span>example
+</pre></div>
+</div>
+<p>A <em>bin/example.exe</em> for Win64 platform has been built.</p>
+</section>
+<section id="windows-to-raspberry-pi-linux-arm">
+<h4>Windows to Raspberry PI (Linux/ARM)<a class="headerlink" href="#windows-to-raspberry-pi-linux-arm" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p>Install the toolchain: <a class="reference external" href="http://gnutoolchains.com/raspberry/">http://gnutoolchains.com/raspberry/</a>
+You can choose different versions of the GCC cross compiler, choose one and adjust the following
+settings in the profile accordingly.</p></li>
+<li><p>Create a file named <strong>win_to_rpi</strong> with the contents:</p></li>
+</ul>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>target_host=arm-linux-gnueabihf
+standalone_toolchain=C:/sysgcc/raspberry
+cc_compiler=gcc
+cxx_compiler=g++
+
+[settings]
+os_build=Windows
+arch_build=x86_64
+os=Linux
+arch=armv7 # Change to armv6 if you are using Raspberry 1
+compiler=gcc
+compiler.version=6
+compiler.libcxx=libstdc++11
+build_type=Release
+
+[env]
+CONAN_CMAKE_FIND_ROOT_PATH=$standalone_toolchain/$target_host/sysroot
+PATH=[$standalone_toolchain/bin]
+CHOST=$target_host
+AR=$target_host-ar
+AS=$target_host-as
+RANLIB=$target_host-ranlib
+LD=$target_host-ld
+STRIP=$target_host-strip
+CC=$target_host-$cc_compiler
+CXX=$target_host-$cxx_compiler
+CXXFLAGS=-I&quot;$standalone_toolchain/$target_host/lib/include&quot;
+</pre></div>
+</div>
+<p>The profiles to target Linux are all very similar, probably you just need to adjust the variables
+declared in the top of the profile:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>target_host</strong>: All the executables in the toolchain starts with this prefix.</p></li>
+<li><p><strong>standalone_toolchain</strong>: Path to the toolchain installation.</p></li>
+<li><p><strong>cc_compiler/cxx_compiler</strong>: In this case <code class="docutils literal notranslate"><span class="pre">gcc</span></code>/<code class="docutils literal notranslate"><span class="pre">g++</span></code>, but could be <code class="docutils literal notranslate"><span class="pre">clang</span></code>/<code class="docutils literal notranslate"><span class="pre">clang++</span></code>.</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>Clone an example recipe or use your own recipe:</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/memsharded/conan-hello.git
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Call <strong class="command">conan create</strong> using the created profile.</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>conan-hello<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.<span class="w"> </span>conan/testing<span class="w"> </span>--profile<span class="o">=</span>../win_to_rpi
+...
+<span class="o">[</span><span class="w"> </span><span class="m">50</span>%<span class="o">]</span><span class="w"> </span>Building<span class="w"> </span>CXX<span class="w"> </span>object<span class="w"> </span>CMakeFiles/example.dir/example.cpp.obj
+<span class="o">[</span><span class="m">100</span>%<span class="o">]</span><span class="w"> </span>Linking<span class="w"> </span>CXX<span class="w"> </span>executable<span class="w"> </span>bin/example
+<span class="o">[</span><span class="m">100</span>%<span class="o">]</span><span class="w"> </span>Built<span class="w"> </span>target<span class="w"> </span>example
+</pre></div>
+</div>
+<p>A <em>bin/example</em> for Raspberry PI (Linux/armv7hf) platform has been built.</p>
+</section>
+<section id="linux-windows-macos-to-android">
+<span id="cross-building-android"></span><h4>Linux/Windows/macOS to Android<a class="headerlink" href="#linux-windows-macos-to-android" title="Link to this heading"></a></h4>
+<p>Cross building a library for Android is very similar to the previous examples, except the complexity of managing different
+architectures (armeabi, armeabi-v7a, x86, arm64-v8a) and the Android API levels.</p>
+<p>Download the Android NDK <a class="reference external" href="https://developer.android.com/ndk/downloads">here</a> and unzip it.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are in Windows the process will be almost the same, but unzip the file in the root folder of your hard disk (<code class="docutils literal notranslate"><span class="pre">C:\</span></code>) to avoid issues with path lengths.</p>
+</div>
+<p>Now you have to build a <a class="reference external" href="https://developer.android.com/ndk/guides/standalone_toolchain">standalone toolchain</a>,
+we are going to target “arm” architecture and the Android API level 21, change the <code class="docutils literal notranslate"><span class="pre">--install-dir</span></code> to any other place that works
+for you:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build/tools
+$<span class="w"> </span>python<span class="w"> </span>make_standalone_toolchain.py<span class="w"> </span>--arch<span class="o">=</span>arm<span class="w"> </span>--api<span class="o">=</span><span class="m">21</span><span class="w"> </span>--stl<span class="o">=</span>libc++<span class="w"> </span>--install-dir<span class="o">=</span>/myfolder/arm_21_toolchain
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can generate the standalone toolchain with several different options to target different architectures, api levels etc.</p>
+<p>Check the Android docs: <a class="reference external" href="https://developer.android.com/ndk/guides/standalone_toolchain">standalone toolchain</a></p>
+</div>
+<p>To use the <code class="docutils literal notranslate"><span class="pre">clang</span></code> compiler, create a profile <code class="docutils literal notranslate"><span class="pre">android_21_arm_clang</span></code>. Once again, the profile is very similar to the
+RPI one:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>standalone_toolchain=/myfolder/arm_21_toolchain # Adjust this path
+target_host=arm-linux-androideabi
+cc_compiler=clang
+cxx_compiler=clang++
+
+[settings]
+compiler=clang
+compiler.version=5.0
+compiler.libcxx=libc++
+os=Android
+os.api_level=21
+arch=armv7
+build_type=Release
+
+[env]
+CONAN_CMAKE_FIND_ROOT_PATH=$standalone_toolchain/sysroot
+PATH=[$standalone_toolchain/bin]
+CHOST=$target_host
+AR=$target_host-ar
+AS=$target_host-as
+RANLIB=$target_host-ranlib
+CC=$target_host-$cc_compiler
+CXX=$target_host-$cxx_compiler
+LD=$target_host-ld
+STRIP=$target_host-strip
+CFLAGS= -fPIE -fPIC -I$standalone_toolchain/include/c++/4.9.x
+CXXFLAGS= -fPIE -fPIC -I$standalone_toolchain/include/c++/4.9.x
+LDFLAGS= -pie
+</pre></div>
+</div>
+<p>You could also use <code class="docutils literal notranslate"><span class="pre">gcc</span></code> using this profile <code class="docutils literal notranslate"><span class="pre">arm_21_toolchain_gcc</span></code>, changing the <code class="docutils literal notranslate"><span class="pre">cc_compiler</span></code> and
+<code class="docutils literal notranslate"><span class="pre">cxx_compiler</span></code> variables, removing <code class="docutils literal notranslate"><span class="pre">-fPIE</span></code> flag and, of course, changing the <code class="docutils literal notranslate"><span class="pre">[settings]</span></code> to
+match the gcc toolchain compiler:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>standalone_toolchain=/myfolder/arm_21_toolchain
+target_host=arm-linux-androideabi
+cc_compiler=gcc
+cxx_compiler=g++
+
+[settings]
+compiler=gcc
+compiler.version=4.9
+compiler.libcxx=libstdc++
+os=Android
+os.api_level=21
+arch=armv7
+build_type=Release
+
+[env]
+CONAN_CMAKE_FIND_ROOT_PATH=$standalone_toolchain/sysroot
+PATH=[$standalone_toolchain/bin]
+CHOST=$target_host
+AR=$target_host-ar
+AS=$target_host-as
+RANLIB=$target_host-ranlib
+CC=$target_host-$cc_compiler
+CXX=$target_host-$cxx_compiler
+LD=$target_host-ld
+STRIP=$target_host-strip
+CFLAGS= -fPIC -I$standalone_toolchain/include/c++/4.9.x
+CXXFLAGS= -fPIC -I$standalone_toolchain/include/c++/4.9.x
+LDFLAGS=
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Clone, for example, the zlib library to try to build it to Android</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/conan-community/conan-zlib.git
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Call <strong class="command">conan create</strong> using the created profile.</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>conan-zlib<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.<span class="w"> </span>conan/testing<span class="w"> </span>--profile<span class="o">=</span>../android_21_arm_clang
+
+...
+--<span class="w"> </span>Build<span class="w"> </span>files<span class="w"> </span>have<span class="w"> </span>been<span class="w"> </span>written<span class="w"> </span>to:<span class="w"> </span>/tmp/conan-zlib/test_package/build/ba0b9dbae0576b9a23ce7005180b00e4fdef1198
+Scanning<span class="w"> </span>dependencies<span class="w"> </span>of<span class="w"> </span>target<span class="w"> </span>enough
+<span class="o">[</span><span class="w"> </span><span class="m">50</span>%<span class="o">]</span><span class="w"> </span>Building<span class="w"> </span>C<span class="w"> </span>object<span class="w"> </span>CMakeFiles/enough.dir/enough.c.o
+<span class="o">[</span><span class="m">100</span>%<span class="o">]</span><span class="w"> </span>Linking<span class="w"> </span>C<span class="w"> </span>executable<span class="w"> </span>bin/enough
+<span class="o">[</span><span class="m">100</span>%<span class="o">]</span><span class="w"> </span>Built<span class="w"> </span>target<span class="w"> </span>enough
+zlib/1.2.11@conan/testing<span class="w"> </span><span class="o">(</span><span class="nb">test</span><span class="w"> </span>package<span class="o">)</span>:<span class="w"> </span>Running<span class="w"> </span>test<span class="o">()</span>
+</pre></div>
+</div>
+<p>A <strong>bin/enough</strong> for Android ARM platform has been built.</p>
+</section>
+</section>
+<section id="using-build-requires">
+<h3>Using build requires<a class="headerlink" href="#using-build-requires" title="Link to this heading"></a></h3>
+<p>Instead of downloading manually the toolchain and creating a profile, you can create a Conan package
+with it. The toolchain Conan package needs to fill the <code class="docutils literal notranslate"><span class="pre">env_info</span></code> object
+in the <a class="reference internal" href="../reference/conanfile/methods.html#method-package-info"><span class="std std-ref">package_info()</span></a> method with the same variables we’ve specified in the examples
+above in the <code class="docutils literal notranslate"><span class="pre">[env]</span></code> section of profiles.</p>
+<p>A layout of a Conan package for a toolchain could looks like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+
+<span class="k">class</span> <span class="nc">MyToolchainXXXConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;my_toolchain&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os_build&quot;</span><span class="p">,</span> <span class="s2">&quot;arch_build&quot;</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Typically download the toolchain for the &#39;build&#39; host</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://fake_url.com/installers/</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">/toolchain.tgz&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">os_build</span><span class="p">,</span> <span class="n">os_arch</span><span class="p">)</span>
+        <span class="n">tools</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="s2">&quot;toolchain.tgz&quot;</span><span class="p">)</span>
+        <span class="n">tools</span><span class="o">.</span><span class="n">unzip</span><span class="p">(</span><span class="s2">&quot;toolchain.tgz&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Copy all the</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;toolchain&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">bin_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">package_folder</span><span class="p">,</span> <span class="s2">&quot;bin&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">env_info</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bin_folder</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">env_info</span><span class="o">.</span><span class="n">CC</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">bin_folder</span><span class="p">,</span> <span class="s2">&quot;mycompiler-cc&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">env_info</span><span class="o">.</span><span class="n">CXX</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">bin_folder</span><span class="p">,</span> <span class="s2">&quot;mycompiler-cxx&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">env_info</span><span class="o">.</span><span class="n">SYSROOT</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">package_folder</span>
+</pre></div>
+</div>
+<p>Finally, when you want to cross-build a library, the profile to be used, will include a <code class="docutils literal notranslate"><span class="pre">[build_requires]</span></code>
+section with the reference to our new packaged toolchain. Also will contain a <code class="docutils literal notranslate"><span class="pre">[settings]</span></code> section
+with the same settings of the examples above.</p>
+<section id="example-darwin-toolchain">
+<span id="darwin-toolchain"></span><h4>Example: Darwin Toolchain<a class="headerlink" href="#example-darwin-toolchain" title="Link to this heading"></a></h4>
+<p>Check the <a class="reference external" href="https://github.com/theodelrieu/conan-darwin-toolchain">Darwin Toolchain</a>  package in conan-center.
+You can use a profile like the following to cross build your packages for <code class="docutils literal notranslate"><span class="pre">iOS</span></code>,  <code class="docutils literal notranslate"><span class="pre">watchOS</span></code> and <code class="docutils literal notranslate"><span class="pre">tvOS</span></code>:</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">ios_profile</span><a class="headerlink" href="#id4" title="Link to this code"></a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>include(default)
+
+[settings]
+os=iOS
+os.version=9.0
+arch=armv7
+
+[build_requires]
+darwin-toolchain/1.0@theodelrieu/stable
+</pre></div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>.<span class="w"> </span>--profile<span class="w"> </span>ios_profile
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p>Check the <a class="reference internal" href="../devtools/create_installer_packages.html#create-installer-packages"><span class="std std-ref">Creating conan packages to install dev tools</span></a> to learn
+more about how to create Conan packages for tools.</p></li>
+<li><p>Check the <a class="reference external" href="https://github.com/conan-community/conan-mingw-installer/blob/master/conanfile.py">mingw-installer</a> build require recipe as an example of packaging a compiler.</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="using-docker-images">
+<h3>Using Docker images<a class="headerlink" href="#using-docker-images" title="Link to this heading"></a></h3>
+<p>You can use some <a class="reference internal" href="../howtos/run_conan_in_docker.html#available-docker-images"><span class="std std-ref">available docker images with Conan preinstalled images</span></a> to cross build conan packages.
+Currently there are <code class="docutils literal notranslate"><span class="pre">i386</span></code>, <code class="docutils literal notranslate"><span class="pre">armv7</span></code> and <code class="docutils literal notranslate"><span class="pre">armv7hf</span></code> images with the needed packages and toolchains installed to cross build.</p>
+<p><strong>Example</strong>: Cross-building and uploading a package along with all its missing dependencies for <code class="docutils literal notranslate"><span class="pre">Linux/armv7hf</span></code> is done in few steps:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/conan-community/conan-openssl
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>conan-openssl
+$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>-v<span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/home/conan/project<span class="w"> </span>--rm<span class="w"> </span>conanio/gcc49-armv7hf<span class="w"> </span>/bin/bash
+
+<span class="c1"># Now we are running on the conangcc49-armv7hf container</span>
+$<span class="w"> </span>sudo<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>conan<span class="w"> </span>--upgrade
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>project
+
+$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.<span class="w"> </span>user/channel<span class="w"> </span>--build<span class="w"> </span>missing
+$<span class="w"> </span>conan<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>myremoteARMV7<span class="w"> </span>http://some.remote.url
+$<span class="w"> </span>conan<span class="w"> </span>upload<span class="w"> </span><span class="s2">&quot;*&quot;</span><span class="w"> </span>-r<span class="w"> </span>myremoteARMV7<span class="w"> </span>--all
+</pre></div>
+</div>
+<p>Check the section: <a class="reference internal" href="../howtos/run_conan_in_docker.html#docker-conan"><span class="std std-ref">How to run Conan with Docker</span></a> to know more.</p>
+</section>
+<section id="preparing-recipes-to-be-cross-compiled">
+<h3>Preparing recipes to be cross-compiled<a class="headerlink" href="#preparing-recipes-to-be-cross-compiled" title="Link to this heading"></a></h3>
+<p>If you use the build helpers <a class="reference internal" href="../reference/build_helpers/autotools.html#autotools-reference"><span class="std std-ref">AutoToolsBuildEnvironment</span></a> or <a class="reference internal" href="../reference/build_helpers/cmake.html#cmake-reference"><span class="std std-ref">CMake</span></a>,
+Conan will adjust the configuration accordingly to the specified settings.</p>
+<p>If don’t, you can always check the <code class="docutils literal notranslate"><span class="pre">self.settings.os</span></code>, <code class="docutils literal notranslate"><span class="pre">self.settings.build_os</span></code>,
+<code class="docutils literal notranslate"><span class="pre">self.settings.arch</span></code> and <code class="docutils literal notranslate"><span class="pre">self.settings.build_arch</span></code> settings values and inject the needed flags to your
+build system script.</p>
+<p>You can use this tool to check if you are cross building:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../reference/tools.html#cross-building-reference"><span class="std std-ref">tools.cross_building(self.settings)</span></a> (returns True or False)</p></li>
+</ul>
+</section>
+</section>
+<section id="arm-architecture-reference">
+<h2>ARM architecture reference<a class="headerlink" href="#arm-architecture-reference" title="Link to this heading"></a></h2>
+<p>Remember that the conan settings are intended to unify the different names for operating systems, compilers,
+architectures etc.</p>
+<p>Conan has different architecture settings for ARM: <code class="docutils literal notranslate"><span class="pre">armv6</span></code>, <code class="docutils literal notranslate"><span class="pre">armv7</span></code>, <code class="docutils literal notranslate"><span class="pre">armv7hf</span></code>, <code class="docutils literal notranslate"><span class="pre">armv8</span></code>.
+The “problem” with ARM architecture is that frequently are named in different ways, so maybe you are wondering what setting
+do you need to specify in your case.</p>
+<p>Here is a table with some typical ARM platforms:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Platform</p></th>
+<th class="head"><p>Conan setting</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Raspberry PI 1</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">armv6</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Raspberry PI 2</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">armv7</span></code> or <code class="docutils literal notranslate"><span class="pre">armv7hf</span></code> if we want to use the float point hard support</p></td>
+</tr>
+<tr class="row-even"><td><p>Raspberry PI 3</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">armv8</span></code> also known as armv64-v8a</p></td>
+</tr>
+<tr class="row-odd"><td><p>Visual Studio</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">armv7</span></code> currently Visual Studio builds <code class="docutils literal notranslate"><span class="pre">armv7</span></code> binaries when you select ARM.</p></td>
+</tr>
+<tr class="row-even"><td><p>Android armbeabi-v7a</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">armv7</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Android armv64-v8a</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">armv8</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Android armeabi</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">armv6</span></code> (as a minimal compatible, will be compatible with v7 too)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Reference links</p>
+<p><strong>ARM</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://developer.arm.com/docs/100066/0604/compiling-c-and-c-code/specifying-a-target-architecture-processor-and-instruction-set">https://developer.arm.com/docs/100066/0604/compiling-c-and-c-code/specifying-a-target-architecture-processor-and-instruction-set</a></p></li>
+<li><p><a class="reference external" href="https://developer.arm.com/docs/dui0472/latest/compiler-command-line-options">https://developer.arm.com/docs/dui0472/latest/compiler-command-line-options</a></p></li>
+</ul>
+<p><strong>ANDROID</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://developer.android.com/ndk/guides/standalone_toolchain">https://developer.android.com/ndk/guides/standalone_toolchain</a></p></li>
+</ul>
+<p><strong>VISUAL STUDIO</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild-command-line-reference?view=vs-2017">https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild-command-line-reference?view=vs-2017</a></p></li>
+</ul>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p>See <a class="reference internal" href="../reference/config_files/conan.conf.html#conan-conf"><span class="std std-ref">conan.conf file</span></a> and <a class="reference internal" href="../reference/env_vars.html#env-vars"><span class="std std-ref">Environment variables</span></a> sections to know more.</p></li>
+<li><p>See <a class="reference internal" href="../reference/build_helpers/autotools.html#autotools-reference"><span class="std std-ref">AutoToolsBuildEnvironment build helper</span></a> reference.</p></li>
+<li><p>See <a class="reference internal" href="../reference/build_helpers/cmake.html#cmake-reference"><span class="std std-ref">CMake build helper</span></a> reference.</p></li>
+<li><p>See <a class="reference external" href="https://www.vtk.org/Wiki/CMake_Cross_Compiling">CMake cross building wiki</a> to know more about cross building with CMake.</p></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../systems_cross_building.html" class="btn btn-neutral float-left" title="Systems and cross building" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="windows_subsystems.html" class="btn btn-neutral float-right" title="Windows Subsystems" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2018, JFrog.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 1.12
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/en/1.12/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>package_info() &mdash; conan 2.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=045299b1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/conan.css?v=7d9e9f1e" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/reference/conanfile/methods/package_info.html" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=20623aea"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="requirements()" href="requirements.html" />
+    <link rel="prev" title="package_id()" href="package_id.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html">
+            
+              <img src="../../../_static/conan-docs-logo-2.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../whatsnew.html">What’s new in Conan 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../devops.html">Devops guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../commands.html">Commands</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../conanfile.html">conanfile.py</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../attributes.html">Attributes</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../methods.html">Methods</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="build.html">build()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="build_id.html">build_id()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="build_requirements.html">build_requirements()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compatibility.html">compatibility()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="configure.html">configure()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config_options.html">config_options()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="deploy.html">deploy()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="export.html">export()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="export_sources.html">export_sources()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generate.html">generate()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="init.html">init()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="layout.html">layout()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="package.html">package()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="package_id.html">package_id()</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">package_info()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="requirements.html">requirements()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="requirements.html#package-type-trait-inferring">package_type trait inferring</a></li>
+<li class="toctree-l4"><a class="reference internal" href="requirements.html#default-traits-for-each-kind-of-requires">Default traits for each kind of requires</a></li>
+<li class="toctree-l4"><a class="reference internal" href="set_name.html">set_name()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="set_version.html">set_version()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="source.html">source()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system_requirements.html">system_requirements()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="test.html">test()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="validate.html">validate()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="validate_build.html">validate_build()</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../running_and_output.html">Running and output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools.html">Recipe tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../config_files.html">Configuration files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../extensions.html">Extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../environment.html">Environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../binary_model.html">The binary model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../conan_server.html">Conan Server</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../knowledge.html">Knowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/reference/conanfile/methods/package_info.html">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="../../conanfile.html">conanfile.py</a></li>
+          <li class="breadcrumb-item"><a href="../methods.html">Methods</a></li>
+      <li class="breadcrumb-item active">package_info()</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/develop2/reference/conanfile/methods/package_info.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="package-info">
+<span id="reference-conanfile-methods-package-info"></span><h1>package_info()<a class="headerlink" href="#package-info" title="Link to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">package_info()</span></code> method is the one responsible of defining the information to the consumers of the package, so those consumers can easily and automatically consume this package.
+The <code class="docutils literal notranslate"><span class="pre">generate()</span></code> method of the consumers is the place where the information defined in the <code class="docutils literal notranslate"><span class="pre">package_info()</span></code> will be mapped to the specific build system of the consumer. Then, if we want a package to be consumed by different build systems (like it happens with ConanCenter recipes for the community), it is very important that this information is complete.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>This method defines information exclusively for <strong>consumers</strong> of this package, not for itself. This method executes after the binary has been built and packaged.
+The information that is consumed in the build should be processed in <code class="docutils literal notranslate"><span class="pre">generate()</span></code> method.</p>
+</div>
+<section id="cpp-info-library-and-build-information">
+<span id="conan-conanfile-model-cppinfo-attributes"></span><span id="conan-conanfile-model-cppinfo"></span><h2>cpp_info: Library and build information<a class="headerlink" href="#cpp-info-library-and-build-information" title="Link to this heading">¶</a></h2>
+<p>Each package has to specify certain build information for its consumers. This can be done in the <code class="docutils literal notranslate"><span class="pre">cpp_info</span></code> attribute.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Binaries to link</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">libs</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># The libs to link against</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">system_libs</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># System libs to link against</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">frameworks</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># OSX frameworks that consumers will link against</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">objects</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># precompiled objects like .obj .o that consumers will link</span>
+<span class="c1"># Directories</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">includedirs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;include&#39;</span><span class="p">]</span>  <span class="c1"># Ordered list of include paths</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">libdirs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;lib&#39;</span><span class="p">]</span>  <span class="c1"># Directories where libraries can be found</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">bindirs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;bin&#39;</span><span class="p">]</span>  <span class="c1"># Directories where executables and shared libs can be found</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">resdirs</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Directories where resources, data, etc. can be found</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">srcdirs</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Directories where sources can be found (debugging, reusing sources)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">builddirs</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Directories where build scripts for consumers can be found</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">frameworkdirs</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Directories where OSX frameworks can be found</span>
+<span class="c1"># Flags</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">defines</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># preprocessor definitions</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">cflags</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># pure C flags</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">cxxflags</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># C++ compilation flags</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">sharedlinkflags</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># linker flags</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">exelinkflags</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># linker flags</span>
+<span class="c1"># Properties</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">set_property</span><span class="p">(</span><span class="s2">&quot;property_name&quot;</span><span class="p">,</span> <span class="s2">&quot;property_value&quot;</span><span class="p">)</span>
+<span class="c1"># Structure</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">components</span> <span class="c1"># Dictionary-like structure to define the different components a package may have</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">requires</span> <span class="c1"># List of components from requirements that need to be propagated downstream</span>
+</pre></div>
+</div>
+<p>Binaries to link:</p>
+<ul class="simple">
+<li><p><strong>libs</strong>: Ordered list of compiled libraries (contained in the package) the consumers should link. Empty by default.</p></li>
+<li><p><strong>system_libs</strong>: Ordered list of system libs (not contained in the package) the consumers should link. Empty by default.</p></li>
+<li><p><strong>frameworks</strong>: Ordered list of OSX frameworks (contained or not in the package), the consumers should link. Empty by default.</p></li>
+<li><p><strong>objects</strong>: Ordered list of precompiled objects (.obj, .o) contained in the package the consumers should link. Empty by default</p></li>
+</ul>
+<p>Directories:</p>
+<ul class="simple">
+<li><p><strong>includedirs</strong>: List of relative paths (starting from the package root) of directories where headers can be found. By default it is
+initialized to <code class="docutils literal notranslate"><span class="pre">['include']</span></code>, and it is rarely changed.</p></li>
+<li><p><strong>libdirs</strong>: List of relative paths (starting from the package root) of directories in which to find library object binaries (*.lib,
+*.a, *.so, *.dylib). By default it is initialized to <code class="docutils literal notranslate"><span class="pre">['lib']</span></code>, and it is rarely changed.</p></li>
+<li><p><strong>bindirs</strong>: List of relative paths (starting from the package root) of directories in which to find library runtime binaries (like executable
+Windows .dlls). By default it is initialized to <code class="docutils literal notranslate"><span class="pre">['bin']</span></code>, and it is rarely changed.</p></li>
+<li><p><strong>resdirs</strong>: List of relative paths (starting from the package root) of directories in which to find resource files (images, xml, etc). By
+default it is empty.</p></li>
+<li><p><strong>srcdirs</strong>: List of relative paths (starting from the package root) of directories in which to find sources (like
+.c, .cpp). By default it is empty. It might be used to store sources (for later debugging of packages, or to reuse those sources building
+them in other packages too).</p></li>
+<li><p><strong>builddirs</strong>: List of relative paths (starting from package root) of directories that can contain build scripts that could be used by the consumers. Empty by default.</p></li>
+<li><p><strong>frameworkdirs</strong>: List of relative paths (starting from the package root), of directories containing OSX frameworks.</p></li>
+</ul>
+<p>Flags:</p>
+<ul class="simple">
+<li><p><strong>defines</strong>: Ordered list of preprocessor directives. It is common that the consumers have to specify some sort of defines in some cases,
+so that including the library headers matches the binaries.</p></li>
+<li><p><strong>cflags</strong>, <strong>cxxflags</strong>, <strong>sharedlinkflags</strong>, <strong>exelinkflags</strong>: List of flags that the consumer should activate for proper behavior.
+Rarely used.</p></li>
+</ul>
+<p>Properties:
+- <strong>set_property()</strong> allows to define some built-in and user general properties to be propagated with the <code class="docutils literal notranslate"><span class="pre">cpp_info</span></code> model for consumers. They might contain build-system specific information. Some built-in properties are <code class="docutils literal notranslate"><span class="pre">cmake_file_name</span></code>, <code class="docutils literal notranslate"><span class="pre">cmake_target_name</span></code>, <code class="docutils literal notranslate"><span class="pre">pkg_config_name</span></code>, that can define specific behavior for <code class="docutils literal notranslate"><span class="pre">CMakeDeps</span></code> or <code class="docutils literal notranslate"><span class="pre">PkgConfigDeps</span></code> generators. For more information about these, read the specific build system integration documentation.</p>
+<p>Structure:</p>
+<ul class="simple">
+<li><p><strong>components</strong>: Dictionary with names as keys and a component object as value to model the different components a
+package may have: libraries, executables…</p></li>
+<li><p><strong>requires</strong>: <strong>Experimental</strong> List of components from the requirements this package (and its consumers) should link with. It will
+be used by generators that add support for components features.</p></li>
+</ul>
+<p>It is common that different configurations will produce different <code class="docutils literal notranslate"><span class="pre">package_info</span></code>, for example, the library names might change in different OSs,
+or different <code class="docutils literal notranslate"><span class="pre">system_libs</span></code> will be used depending on the compiler and OS:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span>
+<span class="n">options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;shared&quot;</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]}</span>
+
+<span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">os</span> <span class="o">==</span> <span class="s2">&quot;Windows&quot;</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">libs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;zmq-static&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">shared</span> <span class="k">else</span> <span class="p">[</span><span class="s2">&quot;zmq&quot;</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="o">...</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">shared</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">defines</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ZMQ_STATIC&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">os</span> <span class="o">==</span> <span class="s2">&quot;Windows&quot;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">compiler</span> <span class="o">==</span> <span class="s2">&quot;msvc&quot;</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">system_libs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;ws2_32&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="properties">
+<h3>Properties<a class="headerlink" href="#properties" title="Link to this heading">¶</a></h3>
+<p>Any CppInfo object can declare “properties” that can be read by the generators.
+The value of a property can be of any type. Check each generator reference to see the properties used on it.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">set_property</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">property_name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">get_property</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">property_name</span><span class="p">):</span>
+</pre></div>
+</div>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">set_property</span><span class="p">(</span><span class="s2">&quot;cmake_find_mode&quot;</span><span class="p">,</span> <span class="s2">&quot;both&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="components">
+<h2>Components<a class="headerlink" href="#components" title="Link to this heading">¶</a></h2>
+<p>If your package is composed by more than one library, it is possible to declare components that allow to define a
+<code class="docutils literal notranslate"><span class="pre">CppInfo</span></code> object per each of those libraries and also requirements between them and to components of other packages
+(the following case is not a real example):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s2">&quot;crypto&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">set_property</span><span class="p">(</span><span class="s2">&quot;cmake_file_name&quot;</span><span class="p">,</span> <span class="s2">&quot;Crypto&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s2">&quot;crypto&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">libs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;libcrypto&quot;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s2">&quot;crypto&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">defines</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;DEFINE_CRYPTO=1&quot;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s2">&quot;crypto&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">requires</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;zlib::zlib&quot;</span><span class="p">]</span>  <span class="c1"># Depends on all components in zlib package</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s2">&quot;ssl&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">set_property</span><span class="p">(</span><span class="s2">&quot;cmake_file_name&quot;</span><span class="p">,</span> <span class="s2">&quot;SSL&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s2">&quot;ssl&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">includedirs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;include/headers_ssl&quot;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s2">&quot;ssl&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">libs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;libssl&quot;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s2">&quot;ssl&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">requires</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;crypto&quot;</span><span class="p">,</span>
+                                                <span class="s2">&quot;boost::headers&quot;</span><span class="p">]</span>  <span class="c1"># Depends on headers component in boost package</span>
+
+    <span class="n">obj_ext</span> <span class="o">=</span> <span class="s2">&quot;obj&quot;</span> <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;Windows&quot;</span> <span class="k">else</span> <span class="s2">&quot;o&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="s2">&quot;ssl-objs&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">objects</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="s2">&quot;ssl-object.</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">obj_ext</span><span class="p">))]</span>
+</pre></div>
+</div>
+<p>Dependencies among components and to components of other requirements can be defined using the <code class="docutils literal notranslate"><span class="pre">requires</span></code> attribute and the name
+of the component. The dependency graph for components will be calculated and values will be aggregated in the correct order for each field.</p>
+</section>
+<section id="buildenv-info-runenv-info">
+<span id="reference-conanfile-methods-package-info-runenv-info"></span><span id="reference-conanfile-methods-package-info-buildenv-info"></span><h2>buildenv_info, runenv_info<a class="headerlink" href="#buildenv-info-runenv-info" title="Link to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">buildenv_info</span></code> and <code class="docutils literal notranslate"><span class="pre">runenv_info</span></code> attributes are <code class="docutils literal notranslate"><span class="pre">Environment</span></code> objects that allow to define information for the consumers in the form of environment variables.
+They can use any of the <code class="docutils literal notranslate"><span class="pre">Environment</span></code> methods to define such information:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span>
+
+<span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">buildenv_info</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s2">&quot;MYVAR&quot;</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">buildenv_info</span><span class="o">.</span><span class="n">prepend_path</span><span class="p">(</span><span class="s2">&quot;MYPATH&quot;</span><span class="p">,</span> <span class="s2">&quot;my/path&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">os</span> <span class="o">==</span> <span class="s2">&quot;Android&quot;</span><span class="p">:</span>
+        <span class="n">arch</span> <span class="o">=</span> <span class="s2">&quot;myarmarch&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">arch</span><span class="o">==</span><span class="s2">&quot;armv8&quot;</span> <span class="k">else</span> <span class="s2">&quot;otherarch&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buildenv_info</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;MY_ANDROID_ARCH&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;android-</span><span class="si">{</span><span class="n">arch</span><span class="si">}</span><span class="s2">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">runenv_info</span><span class="o">.</span><span class="n">append_path</span><span class="p">(</span><span class="s2">&quot;MYRUNPATH&quot;</span><span class="p">,</span> <span class="s2">&quot;my/run/path&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">os</span> <span class="o">==</span> <span class="s2">&quot;Windows&quot;</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">runenv_info</span><span class="o">.</span><span class="n">define_path</span><span class="p">(</span><span class="s2">&quot;MYPKGHOME&quot;</span><span class="p">,</span> <span class="s2">&quot;my/home&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that these objects are not tied to either regular <code class="docutils literal notranslate"><span class="pre">requires</span></code> or <code class="docutils literal notranslate"><span class="pre">tool_requires</span></code>, any package recipe can use both.
+The difference between <code class="docutils literal notranslate"><span class="pre">buildenv_info</span></code> and <code class="docutils literal notranslate"><span class="pre">runenv_info</span></code> is that the former is applied when Conan is building something from source, like in the <code class="docutils literal notranslate"><span class="pre">build()</span></code> method, while the later would be used when executing something in the “host” context that would need the runtime activated.</p>
+<p>Conan <code class="docutils literal notranslate"><span class="pre">VirtualBuildEnv</span></code> generator will be used by default in consumers, collecting the information from <code class="docutils literal notranslate"><span class="pre">buildenv_info</span></code> (and some <code class="docutils literal notranslate"><span class="pre">runenv_info</span></code> from the “build” context) to create the <code class="docutils literal notranslate"><span class="pre">conanbuild</span></code> environment script, which runs by default in all <code class="docutils literal notranslate"><span class="pre">self.run(cmd,</span> <span class="pre">env=&quot;conanbuild&quot;)</span></code> calls.
+The <code class="docutils literal notranslate"><span class="pre">VirtualRunEnv</span></code> generator will also be used by default in consumers collecting the <code class="docutils literal notranslate"><span class="pre">runenv_info</span></code> from the “host” context creating the <code class="docutils literal notranslate"><span class="pre">conanrun</span></code> environment script, which can be explicitly used with <code class="docutils literal notranslate"><span class="pre">self.run(&lt;cmd&gt;,</span> <span class="pre">env=&quot;conanrun&quot;)</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Best practices</strong></p>
+<p>It is not necessary to add <code class="docutils literal notranslate"><span class="pre">bindirs</span></code> to the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> environment variable, this will be automatically done by the consumer <code class="docutils literal notranslate"><span class="pre">VirtualBuildEnv</span></code> and <code class="docutils literal notranslate"><span class="pre">VirtualRunEnv</span></code> generators.
+Likewise, it is not necessary to add <code class="docutils literal notranslate"><span class="pre">includedirs</span></code>, <code class="docutils literal notranslate"><span class="pre">libdirs</span></code> or any other dirs to environment variables, as this information will be typically managed by other generators.</p>
+</div>
+</section>
+<section id="conf-info">
+<span id="conan-conanfile-model-conf-info-tool-requires"></span><span id="conan-conanfile-model-conf-info"></span><h2>conf_info<a class="headerlink" href="#conf-info" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">tool_requires</span></code> packages in the “build” context can transmit some <code class="docutils literal notranslate"><span class="pre">conf</span></code> configuration to its immediate consumers, with the <code class="docutils literal notranslate"><span class="pre">conf_info</span></code> attribute. For example, one Conan
+package packaging the AndroidNDK could do:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">conf_info</span><span class="o">.</span><span class="n">define_path</span><span class="p">(</span><span class="s2">&quot;tools.android:ndk_path&quot;</span><span class="p">,</span> <span class="s2">&quot;path/to/ndk/in/package&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">conf_info</span></code> from packages can still be overwritten from profiles values, because user profiles will have higher priority.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="conans.model.conf.Conf.define">
+<span class="sig-prename descclassname"><span class="pre">Conf.</span></span><span class="sig-name descname"><span class="pre">define</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conans.model.conf.Conf.define" title="Link to this definition">¶</a></dt>
+<dd><p>Define a value for the given configuration name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – Name of the configuration.</p></li>
+<li><p><strong>value</strong> – Value of the configuration.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c1"># Setting values</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">conf_info</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s2">&quot;tools.build:verbosity&quot;</span><span class="p">,</span> <span class="s2">&quot;verbose&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">conf_info</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s2">&quot;tools.system.package_manager:sudo&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">conf_info</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s2">&quot;tools.microsoft.msbuild:max_cpu_count&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">conf_info</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s2">&quot;user.myconf.build:ldflags&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;--flag1&quot;</span><span class="p">,</span> <span class="s2">&quot;--flag2&quot;</span><span class="p">])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">conf_info</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s2">&quot;tools.microsoft.msbuildtoolchain:compile_options&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;ExceptionHandling&quot;</span><span class="p">:</span> <span class="s2">&quot;Async&quot;</span><span class="p">})</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conans.model.conf.Conf.append">
+<span class="sig-prename descclassname"><span class="pre">Conf.</span></span><span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conans.model.conf.Conf.append" title="Link to this definition">¶</a></dt>
+<dd><p>Append a value to the given configuration name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – Name of the configuration.</p></li>
+<li><p><strong>value</strong> – Value to append.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c1"># Modifying configuration list-like values</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">conf_info</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;user.myconf.build:ldflags&quot;</span><span class="p">,</span> <span class="s2">&quot;--flag3&quot;</span><span class="p">)</span>  <span class="c1"># == [&quot;--flag1&quot;, &quot;--flag2&quot;, &quot;--flag3&quot;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conans.model.conf.Conf.prepend">
+<span class="sig-prename descclassname"><span class="pre">Conf.</span></span><span class="sig-name descname"><span class="pre">prepend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conans.model.conf.Conf.prepend" title="Link to this definition">¶</a></dt>
+<dd><p>Prepend a value to the given configuration name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – Name of the configuration.</p></li>
+<li><p><strong>value</strong> – Value to prepend.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">conf_info</span><span class="o">.</span><span class="n">prepend</span><span class="p">(</span><span class="s2">&quot;user.myconf.build:ldflags&quot;</span><span class="p">,</span> <span class="s2">&quot;--flag0&quot;</span><span class="p">)</span>  <span class="c1"># == [&quot;--flag0&quot;, &quot;--flag1&quot;, &quot;--flag2&quot;, &quot;--flag3&quot;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conans.model.conf.Conf.update">
+<span class="sig-prename descclassname"><span class="pre">Conf.</span></span><span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conans.model.conf.Conf.update" title="Link to this definition">¶</a></dt>
+<dd><p>Update the value to the given configuration name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – Name of the configuration.</p></li>
+<li><p><strong>value</strong> – Value of the configuration.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c1"># Modifying configuration dict-like values</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">conf_info</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s2">&quot;tools.microsoft.msbuildtoolchain:compile_options&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;ExpandAttributedSource&quot;</span><span class="p">:</span> <span class="s2">&quot;false&quot;</span><span class="p">})</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conans.model.conf.Conf.remove">
+<span class="sig-prename descclassname"><span class="pre">Conf.</span></span><span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conans.model.conf.Conf.remove" title="Link to this definition">¶</a></dt>
+<dd><p>Remove a value from the given configuration name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – Name of the configuration.</p></li>
+<li><p><strong>value</strong> – Value to remove.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c1"># Remove</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">conf_info</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;user.myconf.build:ldflags&quot;</span><span class="p">,</span> <span class="s2">&quot;--flag1&quot;</span><span class="p">)</span>  <span class="c1"># == [&quot;--flag0&quot;, &quot;--flag2&quot;, &quot;--flag3&quot;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conans.model.conf.Conf.unset">
+<span class="sig-prename descclassname"><span class="pre">Conf.</span></span><span class="sig-name descname"><span class="pre">unset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conans.model.conf.Conf.unset" title="Link to this definition">¶</a></dt>
+<dd><p>Clears the variable, equivalent to a unset or set XXX=</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> – Name of the configuration.</p>
+</dd>
+</dl>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c1"># Unset any value</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">conf_info</span><span class="o">.</span><span class="n">unset</span><span class="p">(</span><span class="s2">&quot;tools.microsoft.msbuildtoolchain:compile_options&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p>It is possible to define configuration in packages that are <code class="docutils literal notranslate"><span class="pre">tool_requires</span></code>. For example, assuming
+there is a package that bundles the <em>AndroidNDK</em>, it could define the location of such NDK to the <code class="docutils literal notranslate"><span class="pre">tools.android:ndk_path</span></code>
+configuration as:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+<span class="k">class</span> <span class="nc">Pkg</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;android_ndk&quot;</span>
+
+    <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conf_info</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s2">&quot;tools.android:ndk_path&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">package_folder</span><span class="p">,</span> <span class="s2">&quot;ndk&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Note that this only propagates from the immediate, direct <code class="docutils literal notranslate"><span class="pre">tool_requires</span></code> of a recipe.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Best practices</strong></p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">package_info()</span></code> method is not strictly necessary if you have other means of propagating information for consumers. For example, if your package creates <code class="docutils literal notranslate"><span class="pre">xxx-config.cmake</span></code> files at build time, and they are put in the final package, it might not be necessary to define <code class="docutils literal notranslate"><span class="pre">package_info()</span></code> at all, and in the consumer side the <code class="docutils literal notranslate"><span class="pre">CMakeDeps</span></code> would not be necessary either, as <code class="docutils literal notranslate"><span class="pre">CMakeToolchain</span></code> is able to inject the paths to locate the <code class="docutils literal notranslate"><span class="pre">xxx-config.cmake</span></code> files inside the packages. This approach can be good for private usage of Conan, albeit some limitations of CMake, like not being able to manage multi-configuration projects (like Visual Studio switching Debug/Release in the IDE, that <code class="docutils literal notranslate"><span class="pre">CMakeDeps</span></code> can provide), limitations in some cross-build scenarios using packages that are both libraries and build tools (like <code class="docutils literal notranslate"><span class="pre">protobuf</span></code>, that also <code class="docutils literal notranslate"><span class="pre">CMakeDeps</span></code> can handle).</p></li>
+<li><p>Providing a <code class="docutils literal notranslate"><span class="pre">package_info()</span></code> is very necessary if consumers can use different build systems, like in ConanCenter. In this case, it is necessary a bit of repetition, and coding the <code class="docutils literal notranslate"><span class="pre">package_info()</span></code> might feel duplicating the package <code class="docutils literal notranslate"><span class="pre">xxx-config.cmake</span></code>, but automatically extracting the info from CMake is not feasible at this moment.</p></li>
+<li><p>If you plan to use editables or the local development flow, there’s a need to check the <code class="docutils literal notranslate"><span class="pre">layout()</span></code> and define the information for <code class="docutils literal notranslate"><span class="pre">self.cpp.build</span></code> and <code class="docutils literal notranslate"><span class="pre">self.cpp.source</span></code>.</p></li>
+<li><p>It is not necessary to add <code class="docutils literal notranslate"><span class="pre">bindirs</span></code> to the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> environment variable, this will be automatically done by the consumer <code class="docutils literal notranslate"><span class="pre">VirtualBuildEnv</span></code> and <code class="docutils literal notranslate"><span class="pre">VirtualRunEnv</span></code> generators.</p></li>
+<li><p>The <strong>paths</strong> defined in <code class="docutils literal notranslate"><span class="pre">package_info()</span></code> shouldn’t be converted to any specific format (like the one required by Windows subsystems). Instead, it is the responsibility of the consumer to translate these paths to the adequate format.</p></li>
+</ul>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>See <a class="reference internal" href="../../../tutorial/creating_packages/define_package_information.html#tutorial-creating-define-package-info"><span class="std std-ref">the defining package information tutorial</span></a> for more information.</p>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="package_id.html" class="btn btn-neutral float-left" title="package_id()" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="requirements.html" class="btn btn-neutral float-right" title="requirements()" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2024, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 2.1
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/2.1/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

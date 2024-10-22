@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Package prebuilt binaries &mdash; conan 2.7.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=045299b1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css?v=a5c4661c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/conan.css?v=7d9e9f1e" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/tutorial/creating_packages/other_types_of_packages/package_prebuilt_binaries.html" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=7b940564"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Tool requires packages" href="tool_requires_packages.html" />
+    <link rel="prev" title="Header-only packages" href="header_only_packages.html" />
+
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html">
+            
+              <img src="../../../_static/conan-docs-logo-2.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.7
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../whatsnew.html">What’s new in Conan 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Install</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../tutorial.html">Tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../consuming_packages.html">Consuming packages</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../creating_packages.html">Creating packages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../create_your_first_package.html">Create your first Conan package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../handle_sources_in_packages.html">Handle sources in packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../add_dependencies_to_packages.html">Add dependencies to packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../preparing_the_build.html">Preparing the build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../configure_options_settings.html">Configure settings and options in recipes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build_packages.html">Build packages: the build() method</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../package_method.html">Package files: the package() method</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../define_package_information.html">Define information for consumers: the package_info() method</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../test_conan_packages.html">Testing Conan packages</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../other_types_of_packages.html">Other types of packages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="header_only_packages.html">Header-only packages</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Package prebuilt binaries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tool_requires_packages.html">Tool requires packages</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../conan_repositories.html">Working with Conan repositories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../developing_packages.html">Developing packages locally</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../versioning.html">Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../other_features.html">Other important Conan features</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../devops.html">Devops guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../knowledge.html">Knowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/tutorial/creating_packages/other_types_of_packages/package_prebuilt_binaries.html">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../tutorial.html">Tutorial</a></li>
+          <li class="breadcrumb-item"><a href="../../creating_packages.html">Creating packages</a></li>
+          <li class="breadcrumb-item"><a href="../other_types_of_packages.html">Other types of packages</a></li>
+      <li class="breadcrumb-item active">Package prebuilt binaries</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/develop2/tutorial/creating_packages/other_types_of_packages/package_prebuilt_binaries.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="package-prebuilt-binaries">
+<span id="creating-packages-other-prebuilt"></span><h1>Package prebuilt binaries<a class="headerlink" href="#package-prebuilt-binaries" title="Link to this heading">¶</a></h1>
+<p>There are specific scenarios in which it is necessary to create packages from existing binaries, for example from 3rd
+parties or binaries previously built by another process or team that is not using Conan. Under these circumstances,
+building from sources is not what you want.</p>
+<p>You can package the local files in the following scenarios:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>When you are developing your package locally and you want to quickly create a package with the built artifacts, but as you don’t want to rebuild again (clean copy) your artifacts, you don’t want to call
+<strong class="command">conan create</strong>. This method will keep your local project build if you are using an IDE.</p></li>
+<li><p>When you cannot build the packages from sources (when only pre-built binaries are available) and you have them
+in a local directory.</p></li>
+<li><p>Same as 2 but you have the precompiled libraries in a remote repository.</p></li>
+</ol>
+</div></blockquote>
+<section id="locally-building-binaries">
+<h2>Locally building binaries<a class="headerlink" href="#locally-building-binaries" title="Link to this heading">¶</a></h2>
+<p>Use the <strong class="command">conan new</strong> command to create a “Hello World” C++ library example project:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>new<span class="w"> </span>cmake_lib<span class="w"> </span>-d<span class="w"> </span><span class="nv">name</span><span class="o">=</span>hello<span class="w"> </span>-d<span class="w"> </span><span class="nv">version</span><span class="o">=</span><span class="m">0</span>.1
+</pre></div>
+</div>
+<p>This will create a Conan package project with the following structure.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>.
+├── CMakeLists.txt
+├── conanfile.py
+├── include
+│   └── hello.h
+├── src
+│   └── hello.cpp
+└── test_package
+    ├── CMakeLists.txt
+    ├── conanfile.py
+    └── src
+        └── example.cpp
+</pre></div>
+</div>
+<p>We have a <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> file in the root, an <code class="docutils literal notranslate"><span class="pre">src</span></code> folder with the <code class="docutils literal notranslate"><span class="pre">cpp</span></code> files and, an <code class="docutils literal notranslate"><span class="pre">include</span></code>
+folder for the headers.</p>
+<p>They also have a <code class="docutils literal notranslate"><span class="pre">test_package/</span></code> folder to test that the exported package is working correctly.</p>
+<p>Now, for every different configuration (different compilers, architectures, build_type…):</p>
+<ol class="arabic">
+<li><p>We call <strong class="command">conan install</strong> to generate the <code class="docutils literal notranslate"><span class="pre">conan_toolchain.cmake</span></code> file and the <code class="docutils literal notranslate"><span class="pre">CMakeUserPresets.json</span></code>
+that can be used in our IDE or calling CMake (only &gt;= 3.23).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>.<span class="w"> </span>-s<span class="w"> </span><span class="nv">build_type</span><span class="o">=</span>Release
+</pre></div>
+</div>
+</li>
+<li><p>We build our project calling CMake, our IDE, … etc:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Linux, macOS</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>build/Release
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build/Release
+$<span class="w"> </span>cmake<span class="w"> </span>../..<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release<span class="w"> </span>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span>../Release/generators/conan_toolchain.cmake
+$<span class="w"> </span>cmake<span class="w"> </span>--build<span class="w"> </span>.
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">Windows</span><a class="headerlink" href="#id3" title="Link to this code">¶</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>build
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
+$<span class="w"> </span>cmake<span class="w"> </span>..<span class="w">  </span>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span>generators/conan_toolchain.cmake
+$<span class="w"> </span>cmake<span class="w"> </span>--build<span class="w"> </span>.<span class="w"> </span>--config<span class="w"> </span>Release
+</pre></div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As we are directly using our IDE or CMake to build the library, the <code class="docutils literal notranslate"><span class="pre">build()</span></code> method of the recipe
+is never called and could be removed.</p>
+</div>
+</li>
+<li><p>We call <strong class="command">conan export-pkg</strong> to package the built artifacts.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>../..
+$<span class="w"> </span>conan<span class="w"> </span>export-pkg<span class="w"> </span>.<span class="w"> </span>-s<span class="w"> </span><span class="nv">build_type</span><span class="o">=</span>Release
+...
+hello/0.1:<span class="w"> </span>Calling<span class="w"> </span>package<span class="o">()</span>
+hello/0.1<span class="w"> </span>package<span class="o">()</span>:<span class="w"> </span>Packaged<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="s1">&#39;.h&#39;</span><span class="w"> </span>file:<span class="w"> </span>hello.h
+hello/0.1<span class="w"> </span>package<span class="o">()</span>:<span class="w"> </span>Packaged<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="s1">&#39;.a&#39;</span><span class="w"> </span>file:<span class="w"> </span>libhello.a
+...
+hello/0.1:<span class="w"> </span>Package<span class="w"> </span><span class="s1">&#39;54a3ab9b777a90a13e500dd311d9cd70316e9d55&#39;</span><span class="w"> </span>created
+</pre></div>
+</div>
+<p>Let’s deep a bit more in the package method. The generated <code class="docutils literal notranslate"><span class="pre">package()</span></code> method is using <code class="docutils literal notranslate"><span class="pre">cmake.install()</span></code> to copy
+the artifacts from our local folders to the Conan package.</p>
+<p>There is an alternative and generic <code class="docutils literal notranslate"><span class="pre">package()</span></code> method that could be used for any build system:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">local_include_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source_folder</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">includedirs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">local_lib_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">build_folder</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">libdirs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;*.h&quot;</span><span class="p">,</span> <span class="n">local_include_folder</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">package_folder</span><span class="p">,</span> <span class="s2">&quot;include&quot;</span><span class="p">),</span> <span class="n">keep_path</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;*.lib&quot;</span><span class="p">,</span> <span class="n">local_lib_folder</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">package_folder</span><span class="p">,</span> <span class="s2">&quot;lib&quot;</span><span class="p">),</span> <span class="n">keep_path</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;*.a&quot;</span><span class="p">,</span> <span class="n">local_lib_folder</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">package_folder</span><span class="p">,</span> <span class="s2">&quot;lib&quot;</span><span class="p">),</span> <span class="n">keep_path</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This  <code class="docutils literal notranslate"><span class="pre">package()</span></code> method is copying artifacts from the following directories that, thanks to the layout(), will always
+point to the correct places:</p>
+<ul class="simple">
+<li><p><strong>os.path.join(self.source_folder, self.cpp.source.includedirs[0])</strong> will always point to our local include folder.</p></li>
+<li><p><strong>os.path.join(self.build_folder, self.cpp.build.libdirs[0])</strong> will always point to the location of the libraries when
+they are built, no matter if using a single-config CMake Generator or a multi-config one.</p></li>
+</ul>
+</li>
+<li><p>We can test the built package calling <strong class="command">conan test</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span><span class="nb">test</span><span class="w"> </span>test_package/conanfile.py<span class="w"> </span>hello/0.1<span class="w"> </span>-s<span class="w"> </span><span class="nv">build_type</span><span class="o">=</span>Release
+
+--------<span class="w"> </span>Testing<span class="w"> </span>the<span class="w"> </span>package:<span class="w"> </span>Running<span class="w"> </span>test<span class="o">()</span><span class="w"> </span>----------
+hello/0.1<span class="w"> </span><span class="o">(</span><span class="nb">test</span><span class="w"> </span>package<span class="o">)</span>:<span class="w"> </span>Running<span class="w"> </span>test<span class="o">()</span>
+hello/0.1<span class="w"> </span><span class="o">(</span><span class="nb">test</span><span class="w"> </span>package<span class="o">)</span>:<span class="w"> </span>RUN:<span class="w"> </span>./example
+hello/0.1:<span class="w"> </span>Hello<span class="w"> </span>World<span class="w"> </span>Release!
+<span class="w">  </span>hello/0.1:<span class="w"> </span>__x86_64__<span class="w"> </span>defined
+<span class="w">  </span>hello/0.1:<span class="w"> </span>__cplusplus199711
+<span class="w">  </span>hello/0.1:<span class="w"> </span>__GNUC__4
+<span class="w">  </span>hello/0.1:<span class="w"> </span>__GNUC_MINOR__2
+<span class="w">  </span>hello/0.1:<span class="w"> </span>__clang_major__13
+<span class="w">  </span>hello/0.1:<span class="w"> </span>__clang_minor__1
+<span class="w">  </span>hello/0.1:<span class="w"> </span>__apple_build_version__13160021
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Now you can try to generate a binary package for <code class="docutils literal notranslate"><span class="pre">build_type=Debug</span></code> running the same steps but changing the <code class="docutils literal notranslate"><span class="pre">build_type</span></code>.
+You can repeat this process any number of times for different configurations.</p>
+</section>
+<section id="packaging-already-pre-built-binaries">
+<h2>Packaging already Pre-built Binaries<a class="headerlink" href="#packaging-already-pre-built-binaries" title="Link to this heading">¶</a></h2>
+<p>Please, first clone the sources to recreate this project. You can find them in the
+<a class="reference external" href="https://github.com/conan-io/examples2">examples2 repository</a> on GitHub:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/conan-io/examples2.git
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>examples2/tutorial/creating_packages/other_packages/prebuilt_binaries
+</pre></div>
+</div>
+<p>This is an example of scenario 2 explained in the introduction. If you have a local folder containing the binaries
+for different configurations you can package them using the following approach.</p>
+<p>These are the files of our example, (be aware that the library files are only empty files so not valid libraries):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>.
+├── conanfile.py
+└── vendor_hello_library
+    ├── linux
+    │   ├── armv8
+    │   │   ├── include
+    │   │   │   └── hello.h
+    │   │   └── libhello.a
+    │   └── x86_64
+    │       ├── include
+    │       │   └── hello.h
+    │       └── libhello.a
+    ├── macos
+    │   ├── armv8
+    │   │   ├── include
+    │   │   │   └── hello.h
+    │   │   └── libhello.a
+    │   └── x86_64
+    │       ├── include
+    │       │   └── hello.h
+    │       └── libhello.a
+    └── windows
+        ├── armv8
+        │   ├── hello.lib
+        │   └── include
+        │       └── hello.h
+        └── x86_64
+            ├── hello.lib
+            └── include
+                └── hello.h
+</pre></div>
+</div>
+<p>We have folders with <code class="docutils literal notranslate"><span class="pre">os</span></code> and subfolders with <code class="docutils literal notranslate"><span class="pre">arch</span></code>. This the recipe of our example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+<span class="kn">from</span> <span class="nn">conan.tools.files</span> <span class="kn">import</span> <span class="n">copy</span>
+
+
+<span class="k">class</span> <span class="nc">helloRecipe</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;hello&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span>
+
+    <span class="k">def</span> <span class="nf">layout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">_os</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">os</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="n">_arch</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">arch</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">folders</span><span class="o">.</span><span class="n">build</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;vendor_hello_library&quot;</span><span class="p">,</span> <span class="n">_os</span><span class="p">,</span> <span class="n">_arch</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">folders</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">folders</span><span class="o">.</span><span class="n">build</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">includedirs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;include&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">libdirs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;.&quot;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">local_include_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source_folder</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">includedirs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">local_lib_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">build_folder</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">libdirs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;*.h&quot;</span><span class="p">,</span> <span class="n">local_include_folder</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">package_folder</span><span class="p">,</span> <span class="s2">&quot;include&quot;</span><span class="p">),</span> <span class="n">keep_path</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;*.lib&quot;</span><span class="p">,</span> <span class="n">local_lib_folder</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">package_folder</span><span class="p">,</span> <span class="s2">&quot;lib&quot;</span><span class="p">),</span> <span class="n">keep_path</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;*.a&quot;</span><span class="p">,</span> <span class="n">local_lib_folder</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">package_folder</span><span class="p">,</span> <span class="s2">&quot;lib&quot;</span><span class="p">),</span> <span class="n">keep_path</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">libs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;hello&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<ul>
+<li><p>We are not building anything, so the <code class="docutils literal notranslate"><span class="pre">build</span></code> method is not useful here.</p></li>
+<li><p>We can keep the same <code class="docutils literal notranslate"><span class="pre">package</span></code> method from the previous example because the location of the artifacts is
+declared by the <code class="docutils literal notranslate"><span class="pre">layout()</span></code>.</p></li>
+<li><p>Both the source folder (with headers) and the build folder (with libraries) are in the same location, in a path that follows:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">vendor_hello_library/{os}/{arch}</span></code></p>
+</div></blockquote>
+</li>
+<li><p>The headers are in the <code class="docutils literal notranslate"><span class="pre">include</span></code> subfolder of the <code class="docutils literal notranslate"><span class="pre">self.source_folder</span></code> (we declare it in <code class="docutils literal notranslate"><span class="pre">self.cpp.source.includedirs</span></code>).</p></li>
+<li><p>The libraries are in the root of the <code class="docutils literal notranslate"><span class="pre">self.build_folder</span></code> folder (we declare <code class="docutils literal notranslate"><span class="pre">self.cpp.build.libdirs</span> <span class="pre">=</span> <span class="pre">[&quot;.&quot;]</span></code>).</p></li>
+<li><p>We removed the <code class="docutils literal notranslate"><span class="pre">compiler</span></code> and the <code class="docutils literal notranslate"><span class="pre">build_type</span></code> because we only have different libraries depending on the operating
+system and the architecture (it might be a pure C library).</p></li>
+</ul>
+<p>Now, for each different configuration we call <strong class="command">conan export-pkg</strong> command, later we can list the binaries
+so we can check we have one package for each precompiled library:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>export-pkg<span class="w"> </span>.<span class="w"> </span>-s<span class="w"> </span><span class="nv">os</span><span class="o">=</span><span class="s2">&quot;Linux&quot;</span><span class="w"> </span>-s<span class="w"> </span><span class="nv">arch</span><span class="o">=</span><span class="s2">&quot;x86_64&quot;</span>
+$<span class="w"> </span>conan<span class="w"> </span>export-pkg<span class="w"> </span>.<span class="w"> </span>-s<span class="w"> </span><span class="nv">os</span><span class="o">=</span><span class="s2">&quot;Linux&quot;</span><span class="w"> </span>-s<span class="w"> </span><span class="nv">arch</span><span class="o">=</span><span class="s2">&quot;armv8&quot;</span>
+$<span class="w"> </span>conan<span class="w"> </span>export-pkg<span class="w"> </span>.<span class="w"> </span>-s<span class="w"> </span><span class="nv">os</span><span class="o">=</span><span class="s2">&quot;Macos&quot;</span><span class="w"> </span>-s<span class="w"> </span><span class="nv">arch</span><span class="o">=</span><span class="s2">&quot;x86_64&quot;</span>
+$<span class="w"> </span>conan<span class="w"> </span>export-pkg<span class="w"> </span>.<span class="w"> </span>-s<span class="w"> </span><span class="nv">os</span><span class="o">=</span><span class="s2">&quot;Macos&quot;</span><span class="w"> </span>-s<span class="w"> </span><span class="nv">arch</span><span class="o">=</span><span class="s2">&quot;armv8&quot;</span>
+$<span class="w"> </span>conan<span class="w"> </span>export-pkg<span class="w"> </span>.<span class="w"> </span>-s<span class="w"> </span><span class="nv">os</span><span class="o">=</span><span class="s2">&quot;Windows&quot;</span><span class="w"> </span>-s<span class="w"> </span><span class="nv">arch</span><span class="o">=</span><span class="s2">&quot;x86_64&quot;</span>
+$<span class="w"> </span>conan<span class="w"> </span>export-pkg<span class="w"> </span>.<span class="w"> </span>-s<span class="w"> </span><span class="nv">os</span><span class="o">=</span><span class="s2">&quot;Windows&quot;</span><span class="w"> </span>-s<span class="w"> </span><span class="nv">arch</span><span class="o">=</span><span class="s2">&quot;armv8&quot;</span>
+
+$<span class="w"> </span>conan<span class="w"> </span>list<span class="w"> </span><span class="s2">&quot;hello/0.1#:*&quot;</span>
+Local<span class="w"> </span>Cache
+<span class="w">  </span>hello
+<span class="w">    </span>hello/0.1
+<span class="w">      </span>revisions
+<span class="w">        </span>9c7634dfe0369907f569c4e583f9bc50<span class="w"> </span><span class="o">(</span><span class="m">2024</span>-05-10<span class="w"> </span><span class="m">08</span>:28:31<span class="w"> </span>UTC<span class="o">)</span>
+<span class="w">          </span>packages
+<span class="w">            </span>522dcea5982a3f8a5b624c16477e47195da2f84f
+<span class="w">              </span>info
+<span class="w">                </span>settings
+<span class="w">                  </span>arch:<span class="w"> </span>x86_64
+<span class="w">                  </span>os:<span class="w"> </span>Windows
+<span class="w">            </span>63fead0844576fc02943e16909f08fcdddd6f44b
+<span class="w">              </span>info
+<span class="w">                </span>settings
+<span class="w">                  </span>arch:<span class="w"> </span>x86_64
+<span class="w">                  </span>os:<span class="w"> </span>Linux
+<span class="w">            </span>82339cc4d6db7990c1830d274cd12e7c91ab18a1
+<span class="w">              </span>info
+<span class="w">                </span>settings
+<span class="w">                  </span>arch:<span class="w"> </span>x86_64
+<span class="w">                  </span>os:<span class="w"> </span>Macos
+<span class="w">            </span>a0cd51c51fe9010370187244af885b0efcc5b69b
+<span class="w">              </span>info
+<span class="w">                </span>settings
+<span class="w">                  </span>arch:<span class="w"> </span>armv8
+<span class="w">                  </span>os:<span class="w"> </span>Windows
+<span class="w">            </span>c93719558cf197f1df5a7f1d071093e26f0e44a0
+<span class="w">              </span>info
+<span class="w">                </span>settings
+<span class="w">                  </span>arch:<span class="w"> </span>armv8
+<span class="w">                  </span>os:<span class="w"> </span>Linux
+<span class="w">            </span>dcf68e932572755309a5f69f3cee1bede410e907
+<span class="w">              </span>info
+<span class="w">                </span>settings
+<span class="w">                  </span>arch:<span class="w"> </span>armv8
+<span class="w">                  </span>os:<span class="w"> </span>Macos
+</pre></div>
+</div>
+</div></blockquote>
+<p>In this example, we don’t have a <code class="docutils literal notranslate"><span class="pre">test_package/</span></code> folder but you can provide one to test the packages like in the
+previous example.</p>
+</section>
+<section id="downloading-and-packaging-pre-built-binaries">
+<h2>Downloading and Packaging Pre-built Binaries<a class="headerlink" href="#downloading-and-packaging-pre-built-binaries" title="Link to this heading">¶</a></h2>
+<p>This is an example of scenario 3 explained in the introduction. If we are not building the libraries we likely
+have them somewhere in a remote repository. In this case, creating a complete Conan recipe, with the detailed
+retrieval of the binaries could be the preferred method, because it is reproducible, and the original binaries might be traced.</p>
+<p>Please, first clone the sources to recreate this project. You can find them in the
+<a class="reference external" href="https://github.com/conan-io/examples2">examples2 repository</a> on GitHub:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/conan-io/examples2.git
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>examples2/tutorial/creating_packages/other_packages/prebuilt_remote_binaries
+</pre></div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">conanfile.py</span><a class="headerlink" href="#id4" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>   <span class="kn">import</span> <span class="nn">os</span>
+   <span class="kn">from</span> <span class="nn">conan.tools.files</span> <span class="kn">import</span> <span class="n">get</span><span class="p">,</span> <span class="n">copy</span>
+   <span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+
+   <span class="k">class</span> <span class="nc">HelloConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+       <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;hello&quot;</span>
+       <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+       <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span>
+
+       <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+           <span class="n">base_url</span> <span class="o">=</span> <span class="s2">&quot;https://github.com/conan-io/libhello/releases/download/0.0.1/&quot;</span>
+
+           <span class="n">_os</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Windows&quot;</span><span class="p">:</span> <span class="s2">&quot;win&quot;</span><span class="p">,</span> <span class="s2">&quot;Linux&quot;</span><span class="p">:</span> <span class="s2">&quot;linux&quot;</span><span class="p">,</span> <span class="s2">&quot;Macos&quot;</span><span class="p">:</span> <span class="s2">&quot;macos&quot;</span><span class="p">}</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">os</span><span class="p">))</span>
+           <span class="n">_arch</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">arch</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+           <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">_</span><span class="si">{}</span><span class="s2">.tgz&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">base_url</span><span class="p">,</span> <span class="n">_os</span><span class="p">,</span> <span class="n">_arch</span><span class="p">)</span>
+           <span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span>
+
+       <span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+           <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;*.h&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_folder</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">package_folder</span><span class="p">,</span> <span class="s2">&quot;include&quot;</span><span class="p">))</span>
+           <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;*.lib&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_folder</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">package_folder</span><span class="p">,</span> <span class="s2">&quot;lib&quot;</span><span class="p">))</span>
+           <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;*.a&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_folder</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">package_folder</span><span class="p">,</span> <span class="s2">&quot;lib&quot;</span><span class="p">))</span>
+
+       <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+           <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">libs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;hello&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<p>Typically, pre-compiled binaries come for different configurations, so the only task that the
+<code class="docutils literal notranslate"><span class="pre">build()</span></code> method has to implement is to map the <code class="docutils literal notranslate"><span class="pre">settings</span></code> to the different URLs.</p>
+<p>We only need to call <strong class="command">conan create</strong> with different settings to generate the needed packages:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.<span class="w"> </span>-s<span class="w"> </span><span class="nv">os</span><span class="o">=</span><span class="s2">&quot;Linux&quot;</span><span class="w"> </span>-s<span class="w"> </span><span class="nv">arch</span><span class="o">=</span><span class="s2">&quot;x86_64&quot;</span>
+$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.<span class="w"> </span>-s<span class="w"> </span><span class="nv">os</span><span class="o">=</span><span class="s2">&quot;Linux&quot;</span><span class="w"> </span>-s<span class="w"> </span><span class="nv">arch</span><span class="o">=</span><span class="s2">&quot;armv8&quot;</span>
+$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.<span class="w"> </span>-s<span class="w"> </span><span class="nv">os</span><span class="o">=</span><span class="s2">&quot;Macos&quot;</span><span class="w"> </span>-s<span class="w"> </span><span class="nv">arch</span><span class="o">=</span><span class="s2">&quot;x86_64&quot;</span>
+$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.<span class="w"> </span>-s<span class="w"> </span><span class="nv">os</span><span class="o">=</span><span class="s2">&quot;Macos&quot;</span><span class="w"> </span>-s<span class="w"> </span><span class="nv">arch</span><span class="o">=</span><span class="s2">&quot;armv8&quot;</span>
+$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.<span class="w"> </span>-s<span class="w"> </span><span class="nv">os</span><span class="o">=</span><span class="s2">&quot;Windows&quot;</span><span class="w"> </span>-s<span class="w"> </span><span class="nv">arch</span><span class="o">=</span><span class="s2">&quot;x86_64&quot;</span>
+$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.<span class="w"> </span>-s<span class="w"> </span><span class="nv">os</span><span class="o">=</span><span class="s2">&quot;Windows&quot;</span><span class="w"> </span>-s<span class="w"> </span><span class="nv">arch</span><span class="o">=</span><span class="s2">&quot;armv8&quot;</span>
+
+$<span class="w"> </span>conan<span class="w"> </span>list<span class="w"> </span><span class="s2">&quot;hello/0.1#:*&quot;</span>
+Local<span class="w"> </span>Cache
+<span class="w">  </span>hello
+<span class="w">    </span>hello/0.1
+<span class="w">      </span>revisions
+<span class="w">        </span>d8e4debf31f0b7b5ec7ff910f76f1e2a<span class="w"> </span><span class="o">(</span><span class="m">2024</span>-05-10<span class="w"> </span><span class="m">09</span>:13:16<span class="w"> </span>UTC<span class="o">)</span>
+<span class="w">          </span>packages
+<span class="w">            </span>522dcea5982a3f8a5b624c16477e47195da2f84f
+<span class="w">              </span>info
+<span class="w">                </span>settings
+<span class="w">                  </span>arch:<span class="w"> </span>x86_64
+<span class="w">                  </span>os:<span class="w"> </span>Windows
+<span class="w">            </span>63fead0844576fc02943e16909f08fcdddd6f44b
+<span class="w">              </span>info
+<span class="w">                </span>settings
+<span class="w">                  </span>arch:<span class="w"> </span>x86_64
+<span class="w">                  </span>os:<span class="w"> </span>Linux
+<span class="w">            </span>82339cc4d6db7990c1830d274cd12e7c91ab18a1
+<span class="w">              </span>info
+<span class="w">                </span>settings
+<span class="w">                  </span>arch:<span class="w"> </span>x86_64
+<span class="w">                  </span>os:<span class="w"> </span>Macos
+<span class="w">            </span>a0cd51c51fe9010370187244af885b0efcc5b69b
+<span class="w">              </span>info
+<span class="w">                </span>settings
+<span class="w">                  </span>arch:<span class="w"> </span>armv8
+<span class="w">                  </span>os:<span class="w"> </span>Windows
+<span class="w">            </span>c93719558cf197f1df5a7f1d071093e26f0e44a0
+<span class="w">              </span>info
+<span class="w">                </span>settings
+<span class="w">                  </span>arch:<span class="w"> </span>armv8
+<span class="w">                  </span>os:<span class="w"> </span>Linux
+<span class="w">            </span>dcf68e932572755309a5f69f3cee1bede410e907
+<span class="w">              </span>info
+<span class="w">                </span>settings
+<span class="w">                  </span>arch:<span class="w"> </span>armv8
+<span class="w">                  </span>os:<span class="w"> </span>Macos
+</pre></div>
+</div>
+</div></blockquote>
+<p>It is recommended to include also a small consuming project in a <code class="docutils literal notranslate"><span class="pre">test_package</span></code> folder to verify the package is correctly
+built, and then upload it to a Conan remote with <strong class="command">conan upload</strong>.</p>
+<p>The same building policies apply. Having a recipe fails if no Conan packages are
+created, and the <strong class="command">--build</strong> argument is not defined. A typical approach for this kind of
+package could be to define a <strong class="command">build_policy=&quot;missing&quot;</strong>, especially if the URLs are also
+under the team’s control. If they are external (on the internet), it could be better to create the
+packages and store them on your own Conan repository, so that the builds do not rely on third-party URLs
+being available.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="header_only_packages.html" class="btn btn-neutral float-left" title="Header-only packages" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tool_requires_packages.html" class="btn btn-neutral float-right" title="Tool requires packages" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2024, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 2.7
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/2.7/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

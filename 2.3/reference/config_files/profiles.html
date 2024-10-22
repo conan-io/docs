@@ -1,0 +1,1407 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>profiles &mdash; conan 2.3.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=045299b1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/conan.css?v=7d9e9f1e" />
+
+  
+    <link rel="shortcut icon" href="../../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/reference/config_files/profiles.html" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=5048a02b"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="settings.yml" href="settings.html" />
+    <link rel="prev" title="global.conf" href="global_conf.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/conan-docs-logo-2.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.3
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../whatsnew.html">What’s new in Conan 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devops.html">Devops guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../commands.html">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conanfile.html">conanfile.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tools.html">Recipe tools</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../config_files.html">Configuration files</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="global_conf.html">global.conf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="global_conf.html#information-about-built-in-confs">Information about built-in confs</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">profiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="settings.html">settings.yml</a></li>
+<li class="toctree-l3"><a class="reference internal" href="remotes.html">remotes.json</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source_credentials.html">source_credentials.json</a></li>
+<li class="toctree-l3"><a class="reference internal" href="credentials.html">credentials.json</a></li>
+<li class="toctree-l3"><a class="reference internal" href="conanrc.html">.conanrc</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../extensions.html">Extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../environment.html">Environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../binary_model.html">The binary model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conan_server.html">Conan Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../runners.html">Runners</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../knowledge.html">Knowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/reference/config_files/profiles.html">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="../config_files.html">Configuration files</a></li>
+      <li class="breadcrumb-item active">profiles</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/develop2/reference/config_files/profiles.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="profiles">
+<span id="reference-config-files-profiles"></span><h1>profiles<a class="headerlink" href="#profiles" title="Link to this heading">¶</a></h1>
+<section id="introduction-to-profiles">
+<h2>Introduction to profiles<a class="headerlink" href="#introduction-to-profiles" title="Link to this heading">¶</a></h2>
+<p>Conan profiles allow users to set a complete configuration set for <strong>settings</strong>, <strong>options</strong>,
+<strong>environment variables</strong> (for build time and runtime context), <strong>tool requirements</strong>, and
+<strong>configuration variables</strong> in a file.</p>
+<p>They have this structure:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[settings]
+arch=x86_64
+build_type=Release
+os=Macos
+
+[options]
+MyLib:shared=True
+
+[tool_requires]
+tool1/0.1@user/channel
+*: tool4/0.1@user/channel
+
+[buildenv]
+VAR1=value
+
+[runenv]
+EnvironmentVar1=My Value
+
+[conf]
+tools.build:jobs=2
+
+[replace_requires]
+zlib/1.2.123: zlib/*
+
+[replace_tool_requires]
+7zip/*: 7zip/system
+
+[platform_requires]
+dlib/1.3.22
+
+[platform_tool_requires]
+cmake/3.24.2
+</pre></div>
+</div>
+<p>Profiles can be created with the <code class="docutils literal notranslate"><span class="pre">detect</span></code> option in <a class="reference internal" href="../commands/profile.html#reference-commands-profile"><span class="std std-ref">conan profile</span></a> command,
+and edited later. If you don’t specify a <em>name</em>, the command will create the <code class="docutils literal notranslate"><span class="pre">default</span></code> profile:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text"><em>Creating the Conan default profile</em></span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>profile<span class="w"> </span>detect
+apple-clang&gt;<span class="o">=</span><span class="m">13</span>,<span class="w"> </span>using<span class="w"> </span>the<span class="w"> </span>major<span class="w"> </span>as<span class="w"> </span>version
+Detected<span class="w"> </span>profile:
+<span class="o">[</span>settings<span class="o">]</span>
+<span class="nv">arch</span><span class="o">=</span>x86_64
+<span class="nv">build_type</span><span class="o">=</span>Release
+<span class="nv">compiler</span><span class="o">=</span>apple-clang
+compiler.cppstd<span class="o">=</span>gnu17
+compiler.libcxx<span class="o">=</span>libc++
+compiler.version<span class="o">=</span><span class="m">14</span>
+<span class="nv">os</span><span class="o">=</span>Macos
+
+WARN:<span class="w"> </span>This<span class="w"> </span>profile<span class="w"> </span>is<span class="w"> </span>a<span class="w"> </span>guess<span class="w"> </span>of<span class="w"> </span>your<span class="w"> </span>environment,<span class="w"> </span>please<span class="w"> </span>check<span class="w"> </span>it.
+WARN:<span class="w"> </span>Defaulted<span class="w"> </span>to<span class="w"> </span><span class="nv">cppstd</span><span class="o">=</span><span class="s1">&#39;gnu17&#39;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>apple-clang.
+WARN:<span class="w"> </span>The<span class="w"> </span>output<span class="w"> </span>of<span class="w"> </span>this<span class="w"> </span><span class="nb">command</span><span class="w"> </span>is<span class="w"> </span>not<span class="w"> </span>guaranteed<span class="w"> </span>to<span class="w"> </span>be<span class="w"> </span>stable<span class="w"> </span>and<span class="w"> </span>can<span class="w"> </span>change<span class="w"> </span><span class="k">in</span><span class="w"> </span>future<span class="w"> </span>Conan<span class="w"> </span>versions.
+WARN:<span class="w"> </span>Use<span class="w"> </span>your<span class="w"> </span>own<span class="w"> </span>profile<span class="w"> </span>files<span class="w"> </span><span class="k">for</span><span class="w"> </span>stability.
+Saving<span class="w"> </span>detected<span class="w"> </span>profile<span class="w"> </span>to<span class="w"> </span><span class="o">[</span>CONAN_HOME<span class="o">]</span>/profiles/default
+</pre></div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>A note about the detected C++ standard by Conan</strong></p>
+<p>Conan will always set the default C++ standard as the one that the detected compiler
+version uses by default, except for the case of macOS using apple-clang. In this case,
+for apple-clang&gt;=11, it sets <code class="docutils literal notranslate"><span class="pre">compiler.cppstd=gnu17</span></code>. If you want to use a different
+C++ standard, you can edit the default profile file directly.</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text"><em>Creating another profile: myprofile</em></span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>profile<span class="w"> </span>detect<span class="w"> </span>--name<span class="w"> </span>myprofile
+Found<span class="w"> </span>apple-clang<span class="w"> </span><span class="m">14</span>.0
+apple-clang&gt;<span class="o">=</span><span class="m">13</span>,<span class="w"> </span>using<span class="w"> </span>the<span class="w"> </span>major<span class="w"> </span>as<span class="w"> </span>version
+Detected<span class="w"> </span>profile:
+<span class="o">[</span>settings<span class="o">]</span>
+<span class="nv">arch</span><span class="o">=</span>x86_64
+<span class="nv">build_type</span><span class="o">=</span>Release
+<span class="nv">compiler</span><span class="o">=</span>apple-clang
+compiler.cppstd<span class="o">=</span>gnu17
+compiler.libcxx<span class="o">=</span>libc++
+compiler.version<span class="o">=</span><span class="m">14</span>
+<span class="nv">os</span><span class="o">=</span>Macos
+
+WARN:<span class="w"> </span>This<span class="w"> </span>profile<span class="w"> </span>is<span class="w"> </span>a<span class="w"> </span>guess<span class="w"> </span>of<span class="w"> </span>your<span class="w"> </span>environment,<span class="w"> </span>please<span class="w"> </span>check<span class="w"> </span>it.
+WARN:<span class="w"> </span>Defaulted<span class="w"> </span>to<span class="w"> </span><span class="nv">cppstd</span><span class="o">=</span><span class="s1">&#39;gnu17&#39;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>apple-clang.
+WARN:<span class="w"> </span>The<span class="w"> </span>output<span class="w"> </span>of<span class="w"> </span>this<span class="w"> </span><span class="nb">command</span><span class="w"> </span>is<span class="w"> </span>not<span class="w"> </span>guaranteed<span class="w"> </span>to<span class="w"> </span>be<span class="w"> </span>stable<span class="w"> </span>and<span class="w"> </span>can<span class="w"> </span>change<span class="w"> </span><span class="k">in</span><span class="w"> </span>future<span class="w"> </span>Conan<span class="w"> </span>versions.
+WARN:<span class="w"> </span>Use<span class="w"> </span>your<span class="w"> </span>own<span class="w"> </span>profile<span class="w"> </span>files<span class="w"> </span><span class="k">for</span><span class="w"> </span>stability.
+Saving<span class="w"> </span>detected<span class="w"> </span>profile<span class="w"> </span>to<span class="w"> </span><span class="o">[</span>CONAN_HOME<span class="o">]</span>/profiles/myprofile
+</pre></div>
+</div>
+</div>
+<p>Profile files can be used with <code class="docutils literal notranslate"><span class="pre">-pr</span></code>/<code class="docutils literal notranslate"><span class="pre">--profile</span></code> option in many commands like <strong class="command">conan install</strong> or
+<strong class="command">conan create</strong> commands. If you don’t specify any profile at all, the <code class="docutils literal notranslate"><span class="pre">default</span></code> profile will be
+always used:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">Using the <em>default</em> profile</span><a class="headerlink" href="#id3" title="Link to this code">¶</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">Using a <em>myprofile</em> profile</span><a class="headerlink" href="#id4" title="Link to this code">¶</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.<span class="w"> </span>-pr<span class="o">=</span>myprofile
+</pre></div>
+</div>
+</div>
+<p>Profiles can be located in different folders:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>.<span class="w"> </span>-pr<span class="w"> </span>/abs/path/to/myprofile<span class="w">   </span><span class="c1"># abs path</span>
+$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>.<span class="w"> </span>-pr<span class="w"> </span>./relpath/to/myprofile<span class="w">   </span><span class="c1"># resolved to current dir</span>
+$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>.<span class="w"> </span>-pr<span class="w"> </span>../relpath/to/myprofile<span class="w">  </span><span class="c1"># resolved to relative dir</span>
+$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>.<span class="w"> </span>-pr<span class="w"> </span>myprofile<span class="w">  </span><span class="c1"># resolved to [CONAN_HOME]/profiles/myprofile</span>
+</pre></div>
+</div>
+<p>Listing existing profiles in the <em>profiles</em> folder can be done like this:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>profile<span class="w"> </span>list
+Profiles<span class="w"> </span>found<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>cache:
+default
+myprofile1
+myprofile2
+...
+</pre></div>
+</div>
+<p>You can also show the profile’s content per context:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>profile<span class="w"> </span>show<span class="w"> </span>-pr<span class="w"> </span>myprofile
+Host<span class="w"> </span>profile:
+<span class="o">[</span>settings<span class="o">]</span>
+<span class="nv">arch</span><span class="o">=</span>x86_64
+<span class="nv">build_type</span><span class="o">=</span>Release
+<span class="nv">compiler</span><span class="o">=</span>apple-clang
+compiler.cppstd<span class="o">=</span>gnu17
+compiler.libcxx<span class="o">=</span>libc++
+compiler.version<span class="o">=</span><span class="m">14</span>
+<span class="nv">os</span><span class="o">=</span>Macos
+
+Build<span class="w"> </span>profile:
+<span class="o">[</span>settings<span class="o">]</span>
+<span class="nv">arch</span><span class="o">=</span>x86_64
+<span class="nv">build_type</span><span class="o">=</span>Release
+<span class="nv">compiler</span><span class="o">=</span>apple-clang
+compiler.cppstd<span class="o">=</span>gnu17
+compiler.libcxx<span class="o">=</span>libc++
+compiler.version<span class="o">=</span><span class="m">14</span>
+<span class="nv">os</span><span class="o">=</span>Macos
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p>Manage your profiles and share them using <a class="reference internal" href="../commands/config.html#reference-commands-conan-config-install"><span class="std std-ref">conan config install</span></a>.</p></li>
+<li><p>Check the command and its sub-commands of <a class="reference internal" href="../commands/profile.html#reference-commands-profile"><span class="std std-ref">conan profile</span></a>.</p></li>
+</ul>
+</div>
+</section>
+<section id="profile-sections">
+<h2>Profile sections<a class="headerlink" href="#profile-sections" title="Link to this heading">¶</a></h2>
+<p>These are the available sections in profiles:</p>
+<section id="settings">
+<h3>[settings]<a class="headerlink" href="#settings" title="Link to this heading">¶</a></h3>
+<p>List of settings available from <a class="reference internal" href="settings.html#reference-config-files-settings-yml"><span class="std std-ref">settings.yml</span></a>:</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text"><em>myprofile</em></span><a class="headerlink" href="#id5" title="Link to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[settings]
+arch=x86_64
+build_type=Release
+compiler=apple-clang
+compiler.cppstd=gnu17
+compiler.libcxx=libc++
+compiler.version=14
+os=Macos
+</pre></div>
+</div>
+</div>
+</section>
+<section id="options">
+<h3>[options]<a class="headerlink" href="#options" title="Link to this heading">¶</a></h3>
+<p>List of options available from your recipe and its dependencies:</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text"><em>myprofile</em></span><a class="headerlink" href="#id6" title="Link to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[options]
+my_pkg_option=True
+shared=True
+</pre></div>
+</div>
+</div>
+</section>
+<section id="tool-requires">
+<span id="reference-config-files-profiles-tool-requires"></span><h3>[tool_requires]<a class="headerlink" href="#tool-requires" title="Link to this heading">¶</a></h3>
+<p>List of <code class="docutils literal notranslate"><span class="pre">tool_requires</span></code> required by your recipe or its dependencies:</p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text"><em>myprofile</em></span><a class="headerlink" href="#id7" title="Link to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[tool_requires]
+cmake/3.25.2
+</pre></div>
+</div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Read more about tool requires in this section: <a class="reference internal" href="../../tutorial/consuming_packages/use_tools_as_conan_packages.html#consuming-packages-tool-requires"><span class="std std-ref">Using build tools as Conan packages</span></a>.</p>
+</div>
+</section>
+<section id="system-tools-deprecated">
+<span id="reference-config-files-profiles-system-tools"></span><h3>[system_tools] (DEPRECATED)<a class="headerlink" href="#system-tools-deprecated" title="Link to this heading">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section is <strong>deprecated</strong> and  has been replaced by <a class="reference internal" href="#reference-config-files-profiles-platform-requires"><span class="std std-ref">[platform_requires]</span></a> and <a class="reference internal" href="#reference-config-files-profiles-platform-tool-requires"><span class="std std-ref">[platform_tool_requires]</span></a> sections.</p>
+</div>
+</section>
+<section id="buildenv">
+<span id="reference-config-files-profiles-buildenv"></span><h3>[buildenv]<a class="headerlink" href="#buildenv" title="Link to this heading">¶</a></h3>
+<p>List of environment variables that will be injected to the environment every time the ConanFile
+<code class="docutils literal notranslate"><span class="pre">run(cmd,</span> <span class="pre">env=&quot;conanbuild&quot;)</span></code> method is invoked (build time context is automatically run by <a class="reference internal" href="../tools/env/virtualbuildenv.html#conan-tools-env-virtualbuildenv"><span class="std std-ref">VirtualBuildEnv</span></a>).</p>
+<p>Besides that, it is able to apply some additional operators to each variable declared
+when you’re composing profiles or even local variables:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">+=</span></code> == <code class="docutils literal notranslate"><span class="pre">append</span></code>: appends values at the end of the existing value.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">=+</span></code> == <code class="docutils literal notranslate"><span class="pre">prepend</span></code>: puts values at the beginning of the existing value.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">=!</span></code> == <code class="docutils literal notranslate"><span class="pre">unset</span></code>: gets rid of any variable value.</p></li>
+</ul>
+<p>Another essential point to mention is the possibility of defining variables as <cite>PATH</cite> ones by simply putting <code class="docutils literal notranslate"><span class="pre">(path)</span></code> as
+the prefix of the variable. It is useful to automatically get the append/prepend of the <cite>PATH</cite> in different systems
+(Windows uses <code class="docutils literal notranslate"><span class="pre">;</span></code> as separation, and UNIX <code class="docutils literal notranslate"><span class="pre">:</span></code>).</p>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text"><em>myprofile</em></span><a class="headerlink" href="#id8" title="Link to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[buildenv]
+# Define a variable &quot;MyVar1&quot;
+MyVar1=My Value; other
+
+# Append another value to &quot;MyVar1&quot;
+MyVar1+=MyValue12
+
+# Define a PATH variable &quot;MyPath1&quot;
+MyPath1=(path)/some/path11
+
+# Prepend another PATH to &quot;MyPath1&quot;
+MyPath1=+(path)/other path/path12
+
+# Unset the variable &quot;MyPath1&quot;
+MyPath1=!
+</pre></div>
+</div>
+</div>
+<p>Then, the result of applying this profile is:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">MyVar1</span></code>: <code class="docutils literal notranslate"><span class="pre">My</span> <span class="pre">Value;</span> <span class="pre">other</span> <span class="pre">MyValue12</span></code></p></li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">MyPath1</span></code>:</dt><dd><ul>
+<li><p>Unix: <code class="docutils literal notranslate"><span class="pre">/other</span> <span class="pre">path/path12:/some/path11</span></code></p></li>
+<li><p>Windows: <code class="docutils literal notranslate"><span class="pre">/other</span> <span class="pre">path/path12;/some/path11</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mypkg*:PATH</span></code>: <code class="docutils literal notranslate"><span class="pre">None</span></code></p></li>
+</ul>
+</section>
+<section id="runenv">
+<span id="reference-config-files-profiles-runenv"></span><h3>[runenv]<a class="headerlink" href="#runenv" title="Link to this heading">¶</a></h3>
+<p>List of environment variables that will be injected to the environment every time the ConanFile
+<code class="docutils literal notranslate"><span class="pre">run(cmd,</span> <span class="pre">env=&quot;conanrun&quot;)</span></code> method is invoked (runtime context is automatically run by <a class="reference internal" href="../tools/env/virtualrunenv.html#conan-tools-env-virtualrunenv"><span class="std std-ref">VirtualRunEnv</span></a>).</p>
+<p>All the operators/patterns explained for <a class="reference internal" href="#reference-config-files-profiles-buildenv"><span class="std std-ref">[buildenv]</span></a> applies to this one in the same way:</p>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text"><em>myprofile</em></span><a class="headerlink" href="#id9" title="Link to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[runenv]
+MyVar1=My Value; other
+MyVar1+=MyValue12
+MyPath1=(path)/some/path11
+MyPath1=+(path)/other path/path12
+MyPath1=!
+</pre></div>
+</div>
+</div>
+</section>
+<section id="conf">
+<span id="reference-config-files-profiles-conf"></span><h3>[conf]<a class="headerlink" href="#conf" title="Link to this heading">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It’s recommended to have previously read the <a class="reference internal" href="global_conf.html#reference-config-files-global-conf"><span class="std std-ref">global.conf</span></a> section.</p>
+</div>
+<p>List of user/tools configurations:</p>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text"><em>myprofile</em></span><a class="headerlink" href="#id10" title="Link to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[conf]
+tools.build:verbosity=verbose
+tools.microsoft.msbuild:max_cpu_count=2
+tools.microsoft.msbuild:vs_version = 16
+tools.build:jobs=10
+# User conf variable
+user.confvar:something=False
+</pre></div>
+</div>
+</div>
+<p>Recall some hints about configuration scope and naming:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">core.xxx</span></code> configuration can only be defined in <code class="docutils literal notranslate"><span class="pre">global.conf</span></code> file, but not in profiles</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tools.yyy</span></code> and <code class="docutils literal notranslate"><span class="pre">user.zzz</span></code> can be defined in <code class="docutils literal notranslate"><span class="pre">global.conf</span></code> and they will affect both the “build” and the “host” context. But configurations defined in a profile <code class="docutils literal notranslate"><span class="pre">[conf]</span></code> will only affect the respective “build” or “host” context of the profile, not both.</p></li>
+</ul>
+<p>They can also be used in <a class="reference internal" href="global_conf.html#reference-config-files-global-conf"><span class="std std-ref">global.conf</span></a>,
+but <strong>profiles values will have priority over globally defined ones in global.conf</strong>, so let’s see an example that is a bit more complex,
+trying different configurations coming from the <em>global.conf</em> and another profile <em>myprofile</em>:</p>
+<div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text"><em>global.conf</em></span><a class="headerlink" href="#id11" title="Link to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># Defining several lists
+user.myconf.build:ldflags=[&quot;--flag1 value1&quot;]
+user.myconf.build:cflags=[&quot;--flag1 value1&quot;]
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text"><em>myprofile</em></span><a class="headerlink" href="#id12" title="Link to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[settings]
+...
+
+[conf]
+# Appending values into the existing list
+user.myconf.build:ldflags+=[&quot;--flag2 value2&quot;]
+
+# Unsetting the existing value (it&#39;d be like we define it as an empty value)
+user.myconf.build:cflags=!
+
+# Prepending values into the existing list
+user.myconf.build:ldflags=+[&quot;--prefix prefix-value&quot;]
+</pre></div>
+</div>
+</div>
+<p>Running, for instance, <strong class="command">conan install . -pr myprofile</strong>, the configuration output will be something like:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>...
+Configuration:
+<span class="o">[</span>settings<span class="o">]</span>
+<span class="o">[</span>options<span class="o">]</span>
+<span class="o">[</span>tool_requires<span class="o">]</span>
+<span class="o">[</span>conf<span class="o">]</span>
+user.myconf.build:cflags<span class="o">=</span>!
+user.myconf.build:ldflags<span class="o">=[</span><span class="s1">&#39;--prefix prefix-value&#39;</span>,<span class="w"> </span><span class="s1">&#39;--flag1 value1&#39;</span>,<span class="w"> </span><span class="s1">&#39;--flag2 value2&#39;</span><span class="o">]</span>
+...
+</pre></div>
+</div>
+</section>
+<section id="replace-requires">
+<span id="reference-config-files-profiles-replace-requires"></span><h3>[replace_requires]<a class="headerlink" href="#replace-requires" title="Link to this heading">¶</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This feature is experimental and subject to breaking changes.
+See <a class="reference internal" href="../../introduction.html#stability"><span class="std std-ref">the Conan stability</span></a> section for more information.</p>
+</div>
+<p>This section allows the user to redefine requires of recipes. This can be useful when a package can be changed by a similar one like <cite>zlib</cite> and <cite>zlibng</cite>.
+It is also useful to solve conflicts, or to replace some dependencies by system alternatives wrapped in another Conan package recipe.</p>
+<p>References listed under this section work as a <strong>literal replacement of requires in recipes</strong>, and is done as the very first step before any other processing
+of recipe requirements, without processing them or checking for conflicts.</p>
+<p>As an example, we could define <cite>zlibng</cite> as a replacement for the typical <abbr>zlib</abbr></p>
+<div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text"><em>myprofile</em></span><a class="headerlink" href="#id13" title="Link to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[replace_requires]
+zlib/*: zlibng/*
+</pre></div>
+</div>
+</div>
+<p>Using the <code class="docutils literal notranslate"><span class="pre">*</span></code> pattern for the <code class="docutils literal notranslate"><span class="pre">zlibng</span></code> reference means that <code class="docutils literal notranslate"><span class="pre">zlib</span></code> will be replaced by the exact same version of <code class="docutils literal notranslate"><span class="pre">zlibng</span></code>.</p>
+<p>Other examples are:</p>
+<div class="literal-block-wrapper docutils container" id="id14">
+<div class="code-block-caption"><span class="caption-text"><em>myprofile</em></span><a class="headerlink" href="#id14" title="Link to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[replace_requires]
+dep/*: dep/1.1               # To override dep/[&gt;=1.0 &lt;2] in recipes to a specific version dep/1.1)
+dep/*: dep/*@system          # To override a dep/1.3 in recipes to dep/1.3@system
+dep/*: dep/[&gt;=1 &lt;2]          # To override every dep requirement in recipes to a specific version range
+dep/*@*/*: dep/*@system/*    # To override &quot;dep/1.3@comp/stable&quot; in recipes to the same version with other user but same channel
+dep/1.1: dep/1.1@system      # To replace exact reference in recipes by the same one in the system
+dep/1.1@*: dep/1.1@*/stable  # To replace dep/[&gt;=1.0 &lt;2]@comp version range in recipes by 1.1 version in stable chanel
+</pre></div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Best practices</strong></p>
+<ul class="simple">
+<li><p>Please make rational use of this feature. It is not a versioning mechanism and is not intended to replace actual requires in recipes.</p></li>
+<li><p>The usage of this feature is intended for <strong>temporarily</strong> solving conflicts or replacing a specific dependency by a system one in some cross-build scenarios.</p></li>
+</ul>
+</div>
+</section>
+<section id="replace-tool-requires">
+<span id="reference-config-files-profiles-replace-tool-requires"></span><h3>[replace_tool_requires]<a class="headerlink" href="#replace-tool-requires" title="Link to this heading">¶</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This feature is experimental and subject to breaking changes.
+See <a class="reference internal" href="../../introduction.html#stability"><span class="std std-ref">the Conan stability</span></a> section for more information.</p>
+</div>
+<p>Same usage as the <cite>replace_requires</cite> section but in this case for <cite>tool_requires</cite>.</p>
+<div class="literal-block-wrapper docutils container" id="id15">
+<div class="code-block-caption"><span class="caption-text"><em>myprofile</em></span><a class="headerlink" href="#id15" title="Link to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[replace_tool_requires]
+cmake/*: cmake/3.25.2
+</pre></div>
+</div>
+</div>
+<p>In this case, whatever version of <code class="docutils literal notranslate"><span class="pre">cmake</span></code> declared in recipes, will be replaced by the reference <cite>cmake/3.25.2</cite>.</p>
+</section>
+<section id="platform-requires">
+<span id="reference-config-files-profiles-platform-requires"></span><h3>[platform_requires]<a class="headerlink" href="#platform-requires" title="Link to this heading">¶</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This feature is experimental and subject to breaking changes.
+See <a class="reference internal" href="../../introduction.html#stability"><span class="std std-ref">the Conan stability</span></a> section for more information.</p>
+</div>
+<p>This section allows the user to redefine requires of recipes replacing them with platform-provided dependencies, this means that Conan will not try to download the
+reference or look for it in the cache and will assume that it is installed in your system and ready to be used.</p>
+<p>For example, if the zlib 1.2.11 library is already installed in your system or it is part of your build toolchain and you would like Conan to use it,
+you could specify so as:</p>
+<div class="literal-block-wrapper docutils container" id="id16">
+<div class="code-block-caption"><span class="caption-text"><em>myprofile</em></span><a class="headerlink" href="#id16" title="Link to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[platform_requires]
+zlib/1.2.11
+</pre></div>
+</div>
+</div>
+</section>
+<section id="platform-tool-requires">
+<span id="reference-config-files-profiles-platform-tool-requires"></span><h3>[platform_tool_requires]<a class="headerlink" href="#platform-tool-requires" title="Link to this heading">¶</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This feature is experimental and subject to breaking changes.
+See <a class="reference internal" href="../../introduction.html#stability"><span class="std std-ref">the Conan stability</span></a> section for more information.</p>
+</div>
+<p>Same usage as the <cite>platform_requires</cite> section but in this case for <cite>tool_requires</cite> such as <cite>cmake</cite>, <cite>meson</cite>…</p>
+<p>As an example, let’s say you have already installed <code class="docutils literal notranslate"><span class="pre">cmake==3.24.2</span></code> in your system:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>cmake<span class="w"> </span>--version
+cmake<span class="w"> </span>version<span class="w"> </span><span class="m">3</span>.24.2
+
+CMake<span class="w"> </span>suite<span class="w"> </span>maintained<span class="w"> </span>and<span class="w"> </span>supported<span class="w"> </span>by<span class="w"> </span>Kitware<span class="w"> </span><span class="o">(</span>kitware.com/cmake<span class="o">)</span>.
+</pre></div>
+</div>
+<p>And you have in your recipe (or the transitive dependencies) declared a <strong>tool_requires</strong>, i.e., something like this:</p>
+<div class="literal-block-wrapper docutils container" id="id17">
+<div class="code-block-caption"><span class="caption-text"><strong>conanfile.py</strong></span><a class="headerlink" href="#id17" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+<span class="k">class</span> <span class="nc">PkgConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;pkg&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;2.0&quot;</span>
+    <span class="c1"># ....</span>
+
+    <span class="c1"># Exact version</span>
+    <span class="k">def</span> <span class="nf">build_requirements</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tool_requires</span><span class="p">(</span><span class="s2">&quot;cmake/3.24.2&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Or even version ranges</span>
+    <span class="k">def</span> <span class="nf">build_requirements</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tool_requires</span><span class="p">(</span><span class="s2">&quot;cmake/[&gt;=3.20.0]&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Given this situation, it could make sense to want to use your already installed CMake version, so it’s enough to declare
+it as a <code class="docutils literal notranslate"><span class="pre">platform_tool_requires</span></code> in your profile:</p>
+<div class="literal-block-wrapper docutils container" id="id18">
+<div class="code-block-caption"><span class="caption-text"><em>myprofile</em></span><a class="headerlink" href="#id18" title="Link to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>...
+
+[platform_tool_requires]
+cmake/3.24.2
+</pre></div>
+</div>
+</div>
+<p>Whenever you want to create the package, you’ll see that build requirement is already satisfied because of the platform tool
+declaration:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.<span class="w"> </span>-pr<span class="w"> </span>myprofile<span class="w"> </span>--build<span class="o">=</span>missing
+...
+--------<span class="w"> </span>Computing<span class="w"> </span>dependency<span class="w"> </span>graph<span class="w"> </span>--------
+Graph<span class="w"> </span>root
+<span class="w">    </span>virtual
+Requirements
+<span class="w">    </span>pkg/2.0#3488ec5c2829b44387152a6c4b013767<span class="w"> </span>-<span class="w"> </span>Cache
+Build<span class="w"> </span>requirements
+<span class="hll"><span class="w">    </span>cmake/3.24.2<span class="w"> </span>-<span class="w"> </span>Platform
+</span>
+--------<span class="w"> </span>Computing<span class="w"> </span>necessary<span class="w"> </span>packages<span class="w"> </span>--------
+
+--------<span class="w"> </span>Computing<span class="w"> </span>necessary<span class="w"> </span>packages<span class="w"> </span>--------
+pkg/2.0:<span class="w"> </span>Forced<span class="w"> </span>build<span class="w"> </span>from<span class="w"> </span><span class="nb">source</span>
+Requirements
+<span class="w">    </span>pkg/2.0#3488ec5c2829b44387152a6c4b013767:20496b332552131b67fb99bf425f95f64d0d0818<span class="w"> </span>-<span class="w"> </span>Build
+Build<span class="w"> </span>requirements
+<span class="hll"><span class="w">    </span>cmake/3.24.2<span class="w"> </span>-<span class="w"> </span>Platform
+</span></pre></div>
+</div>
+<p>Note that if the <code class="docutils literal notranslate"><span class="pre">platform_tool_requires</span></code> declared <strong>does not make a strict match</strong> with the <code class="docutils literal notranslate"><span class="pre">tool_requires</span></code> one (version or
+version range), then Conan will try to bring them remotely or locally as usual.</p>
+</section>
+</section>
+<section id="profile-rendering">
+<span id="reference-config-files-profiles-rendering"></span><h2>Profile rendering<a class="headerlink" href="#profile-rendering" title="Link to this heading">¶</a></h2>
+<p>The profiles are rendered as <strong>jinja2</strong> templates by default. When Conan loads a profile, it immediately parses and
+renders the template, which must result in a standard text profile.</p>
+<p>Some of the capabilities of the profile templates are:</p>
+<ul>
+<li><p>Using the platform information, like obtaining the current OS, is possible because the
+Python <code class="docutils literal notranslate"><span class="pre">platform</span></code> module is added to the render context:</p>
+<div class="literal-block-wrapper docutils container" id="id19">
+<div class="code-block-caption"><span class="caption-text"><em>profile_vars</em></span><a class="headerlink" href="#id19" title="Link to this code">¶</a></div>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="x">[settings]</span>
+<span class="x">os = </span><span class="cp">{{</span> <span class="o">{</span><span class="s2">&quot;Darwin&quot;</span><span class="o">:</span> <span class="s2">&quot;Macos&quot;</span><span class="o">}</span><span class="nv">.get</span><span class="o">(</span><span class="nv">platform.system</span><span class="o">(),</span> <span class="nv">platform.system</span><span class="o">())</span> <span class="cp">}}</span>
+</pre></div>
+</div>
+</div>
+</li>
+<li><p>Reading environment variables can be done because the Python <code class="docutils literal notranslate"><span class="pre">os</span></code> module is added
+to the render context:</p>
+<div class="literal-block-wrapper docutils container" id="id20">
+<div class="code-block-caption"><span class="caption-text"><em>profile_vars</em></span><a class="headerlink" href="#id20" title="Link to this code">¶</a></div>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="x">[settings]</span>
+<span class="x">build_type = </span><span class="cp">{{</span> <span class="nv">os.getenv</span><span class="o">(</span><span class="s2">&quot;MY_BUILD_TYPE&quot;</span><span class="o">)</span> <span class="cp">}}</span>
+</pre></div>
+</div>
+</div>
+</li>
+<li><p>Defining your own variables and using them in the profile:</p>
+<div class="literal-block-wrapper docutils container" id="id21">
+<div class="code-block-caption"><span class="caption-text"><em>profile_vars</em></span><a class="headerlink" href="#id21" title="Link to this code">¶</a></div>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">set</span> <span class="nv">os</span> <span class="o">=</span> <span class="s2">&quot;FreeBSD&quot;</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">set</span> <span class="nv">clang</span> <span class="o">=</span> <span class="s2">&quot;my/path/to/clang&quot;</span> <span class="cp">%}</span>
+
+<span class="x">[settings]</span>
+<span class="x">os = </span><span class="cp">{{</span> <span class="nv">os</span> <span class="cp">}}</span>
+
+<span class="x">[conf]</span>
+<span class="x">tools.build:compiler_executables={&#39;c&#39;: &#39;</span><span class="cp">{{</span> <span class="nv">clang</span> <span class="cp">}}</span><span class="x">&#39;, &#39;cpp&#39;: &#39;</span><span class="cp">{{</span> <span class="nv">clang</span> <span class="o">+</span> <span class="s1">&#39;++&#39;</span> <span class="cp">}}</span><span class="x">&#39; }</span>
+</pre></div>
+</div>
+</div>
+</li>
+<li><p>Joining and defining paths, including referencing the current profile directory. For
+example, defining a toolchain whose file is located besides the profile can be done.
+Besides the <code class="docutils literal notranslate"><span class="pre">os</span></code> Python module, the variable <code class="docutils literal notranslate"><span class="pre">profile_dir</span></code> pointing to the current profile
+folder is added to the context.</p>
+<div class="literal-block-wrapper docutils container" id="id22">
+<div class="code-block-caption"><span class="caption-text"><em>profile_vars</em></span><a class="headerlink" href="#id22" title="Link to this code">¶</a></div>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="x">[conf]</span>
+<span class="x">tools.cmake.cmaketoolchain:toolchain_file = </span><span class="cp">{{</span> <span class="nv">os.path.join</span><span class="o">(</span><span class="nv">profile_dir</span><span class="o">,</span> <span class="s2">&quot;toolchain.cmake&quot;</span><span class="o">)</span> <span class="cp">}}</span>
+</pre></div>
+</div>
+</div>
+</li>
+<li><p>Getting settings from a filename, including referencing the current profile name. For
+example, defining a generic profile which is configured according to its file name.
+The variable <code class="docutils literal notranslate"><span class="pre">profile_name</span></code> pointing to the current profile file name is added to the context.</p>
+<div class="literal-block-wrapper docutils container" id="id23">
+<div class="code-block-caption"><span class="caption-text"><em>Linux-x86_64-gcc-12</em></span><a class="headerlink" href="#id23" title="Link to this code">¶</a></div>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">set</span> <span class="nv">os</span><span class="o">,</span> <span class="nv">arch</span><span class="o">,</span> <span class="nv">compiler</span><span class="o">,</span> <span class="nv">compiler_version</span> <span class="o">=</span> <span class="nv">profile_name.split</span><span class="o">(</span><span class="s1">&#39;-&#39;</span><span class="o">)</span> <span class="cp">%}</span>
+<span class="x">[settings]</span>
+<span class="x">os=</span><span class="cp">{{</span> <span class="nv">os</span> <span class="cp">}}</span>
+<span class="x">arch=</span><span class="cp">{{</span> <span class="nv">arch</span> <span class="cp">}}</span>
+<span class="x">compiler=</span><span class="cp">{{</span> <span class="nv">compiler</span> <span class="cp">}}</span>
+<span class="x">compiler.version=</span><span class="cp">{{</span> <span class="nv">compiler_version</span> <span class="cp">}}</span>
+</pre></div>
+</div>
+</div>
+</li>
+<li><p>Including or importing other files from <code class="docutils literal notranslate"><span class="pre">profiles</span></code> folder:</p>
+<div class="literal-block-wrapper docutils container" id="id24">
+<div class="code-block-caption"><span class="caption-text"><em>profile_vars</em></span><a class="headerlink" href="#id24" title="Link to this code">¶</a></div>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">set</span> <span class="nv">a</span> <span class="o">=</span> <span class="s2">&quot;Debug&quot;</span> <span class="cp">%}</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id25">
+<div class="code-block-caption"><span class="caption-text"><em>myprofile</em></span><a class="headerlink" href="#id25" title="Link to this code">¶</a></div>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">import</span> <span class="s2">&quot;profile_vars&quot;</span> <span class="k">as</span> <span class="nv">vars</span> <span class="cp">%}</span>
+<span class="x">[settings]</span>
+<span class="x">build_type = </span><span class="cp">{{</span> <span class="nv">vars.a</span> <span class="cp">}}</span>
+</pre></div>
+</div>
+</div>
+</li>
+<li><p>Any other feature supported by <em>jinja2</em> is possible: for loops, if-else, etc. This
+would be useful to define custom per-package settings or options for multiple packages
+in a large dependency graph.</p></li>
+</ul>
+<p id="reference-config-files-profiles-detect-api"><strong>Profile Rendering with ``detect_api``</strong></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>Stability Guarantees</strong>: The detect_api, similar to <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">profile</span> <span class="pre">detect</span></code>, does not
+offer strong stability guarantees.</p>
+<p><strong>Usage Recommendations</strong>: The detect_api is not a regular API meant for creating new
+commands or similar functionalities. While auto-detection can be convenient, it’s not
+the recommended approach for all scenarios. This API is internal to Conan and is only
+exposed for profile and <em>global.conf</em> rendering. It’s advised to use it judiciously.</p>
+</div>
+<p>Conan also injects <code class="docutils literal notranslate"><span class="pre">detect_api</span></code> to the jinja rendering context. With it, it’s
+possible to use Conan’s auto-detection capabilities directly within Jinja profile
+templates. This provides a way to dynamically determine certain settings based on the
+environment.</p>
+<p><code class="docutils literal notranslate"><span class="pre">detect_api</span></code> can be invoked within the Jinja template of a profile. For instance, to
+detect the operating system and architecture, you can use:</p>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="x">[settings]</span>
+<span class="x">os=</span><span class="cp">{{</span><span class="nv">detect_api.detect_os</span><span class="o">()</span><span class="cp">}}</span>
+<span class="x">arch=</span><span class="cp">{{</span><span class="nv">detect_api.detect_arch</span><span class="o">()</span><span class="cp">}}</span>
+</pre></div>
+</div>
+<p>Similarly, for more advanced detections like determining the compiler, its version, and
+the associated runtime, you can use:</p>
+<div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">set</span> <span class="nv">compiler</span><span class="o">,</span> <span class="nv">version</span><span class="o">,</span> <span class="nv">compiler_exe</span> <span class="o">=</span> <span class="nv">detect_api.detect_default_compiler</span><span class="o">()</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">set</span> <span class="nv">runtime</span><span class="o">,</span> <span class="kp">_</span> <span class="o">=</span> <span class="nv">detect_api.default_msvc_runtime</span><span class="o">(</span><span class="nv">compiler</span><span class="o">)</span> <span class="cp">%}</span>
+<span class="x">[settings]</span>
+<span class="x">compiler=</span><span class="cp">{{</span><span class="nv">compiler</span><span class="cp">}}</span>
+<span class="x">compiler.version=</span><span class="cp">{{</span><span class="nv">detect_api.default_compiler_version</span><span class="o">(</span><span class="nv">compiler</span><span class="o">,</span> <span class="nv">version</span><span class="o">)</span><span class="cp">}}</span>
+<span class="x">compiler.runtime=</span><span class="cp">{{</span><span class="nv">runtime</span><span class="cp">}}</span>
+<span class="x">compiler.cppstd=</span><span class="cp">{{</span><span class="nv">detect_api.default_cppstd</span><span class="o">(</span><span class="nv">compiler</span><span class="o">,</span> <span class="nv">version</span><span class="o">)</span><span class="cp">}}</span>
+<span class="x">compiler.libcxx=</span><span class="cp">{{</span><span class="nv">detect_api.detect_libcxx</span><span class="o">(</span><span class="nv">compiler</span><span class="o">,</span> <span class="nv">version</span><span class="o">,</span> <span class="nv">compiler_exe</span><span class="o">)</span><span class="cp">}}</span>
+</pre></div>
+</div>
+<p><strong>detect_api reference</strong>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>`detect_os()`</strong>: returns operating system as a string (e.g., “Windows”, “Macos”).</p></li>
+<li><p><strong>`detect_arch()`</strong>: returns system architecture as a string (e.g., “x86_64”, “armv8”).</p></li>
+<li><p><strong>`detect_libc(ldd=”/usr/bin/ldd”)`</strong>: <strong>experimental</strong> returns a tuple with the name (e.g., “gnu”, “musl”) and version (e.g., “2.39”, “1.2.4”) of the C library.</p></li>
+<li><p><strong>`detect_libcxx(compiler, version, compiler_exe=None)`</strong>: returns C++ standard library as a string (e.g., “libstdc++”, “libc++”).</p></li>
+<li><p><strong>`default_msvc_runtime(compiler)`</strong>: returns tuple with runtime (e.g., “dynamic”) and its version (e.g., “v143”).</p></li>
+<li><p><strong>`default_cppstd(compiler, compiler_version)`</strong>: returns default C++ standard as a string (e.g., “gnu14”).</p></li>
+<li><p><strong>`detect_default_compiler()`</strong>: returns tuple with compiler name (e.g., “gcc”), its version and the executable path.</p></li>
+<li><p><strong>`detect_msvc_update(version)`</strong>: returns MSVC update version as a string (e.g., “7”).</p></li>
+<li><p><strong>`default_msvc_ide_version(version)`</strong>: returns MSVC IDE version as a string (e.g., “17”).</p></li>
+<li><dl class="simple">
+<dt><strong>`default_compiler_version(compiler, version)`</strong>: returns the default version that</dt><dd><p>Conan uses in profiles, typically dropping some of the minor or patch digits, that
+do not affect binary compatibility.</p>
+</dd>
+</dl>
+</li>
+<li><p><strong>`detect_gcc_compiler(compiler_exe=”gcc”)`</strong>: Return the tuple (‘gcc’, version, executable) for <code class="docutils literal notranslate"><span class="pre">gcc</span></code></p></li>
+<li><p><strong>`detect_intel_compiler(compiler_exe=”icx”)`</strong>: Return the tuple (‘intel-cc’, version, executable) for <code class="docutils literal notranslate"><span class="pre">intel-cc</span></code></p></li>
+<li><p><strong>`detect_suncc_compiler(compiler_exe=”cc”)`</strong>: Return the tuple (‘sun-cc’, version, executable) for <code class="docutils literal notranslate"><span class="pre">sun-cc</span></code></p></li>
+<li><p><strong>`detect_clang_compiler(compiler_exe=”clang”)`</strong>: Return the tuple (‘clang’|’apple-clang’, version, executable) for <code class="docutils literal notranslate"><span class="pre">clang</span></code> or <code class="docutils literal notranslate"><span class="pre">apple-clang</span></code>.</p></li>
+<li><p><strong>`detect_msvc_compiler()`</strong>: Detect the compiler (‘msvc’, version, None) default version of the latest VS IDE installed</p></li>
+<li><p><strong>`detect_cl_compiler(compiler_exe=”cl”)`</strong>: Detect the compiler (‘msvc’, version, executable) for the <code class="docutils literal notranslate"><span class="pre">cl.exe</span></code> compiler</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="profile-patterns">
+<span id="reference-config-files-profile-patterns"></span><h2>Profile patterns<a class="headerlink" href="#profile-patterns" title="Link to this heading">¶</a></h2>
+<p>Profiles (and everywhere where a setting or option is defined) also support patterns definition, so you can override some settings, configuration variables, etc.
+for some specific packages:</p>
+<div class="literal-block-wrapper docutils container" id="id26">
+<div class="code-block-caption"><span class="caption-text"><em>zlib_clang_profile</em></span><a class="headerlink" href="#id26" title="Link to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[settings]
+# Only for zlib
+zlib/*:compiler=clang
+zlib/*:compiler.version=3.5
+zlib/*:compiler.libcxx=libstdc++11
+
+# For the all the dependency tree
+compiler=gcc
+compiler.version=4.9
+compiler.libcxx=libstdc++11
+
+[options]
+# shared=True option only for zlib package
+zlib/*:shared=True
+
+[buildenv]
+# For the all the dependency tree
+*:MYVAR=my_var
+
+[conf]
+# Only for zlib
+zlib/*:tools.build:compiler_executables={&#39;c&#39;: &#39;/usr/bin/clang&#39;, &#39;cpp&#39;: &#39;/usr/bin/clang++&#39;}
+</pre></div>
+</div>
+</div>
+<p>Your build tool will locate <strong>clang</strong> compiler only for the <strong>zlib</strong> package and <strong>gcc</strong> (default one)
+for the rest of your dependency tree.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Putting only <code class="docutils literal notranslate"><span class="pre">zlib:</span></code> is deprecated behaviour and won’t work, you have to always put a pattern-like expression, e.g., <code class="docutils literal notranslate"><span class="pre">zlib*:</span></code>,
+<code class="docutils literal notranslate"><span class="pre">zlib/*:</span></code>, <code class="docutils literal notranslate"><span class="pre">zlib/1.*:</span></code>, etc.</p>
+</div>
+<p>They accept patterns too, like <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">*&#64;myuser/*</span></code>, which means that packages that have the username “myuser” will use
+clang 3.5 as compiler, and gcc otherwise:</p>
+<div class="literal-block-wrapper docutils container" id="id27">
+<div class="code-block-caption"><span class="caption-text"><em>myprofile</em></span><a class="headerlink" href="#id27" title="Link to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[settings]
+*@myuser/*:compiler=clang
+*@myuser/*:compiler.version=3.5
+*@myuser/*:compiler.libcxx=libstdc++11
+compiler=gcc
+compiler.version=4.9
+compiler.libcxx=libstdc++11
+</pre></div>
+</div>
+</div>
+<p>Also <cite>&amp;</cite> can be specified as the package name. It will apply only to the consumer conanfile (.py or .txt).
+This is a special case because the consumer conanfile might not declare a <cite>name</cite> so it would be impossible to reference it.</p>
+<div class="literal-block-wrapper docutils container" id="id28">
+<div class="code-block-caption"><span class="caption-text"><em>myprofile</em></span><a class="headerlink" href="#id28" title="Link to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[settings]
+&amp;:compiler=gcc
+&amp;:compiler.version=4.9
+&amp;:compiler.libcxx=libstdc++11
+</pre></div>
+</div>
+</div>
+<p>Partial matches are also supported, so you can define a pattern like <code class="docutils literal notranslate"><span class="pre">zlib*</span></code> to match all the zlib like libraries,
+so it will match everything starting with zlib, like <code class="docutils literal notranslate"><span class="pre">zlib</span></code>, <code class="docutils literal notranslate"><span class="pre">zlibng</span></code>, <code class="docutils literal notranslate"><span class="pre">zlib/1.2.8&#64;user/channel</span></code>, etc.</p>
+<div class="literal-block-wrapper docutils container" id="id29">
+<div class="code-block-caption"><span class="caption-text"><em>myprofile</em></span><a class="headerlink" href="#id29" title="Link to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[settings]
+zlib*:compiler=clang
+zlib*:compiler.version=3.5
+zlib*:compiler.libcxx=libstdc++11
+</pre></div>
+</div>
+</div>
+</section>
+<section id="profile-includes">
+<h2>Profile includes<a class="headerlink" href="#profile-includes" title="Link to this heading">¶</a></h2>
+<p>You can include other profile files using the <code class="docutils literal notranslate"><span class="pre">include()</span></code> statement. The path can be relative
+to the current profile, absolute, or a profile name from the default profile location in the local cache.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">include()</span></code> statement has to be at the top of the profile file:</p>
+<div class="literal-block-wrapper docutils container" id="id30">
+<div class="code-block-caption"><span class="caption-text"><em>gcc_49</em></span><a class="headerlink" href="#id30" title="Link to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[settings]
+compiler=gcc
+compiler.version=4.9
+compiler.libcxx=libstdc++11
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id31">
+<div class="code-block-caption"><span class="caption-text"><em>myprofile</em></span><a class="headerlink" href="#id31" title="Link to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>include(gcc_49)
+
+[settings]
+zlib/*:compiler=clang
+zlib/*:compiler.version=3.5
+zlib/*:compiler.libcxx=libstdc++11
+</pre></div>
+</div>
+</div>
+<p>The final result of using <em>myprofile</em> is:</p>
+<div class="literal-block-wrapper docutils container" id="id32">
+<div class="code-block-caption"><span class="caption-text"><em>myprofile (virtual result)</em></span><a class="headerlink" href="#id32" title="Link to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[settings]
+compiler=gcc
+compiler.libcxx=libstdc++11
+compiler.version=4.9
+zlib/*:compiler=clang
+zlib/*:compiler.libcxx=libstdc++11
+zlib/*:compiler.version=3.5
+</pre></div>
+</div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../commands/install.html#reference-commands-install-composition"><span class="std std-ref">How to compose two or more profiles</span></a></p></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="global_conf.html" class="btn btn-neutral float-left" title="global.conf" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="settings.html" class="btn btn-neutral float-right" title="settings.yml" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2024, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 2.3
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/2.3/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

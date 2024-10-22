@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>conan config &mdash; conan 2.0.17 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=045299b1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/conan.css?v=7d9e9f1e" />
+
+  
+    <link rel="shortcut icon" href="../../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/reference/commands/config.html" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=86415d92"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="conan graph" href="graph.html" />
+    <link rel="prev" title="conan cache" href="cache.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/conan-docs-logo-2.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../whatsnew.html">What’s new in Conan 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devops.html">Devops guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../commands.html">Commands</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cache.html">conan cache</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">conan config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="graph.html">conan graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="inspect.html">conan inspect</a></li>
+<li class="toctree-l3"><a class="reference internal" href="install.html">conan install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="list.html">conan list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lock.html">conan lock</a></li>
+<li class="toctree-l3"><a class="reference internal" href="profile.html">conan profile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="remove.html">conan remove</a></li>
+<li class="toctree-l3"><a class="reference internal" href="remote.html">conan remote</a></li>
+<li class="toctree-l3"><a class="reference internal" href="search.html">conan search</a></li>
+<li class="toctree-l3"><a class="reference internal" href="version.html">conan version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="build.html">conan build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="create.html">conan create</a></li>
+<li class="toctree-l3"><a class="reference internal" href="download.html">conan download</a></li>
+<li class="toctree-l3"><a class="reference internal" href="editable.html">conan editable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="export.html">conan export</a></li>
+<li class="toctree-l3"><a class="reference internal" href="export-pkg.html">conan export-pkg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="new.html">conan new</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source.html">conan source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="test.html">conan test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="upload.html">conan upload</a></li>
+<li class="toctree-l3"><a class="reference internal" href="formatters/graph_info_json_formatter.html">Formatter: Graph-info JSON</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../conanfile.html">conanfile.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tools.html">Recipe tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../config_files.html">Configuration files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extensions.html">Extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../environment.html">Environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../binary_model.html">The binary model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conan_server.html">Conan Server</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../knowledge.html">Knowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/reference/commands/config.html">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="../commands.html">Commands</a></li>
+      <li class="breadcrumb-item active">conan config</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/develop2/reference/commands/config.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="conan-config">
+<h1>conan config<a class="headerlink" href="#conan-config" title="Link to this heading">¶</a></h1>
+<p>Manage the Conan configuration in the Conan home.</p>
+<section id="conan-config-home">
+<h2>conan config home<a class="headerlink" href="#conan-config-home" title="Link to this heading">¶</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ conan config home -h
+WARN: Downgrading cache from Conan 2.1.0 to 2.0.17
+usage: conan config home [-h] [-v [V]]
+
+Show the Conan home folder.
+
+optional arguments:
+  -h, --help  show this help message and exit
+  -v [V]      Level of detail of the output. Valid options from less verbose
+              to more verbose: -vquiet, -verror, -vwarning, -vnotice,
+              -vstatus, -v or -vverbose, -vv or -vdebug, -vvv or -vtrace
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">config</span> <span class="pre">home</span></code> command returns the path of the Conan home folder.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ conan config home
+
+/home/user/.conan2
+</pre></div>
+</div>
+</section>
+<section id="conan-config-install">
+<span id="reference-commands-conan-config-install"></span><h2>conan config install<a class="headerlink" href="#conan-config-install" title="Link to this heading">¶</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ conan config install -h
+WARN: Downgrading cache from Conan 2.1.0 to 2.0.17
+usage: conan config install [-h] [-v [V]] [--verify-ssl [VERIFY_SSL] |
+                            --insecure] [-t {git,dir,file,url}] [-a ARGS]
+                            [-sf SOURCE_FOLDER] [-tf TARGET_FOLDER]
+                            item
+
+Install the configuration (remotes, profiles, conf), from git, http or a
+folder, into the Conan home folder.
+
+positional arguments:
+  item                  git repository, local file or folder or zip file
+                        (local or http) where the configuration is stored
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -v [V]                Level of detail of the output. Valid options from less
+                        verbose to more verbose: -vquiet, -verror, -vwarning,
+                        -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
+                        -vvv or -vtrace
+  --verify-ssl [VERIFY_SSL]
+                        Verify SSL connection when downloading file
+  --insecure            Allow insecure server connections when using SSL.
+                        Equivalent to --verify-ssl=False
+  -t {git,dir,file,url}, --type {git,dir,file,url}
+                        Type of remote config
+  -a ARGS, --args ARGS  String with extra arguments for &quot;git clone&quot;
+  -sf SOURCE_FOLDER, --source-folder SOURCE_FOLDER
+                        Install files only from a source subfolder from the
+                        specified origin
+  -tf TARGET_FOLDER, --target-folder TARGET_FOLDER
+                        Install to that path in the conan cache
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">config</span> <span class="pre">install</span></code> command is intended to install in the current home a common shared Conan
+configuration, like the definitions of <code class="docutils literal notranslate"><span class="pre">remotes</span></code>, <code class="docutils literal notranslate"><span class="pre">profiles</span></code>, <code class="docutils literal notranslate"><span class="pre">settings</span></code>, <code class="docutils literal notranslate"><span class="pre">hooks</span></code>, <code class="docutils literal notranslate"><span class="pre">extensions</span></code>, etc.</p>
+<p>The command can use as source any of the following:</p>
+<ul class="simple">
+<li><p>A URL pointing to a zip archive containing the configuration files</p></li>
+<li><p>A git repository containing the files</p></li>
+<li><p>A local folder</p></li>
+<li><p>Just one file</p></li>
+</ul>
+<p>Files in the current Conan home will be replaced by the ones from the installation source.
+All the configuration files can be shared and installed this way:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">remotes.json</span></code> for the definition of remotes</p></li>
+<li><p>Any custom profile files inside a <code class="docutils literal notranslate"><span class="pre">profiles</span></code> subfolder</p></li>
+<li><p>Custom <code class="docutils literal notranslate"><span class="pre">settings.yml</span></code></p></li>
+<li><p>Custom <code class="docutils literal notranslate"><span class="pre">global.conf</span></code></p></li>
+<li><p>All the extensions, including plugins, hooks.</p></li>
+<li><p>Custom user commands.</p></li>
+</ul>
+<p>This command reads a <code class="docutils literal notranslate"><span class="pre">.conanignore</span></code> file which, if present, filters which files and folders
+are copied over to the user’s Conan home folder.
+This file uses <a class="reference external" href="https://docs.python.org/3/library/fnmatch.html">fnmatch</a> patterns
+to match over the folder contents, excluding those entries that match from the config installation.
+See <a class="reference external" href="https://github.com/conan-io/command-extensions/blob/main/.conanignore">conan-io/command-extensions’s .conanignore</a> for an example of such a file.</p>
+<p><strong>Examples</strong>:</p>
+<ul>
+<li><p>Install the configuration from a URL:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ conan config install http://url/to/some/config.zip
+</pre></div>
+</div>
+</li>
+<li><p>Install the configuration from a URL, but only getting the files inside a <em>origin</em> folder
+inside the zip file, and putting them inside a <em>target</em> folder in the local cache:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ conan config install http://url/to/some/config.zip -sf=origin -tf=target
+</pre></div>
+</div>
+</li>
+<li><p>Install configuration from 2 different zip files from 2 different urls, using different source
+and target folders for each one, then update all:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ conan config install http://url/to/some/config.zip -sf=origin -tf=target
+$ conan config install http://url/to/some/config.zip -sf=origin2 -tf=target2
+$ conan config install http://other/url/to/other.zip -sf=hooks -tf=hooks
+</pre></div>
+</div>
+</li>
+<li><p>Install the configuration from a Git repository with submodules:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ conan config install http://github.com/user/conan_config/.git --args &quot;--recursive&quot;
+</pre></div>
+</div>
+<p>You can also force the git download by using <strong class="command">--type git</strong> (in case it is not deduced from the URL automatically):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ conan config install http://github.com/user/conan_config/.git --type git
+</pre></div>
+</div>
+</li>
+<li><p>Install from a URL skipping SSL verification:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ conan config install http://url/to/some/config.zip --verify-ssl=False
+</pre></div>
+</div>
+<p>This will disable the SSL check of the certificate.</p>
+</li>
+<li><p>Install a specific file from a local path:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ conan config install my_settings/settings.yml
+</pre></div>
+</div>
+</li>
+<li><p>Install the configuration from a local path:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ conan config install /path/to/some/config.zip
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="conan-config-list">
+<h2>conan config list<a class="headerlink" href="#conan-config-list" title="Link to this heading">¶</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ conan config list -h
+WARN: Downgrading cache from Conan 2.1.0 to 2.0.17
+usage: conan config list [-h] [-f FORMAT] [-v [V]]
+
+Show all the Conan available configurations: core and tools.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -f FORMAT, --format FORMAT
+                        Select the output format: json
+  -v [V]                Level of detail of the output. Valid options from less
+                        verbose to more verbose: -vquiet, -verror, -vwarning,
+                        -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
+                        -vvv or -vtrace
+</pre></div>
+</div>
+<p>Displays all the Conan built-in configurations. There are 2 groups:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">core.xxxx</span></code>: These can only be defined in <code class="docutils literal notranslate"><span class="pre">global.conf</span></code> and are used by Conan internally</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tools.xxxx</span></code>: These can be defined both in <code class="docutils literal notranslate"><span class="pre">global.conf</span></code> and profiles, and will be used by
+recipes and tools used within recipes, like <code class="docutils literal notranslate"><span class="pre">CMakeToolchain</span></code></p></li>
+</ul>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ conan config list
+WARN: Downgrading cache from Conan 2.1.0 to 2.0.17
+core.cache:storage_path: Absolute path where the packages and database are stored
+core.download:download_cache: Define path to a file download cache
+core.download:parallel: Number of concurrent threads to download packages
+core.download:retry: Number of retries in case of failure when downloading from Conan server
+core.download:retry_wait: Seconds to wait between download attempts from Conan server
+core.gzip:compresslevel: The Gzip compression level for Conan artifacts (default=9)
+core.net.http:cacert_path: Path containing a custom Cacert file
+core.net.http:clean_system_proxy: If defined, the proxies system env-vars will be discarded
+core.net.http:client_cert: Path or tuple of files containing a client cert (and key)
+core.net.http:max_retries: Maximum number of connection retries (requests library)
+core.net.http:no_proxy_match: List of urls to skip from proxies configuration
+core.net.http:proxies: Dictionary containing the proxy configuration
+core.net.http:timeout: Number of seconds without response to timeout (requests library)
+core.package_id:default_build_mode: By default, &#39;None&#39;
+core.package_id:default_embed_mode: By default, &#39;full_mode&#39;
+core.package_id:default_non_embed_mode: By default, &#39;minor_mode&#39;
+core.package_id:default_python_mode: By default, &#39;minor_mode&#39;
+core.package_id:default_unknown_mode: By default, &#39;semver_mode&#39;
+core.sources:download_cache: Folder to store the sources backup
+core.sources:download_urls: List of URLs to download backup sources from
+core.sources:exclude_urls: URLs which will not be backed up
+core.sources:upload_url: Remote URL to upload backup sources to
+core.upload:retry: Number of retries in case of failure when uploading to Conan server
+core.upload:retry_wait: Seconds to wait between upload attempts to Conan server
+core.version_ranges:resolve_prereleases: Whether version ranges can resolve to pre-releases or not
+core:allow_uppercase_pkg_names: Temporarily (will be removed in 2.X) allow uppercase names
+core:default_build_profile: Defines the default build profile (&#39;default&#39; by default)
+core:default_profile: Defines the default host profile (&#39;default&#39; by default)
+core:non_interactive: Disable interactive user input, raises error if input necessary
+core:required_conan_version: Raise if current version does not match the defined range.
+core:skip_warnings: Do not show warnings matching any of the patterns in this list. Current warning tags are &#39;network&#39;, &#39;deprecated&#39;
+core:warnings_as_errors: Treat warnings matching any of the patterns in this list as errors and then raise an exception. Current warning tags are &#39;network&#39;, &#39;deprecated&#39;
+tools.android:cmake_legacy_toolchain: Define to explicitly pass ANDROID_USE_LEGACY_TOOLCHAIN_FILE in CMake toolchain
+tools.android:ndk_path: Argument for the CMAKE_ANDROID_NDK
+tools.apple:enable_arc: (boolean) Enable/Disable ARC Apple Clang flags
+tools.apple:enable_bitcode: (boolean) Enable/Disable Bitcode Apple Clang flags
+tools.apple:enable_visibility: (boolean) Enable/Disable Visibility Apple Clang flags
+tools.apple:sdk_path: Path to the SDK to be used
+tools.build.cross_building:can_run: Bool value that indicates whether is possible to run a non-native app on the same architecture. It&#39;s used by &#39;can_run&#39; tool
+tools.build:cflags: List of extra C flags used by different toolchains like CMakeToolchain, AutotoolsToolchain and MesonToolchain
+tools.build:compiler_executables: Defines a Python dict-like with the compilers path to be used. Allowed keys {&#39;c&#39;, &#39;cpp&#39;, &#39;cuda&#39;, &#39;objc&#39;, &#39;objcxx&#39;, &#39;rc&#39;, &#39;fortran&#39;, &#39;asm&#39;, &#39;hip&#39;, &#39;ispc&#39;}
+tools.build:cxxflags: List of extra CXX flags used by different toolchains like CMakeToolchain, AutotoolsToolchain and MesonToolchain
+tools.build:defines: List of extra definition flags used by different toolchains like CMakeToolchain and AutotoolsToolchain
+tools.build:download_source: Force download of sources for every package
+tools.build:exelinkflags: List of extra flags used by CMakeToolchain for CMAKE_EXE_LINKER_FLAGS_INIT variable
+tools.build:jobs: Default compile jobs number -jX Ninja, Make, /MP VS (default: max CPUs)
+tools.build:linker_scripts: List of linker script files to pass to the linker used by different toolchains like CMakeToolchain, AutotoolsToolchain, and MesonToolchain
+tools.build:sharedlinkflags: List of extra flags used by CMakeToolchain for CMAKE_SHARED_LINKER_FLAGS_INIT variable
+tools.build:skip_test: Do not execute CMake.test() and Meson.test() when enabled
+tools.build:sysroot: Pass the --sysroot=&lt;tools.build:sysroot&gt; flag if available. (None by default)
+tools.build:verbosity: Verbosity of build systems if set. Possible values are &#39;quiet&#39; and &#39;verbose&#39;
+tools.cmake.cmake_layout:build_folder_vars: Settings and Options that will produce a different build folder and different CMake presets names
+tools.cmake.cmaketoolchain:find_package_prefer_config: Argument for the CMAKE_FIND_PACKAGE_PREFER_CONFIG
+tools.cmake.cmaketoolchain:generator: User defined CMake generator to use instead of default
+tools.cmake.cmaketoolchain:presets_environment: String to define wether to add or not the environment section to the CMake presets. Empty by default, will generate the environment section in CMakePresets. Can take values: &#39;disabled&#39;.
+tools.cmake.cmaketoolchain:system_name: Define CMAKE_SYSTEM_NAME in CMakeToolchain
+tools.cmake.cmaketoolchain:system_processor: Define CMAKE_SYSTEM_PROCESSOR in CMakeToolchain
+tools.cmake.cmaketoolchain:system_version: Define CMAKE_SYSTEM_VERSION in CMakeToolchain
+tools.cmake.cmaketoolchain:toolchain_file: Use other existing file rather than conan_toolchain.cmake one
+tools.cmake.cmaketoolchain:toolset_arch: Toolset architecture to be used as part of CMAKE_GENERATOR_TOOLSET in CMakeToolchain
+tools.cmake.cmaketoolchain:user_toolchain: Inject existing user toolchains at the beginning of conan_toolchain.cmake
+tools.cmake:cmake_program: Path to CMake executable
+tools.cmake:install_strip: Add --strip to cmake.install()
+tools.compilation:verbosity: Verbosity of compilation tools if set. Possible values are &#39;quiet&#39; and &#39;verbose&#39;
+tools.deployer:symlinks: Set to False to disable deployers copying symlinks
+tools.env.virtualenv:powershell: If it is set to True it will generate powershell launchers if os=Windows
+tools.files.download:retry: Number of retries in case of failure when downloading
+tools.files.download:retry_wait: Seconds to wait between download attempts
+tools.files.download:verify: If set, overrides recipes on whether to perform SSL verification for their downloaded files. Only recommended to be set while testing
+tools.gnu:define_libcxx11_abi: Force definition of GLIBCXX_USE_CXX11_ABI=1 for libstdc++11
+tools.gnu:host_triplet: Custom host triplet to pass to Autotools scripts
+tools.gnu:make_program: Indicate path to make program
+tools.gnu:pkg_config: Path to pkg-config executable used by PkgConfig build helper
+tools.google.bazel:bazelrc_path: List of paths to bazelrc files to be used as &#39;bazel --bazelrc=rcpath1 ... build&#39;
+tools.google.bazel:configs: List of Bazel configurations to be used as &#39;bazel build --config=config1 ...&#39;
+tools.graph:skip_binaries: Allow the graph to skip binaries not needed in the current configuration (True by default)
+tools.info.package_id:confs: List of existing configuration to be part of the package ID
+tools.intel:installation_path: Defines the Intel oneAPI installation root path
+tools.intel:setvars_args: Custom arguments to be passed onto the setvars.sh|bat script from Intel oneAPI
+tools.meson.mesontoolchain:backend: Any Meson backend: ninja, vs, vs2010, vs2012, vs2013, vs2015, vs2017, vs2019, xcode
+tools.meson.mesontoolchain:extra_machine_files: List of paths for any additional native/cross file references to be appended to the existing Conan ones
+tools.microsoft.bash:active: If Conan is already running inside bash terminal in Windows
+tools.microsoft.bash:path: The path to the shell to run when conanfile.win_bash==True
+tools.microsoft.bash:subsystem: The subsystem to be used when conanfile.win_bash==True. Possible values: msys2, msys, cygwin, wsl, sfu
+tools.microsoft.msbuild:installation_path: VS install path, to avoid auto-detect via vswhere, like C:/Program Files (x86)/Microsoft Visual Studio/2019/Community. Use empty string to disable
+tools.microsoft.msbuild:max_cpu_count: Argument for the /m when running msvc to build parallel projects
+tools.microsoft.msbuild:vs_version: Defines the IDE version (15, 16, 17) when using the msvc compiler. Necessary if compiler.version specifies a toolset that is not the IDE default
+tools.microsoft.msbuilddeps:exclude_code_analysis: Suppress MSBuild code analysis for patterns
+tools.microsoft.msbuildtoolchain:compile_options: Dictionary with MSBuild compiler options
+tools.microsoft:winsdk_version: Use this winsdk_version in vcvars
+tools.system.package_manager:mode: Mode for package_manager tools: &#39;check&#39;, &#39;report&#39;, &#39;report-installed&#39; or &#39;install&#39;
+tools.system.package_manager:sudo: Use &#39;sudo&#39; when invoking the package manager tools in Linux (False by default)
+tools.system.package_manager:sudo_askpass: Use the &#39;-A&#39; argument if using sudo in Linux to invoke the system package manager (False by default)
+tools.system.package_manager:tool: Default package manager tool: &#39;apk&#39;, &#39;apt-get&#39;, &#39;yum&#39;, &#39;dnf&#39;, &#39;brew&#39;, &#39;pacman&#39;, &#39;choco&#39;, &#39;zypper&#39;, &#39;pkg&#39; or &#39;pkgutil&#39;
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../config_files.html#reference-config-files"><span class="std std-ref">Conan configuration files</span></a></p></li>
+</ul>
+</div>
+</section>
+<section id="conan-config-show">
+<h2>conan config show<a class="headerlink" href="#conan-config-show" title="Link to this heading">¶</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ conan config show -h
+WARN: Downgrading cache from Conan 2.1.0 to 2.0.17
+usage: conan config show [-h] [-f FORMAT] [-v [V]] pattern
+
+Get the value of the specified conf
+
+positional arguments:
+  pattern               Conf item(s) pattern for which to query their value
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -f FORMAT, --format FORMAT
+                        Select the output format: json
+  -v [V]                Level of detail of the output. Valid options from less
+                        verbose to more verbose: -vquiet, -verror, -vwarning,
+                        -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
+                        -vvv or -vtrace
+</pre></div>
+</div>
+<p>Shows the values of the conf items that match the given pattern.</p>
+<p>For a <em>global.conf</em> consisting of</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>tools.build:jobs=42
+tools.files.download:retry_wait=10
+tools.files.download:retry=7
+core.net.http:timeout=30
+core.net.http:max_retries=5
+zlib*/:tools.files.download:retry_wait=100
+zlib*/:tools.files.download:retry=5
+</pre></div>
+</div>
+<p>You can get all the values:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ conan config show &quot;*&quot;
+
+core.net.http:max_retries: 5
+core.net.http:timeout: 30
+tools.files.download:retry: 7
+tools.files.download:retry_wait: 10
+tools.build:jobs: 42
+zlib*/:tools.files.download:retry: 5
+zlib*/:tools.files.download:retry_wait: 100
+</pre></div>
+</div>
+<p>Or just those referring to the <code class="docutils literal notranslate"><span class="pre">tools.files</span></code> section:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ conan config show &quot;*tools.files*&quot;
+
+tools.files.download:retry: 7
+tools.files.download:retry_wait: 10
+zlib*/:tools.files.download:retry: 5
+zlib*/:tools.files.download:retry_wait: 100
+</pre></div>
+</div>
+<p>Notice the first <code class="docutils literal notranslate"><span class="pre">*</span></code> in the pattern. This will match all the package patterns.
+Removing it will make the command only show global confs:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ conan config show &quot;tools.files*&quot;
+
+tools.files.download:retry: 7
+tools.files.download:retry_wait: 10
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cache.html" class="btn btn-neutral float-left" title="conan cache" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="graph.html" class="btn btn-neutral float-right" title="conan graph" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2024, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 2.0
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/2.0/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

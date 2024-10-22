@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What’s new in Conan 2 &mdash; conan 2.6.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=045299b1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="_static/css/conan.css?v=7d9e9f1e" />
+
+  
+    <link rel="shortcut icon" href="_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/whatsnew.html" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=ae39cb24"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Install" href="installation.html" />
+    <link rel="prev" title="Introduction" href="introduction.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/conan-docs-logo-2.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.6
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">What’s new in Conan 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devops.html">Devops guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="knowledge.html">Knowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/whatsnew.html">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">What’s new in Conan 2</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/develop2/whatsnew.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="what-s-new-in-conan-2">
+<span id="whatsnew"></span><h1>What’s new in Conan 2<a class="headerlink" href="#what-s-new-in-conan-2" title="Link to this heading">¶</a></h1>
+<p>Conan 2 comes with many exciting improvements based on the lessons learned in the last years with Conan 1.X.
+Also, a lot of effort has been made to backport necessary things to Conan 1.X to make the upgrade easier: Recipes using latest 1.X integrations will be compatible with Conan 2, and binaries for both versions will not collide and be able to live in the same server repositories.</p>
+<section id="conan-2-migration-guide">
+<h2>Conan 2 migration guide<a class="headerlink" href="#conan-2-migration-guide" title="Link to this heading">¶</a></h2>
+<p>If you are using Conan 1.X, please read the <a class="reference external" href="https://docs.conan.io/en/latest/conan_v2.html">Conan 2 Migration guide</a> , to start preparing your package recipes to 2.0 and be aware of some changes while you still work in Conan 1.X. That guide summarizes the above mentioned backports to make the upgrade easier.</p>
+</section>
+<section id="new-graph-model">
+<h2>New graph model<a class="headerlink" href="#new-graph-model" title="Link to this heading">¶</a></h2>
+<p>Conan 2 defines new requirement traits (headers, libs, build, run, test, package_id_mode, options, transitive_headers, transitive_libs) and package types (static, shared, application, header-only) to better represent the relations that happen with C and C++ binaries, like executables or shared libraries linking static libraries or shared libraries.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=kKGglzm5ous">https://www.youtube.com/watch?v=kKGglzm5ous</a></p></li>
+<li><p><a class="reference external" href="https://github.com/conan-io/tribe/blob/main/design/026-requirements_traits.md">https://github.com/conan-io/tribe/blob/main/design/026-requirements_traits.md</a></p></li>
+<li><p><a class="reference external" href="https://github.com/conan-io/tribe/blob/main/design/027-package_types.md">https://github.com/conan-io/tribe/blob/main/design/027-package_types.md</a></p></li>
+</ul>
+</div>
+</section>
+<section id="new-public-python-api">
+<h2>New public Python API<a class="headerlink" href="#new-public-python-api" title="Link to this heading">¶</a></h2>
+<p>A new modular Python API is made available, public and documented. This is a real API, with building blocks that are already used to build the Conan built-in commands, but that will allow further extensions. There are subapis for different functional groups, like <code class="docutils literal notranslate"><span class="pre">api.list</span></code>, <code class="docutils literal notranslate"><span class="pre">api.search</span></code>, <code class="docutils literal notranslate"><span class="pre">api.remove</span></code>, <code class="docutils literal notranslate"><span class="pre">api.profile</span></code>, <code class="docutils literal notranslate"><span class="pre">api.graph</span></code>, <code class="docutils literal notranslate"><span class="pre">api.upload</span></code>, <code class="docutils literal notranslate"><span class="pre">api.remotes</span></code>, etc. that will allow to implement advanced user flows, functionality and automation.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="reference/extensions/python_api.html#reference-python-api"><span class="std std-ref">Python API reference</span></a></p></li>
+</ul>
+</div>
+</section>
+<section id="new-build-system-integrations">
+<h2>New build system integrations<a class="headerlink" href="#new-build-system-integrations" title="Link to this heading">¶</a></h2>
+<p>Introduced in latest Conan 1.X, Conan 2 will use modern build system integrations like <code class="docutils literal notranslate"><span class="pre">CMakeDeps</span></code> and <code class="docutils literal notranslate"><span class="pre">CMakeToolchain</span></code> that are fully transparent CMake integration (i.e. the consuming <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> doesn’t need to be aware at all about Conan). These integrations can also achieve a better IDE integration, for example via CMakePresets.json.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="reference/tools.html#conan-tools"><span class="std std-ref">Tools reference</span></a></p></li>
+</ul>
+</div>
+</section>
+<section id="new-custom-user-commands">
+<h2>New custom user commands<a class="headerlink" href="#new-custom-user-commands" title="Link to this heading">¶</a></h2>
+<p>Conan 2 allows extending Conan with custom user commands, written in python that can be called as <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">xxxx</span></code>. These commands can be shared and installed with <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">config</span> <span class="pre">install</span></code>, and have layers of commands and subcommands. The custom user commands use the new 2.0 public Python API to implement their functionality.</p>
+</section>
+<section id="new-cli">
+<h2>New CLI<a class="headerlink" href="#new-cli" title="Link to this heading">¶</a></h2>
+<p>Conan 2 has redesigned the CLI for better consistency, removing ambiguities, and improving the user experience. The new CLI also sends all the information, warning, and error messages to stderr, while keeping the final result in stdout, allowing multiple output formats like <code class="docutils literal notranslate"><span class="pre">--format=html</span></code> or <code class="docutils literal notranslate"><span class="pre">--format=json</span></code> and using redirects to create files <code class="docutils literal notranslate"><span class="pre">--format=json</span> <span class="pre">&gt;</span> <span class="pre">myfile.json</span></code>. The information provided by the CLI will be more structured and thorough so that it can be used more easily for automation, especially in CI/CD systems.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="reference/commands.html#reference-commands"><span class="std std-ref">Commands reference</span></a></p></li>
+</ul>
+</div>
+</section>
+<section id="new-deployers">
+<h2>New deployers<a class="headerlink" href="#new-deployers" title="Link to this heading">¶</a></h2>
+<p>Conan 2 implements “deployers”, which can be called in the command line as <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">install</span> <span class="pre">….</span> <span class="pre">--deployer=mydeploy</span></code>, typically to perform copy operations from the Conan cache to user folders. Such deployers can be built-in (“full_deploy”, “direct_deploy” and “runtime_deploy” are provided so far), or user-defined, which can be shared and managed with <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">config</span> <span class="pre">install</span></code>. Deployers run before generators, and they can change the target folders. For example, if the <code class="docutils literal notranslate"><span class="pre">--deployer=full_deploy</span></code> deployer runs before <code class="docutils literal notranslate"><span class="pre">CMakeDeps</span></code>, the files generated by <code class="docutils literal notranslate"><span class="pre">CMakeDeps</span></code> will point to the local copy in the user folder done by the <code class="docutils literal notranslate"><span class="pre">full_deploy</span></code> deployer, and not to the Conan cache.</p>
+<p>Deployers can be multi-configuration. Running <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">install</span> <span class="pre">.</span> <span class="pre">--deployer=full_deploy</span></code> repeatedly for different profiles, can achieve a fully self-contained project, including all the artifacts, binaries, and build files that is completely independent of Conan and no longer require Conan at all to build.</p>
+</section>
+<section id="new-package-id">
+<h2>New package_id<a class="headerlink" href="#new-package-id" title="Link to this heading">¶</a></h2>
+<p>Conan 2 defines a new, dynamic <code class="docutils literal notranslate"><span class="pre">package_id</span></code> that is a great improvement over the limitations of Conan 1.X. This <code class="docutils literal notranslate"><span class="pre">package_id</span></code> will take into account the package types and types of requirements to implement a more meaningful strategy, depending on the scenario. For example, it is well known that when an application <code class="docutils literal notranslate"><span class="pre">myapp</span></code> is linking a static library <code class="docutils literal notranslate"><span class="pre">mylib</span></code>, any change in the binary of the static library <code class="docutils literal notranslate"><span class="pre">mylib</span></code> requires re-building the application <code class="docutils literal notranslate"><span class="pre">myapp</span></code>. So Conan will default to a mode like <code class="docutils literal notranslate"><span class="pre">full_mode</span></code> that will generate a new <code class="docutils literal notranslate"><span class="pre">myapp</span></code> <code class="docutils literal notranslate"><span class="pre">package_id</span></code>, for every change in the <code class="docutils literal notranslate"><span class="pre">mylib</span></code> recipe or binary. While a dependency between a static library <code class="docutils literal notranslate"><span class="pre">mylib_a</span></code> that is used by``mylib_b`` in general does not imply that a change in <code class="docutils literal notranslate"><span class="pre">mylib_b</span></code> always needs a rebuild of <code class="docutils literal notranslate"><span class="pre">mylib_a</span></code>, and that relationship can default to a <code class="docutils literal notranslate"><span class="pre">minor_mode</span></code> mode. In Conan 2, the one doing modifications to <code class="docutils literal notranslate"><span class="pre">mylib_a</span></code> can better express whether the consumer <code class="docutils literal notranslate"><span class="pre">mylib_b</span></code> needs to rebuild or not, based on the version bump (patch version bump will not trigger a rebuild while a minor version bump will trigger it)</p>
+<p>Furthermore the default versioning scheme in Conan has been generalized to any number of digits and letters, as opposed to the official “semver” that uses just 3 fields.</p>
+</section>
+<section id="compatibility-py">
+<h2>compatibility.py<a class="headerlink" href="#compatibility-py" title="Link to this heading">¶</a></h2>
+<p>Conan 2 features a new extension mechanism to define binary compatibility at a global level. A <code class="docutils literal notranslate"><span class="pre">compatibility.py</span></code> file in the Conan cache will be used to define which fallbacks of binaries should be used in case there is some missing binary for a given package. Conan will provide a default one to account for <code class="docutils literal notranslate"><span class="pre">cppstd</span></code> compatibility, and executables compatibility, but this extension is fully configurable by the user (and can also be shared and managed with <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">config</span> <span class="pre">install</span></code>)</p>
+</section>
+<section id="new-lockfiles">
+<h2>New lockfiles<a class="headerlink" href="#new-lockfiles" title="Link to this heading">¶</a></h2>
+<p>Lockfiles in Conan 2 have been greatly simplified and made way more flexible. Lockfiles are now modeled as lists of sorted references, which allow one single lockfile being used for multiple configurations, merging lockfiles, applying partially defined lockfiles, being strict or non-strict, adding user defined constraints to lockfiles, and much more.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="tutorial/consuming_packages/intro_to_versioning.html#tutorial-consuming-packages-versioning-lockfiles"><span class="std std-ref">Tutorial introduction to lockfiles</span></a></p></li>
+<li><p><a class="reference external" href="https://github.com/conan-io/tribe/blob/main/design/034-new_lockfiles.md">https://github.com/conan-io/tribe/blob/main/design/034-new_lockfiles.md</a></p></li>
+<li><p><a class="reference internal" href="tutorial/versioning/lockfiles.html#tutorial-versioning-lockfiles"><span class="std std-ref">Tutorial about versioning and lockfiles</span></a></p></li>
+</ul>
+</div>
+</section>
+<section id="new-configuration-and-environment-management">
+<h2>New configuration and environment management<a class="headerlink" href="#new-configuration-and-environment-management" title="Link to this heading">¶</a></h2>
+<p>The new configuration system called <code class="docutils literal notranslate"><span class="pre">[conf]</span></code> in profiles and command line, and introduced experimentally in Conan 1.X, is now the major mechanism to configure and control Conan behavior. The idea is that the configuration system is used to transmit information from Conan (a Conan profile) to Conan (A Conan recipe, or a Conan build system integration like <code class="docutils literal notranslate"><span class="pre">CMakeToolchain</span></code>). This new configuration system can define strings, boolean, lists, being cleaner, more structured and powerful than using environment variables.
+A better, more explicit environment management, also introduced in Conan 1.X is now the way to pass information from Conan (profiles) to tools (like compilers, build systems).</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="reference/tools/env.html#reference-tools-env"><span class="std std-ref">Reference of enviroment tools</span></a></p></li>
+</ul>
+</div>
+</section>
+<section id="multi-revision-cache">
+<h2>Multi-revision cache<a class="headerlink" href="#multi-revision-cache" title="Link to this heading">¶</a></h2>
+<p>The Conan cache has been completely redesigned to allow storing more than one revision at a time. It has also shortened the paths, using hashes, removing the need to use <code class="docutils literal notranslate"><span class="pre">short_paths</span></code> in Windows.
+Note that the cache is still not concurrent, so parallel jobs or tasks should use independent caches.</p>
+</section>
+<section id="new-extensions-plugins">
+<h2>New extensions plugins<a class="headerlink" href="#new-extensions-plugins" title="Link to this heading">¶</a></h2>
+<p>Several extension points, named “plugins” have been added, to provide advanced and typically orthogonal functionality to what the Conan recipes implement. These plugins can be shared, managed and installed via <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">config</span> <span class="pre">install</span></code></p>
+<section id="profile-checker">
+<h3>Profile checker<a class="headerlink" href="#profile-checker" title="Link to this heading">¶</a></h3>
+<p>A new <code class="docutils literal notranslate"><span class="pre">profile.py</span></code> extension point is provided that can be used to perform operations on the profile after it has been processed. A default implementation that checks that the given compiler version is capable of supporting the given compiler <code class="docutils literal notranslate"><span class="pre">cppstd</span></code> is provided, but this is fully customizable by the user.</p>
+</section>
+<section id="command-wrapper">
+<h3>Command wrapper<a class="headerlink" href="#command-wrapper" title="Link to this heading">¶</a></h3>
+<p>A new <code class="docutils literal notranslate"><span class="pre">cmd_wrapper.py</span></code> extension provides a way to wrap any <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code> command (i.e., anything that runs inside <code class="docutils literal notranslate"><span class="pre">self.run()</span></code> in a recipe), in a new command. This functionality can be useful for wrapping build commands in build optimization tools as IncrediBuild or compile caches.</p>
+</section>
+<section id="package-signing">
+<h3>Package signing<a class="headerlink" href="#package-signing" title="Link to this heading">¶</a></h3>
+<p>A new <code class="docutils literal notranslate"><span class="pre">sign.py</span></code> extension has been added to implement signing and verifying of packages. As the awareness about the importance of software supply chain security grows, it is becoming more important the capability of being able to sign and verify software packages. This extension point will soon get a plugin implementation based on Sigstore.</p>
+</section>
+</section>
+<section id="package-immutability-optimizations">
+<h2>Package immutability optimizations<a class="headerlink" href="#package-immutability-optimizations" title="Link to this heading">¶</a></h2>
+<p>The thorough use of <code class="docutils literal notranslate"><span class="pre">revisions</span></code> (already introduced in Conan 1.X as opt-in in <a class="reference external" href="https://docs.conan.io/en/latest/versioning/revisions.html">https://docs.conan.io/en/latest/versioning/revisions.html</a>) in Conan 2, together with the declaration of artifacts <strong>immutability</strong> allows for improved processes, downloading, installing and updated dependencies as well as uploading dependencies.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">revisions</span></code> allow accurate traceability of artifacts, and thus allows better update flows. For example, it will be easier to get different binaries for different configurations from different repositories, as long as they were created from the same recipe revision.</p>
+<p>The package transfers, uploads, downloads, will also be more efficient, based on <code class="docutils literal notranslate"><span class="pre">revisions</span></code>. As long as a given revision exists on the server or in the cache, Conan will not transfer artifacts at all for that package.</p>
+</section>
+<section id="package-lists">
+<h2>Package lists<a class="headerlink" href="#package-lists" title="Link to this heading">¶</a></h2>
+<p>Conan 2 allows bulk operations over several recipes and packages with the “Package Lists” feature.
+This feature allows to upload, download, remove and list several recipes and packages with one single command.</p>
+<p>Package lists can also be created from a dependency graph resulting from a <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">create</span></code> or <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">install</span></code> command,
+so it is possible to upload to a server all packages that belong to a given dependency graph just chaining 2 commands.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="examples/commands/pkglists.html#examples-commands-pkglists"><span class="std std-ref">Read the example usages</span></a></p></li>
+<li><p><a class="reference external" href="https://blog.conan.io/2023/06/28/Conan-bulk-package-operations.html">Package lists blog post</a></p></li>
+</ul>
+</div>
+</section>
+<section id="metadata-files">
+<h2>Metadata files<a class="headerlink" href="#metadata-files" title="Link to this heading">¶</a></h2>
+<p>Conan 2 allows to store, upload, download, modify metadata files associated to recipes and packages. This feature
+can be very useful to manage build logs, tests executable, test results, coverage data and many other different
+files needed for traceability, compliance and business purposes.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://blog.conan.io/2023/10/24/Conan-launches-metadata-files.html">Metadata files blog post</a></p></li>
+</ul>
+</div>
+</section>
+<section id="third-party-backup-sources">
+<h2>Third party backup sources<a class="headerlink" href="#third-party-backup-sources" title="Link to this heading">¶</a></h2>
+<p>When building packages for third parties with sources in the internet, those sources can be removed or changed.
+The “backup sources” can automatically store a copy of those sources in your own server, so your builds are
+always fully reproducible, no matter what happens to the original internet sources.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://blog.conan.io/2023/10/03/backup-sources-feature.html">the backup-sources blog post</a></p></li>
+</ul>
+</div>
+</section>
+<section id="installing-configuration-from-conan-packages">
+<h2>Installing configuration from Conan packages<a class="headerlink" href="#installing-configuration-from-conan-packages" title="Link to this heading">¶</a></h2>
+<p>From Conan 2.2 it is possible to install configuration not only from git repos and http servers, but also
+from Conan packages. Doing <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">config</span> <span class="pre">install-pkg</span> <span class="pre">myconf/myversion</span></code> over a Conan package <code class="docutils literal notranslate"><span class="pre">myconf/myversion</span></code>
+stored in a a Conan server, allows to install the configuration files inside that package. It also allows
+to use version ranges to update easily to the latest one within the range, and lockfiles to achieve reproducibility.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="reference/commands/config.html#reference-commands-conan-config-install-pkg"><span class="std std-ref">Read the conan config install-pkg command reference</span></a></p></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="introduction.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="installation.html" class="btn btn-neutral float-right" title="Install" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2024, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 2.6
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/2.6/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

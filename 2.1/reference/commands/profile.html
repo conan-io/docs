@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>conan profile &mdash; conan 2.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=045299b1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/conan.css?v=7d9e9f1e" />
+
+  
+    <link rel="shortcut icon" href="../../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/reference/commands/profile.html" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=20623aea"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="conan remove" href="remove.html" />
+    <link rel="prev" title="conan lock remove" href="lock/remove.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/conan-docs-logo-2.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../whatsnew.html">What’s new in Conan 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devops.html">Devops guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../commands.html">Commands</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cache.html">conan cache</a></li>
+<li class="toctree-l3"><a class="reference internal" href="config.html">conan config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="graph.html">conan graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="inspect.html">conan inspect</a></li>
+<li class="toctree-l3"><a class="reference internal" href="install.html">conan install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="list.html">conan list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lock.html">conan lock</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">conan profile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="remove.html">conan remove</a></li>
+<li class="toctree-l3"><a class="reference internal" href="remote.html">conan remote</a></li>
+<li class="toctree-l3"><a class="reference internal" href="search.html">conan search</a></li>
+<li class="toctree-l3"><a class="reference internal" href="version.html">conan version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="build.html">conan build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="create.html">conan create</a></li>
+<li class="toctree-l3"><a class="reference internal" href="download.html">conan download</a></li>
+<li class="toctree-l3"><a class="reference internal" href="editable.html">conan editable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="export.html">conan export</a></li>
+<li class="toctree-l3"><a class="reference internal" href="export-pkg.html">conan export-pkg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="new.html">conan new</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source.html">conan source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="test.html">conan test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="upload.html">conan upload</a></li>
+<li class="toctree-l3"><a class="reference internal" href="formatters/graph_info_json_formatter.html">Formatter: Graph-info JSON</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../conanfile.html">conanfile.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tools.html">Recipe tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../config_files.html">Configuration files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../extensions.html">Extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../environment.html">Environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../binary_model.html">The binary model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conan_server.html">Conan Server</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../knowledge.html">Knowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/reference/commands/profile.html">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="../commands.html">Commands</a></li>
+      <li class="breadcrumb-item active">conan profile</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/develop2/reference/commands/profile.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="conan-profile">
+<span id="reference-commands-profile"></span><h1>conan profile<a class="headerlink" href="#conan-profile" title="Link to this heading">¶</a></h1>
+<p>Manage profiles</p>
+<section id="conan-profile-detect">
+<h2>conan profile detect<a class="headerlink" href="#conan-profile-detect" title="Link to this heading">¶</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ conan profile detect -h
+usage: conan profile detect [-h] [-v [V]] [-cc CORE_CONF] [--name NAME] [-f]
+
+Generate a profile using auto-detected values.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -v [V]                Level of detail of the output. Valid options from less
+                        verbose to more verbose: -vquiet, -verror, -vwarning,
+                        -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
+                        -vvv or -vtrace
+  -cc CORE_CONF, --core-conf CORE_CONF
+                        Global configuration for Conan
+  --name NAME           Profile name, &#39;default&#39; if not specified
+  -f, --force           Overwrite if exists
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The output of <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">profile</span> <span class="pre">detect</span></code> is <strong>not stable</strong>. It can change at any time in future Conan releases
+to adapt to latest tools, latest versions, or other changes in the environment.
+See <a class="reference internal" href="../../introduction.html#stability"><span class="std std-ref">the Conan stability</span></a> section for more information.</p>
+</div>
+<p>You can create a new auto-detected profile for your configuration using:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text"><em>auto-detected profile</em></span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ conan profile detect
+Found apple-clang 14.0
+apple-clang&gt;=13, using the major as version
+Detected profile:
+[settings]
+arch=x86_64
+build_type=Release
+compiler=apple-clang
+compiler.cppstd=gnu17
+compiler.libcxx=libc++
+compiler.version=14
+os=Macos
+
+WARN: This profile is a guess of your environment, please check it.
+WARN: Defaulted to cppstd=&#39;gnu17&#39; for apple-clang.
+WARN: The output of this command is not guaranteed to be stable and can change in future Conan versions.
+WARN: Use your own profile files for stability.
+Saving detected profile to /Users/barbarians/.conan2/profiles/default
+</pre></div>
+</div>
+</div>
+<p>Be aware that if the profile already exists you have to use <code class="docutils literal notranslate"><span class="pre">--force</span></code> to overwrite it. Otherwise it will fail</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text"><em>force overwriting already existing default profile</em></span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ conan profile detect
+ERROR: Profile &#39;/Users/carlosz/.conan2/profiles/default&#39; already exists
+$ conan profile detect --force
+Found apple-clang 14.0
+...
+Saving detected profile to /Users/carlosz/.conan2/profiles/default
+</pre></div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Best practices</strong>
+It is not recommended to use <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">profile</span> <span class="pre">detect</span></code> in production. To guarantee reproducibility,
+it is recommended to define your own profiles, store them in a git repo or in a zip in a server,
+and distribute it to your team and CI machines with <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">config</span> <span class="pre">install</span></code>, together with other
+configuration like custom settings, custom remotes definition, etc.</p>
+</div>
+</section>
+<section id="conan-profile-list">
+<h2>conan profile list<a class="headerlink" href="#conan-profile-list" title="Link to this heading">¶</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ conan profile list -h
+usage: conan profile list [-h] [-f FORMAT] [-v [V]] [-cc CORE_CONF]
+
+List all profiles in the cache.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -f FORMAT, --format FORMAT
+                        Select the output format: json
+  -v [V]                Level of detail of the output. Valid options from less
+                        verbose to more verbose: -vquiet, -verror, -vwarning,
+                        -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
+                        -vvv or -vtrace
+  -cc CORE_CONF, --core-conf CORE_CONF
+                        Global configuration for Conan
+</pre></div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text"><em>force overwriting already existing default profile</em></span><a class="headerlink" href="#id3" title="Link to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ conan profile list
+Profiles found in the cache:
+default
+ios_base
+ios_simulator
+clang_15
+</pre></div>
+</div>
+</div>
+</section>
+<section id="conan-profile-path">
+<h2>conan profile path<a class="headerlink" href="#conan-profile-path" title="Link to this heading">¶</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ conan
+
+Consumer commands
+cache      Perform file operations in the local cache (of recipes and/or packages).
+config     Manage the Conan configuration in the Conan home.
+graph      Compute a dependency graph, without installing or building the binaries.
+inspect    Inspect a conanfile.py to return its public fields.
+install    Install the requirements specified in a recipe (conanfile.py or conanfile.txt).
+list       List existing recipes, revisions, or packages in the cache (by default) or the
+             remotes.
+lock       Create or manage lockfiles.
+profile    Manage profiles.
+remote     Manage the remote list and the users authenticated on them.
+remove     Remove recipes or packages from local cache or a remote.
+search     Search for package recipes in all the remotes (by default), or a remote.
+version    Give information about the Conan client version.
+
+Creator commands
+build      Install dependencies and call the build() method.
+create     Create a package.
+download   Download (without installing) a single conan package from a remote server.
+editable   Allow working with a package that resides in user folder.
+export     Export a recipe to the Conan package cache.
+export-pkg Create a package directly from pre-compiled binaries.
+new        Create a new example recipe and source files from a template.
+source     Call the source() method.
+test       Test a package from a test_package folder.
+upload     Upload packages to a remote.
+
+Type &quot;conan &lt;command&gt; -h&quot; for help
+</pre></div>
+</div>
+<p>Use to get the profile location in your <code class="docutils literal notranslate"><span class="pre">[CONAN_HOME]</span></code> folder:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ conan profile path default
+/Users/barbarians/.conan2/profiles/default
+</pre></div>
+</div>
+</section>
+<section id="conan-profile-show">
+<h2>conan profile show<a class="headerlink" href="#conan-profile-show" title="Link to this heading">¶</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ conan profile show -h
+usage: conan profile show [-h] [-f FORMAT] [-v [V]] [-cc CORE_CONF]
+                          [-pr PROFILE] [-pr:b PROFILE_BUILD]
+                          [-pr:h PROFILE_HOST] [-pr:a PROFILE_ALL]
+                          [-o OPTIONS] [-o:b OPTIONS_BUILD]
+                          [-o:h OPTIONS_HOST] [-o:a OPTIONS_ALL] [-s SETTINGS]
+                          [-s:b SETTINGS_BUILD] [-s:h SETTINGS_HOST]
+                          [-s:a SETTINGS_ALL] [-c CONF] [-c:b CONF_BUILD]
+                          [-c:h CONF_HOST] [-c:a CONF_ALL]
+
+Show aggregated profiles from the passed arguments.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -f FORMAT, --format FORMAT
+                        Select the output format: json
+  -v [V]                Level of detail of the output. Valid options from less
+                        verbose to more verbose: -vquiet, -verror, -vwarning,
+                        -vnotice, -vstatus, -v or -vverbose, -vv or -vdebug,
+                        -vvv or -vtrace
+  -cc CORE_CONF, --core-conf CORE_CONF
+                        Global configuration for Conan
+  -pr PROFILE, --profile PROFILE
+                        Apply the specified profile. By default, or if
+                        specifying -pr:h (--profile:host), it applies to the
+                        host context. Use -pr:b (--profile:build) to specify
+                        the build context, or -pr:a (--profile:all) to specify
+                        both contexts at once
+  -pr:b PROFILE_BUILD, --profile:build PROFILE_BUILD
+  -pr:h PROFILE_HOST, --profile:host PROFILE_HOST
+  -pr:a PROFILE_ALL, --profile:all PROFILE_ALL
+  -o OPTIONS, --options OPTIONS
+                        Apply the specified options. By default, or if
+                        specifying -o:h (--options:host), it applies to the
+                        host context. Use -o:b (--options:build) to specify
+                        the build context, or -o:a (--options:all) to specify
+                        both contexts at once. Example: -o pkg:with_qt=true
+  -o:b OPTIONS_BUILD, --options:build OPTIONS_BUILD
+  -o:h OPTIONS_HOST, --options:host OPTIONS_HOST
+  -o:a OPTIONS_ALL, --options:all OPTIONS_ALL
+  -s SETTINGS, --settings SETTINGS
+                        Apply the specified settings. By default, or if
+                        specifying -s:h (--settings:host), it applies to the
+                        host context. Use -s:b (--settings:build) to specify
+                        the build context, or -s:a (--settings:all) to specify
+                        both contexts at once. Example: -s compiler=gcc
+  -s:b SETTINGS_BUILD, --settings:build SETTINGS_BUILD
+  -s:h SETTINGS_HOST, --settings:host SETTINGS_HOST
+  -s:a SETTINGS_ALL, --settings:all SETTINGS_ALL
+  -c CONF, --conf CONF  Apply the specified conf. By default, or if specifying
+                        -c:h (--conf:host), it applies to the host context.
+                        Use -c:b (--conf:build) to specify the build context,
+                        or -c:a (--conf:all) to specify both contexts at once.
+                        Example: -c tools.cmake.cmaketoolchain:generator=Xcode
+  -c:b CONF_BUILD, --conf:build CONF_BUILD
+  -c:h CONF_HOST, --conf:host CONF_HOST
+  -c:a CONF_ALL, --conf:all CONF_ALL
+</pre></div>
+</div>
+<p>Use <strong class="command">conan profile show</strong> to compute the resulting build and host profiles from
+the command line arguments. For example, combining different options and settings with the
+default profile or with any other profile using the <code class="docutils literal notranslate"><span class="pre">pr:b</span></code> or <code class="docutils literal notranslate"><span class="pre">pr:h</span></code> arguments:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ conan profile show -s:h build_type=Debug -o:h shared=False
+Host profile:
+[settings]
+arch=x86_64
+<span class="hll">build_type=Debug
+</span>compiler=apple-clang
+compiler.cppstd=gnu17
+compiler.libcxx=libc++
+compiler.version=14
+os=Macos
+[options]
+<span class="hll">shared=False
+</span>[conf]
+
+
+Build profile:
+[settings]
+arch=x86_64
+build_type=Release
+compiler=apple-clang
+compiler.cppstd=gnu17
+compiler.libcxx=libc++
+compiler.version=14
+os=Macos
+[conf]
+</pre></div>
+</div>
+<p>It’s also useful to show the result of the evaluation of <a class="reference internal" href="../config_files/profiles.html#reference-config-files-profiles-rendering"><span class="std std-ref">jinja2 templates in the
+profiles</span></a>. For example, a profile like this:</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text"><em>myprofile</em></span><a class="headerlink" href="#id4" title="Link to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[settings]
+os = {{ {&quot;Darwin&quot;: &quot;Macos&quot;}.get(platform.system(), platform.system()) }}
+</pre></div>
+</div>
+</div>
+<p>Check the evaluated profile:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ conan profile show -pr:h=myprofile
+Host profile:
+[settings]
+os=Macos
+[conf]
+...
+</pre></div>
+</div>
+<p>The command can also output a json with the results:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ conan profile show --format=json
+
+{
+&quot;host&quot;: {
+    &quot;settings&quot;: {
+        &quot;arch&quot;: &quot;armv8&quot;,
+        &quot;build_type&quot;: &quot;Release&quot;,
+        &quot;compiler&quot;: &quot;apple-clang&quot;,
+        &quot;compiler.cppstd&quot;: &quot;gnu17&quot;,
+        &quot;compiler.libcxx&quot;: &quot;libc++&quot;,
+        &quot;compiler.version&quot;: &quot;15&quot;,
+        &quot;os&quot;: &quot;Macos&quot;
+    },
+    &quot;package_settings&quot;: {},
+    &quot;options&quot;: {},
+    &quot;tool_requires&quot;: {},
+    &quot;conf&quot;: {},
+    &quot;build_env&quot;: &quot;&quot;
+},
+&quot;build&quot;: {
+    &quot;settings&quot;: {
+        &quot;arch&quot;: &quot;armv8&quot;,
+        &quot;build_type&quot;: &quot;Release&quot;,
+        &quot;compiler&quot;: &quot;apple-clang&quot;,
+        &quot;compiler.cppstd&quot;: &quot;gnu17&quot;,
+        &quot;compiler.libcxx&quot;: &quot;libc++&quot;,
+        &quot;compiler.version&quot;: &quot;15&quot;,
+        &quot;os&quot;: &quot;Macos&quot;
+    },
+    &quot;package_settings&quot;: {},
+    &quot;options&quot;: {},
+    &quot;tool_requires&quot;: {},
+    &quot;conf&quot;: {},
+    &quot;build_env&quot;: &quot;&quot;
+}
+}
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p>Read more about <a class="reference internal" href="../config_files/profiles.html#reference-config-files-profiles"><span class="std std-ref">profiles</span></a></p></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="lock/remove.html" class="btn btn-neutral float-left" title="conan lock remove" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="remove.html" class="btn btn-neutral float-right" title="conan remove" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2024, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 2.1
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/2.1/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

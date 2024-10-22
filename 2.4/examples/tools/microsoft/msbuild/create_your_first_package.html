@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create your first Conan package with Visual Studio/MSBuild &mdash; conan 2.4.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=045299b1" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/conan.css?v=7d9e9f1e" />
+
+  
+    <link rel="shortcut icon" href="../../../../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/examples/tools/microsoft/msbuild/create_your_first_package.html" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../_static/documentation_options.js?v=e9ebdb8f"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Cross-building examples" href="../../../cross_build.html" />
+    <link rel="prev" title="MSBuild" href="../msbuild.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html">
+            
+              <img src="../../../../_static/conan-docs-logo-2.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.4
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../whatsnew.html">What’s new in Conan 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../devops.html">Devops guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../integrations.html">Integrations</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../examples.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../conanfile.html">ConanFile methods examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../extensions.html">Conan extensions examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../../tools.html">Conan recipe tools examples</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../cmake/cmake.html">CMake</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../files/files.html">File interaction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../meson/meson.html">Meson</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../google/bazel.html">Bazel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autotools/autotools.html">Autotools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scm/git/capture_scm/git_capture_scm.html">Capturing Git scm information</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../msbuild.html">MSBuild</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Create your first Conan package with Visual Studio/MSBuild</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cross_build.html">Cross-building examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../config_files.html">Configuration files examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../graph.html">Graph examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_flow.html">Developer tools and flows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../commands.html">Conan commands examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../runners.html">Conan runners examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge.html">Knowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/examples/tools/microsoft/msbuild/create_your_first_package.html">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../../examples.html">Examples</a></li>
+          <li class="breadcrumb-item"><a href="../../../tools.html">Conan recipe tools examples</a></li>
+          <li class="breadcrumb-item"><a href="../msbuild.html">MSBuild</a></li>
+      <li class="breadcrumb-item active">Create your first Conan package with Visual Studio/MSBuild</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/develop2/examples/tools/microsoft/msbuild/create_your_first_package.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="create-your-first-conan-package-with-visual-studio-msbuild">
+<span id="examples-tools-microsoft-create-first-package"></span><h1>Create your first Conan package with Visual Studio/MSBuild<a class="headerlink" href="#create-your-first-conan-package-with-visual-studio-msbuild" title="Link to this heading">¶</a></h1>
+<p>In the <a class="reference internal" href="../../../../tutorial/creating_packages/create_your_first_package.html#creating-packages-create-your-first-conan-package"><span class="std std-ref">Create your first Conan package tutorial</span></a>
+CMake was used as the build system. If you haven’t read that section, read it first to familiarize
+yourself with the <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code> and <code class="docutils literal notranslate"><span class="pre">test_package</span></code> concepts, then come back to read
+about the specifics of the <code class="docutils literal notranslate"><span class="pre">Visual</span> <span class="pre">Studio</span></code> package creation.</p>
+<p>Use the <strong class="command">conan new</strong> command to create a “Hello World” C++ library example project:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>new<span class="w"> </span>msbuild_lib<span class="w"> </span>-d<span class="w"> </span><span class="nv">name</span><span class="o">=</span>hello<span class="w"> </span>-d<span class="w"> </span><span class="nv">version</span><span class="o">=</span><span class="m">1</span>.0
+</pre></div>
+</div>
+<p>This will create a Conan package project with the following structure.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>.
+├── conanfile.py
+├── hello.sln
+├── hello.vcxproj
+├── include
+│   └── hello.h
+├── src
+│   └── hello.cpp
+└── test_package
+    ├── conanfile.py
+    ├── test_hello.sln
+    ├── test_hello.vcxproj
+    └── src
+        └── test_hello.cpp
+</pre></div>
+</div>
+<p>The structure and files are very similar to the previous CMake example:</p>
+<ul class="simple">
+<li><p><strong>conanfile.py</strong>: On the root folder, there is a <em>conanfile.py</em> which is the main recipe
+file, responsible for defining how the package is built and consumed.</p></li>
+<li><p><strong>hello.sln</strong>: A Visual Studio solution file that can be opened with the IDE.</p></li>
+<li><p><strong>hello.vcxproj</strong>: A Visual Studio C/C++ project, part of the solution above.</p></li>
+<li><p><strong>src</strong> and <strong>include</strong> folders: the folders that contains the simple C++ “hello” library.</p></li>
+<li><p><strong>test_package</strong> folder: contains an <em>example</em> application that will require
+and link with the created package. In this case the <code class="docutils literal notranslate"><span class="pre">test_package</span></code> also contains a
+Visual Studio solution and project, but it is possible to have the <code class="docutils literal notranslate"><span class="pre">test_package</span></code> using
+other build system as CMake if desired. It is not mandatory that the test_package is using
+the same build system as the package.</p></li>
+</ul>
+<p>Let’s have a look at the package recipe <em>conanfile.py</em> (only the relevant new parts):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Sources are located in the same place as this recipe, copy them to the recipe</span>
+<span class="n">exports_sources</span> <span class="o">=</span> <span class="s2">&quot;hello.sln&quot;</span><span class="p">,</span> <span class="s2">&quot;hello.vcxproj&quot;</span><span class="p">,</span> <span class="s2">&quot;src/*&quot;</span><span class="p">,</span> <span class="s2">&quot;include/*&quot;</span>
+
+<span class="k">def</span> <span class="nf">layout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">vs_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">tc</span> <span class="o">=</span> <span class="n">MSBuildToolchain</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="n">tc</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">msbuild</span> <span class="o">=</span> <span class="n">MSBuild</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="n">msbuild</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="s2">&quot;hello.sln&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;*.h&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source_folder</span><span class="p">,</span> <span class="s2">&quot;include&quot;</span><span class="p">),</span>
+         <span class="n">dst</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">package_folder</span><span class="p">,</span> <span class="s2">&quot;include&quot;</span><span class="p">))</span>
+    <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;*.lib&quot;</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">build_folder</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">package_folder</span><span class="p">,</span> <span class="s2">&quot;lib&quot;</span><span class="p">),</span>
+         <span class="n">keep_path</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Let’s explain the different sections of the recipe briefly:</p>
+<ul class="simple">
+<li><p>Note there are no <code class="docutils literal notranslate"><span class="pre">options</span></code> like the <code class="docutils literal notranslate"><span class="pre">shared</span></code> option in this recipe. The current project
+always builds a static library, so it is not optional.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">layout()</span></code> defines a typical VS layout, this is less flexible than a CMake one, so it
+doesn’t allow any parametrization.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">generate()</span></code> method calls <code class="docutils literal notranslate"><span class="pre">MSBuildToolchain</span></code> to generate a <code class="docutils literal notranslate"><span class="pre">conantoolchain.props</span></code>
+file, that the project must add to its properties. If the project had dependencies with Conan
+<code class="docutils literal notranslate"><span class="pre">requires</span></code>, it should add <code class="docutils literal notranslate"><span class="pre">MSBuildDeps</span></code> too and add the relevant generated files property
+sheets.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">build()</span></code> method uses the <code class="docutils literal notranslate"><span class="pre">MSBuild()</span></code> helper to drive the build of the solution</p></li>
+<li><p>As the project doesn’t have any “install” functionality in the build scripts, the <code class="docutils literal notranslate"><span class="pre">package()</span></code>
+method can manually define which files must be copied.</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">hello.vcxproj</span></code> project file adds the generated property sheets like <code class="docutils literal notranslate"><span class="pre">conantoolchain.props</span></code>
+to the project, so the build can receive the Conan input <code class="docutils literal notranslate"><span class="pre">settings</span></code> and act accordingly.</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">hello.vcxproj</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="nt">&lt;ImportGroup</span><span class="w"> </span><span class="na">Label=</span><span class="s">&quot;PropertySheets&quot;</span><span class="nt">&gt;</span>
+<span class="w">   </span><span class="nt">&lt;Import</span><span class="w"> </span><span class="na">Project=</span><span class="s">&quot;conan\conantoolchain.props&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w"> </span><span class="nt">&lt;/ImportGroup&gt;</span>
+</pre></div>
+</div>
+</div>
+<p>If the project had dependencies, it should add the dependencies generated <code class="docutils literal notranslate"><span class="pre">.props</span></code> files too.</p>
+<p>The <strong>test_package</strong> folder also contains a <code class="docutils literal notranslate"><span class="pre">test_hello.vcxproj</span></code> file, that includes both the
+toolchain and the dependencies property sheets:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">test_package/test_hello.vcxproj</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;ImportGroup</span><span class="w"> </span><span class="na">Label=</span><span class="s">&quot;PropertySheets&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Import</span><span class="w"> </span><span class="na">Project=</span><span class="s">&quot;conan\conantoolchain.props&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Import</span><span class="w"> </span><span class="na">Project=</span><span class="s">&quot;conan\conandeps.props&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/ImportGroup&gt;</span>
+</pre></div>
+</div>
+</div>
+<p>Note the <code class="docutils literal notranslate"><span class="pre">test_package/conanfile.py</span></code> contains also a <code class="docutils literal notranslate"><span class="pre">generators=&quot;MSBuildDeps&quot;</span></code>.</p>
+<p>Let’s build the package from sources with the current default configuration, and then let
+the <code class="docutils literal notranslate"><span class="pre">test_package</span></code> folder test the package:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.
+
+...
+<span class="o">========</span><span class="w"> </span>Testing<span class="w"> </span>the<span class="w"> </span>package:<span class="w"> </span>Executing<span class="w"> </span><span class="nb">test</span><span class="w"> </span><span class="o">========</span>
+hello/1.0<span class="w"> </span><span class="o">(</span><span class="nb">test</span><span class="w"> </span>package<span class="o">)</span>:<span class="w"> </span>Running<span class="w"> </span>test<span class="o">()</span>
+hello/1.0<span class="w"> </span><span class="o">(</span><span class="nb">test</span><span class="w"> </span>package<span class="o">)</span>:<span class="w"> </span>RUN:<span class="w"> </span>x64<span class="se">\R</span>elease<span class="se">\t</span>est_hello
+hello/1.0:<span class="w"> </span>Hello<span class="w"> </span>World<span class="w"> </span>Release!
+<span class="w">  </span>hello/1.0:<span class="w"> </span>_M_X64<span class="w"> </span>defined
+<span class="w">  </span>hello/1.0:<span class="w"> </span>MSVC<span class="w"> </span>runtime:<span class="w"> </span>MultiThreadedDLL
+<span class="w">  </span>hello/1.0:<span class="w"> </span>_MSC_VER1939
+<span class="w">  </span>hello/1.0:<span class="w"> </span>_MSVC_LANG201402
+<span class="w">  </span>hello/1.0:<span class="w"> </span>__cplusplus199711
+hello/1.0<span class="w"> </span>test_package
+</pre></div>
+</div>
+<p>We can now validate that the recipe and the package binary are in the cache:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>list<span class="w"> </span>hello/1.0:*
+Local<span class="w"> </span>Cache:
+<span class="w">  </span>hello
+<span class="w">    </span>hello/1.0
+<span class="w">      </span>revisions
+<span class="w">        </span>856c535669f78da11502a119b7d8a6c9<span class="w"> </span><span class="o">(</span><span class="m">2024</span>-03-04<span class="w"> </span><span class="m">17</span>:52:39<span class="w"> </span>UTC<span class="o">)</span>
+<span class="w">          </span>packages
+<span class="w">            </span>c13a22a41ecd72caf9e556f68b406569547e0861
+<span class="w">              </span>info
+<span class="w">                </span>settings
+<span class="w">                  </span>arch:<span class="w"> </span>x86_64
+<span class="w">                  </span>build_type:<span class="w"> </span>Release
+<span class="w">                  </span>compiler:<span class="w"> </span>msvc
+<span class="w">                  </span>compiler.cppstd:<span class="w"> </span><span class="m">14</span>
+<span class="w">                  </span>compiler.runtime:<span class="w"> </span>dynamic
+<span class="w">                  </span>compiler.runtime_type:<span class="w"> </span>Release
+<span class="w">                  </span>compiler.version:<span class="w"> </span><span class="m">193</span>
+<span class="w">                  </span>os:<span class="w"> </span>Windows
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p>Check the <a class="reference internal" href="../../../../integrations/visual_studio.html#integrations-visual-studio-extension"><span class="std std-ref">Conan Visual Studio Extension</span></a>.</p></li>
+<li><p><a class="reference internal" href="../../../../reference/tools/microsoft.html#conan-tools-microsoft"><span class="std std-ref">MSBuild built-in integrations reference</span></a>.</p></li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../msbuild.html" class="btn btn-neutral float-left" title="MSBuild" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../../cross_build.html" class="btn btn-neutral float-right" title="Cross-building examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2024, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 2.4
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/2.4/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

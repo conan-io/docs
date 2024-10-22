@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Environment &mdash; conan 2.2.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=045299b1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/conan.css?v=7d9e9f1e" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/reference/tools/env/environment.html" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=85e56e6b"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="EnvVars" href="envvars.html" />
+    <link rel="prev" title="conan.tools.env" href="../env.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html">
+            
+              <img src="../../../_static/conan-docs-logo-2.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../whatsnew.html">What’s new in Conan 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../devops.html">Devops guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../commands.html">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../conanfile.html">conanfile.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../tools.html">Recipe tools</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../android.html">conan.tools.android</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../apple.html">conan.tools.apple</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../build.html">conan.tools.build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cmake.html">conan.tools.cmake</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../cpp_info.html">conan.tools.CppInfo</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../env.html">conan.tools.env</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="envvars.html">EnvVars</a></li>
+<li class="toctree-l4"><a class="reference internal" href="virtualbuildenv.html">VirtualBuildEnv</a></li>
+<li class="toctree-l4"><a class="reference internal" href="virtualrunenv.html">VirtualRunEnv</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../files.html">conan.tools.files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../gnu.html">conan.tools.gnu</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../google.html">conan.tools.google</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../intel.html">conan.tools.intel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../layout.html">conan.tools.layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../meson.html">conan.tools.meson</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../microsoft.html">conan.tools.microsoft</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scm.html">conan.tools.scm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scons.html">conan.tools.scons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../system.html">conan.tools.system</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../config_files.html">Configuration files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../extensions.html">Extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../environment.html">Environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../binary_model.html">The binary model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../conan_server.html">Conan Server</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../knowledge.html">Knowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/reference/tools/env/environment.html">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="../../tools.html">Recipe tools</a></li>
+          <li class="breadcrumb-item"><a href="../env.html">conan.tools.env</a></li>
+      <li class="breadcrumb-item active">Environment</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/develop2/reference/tools/env/environment.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="environment">
+<span id="conan-tools-env-environment-model"></span><h1>Environment<a class="headerlink" href="#environment" title="Link to this heading">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">Environment</span></code> is a generic class that helps to define modifications to the environment variables.
+This class is used by other tools like the <cite>conan.tools.gnu</cite> <a class="reference internal" href="../gnu/autotools.html#conan-tools-gnu-build-helper"><span class="std std-ref">Autotools</span></a> helpers and
+the <a class="reference internal" href="virtualbuildenv.html#conan-tools-env-virtualbuildenv"><span class="std std-ref">VirtualBuildEnv</span></a> and <a class="reference internal" href="virtualrunenv.html#conan-tools-env-virtualrunenv"><span class="std std-ref">VirtualRunEnv</span></a>
+generator. It is important to highlight that this is a generic class, to be able to use it, a specialization
+for the current context (shell script, bat file, path separators, etc), a <code class="docutils literal notranslate"><span class="pre">EnvVars</span></code> object needs to be obtained
+from it.</p>
+<section id="variable-declaration">
+<h2>Variable declaration<a class="headerlink" href="#variable-declaration" title="Link to this heading">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conan.tools.env</span> <span class="kn">import</span> <span class="n">Environment</span>
+
+<span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">env</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">()</span>
+    <span class="n">env</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s2">&quot;MYVAR1&quot;</span><span class="p">,</span> <span class="s2">&quot;MyValue1&quot;</span><span class="p">)</span>  <span class="c1"># Overwrite previously existing MYVAR1 with new value</span>
+    <span class="n">env</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;MYVAR2&quot;</span><span class="p">,</span> <span class="s2">&quot;MyValue2&quot;</span><span class="p">)</span>  <span class="c1"># Append to existing MYVAR2 the new value</span>
+    <span class="n">env</span><span class="o">.</span><span class="n">prepend</span><span class="p">(</span><span class="s2">&quot;MYVAR3&quot;</span><span class="p">,</span> <span class="s2">&quot;MyValue3&quot;</span><span class="p">)</span> <span class="c1"># Prepend to existing MYVAR3 the new value</span>
+    <span class="n">env</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;MYVAR3&quot;</span><span class="p">,</span> <span class="s2">&quot;MyValue3&quot;</span><span class="p">)</span>  <span class="c1"># Remove the MyValue3 from MYVAR3</span>
+    <span class="n">env</span><span class="o">.</span><span class="n">unset</span><span class="p">(</span><span class="s2">&quot;MYVAR4&quot;</span><span class="p">)</span>               <span class="c1"># Remove MYVAR4 definition from environment</span>
+
+    <span class="c1"># And the equivalent with paths</span>
+    <span class="n">env</span><span class="o">.</span><span class="n">define_path</span><span class="p">(</span><span class="s2">&quot;MYPATH1&quot;</span><span class="p">,</span> <span class="s2">&quot;path/one&quot;</span><span class="p">)</span>  <span class="c1"># Overwrite previously existing MYPATH1 with new value</span>
+    <span class="n">env</span><span class="o">.</span><span class="n">append_path</span><span class="p">(</span><span class="s2">&quot;MYPATH2&quot;</span><span class="p">,</span> <span class="s2">&quot;path/two&quot;</span><span class="p">)</span>  <span class="c1"># Append to existing MYPATH2 the new value</span>
+    <span class="n">env</span><span class="o">.</span><span class="n">prepend_path</span><span class="p">(</span><span class="s2">&quot;MYPATH3&quot;</span><span class="p">,</span> <span class="s2">&quot;path/three&quot;</span><span class="p">)</span> <span class="c1"># Prepend to existing MYPATH3 the new value</span>
+</pre></div>
+</div>
+<p>The “normal” variables (the ones declared with <code class="docutils literal notranslate"><span class="pre">define</span></code>, <code class="docutils literal notranslate"><span class="pre">append</span></code> and <code class="docutils literal notranslate"><span class="pre">prepend</span></code>) will be appended with a space,
+by default, but the <code class="docutils literal notranslate"><span class="pre">separator</span></code> argument can be provided to define a custom one.</p>
+<p>The “path” variables (the ones declared with <code class="docutils literal notranslate"><span class="pre">define_path</span></code>, <code class="docutils literal notranslate"><span class="pre">append_path</span></code> and <code class="docutils literal notranslate"><span class="pre">prepend_path</span></code>) will be appended
+with the default system path separator, either <code class="docutils literal notranslate"><span class="pre">:</span></code> or <code class="docutils literal notranslate"><span class="pre">;</span></code>, but it also allows defining which one.</p>
+</section>
+<section id="composition">
+<h2>Composition<a class="headerlink" href="#composition" title="Link to this heading">¶</a></h2>
+<p>Environments can be composed:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conan.tools.env</span> <span class="kn">import</span> <span class="n">Environment</span>
+
+<span class="n">env1</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">()</span>
+<span class="n">env1</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="n">env2</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">()</span>
+<span class="n">env2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+
+<span class="n">env1</span><span class="o">.</span><span class="n">compose_env</span><span class="p">(</span><span class="n">env2</span><span class="p">)</span> <span class="c1"># env1 has priority, and its modifications will prevail</span>
+</pre></div>
+</div>
+</section>
+<section id="obtaining-environment-variables">
+<h2>Obtaining environment variables<a class="headerlink" href="#obtaining-environment-variables" title="Link to this heading">¶</a></h2>
+<p>You can obtain an <code class="docutils literal notranslate"><span class="pre">EnvVars</span></code> object with the <code class="docutils literal notranslate"><span class="pre">vars()</span></code> method like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conan.tools.env</span> <span class="kn">import</span> <span class="n">Environment</span>
+
+<span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">env</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">()</span>
+    <span class="n">env</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s2">&quot;MYVAR1&quot;</span><span class="p">,</span> <span class="s2">&quot;MyValue1&quot;</span><span class="p">)</span>
+    <span class="n">envvars</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">vars</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;build&quot;</span><span class="p">)</span>
+    <span class="c1"># use the envvars object</span>
+</pre></div>
+</div>
+<p>The default <code class="docutils literal notranslate"><span class="pre">scope</span></code> is equal <code class="docutils literal notranslate"><span class="pre">&quot;build&quot;</span></code>, which means that if this <code class="docutils literal notranslate"><span class="pre">envvars</span></code> generate a script to
+activate the variables, such script will be automatically added to the <code class="docutils literal notranslate"><span class="pre">conanbuild.sh|bat</span></code> one, for
+users and recipes convenience. Conan generators use <code class="docutils literal notranslate"><span class="pre">build</span></code> and <code class="docutils literal notranslate"><span class="pre">run</span></code> scope, but it might be possible
+to manage other scopes too.</p>
+</section>
+<section id="environment-definition">
+<h2>Environment definition<a class="headerlink" href="#environment-definition" title="Link to this heading">¶</a></h2>
+<p>There are some other places where <code class="docutils literal notranslate"><span class="pre">Environment</span></code> can be defined and used:</p>
+<ul class="simple">
+<li><p>In recipes <code class="docutils literal notranslate"><span class="pre">package_info()</span></code> method, in new <code class="docutils literal notranslate"><span class="pre">self.buildenv_info</span></code> and <code class="docutils literal notranslate"><span class="pre">self.runenv_info</span></code>, this
+environment will be propagated via <code class="docutils literal notranslate"><span class="pre">VirtualBuildEnv</span></code> and <code class="docutils literal notranslate"><span class="pre">VirtualRunEnv</span></code> respectively to packages
+depending on this recipe.</p></li>
+<li><p>In generators like <code class="docutils literal notranslate"><span class="pre">AutootoolsDeps</span></code>, <code class="docutils literal notranslate"><span class="pre">AutotoolsToolchain</span></code>, that need to define environment for the
+current recipe.</p></li>
+<li><p>In profiles <code class="docutils literal notranslate"><span class="pre">[buildenv]</span></code> section.</p></li>
+<li><p>In profiles <code class="docutils literal notranslate"><span class="pre">[runenv]</span></code> section.</p></li>
+</ul>
+<p>The definition in <code class="docutils literal notranslate"><span class="pre">package_info()</span></code> is as follow, taking into account that both <code class="docutils literal notranslate"><span class="pre">self.buildenv_info</span></code> and <code class="docutils literal notranslate"><span class="pre">self.runenv_info</span></code>
+are objects of <code class="docutils literal notranslate"><span class="pre">Environment()</span></code> class.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+<span class="k">class</span> <span class="nc">App</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;mypkg&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;1.0&quot;</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span>
+
+    <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># This is information needed by consumers to build using this package</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buildenv_info</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;MYVAR&quot;</span><span class="p">,</span> <span class="s2">&quot;MyValue&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buildenv_info</span><span class="o">.</span><span class="n">prepend_path</span><span class="p">(</span><span class="s2">&quot;MYPATH&quot;</span><span class="p">,</span> <span class="s2">&quot;some/path/folder&quot;</span><span class="p">)</span>
+
+        <span class="c1"># This is information needed by consumers to run apps that depends on this package</span>
+        <span class="c1"># at runtime</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">runenv_info</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s2">&quot;MYPKG_DATA_DIR&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">package_folder</span><span class="p">,</span>
+                                                               <span class="s2">&quot;datadir&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<section id="reference">
+<h3>Reference<a class="headerlink" href="#reference" title="Link to this heading">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="conan.tools.env.environment.Environment">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Environment</span></span><a class="headerlink" href="#conan.tools.env.environment.Environment" title="Link to this definition">¶</a></dt>
+<dd><p>Generic class that helps to define modifications to the environment variables.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="conan.tools.env.environment.Environment.dumps">
+<span class="sig-name descname"><span class="pre">dumps</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#conan.tools.env.environment.Environment.dumps" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A string with a profile-like original definition, not the full environment
+values</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conan.tools.env.environment.Environment.define">
+<span class="sig-name descname"><span class="pre">define</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">separator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'</span> <span class="pre">'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conan.tools.env.environment.Environment.define" title="Link to this definition">¶</a></dt>
+<dd><p>Define <cite>name</cite> environment variable with value <cite>value</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – Name of the variable</p></li>
+<li><p><strong>value</strong> – Value that the environment variable will take</p></li>
+<li><p><strong>separator</strong> – The character to separate appended or prepended values</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conan.tools.env.environment.Environment.unset">
+<span class="sig-name descname"><span class="pre">unset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conan.tools.env.environment.Environment.unset" title="Link to this definition">¶</a></dt>
+<dd><p>clears the variable, equivalent to a unset or set XXX=</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> – Name of the variable to unset</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conan.tools.env.environment.Environment.append">
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">separator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conan.tools.env.environment.Environment.append" title="Link to this definition">¶</a></dt>
+<dd><p>Append the <cite>value</cite> to an environment variable <cite>name</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – Name of the variable to append a new value</p></li>
+<li><p><strong>value</strong> – New value</p></li>
+<li><p><strong>separator</strong> – The character to separate the appended value with the previous value. By default it will use a blank space.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conan.tools.env.environment.Environment.append_path">
+<span class="sig-name descname"><span class="pre">append_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conan.tools.env.environment.Environment.append_path" title="Link to this definition">¶</a></dt>
+<dd><p>Similar to “append” method but indicating that the variable is a filesystem path. It will automatically handle the path separators depending on the operating system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – Name of the variable to append a new value</p></li>
+<li><p><strong>value</strong> – New value</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conan.tools.env.environment.Environment.prepend">
+<span class="sig-name descname"><span class="pre">prepend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">separator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conan.tools.env.environment.Environment.prepend" title="Link to this definition">¶</a></dt>
+<dd><p>Prepend the <cite>value</cite> to an environment variable <cite>name</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – Name of the variable to prepend a new value</p></li>
+<li><p><strong>value</strong> – New value</p></li>
+<li><p><strong>separator</strong> – The character to separate the prepended value with the previous value</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conan.tools.env.environment.Environment.prepend_path">
+<span class="sig-name descname"><span class="pre">prepend_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conan.tools.env.environment.Environment.prepend_path" title="Link to this definition">¶</a></dt>
+<dd><p>Similar to “prepend” method but indicating that the variable is a filesystem path. It will automatically handle the path separators depending on the operating system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – Name of the variable to prepend a new value</p></li>
+<li><p><strong>value</strong> – New value</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conan.tools.env.environment.Environment.remove">
+<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conan.tools.env.environment.Environment.remove" title="Link to this definition">¶</a></dt>
+<dd><p>Removes the <cite>value</cite> from the variable <cite>name</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – Name of the variable</p></li>
+<li><p><strong>value</strong> – Value to be removed.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conan.tools.env.environment.Environment.compose_env">
+<span class="sig-name descname"><span class="pre">compose_env</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conan.tools.env.environment.Environment.compose_env" title="Link to this definition">¶</a></dt>
+<dd><p>Compose an Environment object with another one.
+<code class="docutils literal notranslate"><span class="pre">self</span></code> has precedence, the “other” will add/append if possible and not
+conflicting, but <code class="docutils literal notranslate"><span class="pre">self</span></code> mandates what to do. If <code class="docutils literal notranslate"><span class="pre">self</span></code> has <code class="docutils literal notranslate"><span class="pre">define()</span></code>, without
+placeholder, that will remain.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other</strong> (class:<cite>Environment</cite>) – the “other” Environment</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conan.tools.env.environment.Environment.vars">
+<span class="sig-name descname"><span class="pre">vars</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conanfile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'build'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conan.tools.env.environment.Environment.vars" title="Link to this definition">¶</a></dt>
+<dd><p>Return an EnvVars object from the current Environment object
+:param conanfile: Instance of a conanfile, usually <code class="docutils literal notranslate"><span class="pre">self</span></code> in a recipe
+:param scope: Determine the scope of the declared variables.
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="conan.tools.env.environment.Environment.deploy_base_folder">
+<span class="sig-name descname"><span class="pre">deploy_base_folder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">package_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deploy_folder</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#conan.tools.env.environment.Environment.deploy_base_folder" title="Link to this definition">¶</a></dt>
+<dd><p>Make the paths relative to the deploy_folder</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../env.html" class="btn btn-neutral float-left" title="conan.tools.env" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="envvars.html" class="btn btn-neutral float-right" title="EnvVars" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2024, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 2.2
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/2.2/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

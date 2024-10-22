@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Package layout &mdash; conan 1.54.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+    <link rel="shortcut icon" href="../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/en/latest/developing_packages/package_layout.html" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=4a186e94"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Packages in editable mode" href="editable_packages.html" />
+    <link rel="prev" title="Package development flow" href="package_dev_flow.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/conan-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.54
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../conan_v2.html">Conan migration guide to 2.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../training_courses.html">Training Courses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../developing_packages.html">Developing packages</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="package_dev_flow.html">Package development flow</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Package layout</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#before-starting">Before starting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#declaring-the-layout">Declaring the layout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-everything-together">Example: Everything together</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-export-sources-folder">Example: export_sources_folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-conanfile-in-subfolder">Example: conanfile in subfolder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-multiple-subprojects">Example: Multiple subprojects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="editable_packages.html">Packages in editable mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workspaces.html">Workspaces</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versioning.html">Versioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Extending Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cheatsheet.html">Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #eb8484;background-color: #ffcaca;padding: 3px;margin-bottom: 5px">
+              <p>This document is for a <b>"1.X" legacy</b> Conan version, <b>which is no longer recommended</b>. Please update to Conan 2, <a href="https://docs.conan.io/2/">click here to read the <b>Conan 2</b> documentation</a></p>
+            </div>
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          <!--@ OUTDATED_VERSION_PLACEHOLDER_BEGIN @
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/@LATEST_DOC_PAGE_URL@">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          @ OUTDATED_VERSION_PLACEHOLDER_END @-->
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../developing_packages.html">Developing packages</a></li>
+      <li class="breadcrumb-item active">Package layout</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/master/developing_packages/package_layout.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="package-layout">
+<span id="id1"></span><h1>Package layout<a class="headerlink" href="#package-layout" title="Link to this heading"></a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This is an <strong>experimental</strong> feature subject to breaking changes in future releases.
+The <code class="docutils literal notranslate"><span class="pre">layout()</span></code> feature will be fully functional only in the new build system integrations
+(<a class="reference internal" href="../reference/conanfile/tools.html#conan-tools"><span class="std std-ref">in the conan.tools space</span></a>). If you are using other integrations, they
+might not fully support this feature.</p>
+</div>
+<p>Available since: <a class="reference external" href="https://github.com/conan-io/conan/releases/tag/1.37.0">1.37.0</a></p>
+<section id="before-starting">
+<h2>Before starting<a class="headerlink" href="#before-starting" title="Link to this heading"></a></h2>
+<p>To understand correctly how the <code class="docutils literal notranslate"><span class="pre">layout()</span></code> method can help us we need to recall first how Conan works.</p>
+<p>Let’s say we are working in a project, using, for example, CMake:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&lt;my_project_folder&gt;
+├── conanfile.py
+└── src
+    ├── CMakeLists.txt
+    ├── hello.cpp
+    ├── my_tool.cpp
+    └── include
+        └── hello.h
+</pre></div>
+</div>
+<p>When we call <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">create</span></code>, this is a simplified description of what happens:</p>
+<ol class="arabic">
+<li><p>Conan exports the recipe (conanfile.py) and the declared sources (exports_sources) to the cache. The folders in the
+cache would be something like:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">.conan/data/&lt;some_cache_folder&gt;</span><a class="headerlink" href="#id3" title="Link to this code"></a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>├── export
+│   └── conanfile.py
+└── export_source
+    └── src
+        ├── CMakeLists.txt
+        ├── hello.cpp
+        ├── my_tool.cpp
+        └── include
+            └── hello.h
+</pre></div>
+</div>
+</div>
+</li>
+<li><p>If the method <code class="docutils literal notranslate"><span class="pre">source()</span></code> exists, it might retrieve sources from the internet. Also, the <code class="docutils literal notranslate"><span class="pre">export_source</span></code> folder
+is copied to the <code class="docutils literal notranslate"><span class="pre">source</span></code> folder.</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">.conan/data/&lt;some_cache_folder&gt;</span><a class="headerlink" href="#id4" title="Link to this code"></a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>├── export
+│   └── conanfile.py
+├── export_source
+│   └── src
+│       ├── CMakeLists.txt
+│       ├── hello.cpp
+│       ├── my_tool.cpp
+│       └── include
+│           └── hello.h
+└── source
+    └── src
+        ├── CMakeLists.txt
+        ├── hello.cpp
+        ├── my_tool.cpp
+        └── include
+            └── hello.h
+</pre></div>
+</div>
+</div>
+</li>
+<li><p>Before calling the <code class="docutils literal notranslate"><span class="pre">build()</span></code> method, a build folder is created and the <strong>sources</strong> are copied there. Later, we call
+the <code class="docutils literal notranslate"><span class="pre">build()</span></code> method so the libraries and executables are built:</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">.conan/data/&lt;some_cache_folder&gt;</span><a class="headerlink" href="#id5" title="Link to this code"></a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>├── export
+│   └── conanfile.py
+├── export_source
+│   └── src
+│       ├── CMakeLists.txt
+│       ├── hello.cpp
+│       ├── my_tool.cpp
+│       └── include
+│           └── hello.h
+├── source
+│   └── src
+│       ├── CMakeLists.txt
+│       ├── hello.cpp
+│       ├── my_tool.cpp
+│       └── include
+│           └── hello.h
+└── build
+    └── &lt;build_id&gt;
+        ├── say.a
+        └── bin
+            └── my_app
+</pre></div>
+</div>
+</div>
+</li>
+<li><p>At last, Conan calls the <code class="docutils literal notranslate"><span class="pre">package()</span></code> method to copy the built artifacts from the <code class="docutils literal notranslate"><span class="pre">source</span></code> (typically includes)
+and <code class="docutils literal notranslate"><span class="pre">build</span></code> folders (libraries and executables) to a <strong>package</strong> folder.</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">.conan/data/&lt;some_cache_folder&gt;</span><a class="headerlink" href="#id6" title="Link to this code"></a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>├── export
+│   └── conanfile.py
+├── export_source
+│   └── src
+│       ├── CMakeLists.txt
+│       ├── hello.cpp
+│       ├── my_tool.cpp
+│       └── include
+│           └── hello.h
+├── source
+│   └── src
+│       ├── CMakeLists.txt
+│       ├── hello.cpp
+│       ├── my_tool.cpp
+│       └── include
+│           └── hello.h
+├── build
+│   └── &lt;build_id&gt;
+│       ├── say.a
+│       └── bin
+│           └── my_app
+└── package
+    └── &lt;package_id&gt;
+        ├── lib
+        │   └── say.a
+        ├── bin
+        │   └── my_app
+        └── include
+            └── hello.h
+</pre></div>
+</div>
+</div>
+</li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">package_info(self)</span></code> method will describe with the <code class="docutils literal notranslate"><span class="pre">self.cpp_info</span></code> object the contents of the <code class="docutils literal notranslate"><span class="pre">package</span></code>
+folder, that is the one the consumers use to link against it. If we call <cite>conan create</cite> with different configurations
+the base folder in the cache is different and nothing gets messed.</p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">conanfile.py</span><a class="headerlink" href="#id7" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+<span class="kn">from</span> <span class="nn">conan.tools.cmake</span> <span class="kn">import</span> <span class="n">CMake</span>
+
+
+<span class="k">class</span> <span class="nc">SayConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;say&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+    <span class="n">exports_sources</span> <span class="o">=</span> <span class="s2">&quot;src/*&quot;</span>
+    <span class="o">...</span>
+    <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># These are default values and doesn&#39;t need to be adjusted</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">includedirs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;include&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">libdirs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;lib&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">bindirs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;bin&quot;</span><span class="p">]</span>
+
+        <span class="c1"># The library name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">libs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;say&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</li>
+</ol>
+<p>So, this workflow in the cache works flawlessly but:</p>
+<ul>
+<li><p>What if I’m developing the recipe in my local project and want to use the local methods (<strong>conan source</strong>, <strong>conan build</strong>) and
+later call <strong>export-pkg</strong> to create the package?</p>
+<p>If you call <strong>conan build</strong> in your working directory, without specifying a <code class="docutils literal notranslate"><span class="pre">--build-folder</span></code> argument, you will end up
+with a bunch of files polluting your project. Moreover, if you want to build more configurations you will need to create
+several build folders by hand, this is inconvenient, error-prone, and wouldn’t be easy for Conan to locate the correct
+artifacts if you want to call <strong>export-pkg</strong> later.</p>
+</li>
+<li><p>What if I don’t even want to call <strong>conan build</strong> but use my CLion IDE to build the project?</p>
+<p>By default, the CLion IDE will create the folders <strong>cmake-build-release</strong> and <strong>cmake-build-debug</strong> to put the build
+files there, so maybe your <code class="docutils literal notranslate"><span class="pre">package()</span></code> method is not able to locate the files in there and the <strong>export-pkg</strong> might
+fail.</p>
+</li>
+<li><p>What if I want to use my project as an <a class="reference internal" href="editable_packages.html#editable-packages"><span class="std std-ref">editable package</span></a>?</p>
+<p>If you want to keep developing your package but let the consumers link with the artifacts in your project instead of
+the files in the Conan cache, you would need to declare a yml file describing where the headers, libraries and
+executables are in your application.</p>
+</li>
+</ul>
+<p>So, just as we describe the package folder in the <code class="docutils literal notranslate"><span class="pre">package_info()</span></code> method, we can use <code class="docutils literal notranslate"><span class="pre">layout()</span></code> to describe the
+<code class="docutils literal notranslate"><span class="pre">source</span></code> and <code class="docutils literal notranslate"><span class="pre">build</span></code> folders (both in a local project and in the cache):</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>We can run the conan local commands (<strong>conan source</strong>, <strong>conan build</strong>, <strong>conan export-pkg</strong>) without taking care of
+specifying directories, always with the same syntax.</p></li>
+<li><p>If you are using an IDE, you can describe the build folder naming in the layout, so the libraries and executables
+are always in a known place.</p></li>
+<li><p>In the cache, the layout (like a build subfolder) is kept, so we can always know where the artifacts are before
+packaging them.</p></li>
+<li><p>It enables tools like the <a class="reference internal" href="../reference/conanfile/tools/files/autopackager.html#conan-tools-files-autopackager"><span class="std std-ref">AutoPackager</span></a> to automate the <strong>package()</strong> method.</p></li>
+<li><p>It out-of-the-box enables to use <a class="reference internal" href="editable_packages.html#editable-packages"><span class="std std-ref">editable packages</span></a>, because the recipe describes
+where the contents will be, even for different configurations, so the consumers can link with the correct built
+artifacts.</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="declaring-the-layout">
+<h2>Declaring the layout<a class="headerlink" href="#declaring-the-layout" title="Link to this heading"></a></h2>
+<p>In the <code class="docutils literal notranslate"><span class="pre">layout()</span></code> method, you can set:</p>
+<blockquote>
+<div><ul>
+<li><p><strong>self.folders</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>self.folders.source</strong>: To specify a folder where your sources are.</p></li>
+<li><p><strong>self.folders.build</strong>: To specify a subfolder where the files from the build are (or will be).</p></li>
+<li><p><strong>self.folders.generators</strong>: To specify a subfolder where to write the files from the generators and the toolchains
+(e.g. the <cite>xx-config.cmake</cite> files from the <code class="docutils literal notranslate"><span class="pre">CMakeDeps</span></code> generator).</p></li>
+<li><p><strong>self.folders.imports</strong>: To specify a subfolder where to write the files copied when using the <code class="docutils literal notranslate"><span class="pre">imports(self)</span></code>
+method in a <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code>.</p></li>
+<li><p><strong>self.folders.root</strong>: To specify the relative path from the <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code> to the root of the project, in case
+the <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code> is in a subfolder and not in the project root. If defined, all the other paths will be relative to
+the project root, not to the location of the <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code>.</p></li>
+</ul>
+<p>Check the <a class="reference internal" href="../reference/conanfile/methods.html#layout-folders-reference"><span class="std std-ref">complete reference</span></a> of the <strong>self.folders</strong> attribute.</p>
+</div></blockquote>
+</li>
+<li><p><strong>self.cpp.source</strong> and <strong>self.cpp.build</strong>: The same you set the <code class="docutils literal notranslate"><span class="pre">self.cpp.package</span></code> to describe the package folder
+after calling the <code class="docutils literal notranslate"><span class="pre">package()</span></code> method, you can also describe the <cite>source</cite> and <cite>build</cite> folders.</p></li>
+<li><p><strong>self.cpp.package</strong>: You can use it as you use the <strong>self.cpp_info</strong> at the <code class="docutils literal notranslate"><span class="pre">package_info(self)</span></code> method.
+The <strong>self.cpp_info</strong> object will be populated with the information declared in the <code class="docutils literal notranslate"><span class="pre">self.cpp.package</span></code>
+object, so you can complete it or modify it later in the <code class="docutils literal notranslate"><span class="pre">package_info(self)</span></code> method.</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="example-everything-together">
+<h2>Example: Everything together<a class="headerlink" href="#example-everything-together" title="Link to this heading"></a></h2>
+<p>Let’s say we are working in the project introduced in the section above:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&lt;my_project_folder&gt;
+├── conanfile.py
+└── src
+    ├── CMakeLists.txt
+    ├── hello.cpp
+    ├── my_tool.cpp
+    └── include
+        └── hello.h
+</pre></div>
+</div>
+<p>We are using the following <strong>CMakeLists.txt</strong>:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.15</span><span class="p">)</span>
+<span class="nb">project</span><span class="p">(</span><span class="s">say</span><span class="w"> </span><span class="s">CXX</span><span class="p">)</span>
+
+<span class="nb">add_library</span><span class="p">(</span><span class="s">say</span><span class="w"> </span><span class="s">hello.cpp</span><span class="p">)</span>
+<span class="nb">target_include_directories</span><span class="p">(</span><span class="s">say</span><span class="w"> </span><span class="s">PUBLIC</span><span class="w"> </span><span class="s2">&quot;include&quot;</span><span class="p">)</span>
+
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">my_tool</span><span class="w"> </span><span class="s">my_tool.cpp</span><span class="p">)</span>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">my_tool</span><span class="w"> </span><span class="s">say</span><span class="p">)</span>
+
+<span class="c"># The executables are generated at the &quot;bin&quot; folder</span>
+<span class="nb">set_target_properties</span><span class="p">(</span><span class="s">my_tool</span><span class="w"> </span><span class="s">PROPERTIES</span><span class="w"> </span><span class="s">RUNTIME_OUTPUT_DIRECTORY</span><span class="w"> </span><span class="s2">&quot;${CMAKE_BINARY_DIR}/bin&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Let’s see how we describe our project in the <code class="docutils literal notranslate"><span class="pre">layout()</span></code> method:</p>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">conanfile.py</span><a class="headerlink" href="#id8" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+<span class="kn">from</span> <span class="nn">conan.tools.cmake</span> <span class="kn">import</span> <span class="n">CMake</span>
+
+
+<span class="k">class</span> <span class="nc">SayConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;say&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+    <span class="n">exports_sources</span> <span class="o">=</span> <span class="s2">&quot;src/*&quot;</span>
+    <span class="o">...</span>
+    <span class="k">def</span> <span class="nf">layout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">folders</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="s2">&quot;src&quot;</span>
+        <span class="n">build_type</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">build_type</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">folders</span><span class="o">.</span><span class="n">build</span> <span class="o">=</span> <span class="s2">&quot;cmake-build-</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">build_type</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">folders</span><span class="o">.</span><span class="n">generators</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">folders</span><span class="o">.</span><span class="n">build</span><span class="p">,</span> <span class="s2">&quot;conan&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">package</span><span class="o">.</span><span class="n">libs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;say&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">package</span><span class="o">.</span><span class="n">includedirs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;include&quot;</span><span class="p">]</span> <span class="c1"># includedirs is already set to this value by</span>
+                                                   <span class="c1"># default, but declared for completion</span>
+
+        <span class="c1"># this information is relative to the source folder</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">includedirs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;include&quot;</span><span class="p">]</span>  <span class="c1"># maps to ./src/include</span>
+
+        <span class="c1"># this information is relative to the build folder</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">libdirs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;.&quot;</span><span class="p">]</span>             <span class="c1"># maps to ./cmake-build-&lt;build_type&gt;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">bindirs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;bin&quot;</span><span class="p">]</span>           <span class="c1"># maps to ./cmake-build-&lt;build_type&gt;/bin</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">cmake</span> <span class="o">=</span> <span class="n">CMake</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">cmake</span><span class="o">.</span><span class="n">configure</span><span class="p">()</span>
+        <span class="n">cmake</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+        <span class="c1"># we can also know where the executable we are building is</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">build_folder</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">bindirs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;my_tool&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<p>Let’s review the <code class="docutils literal notranslate"><span class="pre">layout()</span></code> method changes:</p>
+<ul>
+<li><p><strong>self.folders</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>As we have our sources in the <code class="docutils literal notranslate"><span class="pre">src</span></code> folder, <code class="docutils literal notranslate"><span class="pre">self.folders.source</span></code> is set to “<strong>src</strong>”.</p></li>
+<li><p>We set <code class="docutils literal notranslate"><span class="pre">self.folders.build</span></code> to be <strong>cmake-build-release</strong> or <strong>cmake-build-debug</strong> depending on the build_type.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">self.folders.generators</span></code> folder is where all files generated by Conan will be stored so they don’t pollute the other folders.</p></li>
+</ul>
+<p>Please, note that the values above are for a single-configuration CMake generator. To support multi-configuration generators,
+such as Visual Studio, you should make some changes to this layout. For a complete layout that supports both single-config
+and multi-config, please check the <a class="reference internal" href="../reference/conanfile/tools/layout.html#conan-tools-layout-predefined-layouts"><span class="std std-ref">cmake_layout()</span></a> in the Conan documentation.</p>
+</div></blockquote>
+</li>
+<li><p><strong>self.cpp</strong></p>
+<blockquote>
+<div><p>We can set the information about the package that the consumers need to use by setting the conanfile’s <code class="docutils literal notranslate"><span class="pre">cpp.package</span></code> attributes values:</p>
+<ul class="simple">
+<li><p>Declaring <code class="docutils literal notranslate"><span class="pre">self.cpp.package.libs</span></code> inside the <code class="docutils literal notranslate"><span class="pre">layout()</span></code> method is equivalent to the “classic” <code class="docutils literal notranslate"><span class="pre">self.cpp_info.libs</span></code> declaration
+in the <code class="docutils literal notranslate"><span class="pre">package_info()</span></code> method.</p></li>
+<li><p>Also, as you may know, <code class="docutils literal notranslate"><span class="pre">self.cpp.package.includedirs</span></code> is set to <code class="docutils literal notranslate"><span class="pre">[&quot;include&quot;]</span></code> by default, so there’s no need in declaring it but we
+are leaving it here for completeness.</p></li>
+</ul>
+<p>We can also describe the <code class="docutils literal notranslate"><span class="pre">source</span></code> and <code class="docutils literal notranslate"><span class="pre">build</span></code> folders with the <code class="docutils literal notranslate"><span class="pre">cpp.source</span></code> and <code class="docutils literal notranslate"><span class="pre">cpp.build</span></code> objects:</p>
+<ul class="simple">
+<li><p>We are setting <code class="docutils literal notranslate"><span class="pre">self.cpp.source.includedirs</span> <span class="pre">=</span> <span class="pre">[&quot;include&quot;]</span></code>. The <code class="docutils literal notranslate"><span class="pre">self.folders.source</span></code> information will
+be automatically prepended to that path for consumers so, for example, when working with an editable package, Conan will try to get the
+include files from the <strong>./my_project_folder/src/include</strong> folder.</p></li>
+<li><p>We set the <code class="docutils literal notranslate"><span class="pre">self.cpp.build.libdirs</span></code> to <strong>[“.”]</strong>, so we are declaring that, if we make the package <code class="docutils literal notranslate"><span class="pre">editable</span></code>,
+the libraries will be at the <strong>./cmake-build-&lt;build_type&gt;</strong> folder.</p></li>
+<li><p>We set the <code class="docutils literal notranslate"><span class="pre">self.cpp.build.bindirs</span></code> to <strong>[“bin”]</strong>, because the <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> file is changing the <code class="docutils literal notranslate"><span class="pre">RUNTIME_OUTPUT_DIRECTORY</span></code> to
+that directory.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>There is also an interesting line in the <code class="docutils literal notranslate"><span class="pre">build(self)</span></code> method:</p>
+<div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">conanfile.py</span><a class="headerlink" href="#id9" title="Link to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>  <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+     <span class="o">...</span>
+     <span class="c1"># we can also know where is the executable we are building</span>
+     <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">build_folder</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">bindirs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;my_tool&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<p>We are using the <code class="docutils literal notranslate"><span class="pre">self.cpp.build.bindirs[0]</span></code> folder to locate the <code class="docutils literal notranslate"><span class="pre">my_tool</span></code>. This is a very recommended
+practice, especially when our layout depends on the build system. For example, when using CMake with Visual Studio,
+the binaries are typically built at <strong>Release/</strong> or <strong>Debug/</strong> (multiconfiguration) but on Linux or macOS, the
+output folder will typically be <strong>“.”</strong>, so it is better to declare the layout <code class="docutils literal notranslate"><span class="pre">self.cpp.build.bindirs</span></code> following that logic and
+then just access the correct path if we need to know where the resulting files of our build are. If you check the
+<a class="reference internal" href="../reference/conanfile/tools/layout.html#conan-tools-layout-predefined-layouts"><span class="std std-ref">cmake_layout()</span></a>, you can see that the predefined <code class="docutils literal notranslate"><span class="pre">cmake_layout</span></code> is doing
+exactly that when using a multiconfiguration build system.</p>
+<p>So, now we can run the conan local methods without taking much care of the directories where the
+files are or the build files should be, because everything is declared in the layout:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># This will write the toolchains and generator files from the dependencies to cmake-build-debug/generators</span>
+$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>.<span class="w"> </span>-if<span class="o">=</span>my_install<span class="w"> </span>-s<span class="w"> </span><span class="nv">build_type</span><span class="o">=</span>Debug
+
+<span class="c1"># In case we needed it (not the case as we don&#39;t have a source() method), this would fetch the sources to the ./src folder</span>
+$<span class="w"> </span>conan<span class="w"> </span><span class="nb">source</span><span class="w"> </span>.<span class="w"> </span>-if<span class="o">=</span>my_install
+
+<span class="c1"># This will build the project using the declared source folder and cmake-build-debug as the build folder</span>
+$<span class="w"> </span>conan<span class="w"> </span>build<span class="w"> </span>.<span class="w"> </span>-if<span class="o">=</span>my_install
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Maybe you are wondering why the <strong>install folder</strong> is not parametrized and has to be specified with the <code class="docutils literal notranslate"><span class="pre">-if</span></code>
+argument.
+Currently, Conan generates several files like the <code class="docutils literal notranslate"><span class="pre">graph_info.json</span></code> and the <code class="docutils literal notranslate"><span class="pre">conanbuildinfo.txt</span></code> that
+are read to restore the configuration saved (settings, options, etc) to be applied in the local commands.
+That configuration is needed before running the <code class="docutils literal notranslate"><span class="pre">layout()</span></code> method because the folders might depend on the settings
+like in the previous example. It is a kind of a chicken-egg issue. In Conan 2.0, likely, the
+configuration won’t be stored, and the local methods like <strong class="command">conan build .</strong> will compute the graph
+from arguments (–profile, -s, -o…) and won’t need the <code class="docutils literal notranslate"><span class="pre">--if</span></code> argument anymore, being always trivial to run.</p>
+</div>
+<p>Our current folder now looks like this:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&lt;my_project_folder&gt;
+├── conanfile.py
+├── src
+│   ├── CMakeLists.txt
+│   ├── hello.cpp
+│   ├── my_tool.cpp
+│   └── include
+│       └── hello.h
+└── cmake-build-debug
+    ├── libsay.a
+    └── bin
+        └── my_tool
+</pre></div>
+</div>
+<p>We could put the package in editable mode and other packages that require it would consume it in a
+completely transparent way, even locating the correct <strong>Release</strong>/<strong>Debug</strong> artifacts.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>editable<span class="w"> </span>add<span class="w"> </span>.<span class="w"> </span>say/0.1
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When working with editable packages, the information set in <code class="docutils literal notranslate"><span class="pre">self.cpp.source</span></code> and <code class="docutils literal notranslate"><span class="pre">self.cpp.build</span></code> will be merged with the
+information set in <code class="docutils literal notranslate"><span class="pre">self.cpp.package</span></code> so that we don’t have to declare again something like <code class="docutils literal notranslate"><span class="pre">self.cpp.build.libs</span> <span class="pre">=</span> <span class="pre">[&quot;say&quot;]</span></code> that is
+the same for the consumers, independently of whether the package is in editable mode or not.</p>
+</div>
+<p>And of course, we can run also a <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">create</span></code> command. When the <code class="docutils literal notranslate"><span class="pre">build(self)</span></code> method is run in the conan cache, it is
+also able to locate the <code class="docutils literal notranslate"><span class="pre">my_tool</span></code> correctly, because it is using the same <code class="docutils literal notranslate"><span class="pre">folders.build</span></code>:</p>
+<div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">.conan/data/&lt;some_cache_folder&gt;</span><a class="headerlink" href="#id10" title="Link to this code"></a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>├── source
+│   └── src
+│       ├── CMakeLists.txt
+│       ├── hello.cpp
+│       ├── my_tool.cpp
+│       └── include
+│           └── hello.h
+├── build
+<span class="hll">│   └── cmake-build-debug
+</span>│       ├── say.a
+│       └── bin
+│           └── my_app
+└── package
+    ├── lib
+    │   └── say.a
+    ├── bin
+    │   └── my_app
+    └── include
+        └── hello.h
+</pre></div>
+</div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">package</span></code> local command has been disabled (will raise an exception) when the <code class="docutils literal notranslate"><span class="pre">layout()</span></code> method
+is declared. If the package can be consumed “locally” in a handy way, the use case for the <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">package</span></code> method
+is only testing that the method is correctly coded, but that can also be done with the <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">export-pkg</span></code> method.
+Thus, as part of the migration to Conan 2.0, the <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">package</span></code> method will disappear.</p>
+</div>
+</section>
+<section id="example-export-sources-folder">
+<h2>Example: export_sources_folder<a class="headerlink" href="#example-export-sources-folder" title="Link to this heading"></a></h2>
+<p>If we have this project, intended to create a package for a third-party library which code is located externally:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>├── conanfile.py
+├── patches
+│   └── mypatch
+└── CMakeLists.txt
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code> would look like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+
+<span class="k">class</span> <span class="nc">Pkg</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;pkg&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+    <span class="n">exports_sources</span> <span class="o">=</span> <span class="s2">&quot;CMakeLists.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;patches*&quot;</span>
+
+    <span class="k">def</span> <span class="nf">layout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">folders</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="s2">&quot;src&quot;</span>
+
+    <span class="k">def</span> <span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># we are inside a &quot;src&quot; subfolder, as defined by layout</span>
+        <span class="c1"># download something, that will be inside the &quot;src&quot; subfolder</span>
+        <span class="c1"># access to patches and CMakeLists, to apply them, replace files is done with:</span>
+        <span class="n">mypatch_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">export_sources_folder</span><span class="p">,</span> <span class="s2">&quot;patches/mypatch&quot;</span><span class="p">)</span>
+        <span class="n">cmake_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">export_sources_folder</span><span class="p">,</span> <span class="s2">&quot;CMakeLists.txt&quot;</span><span class="p">)</span>
+        <span class="c1"># patching, replacing, happens here</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># If necessary, the build() method also has access to the export_sources_folder</span>
+        <span class="c1"># for example if patching happens in build() instead of source()</span>
+        <span class="n">cmake_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">export_sources_folder</span><span class="p">,</span> <span class="s2">&quot;CMakeLists.txt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can see that the <code class="docutils literal notranslate"><span class="pre">ConanFile.export_sources_folder</span></code> can provide access to the root folder of the sources:</p>
+<ul class="simple">
+<li><p>Locally it will be the folder where the <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code> lives</p></li>
+<li><p>In the cache it will be the “source” folder, that will contain a copy of <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> and <code class="docutils literal notranslate"><span class="pre">patches</span></code>,
+while the “source/src” folder will contain the actual downloaded sources.</p></li>
+</ul>
+</section>
+<section id="example-conanfile-in-subfolder">
+<h2>Example: conanfile in subfolder<a class="headerlink" href="#example-conanfile-in-subfolder" title="Link to this heading"></a></h2>
+<p>If we have this project, intended to package the code that is in the same repo as the <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code>, but
+the <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code> is not in the root of the project:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>├── CMakeLists.txt
+└── conan
+    └── conanfile.py
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code> would look like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+<span class="kn">from</span> <span class="nn">conan.tools.files</span> <span class="kn">import</span> <span class="n">load</span><span class="p">,</span> <span class="n">copy</span>
+
+
+<span class="k">class</span> <span class="nc">Pkg</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;pkg&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+
+    <span class="k">def</span> <span class="nf">layout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># The root of the project is one level above</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">folders</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="s2">&quot;..&quot;</span>
+        <span class="c1"># The source of the project (the root CMakeLists.txt) is the source folder</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">folders</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">folders</span><span class="o">.</span><span class="n">build</span> <span class="o">=</span> <span class="s2">&quot;build&quot;</span>
+
+    <span class="k">def</span> <span class="nf">export_sources</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># The path of the CMakeLists.txt we want to export is one level above</span>
+        <span class="n">folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">recipe_folder</span><span class="p">,</span> <span class="s2">&quot;..&quot;</span><span class="p">)</span>
+        <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;*.txt&quot;</span><span class="p">,</span> <span class="n">folder</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">export_sources_folder</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># we can see that the CMakeLists.txt is inside the source folder</span>
+        <span class="n">cmake</span> <span class="o">=</span> <span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;CMakeLists.txt&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># The build() method can also access the CMakeLists.txt in the source folder</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source_folder</span><span class="p">,</span> <span class="s2">&quot;CMakeLists.txt&quot;</span><span class="p">)</span>
+        <span class="n">cmake</span> <span class="o">=</span> <span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="example-multiple-subprojects">
+<span id="package-layout-example-multiple-subprojects"></span><h2>Example: Multiple subprojects<a class="headerlink" href="#example-multiple-subprojects" title="Link to this heading"></a></h2>
+<p>Lets say that we have a project that contains multiple subprojects, and some of these subprojects need
+to access some information that is at their same level (sibling folders). Each subproject would be
+a Conan package.</p>
+<p>So we have the following folders and files:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>├── pkg
+│    ├── conanfile.py
+│    ├── app.cpp  # contains an #include &quot;../common/myheader.h&quot;
+│    └── CMakeLists.txt # contains include(../common/myutils.cmake)
+├── common
+│    ├── myutils.cmake
+│    └── myheader.h
+└── othersubproject
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">pkg</span></code> subproject needs to use some of the files located inside the <code class="docutils literal notranslate"><span class="pre">common</span></code> folder (that might be
+used and shared by other subprojects too), and it references them by their relative location.
+Note that <code class="docutils literal notranslate"><span class="pre">common</span></code> is not intended to be a Conan package. It is just some common code that will be copied
+into the different subproject packages.</p>
+<p>We can use the <code class="docutils literal notranslate"><span class="pre">self.folders.root</span> <span class="pre">=</span> <span class="pre">&quot;..&quot;</span></code> layout specifier to locate the root of the project, then
+use the <code class="docutils literal notranslate"><span class="pre">self.folders.subproject</span> <span class="pre">=</span> <span class="pre">&quot;subprojectfolder&quot;</span></code> to relocate back most of the layout to the
+current subproject folder, as it would be the one containing the build scripts, sources code, etc.,
+so other helpers like <code class="docutils literal notranslate"><span class="pre">cmake_layout()</span></code> keep working.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+<span class="kn">from</span> <span class="nn">conan.tools.cmake</span> <span class="kn">import</span> <span class="n">cmake_layout</span><span class="p">,</span> <span class="n">CMake</span>
+<span class="kn">from</span> <span class="nn">conan.tools.files</span> <span class="kn">import</span> <span class="n">load</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="n">save</span>
+
+<span class="k">class</span> <span class="nc">Pkg</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;pkg&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span>
+    <span class="n">generators</span> <span class="o">=</span> <span class="s2">&quot;CMakeToolchain&quot;</span>
+
+    <span class="k">def</span> <span class="nf">layout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">folders</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="s2">&quot;..&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">folders</span><span class="o">.</span><span class="n">subproject</span> <span class="o">=</span> <span class="s2">&quot;pkg&quot;</span>
+        <span class="n">cmake_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">export_sources</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">source_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">recipe_folder</span><span class="p">,</span> <span class="s2">&quot;..&quot;</span><span class="p">)</span>
+        <span class="n">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">source_folder</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">export_sources_folder</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">cmake</span> <span class="o">=</span> <span class="n">CMake</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">cmake</span><span class="o">.</span><span class="n">configure</span><span class="p">()</span>
+        <span class="n">cmake</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">bindirs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;myapp&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Note it is very important the <code class="docutils literal notranslate"><span class="pre">export_sources()</span></code> method, that is able to maintain the same relative layout
+of the <code class="docutils literal notranslate"><span class="pre">pkg</span></code> and <code class="docutils literal notranslate"><span class="pre">common</span></code> folders, both in the local developer flow in the current folder, but also
+when those sources are copied to the Conan cache, to be built there with <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">create</span></code> or <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">install</span> <span class="pre">--build=pkg</span></code>.
+This is one of the design principles of the <code class="docutils literal notranslate"><span class="pre">layout()</span></code>, the relative location of things must be consistent in the user
+folder and in the cache.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="package_dev_flow.html" class="btn btn-neutral float-left" title="Package development flow" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="editable_packages.html" class="btn btn-neutral float-right" title="Packages in editable mode" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2022, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 1.54
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/en/1.54/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

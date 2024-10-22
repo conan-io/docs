@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>global.conf &mdash; conan 1.56.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+    <link rel="shortcut icon" href="../../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/en/latest/reference/config_files/global_conf.html" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=a9b2fa26"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="conandata.yml" href="conandata.yml.html" />
+    <link rel="prev" title="conan.conf" href="conan.conf.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/conan-logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.56
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../conan_v2.html">Conan migration guide to 2.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../training_courses.html">Training Courses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versioning.html">Versioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../extending.html">Extending Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../howtos.html">Howtos</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../commands.html">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conanfile.html">conanfile.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generators.html">Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../profiles.html">Profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../build_helpers.html">Build helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tools.html">Tools</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../config_files.html">Configuration files</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="artifacts.properties.html">artifacts.properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="client_certificates.html">client.crt / client.key</a></li>
+<li class="toctree-l3"><a class="reference internal" href="conan.conf.html">conan.conf</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">global.conf</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#global-configuration">Global configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tools-configurations">Tools configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configuration-file-template">Configuration file template</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configuration-data-types">Configuration data types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configuration-data-operators">Configuration data operators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configuration-in-your-profiles">Configuration in your profiles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configuration-patterns">Configuration patterns</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configuration-in-your-recipes">Configuration in your recipes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configuration-from-tool-requires">Configuration from tool_requires</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="conandata.yml.html">conandata.yml</a></li>
+<li class="toctree-l3"><a class="reference internal" href="default_profile.html">profiles/default</a></li>
+<li class="toctree-l3"><a class="reference internal" href="editable_layout.html">Editable layout files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="settings.yml.html">settings.yml</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../env_vars.html">Environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hooks.html">Hooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conan_v2_mode.html">CONAN_V2_MODE</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../cheatsheet.html">Cheatsheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #eb8484;background-color: #ffcaca;padding: 3px;margin-bottom: 5px">
+              <p>This document is for a <b>"1.X" legacy</b> Conan version, <b>which is no longer recommended</b>. Please update to Conan 2, <a href="https://docs.conan.io/2/">click here to read the <b>Conan 2</b> documentation</a></p>
+            </div>
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          <!--@ OUTDATED_VERSION_PLACEHOLDER_BEGIN @
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/@LATEST_DOC_PAGE_URL@">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          @ OUTDATED_VERSION_PLACEHOLDER_END @-->
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="../config_files.html">Configuration files</a></li>
+      <li class="breadcrumb-item active">global.conf</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/master/reference/config_files/global_conf.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="global-conf">
+<span id="id1"></span><h1>global.conf<a class="headerlink" href="#global-conf" title="Link to this heading"></a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This new configuration mechanism is an <strong>experimental</strong> feature subject to breaking changes in future releases.</p>
+</div>
+<p>The <strong>global.conf</strong> file is located in the Conan user home directory.</p>
+<section id="global-configuration">
+<h2>Global configuration<a class="headerlink" href="#global-configuration" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">core:required_conan_version</span> <span class="pre">=</span> <span class="pre">expression</span></code> allows defining a version expression like
+<code class="docutils literal notranslate"><span class="pre">&gt;=1.30</span></code>. Conan will raise an error if its current version does not satisfy the
+condition</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">core.package_id:msvc_visual_incompatible</span></code> allows opting-out the fallback from the new
+<code class="docutils literal notranslate"><span class="pre">msvc</span></code> compiler to the <code class="docutils literal notranslate"><span class="pre">Visual</span> <span class="pre">Studio</span></code> compiler existing binaries</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">core:default_profile</span></code> defines the default host profile (‘default’ by default)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">core:default_build_profile</span></code> defines the default build profile (None by default)</p></li>
+</ul>
+</section>
+<section id="tools-configurations">
+<h2>Tools configurations<a class="headerlink" href="#tools-configurations" title="Link to this heading"></a></h2>
+<p>Tools and user configurations allows them to be defined both in the <em>global.conf</em> file and in profile files. Profile values will
+have priority over globally defined ones in <em>global.conf</em>, and can be defined as:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[settings]
+...
+
+[conf]
+tools.microsoft.msbuild:verbosity=Diagnostic
+tools.microsoft.msbuild:max_cpu_count=2
+tools.microsoft.msbuild:vs_version = 16
+tools.build:jobs=10
+</pre></div>
+</div>
+<p>To list all possible configurations available, run <strong class="command">conan config list</strong>.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ conan config list
+
+core.package_id:msvc_visual_incompatible: Allows opting-out the fallback from the new msvc compiler to the Visual Studio compiler existing binaries
+core:default_build_profile: Defines the default build profile (None by default)
+core:default_profile: Defines the default host profile (&#39;default&#39; by default)
+core:required_conan_version: Raise if current version does not match the defined range
+tools.android:ndk_path: Argument for the CMAKE_ANDROID_NDK
+tools.apple.xcodebuild:verbosity: Verbosity level for xcodebuild: &#39;verbose&#39; or &#39;quiet
+tools.apple:enable_arc: (boolean) Enable/Disable ARC Apple Clang flags
+tools.apple:enable_bitcode: (boolean) Enable/Disable Bitcode Apple Clang flags
+tools.apple:enable_visibility: (boolean) Enable/Disable Visibility Apple Clang flags
+tools.apple:sdk_path: Path for the sdk location. This value will be passed as SDKROOT or -isysroot depending on the generator used
+tools.build.cross_building:can_run: Set the return value for the &#39;conan.tools.build.can_run()&#39; tool
+tools.build:cflags: List of extra C flags used by different toolchains like CMakeToolchain, AutotoolsToolchain and MesonToolchain
+tools.build:compiler_executables: Defines a Python dict-like with the compilers path to be used. Allowed keys {&#39;c&#39;, &#39;cpp&#39;, &#39;cuda&#39;, &#39;objc&#39;, &#39;objcxx&#39;, &#39;rc&#39;, &#39;fortran&#39;, &#39;asm&#39;, &#39;hip&#39;, &#39;ispc&#39;}
+tools.build:cxxflags: List of extra CXX flags used by different toolchains like CMakeToolchain, AutotoolsToolchain and MesonToolchain
+tools.build:defines: List of extra definition flags used by different toolchains like CMakeToolchain and AutotoolsToolchain
+tools.build:exelinkflags: List of extra flags used by CMakeToolchain for CMAKE_EXE_LINKER_FLAGS_INIT variable
+tools.build:jobs: Default compile jobs number -jX Ninja, Make, /MP VS (default: max CPUs)
+tools.build:sharedlinkflags: List of extra flags used by CMakeToolchain for CMAKE_SHARED_LINKER_FLAGS_INIT variable
+tools.build:skip_test: Do not execute CMake.test() and Meson.test() when enabled
+tools.build:sysroot: Pass the --sysroot=&lt;tools.build:sysroot&gt; flag if available. (None by default)
+tools.cmake.cmake_layout:build_folder_vars: Settings and Options that will produce a different build folder and different CMake presets names
+tools.cmake.cmaketoolchain.presets:max_schema_version: Generate CMakeUserPreset.json compatible with the supplied schema version
+tools.cmake.cmaketoolchain:find_package_prefer_config: Argument for the CMAKE_FIND_PACKAGE_PREFER_CONFIG
+tools.cmake.cmaketoolchain:generator: User defined CMake generator to use instead of default
+tools.cmake.cmaketoolchain:system_name: Define CMAKE_SYSTEM_NAME in CMakeToolchain
+tools.cmake.cmaketoolchain:system_processor: Define CMAKE_SYSTEM_PROCESSOR in CMakeToolchain
+tools.cmake.cmaketoolchain:system_version: Define CMAKE_SYSTEM_VERSION in CMakeToolchain
+tools.cmake.cmaketoolchain:toolchain_file: Use other existing file rather than conan_toolchain.cmake one
+tools.cmake.cmaketoolchain:toolset_arch: Will add the &#39;,host=xxx&#39; specifier in the &#39;CMAKE_GENERATOR_TOOLSET&#39; variable of &#39;conan_toolchain.cmake&#39; file
+tools.cmake.cmaketoolchain:user_toolchain: Inject existing user toolchains at the beginning of conan_toolchain.cmake
+tools.env.virtualenv:auto_use: Automatically activate virtualenv file generation
+tools.env.virtualenv:powershell: Opt-in to generate Powershell &#39;.ps1&#39; scripts instead of &#39;.bat&#39;
+tools.files.download:download_cache: Location for the download cache
+tools.files.download:retry: Number of retries in case of failure when downloading
+tools.files.download:retry_wait: Seconds to wait between download attempts
+tools.gnu:define_libcxx11_abi: Force definition of GLIBCXX_USE_CXX11_ABI=1 for libstdc++11
+tools.gnu:host_triplet: Custom host triplet to pass to Autotools scripts
+tools.gnu:make_program: Indicate path to make program
+tools.gnu:pkg_config: Define the &#39;pkg_config&#39; executable name or full path
+tools.google.bazel:bazelrc_path: Defines Bazel rc-path
+tools.google.bazel:configs: Define Bazel config file
+tools.intel:installation_path: Defines the Intel oneAPI installation root path
+tools.intel:setvars_args: Custom arguments to be passed onto the setvars.sh|bat script from Intel oneAPI
+tools.meson.mesontoolchain:backend: Set the Meson backend. Possible values: &#39;ninja&#39;, &#39;vs&#39;, &#39;vs2010&#39;, &#39;vs2015&#39;, &#39;vs2017&#39;, &#39;vs2019&#39;, &#39;xcode&#39;
+tools.meson.mesontoolchain:extra_machine_files: List of paths for any additional native/cross file references to be appended to the existing Conan ones
+tools.microsoft.bash:path: Path to the shell executable. Default: &#39;bash&#39;
+tools.microsoft.bash:subsystem: Set subsystem to use for Windows. Possible values: &#39;msys2&#39;, &#39;msys&#39;, &#39;cygwin&#39;, &#39;wsl&#39; and &#39;sfu&#39;
+tools.microsoft.msbuild:installation_path: VS install path, to avoid auto-detect via vswhere, like C:/Program Files (x86)/Microsoft Visual Studio/2019/Community
+tools.microsoft.msbuild:max_cpu_count: Argument for the /m when running msvc to build parallel projects
+tools.microsoft.msbuild:verbosity: Verbosity level for MSBuild: &#39;Quiet&#39;, &#39;Minimal&#39;, &#39;Normal&#39;, &#39;Detailed&#39;, &#39;Diagnostic&#39;
+tools.microsoft.msbuild:vs_version: Defines the IDE version when using the new msvc compiler
+tools.microsoft.msbuilddeps:exclude_code_analysis: Suppress MSBuild code analysis for patterns
+tools.microsoft.msbuildtoolchain:compile_options: Dictionary with MSBuild compiler options
+tools.system.package_manager:mode: Mode for package_manager tools: &#39;check&#39; or &#39;install&#39;
+tools.system.package_manager:sudo: Use &#39;sudo&#39; when invoking the package manager tools in Linux (False by default)
+tools.system.package_manager:sudo_askpass: Use the &#39;-A&#39; argument if using sudo in Linux to invoke the system package manager (False by default)
+tools.system.package_manager:tool: Default package manager tool: &#39;apt-get&#39;, &#39;yum&#39;, &#39;dnf&#39;, &#39;brew&#39;, &#39;pacman&#39;, &#39;choco&#39;, &#39;zypper&#39;, &#39;pkg&#39; or &#39;pkgutil&#39;
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>This list may be outdated. Please, run the command <strong class="command">conan config list</strong> to check the latest configurations.</p>
+</div>
+</section>
+<section id="configuration-file-template">
+<h2>Configuration file template<a class="headerlink" href="#configuration-file-template" title="Link to this heading"></a></h2>
+<p>Available since: <a class="reference external" href="https://github.com/conan-io/conan/releases/tag/1.46.0">1.46.0</a></p>
+<p>It is possible to use <strong>jinja2</strong> template engine for <em>global.conf</em>. When Conan loads this file, immediately parses
+and renders the template, which must result in a standard tools-configuration text.</p>
+<blockquote>
+<div><div class="highlight-jinja notranslate"><div class="highlight"><pre><span></span><span class="x"># Using all the cores automatically</span>
+<span class="x">tools.build:jobs=</span><span class="cp">{{</span><span class="nv">os.cpu_count</span><span class="o">()</span><span class="cp">}}</span>
+<span class="x"># Using the current OS</span>
+<span class="x">user.myconf.system:name = </span><span class="cp">{{</span><span class="nv">platform.system</span><span class="o">()</span><span class="cp">}}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The Python packages passed to render the template are <code class="docutils literal notranslate"><span class="pre">os</span></code> and <code class="docutils literal notranslate"><span class="pre">platform</span></code> for all platforms and <code class="docutils literal notranslate"><span class="pre">distro</span></code> in Linux platforms.</p>
+</div>
+</section>
+<section id="configuration-data-types">
+<h2>Configuration data types<a class="headerlink" href="#configuration-data-types" title="Link to this heading"></a></h2>
+<p>Available since: <a class="reference external" href="https://github.com/conan-io/conan/releases/tag/1.46.0">1.46.0</a></p>
+<p>All the values will be interpreted by Conan as the result of the python built-in <cite>eval()</cite> function:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># String
+tools.microsoft.msbuild:verbosity=Diagnostic
+# Boolean
+tools.system.package_manager:sudo=True
+# Integer
+tools.microsoft.msbuild:max_cpu_count=2
+# List of values
+user.myconf.build:ldflags=[&quot;--flag1&quot;, &quot;--flag2&quot;]
+# Dictionary
+tools.microsoft.msbuildtoolchain:compile_options={&quot;ExceptionHandling&quot;: &quot;Async&quot;}
+</pre></div>
+</div>
+</section>
+<section id="configuration-data-operators">
+<h2>Configuration data operators<a class="headerlink" href="#configuration-data-operators" title="Link to this heading"></a></h2>
+<p>Available since: <a class="reference external" href="https://github.com/conan-io/conan/releases/tag/1.46.0">1.46.0</a></p>
+<p>It’s also possible to use some extra operators when you’re composing tool configurations in your <em>global.conf</em> or
+any of your profiles:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">+=</span></code> == <code class="docutils literal notranslate"><span class="pre">append</span></code>: appends values at the end of the existing value (only for lists).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">=+</span></code> == <code class="docutils literal notranslate"><span class="pre">prepend</span></code>: puts values at the beginning of the existing value (only for lists).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">=!</span></code> == <code class="docutils literal notranslate"><span class="pre">unset</span></code>: gets rid of any configuration value.</p></li>
+</ul>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text"><em>myprofile</em></span><a class="headerlink" href="#id5" title="Link to this code"></a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[settings]
+...
+
+[conf]
+# Define the value =&gt; [&quot;-f1&quot;]
+user.myconf.build:flags=[&quot;-f1&quot;]
+
+# Append the value [&quot;-f2&quot;] =&gt; [&quot;-f1&quot;, &quot;-f2&quot;]
+user.myconf.build:flags+=[&quot;-f2&quot;]
+
+# Prepend the value [&quot;-f0&quot;] =&gt; [&quot;-f0&quot;, &quot;-f1&quot;, &quot;-f2&quot;]
+user.myconf.build:flags=+[&quot;-f0&quot;]
+
+# Unset the value
+user.myconf.build:flags=!
+</pre></div>
+</div>
+</div>
+</section>
+<section id="configuration-in-your-profiles">
+<h2>Configuration in your profiles<a class="headerlink" href="#configuration-in-your-profiles" title="Link to this heading"></a></h2>
+<p>Let’s see a little bit more complex example trying different configurations coming from the <em>global.conf</em> and a simple profile:</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text"><em>global.conf</em></span><a class="headerlink" href="#id6" title="Link to this code"></a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># Defining several lists
+user.myconf.build:ldflags=[&quot;--flag1 value1&quot;]
+user.myconf.build:cflags=[&quot;--flag1 value1&quot;]
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text"><em>myprofile</em></span><a class="headerlink" href="#id7" title="Link to this code"></a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[settings]
+...
+
+[conf]
+# Appending values into the existing list
+user.myconf.build:ldflags+=[&quot;--flag2 value2&quot;]
+
+# Unsetting the existing value (it&#39;d be like we define it as an empty value)
+user.myconf.build:cflags=!
+
+# Prepending values into the existing list
+user.myconf.build:ldflags=+[&quot;--prefix prefix-value&quot;]
+</pre></div>
+</div>
+</div>
+<p>Running, for instance, <strong class="command">conan install . -pr myprofile</strong>, the configuration output will be something like:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>...
+Configuration:
+<span class="o">[</span>settings<span class="o">]</span>
+<span class="o">[</span>options<span class="o">]</span>
+<span class="o">[</span>build_requires<span class="o">]</span>
+<span class="o">[</span>env<span class="o">]</span>
+<span class="o">[</span>conf<span class="o">]</span>
+user.myconf.build:cflags<span class="o">=</span>!
+user.myconf.build:ldflags<span class="o">=[</span><span class="s1">&#39;--prefix prefix-value&#39;</span>,<span class="w"> </span><span class="s1">&#39;--flag1 value1&#39;</span>,<span class="w"> </span><span class="s1">&#39;--flag2 value2&#39;</span><span class="o">]</span>
+...
+</pre></div>
+</div>
+</section>
+<section id="configuration-patterns">
+<h2>Configuration patterns<a class="headerlink" href="#configuration-patterns" title="Link to this heading"></a></h2>
+<p>You can use package patterns to apply the configuration in those dependencies which are matching:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>*:tools.cmake.cmaketoolchain:generator=Ninja
+zlib:tools.cmake.cmaketoolchain:generator=Visual Studio 16 2019
+</pre></div>
+</div>
+<p>This example shows you how to specify a general <cite>generator</cite> for all your packages, but for <cite>zlib</cite> one. <cite>zlib</cite> is defining
+<cite>Visual Studio 16 2019</cite> as its own generator.</p>
+<p>Besides that, it’s quite relevant to say that <strong>the order matters</strong>. So, if we change the order of the
+configuration lines above:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>zlib:tools.cmake.cmaketoolchain:generator=Visual Studio 16 2019
+*:tools.cmake.cmaketoolchain:generator=Ninja
+</pre></div>
+</div>
+<p>The result is that you’re specifying a general <cite>generator</cite> for all your packages, and that’s it. The <cite>zlib</cite> line has no
+effect because it’s the first one evaluated, and after that, Conan is overriding that specific pattern with the most
+general one, so it deserves to pay special attention to the order.</p>
+</section>
+<section id="configuration-in-your-recipes">
+<span id="conf-in-recipes"></span><h2>Configuration in your recipes<a class="headerlink" href="#configuration-in-your-recipes" title="Link to this heading"></a></h2>
+<p>From Conan 1.46, the user interface to manage the configurations in your recipes has been improved. The <code class="docutils literal notranslate"><span class="pre">self.conf_info</span></code>
+object has the following methods available:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">get(name,</span> <span class="pre">default=None,</span> <span class="pre">check_type=None)</span></code>: gets the value for the given configuration name. Besides that you can pass
+<code class="docutils literal notranslate"><span class="pre">check_type</span></code> to check the Python type matches with the value type returned, e.g., <code class="docutils literal notranslate"><span class="pre">check_type=list</span></code>. If the configuration
+does not exist, <code class="docutils literal notranslate"><span class="pre">default</span></code> will be returned instead. Notice that this <code class="docutils literal notranslate"><span class="pre">default</span></code> value won’t be affected by the <code class="docutils literal notranslate"><span class="pre">check_type=list</span></code> param.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pop(name,</span> <span class="pre">default=None)</span></code>: removes (if exists) the configuration name given. If the configuration does not exist,
+<code class="docutils literal notranslate"><span class="pre">default</span></code> will be returned instead.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">define(name,</span> <span class="pre">value)</span></code>: sets <code class="docutils literal notranslate"><span class="pre">value</span></code> for the given configuration name. If it already exists, the configuration will be
+overwritten with the new value.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">append(name,</span> <span class="pre">value)</span></code>: (only available for <code class="docutils literal notranslate"><span class="pre">list</span></code>) appends <code class="docutils literal notranslate"><span class="pre">value</span></code> into the existing list for the given configuration name. If the list does not
+exist yet, it’ll be created with the value given by default. <code class="docutils literal notranslate"><span class="pre">value</span></code> can be a list or a single value.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">prepend(name,</span> <span class="pre">value)</span></code>: (only available for <code class="docutils literal notranslate"><span class="pre">list</span></code>) prepends <code class="docutils literal notranslate"><span class="pre">value</span></code> into the existing list for the given configuration name. If the list does not
+exist yet, it’ll be created with the value given by default. <code class="docutils literal notranslate"><span class="pre">value</span></code> can be a list or a single value.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">update(name,</span> <span class="pre">value)</span></code>: (only available for <code class="docutils literal notranslate"><span class="pre">dict</span></code>) updates the existing dictionary with <code class="docutils literal notranslate"><span class="pre">value</span></code> for the given configuration name. If the dict does not
+exist yet, it’ll be created with the value given by default. <code class="docutils literal notranslate"><span class="pre">value</span></code> must be another dictionary.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">remove(name,</span> <span class="pre">value)</span></code>: (only available for <code class="docutils literal notranslate"><span class="pre">dict</span></code> and <code class="docutils literal notranslate"><span class="pre">list</span></code>) removes <code class="docutils literal notranslate"><span class="pre">value</span></code> from the existing value for the given configuration name.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">unset(name)</span></code>: removes any existing value for the given configuration name. It’s behaving like using <code class="docutils literal notranslate"><span class="pre">define(name,</span> <span class="pre">None)</span></code>.</p></li>
+</ul>
+<p>This example illustrates all of these methods:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+<span class="k">class</span> <span class="nc">Pkg</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;pkg&quot;</span>
+
+    <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Setting values</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conf_info</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s2">&quot;tools.microsoft.msbuild:verbosity&quot;</span><span class="p">,</span> <span class="s2">&quot;Diagnostic&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conf_info</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s2">&quot;tools.system.package_manager:sudo&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conf_info</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s2">&quot;tools.microsoft.msbuild:max_cpu_count&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conf_info</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s2">&quot;user.myconf.build:ldflags&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;--flag1&quot;</span><span class="p">,</span> <span class="s2">&quot;--flag2&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conf_info</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s2">&quot;tools.microsoft.msbuildtoolchain:compile_options&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;ExceptionHandling&quot;</span><span class="p">:</span> <span class="s2">&quot;Async&quot;</span><span class="p">})</span>
+        <span class="c1"># Getting values</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conf_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tools.microsoft.msbuild:verbosity&quot;</span><span class="p">)</span>  <span class="c1"># == &quot;Diagnostic&quot;</span>
+        <span class="c1"># Getting default values from configurations that don&#39;t exist yet</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conf_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;user.myotherconf.build:cxxflags&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;--flag3&quot;</span><span class="p">])</span>  <span class="c1"># == [&quot;--flag3&quot;]</span>
+        <span class="c1"># Getting values and ensuring the gotten type is the passed one otherwise an exception will be raised</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conf_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tools.system.package_manager:sudo&quot;</span><span class="p">,</span> <span class="n">check_type</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>  <span class="c1"># == True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conf_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tools.system.package_manager:sudo&quot;</span><span class="p">,</span> <span class="n">check_type</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>  <span class="c1"># ERROR! It raises a ConanException</span>
+        <span class="c1"># Modifying configuration list-like values</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conf_info</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;user.myconf.build:ldflags&quot;</span><span class="p">,</span> <span class="s2">&quot;--flag3&quot;</span><span class="p">)</span>  <span class="c1"># == [&quot;--flag1&quot;, &quot;--flag2&quot;, &quot;--flag3&quot;]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conf_info</span><span class="o">.</span><span class="n">prepend</span><span class="p">(</span><span class="s2">&quot;user.myconf.build:ldflags&quot;</span><span class="p">,</span> <span class="s2">&quot;--flag0&quot;</span><span class="p">)</span>  <span class="c1"># == [&quot;--flag0&quot;, &quot;--flag1&quot;, &quot;--flag2&quot;, &quot;--flag3&quot;]</span>
+        <span class="c1"># Modifying configuration dict-like values</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conf_info</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s2">&quot;tools.microsoft.msbuildtoolchain:compile_options&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;ExpandAttributedSource&quot;</span><span class="p">:</span> <span class="s2">&quot;false&quot;</span><span class="p">})</span>
+        <span class="c1"># Unset any value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conf_info</span><span class="o">.</span><span class="n">unset</span><span class="p">(</span><span class="s2">&quot;tools.microsoft.msbuildtoolchain:compile_options&quot;</span><span class="p">)</span>
+        <span class="c1"># Remove</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conf_info</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;user.myconf.build:ldflags&quot;</span><span class="p">,</span> <span class="s2">&quot;--flag1&quot;</span><span class="p">)</span>  <span class="c1"># == [&quot;--flag0&quot;, &quot;--flag2&quot;, &quot;--flag3&quot;]</span>
+        <span class="c1"># Removing completely the configuration</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conf_info</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;tools.system.package_manager:sudo&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Legacy configuration methods to set/get values like <code class="docutils literal notranslate"><span class="pre">self.conf_info[&quot;xxxxx&quot;]</span> <span class="pre">=</span> <span class="pre">&quot;yyyyy&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">v</span> <span class="pre">=</span> <span class="pre">self.conf_info[&quot;xxxxx&quot;]</span></code> are
+deprecated since Conan 1.46 version. Use <code class="docutils literal notranslate"><span class="pre">self.conf_info.define(&quot;xxxxx&quot;,</span> <span class="pre">&quot;yyyyy&quot;)</span></code> and <code class="docutils literal notranslate"><span class="pre">v</span> <span class="pre">=</span> <span class="pre">self.conf_info.get(&quot;xxxxx&quot;)</span></code> instead
+like the example above.</p>
+</div>
+</section>
+<section id="configuration-from-tool-requires">
+<h2>Configuration from tool_requires<a class="headerlink" href="#configuration-from-tool-requires" title="Link to this heading"></a></h2>
+<p>From Conan 1.37, it is possible to define configuration in packages that are <code class="docutils literal notranslate"><span class="pre">tool_requires</span></code>. For example, assuming
+there is a package that bundles the AndroidNDK, it could define the location of such NDK to the <code class="docutils literal notranslate"><span class="pre">tools.android:ndk_path</span></code>
+configuration as:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+<span class="k">class</span> <span class="nc">Pkg</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;android_ndk&quot;</span>
+
+    <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conf_info</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="s2">&quot;tools.android:ndk_path&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">package_folder</span><span class="p">,</span> <span class="s2">&quot;ndk&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Note that this only propagates from the immediate, direct <code class="docutils literal notranslate"><span class="pre">tool_requires</span></code> of a recipe.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="conan.conf.html" class="btn btn-neutral float-left" title="conan.conf" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="conandata.yml.html" class="btn btn-neutral float-right" title="conandata.yml" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2022, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 1.56
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/en/1.56/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

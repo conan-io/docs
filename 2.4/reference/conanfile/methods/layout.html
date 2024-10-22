@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>layout() &mdash; conan 2.4.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=045299b1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/conan.css?v=7d9e9f1e" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/reference/conanfile/methods/layout.html" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=e9ebdb8f"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="package()" href="package.html" />
+    <link rel="prev" title="init()" href="init.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html">
+            
+              <img src="../../../_static/conan-docs-logo-2.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.4
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../whatsnew.html">What’s new in Conan 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../devops.html">Devops guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../commands.html">Commands</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../conanfile.html">conanfile.py</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../attributes.html">Attributes</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../methods.html">Methods</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="build.html">build()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="build_id.html">build_id()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="build_requirements.html">build_requirements()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="compatibility.html">compatibility()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="configure.html">configure()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config_options.html">config_options()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="deploy.html">deploy()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="export.html">export()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="export_sources.html">export_sources()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generate.html">generate()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="init.html">init()</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">layout()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="package.html">package()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="package_id.html">package_id()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="package_info.html">package_info()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="requirements.html">requirements()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="requirements.html#package-type-trait-inferring">package_type trait inferring</a></li>
+<li class="toctree-l4"><a class="reference internal" href="requirements.html#default-traits-for-each-kind-of-requires">Default traits for each kind of requires</a></li>
+<li class="toctree-l4"><a class="reference internal" href="set_name.html">set_name()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="set_version.html">set_version()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="source.html">source()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system_requirements.html">system_requirements()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="test.html">test()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="validate.html">validate()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="validate_build.html">validate_build()</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../running_and_output.html">Running and output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools.html">Recipe tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../config_files.html">Configuration files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../extensions.html">Extensions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../environment.html">Environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../binary_model.html">The binary model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../conan_server.html">Conan Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../runners.html">Runners</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../knowledge.html">Knowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/reference/conanfile/methods/layout.html">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../reference.html">Reference</a></li>
+          <li class="breadcrumb-item"><a href="../../conanfile.html">conanfile.py</a></li>
+          <li class="breadcrumb-item"><a href="../methods.html">Methods</a></li>
+      <li class="breadcrumb-item active">layout()</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/develop2/reference/conanfile/methods/layout.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="layout">
+<span id="reference-conanfile-methods-layout"></span><h1>layout()<a class="headerlink" href="#layout" title="Link to this heading">¶</a></h1>
+<p>In the layout() method you can adjust <code class="docutils literal notranslate"><span class="pre">self.folders</span></code> and <code class="docutils literal notranslate"><span class="pre">self.cpp</span></code>.</p>
+<section id="self-folders">
+<span id="layout-folders-reference"></span><h2>self.folders<a class="headerlink" href="#self-folders" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>self.folders.source</strong> (Defaulted to <code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code>): Specifies a subfolder where the sources are.
+The <code class="docutils literal notranslate"><span class="pre">self.source_folder</span></code> attribute inside the <code class="docutils literal notranslate"><span class="pre">source(self)</span></code> and <code class="docutils literal notranslate"><span class="pre">build(self)</span></code>
+methods will be set with this subfolder. The <em>current working directory</em> in the
+<code class="docutils literal notranslate"><span class="pre">source(self)</span></code> method will include this subfolder. The <cite>export_sources</cite> and <cite>exports</cite> sources will also be copied to the root source directory. It is used in the cache
+when running <strong class="command">conan create</strong> (relative to the cache source folder) as well as in
+a local folder when running <strong class="command">conan build</strong> (relative to the local current
+folder).</p></li>
+<li><p><strong>self.folders.build</strong> (Defaulted to <code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code>): Specifies a subfolder where the files from the
+build are. The <code class="docutils literal notranslate"><span class="pre">self.build_folder</span></code> attribute and the <em>current working directory</em>
+inside the <code class="docutils literal notranslate"><span class="pre">build(self)</span></code> method will be set with this subfolder. It is used in the
+cache when running <strong class="command">conan create</strong> (relative to the cache source folder) as well
+as in a local folder when running <strong class="command">conan build</strong> (relative to the local current
+folder).</p></li>
+<li><p><strong>self.folders.generators</strong> (Defaulted to <code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code>): Specifies a subfolder in which to write the
+files from the generators and the toolchains. In the cache, when running
+<strong class="command">conan create</strong>, this subfolder will be relative to the root build folder and
+when running the <strong class="command">conan install</strong> command it will be relative to the current
+working directory.</p></li>
+<li><p><strong>self.folders.root</strong> (Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Specifies a parent directory where the
+sources, generators, etc., are located specifically when the <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code> is located
+in a separated subdirectory. Check <a class="reference internal" href="../../../examples/conanfile/layout/conanfile_in_subfolder.html#examples-conanfile-layout-conanfile-in-subfolder"><span class="std std-ref">this
+example</span></a> on how to use
+<strong>self.folders.root</strong>.</p></li>
+<li><p><strong>self.folders.subproject</strong> (Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Specifies a subfolder where the
+<code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code> is relative to the project root. This is particularly useful for
+<a class="reference internal" href="../../../examples/conanfile/layout/multiple_subprojects.html#examples-conanfile-layout-multiple-subprojects"><span class="std std-ref">layouts with multiple subprojects</span></a></p></li>
+<li><p><strong>self.folders.build_folder_vars</strong> (Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Use settings, options and/or
+<code class="docutils literal notranslate"><span class="pre">self.name</span></code> and <code class="docutils literal notranslate"><span class="pre">self.version</span></code> to produce a different build folder and different CMake presets names.</p></li>
+</ul>
+</section>
+<section id="self-cpp">
+<span id="layout-cpp-reference"></span><h2>self.cpp<a class="headerlink" href="#self-cpp" title="Link to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">layout()</span></code> method allows to declare <code class="docutils literal notranslate"><span class="pre">cpp_info</span></code> objects not only for the final
+package (like the classic approach with the <code class="docutils literal notranslate"><span class="pre">self.cpp_info</span></code> in the
+<code class="docutils literal notranslate"><span class="pre">package_info(self)</span></code> method) but for the <code class="docutils literal notranslate"><span class="pre">self.source_folder</span></code> and
+<code class="docutils literal notranslate"><span class="pre">self.build_folder</span></code>.</p>
+<p>The fields of the <code class="docutils literal notranslate"><span class="pre">cpp_info</span></code> objects at <code class="docutils literal notranslate"><span class="pre">self.cpp.build</span></code> and <code class="docutils literal notranslate"><span class="pre">self.cpp.source</span></code> are the
+same described <a class="reference internal" href="package_info.html#conan-conanfile-model-cppinfo"><span class="std std-ref">here</span></a>. Components are also supported.</p>
+<p>Properties to declare all the information needed by the consumers of a package: include directories,
+library names, library paths… Used both for <a class="reference internal" href="../../../tutorial/developing_packages/editable_packages.html#editable-packages"><span class="std std-ref">editable packages</span></a> and regular packages in the cache.</p>
+<p>There are three objects available in the <code class="docutils literal notranslate"><span class="pre">layout()</span></code> method:</p>
+<ul>
+<li><p><strong>self.cpp.package</strong>: For a regular package being used from the Conan cache. Describes the contents of the final package.
+Exactly the same as in the <code class="docutils literal notranslate"><span class="pre">package_info()</span></code> <code class="docutils literal notranslate"><span class="pre">self.cpp_info</span></code>, but in the <code class="docutils literal notranslate"><span class="pre">layout()</span></code> method.</p></li>
+<li><p><strong>self.cpp.source</strong>: For “editable” packages, to describe the artifacts under <code class="docutils literal notranslate"><span class="pre">self.source_folder</span></code>. These can cover:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">self.cpp.source.includedirs</span></code>: To specify where the headers are at development time, like the typical <code class="docutils literal notranslate"><span class="pre">src</span></code> folder,
+before being packaged in the <code class="docutils literal notranslate"><span class="pre">include</span></code> package folder.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">self.cpp.source.libdirs</span></code> and <code class="docutils literal notranslate"><span class="pre">self.cpp.source.libs</span></code> could describe the case where libraries are committed to source
+control (hopefully exceptional case), so they are not part of the build results, but part of the source.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>self.cpp.build</strong>: For “editable” packages, to describe the artifacts under <code class="docutils literal notranslate"><span class="pre">self.build_folder</span></code>.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">self.cpp.build.libdirs</span></code> will express the location of the built libraries before being packaged. They can often be found
+in a folder like <code class="docutils literal notranslate"><span class="pre">x64/Release</span></code>, or <code class="docutils literal notranslate"><span class="pre">release64</span></code> or similar.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">self.cpp.build.includedirs</span></code> can define the location of headers that are generated at build time, like headers stubs
+generated by some tools.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">layout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">folders</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="s2">&quot;src&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">folders</span><span class="o">.</span><span class="n">build</span> <span class="o">=</span> <span class="s2">&quot;build&quot;</span>
+
+    <span class="c1"># In the local folder (when the package is in development, or &quot;editable&quot;) the artifacts can be found:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">includedirs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;my_includes&quot;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">libdirs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;lib/x86_64&quot;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">libs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;foo&quot;</span><span class="p">]</span>
+
+    <span class="c1"># In the Conan cache, we packaged everything at the default standard directories, the library to link</span>
+    <span class="c1"># is &quot;foo&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">package</span><span class="o">.</span><span class="n">libs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;foo&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p>Read more about the usage of the <code class="docutils literal notranslate"><span class="pre">layout()</span></code> in <a class="reference internal" href="../../../tutorial/developing_packages/package_layout.html#developing-packages-layout"><span class="std std-ref">this tutorial</span></a> and Conan package layout</p></li>
+<li><p><a class="reference internal" href="../../../tutorial/developing_packages/package_layout.html#tutorial-package-layout"><span class="std std-ref">here</span></a>.</p></li>
+</ul>
+</div>
+</section>
+<section id="environment-variables-and-configuration">
+<h2>Environment variables and configuration<a class="headerlink" href="#environment-variables-and-configuration" title="Link to this heading">¶</a></h2>
+<p>There are some packages that might define some environment variables in their
+<code class="docutils literal notranslate"><span class="pre">package_info()</span></code> method via <code class="docutils literal notranslate"><span class="pre">self.buildenv_info</span></code>, <code class="docutils literal notranslate"><span class="pre">self.runenv_info</span></code>. Other
+packages can also use <code class="docutils literal notranslate"><span class="pre">self.conf_info</span></code> to pass configuration to their consumers.</p>
+<p>This is not an issue as long as the value of those environment variables or configuration
+do not require using the <code class="docutils literal notranslate"><span class="pre">self.package_folder</span></code>. If they do, then their values will
+not be correct for the “source” and “build” layouts. Something like this will be <strong>broken</strong>
+when used in <code class="docutils literal notranslate"><span class="pre">editable</span></code> mode:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+<span class="k">class</span> <span class="nc">SayConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># This is BROKEN if we put this package in editable mode</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">runenv_info</span><span class="o">.</span><span class="n">define_path</span><span class="p">(</span><span class="s2">&quot;MYDATA_PATH&quot;</span><span class="p">,</span>
+                                     <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">package_folder</span><span class="p">,</span> <span class="s2">&quot;my/data/path&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>When the package is in editable mode, for example, <code class="docutils literal notranslate"><span class="pre">self.package_folder</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code>, as
+obviously there is no package yet.
+The solution is to define it in the <code class="docutils literal notranslate"><span class="pre">layout()</span></code> method, in the same way the <code class="docutils literal notranslate"><span class="pre">cpp_info</span></code> can
+be defined there:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conan</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+<span class="k">class</span> <span class="nc">SayConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="k">def</span> <span class="nf">layout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># The final path will be relative to the self.source_folder</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layouts</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">buildenv_info</span><span class="o">.</span><span class="n">define_path</span><span class="p">(</span><span class="s2">&quot;MYDATA_PATH&quot;</span><span class="p">,</span> <span class="s2">&quot;my/source/data/path&quot;</span><span class="p">)</span>
+        <span class="c1"># The final path will be relative to the self.build_folder</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layouts</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">buildenv_info</span><span class="o">.</span><span class="n">define_path</span><span class="p">(</span><span class="s2">&quot;MYDATA_PATH2&quot;</span><span class="p">,</span> <span class="s2">&quot;my/build/data/path&quot;</span><span class="p">)</span>
+        <span class="c1"># The final path will be relative to the self.build_folder</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layouts</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">conf_info</span><span class="o">.</span><span class="n">define_path</span><span class="p">(</span><span class="s2">&quot;MYCONF&quot;</span><span class="p">,</span> <span class="s2">&quot;my_conf_folder&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">layouts</span></code> object contains <code class="docutils literal notranslate"><span class="pre">source</span></code>, <code class="docutils literal notranslate"><span class="pre">build</span></code> and <code class="docutils literal notranslate"><span class="pre">package</span></code> scopes, and each one contains
+one instance of <code class="docutils literal notranslate"><span class="pre">buildenv_info</span></code>, <code class="docutils literal notranslate"><span class="pre">runenv_info</span></code> and <code class="docutils literal notranslate"><span class="pre">conf_info</span></code>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="init.html" class="btn btn-neutral float-left" title="init()" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="package.html" class="btn btn-neutral float-right" title="package()" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2024, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 2.4
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/2.4/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Define information for consumers: the package_info() method &mdash; conan 2.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=045299b1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/conan.css?v=7d9e9f1e" />
+
+  
+    <link rel="shortcut icon" href="../../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/tutorial/creating_packages/define_package_information.html" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=20623aea"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Testing Conan packages" href="test_conan_packages.html" />
+    <link rel="prev" title="Package files: the package() method" href="package_method.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/conan-docs-logo-2.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../whatsnew.html">What’s new in Conan 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../tutorial.html">Tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../consuming_packages.html">Consuming packages</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../creating_packages.html">Creating packages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="create_your_first_package.html">Create your first Conan package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="handle_sources_in_packages.html">Handle sources in packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="add_dependencies_to_packages.html">Add dependencies to packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="preparing_the_build.html">Preparing the build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configure_options_settings.html">Configure settings and options in recipes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="build_packages.html">Build packages: the build() method</a></li>
+<li class="toctree-l3"><a class="reference internal" href="package_method.html">Package files: the package() method</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Define information for consumers: the package_info() method</a></li>
+<li class="toctree-l3"><a class="reference internal" href="test_conan_packages.html">Testing Conan packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="other_types_of_packages.html">Other types of packages</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../conan_repositories.html">Working with Conan repositories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_packages.html">Developing packages locally</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../versioning.html">Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../other_features.html">Other important Conan features</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../devops.html">Devops guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../knowledge.html">Knowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/tutorial/creating_packages/define_package_information.html">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../tutorial.html">Tutorial</a></li>
+          <li class="breadcrumb-item"><a href="../creating_packages.html">Creating packages</a></li>
+      <li class="breadcrumb-item active">Define information for consumers: the package_info() method</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/develop2/tutorial/creating_packages/define_package_information.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="define-information-for-consumers-the-package-info-method">
+<span id="tutorial-creating-define-package-info"></span><h1>Define information for consumers: the package_info() method<a class="headerlink" href="#define-information-for-consumers-the-package-info-method" title="Link to this heading">¶</a></h1>
+<p>In the previous tutorial section, we explained how to store the headers and binaries of a
+library in a Conan package using the <a class="reference internal" href="package_method.html#creating-packages-package-method"><span class="std std-ref">package
+method</span></a>. Consumers that depend on that package will
+reuse those files, but we have to provide some additional information so that Conan can
+pass that to the build system and consumers can use the package.</p>
+<p>For instance, in our example, we are building a static library named <em>hello</em> that will
+result in a <em>libhello.a</em> file in Linux and macOS or a <em>hello.lib</em> file in Windows. Also,
+we are packaging a header file <em>hello.h</em> with the declaration of the library functions.
+The Conan package ends up with the following structure in the Conan local cache:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>.
+├── include
+│   └── hello.h
+└── lib
+    └── libhello.a
+</pre></div>
+</div>
+<p>Then, consumers that want to link against this library will need some information:</p>
+<ul class="simple">
+<li><p>The location of the <em>include</em> folder in the Conan local cache to search for the
+<em>hello.h</em> file.</p></li>
+<li><p>The name of the library file to link against it (<em>libhello.a</em> or <em>hello.lib</em>)</p></li>
+<li><p>The location of the <em>lib</em> folder in the Conan local cache to search for the library
+file.</p></li>
+</ul>
+<p>Conan provides an abstraction over all the information consumers may need in the
+<a class="reference internal" href="../../reference/conanfile/methods/package_info.html#conan-conanfile-model-cppinfo"><span class="std std-ref">cpp_info</span></a> attribute of the ConanFile. The information
+for this attribute must be set in the <a class="reference internal" href="../../reference/conanfile/methods/package_info.html#reference-conanfile-methods-package-info"><span class="std std-ref">package_info() method</span></a>. Let’s have a look at the
+<code class="docutils literal notranslate"><span class="pre">package_info()</span></code> method of our <em>hello/1.0</em> Conan package:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text"><em>conanfile.py</em></span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">...</span>
+
+<span class="k">class</span> <span class="nc">helloRecipe</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;hello&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;1.0&quot;</span>
+
+    <span class="o">...</span>
+
+    <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">libs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;hello&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<p>We can see a couple of things:</p>
+<ul class="simple">
+<li><p>We are adding a <em>hello</em> library to the <code class="docutils literal notranslate"><span class="pre">libs</span></code> property of the <code class="docutils literal notranslate"><span class="pre">cpp_info</span></code> to tell
+consumers that they should link the libraries from that list.</p></li>
+<li><p>We are <strong>not adding</strong> information about the <em>lib</em> or <em>include</em> folders where the
+library and headers files are packaged. The <code class="docutils literal notranslate"><span class="pre">cpp_info</span></code> object provides the
+<code class="docutils literal notranslate"><span class="pre">.includedirs</span></code> and <code class="docutils literal notranslate"><span class="pre">.libdirs</span></code> properties to define those locations but Conan sets
+their value as <code class="docutils literal notranslate"><span class="pre">lib</span></code> and <code class="docutils literal notranslate"><span class="pre">include</span></code> by default so it’s not needed to add those in this
+case. If you were copying the package files to a different location then you have to set
+those explicitly. The declaration of the <code class="docutils literal notranslate"><span class="pre">package_info</span></code> method in our Conan package
+would be equivalent to this one:</p></li>
+</ul>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text"><em>conanfile.py</em></span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">...</span>
+
+<span class="k">class</span> <span class="nc">helloRecipe</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;hello&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;1.0&quot;</span>
+
+    <span class="o">...</span>
+
+    <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">libs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;hello&quot;</span><span class="p">]</span>
+        <span class="c1"># conan sets libdirs = [&quot;lib&quot;] and includedirs = [&quot;include&quot;] by default</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">libdirs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;lib&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">includedirs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;include&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<section id="setting-information-in-the-package-info-method">
+<h2>Setting information in the package_info() method<a class="headerlink" href="#setting-information-in-the-package-info-method" title="Link to this heading">¶</a></h2>
+<p>Besides what we explained above about the information you can set in the
+<code class="docutils literal notranslate"><span class="pre">package_info()</span></code> method, there are some typical use cases:</p>
+<ul class="simple">
+<li><p>Define information for consumers depending on settings or options</p></li>
+<li><p>Customizing certain information that generators provide to consumers, like the target
+names for CMake or the generated files names for pkg-config for example</p></li>
+<li><p>Propagating configuration values to consumers</p></li>
+<li><p>Propagating environment information to consumers</p></li>
+<li><p>Define components for Conan packages that provide multiple libraries</p></li>
+</ul>
+<p>Let’s see some of those in action. First, clone the project sources if you haven’t done so yet. You can
+find them in the <a class="reference external" href="https://github.com/conan-io/examples2">examples2 repository</a> on
+GitHub:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/conan-io/examples2.git
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>examples2/tutorial/creating_packages/package_information
+</pre></div>
+</div>
+</section>
+<section id="define-information-for-consumers-depending-on-settings-or-options">
+<h2>Define information for consumers depending on settings or options<a class="headerlink" href="#define-information-for-consumers-depending-on-settings-or-options" title="Link to this heading">¶</a></h2>
+<p>For this section of the tutorial we introduced some changes in the library and recipe.
+Let’s check the relevant parts:</p>
+<section id="changes-introduced-in-the-library-sources">
+<h3>Changes introduced in the library sources<a class="headerlink" href="#changes-introduced-in-the-library-sources" title="Link to this heading">¶</a></h3>
+<p>First, please note that we are using <a class="reference external" href="https://github.com/conan-io/libhello/tree/package_info">another branch</a> from the <strong>libhello</strong> library.
+Let’s check the library’s <em>CMakeLists.txt</em>:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text"><em>CMakeLists.txt</em></span><a class="headerlink" href="#id3" title="Link to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>cmake_minimum_required(VERSION 3.15)
+project(hello CXX)
+
+...
+
+add_library(hello src/hello.cpp)
+
+if (BUILD_SHARED_LIBS)
+<span class="hll">    set_target_properties(hello PROPERTIES OUTPUT_NAME hello-shared)
+</span>else()
+<span class="hll">    set_target_properties(hello PROPERTIES OUTPUT_NAME hello-static)
+</span>endif()
+
+...
+</pre></div>
+</div>
+</div>
+<p>As you can see, we are setting the output name for the library depending on whether we are
+building the library as static (<em>hello-static</em>) or as shared (<em>hello-shared</em>). Now let’s see
+how to translate these changes to the Conan recipe.</p>
+</section>
+<section id="changes-introduced-in-the-recipe">
+<h3>Changes introduced in the recipe<a class="headerlink" href="#changes-introduced-in-the-recipe" title="Link to this heading">¶</a></h3>
+<p>To update our recipe according to the changes in the library’s <em>CMakeLists.txt</em> we have to
+conditionally set the library name depending on the <code class="docutils literal notranslate"><span class="pre">self.options.shared</span></code> option in the
+<code class="docutils literal notranslate"><span class="pre">package_info()</span></code> method:</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text"><em>conanfile.py</em></span><a class="headerlink" href="#id4" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">helloRecipe</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="o">...</span>
+
+    <span class="k">def</span> <span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">git</span> <span class="o">=</span> <span class="n">Git</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">git</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://github.com/conan-io/libhello.git&quot;</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+        <span class="c1"># Please, be aware that using the head of the branch instead of an immutable tag</span>
+        <span class="c1"># or commit is not a good practice in general</span>
+<span class="hll">        <span class="n">git</span><span class="o">.</span><span class="n">checkout</span><span class="p">(</span><span class="s2">&quot;package_info&quot;</span><span class="p">)</span>
+</span>
+    <span class="o">...</span>
+
+    <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="hll">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">shared</span><span class="p">:</span>
+</span><span class="hll">            <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">libs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;hello-shared&quot;</span><span class="p">]</span>
+</span><span class="hll">        <span class="k">else</span><span class="p">:</span>
+</span><span class="hll">            <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">libs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;hello-static&quot;</span><span class="p">]</span>
+</span></pre></div>
+</div>
+</div>
+<p>Now, let’s create the Conan package with <code class="docutils literal notranslate"><span class="pre">shared=False</span></code> (that’s the default so no need
+to set it explicitly) and check that we are packaging the correct library
+(<em>libhello-static.a</em> or <em>hello-static.lib</em>) and that we are linking the correct library in
+the <em>test_package</em>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.<span class="w"> </span>--build<span class="o">=</span>missing
+...
+--<span class="w"> </span>Install<span class="w"> </span>configuration:<span class="w"> </span><span class="s2">&quot;Release&quot;</span>
+<span class="hll">--<span class="w"> </span>Installing:<span class="w"> </span>/Users/user/.conan2/p/tmp/a311fcf8a63f3206/p/lib/libhello-static.a
+</span>--<span class="w"> </span>Installing:<span class="w"> </span>/Users/user/.conan2/p/tmp/a311fcf8a63f3206/p/include/hello.h
+hello/1.0<span class="w"> </span>package<span class="o">()</span>:<span class="w"> </span>Packaged<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="s1">&#39;.h&#39;</span><span class="w"> </span>file:<span class="w"> </span>hello.h
+hello/1.0<span class="w"> </span>package<span class="o">()</span>:<span class="w"> </span>Packaged<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="s1">&#39;.a&#39;</span><span class="w"> </span>file:<span class="w"> </span>libhello-static.a
+hello/1.0:<span class="w"> </span>Package<span class="w"> </span><span class="s1">&#39;fd7c4113dad406f7d8211b3470c16627b54ff3af&#39;</span><span class="w"> </span>created
+...
+--<span class="w"> </span>Build<span class="w"> </span>files<span class="w"> </span>have<span class="w"> </span>been<span class="w"> </span>written<span class="w"> </span>to:<span class="w"> </span>/Users/user/.conan2/p/tmp/a311fcf8a63f3206/b/build/Release
+hello/1.0:<span class="w"> </span>CMake<span class="w"> </span>command:<span class="w"> </span>cmake<span class="w"> </span>--build<span class="w"> </span><span class="s2">&quot;/Users/user/.conan2/p/tmp/a311fcf8a63f3206/b/build/Release&quot;</span><span class="w"> </span>--<span class="w"> </span>-j16
+hello/1.0:<span class="w"> </span>RUN:<span class="w"> </span>cmake<span class="w"> </span>--build<span class="w"> </span><span class="s2">&quot;/Users/user/.conan2/p/tmp/a311fcf8a63f3206/b/build/Release&quot;</span><span class="w"> </span>--<span class="w"> </span>-j16
+<span class="o">[</span><span class="w"> </span><span class="m">25</span>%<span class="o">]</span><span class="w"> </span>Building<span class="w"> </span>CXX<span class="w"> </span>object<span class="w"> </span>CMakeFiles/hello.dir/src/hello.cpp.o
+<span class="hll"><span class="o">[</span><span class="w"> </span><span class="m">50</span>%<span class="o">]</span><span class="w"> </span>Linking<span class="w"> </span>CXX<span class="w"> </span>static<span class="w"> </span>library<span class="w"> </span>libhello-static.a
+</span><span class="o">[</span><span class="w"> </span><span class="m">50</span>%<span class="o">]</span><span class="w"> </span>Built<span class="w"> </span>target<span class="w"> </span>hello
+<span class="o">[</span><span class="w"> </span><span class="m">75</span>%<span class="o">]</span><span class="w"> </span>Building<span class="w"> </span>CXX<span class="w"> </span>object<span class="w"> </span>tests/CMakeFiles/test_hello.dir/test.cpp.o
+<span class="o">[</span><span class="m">100</span>%<span class="o">]</span><span class="w"> </span>Linking<span class="w"> </span>CXX<span class="w"> </span>executable<span class="w"> </span>test_hello
+<span class="o">[</span><span class="m">100</span>%<span class="o">]</span><span class="w"> </span>Built<span class="w"> </span>target<span class="w"> </span>test_hello
+hello/1.0:<span class="w"> </span>RUN:<span class="w"> </span>tests/test_hello
+...
+<span class="o">[</span><span class="w"> </span><span class="m">50</span>%<span class="o">]</span><span class="w"> </span>Building<span class="w"> </span>CXX<span class="w"> </span>object<span class="w"> </span>CMakeFiles/example.dir/src/example.cpp.o
+<span class="hll"><span class="o">[</span><span class="m">100</span>%<span class="o">]</span><span class="w"> </span>Linking<span class="w"> </span>CXX<span class="w"> </span>executable<span class="w"> </span>example
+</span><span class="o">[</span><span class="m">100</span>%<span class="o">]</span><span class="w"> </span>Built<span class="w"> </span>target<span class="w"> </span>example
+
+--------<span class="w"> </span>Testing<span class="w"> </span>the<span class="w"> </span>package:<span class="w"> </span>Running<span class="w"> </span>test<span class="o">()</span><span class="w"> </span>--------
+hello/1.0<span class="w"> </span><span class="o">(</span><span class="nb">test</span><span class="w"> </span>package<span class="o">)</span>:<span class="w"> </span>Running<span class="w"> </span>test<span class="o">()</span>
+hello/1.0<span class="w"> </span><span class="o">(</span><span class="nb">test</span><span class="w"> </span>package<span class="o">)</span>:<span class="w"> </span>RUN:<span class="w"> </span>./example
+hello/1.0:<span class="w"> </span>Hello<span class="w"> </span>World<span class="w"> </span>Release!<span class="w"> </span><span class="o">(</span>with<span class="w"> </span>color!<span class="o">)</span>
+</pre></div>
+</div>
+<p>As you can see both the tests for the library and the Conan <em>test_package</em> linked against
+the <em>libhello-static.a</em> library successfully.</p>
+</section>
+</section>
+<section id="properties-model-setting-information-for-specific-generators">
+<span id="tutorial-creating-define-package-info-properties"></span><h2>Properties model: setting information for specific generators<a class="headerlink" href="#properties-model-setting-information-for-specific-generators" title="Link to this heading">¶</a></h2>
+<p>The <a class="reference internal" href="../../reference/conanfile/methods/package_info.html#conan-conanfile-model-cppinfo-attributes"><span class="std std-ref">CppInfo</span></a> object provides the
+<code class="docutils literal notranslate"><span class="pre">set_property</span></code> method to set information specific to each generator. For example, in
+this tutorial, we use the <a class="reference internal" href="../../reference/tools/cmake/cmakedeps.html#conan-tools-cmakedeps"><span class="std std-ref">CMakeDeps</span></a> generator to generate the
+information that CMake needs to build a project that requires our library. <code class="docutils literal notranslate"><span class="pre">CMakeDeps</span></code>,
+by default, will set a target name for the library using the same name as the Conan
+package. If you have a look at that <em>CMakeLists.txt</em> from the <em>test_package</em>:</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">test_package <em>CMakeLists.txt</em></span><a class="headerlink" href="#id5" title="Link to this code">¶</a></div>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.15</span><span class="p">)</span>
+<span class="nb">project</span><span class="p">(</span><span class="s">PackageTest</span><span class="w"> </span><span class="s">CXX</span><span class="p">)</span>
+
+<span class="nb">find_package</span><span class="p">(</span><span class="s">hello</span><span class="w"> </span><span class="s">CONFIG</span><span class="w"> </span><span class="s">REQUIRED</span><span class="p">)</span>
+
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">example</span><span class="w"> </span><span class="s">src/example.cpp</span><span class="p">)</span>
+<span class="hll"><span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">example</span><span class="w"> </span><span class="s">hello::hello</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<p>You can see that we are linking with the target name <code class="docutils literal notranslate"><span class="pre">hello::hello</span></code>. Conan sets this
+target name by default, but we can change it using the <em>properties model</em>. Let’s try to
+change it to the name <code class="docutils literal notranslate"><span class="pre">hello::myhello</span></code>. To do this, we have to set the property
+<code class="docutils literal notranslate"><span class="pre">cmake_target_name</span></code> in the package_info method of our <em>hello/1.0</em> Conan package:</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text"><em>conanfile.py</em></span><a class="headerlink" href="#id6" title="Link to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">helloRecipe</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="o">...</span>
+
+    <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">shared</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">libs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;hello-shared&quot;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">libs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;hello-static&quot;</span><span class="p">]</span>
+
+<span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">set_property</span><span class="p">(</span><span class="s2">&quot;cmake_target_name&quot;</span><span class="p">,</span> <span class="s2">&quot;hello::myhello&quot;</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<p>Then, change the target name we are using in the <em>CMakeLists.txt</em> in the <em>test_package</em>
+folder to <code class="docutils literal notranslate"><span class="pre">hello::myhello</span></code>:</p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">test_package <em>CMakeLists.txt</em></span><a class="headerlink" href="#id7" title="Link to this code">¶</a></div>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.15</span><span class="p">)</span>
+<span class="nb">project</span><span class="p">(</span><span class="s">PackageTest</span><span class="w"> </span><span class="s">CXX</span><span class="p">)</span>
+<span class="c"># ...</span>
+<span class="hll"><span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">example</span><span class="w"> </span><span class="s">hello::myhello</span><span class="p">)</span>
+</span></pre></div>
+</div>
+</div>
+<p>And re-create the package:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.<span class="w"> </span>--build<span class="o">=</span>missing
+Exporting<span class="w"> </span>the<span class="w"> </span>recipe
+hello/1.0:<span class="w"> </span>Exporting<span class="w"> </span>package<span class="w"> </span>recipe
+hello/1.0:<span class="w"> </span>Using<span class="w"> </span>the<span class="w"> </span>exported<span class="w"> </span>files<span class="w"> </span>summary<span class="w"> </span><span class="nb">hash</span><span class="w"> </span>as<span class="w"> </span>the<span class="w"> </span>recipe<span class="w"> </span>revision:<span class="w"> </span>44d78a68b16b25c5e6d7e8884b8f58b8
+hello/1.0:<span class="w"> </span>A<span class="w"> </span>new<span class="w"> </span>conanfile.py<span class="w"> </span>version<span class="w"> </span>was<span class="w"> </span>exported
+hello/1.0:<span class="w"> </span>Folder:<span class="w"> </span>/Users/user/.conan2/p/a8cb81b31dc10d96/e
+hello/1.0:<span class="w"> </span>Exported<span class="w"> </span>revision:<span class="w"> </span>44d78a68b16b25c5e6d7e8884b8f58b8
+...
+--------<span class="w"> </span>Testing<span class="w"> </span>the<span class="w"> </span>package:<span class="w"> </span>Building<span class="w"> </span>--------
+hello/1.0<span class="w"> </span><span class="o">(</span><span class="nb">test</span><span class="w"> </span>package<span class="o">)</span>:<span class="w"> </span>Calling<span class="w"> </span>build<span class="o">()</span>
+...
+--<span class="w"> </span>Detecting<span class="w"> </span>CXX<span class="w"> </span>compile<span class="w"> </span>features
+--<span class="w"> </span>Detecting<span class="w"> </span>CXX<span class="w"> </span>compile<span class="w"> </span>features<span class="w"> </span>-<span class="w"> </span><span class="k">done</span>
+<span class="hll">--<span class="w"> </span>Conan:<span class="w"> </span>Target<span class="w"> </span>declared<span class="w"> </span><span class="s1">&#39;hello::myhello&#39;</span>
+</span>...
+<span class="o">[</span><span class="m">100</span>%<span class="o">]</span><span class="w"> </span>Linking<span class="w"> </span>CXX<span class="w"> </span>executable<span class="w"> </span>example
+<span class="o">[</span><span class="m">100</span>%<span class="o">]</span><span class="w"> </span>Built<span class="w"> </span>target<span class="w"> </span>example
+
+--------<span class="w"> </span>Testing<span class="w"> </span>the<span class="w"> </span>package:<span class="w"> </span>Running<span class="w"> </span>test<span class="o">()</span><span class="w"> </span>--------
+hello/1.0<span class="w"> </span><span class="o">(</span><span class="nb">test</span><span class="w"> </span>package<span class="o">)</span>:<span class="w"> </span>Running<span class="w"> </span>test<span class="o">()</span>
+hello/1.0<span class="w"> </span><span class="o">(</span><span class="nb">test</span><span class="w"> </span>package<span class="o">)</span>:<span class="w"> </span>RUN:<span class="w"> </span>./example
+hello/1.0:<span class="w"> </span>Hello<span class="w"> </span>World<span class="w"> </span>Release!<span class="w"> </span><span class="o">(</span>with<span class="w"> </span>color!<span class="o">)</span>
+</pre></div>
+</div>
+<p>You can see how Conan now declares the <code class="docutils literal notranslate"><span class="pre">hello::myhello</span></code> instead of the default
+<code class="docutils literal notranslate"><span class="pre">hello::hello</span></code> and the <em>test_package</em> builds successfully.</p>
+<p>The target name is not the only property you can set in the CMakeDeps generator. For a
+complete list of properties that affect the CMakeDeps generator behaviour, please check
+the <a class="reference internal" href="../../reference/tools/cmake/cmakedeps.html#cmakedeps-properties"><span class="std std-ref">reference</span></a>.</p>
+</section>
+<section id="propagating-environment-or-configuration-information-to-consumers">
+<h2>Propagating environment or configuration information to consumers<a class="headerlink" href="#propagating-environment-or-configuration-information-to-consumers" title="Link to this heading">¶</a></h2>
+<p>You can provide environment information to consumers in the <code class="docutils literal notranslate"><span class="pre">package_info()</span></code>. To do so,
+you can use the ConanFile’s <a class="reference internal" href="../../reference/conanfile/attributes.html#conan-conanfile-attributes-runenv-info"><span class="std std-ref">runenv_info</span></a> and
+<a class="reference internal" href="../../reference/conanfile/attributes.html#conan-conanfile-attributes-buildenv-info"><span class="std std-ref">buildenv_info</span></a> properties:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">runenv_info</span></code> <a class="reference internal" href="../../reference/tools/env/environment.html#conan-tools-env-environment-model"><span class="std std-ref">Environment</span></a> object that
+defines environment information that consumers that use the package may need when
+<strong>running</strong>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">buildenv_info</span></code> <a class="reference internal" href="../../reference/tools/env/environment.html#conan-tools-env-environment-model"><span class="std std-ref">Environment</span></a> object that
+defines environment information that consumers that use the package may need when
+<strong>building</strong>.</p></li>
+</ul>
+<p>Please note that it’s not necessary to add <code class="docutils literal notranslate"><span class="pre">cpp_info.bindirs</span></code> to <code class="docutils literal notranslate"><span class="pre">PATH</span></code> or
+<code class="docutils literal notranslate"><span class="pre">cpp_info.libdirs</span></code> to <code class="docutils literal notranslate"><span class="pre">LD_LIBRARY_PATH</span></code>, those are automatically added by the
+<a class="reference internal" href="../../reference/tools/env/virtualbuildenv.html#conan-tools-env-virtualbuildenv"><span class="std std-ref">VirtualBuildEnv</span></a> and
+<a class="reference internal" href="../../reference/tools/env/virtualrunenv.html#conan-tools-env-virtualrunenv"><span class="std std-ref">VirtualRunEnv</span></a>.</p>
+<p>You can also define configuration values in the <code class="docutils literal notranslate"><span class="pre">package_info()</span></code> so that consumers can
+use that information. To do this, set the
+<a class="reference internal" href="../../reference/conanfile/methods/package_info.html#conan-conanfile-model-conf-info"><span class="std std-ref">conf_info</span></a> property of the ConanFile.</p>
+<p>To know more about this use case, please check the <a class="reference internal" href="../../examples/conanfile/package_info/package_info_conf_and_env.html#examples-conanfile-package-info-conf-and-env"><span class="std std-ref">corresponding
+example</span></a>.</p>
+</section>
+<section id="define-components-for-conan-packages-that-provide-multiple-libraries">
+<h2>Define components for Conan packages that provide multiple libraries<a class="headerlink" href="#define-components-for-conan-packages-that-provide-multiple-libraries" title="Link to this heading">¶</a></h2>
+<p>There are cases in which a Conan package may provide multiple libraries, for these cases
+you can set the separate information for each of those libraries using the components
+attribute from the <a class="reference internal" href="../../reference/conanfile/methods/package_info.html#conan-conanfile-model-cppinfo-attributes"><span class="std std-ref">CppInfo</span></a> object.</p>
+<p>To know more about this use case, please check the <a class="reference internal" href="../../examples/conanfile/package_info/components.html#examples-conanfile-package-info-components"><span class="std std-ref">components
+example</span></a> in the examples section.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../../examples/conanfile/package_info/package_info_conf_and_env.html#examples-conanfile-package-info-conf-and-env"><span class="std std-ref">Propagating environment and configuration information to consumers example</span></a></p></li>
+<li><p><a class="reference internal" href="../../examples/conanfile/package_info/components.html#examples-conanfile-package-info-components"><span class="std std-ref">Define components for Conan packages that provide multiple libraries example</span></a></p></li>
+<li><p><a class="reference internal" href="../../reference/conanfile/methods/package_info.html#reference-conanfile-methods-package-info"><span class="std std-ref">package_info() reference</span></a></p></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="package_method.html" class="btn btn-neutral float-left" title="Package files: the package() method" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="test_conan_packages.html" class="btn btn-neutral float-right" title="Testing Conan packages" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2024, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 2.1
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/2.1/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

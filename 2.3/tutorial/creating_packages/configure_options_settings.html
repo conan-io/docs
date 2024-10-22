@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configure settings and options in recipes &mdash; conan 2.3.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=045299b1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/conan.css?v=7d9e9f1e" />
+
+  
+    <link rel="shortcut icon" href="../../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/tutorial/creating_packages/configure_options_settings.html" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=5048a02b"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Build packages: the build() method" href="build_packages.html" />
+    <link rel="prev" title="Preparing the build" href="preparing_the_build.html" />
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/conan-docs-logo-2.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.3
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../whatsnew.html">What’s new in Conan 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../tutorial.html">Tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../consuming_packages.html">Consuming packages</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../creating_packages.html">Creating packages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="create_your_first_package.html">Create your first Conan package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="handle_sources_in_packages.html">Handle sources in packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="add_dependencies_to_packages.html">Add dependencies to packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="preparing_the_build.html">Preparing the build</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Configure settings and options in recipes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="build_packages.html">Build packages: the build() method</a></li>
+<li class="toctree-l3"><a class="reference internal" href="package_method.html">Package files: the package() method</a></li>
+<li class="toctree-l3"><a class="reference internal" href="define_package_information.html">Define information for consumers: the package_info() method</a></li>
+<li class="toctree-l3"><a class="reference internal" href="test_conan_packages.html">Testing Conan packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="other_types_of_packages.html">Other types of packages</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../conan_repositories.html">Working with Conan repositories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../developing_packages.html">Developing packages locally</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../versioning.html">Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../other_features.html">Other important Conan features</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../devops.html">Devops guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../knowledge.html">Knowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+            
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center will stop receiving updates for Conan 1.x packages soon. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read this blog post</a></p>
+            </div>
+          </div>
+          
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/tutorial/creating_packages/configure_options_settings.html">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../tutorial.html">Tutorial</a></li>
+          <li class="breadcrumb-item"><a href="../creating_packages.html">Creating packages</a></li>
+      <li class="breadcrumb-item active">Configure settings and options in recipes</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/conan-io/docs/blob/develop2/tutorial/creating_packages/configure_options_settings.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="configure-settings-and-options-in-recipes">
+<span id="tutorial-creating-configure"></span><h1>Configure settings and options in recipes<a class="headerlink" href="#configure-settings-and-options-in-recipes" title="Link to this heading">¶</a></h1>
+<p>We already explained <a class="reference internal" href="../consuming_packages/different_configurations.html#settings-and-options-difference"><span class="std std-ref">Conan settings and options</span></a>
+and how to use them to build your projects for different configurations like Debug,
+Release, with static or shared libraries, etc. In this section, we explain how to
+configure these settings and options in the case that one of them does not apply to a
+Conan package. We will introduce briefly how Conan models binary compatibility and how
+that relates to options and settings.</p>
+<p>Please, first clone the sources to recreate this project. You can find them in the
+<a class="reference external" href="https://github.com/conan-io/examples2">examples2 repository</a> on GitHub:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/conan-io/examples2.git
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>examples2/tutorial/creating_packages/configure_options_settings
+</pre></div>
+</div>
+<p>You will notice some changes in the <strong>conanfile.py</strong> file from the previous recipe.
+Let’s check the relevant parts:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">helloRecipe</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;hello&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;1.0&quot;</span>
+
+    <span class="o">...</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;shared&quot;</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
+               <span class="s2">&quot;fPIC&quot;</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
+               <span class="s2">&quot;with_fmt&quot;</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]}</span>
+
+    <span class="n">default_options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;shared&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                       <span class="s2">&quot;fPIC&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                       <span class="s2">&quot;with_fmt&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+    <span class="o">...</span>
+
+    <span class="k">def</span> <span class="nf">config_options</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">os</span> <span class="o">==</span> <span class="s2">&quot;Windows&quot;</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">fPIC</span>
+
+    <span class="k">def</span> <span class="nf">configure</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">shared</span><span class="p">:</span>
+            <span class="c1"># If os=Windows, fPIC will have been removed in config_options()</span>
+            <span class="c1"># use rm_safe to avoid double delete errors</span>
+<span class="hll">            <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">rm_safe</span><span class="p">(</span><span class="s2">&quot;fPIC&quot;</span><span class="p">)</span>
+</span>    <span class="o">...</span>
+</pre></div>
+</div>
+<p>You can see that we added a <a class="reference internal" href="../../reference/conanfile/methods/configure.html#reference-conanfile-methods-configure"><span class="std std-ref">configure() method</span></a> to the recipe. Let’s explain what’s the
+objective of this method and how it’s different from the <code class="docutils literal notranslate"><span class="pre">config_options()</span></code> method we
+already had defined in the recipe:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">configure()</span></code>: use this method to configure which options or settings of the recipe
+are available. For example, in this case, we <strong>delete the fPIC option</strong>, because it
+should only be <strong>True</strong> if we are building the library as shared (in fact, some build
+systems will add this flag automatically when building a shared library).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">config_options()</span></code>: This method is used to <strong>constrain</strong> the available options in a
+package <strong>before they take a value</strong>. If a value is assigned to a setting or option that is
+deleted inside this method, Conan will raise an error. In this case we are <strong>deleting
+the fPIC option</strong> in Windows because that option does not exist for that operating
+system. Note that this method is executed before the <code class="docutils literal notranslate"><span class="pre">configure()</span></code> method.</p></li>
+</ul>
+<p>Be aware that deleting an option using the <code class="docutils literal notranslate"><span class="pre">config_options()</span></code> method has a different result from using the <code class="docutils literal notranslate"><span class="pre">configure()</span></code>
+method. Deleting the option in <code class="docutils literal notranslate"><span class="pre">config_options()</span></code> <strong>is like we never declared
+it in the recipe</strong> which will raise an exception saying that the option does not exist.
+However, if we delete it in the <code class="docutils literal notranslate"><span class="pre">configure()</span></code> method we can pass the option but it
+will have no effect. For example, if you try to pass a value to the <code class="docutils literal notranslate"><span class="pre">fPIC</span></code> option in
+Windows, Conan will raise an error warning that the option does not exist:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">Windows</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ conan create . --build=missing -o fPIC=True
+...
+-------- Computing dependency graph --------
+ERROR: option &#39;fPIC&#39; doesn&#39;t exist
+Possible options are [&#39;shared&#39;, &#39;with_fmt&#39;]
+</pre></div>
+</div>
+</div>
+<p>As you have noticed, the <code class="docutils literal notranslate"><span class="pre">configure()</span></code> and <code class="docutils literal notranslate"><span class="pre">config_options()</span></code> methods <strong>delete an
+option</strong> if certain conditions are met. Let’s explain why we are doing this and the
+implications of removing that option. It is related to how Conan identifies packages that
+are binary compatible with the configuration set in the profile. In the next section, we
+introduce the concept of the <strong>Conan package ID</strong>.</p>
+<section id="conan-packages-binary-compatibility-the-package-id">
+<span id="creating-packages-configure-options-settings"></span><h2>Conan packages binary compatibility: the <strong>package ID</strong><a class="headerlink" href="#conan-packages-binary-compatibility-the-package-id" title="Link to this heading">¶</a></h2>
+<p>We used Conan in previous examples to build for different configurations like <em>Debug</em> and
+<em>Release</em>. Each time you create the package for one of those configurations, Conan will
+build a new binary. Each of them is related to a <strong>generated hash</strong> called <strong>the package
+ID</strong>. The package ID is just a way to convert a set of settings, options and information
+about the requirements of the package to a unique identifier.</p>
+<p>Let’s build our package for <em>Release</em> and <em>Debug</em> configurations and check
+the generated binaries package IDs.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.<span class="w"> </span>--build<span class="o">=</span>missing<span class="w"> </span>-s<span class="w"> </span><span class="nv">build_type</span><span class="o">=</span>Release<span class="w"> </span>-tf<span class="o">=</span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="c1"># -tf=&quot;&quot; will skip ng the test_package</span>
+...
+<span class="o">[</span><span class="w"> </span><span class="m">50</span>%<span class="o">]</span><span class="w"> </span>Building<span class="w"> </span>CXX<span class="w"> </span>object<span class="w"> </span>CMakeFiles/hello.dir/src/hello.cpp.o
+<span class="o">[</span><span class="m">100</span>%<span class="o">]</span><span class="w"> </span>Linking<span class="w"> </span>CXX<span class="w"> </span>static<span class="w"> </span>library<span class="w"> </span>libhello.a
+<span class="o">[</span><span class="m">100</span>%<span class="o">]</span><span class="w"> </span>Built<span class="w"> </span>target<span class="w"> </span>hello
+<span class="hll">hello/1.0:<span class="w"> </span>Package<span class="w"> </span><span class="s1">&#39;738feca714b7251063cc51448da0cf4811424e7c&#39;</span><span class="w"> </span>built
+</span>hello/1.0:<span class="w"> </span>Build<span class="w"> </span>folder<span class="w"> </span>/Users/user/.conan2/p/tmp/7fe7f5af0ef27552/b/build/Release
+hello/1.0:<span class="w"> </span>Generated<span class="w"> </span>conaninfo.txt
+hello/1.0:<span class="w"> </span>Generating<span class="w"> </span>the<span class="w"> </span>package
+hello/1.0:<span class="w"> </span>Temporary<span class="w"> </span>package<span class="w"> </span>folder<span class="w"> </span>/Users/user/.conan2/p/tmp/7fe7f5af0ef27552/p
+hello/1.0:<span class="w"> </span>Calling<span class="w"> </span>package<span class="o">()</span>
+hello/1.0:<span class="w"> </span>CMake<span class="w"> </span>command:<span class="w"> </span>cmake<span class="w"> </span>--install<span class="w"> </span><span class="s2">&quot;/Users/user/.conan2/p/tmp/7fe7f5af0ef27552/b/build/Release&quot;</span><span class="w"> </span>--prefix<span class="w"> </span><span class="s2">&quot;/Users/user/.conan2/p/tmp/7fe7f5af0ef27552/p&quot;</span>
+hello/1.0:<span class="w"> </span>RUN:<span class="w"> </span>cmake<span class="w"> </span>--install<span class="w"> </span><span class="s2">&quot;/Users/user/.conan2/p/tmp/7fe7f5af0ef27552/b/build/Release&quot;</span><span class="w"> </span>--prefix<span class="w"> </span><span class="s2">&quot;/Users/user/.conan2/p/tmp/7fe7f5af0ef27552/p&quot;</span>
+--<span class="w"> </span>Install<span class="w"> </span>configuration:<span class="w"> </span><span class="s2">&quot;Release&quot;</span>
+--<span class="w"> </span>Installing:<span class="w"> </span>/Users/user/.conan2/p/tmp/7fe7f5af0ef27552/p/lib/libhello.a
+--<span class="w"> </span>Installing:<span class="w"> </span>/Users/user/.conan2/p/tmp/7fe7f5af0ef27552/p/include/hello.h
+hello/1.0<span class="w"> </span>package<span class="o">()</span>:<span class="w"> </span>Packaged<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="s1">&#39;.h&#39;</span><span class="w"> </span>file:<span class="w"> </span>hello.h
+hello/1.0<span class="w"> </span>package<span class="o">()</span>:<span class="w"> </span>Packaged<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="s1">&#39;.a&#39;</span><span class="w"> </span>file:<span class="w"> </span>libhello.a
+<span class="hll">hello/1.0:<span class="w"> </span>Package<span class="w"> </span><span class="s1">&#39;738feca714b7251063cc51448da0cf4811424e7c&#39;</span><span class="w"> </span>created
+</span>hello/1.0:<span class="w"> </span>Created<span class="w"> </span>package<span class="w"> </span>revision<span class="w"> </span>3bd9faedc711cbb4fdf10b295268246e
+hello/1.0:<span class="w"> </span>Full<span class="w"> </span>package<span class="w"> </span>reference:<span class="w"> </span>hello/1.0#e6b11fb0cb64e3777f8d62f4543cd6b3:738feca714b7251063cc51448da0cf4811424e7c#3bd9faedc711cbb4fdf10b295268246e
+hello/1.0:<span class="w"> </span>Package<span class="w"> </span>folder<span class="w"> </span>/Users/user/.conan2/p/5c497cbb5421cbda/p
+
+$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.<span class="w"> </span>--build<span class="o">=</span>missing<span class="w"> </span>-s<span class="w"> </span><span class="nv">build_type</span><span class="o">=</span>Debug<span class="w"> </span>-tf<span class="o">=</span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="c1"># -tf=&quot;&quot; will skip building the test_package</span>
+...
+<span class="o">[</span><span class="w"> </span><span class="m">50</span>%<span class="o">]</span><span class="w"> </span>Building<span class="w"> </span>CXX<span class="w"> </span>object<span class="w"> </span>CMakeFiles/hello.dir/src/hello.cpp.o
+<span class="o">[</span><span class="m">100</span>%<span class="o">]</span><span class="w"> </span>Linking<span class="w"> </span>CXX<span class="w"> </span>static<span class="w"> </span>library<span class="w"> </span>libhello.a
+<span class="o">[</span><span class="m">100</span>%<span class="o">]</span><span class="w"> </span>Built<span class="w"> </span>target<span class="w"> </span>hello
+<span class="hll">hello/1.0:<span class="w"> </span>Package<span class="w"> </span><span class="s1">&#39;3d27635e4dd04a258d180fe03cfa07ae1186a828&#39;</span><span class="w"> </span>built
+</span>hello/1.0:<span class="w"> </span>Build<span class="w"> </span>folder<span class="w"> </span>/Users/user/.conan2/p/tmp/19a2e552db727a2b/b/build/Debug
+hello/1.0:<span class="w"> </span>Generated<span class="w"> </span>conaninfo.txt
+hello/1.0:<span class="w"> </span>Generating<span class="w"> </span>the<span class="w"> </span>package
+hello/1.0:<span class="w"> </span>Temporary<span class="w"> </span>package<span class="w"> </span>folder<span class="w"> </span>/Users/user/.conan2/p/tmp/19a2e552db727a2b/p
+hello/1.0:<span class="w"> </span>Calling<span class="w"> </span>package<span class="o">()</span>
+hello/1.0:<span class="w"> </span>CMake<span class="w"> </span>command:<span class="w"> </span>cmake<span class="w"> </span>--install<span class="w"> </span><span class="s2">&quot;/Users/user/.conan2/p/tmp/19a2e552db727a2b/b/build/Debug&quot;</span><span class="w"> </span>--prefix<span class="w"> </span><span class="s2">&quot;/Users/user/.conan2/p/tmp/19a2e552db727a2b/p&quot;</span>
+hello/1.0:<span class="w"> </span>RUN:<span class="w"> </span>cmake<span class="w"> </span>--install<span class="w"> </span><span class="s2">&quot;/Users/user/.conan2/p/tmp/19a2e552db727a2b/b/build/Debug&quot;</span><span class="w"> </span>--prefix<span class="w"> </span><span class="s2">&quot;/Users/user/.conan2/p/tmp/19a2e552db727a2b/p&quot;</span>
+--<span class="w"> </span>Install<span class="w"> </span>configuration:<span class="w"> </span><span class="s2">&quot;Debug&quot;</span>
+--<span class="w"> </span>Installing:<span class="w"> </span>/Users/user/.conan2/p/tmp/19a2e552db727a2b/p/lib/libhello.a
+--<span class="w"> </span>Installing:<span class="w"> </span>/Users/user/.conan2/p/tmp/19a2e552db727a2b/p/include/hello.h
+hello/1.0<span class="w"> </span>package<span class="o">()</span>:<span class="w"> </span>Packaged<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="s1">&#39;.h&#39;</span><span class="w"> </span>file:<span class="w"> </span>hello.h
+hello/1.0<span class="w"> </span>package<span class="o">()</span>:<span class="w"> </span>Packaged<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="s1">&#39;.a&#39;</span><span class="w"> </span>file:<span class="w"> </span>libhello.a
+<span class="hll">hello/1.0:<span class="w"> </span>Package<span class="w"> </span><span class="s1">&#39;3d27635e4dd04a258d180fe03cfa07ae1186a828&#39;</span><span class="w"> </span>created
+</span>hello/1.0:<span class="w"> </span>Created<span class="w"> </span>package<span class="w"> </span>revision<span class="w"> </span>67b887a0805c2a535b58be404529c1fe
+hello/1.0:<span class="w"> </span>Full<span class="w"> </span>package<span class="w"> </span>reference:<span class="w"> </span>hello/1.0#e6b11fb0cb64e3777f8d62f4543cd6b3:3d27635e4dd04a258d180fe03cfa07ae1186a828#67b887a0805c2a535b58be404529c1fe
+hello/1.0:<span class="w"> </span>Package<span class="w"> </span>folder<span class="w"> </span>/Users/user/.conan2/p/c7796386fcad5369/p
+</pre></div>
+</div>
+<p>As you can see Conan generated two package IDs:</p>
+<ul class="simple">
+<li><p>Package <em>738feca714b7251063cc51448da0cf4811424e7c</em> for Release</p></li>
+<li><p>Package <em>3d27635e4dd04a258d180fe03cfa07ae1186a828</em> for Debug</p></li>
+</ul>
+<p>These two package IDs are calculated by taking the <strong>set of settings, options and some
+information about the requirements</strong> (we will explain this later in the documentation) and
+<strong>calculating a hash</strong> with them. So, for example, in this case, they are the result of the
+information depicted in the diagram below.</p>
+<a class="reference internal image-reference" href="../../_images/conan-package_id.png"><img alt="../../_images/conan-package_id.png" class="align-center" src="../../_images/conan-package_id.png" style="width: 680px;" /></a>
+<p>Those package IDs are different because the <strong>build_type</strong> is different. Now, when you want
+to install a package, Conan will:</p>
+<ul class="simple">
+<li><p>Collect the settings and options applied, along with some information about the
+requirements and calculate the hash for the corresponding package ID.</p></li>
+<li><p>If that package ID matches one of the packages stored in the local Conan cache Conan
+will use that. If not, and we have any Conan remote configured, it will search for a
+package with that package ID in the remotes.</p></li>
+<li><p>If that calculated package ID does not exist in the local cache and remotes, Conan will
+fail with a “missing binary” error message, or will try to build that package from
+sources (this depends on the value of the <code class="docutils literal notranslate"><span class="pre">--build</span></code> argument). This build will
+generate a new package ID in the local cache.</p></li>
+</ul>
+<p>These steps are simplified, there is far more to package ID calculation than what we
+explain here, recipes themselves can even adjust their package ID calculations, we can
+have different recipe and package revisions besides package IDs and there’s also a
+built-in mechanism in Conan that can be configured to declare that some packages with a
+certain package ID are compatible with other.</p>
+<p>Maybe you have now the intuition of why we delete settings or options in Conan recipes.
+If you do that, those values will not be added to the computation of the package ID, so
+even if you define them, the resulting package ID will be the same. You can check this
+behaviour, for example with the fPIC option that is deleted when we build with the
+option <code class="docutils literal notranslate"><span class="pre">shared=True</span></code>. Regardless of the value you pass for the fPIC option the generated
+package ID will be the same for the <strong>hello/1.0</strong> binary:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.<span class="w"> </span>--build<span class="o">=</span>missing<span class="w"> </span>-o<span class="w"> </span><span class="nv">shared</span><span class="o">=</span>True<span class="w"> </span>-o<span class="w"> </span><span class="nv">fPIC</span><span class="o">=</span>True<span class="w"> </span>-tf<span class="o">=</span><span class="s2">&quot;&quot;</span>
+...
+hello/1.0<span class="w"> </span>package<span class="o">()</span>:<span class="w"> </span>Packaged<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="s1">&#39;.h&#39;</span><span class="w"> </span>file:<span class="w"> </span>hello.h
+hello/1.0<span class="w"> </span>package<span class="o">()</span>:<span class="w"> </span>Packaged<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="s1">&#39;.dylib&#39;</span><span class="w"> </span>file:<span class="w"> </span>libhello.dylib
+hello/1.0:<span class="w"> </span>Package<span class="w"> </span><span class="s1">&#39;2a899fd0da3125064bf9328b8db681cd82899d56&#39;</span><span class="w"> </span>created
+hello/1.0:<span class="w"> </span>Created<span class="w"> </span>package<span class="w"> </span>revision<span class="w"> </span>f0d1385f4f90ae465341c15740552d7e
+hello/1.0:<span class="w"> </span>Full<span class="w"> </span>package<span class="w"> </span>reference:<span class="w"> </span>hello/1.0#e6b11fb0cb64e3777f8d62f4543cd6b3:2a899fd0da3125064bf9328b8db681cd82899d56#f0d1385f4f90ae465341c15740552d7e
+hello/1.0:<span class="w"> </span>Package<span class="w"> </span>folder<span class="w"> </span>/Users/user/.conan2/p/8a55286c6595f662/p
+
+$<span class="w"> </span>conan<span class="w"> </span>create<span class="w"> </span>.<span class="w"> </span>--build<span class="o">=</span>missing<span class="w"> </span>-o<span class="w"> </span><span class="nv">shared</span><span class="o">=</span>True<span class="w"> </span>-o<span class="w"> </span><span class="nv">fPIC</span><span class="o">=</span>False<span class="w"> </span>-tf<span class="o">=</span><span class="s2">&quot;&quot;</span>
+...
+--------<span class="w"> </span>Computing<span class="w"> </span>dependency<span class="w"> </span>graph<span class="w"> </span>--------
+Graph<span class="w"> </span>root
+<span class="w">    </span>virtual
+Requirements
+<span class="w">    </span>fmt/8.1.1#601209640bd378c906638a8de90070f7<span class="w"> </span>-<span class="w"> </span>Cache
+<span class="w">    </span>hello/1.0#e6b11fb0cb64e3777f8d62f4543cd6b3<span class="w"> </span>-<span class="w"> </span>Cache
+
+--------<span class="w"> </span>Computing<span class="w"> </span>necessary<span class="w"> </span>packages<span class="w"> </span>--------
+Requirements
+<span class="w">    </span>fmt/8.1.1#601209640bd378c906638a8de90070f7:d1b3f3666400710fec06446a697f9eeddd1235aa#24a2edf207deeed4151bd87bca4af51c<span class="w"> </span>-<span class="w"> </span>Skip
+<span class="w">    </span>hello/1.0#e6b11fb0cb64e3777f8d62f4543cd6b3:2a899fd0da3125064bf9328b8db681cd82899d56#f0d1385f4f90ae465341c15740552d7e<span class="w"> </span>-<span class="w"> </span>Cache
+
+--------<span class="w"> </span>Installing<span class="w"> </span>packages<span class="w"> </span>--------
+
+--------<span class="w"> </span>Installing<span class="w"> </span><span class="o">(</span>downloading,<span class="w"> </span>building<span class="o">)</span><span class="w"> </span>binaries...<span class="w"> </span>--------
+hello/1.0:<span class="w"> </span>Already<span class="w"> </span>installed!
+</pre></div>
+</div>
+<p>As you can see, the first run created the <code class="docutils literal notranslate"><span class="pre">2a899fd0da3125064bf9328b8db681cd82899d56</span></code>
+package, and the second one, regardless of the different value of the fPIC option, said we
+already had the <code class="docutils literal notranslate"><span class="pre">2a899fd0da3125064bf9328b8db681cd82899d56</span></code> package installed.</p>
+<section id="c-libraries">
+<h3>C libraries<a class="headerlink" href="#c-libraries" title="Link to this heading">¶</a></h3>
+<p>There are other typical cases where you want to delete certain settings. Imagine that you
+are packaging a C library. When you build this library, there are settings like the
+compiler C++ standard (<code class="docutils literal notranslate"><span class="pre">settings.compiler.cppstd</span></code>) or the standard library used
+(<code class="docutils literal notranslate"><span class="pre">self.settings.compiler.libcxx</span></code>) that won’t affect the resulting binary at all. Then it
+does not make sense that they affect to the package ID computation, so a typical pattern is
+to delete them in the <code class="docutils literal notranslate"><span class="pre">configure()</span></code> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">configure</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">rm_safe</span><span class="p">(</span><span class="s2">&quot;compiler.cppstd&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">rm_safe</span><span class="p">(</span><span class="s2">&quot;compiler.libcxx&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Please, note that deleting these settings in the <code class="docutils literal notranslate"><span class="pre">configure()</span></code> method will modify the
+package ID calculation but will also affect how the toolchain, and the build system
+integrations work because the C++ settings do not exist.</p>
+</section>
+<section id="header-only-libraries">
+<h3>Header-only libraries<a class="headerlink" href="#header-only-libraries" title="Link to this heading">¶</a></h3>
+<p>A similar case happens with packages that package <a class="reference internal" href="other_types_of_packages/header_only_packages.html#creating-packages-other-header-only"><span class="std std-ref">header-only
+libraries</span></a>. In that case,
+there’s no binary code we need to link with, but just some header files to add to our
+project. In this cases the package ID of the Conan package should not be affected by
+settings or options. For that case, there’s a simplified way of declaring that the
+generated package ID should not take into account settings, options or any information
+from the requirements, which is using the <code class="docutils literal notranslate"><span class="pre">self.info.clear()</span></code> method inside another recipe
+method called <code class="docutils literal notranslate"><span class="pre">package_id()</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">package_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>We will explain the <code class="docutils literal notranslate"><span class="pre">package_id()</span></code> method later and explain how you can customize the
+way the package ID for the package is calculated. You can also check the <a class="reference internal" href="../../reference/conanfile/methods.html#reference-conanfile-methods"><span class="std std-ref">Conanfile’s
+methods reference</span></a> if you want to know how this method works in
+more detail.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="other_types_of_packages/header_only_packages.html#creating-packages-other-header-only"><span class="std std-ref">Header-only packages</span></a>.</p></li>
+<li><p>Check the binary compatibility <a class="reference internal" href="../../reference/extensions/binary_compatibility.html#reference-extensions-binary-compatibility"><span class="std std-ref">compatibility.py extension</span></a>.</p></li>
+<li><p>Conan <a class="reference internal" href="../../reference/conanfile/attributes.html#reference-conanfile-attributes-package-type"><span class="std std-ref">package types</span></a>.</p></li>
+<li><p><a class="reference internal" href="../../reference/conanfile/methods/requirements.html#reference-conanfile-methods-requirements-package-id-mode"><span class="std std-ref">Setting package_id_mode for requirements</span></a>.</p></li>
+<li><p>Read the <a class="reference internal" href="../../reference/binary_model.html#reference-binary-model"><span class="std std-ref">binary model reference</span></a> for a full view of the Conan binary model.</p></li>
+</ul>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="preparing_the_build.html" class="btn btn-neutral float-left" title="Preparing the build" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="build_packages.html" class="btn btn-neutral float-right" title="Build packages: the build() method" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2024, JFrog.
+      <span class="lastupdated">Last updated on Oct 07, 2024.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 2.3
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/2.3/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>
