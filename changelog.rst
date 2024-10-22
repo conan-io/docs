@@ -3,6 +3,11 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.8.1 (17-Oct-2024)
+--------------------
+
+- Bugfix: Avoid raising an error for required components for ``test_requires`` also required as transitive ``requires``. `#17174 <https://github.com/conan-io/conan/pull/17174>`_
+
 2.8.0 (30-Sept-2024)
 --------------------
 
