@@ -288,7 +288,8 @@ Overwrite properties from the consumer side using CMakeDeps.set_property()
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Using ``CMakeDeps.set_property()`` method you can overwrite the property values set by the
-Conan recipes from the consumer. This can be done for every property listed above.
+Conan recipes from the consumer. This can be done for every property listed above,
+except for ``cmake_target_aliases``.
 
 Imagine we have a *compressor/1.0* package that depends on *zlib/1.2.11*. The *zlib* recipe
 defines some properties:
