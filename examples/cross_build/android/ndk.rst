@@ -81,6 +81,30 @@ Both the library and the ``test_package`` executable are built for Android, so w
 Unless you have access to a `root` Android device, running the test application or using the built library is not possible
 directly so it is more common to build an Android application that uses the ``hello`` library.
 
+It is also possible to use the ``android-ndk`` from a Conan ``tool-requires``.
+There is already a Conan package in ConanCenter containing the AndroidNDK, so writing a profile like:
+
+.. code-block:: text
+
+
+  [settings]
+  os=Android
+  os.api_level=21
+  arch=armv8
+  compiler=clang
+  compiler.version=18
+  compiler.libcxx=c++_static
+  compiler.cppstd=14
+  build_type=Release
+
+  # You might need Ninja conf and tool-requires in Windows too
+  [tool_requires]
+  android-ndk/[*]
+
+And this will download automatically the latest android-ndk from ConanCenter and inject and apply it automatically to
+build the package. Note that to use packages from ConanCenter in production the :ref:`following approach is recommended<devops_consuming_conan_center>`
+
+
 .. seealso::
 
   - Check the example :ref:`Integrating Conan in Android Studio<examples_cross_build_android_studio>` to know how to use your
