@@ -5,7 +5,7 @@ Continuous Integration (CI) tutorial
 
 .. note::
 
-  - This is an advanced topic, previous knowledge of Conan tool is necessary. Please :ref:`read and practice the user tutorial<tutorial>` first.
+  - This is an advanced topic, previous knowledge of Conan is necessary. Please :ref:`read and practice the user tutorial<tutorial>` first.
   - This section is intended for devops and build engineers designing and implementing a CI pipeline involving Conan packages, if it is not the
     case, you can skip this section.
 
