@@ -74,7 +74,7 @@ put in the "testing" repository, for the QA team to test them, for example ``zli
     }
 
 
-When QA team tests and approves these packages, they can be promoted to the "release" repository.
+When the QA team tests and approves these packages, they can be promoted to the "release" repository.
 Basically, a promotion is a copy of the packages, including all the artifacts and metadata from the
 "testing" to the "release" repository.
 
