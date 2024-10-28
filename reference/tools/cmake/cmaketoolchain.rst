@@ -326,13 +326,14 @@ You can use the following attributes to append extra compilation flags to the to
 
 - **extra_cxxflags** (defaulted to ``[]``) for additional cxxflags
 - **extra_cflags** (defaulted to ``[]``) for additional cflags
+- **extra_asmflags** (defaulted to ``[]``) for additional asmflags
 - **extra_sharedlinkflags** (defaulted to ``[]``) for additional shared link flags
 - **extra_exelinkflags** (defaulted to ``[]``) for additional exe link flags
 
 .. note::
 
     **flags order of preference**: Flags specified in the `tools.build` configuration,
-    such as `cxxflags`, `cflags`, `sharedlinkflags` and `exelinkflags`, will
+    such as `cxxflags`, `cflags`, `asmflags`, `sharedlinkflags` and `exelinkflags`, will
     always take precedence over those set by the CMakeToolchain attributes.
 
 
@@ -757,6 +758,7 @@ This block injects ``$`` which will be expanded later. It also defines a cache v
 - **tools.cmake.cmaketoolchain:presets_environment**: Set to ``'disabled'`` to prevent the addition of the environment section to the generated CMake presets.
 - **tools.build:cxxflags** list of extra C++ flags that will be appended to ``CMAKE_CXX_FLAGS_INIT``.
 - **tools.build:cflags** list of extra of pure C flags that will be appended to ``CMAKE_C_FLAGS_INIT``.
+- **tools.build:asmflags** list of extra of pure ASM flags that will be appended to ``CMAKE_ASM_FLAGS_INIT``.
 - **tools.build:sharedlinkflags** list of extra linker flags that will be appended to ``CMAKE_SHARED_LINKER_FLAGS_INIT``.
 - **tools.build:exelinkflags** list of extra linker flags that will be appended to ``CMAKE_EXE_LINKER_FLAGS_INIT``.
 - **tools.build:defines** list of preprocessor definitions that will be used by ``add_definitions()``.
