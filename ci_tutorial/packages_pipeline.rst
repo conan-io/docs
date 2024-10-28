@@ -22,7 +22,7 @@ in the ``ai`` package, providing some better algorithms for our game.
   did some breaking changes to the ``ai`` public API, the recommendation would be to change the major instead and create a new ``2.0`` version.
 
 
-The ``packages pipeline`` will take care of building the different packages binaries for the new ``ai/1.1.0`` and upload them to the ``packages``
+The **packages pipeline** will take care of building the different packages binaries for the new ``ai/1.1.0`` and upload them to the ``packages``
 binary repository to avoid disrupting or causing potential issues to other developers and CI jobs. 
 If the pipeline succeed it will promote (copy) them to the ``products`` binary repository, and stop otherwise.
 
