@@ -107,8 +107,8 @@ Generators from tool_requires
 
 A direct dependency tool requires can also be used to provide custom generators.
 The following example shows how to create a custom generator that generates a file with the
-dependencies of the package, just like the example above, but using a tool_require instead of a python_require
-to inject the generator into the recipe.
+dependencies of the package, just like the example above, but using a ``tool_require`` instead of a ``python_require``
+to inject the generator into the recipe, by adding them to the ``self.generators_info`` list inside the ``package_info`` method.
 
 .. code-block:: python
     :caption: mygenerator/conanfile.py
