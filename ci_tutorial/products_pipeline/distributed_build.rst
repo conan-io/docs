@@ -3,7 +3,7 @@ Products pipeline: distributed build
 
 
 The previous section used ``--build=missing`` to build all the necessary packages in the same CI machine.
-This is not always desired, or even possible, and in many situations it is preferable to do a distributed build, to achieve faster builds and better use the CI resources. The most natural distribution of the build load is to build different packages in different machines. Let's see how this is possible with the ``conan graph build-order`` command.
+This is not always desired, or even possible, and in many situations it is preferable to do a distributed build, to achieve faster builds and better usage the CI resources. The most natural distribution of the build load is to build different packages in different machines. Let's see how this is possible with the ``conan graph build-order`` command.
 
 Let's start as usual making sure we have a clean environment with the right repositories defined:
 
