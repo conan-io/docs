@@ -100,7 +100,7 @@ Promotions are the mechanism used to make available packages from one pipeline t
 with the repositories, there will be 2 promotions:
 
 - When all the different binaries for the different configurations have been built for a single package with the ``packages pipeline``, and uploaded
-  to the ``packages`` repository, the package changes and package new version can be considered "correct" and promoted (copied) to the ``products``
+  to the ``packages`` repository, the new version and changes to the package can be considered "correct" and promoted (copied) to the ``products``
   repository.
 - When the ``products pipeline`` has built from source all the necessary packages that need a re-build because of the new package versions in
   the ``products`` repository and has checked that the organization "products" (such ``game/1.0`` and ``mapviewer/1.0``) are not broken, then
