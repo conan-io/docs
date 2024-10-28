@@ -40,7 +40,7 @@ source code:
   guarantee the same binary.
 - **Minor**: If changes are done to package public headers, in an API source compatible way, then the recommendation would be to increase
   the **minor** verson of a package. That means that other packages that depend on it will be able to compile without issues, 
-  but as there were modification in public headers (that could contain C++ templates or other things that could be inlined in
+  but as there were modifications in public headers (that could contain C++ templates or other things that could be inlined in
   the consumer packages), then those consumer packages need to be rebuilt from source to incorporate these changes.
 - **Major**: If API breaking changes are done to the package public headers, then increasing the **major** version is recommended. As the
   most common recommended version-range is something like ``dependency/[>1.0 <2]``, where the next major is excluded, that means
