@@ -3,7 +3,7 @@ Package pipeline: multi configuration using lockfiles
 
 In the previous example, we built both ``Debug`` and ``Release`` package binaries for ``ai/1.1.0``. In real world scenarios the binaries to build would be different platforms (Windows, Linux, embedded), different architectures, and very often it will not be possible to build them in the same machine, requiring different computers.
 
-The previous example had an important assumption: the dependencies of ``ai/1.1.0`` do not change at all during the building process. In many scenarios, this assumption will not hold, for example if there are any other concurrent CI jobs, and one succesfull job publish a new ``mathlib/1.1`` version in the ``develop`` repo. 
+The previous example had an important assumption: the dependencies of ``ai/1.1.0`` do not change at all during the building process. In many scenarios, this assumption will not hold, for example if there are any other concurrent CI jobs, and one succesfull job publishes a new ``mathlib/1.1`` version in the ``develop`` repo. 
 
 Then it is possible that one build of ``ai/1.1.0``, for example, the one running in the Linux servers starts earlier and uses the previous ``mathlib/1.0`` version as dependency, while the Windows servers start a bit later, and then their build will use the recent ``mathlib/1.1`` version as dependency. This is a very undesirable situation, having binaries for the same ``ai/1.1.0`` version using different dependencies versions. This can lead in later graph resolution problems, or even worse, get to the release with different behavior for different platforms.
 
