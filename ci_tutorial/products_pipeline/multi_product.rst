@@ -3,9 +3,9 @@ Products pipeline: multi-product multi-configuration builds
 
 In the previous section we computed a ``conan graph build-order`` with several simplifications, we didn't take the ``mapviewer`` product into account, and we processed only 1 configuration.
 
-In real scenarios, it will be necessary to manage more than one product and the most common case is that there is more than on configuration for every product. If we build these differents cases sequentially it will be much slower and inefficient, and if we try to build them in parallel there will easily be many duplicated and unnecessary builds of the same packages, wasting resources and even producing issues as race conditions or traceability problems.
+In real scenarios, it will be necessary to manage more than one product and the most common case is that there is more than one configuration for every product. If we build these different cases sequentially it will be much slower and inefficient, and if we try to build them in parallel there will easily be many duplicated and unnecessary builds of the same packages, wasting resources and even producing issues as race conditions or traceability problems.
 
-To avoid this issue, it is possible to compute a single unified "build-order" that aggregates all the different build-orders that are compute for the different products and configurations.
+To avoid this issue, it is possible to compute a single unified "build-order" that aggregates all the different build-orders that are computed for the different products and configurations.
 
 Let's start as usual cleaning the local cache and defining the correct repos:
 
@@ -37,7 +37,9 @@ Now, we will start computing the build-order for ``game/1.0`` for the 2 differen
     $ conan graph build-order --requires=game/1.0 --build=missing 
       --order-by=recipe -s build_type=Debug --format=json > game_debug.json
 
-These commands are basically the same than in the previous section, each one with a different configuration and creating a different output file ``game_release.json`` and ``game_debug.json``. These files will be similar to the previous ones, but as we haven't used the ``--reduce`` argument (this is important!) they will actually contain a "build-order" of all elements in the graph, even if only some contain the ``binary: Build`` definition, and others will contain other ``binary: Download|Cache|etc``.
+These commands are basically the same as in the previous section, each one with a different configuration and creating a different output file ``game_release.json`` and ``game_debug.json``. These files will be similar to the previous ones, but as we haven't used the ``--reduce`` argument (this is important!) they will actually contain a "build-order" of all elements in the graph, even if only some contain the ``binary: Build`` definition, and others will contain other ``binary: Download|Cache|etc``.
+
+Now, let's compute the build-order for ``mapviewer/1.0``:
 
 .. code-block:: bash
 

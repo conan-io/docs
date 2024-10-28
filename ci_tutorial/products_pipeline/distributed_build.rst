@@ -26,8 +26,8 @@ Let's start as usual making sure we have a clean environment with the right repo
     $ conan remote add develop http://localhost:8081/artifactory/api/conan/develop
 
 
-We will obviate by now the ``mapviewer/1.0`` and focus this section in the ``game/1.0`` product.
-The first step is to compute the "build-order", that is, the list of packages that need to be build, and in what order.
+We will obviate by now the ``mapviewer/1.0`` product and focus this section in the ``game/1.0`` product.
+The first step is to compute the "build-order", that is, the list of packages that need to be built, and in what order.
 This is done with the following ``conan graph build-order`` command:
 
 .. code-block:: bash
@@ -38,8 +38,8 @@ This is done with the following ``conan graph build-order`` command:
 Note a few important points:
 
 - It is necessary to use the ``--build=missing``, in exactly the same way than in the previous section. Failing to provide the intended ``--build`` policy and argument will result in incomplete or erroneous build-orders.
-- The ``--reduce`` eliminates all elements in the result that doesn't have the ``binary: Build`` policy. This means that the resulting "build-order" cannot be merged with other build order files for aggregating them into a single one, which is important when there are multiple configurations and products.
-- The ``--order-by`` argument allows to define different orders, by "recipe" or by "configuration". In this case, we are using the ``--order-by=recipe`` which is intended to parallelize builds per recipe, that means, that all possible different binaries for a given package like ``engine/1.0`` should be built first before any consumer of ``engine/1.0`` can be built.
+- The ``--reduce`` argument eliminates all elements in the resulting order that don't have the ``binary: Build`` policy. This means that the resulting "build-order" cannot be merged with other build order files for aggregating them into a single one, which is important when there are multiple configurations and products.
+- The ``--order-by`` argument allows to define different orders, by "recipe" or by "configuration". In this case, we are using ``--order-by=recipe`` which is intended to parallelize builds per recipe, that means, that all possible different binaries for a given package like ``engine/1.0`` should be built first before any consumer of ``engine/1.0`` can be built.
 
 The resulting ``game_build_order.json`` looks like:
 
@@ -95,9 +95,9 @@ For convenience, in the same way that ``conan graph info ... --format=html > gra
 
 The resulting json contains an ``order`` element which is a list of lists. This arrangement is important, every element in the top list is a set of packages that can be built in parallel because they do not have any relationship among them. You can view this list as a list of "levels", in level 0, there are packages that have no dependencies to any other package being built, in level 1 there are packages that contain dependencies only to elements in level 0 and so on.
 
-Then, the order of the elements in the top list is important and must be respected. Until the build of all the packages in one list item has finished, it is not possible to start the build of the next "level".
+Then, the order of the elements in the outermost list is important and must be respected. Until the build of all the packages in one list item has finished, it is not possible to start the build of the next "level".
 
-Using the information in the ``graph_build_order.json`` file, it is possible to execute the build of the necessary packages, in the same way that the previous section ``--build=missing`` did, but not directly managed by us.
+Using the information in the ``graph_build_order.json`` file, it is possible to execute the build of the necessary packages, in the same way that the previous section's ``--build=missing`` did, but not directly managed by us.
 
 Taking the arguments from the json, the commands to execute would be:
 

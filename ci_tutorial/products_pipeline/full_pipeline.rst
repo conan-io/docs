@@ -83,10 +83,10 @@ dependencies are not being resolved:
 
     
 So far, this process has been almost identical to the previous section one, just with the difference of capturing and using a lockfile.
-Now, we will explain the "core" of the ``products`` pipeline: iterating the build-order and distributing the build, gathering the 
+Now, we will explain the "core" of the ``products`` pipeline: iterating the build-order and distributing the build, and gathering the 
 resulting built packages.
 
-This would be some Python code that performs the iteration sequentially (a real CI system would distribute the builds to different agents in parallel):
+This would be an example of some Python code that performs the iteration sequentially (a real CI system would distribute the builds to different agents in parallel):
 
 
 .. code-block:: python
@@ -158,9 +158,9 @@ In practice this translates to the following commands (that you can execute to c
   $ conan upload -l=built.json -r=products -c --format=json > uploaded4.json
 
 
-After this step the new built packages will be in the ``products`` repo and we will have 4 ``uploaded1.json`` - ``uploaded4.json`` files.
+After this step the newly built packages will be in the ``products`` repo and we will have 4 ``uploaded1.json`` - ``uploaded4.json`` files.
 
-Simplifying the  different release and debug configurations, the state of our repositories would be something like:
+Simplifying the different release and debug configurations, the state of our repositories would be something like:
 
 
 .. graphviz::
@@ -228,7 +228,7 @@ We can now accumulate the different ``uploadedX.json`` files into a single packa
       --format=json > uploaded.json
 
 
-And finally, if everything worked well and we consider this new set of versions and new package binaries is ready to be used by developers and other CI jobs, then, we can run the final promotion from the ``products`` to the ``develop`` repository:
+And finally, if everything worked well, and we consider this new set of versions and new package binaries is ready to be used by developers and other CI jobs, then we can run the final promotion from the ``products`` to the ``develop`` repository:
 
 .. code-block:: bash
     :caption: Promoting from products->develop

@@ -148,4 +148,4 @@ Now the game can be executed:
 We can see that the new ``game/1.0`` binary incorporates the improvements in ``ai/1.1.0``, and links correctly with the new binary for ``engine/1.0``.
 
 And this is a basic "products pipeline", we manage to build and test our main products when necessary (recall that ``mapviewer`` wasn't really affected, so no rebuilds were necessary at all).
-In general, a production "products pipeline" will finish uploading the built packages to the repository and running a new promotion to the ``develop`` repo. But as this was a very basic and simplify pipeline, let's wait a bit for that, and let's continue with more advanced scenarios.
+In general, a production "products pipeline" will finish uploading the built packages to the repository and running a new promotion to the ``develop`` repo. But as this was a very basic and simple pipeline, let's wait a bit for that, and let's continue with more advanced scenarios.

@@ -13,7 +13,7 @@ Continuous Integration (CI) tutorial
 Continuous Integration has different meanings for different users and organizations. In this tutorial we will cover the scenarios when users
 are doing changes to the source code of their packages and want to automatically build new binaries for those packages and also compute if those new package changes integrate cleanly or break the organization main products.
 
-We will use in this tutorial this small project that uses several packages (static libraries by default) to build a couple of applications, a video game and a map viewer utility. The ``game`` and ``mapviewer`` are our final "**products**", what we distribute to our users:
+In this tutorial we will use this small project that uses several packages (static libraries by default) to build a couple of applications, a video game and a map viewer utility. The ``game`` and ``mapviewer`` are our final "**products**", what we distribute to our users:
 
 .. graphviz::
     :align: center
@@ -60,8 +60,8 @@ the **packages pipeline** and the **products pipeline**
 - The **products pipeline** takes care of building the main organization "products" (the packages that implement the final applications or deliverables),
   and making sure that changes and new versions in dependencies integrate correctly, rebuilding any intermediate packages in the graph if necessary.
 
-The idea is that if some developer does changes to ``ai`` package, producing a new ``ai/1.1.0`` version, the packages pipeline will first build this
-new version. But this new version might accidentally break or require rebuilding some consumers packages. If our organization main **products** are
+The idea is that if some developer does changes to the ``ai`` package, producing a new ``ai/1.1.0`` version, the packages pipeline will first build this
+new version. But this new version might accidentally break or require rebuilding some consumer packages. If our organization main **products** are
 ``game/1.0`` and ``mapviewer/1.0``, then the products pipeline can be triggered, in this case it would rebuild ``engine/1.0`` and ``game/1.0`` as
 they are affected by the change.
 
@@ -73,7 +73,7 @@ The concept of multiple server side repositories is very important for CI. In th
 
 - ``develop``: This repository is the main one that developers have configured in their machines to be able to ``conan install`` dependencies
   and work. As such it is expected to be quite stable, similar to a shared "develop" branch in git, and the repository should contain pre-compiled
-  binaries for the organization pre-defined platforms, so developers and CI don't need to do ``--build=missing`` and build again and again from
+  binaries for the organization's pre-defined platforms, so developers and CI don't need to do ``--build=missing`` and build again and again from
   source.
 - ``packages``: This repository will be used to temporarily upload the packages built by the "packages pipeline", to not upload them directly to
   the ``develop`` repo and avoid disruption until these packages are fully validated.
@@ -96,7 +96,7 @@ The concept of multiple server side repositories is very important for CI. In th
        
     }
 
-Promotions are the mechanism used to make available packages from one pipeline to the other. Connecting the above packages and product pipelines
+Promotions are the mechanism used to make packages available from one pipeline to the other. Connecting the above packages and product pipelines
 with the repositories, there will be 2 promotions:
 
 - When all the different binaries for the different configurations have been built for a single package with the ``packages pipeline``, and uploaded

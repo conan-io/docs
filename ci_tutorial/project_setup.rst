@@ -51,7 +51,7 @@ Initial dependency graph
 
     $ python project_setup.py
 
-This will do several tasks, clean the server repos, create initial ``Debug`` and ``Release`` binaries for the dependency graph and upload them to the ``develop`` repo, then clean the local cache. Note in this example we are using ``Debug`` and ``Release`` different configurations for convenience, but in real cases these would be different configurations such as Windows/X86_64, Linux/x86_64, Linux/armv8, etc., running
+This will do several tasks, clean the server repos, create initial ``Debug`` and ``Release`` binaries for the dependency graph and upload them to the ``develop`` repo, then clean the local cache. Note in this example we are using ``Debug`` and ``Release`` as our different configurations for convenience, but in real cases these would be different configurations such as Windows/X86_64, Linux/x86_64, Linux/armv8, etc., running
 in different computers.
 
 This dependency graph of packages in the ``develop`` repo is the starting point for our tutorial, assumed as a functional and stable "develop" state of the project that developers can ``conan install`` to work in any of the different packages.

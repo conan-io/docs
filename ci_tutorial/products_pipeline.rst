@@ -1,7 +1,7 @@
 Products pipeline
 ==================
 
-The **products pipeline** responds a more challenging question: does my "products" build correctly with the latest changes and new versions that have been done
+The **products pipeline** responds to a more challenging question: do my "products" build correctly with the new versions of the packages?
 to the packages and their dependencies? This is the real "Continuous Integration" part, in which changes in different packages are really tested against the organization
 important products to check if things integrate cleanly or break. 
 
@@ -33,7 +33,7 @@ job for the ``engine`` package, that is triggered after the ``ai`` one, configur
 
 But this approach does not scale at all and have very important limitations:
   
-- The example above is relatively simple, but in practice dependency graphs can have many more packages, even several hundrends, making it very tedious and error prone to define all dependencies among packages in the CI
+- The example above is relatively simple, but in practice dependency graphs can have many more packages, even several hundreds, making it very tedious and error prone to define all dependencies among packages in the CI
 - Dependencies evolve over time, and new versions are used, some dependencies are removed and newer dependencies are added. The simple relationship between repositories modeled at the CI level can result in a very inefficient, slow and time consuming CI, if not a fragile one that continuously breaks because some dependencies change.
 - The combinatorial nature that happens downstream a dependency graph, where a relatively stable top dependency, lets say ``mathlib/1.0`` might be used by multiple consumers such as ``ai/1.0``, ``ai/1.1``, ``ai/1.2`` which in turn each one might be used by multiple ``engine`` different versions and so on. Building only the latest version of the consumers would be insufficient in many cases and building all of  them would be extremely costly.
 - The "inverse" dependency model, that is, asking what are the "dependants" of a given package is extremely challeging in practice, specially in a decentralized

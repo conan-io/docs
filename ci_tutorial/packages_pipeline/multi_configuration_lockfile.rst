@@ -57,7 +57,7 @@ The ``conan.lock`` file can be inspected, it will be something like:
 As we can see, it is locking the ``mathlib/1.0`` dependency version and revision.
 
 
-With the lockfile, the creating of the different configurations is exactly the same, but providing the ``--lockfile=conan.lock`` argument to the ``conan create`` step, it will guarantee that ``mathlib/1.0#f2b05681ed843bf50d8b7b7bdb5163ea`` will always be the exact dependency used, irrespective if there exist new ``mathlib/1.1`` versions or new revisions available. The following builds could be launched in parallel but executed at different times, and still they will always use the same ``mathlib/1.0`` dependency:
+With the lockfile, creating the different configurations is exactly the same, but providing the ``--lockfile=conan.lock`` argument to the ``conan create`` step, it will guarantee that ``mathlib/1.0#f2b05681ed843bf50d8b7b7bdb5163ea`` will always be the exact dependency used, irrespective if there exist new ``mathlib/1.1`` versions or new revisions available. The following builds could be launched in parallel but executed at different times, and still they will always use the same ``mathlib/1.0`` dependency:
 
 
 .. code-block:: bash
