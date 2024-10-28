@@ -93,7 +93,7 @@ the command would look like:
     $ conan art:promote pkglist.json --from=testing --to=release --url=https://<url>/artifactory --user=<user> --password=<password>
 
 
-Note that the ``conan art:promote`` doesn't work with ArtifactoryCE, but need pro editions of Artifactory.
+Note that the ``conan art:promote`` command doesn't work with ArtifactoryCE, Pro editions of Artifactory are needed.
 The promote functionality can be implemented in these cases with a simple download+upload flow:
 
 .. code-block:: bash
