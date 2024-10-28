@@ -113,7 +113,7 @@ with the repositories, there will be 2 promotions:
   - The versioning approach is important. This tutorial will be following :ref:`the default Conan versioning approach, see details here<devops_versioning_default>`
 
 This tutorial is just modeling the **development** flow. In production systems, there will be other repositories
-and promotions, like a ``testing`` repository for the QA team, and a final ``release`` repository for final users and packages can
+and promotions, like a ``testing`` repository for the QA team, and a final ``release`` repository for final users, such that packages can
 be promoted from ``develop`` to ``testing`` to ``release`` as they pass validation. Read more about promotions in :ref:`Package promotions<devops_package_promotions>`.
 
 
