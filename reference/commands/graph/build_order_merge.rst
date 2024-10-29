@@ -27,5 +27,5 @@ When 2 or more "build-order" files are merged, the resulting merge contains a ``
         }
     }
 
-Being the ``build_order_win`` and ``build_order_nix`` the "build-order" filenames that were used as inputs to the merge, and which will be referenced in the ``filenames`` field of every ``package`` in the build order. This way, it is easier to obtain the necessary command line arguments to build a specific package binary in the build-order when building multiple configurations.
+With the ``build_order_win`` and ``build_order_nix`` being the "build-order" filenames that were used as inputs to the merge, and which will be referenced in the ``filenames`` field of every ``package`` in the build order. This way, it is easier to obtain the necessary command line arguments to build a specific package binary in the build-order when building multiple configurations.
           
