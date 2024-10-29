@@ -100,6 +100,8 @@ argument:
     conan install --requires=zlib/1.2.13 -g MyGenerator
 
 
+.. _reference_commands_custom_generators_tool_requires:
+
 Generators from tool_requires
 -----------------------------
 

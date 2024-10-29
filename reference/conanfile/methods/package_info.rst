@@ -297,8 +297,12 @@ Note that this only propagates from the immediate, direct ``tool_requires`` of a
 
 
 .. _conan_conanfile_model_generators_info:
+
 generators_info
 ---------------
+
+.. include:: ../../../common/experimental_warning.inc
+
 
 ``tool_requires`` in the build context can inject generators into the recipe,
 by adding them to the ``generators_info`` list inside the ``package_info`` method.
