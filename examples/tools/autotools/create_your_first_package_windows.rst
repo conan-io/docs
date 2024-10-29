@@ -37,7 +37,9 @@ Besides these files, we will create a profile file:
     [conf]
     tools.microsoft.bash:subsystem=msys2
     tools.microsoft.bash:path=C:\ws\msys64\usr\bin\bash
-    tools.build:compiler_executables={"c": "cl", "cpp": "cl"}
+    # since Conan 2.9, this "cl" compiler definition is not necessary
+    # by default for the 'compiler=msvc'
+    # tools.build:compiler_executables={"c": "cl", "cpp": "cl"}
 
 
 Note that you might need to adapt the path to the ``bash`` system of ``msys2``.
