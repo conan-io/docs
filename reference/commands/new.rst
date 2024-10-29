@@ -100,6 +100,9 @@ The available templates are:
   Its variables are: ``name``, ``version``
 
 
+By default, all ``name`` and ``version`` variables are set to ``mypkg`` and ``0.1``, respectively, if not provided by the user.
+
+
 .. warning::
 
   The output of the predefined built-in templates is **not stable**. It might
@@ -121,6 +124,13 @@ Generates a basic *conanfile.py* that does not implement any custom functionalit
     $ conan new basic -d name=mygame -d requires=math/1.0 -d requires=ai/1.3
 
 Generates a *conanfile.py* for ``mygame`` that depends on the packages ``math/1.0`` and ``ai/1.3``
+
+
+.. code-block:: text
+
+    $ conan new cmake_lib
+
+Creates a basic CMake library with default package ``name = "mypkg"`` and default package version ``version = "0.1"``
 
 
 .. code-block:: text
