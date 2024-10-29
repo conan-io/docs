@@ -296,6 +296,29 @@ configuration as:
 Note that this only propagates from the immediate, direct ``tool_requires`` of a recipe.
 
 
+.. _conan_conanfile_model_generators_info:
+generators_info
+---------------
+
+``tool_requires`` in the build context can inject generators into the recipe,
+by adding them to the ``generators_info`` list inside the ``package_info`` method.
+This is useful to inject custom generators into the recipe, that will be used by the consumers of the package,
+just as if they were declared in their ``generators`` attribute.
+
+.. code-block:: python
+
+    class MyGenerator:
+        def __init__(self, conanfile):
+            self._conanfile = conanfile
+
+        def generate(self):
+            self.output.info(f"Calling custom generator for {conanfile}")
+
+    def package_info(self):
+        self.generators_info.append(MyGenerator)
+
+Note that this only propagates from the immediate, direct ``tool_requires`` of a recipe.
+
 
 .. note::
 

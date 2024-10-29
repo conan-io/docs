@@ -96,6 +96,16 @@ Should be only filled in the ``package_info()`` method.
       Read here :ref:`the complete reference of self.conf_info <conan_conanfile_model_conf_info>`.
 
 
+generators_info
+---------------
+
+Generators to be passed to the dependant recipes.
+Should be only filled in the ``package_info()`` method.
+
+.. seealso::
+
+      Read here :ref:`the complete reference of self.generators_info <conan_conanfile_model_generators_info>`.
+
 deprecated
 ----------
 
