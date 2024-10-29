@@ -100,7 +100,7 @@ The available templates are:
   Its variables are: ``name``, ``version``
 
 
-All default ``name`` and ``version`` variables are defaulted to ``mypkg`` and ``0.1`` respectively if not provided by the user.
+By default, all ``name`` and ``version`` variables are set to ``mypkg`` and ``0.1``, respectively, if not provided by the user.
 
 
 .. warning::
