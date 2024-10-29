@@ -101,7 +101,7 @@ recipes as we passed with the `--order-by` argument; however, we might prefer to
 sorted by configurations instead. For that purpouse use the `--order-by` argument with
 value `configuration`.
 
-At the end of the json, after the ``order`` field, we see a ``profiles`` field, that contains the profile related command line arguments for the current "build-order". As in this case we didn't provide any arguments, it is empty. But if we used something like ``conan graph build-order ... -pr=default -s build_type=Debug> bo.json``, the ``args`` will contain those arguments (with json character escaping): ``"args": "-pr:h=\"default\" -s:h=\"build_type=Debug\""``
+At the end of the json, after the ``order`` field, we see a ``profiles`` field, which contains the profile related command line arguments for the current "build-order". As in this case we didn't provide any arguments, it is empty. But if we used something like ``conan graph build-order ... -pr=default -s build_type=Debug > bo.json``, the ``args`` will contain those arguments (with json character escaping): ``"args": "-pr:h=\"default\" -s:h=\"build_type=Debug\""``
 
 
 Using ``--order-by=configuration`` we will get a different build-order format:
