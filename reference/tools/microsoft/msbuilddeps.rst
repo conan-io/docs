@@ -161,3 +161,13 @@ Reference
 
 .. autoclass:: MSBuildDeps
     :members: generate
+
+    .. attribute:: configuration_key
+       :annotation: 
+
+       Defines the configuration key used to conditionally select which property sheet to import (defaults to ``Configuration``).
+
+    .. attribute:: platform_key
+       :annotation: 
+
+       Defines the platform key used to conditionally select which property sheet to import (defaults to ``Platform``).
