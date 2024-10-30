@@ -3,6 +3,12 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.9.1 (30-Oct-2024)
+-------------------
+
+- Bugfix: Fix `deduce_subsystem` when `scope=None` assuming the scope is `build`. `#17251 <https://github.com/conan-io/conan/pull/17251>`_
+- Bugfix: Fixed false positives of ``profile.py`` plugin checks over c++26 for latest compiler versions `#17250 <https://github.com/conan-io/conan/pull/17250>`_
+
 2.9.0 (29-Oct-2024)
 -------------------
 
