@@ -39,6 +39,7 @@ Contents:
     tools/meson
     tools/microsoft
     tools/qbs
+    tools/ros
     tools/scm
     tools/scons
     tools/system

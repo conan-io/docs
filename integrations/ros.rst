@@ -1,20 +1,20 @@
 .. _integrations_ros:
 
-|ros_logo| ROS (Robot Operating System)
-=========================================
+|ros_logo| ROS
+==============
 
 .. include:: ../common/experimental_warning.inc
 
 Conan provides integration for your Robot Operating System (ROS) C/C++ based projects.
 This will allow you to consume Conan packages inside your ROS package projects.
-The Conan packages can be installed and used in CMake with the help of the ROSEnv generator created
+The Conan packages can be installed and used in CMake with the help of the :ref:`ROSEnv generator <conan_tools_ros_rosenv>` generator created
 for the purpose.
 
 It provides a clean integration that requires no conan-specific modifications in your *CMakeLists.txt*.
 
 .. note::
 
-    The files for this example can be found in [this repository](https://github.com/conan-io/examples2/tree/main/examples/tools/ros/rosenv/workspace).
+    The files for this example can be found in `this repository <https://github.com/conan-io/examples2/tree/main/examples/tools/ros/rosenv/workspace>`_.
     You can follow this example by cloning our examples repository:
 
     .. code-block:: bash
@@ -29,8 +29,8 @@ It provides a clean integration that requires no conan-specific modifications in
 Consuming Conan packages using the ROSEnv generator
 ---------------------------------------------------
 
-So let's imagine we have a ROS C++ pacakge called `str_printer` that uses some functionality from the 
-third party library [fmt](https://conan.io/center/recipes/fmt) a `str_printer` library with a function to print fancy strings.
+Imagine we have a ROS C++ pacakge called `str_printer` that uses some functionality from the 
+third party library `fmt <https://conan.io/center/recipes/fmt>`_ a `str_printer` library with a function to print fancy strings.
 
 We have the following project structure:
 
@@ -54,13 +54,14 @@ We have the following project structure:
                main.cpp
 
 Where:
-- The `str_printer` is a ROS package that implements a function and depends on the fmt Conan package.
-- The `consumer` is also a ROS package that dependes on the `str_printer` ROS package and uses its functionality in a final executable.
 
-The only difference in the `str_printer` package with respect to a normal ROS package is that it includes a *conanfile.txt*.
-This is the file used by Conan to installed the required dependencies and generate the files needed to perform the build.
+- The `str_printer` is a ROS package that implements a function and **depends on the fmt Conan package**.
+- The `consumer` is also a ROS package that dependes on the `str_printer` ROS package and uses its functionality in a **final executable**.
 
-.. code-block:: txt
+The only difference in the `str_printer` package with respect to a normal ROS package is that it includes a *conanfile.txt* file.
+This is the file used by Conan to install the required dependencies and generate the files needed to perform the build.
+
+.. code-block:: text
    :caption: str_printer/conanfile.txt
 
     [requires]
@@ -73,7 +74,7 @@ This is the file used by Conan to installed the required dependencies and genera
 
 In this case, we will install the 11.0.2 version of `fmt` and Conan will generate files for CMake and ROS so we can build the `str_printer` package later.
 
-To install the `fmt` library using conan we should do the following:
+To install the `fmt` library using Conan we should do the following:
 
 .. code-block:: bash
 
@@ -118,10 +119,10 @@ To install the `fmt` library using conan we should do the following:
     conanfile.txt: Generated aggregated env files: ['conanrosenv.sh']
     Install finished successfully
 
-This will download the fmt Conan package to the Conan local cache and generate the CMake and environment files
+This will download the fmt Conan package to the local cache and generate the CMake and ROS environment files
 in the `conan` subfolder of the `install` directory.
 
-Now we can source our ROS environment, then source the Conan ROSEnv environment so the conan-installed pacakges are found by CMake and then
+Now we can source our ROS environment, then **source the Conan ROSEnv environment**, so the conan-installed pacakges are found by CMake, and then
 we can build the `str_printer` package as usual with Colcon.
 
 .. code-block:: bash
@@ -141,7 +142,7 @@ Bridging the Conan-provided transitive dependencies to another ROS package
 As the `consumer` ROS package depends on `str_printer`, the targets of transitive dependencies should be exported.
 This is done as usual in the `str_printers`'s *CMakeLists.txt* using `ament_export_dependencies()`:
 
-.. code-block:: txt
+.. code-block:: text
    :caption: str_printer/CMakeLists.txt
    :emphasize-lines: 10,22
 
@@ -202,5 +203,9 @@ And after this, our `consumer` application should be ready to run with just:
     $ source install/setup.bash
     $ ros2 run consumer main
     Hi there! I am using fmt library fetched with Conan C/C++ Package Manager
+
+.. seealso::
+
+    - Reference for :ref:`ROSEnv generator<conan_tools_ros_rosenv>`.
 
 .. |ros_logo| image:: ../images/integrations/conan-ros-logo.png
