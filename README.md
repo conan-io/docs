@@ -222,7 +222,7 @@ Submit a pull request to include it in `conan-center-index`_.
 ...
 ...
 
-.. _`conan-center`: https://center.conan.io
+.. _`conan-center`: https://center2.conan.io
 ```
 
 In case you want to use explicit external references with a link, make sure it doesn't exceed the maximum line length, otherwise it
