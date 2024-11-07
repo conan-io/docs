@@ -7,6 +7,7 @@ For a more detailed description of the major changes that Conan 2 brings, compar
 -------------------
 
 - Feature: Use center2.conan.io as new default remote and warn about having the old one. `#17284 <https://github.com/conan-io/conan/pull/17284>`_ . Docs `here <https://github.com/conan-io/docs/pull/3893>`__
+- Bugfix: Fix ROSEnv quotes for CMAKE_TOOLCHAIN_FILE variable. `#17270 <https://github.com/conan-io/conan/pull/17270>`_
 
 2.9.1 (30-Oct-2024)
 -------------------
