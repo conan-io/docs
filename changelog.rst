@@ -3,6 +3,11 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.9.2 (07-Nov-2024)
+-------------------
+
+- Feature: Use center2.conan.io as new default remote and warn about having the old one. `#17284 <https://github.com/conan-io/conan/pull/17284>`_ . Docs `here <https://github.com/conan-io/docs/pull/3893>`__
+
 2.9.1 (30-Oct-2024)
 -------------------
 
