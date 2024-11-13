@@ -10,7 +10,7 @@ This will allow you to consume Conan packages inside your ROS package projects.
 The Conan packages can be installed and used in CMake with the help of the :ref:`ROSEnv generator <conan_tools_ros_rosenv>` created
 for the purpose.
 
-It provides a clean integration that requires no conan-specific modifications in your *CMakeLists.txt*.
+It provides a clean integration that requires no Conan-specific modifications in your *CMakeLists.txt*.
 
 .. note::
 
