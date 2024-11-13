@@ -82,6 +82,11 @@ external ``myvars.cmake`` file:
 
 Note that using ``user_toolchain`` while defining values for confs like ``tools.cmake.cmaketoolchain:system_name`` is supported.
 
+Also, ``user_toolchain`` files can define variables for cross-building, such as ``CMAKE_SYSTEM_NAME``, ``CMAKE_SYSTEM_VERSION``
+and ``CMAKE_SYSTEM_PROCESSOR``. If these variables are defined in the user toolchain file, they will be respected, and the 
+``conan_toolchain.cmake`` deduced ones will not overwrite the user defined ones. If those variables are not defined in the
+user toolchain file, then the Conan automatically deduced ones will be used.
+
 The ``tools.cmake.cmaketoolchain:user_toolchain`` conf value might also be passed in the command line ``-c`` argument,
 but the location of the ``myvars.cmake`` needs to be absolute to be found, as jinja replacement doesn't happen in the
 command line.

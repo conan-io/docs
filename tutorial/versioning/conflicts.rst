@@ -230,9 +230,8 @@ for ``engine/1.0`` and ``intro/1.0`` would be missing, and need to be built to l
 
     **Best practices**
 
-    Resolving version conflicts by overrides/forces should in general be the exception and avoided when possible,
-    applied as a temporary workaround. The real solution is to move forward the dependencies ``requires`` so
-    they naturally converge to the same versions of upstream dependencies.
+    - Resolving version conflicts by overrides/forces should in general be the exception and avoided when possible, applied as a temporary workaround. The real solution is to move forward the dependencies ``requires`` so they naturally converge to the same versions of upstream dependencies.
+    - Version-ranges can also produce some version conflicts, even if Conan tries to reduce them. This :ref:`FAQ about version conflicts<faq_version_conflicts_version_ranges>` discusses the graph resolution algorithm and strategies to minimize the conflicts.
 
 
 

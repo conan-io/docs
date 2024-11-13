@@ -40,7 +40,7 @@ core.cache:storage_path
 ^^^^^^^^^^^^^^^^^^^^^^^
 
 Absolute path to a folder where the Conan packages and the database of the packages will be stored.
-This folder will be the heaviest Conan storage folder, as it stores the binary packages dowloaded or created.
+This folder will be the heaviest Conan storage folder, as it stores the binary packages downloaded or created.
 
 .. code-block:: text
     :caption: *global.conf*
@@ -143,6 +143,8 @@ All the values will be interpreted by Conan as the result of the python built-in
     tools.microsoft.msbuildtoolchain:compile_options={"ExceptionHandling": "Async"}
 
 
+.. _configuration_data_operators:
+
 Configuration data operators
 ----------------------------
 
@@ -175,6 +177,7 @@ any of your profiles:
     # Update b = 4 => {"a": 1, "b": 4}
     user.myconf.build:other*={"b": 4}
 
+.. _reference_config_files_global_conf_patterns:
 
 Configuration patterns
 ----------------------

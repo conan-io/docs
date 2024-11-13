@@ -5,65 +5,48 @@ Using a docker runner configfile to parameterize a Dockerfile
 
 .. include:: ../../../common/experimental_warning.inc
 
-In this example we are going to see how to use a docker runner configfile to define our Dockerfile base image. Let’s create two profiles and a Dockerfile inside our project folder.
+If you need more control over the build and execution of the container, you can define more parameters inside a configfile yaml.
 
-.. code-block:: bash
+For example, you can add arguments in the build step or environment variables when you launch the container.
 
-    $ cd </my/runner/folder>
-    $ tree
-    .
-    ├── Dockerfile
-    ├── configfile
-    ├── docker_example_build
-    └── docker_example_host
+To use it, you just need to add it in the host profile.
 
-``docker_example_host`` profile
-
-..  code-block:: text
+.. code-block:: text
 
     [settings]
-    arch=x86_64
-    build_type=Release
-    compiler=gcc
-    compiler.cppstd=gnu17
-    compiler.libcxx=libstdc++11
-    compiler.version=11
-    os=Linux
+    ...
     [runner]
     type=docker
     configfile=</my/runner/folder>/configfile
     cache=copy
     remove=false
 
-``docker_example_build`` profile
+**How to use**
 
-..  code-block:: text
+Let’s create a Dockerfile inside your project folder, a cmake_lib ``myparamlib`` like the :ref:`"Creating a Conan package using a Docker runner"<examples_runners_docker_basic>` example and two profiles. 
 
-    [settings]
-    arch=x86_64
-    build_type=Release
-    compiler=gcc
-    compiler.cppstd=gnu17
-    compiler.libcxx=libstdc++11
-    compiler.version=11
-    os=Linux
+.. code-block:: bash
 
-``configfile``
+    $ cd </my/runner/folder>
+    $ mkdir myparamlib
+    $ cd myparamlib
+    $ conan new cmake_lib -d name=myparamlib -d version=0.1
+    $ cd </my/runner/folder>
+    $ tree
+    .
+    ├── CMakeLists.txt
+    ├── conanfile.py
+    ├── include
+    │   └── myparamlib.h
+    ├── src
+    │   └── myparamlib.cpp
+    └── test_package
+        ├── CMakeLists.txt
+        ├── conanfile.py
+        └── src
+            └── example.cpp
 
-..  code-block:: yaml
-
-    image: my-conan-runner-image
-    build:
-        dockerfile: </my/runner/folder>
-        build_context: </my/runner/folder>
-        build_args:
-            BASE_IMAGE: ubuntu:22.04
-    run:
-        name: my-conan-runner-container
-
-
-..  code-block:: docker
-    :caption: Dockerfile
+.. code-block:: docker
 
     ARG BASE_IMAGE
     FROM $BASE_IMAGE
@@ -77,26 +60,67 @@ In this example we are going to see how to use a docker runner configfile to def
         && rm -rf /var/lib/apt/lists/*
     RUN pip install conan
 
-In this example we are going to start from a totally clean docker, without containers or images. In addition, we are going to have the conan cache also completely empty.
+``configfile``
+
+.. code-block:: yaml
+
+    image: my-conan-runner-image
+    build:
+        dockerfile: </my/runner/folder>
+        build_context: </my/runner/folder>
+        build_args:
+            BASE_IMAGE: ubuntu:22.04
+    run:
+        name: my-conan-runner-container
 
 .. code-block:: bash
 
-    $ conan list "*:*"
-    Found 0 pkg/version recipes matching * in local cache
+    $ cd </my/runner/folder>/myparamlib
+    $ tree
+    .
+    ...
+    ├── Dockerfile
+    ...
+    ├── configfile
+    ...
 
-    $ docker ps --all
-    CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+``docker_param_example_host`` profile
 
-    $ docker images  
-    REPOSITORY   TAG       IMAGE ID   CREATED   SIZE
+.. code-block:: text
 
+    [settings]
+    arch=x86_64
+    build_type=Release
+    compiler=gcc
+    compiler.cppstd=gnu17
+    compiler.libcxx=libstdc++11
+    compiler.version=11
+    os=Linux
 
-Now, we are going to clone and build zlib from conan-center-index and create it using our new runner definition.
+    [runner]
+    type=docker
+    configfile=</my/runner/folder>/myparamlib/configfile
+    cache=copy
+    remove=false
+
+``docker_param_example_build`` profile
+
+.. code-block:: text
+
+    [settings]
+    arch=x86_64
+    build_type=Release
+    compiler=gcc
+    compiler.cppstd=gnu17
+    compiler.libcxx=libstdc++11
+    compiler.version=11
+    os=Linux
+
+Now it's time to create our new library.
 
 .. code-block:: bash
-    
-    $ git clone https://github.com/conan-io/conan-center-index.git --depth 1
-    $ conan create ./conan-center-index/recipes/zlib/all --version 1.3.1 -pr:h </my/runner/folder>/docker_example_host -pr:b </my/runner/folder>/docker_example_build
+
+    $ conan create . --version 0.1 -pr:h docker_param_example_host -pr:b docker_param_example_build
 
     ...
 
@@ -104,8 +128,8 @@ Now, we are going to clone and build zlib from conan-center-index and create it 
     * Building the Docker image: my-conan-runner-image *
     ****************************************************
 
-    Dockerfile path: '</my/runner/folder>/Dockerfile'
-    Docker build context: '</my/runner/folder>'
+    Dockerfile path: '</my/runner/folder>/myparamlib/Dockerfile'
+    Docker build context: '</my/runner/folder>/myparamlib'
 
     Step 1/5 : ARG BASE_IMAGE
 
@@ -113,80 +137,63 @@ Now, we are going to clone and build zlib from conan-center-index and create it 
 
     ...
 
-    Successfully built 286df085400f
+    Successfully built caa8071cdff7
     Successfully tagged my-conan-runner-image:latest
 
     ...
 
-    *********************************
-    * Creating the docker container *
-    *********************************
+    **************************************************************************************************************************************************************************
+    * Running in container: "conan create /root/conanrunner/myparamlib --version 0.1 -pr:h docker_param_example_host -pr:b docker_param_example_build -f json > create.json" *
+    **************************************************************************************************************************************************************************
+
+    ...
+
+    [ 50%] Building CXX object CMakeFiles/example.dir/src/example.cpp.o
+    [100%] Linking CXX executable example
+    [100%] Built target example
+
+    ======== Testing the package: Executing test ========
+    myparamlib/0.1 (test package): Running test()
+    myparamlib/0.1 (test package): RUN: ./example
+    myparamlib/0.1: Hello World Release!
+    myparamlib/0.1: __x86_64__ defined
+    myparamlib/0.1: _GLIBCXX_USE_CXX11_ABI 1
+    myparamlib/0.1: __cplusplus201703
+    myparamlib/0.1: __GNUC__11
+    myparamlib/0.1: __GNUC_MINOR__4
+    myparamlib/0.1 test_package
 
 
-    *******************************************
-    * Container my-conan-runner-image running *
-    *******************************************
+    **********************************************************************************************
+    * Restore host cache from: </my/runner/folder>/myparamlib/.conanrunner/docker_cache_save.tgz *
+    **********************************************************************************************
 
+    Saving myparamlib/0.1: mypar36e44205a36b9
+    Saving myparamlib/0.1:8631cf963dbbb4d7a378a64a6fd1dc57558bc2fe: b/mypare0dc449d4125d/p
+    Saving myparamlib/0.1:8631cf963dbbb4d7a378a64a6fd1dc57558bc2fe metadata: b/mypare0dc449d4125d/d/metadata
 
-    *******************************************
-    * Running in container: "conan --version" *
-    *******************************************
-
-    ************************************************************************************************************************
-    * Restore host cache from: </my/runner/folder>/conan-center-index/recipes/zlib/all/.conanrunner/docker_cache_save.tgz *
-    ************************************************************************************************************************
-
-    Restore: zlib/1.3.1 in p/zlib95420566fc0dd
-    Restore: zlib/1.3.1:b647c43bfefae3f830561ca202b6cfd935b56205 in p/zlibd59462fc4358e/p
-    Restore: zlib/1.3.1:b647c43bfefae3f830561ca202b6cfd935b56205 metadata in p/zlibd59462fc4358e/d/metadata
-
-    **********************
-    * Stopping container *
-    **********************
-
-If we now check the status of our Conan and docker cache, we will see the zlib package compiled for Linux and the new docker image and container.
+If we now check the status of our conan cache, we will see the new ``myparamlib`` pacakge.
 
 .. code-block:: bash
 
     $ conan list "*:*"
     Found 1 pkg/version recipes matching * in local cache
     Local Cache
-    zlib
-        zlib/1.3.1
+    myparamlib
+        myparamlib/0.1
         revisions
-            e20364c96c45455608a72543f3a53133 (2024-04-29 17:18:07 UTC)
+            11cb359a0526fe9ce3cfefb59c5d1953 (2024-07-08 12:47:21 UTC)
             packages
-                b647c43bfefae3f830561ca202b6cfd935b56205
+                8631cf963dbbb4d7a378a64a6fd1dc57558bc2fe
                 info
                     settings
                     arch: x86_64
                     build_type: Release
                     compiler: gcc
+                    compiler.cppstd: gnu17
+                    compiler.libcxx: libstdc++11
                     compiler.version: 11
                     os: Linux
                     options
                     fPIC: True
                     shared: False
-
-    $ docker ps --all
-    CONTAINER ID   IMAGE                   COMMAND                  CREATED          STATUS                       PORTS     NAMES
-    1379072ae424   my-conan-runner-image   "/bin/bash -c 'while…"   17 seconds ago   Exited (137) 2 seconds ago             my-conan-runner-image
-
-    $ docker images  
-    REPOSITORY        TAG       IMAGE ID       CREATED          SIZE
-    my-conan-runner   latest    383b905f352e   22 minutes ago   531MB
-    ubuntu            22.04     437ec753bef3   12 days ago      77.9MB
-
-If we run the ``conan create`` command again we will see how Conan reuses the previous container because we have set ``remove=False``.
-
-.. code-block:: bash
-    
-    $ conan create ./conan-center-index/recipes/zlib/all --version 1.3.1 -pr:h </my/runner/folder>/docker_example_host -pr:b </my/runner/folder>/docker_example_build
-
-    ...
-
-    *********************************
-    * Starting the docker container *
-    *********************************
-
-    ...

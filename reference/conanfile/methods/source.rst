@@ -43,6 +43,11 @@ A ``source()`` implementation might use the convenient ``get()`` helper, or use 
             os.unlink(zip_name)
 
 
+.. important::
+
+    Please read the note in :ref:`conan_tools_files_unzip` regarding Python 3.14 breaking changes and 
+    the new tar archive extract filters.
+
 
 Applying patches to downloaded sources can be done (and should be done) in the ``source()`` method if those patches
 apply to all possible configurations. As explained below, it is not possible to introduce conditionals in the

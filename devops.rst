@@ -18,3 +18,4 @@ If you plan to use Conan in production in your project, team, or organization, t
    devops/metadata
    devops/versioning
    devops/save_restore
+   devops/vendoring

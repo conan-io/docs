@@ -53,6 +53,11 @@ corresponding build flags like ``-stdlib=libstdc++``, ``-std=gnu14``, architectu
 etc. It will also append the folder where the Conan generators are located to the
 ``PKG_CONFIG_PATH`` environment variable.
 
+Since `Conan 2.4.0 <https://github.com/conan-io/conan/releases/tag/2.4.0>`__,
+in  a cross-building context, the environment variables ``CC_FOR_BUILD`` and ``CXX_FOR_BUILD`` are also set if the
+build profile defines the ``c`` and ``cpp`` values in the configuration variable ``tools.build:compiler_executables``.
+See more info in the :ref:`conf section<conan_tools_gnu_autotoolstoolchain_conf>`.
+
 This generator will also generate a file called ``conanbuild.conf`` containing two keys:
 
 - **configure_args**: Arguments to call the ``configure`` script.
@@ -241,11 +246,10 @@ Reference
     :members:
 
 
+.. _conan_tools_gnu_autotoolstoolchain_conf:
 
 conf
 ^^^^
-
-.. _conan_tools_gnu_autotoolstoolchain_conf:
 
 - ``tools.build:cxxflags`` list of extra C++ flags that will be used by ``CXXFLAGS``.
 - ``tools.build:cflags`` list of extra of pure C flags that will be used by ``CFLAGS``.
@@ -255,12 +259,15 @@ conf
 - ``tools.build:linker_scripts`` list of linker scripts, each of which will be prefixed with ``-T`` and added to ``LDFLAGS``.
   Only use this flag with linkers that supports specifying linker scripts with the ``-T`` flag, such as ``ld``, ``gold``, and ``lld``.
 - ``tools.build:sysroot`` defines the ``--sysroot`` flag to the compiler.
+- ``tools.android:ndk_path`` (*new since Conan 2.5.0*) argument for NDK path in case of Android cross-compilation. It is used to set
+  some environment variables like ``CC``, ``CXX``, ``LD``, ``STRIP``, ``RANLIB``, ``AS``, and ``AR`` in the *conanautotoolstoolchain.sh|bat* script.
 - ``tools.build:compiler_executables`` dict-like Python object which specifies the
   compiler as key and the compiler executable path as value. Those keys will be mapped as
   follows:
 
-  * ``c``: will set ``CC`` in *conanautotoolstoolchain.sh|bat* script.
-  * ``cpp``: will set ``CXX`` in *conanautotoolstoolchain.sh|bat* script.
+  * ``c``: will set ``CC`` (and ``CC_FOR_BUILD`` if cross-building) in *conanautotoolstoolchain.sh|bat* script.
+  * ``cpp``: will set ``CXX`` (and ``CXX_FOR_BUILD`` if cross-building) in *conanautotoolstoolchain.sh|bat* script.
+  * ``rc``: will set ``RC`` in *conanautotoolstoolchain.sh|bat* script.
   * ``cuda``: will set ``NVCC`` in *conanautotoolstoolchain.sh|bat* script.
   * ``fortran``: will set ``FC`` in *conanautotoolstoolchain.sh|bat* script.
 

@@ -54,6 +54,14 @@ are copied over to the user's Conan home folder.
 This file uses `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_ patterns
 to match over the folder contents, excluding those entries that match from the config installation.
 See `conan-io/command-extensions's .conanignore <https://github.com/conan-io/command-extensions/blob/main/.conanignore>`_ for an example of such a file.
+You can force certain files to be copied over by using the ``!`` negation syntax:
+
+.. code-block:: text
+
+    # Ignore all files
+    *
+    # But copy the file named "settings.yml"
+    !settings.yml
 
 
 **Examples**:
@@ -85,7 +93,7 @@ See `conan-io/command-extensions's .conanignore <https://github.com/conan-io/com
 
   .. code-block:: text
 
-      $ conan config install http://github.com/user/conan_config/.git --args "--recursive"
+      $ conan config install http://github.com/user/conan_config/.git --args="--recursive"
 
   You can also force the git download by using :command:`--type git` (in case it is not deduced from the URL automatically):
 
@@ -145,6 +153,13 @@ To install configuration from a Conan configuration package, it is possible:
 
 It is also possible to make the version of the configuration affect all packages ``package_id`` and be part of the binary model, by activating the ``core.package_id:config_mode`` conf (this is also experimental), to any available mode, like ``minor_mode``.
 
+As the ``conan config install-pkg`` command downloads the package from a Conan remote server, it can download from an already existing remote,
+or it can download from a Conan remote directly specifying the repository URL:
+
+.. code:: bash
+
+    $ conan config install-pkg myconf/version --url=<url/conan/remote/repo>
+
 
 
 conan config list
@@ -164,10 +179,20 @@ Displays all the Conan built-in configurations. There are 2 groups:
 .. autocommand::
     :command: conan config list
 
+It is possible to list only the configurations that match a given pattern, like:
+
+.. code:: bash
+
+    $  conan config list proxy
+    core.net.http:clean_system_proxy: If defined, the proxies system env-vars will be discarded
+    core.net.http:no_proxy_match: List of urls to skip from proxies configuration
+    core.net.http:proxies: Dictionary containing the proxy configuration
+
 
 .. seealso::
 
-    - :ref:`Conan configuration files <reference_config_files>`
+    - These configurations can be defined in ``global.conf``, profile files and command line, see 
+      :ref:`Conan configuration files <reference_config_files>`
 
 
 conan config show

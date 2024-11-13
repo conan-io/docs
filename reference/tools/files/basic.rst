@@ -189,8 +189,8 @@ Usage:
 conan.tools.files.unzip()
 -------------------------
 
-This function extract different compressed formats (``.tar.gz``, ``.tar``, ``.tzb2``, ``.tar.bz2``, ``.tgz``, ``.txz``,
-``tar.xz``, and ``.zip``) into the given destination folder.
+This function extract different compressed formats (``.tar``, ``.tar.gz``, ``.tgz``, ``.tar.bz2``, ``.tbz2``, ``.tar.xz``, ``.txz``, 
+and ``.zip``) into the given destination folder.
 
 It also accepts gzipped files, with extension ``.gz`` (not matching any of the above), and it will unzip them into a file with the same name
 but without the extension, or to a filename defined by the ``destination`` argument.
@@ -222,6 +222,15 @@ Use the ``pattern`` argument if you want to filter specific files and paths to d
     # Extract only txt files
     unzip(self, "bigfile.zip", pattern="*.txt")
 
+
+.. important::
+
+    In Conan 2.8 ``unzip()`` provides a new ``extract_filter=None`` argument and a new 
+    ``tools.files.unzip:filter`` configuration was added to prepare for future Python 3.14 
+    breaking changes, in which the ``data`` filter for extracting tar archives will be made the default.
+    The recommendation is to start using the ``data`` filter as soon as possible (the conf can be 
+    defined in ``global.conf``, or it can be explicitly added as argument in recipes ``unzip()`` and ``get()``
+    helpers) as that is the current security recommendation while downloading sources from the internet.
 
 
 .. currentmodule:: conan.tools.files.files

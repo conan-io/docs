@@ -14,11 +14,15 @@ The default file created by Conan looks like this:
      "remotes": [
       {
        "name": "conancenter",
-       "url": "https://center.conan.io",
+       "url": "https://center2.conan.io",
        "verify_ssl": true
       }
      ]
     }
+
+
+.. include:: ../../common/conancenter_frozen.inc
+
 
 Essentially, it tells Conan where to list/upload/download the recipes/binaries from the remotes specified by their URLs.
 
@@ -37,3 +41,4 @@ The fields for each remote are:
 
     - :ref:`How to manage SSL (TLS) certificates <reference_config_files_global_conf_ssl_certificates>`
     - :ref:`How to manage remotes.json through CLI: conan remotes <reference_commands_remote>`.
+    - :ref:`How to use your own secrets manager for Conan remotes logins <reference_extensions_authorization_plugin>`.

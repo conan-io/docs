@@ -197,7 +197,7 @@ configuration in the command line to skip the test building and running:
 
 .. code-block:: bash
 
-    $ conan create . -c tools.build:skip_test=True -tf="""
+    $ conan create . -c tools.build:skip_test=True -tf=""
     ...
     [ 50%] Building CXX object CMakeFiles/hello.dir/src/hello.cpp.o
     [100%] Linking CXX static library libhello.a

@@ -25,6 +25,12 @@ has the following format, in which every ``credentials`` entry should have a ``u
 URL that should match the recipe one. If the recipe URL starts with the given one in the credentials files,
 then the credentials will be injected. If the file provides multiple credentials for multiple URLs, they
 will be evaluated in order until the first match happens. If no match is found, no credentials will be injected.
+A custom :ref:`auth plugin <reference_extensions_authorization_plugin>` can also be used to retrieve credentials
+directly from your own secrets manager.
+
+It has to be noted that the ``source_credentials`` applies only to files downloaded with the ``tools.files``
+``download()`` and ``get()`` helpers, but it won't be used in other cases. To provide credentials for Conan repos,
+the ``credentials.json`` file should be used instead, see :ref:`reference_config_files_credentials`.
 
 .. code-block:: json
 
@@ -79,3 +85,7 @@ level:
     - Avoid using URLs that encode tokens or user/password authentication in the ``conanfile.py`` recipes. These URLs can easily leak into logs, and 
       can be more difficult to fix in case of credentials changes (this is also valid for Git repositories URLs and clones,
       better use other Git auth mechanisms like ssh-keys) 
+
+.. seealso::
+
+    - :ref:`How to use your own secrets manager for your source server logins <reference_extensions_authorization_plugin>`.

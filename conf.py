@@ -12,6 +12,7 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 import pathlib
+import subprocess
 import sys
 import os
 from shutil import copyfile
@@ -47,6 +48,7 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.graphviz',
     'sphinx.ext.todo',
+    'sphinx_tabs.tabs',
     'sphinxcontrib.jquery',
     'sphinxcontrib.youtube',
     'autocommand',
@@ -56,16 +58,16 @@ extensions = [
 add_module_names = False
 autoclass_content = 'both'
 autodoc_member_order = 'bysource'  # To order the methods following the order at the code, not alphabetically
-autodoc_mock_imports = ["PyJWT", "requests", "urllib3", "PyYAML", 
+autodoc_mock_imports = ["PyJWT", "requests", "urllib3", "PyYAML",
                         "patch-ng", "fasteners", "six", "node-semver", "distro",
-                        "pygments", "tqdm", "Jinja2", "MarkupSafe", "Jinja2", 
+                        "pygments", "tqdm", "Jinja2", "MarkupSafe", "Jinja2",
                         "python-dateutil", "configparse", "patch_ng", "yaml", "semver", "dateutil"]
 
 
 # The short X.Y version.
-version = "2.3"
+version = "2.9"
 # The full version, including alpha/beta/rc tags.
-release = u'2.3.2'
+release = u'2.9.2'
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 if not os.path.exists(os.path.join(dir_path, "versions.json")):
@@ -88,7 +90,8 @@ html_context = {
     "github_user": "conan-io", # Username
     "github_repo": "docs", # Repo name
     "github_version": "develop2", # Version
-    "conf_py_path": "/" # Path in the checkout to the docs root
+    "conf_py_path": "/", # Path in the checkout to the docs root
+    "enable_cookies": os.getenv("ENABLE_COOKIES_BANNER", True)  # enable cookies banner
 }
 
 # Add any paths that contain templates here, relative to this directory.
@@ -429,7 +432,6 @@ notfound_pagename = 'Page Not Found'
 # Graphviz output format, one of png, svg
 graphviz_output_format = 'svg'
 
-
 # copy legacy redirects
 def copy_legacy_redirects(app, docname): # Sphinx expects two arguments
     # FILL in this dicts the necessary redirects
@@ -454,11 +456,20 @@ def copy_legacy_redirects(app, docname): # Sphinx expects two arguments
                 os.makedirs(os.path.dirname(target_path))
             with open(target_path, "w") as f:
                 f.write(html)
+
+                
 def fix_epub_generation(app):
     # Ensure there's an epub handler
     if "html" in app.registry.translation_handlers:
         app.registry.translation_handlers["epub"] = app.registry.translation_handlers["html"]
  
+
+def get_conan_version():
+    out, _ = subprocess.Popen("conan --version", stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, shell=True).communicate()
+    return out
+
 def setup(app):
     app.connect('build-finished', copy_legacy_redirects)
     fix_epub_generation(app)
+    # Run Conan once, so autocommands are executed without migrations
+    print("Running with Conan version: ", get_conan_version().decode().strip())

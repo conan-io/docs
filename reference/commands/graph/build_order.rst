@@ -87,14 +87,24 @@ Let's consider installing `libpng` and wanting to see the build order for this r
                     ]
                 }
             ]
-        ]
+        ],
+        "profiles": {
+            "self": {
+                "args": ""
+            }
+        }
     }
 
 
-Firstly, we can see the `zlib` package, as `libpng` depends on it. The output is sorted by
+Firstly, we can see the ``zlib`` package, as ``libpng`` depends on it. The output is sorted by
 recipes as we passed with the `--order-by` argument; however, we might prefer to see it
 sorted by configurations instead. For that purpouse use the `--order-by` argument with
 value `configuration`.
+
+At the end of the json, after the ``order`` field, we see a ``profiles`` field, which contains the profile related command line arguments for the current "build-order". As in this case we didn't provide any arguments, it is empty. But if we used something like ``conan graph build-order ... -pr=default -s build_type=Debug > bo.json``, the ``args`` will contain those arguments (with json character escaping): ``"args": "-pr:h=\"default\" -s:h=\"build_type=Debug\""``
+
+
+Using ``--order-by=configuration`` we will get a different build-order format:
 
 .. code-block:: text
 
@@ -187,3 +197,17 @@ the result would be only those that are going to be built:
 Then it will contain exclusively the ``binary=Build`` nodes, but not the rest.
 Note that it will also provide a ``build_args`` field with the arguments needed for a ``conan install <args>`` to fire the build of this package
 in the CI agent.
+
+
+**Getting a visual representation of the Build Order**
+
+You can obtain a visual representation of the build order by using the HTML formatter. For example:
+
+.. code-block:: text
+
+    $ conan graph build-order --requires=opencv/4.9.0 --order-by=recipe --build=missing --format=html > build-order.html
+
+
+.. image:: /images/conan-build-order-html.png
+   :width: 100%
+   :align: center

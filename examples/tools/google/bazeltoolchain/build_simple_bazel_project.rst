@@ -3,6 +3,10 @@
 Build a simple Bazel project using Conan
 ========================================
 
+.. warning::
+
+    This example is Bazel 6.x compatible.
+
 In this example, we are going to create a Hello World program
 that uses one of the most popular C++ libraries: `fmt <https://fmt.dev/latest/index.html/>`_.
 
@@ -21,7 +25,7 @@ Please, first clone the sources to recreate this project. You can find them in t
 .. code-block:: bash
 
     $ git clone https://github.com/conan-io/examples2.git
-    $ cd examples2/examples/tools/google/bazeltoolchain/string_formatter
+    $ cd examples2/examples/tools/google/bazeltoolchain/6_x/string_formatter
 
 
 We start from a very simple C++ language project with this structure:
@@ -61,8 +65,6 @@ Let's have a look at each file's content:
 
 .. code-block:: python
     :caption: **main/BUILD**
-
-    load("@rules_cc//cc:defs.bzl", "cc_binary")
 
     cc_binary(
         name = "demo",
@@ -105,7 +107,7 @@ in a folder named *conan/* (default folder defined by the ``bazel_layout``).
     $ conan install . --build=missing
     # ...
     ======== Finalizing install (deploy, generators) ========
-    conanfile.txt: Writing generators to /Users/franchuti/develop/examples2/examples/tools/google/bazeltoolchain/string_formatter/conan
+    conanfile.txt: Writing generators to /Users/user/develop/examples2/examples/tools/google/bazeltoolchain/6_x/string_formatter/conan
     conanfile.txt: Generator 'BazelDeps' calling 'generate()'
     conanfile.txt: Generator 'BazelToolchain' calling 'generate()'
     conanfile.txt: Generating aggregated env files

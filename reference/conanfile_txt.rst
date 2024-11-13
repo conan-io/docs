@@ -28,7 +28,7 @@ This section supports references with version-ranges too:
 .. code-block:: text
 
     [requires]
-    poco/[>1.0,<1.9]
+    poco/[>1.0 <1.9]
     zlib/1.2.11
 
 And specific recipe revisions can be pinned too:

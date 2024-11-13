@@ -5,7 +5,7 @@ conan lock remove
     :command: conan lock remove -h
 
 
-The ``conan lock remove`` command is able to remove ``requires``, ``build_requires`` or ``python_requires`` items from an existing lockfile.
+The ``conan lock remove`` command is able to remove ``requires``, ``build_requires``, ``python_requires`` or ``config_requires`` items from an existing lockfile.
 
 For example, if we have the following ``conan.lock``:
 
