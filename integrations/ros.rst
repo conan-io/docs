@@ -119,7 +119,7 @@ To install the `fmt` library using Conan we should do the following:
     conanfile.txt: Generated aggregated env files: ['conanrosenv.sh']
     Install finished successfully
 
-This will download the fmt Conan package to the local cache and generate the CMake and ROS environment files
+This will download the `fmt` Conan package to the local cache and generate the CMake and ROS environment files
 in the `conan` subfolder of the `install` directory.
 
 Now we can source our ROS environment, then **source the Conan ROSEnv environment**, so the conan-installed package are found by CMake, and then
