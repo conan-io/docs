@@ -12,19 +12,24 @@ for the purpose.
 
 It provides a clean integration that requires no conan-specific modifications in your *CMakeLists.txt*.
 
-.. note::
-
-    The files for this example can be found in `this repository <https://github.com/conan-io/examples2/tree/main/examples/tools/ros/rosenv/workspace>`_.
-    You can follow this example by cloning our examples repository:
-
-    .. code-block:: bash
-
-        $ git clone git@github.com:conan-io/examples2.git && cd examples2/examples/tools/ros/rosenv
-
 .. important::
 
-    This integration supports ROS2 and has been developed using ROS Humble version and the aim is to support newer versions going forward.
+    This integration supports **ROS2**, it has been developed using its **Humble version** and the aim is to **support newer versions going forward**.
     If you have any issues with other ROS versions, please let us know by opening an issue in our github repository.
+
+.. note::
+
+    **Pre-requisites to run the example:**
+
+    1. In order to run the example, it is exepected that you have an Ubuntu environment (22.04 LTS preferred) with `ROS2 Humble version installed <https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html>`_. You can use the Docker image `osrf/ros:humble-desktop` instead as well.
+
+    2. The files for this example can be found at `our examples repository <https://github.com/conan-io/examples2/tree/main/examples/tools/ros/rosenv/workspace>`_.
+       Clone it like so to get started:
+
+       .. code-block:: bash
+
+           $ git clone git@github.com:conan-io/examples2.git && cd examples2/examples/tools/ros/rosenv
+
 
 Consuming Conan packages using the ROSEnv generator
 ---------------------------------------------------
