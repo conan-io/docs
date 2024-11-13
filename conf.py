@@ -456,7 +456,7 @@ def copy_legacy_redirects(app, docname): # Sphinx expects two arguments
                 f.write(html)
 def fix_epub_generation(app):
     # Ensure there's an epub handler
-    if "html" in app.registry.translation_handlers
+    if "html" in app.registry.translation_handlers:
         app.registry.translation_handlers["epub"] = app.registry.translation_handlers["html"]
  
 def setup(app):
