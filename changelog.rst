@@ -3,6 +3,18 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.9.2 (07-Nov-2024)
+-------------------
+
+- Feature: Use center2.conan.io as new default remote and warn about having the old one. `#17284 <https://github.com/conan-io/conan/pull/17284>`_ . Docs `here <https://github.com/conan-io/docs/pull/3893>`__
+- Bugfix: Fix ROSEnv quotes for CMAKE_TOOLCHAIN_FILE variable. `#17270 <https://github.com/conan-io/conan/pull/17270>`_
+
+2.9.1 (30-Oct-2024)
+-------------------
+
+- Bugfix: Fix `deduce_subsystem` when `scope=None` assuming the scope is `build`. `#17251 <https://github.com/conan-io/conan/pull/17251>`_
+- Bugfix: Fixed false positives of ``profile.py`` plugin checks over c++26 for latest compiler versions `#17250 <https://github.com/conan-io/conan/pull/17250>`_
+
 2.9.0 (29-Oct-2024)
 -------------------
 
