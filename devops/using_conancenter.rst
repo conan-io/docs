@@ -3,6 +3,8 @@
 Using ConanCenter packages in production environments
 =====================================================
 
+.. include:: ../common/conancenter_frozen.inc
+
 ConanCenter is a fantastic resource that contains reference implementations of 
 recipes for over 1500 libraries and applications contributed by the community. 
 As such, it is a great knowledge base on how to create and build Conan packages 
