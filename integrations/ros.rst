@@ -30,7 +30,7 @@ Consuming Conan packages using the ROSEnv generator
 ---------------------------------------------------
 
 Imagine we have a ROS C++ package called `str_printer` that uses some functionality from the 
-third party library `fmt <https://conan.io/center/recipes/fmt>`_ a `str_printer` library with a function to print fancy strings.
+third party string formatting library `fmt <https://conan.io/center/recipes/fmt>`_ to print fancy strings.
 
 We have the following project structure:
 
