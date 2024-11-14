@@ -203,7 +203,7 @@
         {%- else %}
         <div class="rst-content">
         {%- endif %}
-          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit" id="conan-banners">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit;z-index:1" id="conan-banners">
             {% if current_version.startswith("1") %}
             <div style="border: 2px solid #eb8484;background-color: #ffcaca;padding: 3px;margin-bottom: 5px">
               <p>This document is for a <b>"1.X" legacy</b> Conan version, <b>which is no longer recommended</b>. Please update to Conan 2, <a href="https://docs.conan.io/2/">click here to read the <b>Conan 2</b> documentation</a></p>
