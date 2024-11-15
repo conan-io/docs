@@ -21,14 +21,14 @@ It provides a clean integration that requires no Conan-specific modifications in
 
     **Pre-requisites to run the example:**
 
-    1. In order to run the example, it is exepected that you have an Ubuntu environment (22.04 LTS preferred) with `ROS2 Humble version installed <https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html>`_. You can use the Docker image `osrf/ros:humble-desktop` instead as well.
+    1. In order to run the example, it is exepected that you have an Ubuntu environment (22.04 LTS preferred) with `ROS2 Humble version installed <https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html>`_. You can use the Docker image ``osrf/ros:humble-desktop`` instead as well.
 
     2. The files for this example can be found at `our examples repository <https://github.com/conan-io/examples2/tree/main/examples/tools/ros/rosenv/workspace>`_.
        Clone it like so to get started:
 
        .. code-block:: bash
 
-           $ git clone git@github.com:conan-io/examples2.git && cd examples2/examples/tools/ros/rosenv
+           $ git clone https://github.com/conan-io/examples2.git && cd examples2/examples/tools/ros/rosenv
 
 
 Consuming Conan packages using the ROSEnv generator
@@ -133,7 +133,7 @@ we can build the `str_printer` package as usual with Colcon.
 .. code-block:: bash
 
     $ source /opt/ros/humble/setup.bash
-    $ source /install/conan/conanrosenv.sh
+    $ source install/conan/conanrosenv.sh
     $ colcon build --packages-select str_printer
     Starting >>> str_printer
     Finished <<< str_printer [10.8s]
