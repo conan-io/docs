@@ -110,8 +110,8 @@ List of options scoped for each package with a pattern like **package_name*:opti
     CMakeToolchain
 
     [options]
-    poco*:shared=True
-    openssl*:shared=True
+    poco/*:shared=True
+    openssl/*:shared=True
 
 For example using ``*:shared=True`` will define ``shared=True`` for all packages in the dependency graph that have this
 option defined.
