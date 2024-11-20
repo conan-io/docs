@@ -299,7 +299,7 @@ Note that this only propagates from the immediate, direct ``tool_requires`` of a
 .. _conan_conanfile_model_generator_info:
 
 generator_info
----------------
+--------------
 
 .. include:: ../../../common/experimental_warning.inc
 
