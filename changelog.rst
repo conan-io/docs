@@ -3,6 +3,95 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.9.2 (07-Nov-2024)
+-------------------
+
+- Feature: Use center2.conan.io as new default remote and warn about having the old one. `#17284 <https://github.com/conan-io/conan/pull/17284>`_ . Docs `here <https://github.com/conan-io/docs/pull/3893>`__
+- Bugfix: Fix ROSEnv quotes for CMAKE_TOOLCHAIN_FILE variable. `#17270 <https://github.com/conan-io/conan/pull/17270>`_
+
+2.9.1 (30-Oct-2024)
+-------------------
+
+- Bugfix: Fix `deduce_subsystem` when `scope=None` assuming the scope is `build`. `#17251 <https://github.com/conan-io/conan/pull/17251>`_
+- Bugfix: Fixed false positives of ``profile.py`` plugin checks over c++26 for latest compiler versions `#17250 <https://github.com/conan-io/conan/pull/17250>`_
+
+2.9.0 (29-Oct-2024)
+-------------------
+
+- Feature: Add missing major OS/compiler version support in `settings.yml`. `#17240 <https://github.com/conan-io/conan/pull/17240>`_ . Docs `here <https://github.com/conan-io/docs/pull/3889>`__
+- Feature: :command:`conan new` learned defaults ``-d name=mypkg -d version=0.1`` for simpler UX. `#17186 <https://github.com/conan-io/conan/pull/17186>`_ . Docs `here <https://github.com/conan-io/docs/pull/3882>`__
+- Feature: Warn when patching files and the recipe has `no_copy_source = True`, which could lead to unforseen issues `#17162 <https://github.com/conan-io/conan/pull/17162>`_
+- Feature: Add `self.generators_info` for `tool_requires` to propagate generators to their direct dependencies. `#17129 <https://github.com/conan-io/conan/pull/17129>`_ . Docs `here <https://github.com/conan-io/docs/pull/3880>`__
+- Feature: Add support for including paths that are ignored in `.conanignore`. `#17123 <https://github.com/conan-io/conan/pull/17123>`_ . Docs `here <https://github.com/conan-io/docs/pull/3879>`__
+- Feature: New ``tools.graph:skip_build`` conf to be able to skip the expansion of ``tool_requires``. `#17117 <https://github.com/conan-io/conan/pull/17117>`_ . Docs `here <https://github.com/conan-io/docs/pull/3883>`__
+- Feature: New ``tools.graph:skip_test`` conf to be able to skip the expansion of ``test_requires``. `#17117 <https://github.com/conan-io/conan/pull/17117>`_ . Docs `here <https://github.com/conan-io/docs/pull/3883>`__
+- Feature: Add ROSEnv generator integration for ROS2 (Robot Operating System). `#17110 <https://github.com/conan-io/conan/pull/17110>`_
+- Feature: Add profile arguments information to ``conan graph build-order`` to improve UX and usage in CI systems. `#17102 <https://github.com/conan-io/conan/pull/17102>`_ . Docs `here <https://github.com/conan-io/docs/pull/3884>`__
+- Feature: Add C++26 support for `gcc`, `clang`, and `apple-clang`. `#17092 <https://github.com/conan-io/conan/pull/17092>`_ . Docs `here <https://github.com/conan-io/docs/pull/3878>`__
+- Feature: Add Configuration and Platform keys for MSBuildDeps property sheets. `#17076 <https://github.com/conan-io/conan/pull/17076>`_ . Docs `here <https://github.com/conan-io/docs/pull/3888>`__
+- Feature: New ``CMakeDeps`` generator activated by ``tools.cmake.cmakedeps:new`` conf with value ``will_break_next`` for evaluation. This new generator deduces or use ``cpp_info.location/link_location`` to define STATIC; SHARED, INTERFACE imported targets. It will also define the IMPORTED_LOCATION, the IMPORTED_CONFIGURATION, etc. `#16964 <https://github.com/conan-io/conan/pull/16964>`_
+- Feature: Use ``cpp_info.languages``, that default to the recipe ``languages`` to propagate "link-language" requirements to consumers of the packages. `#16964 <https://github.com/conan-io/conan/pull/16964>`_
+- Feature: Define ``cpp_info.default_components`` for the new ``CMakeDeps`` generator only. `#16964 <https://github.com/conan-io/conan/pull/16964>`_
+- Feature: Model ``cpp_info.exes`` field for executable applications, used only by the new ``CMakeDeps`` generator, that generate IMPORTED executable targets in ``CMakeDeps`` for ``cpp_info.exes``. `#16964 <https://github.com/conan-io/conan/pull/16964>`_
+- Fix: Use a valid prefix path for `meson.configure()` on Windows, to avoid failures in Python 3.13. `#17206 <https://github.com/conan-io/conan/pull/17206>`_
+- Fix: Allow `cmake_target_aliases` to be set in CMakeDeps. `#17200 <https://github.com/conan-io/conan/pull/17200>`_ . Docs `here <https://github.com/conan-io/docs/pull/3875>`__
+- Fix: Adding the startup options to each Bazel command. `#17183 <https://github.com/conan-io/conan/pull/17183>`_
+- Fix: Add remote name to login prompt. `#17178 <https://github.com/conan-io/conan/pull/17178>`_
+- Fix: Get credentials and re-authenticate when an expired token gives AuthenticationException. `#17127 <https://github.com/conan-io/conan/pull/17127>`_
+- Fix: Moved exceptions from the legacy ``from conans.error`` to documented ``from conan.error``. `#17126 <https://github.com/conan-io/conan/pull/17126>`_ . Docs `here <https://github.com/conan-io/docs/pull/3864>`__
+- Fix: ``Pacman`` as package manager shouldn't be used for ``tools.microsoft.bash:subsystem=msys2``, but when the target platform is actually msys2 ``os.subsystem=msys2`` (as a setting). `#17103 <https://github.com/conan-io/conan/pull/17103>`_
+- Fix: Properly deduce RuntimeLibrary from profile in MSBuildToolchain. `#17100 <https://github.com/conan-io/conan/pull/17100>`_
+- Fix: Set C++20 flag to `{gnu}c++20` for `gcc` >= 10 instead of `c++2a` until `gcc` 12. `#17092 <https://github.com/conan-io/conan/pull/17092>`_ . Docs `here <https://github.com/conan-io/docs/pull/3878>`__
+- Fix: Set C++23 flag to `{gnu}c++23` for `gcc` >= 11 instead of `c++2b`. `#17092 <https://github.com/conan-io/conan/pull/17092>`_ . Docs `here <https://github.com/conan-io/docs/pull/3878>`__
+- Fix: Avoid repeated login attempts to the server for 401 when the credentials come from env-vars or ``credentials.json`` file, only repeated login attempts for user interactive prompt. `#17083 <https://github.com/conan-io/conan/pull/17083>`_
+- Fix: Align CMakeToolchain and AutotoolsToolchain to automatically define ``cl`` compiler for ``compiler=msvc`` if not defined (only when necessary, as when using Ninja generator in CMake). `#16875 <https://github.com/conan-io/conan/pull/16875>`_ . Docs `here <https://github.com/conan-io/docs/pull/3886>`__
+- Fix: Quote `build_args` in `conan graph build-order -f=json` to avoid issues with options with spaces. `#16594 <https://github.com/conan-io/conan/pull/16594>`_
+- Bugfix: Improved `bazeldeps._get_libs()` mechanism. `#17233 <https://github.com/conan-io/conan/pull/17233>`_
+- Bugfix: Improve cstd check for different compiler versions at profile load time. `#17157 <https://github.com/conan-io/conan/pull/17157>`_
+- Bugfix: Fix cppstd/cstd `variable_watch` when they are not defined. `#17156 <https://github.com/conan-io/conan/pull/17156>`_
+- Bugfix: Fix cstd error reporting when a recipe does not support the required version. `#17156 <https://github.com/conan-io/conan/pull/17156>`_
+- Bugfix: Drop the username permission validation bypass in ``conan_server``, it could be a potential security issue. `#17132 <https://github.com/conan-io/conan/pull/17132>`_
+- Bugfix: Listing recipes with equal versions under semver rules but different representation (ie `1.0` & `1.0.0`) now returns both references. `#17121 <https://github.com/conan-io/conan/pull/17121>`_
+- Bugfix: Conan Server: Do not return duplicated references for each revision of the same recipe reference when searching them. `#17121 <https://github.com/conan-io/conan/pull/17121>`_
+- Bugfix: Empty version range results in empty condition set. `#17116 <https://github.com/conan-io/conan/pull/17116>`_
+- Bugfix: Adding the `# do not sort` comment to `deps` section. Regression since Conan 1.61. `#17109 <https://github.com/conan-io/conan/pull/17109>`_
+- Bugfix: Restore ConanOutput global state when using `Commands` API. `#17095 <https://github.com/conan-io/conan/pull/17095>`_
+- Bugfix: `build_args` options in `graph build-order` now respect the context of the reference. `#16594 <https://github.com/conan-io/conan/pull/16594>`_
+
+2.8.1 (17-Oct-2024)
+--------------------
+
+- Bugfix: Avoid raising an error for required components for ``test_requires`` also required as transitive ``requires``. `#17174 <https://github.com/conan-io/conan/pull/17174>`_
+
+2.8.0 (30-Sept-2024)
+--------------------
+
+- Feature: Add support for iOS 18, watchOS 11, tvOS 18, visionOS 2 & macos 15. `#17012 <https://github.com/conan-io/conan/pull/17012>`_ . Docs `here <https://github.com/conan-io/docs/pull/3851>`__
+- Feature: Add Clang 19 support. `#17010 <https://github.com/conan-io/conan/pull/17010>`_ . Docs `here <https://github.com/conan-io/docs/pull/3851>`__
+- Feature: ``conan config list <pattern>`` to filter available configurations. `#17000 <https://github.com/conan-io/conan/pull/17000>`_ . Docs `here <https://github.com/conan-io/docs/pull/3853>`__
+- Feature: New ``auth_remote.py`` plugin for custom user authentication to Conan remotes. `#16942 <https://github.com/conan-io/conan/pull/16942>`_ . Docs `here <https://github.com/conan-io/docs/pull/3846>`__
+- Feature: New ``auth_source.py`` plugin for custom user authentication for generic downloads of sources. `#16942 <https://github.com/conan-io/conan/pull/16942>`_ . Docs `here <https://github.com/conan-io/docs/pull/3846>`__
+- Feature: Add `--envs-generation={false}` to :command:`conan install` and :command:`conan build` to disable the generation of virtualenvs (``conanbuildenv.sh|bat`` and ``conanrunenv.sh|bat``). `#16935 <https://github.com/conan-io/conan/pull/16935>`_ . Docs `here <https://github.com/conan-io/docs/pull/3855>`__
+- Feature: New ``tools.files.unzip:filter`` conf that allows to define ``data``, ``tar`` and ``fully_trusted`` extraction policies for tgz files. `#16918 <https://github.com/conan-io/conan/pull/16918>`_ . Docs `here <https://github.com/conan-io/docs/pull/3857>`__
+- Feature: ``get()`` and ``unzip()`` tools for ``source()`` learned a new ``extract_filter`` argument to define ``data``, ``tar`` and ``fully_trusted`` extraction policies for tgz files. `#16918 <https://github.com/conan-io/conan/pull/16918>`_ . Docs `here <https://github.com/conan-io/docs/pull/3857>`__
+- Feature: Add progress updates for large uploads (>100Mbs) every 10 seconds. `#16913 <https://github.com/conan-io/conan/pull/16913>`_
+- Feature: Implement ``conan config install-pkg --url=<repo-url>`` for initial definition of remote URL when no remotes are defined yet. `#16876 <https://github.com/conan-io/conan/pull/16876>`_ . Docs `here <https://github.com/conan-io/docs/pull/3854>`__
+- Feature: Allow building a compatible package still of the current profile one. `#16871 <https://github.com/conan-io/conan/pull/16871>`_
+- Feature: Allow bootstrapping (depending on another variant of yourself), even for the same version. `#16870 <https://github.com/conan-io/conan/pull/16870>`_
+- Feature: Allow ``[replace_requires]`` to replace the package name and ``self.dependencies`` still works with the old name. `#16443 <https://github.com/conan-io/conan/pull/16443>`_
+- Fix: Let ``CMakeToolchain`` defining ``CMAKE_SYSTEM_XXX`` even if ``user_toolchain`` is defined, but protected in case the toolchain really defines them. `#17036 <https://github.com/conan-io/conan/pull/17036>`_ . Docs `here <https://github.com/conan-io/docs/pull/3852>`__
+- Fix: Replace `|` character in generated CMake and Environment files. `#17024 <https://github.com/conan-io/conan/pull/17024>`_
+- Fix: Redirect the ``PkgConfig`` ``stderr`` to the exception raised. `#17020 <https://github.com/conan-io/conan/pull/17020>`_
+- Fix: Use always forward slashes in Windows subsystems ``bash`` path. `#16997 <https://github.com/conan-io/conan/pull/16997>`_
+- Fix: Better error messages when ``conan list --graph=<graph-json-file>`` file has issues. `#16936 <https://github.com/conan-io/conan/pull/16936>`_
+- Bugfix: `PkgConfigDeps.set_property()` was not setting properly all the available properties. `#17051 <https://github.com/conan-io/conan/pull/17051>`_
+- Bugfix: BazelDeps did not find DLL files as Conan does not model them in the Windows platform. `#17045 <https://github.com/conan-io/conan/pull/17045>`_
+- Bugfix: Do not skip dependencies of a package if it is not going to be skipped due to ``tools.graph:skip_binaries=False``. `#17033 <https://github.com/conan-io/conan/pull/17033>`_
+- Bugfix: Allow ``requires(..., package_id_mode)`` trait in case of diamonds to always use the recipe defined one irrespective of ``requires()`` order. `#16987 <https://github.com/conan-io/conan/pull/16987>`_
+- Bugfix: Propagate include_prerelease flag to intersection of VersionRange. `#16986 <https://github.com/conan-io/conan/pull/16986>`_
+- Bugfix: Raise error if invalid value passed to conf.get(check_type=bool). `#16976 <https://github.com/conan-io/conan/pull/16976>`_
+- Bugfix: Allow `remote_login` accept patterns. `#16942 <https://github.com/conan-io/conan/pull/16942>`_ . Docs `here <https://github.com/conan-io/docs/pull/3846>`__
+
 2.7.1 (11-Sept-2024)
 --------------------
 

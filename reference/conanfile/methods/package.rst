@@ -57,4 +57,4 @@ The ``package()`` method is also the one called when packaging precompiled binar
 
 .. seealso::
     
-    See :ref:` the package() method tutorial<creating_packages_package_method>` for more information.
+    See :ref:`the package() method tutorial<creating_packages_package_method>` for more information.

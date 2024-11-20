@@ -96,7 +96,6 @@ The ``conan clean`` command has the following code:
     from conan.api.conan_api import ConanAPI
     from conan.api.output import ConanOutput, Color
     from conan.cli.command import OnceArgument, conan_command
-    from conans.client.userio import UserInput
 
 
     recipe_color = Color.BRIGHT_BLUE
@@ -111,23 +110,14 @@ The ``conan clean`` command has the following code:
         """
         parser.add_argument('-r', '--remote', action=OnceArgument,
                             help='Will remove from the specified remote')
-        parser.add_argument('--force', default=False, action='store_true',
-                            help='Remove without requesting a confirmation')
         args = parser.parse_args(*args)
 
-        def confirmation(message):
-            return args.force or ui.request_boolean(message)
-
-        ui = UserInput(non_interactive=False)
         out = ConanOutput()
         remote = conan_api.remotes.get(args.remote) if args.remote else None
         output_remote = remote or "Local cache"
 
         # Getting all the recipes
         recipes = conan_api.search.recipes("*/*", remote=remote)
-        if recipes and not confirmation("Do you want to remove all the recipes revisions and their packages ones, "
-                                        "except the latest package revision from the latest recipe one?"):
-            return
         for recipe in recipes:
             out.writeln(f"{str(recipe)}", fg=recipe_color)
             all_rrevs = conan_api.list.recipe_revisions(recipe, remote=remote)
@@ -158,23 +148,12 @@ The ``parser`` param is an instance of the Python command-line parsing ``argpars
 so if you want to know more about its API, visit `its official website <https://docs.python.org/3/library/argparse.html>`_.
 
 
-User input and user output
-++++++++++++++++++++++++++
+User output
++++++++++++
 
-Important classes to manage user input and user output:
-
-.. code-block:: python
-
-    ui = UserInput(non_interactive=False)
-    out = ConanOutput()
-
-
-* ``UserInput(non_interactive)``: class to manage user inputs. In this example we're using ``ui.request_boolean("Do you want to proceed?")``,
-  so it'll be automatically translated to ``Do you want to proceed? (yes/no):`` in the command prompt.
-  **Note**: you can use ``UserInput(non_interactive=conan_api.config.get("core:non_interactive"))`` too.
-* ``ConanOutput()``: class to manage user outputs. In this example, we're using only ``out.writeln(message, fg=None, bg=None)``
-  where ``fg`` is the font foreground, and ``bg`` is the font background. Apart from that, you have some predefined methods
-  like ``out.info()``, ``out.success()``, ``out.error()``, etc.
+``ConanOutput()``: class to manage user outputs. In this example, we're using only ``out.writeln(message, fg=None, bg=None)``
+where ``fg`` is the font foreground, and ``bg`` is the font background. Apart from that, you have some predefined methods
+like ``out.info()``, ``out.success()``, ``out.error()``, etc.
 
 
 Conan public API

@@ -14,11 +14,15 @@ The default file created by Conan looks like this:
      "remotes": [
       {
        "name": "conancenter",
-       "url": "https://center.conan.io",
+       "url": "https://center2.conan.io",
        "verify_ssl": true
       }
      ]
     }
+
+
+.. include:: ../../common/conancenter_frozen.inc
+
 
 Essentially, it tells Conan where to list/upload/download the recipes/binaries from the remotes specified by their URLs.
 

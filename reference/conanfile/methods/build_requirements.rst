@@ -16,6 +16,14 @@ For simple cases the attribute syntax can be enough, like ``tool_requires = "cma
 
 The ``tool_requires`` and ``test_requires`` methods are just a specialized instance of ``requires`` with some predefined trait values. See the :ref:`requires() reference<reference_conanfile_methods_requirements>` for more information about traits.
 
+There are 2 **experimental** ``confs`` that can be used to avoid the expansion of these types of requirements:
+
+- ``tools.graph:skip_build`` allows to skip ``tool_requires`` dependencies completely. This can be done if two conditions are met: the packages requiring these tools do not need to be built from sources, and the tool requirements do not affect the consumers ``package_id``. If this happens, Conan will raise an error.
+- ``tools.graph:skip_test`` allows to skip ``test_requires`` dependencies completely. If these dependencies are skipped, but then some package needs to be built from source and ``tools.build:skip_test`` was not activated, it will fail to locate the ``test_requires``. So in most cases, the ``tools.build:skip_test`` should also be defined.
+
+Note that if tool and/or test requirements are skipped they will not be part of the dependency graph, and they will not become part of possible generated lockfiles or package lists, with a potential impact on future reproducibility. Also, in most cases, Conan is able to mark tool and test requirements as unnecessary (``Skip``), avoiding the download of the heavy binaries, just downloading the recipe which is usually very fast. That means that in most cases these ``confs`` are not necessary and the Conan defaults are good, please use them being aware of the tradeoffs.
+
+
 .. _reference_conanfile_methods_build_requirements_tool_requires:
 
 tool_requires()

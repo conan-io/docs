@@ -1,0 +1,88 @@
+{
+    "order_by": "recipe",
+    "reduced": false,
+    "order": [
+        [
+            {
+                "ref": "zlib/1.3.1#f52e03ae3d251dec704634230cd806a2",
+                "depends": [],
+                "packages": [
+                    [
+                        {
+                            "package_id": "8b7e35f91e516e42ed736c6dd52a9263da3a5dad",
+                            "prev": null,
+                            "context": "host",
+                            "binary": "Missing",
+                            "options": [],
+                            "filenames": [],
+                            "depends": [],
+                            "overrides": {},
+                            "build_args": null,
+                            "info": {
+                                "settings": {
+                                    "os": "Windows",
+                                    "arch": "x86_64",
+                                    "compiler": "msvc",
+                                    "compiler.runtime": "dynamic",
+                                    "compiler.runtime_type": "Debug",
+                                    "compiler.version": "194",
+                                    "build_type": "Debug"
+                                },
+                                "options": {
+                                    "shared": "False"
+                                }
+                            }
+                        }
+                    ]
+                ]
+            }
+        ],
+        [
+            {
+                "ref": "libpng/1.5.30#efa4bfdf973993197dbaa85b8c320723",
+                "depends": [
+                    "zlib/1.3.1#f52e03ae3d251dec704634230cd806a2"
+                ],
+                "packages": [
+                    [
+                        {
+                            "package_id": "34b444759868b4ce4f04f81d4ad4927bd78d7d3e",
+                            "prev": null,
+                            "context": "host",
+                            "binary": "Missing",
+                            "options": [],
+                            "filenames": [],
+                            "depends": [],
+                            "overrides": {},
+                            "build_args": null,
+                            "info": {
+                                "settings": {
+                                    "os": "Windows",
+                                    "arch": "x86_64",
+                                    "compiler": "msvc",
+                                    "compiler.runtime": "dynamic",
+                                    "compiler.runtime_type": "Debug",
+                                    "compiler.version": "194",
+                                    "build_type": "Debug"
+                                },
+                                "options": {
+                                    "api_prefix": "",
+                                    "shared": "False",
+                                    "sse": "True"
+                                },
+                                "requires": [
+                                    "zlib/1.3.Z"
+                                ]
+                            }
+                        }
+                    ]
+                ]
+            }
+        ]
+    ],
+    "profiles": {
+        "self": {
+            "args": "-pr:h=\"default\" -s:h=\"build_type=Debug\""
+        }
+    }
+}
