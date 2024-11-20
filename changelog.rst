@@ -21,7 +21,7 @@ For a more detailed description of the major changes that Conan 2 brings, compar
 - Feature: Add missing major OS/compiler version support in `settings.yml`. `#17240 <https://github.com/conan-io/conan/pull/17240>`_ . Docs `here <https://github.com/conan-io/docs/pull/3889>`__
 - Feature: :command:`conan new` learned defaults ``-d name=mypkg -d version=0.1`` for simpler UX. `#17186 <https://github.com/conan-io/conan/pull/17186>`_ . Docs `here <https://github.com/conan-io/docs/pull/3882>`__
 - Feature: Warn when patching files and the recipe has `no_copy_source = True`, which could lead to unforseen issues `#17162 <https://github.com/conan-io/conan/pull/17162>`_
-- Feature: Add `self.generators_info` for `tool_requires` to propagate generators to their direct dependencies. `#17129 <https://github.com/conan-io/conan/pull/17129>`_ . Docs `here <https://github.com/conan-io/docs/pull/3880>`__
+- Feature: Add `self.generator_info` for `tool_requires` to propagate generators to their direct dependencies. `#17129 <https://github.com/conan-io/conan/pull/17129>`_ . Docs `here <https://github.com/conan-io/docs/pull/3880>`__
 - Feature: Add support for including paths that are ignored in `.conanignore`. `#17123 <https://github.com/conan-io/conan/pull/17123>`_ . Docs `here <https://github.com/conan-io/docs/pull/3879>`__
 - Feature: New ``tools.graph:skip_build`` conf to be able to skip the expansion of ``tool_requires``. `#17117 <https://github.com/conan-io/conan/pull/17117>`_ . Docs `here <https://github.com/conan-io/docs/pull/3883>`__
 - Feature: New ``tools.graph:skip_test`` conf to be able to skip the expansion of ``test_requires``. `#17117 <https://github.com/conan-io/conan/pull/17117>`_ . Docs `here <https://github.com/conan-io/docs/pull/3883>`__
