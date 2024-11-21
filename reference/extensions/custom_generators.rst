@@ -78,7 +78,7 @@ or install with the ``conan config install`` command.
 
 .. code-block:: python
     :caption: [CONAN_HOME]/extensions/generators/mygen.py
-    
+
     from conan.tools.files import save
 
 
@@ -133,7 +133,7 @@ to inject the generator into the recipe, by adding them to the ``self.generators
         version = "1.0"
 
         def package_info(self):
-            self.generators_info.append(MyGenerator)
+            self.generators_info = [MyGenerator]
 
 And then having a ``tool_requires`` in your recipe for the ``mygenerator-tool`` package will automatically
 inject the generator into the recipe.
