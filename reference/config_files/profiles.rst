@@ -36,7 +36,7 @@ They have this structure:
     tools.build:jobs=2
 
     [replace_requires]
-    zlib/1.2.12: zlib/[*]
+    zlib/1.2.12: zlib/*
 
     [replace_tool_requires]
     7zip/*: 7zip/system
