@@ -78,7 +78,7 @@ or install with the ``conan config install`` command.
 
 .. code-block:: python
     :caption: [CONAN_HOME]/extensions/generators/mygen.py
-    
+
     from conan.tools.files import save
 
 
@@ -110,7 +110,7 @@ Generators from tool_requires
 A direct dependency tool requires can also be used to provide custom generators.
 The following example shows how to create a custom generator that generates a file with the
 dependencies of the package, just like the example above, but using a ``tool_require`` instead of a ``python_require``
-to inject the generator into the recipe, by adding them to the ``self.generators_info`` list inside the ``package_info`` method.
+to inject the generator into the recipe, by adding them to the ``self.generator_info`` list inside the ``package_info`` method.
 
 .. code-block:: python
     :caption: mygenerator/conanfile.py
@@ -133,7 +133,7 @@ to inject the generator into the recipe, by adding them to the ``self.generators
         version = "1.0"
 
         def package_info(self):
-            self.generators_info.append(MyGenerator)
+            self.generator_info = [MyGenerator]
 
 And then having a ``tool_requires`` in your recipe for the ``mygenerator-tool`` package will automatically
 inject the generator into the recipe.
@@ -141,6 +141,6 @@ inject the generator into the recipe.
 .. note::
 
     Note that built-in generators can also be injected using tool_requires,
-    by adding them by name: ``self.generators_info.append("CMakeDeps")``.
+    by adding them by name: ``self.generator_info.append("CMakeDeps")``.
     ``tool_require``ing this package will inject the ``CMakeDeps`` generator into the recipe
     just as if it was declared in its ``generators`` attribute.
