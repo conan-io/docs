@@ -3,6 +3,11 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.9.3 (21-Nov-2024)
+-------------------
+
+- Bugfix: Fixing ``is_test`` computation affecting to components checks. `#17338 <https://github.com/conan-io/conan/pull/17338>`_
+
 2.9.2 (07-Nov-2024)
 -------------------
 
