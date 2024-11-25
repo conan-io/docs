@@ -83,6 +83,10 @@ highest priority)
     # The values of myprofile3 will have higher priority
     $ conan install . -pr=myprofile1 -pr=myprofile2 -pr=myprofile3
 
+.. note::
+
+   Profiles are searched for in a variety of locations, :ref:`see here for more information <reference_config_files_profiles_using_profiles>`
+
 If values for any of ``settings``, ``options`` and ``conf`` are provided in the command line, they create a profile that
 is composed with the other provided ``-pr`` (or the "default" one if not specified) profiles, with higher priority,
 not matter what the order of arguments is.
