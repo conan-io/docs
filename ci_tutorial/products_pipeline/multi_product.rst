@@ -93,11 +93,17 @@ Now we have applied the ``--reduce`` argument to produce a final ``build_order.j
                     ]
                 }
             ]
-        ]
+        ],
+        "profiles": {
+            "game_release": {"args": ""},
+            "game_debug": {"args": "-s:h=\"build_type=Debug\""},
+            "mapviewer_release": {"args": ""},
+            "mapviewer_debug": {"args": "-s:h=\"build_type=Debug\""}
+        }
     }
 
 
-This build order summarizes the necessary builds. First it is necessary to build all different binaries for ``engine/1.0``. This recipe contains 2 different binaries, one for Release and the other for Debug. These binaries belong to the same element in the ``packages`` list, which means they do not depend on each other and can be built in parallel. Each binary tracks its own original build-order file with ``"filenames": ["game_release"],`` so it is possible to deduce the necessary profiles to apply to it.
+This build order summarizes the necessary builds. First it is necessary to build all different binaries for ``engine/1.0``. This recipe contains 2 different binaries, one for Release and the other for Debug. These binaries belong to the same element in the ``packages`` list, which means they do not depend on each other and can be built in parallel. Each binary tracks its own original build-order file with ``"filenames": ["game_release"],`` so it is possible to deduce the necessary profiles to apply to it. The ``build_order.json`` file contains a ``profiles`` section that helps recovering the profile and settings command line arguments that were used to create the respective original build-order files.
 
 Then, after all binaries of ``engine/1.0`` have been built, it is possible to proceed to build the different binaries for ``game/1.0``. It also contains 2 different binaries for its debug and release configurations, which can be built in parallel.
 
@@ -115,4 +121,4 @@ In practice, this would mean something like:
     $ conan install --requires=game/1.0 --build=game/1.0
     $ conan install --requires=game/1.0 --build=game/1.0 -s build_type=Debug
 
-In this section we have still omitted some important implementation details that will follow in next sections. The goal was to focus on the ``conan graph build-order-merge`` command and how different products and configurations can be merged in a single "build-order".
+In this section we have still omitted some important implementation details that will follow in next sections. The goal was to focus on the ``conan graph build-order-merge`` command and how different products and configurations can be merged in a single "build-order". Next section will with more details how this build-order can be really distributed in CI, using lockfiles to guarantee constant dependencies.
