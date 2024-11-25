@@ -98,6 +98,6 @@ In the following sections we will present a products pipeline in an incremental 
    :maxdepth: 1
 
    products_pipeline/single_configuration
-   products_pipeline/distributed_build
+   products_pipeline/build_order
    products_pipeline/multi_product
    products_pipeline/full_pipeline

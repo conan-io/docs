@@ -1,5 +1,5 @@
-Products pipeline: distributed build
-====================================
+Products pipeline: the build-order
+==================================
 
 
 The previous section used ``--build=missing`` to build all the necessary packages in the same CI machine.

@@ -53,12 +53,8 @@ But if we now try the same with ``game/1.0``:
 
   $ conan install --requires=game/1.0
   ...
-  Requirements
-    ai/1.1.0#01a885b003190704f7617f8c13baa630 - Downloaded (products)
-    engine/1.0#fba6659c9dd04a4bbdc7a375f22143cb - Downloaded (develop)
-    game/1.0#1715574045610faa2705017c71d0000e - Downloaded (develop)
-    graphics/1.0#24b395ba17da96288766cc83accc98f5 - Cache
-    mathlib/1.0#f2b05681ed843bf50d8b7b7bdb5163ea - Cache
+  ======== Computing necessary packages ========
+  ...
   ERROR: Missing binary: game/1.0:bac7cd2fe1592075ddc715563984bbe000059d4c
 
   game/1.0: WARN: Cant find a game/1.0 package binary bac7cd2fe1592075ddc715563984bbe000059d4c for the configuration:

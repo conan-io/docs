@@ -46,6 +46,7 @@ All of the packages in the dependency graph have a ``requires`` to its direct de
       This tutorial is not the unique way that things should be done.
       Different organizations might have different needs and priorities, different build services power and budget, different sizes, etc.
       The principles and practices presented in the tutorial might need to be adapted.
+    - If you have any questions or feedback, please submit a new issue in https://github.com/conan-io/conan/issues
     - However some of the principles and best practices would be general for all approaches. Things like package immutability, using promotions
       between repositories and not using the ``channel`` for that purpose are good practices that should be followed.
 
