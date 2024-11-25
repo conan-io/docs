@@ -79,7 +79,7 @@ Basically, a promotion is a copy of the packages, including all the artifacts an
 "testing" to the "release" repository.
 
 
-There are different ways to implement and execute a package promotion. Artifactoy has some APIs that can be
+There are different ways to implement and execute a package promotion. Artifactory has some APIs that can be
 used to move individual files or folders. The `Conan extensions repository <https://github.com/conan-io/conan-extensions>`_
 contains the ``conan art:promote`` command that can be used to promote Conan "package lists" from one 
 server repository to another repository.
