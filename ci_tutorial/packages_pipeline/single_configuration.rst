@@ -7,19 +7,7 @@ can be built in the current CI machine.
 As we described before while presenting the different server binary repositories, the idea is that package builds
 will use by default the ``develop`` repo only, which is considered the stable one for developer and CI jobs.
 
-Let's make sure we start from a clean state:
-
-.. code-block:: bash
-
-    $ conan remove "*" -c  # Make sure no packages from last run
-    $ conan remote remove "*"  # Make sure no other remotes defined
-    # Add only the develop repo, you might need to adjust this for your URL
-    $ conan remote add develop http://localhost:8081/artifactory/api/conan/develop
-
-
-The removal and addition of repos accross this tutorial can be a bit tedious, but it is important for the correct
-behavior. Also, there might be other configurations that can be even more efficient for some cases, like re-triggering
-a broken job because of CI malfunction, but we will keep it simple at the moment and try to focus on the main concepts.
+This pipeline starts from a clean state, with no packages in the cache, and only the ``develop`` repository enabled.
 
 With this configuration the CI job could just do:
 
@@ -44,9 +32,9 @@ will pick it later.
 .. code-block:: bash
 
     # We don't want to disrupt developers or CI, upload to products 
-    # Add products repo, you might need to adjust this URL
-    $ conan remote add products http://localhost:8081/artifactory/api/conan/products
+    $ conan remote enable products
     $ conan upload "ai*" -r=products -c
+    $ conan remote disable products
 
 As the cache was initially clean, all ``ai`` packages would be the ones that were built in this pipeline.
 

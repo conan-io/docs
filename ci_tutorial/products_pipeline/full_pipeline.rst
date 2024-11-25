@@ -19,16 +19,9 @@ Let's start as usual cleaning the local cache and defining the correct repos:
     $ rm -rf build  # clean the temporary build folder 
     $ mkdir build && cd build # To put temporary files
 
-    # Now clean packages and define remotes
     $ conan remove "*" -c  # Make sure no packages from last run
-
-    # If you did in previous sections, NO need to repeat this
-    $ conan remote remove "*"  # Make sure no other remotes defined
-    # Add products repo, you might need to adjust this URL
-    # NOTE: The products repo is added first, it will have higher priority.
-    $ conan remote add products http://localhost:8081/artifactory/api/conan/products
-    # Add develop repo, you might need to adjust this URL
-    $ conan remote add develop http://localhost:8081/artifactory/api/conan/develop
+    # NOTE: The products repo is first, it will have higher priority.
+    $ conan remote enable products
 
 
 Similarly to what we did in the ``packages pipeline`` when we wanted to ensure that the dependencies are exactly the same when building the different configurations and products, the first necessary step is to compute a ``conan.lock`` lockfile that we can pass to the different CI build agents to enforce the same set of dependencies everywhere. This can be done incrementally for the different ``products`` and configurations, aggregating it in the final single ``conan.lock`` lockfile. This approach assumes that both ``game/1.0`` and ``mapviewer/1.0`` will be using the same versions and revisions of the common dependencies. 

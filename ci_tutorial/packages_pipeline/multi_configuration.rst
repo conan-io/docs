@@ -6,16 +6,11 @@ than 1 configuration. We will use the ``Release`` and ``Debug`` configurations h
 follow, but in real case these configurations will be more like Windows, Linux, OSX, building for different architectures, 
 cross building, etc.
 
-Let's begin cleaning our cache and initializing only the ``develop`` repo:
-
+Let's begin cleaning our cache:
 
 .. code-block:: bash
 
     $ conan remove "*" -c  # Make sure no packages from last run
-    $ conan remote remove "*"  # Make sure no other remotes defined
-    # Add develop repo, you might need to adjust this URL
-    $ conan remote add develop http://localhost:8081/artifactory/api/conan/develop
-
 
 We will create the packages for the 2 configurations sequentially in our computer, but note these will typically run
 in different computers, so it is typical for CI systems to launch the builds of different configurations in parallel.
@@ -26,9 +21,10 @@ in different computers, so it is typical for CI systems to launch the builds of 
     $ cd ai
     $ conan create . --build="missing:ai/*" -s build_type=Release --format=json > graph.json
     $ conan list --graph=graph.json --graph-binaries=build --format=json > built.json
-    # Add packages repo, you might need to adjust this URL
-    $ conan remote add packages http://localhost:8081/artifactory/api/conan/packages
+
+    $ conan remote enable packages
     $ conan upload -l=built.json -r=packages -c --format=json > uploaded_release.json
+    $ conan remote disable packages
 
 We have done a few changes and extra steps:
 
@@ -37,9 +33,11 @@ We have done a few changes and extra steps:
 - The second step is create from the ``graph.json`` a ``built.json`` **package list** file, with the packages that needs to be uploaded,
   in this case, only the packages that have been built from source (``--graph-binaries=build``) will be uploaded. This is
   done for efficiency and faster uploads.
-- Third step is to define the ``packages`` repository
-- Finally, we will upload the ``built.json`` package list to the ``packages`` repository, creating the ``uploaded_release.json``
+- Third step is to enable the ``packages`` repository. It was not enabled to guarantee that al possible dependencies came from ``develop``
+  repo only.
+- Then, we will upload the ``built.json`` package list to the ``packages`` repository, creating the ``uploaded_release.json``
   package list with the new location of the packages (the server repository).
+- Finally, we will disable again the ``packages`` repository
 
 Likewise, the Debug build will do the same steps:
 
@@ -49,9 +47,10 @@ Likewise, the Debug build will do the same steps:
 
     $ conan create . --build="missing:ai/*" -s build_type=Debug --format=json > graph.json
     $ conan list --graph=graph.json --graph-binaries=build --format=json > built.json
-    # Remote definition can be ommitted in tutorial, it was defined above (-f == force)
-    $ conan remote add packages http://localhost:8081/artifactory/api/conan/packages -f  
+
+    $ conan remote enable packages
     $ conan upload -l=built.json -r=packages -c --format=json > uploaded_debug.json
+    $ conan remote disable packages
 
 
 When both Release and Debug configuration finish successfully, we would have these packages in the repositories:
@@ -116,10 +115,14 @@ no one will be broken at this stage either:
     # aggregate the package list
     $ conan pkglist merge -l uploaded_release.json -l uploaded_debug.json --format=json > uploaded.json
 
+    $ conan remote enable packages
+    $ conan remote enable products
     # Promotion using Conan download/upload commands 
     # (slow, can be improved with art:promote custom command)
     $ conan download --list=uploaded.json -r=packages --format=json > promote.json
     $ conan upload --list=promote.json -r=products -c
+    $ conan remote disable packages
+    $ conan remote disable products
 
 
 The first step uses the ``conan pkglist merge`` command to merge the package lists from the "Release" and "Debug" configurations and 

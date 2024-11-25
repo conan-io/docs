@@ -19,9 +19,6 @@ Let's make sure as usual that we start from a clean state:
 .. code-block:: bash
 
     $ conan remove "*" -c  # Make sure no packages from last run
-    $ conan remote remove "*"  # Make sure no other remotes defined
-    # Add develop repo, you might need to adjust this URL
-    $ conan remote add develop http://localhost:8081/artifactory/api/conan/develop
 
 
 Then we can create the lockfile ``conan.lock`` file:
@@ -66,18 +63,18 @@ With the lockfile, creating the different configurations is exactly the same, bu
     $ cd ai
     $ conan create . --build="missing:ai/*" --lockfile=conan.lock -s build_type=Release --format=json > graph.json
     $ conan list --graph=graph.json --graph-binaries=build --format=json > built.json
-    # Add packages repo, you might need to adjust this URL
-    $ conan remote add packages http://localhost:8081/artifactory/api/conan/packages
+    $ conan remote enable packages
     $ conan upload -l=built.json -r=packages -c --format=json > uploaded_release.json
+    $ conan remote disable packages
 
 .. code-block:: bash
     :caption: Debug build
 
     $ conan create . --build="missing:ai/*" --lockfile=conan.lock -s build_type=Debug --format=json > graph.json
     $ conan list --graph=graph.json --graph-binaries=build --format=json > built.json
-    # Remote definition can be ommitted in tutorial, it was defined above (-f == force)
-    $ conan remote add packages http://localhost:8081/artifactory/api/conan/packages -f  
+    $ conan remote enable packages
     $ conan upload -l=built.json -r=packages -c --format=json > uploaded_debug.json
+    $ conan remote disable packages
 
 Note the only modification to the previous example is the addition of ``--lockfile=conan.lock``. The promotion will also be identical to the previous one:
 
@@ -86,11 +83,15 @@ Note the only modification to the previous example is the addition of ``--lockfi
 
     # aggregate the package list
     $ conan pkglist merge -l uploaded_release.json -l uploaded_debug.json --format=json > uploaded.json
-
+    
+    $ conan remote enable packages
+    $ conan remote enable products
     # Promotion using Conan download/upload commands 
     # (slow, can be improved with art:promote custom command)
     $ conan download --list=uploaded.json -r=packages --format=json > promote.json
     $ conan upload --list=promote.json -r=products -c
+    $ conan remote disable packages
+    $ conan remote disable products
 
 And the final result will be the same as in the previous section, but this time just with the guarantee that both ``Debug`` and ``Release`` binaries were built using exactly the same ``mathlib`` version:
 

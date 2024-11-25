@@ -54,6 +54,27 @@ Initial dependency graph
 This will do several tasks, clean the server repos, create initial ``Debug`` and ``Release`` binaries for the dependency graph and upload them to the ``develop`` repo, then clean the local cache. Note in this example we are using ``Debug`` and ``Release`` as our different configurations for convenience, but in real cases these would be different configurations such as Windows/X86_64, Linux/x86_64, Linux/armv8, etc., running
 in different computers.
 
+After the setup, it can be checked that the 3 remotes are defined, but only ``develop`` remote is enabled, and there are no packages in the local cache:
+
+.. code-block:: bash
+
+    $ conan remote list 
+    products: http://localhost:8081/artifactory/api/conan/products [Verify SSL: True, Enabled: False]
+    develop: http://localhost:8081/artifactory/api/conan/develop [Verify SSL: True, Enabled: True]
+    packages: http://localhost:8081/artifactory/api/conan/packages [Verify SSL: True, Enabled: False]
+    
+    $ conan list *
+    Found 0 pkg/version recipes matching * in local cache
+    Local Cache
+    WARN: There are no matching recipe references
+
+
+.. important:: 
+
+    The order of the remotes is important. If the ``products`` repository is enabled, it will have higher priority than
+    the ``develop`` one, so if it contains new versions, they will be picked from there.
+
+
 This dependency graph of packages in the ``develop`` repo is the starting point for our tutorial, assumed as a functional and stable "develop" state of the project that developers can ``conan install`` to work in any of the different packages.
 
 .. graphviz::

@@ -15,15 +15,11 @@ Let's start by making sure we have a clean environment with the right repositori
 
     # Now clean packages and define remotes
     $ conan remove "*" -c  # Make sure no packages from last run
-    $ conan remote remove "*"  # Make sure no other remotes defined
-    # Add products repo, you might need to adjust this URL
-    # NOTE: The products repo is added first, it will have higher priority.
-    $ conan remote add products http://localhost:8081/artifactory/api/conan/products
-    # Add develop repo, you might need to adjust this URL
-    $ conan remote add develop http://localhost:8081/artifactory/api/conan/develop
+    # NOTE: The products repo is first, it will have higher priority.
+    $ conan remote enable products
 
 
-Note that the ``products`` repo is added first, so it will have higher priority than the ``develop`` repo. It means Conan will resolve first in the ``products`` repo, if it finds a valid version for the defined version ranges, it will stop there and return that version, without
+Recall that the ``products`` repo has higher priority than the ``develop`` repo. It means Conan will resolve first in the ``products`` repo, if it finds a valid version for the defined version ranges, it will stop there and return that version, without
 checking the ``develop`` repo (checking all repositories can be done with ``--update``, but that would be slower and with the right repository ordering, it is not necessary).
 
 As we have already defined, our main products are ``game/1.0`` and ``mapviewer/1.0``, let's start by trying to install and use ``mapviewer/1.0``:

@@ -16,17 +16,9 @@ Let's start as usual cleaning the local cache and defining the correct repos:
     $ rm -rf build  # clean the temporary build folder 
     $ mkdir build && cd build # To put temporary files
 
-    # Now clean packages and define remotes
     $ conan remove "*" -c  # Make sure no packages from last run
-
-    # If you did in previous sections, NO need to repeat this
-    $ conan remote remove "*"  # Make sure no other remotes defined
-    # Add products repo, you might need to adjust this URL
-    # NOTE: The products repo is added first, it will have higher priority.
-    $ conan remote add products http://localhost:8081/artifactory/api/conan/products
-    # Add develop repo, you might need to adjust this URL
-    $ conan remote add develop http://localhost:8081/artifactory/api/conan/develop
-
+    # NOTE: The products repo is first, it will have higher priority.
+    $ conan remote enable products
 
 Now, we will start computing the build-order for ``game/1.0`` for the 2 different configurations that we are building in this tutorial, debug and release:
 
