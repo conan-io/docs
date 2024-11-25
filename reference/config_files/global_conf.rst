@@ -45,7 +45,7 @@ This folder will be the heaviest Conan storage folder, as it stores the binary p
 .. code-block:: text
     :caption: *global.conf*
 
-    core.cache.storage_path = C:\Users\danielm\my_conan_storage_folder
+    core.cache:storage_path = C:\Users\danielm\my_conan_storage_folder
 
 **Default value:** ``<CONAN_HOME>/p``
 
@@ -58,7 +58,7 @@ This is useful to avoid recurrent downloads of the same packages, especially in 
 .. code-block:: text
     :caption: *global.conf*
 
-    core.cache.download_cache = C:\Users\danielm\my_download_cache
+    core.cache:download_cache = C:\Users\danielm\my_download_cache
 
 **Default value:** Not defined.
 

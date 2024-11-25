@@ -129,7 +129,7 @@ built in *Debug* configuration:
 
 .. code-block:: bash
     :caption: Windows
-    :emphasize-lines: 8
+    :emphasize-lines: 9
 
     # assuming Visual Studio 15 2017 is your VS version and that it matches your default profile
     $ cd build
@@ -143,7 +143,7 @@ built in *Debug* configuration:
 
 .. code-block:: bash
     :caption: Linux, macOS
-    :emphasize-lines: 7
+    :emphasize-lines: 8
     
     $ cd build
     $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Debug

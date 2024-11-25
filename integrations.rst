@@ -24,6 +24,7 @@ Xcode.
    integrations/meson
    integrations/android
    integrations/jfrog
+   integrations/ros
 
 .. warning::
 
