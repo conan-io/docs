@@ -28,7 +28,25 @@ It provides a clean integration that requires no Conan-specific modifications in
 
        .. code-block:: bash
 
-           $ git clone https://github.com/conan-io/examples2.git && cd examples2/examples/tools/ros/rosenv
+           $ git clone https://github.com/conan-io/examples2.git
+           $ cd examples2/examples/tools/ros/rosenv
+
+    Alternatively, you can also build a Docker image using the following Dockerfile:
+
+       .. code-block:: docker
+
+         FROM osrf/ros:humble-desktop
+         RUN apt-get update && apt-get install -y \
+             curl \
+             python3-pip \
+             git \
+             && rm -rf /var/lib/apt/lists/*
+         RUN pip3 install --upgrade pip && pip3 install conan==2.*
+         RUN conan profile detect
+         RUN git clone https://github.com/conan-io/examples2.git /workspace/examples2
+         WORKDIR /workspace/examples2/examples/tools/ros/rosenv
+         CMD ["bash"]
+
 
 
 Consuming Conan packages using the ROSEnv generator
