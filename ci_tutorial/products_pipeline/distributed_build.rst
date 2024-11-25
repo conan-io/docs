@@ -25,8 +25,7 @@ This is done with the following ``conan graph build-order`` command:
 
 .. code-block:: bash
 
-    $ conan graph build-order --requires=game/1.0 --build=missing 
-      --order-by=recipe --reduce --format=json > game_build_order.json
+    $ conan graph build-order --requires=game/1.0 --build=missing --order-by=recipe --reduce --format=json > game_build_order.json
 
 Note a few important points:
 

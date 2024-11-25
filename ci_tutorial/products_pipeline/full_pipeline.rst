@@ -29,12 +29,9 @@ Similarly to what we did in the ``packages pipeline`` when we wanted to ensure t
 .. code-block:: bash
 
     $ conan lock create --requires=game/1.0 --lockfile-out=conan.lock
-    $ conan lock create --requires=game/1.0 -s build_type=Debug 
-      --lockfile=conan.lock --lockfile-out=conan.lock
-    $ conan lock create --requires=mapviewer/1.0 --lockfile=conan.lock 
-      --lockfile-out=conan.lock
-    $ conan lock create --requires=mapviewer/1.0 -s build_type=Debug 
-      --lockfile=conan.lock --lockfile-out=conan.lock
+    $ conan lock create --requires=game/1.0 -s build_type=Debug --lockfile=conan.lock --lockfile-out=conan.lock
+    $ conan lock create --requires=mapviewer/1.0 --lockfile=conan.lock --lockfile-out=conan.lock
+    $ conan lock create --requires=mapviewer/1.0 -s build_type=Debug --lockfile=conan.lock --lockfile-out=conan.lock
 
 
 .. note::
@@ -52,14 +49,10 @@ previous section, with the only difference of adding a ``--lockfile=conan.lock``
 
 .. code-block:: bash
 
-    $ conan graph build-order --requires=game/1.0 --lockfile=conan.lock 
-      --build=missing --order-by=recipe --format=json > game_release.json
-    $ conan graph build-order --requires=game/1.0 --lockfile=conan.lock 
-      --build=missing -s build_type=Debug --order-by=recipe --format=json > game_debug.json
-    $ conan graph build-order --requires=mapviewer/1.0 --lockfile=conan.lock 
-      --build=missing --order-by=recipe --format=json > mapviewer_release.json
-    $ conan graph build-order --requires=mapviewer/1.0 --lockfile=conan.lock 
-      --build=missing -s build_type=Debug --order-by=recipe --format=json > mapviewer_debug.json
+    $ conan graph build-order --requires=game/1.0 --lockfile=conan.lock --build=missing --order-by=recipe --format=json > game_release.json
+    $ conan graph build-order --requires=game/1.0 --lockfile=conan.lock --build=missing -s build_type=Debug --order-by=recipe --format=json > game_debug.json
+    $ conan graph build-order --requires=mapviewer/1.0 --lockfile=conan.lock --build=missing --order-by=recipe --format=json > mapviewer_release.json
+    $ conan graph build-order --requires=mapviewer/1.0 --lockfile=conan.lock --build=missing -s build_type=Debug --order-by=recipe --format=json > mapviewer_debug.json
 
 Likewise the ``build-order-merge`` command will be identical to the previous one.
 In this case, as this command doesn't really compute a dependency graph, a ``conan.lock`` argument is not necessary,
@@ -68,10 +61,7 @@ dependencies are not being resolved:
 
 .. code-block:: bash
 
-    $ conan graph build-order-merge 
-      --file=game_release.json --file=game_debug.json 
-      --file=mapviewer_release.json --file=mapviewer_debug.json 
-      --reduce --format=json > build_order.json
+    $ conan graph build-order-merge --file=game_release.json --file=game_debug.json --file=mapviewer_release.json --file=mapviewer_debug.json --reduce --format=json > build_order.json
 
 
     
@@ -127,26 +117,22 @@ In practice this translates to the following commands (that you can execute to c
 .. code-block:: bash
 
   # engine/1.0 release
-  $ conan install --requires=engine/1.0 --build=engine/1.0 --lockfile=conan.lock 
-    --format=json > graph.json
+  $ conan install --requires=engine/1.0 --build=engine/1.0 --lockfile=conan.lock --format=json > graph.json
   $ conan list --graph=graph.json --format=json > built.json
   $ conan upload -l=built.json -r=products -c --format=json > uploaded1.json
 
   # engine/1.0 debug
-  $ conan install --requires=engine/1.0 --build=engine/1.0 --lockfile=conan.lock
-    -s build_type=Debug --format=json > graph.json
+  $ conan install --requires=engine/1.0 --build=engine/1.0 --lockfile=conan.lock -s build_type=Debug --format=json > graph.json
   $ conan list --graph=graph.json --format=json > built.json
   $ conan upload -l=built.json -r=products -c --format=json > uploaded2.json
 
   # game/1.0 release
-  $ conan install --requires=game/1.0 --build=game/1.0 --lockfile=conan.lock 
-    --format=json > graph.json
+  $ conan install --requires=game/1.0 --build=game/1.0 --lockfile=conan.lock --format=json > graph.json
   $ conan list --graph=graph.json --format=json > built.json
   $ conan upload -l=built.json -r=products -c --format=json > uploaded3.json
 
   # game/1.0 debug
-  $ conan install --requires=game/1.0 --build=game/1.0 --lockfile=conan.lock 
-    -s build_type=Debug --format=json > graph.json
+  $ conan install --requires=game/1.0 --build=game/1.0 --lockfile=conan.lock -s build_type=Debug --format=json > graph.json
   $ conan list --graph=graph.json --format=json > built.json
   $ conan upload -l=built.json -r=products -c --format=json > uploaded4.json
 
@@ -216,9 +202,7 @@ We can now accumulate the different ``uploadedX.json`` files into a single packa
 
 .. code-block:: bash
 
-    $ conan pkglist merge -l uploaded0.json -l uploaded1.json 
-      -l uploaded2.json -l uploaded3.json 
-      --format=json > uploaded.json
+    $ conan pkglist merge -l uploaded0.json -l uploaded1.json -l uploaded2.json -l uploaded3.json --format=json > uploaded.json
 
 
 And finally, if everything worked well, and we consider this new set of versions and new package binaries is ready to be used by developers and other CI jobs, then we can run the final promotion from the ``products`` to the ``develop`` repository:

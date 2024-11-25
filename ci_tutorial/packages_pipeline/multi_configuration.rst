@@ -18,7 +18,7 @@ in different computers, so it is typical for CI systems to launch the builds of 
 .. code-block:: bash
     :caption: Release build
 
-    $ cd ai
+    $ cd ai  # If you were not inside "ai" folder already
     $ conan create . --build="missing:ai/*" -s build_type=Release --format=json > graph.json
     $ conan list --graph=graph.json --graph-binaries=build --format=json > built.json
 

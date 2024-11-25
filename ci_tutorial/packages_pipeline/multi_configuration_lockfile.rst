@@ -60,7 +60,7 @@ With the lockfile, creating the different configurations is exactly the same, bu
 .. code-block:: bash
     :caption: Release build
 
-    $ cd ai
+    $ cd ai  # If you were not inside "ai" folder already
     $ conan create . --build="missing:ai/*" --lockfile=conan.lock -s build_type=Release --format=json > graph.json
     $ conan list --graph=graph.json --graph-binaries=build --format=json > built.json
     $ conan remote enable packages

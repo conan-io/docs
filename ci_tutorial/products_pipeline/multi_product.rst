@@ -24,10 +24,8 @@ Now, we will start computing the build-order for ``game/1.0`` for the 2 differen
 
 .. code-block:: bash
 
-    $ conan graph build-order --requires=game/1.0 --build=missing 
-      --order-by=recipe --format=json > game_release.json
-    $ conan graph build-order --requires=game/1.0 --build=missing 
-      --order-by=recipe -s build_type=Debug --format=json > game_debug.json
+    $ conan graph build-order --requires=game/1.0 --build=missing --order-by=recipe --format=json > game_release.json
+    $ conan graph build-order --requires=game/1.0 --build=missing --order-by=recipe -s build_type=Debug --format=json > game_debug.json
 
 These commands are basically the same as in the previous section, each one with a different configuration and creating a different output file ``game_release.json`` and ``game_debug.json``. These files will be similar to the previous ones, but as we haven't used the ``--reduce`` argument (this is important!) they will actually contain a "build-order" of all elements in the graph, even if only some contain the ``binary: Build`` definition, and others will contain other ``binary: Download|Cache|etc``.
 
@@ -35,10 +33,8 @@ Now, let's compute the build-order for ``mapviewer/1.0``:
 
 .. code-block:: bash
 
-    $ conan graph build-order --requires=mapviewer/1.0 --build=missing 
-      --order-by=recipe --format=json > mapviewer_release.json
-    $ conan graph build-order --requires=mapviewer/1.0 --build=missing 
-      --order-by=recipe -s build_type=Debug --format=json > mapviewer_debug.json
+    $ conan graph build-order --requires=mapviewer/1.0 --build=missing --order-by=recipe --format=json > mapviewer_release.json
+    $ conan graph build-order --requires=mapviewer/1.0 --build=missing --order-by=recipe -s build_type=Debug --format=json > mapviewer_debug.json
 
 
 Note that in the generated ``mapviewer_xxx.json`` build-order files, there will be only 1 element for ``mapviewer/1.0`` that contains a ``binary: Download``, because there is really no other package to be built, and as ``mapviewer`` is an application linked statically, Conan knows that it can "skip" its dependencies binaries. If we had used the ``--reduce`` argument we would have obtained an empty ``order``. But this is not an issue, as the next final step will really compute what needs to be built.
@@ -47,10 +43,7 @@ Let's take all the 4 different "build-order" files (2 products x 2 configuration
 
 .. code-block:: bash
 
-    $ conan graph build-order-merge 
-      --file=game_release.json --file=game_debug.json
-      --file=mapviewer_release.json --file=mapviewer_debug.json
-      --reduce --format=json > build_order.json
+    $ conan graph build-order-merge --file=game_release.json --file=game_debug.json --file=mapviewer_release.json --file=mapviewer_debug.json --reduce --format=json > build_order.json
 
 
 Now we have applied the ``--reduce`` argument to produce a final ``build_order.json`` that is ready for distribution to the build agents and it only contains those specific packages that need to be built:
