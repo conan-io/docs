@@ -121,4 +121,4 @@ In practice, this would mean something like:
     $ conan install --requires=game/1.0 --build=game/1.0
     $ conan install --requires=game/1.0 --build=game/1.0 -s build_type=Debug
 
-In this section we have still omitted some important implementation details that will follow in next sections. The goal was to focus on the ``conan graph build-order-merge`` command and how different products and configurations can be merged in a single "build-order". Next section will with more details how this build-order can be really distributed in CI, using lockfiles to guarantee constant dependencies.
+In this section we have still omitted some important implementation details that will follow in next sections. The goal was to focus on the ``conan graph build-order-merge`` command and how different products and configurations can be merged in a single "build-order". The next section will show with more details how this build-order can be really distributed in CI, using lockfiles to guarantee constant dependencies.
