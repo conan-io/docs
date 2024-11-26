@@ -21,7 +21,22 @@ It provides a clean integration that requires no Conan-specific modifications in
 
     **Pre-requisites to run the example:**
 
-    1. In order to run the example, it is exepected that you have an Ubuntu environment (22.04 LTS preferred) with `ROS2 Humble version installed <https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html>`_. You can use the Docker image ``osrf/ros:humble-desktop`` instead as well.
+    1. In order to run the example, it is exepected that you have an Ubuntu environment (22.04 LTS preferred) with `ROS2 Humble version installed <https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html>`_. You can use this Docker File that use the ``osrf/ros:humble-desktop``:
+
+       .. code-block:: docker
+
+           FROM osrf/ros:humble-desktop
+           RUN apt-get update && apt-get install -y \
+           curl \
+           python3-pip \
+           git \
+           && rm -rf /var/lib/apt/lists/*
+           RUN pip3 install --upgrade pip && pip3 install conan==2.*
+           RUN conan profile detect
+           CMD ["bash"]
+
+
+    Simply copy the Dockerfile, build your image with ``docker build -t conanio/ros-humble .``, and finally run it with ``docker run -it conanio/ros-humble``.
 
     2. The files for this example can be found at `our examples repository <https://github.com/conan-io/examples2/tree/main/examples/tools/ros/rosenv/workspace>`_.
        Clone it like so to get started:
@@ -31,21 +46,8 @@ It provides a clean integration that requires no Conan-specific modifications in
            $ git clone https://github.com/conan-io/examples2.git
            $ cd examples2/examples/tools/ros/rosenv
 
-    Alternatively, you can also build a Docker image using the following Dockerfile:
 
-       .. code-block:: docker
 
-         FROM osrf/ros:humble-desktop
-         RUN apt-get update && apt-get install -y \
-             curl \
-             python3-pip \
-             git \
-             && rm -rf /var/lib/apt/lists/*
-         RUN pip3 install --upgrade pip && pip3 install conan==2.*
-         RUN conan profile detect
-         RUN git clone https://github.com/conan-io/examples2.git /workspace/examples2
-         WORKDIR /workspace/examples2/examples/tools/ros/rosenv
-         CMD ["bash"]
 
 
 
