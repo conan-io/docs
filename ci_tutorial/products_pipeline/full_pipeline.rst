@@ -281,7 +281,7 @@ This state of the ``develop`` repository will have the following behavior:
 
 At this point, the question of what to do with the lockfile used in the Ci could arise. Note that the ``conan.lock`` now contains the ``ai/1.1.0`` version locked. There could be different strategies, like storing this lockfile in the "products" git repositories, making it easily available when developers checkout those repos. Note, however, that this lockfile matches the latest state of the ``develop`` repo, so developers checking out one of the "products" git repositories and doing a ``conan install`` against the ``develop`` server repository will naturally resolve to the same dependencies stored in the lockfile.
 
-It is a good idea to at least store this lockfile in any release bundle, if the "products" are bundled somehow (a installer, a debian/rpm/choco/etc package) to include or attach to these bundled release to the final users of the software the lockfile used to produce it, so no matter what changes in development repositories, those lockfiles can be recovered from the release information later in time.
+It is a good idea to at least store this lockfile in any release bundle, if the "products" are bundled somehow (a installer, a debian/rpm/choco/etc package), to include or attach to this bundled release for the final users of the software, the lockfile used to produce it, so no matter what changes in development repositories, those lockfiles can be recovered from the release information later in time.
 
 
 Final remarks
