@@ -282,3 +282,31 @@ This state of the ``develop`` repository will have the following behavior:
 At this point, the question what to do with the lockfile used in the Ci could arise. Note that the ``conan.lock`` contains now the ``ai/1.1.0`` version locked. There could be different strategies, like storing this lockfile in the "products" git repositories, making them easily available when developers checkout those repos. Note, however, that this lockfile matches the latest state of the ``develop`` repo, so developers checking out one of the products git repositories and doing a ``conan install`` against ``develop`` server repository will naturally resolve to the same dependencies stored in the lockfile.
 
 It is a good idea to at least store this lockfile in any release bundle, if the "products" are bundled somehow (a installer, a debian/rpm/choco/etc package) to include or attach to these bundled release to the final users of the software the lockfile used to produce it, so no matter what changes in development repositories, those lockfiles can be recovered from the release information later in time.
+
+
+Final remarks
+-------------
+
+As commented in this CI tutorial introduction, this doesn't pretend to be a silver bullet, a CI system that you can deploy as-is in your organization.
+This tutorial so far presents a "happy path" of a Continuous Integration process for developers, and how their changes in packages that are part of larger products can be tested and validated as part of those products.
+
+The focus of this CI tutorial is to introduce some important concepts, good practices and tools such as:
+
+- The importance of defining the organization "products", the main deliverables that need to be checked and built against new dependencies versions created by developers.
+- How new dependencies versions of developers shouldn't be uploaded to the main development repositories until validated, to not break other developers and CI jobs.
+- How multiple repositories can be used to build a CI pipeline that isolate non validated changes and new versions.
+- How large dependency graphs can be built efficiently in CI with the ``conan graph build-order``, and how build-orders for different configurations and products can be merged together.
+- Why ``lockfiles`` are necessary in CI when there are concurrent CI builds.
+- The importance of versioning, and the role of ``package_id`` to re-build only what is necessary in large dependency graphs.
+- Not using ``user/channel`` as variable and dynamic qualifiers of packages that change accross the CI pipeline, but using instead different server repositories.
+- Running package promotions (copies) accross server repositories when new package versions are validated.
+
+
+There are still many implementation details, strategies, use cases, and error scenarios that are not covered in this tutorial yet:
+
+- How to integrate breaking changes of a package that requires a new breaking major version.
+- Different versioning strategies, using pre-releases, using versions or relying on recipe revisions in certain cases.
+- How lockfiles can be stored and used accross different builds, if it is good to persist them and where.
+- Different branching and merging strategies, nightly builds, releases flows.
+
+We plan to extend this CI tutorial, including more examples and use cases. If you have any question or feedback, please create a ticket in https://github.com/conan-io/conan/issues.
