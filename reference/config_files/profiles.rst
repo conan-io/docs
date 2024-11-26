@@ -120,6 +120,11 @@ always used:
     $ conan create . -pr=myprofile
 
 
+.. _reference_config_files_profiles_using_profiles:
+
+Using profiles
+--------------
+
 Profiles can be located in different folders:
 
 .. code-block:: bash
