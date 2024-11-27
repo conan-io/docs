@@ -30,6 +30,7 @@ It provides a clean integration that requires no Conan-specific modifications in
            curl \
            python3-pip \
            git \
+           ros-humble-nav2-msgs \
            && rm -rf /var/lib/apt/lists/*
            RUN pip3 install --upgrade pip && pip3 install conan==2.*
            RUN conan profile detect
