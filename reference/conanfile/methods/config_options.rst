@@ -14,6 +14,7 @@ For example, the ``SSE2`` flag doesn't exist in architectures different than 32 
             del self.options.with_sse2
 
 The ``config_options()`` method executes:
+
 * Before calling the ``configure()`` method.
 * Before assigning the ``options`` values.
 * After ``settings`` are already defined.
