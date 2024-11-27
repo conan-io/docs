@@ -21,7 +21,7 @@ It provides a clean integration that requires no Conan-specific modifications in
 
     **Pre-requisites to run the example:**
 
-    1. In order to run the example, it is exepected that you have an Ubuntu environment (22.04 LTS preferred) with `ROS2 Humble version installed <https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html>`_. You can use this Docker File that use the ``osrf/ros:humble-desktop``:
+    1. In order to run the example, it is expected that you have an Ubuntu environment (22.04 LTS preferred) with `ROS2 Humble version installed <https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html>`_. For convenience, you can also use this Docker File instead:
 
        .. code-block:: docker
 
