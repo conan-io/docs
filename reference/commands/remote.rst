@@ -25,6 +25,11 @@ conan remote auth
     :command: conan remote auth -h
 
 
+.. note::
+
+   If a remote which allows anonymous access matches the pattern given to the command, Conan won't try to authenticate with it by default.
+   If you want to authenticate with a remote that allows anonymous access, you can use the ``--force`` option.
+
 conan remote disable
 --------------------
 
