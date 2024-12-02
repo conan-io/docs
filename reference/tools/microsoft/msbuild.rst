@@ -72,7 +72,7 @@ conf
 - ``tools.build:verbosity`` accepts one of ``quiet`` or ``verbose`` to be passed
   to the ``MSBuild.build()`` call as ``msbuild .... /verbosity:{Quiet,Detailed}``.
 - ``tools.microsoft.msbuild:max_cpu_count`` maximum number of CPUs to be passed to the ``MSBuild.build()``
-  call as ``msbuild .... /m:N``.
+  call as ``msbuild .... /m:N``. If ``max_cpu_count=0``, then it will use ``/m`` without arguments, which means use all available cpus.
 
 
 
