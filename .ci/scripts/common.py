@@ -21,6 +21,7 @@ conan_versions = {
     "2.1": "release/2.1",
     "2.0": "release/2.0",
     latest_v1_folder: latest_v1_branch,
+    "en/1.66": "release/1.66.0",
     "en/1.65": "release/1.65.0",
     "en/1.64": "release/1.64.1",
     "en/1.63": "release/1.63.0",

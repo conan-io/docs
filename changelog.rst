@@ -18,8 +18,16 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-    Conan 1.65 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
+    Conan 1.66 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit 
     a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
+
+
+1.66.0 (02-Dec-2024)
+--------------------
+
+- Feature: Conan 1.x: Add apple-clang 16 to settings `#16980 <https://github.com/conan-io/conan/pull/16980>`_ . Docs `here <https://github.com/conan-io/docs/pull/3837>`__
+- Bugfix: Fix `LLVM/Clang` enablement of `vcvars` for latest `v14.4` toolset version after VS 17.10 update `#16932 <https://github.com/conan-io/conan/pull/16932>`_ . Docs `here <https://github.com/conan-io/docs/pull/3830>`__
+- Bugfix: Automatically generated compatible packages are wrong in case of custom package_id(). `#16772 <https://github.com/conan-io/conan/pull/16772>`_
 
 1.65.0 (12-Aug-2024)
 --------------------
