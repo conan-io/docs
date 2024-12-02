@@ -61,7 +61,7 @@ The ``CMake()`` build helper is affected by these ``[conf]`` variables:
 - ``tools.build:jobs`` argument for the ``--jobs`` parameter when running Ninja generator.
 
 - ``tools.microsoft.msbuild:max_cpu_count`` argument for the ``/m`` (``/maxCpuCount``) when running
-  ``MSBuild``
+  ``MSBuild``. If ``max_cpu_count=0``, then it will use ``/m`` without arguments, which means use all available cpus.
 
 - ``tools.cmake:cmake_program`` specify the location of the CMake executable, instead of using the one found in the ``PATH``.
 
