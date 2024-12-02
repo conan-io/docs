@@ -21,4 +21,5 @@ Table of contents:
    examples
    reference
    knowledge
+   incubating
    changelog
