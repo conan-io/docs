@@ -42,7 +42,7 @@ That we can create ``pkg/1.0`` package with:
     pkg/1.0 .
     ...
 
-    $ conan list "*"
+    $ conan list "pkg/*"
     Local Cache
       pkg
         pkg/1.0
@@ -59,7 +59,7 @@ create the new ``pkg/1.1`` version:
     pkg/1.1 .
     ...
 
-    $ conan list "*"
+    $ conan list "pkg/*"
     Local Cache
       pkg
         pkg/1.0
@@ -85,7 +85,7 @@ remove the ``version`` attribute from the recipe and do:
     pkg/1.2 .
     ...
 
-    $ conan list "*"
+    $ conan list "pkg/*"
     Local Cache
       pkg
         pkg/1.0
@@ -121,7 +121,7 @@ Then, this can be done:
     pkg/1.3 .
     ...
 
-    $ conan list "*"
+    $ conan list "pkg/*"
     Local Cache
       pkg
         pkg/1.0
@@ -148,7 +148,7 @@ command line argument is not provided with the following syntax:
     pkg/1.4 .
     ...
 
-    $ conan list "*"
+    $ conan list "pkg/*"
     Local Cache
       pkg
         pkg/1.0
@@ -186,7 +186,7 @@ Likewise, it is possible to obtain the version from a Git tag:
         pkg/1.5 .
         ...
 
-        $ conan list "*"
+        $ conan list "pkg/*"
         Local Cache
           pkg
             pkg/1.0

@@ -38,7 +38,7 @@ Listing recipe references
   :caption: *list all references on local cache*
 
     # Make sure to quote the argument
-    $ conan list "*"
+    $ conan list
     Local Cache
       hello
         hello/2.26.1@mycompany/testing
@@ -50,6 +50,9 @@ Listing recipe references
         string-view-lite/1.6.0
       zlib
         zlib/1.2.11
+
+  This command is equivalent to ``$ conan list "*"`` (make sure to quote the argument), if no argument
+  is provided Conan will list all packages.
 
 
 .. code-block:: text
