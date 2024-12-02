@@ -42,4 +42,5 @@ Contents:
     tools/ros
     tools/scm
     tools/scons
+    tools/premake
     tools/system
