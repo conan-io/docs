@@ -203,11 +203,16 @@
         {%- else %}
         <div class="rst-content">
         {%- endif %}
-          {% if current_version.startswith("1") %}
-          <div class="admonition warning wy-text-center" style="position:sticky;top:0;border: 2px solid red;background-color: #ffcaca;">
-            <p>This document is for a <b>"1.X" legacy</b> Conan version, <b>which is no longer recommended</b>. Please update to Conan 2, <a href="https://docs.conan.io/2/">click here to read the <b>Conan 2</b> documentation</a></p>
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit;z-index:1" id="conan-banners">
+            {% if current_version.startswith("1") %}
+            <div style="border: 2px solid #eb8484;background-color: #ffcaca;padding: 3px;margin-bottom: 5px">
+              <p>This document is for a <b>"1.X" legacy</b> Conan version, <b>which is no longer recommended</b>. Please update to Conan 2, <a href="https://docs.conan.io/2/">click here to read the <b>Conan 2</b> documentation</a></p>
+            </div>
+            {% endif %}
+            <div style="border: 2px solid #c6ac58;background-color: #f7ecc6;padding: 3px">
+              <p>Conan Center has stopped receiving updates for Conan 1.x packages. A new https://center2.conan.io Conan 2-only remote is now available. <a href="https://blog.conan.io/2024/09/30/Conan-Center-will-stop-receiving-updates-for-Conan-1.html">Read the blog post</a></p>
+            </div>
           </div>
-          {% endif %}
           <!--@ OUTDATED_VERSION_PLACEHOLDER_BEGIN @
           <div>
             <div class="admonition warning wy-text-center" style="position:sticky">
