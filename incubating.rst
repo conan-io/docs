@@ -22,7 +22,7 @@ This generator is designed as a replacement of the current ``CMakeDeps`` generat
 - It doesn't need any ``build_context_activated`` or ``build_context_suffix`` to use ``tool_requires`` dependencies.
 - Definition of ``cpp_info/component.exe`` information (should include the ``.location`` definition too), to define EXECUTABLE targets that can be run.
 - Executables from ``requires`` can also be used in non cross-build scenarios. When a ``tool_requires`` to the same depependency exists, then those executables will have priority.
-- Creation of a new ``conan_cmakedeps_paths.cmake`` that contain definitions of ``<pkg>_DIR`` paths for direct finding of the dependencies. This file is also planned to be used in the ``cmake-conan`` to extend its usage and avoid some current limitations due to the fact that a CMake driven installation cannot inject a toolchain later.
+- Creation of a new ``conan_cmakedeps_paths.cmake`` that contains definitions of ``<pkg>_DIR`` paths for direct finding of the dependencies. This file is also planned to be used in ``cmake-conan`` to extend its usage and avoid some current limitations due to the fact that a CMake driven installation cannot inject a toolchain later.
 
 This feature is enabled with the ``-c tools.cmake.cmakedeps:new=will_break_next`` configuration. The value ``will_break_next`` will change in next releases to emphasize the fact that this feature is not suitable for usage beyond testing. Just by enabling this conf and forcing the build of packages that use ``CMakeDeps`` will trigger the usage of the new generator.
 
