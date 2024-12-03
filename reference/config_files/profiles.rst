@@ -688,7 +688,7 @@ the associated runtime, you can use:
     
         Example:
 
-        .. code-block:: python
+        .. code-block:: jinja
 
             ...
             [settings]
