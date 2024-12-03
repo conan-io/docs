@@ -49,12 +49,11 @@ must be explicitly declared, for example, something like this:
 .. code-block:: python
 
     def package_id(self):
-        def package_id(self):
-            if self.package_type == "header-library":
-                self.info.clear()
-            else:
-                self.info.settings.rm_safe("compiler.libcxx")
-                self.info.settings.rm_safe("compiler.cppstd")
+        if self.package_type == "header-library":
+            self.info.clear()
+        else:
+            self.info.settings.rm_safe("compiler.libcxx")
+            self.info.settings.rm_safe("compiler.cppstd")
 
 
 .. _reference_conanfile_methods_package_id_clear:
