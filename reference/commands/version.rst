@@ -3,7 +3,7 @@
 conan version
 =============
 
-.. include:: ../../common/experimental_warning.inc
+.. include:: ../../common/preview_warning.inc
 
 .. autocommand::
     :command: conan version -h
