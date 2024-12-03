@@ -4,7 +4,7 @@ Changelog
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
 2.10.0 (02-Dec-2024)
--------------------
+--------------------
 
 - Feature: Add `--force` option to `conan remote auth` to force authentication even for remotes that have anonymous access enabled. `#17377 <https://github.com/conan-io/conan/pull/17377>`_ . Docs `here <https://github.com/conan-io/docs/pull/3924>`__
 - Feature: Add `--output` option to :command:`conan new` command. `#17359 <https://github.com/conan-io/conan/pull/17359>`_
