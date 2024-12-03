@@ -22,13 +22,7 @@ Xcode.
    integrations/makefile
    integrations/xcode
    integrations/meson
+   integrations/premake
    integrations/android
    integrations/jfrog
    integrations/ros
-
-.. warning::
-
-    Even though there is a plugin for the Visual Studio IDE, it is not recommended to use
-    it right now because it has not been updated for the 2.0 version yet. However, we
-    intend to resume working on this plugin and enhance its functionality soon after Conan 2.0
-    is released.
