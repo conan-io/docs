@@ -46,6 +46,12 @@ Each package has to specify certain build information for its consumers. This ca
     # Structure
     self.cpp_info.components # Dictionary-like structure to define the different components a package may have
     self.cpp_info.requires # List of components from requirements that need to be propagated downstream
+    # EXPERIMENTAL FIELDS, used exclusively by new CMakeDeps (-c tools.cmake.cmakedeps:new)
+    self.cpp_info.type  # The type of this artifact "shared-library", "static-library", etc (same as package_type)
+    self.cpp_info.location # full location (path and filename with extension) of the artifact
+    self.cpp_info.link_location  # Location of the import library for Windows .lib associated to a dll
+    self.cpp_info.languages # same as "languages" attribute, it can be "C", "C++"
+    self.cpp_info.exe  # Definition of an executable artifact
 
 Binaries to link:
 
