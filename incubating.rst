@@ -24,7 +24,7 @@ This generator is designed as a replacement of the current ``CMakeDeps`` generat
 - Executables from ``requires`` can also be used in non cross-build scenarios. When a ``tool_requires`` to the same depependency exists, then those executables will have priority.
 - Creation of a new ``conan_cmakedeps_paths.cmake`` that contains definitions of ``<pkg>_DIR`` paths for direct finding of the dependencies. This file is also planned to be used in ``cmake-conan`` to extend its usage and avoid some current limitations due to the fact that a CMake driven installation cannot inject a toolchain later.
 
-The new fields that can be defined in the ``cpp_info`` or ``cpp_info.components``, besides the already defined in :ref:`<conan_conanfile_model_cppinfo>` are:
+The new fields that can be defined in the ``cpp_info`` or ``cpp_info.components``, besides the already defined in :ref:`CppInfo<conan_conanfile_model_cppinfo>` are:
 
 .. code-block:: python
 
