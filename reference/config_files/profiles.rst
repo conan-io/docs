@@ -681,7 +681,23 @@ the associated runtime, you can use:
     - ``default_msvc_runtime(compiler)``: returns tuple with runtime (e.g., "dynamic") and its version (e.g., "v143").
     - ``default_cppstd(compiler, compiler_version)``: returns default C++ standard as a string (e.g., "gnu14").
     - ``detect_default_compiler()``: returns tuple with compiler name (e.g., "gcc"), its version and the executable path.
-    - ``detect_msvc_update(version)``: returns MSVC update version as a string (e.g., "7").
+    - ``detect_msvc_update(version)``: returns the MSVC update version as a string (e.g.,
+      "12" for VS 17.12.1). Note that in Conan profiles, the ``compiler.update`` setting accepts
+      values from 0 to 10. To convert the result from ``detect_msvc_update`` into the
+      format required by profiles, you can do something like this:
+    
+        Example:
+
+        .. code-block:: python
+
+            ...
+            [settings]
+            compiler=msvc
+            compiler=194 # for msvc toolset starting in 14.40 (VS 17.10)
+            # If we are using VS 17.12 we convert 12 to 2 so it's 194 with update 2
+            compiler.update = "{{ (detect_api.detect_msvc_update(version) | int) % 10 }}"
+            ...
+
     - ``default_msvc_ide_version(version)``: returns MSVC IDE version as a string (e.g., "17").
     - ``default_compiler_version(compiler, version)``: returns the default version that  Conan uses in profiles,
       typically dropping some of the minor or patch digits, that do not affect binary compatibility.
