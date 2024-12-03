@@ -58,6 +58,7 @@ If you need more control over the build and execution of the container, you can 
             /home/user1/: # The host path or a volume name
                 bind: /mnt/vol2 # The path to mount the volume inside the container
                 mode: rw # rw to mount the volume read/write, or ro to mount it read-only.
+        network: my-network # Specifies the network for the container.
 
 How to run a `conan create` in a runner
 ---------------------------------------

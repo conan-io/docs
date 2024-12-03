@@ -161,6 +161,54 @@ or it can download from a Conan remote directly specifying the repository URL:
     $ conan config install-pkg myconf/version --url=<url/conan/remote/repo>
 
 
+Conan configuration packages can also be parameterized depending on profiles, settings and options.
+For example, if some organization would like to manage their configuration slightly differently for Windows and other platforms they could do:
+
+.. code-block:: python
+
+    import os
+    from conan import ConanFile
+    from conan.tools.files import copy
+
+    class Conf(ConanFile):
+        name = "myconf"
+        version = "0.1"
+        settings = "os"
+        package_type = "configuration"
+        def package(self):
+            f = "win" if self.settings.os == "Windows" else "nix"
+            copy(self, "*.conf", src=os.path.join(self.build_folder, f), dst=self.package_folder)
+
+
+And if they had a layout with different ``global.conf`` for the different platforms, like:
+
+.. code-block:: text
+
+    conanfile.py
+    win/global.conf
+    nix/global.conf
+
+
+They, they could create and upload their configuration package as:
+
+.. code-block:: bash
+
+    $ conan export-pkg . -s os=Windows
+    $ conan export-pkg . -s os=Linux
+    $ conan upload "*" -r=remote -c
+
+
+Then, developers could do:
+
+.. code-block:: bash
+
+    $ conan config install-pkg "myconf/[*]" -s os=Linux
+    # or even implicitly, if they default build profile defines os=Linux
+    $ conan config install-pkg "myconf/[*]"
+
+
+And they will get the correct configuration for their platform.
+
 
 conan config list
 -----------------
