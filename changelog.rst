@@ -3,6 +3,11 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.10.1 (04-Dec-2024)
+--------------------
+
+- Bugfix: Fix `[replace_requires]` for replacements of same reference name. `#17409 <https://github.com/conan-io/conan/pull/17409>`_
+
 2.10.0 (02-Dec-2024)
 --------------------
 
