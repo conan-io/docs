@@ -3,6 +3,40 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.10.0 (02-Dec-2024)
+--------------------
+
+- Feature: Add `--force` option to `conan remote auth` to force authentication even for remotes that have anonymous access enabled. `#17377 <https://github.com/conan-io/conan/pull/17377>`_ . Docs `here <https://github.com/conan-io/docs/pull/3924>`__
+- Feature: Add `--output` option to :command:`conan new` command. `#17359 <https://github.com/conan-io/conan/pull/17359>`_
+- Feature: Let the new ``CMakeDeps`` always define components and check them with ``find_package( COMPONENTS)``, listening to new property ``cmake_components``. `#17302 <https://github.com/conan-io/conan/pull/17302>`_
+- Feature: Allow ``tools.microsoft.msbuild:max_cpu_count=0`` to use ``/m`` to use all available cores. `#17301 <https://github.com/conan-io/conan/pull/17301>`_ . Docs `here <https://github.com/conan-io/docs/pull/3926>`__
+- Feature: define ``*`` as default argument if no args specified for ``conan list``. `#17300 <https://github.com/conan-io/conan/pull/17300>`_ . Docs `here <https://github.com/conan-io/docs/pull/3927>`__
+- Feature: Improved auto deduce location function. `#17296 <https://github.com/conan-io/conan/pull/17296>`_
+- Feature: BazelDeps using the new `deduce_location` mechanism to find the libraries. `#17296 <https://github.com/conan-io/conan/pull/17296>`_
+- Feature: Initial ``conan workspace`` initial proposal to manage local set of editables. Introduced only as a dev/maintainers feature, behind an environment variable. `#17272 <https://github.com/conan-io/conan/pull/17272>`_ . Docs `here <https://github.com/conan-io/docs/pull/3930>`__
+- Feature: Allow ``--settings`` in ``conan config install-pkg`` to create and install different configurations in different platforms. `#17217 <https://github.com/conan-io/conan/pull/17217>`_ . Docs `here <https://github.com/conan-io/docs/pull/3929>`__
+- Feature: Add network to configfile for Docker runners. `#17069 <https://github.com/conan-io/conan/pull/17069>`_ . Docs `here <https://github.com/conan-io/docs/pull/3932>`__
+- Fix: Fix help message for PowerShell conf. `#17389 <https://github.com/conan-io/conan/pull/17389>`_ . Docs `here <https://github.com/conan-io/docs/pull/3923>`__
+- Fix: Fixed an error that occurred when using `conan.tools.scm.Git.fetch_commit()` in a subfolder. `#17369 <https://github.com/conan-io/conan/pull/17369>`_
+- Fix: Adding a "risk" warning for options conflicts, so users can do warn-as-error to raise when they happen. `#17366 <https://github.com/conan-io/conan/pull/17366>`_
+- Fix: New ``CMakeDeps`` generator allow ``fooConfig.cmake`` for in-package files besides ``foo-config.cmake``. `#17330 <https://github.com/conan-io/conan/pull/17330>`_
+- Fix: Add a warning for editable dependencies when building in the cache. `#17325 <https://github.com/conan-io/conan/pull/17325>`_
+- Fix: Raise ConanException if source patch does not exist in `export_conandata_patches`. `#17294 <https://github.com/conan-io/conan/pull/17294>`_
+- Fix: Improve the UX for `CONAN_LOG_LEVEL` env-var incorrect values. `#17280 <https://github.com/conan-io/conan/pull/17280>`_
+- Fix: Meson aligns with other build systems considering `x86_64`->`x86` as cross building. `#17266 <https://github.com/conan-io/conan/pull/17266>`_
+- Fix: Avoid ``colorama`` bug crashing for large outputs. `#17259 <https://github.com/conan-io/conan/pull/17259>`_
+- Fix: Fix arch for docker runner tests. `#17069 <https://github.com/conan-io/conan/pull/17069>`_ . Docs `here <https://github.com/conan-io/docs/pull/3932>`__
+- Bugfix: Add correct flags when ``compiler=clang`` and ``compiler_executables={"c": "clang-cl"}`` to not inject incorrect flags when cross-building from Linux to Windows. `#17387 <https://github.com/conan-io/conan/pull/17387>`_
+- Bugfix: Solve ``Choco().check()`` bug using legacy ``choco search --local-only``, replaced by ``choco list``. `#17382 <https://github.com/conan-io/conan/pull/17382>`_
+- Bugfix: Fix adding `tools.android:ndk_path` with spaces in path. `#17379 <https://github.com/conan-io/conan/pull/17379>`_
+- BugFix: Fix ``Premake`` integration. `#17350 <https://github.com/conan-io/conan/pull/17350>`_ . Docs `here <https://github.com/conan-io/docs/pull/3925>`__
+- Bugfix: Solve problem with misdetection of consumer packages for the ``&`` pattern. `#17346 <https://github.com/conan-io/conan/pull/17346>`_
+- Bugfix: Fix `conan graph info ... -f=html` in Safari. `#17335 <https://github.com/conan-io/conan/pull/17335>`_
+- Bugfix: Allow multiple ``[replace_requires]`` by the same dependency. `#17326 <https://github.com/conan-io/conan/pull/17326>`_
+- Bugfix: BazelDeps failed to find OpenSSL shared libraries. `#17296 <https://github.com/conan-io/conan/pull/17296>`_
+- Bugfix: Solve bug in ``CMake`` not using the correct value from ``tools.microsoft.msbuild:max_cpu_count``. `#17292 <https://github.com/conan-io/conan/pull/17292>`_
+- Bugfix: Fix ``cpp_info`` properties overwriting instead of merging for properties with list values. Necessary for ``cmake_build_modules`` to work in ``editable`` mode. `#17214 <https://github.com/conan-io/conan/pull/17214>`_
+
 2.9.3 (21-Nov-2024)
 -------------------
 
