@@ -3,6 +3,11 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.10.2 (10-Dec-2024)
+--------------------
+
+- Fix: Solve performance issue in large graphs computing the "skip" binaries. `#17436 <https://github.com/conan-io/conan/pull/17436>`_
+
 2.10.1 (04-Dec-2024)
 --------------------
 
