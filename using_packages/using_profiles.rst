@@ -115,3 +115,126 @@ of all the profiles applied in the order they are specified:
     Read more about :ref:`profiles` for full reference. There is a Conan command, :ref:`conan_profile`,
     that can help inspecting and managing profiles. Profiles can be also shared and installed with the
     :ref:`conan_config_install` command.
+
+Profiles examples for different toolchains
+..........................................
+
+.. code-block:: text
+   :caption: *visual_studio_19_debug_dynamic_linkage*
+
+    include(default)
+
+    [settings]
+    os=Windows
+    os_build=Windows
+    arch=x86_64
+    arch_build=x86_64
+    compiler=Visual Studio
+    compiler.version=16
+    compiler.runtime=MDd
+    build_type=Debug
+
+.. code-block:: text
+   :caption: *visual_studio_19_release_dynamic_linkage*
+
+    include(default)
+
+    [settings]
+    os=Windows
+    os_build=Windows
+    arch=x86_64
+    arch_build=x86_64
+    compiler=Visual Studio
+    compiler.version=16
+    compiler.runtime=MD
+    build_type=Release
+
+.. code-block:: text
+   :caption: *visual_studio_19_debug_static_linkage*
+
+    include(default)
+
+    [settings]
+    os=Windows
+    os_build=Windows
+    arch=x86_64
+    arch_build=x86_64
+    compiler=Visual Studio
+    compiler.version=16
+    compiler.runtime=MTd
+    build_type=Debug
+
+.. code-block:: text
+   :caption: *visual_studio_19_release_static_linkage*
+
+    include(default)
+
+    [settings]
+    os=Windows
+    os_build=Windows
+    arch=x86_64
+    arch_build=x86_64
+    compiler=Visual Studio
+    compiler.version=16
+    compiler.runtime=MT
+    build_type=Release
+
+.. code-block:: text
+   :caption: *gcc_7_debug*
+
+    include(default)
+
+    [settings]
+    os=Linux
+    os_build=Linux
+    arch=x86_64
+    arch_build=x86_64
+    compiler=gcc
+    compiler.libcxx=libstdc++11
+    compiler.version=7
+    build_type=Debug
+
+.. code-block:: text
+   :caption: *gcc_7_release*
+
+    include(default)
+
+    [settings]
+    os=Linux
+    os_build=Linux
+    arch=x86_64
+    arch_build=x86_64
+    compiler=gcc
+    compiler.libcxx=libstdc++11
+    compiler.version=7
+    build_type=Release
+
+.. code-block:: text
+   :caption: *clang_10_debug*
+
+    include(default)
+
+    [settings]
+    os=Linux
+    os_build=Linux
+    arch=x86_64
+    arch_build=x86_64
+    compiler=clang
+    compiler.libcxx=libstdc++11
+    compiler.version=10
+    build_type=Debug
+
+.. code-block:: text
+   :caption: *clang_10_release*
+
+    include(default)
+
+    [settings]
+    os=Linux
+    os_build=Linux
+    arch=x86_64
+    arch_build=x86_64
+    compiler=clang
+    compiler.libcxx=libstdc++11
+    compiler.version=10
+    build_type=Release
