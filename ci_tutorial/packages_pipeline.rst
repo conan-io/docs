@@ -13,7 +13,7 @@ changes invalid and stop the processing of those changes, until the code is fixe
 For the ``package pipeline`` we will start with a simple source code change in the ``ai`` recipe, simulating some improvements
 in the ``ai`` package, providing some better algorithms for our game.
 
-✍️ **Let's do the following changes in the ai package**:
+🖊 **Let's do the following changes in the ai package**:
 
 - Let's change the implementation of the ``ai/src/ai.cpp`` function and change the message from ``Some Artificial`` to ``SUPER BETTER Artificial``
 - Let's change the default ``intelligence=0`` value in ``ai/include/ai.h`` to a new ``intelligence=50`` default.
