@@ -3,7 +3,7 @@
 Using packages-lists
 ====================
 
-.. include:: ../../common/experimental_warning.inc
+.. include:: ../../common/preview_warning.inc
 
 
 Packages lists are a powerful and convenient Conan feature that allows to automate and concatenate different Conan commands.
