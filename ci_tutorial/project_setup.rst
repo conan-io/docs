@@ -26,9 +26,9 @@ When you launch it, you can go to http://localhost:8081/ to check it (user: "adm
 If you have another available Artifactory, it can be used too if you can create new repositories there. 
 
 
-🖊 As a first step, log into the web UI and **create 3 different local repositories** called ``develop``, ``packages`` and ``products``.
+As a first step, log into the web UI and **create 3 different local repositories** called ``develop``, ``packages`` and ``products``.
 
-🖊 Then according to the ``project_setup.py`` file, these are the necessary environment variables to configure the server. Please define ``ARTIFACTORY_URL``, ``ARTIFACTORY_USER`` and/or ``ARTIFACTORY_PASSWORD`` if necessary to adapt to your setup:
+Then according to the ``project_setup.py`` file, these are the necessary environment variables to configure the server. Please define ``ARTIFACTORY_URL``, ``ARTIFACTORY_USER`` and/or ``ARTIFACTORY_PASSWORD`` if necessary to adapt to your setup:
 
 .. code-block:: python
         
