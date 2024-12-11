@@ -73,13 +73,18 @@ Setting up the necessary configs
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The :ref:`global.conf<reference_config_files_global_conf>` file should contain the
-``core.sources:download_urls``
+``core.sources:download_urls`` if downloading from a custom backup source remote is desired,
+and ``core.sources:download_cache`` if a custom local cache path to download the backups to is desired.
 
 .. code-block:: text
    :caption: global.conf
 
    core.sources:download_urls=["https://myteam.myorg.com/artifactory/backup-sources/", "origin"]
+   core.sources:download_cache=/path/to/backup/sources
 
+.. note::
+
+   Either ``core.sources:download_urls`` or ``core.sources:download_cache`` should be defined for the feature to be enabled.
 
 You might want to add extra confs based on your use case, as described :ref:`in the beginning of this document<backup_sources_config>`.
 
