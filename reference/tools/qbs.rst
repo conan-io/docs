@@ -8,3 +8,4 @@ conan.tools.qbs
 
    qbs/qbs
    qbs/qbsdeps
+   qbs/qbsprofile
