@@ -73,7 +73,7 @@ Setting up the necessary configs
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The :ref:`global.conf<reference_config_files_global_conf>` file should contain the
-``core.sources:download_urls`` if a downloading from a custom backup source remote is desired,
+``core.sources:download_urls`` if downloading from a custom backup source remote is desired,
 and ``core.sources:download_cache`` if a custom local cache path to download the backups to is desired.
 
 .. code-block:: text
