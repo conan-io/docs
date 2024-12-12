@@ -120,21 +120,8 @@ Use the ``...@`` pattern for searching only references that don't have *user* an
 Listing recipe revisions
 ------------------------
 
-The shortest way of listing the latest recipe revision for a recipe is using the
-``name/version@user/channel`` as the pattern:
-
-.. code-block:: text
-    :caption: *list latest recipe revision*
-
-    $ conan list zlib/1.2.11
-    Local Cache
-      zlib
-        zlib/1.2.11
-          revisions
-            ffa77daf83a57094149707928bdce823 (2022-11-02 13:46:53 UTC)
-
-This is equivalent to specify explicitly that you want to list the latest recipe revision
-using the ``#latest`` placeholder:
+To list recipe revisions the ``#<pattern>`` must be used. If we want just the latest revision
+we can use the ``#latest`` placeholder:
 
 .. code-block:: text
     :caption: *list latest recipe revision*
@@ -151,7 +138,7 @@ To list all recipe revisions use the ``*`` wildcard:
 .. code-block:: text
   :caption: *list all recipe revisions*
 
-    $ conan list "zlib/1.2.11#*""
+    $ conan list "zlib/1.2.11#*"
     Local Cache
       zlib
         zlib/1.2.11
