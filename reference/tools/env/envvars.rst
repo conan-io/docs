@@ -35,10 +35,10 @@ be set with the value corresponding to the desired PowerShell executable:
 from 7. Note that setting ``tools.env.virtualenv:powershell`` to ``True`` or ``False`` is 
 deprecated as of Conan 2.11.0.
 
-You can also include additional arguments in ``tools.env.virtualenv:powershell``
-configuration, such as ``powershell.exe -NoProfile`` or ``pwsh -NoProfile``, by specifying
-them as part of the configuration value. These arguments will be taken into account when
-executing the generated ``.ps1`` launchers. 
+You can also include additional arguments in the ``tools.env.virtualenv:powershell``
+configuration. For example, you can set the value to ``powershell.exe -NoProfile`` or
+``pwsh -NoProfile`` by including the arguments as part of the configuration value. These
+arguments will be considered when executing the generated ``.ps1`` launchers.
 
 Also, by default, Conan will automatically append that launcher file path to a list that will be used to
 create a ``conanbuild.bat|sh|ps1`` file aggregating all the launchers in order. The ``conanbuild.sh|bat|ps1`` launcher
