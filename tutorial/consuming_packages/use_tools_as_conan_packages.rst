@@ -89,9 +89,14 @@ files the folder *build*. To do that, just run:
 
 .. note::
 
-    **Powershell** users need to add ``--conf=tools.env.virtualenv:powershell=True`` to the previous command
-    to generate ``.ps1`` files instead of ``.bat`` files.
-    To avoid the need to add this line every time, we recommend configuring it in the ``[conf]`` section of your profile. For detailed information, please refer to the :ref:`profiles section<reference_config_files_profiles>`.
+    **PowerShell** users need to add ``--conf=tools.env.virtualenv:powershell=<executable>`` 
+    (e.g., ``powershell.exe`` or ``pwsh``) to the previous command to generate ``.ps1`` files 
+    instead of ``.bat`` files. Setting this configuration to ``True`` or ``False`` is deprecated 
+    as of Conan 2.11.0. 
+
+    To avoid the need to add this line every time, we recommend configuring it in the ``[conf]`` 
+    section of your profile. For detailed information, please refer to the 
+    :ref:`profiles section<reference_config_files_profiles>`.
 
 You can check the output:
 

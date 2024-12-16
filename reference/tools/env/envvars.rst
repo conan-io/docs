@@ -28,8 +28,12 @@ method.
 
 It will generate automatically a ``my_env_file.bat`` for Windows systems or ``my_env_file.sh`` otherwise.
 
-It's possible to opt-in to generate Powershell ``.ps1`` scripts instead of ``.bat`` ones, using the
-conf ``tools.env.virtualenv:powershell=True``.
+It is possible to opt-in to generate PowerShell ``.ps1`` scripts instead of ``.bat`` ones,
+by using the configuration ``tools.env.virtualenv:powershell``. This configuration should
+be set with the value corresponding to the desired PowerShell executable:
+``powershell.exe`` for versions up to 5.1, and ``pwsh`` for PowerShell versions starting
+from 7. Note that setting ``tools.env.virtualenv:powershell`` to ``True`` or ``False`` is
+deprecated as of Conan 2.11.0.
 
 Also, by default, Conan will automatically append that launcher file path to a list that will be used to
 create a ``conanbuild.bat|sh|ps1`` file aggregating all the launchers in order. The ``conanbuild.sh|bat|ps1`` launcher
