@@ -62,7 +62,10 @@ current active configuration, like ``deactivate_conanrunenv-release-x86_64.bat``
 
 .. note::
 
-    To create ``.ps1`` files required for Powershell it is necessary to set to True the following conf: ``tools.env.virtualenv:powershell``.
+    To create ``.ps1`` files required for PowerShell, you need to set the
+    ``tools.env.virtualenv:powershell`` configuration with the value of the PowerShell
+    executable (e.g., ``powershell.exe`` or ``pwsh``). Note that, setting it to ``True``
+    or ``False`` is deprecated as of Conan 2.11.0 and should no longer be used.
 
 .. note::
 
