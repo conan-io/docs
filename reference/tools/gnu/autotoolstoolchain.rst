@@ -260,7 +260,8 @@ conf
   Only use this flag with linkers that supports specifying linker scripts with the ``-T`` flag, such as ``ld``, ``gold``, and ``lld``.
 - ``tools.build:sysroot`` defines the ``--sysroot`` flag to the compiler.
 - ``tools.android:ndk_path`` (*new since Conan 2.5.0*) argument for NDK path in case of Android cross-compilation. It is used to set
-  some environment variables like ``CC``, ``CXX``, ``LD``, ``STRIP``, ``RANLIB``, ``AS``, and ``AR`` in the *conanautotoolstoolchain.sh|bat* script.
+  some environment variables like ``CC``, ``CXX``, ``LD``, ``STRIP``, ``RANLIB``, ``AS``, ``AR``, and, since *Conan 2.11.0*,
+  ``ADDR2LINE``, ``NM``, ``OBJCOPY``, ``OBJDUMP``, ``READELF``, and ``ELFEDIT`` in the *conanautotoolstoolchain.sh|bat* script.
 - ``tools.build:compiler_executables`` dict-like Python object which specifies the
   compiler as key and the compiler executable path as value. Those keys will be mapped as
   follows:
@@ -277,3 +278,9 @@ conf
     **flags order of preference**: Flags specified in the `tools.build` configuration,
     such as `cxxflags`, `cflags`, `sharedlinkflags`, `exelinkflags`, and `defines`, will
     always take precedence over those set by the AutotoolsToolchain attributes.
+
+
+.. note::
+
+    **tools.android:ndk_path**: All the environment variables deduced by Conan will keep the value from the user's
+    ``VirtualBuildEnv`` (whether defined via generator or profile) instead of the Conan ones.
