@@ -627,7 +627,7 @@ Some of the capabilities of the profile templates are:
      build_type = {{ vars.a }}
 
   When including or importing other files using relative paths, the Jinja renderer uses the base path of the 
-  current profile file as the first location to look for. If this search fails, the Jinja rendered 
+  current profile file as the first location to look for. If this search fails, the Jinja renderer 
   will also start looking in the Conan home profiles folder (typically in ``<userhome>/.conan2/profiles``).
 
 - Any other feature supported by *jinja2* is possible: for loops, if-else, etc. This
