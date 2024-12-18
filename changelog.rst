@@ -3,6 +3,11 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.10.3 (18-Dec-2024)
+--------------------
+
+- Bugfix: Integrate Conan 2.9.3 missing fix https://github.com/conan-io/conan/pull/17338 `#17496 <https://github.com/conan-io/conan/pull/17496>`_
+
 2.10.2 (10-Dec-2024)
 --------------------
 
