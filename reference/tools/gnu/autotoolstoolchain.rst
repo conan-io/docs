@@ -261,7 +261,9 @@ conf
 - ``tools.build:sysroot`` defines the ``--sysroot`` flag to the compiler.
 - ``tools.android:ndk_path`` (*new since Conan 2.5.0*) argument for NDK path in case of Android cross-compilation. It is used to set
   some environment variables like ``CC``, ``CXX``, ``LD``, ``STRIP``, ``RANLIB``, ``AS``, ``AR``, and, since *Conan 2.11.0*,
-  ``ADDR2LINE``, ``NM``, ``OBJCOPY``, ``OBJDUMP``, ``READELF``, and ``ELFEDIT`` in the *conanautotoolstoolchain.sh|bat* script.
+  ``ADDR2LINE``, ``NM``, ``OBJCOPY``, ``OBJDUMP``, ``READELF``, and ``ELFEDIT`` in the *conanautotoolstoolchain.sh|bat* script,
+  as long as they are not already defined in the ``buildenv`` environment. If they are defined in the ``buildenv`` environment,
+  the ``conanautotoolstoolchain`` file will not define them, leaving their definition to the ``VirtualBuildEnv`` generator.
 - ``tools.build:compiler_executables`` dict-like Python object which specifies the
   compiler as key and the compiler executable path as value. Those keys will be mapped as
   follows:
@@ -278,9 +280,3 @@ conf
     **flags order of preference**: Flags specified in the `tools.build` configuration,
     such as `cxxflags`, `cflags`, `sharedlinkflags`, `exelinkflags`, and `defines`, will
     always take precedence over those set by the AutotoolsToolchain attributes.
-
-
-.. note::
-
-    **tools.android:ndk_path**: All the environment variables deduced by Conan will keep the value from the user's
-    ``VirtualBuildEnv`` (whether defined via generator or profile) instead of the Conan ones.
