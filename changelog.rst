@@ -3,6 +3,27 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.11.0 (18-Dec-2024)
+--------------------
+
+- Feature: Only warn on frozen conan v1 remote if enabled. `#17482 <https://github.com/conan-io/conan/pull/17482>`_
+- Feature: `AutotoolsToolchain` uses user's variables when Android cross-compilation at first. `#17470 <https://github.com/conan-io/conan/pull/17470>`_ . Docs `here <https://github.com/conan-io/docs/pull/3951>`__
+- Feature: `AutotoolsToolchain` checks if Android cross-compilation paths exist. `#17470 <https://github.com/conan-io/conan/pull/17470>`_ . Docs `here <https://github.com/conan-io/docs/pull/3951>`__
+- Feature: Adding the Conan cache "profiles" folder to the jinja2 search path, so profiles can be included/imported from jinja syntax even for parent and sibling folders. `#17432 <https://github.com/conan-io/conan/pull/17432>`_ . Docs `here <https://github.com/conan-io/docs/pull/3950>`__
+- Feature: Updated `tools.env.virtualenv:powershell` conf to allow specifying the PowerShell executable (e.g., powershell.exe or pwsh) and passing additional arguments. `#17416 <https://github.com/conan-io/conan/pull/17416>`_ . Docs `here <https://github.com/conan-io/docs/pull/3947>`__
+- Feature: Deprecate use of `tools.env.virtualenv:powershell=True/False`. `#17416 <https://github.com/conan-io/conan/pull/17416>`_ . Docs `here <https://github.com/conan-io/docs/pull/3947>`__
+- Fix: Do not show powershell deprecation message if value is None. `#17500 <https://github.com/conan-io/conan/pull/17500>`_
+- Fix: Fix ``LocalAPI`` definition of editables when calling ``editable_add``. `#17498 <https://github.com/conan-io/conan/pull/17498>`_
+- Fix: Clarify debug message in CMakeDeps. `#17453 <https://github.com/conan-io/conan/pull/17453>`_
+- Fix: Added explicitly `allow_empty = True` to `glob()` function in BazelDeps (bazel 8.x compatible). `#17444 <https://github.com/conan-io/conan/pull/17444>`_
+- Fix: Fix broken `cpp_info.location` deduction due to unsanitized regex. `#17430 <https://github.com/conan-io/conan/pull/17430>`_
+- Fix: Trusting the real path coming from a symlink is a good one. `#17421 <https://github.com/conan-io/conan/pull/17421>`_
+- Fix: Fix user/channel when searching patterns in a local-recipes-index. `#17408 <https://github.com/conan-io/conan/pull/17408>`_
+- Fix: Add warning for empty version ranges. `#17405 <https://github.com/conan-io/conan/pull/17405>`_
+- Bugfix: Fix bogus duplication of component properties `#17503 <https://github.com/conan-io/conan/pull/17503>`_
+- Bugfix: Fix running commands in powershell with single quotes. `#17487 <https://github.com/conan-io/conan/pull/17487>`_
+- Bugfix: Fix issues with unsetting some types of confs. `#17445 <https://github.com/conan-io/conan/pull/17445>`_
+
 2.10.3 (18-Dec-2024)
 --------------------
 
