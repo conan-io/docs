@@ -58,7 +58,7 @@ This is useful to avoid recurrent downloads of the same packages, especially in 
 .. code-block:: text
     :caption: *global.conf*
 
-    core.cache:download_cache = C:\Users\danielm\my_download_cache
+    core.download:download_cache = C:\Users\danielm\my_download_cache
 
 **Default value:** Not defined.
 
