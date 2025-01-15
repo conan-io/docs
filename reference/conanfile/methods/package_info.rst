@@ -214,7 +214,7 @@ package packaging the AndroidNDK could do:
 ``conf_info`` from packages can still be overwritten from profiles values, because user profiles will have higher priority.
 
 
-.. currentmodule:: conans.model.conf
+.. currentmodule:: conan.internal.model.conf
 
 .. automethod:: Conf.define
 
