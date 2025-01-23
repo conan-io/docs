@@ -13,8 +13,9 @@ an SBOM provides transparency about what is contained "inside" an application or
 Conan allows you to generate SBOMs natively by using the resolved dependency graph.
 This way, you can create the SBOM for your program at the same time you build it.
 
-For now, this feature is in an experimental state and currently only supports the CycloneDX 1.4 standard.
-If you require a different standard, another version, or if you have suggestions for improvements,
+For now, **this feature is in an experimental state, which means that the interface, functionality or generated
+files may change in the future**. Additionally, it currently only supports CycloneDX version 1.4.
+If you need a different standard, another version, or if you encounter any potential improvements,
 please feel free to open an issue on our `GitHub <https://github.com/conan-io/conan/issues>`_ .
 We would be delighted to hear your feedback!
 
@@ -36,7 +37,6 @@ In the example, we save it in the metadata folder to keep our project organized.
 
     import json
     import os
-    from conan.errors import ConanException
     from conan.api.output import ConanOutput
     from conan.tools.sbom.cyclonedx import cyclonedx_1_4
     def post_package(conanfile):
@@ -56,7 +56,6 @@ dependencies.
 
     import json
     import os
-    from conan.errors import ConanException
     from conan.api.output import ConanOutput
     from conan.tools.sbom.cyclonedx import cyclonedx_1_4
     def post_generate(conanfile):
@@ -71,3 +70,23 @@ dependencies.
 
 Both hooks can coexist in such a way that we can generate the SBOMs for our application and our dependencies separately.
 This can greatly assist us in conducting continuous analysis of our development process and ensuring software quality.
+
+Conan
+^^^^^
+
+Instead of using a standard, we can take a Conan-based approach. Thanks to the ``conanfile.subgraph.serialize()``
+function, we can directly obtain information about the dependencies of our program.
+In the following example, we can see a hook that generates this simplified SBOM.
+
+.. code-block:: python
+
+    import json
+    import os
+    from conan.api.output import ConanOutput
+    def post_package(conanfile):
+        metadata_folder = conanfile.package_metadata_folder
+        file_name = "sbom.conan.json"
+        with open(os.path.join(metadata_folder, file_name), 'w') as f:
+            json.dump(conanfile.subgraph.serialize(), f, indent=2)
+        ConanOutput().success(f"CONAN SBOM CREATED - {conanfile.package_metadata_folder}")
+
