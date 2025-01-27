@@ -98,3 +98,43 @@ Example of ``conandata.yml`` without versions defined:
     from conan.tools.files import export_conandata_patches
     def export_sources(self):
         export_conandata_patches(self)
+
+
+core.sources.patch:extra_path
++++++++++++++++++++++++++++++
+
+The ``export_conandata_patches()`` tool can automatically inject patches from an external path at package creation time
+using the ``core.sources.patch:extra_path`` core configuration.
+
+That means that ``conan create`` commands in ``conan-center-index`` repository could inject and apply patches without 
+necessarily putting the patches in the same repository and without modifying the ``conandata.yml`` files.
+
+The ``core.sources.patch:extra_path`` configuration should point to a folder containing all possible extra patches
+for all possible packages, structured by package name, following the same conventions as ``conan-center-index`` repository:
+
+.. code-block:: text
+
+    extra_folder
+        pkgname1
+           conandata.yml
+           patches
+              mypatch.path
+        pkgname2
+           ...
+
+The ``conandata.yml`` should also follow the same structure:
+
+.. code-block:: yaml
+
+    patches:
+        "1.0":
+            - patch_file: "patches/mypatch.patch"
+
+
+.. note:: 
+
+    It is impossible to apply patches to arbitrary dependencies when installing them (``conan install --build=xxx``), as the
+    possible injected patches are part of the "source" identity of the package, and must be represented in their recipe revision.
+    Already existing packages in the cache or in the remote servers have already exported its files and computed a recipe revision,
+    so patches cannot be applied there without violating the identity (and as such the reproducibility and traceability) of packages.
+    As a conclusion, it means that ``core.sources.patch:extra_path`` can only work at ``conan create`` time.
