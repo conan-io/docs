@@ -87,8 +87,7 @@ common practices in many CLI tools and the `POSIX standard
 - ``stderr``: For diagnostic output, including logs, warnings, errors, and progress
   messages.
 
-Redirecting Output to Files
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+**Redirecting Output to Files**
 
 You can redirect Conan output to files using shell redirection:
 
