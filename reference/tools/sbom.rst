@@ -85,7 +85,7 @@ about the specific dependencies.
     import json
     import os
     from conan.api.output import ConanOutput
-    def post_package(conanfile):
+    def post_package(conanfile, **kwargs):
         metadata_folder = conanfile.package_metadata_folder
         file_name = "sbom.conan.json"
         with open(os.path.join(metadata_folder, file_name), 'w') as f:
