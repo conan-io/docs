@@ -55,7 +55,7 @@ Conan recipes provide access to their dependencies via the ``self.dependencies``
 subgraph
 --------
 
-A red-only dependency graph of the recipe. The ``dependencies`` attribute should be used to access the dependencies of the recipe,
+A read-only dependency graph of the recipe. The ``dependencies`` attribute should be used to access the dependencies of the recipe,
 as this attribute is intended to be passed to other Conan APIs and exposed for advanced usages like :ref:`SBOM generation <conan_tools_sbom>`.
 
 
