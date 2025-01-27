@@ -232,3 +232,63 @@ to only update those packages, which avoids the re-evaluation of the whole graph
 
 Note that the ``--update`` argument will look into all the remotes specified in the command for possible newer versions,
 and won't stop at the first newer one found.
+
+
+.. _reference_commands_build_modes:
+
+Build modes
+-----------
+
+The ``conan install --build=<mode>`` argument controls the behavior regarding building packages from source. 
+The default behavior is failing if there are no existing binaries, with the "missing binary" error message,
+except for packages that define a ``build_policy = "missing"`` policy, but this can be changed with the 
+``--build`` argument.
+
+The possible values are:
+
+.. code-block:: bash
+
+    --build=never      Disallow build for all packages, use binary packages or fail if a binary
+                       package is not found, it cannot be combined with other '--build' options.
+    --build=missing    Build packages from source whose binary package is not found.
+    --build=cascade    Build packages from source that have at least one dependency being built from
+                       source.
+    --build=[pattern]  Build packages from source whose package reference matches the pattern. The
+                       pattern uses 'fnmatch' style wildcards, so '--build="*"' will build everything
+                       from source.
+    --build=~[pattern] Excluded packages, which will not be built from the source, whose package
+                       reference matches the pattern. The pattern uses 'fnmatch' style wildcards.
+    --build=missing:[pattern] Build from source if a compatible binary does not exist, only for
+                              packages matching pattern.
+    --build=compatible:[pattern] (Experimental) Build from source if a compatible binary does not
+                                 exist, and the requested package is invalid, the closest package
+                                 binary following the defined compatibility policies (method and
+                                 compatibility.py)
+
+
+The ``--build=never`` policy can be used to force never building from source, even for package recipes
+that define the ``build_policy = "missing"`` policy.
+
+The ``--build=compatible:[pattern]`` is an **experimental** new mode that allows building missing binaries
+with a configuration different than the current one. For example if the current profile has
+``compiler.cppstd=14``, but some package raises an "invalid" configuration error, because it needs at
+least ``compiler.cppstd=17``, and the binary compatibiliy (defined for example in ``compatibility.py`` plugin)
+allows that as a compatible binary, then, Conan will build from source that dependency package applying
+``compiler.cppstd=17``.
+
+The ``--build=[pattern]`` uses a pattern, so it should use something like ``--build="zlib/*"`` to match any
+version of the ``zlib`` package, as doing ``--build=zlib`` will not work.
+
+.. note::
+
+    **Best practices**
+
+    Forcing the rebuild of existing binaries with ``--build="*"`` or any other ``--build="pkg/*"`` or 
+    similar pattern is not a recommended practice. If a binary is already existing there is no reason
+    to rebuild it from source. CI pipelines should be specially careful to not do this, and in general
+    the ``--build=missing`` and ``--build=missing:[pattern]`` are more recommended.
+
+    The ``--build=cascade`` mode is partly legacy, and shouldn't be used in most cases. The ``package_id``
+    computation should be the driver to decide what needs to be built. This mode has been left in Conan 2
+    only for exceptional cases, like recovering from broken systems, but it is not recommended for normal
+    production usage.

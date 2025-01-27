@@ -140,6 +140,31 @@ The functions with *(test package)* belong to the *conanfile.py* in the *test_pa
 already installed. Typically, it should be installed just as it was installed in the previous "install packages" step.
 
 
+Build modes
+-----------
+
+The ``conan create --build=<xxxx>`` build modes are very similar to the ``conan install`` ones documented in :ref:`Build Modes<reference_commands_build_modes>`,
+with some differences.
+
+By default, ``conan create`` defines the ``--build=current_pkg/current_version`` to force the build
+from source for the current revision. This assumes that the source code (recipe, C/C++ code) was
+changed and it will create a new revision. If that is not the case, then the ``--build=missing:current_pkg/current_version``
+would be recommended to avoid rebuilding from source an already existing binary.
+
+When a ``--build=xxx`` argument is defined in the command line, then the automatically defined
+``--build=current_pkg/current_version`` is no longer passed, and it should be passed as a explicit argument too.
+
+.. note::
+
+    **Best practices**
+
+    Having more than a ``package_revision`` for a given ``recipe_revision`` and ``package_id`` is discouraged
+    in most cases, as it implies unnecessarily rebuilding from sources binaries that were already existing. For that
+    reason, using ``conan create`` repeatedly over the same recipe without any source changes that would cause a
+    new ``recipe_revision`` is discouraged, and using ``conan create . --build=missing:[pattern]`` would be the
+    recommended approach.
+
+
 .. seealso::
 
     - Read more about creating packages in the :ref:`dedicated
