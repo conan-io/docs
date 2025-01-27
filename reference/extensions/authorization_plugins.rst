@@ -12,7 +12,7 @@ The idea behind these plugins is to create custom integrations with each user's 
 
 Auth remote plugin
 +++++++++++++++++++
-This first plugin is a Python script that receives a ``remote`` object and an optional parameter: ``user``. If the user
+This first plugin is a Python script that receives a :ref:`Remote <conan.api.model.Remote>` object and an optional parameter: ``user``. If the user
 is provided, the expected output is the credentials that use that username. The output should be a tuple of the
 username that we want to use for that remote, or ``None`` if no credentials are specified for that remote and we want
 Conan to follow the normal login flow.
