@@ -234,6 +234,8 @@ Note that the ``--update`` argument will look into all the remotes specified in 
 and won't stop at the first newer one found.
 
 
+.. _reference_commands_build_modes:
+
 Build modes
 -----------
 
@@ -273,6 +275,9 @@ with a configuration different than the current one. For example if the current 
 least ``compiler.cppstd=17``, and the binary compatibiliy (defined for example in ``compatibility.py`` plugin)
 allows that as a compatible binary, then, Conan will build from source that dependency package applying
 ``compiler.cppstd=17``.
+
+The ``--build=[pattern]`` uses a pattern, so it should use something like ``--build="zlib/*"`` to match any
+version of the ``zlib`` package, as doing ``--build=zlib`` will not work.
 
 .. note::
 
