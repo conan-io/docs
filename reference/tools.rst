@@ -40,6 +40,7 @@ Contents:
     tools/microsoft
     tools/qbs
     tools/ros
+    tools/sbom
     tools/scm
     tools/scons
     tools/premake
