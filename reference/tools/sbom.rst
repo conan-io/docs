@@ -76,7 +76,9 @@ Conan
 
 Instead of using a standard, we can take a Conan-based approach. Thanks to the ``conanfile.subgraph.serialize()``
 function, we can directly obtain information about the dependencies of our program.
-In the following example, we can see a hook that generates this simplified SBOM.
+In the following example, we can see a hook that generates a simplified SBOM
+consisting of the serialization of the subgraph, which includes all data Conan has
+about the specific dependencies.
 
 .. code-block:: python
 
