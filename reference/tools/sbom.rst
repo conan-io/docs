@@ -26,7 +26,7 @@ Conan supports `CycloneDX <https://cyclonedx.org/>`_ out-of-the-box, which is on
 
 The CycloneDX tool is available in the ``conan.tools.sbom.cyclonedx`` module.
 It provides the function ``cyclonedx_1_4`` which receives a Conan dependency graph
-(usually a ``conanfile.subgraph``) and returns a dictionary with the SBOM data in the CycloneDX 1.4 format.
+(usually a :ref:`conanfile.subgraph <conan_conanfile_attribute_other_subgraph>`) and returns a dictionary with the SBOM data in the CycloneDX 1.4 format.
 
 .. currentmodule:: conan.tools.sbom.cyclonedx
 .. autofunction:: cyclonedx_1_4
