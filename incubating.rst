@@ -53,12 +53,14 @@ Workspaces
 The workspaces feature can be enabled defining the environment variable ``CONAN_WORKSPACE_ENABLE=will_break_next``.
 The value ``will_break_next`` is used to emphasize that it will change in next releases, and this feature is for testing only, it cannot be used in production.
 
-Once the feature is enabled, workspaces are defined by one or both ``conanws.yml`` and/or ``conanws.py`` files.
-By default, any Conan command will traverse the file system from the current working directory until it finds one of those files. That will define the "root" workspace folder.
+Once the feature is enabled, workspaces are defined by the ``conanws.yml`` and/or ``conanws.py`` files.
+By default, any Conan command will traverse up the file system from the current working directory to the filesystem root, until it finds one of those files. That will define the "root" workspace folder.
 
 The ``conan workspace`` command allows to open, add, remove packages from the current workspace. Check the ``conan workspace -h`` help and the help of the subcommands to check their usage.
 
 Dependencies added to a workspace work as local ``editable`` dependencies. They are only resolved as ``editable`` under the current workspace, if the current directory is moved outside of it, those ``editable`` dependencies won't be used anymore.
+
+The paths in the ``conanws`` files are intended to be relative to be relocatable if necessary, or could be committed to Git in mono-repo like projects.
 
 The ``conanws.yml`` and ``conanws.py`` files act as a fallback, that is, by default a workspace will look for an ``editables()`` function inside the ``conanws.py`` and use it if exists. Otherwise, it will fallback to the ``editables`` definition in the ``yml`` file.
 
@@ -111,11 +113,59 @@ Likewise, the ``home_folder``, to define an optional Conan cache location for th
       # to the workspace root folder)
       return "new" + conanws_data["home_folder"]
 
+conan workspace add/remove
+++++++++++++++++++++++++++
+
+Use these commands to add or remove editable packages to the current workspace. The ``conan workspace add <path>`` folder must contain a ``conanfile.py``.
+
+conan workspace info
+++++++++++++++++++++
+
+Use this command to show information about the current workspace
+
+.. code-block:: bash
+
+   $ cd myfolder
+   $ conan new workspace
+   $ conan workspace info
+   WARN: Workspace found
+   WARN: Workspace is a dev-only feature, exclusively for testing
+   name: myfolder
+   folder: /path/to/myfolder
+   products
+      app1
+   editables
+      liba/0.1
+         path: liba
+      libb/0.1
+         path: libb
+      app1/0.1
+         path: app1
+
+
+conan workspace open
+++++++++++++++++++++
 
 The new ``conan workspace open`` command implements a new concept. Those packages containing an ``scm`` information in the ``conandata.yml`` (with ``git.coordinates_to_conandata()``) can be automatically cloned and checkout inside the current workspace from their Conan recipe reference (including recipe revision).
 
 
-The paths in the ``conanws`` files are intended to be relative to be relocatable if necessary, or could be committed to Git in mono-repo like projects.
+conan new workspace
++++++++++++++++++++
+
+The command ``conan new`` has learned a new built-in (experimental) template ``workspace`` that creates a local project with some editable packages
+and a ``conanws.yml`` that represents it. It is useful for quick demos, proofs of concepts and experimentation.
+
+
+conan workspace build
++++++++++++++++++++++
+
+The command ``conan workspace build`` does the equivalent of ``conan build <product-path> --build=editable``, for every ``product`` defined
+in the workspace.
+
+Products are the "downstream" consumers, the "root" and starting node of dependency graphs. They can be defined with the ``conan workspace add <folder> --product``
+new ``--product`` argument.
+
+
 
 Limitations:
 
