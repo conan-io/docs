@@ -58,7 +58,7 @@ dependencies.
     import os
     from conan.api.output import ConanOutput
     from conan.tools.sbom.cyclonedx import cyclonedx_1_4
-    def post_generate(conanfile):
+    def post_generate(conanfile, **kwargs):
         sbom_cyclonedx_1_4 = cyclonedx_1_4(conanfile.subgraph)
         generators_folder = conanfile.generators_folder
         file_name = "sbom.cdx.json"
