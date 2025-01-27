@@ -10,7 +10,7 @@ dependencies, and other elements that make up a specific piece of software. Simi
 of materials in manufacturing, which details the parts and materials used to build a product,
 an SBOM provides transparency about what is contained "inside" an application or software system.
 
-Conan allows you to generate SBOMs natively by using the resolved dependency graph.
+Conan allows you to generate SBOMs natively by using a resolved dependency graph.
 This way, you can create the SBOM for your program at the same time you build it.
 
 For now, **this feature is in an experimental state, which means that the interface, functionality or generated
@@ -22,16 +22,27 @@ We would be delighted to hear your feedback!
 CycloneDX
 ^^^^^^^^^
 
-CycloneDX is one of the most widely used standards for SBOMs, supported by the OWASP Foundation.
+Conan supports `CycloneDX <https://cyclonedx.org/>`_ out-of-the-box, which is one of the most widely used standards for SBOMs.
 
-Using this feature is as simple as implementing a :ref:`hook <reference_extensions_hooks>` in your client,
-which uses this tool to create the SBOM and simply stores it in the appropriate location.
+The CycloneDX tool is available in the ``conan.tools.sbom.cyclonedx`` module.
+It provides the function ``cyclonedx_1_4`` which receives a Conan dependency graph
+(usually a ``conanfile.subgraph``) and returns a dictionary with the SBOM data in the CycloneDX 1.4 format.
+
+.. currentmodule:: conan.tools.sbom.cyclonedx
+.. autofunction:: cyclonedx_1_4
+
+Using this feature is as simple as implementing a :ref:`hook <reference_extensions_hooks>` in your client
+which uses this tool to create the SBOM and stores it in the appropriate location.
+
+Usage examples
+^^^^^^^^^^^^^^
 
 Let's look at two examples:
 
-In the first one, we have the case where we want to generate the SBOM at the moment we create our app, after the
+In the first one, we want to generate the SBOM at the moment we create our app, after the
 package method. This is very useful for keeping track of the components and dependencies of that went into building our software.
-In the example, we save it in the metadata folder to keep our project organized.
+In the example, we save the generated sbom in the package metadata folder to keep our project organized
+
 
 .. code-block:: python
 
@@ -39,6 +50,7 @@ In the example, we save it in the metadata folder to keep our project organized.
     import os
     from conan.api.output import ConanOutput
     from conan.tools.sbom.cyclonedx import cyclonedx_1_4
+
     def post_package(conanfile, **kwargs):
         sbom_cyclonedx_1_4 = cyclonedx_1_4(conanfile.subgraph)
         metadata_folder = conanfile.package_metadata_folder
@@ -47,10 +59,15 @@ In the example, we save it in the metadata folder to keep our project organized.
             json.dump(sbom_cyclonedx_1_4, f, indent=4)
         ConanOutput().success(f"CYCLONEDX CREATED - {conanfile.package_metadata_folder}")
 
+.. seealso::
+
+    - :ref:`See here for more information on the metadata feature <devops_metadata>`.
+
 
 In the second example, we generate our SBOM after the generate method. This allows us to create the SBOMs when we
 install the dependencies from Conan. This can be very useful for generating SBOMs for different versions of our
-dependencies.
+dependencies. Note that this time we're saving the SBOM in the generators folder, so that the user installing the dependencies
+has easy access to the SBOM.
 
 .. code-block:: python
 
@@ -58,6 +75,7 @@ dependencies.
     import os
     from conan.api.output import ConanOutput
     from conan.tools.sbom.cyclonedx import cyclonedx_1_4
+
     def post_generate(conanfile, **kwargs):
         sbom_cyclonedx_1_4 = cyclonedx_1_4(conanfile.subgraph)
         generators_folder = conanfile.generators_folder
@@ -75,16 +93,19 @@ Conan
 ^^^^^
 
 Instead of using a standard, we can take a Conan-based approach. Thanks to the ``conanfile.subgraph.serialize()``
-function, we can directly obtain information about the dependencies of our program.
+function, we can directly obtain information about the dependencies of our package.
 In the following example, we can see a hook that generates a simplified SBOM
 consisting of the serialization of the subgraph, which includes all data Conan has
-about the specific dependencies.
+about the specific dependencies. Note that this serialization is not a standard SBOM format,
+and is not standardized in any way. The information is similar to the one provided by the
+:command:`conan graph info ... --format=json` command.
 
 .. code-block:: python
 
     import json
     import os
     from conan.api.output import ConanOutput
+
     def post_package(conanfile, **kwargs):
         metadata_folder = conanfile.package_metadata_folder
         file_name = "sbom.conan.json"
