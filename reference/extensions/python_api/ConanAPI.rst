@@ -13,6 +13,4 @@ Conan API Reference
 
 .. seealso::
 
-    - Creating Conan custom commands
-    - ...
-
+    - :ref:`Creating Conan custom commands <reference_commands>`
