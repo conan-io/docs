@@ -278,9 +278,8 @@ following way:
         tc.user_presets_path = False
         tc.generate()
 
-It's also possible to use the **tools.cmake.cmaketoolchain:user_presets** experimental configuration to
-change the name and location of the ``CMakeUserPresets.json`` file. Please check the
-:ref:`conf section<conan-cmake-toolchain_conf>` for more information.
+It's also possible to use the ``tools.cmake.cmaketoolchain:user_presets`` experimental configuration to
+change the name and location of the ``CMakeUserPresets.json`` file. Assigning it to an empty string will disable the generation of the file. Please check the :ref:`conf section<conan-cmake-toolchain_conf>` for more information.
 
 presets_build_environment, presets_run_environment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
