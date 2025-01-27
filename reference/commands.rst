@@ -77,8 +77,7 @@ and these :ref:`custom command examples <examples_extensions_custom_commands>`
 
 .. _commands_output:
 
-Commands Output to stdout and stderr
-------------------------------------
+**Commands Output to stdout and stderr**
 
 Conan commands output information following a deliberate design choice that aligns with
 common practices in many CLI tools and the `POSIX standard
