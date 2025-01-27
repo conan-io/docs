@@ -170,7 +170,8 @@ new ``--product`` argument.
 Limitations:
 
 - At the moment, the ``workspace`` feature only manages local editables packages. It doesn't create any specific meta-project, or does any orchestrated build.
-- Note however, that the ``conan build . --build=editables`` can be used to do orchestrated builds accross the workspace, as it will do builds of every editable package in the workspace in the right order.
-
+- The ``conan workspace build`` command just iterates all products, so it might repeat the build of editables dependencies of the products. In most cases, it
+  will be a no-op as the projects would be already built, but might still take some time. This is pending for optimization, but that will be done later, the
+  important thing now is to focus on tools, UX, flows, and definitions (of things like the ``products``).
 
 For any feedback, please open new tickets in https://github.com/conan-io/conan.
