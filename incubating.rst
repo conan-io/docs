@@ -60,7 +60,7 @@ The ``conan workspace`` command allows to open, add, remove packages from the cu
 
 Dependencies added to a workspace work as local ``editable`` dependencies. They are only resolved as ``editable`` under the current workspace, if the current directory is moved outside of it, those ``editable`` dependencies won't be used anymore.
 
-The paths in the ``conanws`` files are intended to be relative to be relocatable if necessary, or could be committed to Git in mono-repo like projects.
+The paths in the ``conanws`` files are intended to be relative to be relocatable if necessary, or could be committed to Git in monorepo-like projects.
 
 The ``conanws.yml`` and ``conanws.py`` files act as a fallback, that is, by default a workspace will look for an ``editables()`` function inside the ``conanws.py`` and use it if exists. Otherwise, it will fallback to the ``editables`` definition in the ``yml`` file.
 
