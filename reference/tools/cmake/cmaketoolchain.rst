@@ -278,6 +278,10 @@ following way:
         tc.user_presets_path = False
         tc.generate()
 
+It's also possible to use the **tools.cmake.cmaketoolchain:user_presets** configuration to
+change the name and location of the ``CMakeUserPresets.json`` file. Please check the
+:ref:`conf section<conan-cmake-toolchain_conf>` for more information.
+
 presets_build_environment, presets_run_environment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -755,6 +759,7 @@ This block injects ``$`` which will be expanded later. It also defines a cache v
 - **tools.cmake.cmaketoolchain:toolset_cuda**: (Experimental) Will add the ``,cuda=xxx`` specifier in the ``CMAKE_GENERATOR_TOOLSET`` variable of ``conan_toolchain.cmake`` file.
 - **tools.cmake.cmake_layout:build_folder_vars**: Settings, Options, ``self.name`` and ``self.version`` and constants ``const.uservalue`` that will produce a different build folder and different CMake presets names.
 - **tools.cmake.cmaketoolchain:presets_environment**: Set to ``'disabled'`` to prevent the addition of the environment section to the generated CMake presets.
+- **tools.cmake.cmaketoolchain:user_presets**: (Experimental) Allows setting a custom name or subfolder for the `CMakeUserPresets.json` file. An empty string disables file generation entirely.
 - **tools.build:cxxflags** list of extra C++ flags that will be appended to ``CMAKE_CXX_FLAGS_INIT``.
 - **tools.build:cflags** list of extra of pure C flags that will be appended to ``CMAKE_C_FLAGS_INIT``.
 - **tools.build:sharedlinkflags** list of extra linker flags that will be appended to ``CMAKE_SHARED_LINKER_FLAGS_INIT``.
