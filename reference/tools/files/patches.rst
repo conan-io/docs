@@ -103,6 +103,9 @@ Example of ``conandata.yml`` without versions defined:
 core.sources.patch:extra_path
 +++++++++++++++++++++++++++++
 
+.. include:: ../../../common/experimental_warning.inc
+
+
 The ``export_conandata_patches()`` tool can automatically inject patches from an external path at package creation time
 using the ``core.sources.patch:extra_path`` core configuration.
 
