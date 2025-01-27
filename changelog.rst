@@ -3,6 +3,39 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.12.0 (27-Jan-2025)
+--------------------
+
+- Feature: Make public documented (and experimental) the ``--build=compatible:[pattern]`` build mode, to allow building other configurations different than the current one when the current one is invalid and binary compatibility defines compatible binaries. `#17637 <https://github.com/conan-io/conan/pull/17637>`_ . Docs `here <https://github.com/conan-io/docs/pull/3963>`__
+- Feature: Define new ``tools.cmake.cmaketoolchain:user_presets`` to customize the name of the generated ``CMakeUserPresets.json``, disabling its generation. Also can generate it in a subfolder. `#17613 <https://github.com/conan-io/conan/pull/17613>`_ . Docs `here <https://github.com/conan-io/docs/pull/3967>`__
+- Feature: Serialize in ``--format=json`` graph output the original requirements version range, not only the resolved one. `#17603 <https://github.com/conan-io/conan/pull/17603>`_
+- Feature: Add cycloneDX as a Conan tool and implement subgraph for conanfile. `#17559 <https://github.com/conan-io/conan/pull/17559>`_ . Docs `here <https://github.com/conan-io/docs/pull/3959>`__
+- Feature: Initial ``conan workspace build`` command to build the full workspace, based on the definition of ``products``. `#17538 <https://github.com/conan-io/conan/pull/17538>`_ . Docs `here <https://github.com/conan-io/docs/pull/3964>`__
+- Feature: Allow applying patches on "create" time for conan-center-index like layouts from an external centralized folder. `#17520 <https://github.com/conan-io/conan/pull/17520>`_ . Docs `here <https://github.com/conan-io/docs/pull/3965>`__
+- Feature: Add report progress while unpacking tarball files. `#17519 <https://github.com/conan-io/conan/pull/17519>`_
+- Feature: `conan profile show` can now select which context's profile to show. `#17518 <https://github.com/conan-io/conan/pull/17518>`_
+- Feature: Better logging, printing the username for repositories, successful auth event and trace-level messages including full URL requests. `#17517 <https://github.com/conan-io/conan/pull/17517>`_
+- Feature: Adds `conan config clean` command that will remove all custom config from conan home, excluding the generated packages. `#17514 <https://github.com/conan-io/conan/pull/17514>`_ . Docs `here <https://github.com/conan-io/docs/pull/3961>`__
+- Feature: Add `reinit` method to `ConanApi`, which reinitializes every `subapi`. `#17514 <https://github.com/conan-io/conan/pull/17514>`_ . Docs `here <https://github.com/conan-io/docs/pull/3961>`__
+- Feature: Allow defining ``--out-file=file.ext`` instead of ``--format=ext > file.ext`` to write to files directly and avoid issues with redirects. `#17507 <https://github.com/conan-io/conan/pull/17507>`_ . Docs `here <https://github.com/conan-io/docs/pull/3966>`__
+- Feature: Cache HTTP request sessions between API calls. `#17455 <https://github.com/conan-io/conan/pull/17455>`_
+- Feature: Implement caching in the ``Remote`` objects for ``RemoteManager`` calls, saving repeated calls to the server for the duration of the life of the Remote objects. `#17449 <https://github.com/conan-io/conan/pull/17449>`_ . Docs `here <https://github.com/conan-io/docs/pull/3962>`__
+- Fix: Added `arch_flag` as a public attribute to the `MesonToolchain` generator. `#17629 <https://github.com/conan-io/conan/pull/17629>`_
+- Fix: Increase sqlite timeout from 10 to 20 seconds for very heavily loaded CI servers. `#17616 <https://github.com/conan-io/conan/pull/17616>`_
+- Fix: Make ``remotes.json`` saving transactional to avoid corruption for hard killed processes. `#17588 <https://github.com/conan-io/conan/pull/17588>`_
+- Fix: Improve error message for :command:`conan create` when ``test_package`` has missing binaries. `#17581 <https://github.com/conan-io/conan/pull/17581>`_
+- Fix: Fix `Git` `is_dirty` detection of excluded files with paths. `#17571 <https://github.com/conan-io/conan/pull/17571>`_
+- Fix: Allow latest bottle 0.13 release for ``conan_server`` to work with Python 3.13. `#17534 <https://github.com/conan-io/conan/pull/17534>`_
+- Fix: GnuToolchain's make_args handle empty values correctly. `#17532 <https://github.com/conan-io/conan/pull/17532>`_
+- Fix: Fix inconsistency in ``replace_in_file``, that returned `False` if the pattern was not found (with strict off), otherwise `None`. `#17531 <https://github.com/conan-io/conan/pull/17531>`_
+- Fix: `conan profile show` does not pollute stdout with information titles. `#17518 <https://github.com/conan-io/conan/pull/17518>`_
+- Fix: Error out when unknown language is used in languages attribute. `#17512 <https://github.com/conan-io/conan/pull/17512>`_
+- Fix: Fix ``Workspace`` when using the ``workspace_api.load()`` and using ``self.run()`` inside ``set_version()``. `#17501 <https://github.com/conan-io/conan/pull/17501>`_
+- Bugfix: `conf_build` does not exist for `cli` and `conanfile.txt` contexts. `#17640 <https://github.com/conan-io/conan/pull/17640>`_
+- Bugfix: Make possible to use `pattern` and `strip_root` at the same time for `conan.tools.files.unzip()`. `#17591 <https://github.com/conan-io/conan/pull/17591>`_
+- Bugfix: Solve incubating ``CMakeDeps`` issues with transitive ``[replace_requires]``. `#17566 <https://github.com/conan-io/conan/pull/17566>`_
+- Bugfix: Solve ``PkgConfigDeps`` issues with transitive ``[replace_requires]``. `#17566 <https://github.com/conan-io/conan/pull/17566>`_
+
 2.11.0 (18-Dec-2024)
 --------------------
 
