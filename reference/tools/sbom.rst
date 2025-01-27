@@ -92,7 +92,7 @@ This can greatly assist us in conducting continuous analysis of our development 
 Conan
 ^^^^^
 
-Instead of using a standard, we can take a Conan-based approach. Thanks to the ``conanfile.subgraph.serialize()``
+Instead of using a standard, we can take a "Conan-based approach". Thanks to the ``conanfile.subgraph.serialize()``
 function, we can directly obtain information about the dependencies of our package.
 In the following example, we can see a hook that generates a simplified SBOM
 consisting of the serialization of the subgraph, which includes all data Conan has
