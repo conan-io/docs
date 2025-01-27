@@ -39,7 +39,7 @@ In the example, we save it in the metadata folder to keep our project organized.
     import os
     from conan.api.output import ConanOutput
     from conan.tools.sbom.cyclonedx import cyclonedx_1_4
-    def post_package(conanfile):
+    def post_package(conanfile, **kwargs):
         sbom_cyclonedx_1_4 = cyclonedx_1_4(conanfile.subgraph)
         metadata_folder = conanfile.package_metadata_folder
         file_name = "sbom.cdx.json"
