@@ -298,3 +298,13 @@ Removing it will make the command only show global confs:
 
     tools.files.download:retry: 7
     tools.files.download:retry_wait: 10
+
+
+conan config clean
+------------------
+
+.. autocommand::
+    :command: conan config clean -h
+
+Removes all the custom configuration from the Conan home, such as ``remotes.json``, profiles, settings, plugins, extensions, etc.
+This does not remove packages, only the configuration files.
