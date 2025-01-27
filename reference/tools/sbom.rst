@@ -30,7 +30,7 @@ which uses this tool to create the SBOM and simply stores it in the appropriate 
 Let's look at two examples:
 
 In the first one, we have the case where we want to generate the SBOM at the moment we create our app, after the
-package method. This is very useful for keeping track of the components and dependencies of our software.
+package method. This is very useful for keeping track of the components and dependencies of that went into building our software.
 In the example, we save it in the metadata folder to keep our project organized.
 
 .. code-block:: python
