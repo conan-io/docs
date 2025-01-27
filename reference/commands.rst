@@ -75,6 +75,36 @@ and these :ref:`custom command examples <examples_extensions_custom_commands>`
 - :doc:`conan upload <commands/upload>`: Upload packages from the local cache to a specified remote
 
 
+.. _commands_output:
+
+Commands Output to stdout and stderr
+------------------------------------
+
+Conan commands output information following a deliberate design choice that aligns with
+common practices in many CLI tools and the `POSIX standard
+<https://pubs.opengroup.org/onlinepubs/9699919799/functions/stderr.html>`_:
+
+- ``stdout``: For final command results (e.g., JSON, HTML).
+- ``stderr``: For diagnostic output, including logs, warnings, errors, and progress
+  messages.
+
+Redirecting Output to Files
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+You can redirect Conan output to files using shell redirection:
+
+.. code-block:: bash
+
+    $ conan install . --format=json > output.json
+
+Alternatively, use the ``--out-file`` argument (available since Conan 2.12.0) to specify an
+output file directly:
+
+.. code-block:: bash
+
+    $ conan install . --format=json --out-file=output.json
+
+
 Command formatters
 ------------------
 
