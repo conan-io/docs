@@ -134,8 +134,8 @@ existing conflicts. The downstream consumer's ``force`` traits always have highe
 override
 ~~~~~~~~
 
-The same as the ``force`` trait, but not adding a ``direct`` dependency. If there is no
-transitive dependency to override, this ``require`` will be discarded. This trait only
+The same as the ``force`` trait, but not adding a ``direct`` dependency. **If there is no
+transitive dependency to override, this ``require`` will be discarded**. This trait only
 exists at the time of defining a ``requires``, but it will not exist as an actual
 ``requires`` once the graph is fully evaluated
 
@@ -143,10 +143,13 @@ exists at the time of defining a ``requires``, but it will not exist as an actua
 
     **Best practices**
 
-    The ``force`` and ``override`` traits to solve conflicts are not recommended as a general versioning
+    - The ``force`` and ``override`` traits to solve conflicts are not recommended as a general versioning
     solution, just as a temporary workaround to solve a version conflict. Its usage should be avoided
     whenever possible, and updating versions or version ranges in the graph to avoid the conflicts without
     overrides and forces is the recommended approach.
+    - A key takeaway is that the ``override`` trait does not create a direct dependency from your package, while
+    the ``force`` trait does. This means that the ``override`` trait is only useful when you want to override
+    the version of one of your transitive dependencies, while not adding a direct dependency to it.
 
 direct
 ~~~~~~
