@@ -3,6 +3,12 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.12.1 (28-Jan-2025)
+--------------------
+
+- Bugfix: Fix `conan config clean` not regenerating every necessary file. `#17649 <https://github.com/conan-io/conan/pull/17649>`_
+- Bugfix: Avoid ``compatibility.py`` migration if any of the files are modified by users. `#17647 <https://github.com/conan-io/conan/pull/17647>`_
+
 2.12.0 (27-Jan-2025)
 --------------------
 
