@@ -17,9 +17,9 @@ To use it, you just need to add it in the host profile.
     ...
     [runner]
     type=docker
-    configfile=</my/runner/folder>/configfile
-    cache=copy
-    remove=false
+    docker.configfile=</my/runner/folder>/configfile
+    docker.cache=copy
+    docker.remove=false
 
 **How to use**
 
@@ -99,9 +99,9 @@ Let’s create a Dockerfile inside your project folder, a cmake_lib ``myparamlib
 
     [runner]
     type=docker
-    configfile=</my/runner/folder>/myparamlib/configfile
-    cache=copy
-    remove=false
+    docker.configfile=</my/runner/folder>/myparamlib/configfile
+    docker.cache=copy
+    docker.remove=false
 
 ``docker_param_example_build`` profile
 
@@ -120,14 +120,11 @@ Now it's time to create our new library.
 
 .. code-block:: bash
 
-    $ conan create . --version 0.1 -pr:h docker_param_example_host -pr:b docker_param_example_build
+    $ conan create . -pr:h docker_param_example_host -pr:b docker_param_example_build
 
     ...
 
-    ****************************************************
-    * Building the Docker image: my-conan-runner-image *
-    ****************************************************
-
+    Building the Docker image: conan-runner-default
     Dockerfile path: '</my/runner/folder>/myparamlib/Dockerfile'
     Docker build context: '</my/runner/folder>/myparamlib'
 
@@ -142,35 +139,30 @@ Now it's time to create our new library.
 
     ...
 
-    **************************************************************************************************************************************************************************
-    * Running in container: "conan create /root/conanrunner/myparamlib --version 0.1 -pr:h docker_param_example_host -pr:b docker_param_example_build -f json > create.json" *
-    **************************************************************************************************************************************************************************
+    conan-runner-docker | $ conan create /root/conanrunner/myparamlib -pr:h docker_param_example_host -pr:b docker_param_example_build -f json > create.json
 
     ...
 
-    [ 50%] Building CXX object CMakeFiles/example.dir/src/example.cpp.o
-    [100%] Linking CXX executable example
-    [100%] Built target example
-
-    ======== Testing the package: Executing test ========
-    myparamlib/0.1 (test package): Running test()
-    myparamlib/0.1 (test package): RUN: ./example
-    myparamlib/0.1: Hello World Release!
-    myparamlib/0.1: __x86_64__ defined
-    myparamlib/0.1: _GLIBCXX_USE_CXX11_ABI 1
-    myparamlib/0.1: __cplusplus201703
-    myparamlib/0.1: __GNUC__11
-    myparamlib/0.1: __GNUC_MINOR__4
-    myparamlib/0.1 test_package
-
-
-    **********************************************************************************************
-    * Restore host cache from: </my/runner/folder>/myparamlib/.conanrunner/docker_cache_save.tgz *
-    **********************************************************************************************
-
-    Saving myparamlib/0.1: mypar36e44205a36b9
-    Saving myparamlib/0.1:8631cf963dbbb4d7a378a64a6fd1dc57558bc2fe: b/mypare0dc449d4125d/p
-    Saving myparamlib/0.1:8631cf963dbbb4d7a378a64a6fd1dc57558bc2fe metadata: b/mypare0dc449d4125d/d/metadata
+    conan-runner-docker | [ 50%] Building CXX object CMakeFiles/example.dir/src/example.cpp.o
+    conan-runner-docker | [100%] Linking CXX executable example
+    conan-runner-docker | [100%] Built target example
+    conan-runner-docker | 
+    conan-runner-docker | ======== Testing the package: Executing test ========
+    conan-runner-docker | myparamlib/0.1 (test package): Running test()
+    conan-runner-docker | myparamlib/0.1 (test package): RUN: ./example
+    conan-runner-docker | myparamlib/0.1: Hello World Release!
+    conan-runner-docker | myparamlib/0.1: __x86_64__ defined
+    conan-runner-docker | myparamlib/0.1: _GLIBCXX_USE_CXX11_ABI 1
+    conan-runner-docker | myparamlib/0.1: __cplusplus201703
+    conan-runner-docker | myparamlib/0.1: __GNUC__11
+    conan-runner-docker | myparamlib/0.1: __GNUC_MINOR__4
+    conan-runner-docker | myparamlib/0.1 test_package
+    conan-runner-docker | 
+    conan-runner-docker | $ </my/runner/folder>/myparamlib/.conanrunner/docker_cache_save.tgz 
+    conan-runner-docker | 
+    conan-runner-docker | Saving myparamlib/0.1: mypar36e44205a36b9
+    conan-runner-docker | Saving myparamlib/0.1:8631cf963dbbb4d7a378a64a6fd1dc57558bc2fe: b/mypare0dc449d4125d/p
+    conan-runner-docker | Saving myparamlib/0.1:8631cf963dbbb4d7a378a64a6fd1dc57558bc2fe metadata: b/mypare0dc449d4125d/d/metadata
 
 If we now check the status of our conan cache, we will see the new ``myparamlib`` pacakge.
 
