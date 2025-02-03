@@ -97,7 +97,10 @@ In this case, we are going to check the **conanfile.py** file that packages the 
 
 In this **conanfile.py** file, we are using the :ref:`system package manager<conan_tools_system_package_manager>` tool
 to install the ncurses library based on different package managers, under the
-:ref:`system_requirements<reference_conanfile_methods_system_requirements>` method.
+:ref:`system_requirements<reference_conanfile_methods_system_requirements>` method. It's important to note that the
+``system_requirements`` method is called always, when building, or even if the package is already installed.
+This is useful to ensure that the package is installed in the system.
+
 Each package may vary the package name used to install the ncurses library, so we need to check the package manager
 documentation to find the correct package name first.
 
