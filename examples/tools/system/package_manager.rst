@@ -21,7 +21,7 @@ Please, first clone the sources to recreate this project. You can find them in t
     $ cd examples2/examples/tools/system/package_manager/
 
 
-You may find the following tree structure:
+You will find the following tree structure:
 
 .. code-block:: text
 
@@ -36,7 +36,7 @@ You may find the following tree structure:
 The **conanfile.py** file is the recipe that packages the ncurses library.
 Finally, the **consumer** directory contains a simple C++ application that uses the ncurses library, we will visit it later.
 
-When packaging a pre-built system library, we do not need to build the project from source, but only to install the
+When packaging a pre-built system library, we do not need to build the project from source, only install the
 system library and package its information.
 In this case, we are going to check the **conanfile.py** file that packages the ncurses library first:
 
@@ -105,10 +105,10 @@ to install the ncurses library based on different package managers, under the
 ``system_requirements`` method is called always, when building, or even if the package is already installed.
 This is useful to ensure that the package is installed in the system.
 
-Each package may vary the package name used to install the ncurses library, so we need to check the package manager
+Each package manager may vary the package name used to install the ncurses library, so we need to check the package manager
 documentation to find the correct package name first.
 
-Another important details is the **package_info** method. In this method, we are using the
+Another important detail is the **package_info** method. In this method, we are using the
 :ref:`PkgConfig<conan_tools_gnu_pkgconfig>` tool to fill the **cpp_info** data, based on the file ``ncurses.pc``
 installed by the system package manager.
 
