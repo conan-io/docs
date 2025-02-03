@@ -21,7 +21,7 @@ Please, first clone the sources to recreate this project. You can find them in t
     $ cd examples2/examples/tools/system/package_manager/
 
 
-You may find the following tree structure:
+You will find the following tree structure:
 
 .. code-block:: text
 
