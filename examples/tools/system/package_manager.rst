@@ -3,7 +3,7 @@
 Wrapping system requirements in a Conan package
 ===============================================
 
-Conan not only manages C and C++ dependencies, but it can also manage system packages.
+Conan can manage system packages, allowing you to install platform-specific dependencies easily.
 This is useful when you need to install strictly platform-specific system packages.
 For example, you may need to install a package that provides a specific driver or graphics library that only works on a specific platform.
 
