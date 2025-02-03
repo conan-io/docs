@@ -26,7 +26,6 @@ You may find the following tree structure:
 .. code-block:: text
 
     .
-    ├── ci_test_example.py
     ├── conanfile.py
     └── consumer
         ├── CMakeLists.txt
@@ -34,8 +33,6 @@ You may find the following tree structure:
         └── ncurses_version.cpp
 
 
-The **ci_test_example.py** file is a script consumed by the CI to check if the example is running without errors,
-you should not worry about this file.
 The **conanfile.py** file is the recipe that packages the ncurses library.
 Finally, the **consumer** directory contains a simple C++ application that uses the ncurses library, we will visit it later.
 
