@@ -101,7 +101,7 @@ This is useful to ensure that the package is installed in the system.
 Each package may vary the package name used to install the ncurses library, so we need to check the package manager
 documentation to find the correct package name first.
 
-Another important details is the **package_info** method. In this method, we are using the
+Another important detail is the **package_info** method. In this method, we are using the
 :ref:`PkgConfig<conan_tools_gnu_pkgconfig>` tool to fill the **cpp_info** data, based on the file ``ncurses.pc``
 installed by the system package manager.
 
