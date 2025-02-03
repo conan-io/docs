@@ -98,7 +98,7 @@ to install the ncurses library based on different package managers, under the
 ``system_requirements`` method is called always, when building, or even if the package is already installed.
 This is useful to ensure that the package is installed in the system.
 
-Each package may vary the package name used to install the ncurses library, so we need to check the package manager
+Each package manager may vary the package name used to install the ncurses library, so we need to check the package manager
 documentation to find the correct package name first.
 
 Another important detail is the **package_info** method. In this method, we are using the
