@@ -13,7 +13,7 @@ In this example, we are going to explore the steps needed to package a system li
 For this illustration, we are going to package a simple C++ application that uses the `ncurses <https://invisible-island.net/ncurses/>`_ library.
 
 Please, first clone the sources to recreate this project. You can find them in the
-`examples2 repository <https://github.com/conan-io/examples2>`_ in GitHub:
+`examples2 repository <https://github.com/conan-io/examples2>`_ on GitHub:
 
 .. code-block:: bash
 
