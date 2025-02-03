@@ -4,7 +4,7 @@ Wrapping system requirements in a Conan package
 ===============================================
 
 Conan can manage system packages, allowing you to install platform-specific dependencies easily.
-This is useful when you need to install strictly platform-specific system packages.
+This is useful when you need to install platform-specific system packages.
 For example, you may need to install a package that provides a specific driver or graphics library that only works on a specific platform.
 
 Conan provides a way to install system packages using the :ref:`system package manager<conan_tools_system_package_manager>` tool.
