@@ -10,7 +10,7 @@ For example, you may need to install a package that provides a specific driver o
 Conan provides a way to install system packages using the :ref:`system package manager<conan_tools_system_package_manager>` tool.
 
 In this example, we are going to explore the steps needed to package a system library and what is needed to consume it in a Conan package.
-For this illustration, we are going to package a simple C++ application that uses the `ncurses <https://invisible-island.net/ncurses/>`_ library.
+For this illustration, we are going to package a simple C application that uses the `ncurses <https://invisible-island.net/ncurses/>`_ library.
 
 Please, first clone the sources to recreate this project. You can find them in the
 `examples2 repository <https://github.com/conan-io/examples2>`_ on GitHub:
@@ -30,11 +30,11 @@ You will find the following tree structure:
     └── consumer
         ├── CMakeLists.txt
         ├── conanfile.py
-        └── ncurses_version.cpp
+        └── ncurses_version.c
 
 
 The **conanfile.py** file is the recipe that packages the ncurses library.
-Finally, the **consumer** directory contains a simple C++ application that uses the ncurses library, we will visit it later.
+Finally, the **consumer** directory contains a simple C application that uses the ncurses library, we will visit it later.
 
 When packaging a pre-built system library, we do not need to build the project from source, only install the
 system library and package its information.
@@ -123,7 +123,7 @@ Note that we are using the :ref:`Conan configuration<conan_tools_system_package_
 if it is installed only. The same for ``tools.system.package_manager:sudo`` as **True** to run the package manager with root privileges.
 As a result of this command, you should be able to see the **ncurses** library installed in your system, in case not been installed yet.
 
-Now, let's check the **consumer** directory. This directory contains a simple C++ application that uses the ncurses library.
+Now, let's check the **consumer** directory. This directory contains a simple C application that uses the ncurses library.
 
 The **conanfile.py** file in the **consumer** directory is:
 
@@ -139,7 +139,7 @@ The **conanfile.py** file in the **consumer** directory is:
         settings = "os", "compiler", "build_type", "arch"
         generators = "CMakeDeps", "CMakeToolchain"
         package_type = "application"
-        exports_sources = "CMakeLists.txt", "ncurses_version.cpp"
+        exports_sources = "CMakeLists.txt", "ncurses_version.c"
 
         def requirements(self):
             if self.settings.os in ["Linux", "Macos", "FreeBSD"]:
@@ -158,17 +158,35 @@ The **conanfile.py** file in the **consumer** directory is:
 The recipe is simple. It requires the **ncurses** package we just created and uses the **CMake** tool to build the application.
 Once the application is built, it runs the **ncurses_version** application, so we can check the executable output as its result.
 
-The **ncurses_version.cpp** file is a simple C++ application that uses the ncurses library to print the ncurses version:
+The **ncurses_version.c** file is a simple C application that uses the ncurses library to print the ncurses version,
+but using white background and blue text:
 
-.. code-block:: cpp
+.. code-block:: c
 
-    #include <cstdlib>
-    #include <cstdio>
+    #include <stdlib.h>
+    #include <stdio.h>
+    #include <string.h>
+
     #include <ncurses.h>
 
 
-    int main(int argc, char *argv[]) {
-        printf("Conan 2.x Examples - Installed NCurses version: %s\n", curses_version());
+    int main(void) {
+        int max_y, max_x;
+        char message [256] = {0};
+
+        initscr();
+
+        start_color();
+        init_pair(1, COLOR_BLUE, COLOR_WHITE);
+        getmaxyx(stdscr, max_y, max_x);
+
+        snprintf(message, sizeof(message), "Conan 2.x Examples - Installed ncurses version: %s\n", curses_version());
+        attron(COLOR_PAIR(1));
+        mvprintw(max_y / 2, max_x / 2 - (strlen(message) / 2), "%s", message);
+        attroff(COLOR_PAIR(1));
+
+        refresh();
+
         return EXIT_SUCCESS;
     }
 
@@ -181,7 +199,7 @@ The **CMakeLists.txt** file is a simple CMake file that builds the **ncurses_ver
 
     find_package(ncurses CONFIG REQUIRED)
 
-    add_executable(${PROJECT_NAME} ncurses_version.cpp)
+    add_executable(${PROJECT_NAME} ncurses_version.c)
     target_link_libraries(${PROJECT_NAME} PRIVATE ncurses::ncurses)
 
     install(TARGETS ${PROJECT_NAME} DESTINATION bin)
