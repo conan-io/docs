@@ -96,6 +96,10 @@ In this case, we are going to check the **conanfile.py** file that packages the 
             self.cpp_info.includedirs = []
             self.cpp_info.libdirs = []
 
+            self.cpp_info.set_property("cmake_file_name", "Curses")
+            self.cpp_info.set_property("cmake_target_name", "Curses::Curses")
+            self.cpp_info.set_property("cmake_additional_variables_prefixes", ["CURSES",])
+
             pkg_config = PkgConfig(self, 'ncurses')
             pkg_config.fill_cpp_info(self.cpp_info, is_system=True)
 
@@ -196,16 +200,14 @@ The **CMakeLists.txt** file is a simple CMake file that builds the **ncurses_ver
 .. code-block:: cmake
 
     cmake_minimum_required(VERSION 3.15)
-    project(ncurses_version CXX)
+    project(ncurses_version C)
 
-    find_package(ncurses CONFIG REQUIRED)
+    find_package(Curses CONFIG REQUIRED)
 
     add_executable(${PROJECT_NAME} ncurses_version.c)
-    target_link_libraries(${PROJECT_NAME} PRIVATE ncurses::ncurses)
+    target_link_libraries(${PROJECT_NAME} PRIVATE Curses::Curses)
 
-    install(TARGETS ${PROJECT_NAME} DESTINATION bin)
-
-The CMake target **ncurses::ncurses** is provided by the **ncurses** package we just created.
+The CMake target **Curses::Curses** is provided by the **ncurses** package we just created.
 The information about libraries and include directories is now available in the **cpp_info** object, as we filled it using the **PkgConfig** tool.
 
 Now, let's build the application:
@@ -213,7 +215,7 @@ Now, let's build the application:
 .. code-block:: bash
 
     $ cd consumer/
-    $ conan build . --build-folder=build
+    $ conan build . --name=ncurses-version --version=0.1.0 --build-folder=build
 
 After building the application, it should be executed automatically, so you may see its output:
 
