@@ -1,7 +1,7 @@
 .. _examples_tools_system_package_manager:
 
-System Packages
-===============
+Wrapping system requirements in a Conan package
+===============================================
 
 Conan not only manages C and C++ dependencies, but it can also manage system packages.
 This is useful when you need to install strictly platform-specific system packages.
