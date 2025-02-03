@@ -64,8 +64,9 @@ In this case, we are going to check the **conanfile.py** file that packages the 
             self.info.clear()
 
         def validate(self):
-            if self.settings.os != "Linux":
-                raise ConanInvalidConfiguration(f"{self.ref} wraps a system package only supported by Linux.")
+            supported_os = ["Linux", "Macos"]
+            if self.settings.os not in supported_os:
+                raise ConanInvalidConfiguration(f"{self.ref} wraps a system package only supported by {supported_os}.")
 
         def system_requirements(self):
             dnf = package_manager.Dnf(self)
@@ -82,6 +83,12 @@ In this case, we are going to check the **conanfile.py** file that packages the 
 
             zypper = package_manager.Zypper(self)
             zypper.install(["ncurses"], update=True, check=True)
+
+            brew = package_manager.Brew(self)
+            brew.install(["ncurses"], update=True, check=True)
+
+            pkg = package_manager.Pkg(self)
+            pkg.install(["ncurses"], update=True, check=True)
 
         def package_info(self):
             self.cpp_info.bindirs = []
@@ -135,7 +142,7 @@ The **conanfile.py** file in the **consumer** directory is:
         exports_sources = "CMakeLists.txt", "ncurses_version.cpp"
 
         def requirements(self):
-            if self.settings.os == "Linux":
+            if self.settings.os in ["Linux", "Macos", "FreeBSD"]:
                 self.requires("ncurses/system")
 
         def layout(self):
