@@ -37,7 +37,7 @@ You will find the following tree structure:
 The ``conanfile.py`` file is the recipe that wraps the ncurses system library.
 Finally, the **consumer** directory contains a simple C application that uses the ncurses library, we will visit it later.
 
-When packaging a pre-built system library, we do not need to build the project from source, only install the
+When wrapping a pre-built system library, we do not need to build the project from source, only install the
 system library and package its information.
 In this case, we are going to check the **conanfile.py** file that packages the ncurses library first:
 
