@@ -158,8 +158,8 @@ The **conanfile.py** file in the **consumer** directory is:
             cmake.configure()
             cmake.build()
 
-            if self.settings.os in ["Linux", "Macos", "FreeBSD"]:
-                self.run(os.path.join(self.build_folder, "ncurses_version"), env="conanrun")
+            app_path = os.path.join(self.build_folder, "ncurses_version")
+            self.output.info(f"The example application has been successfully built.\nPlease run the executable using: '{app_path}'")
 
 The recipe is simple. It requires the **ncurses** package we just created and uses the **CMake** tool to build the application.
 Once the application is built, it runs the **ncurses_version** application, so we can check the executable output as its result.
