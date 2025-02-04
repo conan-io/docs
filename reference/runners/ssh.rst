@@ -16,7 +16,6 @@ To run Conan inside a docker container you need to define a ``[runner]`` section
 
 ..  note::
 
-    - You can only use profiles that are inside the conan profiles folder.
     - The runner profile section doesn't affect the package id.
 
 Extra configuration
