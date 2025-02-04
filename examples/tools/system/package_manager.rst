@@ -218,13 +218,19 @@ Now, let's build the application:
 
     $ cd consumer/
     $ conan build . --name=ncurses-version --version=0.1.0
+      ...
+      conanfile.py (ncurses-version/0.1.0): The example application has been successfully built.
+      Please run the executable using: '/tmp/consumer/build/Release/ncurses_version'
 
-After building the application, it should be executed automatically, so you may see its output:
+After building the application, it will show the executable path. You can run it to check the output:
 
 .. code-block:: bash
 
-   Conan 2.x Examples - Installed NCurses version: ncurses 6.2.20200212
+   $ /tmp/consumer/build/Release/ncurses_version
 
-Don't worry if the displayed version is different from the one shown here. It depends on the version installed in your system.
+   Conan 2.x Examples - Installed ncurses version: ncurses 6.0.20160213
+
+Don't worry if the displayed version is different from the one shown here or the executable path different.
+It depends on the version installed in your system and where you built the application.
 
 That's it! You have successfully packaged a system library and consumed it in a Conan package.
