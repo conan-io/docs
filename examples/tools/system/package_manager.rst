@@ -163,7 +163,7 @@ The **conanfile.py** file in the **consumer** directory is:
             self.output.info(f"The example application has been successfully built.\nPlease run the executable using: '{app_path}'")
 
 The recipe is simple. It requires the **ncurses** package we just created and uses the **CMake** tool to build the application.
-Once the application is built, it runs the **ncurses_version** application, so we can check the executable output as its result.
+Once the application is built, it shows the **ncurses_version** application path, so you can run it manually as you wish and check its output.
 
 The **ncurses_version.c** file is a simple C application that uses the ncurses library to print the ncurses version,
 but using white background and blue text:
@@ -209,7 +209,7 @@ The **CMakeLists.txt** file is a simple CMake file that builds the **ncurses_ver
     add_executable(${PROJECT_NAME} ncurses_version.c)
     target_link_libraries(${PROJECT_NAME} PRIVATE Curses::Curses)
 
-The CMake target **Curses::Curses** is provided by the **ncurses** package we just created.
+The CMake target **Curses::Curses** is provided by the **ncurses** package we just created. It follows the official CMake module for `FindCurses <https://cmake.org/cmake/help/latest/module/FindCurses.html>`_.
 The information about libraries and include directories is now available in the **cpp_info** object, as we filled it using the **PkgConfig** tool.
 
 Now, let's build the application:
