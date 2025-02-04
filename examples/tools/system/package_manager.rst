@@ -216,7 +216,7 @@ Now, let's build the application:
 .. code-block:: bash
 
     $ cd consumer/
-    $ conan build . --name=ncurses-version --version=0.1.0 --build-folder=build
+    $ conan build . --name=ncurses-version --version=0.1.0
 
 After building the application, it should be executed automatically, so you may see its output:
 
