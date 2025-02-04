@@ -9,7 +9,8 @@ For example, you may need to install a package that provides a specific driver o
 
 Conan provides a way to install system packages using the :ref:`system package manager<conan_tools_system_package_manager>` tool.
 
-In this example, we are going to explore the steps needed to package a system library and what is needed to consume it in a Conan package.
+In this example, we are going to explore the steps needed to create a wrapper package around a system library and what is needed to consume it in a Conan package.
+Note that the package will not contain the binary artifacts, it will just manage to check/install them calling ``system_requirements()`` and the respective system package managers (e.g Apt, Yum).
 In this example, we are going to create a Conan package to wrap the system `ncurses <https://invisible-island.net/ncurses/>`_
 requirement and then show how to use this requirement in an application.
 
