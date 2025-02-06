@@ -10,19 +10,19 @@ How to use a docker runner
 
 To run Conan inside a Docker container, a ``[runner]`` section must be defined in the host profile with the following fields:
 
-- ``type`` **(mandatory)**: Specifies the runner to use, in this case, docker.
-- ``docker.dockerfile`` **(optional, default: None)**: Absolute path to a Dockerfile, if a Docker image needs to be built.
-- ``docker.image`` **(optional, default: conan-runner-default)**: Name of the Docker image to download from a registry or the name of the locally built image if a Dockerfile path is provided.
-- ``docker.cache`` **(optional, default: clean)**: Determines how the Docker container interacts with the host's Conan cache.
+- ``type`` **(mandatory)**: Specifies the runner to use, in this case, ``docker``.
+- ``dockerfile`` **(optional, default: None)**: Absolute path to a Dockerfile, if a Docker image needs to be built.
+- ``image`` **(optional, default: conan-runner-default)**: Name of the Docker image to download from a registry or the name of the locally built image if a Dockerfile path is provided.
+- ``cache`` **(optional, default: clean)**: Determines how the Docker container interacts with the host's Conan cache.
 
     - ``clean``: Uses an empty cache.
     - ``copy``: Copies the host cache into the container using the :ref:`conan cache save/restore<reference_commands_cache>` command.
     - ``shared``: Mounts the host’s Conan cache as a shared volume.
 
-- ``docker.remove`` **(optional, default: false)**: Specifies whether to remove the container after executing the Conan command (true or false).
-- ``docker.configfile`` **(optional, default: None)**: Absolute path to a configuration file with additional parameters (see **extra configuration** section for details).
-- ``docker.build_context`` **(optional, default: None)**: Defines the Docker build context (see **extra configuration** section for details).
-- ``docker.platform`` **(optional, default: None)**: Specifies the platform for building the container (e.g., ``linux/amd64``). This is particularly useful for Mac Silicon users.
+- ``remove`` **(optional, default: false)**: Specifies whether to remove the container after executing the Conan command (true or false).
+- ``configfile`` **(optional, default: None)**: Absolute path to a configuration file with additional parameters (see **extra configuration** section for details).
+- ``build_context`` **(optional, default: None)**: Defines the Docker build context (see **extra configuration** section for details).
+- ``platform`` **(optional, default: None)**: Specifies the platform for building the container (e.g., ``linux/amd64``). This is particularly useful for Mac Silicon users.
 
 ..  note::
 

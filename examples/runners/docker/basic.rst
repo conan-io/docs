@@ -78,11 +78,11 @@ Now, we need to define two new profiles inside the conan ``profiles`` folder. Re
 
     [runner]
     type=docker
-    docker.dockerfile=</my/runner/folder>/mylib
-    docker.cache=copy
-    docker.remove=true
+    dockerfile=</my/runner/folder>/mylib
+    cache=copy
+    remove=true
     # Add the following line if running on a Mac Silicon
-    docker.platform=linux/amd64
+    platform=linux/amd64
 
 ``docker_example_build`` profile
 

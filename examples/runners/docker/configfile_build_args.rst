@@ -17,9 +17,9 @@ To use it, you just need to add it in the host profile.
     ...
     [runner]
     type=docker
-    docker.configfile=</my/runner/folder>/configfile
-    docker.cache=copy
-    docker.remove=false
+    configfile=</my/runner/folder>/configfile
+    cache=copy
+    remove=false
 
 **How to use**
 
@@ -99,9 +99,9 @@ Let’s create a Dockerfile inside your project folder, a cmake_lib ``myparamlib
 
     [runner]
     type=docker
-    docker.configfile=</my/runner/folder>/myparamlib/configfile
-    docker.cache=copy
-    docker.remove=false
+    configfile=</my/runner/folder>/myparamlib/configfile
+    cache=copy
+    remove=false
 
 ``docker_param_example_build`` profile
 
