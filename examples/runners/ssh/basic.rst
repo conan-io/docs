@@ -58,8 +58,8 @@ In this case, the runner will be a Windows virtual machine.
 
     [runner]
     type=ssh
-    ssh.configfile=False
-    ssh.host=10.211.55.3
+    configfile=False
+    host=10.211.55.3
 
 
 For this example, we are going to start from a clean environment. 

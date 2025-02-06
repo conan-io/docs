@@ -11,8 +11,8 @@ How to use a SSH runner
 To run Conan inside a docker container you need to define a ``[runner]`` section in your host profile using the following fields:
 
 - ``type`` **(mandatory)**: define the runner we want to use, in this case ``ssh``.
-- ``ssh.host`` **(mandatory)**: hostname of the runner to connect to. This runner has to be already accessible by the host machine via SSH protocol and must have ``python3`` installed.
-- ``ssh.configfile`` **(optional, default False)**: if True, Conan will retrieve the ssh configuration from the default location (``~/.ssh/config``). It can also accept an absolute path to the file.
+- ``host`` **(mandatory)**: hostname of the runner to connect to. This runner has to be already accessible by the host machine via SSH protocol and must have ``python3`` installed.
+- ``configfile`` **(optional, default False)**: if True, Conan will retrieve the ssh configuration from the default location (``~/.ssh/config``). It can also accept an absolute path to the file.
 
 ..  note::
 
@@ -38,8 +38,8 @@ In conan host profile:
 
     [runner]
     type=ssh
-    ssh.configfile=True
-    ssh.host=windows-vm
+    configfile=True
+    host=windows-vm
 
 
 How to run a `conan create` in a runner
