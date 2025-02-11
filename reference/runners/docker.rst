@@ -56,7 +56,7 @@ For greater control over the build and execution of the container, additional pa
             - MKNOD
         securityOpt: # A list of string values to customize labels for MLS systems, such as SELinux.
             - opt_1
-        mount: # A dictionary to configure volumes mounted inside the container.
+        mounts: # A dictionary to configure volumes mounted inside the container.
             /home/user1/: # The host path or a volume name
                 bind: /mnt/vol2 # The path to mount the volume inside the container
                 mode: rw # rw to mount the volume read/write, or ro to mount it read-only.
