@@ -69,6 +69,20 @@ install the dependencies from Conan. This can be very useful for generating SBOM
 dependencies. Note that this time we're saving the SBOM in the generators folder, so that the user installing the dependencies
 has easy access to the SBOM.
 
+Other options
+~~~~~~~~~~~~~
+
+The function **cyclonedx_1_4** is customizable and includes the **name** parameter. If you'd like to specify a custom name
+for the metadata field in the document, you can easily do so by using the syntax
+``cyclonedx(conanfile.subgraph, name="custom_name")``.
+
+Additionally, you can use the **add_build** and **add_test**
+parameters if you wish to include build or test dependencies in your document; both are set to false by default.
+If you want to enable these features, here’s an example of how to use them:
+``cyclonedx(conanfile.subgraph, add_build=True, add_test=True)``.
+
+The
+
 .. code-block:: python
 
     import json
