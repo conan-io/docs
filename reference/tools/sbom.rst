@@ -25,8 +25,8 @@ CycloneDX
 Conan supports `CycloneDX <https://cyclonedx.org/>`_ out-of-the-box, which is one of the most widely used standards for SBOMs.
 
 The CycloneDX tool is available in the ``conan.tools.sbom.cyclonedx`` module.
-It provides the ``cyclonedx_1_4`` function which receives a Conan dependency graph
-(usually a :ref:`conanfile.subgraph <conan_conanfile_attribute_other_subgraph>`) and returns a dictionary with the SBOM data in the CycloneDX 1.4 format.
+It provides the ``cyclonedx_1_4`` function which receives a ``conanfile`` and returns a dictionary with the SBOM data in
+the CycloneDX 1.4 JSON format.
 
 .. currentmodule:: conan.tools.sbom.cyclonedx
 .. autofunction:: cyclonedx_1_4
@@ -35,7 +35,7 @@ Using this feature is as simple as implementing a :ref:`hook <reference_extensio
 which uses this tool to create the SBOM and stores it in the appropriate location.
 
 Usage examples
-^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~
 
 Let's look at two examples:
 
@@ -52,7 +52,7 @@ In the example, we save the generated sbom in the package metadata folder to kee
     from conan.tools.sbom.cyclonedx import cyclonedx_1_4
 
     def post_package(conanfile, **kwargs):
-        sbom_cyclonedx_1_4 = cyclonedx_1_4(conanfile.subgraph)
+        sbom_cyclonedx_1_4 = cyclonedx_1_4(conanfile)
         metadata_folder = conanfile.package_metadata_folder
         file_name = "sbom.cdx.json"
         with open(os.path.join(metadata_folder, file_name), 'w') as f:
@@ -77,7 +77,7 @@ has easy access to the SBOM.
     from conan.tools.sbom.cyclonedx import cyclonedx_1_4
 
     def post_generate(conanfile, **kwargs):
-        sbom_cyclonedx_1_4 = cyclonedx_1_4(conanfile.subgraph)
+        sbom_cyclonedx_1_4 = cyclonedx_1_4(conanfile)
         generators_folder = conanfile.generators_folder
         file_name = "sbom.cdx.json"
         os.mkdir(os.path.join(generators_folder, "sbom"))
@@ -89,8 +89,8 @@ has easy access to the SBOM.
 Both hooks can coexist in such a way that we can generate the SBOMs for our application and our dependencies separately.
 This can greatly assist us in conducting continuous analysis of our development process and ensuring software quality.
 
-Conan
-^^^^^
+Generating a Conan-based SBOM
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Instead of using a standard, we can take a "Conan-based approach". Thanks to the ``conanfile.subgraph.serialize()``
 function, we can directly obtain information about the dependencies of our package.
