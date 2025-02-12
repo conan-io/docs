@@ -67,7 +67,7 @@ autodoc_mock_imports = ["PyJWT", "requests", "urllib3", "PyYAML",
 # The short X.Y version.
 version = "2.12"
 # The full version, including alpha/beta/rc tags.
-release = u'2.12.1'
+release = u'2.12.2'
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 if not os.path.exists(os.path.join(dir_path, "versions.json")):

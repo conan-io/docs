@@ -3,6 +3,13 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.12.2 (12-Feb-2025)
+--------------------
+
+- Fix: Fix default name and let cycloneDX define a custom name. `#17760 <https://github.com/conan-io/conan/pull/17760>`_
+- Fix: Add cycloneDX `add_tests` and `add_build` parameters. `#17760 <https://github.com/conan-io/conan/pull/17760>`_
+- Bugfix: Fix cycloneDX tool parameters. `#17760 <https://github.com/conan-io/conan/pull/17760>`_
+
 2.12.1 (28-Jan-2025)
 --------------------
 
