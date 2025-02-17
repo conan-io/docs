@@ -94,8 +94,10 @@ to use a ``layout()`` method like above to avoid cluttering the current folder. 
    # check local mybuild/metadata/logs/mylogs.txt file
 
 
-**NOTE**: This metadata is not valid for the ``conan export-pkg`` flow. If you want to use the ``export-pkg`` flow you might want to check the
-"Adding metadata" section below.
+**NOTE**: Note that the locally created metadata will not be exported to the Conan cache during the ``conan export-pkg`` command.
+Some metadata, as the one generated in ``export()`` method can be generated in the cache, as the ``conan export-pkg`` command calls
+that method, but the metadata inside the "build" folder will not be exported. If you want to add that metadata to the exported package,
+you can copy it after the ``conan export-pkg`` using the paths reported by ``conan cache path``, as described below in the "Adding metadata with commands" section.
 
 
 Creating metadata with hooks
