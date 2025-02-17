@@ -148,7 +148,9 @@ It is possible to also invoke the package recipes ``deploy()`` method with the `
     # Execute deploy() method only for "pkg" (any version) recipes
     $ conan install --requires=pkg/0.1 --deployer-package=pkg/*
 
-The ``--deployer-package`` argument is a pattern and accept multiple values, all package references matching any of the defined patterns will execute its ``deploy()`` method. The ``--deployer-folder`` argument will also affect the output location of this deployment. See the :ref:`deploy() method<reference_conanfile_methods_deploy>`.
+The ``--deployer-package`` argument is a pattern and accepts multiple values, all package references matching any of the defined patterns will execute its ``deploy()`` method.
+This includes negated patterns, where for example ``--deployer-package=~pkg/*`` will execute the ``deploy()`` method for all packages except for that of the ``pkg`` recipe.
+The ``--deployer-folder`` argument will also affect the output location of this deployment. See the :ref:`deploy() method<reference_conanfile_methods_deploy>`.
 
 If multiple deployed packages deploy to the same location, it is their responsibility to not mutually overwrite their binaries if they have the same filenames. For example if multiple packages ``deploy()`` a file called "License.txt", each recipe is responsible for creating an intermediate folder with the package name and/or version that makes it unique, so other recipes ``deploy()`` method do not overwrite previously deployed "License.txt" files.
 

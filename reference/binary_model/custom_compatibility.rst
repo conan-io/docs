@@ -103,11 +103,14 @@ The ``core.package_id:default_xxx`` configurations defined in ``global.conf`` ca
     core.package_id:default_python_mode: By default, 'minor_mode'
     core.package_id:default_unknown_mode: By default, 'semver_mode'
 
+These confs affect how :ref:`the package id<reference_binary_model_package_id>` is calculated, so changing them will affect
+your generated binaries. It's thus recommended that they stay consistent across your organization.
+
 .. note::
 
     **Best practices**
 
-    It is strongly recommended that the ``core.package_id:default_xxx`` should be global, consistent and immutable accross organizations. It can be confusing to change these defaults for different projects or teams, because it will result in missing binaries.
+    It is strongly recommended that the ``core.package_id:default_xxx`` should be global, consistent and immutable across organizations. It can be confusing to change these defaults for different projects or teams, because it will result in missing binaries.
 
     It should also be consistent and shared with the consumers of generated packages if those packages are
     shared outside the organization, in that case sharing the ``global.conf`` file via ``conan config install``

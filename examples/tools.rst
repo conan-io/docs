@@ -13,4 +13,4 @@ Conan recipe tools examples
    tools/autotools/autotools
    tools/scm/git/capture_scm/git_capture_scm
    tools/microsoft/msbuild
-   tools/system/package_manager
+   tools/system/system
