@@ -97,8 +97,7 @@ to use a ``layout()`` method like above to avoid cluttering the current folder. 
 **NOTE**: Note that the locally created metadata will not be exported to the Conan cache during the ``conan export-pkg`` command.
 Some metadata, as the one generated in ``export()`` method can be generated in the cache, as the ``conan export-pkg`` command calls
 that method, but the metadata inside the "build" folder will not be exported. If you want to add that metadata to the exported package,
-you can copy it after the ``conan export-pkg`` using the paths reported by ``conan cache path``, as described in below section
-"Adding metadata with commands".
+you can copy it after the ``conan export-pkg`` using the paths reported by ``conan cache path``, as described below in the "Adding metadata with commands" section.
 
 
 Creating metadata with hooks
