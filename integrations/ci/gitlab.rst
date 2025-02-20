@@ -27,7 +27,7 @@ Clone the project from github:
 
 .. code-block:: bash
 
-   $ git clone https://github.com/lasote/conan-gtest-example
+   $ git clone https://github.com/conan-io/examples
 
 
 Create a ``.gitlab-ci.yml`` file and paste this code in it:
@@ -46,6 +46,7 @@ Create a ``.gitlab-ci.yml`` file and paste this code in it:
 
       script:
         # Download dependencies, build, test and create package
+        - cd libraries/gtest/encryption
         - conan create . user/channel
 
 
