@@ -28,7 +28,7 @@ and the full `Artifactory installation guide <https://jfrog.com/help/r/jfrog-ins
 
 For versions older than Artifactory 7.77 it was possible to run it with other installation methods, like
 downloading installers from `Download Page <https://conan.io/downloads.html>`_. Those installers can be 
-unzipped, then Artifactory can be lanuched by double clicking
+unzipped, then Artifactory can be launched by double clicking
 the ``artifactory.bat`` on Windows or ``artifactory.sh`` script in the *app/bin* subfolder, depending on the OS. 
 
 Once Artifactory has started, navigate to the default URL `http://localhost:8081`, where
