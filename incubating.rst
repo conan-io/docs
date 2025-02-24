@@ -152,9 +152,9 @@ methods, using the ``Workspace.load_conanfile()`` helper:
       def editables(self):
          result = {}
          for f in os.listdir(self.folder):
-               if os.path.isdir(os.path.join(self.folder, f)):
-                  conanfile = self.load_conanfile(f)
-                  result[f"{conanfile.name}/{conanfile.version}"] = {"path": f}
+            if os.path.isdir(os.path.join(self.folder, f)):
+               conanfile = self.load_conanfile(f)
+               result[f"{conanfile.name}/{conanfile.version}"] = {"path": f}
          return result
 
 
