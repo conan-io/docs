@@ -15,19 +15,21 @@ documentation, visit `Artifactory docs <https://jfrog.com/help/>`_.
 Running Artifactory CE
 ----------------------
 
-There are several ways to run Artifactory CE:
-
-* **Running from a Docker image:**
+The recommended way of running Artifactory CE is using docker, the latest image is ``releases-docker.jfrog.io/jfrog/artifactory-cpp-ce:latest``:
 
 .. code-block:: bash
-    
-    $ docker run --name artifactory -d -p 8081:8081 -p 8082:8082 releases-docker.jfrog.io/jfrog/artifactory-cpp-ce:7.63.12
 
-* **Download and run from zip file**. The `Download Page <https://conan.io/downloads.html>`_ has
-  a link for you to follow. When the file is unzipped, launch Artifactory by double clicking
-  the artifactory.bat on Windows or artifactory.sh script in the *app/bin* subfolder,
-  depending on the OS. Artifactory comes with JDK bundled, please `read Artifactory
-  requirements <https://jfrog.com/help/r/jfrog-installation-setup-documentation/system-requirements>`_.
+    $ docker run --name artifactory -d -e JF_SHARED_DATABASE_TYPE=derby -e JF_SHARED_DATABASE_ALLOWNONPOSTGRESQL=true -p 8081:8081 -p 8082:8082 releases-docker.jfrog.io/jfrog/artifactory-cpp-ce:latest
+
+
+This is running ArtifactoryCE with an embedded Derby database. For better performance in production you might want to check
+the `Single node Artifactory installation <https://jfrog.com/help/r/jfrog-installation-setup-documentation/install-artifactory-single-node-with-docker>`_ 
+and the full `Artifactory installation guide <https://jfrog.com/help/r/jfrog-installation-setup-documentation>`_
+
+For versions older than Artifactory 7.77 it was possible to run it with other installation methods, like
+downloading installers from `Download Page <https://conan.io/downloads.html>`_. Those installers can be 
+unzipped, then Artifactory can be launched by double clicking
+the ``artifactory.bat`` on Windows or ``artifactory.sh`` script in the *app/bin* subfolder, depending on the OS. 
 
 Once Artifactory has started, navigate to the default URL `http://localhost:8081`, where
 the Web UI should be running. The default user and password are ``admin:password``.
