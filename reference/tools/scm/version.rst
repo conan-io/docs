@@ -94,3 +94,22 @@ Get the build digit.
 
     v = Version("1.2.3.4-alpha.3+b1")
     assert str(v.build) == "b1"
+
+
+Methods
+-------
+
+The ``Version`` class implements the following methods:
+
+in_range
+++++++++
+
+Check if the version is in the specified range.
+
+.. code-block:: python
+
+    assert Version("1.0").in_range(">=1.0 <2")
+    assert not Version("1.0").in_range(">1.0 <2")
+
+    assert not Version("1.0-rc").in_range(">=1.0 <2.0")
+    assert Version("1.0-rc").in_range(">=1.0 <2.0", resolve_prerelease=True)
