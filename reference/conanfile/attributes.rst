@@ -265,3 +265,9 @@ method:
 
       def compatibility(self):
           self.extension_properties = {"compatibility_cppstd": False}
+
+
+.. note::
+
+   The value of ``extension_properties`` is not transitive from the dependencies to the consumers by default, but can be
+   propagated manually by iterating the ``self.dependencies`` and checking the desired values of their ``extension_properties``.

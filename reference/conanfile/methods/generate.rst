@@ -199,6 +199,7 @@ Not all fields of the dependency conanfile are exposed, the current fields are:
 - **url**: The ``url`` attribute of the dependency
 - **package_type**: The ``package_type`` of the dependency
 - **languages**: The ``languages`` of the dependency.
+- **extension_properties**: The ``extension_properties`` of the dependency. Should be treated as read-only.
 
 
 Iterating dependencies
