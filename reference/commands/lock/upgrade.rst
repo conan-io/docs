@@ -60,26 +60,7 @@ Will result in the following ``conan.lock``:
       ]
   }
 
-The same can be done for ``build_requires`` and ``python_requires``, let's see how to upgrade ``cmake``:
-
-.. code-block:: bash
-
-  $ conan lock upgrade --tool-requires=cmake/[>=3.30 <3.31] --update-build-requires=cmake/3.29.0
-
-Resulting in an updated cmake version in the lockfile:
-
-.. code-block:: bash
-
-  $ cat conan.lock
-  {
-      "version": "0.5",
-      "requires": [
-          "package/1.9#b0546195fd5bf19a0e6742510fff8855%1740484122.108484"
-      ],
-      "build_requires": [
-          "cmake/3.30.5#fd2b006646a54397c16a1478ac4111ac%1702683583.3544693",
-      ]
-  }
+The same can be done for ``build_requires`` and ``python_requires``.
 
 
 The command will upgrade existing locked references that match the same
