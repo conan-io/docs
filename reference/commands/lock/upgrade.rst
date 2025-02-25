@@ -47,7 +47,7 @@ And these packages available in the cache:
     libd/1.1
 
 
-The ``conan lock upgrade`` command:
+Using the ``conan lock upgrade`` command with the appropiate ``--update-**`` arguments:
 
 .. code-block:: bash
 
