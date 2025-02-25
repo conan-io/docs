@@ -7,8 +7,8 @@ Incubating features
 This section is dedicated to new features that are under development, looking for user testing and feedback. They are generally behind a flag to enable them to explicitly opt-in on this testing stage. They require the very latest Conan version (sometimes recommended running from the ``develop2`` source branch), and explicitly setting those flags.
 
 
-New CMakeDeps generator
------------------------
+New CMakeConfigDeps generator
+-----------------------------
 
 This generator is designed as a replacement of the current ``CMakeDeps`` generator, with multiple pending fixes and improvements that couldn't easily be done in the current one without breaking:
 
@@ -24,11 +24,17 @@ This generator is designed as a replacement of the current ``CMakeDeps`` generat
 - Executables from ``requires`` can also be used in non cross-build scenarios. When a ``tool_requires`` to the same depependency exists, then those executables will have priority.
 - Creation of a new ``conan_cmakedeps_paths.cmake`` that contains definitions of ``<pkg>_DIR`` paths for direct finding of the dependencies. This file is also planned to be used in ``cmake-conan`` to extend its usage and avoid some current limitations due to the fact that a CMake driven installation cannot inject a toolchain later.
 
+.. note::
+   
+   This generator is only intended to generate ``config.cmake`` config files, it will not generate ``Find.cmake`` find modules, it is not planned to add support.
+   Use the ``CMakeDeps`` generator for that. 
+
+
 The new fields that can be defined in the ``cpp_info`` or ``cpp_info.components``, besides the already defined in :ref:`CppInfo<conan_conanfile_model_cppinfo>` are:
 
 .. code-block:: python
 
-   # EXPERIMENTAL FIELDS, used exclusively by new CMakeDeps (-c tools.cmake.cmakedeps:new)
+   # EXPERIMENTAL FIELDS, used exclusively by new CMakeConfigDeps (-c tools.cmake.cmakedeps:new)
    self.cpp_info.type  # The type of this artifact "shared-library", "static-library", etc (same as package_type)
    self.cpp_info.location # full location (path and filename with extension) of the artifact
    self.cpp_info.link_location  # Location of the import library for Windows .lib associated to a dll
@@ -40,12 +46,45 @@ These fields will be auto-deduced from the other ``cpp_info`` and ``components``
 
 This feature is enabled with the ``-c tools.cmake.cmakedeps:new=will_break_next`` configuration. The value ``will_break_next`` will change in next releases to emphasize the fact that this feature is not suitable for usage beyond testing. Just by enabling this conf and forcing the build of packages that use ``CMakeDeps`` will trigger the usage of the new generator.
 
-Known current limitations:
+This new generator will also be usable in ``conanfile`` files with:
 
-- At the moment it is limited to ``xxx-config.cmake`` files. It will not generate find modules yet.
-- Some paths in ``conan_cmakedeps_paths.cmake`` might be missing yet, only ``CMAKE_PROGRAM_PATH`` is defined at the moment besides the packages ``<pkg>_DIR`` locations.
+.. code-block::
+   :caption: conanfile.txt
 
-For any feedback, please open new tickets in https://github.com/conan-io/conan.
+   [generators]
+   CMakeConfigDeps
+
+.. code-block:: python
+   :caption: conanfile.py
+
+   class Pkg(ConanFile):
+      generators = "CMakeConfigDeps"
+
+Or: 
+
+.. code-block:: python
+   :caption: conanfile.py
+
+   from conan import ConanFile
+   from conan.tools.cmake import CMakeConfigDeps
+
+   class TestConan(ConanFile):
+
+      def generate(self):
+         deps = CMakeConfigDeps(self)
+         deps.generate()
+
+
+The ``-c tools.cmake.cmakedeps:new=will_break_next`` is still necessary for this recipe ``CMakeConfigDeps`` usage, if the config is not enable, those recipes will fail.
+It is also possible to define ``-c tools.cmake.cmakedeps:new=recipe_will_break`` to enable exclusively the ``CMakeConfigDeps`` generators usages, but not the automatic
+replacement of existing ``CMakeDeps`` by the ``CMakeConfigDeps``.
+
+Note that the feature is still "incubating", even for the explicit ``CMakeConfigDeps`` generator syntax, this recipe is subject to break or be removed at any time.
+
+For any feedback, please open new tickets in https://github.com/conan-io/conan/issues.
+This feedback is very important to stabilize the feature and get it out of incubating, so even if it worked fine and you found no issue, having the positive feedback
+reported is very useful.
+
 
 Workspaces
 ----------
