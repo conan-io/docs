@@ -1,5 +1,7 @@
-(Experimental) conan lock upgrade
-=================================
+conan lock upgrade
+==================
+
+.. include:: ../../../common/experimental_warning.inc
 
 .. autocommand::
     :command: conan lock upgrade -h
@@ -15,16 +17,11 @@ For example, if we have the following ``conan.lock``:
   {
       "version": "0.5",
       "requires": [
-          "libb/1.0#7e88fd43dc3c8171b6f38f8d1b139641%1740472377.657901",
-          "liba/1.0#b0546195fd5bf19a0e6742510fff8855%1740472377.653885"
+          "package/1.0#b0546195fd5bf19a0e6742510fff8855%1740472377.653885"
       ],
       "build_requires": [
-          "libc/1.0#dc77a17d3e566df710241e3b1f380b8c%1740472377.661421"
-      ],
-      "python_requires": [
-          "libd/1.0#9f077ce58183dad0f59e36d6bd73ebe1%1740472377.6647942"
-      ],
-      "config_requires": []
+          "cmake/1.0#85d927a4a067a531b1a9c7619522c015%1702683583.3411012",
+      ]
   }
   
 
@@ -36,22 +33,17 @@ And these packages available in the cache:
 
   Found 9 pkg/version recipes matching * in local cache
   Local Cache
-    liba/1.0
-    liba/1.9
-    libb/1.0
-    libb/1.1
-    libb/1.2
-    libc/1.0
-    libc/1.1
-    libd/1.0
-    libd/1.1
+    package/1.0
+    package/1.9
+    cmake/3.29.0
+    cmake/3.30.5
 
 
 Using the ``conan lock upgrade`` command with the appropiate ``--update-**`` arguments:
 
 .. code-block:: bash
 
-  $ conan lock upgrade --requires=liba/[>=1.0 <2] --tool-requires=libc/[<2.0] --update-requires=liba/[*] --update-build-requires=libc/1.0
+  $ conan lock upgrade --requires=package/[>=1.0 <2] --update-requires=package/[*]
 
 Will result in the following ``conan.lock``:
 
@@ -61,16 +53,32 @@ Will result in the following ``conan.lock``:
   {
       "version": "0.5",
       "requires": [
-          "libb/1.0#7e88fd43dc3c8171b6f38f8d1b139641%1740484122.087734",
-          "liba/1.9#b0546195fd5bf19a0e6742510fff8855%1740484122.108484"
+          "package/1.9#b0546195fd5bf19a0e6742510fff8855%1740484122.108484"
       ],
       "build_requires": [
-          "libc/1.1#dc77a17d3e566df710241e3b1f380b8c%1740484122.119971"
+          "cmake/3.29.0#85d927a4a067a531b1a9c7619522c015%1702683583.3411012",
+      ]
+  }
+
+The same can be done for ``build_requires`` and ``python_requires``, let's see how to upgrade ``cmake``:
+
+.. code-block:: bash
+
+  $ conan lock upgrade --tool-requires=cmake/[>=3.30 <3.31] --update-build-requires=cmake/3.29.0
+
+Resulting in an updated cmake version in the lockfile:
+
+.. code-block:: bash
+
+  $ cat conan.lock
+  {
+      "version": "0.5",
+      "requires": [
+          "package/1.9#b0546195fd5bf19a0e6742510fff8855%1740484122.108484"
       ],
-      "python_requires": [
-          "libd/1.0#9f077ce58183dad0f59e36d6bd73ebe1%1740484122.095434"
-      ],
-      "config_requires": []
+      "build_requires": [
+          "cmake/3.30.5#fd2b006646a54397c16a1478ac4111ac%1702683583.3544693",
+      ]
   }
 
 
@@ -88,17 +96,26 @@ Let's consider the following conanfile:
 
   from conan import ConanFile
   class HelloConan(ConanFile):
-      requires = ("liba/[>=1.0 <2]", "libb/[<1.2]")
-      tool_requires = "libc/[>=1.0]"
-      python_requires = "libd/[>=1.0 <1.2]"
-
-Starting from the same environment and ``conan.lock`` file from previous example.
-
-Running the following command
+      requires = ("math/[>=1.0 <2]")
+      tool_requires = "ninja/[>=1.0]"
 
 .. code-block:: bash
 
-  $ conan lock upgrade . --update-requires=liba/1.0 --update-requires=libb/[*] --update-build-requires=libc/[*] --update-python-requires=libd/1.0"
+  $ conan list "*" --format=compact
+
+  Found 9 pkg/version recipes matching * in local cache
+  Local Cache
+    math/1.0
+    math/2.0
+    ninja/1.0
+    ninja/1.1
+
+Starting from the same environment and ``conan.lock`` file from previous example.
+Running the following command:
+
+.. code-block:: bash
+
+  $ conan lock upgrade . --update-requires=math/1.0 --update-build-requires=ninja/[*]
 
 Will result in the following ``conan.lock``:
 
@@ -107,18 +124,16 @@ Will result in the following ``conan.lock``:
   {
       "version": "0.5",
       "requires": [
-          "libb/1.1#7e88fd43dc3c8171b6f38f8d1b139641%1740488410.3630772",
-          "liba/1.9#b0546195fd5bf19a0e6742510fff8855%1740488410.356828"
+          "math/1.0#b0546195fd5bf19a0e6742510fff8855%1740488410.356828"
       ],
       "build_requires": [
-          "libc/1.1#dc77a17d3e566df710241e3b1f380b8c%1740488410.371875"
-      ],
-      "python_requires": [
-          "libd/1.1#9f077ce58183dad0f59e36d6bd73ebe1%1740488410.376066"
-      ],
-      "config_requires": []
+          "ninja/1.1#dc77a17d3e566df710241e3b1f380b8c%1740488410.371875"
+      ]
   }
 
+``math`` package have not been updated due to the version range specified in
+the conanfile, but ``ninja`` has been updated to the latest version available
+in the cache.
 
 If a dependency is updated and in the new revision, a transitive dependency is
 added, the ``lock upgrade`` command will reflect the new transitive dependency
