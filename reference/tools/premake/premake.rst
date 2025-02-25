@@ -37,7 +37,7 @@ when a package is being built directly by Conan (create, install)
             # Automatically determines the correct action:
             # - For MSVC, selects vs<version> based on the compiler version
             # - Defaults to "gmake2" for other compilers
-            # p.configure() will run: premake5 --file=premake5.lua <action> --{key}={value} ...
+            # p.configure() will run: premake5 --file=myproject.lua <action> --{key}={value} ...
             p.configure()
             # At the moment Premake does not contain .build() method
             # report in Github issues your use cases and feedback to request it
