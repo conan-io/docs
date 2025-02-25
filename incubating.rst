@@ -26,7 +26,7 @@ This generator is designed as a replacement of the current ``CMakeDeps`` generat
 
 .. note::
    
-   This generator is only intended to generate ``config.cmake`` config files, it will not generate ``Find.cmake`` find modules, it is not planned to add support.
+   This generator is only intended to generate ``config.cmake`` config files, it will not generate ``Find*.cmake`` find modules, and support for it is not planned.
    Use the ``CMakeDeps`` generator for that. 
 
 
