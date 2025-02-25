@@ -1,4 +1,4 @@
-.. _yocto_integration:
+.. _integration_yocto:
 
 
 |yocto_logo| Yocto
@@ -364,7 +364,7 @@ Finally, you can build your image with the Conan packages:
 The binaries of **the Conan packages will be deployed** to the */bin* folder of the image once it is created.
 
 
-.. |yocto_logo| image:: ../../images/yocto/conan-yocto.png
+.. |yocto_logo| image:: ../../images/yocto/conan-yocto-logo.png
                  :width: 180px
 
 .. _`Yocto Project`: https://www.yoctoproject.org/
