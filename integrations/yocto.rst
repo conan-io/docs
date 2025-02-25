@@ -1,4 +1,4 @@
-.. _integration_yocto:
+.. _integrations_yocto:
 
 
 |yocto_logo| Yocto
@@ -51,7 +51,7 @@ Prepare your recipes
 --------------------
 
 First of all, the recipe of the application to be deployed to the final image should have a
-`deploy() method <https://docs.conan.io/en/latest/devtools/running_packages.html>`_. There you can specify the files of the application
+:ref:`deploy() method <reference_conanfile_methods_deploy>`. There you can specify the files of the application
 needed in the image as well as any other from its dependencies (like shared libraries or assets):
 
 .. code-block:: shell
@@ -60,7 +60,9 @@ needed in the image as well as any other from its dependencies (like shared libr
    :caption: *conanfile.py*
    :emphasize-lines: 28-31
 
-    from conans import ConanFile
+    from conan import ConanFile
+    from conan.tools.files import copy
+    import os
 
 
     class FoobarConan(ConanFile):
@@ -68,20 +70,16 @@ needed in the image as well as any other from its dependencies (like shared libr
         ...
 
     def package(self):
-        self.copy("*.h", dst="include", src="hello")
-        self.copy("*.so", dst="lib", keep_path=False)
-        self.copy("*.a", dst="lib", keep_path=False)
-        self.copy("foobar", dst="bin", keep_path=False)
+        copy(self, "*.h", dst=os.path.join(self.package_folder, "include"), src="hello")
+        copy(self, "*.so", dst=os.path.join(self.package_folder, "lib"), keep_path=False)
+        copy(self, "*.a", dst=os.path.join(self.package_folder, "lib"), keep_path=False)
+        copy(self, "foobar", dst=os.path.join(self.package_folder, "bin"), keep_path=False)
 
     def deploy(self):
-        # Deploy the executables from this eclipse/mosquitto package
-        self.copy("*", src="bin", dst="bin")
-        # Deploy the shared libs from this eclipse/mosquitto package
-        self.copy("*.so*", src="lib", dst="bin")
-       # Deploy all the shared libs from the transitive deps
-        self.copy_deps("*.so*", src="lib", dst="bin")
+        # Deploy everything from this eclipse/mosquitto package
+        copy(self, "*", src=self.package_folder, dst=self.deploy_folder)
 
-Another option is using the `deploy generator <https://docs.conan.io/en/latest/reference/generators/deploy.html>`_ generator,
+Another option is using the :ref:`deployers<reference_extensions_deployers>`,
  which will copy all artifacts, including package dependencies to your installation folder.
 
 
@@ -93,12 +91,12 @@ cross-building toolchain matching the target and it is generated from that speci
 different SDK toolchain to build for a different target architecture or that some SDK's may have specific settings to enable some system
 dependency of the final target and those libraries will be available in the SDK.
 
-You can `create your own Yocto SDKs <https://www.yoctoproject.org/docs/2.6/sdk-manual/sdk-manual.html#sdk-building-an-sdk-installer>`_
-or download and use `the prebuilt ones <http://downloads.yoctoproject.org/releases/yocto/yocto-2.6.2/toolchain/x86_64/>`_.
+You can `create your own Yocto SDKs <https://docs.yoctoproject.org/sdk-manual/appendix-obtain.html#building-an-sdk-installer>`_
+or download and use `the prebuilt ones <http://downloads.yoctoproject.org/releases/yocto/yocto-5.1.2/toolchain/x86_64/>`_.
 
 **In the case that you are using CMake** to create the Conan packages, Yocto injects a toolchain that configures CMake to only search for
 libraries in the rootpath of the SDK with
-`CMAKE_FIND_ROOT_PATH <https://cmake.org/cmake/help/v3.0/variable/CMAKE_FIND_ROOT_PATH.html#variable:CMAKE_FIND_ROOT_PATH>`_. This is
+`CMAKE_FIND_ROOT_PATH <https://cmake.org/cmake/help/v3.31/variable/CMAKE_FIND_ROOT_PATH.html>`_. This is
 something that has to be patched to allow CMake to find libraries in the Conan cache as well:
 
 .. code-block:: cmake
@@ -112,9 +110,9 @@ something that has to be patched to allow CMake to find libraries in the Conan c
 
 You can read more about those variables here:
 
-  - `CMAKE_FIND_ROOT_PATH_MODE_LIBRARY <https://cmake.org/cmake/help/v3.0/variable/CMAKE_FIND_ROOT_PATH_MODE_LIBRARY.html>`_
-  - `CMAKE_FIND_ROOT_PATH_MODE_INCLUDE <https://cmake.org/cmake/help/v3.0/variable/CMAKE_FIND_ROOT_PATH_MODE_INCLUDE.html>`_
-  - `CMAKE_FIND_ROOT_PATH_MODE_PACKAGE <https://cmake.org/cmake/help/v3.0/variable/CMAKE_FIND_ROOT_PATH_MODE_PACKAGE.html>`_
+  - `CMAKE_FIND_ROOT_PATH_MODE_LIBRARY <https://cmake.org/cmake/help/v3.31/variable/CMAKE_FIND_ROOT_PATH_MODE_LIBRARY.html>`_
+  - `CMAKE_FIND_ROOT_PATH_MODE_INCLUDE <https://cmake.org/cmake/help/v3.31/variable/CMAKE_FIND_ROOT_PATH_MODE_INCLUDE.html>`_
+  - `CMAKE_FIND_ROOT_PATH_MODE_PACKAGE <https://cmake.org/cmake/help/v3.31/variable/CMAKE_FIND_ROOT_PATH_MODE_PACKAGE.html>`_
 
 Cross-building Conan packages with the SDK toolchain
 ----------------------------------------------------
@@ -144,14 +142,14 @@ Activate the SDK environment and execute the create command if you have a specif
 .. code-block:: bash
 
     $ source oe-environment-setup-aarch64-poky-linux
-    $ conan create . user/channel --profile armv8
+    $ conan create --profile armv8 .
 
 However, if you wish an official Conan package from Conan Center, you can install it directly:
 
 .. code-block:: bash
 
     $ source oe-environment-setup-aarch64-poky-linux
-    $ conan install mosquitto/2.0.14@ -g deploy --profile:build=default --profile:host=armv8
+    $ conan install --requires=mosquitto/2.0.14 -p:b default -p:h armv8 -d runtime_deploy --deployer-folder=deploy
 
 
 This will generate the packages using the Yocto toolchain from the environment variables such as ``CC``, ``CXX``, ``LD``... Now you can
@@ -159,7 +157,7 @@ This will generate the packages using the Yocto toolchain from the environment v
 
 .. code-block:: bash
 
-    $ conan upload mosquitto/2.0.14@ --all --remote my_repo
+    $ conan upload -r my_repo mosquitto/2.0.14
 
 .. important::
 
@@ -179,9 +177,9 @@ generic BitBake recipe. To add the layer you will have to clone the repository a
 
 .. code-block:: bash
 
-    $ cd poky
-    $ git clone https://github.com/conan-io/meta-conan.git
-    $ git clone --branch thud https://github.com/openembedded/meta-openembedded.git
+    $ cd poky/
+    $ git clone --branch conan2/scarthgap https://github.com/conan-io/meta-conan.git
+    $ git clone --branch scarthgap https://github.com/openembedded/meta-openembedded.git
 
 You would also have to activate the layers in the *bblayers.conf* file of your build folder:
 
@@ -222,14 +220,14 @@ Write the Bitbake recipe for the Conan package
 With the ``meta-conan`` layer, a Conan recipe to deploy a Conan package should look as easy as this recipe:
 
 .. code-block:: text
-   :caption: *conan-mosquitto_2.0.14.bb*
+   :caption: *conan-mosquitto_2.0.18.bb*
 
     inherit conan
 
     DESCRIPTION = "An open source MQTT broker"
     LICENSE = "EPL-1.0"
 
-    CONAN_PKG = "mosquitto/2.0.14@"
+    CONAN_PKG = "mosquitto/2.0.18@"
 
 This recipe will be placed inside your application layer that should be also added to the *conf/bblayers.conf* file.
 
@@ -242,107 +240,32 @@ retrieve the packages in the *local.conf* file of your build folder.
 .. code-block:: text
    :caption: *poky_build_folder/conf/local.conf*
 
-    IMAGE_INSTALL_append = " conan-mosquitto"
+    IMAGE_INSTALL:append = " conan-mosquitto"
 
-    # Profile for installation
-    CONAN_PROFILE_PATH = "${TOPDIR}/conf/armv8"
-    # Artifactory repository
+    # Artifactory repository - In case not used, will point to ConanCenter
     CONAN_REMOTE_URL = "https://localhost:8081/artifactory/api/conan/<repository>"
     # Artifactory Credentials
     CONAN_USER = "REPO_USER"
     CONAN_PASSWORD = "REPO_PASSWORD"
 
-Notice the *armv8* profile to indicate your configuration next to the *local.conf*. That way you will be able to match the Conan
-configuration with the specific architecture or board of your Yocto build.
-
-.. code-block:: text
-   :caption: *poky_build_folder/conf/armv8*
-
-    [settings]
-    os_build=Linux
-    arch_build=x86_64
-    os=Linux
-    arch=armv8
-    compiler=gcc
-    compiler.version=8
-    compiler.libcxx=libstdc++11
-    build_type=Release
-
-It is recommended to set up the specific profile to use in your build with ``CONAN_PROFILE_PATH`` pointing to profile stored in the
-configuration folder of your build (next to the *conf/local.conf* file), for example: ``CONAN_PROFILE_PATH = "${TOPDIR}/conf/armv8"``.
+The host profile will be detected on the fly, based on the active Yocto SDK environment. The same will be stored in the build folder automatically,
+but can be overridden with the ``CONAN_PROFILE_HOST_PATH`` variable. The same applies for ``CONAN_PROFILE_BUILD_PATH``.
 
 Finally, the Artifactory repository URL where you want to retrieve the packages from and its credentials.
 
-You can also use ``CONAN_CONFIG_URL`` with a custom Conan configuration to be used with :command:`conan config install` and the name of the
-profile to use in ``CONAN_PROFILE_PATH`` and just the name of the remote in ``CONAN_REMOTE_NAME``. For example:
+You can also use ``CONAN_CONFIG_URL`` with a custom Conan configuration to be used with :command:`conan config install` command. For instance:
 
 .. code-block:: text
    :caption: *poky_build_folder/conf/local.conf*
 
-    IMAGE_INSTALL_append = " conan-mosquitto"
+    IMAGE_INSTALL:append = " conan-mosquitto"
 
     CONAN_CONFIG_URL = "https://github.com/<your-organization>/conan-config.git"
-    CONAN_PROFILE_PATH = "armv8"
     CONAN_REMOTE_NAME = "my_repo"
     CONAN_USER = "REPO_USER"
     CONAN_PASSWORD = "REPO_PASSWORD"
 
-In this case the *armv8* profile and the ``my_repo`` remote will be taken from the ones installed with the :command:`conan config install`
-command.
-
-Architecture conversion table
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-If no specific profile is indicated in ``CONAN_PROFILE_PATH``, Conan will map the most common Yocto architectures and machines to the
-existing ones in Conan. This is the current mapping from Conan architectures to the Yocto ones:
-
-+---------------+-------------------+------------------------+
-| **Yocto SDK** | **Yocto Machine** | **Conan arch setting** |
-+===============+===================+========================+
-| aarch64       | qemuarm64         | armv8                  |
-+---------------+-------------------+------------------------+
-| armv5e        | qemuarmv5         | armv5el                |
-+---------------+-------------------+------------------------+
-| core2-64      | qemux86_64        | x86_64                 |
-+---------------+-------------------+------------------------+
-| cortexa8hf    | quemuarm          | armv7hf                |
-+---------------+-------------------+------------------------+
-| i586          | qemux86           | x86                    |
-+---------------+-------------------+------------------------+
-| mips32r2      | qemumips          | mips                   |
-+---------------+-------------------+------------------------+
-| mips64        | qemumips64        | mips64                 |
-+---------------+-------------------+------------------------+
-| ppc7400       | qemuppc           | ppc32                  |
-+---------------+-------------------+------------------------+
-
-This mapping may not be complete and some of the binaries generated with the Yocto toolchains will have specific optimization flags for
-the specific architectures.
-
-.. tip::
-
-    For heavy Yocto users, having a custom setting for this may be very useful. For example, including the specific architecture names in
-    your *settings.yml*
-
-    .. code-block:: yaml
-
-        arch: [..., "aarch64", "armv5e", "core2-64", ...]
-
-    Or using a ``machine`` subsetting under the ``Linux`` operating system:
-
-    .. code-block:: yaml
-
-        os:
-            Linux:
-                machine: [None, "qemuarm64", "qemuarm64", "qemux86_64", ...]
-
-    Note that the ``None`` value is important here to be able to build other packages without value for this subsetting to target a
-    non-yocto Linux distro.
-
-.. seealso::
-
-    - Yocto Machine configurations: https://git.yoctoproject.org/cgit.cgi/poky/tree/meta/conf/machine
-    - Conan Architectures in :ref:`settings_yml`.
+In this case, the custom remote will be used to retrieve the packages and the configuration will be installed from the given URL.
 
 Deploy the application and its dependencies to the final image
 --------------------------------------------------------------
@@ -351,9 +274,10 @@ You can build the recipe to test that the packages are correctly deployed:
 
 .. code-block:: bash
 
+    $ bitbake -c compile conan-mosquitto
     $ bitbake -c install conan-mosquitto
 
-Packages will be installed with the profile indicated and installed with its dependencies only from the remote specified.
+Packages will be built and installed with the profile indicated and installed with its dependencies only from the remote specified.
 
 Finally, you can build your image with the Conan packages:
 
@@ -364,7 +288,7 @@ Finally, you can build your image with the Conan packages:
 The binaries of **the Conan packages will be deployed** to the */bin* folder of the image once it is created.
 
 
-.. |yocto_logo| image:: ../../images/yocto/conan-yocto-logo.png
+.. |yocto_logo| image:: ../images/yocto/conan-yocto-logo.png
                  :width: 180px
 
 .. _`Yocto Project`: https://www.yoctoproject.org/
