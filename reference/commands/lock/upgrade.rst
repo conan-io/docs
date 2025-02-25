@@ -28,7 +28,7 @@ For example, if we have the following ``conan.lock``:
   }
   
 
-And this packages available in the cache:
+And these packages available in the cache:
 
 .. code-block:: bash
 
@@ -74,15 +74,15 @@ Will result in the following ``conan.lock``:
   }
 
 
-The command will upgrade existing locked references that matches the same
-package name with versions that matches the version ranges provided by required
+The command will upgrade existing locked references that match the same
+package name with versions that match the version ranges provided by required
 arguments.
 
 
-``conan lock upgrade`` command may also be able to upgrade ``requires``, ``build_requires``, ``python_requires`` from a conanfile.
+The ``conan lock upgrade`` command may also be able to upgrade ``requires``, ``build_requires``, ``python_requires`` from a conanfile.
 This use case enhances the functionality of version ranges.
 
-Lets consider the following conanfile:
+Let's consider the following conanfile:
 
 .. code-block:: python
 
