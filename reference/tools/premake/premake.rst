@@ -12,6 +12,7 @@ project configuration command.
 The helper is intended to be used in the *conanfile.py* ``build()`` method, to call Premake commands automatically
 when a package is being built directly by Conan (create, install)
 
+**Usage Example:**
 
 .. code-block:: python
 
@@ -26,6 +27,17 @@ when a package is being built directly by Conan (create, install)
 
         def build(self):
             p = Premake(self)
+
+            # Set the main Lua configuration file (default: premake5.lua)
+            p.luafile = "myproject.lua"
+
+            # Pass custom arguments to Premake (translates to --{key}={value})
+            p.arguments["myarg"] = "myvalue"
+
+            # Automatically determines the correct action:
+            # - For MSVC, selects vs<version> based on the compiler version
+            # - Defaults to "gmake2" for other compilers
+            # p.configure() will run: premake5 --file=premake5.lua <action> --{key}={value} ...
             p.configure()
             # At the moment Premake does not contain .build() method
             # report in Github issues your use cases and feedback to request it
