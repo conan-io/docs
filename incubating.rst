@@ -75,7 +75,7 @@ Or:
          deps.generate()
 
 
-The ``-c tools.cmake.cmakedeps:new=will_break_next`` is still necessary for this recipe ``CMakeConfigDeps`` usage, if the config is not enable, those recipes will fail.
+The ``-c tools.cmake.cmakedeps:new=will_break_next`` is still necessary for this recipe ``CMakeConfigDeps`` usage, if the config is not enabled, those recipes will fail.
 It is also possible to define ``-c tools.cmake.cmakedeps:new=recipe_will_break`` to enable exclusively the ``CMakeConfigDeps`` generators usages, but not the automatic
 replacement of existing ``CMakeDeps`` by the ``CMakeConfigDeps``.
 
