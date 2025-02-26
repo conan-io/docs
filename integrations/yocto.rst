@@ -121,13 +121,12 @@ The profile will be:
    :caption: *armv8*
 
     [settings]
-    os_build=Linux
-    arch_build=x86_64
     os=Linux
     arch=armv8
     compiler=gcc
-    compiler.version=8
+    compiler.version=13
     compiler.libcxx=libstdc++11
+    compiler.cppstd=17
     build_type=Release
 
 Activate the SDK environment and execute the create command if you have a specific recipe:
