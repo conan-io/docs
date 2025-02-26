@@ -107,12 +107,6 @@ something that has to be patched to allow CMake to find libraries in the Conan c
     # COMMENT THIS: set( CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY )
     # COMMENT THIS: set( CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY )
 
-You can read more about those variables here:
-
-  - `CMAKE_FIND_ROOT_PATH_MODE_LIBRARY <https://cmake.org/cmake/help/v3.31/variable/CMAKE_FIND_ROOT_PATH_MODE_LIBRARY.html>`_
-  - `CMAKE_FIND_ROOT_PATH_MODE_INCLUDE <https://cmake.org/cmake/help/v3.31/variable/CMAKE_FIND_ROOT_PATH_MODE_INCLUDE.html>`_
-  - `CMAKE_FIND_ROOT_PATH_MODE_PACKAGE <https://cmake.org/cmake/help/v3.31/variable/CMAKE_FIND_ROOT_PATH_MODE_PACKAGE.html>`_
-
 Cross-building Conan packages with the SDK toolchain
 ----------------------------------------------------
 
