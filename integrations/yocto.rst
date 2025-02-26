@@ -219,7 +219,7 @@ With the ``meta-conan`` layer, a Conan recipe to deploy a Conan package should l
     DESCRIPTION = "An open source MQTT broker"
     LICENSE = "EPL-1.0"
 
-    CONAN_PKG = "mosquitto/2.0.18@"
+    CONAN_PKG = "mosquitto/2.0.18"
 
 This recipe will be placed inside your application layer that should be also added to the *conf/bblayers.conf* file.
 
