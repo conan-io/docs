@@ -95,8 +95,7 @@ You can `create your own Yocto SDKs <https://docs.yoctoproject.org/sdk-manual/ap
 or download and use `the prebuilt ones <http://downloads.yoctoproject.org/releases/yocto/yocto-5.1.2/toolchain/x86_64/>`_.
 
 **In the case that you are using CMake** to create the Conan packages, Yocto injects a toolchain that configures CMake to only search for
-libraries in the rootpath of the SDK with
-`CMAKE_FIND_ROOT_PATH <https://cmake.org/cmake/help/v3.31/variable/CMAKE_FIND_ROOT_PATH.html>`_. This is
+libraries in the rootpath of the SDK with ``CMAKE_FIND_ROOT_PATH``. This is
 something that has to be patched to allow CMake to find libraries in the Conan cache as well:
 
 .. code-block:: cmake
