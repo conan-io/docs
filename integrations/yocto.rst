@@ -25,23 +25,17 @@ Three stages can be differentiated in the proposed flow:
 debugger and test the application.
 
    .. image:: /images/yocto/conan-yocto_development.png
-       :height: 600 px
-       :width: 600 px
        :align: center
 
 2. Packages can be cross-built for the target device using the Yocto SDK and uploaded to Artifactory, even automated in a CI process.
 
    .. image:: /images/yocto/conan-yocto_cross-build.png
-       :height: 600 px
-       :width: 600 px
        :align: center
 
 3. Once the cross-built packages are available in Artifactory, the application can be directly deployed to the Yocto image without building
    it from sources again.
 
    .. image:: /images/yocto/conan-yocto_deploy.png
-       :height: 450 px
-       :width: 450 px
        :align: center
 
 Creating Conan packages with Yocto's SDK
