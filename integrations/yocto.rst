@@ -134,7 +134,7 @@ Activate the SDK environment and execute the create command if you have a specif
 .. code-block:: bash
 
     $ source oe-environment-setup-aarch64-poky-linux
-    $ conan create --profile armv8 .
+    $ conan create . --profile armv8
 
 However, if you wish an official Conan package from Conan Center, you can install it directly:
 
