@@ -3,7 +3,7 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
-2.12.2 (26-Feb-2025)
+2.13.0 (26-Feb-2025)
 --------------------
 
 - Feature: ``CMakeDeps`` generated ``Findxxxx.cmake`` files now can define ``{prefix}_FOUND`` and ``{prefix}_VERSION`` for the ``cmake_additional_variables_prefixes``. `#17838 <https://github.com/conan-io/conan/pull/17838>`_
