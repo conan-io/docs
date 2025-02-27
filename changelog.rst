@@ -3,6 +3,37 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.13.0 (26-Feb-2025)
+--------------------
+
+- Feature: ``CMakeDeps`` generated ``Findxxxx.cmake`` files now can define ``{prefix}_FOUND`` and ``{prefix}_VERSION`` for the ``cmake_additional_variables_prefixes``. `#17838 <https://github.com/conan-io/conan/pull/17838>`_
+- Feature: Make available in conanfiles the new incubating ``CMakeConfigDeps`` generator, still under the incubating "conf" feature flag. `#17831 <https://github.com/conan-io/conan/pull/17831>`_ . Docs `here <https://github.com/conan-io/docs/pull/3999>`__
+- Feature: Add a warning if a specific revision different than the current one is requested to a ``local-recipes-index`` remote. `#17819 <https://github.com/conan-io/conan/pull/17819>`_
+- Feature: Forward repository parameter (with same default) from `coordinates_to_conandata()` to `get_url_and_commit()`. `#17722 <https://github.com/conan-io/conan/pull/17722>`_
+- Feature: Add ``mcf`` threading for ``gcc`` MinGW compiler `settings.yml`. `#17704 <https://github.com/conan-io/conan/pull/17704>`_
+- Feature: Improve ``conanws.py`` file definition following same patterns as ``ConanFile``. `#17688 <https://github.com/conan-io/conan/pull/17688>`_ . Docs `here <https://github.com/conan-io/docs/pull/3998>`__
+- Feature: Workspace new ``workspace install`` command for monolithic super-projects containing multiple ``editables``. `#17675 <https://github.com/conan-io/conan/pull/17675>`_ . Docs `here <https://github.com/conan-io/docs/pull/3998>`__
+- Feature: New ``conan new workspace`` template contains CMake-based monolithic super-project that works with ``conan workspace install``. `#17675 <https://github.com/conan-io/conan/pull/17675>`_ . Docs `here <https://github.com/conan-io/docs/pull/3998>`__
+- Feature: Added `CMAKE_LIBRARY_PATH` to `conan_cmakedeps_paths.cmake` (new CMakeDeps). `#17668 <https://github.com/conan-io/conan/pull/17668>`_
+- Feature: Added `CMAKE_INCLUDE_PATH` to `conan_cmakedeps_paths.cmake` (new CMakeDeps). `#17668 <https://github.com/conan-io/conan/pull/17668>`_
+- Feature: Add `extension_properties` access to conanfile dependencies. `#17659 <https://github.com/conan-io/conan/pull/17659>`_ . Docs `here <https://github.com/conan-io/docs/pull/3997>`__
+- Feature: Introducing `in_range` method in Version which allows comparing against version ranges. `#17658 <https://github.com/conan-io/conan/pull/17658>`_ . Docs `here <https://github.com/conan-io/docs/pull/3996>`__
+- Feature: Upgrade dependency ``urllib3`` to ``2.0``. `#17655 <https://github.com/conan-io/conan/pull/17655>`_
+- Feature: New `lock upgrade` command to automatically upgrade desired dependencies resolving the graph. `#17577 <https://github.com/conan-io/conan/pull/17577>`_ . Docs `here <https://github.com/conan-io/docs/pull/4001>`__
+- Feature: Enhanced ``Premake`` CLI wrapper with configurable Lua file path, and support for custom command-line arguments. `#17398 <https://github.com/conan-io/conan/pull/17398>`_ . Docs `here <https://github.com/conan-io/docs/pull/4000>`__
+- Fix: Docstring for ``conan remote auth`` regarding CONAN_LOGIN env-var. `#17834 <https://github.com/conan-io/conan/pull/17834>`_
+- Fix: runtime_deploy preserves symbolic links along with their libraries. `#17824 <https://github.com/conan-io/conan/pull/17824>`_ . Docs `here <https://github.com/conan-io/docs/pull/3992>`__
+- Fix: Better message for incubating CMakeDeps about ``target_link_libraries()`` from tool-requires. `#17821 <https://github.com/conan-io/conan/pull/17821>`_
+- Fix: Fix the `_calculate_licenses` SBOM method bug and add a small test. `#17801 <https://github.com/conan-io/conan/pull/17801>`_
+- Fix: Allow build context information from ``conf`` in ``AutotoolsToolchain``. `#17794 <https://github.com/conan-io/conan/pull/17794>`_
+- Fix: Allow msys2 subsystem path inheriting from environment variables `#17781 <https://github.com/conan-io/conan/pull/17781>`_
+- Fix: Improve error messages for components definition errors and for runtime conflicts. `#17771 <https://github.com/conan-io/conan/pull/17771>`_
+- Fix: Update the message for client migration. `#17751 <https://github.com/conan-io/conan/pull/17751>`_
+- Fix: Improve untar performance. `#17708 <https://github.com/conan-io/conan/pull/17708>`_
+- Fix: Protect erroneous assignment of ``cpp_info/components.required_components = xxx``, for ``required_components`` property. Now it will raise a proper error. `#17692 <https://github.com/conan-io/conan/pull/17692>`_
+- Fix: New ``CMakeDeps`` transitive linking of shared libs. `#17459 <https://github.com/conan-io/conan/pull/17459>`_
+- Bugfix: Fix self-contained ``pyinstaller`` executable to also include the new ``conan.tools.sbom`` tools. `#17809 <https://github.com/conan-io/conan/pull/17809>`_
+
 2.12.2 (12-Feb-2025)
 --------------------
 
