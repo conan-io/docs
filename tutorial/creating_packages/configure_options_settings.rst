@@ -243,7 +243,7 @@ C libraries
 
 There are other typical cases where you want to delete certain settings. Imagine that you
 are packaging a C library. When you build this library, there are settings like the
-compiler C++ standard (``settings.compiler.cppstd``) or the standard library used
+compiler C++ standard (``self.settings.compiler.cppstd``) or the standard library used
 (``self.settings.compiler.libcxx``) that won't affect the resulting binary at all. Then it
 does not make sense that they affect to the package ID computation, so a typical pattern is
 to delete them in the ``configure()`` method:
@@ -257,6 +257,11 @@ to delete them in the ``configure()`` method:
 Please, note that deleting these settings in the ``configure()`` method will modify the
 package ID calculation but will also affect how the toolchain, and the build system
 integrations work because the C++ settings do not exist.
+
+.. note::
+
+    From Conan 2.4, the above ``configure()`` is not necessary if defined ``languages = "C"`` recipe
+    attribute (experimental).
 
 Header-only libraries
 ^^^^^^^^^^^^^^^^^^^^^
