@@ -118,12 +118,12 @@ ERROR: Obtaining different revisions in Linux and Windows
 
 Git will (by default) checkout files in Windows systems using ``CRLF`` line endings, effectively producing different files than in Linux that files will use ``LF`` line endings. As files are different, the Conan recipe revision will be different from the revisions computed in other platforms such as Linux, resulting in missing the respective binaries in the other revision.
 
-Conan will not normalize or change in any way the source files, it is not its responsibility and there are risks of breaking things. The source control is the application changing the files, so that is a more correct place to handle this. It is necessary to instruct Git to do the checkout with the same line endings. This can be done several ways, for example, by adding a ``.gitattributes`` file to the project repository:
+Conan will not normalize or change in any way the source files, it is not its responsibility and there are risks of breaking things. The source control is the application changing the files, so that is a more correct place to handle this. It is necessary to instruct Git to do the checkout with the same line endings. This can be done several ways, for example, by adding a ``.gitattributes`` file to the project repository with something like:
 
 .. code-block:: ini
 
-  [auto]
-    crlf = false
+* text eol=lf
+
 
 Other approach would be to change the ``.gitconfig`` to change it globally. Modern editors (even Notepad) in Windows can perfectly work with files with ``LF``, it is no longer necessary to change the line endings.
 
