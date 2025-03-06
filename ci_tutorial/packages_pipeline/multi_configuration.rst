@@ -33,7 +33,7 @@ We have done a few changes and extra steps:
 - The second step is create from the ``graph.json`` a ``built.json`` **package list** file, with the packages that needs to be uploaded,
   in this case, only the packages that have been built from source (``--graph-binaries=build``) will be uploaded. This is
   done for efficiency and faster uploads.
-- Third step is to enable the ``packages`` repository. It was not enabled to guarantee that al possible dependencies came from ``develop``
+- Third step is to enable the ``packages`` repository. It was not enabled to guarantee that all possible dependencies came from ``develop``
   repo only.
 - Then, we will upload the ``built.json`` package list to the ``packages`` repository, creating the ``uploaded_release.json``
   package list with the new location of the packages (the server repository).
