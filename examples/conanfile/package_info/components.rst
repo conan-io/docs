@@ -116,6 +116,10 @@ There are a couple of relevant things:
   tutorial we will set the component target names just with the component names omitting
   the ``::``.
 
+- When ``cpp_info`` has global build information (e.g. ``cpp_info.defines``), it does not inherit
+  to the components. If you want to share this information with the components, you need to set it
+  explicitly for each component.
+
 You can have a look at the consumer part by checking the *test_package* folder. First the
 *conanfile.py*:
 
