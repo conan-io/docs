@@ -96,3 +96,30 @@ Note that all of these commands support various output formats, such as JSON and
 This generates an HTML report with the vulnerabilities found in the given package(s) and their dependencies,
 which will look something like:
 
+.. image:: ../images/devops/audit-report.png
+    :width: 100%
+    :align: center
+    :alt: Conan audit report
+
+.. _devops_audit_private_providers:
+
+Adding private providers
+------------------------
+
+You can add your own private providers to the list of providers used by the ``conan audit`` subcommands.
+For now, only JFrog Advanced Security providers are supported.
+
+To add a provider, the recommended way is to first create a specific user in Artifactory to use as the read-only user,
+which can be given no extra permissions. Then, after creating an access token for the user, you can add the provider
+with the following command:
+
+.. code-block:: bash
+
+    $ conan audit provider add --name=myprovider --type=private --url=https://your.artifactory.url --token=<your_token>
+
+
+Note the ``--type=private`` argument, which specifies that the provider is a private provider, and that the supplied URL
+should be the base URL of the Artifactory instance.
+
+With this, you can now use the provider with the ``conan audit scan`` and ``conan audit list`` commands, by specifying
+the provider name with the ``-p``/``--provider`` argument.

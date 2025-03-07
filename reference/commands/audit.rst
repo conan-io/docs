@@ -33,8 +33,9 @@ conan audit provider
     :command: conan audit provider -h
 
 The ``conan audit provider`` command manages the list of providers used to check for vulnerabilities.
-By default the commands use the ConanCenter provider, but you can add your own providers to the list.
-For now, besides the default conancenter provider, only private JFrog Security providers are supported.
+
+By default the ``conan audit`` subcommands use the ConanCenter provider, but you can add your own providers to the list.
+For now, besides the default ConanCenter provider, only private JFrog Security providers are supported, see :ref:`the audit devops page<devops_audit_private_providers>` for more information.
 
 There are 3 subcommands:
 - ``conan audit provider auth``: Authenticates a provider with a token.
