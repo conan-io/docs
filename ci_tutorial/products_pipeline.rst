@@ -65,7 +65,7 @@ different binaries for ``engine/1.0``, with 2 different ``package_id``. One bina
 and the other binary will be built against the ``ai/1.1.0``, something like:
 
 .. code-block::
-  :emphasize-lines: 6, 12, 14, 20
+  :emphasize-lines: 6, 11, 14, 19
 
   $ conan list engine:* -r=develop
   engine/1.0
