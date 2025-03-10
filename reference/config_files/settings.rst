@@ -120,7 +120,7 @@ It looks like this:
                        "13", "13.1", "13.2", "13.3",
                        "14", "14.1", "14.2"]
            libcxx: [libstdc++, libstdc++11]
-           threads: [null, posix, win32]  # Windows MinGW
+           threads: [null, posix, win32, mcf]  # Windows MinGW
            exception: [null, dwarf2, sjlj, seh]  # Windows MinGW
            cppstd: [null, 98, gnu98, 11, gnu11, 14, gnu14, 17, gnu17, 20, gnu20, 23, gnu23, 26, gnu26]
            cstd: [null, 99, gnu99, 11, gnu11, 17, gnu17, 23, gnu23]
@@ -135,7 +135,8 @@ It looks like this:
        clang:
            version: ["3.3", "3.4", "3.5", "3.6", "3.7", "3.8", "3.9", "4.0",
                      "5.0", "6.0", "7.0", "7.1",
-                     "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19"]
+                     "8", "9", "10", "11", "12", "13", "14", "15", "16", "17",
+                     "18", "19", "20"]
            libcxx: [null, libstdc++, libstdc++11, libc++, c++_shared, c++_static]
            cppstd: [null, 98, gnu98, 11, gnu11, 14, gnu14, 17, gnu17, 20, gnu20, 23, gnu23, 26, gnu26]
            runtime: [null, static, dynamic]
