@@ -94,7 +94,7 @@ Here you can see a complete example of all the hook functions available:
         conanfile.output.info("Running after of executing export() method.")
 
     def pre_validate(conanfile):
-        conanfile.output.info("Running before to execute validate() method.")
+        conanfile.output.info("Running before executing the validate() method.")
 
     def post_validate(conanfile):
         conanfile.output.info("Running after of executing validate() method.")
