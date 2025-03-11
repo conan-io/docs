@@ -10,8 +10,7 @@ This section is dedicated to new features that are under development, looking fo
 New CMakeConfigDeps generator
 -----------------------------
 
-This generator is designed as a replacement of the current ``CMakeDeps`` generator, with multiple pending fixes and improvements
-that couldn't easily be done in the current one without breaking:
+This generator is designed as a replacement of the current ``CMakeDeps`` generator, with multiple pending fixes and improvements that couldn't easily be done in the current one without breaking:
 
 - Creates real SHARED/STATIC/INTERFACE IMPORTED targets, no more artificial interface targets. The ``CONAN_LIB::`` and other similar targets do not exist anymore.
 - Defines IMPORTED_CONFIGURATIONS for targets.
@@ -23,9 +22,7 @@ that couldn't easily be done in the current one without breaking:
 - It doesn't need any ``build_context_activated`` or ``build_context_suffix`` to use ``tool_requires`` dependencies.
 - Definition of ``cpp_info/component.exe`` information (should include the ``.location`` definition too), to define EXECUTABLE targets that can be run.
 - Executables from ``requires`` can also be used in non cross-build scenarios. When a ``tool_requires`` to the same depependency exists, then those executables will have priority.
-- Creation of a new ``conan_cmakedeps_paths.cmake`` that contains definitions of ``<pkg>_DIR`` paths for direct finding of the dependencies.
-  This file is also planned to be used in ``cmake-conan`` to extend its usage and avoid some current limitations due to the fact that a CMake driven installation
-  cannot inject a toolchain later.
+- Creation of a new ``conan_cmakedeps_paths.cmake`` that contains definitions of ``<pkg>_DIR`` paths for direct finding of the dependencies. This file is also planned to be used in ``cmake-conan`` to extend its usage and avoid some current limitations due to the fact that a CMake driven installation cannot inject a toolchain later.
 - (new since Conan 2.14) Better management of the system OSX Frameworks through ``cpp_info.frameworks``.
 - (new since Conan 2.14) Definition of ``cpp_info/component.package_framework`` information (should include the ``.location`` definition too,
   e.g., ``os.path.join(self.package_folder, "MyFramework.framework", "MyFramework")``) to define the custom OSX Framework library to be linked against.
