@@ -10,7 +10,8 @@ This section is dedicated to new features that are under development, looking fo
 New CMakeConfigDeps generator
 -----------------------------
 
-This generator is designed as a replacement of the current ``CMakeDeps`` generator, with multiple pending fixes and improvements that couldn't easily be done in the current one without breaking:
+This generator is designed as a replacement of the current ``CMakeDeps`` generator, with multiple pending fixes and improvements
+that couldn't easily be done in the current one without breaking:
 
 - Creates real SHARED/STATIC/INTERFACE IMPORTED targets, no more artificial interface targets. The ``CONAN_LIB::`` and other similar targets do not exist anymore.
 - Defines IMPORTED_CONFIGURATIONS for targets.
@@ -22,7 +23,9 @@ This generator is designed as a replacement of the current ``CMakeDeps`` generat
 - It doesn't need any ``build_context_activated`` or ``build_context_suffix`` to use ``tool_requires`` dependencies.
 - Definition of ``cpp_info/component.exe`` information (should include the ``.location`` definition too), to define EXECUTABLE targets that can be run.
 - Executables from ``requires`` can also be used in non cross-build scenarios. When a ``tool_requires`` to the same depependency exists, then those executables will have priority.
-- Creation of a new ``conan_cmakedeps_paths.cmake`` that contains definitions of ``<pkg>_DIR`` paths for direct finding of the dependencies. This file is also planned to be used in ``cmake-conan`` to extend its usage and avoid some current limitations due to the fact that a CMake driven installation cannot inject a toolchain later.
+- Creation of a new ``conan_cmakedeps_paths.cmake`` that contains definitions of ``<pkg>_DIR`` paths for direct finding of the dependencies.
+  This file is also planned to be used in ``cmake-conan`` to extend its usage and avoid some current limitations due to the fact that a CMake driven installation
+  cannot inject a toolchain later.
 
 .. note::
    
@@ -36,15 +39,18 @@ The new fields that can be defined in the ``cpp_info`` or ``cpp_info.components`
 
    # EXPERIMENTAL FIELDS, used exclusively by new CMakeConfigDeps (-c tools.cmake.cmakedeps:new)
    self.cpp_info.type  # The type of this artifact "shared-library", "static-library", etc (same as package_type)
-   self.cpp_info.location # full location (path and filename with extension) of the artifact
+   self.cpp_info.location # full location (path and filename with extension) of the artifact or the Apple Framework library one
    self.cpp_info.link_location  # Location of the import library for Windows .lib associated to a dll
    self.cpp_info.languages # same as "languages" attribute, it can be "C", "C++"
    self.cpp_info.exe  # Definition of an executable artifact
+   self.cpp_info.package_framework  # Definition of an Apple Framework (new since Conan 2.14)
 
-These fields will be auto-deduced from the other ``cpp_info`` and ``components`` definitions, like the ``libs`` or ``libdirs`` fields, but the automatic deduction might have limitations. Defining them explicitly will inhibit the auto deduction and use the value as provided by the recipe.
+These fields will be auto-deduced from the other ``cpp_info`` and ``components`` definitions, like the ``libs`` or ``libdirs`` fields,
+but the automatic deduction might have limitations. Defining them explicitly will inhibit the auto deduction and use the value as provided by the recipe.
 
-
-This feature is enabled with the ``-c tools.cmake.cmakedeps:new=will_break_next`` configuration. The value ``will_break_next`` will change in next releases to emphasize the fact that this feature is not suitable for usage beyond testing. Just by enabling this conf and forcing the build of packages that use ``CMakeDeps`` will trigger the usage of the new generator.
+This feature is enabled with the ``-c tools.cmake.cmakedeps:new=will_break_next`` configuration. The value ``will_break_next`` will change
+in next releases to emphasize the fact that this feature is not suitable for usage beyond testing. Just by enabling this conf and forcing
+the build of packages that use ``CMakeDeps`` will trigger the usage of the new generator.
 
 This new generator will also be usable in ``conanfile`` files with:
 
