@@ -282,6 +282,11 @@ conan workspace install
 The command ``conan workspace install`` is useful to install and build the current workspace
 as a monolithic super-project of the editables. See next section.
 
+By default it uses all the ``editable`` packages in the workspace. It is possible to select
+only a subset of them with the ``conan workspace install <folder1> .. <folderN>`` optional
+arguments. Only the subgraph of those packages, incluing their dependencies and transitive
+dependencies will be installed.
+
 
 Workspace monolithic builds
 +++++++++++++++++++++++++++
