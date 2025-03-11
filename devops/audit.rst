@@ -17,7 +17,7 @@ get a token to use the service. Upon registration, you can auth into the conance
 
 .. code-block:: bash
 
-    $ conan audit provider auth --name=conancenter --token=<your_token>
+    $ conan audit provider auth conancenter --token=<your_token>
 
 
 Scanning packages
@@ -115,7 +115,7 @@ with the following command:
 
 .. code-block:: bash
 
-    $ conan audit provider add --name=myprovider --type=private --url=https://your.artifactory.url --token=<your_token>
+    $ conan audit provider add myprovider --type=private --url=https://your.artifactory.url --token=<your_token>
 
 
 Note the ``--type=private`` argument, which specifies that the provider is a private provider, and that the supplied URL
