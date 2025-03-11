@@ -23,11 +23,14 @@ This generator is designed as a replacement of the current ``CMakeDeps`` generat
 - Definition of ``cpp_info/component.exe`` information (should include the ``.location`` definition too), to define EXECUTABLE targets that can be run.
 - Executables from ``requires`` can also be used in non cross-build scenarios. When a ``tool_requires`` to the same depependency exists, then those executables will have priority.
 - Creation of a new ``conan_cmakedeps_paths.cmake`` that contains definitions of ``<pkg>_DIR`` paths for direct finding of the dependencies. This file is also planned to be used in ``cmake-conan`` to extend its usage and avoid some current limitations due to the fact that a CMake driven installation cannot inject a toolchain later.
+- (new since Conan 2.14) Better management of the system OSX Frameworks through ``cpp_info.frameworks``.
+- (new since Conan 2.14) Definition of ``cpp_info/component.package_framework`` information (should include the ``.location`` definition too,
+  e.g., ``os.path.join(self.package_folder, "MyFramework.framework", "MyFramework")``) to define the custom OSX Framework library to be linked against.
 
 .. note::
-   
+
    This generator is only intended to generate ``config.cmake`` config files, it will not generate ``Find*.cmake`` find modules, and support for it is not planned.
-   Use the ``CMakeDeps`` generator for that. 
+   Use the ``CMakeDeps`` generator for that.
 
 
 The new fields that can be defined in the ``cpp_info`` or ``cpp_info.components``, besides the already defined in :ref:`CppInfo<conan_conanfile_model_cppinfo>` are:
@@ -36,10 +39,12 @@ The new fields that can be defined in the ``cpp_info`` or ``cpp_info.components`
 
    # EXPERIMENTAL FIELDS, used exclusively by new CMakeConfigDeps (-c tools.cmake.cmakedeps:new)
    self.cpp_info.type  # The type of this artifact "shared-library", "static-library", etc (same as package_type)
-   self.cpp_info.location # full location (path and filename with extension) of the artifact
+   self.cpp_info.location # full location (path and filename with extension) of the artifact or the Apple Framework library one
    self.cpp_info.link_location  # Location of the import library for Windows .lib associated to a dll
    self.cpp_info.languages # same as "languages" attribute, it can be "C", "C++"
    self.cpp_info.exe  # Definition of an executable artifact
+   self.cpp_info.package_framework  # Definition of an Apple Framework (new since Conan 2.14)
+
 
 These fields will be auto-deduced from the other ``cpp_info`` and ``components`` definitions, like the ``libs`` or ``libdirs`` fields, but the automatic deduction might have limitations. Defining them explicitly will inhibit the auto deduction and use the value as provided by the recipe.
 
