@@ -26,6 +26,9 @@ that couldn't easily be done in the current one without breaking:
 - Creation of a new ``conan_cmakedeps_paths.cmake`` that contains definitions of ``<pkg>_DIR`` paths for direct finding of the dependencies.
   This file is also planned to be used in ``cmake-conan`` to extend its usage and avoid some current limitations due to the fact that a CMake driven installation
   cannot inject a toolchain later.
+- (new since Conan 2.14) Better management of the system OSX Frameworks through ``cpp_info.frameworks``.
+- (new since Conan 2.14) Definition of ``cpp_info/component.package_framework`` information (should include the ``.location`` definition too,
+  e.g., ``os.path.join(self.package_folder, "MyFramework.framework", "MyFramework")``) to define the custom OSX Framework library to be linked against.
 
 .. note::
    
