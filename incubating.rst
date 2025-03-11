@@ -28,9 +28,9 @@ This generator is designed as a replacement of the current ``CMakeDeps`` generat
   e.g., ``os.path.join(self.package_folder, "MyFramework.framework", "MyFramework")``) to define the custom OSX Framework library to be linked against.
 
 .. note::
-   
+
    This generator is only intended to generate ``config.cmake`` config files, it will not generate ``Find*.cmake`` find modules, and support for it is not planned.
-   Use the ``CMakeDeps`` generator for that. 
+   Use the ``CMakeDeps`` generator for that.
 
 
 The new fields that can be defined in the ``cpp_info`` or ``cpp_info.components``, besides the already defined in :ref:`CppInfo<conan_conanfile_model_cppinfo>` are:
@@ -45,12 +45,11 @@ The new fields that can be defined in the ``cpp_info`` or ``cpp_info.components`
    self.cpp_info.exe  # Definition of an executable artifact
    self.cpp_info.package_framework  # Definition of an Apple Framework (new since Conan 2.14)
 
-These fields will be auto-deduced from the other ``cpp_info`` and ``components`` definitions, like the ``libs`` or ``libdirs`` fields,
-but the automatic deduction might have limitations. Defining them explicitly will inhibit the auto deduction and use the value as provided by the recipe.
 
-This feature is enabled with the ``-c tools.cmake.cmakedeps:new=will_break_next`` configuration. The value ``will_break_next`` will change
-in next releases to emphasize the fact that this feature is not suitable for usage beyond testing. Just by enabling this conf and forcing
-the build of packages that use ``CMakeDeps`` will trigger the usage of the new generator.
+These fields will be auto-deduced from the other ``cpp_info`` and ``components`` definitions, like the ``libs`` or ``libdirs`` fields, but the automatic deduction might have limitations. Defining them explicitly will inhibit the auto deduction and use the value as provided by the recipe.
+
+
+This feature is enabled with the ``-c tools.cmake.cmakedeps:new=will_break_next`` configuration. The value ``will_break_next`` will change in next releases to emphasize the fact that this feature is not suitable for usage beyond testing. Just by enabling this conf and forcing the build of packages that use ``CMakeDeps`` will trigger the usage of the new generator.
 
 This new generator will also be usable in ``conanfile`` files with:
 
