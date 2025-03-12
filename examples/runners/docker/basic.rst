@@ -63,12 +63,11 @@ Now we are going to create create simple ``cmake_lib`` Conan template to later r
 
 Now, we need to define two new profiles inside the conan ``profiles`` folder. Replace ``</my/runner/folder>`` with your real project folder path.
 
-``docker_example_host`` profile
+``docker_example_host_base`` profile
 
 .. code-block:: text
 
     [settings]
-    arch=x86_64
     build_type=Release
     compiler=gcc
     compiler.cppstd=gnu17
@@ -81,8 +80,34 @@ Now, we need to define two new profiles inside the conan ``profiles`` folder. Re
     dockerfile=</my/runner/folder>/mylib
     cache=copy
     remove=true
-    # Add the following line if running on a Mac Silicon
+
+``docker_example_build`` profile for a x86_64 platform
+    
+.. code-block:: text
+
+    include(docker_example_host_base)
+    [settings]
+    arch=x86_64
+
+    [runner]
     platform=linux/amd64
+
+
+``docker_example_build`` profile for a armv8 platform
+    
+.. code-block:: text
+
+    include(docker_example_host_base)
+    [settings]
+    arch=armv8
+
+    [runner]
+    platform=linux/arm64/v8
+
+Users are free to configure architecture and platform on the host profile.
+Conan docker integration will build and run the image using the specified
+platform.
+
 
 ``docker_example_build`` profile
 
