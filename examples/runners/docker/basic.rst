@@ -68,8 +68,8 @@ Now, we need to define two new profiles inside the conan ``profiles`` folder. Re
 .. code-block:: text
 
     [settings]
-    arch=x86_64
     build_type=Release
+    arch=x86_64
     compiler=gcc
     compiler.cppstd=gnu17
     compiler.libcxx=libstdc++11
@@ -81,6 +81,28 @@ Now, we need to define two new profiles inside the conan ``profiles`` folder. Re
     dockerfile=</my/runner/folder>/mylib
     cache=copy
     remove=true
+    platform=linux/amd64
+
+
+.. note::
+
+    Users are free to configure architecture and platform on the host profile.
+    Conan docker integration will build and run the image using the specified
+    platform.
+
+    For example, if you are using a Mac Silicon, you can set the platform to
+    ``linux/arm64/v8`` to build the image using the armv8 architecture.
+
+    .. code-block:: text
+
+        [settings]
+        arch=armv8
+        # ...
+
+        [runner]
+        platform=linux/arm64/v8
+
+
 
 ``docker_example_build`` profile
 
@@ -118,7 +140,7 @@ Now, it's time to create our library ``mylib`` using our new runner definition.
 
 .. code-block:: bash
 
-    $ conan create . --version 0.1 -pr:h docker_example_host -pr:b docker_example_build
+    $ conan create . -pr:h docker_example_host -pr:b docker_example_build
 
 If we split and analyze the command output, we can see what is happening and where the commands are being executed.
 
@@ -132,7 +154,7 @@ If we split and analyze the command output, we can see what is happening and whe
     mylib/0.1: Copied 1 '.txt' file: CMakeLists.txt
     mylib/0.1: Copied 1 '.h' file: mylib.h
     mylib/0.1: Copied 1 '.cpp' file: mylib.cpp
-    mylib/0.1: Exported to cache folder: /Users/davidsanfal/.conan2/p/mylib4abd06a04bdaa/e
+    mylib/0.1: Exported to cache folder: /Users/<user>/.conan2/p/mylib4abd06a04bdaa/e
     mylib/0.1: Exported: mylib/0.1#8760bf5a311f01cc26f3b95428203210 (2024-07-08 12:22:01 UTC)
 
     ======== Input profiles ========
@@ -160,14 +182,14 @@ If we split and analyze the command output, we can see what is happening and whe
 
 .. code-block:: bash
 
-    **********************************************
-    * Building the Docker image: my-conan-runner *
-    **********************************************
-
+    Building the Docker image: conan-runner-default
     Dockerfile path: '</my/runner/folder>/mylib/Dockerfile'
     Docker build context: '</my/runner/folder>/mylib'
 
-    Step 1/4 : FROM ubuntu:22.04
+    Step 1/3 : FROM ubuntu:22.04
+
+    ---> 97271d29cb79
+    Step 2/3 : RUN apt-get update     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends         build-essential         cmake         python3         python3-pip         python3-venv         g++-x86-64-linux-gnu     && rm -rf /var/lib/apt/lists/*
 
     ...
 
@@ -179,10 +201,7 @@ If we split and analyze the command output, we can see what is happening and whe
 
 .. code-block:: bash
 
-    ***********************************************************************************
-    * Save host cache in: </my/runner/folder>/mylib/.conanrunner/local_cache_save.tgz *
-    ***********************************************************************************
-
+    Save host cache in: /Users/<user>/sources/test/mylib/.conanrunner/local_cache_save.tgz
     Found 1 pkg/version recipes matching * in local cache
     Saving mylib/0.1: mylib4abd06a04bdaa
 
@@ -190,168 +209,139 @@ If we split and analyze the command output, we can see what is happening and whe
 
 .. code-block:: bash
 
-    *********************************
-    * Creating the docker container *
-    *********************************
-
-    *****************************************
-    * Container conan-runner-docker running *
-    *****************************************
+    Creating the docker container
+    Container conan-runner-docker running
 
 **5.** Check if the container has a conan version with the runner feature.
 
 .. code-block:: bash
 
-    *******************************************
-    * Running in container: "conan --version" *
-    *******************************************
-
-    Conan version 2.5.0
+    conan-runner-docker | $ conan --version
+    conan-runner-docker | Conan version 2.12.1
 
 **6.** Initialize the container conan cache using the host copy running ``conan cache restore``.
 
 .. code-block:: bash
 
-    ***********************************************************************************************************
-    * Running in container: "conan cache restore "/root/conanrunner/mylib/.conanrunner/local_cache_save.tgz"" *
-    ***********************************************************************************************************
-
-    Restore: mylib/0.1 in mylib4abd06a04bdaa
-    Local Cache
-    mylib
-        mylib/0.1
-        revisions
-            8760bf5a311f01cc26f3b95428203210 (2024-07-08 12:22:19 UTC)
-            packages
-            recipe_folder: mylib4abd06a04bdaa
+    conan-runner-docker | $ conan cache restore "/root/conanrunner/mylib/.conanrunner/local_cache_save.tgz"
+    conan-runner-docker | Restore: mylib/0.1 in mylib4abd06a04bdaa
+    conan-runner-docker | Local Cache
+    conan-runner-docker |   mylib
+    conan-runner-docker |     mylib/0.1
+    conan-runner-docker |       revisions
+    conan-runner-docker |         8760bf5a311f01cc26f3b95428203210 (2025-01-31 12:34:25 UTC)
+    conan-runner-docker |           packages
+    conan-runner-docker |           recipe_folder: mylib4abd06a04bdaa
 
 **7.** Run the conan create inside the container and build "mylib".
 
 .. code-block:: bash
 
-    *********************************************************************************************************************************************************
-    * Running in container: "conan create /root/conanrunner/mylib --version 0.1 -pr:h docker_example_host -pr:b docker_example_build -f json > create.json" *
-    *********************************************************************************************************************************************************
-
-
-    ======== Exporting recipe to the cache ========
-    mylib/0.1: Exporting package recipe: /root/conanrunner/mylib/conanfile.py
-    mylib/0.1: Copied 1 '.py' file: conanfile.py
-    mylib/0.1: Copied 1 '.txt' file: CMakeLists.txt
-    mylib/0.1: Copied 1 '.cpp' file: mylib.cpp
-    mylib/0.1: Copied 1 '.h' file: mylib.h
-    mylib/0.1: Exported to cache folder: /root/.conan2/p/mylib4abd06a04bdaa/e
-    mylib/0.1: Exported: mylib/0.1#8760bf5a311f01cc26f3b95428203210 (2024-07-08 12:22:20 UTC)
-
-    ======== Input profiles ========
-    Profile host:
-    [settings]
-    arch=x86_64
-    build_type=Release
-    compiler=gcc
-    compiler.cppstd=gnu17
-    compiler.libcxx=libstdc++11
-    compiler.version=11
-    os=Linux
-
-    Profile build:
-    [settings]
-    arch=x86_64
-    build_type=Release
-    compiler=gcc
-    compiler.cppstd=gnu17
-    compiler.libcxx=libstdc++11
-    compiler.version=11
-    os=Linux
-
-
-    ======== Computing dependency graph ========
-    Graph root
-        cli
-    Requirements
-        mylib/0.1#8760bf5a311f01cc26f3b95428203210 - Cache
-
-    ======== Computing necessary packages ========
-    mylib/0.1: Forced build from source
-    Requirements
-        mylib/0.1#8760bf5a311f01cc26f3b95428203210:8631cf963dbbb4d7a378a64a6fd1dc57558bc2fe - Build
-
-    ======== Installing packages ========
-
-    -------- Installing package mylib/0.1 (1 of 1) --------
-
+    conan-runner-docker | $ conan create /root/conanrunner/mylib -pr:h docker_param_example_host -pr:b docker_param_example_build
+ -f json > create.json
+    conan-runner-docker |
+    conan-runner-docker | ======== Exporting recipe to the cache ========
+    conan-runner-docker | mylib/0.1: Exporting package recipe: /root/conanrunner/mylib/conanfile.py
+    conan-runner-docker | mylib/0.1: Copied 1 '.py' file: conanfile.py
+    conan-runner-docker | mylib/0.1: Copied 1 '.txt' file: CMakeLists.txt
+    conan-runner-docker | mylib/0.1: Copied 1 '.h' file: mylib.h
+    conan-runner-docker | mylib/0.1: Copied 1 '.cpp' file: mylib.cpp
+    conan-runner-docker | mylib/0.1: Exported to cache folder: /root/.conan2/p/mylib4abd06a04bdaa/e
+    conan-runner-docker | mylib/0.1: Exported: mylib/0.1#8760bf5a311f01cc26f3b95428203210 (2025-01-31 12:34:26 UTC)
+    conan-runner-docker |
+    conan-runner-docker | ======== Input profiles ========
+    conan-runner-docker | Profile host:
+    conan-runner-docker | [settings]
+    conan-runner-docker | arch=x86_64
+    conan-runner-docker | build_type=Release
+    conan-runner-docker | compiler=gcc
+    conan-runner-docker | compiler.cppstd=gnu17
+    conan-runner-docker | compiler.libcxx=libstdc++11
+    conan-runner-docker | compiler.version=11
+    conan-runner-docker | os=Linux
+    conan-runner-docker |
+    conan-runner-docker | Profile build:
+    conan-runner-docker | [settings]
+    conan-runner-docker | arch=x86_64
+    conan-runner-docker | build_type=Release
+    conan-runner-docker | compiler=gcc
+    conan-runner-docker | compiler.cppstd=gnu17
+    conan-runner-docker | compiler.libcxx=libstdc++11
+    conan-runner-docker | compiler.version=11
+    conan-runner-docker | os=Linux
+    conan-runner-docker |
+    conan-runner-docker |
+    conan-runner-docker | ======== Computing dependency graph ========
+    conan-runner-docker | Graph root
+    conan-runner-docker |     cli
+    conan-runner-docker | Requirements
+    conan-runner-docker |     mylib/0.1#8760bf5a311f01cc26f3b95428203210 - Cache
+    conan-runner-docker |
+    conan-runner-docker | ======== Computing necessary packages ========
+    conan-runner-docker | mylib/0.1: Forced build from source
+    conan-runner-docker | Requirements
+    conan-runner-docker |     mylib/0.1#8760bf5a311f01cc26f3b95428203210:8631cf963dbbb4d7a378a64a6fd1dc57558bc2fe - Build
+    conan-runner-docker |
 
     ...
+    
+    conan-runner-docker | [ 50%] Building CXX object CMakeFiles/example.dir/src/example.cpp.o
+    conan-runner-docker | [100%] Linking CXX executable example
+    conan-runner-docker | [100%] Built target example
+    conan-runner-docker | 
+    conan-runner-docker | 
+    conan-runner-docker | ======== Testing the package: Executing test ========
+    conan-runner-docker | mylib/0.1 (test package): Running test()
+    conan-runner-docker | mylib/0.1 (test package): RUN: ./example
+    conan-runner-docker | mylib/0.1: Hello World Release!
+    conan-runner-docker | mylib/0.1: __x86_64__ defined
+    conan-runner-docker | mylib/0.1: _GLIBCXX_USE_CXX11_ABI 1
+    conan-runner-docker | mylib/0.1: __cplusplus201703
+    conan-runner-docker | mylib/0.1: __GNUC__11
+    conan-runner-docker | mylib/0.1: __GNUC_MINOR__4
+    conan-runner-docker | mylib/0.1 test_package
 
-    [ 50%] Building CXX object CMakeFiles/example.dir/src/example.cpp.o
-    [100%] Linking CXX executable example
-    [100%] Built target example
-
-
-    ======== Testing the package: Executing test ========
-    mylib/0.1 (test package): Running test()
-    mylib/0.1 (test package): RUN: ./example
-    mylib/0.1: Hello World Release!
-    mylib/0.1: __x86_64__ defined
-    mylib/0.1: _GLIBCXX_USE_CXX11_ABI 1
-    mylib/0.1: __cplusplus201703
-    mylib/0.1: __GNUC__11
-    mylib/0.1: __GNUC_MINOR__4
-    mylib/0.1 test_package
 
 **8.** Copy just the package created inside the container using the ``pkglist.json`` info from the previous ``conan create``, restore this new package inside the host cache running a ``conan cache save`` and remove the container.
 
 .. code-block:: bash
 
-    ************************************************************************************************************************************
-    * Running in container: "conan cache save --list=pkglist.json --file "/root/conanrunner/mylib"/.conanrunner/docker_cache_save.tgz" *
-    ************************************************************************************************************************************
-
-    Saving mylib/0.1: mylib4abd06a04bdaa
-    Saving mylib/0.1:8631cf963dbbb4d7a378a64a6fd1dc57558bc2fe: b/mylib503035e4ee8ae/p
-    Saving mylib/0.1:8631cf963dbbb4d7a378a64a6fd1dc57558bc2fe metadata: b/mylib503035e4ee8ae/d/metadata
-    Local Cache
-    mylib
-        mylib/0.1
-        revisions
-            8760bf5a311f01cc26f3b95428203210 (2024-07-08 12:22:20 UTC)
-            packages
-                8631cf963dbbb4d7a378a64a6fd1dc57558bc2fe
-                revisions
-                    ded6547554ff2306db5250451340fa43
-                    package_folder: b/mylib503035e4ee8ae/p
-                    metadata_folder: b/mylib503035e4ee8ae/d/metadata
-                info
-                    settings
-                    os: Linux
-                    arch: x86_64
-                    compiler: gcc
-                    compiler.cppstd: gnu17
-                    compiler.libcxx: libstdc++11
-                    compiler.version: 11
-                    build_type: Release
-                    options
-                    fPIC: True
-                    shared: False
-            recipe_folder: mylib4abd06a04bdaa
-
-
-    ******************************************************************************************
-    * Restore host cache from: </my/runner/folder>/mylib/.conanrunner/docker_cache_save.tgz  *
-    ******************************************************************************************
-
+    conan-runner-docker | $ conan cache save --list=pkglist.json --file "/root/conanrunner/mylib"/.conanrunner/docker_cache_save.tgz
+    conan-runner-docker | Saving mylib/0.1: mylib4abd06a04bdaa
+    conan-runner-docker | Saving mylib/0.1:8631cf963dbbb4d7a378a64a6fd1dc57558bc2fe: b/mylib11242e0a7e627/p
+    conan-runner-docker | Saving mylib/0.1:8631cf963dbbb4d7a378a64a6fd1dc57558bc2fe metadata: b/mylib11242e0a7e627/d/metadata
+    conan-runner-docker | Local Cache
+    conan-runner-docker |   mylib
+    conan-runner-docker |     mylib/0.1
+    conan-runner-docker |       revisions
+    conan-runner-docker |         8760bf5a311f01cc26f3b95428203210 (2025-01-31 12:34:26 UTC)
+    conan-runner-docker |           packages
+    conan-runner-docker |             8631cf963dbbb4d7a378a64a6fd1dc57558bc2fe
+    conan-runner-docker |               revisions
+    conan-runner-docker |                 ded6547554ff2306db5250451340fa43
+    conan-runner-docker |                   package_folder: b/mylib11242e0a7e627/p
+    conan-runner-docker |                   metadata_folder: b/mylib11242e0a7e627/d/metadata
+    conan-runner-docker |               info
+    conan-runner-docker |                 settings
+    conan-runner-docker |                   os: Linux
+    conan-runner-docker |                   arch: x86_64
+    conan-runner-docker |                   compiler: gcc
+    conan-runner-docker |                   compiler.cppstd: gnu17
+    conan-runner-docker |                   compiler.libcxx: libstdc++11
+    conan-runner-docker |                   compiler.version: 11
+    conan-runner-docker |                   build_type: Release
+    conan-runner-docker |                 options
+    conan-runner-docker |                   fPIC: True
+    conan-runner-docker |                   shared: False
+    conan-runner-docker |           recipe_folder: mylib4abd06a04bdaa
+    conan-runner-docker |
+    Restore host cache from: /Users/<user>/sources/test/mylib/.conanrunner/docker_cache_save.tgz
     Restore: mylib/0.1 in mylib4abd06a04bdaa
-    Restore: mylib/0.1:8631cf963dbbb4d7a378a64a6fd1dc57558bc2fe in b/mylib503035e4ee8ae/p
-    Restore: mylib/0.1:8631cf963dbbb4d7a378a64a6fd1dc57558bc2fe metadata in b/mylib503035e4ee8ae/d/metadata
+    Restore: mylib/0.1:8631cf963dbbb4d7a378a64a6fd1dc57558bc2fe in b/mylib11242e0a7e627/p
+    Restore: mylib/0.1:8631cf963dbbb4d7a378a64a6fd1dc57558bc2fe metadata in b/mylib11242e0a7e627/d/metadata
+    Stopping container
+    Removing container
 
-    **********************
-    * Stopping container *
-    **********************
-
-
-    **********************
-    * Removing container *
-    **********************
 
 If we now check the status of our conan and docker cache, we will see the new mylib package compile for Linux and the new docker image but we don’t have any container because we define ``remove=true``
 

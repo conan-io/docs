@@ -8,30 +8,32 @@ Docker runner
 How to use a docker runner
 --------------------------
 
-To run Conan inside a docker container you need to define a ``[runner]`` section in your host profile using the following fields:
+To run Conan inside a Docker container, a ``[runner]`` section must be defined in the host profile with the following fields:
 
-- ``type`` **(mandatory)**: define the runner we want to use, in this case ``docker``.
-- ``dockerfile`` **(optional, default None)**: absolute path to a Dockerfile in case you want to build a docker image.
-- ``image`` **(optional, default conan-runner-default)**: docker image name you want to download from a docker registry or the name of the built image in case you define a dockerfile path.
-- ``cache`` **(optional, default clean)**: how docker container uses (or not) the host's Conan cache.
+- ``type`` **(mandatory)**: Specifies the runner to use, in this case, ``docker``.
+- ``dockerfile`` **(optional, default: None)**: Absolute path to a Dockerfile, if a Docker image needs to be built.
+- ``image`` **(optional, default: conan-runner-default)**: Name of the Docker image to download from a registry or the name of the locally built image if a Dockerfile path is provided.
+- ``cache`` **(optional, default: clean)**: Determines how the Docker container interacts with the host's Conan cache.
 
-    - ``clean``: use an empty cache.
-    - ``copy``: copy the host cache inside the container using the :ref:`conan cache save/restore<reference_commands_cache>` command.
-    - ``shared``: mount the host's Conan cache as a shared volume.
+    - ``clean``: Uses an empty cache.
+    - ``copy``: Copies the host cache into the container using the :ref:`conan cache save/restore<reference_commands_cache>` command.
+    - ``shared``: Mounts the host’s Conan cache as a shared volume.
 
-- ``remove`` **(optional, default false)**: ``true`` or ``false``. Remove the container after running the Conan command.
-- ``configfile``  **(optional, default None)**: Absolute path to a configuration file with extra parameters (see **extra configuration** section for more info).
+- ``remove`` **(optional, default: false)**: Specifies whether to remove the container after executing the Conan command (true or false).
+- ``configfile`` **(optional, default: None)**: Absolute path to a configuration file with additional parameters (see **extra configuration** section for details).
+- ``build_context`` **(optional, default: None)**: Defines the Docker build context (see **extra configuration** section for details).
+- ``platform`` **(optional, default: None)**: Specifies the platform for building the container (e.g., ``linux/amd64``). This is particularly useful for Mac Silicon users.
 
 ..  note::
 
-    - You can only use profiles that are inside the conan profiles folder.
-    - ``Shared`` cache can cause permissions issues depending on the user inside and outside the container. We recommend using the ``copy`` cache even though it may be a bit slower to setup.
-    - The runner profile section doesn't affect the package id.
+    - The ``shared`` cache option may cause permission issues depending on the user inside and outside the container. It is recommended to use the ``copy`` cache for greater stability, despite a slight increase in setup time.
+    - The runner profile section does not impact the package ID.
+
 
 Extra configuration
 -------------------
 
-If you need more control over the build and execution of the container, you can define more parameters inside a ``configfile`` yaml.
+For greater control over the build and execution of the container, additional parameters can be defined within a ``configfile`` YAML file.
 
 ..  code-block:: yaml
 
@@ -54,7 +56,7 @@ If you need more control over the build and execution of the container, you can 
             - MKNOD
         securityOpt: # A list of string values to customize labels for MLS systems, such as SELinux.
             - opt_1
-        mount: # A dictionary to configure volumes mounted inside the container.
+        mounts: # A dictionary to configure volumes mounted inside the container.
             /home/user1/: # The host path or a volume name
                 bind: /mnt/vol2 # The path to mount the volume inside the container
                 mode: rw # rw to mount the volume read/write, or ro to mount it read-only.
@@ -67,7 +69,7 @@ How to run a `conan create` in a runner
 
     The docker runner feature is only supported by ``conan create`` command. The ``conan install --build`` command is not supported.
 
-In the following links you can find some examples about how to use a conan docker runner:
+The following links provide examples of how to use a Conan Docker runner:
 
 - :ref:`Creating a Conan package using a Docker runner<examples_runners_docker_basic>`
 - :ref:`Using a docker runner configfile to parameterize the Dockerfile base image<examples_runners_docker_configfile_build_args>`
