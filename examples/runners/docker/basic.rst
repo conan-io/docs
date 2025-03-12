@@ -95,9 +95,9 @@ Now, we need to define two new profiles inside the conan ``profiles`` folder. Re
 
     .. code-block:: text
 
-        ...
         [settings]
         arch=armv8
+        # ...
 
         [runner]
         platform=linux/arm64/v8
