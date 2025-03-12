@@ -3,6 +3,26 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.14.0 (12-Mar-2025)
+--------------------
+
+- Feature: Add clang 20 support. `#17920 <https://github.com/conan-io/conan/pull/17920>`_ . Docs `here <https://github.com/conan-io/docs/pull/4011>`__
+- Feature: Allow partial ``workspace install <path1> ... <pathN>`` installation of workspace. `#17887 <https://github.com/conan-io/conan/pull/17887>`_ . Docs `here <https://github.com/conan-io/docs/pull/4016>`__
+- Feature: Add hooks for validate method: `pre_validate` and `post_validate`. `#17856 <https://github.com/conan-io/conan/pull/17856>`_ . Docs `here <https://github.com/conan-io/docs/pull/4013>`__
+- Feature: Added complete Apple Frameworks management to `CMakeConfigDeps`. `#17725 <https://github.com/conan-io/conan/pull/17725>`_ . Docs `here <https://github.com/conan-io/docs/pull/4017>`__
+- Feature: Added new `cpp_info.package_framework` to `cpp_info`. `#17725 <https://github.com/conan-io/conan/pull/17725>`_ . Docs `here <https://github.com/conan-io/docs/pull/4017>`__
+- Feature: Fix several bugs in docker runner, added new configuration options and improved logging system `#17542 <https://github.com/conan-io/conan/pull/17542>`_ . Docs `here <https://github.com/conan-io/docs/pull/3977>`__
+- Fix: Improve error message when ``jinja2`` profile rendering fails due to unexpected syntax. `#17940 <https://github.com/conan-io/conan/pull/17940>`_
+- Fix: Do not warn in auto-deduce location for exact library matches. `#17923 <https://github.com/conan-io/conan/pull/17923>`_
+- Fix: the ``cmake_set_interface_link_directories`` property is not really necessary at all in ``CMakeDeps`` and it becomes invalid in ``CMakeConfigDeps`` as it will require full ``package_info()`` definition. `#17917 <https://github.com/conan-io/conan/pull/17917>`_ . Docs `here <https://github.com/conan-io/docs/pull/4015>`__
+- Fix: Do not convert ``\\`` to ``/`` in ``MSBuildDeps`` generator as some MSBuild functionality needs Windows ``\\`` paths. `#17901 <https://github.com/conan-io/conan/pull/17901>`_
+- Fix: Avoid workspace incorrectly defining a "local-recipes-index" auxiliary cache. `#17883 <https://github.com/conan-io/conan/pull/17883>`_
+- Fix: Improve the output of the profile dumping for environment, with correct prepend order. `#17863 <https://github.com/conan-io/conan/pull/17863>`_
+- Fix: Fixes VCVars vcvarsall.bat generation if OS is set to WindowsStore. `#17849 <https://github.com/conan-io/conan/pull/17849>`_
+- Bugfix: Avoid self-requirement and loop when a ``[tool_requires]`` in the build profile depends on itself with a version range. `#17931 <https://github.com/conan-io/conan/pull/17931>`_
+- Bugfix: Fix ``conan graph build-order --reduce --order-by=recipe`` that was not filtering all packages != "Build". `#17909 <https://github.com/conan-io/conan/pull/17909>`_
+- Bugfix: Solve conflict not raised when version-ranges have different user. `#17877 <https://github.com/conan-io/conan/pull/17877>`_
+
 2.13.0 (26-Feb-2025)
 --------------------
 
