@@ -24,5 +24,5 @@ Community
 
     - If you have an integration that you think could be valuable for the community, and you are willing to support it,
       feel free to open a Pull Request to this page in the Github repo.
-    - Recall that these integrations are not supported by Conan team. If you have any question, issue or feedback about 
+    - Recall that these integrations are not supported by the Conan team. If you have any questions, issues or feedback about 
       them, please reach out to their maintainers in their issue trackers.
