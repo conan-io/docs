@@ -51,8 +51,8 @@ Listing recipe references
       zlib
         zlib/1.2.11
 
-  This command is equivalent to ``$ conan list "*"`` (make sure to quote the argument), if no argument
-  is provided Conan will list all packages.
+This command is equivalent to ``$ conan list "*"`` (make sure to quote the argument), if no argument
+is provided Conan will list all packages.
 
 
 .. code-block:: text
