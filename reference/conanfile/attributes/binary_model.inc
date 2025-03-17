@@ -407,6 +407,8 @@ Possible values are (following the semver definition of MAJOR.MINOR.PATCH):
 - ``full_mode``: The full identifier of this package, including ``pkgname/version@user/channel#recipe_revision:package_id`` will be used in the consumers ``package_id``, then requiring to build a new binary of the consumer for every change of this package (as any change either in source or configuration will produce a different ``recipe_revision`` or ``package_id`` respectively). This is the default for the "embed-mode".
 - ``unrelated_mode``: No change in this package will ever produce a new binary in the consumer. 
 - ``revision_mode``: Uses the ``pkgname/version@user/channel#recipe_revision`` in the consumers' ``package_id``, that is the full reference except the ``package_id`` of the dependency.
+- ``semver_mode``: Equivalent to ``major_mode`` if the version is ``>=1.0``, or equivalent to ``patch_mode`` (or the full version if it has more than 3 digits) if the version is ``<1.0``.
+
 
 The 4 different attributes are:
 
