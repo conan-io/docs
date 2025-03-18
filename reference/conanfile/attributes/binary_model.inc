@@ -378,10 +378,12 @@ of all those things. This would be the typical case of a header-only library, in
 
 .. _reference_conanfile_attributes_package_id_modes:
 
-package_id_{embed,non_embed,python,unknown}_mode
-------------------------------------------------
+package_id_{embed,non_embed,python,unknown}_mode, build_mode
+------------------------------------------------------------
 
-The ``package_id_embed_mode, package_id_non_embed_mode, package_id_python_mode, package_id_unknown_mode`` are class attributes that can be defined in recipes to define the effect they have on their consumers ``package_id``. Can be declared as:
+The ``package_id_embed_mode, package_id_non_embed_mode, package_id_python_mode, package_id_unknown_mode`` are class attributes that can be defined in recipes to define the effect they have on their consumers ``package_id``, when they are consumed as ``requires``. 
+
+The ``build_mode`` (experimental) is a class attribute that affect the package consumers when these consumers use it as ``tool_requires``. Can be declared as:
 
 .. code-block:: python
 
@@ -395,6 +397,7 @@ The ``package_id_embed_mode, package_id_non_embed_mode, package_id_python_mode, 
         package_id_non_embed_mode = "patch_mode"
         package_id_unknown_mode = "minor_mode"
         package_id_python_mode = "major_mode"
+        build_mode = "patch_mode"  # (experimental) when used as tool_requires
         
 In general, the Conan defaults are good ones, and allow providing users good control over when the consumers need to be re-built from source or not. Also, the Conan defaults can be changed globally in the ``global.conf`` file (they should be changed globally for all users, CI, etc.) via the ``core.package_id:xxxx`` configurations. The in-recipe attribute definition is useful to define behavior that deviates from the defaults.
 
@@ -414,6 +417,7 @@ The 4 different attributes are:
 - ``package_id_non_embed_mode``. Define the mode for "non-embedding" cases, that is, a shared library linking another shared library, a static library linking another static library, an application executable linking a shared library. The default for this mode is ``minor_mode``.
 - ``package_id_unknown_mode``: Define the mode when the relationship between packages is unknown. If it is not possible to deduce the package type, because there are no ``shared`` or ``header_only`` options defined, or because ``package_type`` is not defined, then, this mode will be used. The default for this mode is ``semver_mode`` (similar to Conan 1.X behavior).
 - ``package_id_python_mode``: Define the mode for consumers of ``python_requires``. By default it will be ``minor_mode``, and it is strongly recommended to use this default, and not define the ``package_id_python_mode``. This attribute is provided for completeness and exceptional cases like temporary migrations.
+- ``build_mode``: (Experimental) Define the mode for consumers using this dependency as ``tool_requires``. By default is ``None``, which means that the ``tool_requires`` by default do not affect directly the ``package_id`` of their consumers. Enabling this ``build_mode`` introduce a harder dependency to the ``tool_requires`` that will be needed to resolve the ``package_id`` of the consumers in more cases.
 
 .. seealso::
 
