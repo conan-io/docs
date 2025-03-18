@@ -383,7 +383,7 @@ package_id_{embed,non_embed,python,unknown}_mode, build_mode
 
 The ``package_id_embed_mode, package_id_non_embed_mode, package_id_python_mode, package_id_unknown_mode`` are class attributes that can be defined in recipes to define the effect they have on their consumer's ``package_id``, when they are consumed as ``requires``. 
 
-The ``build_mode`` (experimental) is a class attribute that affect the package consumers when these consumers use it as ``tool_requires``. Can be declared as:
+The ``build_mode`` (experimental) is a class attribute that affects the package consumers when these consumers use it as ``tool_requires``. Can be declared as:
 
 .. code-block:: python
 
