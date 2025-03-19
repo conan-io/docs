@@ -19,6 +19,13 @@ get a token to use the service. Upon registration, you can auth into the conance
 
     $ conan audit provider auth conancenter --token=<your_token>
 
+.. note::
+
+   Using ``--token`` in the command line may expose your token in the shell history. To
+   prevent this, set it as an environment variable named after the provider in uppercase.
+   For example, for `conancenter`, use:
+   ``CONAN_AUDIT_PROVIDER_TOKEN_CONANCENTER=<token>``.
+
 
 Scanning packages
 -----------------
@@ -116,6 +123,17 @@ with the following command:
 .. code-block:: bash
 
     $ conan audit provider add myprovider --type=private --url=https://your.artifactory.url --token=<your_token>
+
+
+.. note::
+
+   Instead of using the ``--token`` argument in the command line, which may expose your
+   token in the shell history, you can authenticate with the provider using an environment
+   variable. Set the ``CONAN_AUDIT_PROVIDER_TOKEN_<PROVIDER_NAME>`` environment variable
+   with the token value, replacing `<PROVIDER_NAME>` with the provider name in uppercase
+   and using underscores (`_`) instead of hyphens (`-`). 
+
+   For example, for `myprovider`, use: ``CONAN_AUDIT_PROVIDER_TOKEN_MYPROVIDER=<token>``.
 
 
 Note the ``--type=private`` argument, which specifies that the provider is a private provider, and that the supplied URL
