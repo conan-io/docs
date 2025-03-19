@@ -22,3 +22,4 @@ If you plan to use Conan in production in your project, team, or organization, t
    save_restore
    vendoring
    package_promotions
+   audit
