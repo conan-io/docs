@@ -14,7 +14,6 @@ If you plan to use Conan in production in your project, team, or organization, t
 .. toctree::
    :maxdepth: 1
 
-   audit
    using_conancenter
    devops_local_recipes_index
    backup_sources/sources_backup
@@ -23,3 +22,4 @@ If you plan to use Conan in production in your project, team, or organization, t
    save_restore
    vendoring
    package_promotions
+   audit
