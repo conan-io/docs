@@ -118,7 +118,7 @@ For now, only JFrog Advanced Security providers are supported.
 
 .. note::
 
-   In to use these private providers, your Artifactory license should include a subscription to JFrog Curation
+   To use these private providers, your Artifactory license should include a subscription to JFrog Curation
 
 
 To add a provider, the recommended way is to first create a specific user in Artifactory to use as the read-only user,
