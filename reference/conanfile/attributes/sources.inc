@@ -86,6 +86,11 @@ or even better, from ``self.export_sources_folder``.
             shutil.copy(os.path.join(self.export_sources_folder, "CMakeLists.txt", "."))
 
 
+.. seealso::
+
+    - :ref:`Check the export_sources() conanfile.py method<reference_conanfile_methods_export_sources>`.
+
+
 .. _conan_conanfile_properties_conandata:
 
 conan_data
