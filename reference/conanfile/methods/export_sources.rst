@@ -4,7 +4,7 @@ export_sources()
 ================
 
 Equivalent to the ``exports_sources`` attribute, but in method form. This method will be called at ``export`` time,
-which happens in ``conan export`` and ``conan create`` commands, and it is intended to allow copying files from the
+which happens in ``conan export``, ``conan export-pkg``  and ``conan create`` commands, and it is intended to allow copying files from the
 user folder to the Conan cache folders, those files becoming part of the recipe sources. These sources will
 be uploaded to the servers together with the recipe, but are typically not downloaded unless the package is 
 being built from source.

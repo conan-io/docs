@@ -4,10 +4,9 @@ export()
 ========
 
 Equivalent to the ``exports`` attribute, but in method form. This method will be called at ``export`` time,
-which happens in the ``conan export`` and ``conan create`` commands, and it is intended to allow copying files from the
+which happens in the ``conan export``, ``conan export-pkg`` and ``conan create`` commands, and it is intended to allow copying files from the
 user folder to the Conan cache folders, thus making files becoming part of the recipe. These sources will
-be uploaded to the servers together with the recipe, but are typically not downloaded unless the package is 
-being built from source.
+be uploaded to the servers together with the recipe and are always downloaded together with the recipe.
 
 The current working directory will be ``self.recipe_folder``, and it can use the ``self.export_folder``
 as the destination folder for using ``copy()`` or your custom copy.
