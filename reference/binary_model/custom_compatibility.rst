@@ -124,7 +124,7 @@ Custom package_id modes for recipe consumers
 
 Recipes can define their default effect to their consumers, via some ``package_id_xxxx_mode`` attributes.
 
-The ``package_id_embed_mode, package_id_non_embed_mode, package_id_unknown_mode`` are class attributes that can be defined in recipes to define the effect they have on their consumers ``package_id``. Can be declared as:
+The ``package_id_embed_mode, package_id_non_embed_mode, package_id_unknown_mode`` are class attributes that can be defined in recipes to define the effect they have on their consumers ``package_id``, when they are consumed as ``requires``. The ``build_mode`` (experimental) is a class attribute that affects the package consumers when these consumers use it as ``tool_requires``. Can be declared as:
 
 .. code-block:: python
 
@@ -135,6 +135,7 @@ The ``package_id_embed_mode, package_id_non_embed_mode, package_id_unknown_mode`
         package_id_embed_mode = "full_mode"
         package_id_non_embed_mode = "patch_mode"
         package_id_unknown_mode = "minor_mode"
+        build_mode = "patch_mode"  # when this is used with tool_requires
 
 
 Read more in :ref:`reference_conanfile_attributes_package_id_modes`
