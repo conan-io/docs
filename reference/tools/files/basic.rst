@@ -103,6 +103,27 @@ Usage:
     replace_in_file(self, os.path.join(self.source_folder, "folder", "file.txt"), "foo", "bar")
 
 
+conan.tools.files.chmod()
+-----------------------------------
+
+This function is a simple wrapper around the ``chmod`` Unix command, but it is cross-platform supported.
+It is indicated to use it instead of ``os.stat`` + ``os.chmod``, as it only changes the permissions of
+the directory or file for the owner and avoids issues with the umask.
+
+.. code-block:: python
+    :caption: *Add execution permission to a packaged bash script*
+
+    from conan.tools.files import chmod
+
+    chmod(self, os.path.join(self.packge_folder, "bin", "script.sh"), execute=True)
+
+Adding or removing a specific permission will not change the other permissions.
+
+.. currentmodule:: conan.tools.files.files
+
+.. autofunction:: chmod
+
+
 conan.tools.files.rm()
 ----------------------
 
