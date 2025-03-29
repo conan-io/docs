@@ -5,7 +5,7 @@ Using build tools as Conan packages
 
 In the previous example, we built our CMake project and used Conan to install and locate
 the **Zlib** library. We used the CMake already installed in our system to build our
-compressor binary. However, what happens if you want to build your project with a specific
+compressor binary. However, what happens if you want to build our project with a specific
 CMake version, different from the one already installed system-wide? Conan can also help
 you install these tools and use them to compile consumer projects or other Conan
 packages. In this case, you can declare this dependency in Conan using a type of
@@ -54,7 +54,7 @@ using CMake **v3.22.6**.
 
     Please note that this *conanfile.txt* will install *zlib/1.2.11* and *cmake/3.22.6*
     separately. However, if Conan does not find a binary for Zlib in Conan Center and it
-    needs to be built from sources, a CMake installation must already be present in your
+    needs to be built from sources, a CMake installation must already be present on your
     system, because the ``cmake/3.22.6`` declared in your ``conanfile.txt`` only applies to 
     your current project, not all dependencies.
     If you want to use that *cmake/3.22.6* to also build Zlib, when installing if
@@ -81,7 +81,7 @@ We also added a message to the *CMakeLists.txt* to output the CMake version:
 
 Now, as in the previous example, we will use Conan to install **Zlib** and **CMake
 3.22.6** and generate the files to find both of them. We will generate those
-files the folder *build*. To do that, just run:
+files in the folder *build*. To do that, just run:
 
 .. code-block:: bash
 
@@ -143,7 +143,7 @@ Now, if you check the folder you will see that Conan generated a new
 file called ``conanbuild.sh/bat``. This is the result of automatically invoking a
 ``VirtualBuildEnv`` generator when we declared the ``tool_requires`` in the
 **conanfile.txt**. This file sets some environment variables like a new ``PATH`` that
-we can use to inject to our environment the location of CMake v3.22.6.
+we can use to inject the location of CMake v3.22.6 into our environment.
 
 Activate the virtual environment, and run ``cmake --version`` to check that you
 have installed the new CMake version in the path.
