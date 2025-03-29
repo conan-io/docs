@@ -3,7 +3,7 @@
 Build a simple CMake project using Conan
 ========================================
 
-Let's get started with an example: We are going to create a string compressor application
+Let's get started with an example: we are going to create a string compressor application
 that uses one of the most popular C++ libraries: `Zlib <https://zlib.net/>`__.
 
 We'll use CMake as build system in this case but keep in mind that Conan **works with any
@@ -105,12 +105,12 @@ using a *conanfile.txt* file. Let's create one with the following content:
 
 As you can see we added two sections to this file with a syntax similar to an *INI* file.
 
-    * **[requires]** section is where we declare the libraries we want to use in the
+    * The **[requires]** section is where we declare the libraries we want to use in the
       project, in this case, **zlib/1.2.11**.
 
-    * **[generators]** section tells Conan to generate the files that the compilers or
+    * The **[generators]** section tells Conan to generate the files that the compilers or
       build systems will use to find the dependencies and build the project. In this case,
-      as our project is based in *CMake*, we will use :ref:`CMakeDeps<conan_tools_cmakedeps>` to
+      as our project is based on *CMake*, we will use :ref:`CMakeDeps<conan_tools_cmakedeps>` to
       generate information about where the **Zlib** library files are installed and
       :ref:`CMakeToolchain<conan_tools_cmaketoolchain>` to pass build information to *CMake*
       using a *CMake* toolchain file.
@@ -130,7 +130,7 @@ This will detect the operating system, build architecture and compiler settings 
 the environment. It will also set the build configuration as *Release* by default. The
 generated profile will be stored in the Conan home folder with name *default* and will be
 used by Conan in all commands by default unless another profile is specified via the command
-line. An example of the output of this command for MacOS would be:
+line. An example of the output of this command for macOS would be:
 
 .. code-block:: ini
 
@@ -264,7 +264,7 @@ Now we are ready to build and run our **compressor** app:
     ZLIB VERSION: 1.2.11
 
 
-Note that ``CMakeToolchain`` might generate CMake **presets** files, that allows users with a modern CMake (``>=3.23``) to 
+Note that ``CMakeToolchain`` might generate CMake **preset** files, that allows users with a modern CMake (``>=3.23``) to 
 use them with ``cmake --preset`` instead of passing the toolchain file argument. 
 See :ref:`Building with CMake presets<examples-tools-cmake-toolchain-build-project-presets>`
 
