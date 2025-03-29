@@ -16,7 +16,7 @@ In the previous examples, we learned how to use a *conanfile.py* or *conanfile.t
 build an application that compresses strings using the *Zlib* and *CMake* Conan packages.
 Also, we explained that you can set information like the operating system, compiler or
 build configuration in a file called the Conan profile. You can use that profile as an
-argument (:command:`--profile`) to invoke the :command:`conan install`. We also explained that
+argument (:command:`--profile`) to invoke the :command:`conan install` command. We also explained that
 not specifying that profile is equivalent to using the :command:`--profile=default` argument.
 
 For all those examples, we used the same platform for building and running the
@@ -49,18 +49,19 @@ Is equivalent to:
 As you can see we used two new arguments:
 
 * ``profile:host``: This is the profile that defines the platform where the built binaries
-  will run. For our string compressor application this profile would be the one applied
-  for the *Zlib* library that will run in a **Raspberry Pi**.
-* ``profile:build``: This is the profile that defines the platform where the binaries will be built. For our string compressor application, this profile would be the one
+  will run. For our string compressor application, this profile would be the one applied
+  for the *Zlib* library that will run on a **Raspberry Pi**.
+* ``profile:build``: This is the profile that defines the platform where the binaries will be built.
+  For our string compressor application, this profile would be the one
   used by the *CMake* tool that will compile it on the **Ubuntu Linux** machine.
 
 Note that when you just use one argument for the profile ``--profile`` is equivalent to
 ``--profile:host``. If you don't specify the ``--profile:build`` argument, Conan will use
 the *default* profile internally.
 
-So, if we want to build the compressor application in the Ubuntu Linux machine but run it
-in a Raspberry Pi, we should use two different profiles. For the **build** machine we
-could use the default profile, that in our case looks like this:
+So, if we want to build the compressor application on the Ubuntu Linux machine but run it
+on a Raspberry Pi, we should use two different profiles. For the **build** machine, we
+could use the default profile that in our case looks like this:
 
 .. code-block:: bash
     :caption: <conan home>/profiles/default
@@ -97,15 +98,15 @@ And the profile for the Raspberry Pi that is the **host** machine:
 
     Please, take into account that in order to build this example successfully, you should
     have installed a toolchain that includes the compiler and all the tools to build the
-    application for the proper architecture. In this case the host machine is a Raspberry
+    application for the proper architecture. In this case, the host machine is a Raspberry
     Pi 3 with *armv7hf* architecture operating system and we have the
-    *arm-linux-gnueabihf* toolchain installed in the Ubuntu machine.
+    *arm-linux-gnueabihf* toolchain installed on the Ubuntu machine.
 
 If you have a look at the *raspberry* profile, there is a section named
 ``[buildenv]``. This section is used to set the environment variables that are needed to
-build the application. In this case we declare the ``CC``, ``CXX`` and ``LD`` variables
+build the application. In this case, we declare the ``CC``, ``CXX`` and ``LD`` variables
 pointing to the cross-build toolchain compilers and linker, respectively. Adding this
-section to the profile will invoke the VirtualBuildEnv generator everytime we do a
+section to the profile will invoke the *VirtualBuildEnv* generator everytime we do a
 :command:`conan install`. This generator will add that environment information to the
 ``conanbuild.sh`` script that we will source before building with CMake so that it can use
 the cross-build toolchain.
@@ -150,7 +151,7 @@ application.
 
 We will need the application to build for the Raspberry Pi with the cross-build
 toolchain and also link the **zlib/1.2.11** library built for the same platform. On the
-other side, we need the **cmake/3.22.6** binary to run in Ubuntu Linux. Conan manages this
+other side, we need the **cmake/3.22.6** binary to run on Ubuntu Linux. Conan manages this
 internally in the dependency graph differentiating between what we call the "build
 context" and the "host context":
 
@@ -159,12 +160,12 @@ context" and the "host context":
   added via ``self.requires()``. In this case, this includes the compressor application
   and the **zlib/1.2.11** dependency.
 
-* The **build context** contains the tool requirements used in the build machine. This
+* The **build context** contains the tool requirements used on the build machine. This
   category typically includes all the developer tools like CMake, compilers and linkers.
   In this case, this includes the **cmake/3.22.6** tool.
 
 
-These contexts define how Conan will manage each one of the dependencies. For example, as
+These contexts define how Conan will manage each of the dependencies. For example, as
 **zlib/1.2.11** belongs to the **host context**, the ``[buildenv]`` build environment we
 defined in the **raspberry** profile (profile host) will only apply to the **zlib/1.2.11**
 library when building and won't affect anything that belongs to the **build context** like
@@ -172,14 +173,14 @@ the **cmake/3.22.6** dependency.
 
 Now, let's build the application. First, call :command:`conan install` with the
 profiles for the build and host platforms. This will install the  **zlib/1.2.11**
-dependency built for *armv7hf* architecture and a **cmake/3.22.6** version that runs for
+dependency built for the *armv7hf* architecture and a **cmake/3.22.6** version that runs on a
 64-bit architecture.
 
 .. code-block:: bash
     
     $ conan install . --build missing -pr:b=default -pr:h=./profiles/raspberry
 
-Then, let's call CMake to build the application. As we did in the previous example we have
+Then, let's call CMake to build the application. As we did in the previous example, we have
 to activate the **build environment** running ``source Release/generators/conanbuild.sh``. That will
 set the environment variables needed to locate the cross-build toolchain and build the
 application.
