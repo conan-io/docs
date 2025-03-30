@@ -9,7 +9,7 @@ method and explain how you can use it to do things like:
 
 * Building and running tests
 * Conditional patching of the source code
-* Select the build system you want to use conditionally
+* Selecting the build system you want to use conditionally
 
 Please, first clone the sources to recreate this project. You can find them in the
 `examples2 repository <https://github.com/conan-io/examples2>`_ on GitHub:
@@ -79,7 +79,7 @@ Changes introduced in the recipe
 * We use the ``tools.build:skip_test`` configuration (``False`` by default), to tell CMake
   whether to build and run the tests or not. A couple of things to bear in mind:
  
-  - If we set the ``tools.build:skip_test`` configuration to ``True`` Conan will
+  - If we set the ``tools.build:skip_test`` configuration to ``True``, Conan will
     automatically inject the ``BUILD_TESTING`` variable to CMake set to ``OFF``. You will
     see in the next section that we are using this variable in our *CMakeLists.txt* to
     decide whether to build the tests or not.
@@ -104,7 +104,7 @@ branch has two novelties on the library side:
   some unit tests over this function. This function is just creating an output message
   based on the arguments passed.
 
-* As we mentioned in the previous section the `CMakeLists.txt for the library
+* As we mentioned in the previous section, the `CMakeLists.txt for the library
   <https://github.com/conan-io/libhello/blob/with_tests/CMakeLists.txt#L15-L17>`_ uses the
   ``BUILD_TESTING`` CMake variable that conditionally adds the *tests* directory.
 
@@ -129,10 +129,9 @@ set to value ``True``. This variable is typically declared by CMake when you use
 using the ``tools.build:skip_test`` configuration you can use it in your *CMakeLists.txt*
 even if you are using another testing framework.
 
-* We have a `CMakeLists.txt
-  <https://github.com/conan-io/libhello/blob/with_tests/tests/CMakeLists.txt>`_ in the
-  *tests* folder using `googletest <https://github.com/google/googletest>`_ for
-  testing.
+We have a `CMakeLists.txt
+<https://github.com/conan-io/libhello/blob/with_tests/tests/CMakeLists.txt>`_ in the
+*tests* folder using `googletest <https://github.com/google/googletest>`_ for testing:
 
 .. code-block:: cmake
     :caption: *tests/CMakeLists.txt*
@@ -157,8 +156,8 @@ With basic tests on the functionality of the ``compose_message()`` function:
 
     namespace {
         TEST(HelloTest, ComposeMessages) {
-        EXPECT_EQ(std::string("hello/1.0: Hello World Release! (with color!)\n"), compose_message("Release", "with color!"));
-        ...
+          EXPECT_EQ(std::string("hello/1.0: Hello World Release! (with color!)\n"), compose_message("Release", "with color!"));
+          ...
         }
     }
 
@@ -213,7 +212,7 @@ run.
 Conditionally patching the source code
 --------------------------------------
 
-If you need to patch the source code the recommended approach is to do that in the
+If you need to patch the source code, the recommended approach is to do that in the
 ``source()`` method. Sometimes, if that patch depends on settings or options, you have
 to use the ``build()`` method to apply patches to the source code before launching the
 build. There are :ref:`several ways to do this <examples_tools_files_patches>` in Conan.
@@ -242,17 +241,17 @@ tool:
                             "Hello {} Friends".format("Shared" if self.options.shared else "Static"))
 
 
-Please, note that patching in ``build()`` should be avoided if possible and only be done for
-very particular cases as it will make more difficult to develop your packages locally (we
-will explain more about this in the :ref:`local development flow section<local_package_development_flow>` later)
+Please note that patching in ``build()`` should be avoided if possible and only be done for
+very particular cases as it will make it more difficult to develop your packages locally (we
+will explain more about this in the :ref:`local development flow section<local_package_development_flow>` later).
 
 
 Conditionally select your build system
 --------------------------------------
 
 It's not uncommon that some packages need one build system or another depending on the
-platform we are building on. For example, the *hello* library could build in Windows using
-CMake and in Linux and MacOS using Autotools. This can be easily handled in the
+platform we are building on. For example, the *hello* library could build on Windows using
+CMake and on Linux and macOS using Autotools. This can be easily handled in the
 ``build()`` method like this:
 
 
