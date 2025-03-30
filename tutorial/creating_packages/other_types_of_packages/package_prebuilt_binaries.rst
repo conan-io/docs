@@ -44,21 +44,20 @@ This will create a Conan package project with the following structure.
           └── example.cpp
 
 
-We have a ``CMakeLists.txt`` file in the root, an ``src`` folder with the ``cpp`` files and, an ``include``
+We have a ``CMakeLists.txt`` file in the root, a ``src`` folder with the ``cpp`` files, and an ``include``
 folder for the headers.
+There's also a ``test_package/`` folder to test that the exported package is working correctly.
 
-They also have a ``test_package/`` folder to test that the exported package is working correctly.
-
-Now, for every different configuration (different compilers, architectures, build_type...):
+Now, for every different configuration (different compilers, architectures, build_type, ...):
 
 1. We call :command:`conan install` to generate the ``conan_toolchain.cmake`` file and the ``CMakeUserPresets.json``
-   that can be used in our IDE or calling CMake (only >= 3.23).
+   that can be used in our IDE or when calling CMake (only >= 3.23).
 
    .. code-block:: bash
 
        $ conan install . -s build_type=Release
 
-2. We build our project calling CMake, our IDE, ... etc:
+2. We build our project calling CMake, our IDE, etc.:
 
    .. code-block:: bash
        :caption: Linux, macOS
@@ -97,7 +96,7 @@ Now, for every different configuration (different compilers, architectures, buil
        hello/0.1: Package '54a3ab9b777a90a13e500dd311d9cd70316e9d55' created
 
 
-   Let's deep a bit more in the package method. The generated ``package()`` method is using ``cmake.install()`` to copy
+   Let's look more closely at the package method. The generated ``package()`` method is using ``cmake.install()`` to copy
    the artifacts from our local folders to the Conan package.
 
    There is an alternative and generic ``package()`` method that could be used for any build system:
@@ -111,7 +110,7 @@ Now, for every different configuration (different compilers, architectures, buil
              copy(self, "*.lib", local_lib_folder, os.path.join(self.package_folder, "lib"), keep_path=False)
              copy(self, "*.a", local_lib_folder, os.path.join(self.package_folder, "lib"), keep_path=False)
 
-   This  ``package()`` method is copying artifacts from the following directories that, thanks to the layout(), will always
+   This  ``package()`` method is copying artifacts from the following directories that, thanks to ``layout()``, will always
    point to the correct places:
 
    - **os.path.join(self.source_folder, self.cpp.source.includedirs[0])** will always point to our local include folder.
@@ -141,7 +140,7 @@ Now you can try to generate a binary package for ``build_type=Debug`` running th
 You can repeat this process any number of times for different configurations.
 
 
-Packaging already Pre-built Binaries
+Packaging already pre-built Binaries
 ------------------------------------
 
 Please, first clone the sources to recreate this project. You can find them in the
@@ -153,7 +152,7 @@ Please, first clone the sources to recreate this project. You can find them in t
     $ cd examples2/tutorial/creating_packages/other_packages/prebuilt_binaries
 
 This is an example of scenario 2 explained in the introduction. If you have a local folder containing the binaries
-for different configurations you can package them using the following approach.
+for different configurations, you can package them using the following approach.
 
 
 These are the files of our example, (be aware that the library files are only empty files so not valid libraries):
@@ -192,7 +191,7 @@ These are the files of our example, (be aware that the library files are only em
                     └── hello.h
 
 
-We have folders with ``os`` and subfolders with ``arch``. This the recipe of our example:
+We have folders and subfolders corresponding to the settings ``os`` and ``arch``. This the recipe of our example:
 
 
 .. code-block:: python
@@ -240,7 +239,7 @@ We have folders with ``os`` and subfolders with ``arch``. This the recipe of our
   system and the architecture (it might be a pure C library).
 
 
-Now, for each different configuration we call :command:`conan export-pkg` command, later we can list the binaries
+Now, for each different configuration, we run the :command:`conan export-pkg` command. Later, we can list the binaries
 so we can check we have one package for each precompiled library:
 
     .. code-block:: bash
@@ -298,8 +297,8 @@ previous example.
 Downloading and Packaging Pre-built Binaries
 --------------------------------------------
 
-This is an example of scenario 3 explained in the introduction. If we are not building the libraries we likely
-have them somewhere in a remote repository. In this case, creating a complete Conan recipe, with the detailed
+This is an example of scenario 3 explained in the introduction. If we are not building the libraries, we likely
+have them somewhere in a remote repository. In this case, creating a complete Conan recipe with the detailed
 retrieval of the binaries could be the preferred method, because it is reproducible, and the original binaries might be traced.
 
 Please, first clone the sources to recreate this project. You can find them in the
@@ -315,31 +314,31 @@ Please, first clone the sources to recreate this project. You can find them in t
    :caption: conanfile.py
 
 
-      import os
-      from conan.tools.files import get, copy
-      from conan import ConanFile
+   import os
+   from conan.tools.files import get, copy
+   from conan import ConanFile
 
 
-      class HelloConan(ConanFile):
-          name = "hello"
-          version = "0.1"
-          settings = "os", "arch"
+   class HelloConan(ConanFile):
+       name = "hello"
+       version = "0.1"
+       settings = "os", "arch"
 
-          def build(self):
-              base_url = "https://github.com/conan-io/libhello/releases/download/0.0.1/"
+       def build(self):
+           base_url = "https://github.com/conan-io/libhello/releases/download/0.0.1/"
 
-              _os = {"Windows": "win", "Linux": "linux", "Macos": "macos"}.get(str(self.settings.os))
-              _arch = str(self.settings.arch).lower()
-              url = "{}/{}_{}.tgz".format(base_url, _os, _arch)
-              get(self, url)
+           _os = {"Windows": "win", "Linux": "linux", "Macos": "macos"}.get(str(self.settings.os))
+           _arch = str(self.settings.arch).lower()
+           url = "{}/{}_{}.tgz".format(base_url, _os, _arch)
+           get(self, url)
 
-          def package(self):
-              copy(self, "*.h", self.build_folder, os.path.join(self.package_folder, "include"))
-              copy(self, "*.lib", self.build_folder, os.path.join(self.package_folder, "lib"))
-              copy(self, "*.a", self.build_folder, os.path.join(self.package_folder, "lib"))
+       def package(self):
+           copy(self, "*.h", self.build_folder, os.path.join(self.package_folder, "include"))
+           copy(self, "*.lib", self.build_folder, os.path.join(self.package_folder, "lib"))
+           copy(self, "*.a", self.build_folder, os.path.join(self.package_folder, "lib"))
 
-          def package_info(self):
-              self.cpp_info.libs = ["hello"]
+       def package_info(self):
+           self.cpp_info.libs = ["hello"]
 
 
 Typically, pre-compiled binaries come for different configurations, so the only task that the
@@ -395,10 +394,10 @@ We only need to call :command:`conan create` with different settings to generate
                           arch: armv8
                           os: Macos
 
-It is recommended to include also a small consuming project in a ``test_package`` folder to verify the package is correctly
-built, and then upload it to a Conan remote with :command:`conan upload`.
+It is recommended to include also a small consuming project in a ``test_package`` folder to verify the package is 
+built correctly, and then upload it to a Conan remote with :command:`conan upload`.
 
-The same building policies apply. Having a recipe fails if no Conan packages are
+The same building policies apply: having a recipe fail if no Conan packages are
 created, and the :command:`--build` argument is not defined. A typical approach for this kind of
 package could be to define a :command:`build_policy="missing"`, especially if the URLs are also
 under the team's control. If they are external (on the internet), it could be better to create the
