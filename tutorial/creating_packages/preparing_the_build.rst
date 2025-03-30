@@ -7,10 +7,10 @@ Preparing the build
 In the :ref:`previous tutorial section<creating_packages_add_dependencies_to_packages>`,
 we added the `fmt <https://conan.io/center/fmt>`__ requirement to our Conan package to
 provide colour output to our "Hello World" C++ library. In this section, we focus on the
-``generate()`` method of the recipe. The aim of this method generating all the
+``generate()`` method of the recipe. The aim of this method is to generate all the
 information that could be needed while running the build step. That means things like:
 
-* Write files to be used in the build step, like
+* Writing files to be used in the build step, like
   :ref:`scripts<conan_tools_env_environment_model>` that inject environment variables,
   files to pass to the build system, etc.
 * Configuring the toolchain to provide extra information based on the settings and options
@@ -19,8 +19,8 @@ information that could be needed while running the build step. That means things
 
 
 We explain how to use this method for a simple example based on the previous tutorial section.
-We add a `with_fmt` option to the recipe, depending on the value we require the
-`fmt` library or not. We use the `generate()` method to modify the toolchain so that
+We add a `with_fmt` option to the recipe, and depending on its value we either require the
+`fmt` library or not. We use the ``generate()`` method to modify the toolchain so that
 it passes a variable to CMake so that we can conditionally add that library and use `fmt`
 or not in the source code.
 
@@ -83,15 +83,14 @@ Let's check the relevant parts:
 
 As you can see:
 
-* We declare a new ``with_fmt`` option with the default value set to ``True``
+* We declare a new ``with_fmt`` option with the default value set to ``True``.
 
 * Based on the value of the ``with_fmt`` option:
 
-    - We install or not the ``fmt/8.1.1`` Conan package.
-    - We require or not a minimum and a maximum C++ standard as the *fmt* library requires at least C++11 and it will not compile if we try to use a standard above C++14 (just an example, *fmt* can build with more modern standards)
-    - We inject the ``WITH_FMT`` variable with the value ``True`` to the :ref:`CMakeToolchain<conan_tools_cmaketoolchain>` so that we
-      can use it in the *CMakeLists.txt* of the **hello** library to add the CMake **fmt::fmt** target
-      conditionally.
+    - We conditionally install the ``fmt/8.1.1`` Conan package.
+    - We conditionally require a minimum and a maximum C++ standard as the *fmt* library requires at least C++11 and it will not compile if we try to use a standard above C++14 (just an example, *fmt* can actually build with more modern standards).
+    - We conditionally inject the ``WITH_FMT`` variable with the value ``True`` to the :ref:`CMakeToolchain<conan_tools_cmaketoolchain>` so that we
+      can use it in the *CMakeLists.txt* of the **hello** library to add the CMake **fmt::fmt** target.
 
 * We are cloning another branch of the library. The *optional_fmt* branch contains
   some changes in the code. Let's see what changed on the CMake side:
@@ -148,7 +147,7 @@ choose to add support for ``fmt`` or not.
         #endif
     }
 
-Let's build the package from sources first using ``with_fmt=True`` and then
+Let's build the package from sources first using ``with_fmt=True`` and then using
 ``with_fmt=False``. When *test_package* runs it will show different messages depending
 on the value of the option.
 
@@ -178,20 +177,22 @@ toolchain based on the value of one option, but there are lots of other things t
 could do in the ``generate()`` method like:
 
 * Create a complete custom toolchain based on your needs to use in your build.
-* Access to certain information about the package dependencies, like:
-    - The configuration accessing the defined
-      :ref:`conf_info<conan_conanfile_model_conf_info>`.
-    - Accessing the dependencies options.
+
+* Access certain information about the package dependencies, like:
+
+    - The configuration via :ref:`conf_info<conan_conanfile_model_conf_info>`.
+    - The options of dependencies.
     - Import files from dependencies using the :ref:`copy tool<conan_tools_files_copy>`.
-      You could also import the files create manifests for the package, collecting all
-      dependencies versions and licenses.
+      You could also import the files to create manifests for the package, collecting all
+      versions and licenses of dependencies.
+
 * Use the :ref:`Environment tools<conan_tools_env_environment_model>` to generate
   information for the system environment.
+
 * Adding custom configurations besides *Release* and *Debug*, taking into account the
   settings, like *ReleaseShared* or *DebugShared*.
 
 .. seealso::
 
-    - Use the ``generate()`` to :ref:`import files from dependencies<copy_resources_on_generate>`.
-    - More based on the examples mentioned above ... 
+    - Use the ``generate()`` method to :ref:`import files from dependencies<copy_resources_on_generate>`.
     - :ref:`generate() method reference<reference_conanfile_methods_generate>`
