@@ -4,14 +4,14 @@ Package files: the package() method
 ===================================
 
 We already used the ``package()`` method in our `hello` package to invoke CMake's install
-step. In this tutorial, we will explain the use of the :ref:`CMake.install()
+step. In this tutorial, we will explain the use of :ref:`CMake.install()
 <conan_tools_cmake_helper>` in more detail and also how to modify this method to do things
 like:
 
 - Using :ref:`conan.tools.files <conan_tools_files>` utilities to copy the generated
   artifacts from the build folder to the package folder
 - Copying package licenses
-- Manage how to package symlinks
+- Manage packaging of symlinks
 
 Please, first clone the sources to recreate this project. You can find them in the
 `examples2 repository <https://github.com/conan-io/examples2>`_ on GitHub:
@@ -82,8 +82,8 @@ packaging of files in the Conan local cache:
     hello/1.0: Full package reference: hello/1.0#25e0b5c00ae41ef9fbfbbb1e5ac86e1e:fd7c4113dad406f7d8211b3470c16627b54ff3af#bf7f5b9a3bb2c957742be4be216dfcbb
     hello/1.0: Package folder /Users/user/.conan2/p/47b4c4c61c8616e5/p
 
-As you can see both the *include* and *library* files were copied to the package folder after
-calling to the ``cmake.install()`` method.
+As you can see, both the *include* and *library* files were copied to the package folder after
+calling the ``cmake.install()`` method.
 
 
 Use conan.tools.files.copy() in the package() method and packaging licenses
@@ -143,13 +143,13 @@ as we explained above.
 Managing symlinks in the package() method
 -----------------------------------------
 
-Another thing you can do in the package method is managing how to package symlinks. Conan
+Another thing you can do in the package method is controlling how to package symlinks. Conan
 won’t manipulate symlinks by default, so we provide several :ref:`tools
-<conan_tools_files_symlinks>` to convert absolute symlinks to relative ones and removing
+<conan_tools_files_symlinks>` to convert absolute symlinks to relative ones and to remove
 external or broken symlinks.
 
-Imagine that some of the files packaged in the latest example were symlinks that point to
-an absolute location inside the Conan cache. Then, calling to
+Imagine that some of the files packaged in the last example were symlinks that point to
+an absolute location inside the Conan cache. Then, calling 
 ``conan.tools.files.symlinks.absolute_to_relative_symlinks()`` would convert those
 absolute links into relative paths and make the package relocatable.
 
