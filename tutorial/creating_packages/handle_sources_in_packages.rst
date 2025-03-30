@@ -3,7 +3,7 @@
 Handle sources in packages
 ==========================
 
-In the :ref:`previous tutorial section<creating_packages_create_your_first_conan_package>`
+In the :ref:`previous tutorial section<creating_packages_create_your_first_conan_package>`,
 we created a Conan package for a "Hello World" C++ library. We used the
 ``exports_sources`` attribute of the Conanfile to declare the location of the sources for
 the library. This method is the simplest way to define the location of the source files
@@ -184,7 +184,7 @@ instead of a *zip* file. We show just the relevant parts:
 
 
 Here, we use the :ref:`conan.tools.scm.Git()<reference>` tool. The ``Git`` class
-implements several methods to work with *git* repositories. In this case, we call the clone
+implements several methods to work with *git* repositories. In this case, we call the ``clone()``
 method to clone the `<https://github.com/conan-io/libhello.git>`_ repository in the
 default branch using the same folder for cloning the sources instead of a subfolder
 (passing the ``target="."`` argument). 
@@ -192,9 +192,11 @@ default branch using the same folder for cloning the sources instead of a subfol
 
 .. warning::
 
-    As above, this is only a simple example. The source origin for ``Git()`` also has to be immutable, it is necessary to checkout out an immutable tag or a specific commit to guarantee the correct behavior. Using the HEAD of the repository is not allowed and can cause undefined behavior and breakages.
+    As above, this is only a simple example. The source origin for ``Git()`` also has to be immutable.
+    It is necessary to checkout an immutable tag or a specific commit to guarantee the correct behavior.
+    Using the HEAD of the repository is not allowed and can cause undefined behavior and breakages.
 
-To checkout a commit or tag in the repository we use the ``checkout()``
+To checkout a commit or tag in the repository, we use the ``checkout()``
 method of the Git tool:
 
 .. code-block:: python
@@ -215,9 +217,9 @@ Note that it's also possible to run other commands by invoking the ``self.run()`
 Using the conandata.yml file
 ----------------------------
 
-We can write a file named ``conandata.yml`` in the same folder of the ``conanfile.py``.
+We can write a file named ``conandata.yml`` in the same folder as the ``conanfile.py``.
 This file will be automatically exported and parsed by Conan and we can read that information from the recipe.
-This is handy for example to extract the URLs of the external sources repositories, zip files etc.
+This is handy, for example, to extract the URLs of the external source repositories, zip files etc.
 This is an example of ``conandata.yml``:
 
 .. code-block:: yaml
@@ -241,7 +243,7 @@ zip file has the correct ``sha256``. So we could modify the source method to thi
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version])
-        # Similar to:
+        # Equivalent to:
         # data = self.conan_data["sources"][self.version]
         # get(self, data["url"], sha256=data["sha256"], strip_root=data["strip_root"])
 
