@@ -18,7 +18,7 @@ A header-only library is composed only of header files. That means a consumer do
 includes headers, so we need only one binary configuration for a header-only library.
 
 In the :ref:`Create your first Conan package
-<creating_packages_create_your_first_conan_package>` section, we learned about the settings, and how building the
+<creating_packages_create_your_first_conan_package>` section, we learned about settings and how building the
 recipe applying different ``build_type`` (Release/Debug) generates a new binary package.
 
 As we only need one binary package, we don't need to declare the `settings` attribute.
@@ -50,8 +50,9 @@ This is a basic recipe for a header-only recipe:
             self.cpp_info.bindirs = []
             self.cpp_info.libdirs = []
 
-Please, note that we are setting ``cpp_info.bindirs`` and ``cpp_info.libdirs`` to ``[]`` because
-header-only libraries don't have compiled libraries or binaries, but they default to ``["bin"]``, and ``["lib"]``, then it is necessary to change it.
+Please note that we are setting ``cpp_info.bindirs`` and ``cpp_info.libdirs`` to ``[]`` because
+header-only libraries don't have compiled libraries or binaries, and since they default to ``["bin"]`` and ``["lib"]``,
+it is necessary to override them.
 
 Also check that we are setting the :ref:`no_copy_source
 <conan_conanfile_properties_no_copy_source>` attribute to ``True`` so that the source code
@@ -70,7 +71,7 @@ Our header-only library is this simple function that sums two numbers:
 
 
 The folder `examples2/tutorial/creating_packages/other_packages/header_only` in the cloned project contains a ``test_package``
-folder with an example of an application consuming the header-only library. So we can run a ``conan create .`` command
+folder with an example of an application consuming the header-only library. So we can run the ``conan create .`` command
 to build the package and test the package:
 
 .. code-block:: bash
@@ -86,7 +87,7 @@ to build the package and test the package:
     sum/0.1 (test package): RUN: ./example
     1 + 3 = 4
 
-After running the ``conan create`` a new binary package is created for the header-only library, and we can see how the
+After running ``conan create``, a new binary package is created for the header-only library, and we can see how the
 ``test_package`` project can use it correctly.
 
 We can list the binary packages created running this command:
@@ -104,7 +105,7 @@ We can list the binary packages created running this command:
                   info
 
 We get one package with the package ID ``da39a3ee5e6b4b0d3255bfef95601890afd80709``.
-Let's see what happen if we run the ``conan create`` but specifying ``-s build_type=Debug``:
+Let's see what happens if we run ``conan create`` specifying ``-s build_type=Debug``:
 
 .. code-block:: bash
 
@@ -119,7 +120,7 @@ Let's see what happen if we run the ``conan create`` but specifying ``-s build_t
                 da39a3ee5e6b4b0d3255bfef95601890afd80709
                   info
 
-Even in the ``test_package`` executable is built for Debug, we get the same binary package for the header-only library.
+Even with the ``test_package`` executable being built for Debug, we get the same binary package for the header-only library.
 This is because we didn't specify the ``settings`` attribute in the recipe, so the changes in the input settings (``-s build_type=Debug``)
 do not affect the recipe and therefore the generated binary package is always the same.
 
@@ -127,7 +128,7 @@ do not affect the recipe and therefore the generated binary package is always th
 Header-only library with tests
 ------------------------------
 
-In the previous example, we saw why a recipe header-only library shouldn't declare the ``settings`` attribute,
+In the previous example, we saw why a recipe for a header-only library shouldn't declare the ``settings`` attribute,
 but sometimes the recipe needs them to build some executable, for example, for testing the library.
 Nonetheless, the binary package of the header-only library should still be unique, so we are going to review how to
 achieve that.
@@ -200,7 +201,7 @@ These are the changes introduced in the recipe:
     - As we are building the ``gtest`` examples with CMake, we use the generators ``CMakeToolchain`` and ``CMakeDeps``,
       and we declared the ``cmake_layout()`` to have a known/standard directory structure.
     - We have a ``build()`` method, building the tests, but only when the standard conf ``tools.build:skip_test`` is not
-      True. Use that conf as a standard way to enable/disable the testing. It is used by the helpers like ``CMake`` to
+      ``True``. Use that conf as a standard way to enable/disable the testing. It is used by the helpers like ``CMake`` to
       skip the ``cmake.test()`` in case we implement the tests in CMake.
     - We have a ``package_id()`` method calling ``self.info.clear()``. This is internally removing all the information
       (settings, options, requirements) from the package_id calculation so we generate only one configuration for our
@@ -247,10 +248,10 @@ We can run ``conan create`` again specifying a different ``compiler.cppstd`` and
          [  PASSED  ] 1 test.
          sum/0.1: Package 'da39a3ee5e6b4b0d3255bfef95601890afd80709' built
 
-   .. note::
+.. note::
 
-      Once we have the ``sum/0.1`` binary package available (in a server, after a ``conan upload``, or in the local cache),
-      we can install it even if we don't specify input values for ``os``, ``arch``, ... etc. This is a new feature of Conan 2.X.
+   Once we have the ``sum/0.1`` binary package available (in a server, after a ``conan upload``, or in the local cache),
+   we can install it even if we don't specify input values for ``os``, ``arch``, ... etc. This is a new feature of Conan 2.X.
 
       We could call ``conan install --require sum/0.1`` with an empty profile and would get the binary package from the
       server. But if we miss the binary and we need to build the package again, it will fail because of the lack of
