@@ -55,7 +55,7 @@ We can see a couple of things:
   consumers that they should link the libraries from that list.
 
 - We are **not adding** information about the *lib* or *include* folders where the
-  library and headers files are packaged. The ``cpp_info`` object provides the
+  library and header files are packaged. The ``cpp_info`` object provides the
   ``.includedirs`` and ``.libdirs`` properties to define those locations but Conan sets
   their value as ``lib`` and ``include`` by default so it's not needed to add those in this
   case. If you were copying the package files to a different location then you have to set
@@ -88,7 +88,7 @@ Besides what we explained above about the information you can set in the
 
 - Define information for consumers depending on settings or options
 - Customizing certain information that generators provide to consumers, like the target
-  names for CMake or the generated files names for pkg-config for example
+  names for CMake or the generated file names for pkg-config, for example
 - Propagating configuration values to consumers
 - Propagating environment information to consumers
 - Define components for Conan packages that provide multiple libraries
@@ -145,7 +145,7 @@ how to translate these changes to the Conan recipe.
 Changes introduced in the recipe
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-To update our recipe according to the changes in the library's *CMakeLists.txt* we have to
+To update our recipe according to the changes in the library's *CMakeLists.txt*, we have to
 conditionally set the library name depending on the ``self.options.shared`` option in the
 ``package_info()`` method:
 
@@ -239,7 +239,7 @@ package. If you have a look at that *CMakeLists.txt* from the *test_package*:
 You can see that we are linking with the target name ``hello::hello``. Conan sets this
 target name by default, but we can change it using the *properties model*. Let's try to
 change it to the name ``hello::myhello``. To do this, we have to set the property
-``cmake_target_name`` in the package_info method of our *hello/1.0* Conan package:
+``cmake_target_name`` in the ``package_info`` method of our *hello/1.0* Conan package:
 
 
 .. code-block:: python
@@ -298,11 +298,11 @@ And re-create the package:
     hello/1.0 (test package): RUN: ./example
     hello/1.0: Hello World Release! (with color!)
 
-You can see how Conan now declares the ``hello::myhello`` instead of the default
+You can see how Conan now declares the target ``hello::myhello`` instead of the default
 ``hello::hello`` and the *test_package* builds successfully.
 
-The target name is not the only property you can set in the CMakeDeps generator. For a
-complete list of properties that affect the CMakeDeps generator behaviour, please check
+The target name is not the only property you can set in the ``CMakeDeps`` generator. For a
+complete list of properties that affect the ``CMakeDeps`` generator behaviour, please check
 the :ref:`reference<CMakeDeps Properties>`. 
 
 Propagating environment or configuration information to consumers
@@ -327,9 +327,9 @@ Please note that it's not necessary to add ``cpp_info.bindirs`` to ``PATH`` or
 
 You can also define configuration values in the ``package_info()`` so that consumers can
 use that information. To do this, set the
-:ref:`conf_info<conan_conanfile_model_conf_info>` property of the ConanFile.
+:ref:`conf_info<conan_conanfile_model_conf_info>` property of the ``ConanFile``.
 
-To know more about this use case, please check the :ref:`corresponding
+To learn more about this use case, please check the :ref:`corresponding
 example<examples_conanfile_package_info_conf_and_env>`.
 
 Define components for Conan packages that provide multiple libraries
