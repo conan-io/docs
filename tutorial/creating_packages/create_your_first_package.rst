@@ -5,7 +5,7 @@ Create your first Conan package
 
 In previous sections, we *consumed* Conan packages (like the *Zlib* one), first using a
 *conanfile.txt* and then with a *conanfile.py*. But a *conanfile.py* recipe file is not only
-meant to consume other packages, it can be used to create your own packages as well. In
+meant to consume other packages, it can be used to create your own packages, as well. In
 this section, we explain how to create a simple Conan package with a *conanfile.py* recipe
 and how to use Conan commands to build those packages from sources.
 
@@ -48,7 +48,7 @@ The generated files are:
   file, responsible for defining how the package is built and consumed.
 - **CMakeLists.txt**: A simple generic *CMakeLists.txt*, with nothing specific about Conan
   in it.
-- **src** and **include** folders: the folders that contains the simple C++ "hello" library.
+- **src** and **include** folders: the folders that contain the simple C++ "hello" library.
 - **test_package** folder: contains an *example* application that will require
   and link with the created package. It is not mandatory, but it is useful to check that
   our package is correctly created.
@@ -111,14 +111,14 @@ Let's explain the different sections of the recipe briefly:
 First, you can see the **name and version** of the Conan package defined:
 
 * ``name``: a string, with a minimum of 2 and a maximum of 100 **lowercase** characters
-  that defines the package name. It should start with alphanumeric or underscore and can
+  that defines the package name. It should start with an alphanumeric character or underscore and can
   contain alphanumeric, underscore, +, ., - characters.
 * ``version``: It is a string, and can take any value, matching the same constraints as
   the ``name`` attribute. In case the version follows semantic versioning in the form
   ``X.Y.Z-pre1+build2``, that value might be used for requiring this package through
   version ranges instead of exact versions.
 
-Then you can see, some attributes defining **metadata**. These are optional but recommended
+Then you can see some attributes defining **metadata**. These are optional but recommended
 and define things like a short ``description`` for the package, the ``author`` of the packaged
 library, the ``license``, the ``url`` for the package repository, and the ``topics`` that the package
 is related to.
@@ -131,22 +131,22 @@ packages section<settings_and_options_difference>`:
   like the operating system, compiler or build configuration that will be common to
   several Conan packages
 
-* ``options`` are package-specific configuration and can be defaulted in recipes, in this case, we
-  have the option of creating the package as a shared or static library, being static the default.
+* ``options`` are package-specific configuration and can be defaulted in recipes. In this case, we
+  have the option of creating the package as a shared or static library, with static being the default.
 
 After that, the ``exports_sources`` attribute is set to define which sources are part of
-the Conan package. These are the sources for the library you want to package. In this case
+the Conan package. These are the sources for the library you want to package. In this case,
 the sources for our "hello" library.
 
 Then, several methods are declared:
 
 * The ``config_options()`` method (together with the ``configure()`` one) allows fine-tuning the binary configuration
-  model, for example, in Windows, there is no ``fPIC`` option, so it can be removed.
+  model. For example, on Windows, there is no ``fPIC`` option, so it can be removed.
 
 * The ``layout()`` method declares the locations where we expect to find the source files
   and destinations for the files generated during the build process. Example destination folders are those for the
   generated binaries and all the files that the Conan generators create in the ``generate()`` method. In this case, as our project uses CMake
-  as the build system, we call to ``cmake_layout()``. Calling this function will set the
+  as build system, we call ``cmake_layout()``. Calling this function will set the
   expected locations for a CMake project. 
 
 * The ``generate()`` method prepares the build of the package from source. In this case, it could be simplified
@@ -155,31 +155,31 @@ Then, several methods are declared:
   the Conan ``settings`` and ``options`` to CMake syntax. The ``CMakeDeps`` generator is added for completeness, 
   but it is not strictly necessary until ``requires`` are added to the recipe.
 
-* The ``build()`` method uses the ``CMake`` wrapper to call CMake commands, it is a thin layer that will manage
-  to pass in this case the ``-DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake`` argument. It will configure the
+* The ``build()`` method uses the ``CMake`` wrapper to call CMake commands. It is a thin layer that, in this case,  
+  will pass the ``-DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake`` argument. It will configure the
   project and build it from source.
 
 * The ``package()`` method copies artifacts (headers, libs) from the build folder to the
   final package folder. It can be done with bare "copy" commands, but in this case, it is
-  leveraging the already existing CMake install functionality (if the CMakeLists.txt
-  didn't implement it, it is easy to write an equivalent using the :ref:`copy()
+  leveraging the already existing CMake install functionality. If the CMakeLists.txt
+  didn't implement it, it would be easy to write an equivalent using the :ref:`copy()
   tool<conan_tools_files_copy>` in the ``package()`` method.
 
 * Finally, the ``package_info()`` method defines that consumers must link with a "hello" library
-  when using this package. Other information as include or lib paths can be defined as well. This
+  when using this package. Other information such as include or lib paths can be defined, as well. This
   information is used for files created by generators (as ``CMakeDeps``) to be used by consumers. 
   This is generic information about the current package, and is available to the consumers
   irrespective of the build system they are using and irrespective of the build system we
-  have used in the ``build()`` method
+  have used in the ``build()`` method.
 
 The **test_package** folder is not critical now for understanding how packages are created. The important
 bits are:
 
-* **test_package** folder is different from unit or integration tests. These tests are
+* The **test_package** folder is different from unit or integration tests. These tests are
   "package" tests, and validate that the package is properly created and that the package
   consumers will be able to link against it and reuse it.
 
-* It is a small Conan project itself, it contains its ``conanfile.py``, and its source
+* It is a small Conan project itself. It contains its own ``conanfile.py`` and its source
   code including build scripts, that depends on the package being created, and builds and
   executes a small application that requires the library in the package.
 
@@ -248,7 +248,7 @@ We can now validate that the recipe and the package binary are in the cache:
 
 The :command:`conan create` command receives the same parameters as :command:`conan install`, so
 you can pass to it the same settings and options. If we execute the following lines, we will create new package
-binaries for Debug configuration or to build the hello library as shared:
+binaries for the Debug configuration and build the hello library as a shared library:
 
 .. code-block:: bash
 
@@ -325,7 +325,7 @@ A note about the Conan cache
 ----------------------------
 
 When you did the :command:`conan create` command, the build of your package did not take
-place in your local folder but in other folder inside the *Conan cache*. This cache is
+place in your local folder but in another folder inside the *Conan cache*. This cache is
 located in the user home folder under the ``.conan2`` folder. Conan will use the
 ``~/.conan2`` folder to store the built packages and also different configuration files.
 You already used the :command:`conan list` command to list the recipes and binaries stored
