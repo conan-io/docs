@@ -166,7 +166,7 @@ Then, several methods are declared:
   tool<conan_tools_files_copy>` in the ``package()`` method.
 
 * Finally, the ``package_info()`` method defines that consumers must link with a "hello" library
-  when using this package. Other information such as include or lib paths can be defined, as well. This
+  when using this package. Other information such as include or lib paths can be defined as well. This
   information is used for files created by generators (as ``CMakeDeps``) to be used by consumers. 
   This is generic information about the current package, and is available to the consumers
   irrespective of the build system they are using and irrespective of the build system we
