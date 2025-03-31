@@ -4,7 +4,7 @@
 Introduction
 ============
 
-Conan is a dependency and package manager for C and C++ languages. It is `free and open-source <https://github.com/conan-io/conan>`_, works in all platforms ( Windows, Linux, OSX, FreeBSD, Solaris, etc.), and can be used to develop for all targets including embedded, mobile (iOS, Android), and bare metal. It also integrates with all build systems like CMake, Visual Studio (MSBuild), Makefiles, SCons, etc., including proprietary ones.
+Conan is a dependency and package manager for C and C++ languages. It is `free and open-source <https://github.com/conan-io/conan>`_, works in all platforms (Windows, Linux, macOS, FreeBSD, Solaris, etc.), and can be used to develop for all targets including embedded, mobile (iOS, Android), and bare metal. It also integrates with all build systems like CMake, Visual Studio (MSBuild), Makefiles, SCons, etc., including proprietary ones.
 
 It is specifically designed and optimized for accelerating the development and Continuous Integration of C and C++ projects. With full binary management, it can create and reuse any number of different binaries (for different configurations like architectures, compiler versions, etc.) for any number of different versions of a package, using exactly the same process in all platforms. As it is decentralized, it is easy to run your own server to host your own packages and binaries privately, without needing to share them. The free `JFrog Artifactory Community Edition (CE) <https://conan.io/downloads.html>`_ is the recommended Conan server to host your own packages privately under your control.
 
@@ -101,10 +101,9 @@ Community
 ---------
 
 Conan is being used in production by thousands of companies like TomTom, Audi, RTI, Continental, Plex, Electrolux and Mercedes-Benz and many thousands of developers around the world. 
-
 But an essential part of Conan is that many of those users will contribute back, creating an amazing and helpful community:
 
-- The https://github.com/conan-io/conan project has around 6.5K stars in Github and counts with contributions from more than 300 different users (this is just the client tool).
+- The https://github.com/conan-io/conan project has around 8.6K stars in Github and counts with contributions from more than 400 different users (this is just the client tool).
 - Many other users contribute recipes for ConanCenter via the https://github.com/conan-io/conan-center-index repo, creating packages for popular Open Source libraries, contributing many thousands of Pull Requests per year.
 - More than two thousands Conan users hang around the `CppLang Slack #conan channel <https://cppalliance.org/slack/>`_, and help responding to questions, discussing problems and approaches, making it one of the most active channels in the whole CppLang slack.
 - There is a Conan channel in `#include<cpp> discord <https://www.includecpp.org/discord/>`_.
@@ -136,7 +135,7 @@ Features in this documentation might be labeled as:
   be used instead of it, and if using it, migrating to the other alternatives should be done as soon as possible. They will not be maintained or
   get fixes.
 
-Everything else that is not labeled should be considered stable, and won't be broken, unless something that
+Everything else that is not labeled should be considered stable and won't be broken, unless something that
 is declared a bugfix.
 
 

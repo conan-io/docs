@@ -4,7 +4,7 @@ Introduction to versioning
 ==========================
 
 So far we have been using requires with fixed versions like ``requires = "zlib/1.2.12"``.
-But sometimes dependencies evolve, new versions are released and consumers want to update to those versions as easy as possible.
+But sometimes dependencies evolve, new versions are released and consumers want to update to those versions as easily as possible.
 
 It is always possible to edit the ``conanfiles`` and explicitly update the versions to the new ones, but there are mechanisms in
 Conan to allow such updates without even modifying the recipes.
@@ -14,7 +14,7 @@ Version ranges
 --------------
 
 A ``requires`` can express a dependency to a certain range of versions for a given package, with the syntax ``pkgname/[version-range-expression]``.
-Let's see an example, please, first clone the sources to recreate this project. You can find them in the
+Let's see an example. Please, first clone the sources to recreate this project. You can find them in the
 `examples2 repository <https://github.com/conan-io/examples2>`_ in GitHub:
 
 .. code-block:: bash
@@ -37,7 +37,7 @@ We can see that we have there:
         def requirements(self):
             self.requires("zlib/[~1.2]")
 
-That ``requires`` contains the expression ``zlib/[~1.2]``, which means "approximately" ``1.2`` version, that means, it can resolve to
+That ``requires`` contains the expression ``zlib/[~1.2]``, which means "approximately" ``1.2`` version. That means, it can resolve to
 any ``zlib/1.2.8``, ``zlib/1.2.11`` or ``zlib/1.2.12``, but it will not resolve to something like ``zlib/1.3.0``. Among the available
 matching versions, a version range will always pick the latest one.
 
@@ -66,7 +66,7 @@ so the latest one to satisfy the range would be ``zlib/1.2.11``:
 
 
 The same applies to other type of requirements, like ``tool_requires``.
-If we add now to the recipe:
+Let's add one to the recipe:
 
 .. code-block:: python
     :caption: **conanfile.py**
@@ -85,7 +85,7 @@ If we add now to the recipe:
             self.tool_requires("cmake/[>3.10]")
 
 
-Then we would see it resolved to the latest available CMake package, with at least version ``3.11``:
+We see it resolved to the latest available CMake package, with at least version ``3.11``:
 
 .. code-block:: bash
 
@@ -106,7 +106,7 @@ Revisions
 ---------
 
 What happens when a package creator does some change to the package recipe or to the source code, but they don't bump the ``version`` 
-to reflect those changes? Conan has an internal mechanism to keep track of those modifications, and it is called the **revisions**.
+to reflect those changes? Conan has an internal mechanism to keep track of those modifications, and it is called **revisions**.
 
 The recipe revision is the hash that can be seen together with the package name and version in the form ``pkgname/version#recipe_revision``
 or ``pkgname/version@user/channel#recipe_revision``.
@@ -136,7 +136,7 @@ Though it is not a common practice, it is possible to explicitly pin a given rec
     def requirements(self):
         self.requires("zlib/1.2.12#87a7211557b6690ef5bf7fc599dd8349")
 
-This mechanism can however be tedious to maintain and update when new revisions are created, so probably in the general case, this
+This mechanism can, however, be tedious to maintain and update when new revisions are created, so probably in the general case, this
 shouldn't be done.
 
 
@@ -146,7 +146,7 @@ Lockfiles
 ---------
 
 The usage of version ranges, and the possibility of creating new revisions of a given package without bumping the version allows
-to do automatic faster and more convenient updates, without need to edit recipes. 
+to do fast, automatic and convenient updates, without the need to edit recipes. 
 
 But in some occasions, there is also a need to provide an immutable and reproducible set of dependencies. This process is known
 as "locking", and the mechanism to allow it is "lockfile" files. A lockfile is a file that contains a fixed list of dependencies,
@@ -165,7 +165,7 @@ Let's see lockfiles in action. First, let's pin the dependency to ``zlib/1.2.11`
     def requirements(self):
         self.requires("zlib/1.2.11")
 
-And let's capture a lockfile:
+Then, let's capture a lockfile:
 
 .. code-block:: bash
 

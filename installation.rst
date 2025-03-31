@@ -3,13 +3,13 @@
 Install
 =======
 
-Conan can be installed in many Operating Systems. It has been extensively used and tested in Windows, Linux (different distros), OSX, and is
+Conan can be installed on many operating systems. It has been extensively used and tested on Windows, Linux (different distros), macOS, and is
 also actively used in FreeBSD and Solaris SunOS. There are also several additional operating systems on which it has been reported to work.
 
 There are different ways to install Conan:
 
 1. The preferred and **strongly recommended way to install Conan** is from PyPI, the Python Package Index, using the ``pip`` command.
-2. Use a system installer, or create your own self-contained Conan executable, to not require Python in your system.
+2. Use a system installer, or create your own self-contained Conan executable, to not require Python on your system.
 3. Running Conan from sources.
 
 Install with pip (recommended)
@@ -28,16 +28,16 @@ Install Conan:
 
 .. important::
 
-    **Please READ carefully**
+    **Please READ carefully:**
 
     - Make sure that your **pip** installation matches your **Python (>= 3.6)** version.
-    - In **Linux**, you may need **sudo** permissions to install Conan globally.
-    - We strongly recommend using **virtualenvs** (virtualenvwrapper works great) for everything related to Python.
-      (check https://virtualenvwrapper.readthedocs.io/en/stable/, or https://pypi.org/project/virtualenvwrapper-win/ in Windows)
+    - On **Linux**, you may need **sudo** permissions to install Conan globally.
+    - We strongly recommend using **virtualenvs** (virtualenvwrapper works great) for everything related to Python
+      (check https://virtualenvwrapper.readthedocs.io/en/stable/, or https://pypi.org/project/virtualenvwrapper-win/ on Windows).
       With Python 3, the built-in module ``venv`` can also be used instead (check https://docs.python.org/3/library/venv.html).
       If not using a **virtualenv** it is possible that conan dependencies will conflict with previously existing dependencies,
       especially if you are using Python for other purposes.
-    - In **OSX**, especially the latest versions that may have **System Integrity Protection**, pip may fail. Try using virtualenvs, or
+    - On **macOS**, especially the latest versions that may have **System Integrity Protection**, pip may fail. Try using virtualenvs, or
       install it to the Python user install directory with ``$ pip install --user conan``.
     - Some Linux distros, such as Linux Mint, require a restart (shell restart, or logout/system if not enough) after
       installation, so Conan is found in the path.
@@ -58,7 +58,7 @@ When Conan is installed with :command:`pip install --user conan`, a new director
 Update
 ++++++
 
-If installed via ``pip``, Conan version can be updated with:
+If installed via ``pip``, your Conan version can be updated with:
 
 .. code-block:: bash
 
@@ -97,21 +97,21 @@ run.
 To install Conan with ``pipx``:
 
 1. Ensure ``pipx`` is installed on your system. If it isn't, check the installation
-   guidelines `in the pipx documentation <https://pypa.github.io/pipx/installation/>`_. For
+   guidelines `in the pipx documentation <https://pipx.pypa.io/stable/installation/>`_. For
    Debian-based distributions, you can install ``pipx`` using the system package manager:
 
-.. code-block:: bash
+   .. code-block:: bash
 
-    $ apt-get install pipx
-    $ pipx ensurepath
+       $ apt-get install pipx
+       $ pipx ensurepath
 
-(Note: The package name might vary depending on the distribution)
+   (Note: The package name might vary depending on the distribution)
 
 2. Restart your terminal and then install Conan using ``pipx``: 
 
-.. code-block:: bash
+   .. code-block:: bash
 
-    $ pipx install conan
+       $ pipx install conan
 
 3. Now you can use Conan as you typically would.
 
@@ -119,10 +119,10 @@ To install Conan with ``pipx``:
 Use a system installer or create a self-contained executable
 ------------------------------------------------------------
 
-There will be a number of existing installers in `Conan downloads`_ for OSX Brew, Debian, Windows, Linux Arch, that will not require Python first.
+There are a number of existing installers in `Conan downloads`_ for macOS Homebrew, Debian, Windows, Arch Linux, that will not require a Python installation.
 
 We also distribute `Conan binaries`_ for Windows, Linux, and macOS in a compressed file
-that you can uncompress in your system and run directly.
+that you can uncompress on your system and run directly.
 
 .. warning::
 
@@ -131,7 +131,7 @@ that you can uncompress in your system and run directly.
     avoid this issue, download them using a tool such as `curl`, `wget`, or similar.
 
 
-If there is no installer for your platform, you can create your own Conan executable, with the ``pyinstaller.py`` utility in the repo. This process is able to create a self-contained Conan executable that contains all it needs,
+If there is no installer for your platform, you can create your own Conan executable with the ``pyinstaller.py`` utility in the repo. This process is able to create a self-contained Conan executable that contains all it needs,
 including the Python interpreter, so it wouldn't be necessary to have Python installed in the system.
 
 You can do it with: 
@@ -147,17 +147,16 @@ You can do it with:
 
 It is important to install the dependencies and the project first with ``pip install -e .`` which configures the project as "editable", that is, to run from the current source folder. After creating the executable, it can be uninstalled with pip.
 
-This has to run in the same platform that will be using the executable, pyinstaller does not cross-build. The resulting executable can be just copied and put in the system PATH of the running machine to be able to run Conan.
+This has to run on the same platform that will be using the executable, pyinstaller does not cross-build. The resulting executable can be just copied and put in the system PATH of the running machine to be able to run Conan.
 
 
 Install from source
 -------------------
 
 You can run Conan directly from source code. First, you need to install Python and pip.
+Then, clone (or download and unzip) the Conan git repository and install it.
 
-Clone (or download and unzip) the git repository and install it.
-
-Conan 2 is still in beta stage, so you must check the `develop2` branch of the repository:
+For the latest development version, checkout the `develop2` branch of the repository:
 
 .. code-block:: bash
 
@@ -168,7 +167,7 @@ Conan 2 is still in beta stage, so you must check the `develop2` branch of the r
     $ git checkout -b develop2 origin/develop2
     $ python -m pip install -e .
 
-And test your ``conan`` installation:
+Now test your ``conan`` installation by running:
 
 .. code-block:: bash
 
@@ -177,6 +176,6 @@ And test your ``conan`` installation:
 You should see the Conan commands help.
 
 
-.. _`pip docs`: https://pip.pypa.io/en/stable/installing/
+.. _`pip docs`: https://pip.pypa.io/en/stable/installation/
 .. _`Conan downloads`: https://conan.io/downloads
 .. _`Conan binaries`: https://github.com/conan-io/conan/releases/latest

@@ -4,9 +4,9 @@
 Tool requires packages
 ======================
 
-In the ":ref:`Using build tools as Conan packages <consuming_packages_tool_requires>`" section we learned how to use
+In the ":ref:`Using build tools as Conan packages <consuming_packages_tool_requires>`" section, we learned how to use
 a tool require to build (or help building) our project or Conan package.
-In this section we are going to learn how to create a recipe for a tool require.
+In this section, we are going to learn how to create a recipe for a tool require.
 
 .. note::
 
@@ -75,19 +75,19 @@ We can check how the following simple recipe covers most of the ``tool-require``
             self.buildenv_info.define("MY_VAR", "23")
 
 
-There are few relevant things in this recipe:
+There are a few relevant things in this recipe:
 
-1. It declares ``package_type = "application"``, this is optional but convenient, it will indicate conan that the current
-   package doesn't contain headers or libraries to be linked. The consumers will know that this package is an application.
+1. It declares ``package_type = "application"``. This is optional but convenient, and will indicate to Conan that the current
+   package doesn't contain headers or libraries to be linked. Consumers will know that this package is an application.
 
 2. The ``package()`` method is packaging the executable into the ``bin/`` folder, that is declared by default as a bindir:
    ``self.cpp_info.bindirs = ["bin"]``.
 
-3. In the ``package_info()`` method, we are using ``self.buildenv_info`` to define a environment variable ``MY_VAR``
-   that will also be available in the consumer.
+3. In the ``package_info()`` method, we are using ``self.buildenv_info`` to define an environment variable ``MY_VAR``
+   that will also be available to consumers.
 
 
-Let's create a binary package for the tool_require:
+Let's create a binary package for the ``tool_require``:
 
 .. code-block:: bash
 
@@ -119,10 +119,10 @@ Let's review the ``test_package/conanfile.py``:
 
 
 We are requiring the ``secure_scanner`` package as ``tool_require`` doing ``self.tool_requires(self.tested_reference_str)``.
-In the ``test()`` method we are running the application, because it is available in the PATH. In the
-next example we are going to see why the executables from a ``tool_require`` are available in the consumers.
+In the ``test()`` method, we are running the application because it is available in the PATH. In the
+next example, we are going to see why the executables from a ``tool_require`` are available to consumers.
 
-So, let's create a consumer recipe to test if we can run the ``secure_scanner`` application of the ``tool_require`` and
+Let's create a consumer recipe to test if we can run the ``secure_scanner`` application of the ``tool_require`` and
 read the environment variable. Go to the `examples2/tutorial/creating_packages/other_packages/tool_requires/consumer`
 folder:
 
@@ -177,15 +177,15 @@ It also printed the "23" value assigned to ``MY_VAR`` but, why are these automat
 - The ``VirtualRunEnv`` is reading the ``tool-requires`` and is creating a launcher like ``conanbuildenv-release-x86_64.sh`` appending
   all ``cpp_info.bindirs`` to the ``PATH``, all the ``cpp_info.libdirs`` to the ``LD_LIBRARY_PATH`` environment variable and
   declaring each variable of ``self.buildenv_info``.
-- Every time conan executes the ``self.run``, by default, activates the ``conanbuild.sh`` file before calling any command.
+- Every time conan executes ``self.run``, it, by default, activates the ``conanbuild.sh`` file before calling any command.
   The ``conanbuild.sh`` is including the ``conanbuildenv-release-x86_64.sh``, so the application is in the PATH
-  and the enviornment variable "MYVAR" has the value declared in the tool-require.
+  and the environment variable "MYVAR" has the value declared in the ``tool-require``.
 
 
 Removing settings in package_id()
 ---------------------------------
 
-With the previous recipe, if we call :command:`conan create` with different setting like different compiler versions, we will get
+With the previous recipe, if we call :command:`conan create` with different settings like different compiler versions, we will get
 different binary packages with a different ``package ID``. This might be convenient to, for example, keep better traceability of
 our tools. In this case, the :ref:`compatibility.py<reference_extensions_binary_compatibility>` plugin can help to locate the best matching binary in case Conan doesn't find the
 binary for our specific compiler version.
@@ -228,12 +228,15 @@ So, if we call :command:`conan create` with different ``build_type`` we will get
     ...
     Package '82339cc4d6db7990c1830d274cd12e7c91ab18a1' created
 
-We got the same binary ``package_id``. The second ``conan create . -s build_type=Debug`` created and overwrote (created a newer package revision) of the previous Release binary, because they have the same ``package_id`` identifier. It is typical to create only the ``Release`` one, and if for any reason managing both Debug and Release binaries is intended, then the approach would be not removing the ``del self.info.settings.build_type``
+We got the same binary ``package_id``. The second command ``conan create . -s build_type=Debug`` created and overwrote the previous Release binary
+(it created a newer package revision), because they have the same ``package_id`` identifier.
+It is typical to create only the ``Release`` one, and if for any reason managing both Debug and Release binaries is intended,
+then the approach would be not removing the ``del self.info.settings.build_type``.
 
 
 .. seealso::
 
-    - - :ref:`examples_graph_tool_requires_protobuf`
+    - :ref:`examples_graph_tool_requires_protobuf`
     - Toolchains (compilers)
     - :ref:`Usage of runenv_info<reference_conanfile_methods_package_info_runenv_info>`
     - :ref:`More info on settings_target<binary_model_extending_cross_build_target_settings>`

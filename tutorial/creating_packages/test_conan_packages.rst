@@ -6,7 +6,7 @@ Testing Conan packages
 In all the previous sections of the tutorial, we used the *test_package*. It was invoked
 automatically at the end of the ``conan create`` command after building our package
 verifying that the package is created correctly. Let's explain the *test_package* in more
-detail in this section:
+detail in this section.
 
 Please, first clone the sources to recreate this project. You can find them in the
 `examples2 repository <https://github.com/conan-io/examples2>`_ on GitHub:
@@ -23,15 +23,15 @@ Some important notes to have in mind about the *test_package*:
   “package” tests, and validate that the package is properly created, and that the package
   consumers will be able to link against it and reuse it.
 
-* It is a small Conan project itself, it contains its own *conanfile.py*, and its source
-  code including build scripts, that depends on the package being created, and builds and
-  execute a small application that requires the library in the package.
+* It is a small Conan project itself, that contains its own *conanfile.py* and its source
+  code including build scripts. It depends on the package being created and builds and
+  executes a small application that requires the library in the package.
 
 * It doesn't belong to the package. It only exist in the source repository, not in the
   package.
 
 * The *test_package* folder is the default one, but a different one can be defined
-  in command line ``--test-folder`` argument or with the ``test_package_folder`` recipe attribute.
+  via the command line argument ``--test-folder`` or with the ``test_package_folder`` recipe attribute.
 
 The *test_package* folder for our hello/1.0 Conan package has the following contents:
 
@@ -104,31 +104,31 @@ Finally, the recipe for the *test_package* that consumes the *hello/1.0* Conan p
 Let's go through the most relevant parts:
 
 * We add the requirements in the ``requirements()`` method, but in this case we use the
-  ``tested_reference_str`` attribute that Conan sets to pass to the test_package. This is
+  ``tested_reference_str`` attribute that Conan passes to the test_package. This is
   a convenience attribute to avoid hardcoding the package name in the test_package so that
   we can reuse the same test_package for several versions of the same Conan package. In
   our case, this variable will take the ``hello/1.0`` value.
 
-* We define a ``test()`` method. This method will only be invoked in the *test_package*
-  recipes. It executes immediately after ``build()`` is called, and it's meant to run some
+* We define a ``test()`` method. This method will only be invoked in *test_package*
+  recipes. It executes immediately after ``build()`` is called and is meant to run some
   executable or tests on binaries to prove the package is correctly created. A couple of
   comments about the contents of our ``test()`` method:
   
   - We are using the :ref:`conan.tools.build.cross_building<conan_tools_build_can_run>`
-    tool to check if we can run the built executable in our platform. This tool will
-    return the value of the ``tools.build.cross_building:can_run`` in case it's set.
-    Otherwise it will return if we are cross-building or not. It’s an useful feature for
-    the case your architecture can run more than one target. For instance, Mac M1 machines
+    tool to check if we can run the built executable on the current platform. This tool will
+    return the value of the ``tools.build.cross_building:can_run`` configuration in case it's set.
+    Otherwise it will return if we are cross-building or not. It’s a useful feature for
+    the case that your architecture can run more than one target. For instance, Mac M1 machines
     can run both *armv8* and *x86_64*.
 
-  - We run the example binary, that was generated in the ``self.cpp.build.bindir`` folder
+  - We run the example binary that was generated in the ``self.cpp.build.bindir`` folder
     using the environment information that Conan put in the run environment. Conan will
     then invoke a launcher containing the runtime environment information, anything that
     is necessary for the environment to run the compiled executables and applications.
 
 Now that we have gone through all the important bits of the code, let's try our
 *test_package*. Although we already learned that the *test_package* is invoked when we
-call to ``conan create``, you can also just create the *test_package* if you have already
+call ``conan create``, you can also just create the *test_package* if you have already
 created the ``hello/1.0`` package in the Conan cache. This is done with the :ref:`conan
 test<reference_commands>` command:
 
@@ -159,10 +159,3 @@ test<reference_commands>` command:
 
 As you can see in the output, our *test_package* builds successfully testing that the
 *hello/1.0* Conan package can be consumed with no problem.
-
-
-
-.. seealso::
-
-    - Test *tool_requires* packages
-    - ...

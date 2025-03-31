@@ -19,7 +19,7 @@ In the previous examples, we declared our dependencies (*Zlib* and *CMake*) in a
     CMakeDeps
     CMakeToolchain
 
-Using a *conanfile.txt* to build your projects using Conan it's enough for simple cases,
+Using a *conanfile.txt* to build your projects using Conan is enough for simple cases,
 but if you need more flexibility you should use a *conanfile.py* file where you can use
 Python code to make things such as adding requirements dynamically, changing options
 depending on other options or setting options for your requirements. Let's see an example
@@ -33,7 +33,7 @@ Please, first clone the sources to recreate this project. You can find them in t
     $ git clone https://github.com/conan-io/examples2.git
     $ cd examples2/tutorial/consuming_packages/conanfile_py
 
-Check the contents of the folder and note that the contents are the same that in the
+Check the contents of the folder and note that the contents are the same as in the
 previous examples but with a *conanfile.py* instead of a *conanfile.txt*.
 
 .. code-block:: bash
@@ -69,7 +69,7 @@ from those sources, how to package the binaries, and information for future cons
 how to consume the package. We will explain how to use Conan recipes to create
 packages in the :ref:`Creating Packages<tutorial_creating_packages>` section later.
 
-The equivalent of the *conanfile.txt* in form of Conan recipe could look like this:
+The equivalent of the *conanfile.txt* in the form of a Conan recipe could look like this:
 
 .. code-block:: python
     :caption: **conanfile.py**
@@ -88,20 +88,20 @@ The equivalent of the *conanfile.txt* in form of Conan recipe could look like th
             self.tool_requires("cmake/3.22.6")
 
 
-To create the Conan recipe we declared a new class that inherits from the ``ConanFile``
+To create the Conan recipe, we declared a new class that inherits from the ``ConanFile``
 class. This class has different class attributes and methods:
 
-* **settings** this class attribute defines the project-wide variables, like the compiler,
+* The **settings** class attribute defines the project-wide variables, like the compiler,
   its version, or the OS itself that may change when we build our project. This is related
   to how Conan manages binary compatibility as these values will affect the value of the
   **package ID** for Conan packages. We will explain how Conan uses this value to manage
   binary compatibility later.
-* **generators** this class attribute specifies which Conan generators will be run when we
+* The **generators** class attribute specifies which Conan generators will be run when we
   call the :command:`conan install` command. In this case, we added **CMakeToolchain** and
   **CMakeDeps** as in the *conanfile.txt*.
-* **requirements()** in this method we use the ``self.requires()`` method to declare the
+* In the **requirements()** method, we use the ``self.requires()`` method to declare the
   *zlib/1.2.11* dependency.
-* **build_requirements()** in this method we use the ``self.tool_requires()`` method to declare the
+* In the **build_requirements()** method, we use the ``self.tool_requires()`` method to declare the
   *cmake/3.22.6* dependency.
 
 .. note::
@@ -158,7 +158,7 @@ same results as before.
     ZLIB VERSION: 1.2.11
     $ source deactivate_conanbuild.sh
 
-So far we have achieved the same functionality we had using a *conanfile.txt*, let's see
+So far, we have achieved the same functionality we had using a *conanfile.txt*. Let's see
 how we can take advantage of the capabilities of the *conanfile.py* to define the project
 structure we want to follow and also to add some logic using Conan settings and options.
 
@@ -217,7 +217,7 @@ Note that the definitions of the folders is different if it is a multi-config ge
 (like Visual Studio), or a single-config generator (like Unix Makefiles). In the
 first case, the folder is the same irrespective of the build type, and the build system
 will manage the different build types inside that folder. But single-config generators
-like Unix Makefiles, must use a different folder for each different configuration (as a
+like Unix Makefiles must use a different folder for each configuration (as a
 different build_type Release/Debug). In this case we added a simple logic to consider
 multi-config if the compiler name is `msvc`.
 
@@ -295,7 +295,7 @@ Use the validate() method to raise an error for non-supported configurations
 
 The :ref:`validate() method<reference_conanfile_methods_validate>` is evaluated when Conan loads the *conanfile.py* and you can use
 it to perform checks of the input settings. If, for example, your project does not support
-*armv8* architecture on macOS you can raise the `ConanInvalidConfiguration` exception to
+*armv8* architecture on macOS, you can raise the `ConanInvalidConfiguration` exception to
 make Conan return with a special error code. This will indicate that the configuration
 used for settings or options is not supported.
 
@@ -318,7 +318,7 @@ Conditional requirements using a conanfile.py
 ---------------------------------------------
 
 You could add some logic to the :ref:`requirements() method<reference_conanfile_methods_requirements>` to add or remove requirements
-conditionally. Imagine, for example, that you want to add an additional dependency in
+conditionally. Imagine, for example, that you want to add an additional dependency on
 Windows or that you want to use the system's CMake installation instead of using the Conan
 `tool_requires`:
 
@@ -383,7 +383,7 @@ Then, after the ``conan install`` step, all those resource files will be copied 
 allowing you to use them in your project's build process. For a complete example of
 how to import files from a package in the ``generate()`` method, you can refer to the
 `blog post about using the Dear ImGui library
-<https://blog.conan.io/2019/06/26/An-introduction-to-the-Dear-ImGui-library.html>`, which
+<https://blog.conan.io/2019/06/26/An-introduction-to-the-Dear-ImGui-library.html>`_, which
 demonstrates how to import bindings for the library depending on the graphics API.
 
 .. note::

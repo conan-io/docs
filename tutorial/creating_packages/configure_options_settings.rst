@@ -50,8 +50,8 @@ Let's check the relevant parts:
         ...
 
 
-You can see that we added a :ref:`configure() method<reference_conanfile_methods_configure>` to the recipe. Let's explain what's the
-objective of this method and how it's different from the ``config_options()`` method we
+You can see that we added a :ref:`configure() method<reference_conanfile_methods_configure>` to the recipe. Let's explain what the
+objective of this method is and how it's different from the ``config_options()`` method we
 already had defined in the recipe:
 
 * ``configure()``: use this method to configure which options or settings of the recipe
@@ -63,15 +63,15 @@ already had defined in the recipe:
 * ``config_options()``: This method is used to **constrain** the available options in a
   package **before they take a value**. If a value is assigned to a setting or option that is
   deleted inside this method, Conan will raise an error. In this case we are **deleting
-  the fPIC option** in Windows because that option does not exist for that operating
+  the fPIC option** on Windows because that option does not exist for that operating
   system. Note that this method is executed before the ``configure()`` method.
 
 Be aware that deleting an option using the ``config_options()`` method has a different result from using the ``configure()`` 
 method. Deleting the option in ``config_options()`` **is like we never declared
 it in the recipe** which will raise an exception saying that the option does not exist.
 However, if we delete it in the ``configure()`` method we can pass the option but it
-will have no effect. For example, if you try to pass a value to the ``fPIC`` option in
-Windows, Conan will raise an error warning that the option does not exist:
+will have no effect. For example, if you try to pass a value to the ``fPIC`` option on
+Windows, Conan will raise an error that the option does not exist:
 
 .. code-block:: text
     :caption: Windows
@@ -95,7 +95,7 @@ introduce the concept of the **Conan package ID**.
 Conan packages binary compatibility: the **package ID**
 -------------------------------------------------------
 
-We used Conan in previous examples to build for different configurations like *Debug* and
+In previous examples, we used Conan to build for different configurations like *Debug* and
 *Release*. Each time you create the package for one of those configurations, Conan will
 build a new binary. Each of them is related to a **generated hash** called **the package
 ID**. The package ID is just a way to convert a set of settings, options and information
@@ -107,7 +107,7 @@ the generated binaries package IDs.
 .. code-block:: bash
     :emphasize-lines: 6,19,29,42
     
-    $ conan create . --build=missing -s build_type=Release -tf="" # -tf="" will skip ng the test_package
+    $ conan create . --build=missing -s build_type=Release -tf="" # -tf="" will skip building the test_package
     ...
     [ 50%] Building CXX object CMakeFiles/hello.dir/src/hello.cpp.o
     [100%] Linking CXX static library libhello.a
@@ -153,14 +153,14 @@ the generated binaries package IDs.
     hello/1.0: Full package reference: hello/1.0#e6b11fb0cb64e3777f8d62f4543cd6b3:3d27635e4dd04a258d180fe03cfa07ae1186a828#67b887a0805c2a535b58be404529c1fe
     hello/1.0: Package folder /Users/user/.conan2/p/c7796386fcad5369/p
 
-As you can see Conan generated two package IDs:
+As you can see, Conan generated two package IDs:
 
 * Package *738feca714b7251063cc51448da0cf4811424e7c* for Release
 * Package *3d27635e4dd04a258d180fe03cfa07ae1186a828* for Debug
 
 These two package IDs are calculated by taking the **set of settings, options and some
 information about the requirements** (we will explain this later in the documentation) and
-**calculating a hash** with them. So, for example, in this case, they are the result of the
+**calculating a hash** of them. So, for example, in this case, they are the result of the
 information depicted in the diagram below.
 
 .. image:: /images/conan-package_id.png
@@ -173,7 +173,7 @@ to install a package, Conan will:
 * Collect the settings and options applied, along with some information about the
   requirements and calculate the hash for the corresponding package ID.
 
-* If that package ID matches one of the packages stored in the local Conan cache Conan
+* If that package ID matches one of the packages stored in the local Conan cache, Conan
   will use that. If not, and we have any Conan remote configured, it will search for a
   package with that package ID in the remotes.
 
@@ -183,16 +183,16 @@ to install a package, Conan will:
   generate a new package ID in the local cache.
 
 These steps are simplified, there is far more to package ID calculation than what we
-explain here, recipes themselves can even adjust their package ID calculations, we can
-have different recipe and package revisions besides package IDs and there's also a
+explain here. Recipes themselves can even adjust their package ID calculations, we can
+have different recipe and package revisions besides package IDs, and there's also a
 built-in mechanism in Conan that can be configured to declare that some packages with a
-certain package ID are compatible with other.
+certain package ID are compatible with each other.
 
 Maybe you have now the intuition of why we delete settings or options in Conan recipes.
-If you do that, those values will not be added to the computation of the package ID, so
+If you do that, those values will not be included in the computation of the package ID, so
 even if you define them, the resulting package ID will be the same. You can check this
-behaviour, for example with the fPIC option that is deleted when we build with the
-option ``shared=True``. Regardless of the value you pass for the fPIC option the generated
+behaviour, for example, with the fPIC option that is deleted when we build with the
+option ``shared=True``. Regardless of the value you pass for the fPIC option, the generated
 package ID will be the same for the **hello/1.0** binary:
 
 .. code-block:: bash
@@ -244,8 +244,8 @@ C libraries
 There are other typical cases where you want to delete certain settings. Imagine that you
 are packaging a C library. When you build this library, there are settings like the
 compiler C++ standard (``self.settings.compiler.cppstd``) or the standard library used
-(``self.settings.compiler.libcxx``) that won't affect the resulting binary at all. Then it
-does not make sense that they affect to the package ID computation, so a typical pattern is
+(``self.settings.compiler.libcxx``) that won't affect the resulting binary, at all. Then it
+does not make sense that they affect the package ID computation, so a typical pattern is
 to delete them in the ``configure()`` method:
 
 .. code-block:: python
@@ -254,14 +254,14 @@ to delete them in the ``configure()`` method:
         self.settings.rm_safe("compiler.cppstd")
         self.settings.rm_safe("compiler.libcxx")
 
-Please, note that deleting these settings in the ``configure()`` method will modify the
-package ID calculation but will also affect how the toolchain, and the build system
+Please, note that deleting these settings in the ``configure()`` method will not only modify the
+package ID calculation but will also affect how the toolchain and the build system
 integrations work because the C++ settings do not exist.
 
 .. note::
 
-    From Conan 2.4, the above ``configure()`` is not necessary if defined ``languages = "C"`` recipe
-    attribute (experimental).
+    From Conan 2.4, the above ``configure()`` is not necessary if the  ``languages = "C"`` recipe
+    attribute is defined (experimental).
 
 Header-only libraries
 ^^^^^^^^^^^^^^^^^^^^^
@@ -269,10 +269,10 @@ Header-only libraries
 A similar case happens with packages that package :ref:`header-only
 libraries<creating_packages_other_header_only>`. In that case,
 there's no binary code we need to link with, but just some header files to add to our
-project. In this cases the package ID of the Conan package should not be affected by
-settings or options. For that case, there's a simplified way of declaring that the
+project. Thus, the package ID of the Conan package should not be affected by
+settings or options. For that case, there's a simpler way of declaring that the
 generated package ID should not take into account settings, options or any information
-from the requirements, which is using the ``self.info.clear()`` method inside another recipe
+from the requirements: calling the ``self.info.clear()`` method inside another recipe
 method called ``package_id()``:
 
 .. code-block:: python

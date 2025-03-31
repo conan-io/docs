@@ -2,12 +2,12 @@ Other types of packages
 =======================
 
 In the previous sections, we saw how to create a new recipe for a classic C++ library but
-there are other types of packages rather than libraries.
+there are other types of packages apart from libraries.
 
 
-In this section, we will review how to create a recipe for ``header-only`` libraries, how
-to package already ``built libraries``, and how to create recipes for ``tool requires``
-and ``applications``.
+In this section, we will review how to create a recipe for *header-only* libraries, how
+to package already *built libraries*, and how to create recipes for *tool requires*
+and *applications*.
 
 
 

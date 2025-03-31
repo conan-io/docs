@@ -197,7 +197,7 @@ shared library:
     [100%] Built target compressor
 
 .. code-block:: bash
-    :caption: Linux, Macos
+    :caption: Linux, macOS
     
     $ cd build
     $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
@@ -230,19 +230,19 @@ executable can't find the shared libraries for *Zlib* that we just installed.
     ./compressor: dyld[41259]: Library not loaded: @rpath/libz.1.dylib
 
 
-This is because shared libraries (*.dll* in windows, *.dylib* in OSX and *.so* in Linux),
-are loaded at runtime. That means that the application executable needs to know where are
-the required shared libraries when it runs. On Windows, the dynamic linker will search in
-the same directory then in the *PATH* directories. On OSX, it will search in the
-directories declared in *DYLD_LIBRARY_PATH* as on Linux will use the *LD_LIBRARY_PATH*.
+This is because shared libraries (*.dll* in windows, *.dylib* in macOS and *.so* in Linux),
+are loaded at runtime. That means that the application executable needs to know where 
+the required shared libraries are when it runs. On Windows, the dynamic linker will search in
+the same directory, then in the *PATH* directories. On macOS, it will search in the
+directories declared in *DYLD_LIBRARY_PATH*, and on Linux it will use *LD_LIBRARY_PATH*.
 
 Conan provides a mechanism to define those variables and make it possible, for executables, to
 find and load these shared libraries. This mechanism is the ``VirtualRunEnv`` generator.
-If you check the output folder you will see that Conan generated a new file called
+If you check the output folder, you will see that Conan generated a new file called
 ``conanrun.sh/bat``. This is the result of automatically invoking that ``VirtualRunEnv``
 generator when we activated the ``shared`` option when doing the :command:`conan install`. This
-generated script will set the **PATH**, **LD_LIBRARY_PATH**, **DYLD_LIBRARY_PATH** and
-**DYLD_FRAMEWORK_PATH** environment variables so that executables can find the shared
+generated script will set the *PATH*, *LD_LIBRARY_PATH*, *DYLD_LIBRARY_PATH* and
+*DYLD_FRAMEWORK_PATH* environment variables so that executables can find the shared
 libraries.
 
 Activate the virtual environment, and run the executables again:
@@ -267,7 +267,7 @@ Activate the virtual environment, and run the executables again:
 
 
 Just as in the previous example with the ``VirtualBuildEnv`` generator, when we run the
-``conanrun.sh/bat`` script a deactivation script called ``deactivate_conanrun.sh/bat`` is
+``conanrun.sh/bat`` script, a deactivation script called ``deactivate_conanrun.sh/bat`` is
 created to restore the environment. Source or run it to do so:
 
 
@@ -288,7 +288,7 @@ Difference between settings and options
 
 You may have noticed that for changing between *Debug* and *Release* configuration we
 used a Conan **setting**, but when we set *shared* mode for our executable we used a
-Conan **option**. Please, note the difference between **settings** and **options**:
+Conan **option**. Please note the difference between **settings** and **options**:
 
 * **settings** are typically a project-wide configuration defined by the client machine.
   Things like the operating system, compiler or build configuration that will be common to
