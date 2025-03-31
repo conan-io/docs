@@ -3,6 +3,29 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.15.0 (31-Mar-2025)
+--------------------
+
+- Feature: Improve error messages when dealing with incorrect JSON input file formats. `#18037 <https://github.com/conan-io/conan/pull/18037>`_
+- Feature: Added new `--graph-context` to `conan list` command. `#18015 <https://github.com/conan-io/conan/pull/18015>`_ . Docs `here <https://github.com/conan-io/docs/pull/4042>`__
+- Feature: Add version-ranges patterns defined with ``[1.2.3.4.*]`` with the ``*`` at the end of the string. `#18012 <https://github.com/conan-io/conan/pull/18012>`_ . Docs `here <https://github.com/conan-io/docs/pull/4040>`__
+- Feature: Added `subsystem` field in MesonToolchain if cross-compiling between Apple OSs. `#17985 <https://github.com/conan-io/conan/pull/17985>`_
+- Feature: Added new kwarg `build_context`to `is_apple_os` helper function. `#17985 <https://github.com/conan-io/conan/pull/17985>`_
+- Feature: Integrate chmod feature in `tools.files`. `#17800 <https://github.com/conan-io/conan/pull/17800>`_ . Docs `here <https://github.com/conan-io/docs/pull/4038>`__
+- Fix: Remove backup sources from unknown refs when calling `conan cache clean`. `#18018 <https://github.com/conan-io/conan/pull/18018>`_
+- Fix: Fix SBOM author field. `#18014 <https://github.com/conan-io/conan/pull/18014>`_
+- Fix: Avoid resolving the symlinks path by default if they match the library name. `#17964 <https://github.com/conan-io/conan/pull/17964>`_
+- Fix: Make some ``from conan.internal`` and ``from conans`` usages from ``CLI`` commands private, moving to ConanAPI. `#17961 <https://github.com/conan-io/conan/pull/17961>`_
+- Fix: Add warning for ``deprecated`` attribute in recipes. `#17957 <https://github.com/conan-io/conan/pull/17957>`_ . Docs `here <https://github.com/conan-io/docs/pull/4041>`__
+- Fix: Improve relative paths in generators to be as short as possible. `#17945 <https://github.com/conan-io/conan/pull/17945>`_
+- Fix: `_Component()` has no `package_type` property. `#17943 <https://github.com/conan-io/conan/pull/17943>`_
+- Bugfix: Fix ``global.conf`` precedence over profiles ``[conf]`` and order change of per-package pattern confs. `#18028 <https://github.com/conan-io/conan/pull/18028>`_
+- Bugfix: Solve issue with ``update_policy=legacy`` and using lockfiles. `#18009 <https://github.com/conan-io/conan/pull/18009>`_
+- Bugfix: `untargz()` method was failing if directories had a more restrictive mode. `#17998 <https://github.com/conan-io/conan/pull/17998>`_
+- Bugfix: `CppInfo.auto_deduce_location` method gives more prio to exact match. `#17975 <https://github.com/conan-io/conan/pull/17975>`_
+- Bugfix: Avoid crash of ``--format=json`` serialization when custom generators inside tool-requires are referenced by class, not by name. `#17954 <https://github.com/conan-io/conan/pull/17954>`_
+- BugFix: Add correct info in metadata + prevent crash when no component is associated to root_node. `#17925 <https://github.com/conan-io/conan/pull/17925>`_
+
 2.14.0 (12-Mar-2025)
 --------------------
 
