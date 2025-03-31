@@ -160,6 +160,9 @@ The caret ``^`` operator is very similar to the tilde, but allowing variability 
 It is also possible to apply multiple conditions with the OR operator, like ``requires = "pkg/[>1 <2.0 || ^3.2]"``
 but this kind of complex expressions is not recommended in practice and should only be used in very extreme cases.
 
+There is the possibility to use string-matching over the end of the string to simplify some ranges that otherwise would require more complicated conditions (this feature is experimental). Defining ``requires=pkg/[1.2.3.*]`` will match any version that starts exactly with ``1.2.3.``, and discard others. For example it will match ``1.2.3.5`` and ``1.2.3.abc``, but it will discard ``1.2.3`` (as it doesn't have the final dot).
+
+
 Finally, note that pre-releases are not resolved by default. The way to include them in the range is to
 explicitly enable them with either the ``include_prerelease`` option (``requires = "pkg/[>1 <2, include_prerelease]"``),
 or via the ``core.version_ranges:resolve_prereleases=True`` configuration. In this example, 1.0-pre.1 and 1.5.1-pre1 will be included,
