@@ -126,11 +126,15 @@ For example, the following code:
         version = "1.0"
         deprecated = True
 
-may emit a warning like:
+may emit a ``risk`` warning like:
 
 .. code-block:: bash
 
-    cpp-taskflow/1.0: WARN: Recipe 'cpp-taskflow/1.0' is deprecated. Please, consider changing your requirements.
+    Deprecated
+        cpp-taskflow/1.0
+
+    WARN: risk: There are deprecated packages in the graph
+
 
 Optionally, the attribute may specify the name of the suggested replacement:
 
@@ -141,13 +145,16 @@ Optionally, the attribute may specify the name of the suggested replacement:
     class Pkg(ConanFile):
         name = "cpp-taskflow"
         version = "1.0"
-        deprecated = "taskflow"
+        deprecated = "Not secure, use better taskflow>1.2.3"
 
-This will emit a warning like:
+This will emit a ``risk`` warning like:
 
 .. code-block:: bash
 
-    cpp-taskflow/1.0: WARN: Recipe 'cpp-taskflow/1.0' is deprecated in favor of 'taskflow'. Please, consider changing your requirements.
+    Deprecated
+        cpp-taskflow/1.0: Not secure, use better taskflow>1.2.3
+
+    WARN: risk: There are deprecated packages in the graph
 
 If the value of the attribute evaluates to ``False``, no warning is printed.
 
