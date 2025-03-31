@@ -296,6 +296,9 @@ and ``--graph-binaries=<binary-mode>`` allow specifying what artifacts have to b
 - ``conan list --graph=graph.json --graph-recipes="*"`` list exclusively the recipes, all recipes, but no binaries
 - ``conan list --graph=graph.json --graph-binaries=download`` list exclusively the binaries that have been downloaded in the last ``conan create`` or ``conan install``
 
+Additionally, the ``--graph-context`` argument allows to filter the output by the context of the package, allowing to list either
+``build`` packages, ``host`` packages, and ``build-only`` packages or ``host-only`` packages when we want to list packages that are
+_only_ present in their respective context.
 
 Filtering packages
 ------------------
