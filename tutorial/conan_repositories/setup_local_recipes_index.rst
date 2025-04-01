@@ -9,7 +9,7 @@ upload packages or store binaries. The purpose of this remote is:
 - Enable contributors to share package recipes with the community, particularly for
   libraries that might not be suitable for ConanCenter.
 
-- It also simplifies the process of building binaries from a private `conan-center-index`
+- Simplify the process of building binaries from a private `conan-center-index`
   fork, allowing absolute control over recipes, customization, and maintaining a stable
   repository snapshot. This ensures robustness against upstream changes in ConanCenter.
   For detailed setup and usage instructions, see the dedicated section in the Conan DevOps
@@ -19,8 +19,8 @@ Setup
 -----
 
 To set up a local recipes index repository to share your own recipes, you need to organize
-your recipes in a folder structure that mimics that of `conan-center-index`. To start you
-can use the `local_recipes_index` template for the `conan new` command. For demonstration
+your recipes in a folder structure that mimics that of `conan-center-index`. To get started,
+you can use the `local_recipes_index` template for the `conan new` command. For demonstration
 purposes, let's create a `local-recipes-index` repository for a hypothetical `hello`
 library, with a license incompatible with Conan Center, using the `local_recipes_index`
 template for the `conan new` command:
@@ -34,8 +34,8 @@ template for the `conan new` command:
     $ cd ..
 
 The `conan new local_recipes_index` command creates a template that assumes CMake as the
-build system alongside other heavy assumptions. In practice, it will require customizing
-it, but for this demo, it works as-is. It will create a folder layout equal to the
+build system alongside other heavy assumptions. In practice, it will require customization,
+but for this demo, it works as-is. It will create a folder layout equal to the
 `conan-center-index` GitHub repository:
 
 .. code-block:: bash
@@ -72,7 +72,7 @@ Now you can list and install packages from this new repository:
     $ conan install --requires=hello/0.1 -r=mylocalrepo --build=missing
 
 At this point, you could push this repository to your GitHub account and share it with the
-community. Now, users simply need to clone the GitHub repository and add the cloned folder
+community. Users then simply need to clone the GitHub repository and add the cloned folder
 as a local repository themselves.
 
 .. note::
