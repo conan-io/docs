@@ -142,16 +142,16 @@ self.cpp
 --------
 
 This attribute is used to define **where consumers will find the package contents**
-(headers files, libraries, etc.) depending on whether the package is in editable mode or
+(header files, libraries, etc.) depending on whether the package is in editable mode or
 not.
 
 cpp.package
 ^^^^^^^^^^^
 
-First, we set the information for `cpp.package`. This defines the contents of the package
+First, we set the information for ``cpp.package``. This defines the contents of the package
 and its location relative to the folder where the package is stored in the local cache.
-Please note that defining this information is equivalent to defining `self.cpp_info` in
-the `package_info()` method. This is the information we defined:
+Please note that defining this information is equivalent to defining ``self.cpp_info`` in
+the ``package_info()`` method. This is the information we defined:
 
 - ``self.cpp.package.libs``: we add the ``say`` library so that consumers know that they
   should link with it. This is equivalent to declaring ``self.cpp_info.libs`` in the
@@ -160,32 +160,32 @@ the `package_info()` method. This is the information we defined:
 - ``self.cpp.package.libdirs``: we add the ``lib`` folder so that consumers know that they
   should search there for the libraries. This is equivalent to declaring
   ``self.cpp_info.libdirs`` in the ``package_info()`` method. Note that the default value
-  for ``libdirs`` in both the ``cpp_info`` and ``cpp.package`` is ``["lib"]`` so we could
+  for ``libdirs`` in both ``cpp_info`` and ``cpp.package`` is ``["lib"]``, so we could
   have omitted that declaration.
 
 - ``self.cpp.package.includedirs``: we add the ``include`` folder so that consumers know
   that they should search there for the library headers. This is equivalent to
   declaring ``self.cpp_info.includedirs`` in the ``package_info()`` method. Note that the
-  default value for ``includedirs`` in both the ``cpp_info`` and ``cpp.package`` is
-  ``["include"]`` so we could have omitted that declaration.
+  default value for ``includedirs`` in both ``cpp_info`` and ``cpp.package`` is
+  ``["include"]``, so we could have omitted that declaration.
 
-To check how this information affects consumers we are going to do first do a ``conan create`` on
-the ``say`` package:
+To check how this information affects consumers, we are going to first do a 
+:command:`conan create` on the ``say`` package:
 
 .. code-block:: bash
 
     $ cd say
     $ conan create . -s build_type=Release
 
-When we call ``conan create``, Conan moves the recipe and sources declared in the recipe
-to be exported to the local Cache to a recipe folder and after that, it will create a
+When we call :command:`conan create`, Conan moves the recipe and sources declared in the recipe
+to be exported to the local cache to a recipe folder and after that, it will create a
 separate package folder to build the binaries and store the actual package contents. If
 you check in the ``[YOUR_CONAN_HOME]/p`` folder, you will find two new folders similar to
 these:
 
 .. tip::
 
-    You could get the exact locations for this folders using the :command:`conan cache`
+    You could get the exact locations for these folders using the :command:`conan cache`
     command or checking the output of the :command:`conan create` command.
 
 .. code-block:: text
@@ -212,7 +212,7 @@ these:
 
 You can identify there the structure we defined in the ``layout()`` method. If you build
 the ``hello`` consumer project now, it will search for all the headers and libraries of
-``say`` in that folder inside the local Cache in the locations defined by ``cpp.package``:
+``say`` in that folder inside the local cache in the locations defined by ``cpp.package``:
 
 .. code-block:: bash
     :emphasize-lines: 13, 11
@@ -248,7 +248,7 @@ use to find headers and binaries. We defined:
 
 - ``self.cpp.source.includedirs`` set to ``["include"]``. This location is relative to the
   ``self.folders.source`` that we defined to ``.``. In the case of editable packages, this
-  location will be the local folder where we have our project.
+  location will be the local folder where our project resides.
 
 - ``self.cpp.build.libdirs`` set to ``["."]``. This location is relative to the
   ``self.folders.build`` that we defined to **./build/<build_type>**. In the case of
@@ -256,13 +256,13 @@ use to find headers and binaries. We defined:
 
 
 Note that other ``cpp.source`` and ``cpp.build`` definitions are also possible, with different 
-meanings and purposes, for example:
+meanings and purposes. For example:
 
 - ``self.cpp.source.libdirs`` and ``self.cpp.source.libs`` could be used if we had pre-compiled
   libraries in the source repo, committed to git, for example. They are not a product of the build,
   but rather part of the sources.
-- ``self.cpp.build.includedirs`` could be use for folders containing headers generated at build
-  time, as it usually happens by some code generators that are fired by the build before starting
+- ``self.cpp.build.includedirs`` could be used for folders containing headers generated at build
+  time, as it usually happens by some code generators that are invoked by the build before starting
   to compile the project.
   
 To check how this information affects consumers, we are going to first put the ``say``
@@ -276,7 +276,7 @@ package in editable mode and build it locally.
     $ cmake --preset conan-release
     $ cmake --build --preset conan-release
 
-You can check the contents of the say project's folder now, you can see that the output
+If you check the contents of the say project's folder now, you can see that the output
 folders match the ones we defined with ``self.folders``:
 
 .. code-block:: text
