@@ -185,8 +185,8 @@ would be:
 
     - Read the :ref:`Getting started, creating packages<creating_packages_create_your_first_conan_package>` to know how to declare and how to
       define a value to an option.
-    - Removing options in the ``package_id()`` method. <MISSING PAGE>
-    - About the package_type and how it plays when a ``shared`` option is declared. <MISSING PAGE>
+    - :ref:`Removing options in the package_id() method<reference_conanfile_methods_package_id_clear>``.
+    - Read :ref:`how the package_type attribute behaves when a shared option is declared<reference_conanfile_attributes_package_type>`.
 
 
 .. _conan_conanfile_properties_default_options:

@@ -132,6 +132,9 @@ This will result in all other compilers rather than ``gcc`` and other versions o
 This approach is not recommended in the general case, and it would be better approached with the global ``compatibility`` plugin or the recipe ``compatibility()`` method.
 
 
+.. note::
+
+   Not only ``settings`` can be erased, but every other type of information such as ``options`` and ``conf`` items.
 
 Adding information
 ------------------
