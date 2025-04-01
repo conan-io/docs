@@ -41,16 +41,16 @@ conan source
 You will generally want to start with the :command:`conan source` command. The strategy
 here is that you’re testing your source method in isolation and downloading the files to a
 temporary sub-folder relative to the `conanfile.py`. This relative folder is defined by
-the `self.folders.source` property in the `layout()` method. In this case, as we are using
-the pre-defined `cmake_layout` we set the value with the `src_folder` argument.
+the ``self.folders.source`` property in the ``layout()`` method. In this case, as we are using
+the pre-defined ``cmake_layout``, we set the value with the ``src_folder`` argument.
 
 .. note::
 
-    In this example we are packaging a third-party library from a remote repository. In the
+    In this example, we are packaging a third-party library from a remote repository. In 
     case you have your sources beside your recipe in the same repository, running
     :command:`conan source` will not be necessary for most of the cases.
 
-Let's have a look at the recipe's `source()` and `layout()` method:
+Let's have a look at the recipe's ``source()`` and ``layout()`` method:
 
 ..  code-block:: python
 
@@ -147,7 +147,7 @@ Now run the :command:`conan install` command and check the results:
     conanfile.py (hello/1.0): Generating aggregated env files 
 
 You can see that a new `build` folder appeared with all the files that Conan needs for
-building the library like a toolchain for `CMake` and several environment configuration
+building the library like a toolchain for CMake and several environment configuration
 files.
 
 ..  code-block:: text
@@ -183,12 +183,12 @@ files.
             └── example.cpp
 
 Now that all the files necessary for building are generated, you can move on to testing
-the `build()` method. 
+the ``build()`` method. 
 
 conan build
 -----------
 
-Running the After :command:`conan build` command will invoke the `build()` method:
+Running the :command:`conan build` command will invoke the ``build()`` method:
 
 .. code-block:: python
 
@@ -220,7 +220,7 @@ Let's run :command:`conan build`:
     conanfile.py (hello/1.0): RUN: cmake --build ...
     [100%] Built target hello
 
-For most of the recipes, the `build()` method should be very simple, and you can also
+For most recipes, the ``build()`` method should be very simple, and you can also
 invoke the build system directly, without invoking Conan, as you have all the necessary
 files available for building. If you check the contents of the `src` folder, you'll find a
 `CMakeUserPresets.json` file that you can use to configure and build the `conan-release`
@@ -246,10 +246,10 @@ got using the :command:`conan build` command.
 conan export-pkg
 ----------------
 
-Now that we built the package binaries locally we can also package those artifacts in the
+Now that we've built the package binaries locally, we can also package those artifacts in the
 Conan local cache using the :command:`conan export-pkg` command. Please note that this
-command will create the package in the Conan cache and test it running the `test_package`
-after that.
+command will create the package in the Conan cache and test it by running the `test_package`
+afterwards.
 
 ..  code-block:: bash
 
@@ -278,7 +278,7 @@ after that.
     hello/1.0: __apple_build_version__14000029
 
 Now you can list the packages in the local cache and check that the ``hello/1.0`` package
-was created.
+was created:
 
 ..  code-block:: bash
 
@@ -294,4 +294,5 @@ was created.
       :ref:`export-pkg<reference_commands_export-pkg>` and
       :ref:`test<reference_commands_test>` commands.
     - Packaging prebuilt binaries :ref:`example<creating_packages_other_prebuilt>`
-    - When you are locally developing packages, at some poing you might need to step-into dependencies code while debugging. Please read this :ref:`example how to debug and step-into dependencies <examples_dev_flow_debug_step_into>` for more information about this use case.
+    - When you are locally developing packages, at some point you might need to step into dependencies code while debugging.
+      Please read this :ref:`example how to debug and step into dependencies <examples_dev_flow_debug_step_into>` for more information about this use case.
