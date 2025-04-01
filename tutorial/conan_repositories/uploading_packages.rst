@@ -3,7 +3,7 @@
 Uploading Packages
 ==================
 
-In the previous section we learned how to :ref:`set up a Conan repository
+In the previous section, we learned how to :ref:`set up a Conan repository
 <setting_up_conan_remotes>`. Now we will go through the process of uploading both recipes
 and binaries to this remote and store them for later use on another machine, project, or
 for sharing purposes.
@@ -14,15 +14,15 @@ First, check if the remote you want to upload to is already in your current remo
 
     $ conan remote list
 
-You can search any remote in the same way you search your Conan local cache. Actually,
-many Conan commands can specify a specific remote.
+You can search any remote in the same way as you search your Conan local cache. Actually,
+many Conan commands optionally accept a specific remote:
 
 .. code-block:: bash
 
     $ conan search "*" -r=my_local_server
 
 Now, upload the package recipe and all the packages to your remote. In this example, we
-are using our ``my_local_server`` remote, but you could use any other.
+are using our ``my_local_server`` remote, but you could use any other:
 
 .. code-block:: bash
 
@@ -36,7 +36,7 @@ it is running on your local machine, as it could be running on another server in
     $ conan search hello -r=my_local_server
 
 
-Now we can check if we can download and use them in a project. For that purpose, we first
+Now we can check if we can download the packages and use them in a project. For that purpose, we first
 have to **remove the local copies**, otherwise the remote packages will not be downloaded. Since we
 have just uploaded them, they are identical to the local ones.
 
@@ -45,13 +45,13 @@ have just uploaded them, they are identical to the local ones.
     $ conan remove hello -c
     $ conan list hello
 
-Now, to install the uploaded package from the Conan repository just do:
+Now, to install the uploaded package from the Conan repository just run:
 
 .. code-block:: bash
 
     $ conan install --requires=hello/1.0 -r=my_local_server
 
-You can check the package existence on your local computer again with:
+You can check whether the package exists on your local computer again with:
 
 .. code-block:: bash
 
