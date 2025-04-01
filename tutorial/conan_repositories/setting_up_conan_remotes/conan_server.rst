@@ -1,6 +1,6 @@
 .. _conan_server:
 
-Setting-up a Conan Server
+Setting up a Conan Server
 =========================
 
 .. important::
@@ -36,8 +36,8 @@ Then you can run the server:
 
 .. note::
 
-    On Windows, you may experience problems with the server if you run it under bash/msys.
-    It is better to launch it in a regular ``cmd`` window.
+    On Windows, you may experience problems with the server if you run it under Bash/MSYS2.
+    It is recommended to launch it in a regular ``cmd`` window.
 
 .. seealso::
 
