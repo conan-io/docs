@@ -7,7 +7,7 @@ The normal way of working with Conan packages is to run a ``conan create`` or ``
 export-pkg`` to store them in the local cache, so that consumers use the packages stored
 in the cache. In some cases, when you want to consume these packages while developing
 them, it can be tedious to run ``conan create`` each time you make changes to the package.
-For those cases, you can put your package in editable mode, and consumers will be able to
+For those cases, you can put your package in editable mode and consumers will be able to
 find the headers and artifacts in your local working directory, eliminating the need for
 packaging.
 
@@ -22,7 +22,7 @@ Please, first of all, clone the sources to recreate this project. You can find t
     $ git clone https://github.com/conan-io/examples2.git
     $ cd examples2/tutorial/developing_packages/editable_packages
 
-There are 2 folders inside this project:
+There are two folders inside this project:
 
 ..  code-block:: text
 
@@ -41,7 +41,7 @@ There are 2 folders inside this project:
             └── say.cpp
 
 
-- A "say" folder containing a fully fledged package, with its ``conanfile.py`` and its source
+- A "say" folder containing a full-fledged package, with its ``conanfile.py`` and its source
   code.
 - A "hello" folder containing a simple consumer project with a ``conanfile.py`` and its
   source code, which depends on the ``say/1.0`` requirement.
@@ -79,23 +79,23 @@ depending on the platform and generator used.
 
 Now that the ``say/1.0`` package is in editable mode, let's build it locally:
 
-.. include:: ../cmake_presets_note.inc
-
 .. code-block:: bash
 
     $ cd say
 
-    # Windows: we will build 2 configurations to show multi-config
+    # Windows: we will build two configurations to show multi-config
     $ conan install . -s build_type=Release
     $ conan install . -s build_type=Debug
     $ cmake --preset conan-default
     $ cmake --build --preset conan-release
     $ cmake --build --preset conan-debug
 
-    # Linux, MacOS: we will only build 1 configuration
+    # Linux, macOS: we will build only one configuration
     $ conan install .
     $ cmake --preset conan-release
     $ cmake --build --preset conan-release
+
+.. include:: ../cmake_presets_note.inc
 
 
 Using say/1.0 package in editable mode
@@ -108,7 +108,7 @@ In this case we can build the ``hello`` application as usual:
 
     $ cd ../hello
 
-    # Windows: we will build 2 configurations to show multi-config
+    # Windows: we will build two configurations to show multi-config
     $ conan install . -s build_type=Release
     $ conan install . -s build_type=Debug
     $ cmake --preset conan-default
@@ -121,22 +121,23 @@ In this case we can build the ``hello`` application as usual:
     say/1.0: Hello World Debug!
     ...
 
-    # Linux, MacOS: we will only build 1 configuration
+    # Linux, macOS: we will only build one configuration
     $ conan install .
     $ cmake --preset conan-release
     $ cmake --build --preset conan-release
     $ ./build/Release/hello
     say/1.0: Hello World Release!
 
-As you can see, ``hello`` can successfully find ``say/1.0`` header and library files.
+As you can see, ``hello`` can successfully find the header and library files of the
+``say/1.0`` package.
 
 
 Working with editable packages
 ------------------------------
 
 Once the above steps have been completed, you can work with your build system or IDE
-without involving Conan and make changes to the editable packages. The consumers will use
-those changes directly. Let's see how this works by making a change in the ``say`` source
+without involving Conan and make changes to the editable packages. Any changes will directly 
+apply to consumers. Let's see how this works by making a change in the ``say`` source
 code:
 
 .. code-block:: bash
@@ -144,11 +145,11 @@ code:
     $ cd ../say
     # Edit src/say.cpp and change the error message from "Hello" to "Bye"
 
-    # Windows: we will build 2 configurations to show multi-config
+    # Windows: we will build two configurations to show multi-config
     $ cmake --build --preset conan-release
     $ cmake --build --preset conan-debug
 
-    # Linux, MacOS: we will only build 1 configuration
+    # Linux, macOS: we will only build one configuration
     $ cmake --build --preset conan-release
 
 
@@ -167,7 +168,7 @@ And build and run the "hello" project:
     $ Debug\hello.exe
     say/1.0: Bye World Debug!
 
-    # Linux, MacOS
+    # Linux, macOS
     $ cmake --build --preset conan-release
     $ ./hello
     say/1.0: Bye World Release!
@@ -183,13 +184,13 @@ Building editable dependencies
 If there are many editable dependencies, it might be inconvenient to go one by one, building them in the right order.
 It is possible to do an ordered build of the editable dependencies with the ``--build`` argument.
 
-Let's clean the previous local executables:
+Let's clean the previous local executables first:
 
 .. code-block:: bash
 
     $ git clean -xdf
 
-And using the ``build()`` method in the ``hello/conanfile.py`` recipe that we haven't really used so far (because
+Using the ``build()`` method in the ``hello/conanfile.py`` recipe that we haven't really used so far (because
 we have been building directly calling ``cmake``, not by calling ``conan build`` command), we can do such build with
 just:
 
@@ -198,7 +199,7 @@ just:
     $ conan build hello
 
 
-Note that all we had to do to do a full build of this project is these two commands. Starting from scratch in a different folder:
+Note that all we had to do to perform a full build of this project is these two commands. Starting from scratch in a different folder:
 
 .. code-block:: bash
 
@@ -215,18 +216,18 @@ built in the cache. If there are multiple ``editable`` dependencies, with nested
 in the right order. 
 
 If editable packages have dependants in the Conan cache, it is possible to force the rebuild from source of the
-cache dependants by using ``--build=editable --build=cascade``. In general this should be avoided, and the recommendation if it
-is needed to rebuild those dependencies is to put them in editable mode too.
+cache dependants by using ``--build=editable --build=cascade``. In general, this should be avoided, however.
+If it is needed to rebuild those dependencies, the recommendation is to put them in editable mode too.
 
-Note that it is possible to build and test a package in editable with with its own ``test_package`` folder.
-If a package is put in ``editable`` mode, and if it contains a ``test_package`` folder, the ``conan create`` command
+Note that it is possible to build and test a package in editable mode with its own ``test_package`` folder.
+If a package is put in editable mode, and if it contains a ``test_package`` folder, the :command:`conan create` command
 will still do a local build of the current package. 
 
 
 Revert the editable mode
 ------------------------
 
-In order to revert the editable mode just remove the link using:
+In order to disable editable mode for a package, just remove the link using:
 
 .. code-block:: bash
 
@@ -240,4 +241,4 @@ requirement will get it from the cache again.
     Packages that are built while consuming an editable package in their upstreams can
     generate binaries and packages that are incompatible with the released version of the
     editable package. Avoid uploading these packages without re-creating them with the
-    in-cache version of all the libraries.
+    in-cache version of all libraries.
