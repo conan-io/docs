@@ -125,6 +125,32 @@ This generates new properties files for this custom configuration, and switching
 in the IDE allows to gather dependencies configuration like Debug/Release, and
 even static and/or shared libraries.
 
+Platform
+---------
+
+By default, the ``Platform`` is computed from the Conan ``arch`` setting as:
+
+==============  ====================  
+Conan ``arch``  MSBuild ``Platform``     
+==============  ==================== 
+x86             Win32
+x86_64          x64
+armv7           ARM
+armv8           ARM6
+==============  ==================== 
+
+This default platform can be overriden if necessary, for example for Wix projects that want to 
+use ``Platform=x86`` instead of ``Win32``, by defining the ``platform`` attribute:
+
+.. code-block:: python
+
+  def generate(self):
+    deps = MSBuildDeps(self)
+    if self.settings.arch == "x86":
+        deps.platform = "x86"  # Override the "Win32" default value
+    deps.generate()
+
+  
 Dependencies
 --------------
 
