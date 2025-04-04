@@ -17,15 +17,17 @@ and create a file named ``android`` with the following contents:
     include(default)
 
     [settings]
+    # Just an example, you need to use your real settings
     os=Android
     os.api_level=21
     arch=armv8
     compiler=clang
     compiler.version=12
-    compiler.libcxx=c++_static
+    compiler.libcxx=c++_shared
     compiler.cppstd=14
 
     [conf]
+    # Use your path here
     tools.android:ndk_path=/usr/local/share/android-ndk
 
 You might need to modify:
@@ -48,7 +50,8 @@ We can provision for Ninja directly in our profile with ``[tool_requires]``:
 
     ...
     [conf]
-    tools.android:ndk_path=C:\ws\android\android-ndk-r23b  # Use your path here
+    # Use your path here
+    tools.android:ndk_path=C:\ws\android\android-ndk-r23b
     tools.cmake.cmaketoolchain:generator=Ninja
 
     [tool_requires]
@@ -93,7 +96,7 @@ There is already a Conan package in ConanCenter containing the AndroidNDK, so wr
   arch=armv8
   compiler=clang
   compiler.version=18
-  compiler.libcxx=c++_static
+  compiler.libcxx=c++_shared
   compiler.cppstd=14
   build_type=Release
 
