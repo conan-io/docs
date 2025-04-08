@@ -59,7 +59,7 @@ Then, let's say that we have a basic CMake project, which we can create with the
     [100%] Built target example
 
 The example.exe will not be executed in the Linux machine, because the ``test_package`` contains 
-a ``if can_run(self)`` to not run it in cross-build scenarios.
+a ``if can_run(self)`` branch to not run it in cross-build scenarios.
 
 We can now take the ``example.exe`` and run it in a Windows machine:
 
