@@ -9,7 +9,7 @@ Note that such a compiler won't be using the MSVC runtime, but the MinGW one, wh
 uses the ``libstdc++6.dll`` runtime.
 
 This `blog post about Clang in Windows <https://blog.conan.io/2022/10/13/Different-flavors-Clang-compiler-Windows.html>`_
-describe the different runtimes for the different Windows subsystems, which is equally applicable to MinGW.
+describes the different runtimes for the different Windows subsystems, which is equally applicable to MinGW.
 
 The first step would be to install the compiler. In Debian based systems:
 
