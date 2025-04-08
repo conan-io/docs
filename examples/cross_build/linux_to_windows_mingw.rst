@@ -84,5 +84,5 @@ We can now take the ``example.exe`` and run it in a Windows machine:
       support is not guaranteed.
     - Trying to run the executables with some emulators like ``wine`` might require extra effort, because
       the runtime environment is intended to be Windows, and as such a ``conanrun.bat`` environment file
-      will be created, but that cannot be executed in Linux. Using configuration like ``-c tools.build.cross_building:can_run=True -c tools.microsoft.bash:subsystem=mingw -c tools.microsoft.bash:active=True``
+      will be created, but that cannot be executed in Linux. Using configurations like ``-c tools.build.cross_building:can_run=True -c tools.microsoft.bash:subsystem=mingw -c tools.microsoft.bash:active=True``
       can allow to force the generation and execution of ``conanrun.sh``.
