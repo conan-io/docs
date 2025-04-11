@@ -87,7 +87,7 @@ conan profile path
 ------------------
 
 .. autocommand::
-    :command: conan
+    :command: conan profile path -h
 
 
 Use to get the profile location in your ``[CONAN_HOME]`` folder:
