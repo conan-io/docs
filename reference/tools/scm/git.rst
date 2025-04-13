@@ -4,6 +4,7 @@ Git
 ===
 
 The ``Git`` helper is a thin wrapper over the ``git`` command. It can be used for different purposes:
+
 - Obtaining the current tag in the ``set_version()`` method to assign it to ``self.version``
 - Clone sources in third-party or open source package recipes in the ``source()`` method (in general, doing a ``download()`` or ``get()`` to fetch release tarballs will be preferred)
 - Capturing the "scm" coordinates (url, commit) of your own package sources in the ``export()`` method, to be able to reproduce a build from source later, retrieving the code in the ``source()`` method. See the :ref:`example of git-scm capture<examples_tools_scm_git_capture>`.
