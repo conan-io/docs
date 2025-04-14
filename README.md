@@ -1,7 +1,5 @@
 Documentation for Conan C/C++ package manager: https://conan.io
 
-[![Build Status](https://travis-ci.org/conan-io/docs.svg?branch=master)](https://travis-ci.org/conan-io/docs)
-
 How to build
 ============
 
