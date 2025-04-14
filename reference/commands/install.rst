@@ -145,9 +145,11 @@ It is possible to also invoke the package recipes ``deploy()`` method with the `
 .. code-block:: bash
 
     # Execute deploy() method of every recipe that defines it
-    $ conan install --requires=pkg/0.1 --deployer-package=*
+    $ conan install --requires=pkg/0.1 --deployer-package="*"
     # Execute deploy() method only for "pkg" (any version) recipes
-    $ conan install --requires=pkg/0.1 --deployer-package=pkg/*
+    $ conan install --requires=pkg/0.1 --deployer-package="pkg/*"
+    # Execute deploy() method for all packages except the "zlib" (transitive dep) one
+    $ conan install --requires=pkg/0.1 --deployer-package="*" --deployer-package="~zlib/*"
 
 The ``--deployer-package`` argument is a pattern and accepts multiple values, all package references matching any of the defined patterns will execute its ``deploy()`` method.
 This includes negated patterns, where for example ``--deployer-package=~pkg/*`` will execute the ``deploy()`` method for all packages except for that of the ``pkg`` recipe.
