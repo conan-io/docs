@@ -42,6 +42,30 @@ And it can also be fully instantiated in the conanfile ``generate()`` method:
             ms.generate()
 
 
+Note that instantiating the ``VirtualBuildEnv()`` generator without later calling the ``generate()`` method,
+which is intended only for the ``generate()`` recipe method, will inhibit the creation of environment files.
+
+So something like:
+
+.. code-block:: python
+
+    ms = VirtualBuildEnv(self)
+    my_env_var = ms.vars().get("MY_ENV_VAR")
+    # does not create conanbuildenv.sh|.bat files
+
+
+will stop creating the ``conanbuild.sh|.bat`` and ``conanbuildenv.sh|.bat`` files that are created by default,
+even when ``VirtualBuildEnv`` is not instantiated.
+
+In order to keep creating those files, the ``auto_generate=True`` argument can be passed to the constructor, as:
+
+.. code-block:: python
+
+    ms = VirtualBuildEnv(self, auto_generate=True)
+    my_env_var = ms.vars().get("MY_ENV_VAR")
+    # does create conanbuildenv.sh|.bat files
+
+
 
 Generated files
 ---------------
