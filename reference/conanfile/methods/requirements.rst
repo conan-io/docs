@@ -88,7 +88,8 @@ when we want to use different versions of the same package during the build.
 transitive_headers
 ~~~~~~~~~~~~~~~~~~
 
-If ``True`` the headers of the dependency will be visible downstream.
+If ``True`` the headers of the dependency will be visible downstream. 
+Read more about this trait in the :ref:`tutorial for headers transitivity<tutorial_create_packages_headers_transitivity>`.
 
 transitive_libs
 ~~~~~~~~~~~~~~~
