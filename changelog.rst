@@ -3,6 +3,12 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.15.1 (14-Apr-2025)
+--------------------
+
+- Feature: Update Apple products supported versions. `#18122 <https://github.com/conan-io/conan/pull/18122>`_ . Docs `here <https://github.com/conan-io/docs/pull/4063>`__
+
+
 2.15.0 (31-Mar-2025)
 --------------------
 
