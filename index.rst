@@ -18,6 +18,7 @@ Table of contents:
    tutorial
    CI Tutorial <ci_tutorial/tutorial>
    devops/devops
+   security/security
    integrations
    examples
    reference
