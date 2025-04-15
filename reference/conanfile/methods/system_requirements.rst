@@ -101,3 +101,17 @@ On the other hand, the ``report-installed`` mode will do a check if the package 
             ]
         }
     }
+
+
+Build time system requirements 
+------------------------------
+
+In some scenarios, it might be possible that some system-requirements are only necessary exclusively at
+build time. For those scenarios, there are 2 possibilities:
+
+- Add the logic that install the build-time system requirements in a different method, like the ``build()``
+  method or the ``generate()`` method.
+- Wrap the installation and logic for the build-time system requirement in its own package recipe, and use
+  that recipe as a ``tool_requires``. 
+  
+There are examples :ref:`for build-time system requirements in this section <examples_tools_system_consuming_system_packages>`

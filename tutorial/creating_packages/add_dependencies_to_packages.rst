@@ -117,6 +117,43 @@ colour now:
       hello/1.0: __clang_minor__ 1
       hello/1.0: __apple_build_version__ 13160021
 
+.. _tutorial_create_packages_headers_transitivity:
+
+Headers transitivity
+--------------------
+
+By default, Conan assumes that the required dependency headers are an implementation detail of the current package,
+to promote good software engineering practices like low coupling and encapsulation. In the example above, ``fmt``
+is purely an implementation detail in the ``hello/1.0`` package. Consumers of ``hello/1.0`` will not know anything
+about ``fmt``, or has access to its headers, if a consumer of ``hello/1.0`` would try to add a ``#include <fmt/color.h>``,
+it will fail, not being able to find that headers.
+
+But if the public headers of the ``hello/1.0`` package have the ``#include`` to ``fmt`` headers, that means that such
+headers must be propagated down to allow consumers of ``hello/1.0`` to be compiled successfully. As this is not the
+default expected behavior, recipes must declare it as:
+
+.. code-block:: python
+
+    class helloRecipe(ConanFile):
+        name = "hello"
+        version = "1.0"
+
+        def requirements(self):
+            self.requires("fmt/8.1.1", transitive_headers=True)
+
+
+That will propagate the necessary compilation flags and headers ``includedirs`` to the consumers of ``hello/1.0``.
+
+.. note::
+
+  **Best practices**
+
+  If a consumer of ``hello/1.0`` had a direct inclusion to ``fmt`` headers such as ``#include <fmt/color.h>``, then,
+  such a consumer should declare its own ``self.requires("fmt/8.1.1")`` requirement, as that is a direct requirement.
+  In other words, even if the dependency to ``hello/1.0`` was removed from that consumer, it would still depend on ``fmt``,
+  and consequently it cannot abouse the transitivity of the ``fmt`` headers from ``hello``, but declare them explicitly.
+
+
 .. seealso::
 
   - :ref:`Reference for requirements() method <reference_conanfile_methods_requirements>`.

@@ -33,36 +33,6 @@ To list all the possible configurations available, run :command:`conan config li
     :command: conan config list
 
 
-Description of configurations
-+++++++++++++++++++++++++++++
-
-core.cache:storage_path
-^^^^^^^^^^^^^^^^^^^^^^^
-
-Absolute path to a folder where the Conan packages and the database of the packages will be stored.
-This folder will be the heaviest Conan storage folder, as it stores the binary packages downloaded or created.
-
-.. code-block:: text
-    :caption: *global.conf*
-
-    core.cache:storage_path = C:\Users\danielm\my_conan_storage_folder
-
-**Default value:** ``<CONAN_HOME>/p``
-
-core.download:download_cache
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Absolute path to a folder where the Conan packages will be stored *compressed*.
-This is useful to avoid recurrent downloads of the same packages, especially in CI.
-
-.. code-block:: text
-    :caption: *global.conf*
-
-    core.download:download_cache = C:\Users\danielm\my_download_cache
-
-**Default value:** Not defined.
-
-
 User/Tools configurations
 -------------------------
 
@@ -243,6 +213,65 @@ For instance:
   as it disables certificate validation. Do not use it unless you understand the implications
   (And even then, properly scoping the conf to only the required recipes is a good idea)
   or if you are using it for development purposes
+
+Proxies
++++++++
+
+There are 3 ``confs`` that can define proxies information:
+
+.. code-block:: bash
+
+  $ conan config list proxies
+  core.net.http:clean_system_proxy: If defined, the proxies system env-vars will be discarded
+  core.net.http:no_proxy_match: List of urls to skip from proxies configuration
+  core.net.http:proxies: Dictionary containing the proxy configuration
+
+The ``core.net.http:proxies`` dictionary is passed to the underlying ``python-requests`` library, to the "proxies" argument
+as described in the `python-requests documentation <https://requests.readthedocs.io/en/latest/user/advanced/#proxies>`_
+
+The ``core.net:no_proxy_match`` is a list of URL patterns, like:
+
+.. code-block:: ini
+
+  core.net.http:no_proxy_match = ["http://someurl.com/*"]
+
+
+for URLs to be excluded from the ``proxies`` configuration. That means that all URLs that are referenced that matches any
+of those patterns will not receive the ``proxies`` definition. Note the ``*`` in the pattern is necessary for the match.
+
+If ``core.net.http:clean_system_proxy`` is ``True``, then the environment variables ``"http_proxy", "https_proxy", "ftp_proxy", "all_proxy", "no_proxy"``,
+will be temporary removed from the environment, so they are not taken into account when resolving proxies.
+
+
+
+Storage configurations
+----------------------
+
+core.cache:storage_path
++++++++++++++++++++++++
+
+Absolute path to a folder where the Conan packages and the database of the packages will be stored.
+This folder will be the heaviest Conan storage folder, as it stores the binary packages downloaded or created.
+
+.. code-block:: text
+    :caption: *global.conf*
+
+    core.cache:storage_path = C:\Users\danielm\my_conan_storage_folder
+
+**Default value:** ``<CONAN_HOME>/p``
+
+core.download:download_cache
+++++++++++++++++++++++++++++
+
+Absolute path to a folder where the Conan packages will be stored *compressed*.
+This is useful to avoid recurrent downloads of the same packages, especially in CI.
+
+.. code-block:: text
+    :caption: *global.conf*
+
+    core.download:download_cache = C:\Users\danielm\my_download_cache
+
+**Default value:** Not defined.
 
 
 UX confs
