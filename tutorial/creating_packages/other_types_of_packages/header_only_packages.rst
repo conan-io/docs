@@ -39,6 +39,8 @@ This is a basic recipe for a header-only recipe:
         exports_sources = "include/*"
         # We can avoid copying the sources to the build folder in the cache
         no_copy_source = True
+        # Important, define the package_type
+        package_type = "header-library"
 
         def package(self):
             # This will also copy the "include" folder
@@ -160,6 +162,8 @@ We have the same header-only library that sums two numbers, but now we have this
         exports_sources = "include/*", "test/*"
         no_copy_source = True
         generators = "CMakeToolchain", "CMakeDeps"
+        # Important, define the package_type
+        package_type = "header-library"
 
         def requirements(self):
             self.test_requires("gtest/1.11.0")
