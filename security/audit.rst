@@ -3,12 +3,11 @@
 Scanning dependencies with conan audit
 ======================================
 
-Starting in **Conan 2.14**, we introduced a new command: `conan audit`. It’s a built-in
-way to **scan your dependencies for known CVEs**.
+A new command, `conan audit`, was added in **Conan 2.14**. It provides a built-in way to
+**scan your dependencies for known CVEs**.
 
 For a step-by-step guide on authentication, usage examples, output formats, and setting up
-private providers, see :ref:`Checking package vulnerabilities <devops_audit>`, but in
-short:
+private providers, see :ref:`Checking package vulnerabilities <devops_audit>`. In short:
 
 1. **Register** at `audit.conan.io <https://audit.conan.io/register>`_
 2. **Save your token** and **activate it** via the confirmation email you receive.  
@@ -29,8 +28,8 @@ short:
    conan audit scan .  # Path to the conanfile.py/txt
 
 
-This command also supports settng your own JFrog Platform as a private provider for
-vulnerabilities. See the see :ref:`Adding private providers
+This command also supports using your own JFrog Platform as a private provider for
+vulnerability scanning. See the :ref:`Adding private providers
 <devops_audit_private_providers>` section for more details.
 
 .. seealso::
