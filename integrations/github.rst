@@ -73,7 +73,7 @@ restores cached packages from previous builds, builds the `conanfile.py`, and up
 
     - name: Build Conan package
       run: |
-        conan create conanfile.py -pr:a myprofile --build=missing
+        conan create . -pr:a myprofile --build=missing
 
     - name: Update Conan package
       run: |
