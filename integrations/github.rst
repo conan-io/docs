@@ -37,7 +37,7 @@ Scanning for vulnerabilities in packages
 
   Do not share your Conan audit token or expose it in your code. Always use GitHub secrets for sensitive data.
 
-First, you need to set up the Conan audit token in your GitHub secrets.
+First, you need to set up the Conan audit token in your `GitHub secrets`_.
 Then, use the following example to scan for vulnerabilities in a package and its dependencies:
 
 .. code-block:: yaml
@@ -110,3 +110,4 @@ Remote authentication uses GitHub secrets for security. The remote authenticatio
 
 .. |github_logo| image:: ../images/integrations/conan-github-logo.png
 .. _`GitHub schedule`: https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#schedule
+.. _`GitHub secrets`: https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions
