@@ -64,7 +64,7 @@ Then, use the following example to scan for vulnerabilities in a package and its
             run: |
               conan audit scan .
 
-This example lists configured providers and scans all dependencies in a ``conanfile.py`` in the current directory.
+This example scans all dependencies in a ``conanfile.py`` in the current directory.
 Note that it uses a `GitHub schedule`_ to run the scan every day at midnight, this is in the case of
 using the free service token, to avoid hitting the daily limits, but still having security checks every day.
 
