@@ -31,7 +31,7 @@ Examples
 This section provides some examples of how to use the integration in your GitHub Actions workflows.
 
 Scanning Packages for Vulnerabilities in a Nightly Build
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. warning::
 
