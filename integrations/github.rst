@@ -8,7 +8,7 @@
 The Conan `GitHub Actions <https://github.com/features/actions>`_ integration allows you to setup
 Conan client in your GitHub Actions workflows in a simple and effective way.
 
-The project can be found on its `GitHub marketplace page <https://github.com/marketplace/actions/setup-conan-environment>`_, or
+The project can be found on its `GitHub marketplace page <https://github.com/marketplace/actions/setup-conan-client>`_, or
 its `GitHub source page <https://github.com/conan-io/setup-conan>`_ directly.
 
 To use the integration, add a step in your workflow YAML file. The integration will
