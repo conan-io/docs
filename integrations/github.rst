@@ -62,7 +62,6 @@ Then, use the following example to scan for vulnerabilities in a package and its
 
           - name: Scan for vulnerabilities with Conan Audit
             run: |
-              conan audit provider list
               conan audit scan .
 
 This example lists configured providers and scans all dependencies in a ``conanfile.py`` in the current directory.
