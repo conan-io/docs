@@ -60,7 +60,7 @@ Then, use the following example to scan for vulnerabilities in a package and its
             with:
               audit_token: ${{ secrets.MY_CONAN_AUDIT_TOKEN }}
 
-          - name: Scan for vulnerabilities with Cona n Audit
+          - name: Scan for vulnerabilities with Conan Audit
             run: |
               conan audit provider list
               conan audit scan .
