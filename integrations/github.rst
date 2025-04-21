@@ -72,7 +72,7 @@ Installing Conan configuration and building packages
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This example installs a custom Conan configuration from a URL,
-restores cached packages from previous builds, builds the ``conanfile.py``, and uploads it to the Conan server.
+restores cached packages from previous builds, builds the package defined in the ``conanfile.py``, and uploads it to the Conan server.
 
 .. code-block:: yaml
     :caption: .github/workflows/ci.yml
