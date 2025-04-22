@@ -3,6 +3,8 @@
 conan audit
 ===========
 
+*New feature in Conan 2.14.0*
+
 The ``conan audit`` command is used to check for known vulnerabilities in your Conan packages.
 
 See :ref:`the audit devops page<devops_audit>` to see examples on how to use the ``conan audit`` command.

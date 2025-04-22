@@ -3,7 +3,8 @@
 Checking package vulnerabilities
 ================================
 
-The ``conan audit`` command is used to check for known vulnerabilities in your Conan packages.
+The ``conan audit`` command (introduced in Conan 2.14.0) is used to check for known
+vulnerabilities in your Conan packages.
 
 By default, Conan provides access to a ConanCenter provider, which is a public provider that checks
 for vulnerabilities in ConanCenter packages, which uses JFrog Advanced Security to scan packages.
