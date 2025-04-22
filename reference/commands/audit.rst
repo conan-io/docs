@@ -41,3 +41,8 @@ There are 3 subcommands:
 - ``conan audit provider auth``: Authenticates a provider with a token.
 - ``conan audit provider add``: Adds a provider to the list.
 - ``conan audit provider remove``: Removes a provider from the list.
+
+.. seealso::
+
+    - Read more in the dedicated `blog post
+      <https://blog.conan.io/introducing-conan-audit-command/>`_.
