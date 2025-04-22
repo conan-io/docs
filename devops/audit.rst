@@ -148,7 +148,7 @@ should be the base URL of the Artifactory instance.
 
 You can now use the provider with the ``conan audit scan`` and ``conan audit list``
 commands **without any limitation on the number of requests**, by specifying the provider
-name using the ``-p`` / ``--provider`` option.
+name using the ``-p`` / ``--provider`` argument.
 
 .. code-block::
 
