@@ -3,6 +3,8 @@
 conan audit
 ===========
 
+*New feature in Conan 2.14.0*
+
 The ``conan audit`` command is used to check for known vulnerabilities in your Conan packages.
 
 See :ref:`the audit devops page<devops_audit>` to see examples on how to use the ``conan audit`` command.
@@ -41,3 +43,8 @@ There are 3 subcommands:
 - ``conan audit provider auth``: Authenticates a provider with a token.
 - ``conan audit provider add``: Adds a provider to the list.
 - ``conan audit provider remove``: Removes a provider from the list.
+
+.. seealso::
+
+    - Read more in the dedicated `blog post
+      <https://blog.conan.io/introducing-conan-audit-command/>`_.

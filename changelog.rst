@@ -35,6 +35,7 @@ For a more detailed description of the major changes that Conan 2 brings, compar
 2.14.0 (12-Mar-2025)
 --------------------
 
+- Feature: Add :command:`conan audit` command for scanning Conan packages for CVE's `#17951 <https://github.com/conan-io/conan/pull/17951>`_ . Docs `here <https://github.com/conan-io/docs/pull/4026>`__
 - Feature: Add clang 20 support. `#17920 <https://github.com/conan-io/conan/pull/17920>`_ . Docs `here <https://github.com/conan-io/docs/pull/4011>`__
 - Feature: Allow partial ``workspace install <path1> ... <pathN>`` installation of workspace. `#17887 <https://github.com/conan-io/conan/pull/17887>`_ . Docs `here <https://github.com/conan-io/docs/pull/4016>`__
 - Feature: Add hooks for validate method: `pre_validate` and `post_validate`. `#17856 <https://github.com/conan-io/conan/pull/17856>`_ . Docs `here <https://github.com/conan-io/docs/pull/4013>`__
