@@ -70,6 +70,7 @@ If pre-releases are activated, like defining configuration ``core.version_ranges
 .. seealso::
 
     - Check :ref:`tutorial_version_ranges_expressions` version_ranges tutorial section
+    - Check :ref:`reference_conanfile_methods_requirements` method docs
 
 
 tool_requires

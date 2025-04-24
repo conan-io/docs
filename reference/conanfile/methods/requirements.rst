@@ -175,10 +175,48 @@ It is possible to define options values for dependencies as a trait:
     to define options values is in profile files.
 
 
+no_skip
+~~~~~~~
+
+This trait is an **experimental** feature introduced in Conan 2.16, and subject to breaking changes.
+See :ref:`the Conan stability<stability>` section for more information.
+
+Conan is able to avoid the download of the package binaries of the transitive dependencies when they are not needed.
+For example if a ``package_type = "application"`` package that contains an executable depends (``requires``) another package
+that is a ``package_type = "static-library"`` (or a regular library, but with option ``shared=False``), then, installing the
+application package binary doesn't require the binaries of the static libraries dependencies to work. Conan will then "skip"
+the download of those binaries, saving the time and transfer cost of such download and installation. These binaries are 
+marked as "Skipped binaries" in the Conan commands output.
+
+The ``tools.graph:skip_binaries`` conf can change the default behavior and if ``False`` it will avoid skipping binaries, which 
+can be useful in some scenarios. 
+
+The ``no_skip=True`` trait can be defined in a dependency like:
+
+.. code-block:: python
+
+  name = "mypkg"
+
+  def requirements(self):
+    self.requires("mydep/0.1", no_skip=True)
+
+And that will force the download of the binary for ``mydep/0.1`` when the binary for ``mypkg`` is necessary.
+
+.. note::
+
+  **Best practices**
+
+  The usage of ``no_skip=True`` should be exceptional, for very limited and extraordinary use cases, the default Conan 
+  "skipping binaries" behavior should be good for the vast majority of cases. Typically, it wouldn't make sense in isolation,
+  but if used jointly with other traits such as ``visible=False``. Avoid using it except it is absolutely
+  necessary, and it should only be used in very particular recipes. If used in many recipes, it is most likely an abuse.
+
+
+
 .. _reference_conanfile_package_type_trait_inferring:
 
 package_type trait inferring
-============================
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Some traits are automatically inferred based on the value of the ``package_type`` if not explicitly set by the recipe.
 
@@ -193,7 +231,7 @@ Additionally, some additional traits are inferred on top of the above mentioned 
  * ``header-library``: ``transitive_headers=True``, ``transitive_libs=True``
 
 Default traits for each kind of requires
-========================================
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Each kind of requires sets some additional traits by default on top of the ones stated in the last section. Those are:
 
