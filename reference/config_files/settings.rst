@@ -287,7 +287,7 @@ Here you can find a brief explanation of each of the architectures defined as ``
 - **armv8_32**: The ARM 32 bit version 8 architecture. It covers only the ``aarch32`` instruction set (a.k.a. ``ILP32``).
 - **armv8.3**: The ARM 64 bit and 32 bit compatible version 8.3 architecture. Also known as ``arm64e``, it is used on the A12 chipset added
   in the latest iPhone models (XS/XS Max/XR).
-- **arm64e**: Windows 11 ARM64 (Emulation Compatible). This architecture support is **experimental** and incomplete. The only usage is to define CMAKE_GENERATOR_PLATFORM in CMake VS generators. Report new issues in Github if necessary.
+- **arm64ec**: Windows 11 ARM64EC (Emulation Compatible). This architecture support is **experimental** and incomplete. Supported in CMake for VS and MSBuild integrations.. Report new issues in Github if necessary.
 - **sparc**: The SPARC (Scalable Processor Architecture) originally developed by Sun Microsystems.
 - **sparcv9**: The SPARC version 9 architecture.
 - **mips**: The 32 bit MIPS (Microprocessor without Interlocked Pipelined Stages) developed by MIPS Technologies (formerly MIPS Computer
