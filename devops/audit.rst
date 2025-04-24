@@ -3,6 +3,8 @@
 Checking package vulnerabilities
 ================================
 
+.. include:: ../common/experimental_warning.inc
+
 The ``conan audit`` command (introduced in Conan 2.14.0) is used to check for known
 vulnerabilities in your Conan packages.
 
