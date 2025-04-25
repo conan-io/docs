@@ -108,8 +108,8 @@ which will look something like:
     :align: center
     :alt: Conan audit report
 
-The scan also has a the threshold option ``--severity-level``, which allows you to set a minimum severity level for the vulnerabilities.
-In case the threshold is set to a value lower than of the vulnerabilities found, the command will return a non-zero exit code.
+The scan also has the threshold option ``--severity-level``, which allows you to set a minimum severity level for the vulnerabilities.
+In case the threshold value is lower than of the vulnerabilities found, the command will return a non-zero exit code.
 By default, it's set to 9.0 (Critical), but you can set it to a lower value to include lower severity vulnerabilities in the report.
 To disable the threshold, set it to 100.0.
 
