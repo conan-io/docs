@@ -208,7 +208,7 @@ And that will force the download of the binary for ``mydep/0.1`` when the binary
 
   The usage of ``no_skip=True`` should be exceptional, for very limited and extraordinary use cases, the default Conan 
   "skipping binaries" behavior should be good for the vast majority of cases. Typically, it wouldn't make sense in isolation,
-  but if used jointly with other traits such as ``visible=False``. Avoid using it except it is absolutely
+  but if used jointly with other traits such as ``visible=False``. Avoid using it except when absolutely
   necessary, and it should only be used in very particular recipes. If used in many recipes, it is most likely an abuse.
 
 
