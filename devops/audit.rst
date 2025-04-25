@@ -108,6 +108,17 @@ which will look something like:
     :align: center
     :alt: Conan audit report
 
+The scan also has a the threshold option ``--severity-level``, which allows you to set a minimum severity level for the vulnerabilities.
+In case the threshold is set to a value lower than of the vulnerabilities found, the command will return a non-zero exit code.
+By default, it's set to 9.0 (Critical), but you can set it to a lower value to include lower severity vulnerabilities in the report.
+To disable the threshold, set it to 100.0.
+
+.. code-block::
+
+    $ conan audit scan . --severity-level=5.0
+    ...
+    The package openssl/1.1.1w has a CVSS score 5.3 and exceeded the threshold severity level 5.0.
+
 .. _devops_audit_private_providers:
 
 Adding private providers
@@ -136,7 +147,7 @@ with the following command:
    token in the shell history, you can authenticate with the provider using an environment
    variable. Set the ``CONAN_AUDIT_PROVIDER_TOKEN_<PROVIDER_NAME>`` environment variable
    with the token value, replacing `<PROVIDER_NAME>` with the provider name in uppercase
-   and using underscores (`_`) instead of hyphens (`-`). 
+   and using underscores (`_`) instead of hyphens (`-`).
 
    For example, for `myprovider`, use: ``CONAN_AUDIT_PROVIDER_TOKEN_MYPROVIDER=<token>``.
 
