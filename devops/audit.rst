@@ -3,7 +3,10 @@
 Checking package vulnerabilities
 ================================
 
-The ``conan audit`` command is used to check for known vulnerabilities in your Conan packages.
+.. include:: ../common/experimental_warning.inc
+
+The ``conan audit`` command (introduced in Conan 2.14.0) is used to check for known
+vulnerabilities in your Conan packages.
 
 By default, Conan provides access to a ConanCenter provider, which is a public provider that checks
 for vulnerabilities in ConanCenter packages, which uses JFrog Advanced Security to scan packages.
@@ -129,7 +132,8 @@ For now, only JFrog Advanced Security providers are supported.
 
 .. note::
 
-   To use these private providers, your Artifactory license should include a subscription to JFrog Curation
+   To use these private providers, your Artifactory license should include a subscription
+   to JFrog Curation
 
 
 To add a provider, the recommended way is to first create a specific user in Artifactory to use as the read-only user,
@@ -155,5 +159,19 @@ with the following command:
 Note the ``--type=private`` argument, which specifies that the provider is a private provider, and that the supplied URL
 should be the base URL of the Artifactory instance.
 
-With this, you can now use the provider with the ``conan audit scan`` and ``conan audit list`` commands, by specifying
-the provider name with the ``-p``/``--provider`` argument.
+You can now use the provider with the ``conan audit scan`` and ``conan audit list``
+commands **without any limitation on the number of requests**, by specifying the provider
+name using the ``-p`` / ``--provider`` argument.
+
+.. code-block::
+
+    $ conan audit scan . -p=myprovider
+
+
+.. seealso::
+
+    - For detailed reference documentation on all ``conan audit`` subcommands and their
+      options, consult the :ref:`conan audit command reference
+      <reference_commands_audit>`.
+    - Read more in the dedicated `blog post
+      <https://blog.conan.io/introducing-conan-audit-command/>`_.
