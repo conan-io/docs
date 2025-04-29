@@ -3,6 +3,11 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.16.1 (29-Apr-2025)
+--------------------
+
+- Feature: Add missing GCC 15 key to `settings.yml` `#18193 <https://github.com/conan-io/conan/pull/18193>`_ . Docs `here <https://github.com/conan-io/docs/pull/4084>`__
+
 2.16.0 (29-Apr-2025)
 --------------------
 
