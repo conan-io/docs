@@ -146,7 +146,8 @@ conan cache clean
 
 This command will remove all temporary folders, along with the source, build and download folder
 that Conan generates in its execution. It will do so for every matching reference passed in *pattern*,
-unless a specific flag is supplied, in which case only the specified folders will be removed.
+or the contents of the pkglist file if the ``--list`` option is used.
+It's possible to limit the cleaning to certain kinds of folders with different flags.
 
 
 **Examples**:
@@ -188,7 +189,8 @@ conan cache check-integrity
 
 
 The ``conan cache check-integrity`` command checks the integrity of Conan packages in the
-local cache. This means that it will throw an error if any file included in the
+local cache that match the given *pattern*, or the contents of the pkglist file if the ``--list`` option is used.
+This means that it will throw an error if any file included in the
 ``conanmanifest.txt`` is missing or does not match the declared checksum in that file.
 
 For example, to verify the integrity of the whole Conan local cache, do:
