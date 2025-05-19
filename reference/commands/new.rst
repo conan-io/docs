@@ -57,6 +57,19 @@ The available templates are:
 
   Its variables are: name, version, [requires1, requires2, ...], [tool_requires1, tool_requires2, ...]
 
+- **header_lib**
+  Creates a header-only library that defines a function called ``name``,
+  which will print some output to stdout.
+
+   You can add requirements to this template in the form of
+
+   ``conan new header_lib -d name=foo -d version=1.0 -d requires=math/3.14 -d requires=magic/0.0``
+
+  This will add requirements for both ``math/3.14`` and ``ai/1.0`` to the `requirements()` method,
+  and add a call to ``math()`` and ``ai()`` inside the generated ``foo()`` function.
+
+  Its variables are: name, version, [requires1, requires2, ...]
+
 - **autotools_lib**:
   Creates an Autotools library.
 
