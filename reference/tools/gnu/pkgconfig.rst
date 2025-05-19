@@ -25,8 +25,11 @@ Read a ``pc`` file and access the information:
     print(pkg_config.variables['prefix']) # something like'/usr/local'
 
 
-Use the ``pc`` file information to fill a ``cpp_info`` object:
+Using PkgConfig to fill a ``cpp_info`` object
+---------------------------------------------
 
+The ``PkgConfig`` class can be used to fill a ``CppInfo`` object with the information that will be consumed by the ``PkgConfigDeps`` generator later.
+This is a useful feature when packaging a proprietary package has a build system that only outputs ``.pc`` files for a known environment.
 
 .. code-block:: python
 
@@ -35,6 +38,53 @@ Use the ``pc`` file information to fill a ``cpp_info`` object:
         pkg_config.fill_cpp_info(self.cpp_info, is_system=False, system_libs=["m", "rt"])
 
 
+However, ``PkgConfig`` will invoke the ``pkg-config`` executable to extract the information from the ``.pc`` file.
+The ``pkg-config`` executable must be available in the system path for this case, otherwise, it will fail when installing the consumed package.
+
+
+Using pkg-config from Conan tool_requires instead of system
+-----------------------------------------------------------
+
+.. include:: ../../../common/experimental_warning.inc
+
+In case of not having ``pkg-config`` available in the system, it is possible to use the ``pkg-config`` executable provided by Conan ``tool_requires`` instead.:
+
+.. code-block:: python
+
+    import os
+    from conan import ConanFile
+    from conan.tools.gnu import PkgConfig
+    from conan.tools import CppInfo
+
+    class Pkg(ConanFile):
+
+        def build_requirements(self):
+            self.tool_requires("pkgconf/[*]")
+
+        ...
+
+        def package(self):
+            pkg_config = PkgConfig(self, "libastral", pkg_config_path=".")
+            cpp_info = CppInfo(self)
+            pkg_config.fill_cpp_info(cpp_info, is_system=False, system_libs=["m", "rt"])
+            cpp_info.save(os.path.join(self.package_folder, "cpp_info.json"))
+
+        def package_info(self):
+            self.cpp_info = CppInfo(self).load(os.path.join(self.package_folder, "cpp_info.json"))
+
+
+The ``pkg-config`` executable provided by the Conan package ``pkgconf`` will be invoked only when creating the Conan binary package.
+The ``.pc`` information will be extracted from the ``cpp_info.json`` file located in the package folder, it will fill the ``self.cpp_info`` object.
+This way, the ``PkgConfig`` will not need to invoke the ``pkg-config`` executable again to extract the information from the ``.pc`` file,
+when consuming the package.
+
+.. warning::
+
+    It's forbidden to upload or reuse this approach when creating a package, as the information may not be compatible with the host system,
+    resulting in errors when consuming the package.
+
+    When using this approach for wrapping system packages, it is recommended to use ``upload_policy = "skip"``
+    (see :ref:`upload_policy_attribute`) in the package recipe to avoid uploading the package.
 
 Reference
 ---------
