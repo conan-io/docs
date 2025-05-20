@@ -612,6 +612,20 @@ Some of the capabilities of the profile templates are:
      compiler={{ compiler }}
      compiler.version={{ compiler_version }}
 
+- Executing external commands and using their output. The ``subprocess`` module is added to the
+  context, so you can use it to execute commands and capture their output.
+  Note that Conan startup times for some commands can be affected if the command takes a long
+  time to execute, so use this feature with caution.
+  For example, to get the version of the installed compiler (But you should use
+  ``detect_api.detect_default_compiler()`` instead for this case):
+
+  .. code-block:: jinja
+     :caption: *profile_vars*
+
+     {% set version = subprocess.check_output(['clang++', "-dumpversion]).strip() %}
+     [settings]
+     compiler.version={{ version }}
+
 - Including or importing other files from ``profiles`` folder:
 
   .. code-block:: jinja
