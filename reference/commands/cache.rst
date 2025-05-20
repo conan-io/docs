@@ -180,6 +180,13 @@ It's possible to limit the cleaning to certain kinds of folders with different f
 
       $ conan cache clean "zlib/*" --source --build --temp
 
+- Get a list of packages to remove temp files from, then remove them:
+
+   .. code-block:: text
+
+         $ conan list "zlib/*" -f=json > pkglist.json
+         $ conan cache clean --list pkglist.json
+
 
 conan cache check-integrity
 ---------------------------
