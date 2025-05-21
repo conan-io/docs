@@ -236,6 +236,8 @@ For instance:
             })
             at.generate()
 
+The ``AutotoolsToolchain`` will listen to ``tools.gnu:configure_args`` from the :ref:`reference_config_files_global_conf` to extend the
+``configure_args`` attribute.
 
 Reference
 ---------
