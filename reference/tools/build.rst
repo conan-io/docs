@@ -138,6 +138,12 @@ conan.tools.build.valid_max_cstd()
 
 .. autofunction:: valid_max_cstd
 
+conan.tools.build.default_cstd()
+""""""""""""""""""""""""""""""""""
+
+.. currentmodule:: conan.tools.build.cstd
+
+.. autofunction:: default_cstd
 
 conan.tools.build.supported_cstd()
 """"""""""""""""""""""""""""""""""""
