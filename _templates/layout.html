@@ -1,6 +1,8 @@
 {% extends "!layout.html" %}
 
 {%- block extrahead %}
+
+{% if enable_cookies|default(true) %}
 <script
   data-cfasync="false"
   data-tracker-overrides="GoogleConsentMode:security_storage=on;ad_storage=SaleOfInfo,Advertising;ad_user_data=SaleOfInfo,Advertising;ad_personalization=SaleOfInfo,Advertising;analytics_storage=Analytics,SaleOfInfo;functionality_storage=Functional,SaleOfInfo;personalization_storage=Functional,SaleOfInfo"
@@ -20,6 +22,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       gtag("config", "GTM-WK44ZFM");
       gtag('set', 'developer_id.dODQ2Mj', true);
 </script>
+{% endif %}
 {{ super() }}
 
 
@@ -28,9 +31,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 {% endblock %}
 
 {% block footer %}
-
+{% if enable_cookies|default(true) %}
 <noscript><iframe src="https://gtm.jfrog.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-
+{% endif %}
 
 {{ super() }}
 {% endblock %}
