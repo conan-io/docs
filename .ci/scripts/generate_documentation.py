@@ -47,7 +47,9 @@ with chdir(f"{sources_folder}"):
 
     if branch_folder != latest_v1_folder:
         run(f"rm -fr {branch_folder}/_themes/conan")
+        run(f"rm -fr {branch_folder}/_templates")
         run(f"cp -a {latest_v1_folder}/_themes/. {branch_folder}/_themes/")
+        run(f"cp -a {latest_v1_folder}/_templates/. {branch_folder}/_templates/")
 
     # clone conan sources for autodoc
     if branch_folder.startswith("2"):
