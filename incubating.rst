@@ -286,7 +286,7 @@ conan workspace clean
 
 The new ``conan workspace clean`` removes by default the ``output-folder`` of every package in the workspace if it was defined.
 But if it is not defined, it won't remove anything by default, as removing files in user space is dangerous, and could destroy user changes or files.
-It would be recommended that users manage that clean with ``git clean -xdf`` or similar strategies.
+It would be recommended that users manage that cleaning with ``git clean -xdf`` or similar strategies.
 It is also possible to implement custom clean logic implementing the ``clean()`` method:
 
 .. code-block:: python
