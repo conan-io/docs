@@ -1,6 +1,6 @@
 .. _reference_commands_workspace:
 
-conan workspace (incubating)
+conan workspace
 ============================
 
 .. include:: ../../common/incubating_warning.inc
