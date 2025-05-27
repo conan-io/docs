@@ -8,7 +8,7 @@ Compression plugin
 The ``compression.py`` plugin is a Conan extension that allows users to
 customize the compression and extraction processes for all files managed by Conan.
 
-To activate it, place the plugin at: ``extensions/plugins/compression.py``.
+To activate it, place the plugin at: ``<conan_home>/extensions/plugins/compression.py``.
 
 This plugin provides flexibility in how Conan packages are compressed and
 extracted, making it especially useful in scenarios such as:
