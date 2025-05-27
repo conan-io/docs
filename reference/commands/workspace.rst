@@ -17,7 +17,7 @@ The ``conan workspace`` command allows to open, add, remove packages from the cu
 Workspace demo template
 -----------------------
 
-The command ``conan new`` has learned a new built-in (experimental) template ``workspace`` that creates a local project
+The ``conan new`` command has learned a new built-in (experimental) ``workspace`` template that creates a local project
 with some editable packages and a ``conanws.yml`` that represents it. It is useful for quick demos, proofs of concepts
 and experimentation.
 
