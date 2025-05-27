@@ -12,7 +12,7 @@ it cannot be used in production.
 
 Once the feature is enabled, workspaces are defined by the ``conanws.yml`` and/or ``conanws.py`` files
 It's recommended to learn more about :ref:`the conanws.[yml|py] files section<reference_conanws>` before moving forward).
-By default, any Conan command will traverse up the file system from the current working directory to the filesystem root,
+By default, any Conan workspace command will traverse up the file system from the current working directory to the filesystem root,
 until it finds one of those files. That will define the "root" workspace folder.
 
 The ``conan workspace`` command allows to open, add, remove packages from the current workspace.
