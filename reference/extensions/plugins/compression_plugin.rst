@@ -38,10 +38,10 @@ To implement a custom compression plugin, define the following two functions in 
 
 .. code-block:: python
 
-    def tar_extract(archive_path: str, dest_dir: str, conf=None, ref=None, *args, **kwargs) -> None:
+    def tar_extract(archive_path, dest_dir, conf=None, ref=None, *args, **kwargs) -> None:
         ...
 
-    def tar_compress(archive_path: str, files: dict[str,str], recursive=False, conf=None, ref=None, *args, **kwargs) -> None:
+    def tar_compress(archive_path, files, recursive=False, conf=None, ref=None, *args, **kwargs) -> None:
         ...
 
 
