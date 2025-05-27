@@ -108,7 +108,7 @@ It is also possible to define a custom clean logic by implementing the ``clean()
 Open existing packages
 ----------------------
 
-The new ``conan workspace open`` command implements a new concept. Those packages containing an ``scm`` information in
+The new ``conan workspace open`` command implements a new concept. The packages containing an ``scm`` information in
 the ``conandata.yml`` (with ``git.coordinates_to_conandata()``) can be automatically cloned and checkout inside the
 current workspace from their Conan recipe reference (including recipe revision).
 
