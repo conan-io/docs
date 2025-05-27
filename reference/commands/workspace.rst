@@ -90,7 +90,7 @@ Use this command to show information about the current workspace
 Clean output folders
 --------------------
 
-The new ``conan workspace clean`` removes by default the ``output-folder`` of every package in the workspace if it was defined.
+The new ``conan workspace clean`` command removes by default the ``output-folder`` of every package in the workspace if it was defined.
 If it is not defined, it won't remove anything by default, as removing files in user space is dangerous, and could destroy user changes or files.
 It would be recommended that users manage that cleaning with ``git clean -xdf`` or similar strategies.
 It is also possible to define a custom clean logic by implementing the ``clean()`` method:
