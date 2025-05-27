@@ -74,7 +74,7 @@ The ``CMakeLists.txt`` defines the super-project with:
    add_project(app1)
 
 So basically, the super-project uses ``FetchContent`` to add the subfolders' sub-projects.
-For this to work correctly, the subprojects must be CMake based sub projects with
+For this to work correctly, the subprojects must be CMake based subprojects with
 ``CMakeLists.txt``. Also, the subprojects must define the correct targets as would be
 defined by the ``find_package()`` scripts, like ``liba::liba``. If this is not the case,
 it is always possible to define some local ``ALIAS`` targets.
