@@ -96,12 +96,12 @@ reported is very useful.
 Workspaces
 ----------
 
-Moved to :ref:`tutorial_workspace`
+Moved to :ref:`tutorial_workspaces`
 
 Workspace files syntax
 ++++++++++++++++++++++
 
-Moved to :ref:`tutorial_workspace`
+Moved to :ref:`tutorial_workspaces`
 
 
 Workspace commands
@@ -112,7 +112,7 @@ Moved to :ref:`reference_conanws`
 Workspace monolithic builds
 +++++++++++++++++++++++++++
 
-Moved to :ref:`tutorial_workspace_monolithic`
+Moved to :ref:`tutorial_workspaces_monolithic`
 
 
 For any feedback, please open new tickets in https://github.com/conan-io/conan/issues.

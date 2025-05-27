@@ -11,7 +11,7 @@ Reference
    reference/commands
    reference/conanfile
    reference/conanfile_txt
-   reference/conanws
+   reference/workspace_files
    reference/tools
    reference/config_files
    reference/extensions

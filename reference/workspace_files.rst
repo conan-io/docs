@@ -1,7 +1,7 @@
 .. _reference_conanws:
 
 conanws.yml | conanws.py
-=====================================
+========================
 
 .. include:: ../common/incubating_warning.inc
 
@@ -64,4 +64,4 @@ methods, using the ``Workspace.load_conanfile()`` helper:
 
 .. seealso::
 
-    Read :ref:`the Workspace tutorial<tutorial_workspace>` section.
+    Read :ref:`the Workspace tutorial<tutorial_workspaces>` section.

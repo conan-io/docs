@@ -1,19 +1,19 @@
-.. _tutorial_workspace:
+.. _tutorial_workspaces:
 
-Workspace (incubating)
-======================
+Workspaces (incubating)
+=======================
 
 .. include:: ../../common/incubating_warning.inc
 
 
-The workspaces feature can be enabled defining the environment variable ``CONAN_WORKSPACE_ENABLE=will_break_next``.
+The workspace feature can be enabled defining the environment variable ``CONAN_WORKSPACE_ENABLE=will_break_next``.
 The value ``will_break_next`` is used to emphasize that it will change in next releases, and this feature is for testing only,
 it cannot be used in production.
 
 Once the feature is enabled, workspaces are defined by the ``conanws.yml`` and/or ``conanws.py`` files
 It's recommended to learn more about :ref:`the conanws.[yml|py] files section<reference_conanws>` before moving forward).
-By default, any Conan workspace command will traverse up the file system from the current working directory to the filesystem root,
-until it finds one of those files. That will define the "root" workspace folder.
+By default, any Conan workspace command will traverse up the file system from the current working directory to the
+filesystem root, until it finds one of those files. That will define the "root" workspace folder.
 
 The ``conan workspace`` command allows to open, add, remove packages from the current workspace.
 Check the :ref:`conan workspace command<reference_commands_workspace>` to know more about its usage.
@@ -27,11 +27,10 @@ The paths in the ``conanws`` files are intended to be relative to be relocatable
 Git in monorepo-like projects.
 
 
-.. _tutorial_workspace_monolithic:
+.. _tutorial_workspaces_monolithic:
 
 Workspace monolithic builds
 ---------------------------
-
 
 Conan workspaces can be built as a single monolithic project (sometimes called super-project),
 which can be very convenient. Let's see it with an example:

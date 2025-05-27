@@ -1,7 +1,7 @@
 .. _reference_commands_workspace:
 
 conan workspace
-============================
+===============
 
 .. include:: ../../common/incubating_warning.inc
 
@@ -14,16 +14,8 @@ The ``conan workspace`` command allows to open, add, and remove packages from th
     :command: conan workspace -h
 
 
-Workspace demo template
------------------------
-
-The ``conan new`` command has learned a new built-in (experimental) ``workspace`` template that creates a local project
-with some editable packages and a ``conanws.yml`` that represents it. It is useful for quick demos, proofs of concepts
-and experimentation.
-
-
-Initialize a workspace
-----------------------
+conan workspace init
+--------------------
 
 The command ``conan workspace init [path]`` creates an empty ``conanws.yml`` file and a minimal ``conanws.py`` within that path
 if they don't exist yet. That path can be relative to your current working directory.
@@ -35,8 +27,8 @@ if they don't exist yet. That path can be relative to your current working direc
    Created minimal conanws.py in myfolder
 
 
-Add/Remove packages
--------------------
+conan workspace [add | remove]
+----------------------------
 
 Use these commands to add or remove editable packages to the current workspace. The ``conan workspace add <path>``
 folder must contain a ``conanfile.py``. That path can be relative to your current workspace.
@@ -62,8 +54,8 @@ The ``conanws.py`` has a default implementation, but it is possible to override 
          return super().remove(path, *args, **kwargs)
 
 
-Show current information
-------------------------
+conan workspace info
+--------------------
 
 Use this command to show information about the current workspace
 
@@ -87,8 +79,8 @@ Use this command to show information about the current workspace
          path: app1
 
 
-Clean output folders
---------------------
+conan workspace clean
+---------------------
 
 The new ``conan workspace clean`` command removes by default the ``output-folder`` of every package in the workspace if it was defined.
 If it is not defined, it won't remove anything by default, as removing files in user space is dangerous, and could destroy user changes or files.
@@ -105,16 +97,16 @@ It is also possible to define a custom clean logic by implementing the ``clean()
 
 
 
-Open existing packages
-----------------------
+conan workspace open
+--------------------
 
 The new ``conan workspace open`` command implements a new concept. The packages containing an ``scm`` information in
 the ``conandata.yml`` (with ``git.coordinates_to_conandata()``) can be automatically cloned and checkout inside the
 current workspace from their Conan recipe reference (including recipe revision).
 
 
-Run an orchestrated build
--------------------------
+conan workspace build
+---------------------
 
 The command ``conan workspace build`` does the equivalent of ``conan build <product-path> --build=editable``,
 for every ``product`` defined within the workspace.
@@ -128,8 +120,8 @@ This is pending for optimization, but that will be done later, the important thi
 and definitions (of things like the ``products``).
 
 
-Run a super-build
------------------
+conan workspace install
+-----------------------
 
 The command ``conan workspace install`` is useful to install and build the current workspace
 as a monolithic super-project of the editables.
@@ -142,4 +134,5 @@ dependencies will be installed.
 
 .. seealso::
 
-    Read :ref:`the Workspace tutorial<tutorial_workspace>` section.
+    Read the :ref:`Workspace tutorial<tutorial_workspaces>` section.
+    Read the :ref:`conan new workspace<reference_commands_new>` command section.

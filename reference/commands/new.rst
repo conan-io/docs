@@ -112,6 +112,11 @@ The available templates are:
 
   Its variables are: ``name``, ``version``
 
+- **workspace**:
+  Creates a local project with some editable packages and a ``conanws.yml`` that represents it.
+
+  It does not use variables.
+
 
 By default, all ``name`` and ``version`` variables are set to ``mypkg`` and ``0.1``, respectively, if not provided by the user.
 
