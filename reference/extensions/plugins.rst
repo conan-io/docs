@@ -13,7 +13,6 @@ Plugins are ideal for advanced scenarios where teams or organizations need to:
 - Enforce custom authorization or access control rules.
 - Dynamically modify profiles or settings based on complex logic.
 - Customize compression or packaging formats to optimize bandwidth or storage.
-- Inject organization-specific policies into the package creation or usage flow.
 
 Plugins offer a clean, maintainable, and shareable way to implement advanced
 behavior, particularly in CI/CD pipelines or large-scale deployments.
