@@ -1,6 +1,6 @@
 .. _reference_conanws:
 
-conanws.yml | conanws.py (incubating)
+conanws.yml | conanws.py
 =====================================
 
 .. include:: ../common/incubating_warning.inc
