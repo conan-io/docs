@@ -25,7 +25,7 @@ and experimentation.
 Initialize a workspace
 ----------------------
 
-The command ``conan init [path]`` creates an empty ``conanws.yml`` file and a minimal ``conanws.py`` within that path
+The command ``conan workspace init [path]`` creates an empty ``conanws.yml`` file and a minimal ``conanws.py`` within that path
 if they don't exist yet. That path can be relative to your current working directory.
 
 .. code-block:: bash
