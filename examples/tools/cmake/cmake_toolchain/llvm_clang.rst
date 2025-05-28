@@ -5,7 +5,7 @@ CMakeToolchain: Using LLVM/Clang Windows compiler
 
 The Clang compiler in Windows can come from 2 different installations or distributions:
 
-- The LLVM/CLang compiler, that uses the MSVC runtime
+- The LLVM/Clang compiler, that uses the MSVC runtime
 - The Msys2 Clang compiler that uses the Msys2 runtime (libstdc++6.dll)
 
 This example explains the LLVM/Clang with the MSVC runtime. This Clang distribution can in turn
