@@ -14,8 +14,7 @@ an SBOM provides transparency about what is contained "inside" an application or
 Conan allows you to generate SBOMs natively by using a resolved dependency graph.
 This way, you can create the SBOM for your program at the same time you build it.
 
-For now, **this feature is in an experimental state, which means that the interface, functionality or generated
-files may change in the future**. Additionally, it currently only supports CycloneDX version 1.4 and 1.6.
+This feature only supports CycloneDX version 1.4 and 1.6.
 If you need a different standard, another version, or if you encounter any potential improvements,
 please feel free to open an issue on our `GitHub <https://github.com/conan-io/conan/issues>`_ .
 We would be delighted to hear your feedback!
