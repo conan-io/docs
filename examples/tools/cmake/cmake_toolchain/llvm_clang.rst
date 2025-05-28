@@ -201,7 +201,7 @@ To build this configuration we will use the following profile:
     
 
 This profile will use the CMake "Visual Studio" generator. This indicates that the Clang compiler will be the one
-provided by Visual Studio, and installed as a component of Visual Studio via de Visual Studio installer. 
+provided by Visual Studio, and installed as a component of Visual Studio via the Visual Studio installer. 
 Note the ``compiler.version=19`` is a different version than the one used above, which was ``compiler.version=18``,
 as the version inside Visual is defined automatically by its installer.
 
