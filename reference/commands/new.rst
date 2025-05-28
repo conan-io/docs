@@ -115,7 +115,7 @@ The available templates are:
 - **workspace**:
   Creates a local project with some editable packages and a ``conanws.yml`` that represents it.
 
-  It does not use variables.
+  Its variables are: ``requires`` (package ``liba`` will depend on that requirement)
 
 
 By default, all ``name`` and ``version`` variables are set to ``mypkg`` and ``0.1``, respectively, if not provided by the user.

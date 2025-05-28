@@ -101,12 +101,12 @@ Moved to :ref:`tutorial_workspaces`
 Workspace files syntax
 ++++++++++++++++++++++
 
-Moved to :ref:`tutorial_workspaces`
+Moved to :ref:`reference_workspace_files`
 
 
 Workspace commands
 ++++++++++++++++++
-Moved to :ref:`reference_conanws`
+Moved to :ref:`reference_commands_workspace`
 
 
 Workspace monolithic builds

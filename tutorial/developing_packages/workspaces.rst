@@ -6,34 +6,51 @@ Workspaces (incubating)
 .. include:: ../../common/incubating_warning.inc
 
 
-The workspace feature can be enabled defining the environment variable ``CONAN_WORKSPACE_ENABLE=will_break_next``.
-The value ``will_break_next`` is used to emphasize that it will change in next releases, and this feature is for testing only,
-it cannot be used in production.
+In the previous section, we worked with *editable packages* and how to define a custom layout. Let's introduce the concept
+of *workspace* and how to use it
 
-Once the feature is enabled, workspaces are defined by the ``conanws.yml`` and/or ``conanws.py`` files
-It's recommended to learn more about :ref:`the conanws.[yml|py] files section<reference_conanws>` before moving forward).
-By default, any Conan workspace command will traverse up the file system from the current working directory to the
-filesystem root, until it finds one of those files. That will define the "root" workspace folder.
+Introduction
+------------
 
-The ``conan workspace`` command allows to open, add, remove packages from the current workspace.
-Check the :ref:`conan workspace command<reference_commands_workspace>` to know more about its usage.
+.. important::
 
-Dependencies added to a workspace work as local ``editable`` dependencies. They are only resolved as ``editable`` under
-the current workspace, if the current directory is moved outside of it, those ``editable`` dependencies won't be used anymore.
-Those editable dependencies are named as workspace's ``packages``. There is another concept named as ``products``
-that refers to root consumers of those packages.
+   The workspace feature can be enabled defining the environment variable ``CONAN_WORKSPACE_ENABLE=will_break_next``.
+   The value ``will_break_next`` is used to emphasize that it will change in next releases, and this feature is for testing only,
+   it cannot be used in production.
 
-The paths in the ``conanws`` files are intended to be relative to be relocatable if necessary, or could be committed to
-Git in monorepo-like projects.
 
+A Conan *workspace* gives you the chance to manage several packages as ``editable`` mode in an
+*orchestrated* or *monolithic* (also called *super-project*) way:
+
+* *orchestrated*, we denote Conan building the editable packages one by one starting on the applications/consumers if exist.
+* *monolithic*, we denote the editable packages built as a monolith, generating a single result (generators, etc) for the whole workspace.
+
+Notice that the packages added to the workspace are automatically resolved as ``editable`` ones. Those editable packages
+are named as workspace's ``packages``. Also, the root consumers of those ``packages`` are named as ``products``.
+
+
+How to define a workspace
+-------------------------
+
+Workspaces are defined by the files ``conanws.yml`` and/or ``conanws.py`` files. Any Conan workspace command will traverse
+up the file system from the current working directory to the filesystem root, until it finds one of those files. That will
+define the "root" workspace folder. The paths in the ``conanws`` file are intended to be relative to be relocatable if
+necessary, or could be committed to Git in monorepo-like projects.
+
+Through the ``conan workspace`` command, we can open, add, and/or remove ``packages`` and ``products`` from the current workspace.
+
+.. seealso::
+
+    Read the :ref:`workspace files<reference_workspace_files>` section.
+    Read the :ref:`conan workspace command<reference_commands_workspace>` section.
 
 .. _tutorial_workspaces_monolithic:
 
-Workspace monolithic builds
----------------------------
+Monolithic build
+----------------
 
-Conan workspaces can be built as a single monolithic project (sometimes called super-project),
-which can be very convenient. Let's see it with an example:
+Conan workspaces can be built as a single monolithic project (sometimes called super-project), which can be very convenient.
+Let's see it with an example:
 
 .. code-block:: bash
 
@@ -42,10 +59,52 @@ which can be very convenient. Let's see it with an example:
    $ cmake --preset conan-release # use conan-default in Win
    $ cmake --build --preset conan-release
 
-Let's explain a bit what happened.
-First the ``conan new workspace`` created a template project with some relevant files:
 
-The ``CMakeLists.txt`` defines the super-project with:
+Let's explain a bit what happened.
+At first, the ``conan new workspace`` created a template project with some relevant files and the following structure:
+
+..  code-block:: text
+
+   .
+   ├── CMakeLists.txt
+   ├── app1
+   │    ├── CMakeLists.txt
+   │    ├── conanfile.py
+   │    ├── src
+   │    │    ├── app1.cpp
+   │    │    ├── app1.h
+   │    │    └── main.cpp
+   │    └── test_package
+   │        └── conanfile.py
+   ├── conanws.py
+   ├── conanws.yml
+   ├── liba
+   │    ├── CMakeLists.txt
+   │    ├── conanfile.py
+   │    ├── include
+   │    │    └── liba.h
+   │    ├── src
+   │    │    └── liba.cpp
+   │    └── test_package
+   │        ├── CMakeLists.txt
+   │        ├── conanfile.py
+   │        └── src
+   │            └── example.cpp
+   └── libb
+       ├── CMakeLists.txt
+       ├── conanfile.py
+       ├── include
+       │    └── libb.h
+       ├── src
+       │    └── libb.cpp
+       └── test_package
+           ├── CMakeLists.txt
+           ├── conanfile.py
+           └── src
+               └── example.cpp
+
+
+The root ``CMakeLists.txt`` defines the super-project with:
 
 .. code-block:: cmake
    :caption: CMakeLists.txt
@@ -72,6 +131,7 @@ The ``CMakeLists.txt`` defines the super-project with:
    add_library(libb::libb ALIAS libb)
    add_project(app1)
 
+
 So basically, the super-project uses ``FetchContent`` to add the subfolders' sub-projects.
 For this to work correctly, the subprojects must be CMake based subprojects with
 ``CMakeLists.txt``. Also, the subprojects must define the correct targets as would be
@@ -79,7 +139,6 @@ defined by the ``find_package()`` scripts, like ``liba::liba``. If this is not t
 it is always possible to define some local ``ALIAS`` targets.
 
 The other important part is the ``conanws.py`` file:
-
 
 .. code-block:: python
    :caption: conanws.py
@@ -140,6 +199,87 @@ the same when there are external dependencies. This can be tested with:
 
    It might also be possible for the ``add()`` method in the ``conanws.py`` to manage the
    addition of the subprojects to the super-project, if there is some structure.
+
+
+.. _tutorial_workspaces_orchestrated:
+
+Orchestrated build
+------------------
+
+Conan workspaces can also build the different ``packages`` separately, and taking into account if there are ``products``
+consuming them.
+
+Let's create another structure to understand better how it works. Now, let's create it from scratch instead of using
+the conan-new-command template:
+
+.. code-block:: bash
+
+   $ conan new cmake_lib -d name=hello -d version=1.0 -o hello
+   $ conan new cmake_exe -d name=app -d version=1.0 -d requires=hello/1.0 -o app
+   $ conan workspace init mywksp
+
+Those commands created a file structure like this:
+
+.. code-block:: text
+
+   .
+   ├── app
+   │    ├── CMakeLists.txt
+   │    ├── conanfile.py
+   │    ├── src
+   │    │    ├── app.cpp
+   │    │    ├── app.h
+   │    │    └── main.cpp
+   │    └── test_package
+   │        └── conanfile.py
+   ├── hello
+   │    ├── CMakeLists.txt
+   │    ├── conanfile.py
+   │    ├── include
+   │    │    └── hello.h
+   │    ├── src
+   │    │    └── hello.cpp
+   │    └── test_package
+   │        ├── CMakeLists.txt
+   │        ├── conanfile.py
+   │        └── src
+   │            └── example.cpp
+   └── mywksp
+       ├── conanws.py
+       └── conanws.yml
+
+
+Now, the ``conanws.yml`` is empty and the ``conanws.py`` has a quite minimal definition. Let's add to the workspace
+the already created ``app`` application (consumes ``hello``) and the ``hello`` lib as a new ``products`` and ``packages``
+respectively:
+
+.. code-block:: bash
+
+   $ conan workspace add ../hello
+   $ conan workspace add ../app --product
+
+The ``conanws.yml`` looks like:
+
+.. code-block:: yaml
+
+   packages:
+     app/1.0:
+       path: ../app
+     hello/1.0:
+       path: ../hello
+   products:
+   - ../app
+
+Defined the workspace's ``packages`` and ``products``, we can build them and execute the application:
+
+.. code-block:: bash
+
+   $ conan workspace build
+   $ ../app/build/Release/app
+   hello/1.0: Hello World Release!
+   ...
+   app/1.0: Hello World Release!
+   ...
 
 
 For any feedback, please open new tickets in https://github.com/conan-io/conan/issues.

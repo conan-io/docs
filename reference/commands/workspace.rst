@@ -28,7 +28,7 @@ if they don't exist yet. That path can be relative to your current working direc
 
 
 conan workspace [add | remove]
-----------------------------
+------------------------------
 
 Use these commands to add or remove editable packages to the current workspace. The ``conan workspace add <path>``
 folder must contain a ``conanfile.py``. That path can be relative to your current workspace.
@@ -128,7 +128,7 @@ as a monolithic super-project of the editables.
 
 By default it uses all the ``editable`` packages in the workspace. It is possible to select
 only a subset of them with the ``conan workspace install <folder1> .. <folderN>`` optional
-arguments. Only the subgraph of those packages, incluing their dependencies and transitive
+arguments. Only the subgraph of those packages, including their dependencies and transitive
 dependencies will be installed.
 
 
