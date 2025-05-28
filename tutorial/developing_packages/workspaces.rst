@@ -49,7 +49,7 @@ Through the ``conan workspace`` command, we can open, add, and/or remove ``packa
 Monolithic build
 ----------------
 
-Conan workspaces can be built as a single monolithic project (sometimes called super-project), which can be very convenient.
+Conan workspaces can be built as a single monolithic project (super-project), which can be very convenient.
 Let's see it with an example:
 
 .. code-block:: bash
