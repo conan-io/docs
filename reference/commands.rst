@@ -30,6 +30,7 @@ and these :ref:`custom command examples <examples_extensions_custom_commands>`
    commands/remote
    commands/search
    commands/version
+   commands/workspace
 
 - :doc:`conan audit <commands/audit>`: Check for vulnerabilities in your Conan packages
 - :doc:`conan cache <commands/cache>`: Return the path of recipes and packages in the cache
@@ -45,6 +46,7 @@ and these :ref:`custom command examples <examples_extensions_custom_commands>`
 - :doc:`conan remote <commands/remote>`: Add, remove, login/logout and manage remote server
 - :doc:`conan search <commands/search>`: Search packages matching a name
 - :doc:`conan version <commands/version>`: Give information about the Conan client version
+- :doc:`conan workspace (incubating) <commands/workspace>`: Manage Conan workspaces
 
 
 **Creator commands:**

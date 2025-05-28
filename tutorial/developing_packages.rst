@@ -27,3 +27,4 @@ any changes.
    developing_packages/local_package_development_flow
    developing_packages/editable_packages
    developing_packages/package_layout
+   developing_packages/workspaces

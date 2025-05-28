@@ -112,6 +112,11 @@ The available templates are:
 
   Its variables are: ``name``, ``version``
 
+- **workspace**:
+  Creates a ready-to-use workspace containing three editables: **liba**, **libb** (requires liba) and
+  **app1** (requires libb), plus the top-level ``CMakeLists.txt``, ``conanws.yml`` and ``conanws.py`` that describe the workspace.
+
+  You can pass a ``requires`` variable like ``-d requires=mymath/0.1`` to add an external dependency to **liba**.  
 
 By default, all ``name`` and ``version`` variables are set to ``mypkg`` and ``0.1``, respectively, if not provided by the user.
 
