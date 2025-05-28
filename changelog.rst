@@ -3,6 +3,31 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.17.0 (28-May-2025)
+--------------------
+
+- Fix: Fix urls for conan audit. `#18360 <https://github.com/conan-io/conan/pull/18360>`_
+- Fix: Validate if the licenses in the SBOM are SPDX compatible. `#18358 <https://github.com/conan-io/conan/pull/18358>`_
+- Fix: Autotools in Windows working for both LLVM/Clang both clang and clang-cl frontends. `#18347 <https://github.com/conan-io/conan/pull/18347>`_ . Docs `here <https://github.com/conan-io/docs/pull/4109>`__
+- Fix: Change wording on unzip tool when uncompressing file. `#18327 <https://github.com/conan-io/conan/pull/18327>`_
+- Fix: Avoid duplicate component requirement names in `PkgConfigDeps` and `BazelDeps`. `#18324 <https://github.com/conan-io/conan/pull/18324>`_
+- Fix: Avoid grafted commits in ``Git`` helper for ``commit_in_remote()`` affecting also ``coordinates_to_conandata()``, ``get_url_and_commit()``. `#18315 <https://github.com/conan-io/conan/pull/18315>`_
+- Fix: `copy()` now is capable of excluding symlinks to folders. `#18304 <https://github.com/conan-io/conan/pull/18304>`_
+- Fix: Better error message in `conan list --graph=file.json` when using filtered graph. `#18303 <https://github.com/conan-io/conan/pull/18303>`_
+- Fix: Always sort overrides serialization. `#18274 <https://github.com/conan-io/conan/pull/18274>`_
+- Fix: Allow composition of conf values that are different categories of numbers. `#18265 <https://github.com/conan-io/conan/pull/18265>`_
+- Fix: Avoid incorrect warning in ``test_package`` of ``python_requires`` about "tested_reference_str". `#18226 <https://github.com/conan-io/conan/pull/18226>`_
+- Fix: CycloneDX 1.6 authors field. `#18208 <https://github.com/conan-io/conan/pull/18208>`_
+- Fix: Make ``CMakeConfigDeps`` incubating generator paths relative for ``deployers``. `#18197 <https://github.com/conan-io/conan/pull/18197>`_
+- Fix: Add the full conan package in PyInstaller bundle. `#18195 <https://github.com/conan-io/conan/pull/18195>`_
+- Bugfix: Remove ``LT_INIT`` from ``conan new autotools_exe`` template ``configure.ac``. `#18378 <https://github.com/conan-io/conan/pull/18378>`_
+- Bugfix: Fix CMakeConfigDeps link flags. `#18367 <https://github.com/conan-io/conan/pull/18367>`_
+- BugFix: Fix ``conan audit`` producing `_parse_error_threshold` crash when some package was not found in the catalog. `#18363 <https://github.com/conan-io/conan/pull/18363>`_
+- Bugfix: The first edge on `conan graph info ... -f=html` now shows require information. `#18245 <https://github.com/conan-io/conan/pull/18245>`_
+- Bugfix: ``conan cache save`` no longer zips downloaded artifacts like ``conan_export.tgz`` and ``conan_sources.tgz``. `#18243 <https://github.com/conan-io/conan/pull/18243>`_ . Docs `here <https://github.com/conan-io/docs/pull/4099>`__
+- Bugfix: Allow to :command:`conan create` a ``python-requires`` package with a profile that contains tool-requires. `#18226 <https://github.com/conan-io/conan/pull/18226>`_
+- Bugfix: Let `conan config install` walk the fs tree looking for a `.conanignore`. `#18170 <https://github.com/conan-io/conan/pull/18170>`_
+
 2.16.1 (29-Apr-2025)
 --------------------
 
