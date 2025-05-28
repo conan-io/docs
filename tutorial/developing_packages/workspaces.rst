@@ -214,15 +214,18 @@ the conan-new-command template:
 
 .. code-block:: bash
 
+   $ mkdir conanws && cd conanws
+   $ conan workspace init .
    $ conan new cmake_lib -d name=hello -d version=1.0 -o hello
    $ conan new cmake_exe -d name=app -d version=1.0 -d requires=hello/1.0 -o app
-   $ conan workspace init mywksp
 
 Those commands created a file structure like this:
 
 .. code-block:: text
 
    .
+   ├── conanws.py
+   ├── conanws.yml
    ├── app
    │    ├── CMakeLists.txt
    │    ├── conanfile.py
@@ -232,50 +235,36 @@ Those commands created a file structure like this:
    │    │    └── main.cpp
    │    └── test_package
    │        └── conanfile.py
-   ├── hello
-   │    ├── CMakeLists.txt
-   │    ├── conanfile.py
-   │    ├── include
-   │    │    └── hello.h
-   │    ├── src
-   │    │    └── hello.cpp
-   │    └── test_package
-   │        ├── CMakeLists.txt
-   │        ├── conanfile.py
-   │        └── src
-   │            └── example.cpp
-   └── mywksp
-       ├── conanws.py
-       └── conanws.yml
+   └── hello
+        ├── CMakeLists.txt
+        ├── conanfile.py
+        ├── include
+        │    └── hello.h
+        ├── src
+        │    └── hello.cpp
+        └── test_package
+            ├── CMakeLists.txt
+            ├── conanfile.py
+            └── src
+                └── example.cpp
 
 
-Now, the ``conanws.yml`` is empty and the ``conanws.py`` has a quite minimal definition. Let's add to the workspace
-the already created ``app`` application (consumes ``hello``) and the ``hello`` lib as a new ``products`` and ``packages``
-respectively:
+Now, the ``conanws.yml`` is empty and the ``conanws.py`` has a quite minimal definition. Let's add the ``app`` application
+(consumes ``hello``) and the ``hello`` lib as a new ``products`` and ``packages`` respectively to the workspace:
 
 .. code-block:: bash
 
-   $ conan workspace add ../hello
-   $ conan workspace add ../app --product
-
-The ``conanws.yml`` looks like:
-
-.. code-block:: yaml
-
-   packages:
-     app/1.0:
-       path: ../app
-     hello/1.0:
-       path: ../hello
-   products:
-   - ../app
+   $ conan workspace add hello
+   Reference 'hello/1.0' added to workspace
+   $ conan workspace add app --product
+   Reference 'app/1.0' added to workspace
 
 Defined the workspace's ``packages`` and ``products``, we can build them and execute the application:
 
 .. code-block:: bash
 
    $ conan workspace build
-   $ ../app/build/Release/app
+   $ app/build/Release/app
    hello/1.0: Hello World Release!
    ...
    app/1.0: Hello World Release!
