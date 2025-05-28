@@ -213,7 +213,7 @@ Let's use another structure to understand better how it works. Now, let's create
 
 .. code-block:: bash
 
-   $ mkdir conanws && cd conanws
+   $ mkdir myproject && cd myproject
    $ conan workspace init .
    $ conan new cmake_lib -d name=hello -d version=1.0 -o hello
    $ conan new cmake_exe -d name=app -d version=1.0 -d requires=hello/1.0 -o app
