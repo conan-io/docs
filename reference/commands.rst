@@ -46,7 +46,7 @@ and these :ref:`custom command examples <examples_extensions_custom_commands>`
 - :doc:`conan remote <commands/remote>`: Add, remove, login/logout and manage remote server
 - :doc:`conan search <commands/search>`: Search packages matching a name
 - :doc:`conan version <commands/version>`: Give information about the Conan client version
-- :doc:`conan workspace (incubating) <commands/workspace>`: Manage Conan workspaces (group of packages in editable mode)
+- :doc:`conan workspace (incubating) <commands/workspace>`: Manage Conan workspaces
 
 
 **Creator commands:**
