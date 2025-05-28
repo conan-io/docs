@@ -27,7 +27,8 @@ It can use a pattern, like the ``conan list`` command, but it can also accept a 
 The ``conan_cache_save.tgz`` file contains the packages named ``pkg`` (any version), the last recipe revision, and the last package revision of all the package binaries.
 The name of the file can be changed with the optional ``--file=xxxx`` argument. Some important considerations:
 
-- The command saves the contents of the cache "recipe" folders, containing the subfolders "export", "export_sources", "download", "source" and recipe "metadata".
+- The command saves the contents of the cache "recipe" folders, containing the subfolders "export", "export_sources", "source" and recipe "metadata".
+- The "source" folder in the cache can be skipped with the ``conan cache save --no-source`` argument. That means that if the restored recipe needs to build a new binary in the restored cache, it will not have the sources and it will try to download them if the recipe ``source()`` method says so.
 - The command saves the contents of the "package" and the package "metadata" folders, but not the binary "build" or "download", that are considered temporary folders.
 - If the user doesn't want any of those folders to be saved, they can be cleaned before saving them with ``conan cache clean`` command
 - The command saves the cache files and artifacts as well as the metadata (revisions, package_id) to be able to restore those packages in another cache. But it doesn't save any other cache state like ``settings.yml``, ``global.conf``, ``remotes``, etc. If the saved packages require any other specific configuration, it should be managed with ``conan config install``.

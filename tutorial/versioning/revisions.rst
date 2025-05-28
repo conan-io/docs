@@ -68,7 +68,7 @@ This recipe **revision**  is the hash of the contents of the recipe, including t
 and the exported sources (``src/main.cpp``, ``CMakeLists.txt``, etc., that is, all files exported
 in the recipe).
 
-We can now edit the ``conanfile.py``, to define the ``licence`` value:
+We can now edit the ``conanfile.py``, to define the ``license`` value:
 
 .. code-block:: python
     :caption: hello/conanfile.py

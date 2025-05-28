@@ -3,7 +3,10 @@
 Checking package vulnerabilities
 ================================
 
-The ``conan audit`` command is used to check for known vulnerabilities in your Conan packages.
+.. include:: ../common/experimental_warning.inc
+
+The ``conan audit`` command (introduced in Conan 2.14.0) is used to check for known
+vulnerabilities in your Conan packages.
 
 By default, Conan provides access to a ConanCenter provider, which is a public provider that checks
 for vulnerabilities in ConanCenter packages, which uses JFrog Advanced Security to scan packages.
@@ -108,6 +111,17 @@ which will look something like:
     :align: center
     :alt: Conan audit report
 
+The scan also has the threshold option ``--severity-level``, which allows you to set a minimum severity level for the vulnerabilities.
+In case the threshold value is surpassed by any of the vulnerabilities found, the command will return a non-zero exit code.
+By default, it's set to 9.0 (Critical), but you can set it to a lower value to include lower severity vulnerabilities in the report.
+To disable the threshold, set it to 100.0.
+
+.. code-block::
+
+    $ conan audit scan . --severity-level=5.0
+    ...
+    The package openssl/1.1.1w has a CVSS score 5.3 and exceeded the threshold severity level 5.0.
+
 .. _devops_audit_private_providers:
 
 Adding private providers
@@ -118,7 +132,8 @@ For now, only JFrog Advanced Security providers are supported.
 
 .. note::
 
-   To use these private providers, your Artifactory license should include a subscription to JFrog Curation
+   To use these private providers, your Artifactory license should include a subscription
+   to JFrog Curation
 
 
 To add a provider, the recommended way is to first create a specific user in Artifactory to use as the read-only user,
@@ -136,7 +151,7 @@ with the following command:
    token in the shell history, you can authenticate with the provider using an environment
    variable. Set the ``CONAN_AUDIT_PROVIDER_TOKEN_<PROVIDER_NAME>`` environment variable
    with the token value, replacing `<PROVIDER_NAME>` with the provider name in uppercase
-   and using underscores (`_`) instead of hyphens (`-`). 
+   and using underscores (`_`) instead of hyphens (`-`).
 
    For example, for `myprovider`, use: ``CONAN_AUDIT_PROVIDER_TOKEN_MYPROVIDER=<token>``.
 
@@ -144,10 +159,21 @@ with the following command:
 Note the ``--type=private`` argument, which specifies that the provider is a private provider, and that the supplied URL
 should be the base URL of the Artifactory instance.
 
-With this, you can now use the provider with the ``conan audit scan`` and ``conan audit list`` commands, by specifying
-the provider name with the ``-p``/``--provider`` argument.
+You can now use the provider with the ``conan audit scan`` and ``conan audit list``
+commands **without any limitation on the number of requests**, by specifying the provider
+name using the ``-p`` / ``--provider`` argument.
+
+.. code-block::
+
+    $ conan audit scan . -p=myprovider
+
 
 .. seealso::
 
+    - For detailed reference documentation on all ``conan audit`` subcommands and their
+      options, consult the :ref:`conan audit command reference
+      <reference_commands_audit>`.
+    - Read more in the dedicated `blog post
+      <https://blog.conan.io/introducing-conan-audit-command/>`_.
     - Please check the :ref:`conan audit command reference <security>` for other security
       related features.

@@ -26,4 +26,5 @@ Xcode.
    integrations/android
    integrations/jfrog
    integrations/ros
+   integrations/github
    integrations/community

@@ -33,7 +33,7 @@ Where:
 - ``<vcvars-cmd>`` calls the Visual Studio prompt that matches the current recipe ``settings``.
 - ``configuration``, typically Release, Debug, which will be obtained from ``settings.build_type``
   but this can be customized with the ``build_type`` attribute.
-- ``<platform>`` is the architecture, a mapping from the ``settings.arch`` to the common 'x86', 'x64', 'ARM', 'ARM64'.
+- ``<platform>`` is the architecture, a mapping from the ``settings.arch`` to the common 'x86', 'x64', 'ARM', 'ARM64', 'ARM64EC'.
   This can be customized with the ``platform`` attribute.
 
 
@@ -46,7 +46,7 @@ attributes
 You can customize the following attributes in case you need to change them:
 
 - **build_type** (default ``settings.build_type``): Value for the ``/p:Configuration``.
-- **platform** (default based on ``settings.arch`` to select one of these values: (``'x86', 'x64', 'ARM', 'ARM64'``):
+- **platform** (default based on ``settings.arch`` to select one of these values: (``'x86', 'x64', 'ARM', 'ARM64', 'ARM64EC'``):
   Value for the ``/p:Platform``.
 
 Example:

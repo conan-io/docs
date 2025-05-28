@@ -10,3 +10,4 @@ Cross-building examples
    cross_build/android/ndk
    cross_build/android/android_studio
    cross_build/tricore
+   cross_build/linux_to_windows_mingw

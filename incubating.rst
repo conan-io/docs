@@ -281,6 +281,24 @@ new ``--product`` argument.
 The ``conan workspace build`` command just iterates all products, so it might repeat the build of editables dependencies of the products. In most cases, it will be a no-op as the projects would be already built, but might still take some time. This is pending for optimization, but that will be done later, the important thing now is to focus on tools, UX, flows, and definitions (of things like the ``products``).
 
 
+conan workspace clean
+*********************
+
+The new ``conan workspace clean`` removes by default the ``output-folder`` of every package in the workspace if it was defined.
+But if it is not defined, it won't remove anything by default, as removing files in user space is dangerous, and could destroy user changes or files.
+It would be recommended that users manage that cleaning with ``git clean -xdf`` or similar strategies.
+It is also possible to define a custom clean logic by implementing the ``clean()`` method:
+
+.. code-block:: python
+
+   class Ws(Workspace):
+      def name(self):
+         return "my_workspace"
+      def clean(self):
+         self.output.info("MY CLEAN!!!!")
+
+
+
 conan workspace install
 ***********************
 

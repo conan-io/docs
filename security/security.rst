@@ -11,5 +11,4 @@ Security is a critical aspect of many software development projects and products
 
    audit
    sboms
-   signing
    guidelines
