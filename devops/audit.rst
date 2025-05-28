@@ -175,3 +175,5 @@ name using the ``-p`` / ``--provider`` argument.
       <reference_commands_audit>`.
     - Read more in the dedicated `blog post
       <https://blog.conan.io/introducing-conan-audit-command/>`_.
+    - Please check the :ref:`conan audit command reference <security>` for other security
+      related features.
