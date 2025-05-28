@@ -55,7 +55,7 @@ To build this configuration we will use the following profile:
 
 Quick explanation of the profile:
 
-- The ``compiler.runtime`` definiton is the important differentiator to distinguish between Msys2-Clang and LLVM/Clang
+- The ``compiler.runtime`` definition is the important differentiator to distinguish between Msys2-Clang and LLVM/Clang
   with the MSVC runtime. The LLVM/Clang defines this ``compiler.runtime``, while the Msys2-Clang doesn't.
 - The MSVC runtime can be either dynamic or static. It is important also to define the runtime version (toolset version ``v144``)
   of this runtime, as it is possible to use different ones.
