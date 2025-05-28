@@ -7,7 +7,7 @@ Workspaces (incubating)
 
 
 In the previous section, we worked with *editable packages* and how to define a custom layout. Let's introduce the concept
-of *workspace* and how to use it
+of *workspace* and how to use it.
 
 Introduction
 ------------
