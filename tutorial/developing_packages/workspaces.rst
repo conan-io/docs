@@ -209,8 +209,7 @@ Orchestrated build
 Conan workspaces can also build the different ``packages`` separately, and taking into account if there are ``products``
 consuming them.
 
-Let's create another structure to understand better how it works. Now, let's create it from scratch instead of using
-the conan-new-command template:
+Let's use another structure to understand better how it works. Now, let's create it from scratch with the ``conan workspace init .`` that creates an almost empty conanws.py/conanws.yml, and using the ``conan new cmake_lib/cmake_exe`` basic templates, that create regular CMake-based conan packages:
 
 .. code-block:: bash
 
