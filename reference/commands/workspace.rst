@@ -17,6 +17,10 @@ The ``conan workspace`` command allows to open, add, and remove packages from th
 conan workspace init
 --------------------
 
+.. autocommand::
+    :command: conan workspace init -h
+
+
 The command ``conan workspace init [path]`` creates an empty ``conanws.yml`` file and a minimal ``conanws.py`` within that path
 if they don't exist yet. That path can be relative to your current working directory.
 
@@ -29,6 +33,13 @@ if they don't exist yet. That path can be relative to your current working direc
 
 conan workspace [add | remove]
 ------------------------------
+
+.. autocommand::
+    :command: conan workspace add -h
+
+.. autocommand::
+    :command: conan workspace remove -h
+
 
 Use these commands to add or remove editable packages to the current workspace. The ``conan workspace add <path>``
 folder must contain a ``conanfile.py``. That path can be relative to your current workspace.
@@ -57,6 +68,10 @@ The ``conanws.py`` has a default implementation, but it is possible to override 
 conan workspace info
 --------------------
 
+.. autocommand::
+    :command: conan workspace info -h
+
+
 Use this command to show information about the current workspace
 
 .. code-block:: bash
@@ -82,6 +97,10 @@ Use this command to show information about the current workspace
 conan workspace clean
 ---------------------
 
+.. autocommand::
+    :command: conan workspace clean -h
+
+
 The new ``conan workspace clean`` command removes by default the ``output-folder`` of every package in the workspace if it was defined.
 If it is not defined, it won't remove anything by default, as removing files in user space is dangerous, and could destroy user changes or files.
 It would be recommended that users manage that cleaning with ``git clean -xdf`` or similar strategies.
@@ -100,6 +119,10 @@ It is also possible to define a custom clean logic by implementing the ``clean()
 conan workspace open
 --------------------
 
+.. autocommand::
+    :command: conan workspace open -h
+
+
 The new ``conan workspace open`` command implements a new concept. The packages containing an ``scm`` information in
 the ``conandata.yml`` (with ``git.coordinates_to_conandata()``) can be automatically cloned and checkout inside the
 current workspace from their Conan recipe reference (including recipe revision).
@@ -107,6 +130,10 @@ current workspace from their Conan recipe reference (including recipe revision).
 
 conan workspace build
 ---------------------
+
+.. autocommand::
+    :command: conan workspace build -h
+
 
 The command ``conan workspace build`` does the equivalent of ``conan build <product-path> --build=editable``,
 for every ``product`` defined within the workspace.
@@ -122,6 +149,10 @@ and definitions (of things like the ``products``).
 
 conan workspace install
 -----------------------
+
+.. autocommand::
+    :command: conan workspace install -h
+
 
 The command ``conan workspace install`` is useful to install and build the current workspace
 as a monolithic super-project of the editables.

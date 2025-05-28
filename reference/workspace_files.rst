@@ -5,12 +5,10 @@ Workspace files
 
 .. include:: ../common/incubating_warning.inc
 
-
 Workspaces are defined by the ``conanws.yml`` and/or ``conanws.py`` files that will define the "root" workspace folder.
 
-
-conanws.yml | conanws.py
-------------------------
+conanws.yml
+-----------
 
 The most basic implementation of a workspace is a ``conanws.yml`` file. It defines the workspace's ``packages`` (editable dependencies)
 and ``products`` (root consumers). For instance, a workspace ``conanws.yml`` defining 2 ``packages`` could be:
@@ -25,7 +23,10 @@ and ``products`` (root consumers). For instance, a workspace ``conanws.yml`` def
          path: dep2
 
 
-But a ``conanws.yml`` can be extended with a way more powerful ``conanws.py`` that follows the same relationship as
+conanws.py
+----------
+
+A ``conanws.yml`` can be extended with a way more powerful ``conanws.py`` that follows the same relationship as
 a ``ConanFile`` does with its ``conandata.yml``. If we want to dynamically define the ``packages``, for example based
 on the existence of some ``name.txt`` and ``version.txt`` files in folders, the packages could be defined in ``conanws.py`` as:
 
