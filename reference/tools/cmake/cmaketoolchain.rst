@@ -463,11 +463,15 @@ and added in this order:
 - **linker_scripts**: Defines the flags for any provided linker scripts.
 - **libcxx**: Defines ``-stdlib=libc++`` flag when necessary as well as ``_GLIBCXX_USE_CXX11_ABI``.
 - **vs_runtime**: Defines the ``CMAKE_MSVC_RUNTIME_LIBRARY`` variable, as a generator expression for multiple configurations.
+- **vs_debugger_environment**: Defines ``CMAKE_VS_DEBUGGER_ENVIRONMENT`` from "bindirs" folders of dependencies, exclusively for Visual Studio.
 - **cppstd**: defines ``CMAKE_CXX_STANDARD``, ``CMAKE_CXX_EXTENSIONS``
 - **parallel**: defines ``/MP`` parallel build flag for Visual.
+- **extra_flags**: Adds extra definitions, compile and link flags from ``tools.build:cxxflags``, ``tools.build:cflags``, ``tools.build:defines``, ``tools.build:sharedlinkflags``, etc.
 - **cmake_flags_init**: defines ``CMAKE_XXX_FLAGS`` variables based on previously defined Conan variables. The blocks above only define ``CONAN_XXX`` variables, and this block will define CMake ones like ``set(CMAKE_CXX_FLAGS_INIT "${CONAN_CXX_FLAGS}" CACHE STRING "" FORCE)```.
+- **extra_variables**: Definition of extra CMake variables from ``tools.cmake.cmaketoolchain:extra_variables``
 - **try_compile**: Stop processing the toolchain, skipping the blocks below this one, if ``IN_TRY_COMPILE`` CMake property is defined.
 - **find_paths**: Defines ``CMAKE_FIND_PACKAGE_PREFER_CONFIG``, ``CMAKE_MODULE_PATH``, ``CMAKE_PREFIX_PATH`` so the generated files from ``CMakeDeps`` are found.
+- **pkg_config**: Defines ``PKG_CONFIG_EXECUTABLE`` based on ``tools.gnu:pkg_config`` and adds ``CMAKE_CURRENT_LIST_DIR`` to ``ENV{PKG_CONFIG_PATH}`` to let pkg-config find generated .pc files.
 - **rpath**: Defines ``CMAKE_SKIP_RPATH``. By default it is disabled, and it is needed to define ``self.blocks["rpath"].skip_rpath=True`` if you want to activate ``CMAKE_SKIP_RPATH``
 - **shared**: defines ``BUILD_SHARED_LIBS``.
 - **output_dirs**: Define the ``CMAKE_INSTALL_XXX`` variables.
