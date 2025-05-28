@@ -9,7 +9,7 @@ The Clang compiler in Windows can come from 2 different installations or distrib
 - The Msys2 Clang compiler that uses the Msys2 runtime (libstdc++6.dll)
 
 This example explains the LLVM/Clang with the MSVC runtime. This Clang distribution can in turn
-be used in three different ways:
+be used in two different ways:
 
 - Using the LLVM/Clang downloaded compiler (it still uses the MSVC runtime), via the GNU-like frontend ``clang``
 - Using the LLVM/Clang downloaded compiler (it still uses the MSVC runtime), via the MSVC-like frontend ``clang-cl``
