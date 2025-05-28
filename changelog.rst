@@ -6,6 +6,7 @@ For a more detailed description of the major changes that Conan 2 brings, compar
 2.17.0 (28-May-2025)
 --------------------
 
+- Fix: Fix PyInstaller `--exclude-module` adding wildcard for `conan.test`. `#18381 <https://github.com/conan-io/conan/pull/18381>`_
 - Fix: Fix urls for conan audit. `#18360 <https://github.com/conan-io/conan/pull/18360>`_
 - Fix: Validate if the licenses in the SBOM are SPDX compatible. `#18358 <https://github.com/conan-io/conan/pull/18358>`_
 - Fix: Autotools in Windows working for both LLVM/Clang both clang and clang-cl frontends. `#18347 <https://github.com/conan-io/conan/pull/18347>`_ . Docs `here <https://github.com/conan-io/docs/pull/4109>`__
