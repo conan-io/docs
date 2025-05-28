@@ -5,10 +5,10 @@ AutoTools: Using LLVM/Clang Windows compiler
 
 The Clang compiler in Windows can come from 2 different installations or distributions:
 
-- The LLVM/CLang compiler, that uses the MSVC runtime
+- The LLVM/Clang compiler, that uses the MSVC runtime
 - The Msys2 Clang compiler that uses the Msys2 runtime (libstdc++6.dll)
 
-This example explains the LLVM/Clang wiht the MSVC runtime. This Clang distribution can in turn
+This example explains the LLVM/Clang with the MSVC runtime. This Clang distribution can in turn
 be used in three different ways:
 
 - Using the LLVM/Clang downloaded compiler (it still uses the MSVC runtime), via the GNU-like frontend ``clang``
@@ -21,7 +21,7 @@ Let's start from a simple ``autotools_exe`` template:
 
     $ conan new autotools_exe -d name=mypkg -d version=0.1
 
-This creates a simple CMake based project and Conan package recipe that uses ``AutotoolsToolchain``.
+This creates a simple Autotools based project and Conan package recipe that uses ``AutotoolsToolchain``.
 
 
 Autotools: LLVM/Clang with ``clang`` GNU-like frontend
@@ -153,8 +153,8 @@ Let's build it:
     ...
 
 
-See how the desired ``clang-cl```` is used, and how the ``MSVC-like`` command line syntax is used, like ``-std:c++14``.
-This MSVC-like syntax uses the ``-MD/-MT`` flags to differentiate accross the dynamic/static MSVC runtimes.
+See how the desired ``clang-cl`` is used, and how the ``MSVC-like`` command line syntax is used, like ``-std:c++14``.
+This MSVC-like syntax uses the ``-MD/-MT`` flags to differentiate across the dynamic/static MSVC runtimes.
 
 We can run our executable, and see how the Clang compiler version and the MSVC runtime match the defined ones:
 
