@@ -132,3 +132,4 @@ Unfortunately, it is not available natively in Conan, so it will be necessary to
 .. seealso::
 
     - :ref:`How to install the build info extension and how to generate your build info <integrations_jfrog>`.
+
