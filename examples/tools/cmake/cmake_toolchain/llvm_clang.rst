@@ -156,7 +156,7 @@ Let's build it:
     [3/3] cmd.exe /C "cd . && C:\ws\cmake\cmake-3.27.9-windows-x86_64\bin\cmake.exe -E vs_link_exe --intdir=CMakeFiles\mypkg.dir --rc=C:\PROGRA~2\WI3CF2~1\10\bin\100226~1.0\x64\rc.exe --mt=C:\PROGRA~2\WI3CF2~1\10\bin\100226~1.0\x64\mt.exe --manifests  -- C:\ws\LLVM\18.1\bin\lld-link.exe /nologo CMakeFiles\mypkg.dir\src\mypkg.cpp.obj CMakeFiles\mypkg.dir\src\main.cpp.obj  /out:mypkg.exe /implib:mypkg.lib /pdb:mypkg.pdb /version:0.0 /machine:x64 /INCREMENTAL:NO /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib && cd ."
 
 See how the desired LLVM/Clang compiler installed in the ``C:/ws`` folder is used, and how the ``MSVC-like`` command line syntax is used.
-This MSVC-like syntax uses the ``-MD/-MT`` flags to differentiate accross the dynamic/static MSVC runtimes.
+This MSVC-like syntax uses the ``-MD/-MT`` flags to differentiate across the dynamic/static MSVC runtimes.
 
 We can run our executable, and see how the Clang compiler version and the MSVC runtime match the defined ones:
 
