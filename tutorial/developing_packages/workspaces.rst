@@ -1,7 +1,7 @@
 .. _tutorial_workspaces:
 
-Workspaces (incubating)
-=======================
+Workspaces
+==========
 
 .. include:: ../../common/incubating_warning.inc
 
