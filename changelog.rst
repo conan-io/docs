@@ -3,6 +3,44 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.16.1 (29-Apr-2025)
+--------------------
+
+- Feature: Add missing GCC 15 key to `settings.yml` `#18193 <https://github.com/conan-io/conan/pull/18193>`_ . Docs `here <https://github.com/conan-io/docs/pull/4084>`__
+
+2.16.0 (29-Apr-2025)
+--------------------
+
+- Feature: Add support for GCC 15.1. `#18175 <https://github.com/conan-io/conan/pull/18175>`_ . Docs `here <https://github.com/conan-io/docs/pull/4081>`__
+- Feature: Allow ``CMakeConfigDeps`` to support components with multilibs (with deprecation warning). `#18172 <https://github.com/conan-io/conan/pull/18172>`_
+- Feature: add CMAKE_MODULE_PATH to CMakeConfigDeps for include(module). `#18162 <https://github.com/conan-io/conan/pull/18162>`_
+- Feature: Add threshold for severity level in the conan audit scan command. `#18160 <https://github.com/conan-io/conan/pull/18160>`_ . Docs `here <https://github.com/conan-io/docs/pull/4080>`__
+- Feature: `GnuToolchain` including the latest changes from `AutotoolsToolchain`. `#18159 <https://github.com/conan-io/conan/pull/18159>`_
+- Feature: Add `CycloneDx 1.6` support. `#18108 <https://github.com/conan-io/conan/pull/18108>`_ . Docs `here <https://github.com/conan-io/docs/pull/4077>`__
+- Feature: Introduce a new ``no_skip=True`` requirement trait for exceptional cases like one application depending on another application privately with ``requires`` to avoid it being skipped. `#18101 <https://github.com/conan-io/conan/pull/18101>`_ . Docs `here <https://github.com/conan-io/docs/pull/4078>`__
+- Feature: Raise error early if ``conf_info`` is assigned with raw settings/options etc `#18083 <https://github.com/conan-io/conan/pull/18083>`_
+- Feature: Moving functionality from ``Command`` layer to the ``ConanAPI`` for clearing old private imports ``from conans``. `#18079 <https://github.com/conan-io/conan/pull/18079>`_
+- Feature: Document publicly the ``MSBuildDeps.platform`` attribute to allow customization for wix projects needing ``x86`` value. `#18078 <https://github.com/conan-io/conan/pull/18078>`_ . Docs `here <https://github.com/conan-io/docs/pull/4050>`__
+- Feature: Add missing intel-cc releases `#18054 <https://github.com/conan-io/conan/pull/18054>`_ . Docs `here <https://github.com/conan-io/docs/pull/4076>`__
+- Feature: Add information about the configuration each package is building for `#18019 <https://github.com/conan-io/conan/pull/18019>`_
+- Feature: Add `-vv` information for the configuration of each dependency in the graph `#18019 <https://github.com/conan-io/conan/pull/18019>`_
+- Fix: Some improvements in conan audit reports. `#18171 <https://github.com/conan-io/conan/pull/18171>`_
+- Fix: Fix ordering by severity value in audit html output. `#18161 <https://github.com/conan-io/conan/pull/18161>`_
+- Fix: Fix column overflow in audit html output. `#18161 <https://github.com/conan-io/conan/pull/18161>`_
+- Fix: Make `audit_providers.json` read/writeable only by owner. `#18158 <https://github.com/conan-io/conan/pull/18158>`_
+- Fix: Remove bogus SDK versions for some Apple OS's. `#18152 <https://github.com/conan-io/conan/pull/18152>`_ . Docs `here <https://github.com/conan-io/docs/pull/4076>`__
+- Fix: Make the ``conan.cli`` command layer fully independent of legacy ``from conans`` imports that will break. `#18127 <https://github.com/conan-io/conan/pull/18127>`_
+- Fix: Explicit ``git fetch commit`` in ``Git.checkout_from_conandata_coordinates()``, for cases like Azure DevOps creating commits that are not fetched by default in ``git clone``. `#18110 <https://github.com/conan-io/conan/pull/18110>`_
+- Fix: Add ``ARM64EC`` platform in ``MSBuild``, it was missing. `#18100 <https://github.com/conan-io/conan/pull/18100>`_ . Docs `here <https://github.com/conan-io/docs/pull/4079>`__
+- Fix: Allow ``conan graph build-order`` to output ``build_args`` for "editable" packages. `#18097 <https://github.com/conan-io/conan/pull/18097>`_
+- Fix: Improve error message when private audit providers don't have curation. `#18094 <https://github.com/conan-io/conan/pull/18094>`_
+- Fix: Making some ``Command`` formatter helpers private (only the ones in ``printers`` are common for reusage), and making some ConanAPI attributes private. `#18079 <https://github.com/conan-io/conan/pull/18079>`_
+- Bugfix: Raise a not-found error if "local recipes index" ``user/channel`` doesn't match requested one. `#18153 <https://github.com/conan-io/conan/pull/18153>`_
+- Bugfix: Fixed bug using `MesonToolchain` and `visionOS`. `#18151 <https://github.com/conan-io/conan/pull/18151>`_
+- Bugfix: Add IMPORTED_CONFIGURATIONS to INTERFACE libraries to in ``CMakeConfigDeps`` `#18088 <https://github.com/conan-io/conan/pull/18088>`_
+- Bugfix: Apply Apple ``bitcode``, ``visibility`` and ``arc`` confs to ``Autootools/Gnu/Meson Toolchains`` `#18085 <https://github.com/conan-io/conan/pull/18085>`_
+
+
 2.15.1 (14-Apr-2025)
 --------------------
 
@@ -35,6 +73,7 @@ For a more detailed description of the major changes that Conan 2 brings, compar
 2.14.0 (12-Mar-2025)
 --------------------
 
+- Feature: Add :command:`conan audit` command for scanning Conan packages for CVE's `#17951 <https://github.com/conan-io/conan/pull/17951>`_ . Docs `here <https://github.com/conan-io/docs/pull/4026>`__
 - Feature: Add clang 20 support. `#17920 <https://github.com/conan-io/conan/pull/17920>`_ . Docs `here <https://github.com/conan-io/docs/pull/4011>`__
 - Feature: Allow partial ``workspace install <path1> ... <pathN>`` installation of workspace. `#17887 <https://github.com/conan-io/conan/pull/17887>`_ . Docs `here <https://github.com/conan-io/docs/pull/4016>`__
 - Feature: Add hooks for validate method: `pre_validate` and `post_validate`. `#17856 <https://github.com/conan-io/conan/pull/17856>`_ . Docs `here <https://github.com/conan-io/docs/pull/4013>`__

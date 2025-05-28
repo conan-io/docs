@@ -117,6 +117,9 @@ Here you can see a complete example of all the hook functions available:
     def post_build(conanfile):
         conanfile.output.info("Running after of executing build() method.")
 
+    def post_build_fail(conanfile):
+        conanfile.output.info("Running after failed execution of build() method.")
+
     def pre_package(conanfile):
         conanfile.output.info("Running before to execute package() method.")
 
