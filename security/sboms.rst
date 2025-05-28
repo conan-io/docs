@@ -4,6 +4,8 @@
 Software Bills of Materials (SBOM)
 ==================================
 
+.. include:: ../common/experimental_warning.inc
+
 A Software Bill of Materials (SBOM) is a document that lists all the components, libraries,
 dependencies, and other elements that make up a specific piece of software. Similar to a bill
 of materials in manufacturing, which details the parts and materials used to build a product,
