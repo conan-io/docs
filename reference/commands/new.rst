@@ -113,10 +113,10 @@ The available templates are:
   Its variables are: ``name``, ``version``
 
 - **workspace**:
-  Creates a local project with some editable packages and a ``conanws.yml`` that represents it.
+  Creates a ready-to-use workspace containing three editables: **liba**, **libb** (requires liba) and
+  **app1** (requires libb), plus the top-level ``CMakeLists.txt``, ``conanws.yml`` and ``conanws.py`` that describe the workspace.
 
-  Its variables are: ``requires`` (``-d requires=mymath/0.1`` will add an external dependency of the workspace to a ``mymath/0.1`` package that should exist in the Conan cache or in remotes)
-
+  You can pass a ``requires`` variable like ``-d requires=mymath/0.1`` to add an external dependency to **liba**.  
 
 By default, all ``name`` and ``version`` variables are set to ``mypkg`` and ``0.1``, respectively, if not provided by the user.
 
