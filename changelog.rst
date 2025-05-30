@@ -6,6 +6,24 @@ For a more detailed description of the major changes that Conan 2 brings, compar
 2.17.0 (28-May-2025)
 --------------------
 
+- Feature: Add support for gcc 13.4 `#18374 <https://github.com/conan-io/conan/pull/18374>`_ . Docs `here <https://github.com/conan-io/docs/pull/4108>`__
+- Feature: Renamed 'editables' to 'packages'. `#18359 <https://github.com/conan-io/conan/pull/18359>`_ . Docs `here <https://github.com/conan-io/docs/pull/4106>`__
+- Feature: Putting a folder named `conanws` as the top limit search if it exists. `#18343 <https://github.com/conan-io/conan/pull/18343>`_ . Docs `here <https://github.com/conan-io/docs/pull/4106>`__
+- Feature: Removed the `home_folder` definition mechanism from the `conanws.[yml | py]` file. `#18339 <https://github.com/conan-io/conan/pull/18339>`_ . Docs `here <https://github.com/conan-io/docs/pull/4106>`__
+- Feature: Packages/products do not need to be within the `workspace` folder. `#18334 <https://github.com/conan-io/conan/pull/18334>`_ . Docs `here <https://github.com/conan-io/docs/pull/4106>`__
+- Feature: Add `tools.gnu:configure_args` conf to GnuToolchain and Autotoolchain generator to allow extra arguments to be added to the configure command. `#18333 <https://github.com/conan-io/conan/pull/18333>`_ . Docs `here <https://github.com/conan-io/docs/pull/4100>`__
+- Feature: Add gcc 14.3 support. `#18322 <https://github.com/conan-io/conan/pull/18322>`_ . Docs `here <https://github.com/conan-io/docs/pull/4096>`__
+- Feature: Auto detection of C standard. `#18290 <https://github.com/conan-io/conan/pull/18290>`_ . Docs `here <https://github.com/conan-io/docs/pull/4097>`__
+- Feature: define CMAKE_C/CXX_COMPILER in ``CMakeToolchain`` generated presets, only for MSVC cl-like compilers, automatically only for Ninja generator. `#18280 <https://github.com/conan-io/conan/pull/18280>`_
+- Feature: Add `header_lib` template to :command:`conan new`. `#18249 <https://github.com/conan-io/conan/pull/18249>`_ . Docs `here <https://github.com/conan-io/docs/pull/4094>`__
+- Feature: `to_cppstd_flag`/`to_cstd_flag` methods are not using fixed values. `#18246 <https://github.com/conan-io/conan/pull/18246>`_
+- Feature: Add ``subprocess`` to the profile jinja rendering. `#18244 <https://github.com/conan-io/conan/pull/18244>`_ . Docs `here <https://github.com/conan-io/docs/pull/4098>`__
+- Feature: New ``conan cache save ... --no-source`` to avoid storing downloaded sources in the `.tgz`. `#18243 <https://github.com/conan-io/conan/pull/18243>`_ . Docs `here <https://github.com/conan-io/docs/pull/4099>`__
+- Feature: Add verbose logs for `conan cache clean`. `#18228 <https://github.com/conan-io/conan/pull/18228>`_
+- Feature: Add `--list` inputs to `conan cache clean` and `conan cache check-integrity`. `#18219 <https://github.com/conan-io/conan/pull/18219>`_ . Docs `here <https://github.com/conan-io/docs/pull/4095>`__
+- Feature: Add `allowed_packages` info to remote json output. `#18206 <https://github.com/conan-io/conan/pull/18206>`_
+- Feature: Add URL information to json output format for conan upload. `#18166 <https://github.com/conan-io/conan/pull/18166>`_ . Docs `here <https://github.com/conan-io/docs/pull/4088>`__
+- Feature: New ``conan workspace clean`` command, removes the ``output-folder`` of editables if defined, otherwise nothing. Can be custom implemented by users in the ``conanws.py`` file. `#17763 <https://github.com/conan-io/conan/pull/17763>`_ . Docs `here <https://github.com/conan-io/docs/pull/4101>`__
 - Fix: Fix PyInstaller `--exclude-module` adding wildcard for `conan.test`. `#18381 <https://github.com/conan-io/conan/pull/18381>`_
 - Fix: Fix urls for conan audit. `#18360 <https://github.com/conan-io/conan/pull/18360>`_
 - Fix: Validate if the licenses in the SBOM are SPDX compatible. `#18358 <https://github.com/conan-io/conan/pull/18358>`_
