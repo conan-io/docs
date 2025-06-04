@@ -1,7 +1,7 @@
 .. _examples_cross_build_emscripten:
 
-Cross-building with Emscripten
-==============================
+Cross-building with Emscripten - WebAssembly and asm.js
+=======================================================
 
 This example demonstrates how to cross-build a simple C++ project using Emscripten and Conan.
 
@@ -16,9 +16,9 @@ What’s the difference between asm.js and WASM?
 ----------------------------------------------
 
 - **asm.js** is a subset of JavaScript optimized for speed. It is fully supported by all browsers (even older ones) and compiles to a large ``.js`` file.
-- **WebAssembly (WASM)** is a binary format that is smaller and faster to load and execute. Most modern browsers support it, and it is generally recommended for new projects. ``WASM`` is also easier to integrate with native browser APIs compared to ``asm.js``.
+- **WebAssembly (WASM)** is a binary format that is smaller and faster to load and execute. Most modern browsers support it, and it is generally recommended for new projects. **WASM** is also easier to integrate with native browser APIs compared to **asm.js**.
 
-Setting Up Conan Profiles
+Setting up Conan profiles
 -------------------------
 
 **For asm.js (JavaScript-based output):**
@@ -70,6 +70,26 @@ Setting Up Conan Profiles
    .. code-block:: text
 
       tools.build:compiler_executables={'c':'/path/to/emcc', 'cpp':'/path/to/em++'}
+
+
+.. note::
+   The ``tools.build:exelinkflags`` and ``tools.build:sharedlinkflags`` in
+   previous profiles are recomendations but users can modify them or define
+   their values in the CMakeLists.txt file using the
+   ``set_target_properties()`` command.
+
+   - By enabling ``ALLOW_MEMORY_GROWTH`` we allow the runtime to grow its
+     memory dynamically at runtime by calling ``emscripten_resize_heap()``. Without
+     this flag, memory is allocated at startup and cannot grow.
+
+   - The ``MAXIMUM_MEMORY`` and ``INITIAL_MEMORY`` values specifies the maximum
+     and initial memory size for the Emscripten runtime. These values can be
+     adjusted based on your application's needs. 
+
+     Take into account that ``arch=wasm64`` has a theorical exabytes maximum
+     memory size, but runtime currently limits it to 16GB, while ``arch=wasm32``
+     has a maximum memory size of 4GB and ``arch=asm.js`` has a maximum memory size of 2GB.
+    
 
 Example Usage
 -------------
