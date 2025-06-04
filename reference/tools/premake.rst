@@ -6,5 +6,6 @@ conan.tools.premake
 .. toctree::
    :maxdepth: 2
 
-   premake/premake
    premake/premakedeps
+   premake/premaketoolchain
+   premake/premake
