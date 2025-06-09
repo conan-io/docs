@@ -50,6 +50,7 @@ try {
                 parallelJobs[branch] = {
                     echo "Run parallel job for ${branch}"
                     sh """
+                        export CONAN_WORKSPACE_ENABLE=will_break_next
                         python3 -m venv venv_${branch}
                         . venv_${branch}/bin/activate
                         pip install -r requirements.txt
