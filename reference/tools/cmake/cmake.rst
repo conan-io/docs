@@ -6,7 +6,7 @@ CMake
 The ``CMake`` build helper is a wrapper around the command line invocation of cmake. It will abstract the
 calls like ``cmake --build . --config Release`` into Python method calls. It will also add the argument
 ``-DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake`` (from the generator ``CMakeToolchain``) to the ``configure()`` call,
-as well as other possible arguments like ``-DCMAKE_BUILD_TYPE=<config>``. The arguments that will be used are obtained from a 
+as well as other possible arguments like ``-DCMAKE_BUILD_TYPE=<config>``. The arguments that will be used are obtained from a
 generated ``CMakePresets.json`` file.
 
 The helper is intended to be used in the ``build()`` method, to call CMake commands automatically
@@ -65,4 +65,4 @@ The ``CMake()`` build helper is affected by these ``[conf]`` variables:
 
 - ``tools.cmake:cmake_program`` specify the location of the CMake executable, instead of using the one found in the ``PATH``.
 
-- ``tools.cmake:install_strip`` will pass ``--strip`` to the ``cmake --install`` call if set to ``True``.
+- ``tools.build:install_strip`` will pass ``--strip`` to the ``cmake --install`` call if set to ``True``.
