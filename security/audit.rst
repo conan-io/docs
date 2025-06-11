@@ -9,15 +9,16 @@ A new command, `conan audit`, was added in **Conan 2.14**. It provides a built-i
 For a step-by-step guide on authentication, usage examples, output formats, and setting up
 private providers, see :ref:`Checking package vulnerabilities <devops_audit>`. In short:
 
-1. **Register** at `audit.conan.io <https://audit.conan.io/register>`_
-2. **Save your token** and **activate it** via the confirmation email you receive.  
-3. **Configure Conan to use your token**:  
+1. **Register** at `audit.conan.io <https://audit.conan.io/register>`_.
+2. **Activate your account** via the confirmation email you receive.
+3. **Save your token**, which is displayed on the page after activation.
+4. **Configure Conan to use your token**:
 
 .. code-block:: bash
 
    conan audit provider auth conancenter --token=<token>
 
-4. Run a scan:
+5. Run a scan:
 
 .. code-block:: bash
 
