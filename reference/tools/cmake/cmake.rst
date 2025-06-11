@@ -65,4 +65,6 @@ The ``CMake()`` build helper is affected by these ``[conf]`` variables:
 
 - ``tools.cmake:cmake_program`` specify the location of the CMake executable, instead of using the one found in the ``PATH``.
 
-- ``tools.build:install_strip`` will pass ``--strip`` to the ``cmake --install`` call if set to ``True``. This configuration replaces the deprecated ``tools.cmake:install_strip``.
+- ``tools.cmake:install_strip`` (**deprecated** use ``tools.build:install_strip``) will pass ``--strip`` to the ``cmake --install`` call if set to ``True``.
+
+- ``tools.build:install_strip`` (Since Conan 2.18.0) will pass ``--strip`` to the ``cmake --install`` call if set to ``True``.
