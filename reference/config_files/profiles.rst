@@ -836,6 +836,18 @@ The ``include()`` statement has to be at the top of the profile file:
     zlib/*:compiler.libcxx=libstdc++11
 
 
+.. note:: 
+    
+    Cache profiles have more priority than the ones in the current working
+    directory, so if you have a profile named ``myprofile`` in the cache, it will
+    be used instead of the one in the current working directory.
+
+    To use the profile in the current working directory, you can use:
+
+    - ``-pr ./myprofile`` option in the command line or 
+    - ``include(./myprofile)`` in the profile file itself.
+
+
 The final result of using *myprofile* is:
 
 .. code-block:: text
