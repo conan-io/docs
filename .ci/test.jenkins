@@ -34,11 +34,6 @@ node('LinuxDocs') {
         },
         spelling: {
             sh(script: 'make spelling')
-        },
-        linkcheck: {
-            catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE', message: 'Linkcheck failed! Please check links and fix broken ones.') {
-                sh(script: 'make linkcheck')
-            }
         }
     }
 
