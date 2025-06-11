@@ -15,8 +15,13 @@ for vulnerabilities in ConanCenter packages, which uses JFrog Advanced Security 
 Requesting a token
 ------------------
 
-To use the command, you will first need to register for the free service in https://audit.conan.io/register and
-get a token to use the service. Upon registration, you can auth into the conancenter provider with your token with:
+To use the command, you will first need to register for the free service at
+https://audit.conan.io/register. After registering, you will receive an email
+with an activation link. Clicking this link will take you to a page where your
+personal access token is displayed.
+
+Once you have your token, you can authenticate the ``conancenter`` provider with
+it:
 
 .. code-block:: bash
 
