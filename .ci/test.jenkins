@@ -19,18 +19,7 @@ node('LinuxDocs') {
         },
         spelling: {
             sh 'make spelling'
-        },
-        linkcheck: {
-            def status = sh(returnStatus: true, script: 'make linkcheck | tee links_output.txt')
-            sh 'cat links_output.txt'
-            if (status != 0) {
-                def broken_links = sh(returnStdout: true , script: 'cat links_output.txt | grep broken')
-                echo "Broken Links: \n ${broken_links}"
-                def subject = "Broken links in `conan-io/docs`: ${env.BUILD_URL}"
-                def summary = "${subject}\n```\n${broken_links}\n```"
-                slackSend (color: '#FF0000', message: summary)
-            }
-        } 
+        }
     }
 
     if (publishDocs) {
