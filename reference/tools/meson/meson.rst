@@ -46,4 +46,4 @@ The ``Meson`` build helper is affected by these ``[conf]`` variables:
 
 - ``tools.build:verbosity`` which accepts one of ``quiet`` or ``verbose`` and sets the ``--quiet`` flag in ``Meson.install()``
 
-- ``tools.build:install_strip`` will pass ``--strip`` to the ``meson install`` call if set to ``True``.
+- ``tools.build:install_strip`` (Since Conan 2.18.0) will pass ``--strip`` to the ``meson install`` call if set to ``True``.
