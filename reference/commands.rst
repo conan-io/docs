@@ -16,7 +16,6 @@ and these :ref:`custom command examples <examples_extensions_custom_commands>`
    :maxdepth: 1
    :hidden:
 
-   commands/audit
    commands/cache
    commands/config
    commands/graph
@@ -32,7 +31,6 @@ and these :ref:`custom command examples <examples_extensions_custom_commands>`
    commands/version
    commands/workspace
 
-- :doc:`conan audit <commands/audit>`: Check for vulnerabilities in your Conan packages
 - :doc:`conan cache <commands/cache>`: Return the path of recipes and packages in the cache
 - :doc:`conan config <commands/config>`: Manage Conan configuration (remotes, settings, plugins, etc)
 - :doc:`conan graph <commands/graph>`: Obtain information about the dependency graph without fetching binaries
@@ -78,6 +76,18 @@ and these :ref:`custom command examples <examples_extensions_custom_commands>`
 - :doc:`conan test <commands/test>`: Test a package
 - :doc:`conan upload <commands/upload>`: Upload packages from the local cache to a specified remote
 
+**Security commands**
+
+.. toctree::
+   :caption: Security commands
+   :maxdepth: 1
+   :hidden:
+
+   commands/audit
+   commands/report
+
+- :doc:`conan audit <commands/audit>`: Check for vulnerabilities in your Conan packages
+- :doc:`conan report <commands/report>`: Get information about the packages
 
 .. _commands_output:
 
