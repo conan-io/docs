@@ -19,7 +19,7 @@ default to using the latest available revision.
 **Examples**
 
 
-If we want to compare versions 1.0 and 2.0 of "mylibrary" that are available on our remotes, it would be:
+If we want to compare versions 1.0 and 2.0 of "mylibrary" that are available on our `my-remote` remote, it would be:
 
 .. code-block:: bash
 
