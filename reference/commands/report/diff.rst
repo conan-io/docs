@@ -6,7 +6,7 @@ conan report diff
 .. autocommand::
     :command: conan report diff -h
 
-The ``conan report diff`` command get the differences between two recipes also comparing their sources.
+The ``conan report diff`` command gets the differences between two recipes, also comparing their sources.
 This functionality allows you to compare either two versions of the same recipe or two entirely different recipes.
 Each recipe (old and new) can be identified in one of two ways: by providing both the path to its ``conanfile.py`` and
 its reference, or by specifying just the reference.
@@ -47,27 +47,27 @@ them.
 Available formatters
 --------------------
 
-text formatter
+Text Formatter
 ^^^^^^^^^^^^^^
 
 By default, it displays this format, which is the format provided by a ``git diff`` between the packages.
 
-json formatter
+JSON Formatter
 ^^^^^^^^^^^^^^
 
 You can obtain the result in JSON format, providing a structured output that is perfect for consumption by other
-scripts
+scripts.
 
 .. code-block:: bash
 
     $ conan report diff -or="mylib/1.0" -nr="mylib/2.0" --format=json
 
-html formatter
+HTML Formatter
 ^^^^^^^^^^^^^^
 
 The HTML format generates a small self-contained static web page in a single HTML file. This page lets you conveniently
 visualize the changes in the recipe as well as the changes in the source files of your libraries. It contains filters
-to include and exclude key words. And shortcuts to all the changed files
+to include and exclude keywords and shortcuts to all the changed files.
 
 .. code-block:: bash
 

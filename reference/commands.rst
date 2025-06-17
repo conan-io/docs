@@ -76,17 +76,17 @@ and these :ref:`custom command examples <examples_extensions_custom_commands>`
 - :doc:`conan test <commands/test>`: Test a package
 - :doc:`conan upload <commands/upload>`: Upload packages from the local cache to a specified remote
 
-**Security commands**
+**Security Commands**
 
 .. toctree::
-   :caption: Security commands
+   :caption: Security Commands
    :maxdepth: 1
    :hidden:
 
    commands/audit
    commands/report
 
-- :doc:`conan audit <commands/audit>`: Check for vulnerabilities in your Conan packages
+- :doc:`conan audit <commands/audit>`: Checks for vulnerabilities in your Conan packages.
 - :doc:`conan report <commands/report>`: Get information about the packages
 
 .. _commands_output:
