@@ -23,7 +23,7 @@ If we want to compare versions 1.0 and 2.0 of "mylibrary" that are available on 
 
 .. code-block:: bash
 
-    $ conan report diff --old-reference="mylib/1.0" --new-reference="mylib/2.0"
+    $ conan report diff --old-reference="mylib/1.0" --new-reference="mylib/2.0" -r=my-remote
 
 
 This is how it would look if one of the versions is on the remote and the other is not. The version that is not on the
