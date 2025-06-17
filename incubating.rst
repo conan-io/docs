@@ -46,6 +46,7 @@ The new fields that can be defined in the ``cpp_info`` or ``cpp_info.components`
    self.cpp_info.languages # same as "languages" attribute, it can be "C", "C++"
    self.cpp_info.exe  # Definition of an executable artifact
    self.cpp_info.package_framework  # Definition of an Apple Framework (new since Conan 2.14)
+   self.cpp_info.sources  # List of paths to source files in the package (for packages that provide source code to consumers)
 
 
 These fields will be auto-deduced from the other ``cpp_info`` and ``components`` definitions, like the ``libs`` or ``libdirs`` fields, but the automatic deduction might have limitations. Defining them explicitly will inhibit the auto deduction and use the value as provided by the recipe.
