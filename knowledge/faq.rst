@@ -122,7 +122,7 @@ Conan will not normalize or change in any way the source files, it is not its re
 
 .. code-block:: ini
 
-* text eol=lf
+    * text eol=lf
 
 
 Other approach would be to change the ``.gitconfig`` to change it globally. Modern editors (even Notepad) in Windows can perfectly work with files with ``LF``, it is no longer necessary to change the line endings.

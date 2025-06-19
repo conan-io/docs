@@ -3,6 +3,50 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.17.0 (28-May-2025)
+--------------------
+
+- Feature: Add support for gcc 13.4 `#18374 <https://github.com/conan-io/conan/pull/18374>`_ . Docs `here <https://github.com/conan-io/docs/pull/4108>`__
+- Feature: Renamed 'editables' to 'packages'. `#18359 <https://github.com/conan-io/conan/pull/18359>`_ . Docs `here <https://github.com/conan-io/docs/pull/4106>`__
+- Feature: Putting a folder named `conanws` as the top limit search if it exists. `#18343 <https://github.com/conan-io/conan/pull/18343>`_ . Docs `here <https://github.com/conan-io/docs/pull/4106>`__
+- Feature: Removed the `home_folder` definition mechanism from the `conanws.[yml | py]` file. `#18339 <https://github.com/conan-io/conan/pull/18339>`_ . Docs `here <https://github.com/conan-io/docs/pull/4106>`__
+- Feature: Packages/products do not need to be within the `workspace` folder. `#18334 <https://github.com/conan-io/conan/pull/18334>`_ . Docs `here <https://github.com/conan-io/docs/pull/4106>`__
+- Feature: Add `tools.gnu:configure_args` conf to GnuToolchain and Autotoolchain generator to allow extra arguments to be added to the configure command. `#18333 <https://github.com/conan-io/conan/pull/18333>`_ . Docs `here <https://github.com/conan-io/docs/pull/4100>`__
+- Feature: Add gcc 14.3 support. `#18322 <https://github.com/conan-io/conan/pull/18322>`_ . Docs `here <https://github.com/conan-io/docs/pull/4096>`__
+- Feature: Auto detection of C standard. `#18290 <https://github.com/conan-io/conan/pull/18290>`_ . Docs `here <https://github.com/conan-io/docs/pull/4097>`__
+- Feature: define CMAKE_C/CXX_COMPILER in ``CMakeToolchain`` generated presets, only for MSVC cl-like compilers, automatically only for Ninja generator. `#18280 <https://github.com/conan-io/conan/pull/18280>`_
+- Feature: Add `header_lib` template to :command:`conan new`. `#18249 <https://github.com/conan-io/conan/pull/18249>`_ . Docs `here <https://github.com/conan-io/docs/pull/4094>`__
+- Feature: `to_cppstd_flag`/`to_cstd_flag` methods are not using fixed values. `#18246 <https://github.com/conan-io/conan/pull/18246>`_
+- Feature: Add ``subprocess`` to the profile jinja rendering. `#18244 <https://github.com/conan-io/conan/pull/18244>`_ . Docs `here <https://github.com/conan-io/docs/pull/4098>`__
+- Feature: New ``conan cache save ... --no-source`` to avoid storing downloaded sources in the `.tgz`. `#18243 <https://github.com/conan-io/conan/pull/18243>`_ . Docs `here <https://github.com/conan-io/docs/pull/4099>`__
+- Feature: Add verbose logs for `conan cache clean`. `#18228 <https://github.com/conan-io/conan/pull/18228>`_
+- Feature: Add `--list` inputs to `conan cache clean` and `conan cache check-integrity`. `#18219 <https://github.com/conan-io/conan/pull/18219>`_ . Docs `here <https://github.com/conan-io/docs/pull/4095>`__
+- Feature: Add `allowed_packages` info to remote json output. `#18206 <https://github.com/conan-io/conan/pull/18206>`_
+- Feature: Add URL information to json output format for conan upload. `#18166 <https://github.com/conan-io/conan/pull/18166>`_ . Docs `here <https://github.com/conan-io/docs/pull/4088>`__
+- Feature: New ``conan workspace clean`` command, removes the ``output-folder`` of editables if defined, otherwise nothing. Can be custom implemented by users in the ``conanws.py`` file. `#17763 <https://github.com/conan-io/conan/pull/17763>`_ . Docs `here <https://github.com/conan-io/docs/pull/4101>`__
+- Fix: Fix PyInstaller `--exclude-module` adding wildcard for `conan.test`. `#18381 <https://github.com/conan-io/conan/pull/18381>`_
+- Fix: Fix urls for conan audit. `#18360 <https://github.com/conan-io/conan/pull/18360>`_
+- Fix: Validate if the licenses in the SBOM are SPDX compatible. `#18358 <https://github.com/conan-io/conan/pull/18358>`_
+- Fix: Autotools in Windows working for both LLVM/Clang both clang and clang-cl frontends. `#18347 <https://github.com/conan-io/conan/pull/18347>`_ . Docs `here <https://github.com/conan-io/docs/pull/4109>`__
+- Fix: Change wording on unzip tool when uncompressing file. `#18327 <https://github.com/conan-io/conan/pull/18327>`_
+- Fix: Avoid duplicate component requirement names in `PkgConfigDeps` and `BazelDeps`. `#18324 <https://github.com/conan-io/conan/pull/18324>`_
+- Fix: Avoid grafted commits in ``Git`` helper for ``commit_in_remote()`` affecting also ``coordinates_to_conandata()``, ``get_url_and_commit()``. `#18315 <https://github.com/conan-io/conan/pull/18315>`_
+- Fix: `copy()` now is capable of excluding symlinks to folders. `#18304 <https://github.com/conan-io/conan/pull/18304>`_
+- Fix: Better error message in `conan list --graph=file.json` when using filtered graph. `#18303 <https://github.com/conan-io/conan/pull/18303>`_
+- Fix: Always sort overrides serialization. `#18274 <https://github.com/conan-io/conan/pull/18274>`_
+- Fix: Allow composition of conf values that are different categories of numbers. `#18265 <https://github.com/conan-io/conan/pull/18265>`_
+- Fix: Avoid incorrect warning in ``test_package`` of ``python_requires`` about "tested_reference_str". `#18226 <https://github.com/conan-io/conan/pull/18226>`_
+- Fix: CycloneDX 1.6 authors field. `#18208 <https://github.com/conan-io/conan/pull/18208>`_
+- Fix: Make ``CMakeConfigDeps`` incubating generator paths relative for ``deployers``. `#18197 <https://github.com/conan-io/conan/pull/18197>`_
+- Fix: Add the full conan package in PyInstaller bundle. `#18195 <https://github.com/conan-io/conan/pull/18195>`_
+- Bugfix: Remove ``LT_INIT`` from ``conan new autotools_exe`` template ``configure.ac``. `#18378 <https://github.com/conan-io/conan/pull/18378>`_
+- Bugfix: Fix CMakeConfigDeps link flags. `#18367 <https://github.com/conan-io/conan/pull/18367>`_
+- BugFix: Fix ``conan audit`` producing `_parse_error_threshold` crash when some package was not found in the catalog. `#18363 <https://github.com/conan-io/conan/pull/18363>`_
+- Bugfix: The first edge on `conan graph info ... -f=html` now shows require information. `#18245 <https://github.com/conan-io/conan/pull/18245>`_
+- Bugfix: ``conan cache save`` no longer zips downloaded artifacts like ``conan_export.tgz`` and ``conan_sources.tgz``. `#18243 <https://github.com/conan-io/conan/pull/18243>`_ . Docs `here <https://github.com/conan-io/docs/pull/4099>`__
+- Bugfix: Allow to :command:`conan create` a ``python-requires`` package with a profile that contains tool-requires. `#18226 <https://github.com/conan-io/conan/pull/18226>`_
+- Bugfix: Let `conan config install` walk the fs tree looking for a `.conanignore`. `#18170 <https://github.com/conan-io/conan/pull/18170>`_
+
 2.16.1 (29-Apr-2025)
 --------------------
 

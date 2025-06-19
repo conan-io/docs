@@ -236,6 +236,9 @@ For instance:
             })
             at.generate()
 
+The ``AutotoolsToolchain`` will listen to ``tools.gnu:extra_configure_args`` from the
+:ref:`reference_config_files_global_conf` to extend the ``configure_args`` attribute.
+
 
 Reference
 ---------
@@ -267,6 +270,7 @@ conf
 - ``tools.build:compiler_executables`` dict-like Python object which specifies the
   compiler as key and the compiler executable path as value. Those keys will be mapped as
   follows:
+- ``tools.gnu:extra_configure_args`` list of arguments to extend the ``configure_args`` attribute of ``AutotoolsToolchain``.
 
   * ``c``: will set ``CC`` (and ``CC_FOR_BUILD`` if cross-building) in *conanautotoolstoolchain.sh|bat* script.
   * ``cpp``: will set ``CXX`` (and ``CXX_FOR_BUILD`` if cross-building) in *conanautotoolstoolchain.sh|bat* script.
