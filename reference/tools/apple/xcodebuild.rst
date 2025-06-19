@@ -59,6 +59,8 @@ Where:
 
 Additional parameters that are passed to ``xcodebuild`` (but before ``custom_params``):
 
+- deployment target setting according to the values of ``os`` and ``os.version`` from profile,
+  e.g. ``MACOSX_DEPLOYMENT_TARGET=10.15`` or ``IPHONEOS_DEPLOYMENT_TARGET=15.0``
 - ``SYMROOT`` and ``OBJROOT`` pointing to the recipe build folder
 - ``RUN_CLANG_STATIC_ANALYZER=NO`` to avoid running Clang static analyzer by default
 
