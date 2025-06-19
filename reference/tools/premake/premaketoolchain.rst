@@ -77,6 +77,19 @@ information:
 
 * Definition of proper target architecture when cross building.
 
+* Definition of ``fPIC`` flag based on conan options.
+
+* Based on ``shared`` conan option, ``PremakeToolchain`` will set the ``kind`` of the ``workspace`` to ``SharedLib`` or ``StaticLib``.
+
+.. note::
+
+   ``PremakeToolchain`` is not able to override the ``kind`` of a project if that project has already define the ``kind`` attribute (typical case).
+   It can only override top-level ``workspace.kind``, which will only affect projects without a defined ``kind``.
+
+   **Recomendation**: as premake does not offer any mechanism like CMake's `BUILD_SHARED_LIBS <https://cmake.org/cmake/help/latest/variable/BUILD_SHARED_LIBS.html#variable:BUILD_SHARED_LIBS>`_
+   to externally manage the creation type of libraries, it is recommended while
+   using conan to **AVOID** defining the ``kind`` attribute on library project. 
+
 
 Reference
 ---------
