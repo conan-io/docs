@@ -37,7 +37,7 @@ Usage:
 
     from conan.tools.files import apply_conandata_patches
 
-    def build(self):
+    def source(self):
         apply_conandata_patches(self)
 
 
