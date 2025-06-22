@@ -142,5 +142,5 @@ inject the generator into the recipe.
 
     Note that built-in generators can also be injected using tool_requires,
     by adding them by name: ``self.generator_info.append("CMakeDeps")``.
-    ``tool_require``ing this package will inject the ``CMakeDeps`` generator into the recipe
+    ``tool_require``'ing this package will inject the ``CMakeDeps`` generator into the recipe
     just as if it was declared in its ``generators`` attribute.
