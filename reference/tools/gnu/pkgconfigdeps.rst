@@ -79,6 +79,18 @@ Additionally, a ``<PKG-NAME>.pc`` is generated to maintain compatibility for con
 ``<PKG-NAME>.pc`` file declares all the components of the package as requires while the rest of the fields will be empty, relying on
 the propagation of flags coming from the components ``<[PKG-NAME]-[COMP-NAME]>.pc`` files.
 
+If you want to disable the generation of the ``<PKG-NAME>.pc`` file,
+you can set the ``pkg_config_name`` property to the ``none`` string value:
+
+.. code-block:: python
+
+    def package_info(self):
+        self.cpp_info.set_property("pkg_config_name", "none")
+        self.cpp_info.components["crypto"].set_property("pkg_config_name", "mylib-crypto")
+
+This will generate only the ``mylib-foo.pc`` file, but not the ``mylib.pc`` one.
+This can only be done at the global ``cpp_info`` level, not at component level.
+
 
 Reference
 ---------
@@ -174,7 +186,7 @@ Properties
 
 The following properties affect the ``PkgConfigDeps`` generator:
 
-- **pkg_config_name** property will define the name of the generated ``*.pc`` file (``xxxxx.pc``)
+- **pkg_config_name** property will define the name of the generated ``*.pc`` file (``xxxxx.pc``), or the string ``none`` to disable the generation of the global ``*.pc`` file for the package.
 - **pkg_config_aliases** property sets some aliases of any package/component name for *pkg_config* generator. This property only accepts list-like Python objects.
 - **pkg_config_custom_content** property will add user defined content to the *.pc* files created by this generator as freeform variables.
   That content can be a string or a dict-like Python object. Notice that the variables declared here will overwrite those ones already defined by Conan.
