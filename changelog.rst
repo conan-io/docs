@@ -3,6 +3,11 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.17.1 (23-Jun-2025)
+--------------------
+
+- Bugfix: add support for ``Git()`` for git<2.36, for operations that check if a commit exists in a remote. `#18501 <https://github.com/conan-io/conan/pull/18501>`_
+
 2.17.0 (28-May-2025)
 --------------------
 
