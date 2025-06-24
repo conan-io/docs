@@ -110,7 +110,8 @@ Generators from tool_requires
 A direct dependency tool requires can also be used to provide custom generators.
 The following example shows how to create a custom generator that generates a file with the
 dependencies of the package, just like the example above, but using a ``tool_require`` instead of a ``python_require``
-to inject the generator into the recipe, by adding them to the ``self.generator_info`` list inside the ``package_info`` method.
+to inject the generator into the recipe, by adding them to the ``self.generator_info`` attribute inside the ``package_info`` method.
+Note that this attribute is ``None`` by default, so you need to set it explicitly to a list of generators.
 
 .. code-block:: python
     :caption: mygenerator/conanfile.py
@@ -141,6 +142,6 @@ inject the generator into the recipe.
 .. note::
 
     Note that built-in generators can also be injected using tool_requires,
-    by adding them by name: ``self.generator_info.append("CMakeDeps")``.
+    by adding them by name: ``self.generator_info = ["CMakeDeps"]``.
     ``tool_require``'ing this package will inject the ``CMakeDeps`` generator into the recipe
     just as if it was declared in its ``generators`` attribute.

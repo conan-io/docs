@@ -102,7 +102,7 @@ generator_info
 .. include:: ../../common/experimental_warning.inc
 
 Generators to be passed to the dependant recipes.
-Should be only filled in the ``package_info()`` method.
+Should be only filled in the ``package_info()`` method, ``None`` by default.
 
 .. seealso::
 
