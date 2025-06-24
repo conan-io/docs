@@ -45,7 +45,6 @@ Setting up Conan profiles
 
 .. code-block:: text
 
-   include(default)
    [settings]
    arch=wasm
    build_type=Release
@@ -68,15 +67,13 @@ Setting up Conan profiles
    Windows), it is part of a toolchain ecosystem that compiles C/C++ to
    WebAssembly (WASM) and asm.js.
 
-   Conan uses ``os=Emscripten`` to:
-   - Align with the toolchain: Emscripten integrates the compiler, runtime
-   glue, and JavaScript environment, making it practical to treat as an
-   "OS-like" target.
-   - Support backward compatibility: Many recipes in ConanCenterIndex use
-   os=Emscripten to enable or disable features and dependencies that
-   specifically target Emscripten.
-   - Maintain stability: Changing this setting would break recipes that rely on
-   it, and would complicate compatibility with alternative WASM toolchains.
+   Conan uses Emscripten to:
+
+   - Align with the toolchain: Emscripten integrates the compiler, runtime glue, and JavaScript environment, making it practical to treat as an "OS-like" target.
+
+   - Support backward compatibility: Many recipes in Conan Center Index use ``os=Emscripten`` to enable or disable features and dependencies that specifically target Emscripten.
+
+   - Maintain stability: Changing this setting would break recipes that rely on it, and would complicate compatibility with alternative WASM toolchains.
 
 
 .. note::
@@ -87,7 +84,7 @@ Setting up Conan profiles
 
 .. note::
 
-   The profiles above use the ``emsdk`` package from Conan Center, which provides the Emscripten SDK, including ``emcc``, ``em++``, and tools like ``emrun`` and ``node``.
+   The profiles above use the ``emsdk`` package from `Conan Toolchains repository <https://github.com/conan-io/conan-toolchains>`_, which provides the Emscripten SDK, including ``emcc``, ``em++``, and tools like ``emrun`` and ``node``.
    
    If you prefer to use your system-installed Emscripten instead of the Conan-provided one, ``tool_requires`` could be replaced by custom ``compiler_executables`` and ``buildenv``:
    
@@ -95,6 +92,8 @@ Setting up Conan profiles
 
       [conf]
       tools.build:compiler_executables={'c':'/path/to/emcc', 'cpp':'/path/to/em++'}
+      # Add native Emscripten toolchain
+      # tools.cmake.cmaketoolchain:user_toolchain=["/path/to/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake"]
 
       [buildenv]
       CC=emcc
