@@ -17,10 +17,10 @@ and ``products`` (root consumers). For instance, a workspace ``conanws.yml`` def
    :caption: conanws.yml
 
    packages:
-      dep1/0.1:
-         path: dep1
-      dep2/0.1:
-         path: dep2
+      - path: dep1
+        ref: dep1/0.1
+      - path: dep2
+        ref: dep2/0.1
 
 
 conanws.py
@@ -39,14 +39,14 @@ on the existence of some ``name.txt`` and ``version.txt`` files in folders, the 
    class MyWorkspace(Workspace):
 
       def packages(self):
-         result = {}
+         result = []
          for f in os.listdir(self.folder):
             if os.path.isdir(os.path.join(self.folder, f)):
                with open(os.path.join(self.folder, f, "name.txt")) as fname:
                   name = fname.read().strip()
                with open(os.path.join(self.folder, f, "version.txt")) as fversion:
                   version = fversion.read().strip()
-               result[f"{name}/{version}"] = {"path": f}
+               result.append({"path": f, "ref": f"{name}/{version}"})
          return result
 
 
@@ -61,11 +61,11 @@ methods, using the ``Workspace.load_conanfile()`` helper:
 
    class MyWorkspace(Workspace):
       def packages(self):
-         result = {}
+         result = []
          for f in os.listdir(self.folder):
             if os.path.isdir(os.path.join(self.folder, f)):
                conanfile = self.load_conanfile(f)
-               result[f"{conanfile.name}/{conanfile.version}"] = {"path": f}
+               result.append({"path": f, "ref": f"{conanfile.name}/{conanfile.version}"})
          return result
 
 

@@ -26,7 +26,7 @@ A Conan *workspace* gives you the chance to manage several packages as ``editabl
 * *monolithic*, we denote the editable packages built as a monolith, generating a single result (generators, etc) for the whole workspace.
 
 Notice that the packages added to the workspace are automatically resolved as ``editable`` ones. Those editable packages
-are named as workspace's ``packages``. Also, the root consumers of those ``packages`` are named as ``products``.
+are named as workspace's ``packages``.
 
 
 How to define a workspace
@@ -37,7 +37,7 @@ up the file system from the current working directory to the filesystem root, un
 define the "root" workspace folder. The paths in the ``conanws`` file are intended to be relative to be relocatable if
 necessary, or could be committed to Git in monorepo-like projects.
 
-Through the ``conan workspace`` command, we can open, add, and/or remove ``packages`` and ``products`` from the current workspace.
+Through the ``conan workspace`` command, we can open, add, and/or remove ``packages`` from the current workspace.
 
 .. seealso::
 
@@ -206,8 +206,8 @@ the same when there are external dependencies. This can be tested with:
 Orchestrated build
 ------------------
 
-Conan workspaces can also build the different ``packages`` separately, and taking into account if there are ``products``
-consuming them.
+Conan workspaces can also build the different ``packages`` separately, and taking into account if there are packages defined
+as consumers of the other ones.
 
 Let's use another structure to understand better how it works. Now, let's create it from scratch with the ``conan workspace init .`` that creates an almost empty conanws.py/conanws.yml, and using the ``conan new cmake_lib/cmake_exe`` basic templates, that create regular CMake-based conan packages:
 
@@ -249,16 +249,16 @@ Those commands created a file structure like this:
 
 
 Now, the ``conanws.yml`` is empty and the ``conanws.py`` has a quite minimal definition. Let's add the ``app`` application
-(consumes ``hello``) and the ``hello`` lib as a new ``products`` and ``packages`` respectively to the workspace:
+(consumes ``hello``) and the ``hello`` lib as new ``packages`` to the workspace:
 
 .. code-block:: bash
 
    $ conan workspace add hello
    Reference 'hello/1.0' added to workspace
-   $ conan workspace add app --product
+   $ conan workspace add app
    Reference 'app/1.0' added to workspace
 
-Defined the workspace's ``packages`` and ``products``, we can build them and execute the application:
+Defined the workspace's ``packages``, we can build them and execute the application:
 
 .. code-block:: bash
 
