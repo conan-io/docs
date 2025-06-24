@@ -627,6 +627,7 @@ Some of the capabilities of the profile templates are:
      compiler.version={{ version }}
 
 - Branching based on the context that the profile is being rendered for.
+  The ``context`` variable is injected and can take the values ``host``, ``build`` or be ``None``.
   For example, you can define different settings for the host and build contexts
   without having to create two different profiles:
 
