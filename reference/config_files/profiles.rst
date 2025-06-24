@@ -633,6 +633,7 @@ Some of the capabilities of the profile templates are:
 
   .. code-block:: jinja
      :caption: *profile_vars*
+
      [settings]
      os=Linux
      compiler=gcc
