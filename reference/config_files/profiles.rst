@@ -626,6 +626,22 @@ Some of the capabilities of the profile templates are:
      [settings]
      compiler.version={{ version }}
 
+- Branching based on the context that the profile is being rendered for.
+  For example, you can define different settings for the host and build contexts
+  without having to create two different profiles:
+
+  .. code-block:: jinja
+     :caption: *profile_vars*
+     [settings]
+     os=Linux
+     compiler=gcc
+     compiler.version=12
+     {% if context == "host" %}
+     compiler.cppstd=gnu17
+     {% else %}
+     compiler.cppstd=gnu20
+     {% endif %}
+
 - Including or importing other files from ``profiles`` folder:
 
   .. code-block:: jinja
