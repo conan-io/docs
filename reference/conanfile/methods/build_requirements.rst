@@ -114,6 +114,15 @@ The ``test_requires`` is equivalent to ``requires()`` with the following traits:
 - ``test=True``. This dependency is a "test" dependency, existing in the "host" context, but not aiming to be part of the final product.
 - ``visible=False``. The dependency to a test requirement is not propagated downstream. For example, one package can call ``self.test_requires("gtest/1.13.0")``, but that doesn't mean that the consumer packages also use ``gtest``, they could even use a different test framework, or the same ``gtest`` with a different version, without causing conflicts.
 
+.. warning::
+
+    As the ``test_requires`` defines a ``visible=False`` trait,
+    care must be taken to avoid having transitive dependencies with a normal requirement to the same packages
+    used in the ``test_requires``. This is because having direct ``visible=False`` requirements
+    can create conflicts if a transitive dependency has a ``visible=True``
+    requirement to the same package that the current recipe is requiring as a test dependency.
+    In these cases where different visibility rules reach the same package, the visible transitive
+    dependency will be used and propagated downstream.
 
 It is possible to further modify individual traits of ``tool_requires()`` and ``test_requires()`` if necessary, for example:
 

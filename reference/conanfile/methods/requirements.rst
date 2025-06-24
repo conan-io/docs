@@ -85,6 +85,14 @@ the same library in the same dependency graph is at least complicated, if not di
 violating ODR or causing linking errors. It can be set to ``False`` in advanced scenarios,
 when we want to use different versions of the same package during the build.
 
+.. warning::
+
+    The ``visible`` trait can create conflicts if a transitive dependency has a ``visible=True``
+    requirement to the same package that the current recipe is declaring as ``visible=False``.
+    In these cases where different visibility rules reach the same package, the visible transitive
+    dependency will be used and propagated downstream.
+
+
 transitive_headers
 ~~~~~~~~~~~~~~~~~~
 
