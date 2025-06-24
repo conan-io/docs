@@ -10,8 +10,8 @@ Workspaces are defined by the ``conanws.yml`` and/or ``conanws.py`` files that w
 conanws.yml
 -----------
 
-The most basic implementation of a workspace is a ``conanws.yml`` file. It defines the workspace's ``packages`` (editable dependencies)
-and ``products`` (root consumers). For instance, a workspace ``conanws.yml`` defining 2 ``packages`` could be:
+The most basic implementation of a workspace is a ``conanws.yml`` file. It defines the workspace's ``packages`` (editable packages).
+For instance, a workspace ``conanws.yml`` defining 2 ``packages`` could be:
 
 .. code-block:: yaml
    :caption: conanws.yml
@@ -21,6 +21,16 @@ and ``products`` (root consumers). For instance, a workspace ``conanws.yml`` def
         ref: dep1/0.1
       - path: dep2
         ref: dep2/0.1
+
+
+Moreover, it could not have the ``ref`` field, and let Conan read the *name/version* from the respective *path/conanfile.py*:
+
+.. code-block:: yaml
+   :caption: conanws.yml
+
+   packages:
+      - path: dep1
+      - path: dep2
 
 
 conanws.py
