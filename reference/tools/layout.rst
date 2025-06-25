@@ -55,7 +55,8 @@ Usage:
 
 The current layout implementation is very simple, basically sets a different build folder for different build_types
 and sets the generators output folder inside the build folder. This way we avoid to clutter our project
-while working locally. If you prefer, you can define the build_folder to take control over the destination folder.
+while working locally. If you prefer, you can define the build_folder to take control over the destination folder,
+so the temporary build files do not pollute the source tree.
 
 
 .. code:: python
