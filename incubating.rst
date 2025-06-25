@@ -46,10 +46,20 @@ The new fields that can be defined in the ``cpp_info`` or ``cpp_info.components`
    self.cpp_info.languages # same as "languages" attribute, it can be "C", "C++"
    self.cpp_info.exe  # Definition of an executable artifact
    self.cpp_info.package_framework  # Definition of an Apple Framework (new since Conan 2.14)
+   self.cpp_info.sources  # List of paths to source files in the package (for packages that provide source code to consumers)
 
 
 These fields will be auto-deduced from the other ``cpp_info`` and ``components`` definitions, like the ``libs`` or ``libdirs`` fields, but the automatic deduction might have limitations. Defining them explicitly will inhibit the auto deduction and use the value as provided by the recipe.
 
+Declare sources for targets with:
+
+.. code-block:: python
+
+   self.cpp_info.sources = ["src/mylib.cpp", "src/other.cpp"]
+
+This allows packages to provide source code as a dependency to consumers. The paths should be relative to the package folder.
+The source files will be added as `INTERFACE_SOURCES` property to the CMake library (or component) target and consumers that
+link with this target will compile the sources when building their own targets.
 
 This feature is enabled with the ``-c tools.cmake.cmakedeps:new=will_break_next`` configuration. The value ``will_break_next`` will change in next releases to emphasize the fact that this feature is not suitable for usage beyond testing. Just by enabling this conf and forcing the build of packages that use ``CMakeDeps`` will trigger the usage of the new generator.
 
