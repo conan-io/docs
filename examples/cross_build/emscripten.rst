@@ -31,6 +31,7 @@ Setting up Conan profiles
    compiler=emcc
    compiler.cppstd=<cppstd>
    compiler.libcxx=<libcxx>
+   compiler.threads=<threads>
    compiler.version=<version>
    os=Emscripten
 
@@ -38,6 +39,7 @@ Setting up Conan profiles
    emsdk/[*]
 
    [conf]
+   # Optional settings to enable memory allocation
    tools.build:exelinkflags=['-sALLOW_MEMORY_GROWTH=1', '-sMAXIMUM_MEMORY=2GB', '-sINITIAL_MEMORY=64MB']
    tools.build:sharedlinkflags=['-sALLOW_MEMORY_GROWTH=1', '-sMAXIMUM_MEMORY=2GB', '-sINITIAL_MEMORY=64MB']
 
@@ -51,6 +53,7 @@ Setting up Conan profiles
    compiler=emcc
    compiler.cppstd=<cppstd>
    compiler.libcxx=<libcxx>
+   compiler.threads=<threads>
    compiler.version=<version>
    os=Emscripten
 
@@ -58,22 +61,22 @@ Setting up Conan profiles
    emsdk/[*]
 
    [conf]
+   # Optional settings to enable memory allocation
    tools.build:exelinkflags=['-sALLOW_MEMORY_GROWTH=1', '-sMAXIMUM_MEMORY=4GB', '-sINITIAL_MEMORY=64MB']
    tools.build:sharedlinkflags=['-sALLOW_MEMORY_GROWTH=1', '-sMAXIMUM_MEMORY=4GB', '-sINITIAL_MEMORY=64MB']
 
-.. note::
 
-   Even though Emscripten is not a true runtime environment (like Linux or
-   Windows), it is part of a toolchain ecosystem that compiles C/C++ to
-   WebAssembly (WASM) and asm.js.
+Even though Emscripten is not a true runtime environment (like Linux or
+Windows), it is part of a toolchain ecosystem that compiles C/C++ to
+WebAssembly (WASM) and asm.js.
 
-   Conan uses Emscripten to:
+Conan uses Emscripten to:
 
-   - Align with the toolchain: Emscripten integrates the compiler, runtime glue, and JavaScript environment, making it practical to treat as an "OS-like" target.
+- Align with the toolchain: Emscripten integrates the compiler, runtime glue, and JavaScript environment, making it practical to treat as an "OS-like" target.
 
-   - Support backward compatibility: Many recipes in Conan Center Index use ``os=Emscripten`` to enable or disable features and dependencies that specifically target Emscripten.
+- Support backward compatibility: Many recipes in Conan Center Index use ``os=Emscripten`` to enable or disable features and dependencies that specifically target Emscripten.
 
-   - Maintain stability: Changing this setting would break recipes that rely on it, and would complicate compatibility with alternative WASM toolchains.
+- Maintain stability: Changing this setting would break recipes that rely on it, and would complicate compatibility with alternative WASM toolchains.
 
 
 .. note::
@@ -81,6 +84,20 @@ Setting up Conan profiles
    ``wasm`` arch refers to ``WASM 32-bit`` target architecture, which is the
    default. If you wish to target ``WASM64``, set ``arch=wasm64`` in your profile.
    **Note that WASM64 is still experimental** and requires Node.js v20+ and a browser that supports it.
+
+.. important::
+
+    According to `emscripten documentation <https://emscripten.org/docs/api_reference/wasm_workers.html>`_ Emscripten supports two multithreading APIs:
+
+    - POSIX Threads API (``posix`` in conan profile)
+    - Wasm Workers API (``wasm_workers`` in conan profile)
+
+    These two APIs are incompatible with each other and incompatibles with binaries compiled without threading support.
+    This incompatibility necessitates the modeling of threading usage within
+    the compiler's binary model, allowing conan to distinguish between binaries
+    compiled with threading and those compiled without it.
+
+    Conan will automatically set compiler and linker flags to enable threading if configured in the profile.
 
 .. note::
 
@@ -221,7 +238,7 @@ And finally, the ``shell.html`` file is a slightly modified version of the defau
 Build the project for `asm.js`
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Lets build the project for both targets, first for ``asm.js``:
+Let's build the project for both targets, first for ``asm.js``:
 
 
 ..  code-block:: bash 
