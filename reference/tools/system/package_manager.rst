@@ -68,11 +68,12 @@ method<conan_tools_system_package_manager_apt>`.
   architecture (the machine that will run the software), it has an effect when cross
   building. This method will return the return code of the executed commands.
 * ``install_substitutes(packages_substitutes, update=False, check=True)``: try to install
-  the list of lists of substitutes packages passed as a parameter, e.g., ``[["pkg1", "pkg2"], ["pkg3"]]``.
+  one of the lists of substitutes packages passed as a parameter, e.g., ``install_substitutes(["pkg1", "pkg2"], ["pkg3"])``.
   It succeeds if one of the substitutes list is completely installed, so it's intended to be used when you have
-  different packages for different distros. Internally, it's calling the previous
-  ``install(packages, update=update, check=check)`` method, so ``update`` and ``check`` have the same
-  purpose as above.
+  different packages for different distros. In this example, it will first try to install ``pkg1`` and ``pkg2``, if
+  it succeeds to install both packages, it will stop. If it fails, it will proceed to the next list and try to install ``pkg3``.
+  Internally, it's calling the previous ``install(packages, update=update, check=check)`` method, so ``update`` 
+  and ``check`` have the same purpose as above.
 * ``update()`` update the system package manager database. Its behaviour is affected by
   the value of ``tools.system.package_manager:mode``
   :ref:`configuration<conan_tools_system_package_manager_config>`.
