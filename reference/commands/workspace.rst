@@ -83,15 +83,13 @@ Use this command to show information about the current workspace
    WARN: Workspace is a dev-only feature, exclusively for testing
    name: myfolder
    folder: /path/to/myfolder
-   products
-      app1
    packages
-      liba/0.1
-         path: liba
-      libb/0.1
-         path: libb
-      app1/0.1
-         path: app1
+     - path: liba
+       ref: liba/0.1
+     - path: libb
+       ref: libb/0.1
+     - path: app1
+       ref: app1/0.1
 
 
 conan workspace clean
@@ -128,6 +126,26 @@ the ``conandata.yml`` (with ``git.coordinates_to_conandata()``) can be automatic
 current workspace from their Conan recipe reference (including recipe revision).
 
 
+conan workspace root
+--------------------
+
+.. autocommand::
+    :command: conan workspace root -h
+
+
+Return the folder containing the conanws.py/conanws.yml workspace file.
+
+
+conan workspace source
+----------------------
+
+.. autocommand::
+    :command: conan workspace source -h
+
+The command ``conan workspace source`` performs the equivalent of ``conan source <package-path>`` for every ``package``
+defined within the workspace.
+
+
 conan workspace build
 ---------------------
 
@@ -135,26 +153,28 @@ conan workspace build
     :command: conan workspace build -h
 
 
-The command ``conan workspace build`` does the equivalent of ``conan build <product-path> --build=editable``,
-for every ``product`` defined within the workspace.
-
-Products are the "downstream" consumers, the "root" and starting node of dependency graphs. They can be defined with the
-``conan workspace add <folder> --product`` new ``--product`` argument.
-
-The ``conan workspace build`` command just iterates all products, so it might repeat the build of editables dependencies
-of the products. In most cases, it will be a no-op as the projects would be already built, but might still take some time.
-This is pending for optimization, but that will be done later, the important thing now is to focus on tools, UX, flows,
-and definitions (of things like the ``products``).
+The command ``conan workspace build`` performs the equivalent of ``conan build <package-path>`` for every ``package``
+defined within the workspace in the correct order.
 
 
-conan workspace install
------------------------
+conan workspace create
+----------------------
+
+.. autocommand::
+    :command: conan workspace create -h
+
+The command ``conan workspace create`` performs the equivalent of ``conan create <package-path>`` for every ``package``
+defined within the workspace in the correct order. They will be created in the Conan cache, not locally.
+
+
+conan workspace super-install
+-----------------------------
 
 .. autocommand::
     :command: conan workspace install -h
 
 
-The command ``conan workspace install`` is useful to install and build the current workspace
+The command ``conan workspace super-install`` is useful to install and build the current workspace
 as a monolithic super-project of the editables.
 
 By default it uses all the ``editable`` packages in the workspace. It is possible to select
