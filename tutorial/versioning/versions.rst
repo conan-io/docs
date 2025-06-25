@@ -186,15 +186,15 @@ Likewise, it is possible to obtain the version from a Git tag:
         pkg/1.5 .
         ...
 
-        $ conan list "pkg/*"
-        Local Cache
-          pkg
-            pkg/1.0
-            pkg/1.1
-            pkg/1.2
-            pkg/1.3
-            pkg/1.4
-            pkg/1.5
+    $ conan list "pkg/*"
+    Local Cache
+      pkg
+        pkg/1.0
+        pkg/1.1
+        pkg/1.2
+        pkg/1.3
+        pkg/1.4
+        pkg/1.5
 
 .. note::
 
