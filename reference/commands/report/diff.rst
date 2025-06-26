@@ -26,13 +26,26 @@ If we want to compare versions 1.0 and 2.0 of "mylibrary" that are available on 
     $ conan report diff --old-reference="mylib/1.0" --new-reference="mylib/2.0" -r=my-remote
 
 
-This is how it would look if one of the versions is on the remote and the other is not. The version that is not on the
-remote requires the path to the recipe in order to compare it.
+Let's suppose we're making changes to the recipe or adding a new version, and we want to compare our changes against a
+version that is in the remote. To simplify the command, we'll use the abbreviations ``--old-reference`` as ``-or``
+and ``--new-reference`` as ``-nr`` to improve code readability. The version that is not on the
+remote requires the path to the recipe in order to compare it. If it's the old version that we're modifying and it's
+not found in the remotes, we would use ``--old-path``:
 
 .. code-block:: bash
 
     $ conan report diff -or="mylib/1.0" --old-path="path/to/recipe" -nr="mylib/2.0"
+
+If, on the other hand, it's the new version that we're modifying then we would use ``--new-path``:
+
+.. code-block:: bash
+
     $ conan report diff -or="mylib/1.0" -nr="mylib/2.0" --new-path="path/to/recipe"
+
+Finally, if we're modifying both versions, we’ll need to provide both paths. They may or may not be the same.
+
+.. code-block:: bash
+
     $ conan report diff -or="mylib/1.0" --old-path="path/to/recipe" -nr="mylib/2.0" --new-path="path/to/recipe"
 
 The command allows you to specify the revision of the package you want to compare. By default, it uses the latest
