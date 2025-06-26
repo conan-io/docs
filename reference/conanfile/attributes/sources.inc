@@ -83,7 +83,7 @@ or even better, from ``self.export_sources_folder``.
             save(self, "CMakeLists.txt", "MISTAKE: Very old CMakeLists to be replaced")
             # Now I fix it with one of the exported files
             shutil.copy("../CMakeLists.txt", ".")
-            shutil.copy(os.path.join(self.export_sources_folder, "CMakeLists.txt", "."))
+            shutil.copy(os.path.join(self.export_sources_folder, "CMakeLists.txt"), ".")
 
 
 .. seealso::
