@@ -243,3 +243,23 @@ conan cache restore
 
 
 Read more in :ref:`devops_save_restore`.
+
+
+conan cache ref
+----------------
+
+.. autocommand::
+    :command: conan cache ref -h
+
+
+For a given cache folder, returns the Conan reference, that is, a recipe reference in the form ``name/version#recipe_revision``, or a package reference in the form ``name/version#recipe_revision:package_id#package_revision`` (both could also have user/channel), depending on the contents of the folder.
+
+This is a developer and debugging command, intended for occasional developer use while debugging potential issues, but it is not recommended for any other use case. 
+
+.. note::
+
+    **Best practices**
+
+    Navigating the Conan cache is not an intended or supported use case. Using the ``conan cache ref`` command in any automation, CI or scripting
+    is strongly discouraged. 
+    The ``conan cache ref`` is intended exclusively to be a helper command for developers while debugging.
