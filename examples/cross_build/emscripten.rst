@@ -80,34 +80,33 @@ Conan uses Emscripten to:
 
     Conan will automatically set compiler and linker flags to enable threading if configured in the profile.
 
-.. note::
 
-   The profiles above use the ``emsdk`` package from `Conan Center Index repository <https://conan.io/center/recipes/emsdk>`_, which provides the Emscripten SDK, including ``emcc``, ``em++``, and tools like ``emrun`` and ``node``.
-   
-   If you prefer to use your system-installed Emscripten instead of the Conan-provided one, ``tool_requires`` could be replaced by custom ``compiler_executables`` and ``buildenv``:
-   
-   .. code-block:: text
+The profiles above use the ``emsdk`` package from `Conan Center Index repository <https://conan.io/center/recipes/emsdk>`_, which provides the Emscripten SDK, including ``emcc``, ``em++``, and tools like ``emrun`` and ``node``.
 
-      [conf]
-      tools.build:compiler_executables={'c':'/path/to/emcc', 'cpp':'/path/to/em++'}
+If you prefer to use your system-installed Emscripten instead of the Conan-provided one, ``tool_requires`` could be replaced by custom ``compiler_executables`` and ``buildenv``:
 
-      [buildenv]
-      CC=emcc
-      CXX=em++
-      AR=emar
-      NM=emnm
-      RANLIB=emranlib
-      STRIP=emstrip
+.. code-block:: text
+
+  [conf]
+  tools.build:compiler_executables={'c':'/path/to/emcc', 'cpp':'/path/to/em++'}
+
+  [buildenv]
+  CC=emcc
+  CXX=em++
+  AR=emar
+  NM=emnm
+  RANLIB=emranlib
+  STRIP=emstrip
 
 
-   This way conan could configure `emsdk` local installation to be used from `CMake`, `Meson`, `Autotools` or other build systems.
+This way conan could configure `emsdk` local installation to be used from `CMake`, `Meson`, `Autotools` or other build systems.
 
-   In some cases, you might also need the ``Emscripten.cmake`` toolchain file
-   for advanced scenarios. This toolchais is already added in our packaged
-   `emsdk` but if you are using your own Emscripten installation, you can
-   specify it in the profile by using
-   :ref:`tools.cmake.cmaketoolchain:user_toolchain<conan_cmake_user_toolchain>`
-   and providing the absolute path to your toolchain file.
+In some cases, you might also need the ``Emscripten.cmake`` toolchain file
+for advanced scenarios. This toolchais is already added in our packaged
+`emsdk` but if you are using your own Emscripten installation, you can
+specify it in the profile by using
+:ref:`tools.cmake.cmaketoolchain:user_toolchain<conan_cmake_user_toolchain>`
+and providing the absolute path to your toolchain file.
 
 .. note::
 
