@@ -24,7 +24,7 @@ The idea is that the ``generate()`` method implements all the necessary logic, m
 very straightforward, and also the ``build()`` method logic simpler. The build produced by a user in their local flow should result in
 exactly the same one as the build done in the cache with a ``conan create`` without effort.
 
-Generation of files happens in the ``generators_folder`` as defined by the current layout.
+Generation of files happens in the :ref:`generators_folder<attribute_generators_folder>` as defined by the current layout.
 
 In many cases, the ``generate()`` method might not be necessary, and declaring the ``generators`` attribute could be enough:
 
