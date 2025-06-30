@@ -5,45 +5,15 @@ Cross-building with Emscripten - WebAssembly and asm.js
 
 This example demonstrates how to cross-build a simple C++ project using Emscripten and Conan.
 
-Conan supports building for both `asm.js <http://asmjs.org>`_ and `WASM
-<https://webassembly.org>`_, giving you the flexibility to target different
+Conan supports `WASM <https://webassembly.org>`_ cross compilation, giving you the flexibility to target different
 JavaScript/WebAssembly runtimes in the browser.
 
 We recommend creating separate Conan profiles for each target. Below are
 recommended profiles and instructions on how to build with them.
 
-What’s the difference between asm.js and WASM?
-----------------------------------------------
 
-- **asm.js** is a subset of JavaScript optimized for speed. It is fully supported by all browsers (even older ones) and compiles to a large ``.js`` file.
-- **WebAssembly (WASM)** is a binary format that is smaller and faster to load and execute. Most modern browsers support it, and it is generally recommended for new projects. **WASM** is also easier to integrate with native browser APIs compared to **asm.js**.
-
-Setting up Conan profiles
--------------------------
-
-**For asm.js (JavaScript-based output):**
-
-.. code-block:: text
-
-   [settings]
-   arch=asm.js
-   build_type=Release
-   compiler=emcc
-   compiler.cppstd=<cppstd>
-   compiler.libcxx=<libcxx>
-   compiler.threads=<threads>
-   compiler.version=<version>
-   os=Emscripten
-
-   [tool_requires]
-   emsdk/[*]
-
-   [conf]
-   # Optional settings to enable memory allocation
-   tools.build:exelinkflags=['-sALLOW_MEMORY_GROWTH=1', '-sMAXIMUM_MEMORY=2GB', '-sINITIAL_MEMORY=64MB']
-   tools.build:sharedlinkflags=['-sALLOW_MEMORY_GROWTH=1', '-sMAXIMUM_MEMORY=2GB', '-sINITIAL_MEMORY=64MB']
-
-**For WebAssembly (WASM):**
+Setting up Conan profile for WebAssembly (WASM)
+-----------------------------------------------
 
 .. code-block:: text
 
@@ -51,19 +21,30 @@ Setting up Conan profiles
    arch=wasm
    build_type=Release
    compiler=emcc
-   compiler.cppstd=<cppstd>
-   compiler.libcxx=<libcxx>
-   compiler.threads=<threads>
-   compiler.version=<version>
+   compiler.cppstd=17
+   compiler.libcxx=libc++
+   # Optional settings to enable multithreading (see note below)
+   # compiler.threads=posix
+   compiler.version=4.0.10
    os=Emscripten
 
    [tool_requires]
-   emsdk/[*]
+   emsdk/4.0.10
 
    [conf]
    # Optional settings to enable memory allocation
    tools.build:exelinkflags=['-sALLOW_MEMORY_GROWTH=1', '-sMAXIMUM_MEMORY=4GB', '-sINITIAL_MEMORY=64MB']
    tools.build:sharedlinkflags=['-sALLOW_MEMORY_GROWTH=1', '-sMAXIMUM_MEMORY=4GB', '-sINITIAL_MEMORY=64MB']
+
+
+.. note::
+    
+    Conan also supports building for `asm.js <http://asmjs.org>`_ targets, which is a nowadays considered deprecated.
+
+    What’s the difference between asm.js and WASM?
+
+    - **asm.js** is a subset of JavaScript optimized for speed. It is fully supported by all browsers (even older ones) and compiles to a large ``.js`` file.
+    - **WebAssembly (WASM)** is a binary format that is smaller and faster to load and execute. Most modern browsers support it, and it is generally recommended for new projects. **WASM** is also easier to integrate with native browser APIs compared to **asm.js**.
 
 
 Even though Emscripten is not a true runtime environment (like Linux or
@@ -109,8 +90,6 @@ Conan uses Emscripten to:
 
       [conf]
       tools.build:compiler_executables={'c':'/path/to/emcc', 'cpp':'/path/to/em++'}
-      # Add native Emscripten toolchain
-      # tools.cmake.cmaketoolchain:user_toolchain=["/path/to/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake"]
 
       [buildenv]
       CC=emcc
@@ -123,6 +102,12 @@ Conan uses Emscripten to:
 
    This way conan could configure `emsdk` local installation to be used from `CMake`, `Meson`, `Autotools` or other build systems.
 
+   In some cases, you might also need the ``Emscripten.cmake`` toolchain file
+   for advanced scenarios. This toolchais is already added in our packaged
+   `emsdk` but if you are using your own Emscripten installation, you can
+   specify it in the profile by using
+   :ref:`tools.cmake.cmaketoolchain:user_toolchain<conan_cmake_user_toolchain>`
+   and providing the absolute path to your toolchain file.
 
 .. note::
 
@@ -149,13 +134,6 @@ Conan uses Emscripten to:
    ``emcc`` compiler does not guarantee any ABI compatibility between different versions (patches included)
    To ensure a new ``package_id`` is generated when the Emscripten version
    changes, it is recommended to update the ``compiler.version`` setting in your profile accordingly.
-
-   Also, when requiring ``emsdk`` package as a tool, it is recommended to use it this way:
-
-   .. code-block:: python
-
-       self.tool_requires("emsdk/[*]", package_id_mode="patch_mode")
-
 
    This will ensure that the package ID is generated based on the Emscripten
    version, allowing Conan to detect changes in the Emscripten toolchain and
