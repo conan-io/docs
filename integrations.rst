@@ -22,6 +22,7 @@ Xcode.
    integrations/makefile
    integrations/xcode
    integrations/meson
+   integrations/emscripten
    integrations/premake
    integrations/android
    integrations/jfrog
