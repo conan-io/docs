@@ -42,6 +42,15 @@ The folder used to build the source code. The path is built joining the base dir
 directory when running in the cache or the ``output folder`` when running locally) with
 the value of ``folders.build`` if declared in the ``layout()`` method.
 
+
+.. _attribute_generators_folder:
+
+generators_folder
+-----------------
+
+The folder where the files in the ``generate()`` method should be generated. The path is built
+from the layout's ``self.folders.generators`` attribute.
+
 .. _conan_conanfile_properties_package_folder:
 
 package_folder
