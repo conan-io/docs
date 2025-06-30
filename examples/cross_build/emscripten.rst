@@ -51,7 +51,7 @@ Even though Emscripten is not a true runtime environment (like Linux or
 Windows), it is part of a toolchain ecosystem that compiles C/C++ to
 WebAssembly (WASM) and asm.js.
 
-Conan uses Emscripten to:
+Conan uses ``os=Emscripten`` to:
 
 - Align with the toolchain: Emscripten integrates the compiler, runtime glue, and JavaScript environment, making it practical to treat as an "OS-like" target.
 
