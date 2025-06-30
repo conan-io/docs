@@ -30,7 +30,7 @@ And it can also be fully instantiated in the conanfile ``generate()`` method:
 
 .. code-block:: python
 
-    from conan.tools.premake import Premake
+    from conan.tools.premake import PremakeToolchain
 
     class Pkg(ConanFile):
         settings = "os", "compiler", "build_type", "arch"

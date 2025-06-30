@@ -52,7 +52,7 @@ Reference
 conf
 ----
 
-The ``Meson`` build helper is affected by these ``[conf]`` variables:
+The ``Premake`` build helper is affected by these ``[conf]`` variables:
 
 - ``tools.build:verbosity`` which accepts one of ``quiet`` or ``verbose`` and sets the ``--quiet`` flag in ``Premake.configure()``
 
