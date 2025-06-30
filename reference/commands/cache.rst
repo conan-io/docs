@@ -254,7 +254,7 @@ conan cache ref
 
 For a given cache folder, returns the Conan reference, that is, a recipe reference in the form ``name/version#recipe_revision``, or a package reference in the form ``name/version#recipe_revision:package_id#package_revision`` (both could also have user/channel), depending on the contents of the folder.
 
-This is a developer and debugging command, intended for occasional developer use while debugging potential issues, but it is not recommended for any other use case. 
+This is a developer and debugging command, intended for occasional developer usage while debugging potential issues, but it is not recommended for any other use case. 
 
 .. note::
 
