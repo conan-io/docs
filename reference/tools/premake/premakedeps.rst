@@ -6,8 +6,7 @@ PremakeDeps
 .. include:: ../../../common/experimental_warning.inc
 
 The ``PremakeDeps`` is the dependencies generator for Premake.
-
-The ``PremakeDeps`` generator can be used by name in conanfiles:
+The generator can be used by name in conanfiles:
 
 .. code-block:: python
     :caption: conanfile.py
@@ -34,23 +33,39 @@ And it can also be fully instantiated in the conanfile ``generate()`` method:
         requires = "zlib/1.2.11"
 
         def generate(self):
-            bz = PremakeDeps(self)
-            bz.generate()
+            deps = PremakeDeps(self)
+            deps.generate()
+
+.. important::
+
+    The ``PremakeDeps`` generator must be used in conjunction with the
+    :ref:`PremakeToolchain <conan_tools_premake_premaketoolchain>` generator, as it will
+    generate a ``include('conandeps.premake5.lua')`` that will be automatically
+    included by the toolchain.
 
 Generated files
 ---------------
 
-When the ``PremakeDeps`` generator is used, every invocation of ``conan install`` will
-generate a ``include('conandeps.premake5.lua')`` that can be included and used in the project:
+``PremakeDeps`` will generate a ``conandeps.premake5.lua`` script file which
+will be injected later by the toolchain and the following files per dependency in the ``conanfile.generators_folder``:
 
+- ``conan_<pkg>.premake5.lua``: will be including the proper script depending on the ``build_type`` and architecture.
 
-.. code-block:: lua
+- ``conan_<pkg>_vars_<config>.premake5.lua``: will contain essentially the following information for the specific dependency, architecture and build_type:
 
-    -- premake5.lua
+   - ``includedirs``
+   - ``libdirs``
+   - ``bindirs``
+   - ``sysincludedirs``
+   - ``frameworkdirs``
+   - ``frameworks``
+   - ``libs``
+   - ``syslibs``
+   - ``defines``
+   - ``cxxflags``
+   - ``cflags``
+   - ``sharedlinkflags``
+   - ``exelinkflags``
 
-    include('conandeps.premake5.lua')
-
-    workspace "HelloWorld"
-        conan_setup()
-        configurations { "Debug", "Release" }
-        platforms { "x86_64" }
+All this information will be loaded in the ``conandeps.premake5.lua`` script
+and injected later to the main premake script, allowing a transparent and easy to use dependency management with conan.

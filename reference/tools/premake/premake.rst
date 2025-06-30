@@ -7,7 +7,7 @@ Premake
 
 
 The ``Premake`` build helper is a wrapper around the command line invocation of Premake. It will abstract the
-project configuration command.
+project configuration and build command.
 
 The helper is intended to be used in the *conanfile.py* ``build()`` method, to call Premake commands automatically
 when a package is being built directly by Conan (create, install)
@@ -17,13 +17,12 @@ when a package is being built directly by Conan (create, install)
 .. code-block:: python
 
     from conan.tools.premake import Premake
-    from conan.tools.microsoft import MSBuild
 
     class Pkg(ConanFile):
         settings = "os", "compiler", "build_type", "arch"
 
-        # The VCVars generator might be needed in Windows-MSVC
-        generators = "VCVars"
+        # The PremakeToolchain generator is always needed to use premake helper
+        generators = "PremakeToolchain"
 
         def build(self):
             p = Premake(self)
@@ -36,16 +35,25 @@ when a package is being built directly by Conan (create, install)
 
             # Automatically determines the correct action:
             # - For MSVC, selects vs<version> based on the compiler version
-            # - Defaults to "gmake2" for other compilers
+            # - Defaults to "gmake" for other compilers
             # p.configure() will run: premake5 --file=myproject.lua <action> --{key}={value} ...
             p.configure()
-            # At the moment Premake does not contain .build() method
-            # report in Github issues your use cases and feedback to request it
-            build_type = str(self.settings.build_type)
-            if self.settings.os == "Windows":
-                msbuild = MSBuild(self)
-                msbuild.build("HelloWorld.sln")
-            else:
-                self.run(f"make config={build_type.lower()}_x86_64")
-            p = os.path.join(self.build_folder, "bin", build_type, "HelloWorld")
-            self.run(f'"{p}"')
+            # p.build() will invoke proper compiler depending on action (automatically detected by profile)
+            p.build("HelloWorld.sln")
+
+Reference
+---------
+
+.. currentmodule:: conan.tools.premake
+
+.. autoclass:: Premake
+    :members:
+
+conf
+----
+
+The ``Premake`` build helper is affected by these ``[conf]`` variables:
+
+- ``tools.build:verbosity`` which accepts one of ``quiet`` or ``verbose`` and sets the ``--quiet`` flag in ``Premake.configure()``
+
+- ``tools.compilation:verbosity`` which accepts one of ``quiet`` or ``verbose`` and sets the ``--verbose`` flag in ``Premake.build()``
