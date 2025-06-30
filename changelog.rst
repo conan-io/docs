@@ -3,6 +3,61 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.18.0 (30-Jun-2025)
+--------------------
+
+- Feature: Allow consuming meson libname.a libs in ``MSBuildDeps``. `#18557 <https://github.com/conan-io/conan/pull/18557>`_
+- Feature:  Avoid library renames when using Meson + MSVC + static builds. `#18533 <https://github.com/conan-io/conan/pull/18533>`_
+- Feature: Added `threads` subsetting in `emcc` compiler model. `#18520 <https://github.com/conan-io/conan/pull/18520>`_ . Docs `here <https://github.com/conan-io/docs/pull/4115>`__
+- Feature: New ``conan cache ref <path>`` to reverse look the Conan cache, with a path argument will return the reference of the artifact in that folder. Intended exclusively for debugging purposes. `#18518 <https://github.com/conan-io/conan/pull/18518>`_ . Docs `here <https://github.com/conan-io/docs/pull/4146>`__
+- Feature: New linker flags autodetected by conan based on profile architecture. `#18498 <https://github.com/conan-io/conan/pull/18498>`_
+- Feature: Changed `conanws.yml` format. Now, `packages` is a list of dict-like objects. `#18493 <https://github.com/conan-io/conan/pull/18493>`_ . Docs `here <https://github.com/conan-io/docs/pull/4138>`__
+- Feature: Added support for ``.exe`` in editables packages in ``CMakeConfigDeps``. `#18489 <https://github.com/conan-io/conan/pull/18489>`_
+- Feature: Add `build_folder` parameter in `basic_layout`. `#18442 <https://github.com/conan-io/conan/pull/18442>`_ . Docs `here <https://github.com/conan-io/docs/pull/4140>`__
+- Feature: Using `pkg_config_name = 'none'` to skip the `*.pc` file creation. `#18439 <https://github.com/conan-io/conan/pull/18439>`_ . Docs `here <https://github.com/conan-io/docs/pull/4135>`__
+- Feature: Add support for sbom and lockfiles to `conan audit list`. `#18437 <https://github.com/conan-io/conan/pull/18437>`_ . Docs `here <https://github.com/conan-io/docs/pull/4134>`__
+- Feature: Added first class citizen emscripten support (new wasm64 architecture + emcc). `#18432 <https://github.com/conan-io/conan/pull/18432>`_ . Docs `here <https://github.com/conan-io/docs/pull/4115>`__
+- Feature: Replace `tools.cmake:install_strip` by `tools.install:strip`. Affect both CMake and Meson tool helpers. `#18429 <https://github.com/conan-io/conan/pull/18429>`_ . Docs `here <https://github.com/conan-io/docs/pull/4121>`__
+- Feature: Add `open` to `TestClient` to open files locally. `#18399 <https://github.com/conan-io/conan/pull/18399>`_
+- Feature: New ``conan workspace create`` orchestrated. `#18390 <https://github.com/conan-io/conan/pull/18390>`_ . Docs `here <https://github.com/conan-io/docs/pull/4138>`__
+- Feature: Add ``context`` variable to profile jinja2 rendering (can be "build", "host" and ``None``). `#18383 <https://github.com/conan-io/conan/pull/18383>`_ . Docs `here <https://github.com/conan-io/docs/pull/4136>`__
+- Feature: Implement ``cpp_info.sources`` to support source targets. `#18350 <https://github.com/conan-io/conan/pull/18350>`_ . Docs `here <https://github.com/conan-io/docs/pull/4128>`__
+- Feature: Add support for source targets in CMakeConfigDeps generator. `#18350 <https://github.com/conan-io/conan/pull/18350>`_ . Docs `here <https://github.com/conan-io/docs/pull/4128>`__
+- Feature: New `conan report diff` command to inspect diffs between versions and revisions. `#18247 <https://github.com/conan-io/conan/pull/18247>`_ . Docs `here <https://github.com/conan-io/docs/pull/4127>`__
+- Feature: Add premake toolchain and improved premake integration in conan with new premake5. `#17898 <https://github.com/conan-io/conan/pull/17898>`_ . Docs `here <https://github.com/conan-io/docs/pull/4090>`__
+- Fix: Better error message in ``CMakeConfigDeps`` for incorrect component requires. `#18562 <https://github.com/conan-io/conan/pull/18562>`_
+- Fix: Avoid incorrect absolute path inputs in ``-of`` for relativize paths in generators. `#18561 <https://github.com/conan-io/conan/pull/18561>`_
+- Fix: Better error message when an incorrect ``cpp_info.requires`` is defined. `#18552 <https://github.com/conan-io/conan/pull/18552>`_
+- Fix: Avoid hyphens for msbuild verbosity argument passed to CMake after `--` by powershell. `#18548 <https://github.com/conan-io/conan/pull/18548>`_
+- Fix: Improve `conan cache check-integrity` output. `#18544 <https://github.com/conan-io/conan/pull/18544>`_
+- Fix: Raise an error for incorrect definition of ``conf_info`` items. `#18541 <https://github.com/conan-io/conan/pull/18541>`_
+- Fix: Fix ``qcc`` ``cppstd`` support for latest QNX 8.0 with c++20. `#18538 <https://github.com/conan-io/conan/pull/18538>`_
+- Fix: SBOM component `bom-ref` should not use `has_special_root_node`. `#18515 <https://github.com/conan-io/conan/pull/18515>`_
+- Fix: Add a deprecated warning message for ``Node.dependencies``, now renamed to ``Node.edges``. `#18472 <https://github.com/conan-io/conan/pull/18472>`_
+- Fix: Fix issue with missing folder in local-recipes-index. `#18449 <https://github.com/conan-io/conan/pull/18449>`_
+- Fix: `Git.get_remote_url` now returns only the URL when using treeless repository. `#18444 <https://github.com/conan-io/conan/pull/18444>`_
+- Fix: Improvement over ill-formed graphs with different `visible=True/False` for the same dependency. `#18440 <https://github.com/conan-io/conan/pull/18440>`_ . Docs `here <https://github.com/conan-io/docs/pull/4139>`__
+- Fix: Fixing CMake presets on Windows with backslash. `#18435 <https://github.com/conan-io/conan/pull/18435>`_
+- Fix: Do not output upload-urls on basic text :command:`conan upload` output. `#18430 <https://github.com/conan-io/conan/pull/18430>`_
+- Fix: Create folders if they don't exist when using `--out-file`. `#18427 <https://github.com/conan-io/conan/pull/18427>`_
+- Fix: Fix AutotoolsToolchain/GnuToolchain with LLVM/Clang in Windows for dynamic runtime in Debug. `#18422 <https://github.com/conan-io/conan/pull/18422>`_
+- Fix: Test ``NMake`` integration with ``clang-cl``. `#18422 <https://github.com/conan-io/conan/pull/18422>`_
+- Fix: Ensure old gcc version are detected up to minor version only. `#18419 <https://github.com/conan-io/conan/pull/18419>`_
+- Fix: Fixing source retrieval when resetting local-index remote. `#18418 <https://github.com/conan-io/conan/pull/18418>`_
+- Fix: Allow minors greater than 9 in `detect_api`. `#18410 <https://github.com/conan-io/conan/pull/18410>`_
+- Fix: Removed ``Workspaces`` product definition and make ``conan workspace build`` work computing the right build-order. `#18390 <https://github.com/conan-io/conan/pull/18390>`_ . Docs `here <https://github.com/conan-io/docs/pull/4138>`__
+- Fix: Forward `ConanInvalidConfiguration` when raised in hooks. `#18385 <https://github.com/conan-io/conan/pull/18385>`_
+- Bugfix: Avoid crash when installing packages with tuple `generators` attribute and requirements to tool requires that provide `self.generator_info` generators. `#18503 <https://github.com/conan-io/conan/pull/18503>`_
+- Bugfix: Fix detection of riscv64 cpu in Meson toolchain. `#18495 <https://github.com/conan-io/conan/pull/18495>`_
+- Bugfix: Redirected Apple ARC flags to the ObjC/C++ ones. `#18485 <https://github.com/conan-io/conan/pull/18485>`_
+- Bugfix: Fix `TestClient` mocked `HEAD` requests. `#18477 <https://github.com/conan-io/conan/pull/18477>`_
+- Bugfix: Avoid leak of ``global.conf`` and ``-cc`` configuration for ``core.xxx`` items in Conan profiles, the ``core`` conf is exclusively for Conan internals, not for recipes neither for profiles. `#18474 <https://github.com/conan-io/conan/pull/18474>`_
+- Bugfix: XcodeToolchain sets correct `..._DEPLOYMENT_TARGET` for all Apple OSs. `#18471 <https://github.com/conan-io/conan/pull/18471>`_ . Docs `here <https://github.com/conan-io/docs/pull/4126>`__
+- Bugfix: :command:`conan export-pkg` now correctly passes a `str` as the conanfile version. `#18456 <https://github.com/conan-io/conan/pull/18456>`_
+- Bugfix: Fix conan cache backup-upload ignoring `-cc` arguments. `#18447 <https://github.com/conan-io/conan/pull/18447>`_
+- Bugfix: Fixed `CMakeConfigDeps` behavior with multiple `find_package` in folders and subfolders. `#18407 <https://github.com/conan-io/conan/pull/18407>`_
+- Bugfix: Fixes issue where conanfile's `source()` method doesn't use `folders.root` when present. `#18377 <https://github.com/conan-io/conan/pull/18377>`_
+
 2.17.1 (23-Jun-2025)
 --------------------
 
