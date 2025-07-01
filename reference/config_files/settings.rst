@@ -220,7 +220,7 @@ and ``MSBuild`` location) will be defined by the default provided by that compil
 - ``msvc`` compiler version '193': Visual Studio 17 2022 (toolset v143, compiler versions up to 19.39, toolset version 14.3X)
 - ``msvc`` compiler version '194': Visual Studio 17 2022 (toolset v143, compiler versions from 19.40, toolset version 14.4X, Visual Studio update 17.10)
 
-Note that both ``compiler.version=193`` and ``compiler.version`` maps to the ``v143`` toolset, but to different toolset versions ``14.3X``
+Note that both ``compiler.version=193`` and ``compiler.version=194`` map to the ``v143`` toolset, but to different toolset versions ``14.3X``
 and ``14.4X``, due to the versioning scheme change done from Visual Studio update 17.10 that introduced compiler version 19.40 and toolset version 14.40
 while keeping the toolset ``v143`` nomenclature.
 
