@@ -209,19 +209,22 @@ Some notes about different compilers:
 msvc
 ++++
 
-- It uses the compiler version, that is 190 (19.0), 191 (19.1), etc, instead of the Visual Studio IDE (15, 16, etc).
-- It is only used by the new build integrations in :ref:`conan_tools_cmake` and :ref:`conan_tools_microsoft`,
-  but not the previous ones.
+The ``msvc`` compiler setting uses the actual ``cl.exe`` compiler version, that is 190 (19.0), 191 (19.1), etc, instead of the Visual Studio IDE version(15, 16, etc).
 
 When using the ``msvc`` compiler, the Visual Studio toolset version (the actual ``vcvars`` activation
 and ``MSBuild`` location) will be defined by the default provided by that compiler version:
 
-- ``msvc`` compiler version '190': Visual Studio 14 2015
-- ``msvc`` compiler version '191': Visual Studio 15 2017
-- ``msvc`` compiler version '192': Visual Studio 16 2019
-- ``msvc`` compiler version '193': Visual Studio 17 2022
+- ``msvc`` compiler version '190': Visual Studio 14 2015 (toolset v140)
+- ``msvc`` compiler version '191': Visual Studio 15 2017 (toolset v141)
+- ``msvc`` compiler version '192': Visual Studio 16 2019 (toolset v142)
+- ``msvc`` compiler version '193': Visual Studio 17 2022 (toolset v143, compiler versions up to 19.39, toolset version 14.3X)
+- ``msvc`` compiler version '194': Visual Studio 17 2022 (toolset v143, compiler versions from 19.40, toolset version 14.4X, Visual Studio update 17.10)
 
-This can be configured in your profiles with the ``tools.microsoft.msbuild:vs_version`` configuration:
+Note that both ``compiler.version=193`` and ``compiler.version`` maps to the ``v143`` toolset, but to different toolset versions ``14.3X``
+and ``14.4X``, due to the versioning scheme change done from Visual Studio update 17.10 that introduced compiler version 19.40 and toolset version 14.40
+while keeping the toolset ``v143`` nomenclature.
+
+If you want to explicitly force a specific Visual Studio IDE version, you can do it with the ``tools.microsoft.msbuild:vs_version`` configuration:
 
 .. code-block:: text
 
@@ -246,7 +249,6 @@ control is desired, you can just add the ``update`` part to your profiles:
     compiler=msvc
     compiler.version=191
     compiler.update=3
-
 
 This will be equivalent to the full version ``1913 (19.13)``. If even further details are desired, you could even add your own digits
 to the ``update`` subsetting in ``settings.yml``.
