@@ -394,6 +394,42 @@ demonstrates how to import bindings for the library depending on the graphics AP
     tools<conan_tools_env_virtualrunenv>` without the need to copy them to the local
     folder.
 
+
+Use the build() method and ``conan build`` command
+--------------------------------------------------
+
+If you have a recipe that implements a ``build()`` method, then it is possible to automatically call 
+the full ``conan install + cmake <configure> + cmake <build>`` flow with a single command. Though this
+might not be the typical developer flow, it can be a convenient shortcut in some cases.
+
+You can try it with:
+
+.. code-block:: bash
+    
+    $ mkdir myproj && cd myproj
+    $ conan new cmake_lib
+    $ conan build .
+
+
+The ``conan new`` command creates a simple project containing a ``conanfile.py``, a ``CMakeLists.txt`` and some C++ code.
+If you inspect the ``conanfile.py``, you can see it contains a ``build()`` method, with the instructions how to
+configure and build this project, using some Conan helpers such as ``cmake.configure()`` and ``cmake.build()``. 
+
+It is not important to fully understand the ``build()`` method now, it will explained later in the tutorial.
+The ``conan build .`` command will automatically call ``conan install .`` (``conan build`` can receive all the same 
+arguments, profiles, settings, etc. as ``install``) to install the dependencies and call the ``generarators``, 
+and after it finishes, it will call the ``build()`` method, which in turns call the CMake configure and build steps, 
+doing a local build of the project.
+
+.. note::
+
+    **Best practices**
+
+    The ``conan build`` command does not intend to replace or change the typical developer flow using CMake and
+    other build tools, and using their IDEs. It is just a convenient shortcut for cases in which we want to locally
+    build a project easily without having to type several commands or use the IDE.
+
+
 .. seealso::
 
     - :ref:`Using "cmake_layout" + "CMakeToolchain" + "CMakePresets feature" to build your project<examples-tools-cmake-toolchain-build-project-presets>`.
