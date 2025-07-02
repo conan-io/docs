@@ -399,27 +399,54 @@ Use the build() method and ``conan build`` command
 --------------------------------------------------
 
 If you have a recipe that implements a ``build()`` method, then it is possible to automatically call 
-the full ``conan install + cmake <configure> + cmake <build>`` flow with a single command. Though this
+the full ``conan install + cmake <configure> + cmake <build>`` (or call the build system that the ``build()``
+method uses) flow with a single command. Though this
 might not be the typical developer flow, it can be a convenient shortcut in some cases.
 
-You can try it with:
+Let's add this ``build()`` method to our recipe:
+
+.. code-block:: python
+
+    from conan import ConanFile
+    from conan.tools.cmake import CMake
+
+    class CompressorRecipe(ConanFile):
+        settings = "os", "compiler", "build_type", "arch"
+        generators = "CMakeToolchain", "CMakeDeps"
+
+        ...
+
+        def build(self):
+            cmake = CMake(self)
+            cmake.configure()
+            cmake.build()
+
+
+So now we can just call ``conan build .``:
 
 .. code-block:: bash
     
-    $ mkdir myproj && cd myproj
-    $ conan new cmake_lib
     $ conan build .
+    ...
+    Graph root
+        conanfile.py: ...\conanfile.py
+    Requirements
+        zlib/1.2.11#bfceb3f8904b735f75c2b0df5713b1e6 - Downloaded (conancenter)
+    Build requirements
+        cmake/3.22.6#32cced101c6df0fab43e8d00bd2483eb - Downloaded (conancenter)
 
+    ======== Calling build() ========
+    conanfile.py: Calling build()
+    conanfile.py: Running CMake.configure()
+    conanfile.py: RUN: cmake -G "Visual Studio 17 2022" -DCMAKE_TOOLCHAIN_FILE="conan_toolchain.cmake"
+    ...
+    conanfile.py: Running CMake.build()
+    conanfile.py: RUN: cmake --build "...\conanfile_py" --config Release
 
-The ``conan new`` command creates a simple project containing a ``conanfile.py``, a ``CMakeLists.txt`` and some C++ code.
-If you inspect the ``conanfile.py``, you can see it contains a ``build()`` method, with the instructions how to
-configure and build this project, using some Conan helpers such as ``cmake.configure()`` and ``cmake.build()``. 
-
-It is not important to fully understand the ``build()`` method now, it will explained later in the tutorial.
-The ``conan build .`` command will automatically call ``conan install .`` (``conan build`` can receive all the same 
-arguments, profiles, settings, etc. as ``install``) to install the dependencies and call the ``generarators``, 
-and after it finishes, it will call the ``build()`` method, which in turns call the CMake configure and build steps, 
-doing a local build of the project.
+And we will see how it manages first to install the dependencies, then it will be calling the ``build()``
+method, that calls CMake configure and build step for us. Because the ``conan build .`` does internally
+a ``conan install``, it can receive the same arguments (profile, settings, options, lockfile, etc.) as
+``conan install``.
 
 .. note::
 
