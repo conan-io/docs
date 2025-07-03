@@ -1,7 +1,7 @@
 .. _reference_extensions_profile_plugin:
 
 Profile plugin
----------------
+===============
 
 The ``profile.py`` extension plugin is a Python script that receives one profile and allow
 checking and modifying it.

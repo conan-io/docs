@@ -3,7 +3,7 @@
 Authorization plugins
 =====================
 
-.. include:: ../../common/experimental_warning.inc
+.. include:: ../../../common/experimental_warning.inc
 
 Regarding authorization, we have two plugins: one focused on remote  :ref:`Conan servers <setting_up_conan_remotes>`
 authorization, ``auth_remote.py``, and another focused on authorization for source file servers, ``auth_source.py``.

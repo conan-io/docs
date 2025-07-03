@@ -436,6 +436,8 @@ graphviz_output_format = 'svg'
 def copy_legacy_redirects(app, docname): # Sphinx expects two arguments
     # FILL in this dicts the necessary redirects
     redirect_files = {    
+        "reference/extensions/profile_plugin.html" : "plugins/profile_plugin.html",
+        "reference/extensions/authorization_plugins.html" : "plugins/authorization_plugins.html",
     }
 
     redirect_template = """<!DOCTYPE html>
