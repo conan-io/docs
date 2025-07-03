@@ -56,7 +56,7 @@ Installation of packages from servers is also very efficient. Only the necessary
 All platforms, all build systems and compilers
 ----------------------------------------------
 
-Conan works on Windows, Linux (Ubuntu, Debian, RedHat, ArchLinux, Raspbian), OSX, FreeBSD, and SunOS, and, as it is portable, it might work in any other platform that can run 
+Conan works on Windows, Linux (Ubuntu, Debian, Red Hat, ArchLinux, Raspbian), OSX, FreeBSD, and SunOS, and, as it is portable, it might work in any other platform that can run 
 Python. It can target any existing platform: ranging from bare metal to desktop, mobile, embedded, servers, and cross-building.
 
 Conan works with any build system too. There are built-in integrations to support the most popular ones like CMake, Visual Studio (MSBuild), Autotools and Makefiles, Meson, SCons, etc., but it is not a requirement to use any of them. It is not even necessary that all packages use the same build system: each package can use their own build system, and depend on other packages using different build systems. It is also possible to integrate with any build system, including proprietary ones.
