@@ -394,6 +394,69 @@ demonstrates how to import bindings for the library depending on the graphics AP
     tools<conan_tools_env_virtualrunenv>` without the need to copy them to the local
     folder.
 
+
+Use the build() method and ``conan build`` command
+--------------------------------------------------
+
+If you have a recipe that implements a ``build()`` method, then it is possible to automatically call 
+the full ``conan install + cmake <configure> + cmake <build>`` (or call the build system that the ``build()``
+method uses) flow with a single command. Though this
+might not be the typical developer flow, it can be a convenient shortcut in some cases.
+
+Let's add this ``build()`` method to our recipe:
+
+.. code-block:: python
+
+    from conan import ConanFile
+    from conan.tools.cmake import CMake
+
+    class CompressorRecipe(ConanFile):
+        settings = "os", "compiler", "build_type", "arch"
+        generators = "CMakeToolchain", "CMakeDeps"
+
+        ...
+
+        def build(self):
+            cmake = CMake(self)
+            cmake.configure()
+            cmake.build()
+
+
+So now we can just call ``conan build .``:
+
+.. code-block:: bash
+    
+    $ conan build .
+    ...
+    Graph root
+        conanfile.py: ...\conanfile.py
+    Requirements
+        zlib/1.2.11#bfceb3f8904b735f75c2b0df5713b1e6 - Downloaded (conancenter)
+    Build requirements
+        cmake/3.22.6#32cced101c6df0fab43e8d00bd2483eb - Downloaded (conancenter)
+
+    ======== Calling build() ========
+    conanfile.py: Calling build()
+    conanfile.py: Running CMake.configure()
+    conanfile.py: RUN: cmake -G "Visual Studio 17 2022" -DCMAKE_TOOLCHAIN_FILE="conan_toolchain.cmake"
+    ...
+    conanfile.py: Running CMake.build()
+    conanfile.py: RUN: cmake --build "...\conanfile_py" --config Release
+
+And we will see how it manages first to install the dependencies, then it will be calling the ``build()``
+method, that calls CMake configure and build step for us. Because the ``conan build .`` does internally
+a ``conan install``, it can receive the same arguments (profile, settings, options, lockfile, etc.) as
+``conan install``.
+
+.. note::
+
+    **Best practices**
+
+    The ``conan build`` command does not intend to replace or change the typical developer flow using CMake and
+    other build tools, and using their IDEs. It is just a convenient shortcut for cases in which we want to locally
+    build a project easily without having to type several commands or use the IDE.
+
+
 .. seealso::
 
     - :ref:`Using "cmake_layout" + "CMakeToolchain" + "CMakePresets feature" to build your project<examples-tools-cmake-toolchain-build-project-presets>`.
