@@ -3,6 +3,11 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.18.1 (04-Jul-2025)
+--------------------
+
+- Bugfix: Revert remote caching for missing packages `#18586 <https://github.com/conan-io/conan/pull/18586>`_
+
 2.18.0 (30-Jun-2025)
 --------------------
 
