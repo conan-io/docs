@@ -66,7 +66,7 @@ This way, although calling :command:`conan create` twice (once per package ID), 
 
 .. note::
 
-    You can also customize `build_id()` based on options:
+    You can also customize ``build_id()`` based on options:
 
     .. code-block:: python
 
