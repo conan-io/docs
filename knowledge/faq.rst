@@ -19,9 +19,9 @@ that you get an error like the following one:
 
 .. code-block:: text
 
-    ERROR: Missing binary: zlib/1.2.11:b1d267f77ddd5d10d06d2ecf5a6bc433fbb7eeed
+    ERROR: Missing binary: zlib/1.3.1:b1d267f77ddd5d10d06d2ecf5a6bc433fbb7eeed
 
-    zlib/1.2.11: WARN: Can't find a 'zlib/1.2.11' package binary 'b1d267f77ddd5d10d06d2ecf5a6bc433fbb7eeed' for the configuration:
+    zlib/1.3.1: WARN: Can't find a 'zlib/1.3.1' package binary 'b1d267f77ddd5d10d06d2ecf5a6bc433fbb7eeed' for the configuration:
     [settings]
     arch=x86_64
     build_type=Release
@@ -34,14 +34,14 @@ that you get an error like the following one:
     fPIC=True
     shared=False
 
-    ERROR: Missing prebuilt package for 'zlib/1.2.11'. You can try:
+    ERROR: Missing prebuilt package for 'zlib/1.3.1'. You can try:
         - List all available packages using 'conan list "{ref}:*" -r=remote'
         - Explain missing binaries: replace 'conan install ...' with 'conan graph explain ...'
-        - Try to build locally from sources using the '--build=zlib/1.2.11' argument
+        - Try to build locally from sources using the '--build=zlib/1.3.1' argument
 
     More Info at 'https://docs.conan.io/en/2/knowledge/faq.html#error-missing-prebuilt-package'
 
-This means that the package recipe ``zlib/1.2.11`` exists, but for some reason there is no
+This means that the package recipe ``zlib/1.3.1`` exists, but for some reason there is no
 precompiled package for your current settings or options. Maybe the package creator didn't build and
 shared pre-built packages at all and only uploaded the package recipe, or they are only
 providing packages for some platforms or compilers. E.g. the package creator built

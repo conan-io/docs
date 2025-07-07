@@ -10,10 +10,10 @@ In the previous examples, we declared our dependencies (*Zlib* and *CMake*) in a
     :caption: **conanfile.txt**
 
     [requires]
-    zlib/1.2.11
+    zlib/1.3.1
 
     [tool_requires]
-    cmake/3.22.6
+    cmake/3.27.9
 
     [generators]
     CMakeDeps
@@ -50,10 +50,10 @@ Remember that in the previous examples the *conanfile.txt* had this information:
     :caption: **conanfile.txt**
 
     [requires]
-    zlib/1.2.11
+    zlib/1.3.1
 
     [tool_requires]
-    cmake/3.22.6
+    cmake/3.27.9
 
     [generators]
     CMakeDeps
@@ -82,10 +82,10 @@ The equivalent of the *conanfile.txt* in the form of a Conan recipe could look l
         generators = "CMakeToolchain", "CMakeDeps"
 
         def requirements(self):
-            self.requires("zlib/1.2.11")
+            self.requires("zlib/1.3.1")
         
         def build_requirements(self):
-            self.tool_requires("cmake/3.22.6")
+            self.tool_requires("cmake/3.27.9")
 
 
 To create the Conan recipe, we declared a new class that inherits from the ``ConanFile``
@@ -100,9 +100,9 @@ class. This class has different class attributes and methods:
   call the :command:`conan install` command. In this case, we added **CMakeToolchain** and
   **CMakeDeps** as in the *conanfile.txt*.
 * In the **requirements()** method, we use the ``self.requires()`` method to declare the
-  *zlib/1.2.11* dependency.
+  *zlib/1.3.1* dependency.
 * In the **build_requirements()** method, we use the ``self.tool_requires()`` method to declare the
-  *cmake/3.22.6* dependency.
+  *cmake/3.27.9* dependency.
 
 .. note::
 
@@ -189,13 +189,13 @@ platform without adding more changes.
         generators = "CMakeToolchain", "CMakeDeps"
 
         def requirements(self):
-            self.requires("zlib/1.2.11")
+            self.requires("zlib/1.3.1")
             if self.settings.os == "Windows":
                 self.requires("base64/0.4.0")
 
         def build_requirements(self):
             if self.settings.os != "Windows":
-                self.tool_requires("cmake/3.22.6")
+                self.tool_requires("cmake/3.27.9")
 
         def layout(self):
             # We make the assumption that if the compiler is msvc the
@@ -281,10 +281,10 @@ CMake case, there's a :ref:`cmake_layout()<cmake_layout>` already defined in Con
         generators = "CMakeToolchain", "CMakeDeps"
 
         def requirements(self):
-            self.requires("zlib/1.2.11")
+            self.requires("zlib/1.3.1")
 
         def build_requirements(self):
-            self.tool_requires("cmake/3.22.6")
+            self.tool_requires("cmake/3.27.9")
 
         def layout(self):
             cmake_layout(self)
@@ -334,7 +334,7 @@ Windows or that you want to use the system's CMake installation instead of using
         generators = "CMakeToolchain", "CMakeDeps"
 
         def requirements(self):
-            self.requires("zlib/1.2.11")
+            self.requires("zlib/1.3.1")
             
             # Add base64 dependency for Windows
             if self.settings.os == "Windows":
@@ -343,7 +343,7 @@ Windows or that you want to use the system's CMake installation instead of using
         def build_requirements(self):
             # Use the system's CMake for Windows
             if self.settings.os != "Windows":
-                self.tool_requires("cmake/3.22.6")
+                self.tool_requires("cmake/3.27.9")
 
 
 .. _copy_resources_on_generate:

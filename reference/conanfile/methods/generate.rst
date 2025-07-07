@@ -214,7 +214,7 @@ Iterating the dependencies can be done as:
 
 .. code-block:: python
 
-    requires = "zlib/1.2.11", "poco/1.9.4"
+    requires = "zlib/1.3.1", "poco/1.9.4"
 
     def generate(self):
         for require, dependency in self.dependencies.items():
@@ -224,7 +224,7 @@ will output:
 
 .. code-block:: bash
 
-    conanfile.py (hello/0.1): Dependency is direct=True: zlib/1.2.11
+    conanfile.py (hello/0.1): Dependency is direct=True: zlib/1.3.1
     conanfile.py (hello/0.1): Dependency is direct=True: poco/1.9.4
     conanfile.py (hello/0.1): Dependency is direct=False: pcre/8.44
     conanfile.py (hello/0.1): Dependency is direct=False: expat/2.4.1
@@ -255,7 +255,7 @@ They can be used in the same way:
 
 .. code-block:: python
 
-    requires = "zlib/1.2.11", "poco/1.9.4"
+    requires = "zlib/1.3.1", "poco/1.9.4"
 
     def generate(self):
         cmake = self.dependencies.direct_build["cmake"]

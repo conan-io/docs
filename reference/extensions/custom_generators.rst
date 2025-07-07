@@ -52,7 +52,7 @@ And then ``conan create mygenerator`` and use it in the generate method of your 
         version = "1.0"
 
         python_requires = "mygenerator/1.0"
-        requires = "zlib/1.2.11", "bzip2/1.0.8"
+        requires = "zlib/1.3.1", "bzip2/1.0.8"
 
         def generate(self):
             mygenerator = self.python_requires["mygenerator"].module.MyGenerator(self)

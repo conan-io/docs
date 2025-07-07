@@ -40,10 +40,10 @@ using CMake **v3.22.6**.
     :emphasize-lines: 4,5
 
     [requires]
-    zlib/1.2.11
+    zlib/1.3.1
 
     [tool_requires]
-    cmake/3.22.6
+    cmake/3.27.9
 
     [generators]
     CMakeDeps
@@ -52,12 +52,12 @@ using CMake **v3.22.6**.
 
 .. important::
 
-    Please note that this *conanfile.txt* will install *zlib/1.2.11* and *cmake/3.22.6*
+    Please note that this *conanfile.txt* will install *zlib/1.3.1* and *cmake/3.27.9*
     separately. However, if Conan does not find a binary for Zlib in Conan Center and it
     needs to be built from sources, a CMake installation must already be present on your
-    system, because the ``cmake/3.22.6`` declared in your ``conanfile.txt`` only applies to 
+    system, because the ``cmake/3.27.9`` declared in your ``conanfile.txt`` only applies to 
     your current project, not all dependencies.
-    If you want to use that *cmake/3.22.6* to also build Zlib, when installing if
+    If you want to use that *cmake/3.27.9* to also build Zlib, when installing if
     necessary, you may add the ``[tool_requires]`` section to the profile you are using.
     Please check :ref:`the profile doc<reference_config_files_profiles>` for more
     information.
@@ -103,36 +103,36 @@ You can check the output:
 .. code-block:: bash
 
     -------- Computing dependency graph ----------
-    cmake/3.22.6: Not found in local cache, looking in remotes...
-    cmake/3.22.6: Checking remote: conancenter
-    cmake/3.22.6: Trying with 'conancenter'...
+    cmake/3.27.9: Not found in local cache, looking in remotes...
+    cmake/3.27.9: Checking remote: conancenter
+    cmake/3.27.9: Trying with 'conancenter'...
     Downloading conanmanifest.txt
     Downloading conanfile.py
-    cmake/3.22.6: Downloaded recipe revision 3e3d8f3a848b2a60afafbe7a0955085a
+    cmake/3.27.9: Downloaded recipe revision 3e3d8f3a848b2a60afafbe7a0955085a
     Graph root
         conanfile.txt: /Users/user/Documents/developer/conan/examples2/tutorial/consuming_packages/tool_requires/conanfile.txt
     Requirements
-        zlib/1.2.11#f1fadf0d3b196dc0332750354ad8ab7b - Cache
+        zlib/1.3.1#f1fadf0d3b196dc0332750354ad8ab7b - Cache
     Build requirements
-        cmake/3.22.6#3e3d8f3a848b2a60afafbe7a0955085a - Downloaded (conancenter)
+        cmake/3.27.9#3e3d8f3a848b2a60afafbe7a0955085a - Downloaded (conancenter)
 
     -------- Computing necessary packages ----------
     Requirements
-        zlib/1.2.11#f1fadf0d3b196dc0332750354ad8ab7b:2a823fda5c9d8b4f682cb27c30caf4124c5726c8#48bc7191ec1ee467f1e951033d7d41b2 - Cache
+        zlib/1.3.1#f1fadf0d3b196dc0332750354ad8ab7b:2a823fda5c9d8b4f682cb27c30caf4124c5726c8#48bc7191ec1ee467f1e951033d7d41b2 - Cache
     Build requirements
-        cmake/3.22.6#3e3d8f3a848b2a60afafbe7a0955085a:f2f48d9745706caf77ea883a5855538256e7f2d4#6c519070f013da19afd56b52c465b596 - Download (conancenter)
+        cmake/3.27.9#3e3d8f3a848b2a60afafbe7a0955085a:f2f48d9745706caf77ea883a5855538256e7f2d4#6c519070f013da19afd56b52c465b596 - Download (conancenter)
 
     -------- Installing packages ----------
 
     Installing (downloading, building) binaries...
-    cmake/3.22.6: Retrieving package f2f48d9745706caf77ea883a5855538256e7f2d4 from remote 'conancenter'
+    cmake/3.27.9: Retrieving package f2f48d9745706caf77ea883a5855538256e7f2d4 from remote 'conancenter'
     Downloading conanmanifest.txt
     Downloading conaninfo.txt
     Downloading conan_package.tgz
     Decompressing conan_package.tgz
-    cmake/3.22.6: Package installed f2f48d9745706caf77ea883a5855538256e7f2d4
-    cmake/3.22.6: Downloaded package revision 6c519070f013da19afd56b52c465b596
-    zlib/1.2.11: Already installed!
+    cmake/3.27.9: Package installed f2f48d9745706caf77ea883a5855538256e7f2d4
+    cmake/3.27.9: Downloaded package revision 6c519070f013da19afd56b52c465b596
+    zlib/1.3.1: Already installed!
 
     -------- Finalizing install (deploy, generators) ----------
     conanfile.txt: Generator 'CMakeToolchain' calling 'generate()'

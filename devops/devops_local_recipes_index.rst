@@ -84,7 +84,7 @@ And that’s all! Now you're set to list and use packages from your `conan-cente
     $ conan list "zlib/*" -r=mycenter
     mycenter
       zlib
-        zlib/1.2.11
+        zlib/1.3.1
         zlib/1.2.12
         zlib/1.2.13
         zlib/1.3

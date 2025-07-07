@@ -463,7 +463,7 @@ you could specify so as:
     :caption: *myprofile*
 
     [platform_requires]
-    zlib/1.2.11
+    zlib/1.3.1
 
 
 .. _reference_config_files_profiles_platform_tool_requires:

@@ -20,7 +20,7 @@ List of requirements, specifying the full reference. Equivalent to ``self.requir
 
     [requires]
     poco/1.9.4
-    zlib/1.2.11
+    zlib/1.3.1
 
 
 This section supports references with version-ranges too:
@@ -29,7 +29,7 @@ This section supports references with version-ranges too:
 
     [requires]
     poco/[>1.0 <1.9]
-    zlib/1.2.11
+    zlib/1.3.1
 
 And specific recipe revisions can be pinned too:
 
@@ -103,7 +103,7 @@ List of options scoped for each package with a pattern like **package_name*:opti
 
     [requires]
     poco/1.9.4
-    zlib/1.2.11
+    zlib/1.3.1
 
     [generators]
     CMakeDeps

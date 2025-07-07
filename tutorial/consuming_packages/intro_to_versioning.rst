@@ -38,7 +38,7 @@ We can see that we have there:
             self.requires("zlib/[~1.2]")
 
 That ``requires`` contains the expression ``zlib/[~1.2]``, which means "approximately" ``1.2`` version. That means, it can resolve to
-any ``zlib/1.2.8``, ``zlib/1.2.11`` or ``zlib/1.2.12``, but it will not resolve to something like ``zlib/1.3.0``. Among the available
+any ``zlib/1.2.8``, ``zlib/1.3.1`` or ``zlib/1.2.12``, but it will not resolve to something like ``zlib/1.3.0``. Among the available
 matching versions, a version range will always pick the latest one.
 
 If we do a :command:`conan install`, we would see something like:
@@ -55,14 +55,14 @@ If we do a :command:`conan install`, we would see something like:
         zlib/[~1.2]: zlib/1.2.12
 
 If we tried instead to use ``zlib/[<1.2.12]``, that means that we would like to use a version lower than ``1.2.12``, but that one is excluded,
-so the latest one to satisfy the range would be ``zlib/1.2.11``:
+so the latest one to satisfy the range would be ``zlib/1.3.1``:
 
 .. code-block:: bash
 
     $ conan install .
 
     Resolved version ranges
-        zlib/[<1.2.12]: zlib/1.2.11
+        zlib/[<1.2.12]: zlib/1.3.1
 
 
 The same applies to other type of requirements, like ``tool_requires``.
@@ -96,9 +96,9 @@ We see it resolved to the latest available CMake package, with at least version 
     Requirements
         zlib/1.2.12#87a7211557b6690ef5bf7fc599dd8349 - Cache
     Build requirements
-        cmake/3.22.6#f305019023c2db74d1001c5afa5cf362 - Downloaded
+        cmake/3.27.9#f305019023c2db74d1001c5afa5cf362 - Downloaded
     Resolved version ranges
-        cmake/[>3.10]: cmake/3.22.6
+        cmake/[>3.10]: cmake/3.27.9
         zlib/[~1.2]: zlib/1.2.12
 
 
@@ -157,13 +157,13 @@ A lockfile can be seen as a snapshot of a given dependency graph at some point i
 Such snapshot must be "realizable", that is, it needs to be a state that can be actually reproduced from the conanfile recipes.
 And this lockfile can be used at a later point in time to force that same state, even if there are new created package versions.
 
-Let's see lockfiles in action. First, let's pin the dependency to ``zlib/1.2.11`` in our example:
+Let's see lockfiles in action. First, let's pin the dependency to ``zlib/1.3.1`` in our example:
 
 
 .. code-block:: python
 
     def requirements(self):
-        self.requires("zlib/1.2.11")
+        self.requires("zlib/1.3.1")
 
 Then, let's capture a lockfile:
 
@@ -175,7 +175,7 @@ Then, let's capture a lockfile:
     Graph root
         conanfile.py: .../conanfile.py
     Requirements
-        zlib/1.2.11#4524fcdd41f33e8df88ece6e755a5dcc - Cache
+        zlib/1.3.1#4524fcdd41f33e8df88ece6e755a5dcc - Cache
 
     Generated lockfile: .../conan.lock
 
@@ -186,7 +186,7 @@ Let's see what the lockfile ``conan.lock`` contains:
     {
         "version": "0.5",
         "requires": [
-            "zlib/1.2.11#4524fcdd41f33e8df88ece6e755a5dcc%1650538915.154"
+            "zlib/1.3.1#4524fcdd41f33e8df88ece6e755a5dcc%1650538915.154"
         ],
         "build_requires": [],
         "python_requires": []
@@ -209,11 +209,11 @@ And run :command:`conan install .`, which by default will find the ``conan.lock`
     Graph root
         conanfile.py: .../conanfile.py
     Requirements
-        zlib/1.2.11#4524fcdd41f33e8df88ece6e755a5dcc - Cache
+        zlib/1.3.1#4524fcdd41f33e8df88ece6e755a5dcc - Cache
 
 
 Note how the version range is no longer resolved, and it doesn't get the ``zlib/1.2.12`` dependency, even if it is the 
-allowed range ``zlib/[~1.2]``, because the ``conan.lock`` lockfile is forcing it to stay in ``zlib/1.2.11`` and that exact revision too.
+allowed range ``zlib/[~1.2]``, because the ``conan.lock`` lockfile is forcing it to stay in ``zlib/1.3.1`` and that exact revision too.
 
 
 .. seealso::

@@ -88,7 +88,7 @@ Our application relies on the **Zlib** library. Conan, by default, tries to inst
 libraries from a remote server called `ConanCenter <https://conan.io/center/>`_.
 You can search there for libraries and also check the available versions. In our case, 
 after checking the available versions for `Zlib <https://conan.io/center/zlib>`__ we
-choose to use one of the latest versions: **zlib/1.2.11**.
+choose to use one of the latest versions: **zlib/1.3.1**.
 
 The easiest way to install the **Zlib** library and find it from our project with Conan is
 using a *conanfile.txt* file. Let's create one with the following content:
@@ -97,7 +97,7 @@ using a *conanfile.txt* file. Let's create one with the following content:
     :caption: **conanfile.txt**
 
     [requires]
-    zlib/1.2.11
+    zlib/1.3.1
 
     [generators]
     CMakeDeps
@@ -106,7 +106,7 @@ using a *conanfile.txt* file. Let's create one with the following content:
 As you can see we added two sections to this file with a syntax similar to an *INI* file.
 
     * The **[requires]** section is where we declare the libraries we want to use in the
-      project, in this case, **zlib/1.2.11**.
+      project, in this case, **zlib/1.3.1**.
 
     * The **[generators]** section tells Conan to generate the files that the compilers or
       build systems will use to find the dependencies and build the project. In this case,
@@ -186,33 +186,33 @@ You will get something similar to this as the output of that command:
     $ conan install . --output-folder=build --build=missing
     ...
     -------- Computing dependency graph ----------
-    zlib/1.2.11: Not found in local cache, looking in remotes...
-    zlib/1.2.11: Checking remote: conancenter
-    zlib/1.2.11: Trying with 'conancenter'...
+    zlib/1.3.1: Not found in local cache, looking in remotes...
+    zlib/1.3.1: Checking remote: conancenter
+    zlib/1.3.1: Trying with 'conancenter'...
     Downloading conanmanifest.txt
     Downloading conanfile.py
     Downloading conan_export.tgz
     Decompressing conan_export.tgz
-    zlib/1.2.11: Downloaded recipe revision f1fadf0d3b196dc0332750354ad8ab7b
+    zlib/1.3.1: Downloaded recipe revision f1fadf0d3b196dc0332750354ad8ab7b
     Graph root
         conanfile.txt: /home/conan/examples2/tutorial/consuming_packages/simple_cmake_project/conanfile.txt
     Requirements
-        zlib/1.2.11#f1fadf0d3b196dc0332750354ad8ab7b - Downloaded (conancenter)
+        zlib/1.3.1#f1fadf0d3b196dc0332750354ad8ab7b - Downloaded (conancenter)
 
     -------- Computing necessary packages ----------
     Requirements
-        zlib/1.2.11#f1fadf0d3b196dc0332750354ad8ab7b:cdc9a35e010a17fc90bb845108cf86cfcbce64bf#dd7bf2a1ab4eb5d1943598c09b616121 - Download (conancenter)
+        zlib/1.3.1#f1fadf0d3b196dc0332750354ad8ab7b:cdc9a35e010a17fc90bb845108cf86cfcbce64bf#dd7bf2a1ab4eb5d1943598c09b616121 - Download (conancenter)
 
     -------- Installing packages ----------
 
     Installing (downloading, building) binaries...
-    zlib/1.2.11: Retrieving package cdc9a35e010a17fc90bb845108cf86cfcbce64bf from remote 'conancenter'
+    zlib/1.3.1: Retrieving package cdc9a35e010a17fc90bb845108cf86cfcbce64bf from remote 'conancenter'
     Downloading conanmanifest.txt
     Downloading conaninfo.txt
     Downloading conan_package.tgz
     Decompressing conan_package.tgz
-    zlib/1.2.11: Package installed cdc9a35e010a17fc90bb845108cf86cfcbce64bf
-    zlib/1.2.11: Downloaded package revision dd7bf2a1ab4eb5d1943598c09b616121
+    zlib/1.3.1: Package installed cdc9a35e010a17fc90bb845108cf86cfcbce64bf
+    zlib/1.3.1: Downloaded package revision dd7bf2a1ab4eb5d1943598c09b616121
 
     -------- Finalizing install (deploy, generators) ----------
     conanfile.txt: Generator 'CMakeToolchain' calling 'generate()'

@@ -208,8 +208,8 @@ For example, to verify the integrity of the whole Conan local cache, do:
     mypkg/1.0: Integrity checked: ok
     mypkg/1.0:454923cd42d0da27b9b1294ebc3e4ecc84020747: Integrity checked: ok
     mypkg/1.0:454923cd42d0da27b9b1294ebc3e4ecc84020747: Integrity checked: ok
-    zlib/1.2.11: Integrity checked: ok
-    zlib/1.2.11:6fe7fa69f760aee504e0be85c12b2327c716f9e7: Integrity checked: ok
+    zlib/1.3.1: Integrity checked: ok
+    zlib/1.3.1:6fe7fa69f760aee504e0be85c12b2327c716f9e7: Integrity checked: ok
 
 
 conan cache backup-upload
