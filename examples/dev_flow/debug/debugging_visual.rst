@@ -63,10 +63,10 @@ flag makes sure that we only remove the build files, as we will need our source 
 
 .. code-block:: bash
 
-    $ conan list "zlib/1.3.1:*"
-    $ conan cache path --folder build zlib/1.3.1:17b26a16efb893750e4481f98a154db2934ead88
-    $ conan cache clean zlib/1.3.1 --build
-    $ conan cache path --folder build zlib/1.3.1:17b26a16efb893750e4481f98a154db2934ead88
+    $ conan list "zlib/1.2.11:*"
+    $ conan cache path --folder build zlib/1.2.11:17b26a16efb893750e4481f98a154db2934ead88
+    $ conan cache clean zlib/1.2.11 --build
+    $ conan cache path --folder build zlib/1.2.11:17b26a16efb893750e4481f98a154db2934ead88
 
 After closing and reopening our solution in Visual Studio, we can try to debug again. If you try to step into the
 dependency, with the breakpoint on line 22, you will notice it will directly skip over to the next line as Visual Studio
@@ -117,7 +117,7 @@ folder alongside the package DLLs so they can be found by the debugger.
 
     $ conan install . -o="*:shared=True" -s build_type=Debug --build="zlib/*"
     ...
-    zlib/1.3.1: Calling package()
+    zlib/1.2.11: Calling package()
     ...
     [HOOK - hook_copy_pdbs_to_package.py] post_package(): PDBs post package hook running
     ...
@@ -132,7 +132,7 @@ library and the PDBs that were originally generated.
 
 .. code-block:: bash
 
-    $ conan cache clean zlib/1.3.1 --build
+    $ conan cache clean zlib/1.2.11 --build
 
 Open the solution in Visual Studio again and start the debugger. When you try to step into the dependency in line 22, an error
 message will pop up telling us the file was not found and it will ask where the file is located. We can close this window
@@ -154,7 +154,7 @@ by running a ```conan cache path``.
 
 .. code-block::
 
-    $ conan cache path --folder source zlib/1.3.1
+    $ conan cache path --folder source zlib/1.2.11
 
 In case this source path is not present we can use a config to download the sources again.
 
