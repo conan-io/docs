@@ -136,44 +136,44 @@ Now that we have our two profiles prepared, let's have a look at our *conanfile.
         generators = "CMakeToolchain", "CMakeDeps"
 
         def requirements(self):
-            self.requires("zlib/1.2.11")
+            self.requires("zlib/1.3.1")
 
         def build_requirements(self):
-            self.tool_requires("cmake/3.22.6")
+            self.tool_requires("cmake/3.27.9")
 
         def layout(self):
             cmake_layout(self)
 
 As you can see, this is practically the same *conanfile.py* we used in the :ref:`previous
-example<consuming_packages_flexibility_of_conanfile_py>`. We will require **zlib/1.2.11**
-as a regular dependency and **cmake/3.22.6** as a tool needed for building the
+example<consuming_packages_flexibility_of_conanfile_py>`. We will require **zlib/1.3.1**
+as a regular dependency and **cmake/3.27.9** as a tool needed for building the
 application.
 
 We will need the application to build for the Raspberry Pi with the cross-build
-toolchain and also link the **zlib/1.2.11** library built for the same platform. On the
-other side, we need the **cmake/3.22.6** binary to run on Ubuntu Linux. Conan manages this
+toolchain and also link the **zlib/1.3.1** library built for the same platform. On the
+other side, we need the **cmake/3.27.9** binary to run on Ubuntu Linux. Conan manages this
 internally in the dependency graph differentiating between what we call the "build
 context" and the "host context":
 
 * The **host context** is populated with the root package (the one specified in the
   :command:`conan install` or :command:`conan create` command) and all its requirements
   added via ``self.requires()``. In this case, this includes the compressor application
-  and the **zlib/1.2.11** dependency.
+  and the **zlib/1.3.1** dependency.
 
 * The **build context** contains the tool requirements used on the build machine. This
   category typically includes all the developer tools like CMake, compilers and linkers.
-  In this case, this includes the **cmake/3.22.6** tool.
+  In this case, this includes the **cmake/3.27.9** tool.
 
 
 These contexts define how Conan will manage each of the dependencies. For example, as
-**zlib/1.2.11** belongs to the **host context**, the ``[buildenv]`` build environment we
-defined in the **raspberry** profile (profile host) will only apply to the **zlib/1.2.11**
+**zlib/1.3.1** belongs to the **host context**, the ``[buildenv]`` build environment we
+defined in the **raspberry** profile (profile host) will only apply to the **zlib/1.3.1**
 library when building and won't affect anything that belongs to the **build context** like
-the **cmake/3.22.6** dependency.
+the **cmake/3.27.9** dependency.
 
 Now, let's build the application. First, call :command:`conan install` with the
-profiles for the build and host platforms. This will install the  **zlib/1.2.11**
-dependency built for the *armv7hf* architecture and a **cmake/3.22.6** version that runs on a
+profiles for the build and host platforms. This will install the  **zlib/1.3.1**
+dependency built for the *armv7hf* architecture and a **cmake/3.27.9** version that runs on a
 64-bit architecture.
 
 .. code-block:: bash

@@ -16,7 +16,7 @@ This command is equivalent to ``conan list <query> -r=*``, and is provided for s
     conancenter
       zlib
         zlib/1.2.8
-        zlib/1.2.11
+        zlib/1.3.1
         zlib/1.2.12
         zlib/1.2.13
 
@@ -24,21 +24,21 @@ This command is equivalent to ``conan list <query> -r=*``, and is provided for s
     conancenter
       zlib
         zlib/1.2.8
-        zlib/1.2.11
+        zlib/1.3.1
         zlib/1.2.12
         zlib/1.2.13
 
     $ conan search zlib/1.2.1* -r=conancenter
     conancenter
       zlib
-        zlib/1.2.11
+        zlib/1.3.1
         zlib/1.2.12
         zlib/1.2.13
 
     $ conan search zlib/1.2.1* -r=conancenter --format=json
     {
         "conancenter": {
-            "zlib/1.2.11": {},
+            "zlib/1.3.1": {},
             "zlib/1.2.12": {},
             "zlib/1.2.13": {}
         }

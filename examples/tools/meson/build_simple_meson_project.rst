@@ -89,7 +89,7 @@ Let's create a *conanfile.txt* with the following content to install **Zlib**:
     :caption: **conanfile.txt**
 
     [requires]
-    zlib/1.2.11
+    zlib/1.3.1
 
     [generators]
     PkgConfigDeps

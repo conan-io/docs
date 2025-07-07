@@ -96,9 +96,9 @@ We see it resolved to the latest available CMake package, with at least version 
     Requirements
         zlib/1.2.12#87a7211557b6690ef5bf7fc599dd8349 - Cache
     Build requirements
-        cmake/3.22.6#f305019023c2db74d1001c5afa5cf362 - Downloaded
+        cmake/3.27.9#f305019023c2db74d1001c5afa5cf362 - Downloaded
     Resolved version ranges
-        cmake/[>3.10]: cmake/3.22.6
+        cmake/[>3.10]: cmake/3.27.9
         zlib/[~1.2]: zlib/1.2.12
 
 

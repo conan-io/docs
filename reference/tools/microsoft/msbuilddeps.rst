@@ -34,7 +34,7 @@ And it can also be fully instantiated in the conanfile ``generate()`` method:
 
     class Pkg(ConanFile):
         settings = "os", "compiler", "arch", "build_type"
-        requires = "zlib/1.2.11", "bzip2/1.0.8"
+        requires = "zlib/1.3.1", "bzip2/1.0.8"
 
         def generate(self):
             ms = MSBuildDeps(self)
@@ -112,7 +112,7 @@ option:
         settings = "os", "compiler", "arch", "build_type"
         options = {"shared": [True, False]}
         default_options = {"shared": False}
-        requires = "zlib/1.2.11"
+        requires = "zlib/1.3.1"
 
         def generate(self):
             ms = MSBuildDeps(self)
