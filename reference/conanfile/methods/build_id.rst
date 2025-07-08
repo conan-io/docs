@@ -99,5 +99,5 @@ for every ``build_type`` configuration.
     **Best practices**
 
     The goal of the ``build_id()`` method is to deal with legacy build scripts that cannot easily be changed
-    to compile one configuration at a time. We strongly recommend to just package  **one package binary per package ID**
+    to compile one configuration at a time. We strongly recommend to just package **one package binary per package ID**
     for each different configuration.
