@@ -92,7 +92,7 @@ It's also feasible to check the possible values defined in :ref:`reference_confi
         self.output.info(f"[HOST] Versions for {str(self.settings.compiler)}:  {', '.join(compiler_versions)}")
         # Print the available versions for the compiler used by the BUILD profile
         compiler_versions = self.settings_build.compiler.version.possible_values()
-        self.output.info(f"[BUILD] Versions for {str(self.settings.compiler)}:  {', '.join(compiler_versions)}")
+        self.output.info(f"[BUILD] Versions for {str(self.settings_build.compiler)}:  {', '.join(compiler_versions)}")
 
 
 As you can see above, doing ``self.settings.possible_values()`` returns the
