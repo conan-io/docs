@@ -89,7 +89,7 @@ then the standard behavior will be applied. For example:
             self.info_build.settings.build_type = "Any"
 
 This will only produce a different **build ID** if the package is for Windows, so it will only run the ``build()`` method once
-once for all the ``build_type`` values.
+for all the ``build_type`` values.
 
 For any other OS, Conan will behave as usual (as if the ``build_id()`` method was not defined), running the ``build()`` method
 for every ``build_type`` configuration.
