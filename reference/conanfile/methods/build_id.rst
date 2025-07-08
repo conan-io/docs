@@ -62,7 +62,7 @@ Example workflow:
     # Second build: reuses the previous build folder + packages the Release package without rebuilding
     $ conan create . -s build_type=Release
 
-This way, although calling :command:`conan create` twice (once per package ID), the actual build will only happen once.
+This way, although we called :command:`conan create` twice (once per package ID), the actual build will only happen once.
 
 .. note::
 
