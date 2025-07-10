@@ -445,6 +445,12 @@ Same usage as the `replace_requires` section but in this case for `tool_requires
 
 In this case, whatever version of ``cmake`` declared in recipes, will be replaced by the reference `cmake/3.25.2`.
 
+..  note::
+
+   * This section should be added to the profile whose context is the one that requires the tool, i.e., if the
+     tool is required in the host context, then it should be added to the host profile, so that the requirement
+     itself can be replaced.
+
 
 .. _reference_config_files_profiles_platform_requires:
 
@@ -541,6 +547,7 @@ declaration:
         cmake/3.24.2 - Platform
 
 ..  note::
+
    * If the ``platform_tool_requires`` declared **does not make a strict match** with the ``tool_requires`` one (version or
      version range), then Conan will try to bring them remotely or locally as usual.
    * This section should be added to the profile whose context is the one that requires the tool, i.e., if the
