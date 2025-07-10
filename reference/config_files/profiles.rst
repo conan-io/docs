@@ -540,9 +540,12 @@ declaration:
     Build requirements
         cmake/3.24.2 - Platform
 
-Note that if the ``platform_tool_requires`` declared **does not make a strict match** with the ``tool_requires`` one (version or
-version range), then Conan will try to bring them remotely or locally as usual.
-
+..  note::
+   * If the ``platform_tool_requires`` declared **does not make a strict match** with the ``tool_requires`` one (version or
+     version range), then Conan will try to bring them remotely or locally as usual.
+   * This section should be added to the profile whose context is the one that requires the tool, i.e., if the
+     tool is required in the host context, then it should be added to the host profile, so that the requirement
+     itself can be replaced by the platform one.
 
 .. _reference_config_files_profiles_rendering:
 
