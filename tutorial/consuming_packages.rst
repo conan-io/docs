@@ -24,6 +24,11 @@ Then, in the "Introduction to versioning" we will learn about using different ve
 defining requirements with version ranges, the concept of revisions and a brief introduction 
 to lockfiles to achieve reproducibility of the dependency graph.
 
+.. note::
+
+   The Conan 2 Essentials training course is available for free at the JFrog Academy,
+   which covers the same topics as this documentation but in a more interactive way.
+   You can access it `here <https://academy.jfrog.com/conan-2-essentials?utm_source=Conan+Docs>`__.
 
 .. toctree::
    :maxdepth: 2

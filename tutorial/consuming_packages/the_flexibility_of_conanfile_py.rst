@@ -396,7 +396,7 @@ demonstrates how to import bindings for the library depending on the graphics AP
 
 .. seealso::
 
+    - `JFrog Academy Conan 2 Essentials: The Flexibility Of Using A conanfile.py <https://academy.jfrog.com/conan-2-essentials/2164299?utm_source=Conan+Docs>`__
     - :ref:`Using "cmake_layout" + "CMakeToolchain" + "CMakePresets feature" to build your project<examples-tools-cmake-toolchain-build-project-presets>`.
     - :ref:`Understanding the Conan Package layout<tutorial_package_layout>`.
     - :ref:`Documentation for all conanfile.py available methods<reference_conanfile_methods>`.
-    - Conditional generators in configure()

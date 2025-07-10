@@ -260,3 +260,7 @@ We can run ``conan create`` again specifying a different ``compiler.cppstd`` and
       We could call ``conan install --require sum/0.1`` with an empty profile and would get the binary package from the
       server. But if we miss the binary and we need to build the package again, it will fail because of the lack of
       settings.
+
+.. seealso::::
+
+    - `JFrog Academy Conan 2 Essentials: Creating A Recipe For Header-Only Libraries <https://academy.jfrog.com/conan-2-essentials/2269961?utm_source=Conan+Docs>`__

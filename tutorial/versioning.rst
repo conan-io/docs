@@ -23,6 +23,11 @@ Finally, when different branches of a dependency graph ``requires`` different ve
 same package, that is called a "version conflict". The tutorial will also introduce these
 errors and how to address them.
 
+.. note::
+
+   The Conan 2 Essentials training course is available for free at the JFrog Academy,
+   which covers the same topics as this documentation but in a more interactive way.
+   You can access it `here <https://academy.jfrog.com/conan-2-essentials?utm_source=Conan+Docs>`__.
 
 .. toctree::
    :maxdepth: 2

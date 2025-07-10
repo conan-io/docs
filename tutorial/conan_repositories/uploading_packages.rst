@@ -60,6 +60,7 @@ You can check whether the package exists on your local computer again with:
 
 .. seealso::
 
+    - `JFrog Academy Conan 2 Essentials: Working with Conan Repositories <https://academy.jfrog.com/conan-2-essentials/2131740?utm_source=Conan+Docs>`__
     - :ref:`conan upload command reference <reference_commands_upload>`
     - :ref:`conan remote command reference <reference_commands_remote>`
     - :ref:`conan search command reference <reference_commands_search>`
