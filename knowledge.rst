@@ -12,4 +12,5 @@ Knowledge
    knowledge/guidelines
    knowledge/faq
    knowledge/videos
+   knowledge/academy
 

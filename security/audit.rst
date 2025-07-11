@@ -35,6 +35,7 @@ vulnerability scanning. See the :ref:`Adding private providers
 
 .. seealso::
 
+    - `JFrog Academy Conan 2 Essentials: Scanning C++ packages for Vulnerabilities using Conan Audit <https://academy.jfrog.com/conan-2-essentials/2164300?utm_source=Conan+Docs>`__
     - For detailed reference documentation on all ``conan audit`` subcommands and their
       options, consult the :ref:`conan audit command reference
       <reference_commands_audit>`.

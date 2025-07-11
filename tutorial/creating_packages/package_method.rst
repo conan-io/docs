@@ -170,4 +170,5 @@ absolute links into relative paths and make the package relocatable.
 
 .. seealso::
 
+    - `JFrog Academy Conan 2 Essentials: The package() And package_info() Methods <https://academy.jfrog.com/conan-2-essentials/2218963?utm_source=Conan+Docs>`__
     - :ref:`package() method reference<reference_conanfile_methods_package>`

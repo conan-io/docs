@@ -20,6 +20,12 @@ central repository.
 Finally, we will explain the `local_recipes_index`, a special type of remote that allows
 the use of a source folder with recipes as a Conan remote repository.
 
+.. note::
+
+   The Conan 2 Essentials training course is available for free at the JFrog Academy,
+   which covers the same topics as this documentation but in a more interactive way.
+   You can access it `here <https://academy.jfrog.com/conan-2-essentials?utm_source=Conan+Docs>`__.
+
 .. toctree::
    :maxdepth: 1
    :caption: Table of contents

@@ -288,6 +288,7 @@ more detail.
 
 .. seealso::
 
+    - `JFrog Academy Conan 2 Essentials: Configuring Settings And Options <https://academy.jfrog.com/conan-2-essentials/2218964?utm_source=Conan+Docs>`__
     - :ref:`Header-only packages<creating_packages_other_header_only>`.
     - Check the binary compatibility :ref:`compatibility.py extension <reference_extensions_binary_compatibility>`.
     - Conan :ref:`package types<reference_conanfile_attributes_package_type>`.

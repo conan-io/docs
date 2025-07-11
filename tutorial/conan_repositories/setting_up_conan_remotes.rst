@@ -37,3 +37,7 @@ There are several options to set up a Conan repository:
    
    setting_up_conan_remotes/artifactory/artifactory_ce_cpp.rst
    setting_up_conan_remotes/conan_server.rst
+
+.. seealso::
+
+    - `JFrog Academy Conan 2 Essentials: Working with Conan Repositories <https://academy.jfrog.com/conan-2-essentials/2131740?utm_source=Conan+Docs>`__

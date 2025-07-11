@@ -236,6 +236,7 @@ then the approach would be not removing the ``del self.info.settings.build_type`
 
 .. seealso::
 
+    - `JFrog Academy Conan 2 Essentials: Creating Tool Require Packages <https://academy.jfrog.com/conan-2-essentials/2269963?utm_source=Conan+Docs>`__
     - :ref:`examples_graph_tool_requires_protobuf`
     - Toolchains (compilers)
     - :ref:`Usage of runenv_info<reference_conanfile_methods_package_info_runenv_info>`

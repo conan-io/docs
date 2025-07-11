@@ -156,5 +156,6 @@ That will propagate the necessary compilation flags and headers ``includedirs`` 
 
 .. seealso::
 
+  - `JFrog Academy Conan 2 Essentials: Dependencies, Generators And Building <https://academy.jfrog.com/conan-2-essentials/2218962?utm_source=Conan+Docs>`__
   - :ref:`Reference for requirements() method <reference_conanfile_methods_requirements>`.
   - :ref:`Introduction to versioning <consuming_packages_intro_versioning>`.

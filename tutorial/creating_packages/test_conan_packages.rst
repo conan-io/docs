@@ -159,3 +159,7 @@ test<reference_commands>` command:
 
 As you can see in the output, our *test_package* builds successfully testing that the
 *hello/1.0* Conan package can be consumed with no problem.
+
+.. seealso::
+
+    - `JFrog Academy Conan 2 Essentials: Testing Conan Packages <https://academy.jfrog.com/conan-2-essentials/2269958?utm_source=Conan+Docs>`__
