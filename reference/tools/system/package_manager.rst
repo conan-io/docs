@@ -171,13 +171,13 @@ The default mapping that Conan uses for *APT* packages architecture is:
 
 ..  code-block:: python
 
-      self._arch_names = {"x86_64": "x86_64",
-                          "x86": "i?86",
+      self._arch_names = {"x86_64": "amd64",
+                          "x86": "i386",
                           "ppc32": "powerpc",
-                          "ppc64le": "ppc64le",
-                          "armv7": "armv7",
-                          "armv7hf": "armv7hl",
-                          "armv8": "aarch64",
+                          "ppc64le": "ppc64el",
+                          "armv7": "arm",
+                          "armv7hf": "armhf",
+                          "armv8": "arm64",
                           "s390x": "s390x"} if arch_names is None else arch_names
 
 .. _conan_tools_system_package_manager_yum:
