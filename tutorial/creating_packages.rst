@@ -33,11 +33,6 @@ peculiarities of different types of Conan packages like, for example, header-onl
 libraries, packages for pre-built binaries, packaging tools for building other packages or
 packaging your own applications.
 
-.. note::
-
-   The Conan 2 Essentials training course is available for free at the JFrog Academy,
-   which covers the same topics as this documentation but in a more interactive way.
-   You can access it `here <https://academy.jfrog.com/conan-2-essentials?utm_source=Conan+Docs>`__.
 
 .. toctree::
    :maxdepth: 2
@@ -53,3 +48,10 @@ packaging your own applications.
    creating_packages/define_package_information
    creating_packages/test_conan_packages
    creating_packages/other_types_of_packages
+
+
+.. note::
+
+   The Conan 2 Essentials training course is available for free at the JFrog Academy,
+   which covers the same topics as this documentation but in a more interactive way.
+   You can access it `here <https://academy.jfrog.com/conan-2-essentials?utm_source=Conan+Docs>`__.
