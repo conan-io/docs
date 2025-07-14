@@ -403,3 +403,7 @@ package could be to define a :command:`build_policy="missing"`, especially if th
 under the team's control. If they are external (on the internet), it could be better to create the
 packages and store them on your own Conan repository, so that the builds do not rely on third-party URLs
 being available.
+
+.. seealso::
+
+    - `JFrog Academy Conan 2 Essentials: Creating a Recipe For Prebuilt Binaries <https://academy.jfrog.com/conan-2-essentials/2269962?utm_source=Conan+Docs>`__
