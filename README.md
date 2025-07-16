@@ -130,7 +130,7 @@ indentation. Documentation makes an extensive use of bash, python, txt and cmake
 
     [requires]
     poco/1.9.4
-    zlib/1.2.11
+    zlib/1.3.1
 ```
 
 ```

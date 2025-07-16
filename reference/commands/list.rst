@@ -49,7 +49,7 @@ Listing recipe references
       string-view-lite
         string-view-lite/1.6.0
       zlib
-        zlib/1.2.11
+        zlib/1.3.1
 
 This command is equivalent to ``$ conan list "*"`` (make sure to quote the argument), if no argument
 is provided Conan will list all packages.
@@ -61,7 +61,7 @@ is provided Conan will list all packages.
     $ conan list zlib
     Local Cache
       zlib
-        zlib/1.2.11
+        zlib/1.3.1
         zlib/1.2.12
 
 
@@ -75,7 +75,7 @@ search.
     $ conan list "zlib/*"
     Local Cache
       zlib
-        zlib/1.2.11
+        zlib/1.3.1
         zlib/1.2.12
 
 You can also use version ranges in the version field to define the versions you want:
@@ -87,7 +87,7 @@ You can also use version ranges in the version field to define the versions you 
     $ conan list "zlib/[<1.2.12]" -r=conancenter
     Local Cache
       zlib
-        zlib/1.2.11
+        zlib/1.3.1
     $ conan list "zlib/[>1.2.11]" -r=conancenter
     Local Cache
       zlib
@@ -115,7 +115,7 @@ Use the ``...@`` pattern for searching only references that don't have *user* an
       string-view-lite
         string-view-lite/1.6.0
       zlib
-        zlib/1.2.11
+        zlib/1.3.1
 
 Listing recipe revisions
 ------------------------
@@ -126,10 +126,10 @@ we can use the ``#latest`` placeholder:
 .. code-block:: text
     :caption: *list latest recipe revision*
 
-    $ conan list zlib/1.2.11#latest
+    $ conan list zlib/1.3.1#latest
     Local Cache
       zlib
-        zlib/1.2.11
+        zlib/1.3.1
           revisions
             ffa77daf83a57094149707928bdce823 (2022-11-02 13:46:53 UTC)
 
@@ -138,10 +138,10 @@ To list all recipe revisions use the ``*`` wildcard:
 .. code-block:: text
   :caption: *list all recipe revisions*
 
-    $ conan list "zlib/1.2.11#*"
+    $ conan list "zlib/1.3.1#*"
     Local Cache
       zlib
-        zlib/1.2.11
+        zlib/1.3.1
           revisions
             ffa77daf83a57094149707928bdce823 (2022-11-02 13:46:53 UTC)
             8b23adc7acd6f1d6e220338a78e3a19e (2022-10-19 09:19:10 UTC)
@@ -160,10 +160,10 @@ using ``name/version@user/channel:*`` as the pattern:
   :caption: *list all package IDs for latest recipe revision*
 
     # Make sure to quote the argument
-    $ conan list "zlib/1.2.11:*"
+    $ conan list "zlib/1.3.1:*"
     Local Cache
       zlib
-        zlib/1.2.11
+        zlib/1.3.1
           revisions
             d77ee68739fcbe5bf37b8a4690eea6ea (2022-08-05 17:17:30 UTC)
             packages
@@ -193,7 +193,7 @@ using ``name/version@user/channel:*`` as the pattern:
 .. note::
 
     Here the ``#latest`` for the recipe revision is implicit, i.e., that pattern is
-    equivalent to ``zlib/1.2.11#latest:*``
+    equivalent to ``zlib/1.3.1#latest:*``
 
 
 To list all the package IDs for all the recipe revisions use the ``*`` wildcard in the
@@ -203,10 +203,10 @@ revision ``#`` part:
   :caption: *list all the package IDs for all the recipe revisions*
 
     # Make sure to quote the argument
-    $ conan list "zlib/1.2.11#*:*"
+    $ conan list "zlib/1.3.1#*:*"
     Local Cache
       zlib
-        zlib/1.2.11
+        zlib/1.3.1
           revisions
             d77ee68739fcbe5bf37b8a4690eea6ea (2022-08-05 17:17:30 UTC)
               packages
@@ -245,10 +245,10 @@ package ID is using the pattern ``name/version@user/channel#rrev:pkgid``
 .. code-block:: text
   :caption: *list latest package revision for a specific recipe revision and package ID*
 
-    $ conan list zlib/1.2.11#8b23adc7acd6f1d6e220338a78e3a19e:fdb823f07bc228621617c6397210a5c6c4c8807b
+    $ conan list zlib/1.3.1#8b23adc7acd6f1d6e220338a78e3a19e:fdb823f07bc228621617c6397210a5c6c4c8807b
     Local Cache
       zlib
-        zlib/1.2.11
+        zlib/1.3.1
           revisions
             8b23adc7acd6f1d6e220338a78e3a19e (2022-08-05 17:17:30 UTC)
             packages
@@ -263,10 +263,10 @@ To list all the package revisions for for the latest recipe revision:
   :caption: *list all the package revisions for all package-ids the latest recipe revision*
 
     # Make sure to quote the argument
-    $ conan list "zlib/1.2.11:*#*"
+    $ conan list "zlib/1.3.1:*#*"
     Local Cache
       zlib
-        zlib/1.2.11
+        zlib/1.3.1
           revisions
             6a6451bbfcb0e591333827e9784d7dfa (2022-12-29 11:51:39 UTC)
             packages
@@ -282,7 +282,7 @@ To list all the package revisions for for the latest recipe revision:
 .. note::
 
     Here the ``#latest`` for the recipe revision is implicit, i.e., that pattern is
-    equivalent to ``zlib/1.2.11#latest:*#*``
+    equivalent to ``zlib/1.3.1#latest:*#*``
 
 
 Listing graph artifacts
@@ -366,7 +366,7 @@ with the following structure:
 .. code-block:: text
 
   # Make sure to quote the argument
-  $ conan list "zlib/1.2.11:*#*" --format=json
+  $ conan list "zlib/1.3.1:*#*" --format=json
   {
     "Local Cache": {
       "zli/1.0.0": {

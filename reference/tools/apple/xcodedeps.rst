@@ -128,7 +128,7 @@ option:
         settings = "os", "compiler", "arch", "build_type"
         options = {"shared": [True, False]}
         default_options = {"shared": False}
-        requires = "zlib/1.2.11"
+        requires = "zlib/1.3.1"
 
         def generate(self):
             xcode = XcodeDeps(self)

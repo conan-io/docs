@@ -29,7 +29,7 @@ Essentially, it tells Conan where to list/upload/download the recipes/binaries f
 The fields for each remote are:
 
 * ``name`` (Required, ``string`` value): Name of the remote. This name will be used in commands
-  like :ref:`reference_commands_list`, e.g., :command:`conan list zlib/1.2.11 --remote my_remote_name`.
+  like :ref:`reference_commands_list`, e.g., :command:`conan list zlib/1.3.1 --remote my_remote_name`.
 * ``url`` (Required, ``string`` value): indicates the URL to be used by Conan to search for the recipes/binaries.
 * ``verify_ssl`` (Required, ``bool`` value): Verify SSL certificate of the specified url.
 * ``disabled`` (Optional, ``bool`` value, ``false`` by default): If the remote is enabled or not to be used by commands

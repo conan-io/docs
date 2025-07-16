@@ -48,7 +48,7 @@ recipes, for example this application:
     
     class App(ConanFile):
         package_type = "application"
-        generators = "CMakeToolchain"
+        generators = "CMakeToolchain", "CMakeDeps"
         settings = "os", "compiler", "arch", "build_type"
         requires = "pkg/0.1"
 

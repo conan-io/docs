@@ -146,6 +146,17 @@ The command ``conan workspace source`` performs the equivalent of ``conan source
 defined within the workspace.
 
 
+conan workspace install
+-----------------------
+
+.. autocommand::
+    :command: conan workspace install -h
+
+
+The command ``conan workspace install`` performs the equivalent of ``conan install <package-path>`` for every ``package``
+defined within the workspace in the correct order.
+
+
 conan workspace build
 ---------------------
 
@@ -171,7 +182,7 @@ conan workspace super-install
 -----------------------------
 
 .. autocommand::
-    :command: conan workspace install -h
+    :command: conan workspace super-install -h
 
 
 The command ``conan workspace super-install`` is useful to install and build the current workspace

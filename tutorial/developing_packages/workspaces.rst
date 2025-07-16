@@ -20,7 +20,7 @@ Introduction
 
 
 A Conan *workspace* gives you the chance to manage several packages as ``editable`` mode in an
-*orchestrated* or *monolithic* (also called *super-project*) way:
+*orchestrated* or *monolithic* (also called *super-build*) way:
 
 * *orchestrated*, we denote Conan building the editable packages one by one starting on the applications/consumers if exist.
 * *monolithic*, we denote the editable packages built as a monolith, generating a single result (generators, etc) for the whole workspace.
@@ -55,7 +55,7 @@ Let's see it with an example:
 .. code-block:: bash
 
    $ conan new workspace
-   $ conan workspace install
+   $ conan workspace super-install
    $ cmake --preset conan-release # use conan-default in Win
    $ cmake --build --preset conan-release
 
@@ -171,7 +171,7 @@ The other important part is the ``conanws.py`` file:
 The role of the ``class MyWs(ConanFile)`` embedded conanfile is important, it defines
 the super-project necessary generators and layout.
 
-The ``conan workspace install`` does not install the different editables separately, for
+The ``conan workspace super-install`` does not install the different editables separately, for
 this command, the editables do not exist, they are just treated as a single "node" in
 the dependency graph, as they will be part of the super-project build. So there is only
 a single generated ``conan_toolchain.cmake`` and a single common set of dependencies
@@ -186,7 +186,7 @@ the same when there are external dependencies. This can be tested with:
    $ conan new cmake_lib -d name=mymath
    $ conan create .
    $ conan new workspace -d requires=mymath/0.1
-   $ conan workspace install
+   $ conan workspace super-install
    $ cmake ...
 
 

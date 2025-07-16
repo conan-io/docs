@@ -31,7 +31,7 @@ And it can also be fully instantiated in the conanfile ``generate()`` method:
 
     class App(ConanFile):
         settings = "os", "arch", "compiler", "build_type"
-        requires = "zlib/1.2.11"
+        requires = "zlib/1.3.1"
 
         def generate(self):
             pc = PkgConfigDeps(self)
@@ -46,7 +46,7 @@ The ``prefix`` variable is automatically adjusted to the ``package_folder``:
 
 .. code-block:: text
 
-    prefix=/Users/YOUR_USER/.conan/data/zlib/1.2.11/_/_/package/647afeb69d3b0a2d3d316e80b24d38c714cc6900
+    prefix=/Users/YOUR_USER/.conan/data/zlib/1.3.1/_/_/package/647afeb69d3b0a2d3d316e80b24d38c714cc6900
     libdir=${prefix}/lib
     includedir=${prefix}/include
     bindir=${prefix}/bin
@@ -66,7 +66,7 @@ Naming
 
 By default, the ``*.pc`` files will be named following these rules:
 
-* For packages, it uses the package name, e.g., package ``zlib/1.2.11`` -> ``zlib.pc``.
+* For packages, it uses the package name, e.g., package ``zlib/1.3.1`` -> ``zlib.pc``.
 * For components, the package name + hyphen + component name, e.g., ``openssl/3.0.0`` with ``self.cpp_info.components["crypto"]``  -> ``openssl-crypto.pc``.
 
 You can change that default behavior with the ``pkg_config_name`` and ``pkg_config_aliases`` properties. See :ref:`Properties section below <PkgConfigDeps Properties>`.

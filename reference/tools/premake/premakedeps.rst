@@ -30,7 +30,7 @@ And it can also be fully instantiated in the conanfile ``generate()`` method:
 
     class App(ConanFile):
         settings = "os", "arch", "compiler", "build_type"
-        requires = "zlib/1.2.11"
+        requires = "zlib/1.3.1"
 
         def generate(self):
             deps = PremakeDeps(self)

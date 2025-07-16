@@ -33,3 +33,10 @@ errors and how to address them.
    versioning/revisions
    versioning/lockfiles
    versioning/conflicts
+
+
+.. note::
+
+   The Conan 2 Essentials training course is available for free at the JFrog Academy,
+   which covers the same topics as this documentation but in a more interactive way.
+   You can access it `here <https://academy.jfrog.com/conan-2-essentials?utm_source=Conan+Docs>`__.

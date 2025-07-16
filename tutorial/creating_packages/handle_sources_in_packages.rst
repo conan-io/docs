@@ -251,6 +251,7 @@ zip file has the correct ``sha256``. So we could modify the source method to thi
 
 .. seealso::
 
+    - `JFrog Academy Conan 2 Essentials: <https://academy.jfrog.com/conan-2-essentials/?utm_source=Conan+Docs>`__
     - :ref:`Patching sources<examples_tools_files_patches>`
     - :ref:`Capturing Git SCM source information<examples_tools_scm_git_capture>` instead of copying sources with ``exports_sources``.
     - :ref:`source() method reference<reference_conanfile_methods_source>`

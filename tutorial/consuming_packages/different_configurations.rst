@@ -168,7 +168,7 @@ using the ``--options`` argument. To do so, please run:
 
 .. code-block:: bash
 
-    $ conan install . --output-folder=build --build=missing --options=zlib/1.2.11:shared=True
+    $ conan install . --output-folder=build --build=missing --options=zlib/1.3.1:shared=True
 
 
 Doing this, Conan will install the *Zlib* shared libraries, generate the files to build with
@@ -178,7 +178,7 @@ application.
 .. note::
 
     Options are defined per-package. In this case we were defining that we wanted that specific
-    version of zlib/1.2.11 as a shared library. If we had other dependencies and we want all of
+    version of zlib/1.3.1 as a shared library. If we had other dependencies and we want all of
     our dependencies (whenever possible) as shared libraries, we would use ``-o *:shared=True``,
     with the ``*`` pattern that matches all package references.
 
@@ -333,6 +333,7 @@ matched our specified configuration.
 
 .. seealso::
 
+    - `JFrog Academy Conan 2 Essentials: Building For Multiple Configurations With Conan And CMake Presets <https://academy.jfrog.com/conan-2-essentials/2131740?utm_source=Conan+Docs>`__
     - :ref:`VirtualRunEnv reference <conan_tools_env_virtualrunenv>`
     - :ref:`Cross-compiling using --profile:build and --profile:host <consuming_packages_cross_building_with_conan>`
     - :ref:`creating_packages_configure_options_settings`

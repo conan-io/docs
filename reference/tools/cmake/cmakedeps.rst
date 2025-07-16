@@ -289,7 +289,7 @@ Overwrite properties from the consumer side using CMakeDeps.set_property()
 Using ``CMakeDeps.set_property()`` method you can overwrite the property values set by the
 Conan recipes from the consumer. This can be done for every property listed above.
 
-Imagine we have a *compressor/1.0* package that depends on *zlib/1.2.11*. The *zlib* recipe
+Imagine we have a *compressor/1.0* package that depends on *zlib/1.3.1*. The *zlib* recipe
 defines some properties:
 
 
@@ -319,7 +319,7 @@ compressor recipe using the ``CMakeDeps.set_property()`` method:
     class Compressor(ConanFile):
         name = "compressor"
 
-        requires = "zlib/1.2.11"
+        requires = "zlib/1.3.1"
         ...
 
         def generate(self):
@@ -338,7 +338,7 @@ value ``None`` to the property like this:
     class Compressor(ConanFile):
         name = "compressor"
 
-        requires = "zlib/1.2.11"
+        requires = "zlib/1.3.1"
         ...
 
         def generate(self):
