@@ -37,12 +37,12 @@ The ``Xcode.build()`` method internally implements a call to ``xcodebuild`` like
 
 .. code:: bash
 
-    $ xcodebuild -project app.xcodeproj -configuration <configuration> -arch <architecture> <sdk> <verbosity> -target <target>/-alltargets *_DEPLOYMENT_TARGET=settings.os.version
+    $ xcodebuild -project app.xcodeproj -configuration <configuration> -arch <architecture> <sdk> <verbosity> -target <target>/-alltargets *_DEPLOYMENT_TARGET=settings.os.version <custom_params>
 
 Where:
 
 - ``configuration`` is the configuration, typically *Release* or *Debug*, which will be obtained
-  from ``settings.build_type``.
+  from ``settings.build_type`` unless you pass it in the parameter.
 - ``architecture`` is the build architecture, a mapping from the ``settings.arch`` to the
   common architectures defined by Apple 'i386', 'x86_64', 'armv7', 'arm64', etc.
 - ``sdk`` is set based on the values of the ``os.sdk`` and ``os.sdk_version`` defining the
@@ -54,11 +54,14 @@ Where:
   ``os.sdk_version`` settings values.
 - ``verbosity`` is the verbosity level for the build and can take value 'verbose' or
   'quiet' if set by ``tools.build:verbosity`` in your **[conf]**
+- ``custom_params`` is a list of arbitrary command line params that you can pass in the
+  ``build_options`` parameter which is a list of strings.
 
-Additional parameters that are passed to ``xcodebuild``:
+Additional parameters that are passed to ``xcodebuild`` (but before ``custom_params``):
 
 - deployment target setting according to the values of ``os`` and ``os.version`` from profile,
   e.g. ``MACOSX_DEPLOYMENT_TARGET=10.15`` or ``IPHONEOS_DEPLOYMENT_TARGET=15.0``
+- ``SYMROOT`` and ``OBJROOT`` pointing to the recipe build folder
 
 conf
 ++++
