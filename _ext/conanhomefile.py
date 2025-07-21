@@ -1,10 +1,9 @@
 import os
+import subprocess
 
 from docutils import nodes
 from docutils.parsers.rst import directives
 from sphinx.util.docutils import SphinxDirective
-import subprocess
-import shlex
 
 class conanhomefile(nodes.literal_block, nodes.Element):
     pass
