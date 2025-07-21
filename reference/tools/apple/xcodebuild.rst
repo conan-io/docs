@@ -37,7 +37,7 @@ The ``Xcode.build()`` method internally implements a call to ``xcodebuild`` like
 
 .. code:: bash
 
-    $ xcodebuild -project app.xcodeproj -configuration <configuration> -arch <architecture> <sdk> <verbosity> -target <target>/-alltargets
+    $ xcodebuild -project app.xcodeproj -configuration <configuration> -arch <architecture> <sdk> <verbosity> -target <target>/-alltargets *_DEPLOYMENT_TARGET=settings.os.version
 
 Where:
 
@@ -54,6 +54,11 @@ Where:
   ``os.sdk_version`` settings values.
 - ``verbosity`` is the verbosity level for the build and can take value 'verbose' or
   'quiet' if set by ``tools.build:verbosity`` in your **[conf]**
+
+Additional parameters that are passed to ``xcodebuild``:
+
+- deployment target setting according to the values of ``os`` and ``os.version`` from profile,
+  e.g. ``MACOSX_DEPLOYMENT_TARGET=10.15`` or ``IPHONEOS_DEPLOYMENT_TARGET=15.0``
 
 conf
 ++++
