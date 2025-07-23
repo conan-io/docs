@@ -34,7 +34,7 @@ all the calls except for the ``Apt()`` one and will only try to install the pack
 ``apt-get`` tool.
 
 The ``package_manager`` tool allows you to specify the package version of the system package
-to be installed using the format ``<package-name>=<package-verison>``, for example ``Apt(self).install(["libgl-dev=0.0.1"])``.
+to be installed using the format ``<package-name>=<package-version>``, for example ``Apt(self).install(["libgl-dev=0.0.1"])``.
 On systems where package versioning is not supported by the package manager, the provided version will be ignored.
 
 Conan uses the following mapping by default:
