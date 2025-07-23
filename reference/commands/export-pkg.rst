@@ -15,6 +15,10 @@ The ``conan export-pkg`` command creates a package binary directly from pre-comp
 In general, it is expected that when ``conan export-pkg`` executes, the possible Conan dependencies that were necessary to build this package had already been installed via ``conan install``, so it is not necessary to download dependencies at ``export-pkg`` time. But if for some reason this is not the case, the command defines ``--remote`` and ``--no-remote`` arguments, similar to other commands, as well as the ``--skip-binaries`` optimization that could save some time installing dependencies binaries if they are not strictly necessary for the current ``export-pkg``. But this is the responsibility of the user, as it is possible that such binaries are actually necessary, for example, if a ``tool_requires = "cmake/x.y"`` is used and the ``package()`` method implements a ``cmake.install()`` call, this will definitely need the binaries for the dependencies installed in the current machine to execute.
 
 
+The ``conan export-pkg`` is a package creation command, it will create both a new recipe and a new package binary, in the same way that the ``conan create`` command does.
+Similarly, it will run after the creation of the package any "test-package" functionality. If there is a ``test_package`` folder besides the ``conanfile.py``, or a different test-package folder is defined via the ``--test-folder/-tf`` argument or in the recipe ``test_package_folder`` attribute, then, such test-package will be triggered to test and validate that the created package is usable by the simple consumer project in the test-package folder.
+
+
 .. seealso::
 
     - Check the :ref:`JSON format output <reference_commands_graph_info_json_format>` for this command.
