@@ -10,6 +10,7 @@ latest_v1_branch = "master"
 conan_versions = {
     # the first of the dictionary
     # must be always the latest version
+    "2.19": "release/2.19",
     "2.18": "release/2.18",
     "2.17": "release/2.17",
     "2.16": "release/2.16",
