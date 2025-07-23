@@ -52,6 +52,7 @@ extensions = [
     'sphinxcontrib.jquery',
     'sphinxcontrib.youtube',
     'autocommand',
+    'conanhomefile',
 ]
 
 # autodoc configuration
