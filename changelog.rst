@@ -3,7 +3,7 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
-2.19.0 (17-Jul-2025)
+2.19.0 (23-Jul-2025)
 --------------------
 
 - Feature: Changed some private attributes in MesonToolchain as public ones, e.g., `b_ndebug`,  `b_staticpic`. `#18676 <https://github.com/conan-io/conan/pull/18676>`_
