@@ -3,6 +3,34 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.19.0 (17-Jul-2025)
+--------------------
+
+- Feature: Changed some private attributes in MesonToolchain as public ones, e.g., `b_ndebug`,  `b_staticpic`. `#18676 <https://github.com/conan-io/conan/pull/18676>`_
+- Feature: PremakeDeps will now correctly propagate libraries, headers and binaries depending on the requirement traits. `#18663 <https://github.com/conan-io/conan/pull/18663>`_
+- Feature: Add `cmake_target_aliases` support for `CMakeConfigDeps`. `#18662 <https://github.com/conan-io/conan/pull/18662>`_
+- Feature: Add ``self.conan_data`` to the information serialized by ConanFile, so it is printed in ``conan graph info`` and other commands. `#18661 <https://github.com/conan-io/conan/pull/18661>`_ . Docs `here <https://github.com/conan-io/docs/pull/4172>`__
+- Feature: Let :command:`conan source` reference the backup sources it generates in more cases. `#18655 <https://github.com/conan-io/conan/pull/18655>`_
+- Feature: Add user channel to CycloneDX SBOM ``sbom_ref`` field. `#18649 <https://github.com/conan-io/conan/pull/18649>`_
+- Feature: Enable ``test_package_folder`` attribute for :command:`conan export-pkg` command. `#18621 <https://github.com/conan-io/conan/pull/18621>`_ . Docs `here <https://github.com/conan-io/docs/pull/4173>`__
+- Feature: Add support for GCC 12.5. `#18587 <https://github.com/conan-io/conan/pull/18587>`_ . Docs `here <https://github.com/conan-io/docs/pull/4169>`__
+- Feature: New `makefile` parameter in Autotools `make`/`install` methods to allow specifying the name of the Makefile file. `#18578 <https://github.com/conan-io/conan/pull/18578>`_
+- Feature: Let graph html focus on searched package when pressing Intro in search box. `#18575 <https://github.com/conan-io/conan/pull/18575>`_
+- Feature: Allow defining a custom platform on Premake generator for Windows. `#18572 <https://github.com/conan-io/conan/pull/18572>`_
+- Feature: Allow profile composition while using conan runners. `#18534 <https://github.com/conan-io/conan/pull/18534>`_
+- Fix: Add explicit error when trying to export a reference with `channel` but no `user`. `#18646 <https://github.com/conan-io/conan/pull/18646>`_ . Docs `here <https://github.com/conan-io/docs/pull/4167>`__
+- Fix: Check `required_conan_version` before loading hooks. `#18644 <https://github.com/conan-io/conan/pull/18644>`_
+- Fix: Avoid logging levels hiding the login username/password request messages. `#18642 <https://github.com/conan-io/conan/pull/18642>`_
+- Fix: Allow ``cc`` compiler to be defined with spaces for profile auto detection. `#18628 <https://github.com/conan-io/conan/pull/18628>`_
+- Fix: Fixed untargz when the destination path  uses the Windows long paths prefix `\\?\`. `#18612 <https://github.com/conan-io/conan/pull/18612>`_
+- Fix: `CMakeConfigDeps` filter `requires()` to `package_type=application`. `#18611 <https://github.com/conan-io/conan/pull/18611>`_
+- Fix: Fix multithreading for self-contained Conan binaries. `#18603 <https://github.com/conan-io/conan/pull/18603>`_
+- Fix: Improve version detection for `cc` compilers. `#18600 <https://github.com/conan-io/conan/pull/18600>`_
+- Fix: Pass deployment target from profile to ``XcodeBuild``. `#18496 <https://github.com/conan-io/conan/pull/18496>`_ . Docs `here <https://github.com/conan-io/docs/pull/4129>`__
+- Fix: Project path and target name are quoted now for ``XcodeBuild``. `#18496 <https://github.com/conan-io/conan/pull/18496>`_ . Docs `here <https://github.com/conan-io/docs/pull/4129>`__
+- Bugfix: Make `package_type="configuration"` packages independent of the `config_mode` for their `package_id`. `#18671 <https://github.com/conan-io/conan/pull/18671>`_
+- Bugfix: PremakeDeps: ensure correct linkage on dependent libraries. `#18631 <https://github.com/conan-io/conan/pull/18631>`_
+
 2.18.1 (04-Jul-2025)
 --------------------
 
