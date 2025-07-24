@@ -223,11 +223,13 @@ The general best practices are:
 - Declare first dependencies that use fixed version, not version ranges
 - Use the ``conan graph info ... --format=html > graph.html`` graphical interactive output to understand and navigate conflicts.
 
+.. _faq_stdout_stderr_redirects:
 
 Conan is redirecting its output to stderr
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-By design, Conan redirects its logging information to the standard error output (stderr),
+As explained :ref:`in the commands reference<commands_output>`,
+by design Conan redirects its logging information to the standard error output (stderr),
 while the actual results of the commands are sent to the standard output (stdout).
 
 This is done to allow users to easily redirect the output of Conan commands to files or other
