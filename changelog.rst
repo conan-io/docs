@@ -3,6 +3,11 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.19.1 (30-Jul-2025)
+--------------------
+
+- Fix: Remove the definition of ``CMAKE_TRY_COMPILE_CONFIGURATION`` in ``CMakeToolchain`` to avoid issues with ``check_function_exists()`` legacy code in MSVC. `#18707 <https://github.com/conan-io/conan/pull/18707>`_
+
 2.19.0 (23-Jul-2025)
 --------------------
 
