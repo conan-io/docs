@@ -180,7 +180,7 @@ Not all fields of the dependency conanfile are exposed, the current fields are:
 - **recipe_metadata_folder**: The folder containing optional recipe metadata files of the dependency
 - **package_metadata_folder**: The folder containing optional package metadata files of the dependency
 - **immutable_package_folder**: The folder containing the immutable artifacts when ``finalize()`` method exists
-- **ref**: An object that contains ``name``, ``version``, ``user``, ``channel`` and ``revision`` (recipe revision)
+- **ref**: A :ref:`RecipeReference<conan.api.model.RecipeReference>` object that contains ``name``, ``version``, ``user``, ``channel`` and ``revision`` (recipe revision)
 - **pref**: An object that contains ``ref``, ``package_id`` and ``revision`` (package revision)
 - **buildenv_info**: ``Environment`` object with the information of the environment necessary to build
 - **runenv_info**: ``Environment`` object with the information of the environment necessary to run the app
