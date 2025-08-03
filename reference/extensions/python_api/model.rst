@@ -1,5 +1,5 @@
-Model
-=====
+Models
+======
 
 There are some model classes that represent the data structures used in the API.
 Note that as with the API, only the **documented** public members are guaranteed to be stable,
