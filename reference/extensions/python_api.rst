@@ -9,12 +9,20 @@ Python API
   See :ref:`the Conan stability<stability>` section for more information.
 
 
+The Python API is a set of Python classes that allow you to interact with Conan programmatically.
+It's designed to be used as part of the custom commands extension point,
+or in Python scripts or applications, providing a more flexible and powerful way to work with Conan than the command line interface.
+
+It is organized in submodules, each one providing a specific set of functionalities.
+
+Note that only the **documented** public members of these classes are guaranteed to be stable,
+and the rest of the members are considered private and can change without notice.
+
 .. toctree::
    :maxdepth: 2
 
    python_api/ConanAPI
    python_api/RemotesAPI
-   python_api/SearchAPI
    python_api/ListAPI
    python_api/ProfilesAPI
    python_api/InstallAPI
@@ -26,3 +34,12 @@ Python API
    python_api/UploadAPI
    python_api/DownloadAPI
    python_api/CommandAPI
+
+There are also some model classes that represent the data structures used in the API.
+Note that as with the API, only the **documented** public members are guaranteed to be stable,
+and the rest of the members are considered private and can change without notice.
+
+.. toctree::
+   :maxdepth: 3
+
+   python_api/model
