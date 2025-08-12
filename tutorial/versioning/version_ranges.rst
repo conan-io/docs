@@ -165,13 +165,14 @@ There is the possibility to use string-matching over the end of the string to si
 
 Finally, note that pre-releases are not resolved by default. The way to include them in the range is to
 explicitly enable them with either the ``include_prerelease`` option (``requires = "pkg/[>1 <2, include_prerelease]"``),
-or via the ``core.version_ranges:resolve_prereleases=True`` configuration. In this example, 1.0-pre.1 and 1.5.1-pre1 will be included,
-but 2.0-pre1 would be excluded.
+or via the ``core.version_ranges:resolve_prereleases=True`` configuration,
+:ref:`which you can read more about here<resolve_prereleases_summary>`.
+In this example, 1.0-pre.1 and 1.5.1-pre1 will be included, but 2.0-pre1 would be excluded.
 
 .. note::
 
    While it is possible to hardcode the ``include_prerelease`` in the ``requires`` version range, it is not recommended generally.
    Pre-releases should be opt-in, and controlled by the user, who decides if they want to use pre-releases. 
-   Also, note that the ``include_prereleases`` receives no argument, hence it's not possible to deactivate prereleases with ``include_prerelease=False``.
+   Also, note that the ``include_prerelease`` receives no argument, hence it's not possible to deactivate prereleases with ``include_prerelease=False``.
 
 For more information about valid range expressions go to :ref:`Requires reference <version_ranges_reference>`
