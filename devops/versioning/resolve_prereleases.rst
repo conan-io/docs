@@ -10,8 +10,18 @@ before it's released to have a change to validate the new version ahead of time.
 At first glance, it could be expected that the new version matches our range if it intersect it,
 but :ref:`as described in the version ranges tutorial<tutorial_version_ranges_expressions>`,
 by default Conan does not match pre-release versions to ranges that don't specify it.
-Conan provides the :ref:`global.conf<reference_config_files_global_conf>` ``core.version_ranges:resolve_prereleases``,
-which when set to ``True``, enables pre-release matching in version ranges.
+
+Conan provides the :ref:`global.conf<reference_config_files_global_conf>` ``core.version_ranges:resolve_prereleases`` conf,
+a tri-state configuration option that controls if version ranges should resolve to pre-releases.
+
+When _not_ set, the default behavior is to listen to the version range expression, and only match
+if the version range explicitly allows pre-release versions, like for ``[>=1 <2, include_prerelease]``.
+
+If the ``include_prerelease`` flag is not specified, pre-release versions are ignored in this case.
+
+When set to ``False``, it will not match pre-release versions, even if the version range expression allows it.
+
+When set to ``True``, it globally enables pre-release matching in version ranges, even if the version range expression does not explicitly allow it.
 This avoids having to modify and export the recipes of your dependency graph, which would become unfeasible for large ones.
 
 This conf has the added benefit of affecting the whole dependency graph, so that if any of our dependencies also define
