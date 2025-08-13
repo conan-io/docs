@@ -59,11 +59,16 @@ The common use of these functions from least specific to most specific, is:
     Indicates that a serious issue has occurred that prevents the system or application
     from continuing to function correctly. Typically, this represents a failure in the normal flow of execution,
     such as a service crash or a critical exception.
+    Notice that if the user has set the ``core:warnings_as_errors`` configuration, this will raise an exception
+    when the output is printed, so that the error does not pass unnoticed.
 
 * **warning(msg, warn_tag=None)**:
     Highlights a potential issue that, while not stopping the system,
     could cause problems in the future or under certain conditions. Warnings signal abnormal situations that should be
     reviewed but don’t necessarily cause an immediate halt in operations.
+    Notice that if the tag matches the pattern in the ``core:warnings_as_errors`` configuration,
+    and is not skipped, this will be upgraded to an error,
+    and raise an exception when the output is printed, so that the error does not pass unnoticed.
 
 * **success(msg)**:
     Shows that an operation has been completed successfully. This type of message is useful to confirm
@@ -105,18 +110,11 @@ of verbosity. You can display them using the arguments ``-v``, ``-vv``, and ``-v
 Running commands
 ----------------
 
-.. code-block:: python
-
-    run(self, command, stdout=None, cwd=None, ignore_errors=False, env="", quiet=False, shell=True, scope="build", stderr=None)
-
-
-``self.run()`` is a helper to run system commands while injecting the calls to activate the appropriate environment,
+Recipes and helpers can use the ``self.run()`` method to run system commands while injecting the calls to activate the appropriate environment,
 and throw exceptions when errors occur so that command errors do not pass unnoticed.
 It also wraps the commands with the results of the :ref:`command wrapper plugin<reference_extensions_command_wrapper>`.
 
-
-* ``command`` should be specified as a string which is passed to the system shell.
-* When the argument ``quiet`` is set to true, the invocation of ``self.run()`` will not print the command to be executed.
+.. autofunction:: conan.internal.model.conan_file.ConanFile.run
 
 Use the ``stdout`` and ``stderr`` arguments to redirect the output of the command to a file-like object instead of the console.
 
