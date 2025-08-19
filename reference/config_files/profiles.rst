@@ -405,7 +405,7 @@ Running, for instance, :command:`conan install . -pr myprofile`, the configurati
 
 .. seealso::
 
-   - This field allows to use patterns to limit which packages are affected by the confs. See :ref:`this section <reference_config_files_profile_patterns>` for more details.
+   - This section allows to use patterns to limit which packages are affected by the confs. See :ref:`this section <reference_config_files_profile_patterns>` for more details.
 
 .. _reference_config_files_profiles_replace_requires:
 
