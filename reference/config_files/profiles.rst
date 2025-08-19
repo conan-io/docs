@@ -219,7 +219,7 @@ List of options available from your recipe and its dependencies:
 
 .. seealso::
 
-   - This field allows to use patterns to limit which packages are affected by the options. See :ref:`this section <reference_config_files_profile_patterns>` for more details.
+   - This section allows to use patterns to limit which packages are affected by the options. See :ref:`this section <reference_config_files_profile_patterns>` for more details.
 
 .. _reference_config_files_profiles_tool_requires:
 
