@@ -236,7 +236,7 @@ List of ``tool_requires`` required by your recipe or its dependencies:
 
 .. seealso::
 
-   - This field allows to use patterns to limit which packages are affected by the tool requirement. See :ref:`this section <reference_config_files_profile_patterns>` for more details.
+   - This section allows to use patterns to limit which packages are affected by the tool requirement. See :ref:`this section <reference_config_files_profile_patterns>` for more details.
    - Read more about tool requires in this section: :ref:`consuming_packages_tool_requires`.
 
 
