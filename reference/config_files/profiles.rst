@@ -332,7 +332,7 @@ All the operators/patterns explained for :ref:`reference_config_files_profiles_b
 
 .. seealso::
 
-   - This field allows to use patterns to limit which packages are affected by the runenv. See :ref:`this section <reference_config_files_profile_patterns>` for more details.
+   - This section allows to use patterns to limit which packages are affected by the runenv. See :ref:`this section <reference_config_files_profile_patterns>` for more details.
 
 .. _reference_config_files_profiles_conf:
 
