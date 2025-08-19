@@ -307,7 +307,7 @@ Then, the result of applying this profile is:
 
 .. seealso::
 
-   - This field allows to use patterns to limit which packages are affected by the buildenv. See :ref:`this section <reference_config_files_profile_patterns>` for more details.
+   - This section allows to use patterns to limit which packages are affected by the buildenv. See :ref:`this section <reference_config_files_profile_patterns>` for more details.
 
 
 .. _reference_config_files_profiles_runenv:
