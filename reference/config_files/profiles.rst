@@ -202,7 +202,7 @@ List of settings available from :ref:`reference_config_files_settings_yml`:
 
 .. seealso::
 
-   - This field allows to use patterns to limit which packages are affected by the setting. See :ref:`this section <reference_config_files_profile_patterns>` for more details.
+   - This section allows to use patterns to limit which packages are affected by the setting. See :ref:`this section <reference_config_files_profile_patterns>` for more details.
 
 
 [options]
