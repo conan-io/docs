@@ -74,7 +74,7 @@ This way, you can easily switch between different sanitizer configurations by us
 
 .. code-block:: ini
     :caption: *~/.conan/profiles/asan*
-    :emphasize-lines: 6
+    :emphasize-lines: 7
 
     include(default)
 
@@ -84,22 +84,154 @@ This way, you can easily switch between different sanitizer configurations by us
     [conf]
     tools.build:cflags=['-fsanitize=address']
     tools.build:cxxflags=['-fsanitize=address']
+    tools.build:exelinkflags=['-fsanitize=address']
 
-The Conan client is capable to deduce the necessary flags from the profile and apply them during the build process.
+The Conan client is not capable to deduce the necessary flags from the settings and apply them during the build process.
 It's necessary to pass those expected sanitizer flags according to the setting ``compiler.sanitizer`` value.
 
 Building Examples Using Sanitizers
 ----------------------------------
 
+To show how to use sanitizers in your builds, let's consider a couple of examples.
+
 Address Sanitizer: Index Out of Bounds
 ######################################
 
-**TODO**
+In this example, we will build a simple C++ program that intentionally accesses an out-of-bounds
+index in an array, which should trigger the Address Sanitizer when running the program.
+
+The following code demonstrates this:
+
+.. code-block:: cpp
+    :caption: *index_out_of_bounds/main.cpp*
+    :emphasize-lines: 11
+
+    #include <iostream>
+    #include <cstdlib>
+
+    int main() {
+        #ifdef __SANITIZE_ADDRESS__
+            std::cout << "Address sanitizer enabled\n";
+        #else
+            std::cout << "Address sanitizer not enabled\n";
+        #endif
+
+        int foo[100];
+        foo[100] = 42; // Out-of-bounds write
+
+        return EXIT_SUCCESS;
+    }
+
+The definition ``__SANITIZE_ADDRESS__`` is used to check if the Address Sanitizer is enabled when
+running the produced application. It's supported by GCC, Clang and MSVC compilers.
+
+To build this example, you can use Conan to invoke CMake and perform the build.
+
+.. code-block:: bash
+
+    conan export index_out_of_bounds/
+    conan install --requires=index_out_of_bounds/0.1.0 -pr profiles/asan -of index_out_of_bounds/install --build=missing
+
+
+Here we are using Conan to export the recipe and build the project.
+The profile file `profiles/asan` was demonstrated already and will merge with the default profile
+from your configuration. The resulting build will produce an executable in a specific package folder,
+in order to access it, you can use the script produced by the ``VirtualRunEnv`` generator,
+then run the executable:
+
+.. code-block:: text
+
+    source index_out_of_bounds/install/conanrun.sh
+    index_out_of_bounds
+
+    Address sanitizer enabled
+    =================================================================
+    ==32018==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x7fffbe04a6d0 at pc 0x5dad4506e2eb bp 0x7fffbe04a500 sp 0x7fffbe04a4f0
+    WRITE of size 4 at 0x7fffbe04a6d0 thread T0
+        #0 0x5dad4506e2ea in main (.../examples2/examples/dev_flow/sanitizers/compiler_sanitizers/index_out_of_bounds/build/Debug/index_out_of_bounds+0x12ea)
+        #1 0x731331629d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
+        #2 0x731331629e3f in __libc_start_main_impl ../csu/libc-start.c:392
+        #3 0x5dad4506e3d4 in _start (.../examples2/examples/dev_flow/sanitizers/compiler_sanitizers/index_out_of_bounds/build/Debug/index_out_of_bounds+0x13d4)
+
+    Address 0x7fffbe04a6d0 is located in stack of thread T0 at offset 448 in frame
+        #0 0x5dad4506e1ef in main (.../examples2/examples/dev_flow/sanitizers/compiler_sanitizers/index_out_of_bounds/build/Debug/index_out_of_bounds+0x11ef)
+
+    This frame has 1 object(s):
+        [48, 448) 'foo' (line 11) <== Memory access at offset 448 overflows this variable
+    HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+        (longjmp and C++ exceptions *are* supported)
+    SUMMARY: AddressSanitizer: stack-buffer-overflow (.../examples2/examples/dev_flow/sanitizers/compiler_sanitizers/index_out_of_bounds/build/Debug/index_out_of_bounds+0x12ea) in main
+
+Once running the example, you should see an error message from the Address Sanitizer indicating the
+out-of-bounds. The message is simplified here, but it provides useful information about the error,
+including the expected index of bounds error.
+
 
 Undefined Sanitizer: Signed Integer Overflow
 ############################################
 
-**TODO**
+This example demonstrates how to use the Undefined Behavior Sanitizer to detect signed integer overflow.
+It combines the usage of two sanitizers at same time: Address Sanitizer and Undefined Behavior Sanitizer.
+For this example, we will be using the following Conan profile:
+
+.. code-block:: ini
+    :caption: *~/.conan/profiles/asan_ubsan*
+    :emphasize-lines: 7
+
+    include(default)
+
+    [settings]
+    compiler.sanitizer=AddressUndefinedBehavior
+
+    [conf]
+    tools.build:cflags=['-fsanitize=address,undefined']
+    tools.build:cxxflags=['-fsanitize=address,undefined']
+    tools.build:exelinkflags=['-fsanitize=address,undefined']
+
+It's important to mention it only works for GCC and Clang compilers,
+as MSVC does not support the Undefined Behavior Sanitizer yet.
+
+The source code for this example is as follows:
+
+.. code-block:: cpp
+    :caption: *signed_integer_overflow/main.cpp*
+    :emphasize-lines: 12
+
+    #include <iostream>
+    #include <cstdlib>
+    #include <cstdint>
+
+    int main(int argc, char* argv[]) {
+        #ifdef __SANITIZE_ADDRESS__
+            std::cout << "Address sanitizer enabled\n";
+        #else
+            std::cout << "Address sanitizer not enabled\n";
+        #endif
+
+        int foo = 0x7fffffff;
+        foo += argc; // Signed integer overflow
+
+        return EXIT_SUCCESS;
+    }
+
+In this example, it's intentionally causing a signed integer overflow by adding the command line argument count to a large integer value.
+
+As next step, the code can be built using Conan and CMake, similar to the previous example:
+
+.. code-block:: bash
+
+    conan export signed_integer_overflow/
+    conan install --requires=signed_integer_overflow/0.1.0 -pr profiles/asan -of signed_integer_overflow/install --build=missing
+
+
+Once the project built successfully, you can run the example with the sanitizers enabled:
+
+.. code-block:: bash
+
+    conan build signed_integer_overflow/install
+    ./build/signed_integer_overflow
+
+This should trigger the Address and Undefined Behavior Sanitizers, and you should see output indicating any detected issues.z
 
 Passing the information to the compiler or build system
 -------------------------------------------------------
