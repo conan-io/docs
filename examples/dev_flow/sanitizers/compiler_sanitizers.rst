@@ -84,7 +84,8 @@ This way, you can easily switch between different sanitizer configurations by us
     tools.build:exelinkflags=['-fsanitize=address']
 
 The Conan client is not capable to deduce the necessary flags from the settings and apply them during the build process.
-It's necessary to pass those expected sanitizer flags according to the setting ``compiler.sanitizer`` value.
+It's necessary to pass those expected sanitizer flags according to the setting ``compiler.sanitizer`` value
+as part of the compiler flags.
 
 Building Examples Using Sanitizers
 ----------------------------------
@@ -228,20 +229,76 @@ Once the project built successfully, you can run the example with the sanitizers
     conan build signed_integer_overflow/install
     ./build/signed_integer_overflow
 
-This should trigger the Address and Undefined Behavior Sanitizers, and you should see output indicating any detected issues.z
+This should trigger the Address and Undefined Behavior Sanitizers, and you should see output indicating any detected issues.
 
-Passing the information to the compiler or build system
--------------------------------------------------------
+.. code-block:: text
+
+    source signed_integer_overflow/install/conanrun.sh
+    signed_integer_overflow
+
+    Address sanitizer enabled
+    /root/.conan2/p/b/signe47ab122831752/b/main.cpp:13:9: runtime error: signed integer overflow: 2147483647 + 1 cannot be represented in type 'int'
+
+The output indicates that the Address Sanitizer is enabled and reports a runtime error due to signed integer overflow.
+
+Passing then Information to the Compiler or Build System
+--------------------------------------------------------
 
 Besides using Conan profiles to manage sanitizer settings, you can also use different approaches.
 
 Managing Sanitizer with CMake Toolchain
 #######################################
 
-**TODO**
+For those cases when a company or developer has a :ref:`custom CMake toolchain file <conan_cmake_user_toolchain>`
+to manage compiler and build options already, it can be used to pass the necessary flags to enable sanitizers
+instead of using profiles to configure extra compiler flags.
 
+For example, you can create a CMake toolchain file like this:
 
-Mananaging Sanitizer with Conan Hooks
-#####################################
+.. code-block:: cmake
+    :caption: *cmake/my_toolchain.cmake*
 
-**TODO**
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address,undefined")
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fsanitize=address,undefined")
+
+Then, you can specify this toolchain file as part of your Conan profile as well:
+
+.. code-block:: ini
+    :caption: *profiles/asan_ubsan*
+
+    include(default)
+
+    [settings]
+    compiler.sanitizer=AddressUndefinedBehavior
+
+    [conf]
+    tools.cmake.cmaketoolchain:user_toolchain=cmake/my_toolchain.cmake
+
+This way, you can keep your existing CMake toolchain file and still leverage Conan profiles to manage other settings.
+
+Managing Sanitizer with Conan Hooks
+###################################
+
+Another approach to manage sanitizers is by using :ref:`Conan hooks <reference_extensions_hooks>`.
+Using hooks, you can inject compiler flags on-the-fly during the build process,
+allowing for more dynamic configurations without modifying the original build files.
+
+For instance, we can add a ``pre_build`` hook to append the necessary sanitizer flags based on the
+``compiler.sanitizer`` setting.
+
+.. code-block:: python
+    :caption: ~/.conan2/extentions/hooks/hook_sanitizer_flags.py
+
+    def pre_generate(conanfile):
+        if conanfile.settings.get_safe("compiler.sanitizer"):
+            sanitizer = {"Address": "address", "UndefinedBehavior": "undefined"}
+            if conanfile.settings.compiler.sanitizer in sanitizer:
+                flag = f"-fsanitize={sanitizer[conanfile.settings.compiler.sanitizer]}"
+                conanfile.conf.append("tools.build:cflags", flag)
+                conanfile.conf.append("tools.build:cxxflags", flag)
+                conanfile.conf.append("tools.build:exelinkflags", flag)
+
+The ``pre_generate`` hook is executed before Conan generates toolchain files, being able to consume
+the respective configuration for the compiler flags. This approach allows for more dynamic configurations
+as it's possible to run a Python script, but it also increase the maintainance complexity as it keeps the
+logic out for the profile management.
