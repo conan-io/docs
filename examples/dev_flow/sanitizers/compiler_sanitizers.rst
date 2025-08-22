@@ -50,7 +50,7 @@ them as a list of values. For example, with Clang, you might do the following:
 
     compiler:
       clang:
-        sanitizer: [None, Address, Leak, Thread, Memory, UndefinedBehavior, HardwareAssistanceAddress, KernelAddress, AddressUndefinedBehavior, ThreadUndefinedBehavior]
+        sanitizer: [null, Address, Leak, Thread, Memory, UndefinedBehavior, HardwareAssistanceAddress, KernelAddress, AddressUndefinedBehavior, ThreadUndefinedBehavior]
 
 Here you have modeled the use of ``-fsanitize=address``, ``-fsanitize=thread``,
 ``-fsanitize=memory``, ``-fsanitize=leak``, ``-fsanitize=undefined``, ``-fsanitize=hwaddress``, ``-fsanitize=kernel-address``, the combination of ``-fsanitize=address`` with
@@ -62,9 +62,6 @@ The GCC supports a similar number of sanitizers, and you can find the complete l
 For MSVC, the available sanitizers are more limited, and you can find the complete list in the `MSVC documentation <https://learn.microsoft.com/en-us/cpp/sanitizers/>`_.
 
 Note that not all sanitizer combinations are possible, for example, with Clang, you cannot use more than one of the Address, Thread, or Memory sanitizers in the same program.
-
-Be aware once ``setting_user.yml`` is present in your Conan home, it will affect all your projects using Conan, asking for the setting ``compiler.sanitizer`` always.
-In order to disable it, just remove the ``settings_user.yml`` file from your Conan home.
 
 Adding Sanitizers as Part of the Profile
 ########################################
