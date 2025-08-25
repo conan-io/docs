@@ -63,11 +63,12 @@ Main decorator to declare a function as a new Conan command. Where the parameter
     import json
 
     from conan.api.conan_api import ConanAPI
-    from conan.api.output import ConanOutput
+    from conan.api.output import ConanOutput, cli_out_write
     from conan.cli.command import conan_command
 
     def output_json(msg):
-        return json.dumps({"greet": msg})
+        myjson = json.dumps({"greet": msg})
+        cli_out_write(myjson)
 
 
     @conan_command(group="Custom commands", formatters={"json": output_json})
