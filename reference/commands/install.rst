@@ -130,7 +130,8 @@ There are 3 built-in deployers:
   dependencies.
 - ``runtime_deploy`` deploys all the shared libraries and the executables of the
   dependencies (like ``.so``, ``.dll``, or ``.dylib`` files) into a flat directory
-  structure. The symbolic links of libraries are copied by default and they can be managed through the boolean
+  structure, preserving subdirectories as-is.
+  The symbolic links of libraries are copied by default and they can be managed through the boolean
   configuration ``tools.deployer:symlinks``. (Available since Conan 2.5.0)
 
 Some generators might have the capability of redefining the target "package folder". That means that if some other
