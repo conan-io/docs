@@ -64,8 +64,7 @@ runtime_deploy
 New since `Conan 2.5.0 <https://github.com/conan-io/conan/releases/tag/2.5.0>`__
 
 Copies all shared libraries and executables from dependencies (such as .so, .dll, or .dylib files)
-into a flattened directory structure. Library symbolic links are copied by default, with behavior
-controllable via the ``tools.deployer:symlinks`` boolean setting.
+into a flattened directory structure.
 
 Since Conan 2.20.0, subdirectories are maintained and preserved as-is.
 Files are only included in environment generators when correctly specified through ``cpp_info.bindirs``
