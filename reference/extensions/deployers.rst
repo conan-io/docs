@@ -74,7 +74,7 @@ and ``cpp_info.libdirs`` configuration.
 configuration
 ^^^^^^^^^^^^^
 
-Both the ``full_deploy``, ``direct_deploy`` and ``runtime_deploy`` understand when the conf ``tools.deployer:symlinks``
+The ``full_deploy``, ``direct_deploy`` and ``runtime_deploy`` understand when the conf ``tools.deployer:symlinks``
 is set to ``False`` to disable deployers copying symlinks. This can be convenient in systems that do not support
 symlinks and could fail if deploying packages that contain symlinks.
 
