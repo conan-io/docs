@@ -31,7 +31,14 @@ You can use these tools inside the ``system_requirements()`` method of your reci
 Conan will automatically choose which package manager to use by looking at the Operating
 System name. In the example above, if we are running on Ubuntu Linux, Conan will ignore
 all the calls except for the ``Apt()`` one and will only try to install the packages using the
-``apt-get`` tool. Conan uses the following mapping by default:
+``apt-get`` tool.
+
+The ``package_manager`` tool allows you to specify the package version of the system package
+to be installed using the format ``<package-name>=<package-version>``, for example ``Apt(self).install(["libgl-dev=0.0.1"])``.
+The system package managers that support versions are ``Apt``, ``Yum``, ``Dnf``, ``Brew``, ``Pkg``, ``Chocolatey``, ``Apk`` and ``Zypper``.
+On systems where package versioning is not supported by the package manager, in our case ``PacMan`` and ``PkgUtil``, the provided version will be ignored.
+
+Conan uses the following mapping by default:
 
 * *Apt* for **Linux** with distribution names: *ubuntu*, *debian*, *raspbian* or *linuxmint*
 * *Yum* for **Linux** with distribution names: *pidora*, *scientific*, *xenserver*, *amazon*, *oracle*, *amzn*, *almalinux* or *rocky*
