@@ -21,19 +21,18 @@ and the rest of the members are considered private and can change without notice
 .. toctree::
    :maxdepth: 2
 
-   python_api/ConanAPI
-   python_api/RemotesAPI
-   python_api/ListAPI
-   python_api/ProfilesAPI
-   python_api/InstallAPI
-   python_api/GraphAPI
-   python_api/ExportAPI
-   python_api/RemoveAPI
-   python_api/ConfigAPI
-   python_api/NewAPI
-   python_api/UploadAPI
-   python_api/DownloadAPI
    python_api/CommandAPI
+   python_api/ConfigAPI
+   python_api/DownloadAPI
+   python_api/ExportAPI
+   python_api/GraphAPI
+   python_api/InstallAPI
+   python_api/ListAPI
+   python_api/NewAPI
+   python_api/ProfilesAPI
+   python_api/RemotesAPI
+   python_api/RemoveAPI
+   python_api/UploadAPI
 
 There are also some model classes that represent the data structures used in the API.
 Note that as with the API, only the **documented** public members are guaranteed to be stable,
