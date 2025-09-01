@@ -86,7 +86,7 @@ conanws.py super-build options
 A ``conanws.py`` used for a super-build workspaces file can manage options in two different ways:
 
 - It can define its own ``options`` with the normal ``conanfile.py`` syntax, so the generated ``conan_toolchain.cmake`` for the super-project uses those inputs
-- It can collect the options of the workspace packages with the ``workspace_options`` and process them in any user custom way.
+- It can collect the options of the workspace packages with the ``workspace_packages_options`` and process them in any user custom way.
 
 
 A ``conanws.py`` must define the options for the super-build in the ``ConanFile`` class, and use those options in the ``generate()`` method, as it usually happens with ``conanfile.py`` files, something like:
