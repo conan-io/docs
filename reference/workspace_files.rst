@@ -93,8 +93,7 @@ A ``conanws.py`` must define the options for the super-build in the ``ConanFile`
 
 .. code-block:: python
 
-   from conan import ConanFile
-   from conan import Workspace
+   from conan import ConanFile, Workspace
 
    class MyWs(ConanFile):
       settings = "arch", "build_type"
