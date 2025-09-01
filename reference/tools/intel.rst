@@ -27,6 +27,14 @@ This generator creates a ``conanintelsetvars.sh|bat`` wrapping the Intel script 
 environment variables needed. That script is the first step to start using the Intel compilers because it's setting some
 important variables in your local environment.
 
+.. note::
+
+    If you explicitly set ``tools.intel:installation_path=""`` configuration
+    (empty string), Conan will **not generate** the ``conanintelsetvars``
+    script. In this case, you are expected to have already activated the Intel
+    oneAPI environment manually.
+
+
 In summary, the ``IntelCC`` generator:
 
 #. Reads your profile ``[settings]`` and ``[conf]``.
@@ -142,7 +150,10 @@ conf
 
 ``IntelCC`` uses these :ref:`configuration entries <reference_config_files_global_conf>`:
 
-- ``tools.intel:installation_path``: **(required)** argument to tell Conan the installation path, if it's not defined,
-  Conan will try to find it out automatically.
+- ``tools.intel:installation_path``: **(required)** argument to tell Conan the
+  installation path, if it's not defined, Conan will try to find it out
+  automatically. If it is explicitly set to the empty string (``""``), Conan
+  will **skip the generation** of the ``conanintelsetvars`` script, assuming the
+  Intel environment has already been activated manually.
 - ``tools.intel:setvars_args``: **(optional)** it is used to pass whatever we want as arguments to our `setvars.sh|bat` file.
   You can check out all the possible ones from the Intel official documentation.
