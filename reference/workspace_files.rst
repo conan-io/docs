@@ -89,6 +89,8 @@ A ``conanws.py`` used for a super-build workspaces file can manage options in tw
 - It can collect the options of the workspace's packages with the ``workspace_packages_options`` and process them in any user-custom way.
 
 
+**super-project options**
+
 A ``conanws.py`` must define the options for the super-build in the ``ConanFile`` class, and use those options in the ``generate()`` method, as it usually happens with ``conanfile.py`` files, something like:
 
 .. code-block:: python
