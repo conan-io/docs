@@ -151,7 +151,7 @@ it is always possible to define some local ``ALIAS`` targets.
 This super-build ``CMakeLists.txt`` defines dynamically the correct sub-projects order. Note
 that the ``FetchContent`` strategy requires to define the different sub-projects in the correct
 build-order. While this is easy for workspaces with very few packages, this can become a burden
-for largers workspaces. The definition of the build-order is done in the generated 
+for larger workspaces. The definition of the build-order is done in the generated 
 ``conanws_build_order.cmake`` file, that is created by the ``conan workspace super-install`` command
 calling the ``conanws.py`` workspace ``build_order()`` method. It is the responsibility of the workspace
 to translate the information of the ``build_order()`` to specifics of the build system. The exact
