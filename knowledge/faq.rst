@@ -175,7 +175,7 @@ please read it carefully.
         It is recommended to define options values in profiles, not in recipes
 
 In general, it is more recommended to define options values in profile files, not in recipes.
-Recipe defined options always have precedence over options defined in profiles.
+Recipe defined options always have less precedence than options defined in profiles.
 
 
 .. _faq_version_conflicts_version_ranges:
