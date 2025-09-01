@@ -21,6 +21,7 @@ and the rest of the members are considered private and can change without notice
 .. toctree::
    :maxdepth: 2
 
+   python_api/ConanAPI
    python_api/CommandAPI
    python_api/ConfigAPI
    python_api/DownloadAPI
