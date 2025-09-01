@@ -122,8 +122,7 @@ So let's say that a workspace containing a ``dep/0.1`` package that contains the
 
 .. code-block:: python
 
-   from conan import ConanFile
-   from conan import Workspace
+   from conan import ConanFile, Workspace
 
    class MyWs(ConanFile):
       def generate(self):
