@@ -38,6 +38,18 @@ Reference
     :members:
 
 
+
+conf
+----
+
+The ``Autotools`` build helper is affected by these ``[conf]`` variables:
+
+- ``tools.gnu:make_program`` allows to define which ``make`` executable is being used. This will default for ``mingw32-make`` for MinGW builds or to ``make`` for any other build.
+
+- ``tools.build:install_strip`` (Since Conan 2.20.0) will define in the ``Autotools.install()`` method the ``make install-strip`` target if set to ``True``, otherwise it will use the ``make install`` target.
+
+
+
 A note about relocatable shared libraries in macOS built the  Autotools build helper
 ------------------------------------------------------------------------------------
 
