@@ -53,7 +53,7 @@ The caret ``^`` and tilde ``~`` operators are basically compact representations 
 - The ``[^1.2.3]`` range could be written as ``[>=1.2.3 <2.0.0]``
 
 In general it is recommended to use the full expression ``[>=lower <upper]`` instead of the caret or tilde shortcuts,
-as it is more explicit and evident for all readers what are the valid versions in that range.
+as it is more explicit and evident for all readers what the valid versions are in that range.
 
 
 
