@@ -47,6 +47,15 @@ Accepted expressions would be:
       - 2.1, 2.2, 3.1, 14.2
       - 1.1, 1.2, 2.0
 
+The caret ``^`` and tilde ``~`` operators are basically compact representations of lower and upper bounds: 
+
+- The ``[~2.5.1]`` range could be written as ``[>=2.5.1 <2.6.0]``
+- The ``[^1.2.3]`` range could be written as ``[>=1.2.3 <2.0.0]``
+
+In general it is recommended to use the full expression ``[>=lower <upper]`` instead of the caret or tilde shortcuts,
+as it is more explicit and evident for all readers what are the valid versions in that range.
+
+
 
 If pre-releases are activated, like defining configuration ``core.version_ranges:resolve_prereleases=True``:
 
