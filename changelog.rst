@@ -3,6 +3,12 @@ Changelog
 
 For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
 
+2.20.1 (04-Sept-2025)
+---------------------
+
+- BugFix: Fix Apt not detecting the correct architecture in multiarch setups. `#18872 <https://github.com/conan-io/conan/pull/18872>`_
+- BugFix: Apt correctly detects arch-independent (all) packages during cross-building to avoid unnecessary reinstalls. `#18872 <https://github.com/conan-io/conan/pull/18872>`_
+
 2.20.0 (01-Sept-2025)
 ---------------------
 
