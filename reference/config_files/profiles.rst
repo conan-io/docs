@@ -872,6 +872,15 @@ For example, to define a ``shared=True`` option for all packages except to `zlib
     !zlib/*:shared=True
 
 
+Note that for the ``msvc`` compiler, the ``compiler.runtime_type`` setting is  automatically initialized from
+the ``build_type`` setting value by the ``profile.py`` plugin, as it is a good default for the vast majority 
+of cases. That means that a user defining ``-s build_type=MinSizeRel`` will by default get a 
+``compiler.runtime_type=Release`` value for ``msvc`` compiler.
+However, this is not the case for package specific settings, and the ``profile.py`` plugin won't automatically
+define the ``compiler.runtime_type`` for ``msvc``, so doing something like ``mydep/*:build_type=<build_type>``
+doesn't automatically define ``mydep/*:compiler.runtime_type``.
+
+
 Profile includes
 ----------------
 
