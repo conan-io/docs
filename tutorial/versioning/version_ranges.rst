@@ -154,8 +154,9 @@ The tilde ``~`` operator can be used to define an "approximately" equal version 
 will include versions 1.3 and 1.8.1, but will exclude versions like 0.8 or 2.0. Likewise
 ``requires = "pkg/[~2.5]"`` will include 2.5.0 and 2.5.3, but exclude 2.1, 2.7, 2.8.
 
-The caret ``^`` operator is very similar to the tilde, but allowing variability over the last defined digit.
+The caret ``^`` operator is very similar to the tilde, but allows variability over the digit following the first non-zero digit.
 ``requires = "pkg/[^1.2]"`` will include 1.2.1, 1.3 and 1.51, but will exclude 1.0, 2, 2.0.
+``^1.2.0`` would act the same, while ``^0.1.2`` would include 0.1.2.1 and 0.1.3, but exclude 0.1.1 and 0.2.0.
 
 It is also possible to apply multiple conditions with the OR operator, like ``requires = "pkg/[>1 <2.0 || ^3.2]"``
 but this kind of complex expressions is not recommended in practice and should only be used in very extreme cases.
