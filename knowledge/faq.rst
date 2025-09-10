@@ -298,7 +298,7 @@ will find a "Missing binary" error in the ``test_package`` step. How is this pos
 binary was created a few lines above?
 
 The ``conan create`` command by default creates packages for the "host" context, using
-the "host" profile. But if the package we are created is intended to be used as a tool,
+the "host" profile. But if the package we are creating is intended to be used as a tool,
 that is, as a ``tool_requires``, then it needs to be built for the "build" context.
 
 If for any reason, the "host" and the "build" context are not identical, then the binary that is built
