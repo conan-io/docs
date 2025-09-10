@@ -447,11 +447,22 @@ Having detailed the toolchain recipe, it's time to proceed with package creation
     ...
 
 
-We employ two profiles for the *build* and *host* contexts, but the most important
-detail is the use of the `--build-require` argument. This informs Conan that the package
-is intended as a build requirement, situating it within the build context. Consequently,
-`settings` match those from the build profile, while `settings_target` aligns with the
-host profile's settings.
+.. important::
+    
+    Use ``--build-require`` argument.
+
+    The ``conan create`` command by default creates packages for the "host" context, using
+    the "host" profile. But if the package we are created is intended to be used as a tool,
+    that is, as a ``tool_requires``, then it needs to be built for the "build" context.
+    The ``--build-require`` argument specifies this. When this argument is provided, the 
+    current recipe binary will be built to run in the "build" context, using the ``default``
+    profile, and it will receive the ``raspberry-64`` "host" profile settings as ``settings_target``.
+    Because the ``arm-toolchain/13.2`` package is a package which executables run in the
+    current "build" machine, not in the RaspberryPI, but it is a tool that targets the RaspberryPI.
+
+    The ``--build-require`` argument is necessary to build the ``arm-toolchain`` package correctly
+    as a build tool.
+
 
 With the toolchain package prepared, we proceed to build an actual application. This will
 be the same application previously cross-compiled in the
