@@ -265,7 +265,7 @@ Missing binary for a (tool) package that was just created with ``conan create``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 There is sometimes the case for a package, intended to be used as a ``tool_requires`` by other packages,
-which recipe contains a ``test_package`` folder that requires such tool as:
+whose recipe contains a ``test_package`` folder that requires such tool as:
 
 .. code-block:: python
     :caption: test_package/conanfile.py
