@@ -294,8 +294,8 @@ Then, users doing the creation of the package with:
     ...
     ERROR: Missing binary: mytool/0.1
 
-will find a "Missing binary" error in the ``test_package`` step. How this is possible, if the package
-binary was created a few lines above.
+will find a "Missing binary" error in the ``test_package`` step. How is this possible, if the package
+binary was created a few lines above?
 
 The ``conan create`` command by default creates packages for the "host" context, using
 the "host" profile. But if the package we are created is intended to be used as a tool,
