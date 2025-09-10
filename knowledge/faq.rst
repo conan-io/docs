@@ -301,7 +301,7 @@ The ``conan create`` command by default creates packages for the "host" context,
 the "host" profile. But if the package we are created is intended to be used as a tool,
 that is, as a ``tool_requires``, then it needs to be built for the "build" context.
 
-If for any reason, the "host" and the "build" context are not identical, theh binary that is built
+If for any reason, the "host" and the "build" context are not identical, then the binary that is built
 in the initial package creation will be a binary for the "host" context, but then the ``test_package``
 will require it as ``tool_requires()``, requiring it in the "build" context, and such binary will
 be missing, as it hasn't been built.
