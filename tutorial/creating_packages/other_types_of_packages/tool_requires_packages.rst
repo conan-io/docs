@@ -101,14 +101,15 @@ Let's create a binary package for the ``tool_require``:
 
 
 .. important::
-    
+
     Use ``--build-require`` argument.
 
     The ``conan create`` command by default creates packages for the "host" context, using
-    the "host" profile. But if the package we are created is intended to be used as a tool,
-    that is, as a ``tool_requires``, then it needs to be built for the "build" context.
+    the "host" profile. But if the package we are creating is intended to be used as a tool with
+    ``tool_requires``, then it needs to be built for the "build" context.
+
     The ``--build-require`` argument specifies this. When this argument is provided, the 
-    current recipe binary will be built to run in the "build" context.
+    current recipe binary will be built for the "build" context.
     Because the ``secure_scanner/1.0`` package is a package which executables run in the
     current "build" machine, not necessarily in the final "host" machine, that could be 
     different to the build one, for example in the case of a cross-build.
