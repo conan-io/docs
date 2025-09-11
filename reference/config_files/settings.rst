@@ -92,7 +92,7 @@ to the ``update`` subsetting in ``settings.yml``.
 
 .. note::
 
-    - When using ``cmake``, it is necessary to have a modern version in order for CMake to correctly find and process the right toolset
+    - When using ``cmake``, it is necessary to have a modern version to ensure CMake correctly finds and processes the right toolset
       version depending on the update.
     - Be aware that even when installing some latest compiler update with the MS VS installer, this might not be the default one that
       CMake is using when not specified. CMake is taking the information from the files ``Microsoft.VCToolsVersion.v143.default`` and 
