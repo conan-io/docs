@@ -90,6 +90,16 @@ This will be equivalent to the full version ``1913 (19.13)``. If even further de
 to the ``update`` subsetting in ``settings.yml``.
 
 
+.. note::
+
+    - When using ``cmake``, it is necessary to have a modern version to ensure CMake correctly finds and processes the right toolset
+      version depending on the update.
+    - Be aware that even when installing the latest compiler update with the MS VS installer, this might not be the default one that
+      CMake uses when it is not specified. CMake takes the information from the files ``Microsoft.VCToolsVersion.v143.default`` and 
+      ``Microsoft.VCToolsVersion.v143.default.props`` located in ``C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build``.
+      Check the output logs to verify the toolset and compiler version that is being used.
+      
+
 intel-cc
 ++++++++
 
