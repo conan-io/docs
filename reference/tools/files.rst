@@ -11,4 +11,3 @@ conan.tools.files
     files/patches
     files/checksum
     files/symlinks
-    files/packaging
