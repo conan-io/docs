@@ -166,7 +166,7 @@ We have the same header-only library that sums two numbers, but now we have this
         package_type = "header-library"
 
         def requirements(self):
-            self.test_requires("gtest/1.11.0")
+            self.test_requires("gtest/1.17.0")
 
         def validate(self):
             check_min_cppstd(self, 11)
@@ -199,7 +199,7 @@ We have the same header-only library that sums two numbers, but now we have this
 
 These are the changes introduced in the recipe:
 
-    - We are introducing a ``test_require`` to ``gtest/1.11.0``. A ``test_require`` is similar to a regular requirement
+    - We are introducing a ``test_require`` to ``gtest/1.17.0``. A ``test_require`` is similar to a regular requirement
       but it is not propagated to the consumers and cannot conflict.
     - ``gtest`` needs at least C++11 to build. So we introduced a ``validate()`` method calling ``check_min_cppstd``.
     - As we are building the ``gtest`` examples with CMake, we use the generators ``CMakeToolchain`` and ``CMakeDeps``,
