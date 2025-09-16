@@ -9,3 +9,4 @@ If you have your own resources that you believe could help the community grow,
 don’t hesitate to share them with us on our `GitHub <https://github.com/conan-io/conan>`_.
 
 * `The Conan Cookbook <https://gitlab.com/batteriesincluded/conan-cookbook>`_
+* `Localization of Conan Documentation <https://github.com/localizethedocs/conan-docs-l10n>`_
