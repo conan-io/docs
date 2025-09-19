@@ -226,7 +226,8 @@ And that will force the download of the binary for ``mydep/0.1`` when the binary
 package_type trait inferring
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Some traits are automatically inferred based on the value of the ``package_type`` if not explicitly set by the recipe.
+Some traits are automatically inferred based on the value of the ``package_type`` of the dependency
+if not explicitly set by the recipe.
 
  * ``application``: ``headers=False``, ``libs=False``, ``run=True``
  * ``shared-library``: ``run=True``
@@ -234,9 +235,18 @@ Some traits are automatically inferred based on the value of the ``package_type`
  * ``header-library``: ``headers=True``, ``libs=False``, ``run=False``
  * ``build-scripts``: ``headers=False``, ``libs=False``, ``run=True``, ``visible=False``
 
-Additionally, some additional traits are inferred on top of the above mentioned based on the ``package_type`` of the dependant:
+This means that if in your recipe you have ``self.requires("mypkg/1.0")``, and ``mypkg/1.0`` has
+``package_type="application"``, then the effective traits for that ``requires`` will be
+``headers=False``, ``libs=False``, ``run=True``. These can then be overridden by explicitly
+setting them in the ``requires``.
+
+Additionally, some additional traits are inferred on top of the above mentioned choices,
+based on the ``package_type`` of your recipe:
 
  * ``header-library``: ``transitive_headers=True``, ``transitive_libs=True``
+
+This means that if your package is a ``header-library``, then all its requirements
+will have ``transitive_headers=True`` and ``transitive_libs=True`` by default.
 
 Default traits for each kind of requires
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
