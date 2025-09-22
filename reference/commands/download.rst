@@ -80,3 +80,7 @@ If only one or several metadata folders or sets of files are desired, it can als
     # Will download only the logs and tests metadata, but not other potential metadata files
 
 For more information see the :ref:`metadata section<devops_metadata>`.
+
+.. note::
+
+    :ref:`See here for examples of using package lists for downloading.<examples_commands_pkglists>`

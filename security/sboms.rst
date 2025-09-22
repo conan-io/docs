@@ -26,7 +26,7 @@ CycloneDX
 Conan supports `CycloneDX <https://cyclonedx.org/>`_ out-of-the-box, which is one of the **most widely used standards**
 for SBOMs.
 
-The CycloneDX tool is available in the ``conan.tools.sbom.cyclonedx`` module.
+The CycloneDX tool is available in the ``conan.tools.sbom`` module.
 It provides the ``cyclonedx_1_4`` and ``cyclonedx_1_6`` functions which receives a ``conanfile`` and returns a
 dictionary with the SBOM data in the CycloneDX JSON format.
 
@@ -48,7 +48,7 @@ In the example, we save the generated sbom in the package metadata folder to kee
     import json
     import os
     from conan.api.output import ConanOutput
-    from conan.tools.sbom.cyclonedx import cyclonedx_1_6
+    from conan.tools.sbom import cyclonedx_1_6
 
     def post_package(conanfile, **kwargs):
         sbom_cyclonedx_1_6 = cyclonedx_1_6(conanfile)
@@ -73,7 +73,7 @@ has easy access to the SBOM.
     import json
     import os
     from conan.api.output import ConanOutput
-    from conan.tools.sbom.cyclonedx import cyclonedx_1_6
+    from conan.tools.sbom import cyclonedx_1_6
 
     def post_generate(conanfile, **kwargs):
         sbom_cyclonedx_1_6 = cyclonedx_1_6(conanfile)

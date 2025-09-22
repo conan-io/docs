@@ -122,7 +122,7 @@ won't be retrieved. They cannot conflict.
 .. code-block:: python
 
     class MyPkg(ConanFile):
-        test_requires = "gtest/1.11.0", "other_test_tool/0.2@user/testing"
+        test_requires = "gtest/1.17.0", "other_test_tool/0.2@user/testing"
 
 
 This is the declarative way to add ``test_requires``.
