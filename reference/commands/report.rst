@@ -101,7 +101,7 @@ to include and exclude keywords and shortcuts to all the changed files.
 
 .. code-block:: bash
 
-    $ conan report diff --old-reference="zlib/1.3" --new-reference="mylib/1.3.1" --format=html > diff.html
+    $ conan report diff --old-reference="zlib/1.3" --new-reference="zlib/1.3.1" --format=html > diff.html
 
 .. image:: ../../images/conan-report-diff_html.png
     :target: ../../_images/conan-report-diff_html.png
