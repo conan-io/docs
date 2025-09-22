@@ -20,5 +20,7 @@ This is an incomplete and preliminary, not exhaustive security related recommend
   party dependencies. For this reason, the :ref:`Using ConanCenter packages in production environments <devops_consuming_conan_center>` section recommends building your own binaries
   from source and storing those binaries in your own private server, without downloading packages directly from ConanCenter.
   The :ref:`local-recipes-index feature<devops_local_recipes_index>` was designed to help in this process.
+- The ``recipes_only`` field for remotes can be used to avoid downloading binaries from untrusted remotes,
+  see :ref:`the remotes.json docs<reference_config_files_remotes_json>`.
 - To avoid being disrupted by internet outages and possible tampering of tarballs downloaded from the internet, the
   :ref:`Backup sources<conan_backup_sources>` feature can be used.

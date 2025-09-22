@@ -103,6 +103,11 @@ we recommend building your own binary packages from source:
 
 - Read more: :ref:`creating and hosting your own Conan Center binaries <devops_conancenter_hosting_your_own_conancenter_fork>`
 
+If the ``conancenter`` remote is used directly, your organization might require
+that the binaries are built from source, and not downloaded directly from ConanCenter.
+This can be achieved with the ``recipes_only`` field in the remote configuration,
+see :ref:`the remotes.json docs<reference_config_files_remotes_json>`.
+
 Control and customization
 -------------------------
 It is very common for users of dependencies to require custom changes to external 
