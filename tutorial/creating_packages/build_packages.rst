@@ -31,7 +31,7 @@ Changes introduced in the recipe
 
 .. code-block:: python
     :caption: *conanfile.py*
-    :emphasize-lines: 12, 19, 33-34
+    :emphasize-lines: 12, 20-21, 35
 
     class helloRecipe(ConanFile):
         name = "hello"
@@ -51,7 +51,9 @@ Changes introduced in the recipe
         def requirements(self):
             if self.options.with_fmt:
                 self.requires("fmt/8.1.1")
-            self.test_requires("gtest/1.11.0")
+
+        def build_requirements(self):
+            self.test_requires("gtest/1.17.0")
 
         ...
 
@@ -73,8 +75,11 @@ Changes introduced in the recipe
 
         ...
 
-* We added the *gtest/1.11.0* requirement to the recipe as a ``test_requires()``. It's a
-  type of requirement intended for testing libraries like **Catch2** or **gtest**.
+* We added the *gtest/1.17.0* requirement to the recipe as a
+  ``test_requires()``. It's a type of requirement intended for testing libraries
+  like **Catch2** or **gtest**, and we declare it inside the
+  ``build_requirements()`` method, which is the recommended place for test
+  dependencies.
 
 * We use the ``tools.build:skip_test`` configuration (``False`` by default), to tell CMake
   whether to build and run the tests or not. A couple of things to bear in mind:

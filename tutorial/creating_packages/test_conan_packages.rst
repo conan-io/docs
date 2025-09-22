@@ -144,7 +144,7 @@ test<reference_commands>` command:
         fmt/8.1.1#cd132b054cf999f31bd2fd2424053ddc:ff7a496f48fca9a88dc478962881e015f4a5b98f#1d9bb4c015de50bcb4a338c07229b3bc - Cache
         hello/1.0#25e0b5c00ae41ef9fbfbbb1e5ac86e1e:fd7c4113dad406f7d8211b3470c16627b54ff3af#4ff3fd65a1d37b52436bf62ea6eaac04 - Cache
     Test requirements
-        gtest/1.11.0#d136b3379fdb29bdfe31404b916b29e1:656efb9d626073d4ffa0dda2cc8178bc408b1bee#ee8cbd2bf32d1c89e553bdd9d5606127 - Skip
+        gtest/1.17.0#d136b3379fdb29bdfe31404b916b29e1:656efb9d626073d4ffa0dda2cc8178bc408b1bee#ee8cbd2bf32d1c89e553bdd9d5606127 - Skip
  
     ...
 
