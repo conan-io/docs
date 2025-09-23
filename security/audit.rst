@@ -37,7 +37,7 @@ Filtering queried packages
 
 By default, the ``conan audit scan`` command will query all packages in the dependency graph.
 You can filter the packages to be queried based on their context using the ``--context`` option,
-which accepts ``"both"``, ``"host"``, or ``"build"`` as values. The default value is ``"both"``.
+which accepts ``"host"``, or ``"build"`` as values, and when omitted, defaults to quering both contexts.
 
 This allows you to skip checking for CVEs in build requirements, which are not part of the final product
 and therefore less relevant (but still important!) for vulnerability scanning.
