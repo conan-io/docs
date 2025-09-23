@@ -59,6 +59,13 @@ Good practices
   once they have passed some quality checks. But it is very important that this promotion does not change in any way those
   packages, which must be completely immutable, not even changing its ``user/channel``, this is why the above point discourages
   using user and channel, packages and artifacts must be immutable.
+- Do not export packages with versions that have an alphanumeric major version and you want to use
+  minor versions too. That is, do not use ``v1.3``, etc. (but ``system``, ``develop``, etc. are
+  fine). The reason is that the checks for package binary compatibility that Conan performs
+  special-case the major as alphanumeric cases, and will consider that ``v1.0`` and ``v1.3``
+  to be the same version regardless of the minor version, which might lead to unexpected results,
+  such as a missing binary not being built when it should, and a package releasing without a critical
+  bugfix.
 
 Forbidden practices
 -------------------
