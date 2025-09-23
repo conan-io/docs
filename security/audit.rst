@@ -3,8 +3,7 @@
 Scanning dependencies with conan audit
 ======================================
 
-A new command, `conan audit`, was added in **Conan 2.14**. It provides a built-in way to
-**scan your dependencies for known CVEs**.
+The ``conan audit`` commands provide a built-in way to **scan your dependencies for known CVEs**.
 
 For a step-by-step guide on authentication, usage examples, output formats, and setting up
 private providers, see :ref:`Checking package vulnerabilities <devops_audit>`. In short:
@@ -32,6 +31,25 @@ private providers, see :ref:`Checking package vulnerabilities <devops_audit>`. I
 This command also supports using your own JFrog Platform as a private provider for
 vulnerability scanning. See the :ref:`Adding private providers
 <devops_audit_private_providers>` section for more details.
+
+Filtering queried packages
+--------------------------
+
+By default, the ``conan audit scan`` command will query all packages in the dependency graph.
+You can filter the packages to be queried based on their context using the ``--context`` option,
+which accepts ``"both"``, ``"host"``, or ``"build"`` as values. The default value is ``"both"``.
+
+This allows you to skip checking for CVEs in build requirements, which are not part of the final product
+and therefore less relevant (but still important!) for vulnerability scanning.
+
+It's also possible to perform this filter using the ``conan audit list`` command,
+by levaring the packages list filtering from the ``conan list`` command. For example:
+
+* Use ``conan graph info`` making sure to also add ``--format=json`` and store the resulting json to a file (``graph.json`` for this example)
+* Run ``conan list --graph=graph.json --graph-context=host --format=json > pkglist.json``
+  - This creates a packages list for the resolved dependency graph, but filters it to only contain the ``host`` context packages using the ``--graph-context`` argument.
+* Now pass the generated ``pkglist.json`` to ``conan audit list --list=pkglist.json``.
+
 
 .. seealso::
 
