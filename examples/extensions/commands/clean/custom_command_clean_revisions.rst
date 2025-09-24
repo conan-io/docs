@@ -9,6 +9,10 @@ Custom command: Clean old recipe and package revisions
     meaning "all revisions but the latest" would probably be enough for this use case,
     without needing this custom command.
 
+.. warning::
+
+    Using this command requires Conan 2.21.0 or higher.
+
 
 Please, first clone the sources to recreate this project. You can find them in the
 `examples2 repository <https://github.com/conan-io/examples2>`_ in GitHub:
