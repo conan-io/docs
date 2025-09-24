@@ -66,14 +66,15 @@ Finally, if you execute :command:`conan clean`:
 .. code-block:: bash
 
     $ conan clean
+    Found 4 pkg/version recipes matching */* in local cache
     Do you want to remove all the recipes revisions and their packages ones, except the latest package revision from the latest recipe one? (yes/no): yes
-    other/1.0
+    Keeping recipe revision: other/1.0#31da245c3399e4124e39bd4f77b5261f and its latest package revisions [Local cache]
     Removed package revision: other/1.0#31da245c3399e4124e39bd4f77b5261f:da39a3ee5e6b4b0d3255bfef95601890afd80709#a16985deb2e1aa73a8480faad22b722c [Local cache]
     Removed recipe revision: other/1.0#721995a35b1a8d840ce634ea1ac71161 and all its package revisions [Local cache]
-    hello/1.0
+    Keeping recipe revision: hello/1.0#9a77cdcff3a539b5b077dd811b2ae3b0 and its latest package revisions [Local cache]
     Removed package revision: hello/1.0#9a77cdcff3a539b5b077dd811b2ae3b0:da39a3ee5e6b4b0d3255bfef95601890afd80709#cee90a74944125e7e9b4f74210bfec3f [Local cache]
     Removed package revision: hello/1.0#9a77cdcff3a539b5b077dd811b2ae3b0:da39a3ee5e6b4b0d3255bfef95601890afd80709#7cddd50952de9935d6c3b5b676a34c48 [Local cache]
-    libcxx/0.1
+    Keeping recipe revision: libcxx/0.1#abcdef1234567890abcdef1234567890 and its latest package revisions [Local cache]
 
 Nothing should happen if you run it again:
 
@@ -81,9 +82,9 @@ Nothing should happen if you run it again:
 
     $ conan clean
     Do you want to remove all the recipes revisions and their packages ones, except the latest package revision from the latest recipe one? (yes/no): yes
-    other/1.0
-    hello/1.0
-    libcxx/0.1
+    Keeping recipe revision: other/1.0#31da245c3399e4124e39bd4f77b5261f and its latest package revisions [Local cache]
+    Keeping recipe revision: hello/1.0#9a77cdcff3a539b5b077dd811b2ae3b0 and its latest package revisions [Local cache]
+    Keeping recipe revision: libcxx/0.1#abcdef1234567890abcdef1234567890 and its latest package revisions [Local cache]
 
 Code tour
 ---------
