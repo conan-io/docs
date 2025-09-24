@@ -33,16 +33,16 @@ Reference
 
 .. automethod:: XcodeBuild.build
 
-The ``Xcode.build()`` method internally implements a call to ``xcodebuild`` like:
+The ``XcodeBuild.build()`` method internally implements a call to ``xcodebuild`` like:
 
 .. code:: bash
 
-    $ xcodebuild -project app.xcodeproj -configuration <configuration> -arch <architecture> <sdk> <verbosity> -target <target>/-alltargets *_DEPLOYMENT_TARGET=settings.os.version <custom_params>
+    $ xcodebuild -project app.xcodeproj -configuration <configuration> -arch <architecture> <sdk> <verbosity> -target <target>/-alltargets *_DEPLOYMENT_TARGET=settings.os.version <cli_args>
 
 Where:
 
 - ``configuration`` is the configuration, typically *Release* or *Debug*, which will be obtained
-  from ``settings.build_type`` unless you pass it in the parameter.
+  from ``settings.build_type`` unless you pass it explicitly via the ``configuration`` parameter.
 - ``architecture`` is the build architecture, a mapping from the ``settings.arch`` to the
   common architectures defined by Apple 'i386', 'x86_64', 'armv7', 'arm64', etc.
 - ``sdk`` is set based on the values of the ``os.sdk`` and ``os.sdk_version`` defining the
@@ -54,14 +54,20 @@ Where:
   ``os.sdk_version`` settings values.
 - ``verbosity`` is the verbosity level for the build and can take value 'verbose' or
   'quiet' if set by ``tools.build:verbosity`` in your **[conf]**
-- ``custom_params`` is a list of arbitrary command line params that you can pass in the
-  ``build_options`` parameter which is a list of strings.
+- ``cli_args`` are the additional command line arguments passed via the ``cli_args`` parameter.
+  These can include Xcode-specific options like ``-xcconfig`` for configuration files or custom
+  build settings like ``BUILD_LIBRARY_FOR_DISTRIBUTION=YES``. You can also redirect build artifacts
+  to the Conan build folder by passing ``SYMROOT`` and ``OBJROOT`` settings:
+  
+  .. code:: python
+  
+      xb.build("app.xcodeproj", cli_args=[f"SYMROOT={self.build_folder}",
+                                         f"OBJROOT={self.build_folder}"])
 
-Additional parameters that are passed to ``xcodebuild`` (but before ``custom_params``):
+Additional parameters that are passed to ``xcodebuild`` (but before ``cli_args``):
 
 - deployment target setting according to the values of ``os`` and ``os.version`` from profile,
   e.g. ``MACOSX_DEPLOYMENT_TARGET=10.15`` or ``IPHONEOS_DEPLOYMENT_TARGET=15.0``
-- ``SYMROOT`` and ``OBJROOT`` pointing to the recipe build folder
 
 conf
 ++++
