@@ -43,7 +43,7 @@ This allows you to skip checking for CVEs in build requirements, which are not p
 and therefore less relevant (but still important!) for vulnerability scanning.
 
 It's also possible to perform this filter using the ``conan audit list`` command,
-by levaring the packages list filtering from the ``conan list`` command. For example:
+by leveraging the packages list filtering from the ``conan list`` command. For example:
 
 * Use ``conan graph info`` making sure to also add ``--format=json`` and store the resulting json to a file (``graph.json`` for this example)
 * Run ``conan list --graph=graph.json --graph-context=host --format=json > pkglist.json``
