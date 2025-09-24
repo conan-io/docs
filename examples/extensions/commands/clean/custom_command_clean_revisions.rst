@@ -184,21 +184,15 @@ which are being used in this custom command:
 .. code-block:: python
 
     conan_api.remotes.get(args.remote)
-    conan_api.search.recipes("*/*", remote=remote)
-    conan_api.list.recipe_revisions(recipe, remote=remote)
+    conan_api.list.select(ListPattern("*/*#*:*#*", rrev=None, prev=None), remote=remote)
     conan_api.remove.recipe(rrev, remote=remote)
-    conan_api.list.packages_configurations(rrev, remote=remote)
-    conan_api.list.package_revisions(package_ref, remote=remote)
     conan_api.remove.package(prev, remote=remote)
 
 
 
 * ``conan_api.remotes.get(...)``: ``[RemotesAPI]`` Returns a RemoteRegistry given the remote name.
-* ``conan_api.search.recipes(...)``: ``[SearchAPI]`` Returns a list with all the recipes matching the given pattern.
-* ``conan_api.list.recipe_revisions(...)``: ``[ListAPI]`` Returns a list with all the recipe revisions given a recipe reference.
-* ``conan_api.list.packages_configurations(...)``: ``[ListAPI]`` Returns the list of different configurations (package_id's) for a recipe revision.
-* ``conan_api.list.package_revisions(...)``: ``[ListAPI]`` Returns the list of package revisions for a given recipe revision.
-* ``conan_api.remove.recipe(...)``: ``[RemoveAPI]`` Removes the given recipe revision.
+* ``conan_api.list.select(...)``: ``[ListAPI]`` Returns a list with all the recipes matching the given pattern.
+* ``conan_api.remove.recipe(...)``: ``[RemoveAPI]`` Removes the given recipe revision and all its package revisions.
 * ``conan_api.remove.package(...)``: ``[RemoveAPI]`` Removes the given package revision.
 
 Besides that, it deserves especial attention these lines:
