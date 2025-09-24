@@ -107,29 +107,39 @@ At first, the ``conan new workspace`` created a template project with some relev
 The root ``CMakeLists.txt`` defines the super-project with:
 
 .. code-block:: cmake
-   :caption: CMakeLists.txt
+    :caption: CMakeLists.txt
 
-   cmake_minimum_required(VERSION 3.25)
-   project(monorepo CXX)
+    cmake_minimum_required(VERSION 3.25)
+    project(monorepo CXX)
 
-   include(FetchContent)
+    include(FetchContent)
 
-   function(add_project SUBFOLDER)
-      FetchContent_Declare(
-         ${SUBFOLDER}
-         SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR}/${SUBFOLDER}
-         SYSTEM
-         OVERRIDE_FIND_PACKAGE
-      )
-      FetchContent_MakeAvailable(${SUBFOLDER})
-   endfunction()
+    function(add_project PACKAGE_NAME SUBFOLDER)
+        message(STATUS "Adding project: ${PACKAGE_NAME}. Folder: ${SUBFOLDER}")
+        FetchContent_Declare(
+            ${PACKAGE_NAME}
+            SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR}/${SUBFOLDER}
+            SYSTEM
+            OVERRIDE_FIND_PACKAGE
+        )
+        FetchContent_MakeAvailable(${PACKAGE_NAME})
+    endfunction()
 
-   add_project(liba)
-   # They should be defined in the liba/CMakeLists.txt, but we can fix it here
-   add_library(liba::liba ALIAS liba)
-   add_project(libb)
-   add_library(libb::libb ALIAS libb)
-   add_project(app1)
+    include(build/conanws_build_order.cmake)
+
+    foreach(pair ${CONAN_WS_BUILD_ORDER})
+        string(FIND "${pair}" ":" pos)
+        string(SUBSTRING "${pair}" 0 "${pos}" pkg)
+        math(EXPR pos "${pos} + 1")  # Skip the separator
+        string(SUBSTRING "${pair}" "${pos}" -1 folder)
+
+        add_project(${pkg} ${folder})
+        # This target should be defined in the liba/CMakeLists.txt, but we can fix it here
+        get_target_property(target_type ${pkg} TYPE)
+        if (NOT target_type STREQUAL "EXECUTABLE")
+            add_library(${pkg}::${pkg} ALIAS ${pkg})
+        endif()
+    endforeach()
 
 
 So basically, the super-project uses ``FetchContent`` to add the subfolders' sub-projects.
@@ -138,34 +148,53 @@ For this to work correctly, the subprojects must be CMake based subprojects with
 defined by the ``find_package()`` scripts, like ``liba::liba``. If this is not the case,
 it is always possible to define some local ``ALIAS`` targets.
 
+This super-build ``CMakeLists.txt`` defines dynamically the correct sub-projects order. Note
+that the ``FetchContent`` strategy requires to define the different sub-projects in the correct
+build-order. While this is easy for workspaces with very few packages, this can become a burden
+for larger workspaces. The definition of the build-order is done in the generated 
+``conanws_build_order.cmake`` file, that is created by the ``conan workspace super-install`` command
+calling the ``conanws.py`` workspace ``build_order()`` method. It is the responsibility of the workspace
+to translate the information of the ``build_order()`` to specifics of the build system. The exact
+implementation, like the ``conanws_build_order.cmake`` file, is not a "built-in" workspace feature, note
+this is only the example approach provided by the ``conan new workspace`` default template. Users can
+implement their own logic in their ``conanws.py`` files.
+
 The other important part is the ``conanws.py`` file:
 
 .. code-block:: python
-   :caption: conanws.py
+    :caption: conanws.py
 
-   from conan import Workspace
-   from conan import ConanFile
-   from conan.tools.cmake import CMakeDeps, CMakeToolchain, cmake_layout
+    from conan import Workspace
+    from conan import ConanFile
+    from conan.tools.files import save
+    from conan.tools.cmake import CMakeDeps, CMakeToolchain, cmake_layout
 
-   class MyWs(ConanFile):
-      """ This is a special conanfile, used only for workspace definition of layout
-      and generators. It shouldn't have requirements, tool_requirements. It shouldn't have
-      build() or package() methods
-      """
-      settings = "os", "compiler", "build_type", "arch"
 
-      def generate(self):
-         deps = CMakeDeps(self)
-         deps.generate()
-         tc = CMakeToolchain(self)
-         tc.generate()
+    class MyWs(ConanFile):
+        """ This is a special conanfile, used only for workspace definition of layout
+        and generators. It shouldn't have requirements, tool_requirements. It shouldn't have
+        build() or package() methods
+        """
+        settings = "os", "compiler", "build_type", "arch"
 
-      def layout(self):
-         cmake_layout(self)
+        def generate(self):
+            deps = CMakeDeps(self)
+            deps.generate()
+            tc = CMakeToolchain(self)
+            tc.generate()
 
-   class Ws(Workspace):
-      def root_conanfile(self):
-         return MyWs  # Note this is the class name
+        def layout(self):
+            cmake_layout(self)
+
+
+    class Ws(Workspace):
+        def root_conanfile(self):
+            return MyWs  # Note this is the class name
+
+        def build_order(self, order):
+            super().build_order(order)  # default behavior prints the build order
+            pkglist = " ".join([f'{it["ref"].name}:{it["folder"]}' for level in order for it in level])
+            save(self, "build/conanws_build_order.cmake", f"set(CONAN_WS_BUILD_ORDER {pkglist})")
 
 
 The role of the ``class MyWs(ConanFile)`` embedded conanfile is important, it defines

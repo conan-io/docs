@@ -17,8 +17,10 @@ A first simple use case could be listing some recipes and/or binaries in a serve
 
 We can do any ``conan list``, for example, to list all ``zlib`` versions above ``1.2.11``, the latest recipe revision,
 all Windows binaries for that latest recipe revision, and finally the latest package revision for every binary.
-Note that if we want to actually download something later, it is necessary to specify the ``latest`` package revision,
-otherwise only the recipes will be downloaded.
+
+.. note::
+   If we want to actually download something later, it is necessary to specify a package revision in
+   the ``conan list`` pattern, such as ``latest``, otherwise only the recipes will be downloaded.
 
 .. code-block:: bash
 

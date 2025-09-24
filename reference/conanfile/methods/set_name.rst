@@ -8,7 +8,7 @@ Dynamically define ``name`` attribute. This method would be rarely needed, as th
 is shared and used to create different packages with the same recipe. In most cases the recommended approach is to define the
 ``name = "mypkg"`` attribute in the recipe.
 
-This method is executed only when the recipe is exported to the cache ``conan create`` and ``conan export``, and when the recipe
+This method is executed only when the recipe is exported to the cache with ``conan create`` or ``conan export``, or when the recipe
 is being locally used, like with ``conan install .``. In all other cases, the name of the package is fully defined, and ``set_name()``
 will not be called, so do not rely on it for any other functionality different than defining the ``self.name`` value.
 

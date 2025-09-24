@@ -101,6 +101,8 @@ common practices in many CLI tools and the `POSIX standard
 - ``stderr``: For diagnostic output, including logs, warnings, errors, and progress
   messages.
 
+More info can be found more in the :ref:`FAQ section<faq_stdout_stderr_redirects>`.
+
 **Redirecting Output to Files**
 
 You can redirect Conan output to files using shell redirection:

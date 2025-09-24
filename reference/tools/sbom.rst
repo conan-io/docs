@@ -7,7 +7,7 @@ conan.tools.sbom
 
 CycloneDX
 ^^^^^^^^^
-The CycloneDX tool is available in the ``conan.tools.sbom.cyclonedx`` module.
+The CycloneDX tool is available in the ``conan.tools.sbom`` module.
 
 It provides the ``cyclonedx_1_4`` and ``cyclonedx_1_6`` functions which receive a ``conanfile``
 and return a dictionary with the SBOM data in the CycloneDX 1.4/1.6 JSON format.

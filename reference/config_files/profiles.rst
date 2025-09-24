@@ -200,6 +200,11 @@ List of settings available from :ref:`reference_config_files_settings_yml`:
     os=Macos
 
 
+.. seealso::
+
+   - This section allows to use patterns to limit which packages are affected by the setting. See :ref:`this section <reference_config_files_profile_patterns>` for more details.
+
+
 [options]
 +++++++++
 
@@ -212,6 +217,9 @@ List of options available from your recipe and its dependencies:
     mypkg/*:my_pkg_option=True
     *:shared=True
 
+.. seealso::
+
+   - This section allows to use patterns to limit which packages are affected by the options. See :ref:`this section <reference_config_files_profile_patterns>` for more details.
 
 .. _reference_config_files_profiles_tool_requires:
 
@@ -228,7 +236,8 @@ List of ``tool_requires`` required by your recipe or its dependencies:
 
 .. seealso::
 
-    Read more about tool requires in this section: :ref:`consuming_packages_tool_requires`.
+   - This section allows to use patterns to limit which packages are affected by the tool requirement. See :ref:`this section <reference_config_files_profile_patterns>` for more details.
+   - Read more about tool requires in this section: :ref:`consuming_packages_tool_requires`.
 
 
 .. _reference_config_files_profiles_system_tools:
@@ -238,7 +247,7 @@ List of ``tool_requires`` required by your recipe or its dependencies:
 
 .. note::
 
-    This section is **deprecated** and  has been replaced by :ref:`reference_config_files_profiles_platform_requires` and :ref:`reference_config_files_profiles_platform_tool_requires` sections.
+    This section is **deprecated** and has been replaced by :ref:`reference_config_files_profiles_platform_requires` and :ref:`reference_config_files_profiles_platform_tool_requires` sections.
 
 
 .. _reference_config_files_profiles_buildenv:
@@ -296,6 +305,11 @@ Then, the result of applying this profile is:
     using extra spaces around ``=`` in profiles, use the syntax shown above.
 
 
+.. seealso::
+
+   - This section allows to use patterns to limit which packages are affected by the buildenv. See :ref:`this section <reference_config_files_profile_patterns>` for more details.
+
+
 .. _reference_config_files_profiles_runenv:
 
 [runenv]
@@ -316,6 +330,9 @@ All the operators/patterns explained for :ref:`reference_config_files_profiles_b
     MyPath1=+(path)/other path/path12
     MyPath1=!
 
+.. seealso::
+
+   - This section allows to use patterns to limit which packages are affected by the runenv. See :ref:`this section <reference_config_files_profile_patterns>` for more details.
 
 .. _reference_config_files_profiles_conf:
 
@@ -385,6 +402,10 @@ Running, for instance, :command:`conan install . -pr myprofile`, the configurati
     user.myconf.build:ldflags=['--prefix prefix-value', '--flag1 value1', '--flag2 value2']
     ...
 
+
+.. seealso::
+
+   - This section allows to use patterns to limit which packages are affected by the confs. See :ref:`this section <reference_config_files_profile_patterns>` for more details.
 
 .. _reference_config_files_profiles_replace_requires:
 
@@ -814,8 +835,8 @@ clang 3.5 as compiler, and gcc otherwise:
     compiler.version=4.9
     compiler.libcxx=libstdc++11
 
-Also `&` can be specified as the package name. It will apply only to the consumer conanfile (.py or .txt).
-This is a special case because the consumer conanfile might not declare a `name` so it would be impossible to reference it.
+Also ``&`` can be specified as the package name. It will apply only to the consumer conanfile (.py or .txt).
+This is a special case because the consumer conanfile might not declare a ``name`` so it would be impossible to reference it.
 
 .. code-block:: text
     :caption: *myprofile*
@@ -835,6 +856,29 @@ so it will match everything starting with zlib, like ``zlib``, ``zlibng``, ``zli
     zlib*:compiler=clang
     zlib*:compiler.version=3.5
     zlib*:compiler.libcxx=libstdc++11
+
+
+If a pattern begins with ``!``, it's considered an exclusion pattern, meaning that it will match
+everything except the specified pattern. This also works for the consumer ``&`` pattern mentioned above.
+
+Care must be taken when using exclusion patterns, as they can lead to unexpected results if not used carefully.
+
+For example, to define a ``shared=True`` option for all packages except to `zlib`, you can use:
+
+.. code-block:: text
+    :caption: *myprofile*
+
+    [options]
+    !zlib/*:shared=True
+
+
+Note that for the ``msvc`` compiler, the ``compiler.runtime_type`` setting is  automatically initialized from
+the ``build_type`` setting value by the ``profile.py`` plugin, as it is a good default for the vast majority 
+of cases. That means that a user defining ``-s build_type=MinSizeRel`` will by default get a 
+``compiler.runtime_type=Release`` value for ``msvc`` compiler.
+However, this is not the case for package specific settings, and the ``profile.py`` plugin won't automatically
+define the ``compiler.runtime_type`` for ``msvc``, so doing something like ``mydep/*:build_type=<build_type>``
+doesn't automatically define ``mydep/*:compiler.runtime_type``.
 
 
 Profile includes
@@ -862,6 +906,18 @@ The ``include()`` statement has to be at the top of the profile file:
     zlib/*:compiler=clang
     zlib/*:compiler.version=3.5
     zlib/*:compiler.libcxx=libstdc++11
+
+
+.. note:: 
+    
+    Cache profiles have more priority than the ones in the current working
+    directory, so if you have a profile named ``myprofile`` in the cache, it will
+    be used instead of the one in the current working directory.
+
+    To use the profile in the current working directory, you can use:
+
+    - ``-pr ./myprofile`` option in the command line or 
+    - ``include(./myprofile)`` in the profile file itself.
 
 
 The final result of using *myprofile* is:

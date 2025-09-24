@@ -154,8 +154,9 @@ The tilde ``~`` operator can be used to define an "approximately" equal version 
 will include versions 1.3 and 1.8.1, but will exclude versions like 0.8 or 2.0. Likewise
 ``requires = "pkg/[~2.5]"`` will include 2.5.0 and 2.5.3, but exclude 2.1, 2.7, 2.8.
 
-The caret ``^`` operator is very similar to the tilde, but allowing variability over the last defined digit.
+The caret ``^`` operator is very similar to the tilde, but allows variability over the digit following the first non-zero digit.
 ``requires = "pkg/[^1.2]"`` will include 1.2.1, 1.3 and 1.51, but will exclude 1.0, 2, 2.0.
+``^1.2.0`` would act the same, while ``^0.1.2`` would include 0.1.2.1 and 0.1.3, but exclude 0.1.1 and 0.2.0.
 
 It is also possible to apply multiple conditions with the OR operator, like ``requires = "pkg/[>1 <2.0 || ^3.2]"``
 but this kind of complex expressions is not recommended in practice and should only be used in very extreme cases.
@@ -165,13 +166,14 @@ There is the possibility to use string-matching over the end of the string to si
 
 Finally, note that pre-releases are not resolved by default. The way to include them in the range is to
 explicitly enable them with either the ``include_prerelease`` option (``requires = "pkg/[>1 <2, include_prerelease]"``),
-or via the ``core.version_ranges:resolve_prereleases=True`` configuration. In this example, 1.0-pre.1 and 1.5.1-pre1 will be included,
-but 2.0-pre1 would be excluded.
+or via the ``core.version_ranges:resolve_prereleases=True`` configuration,
+:ref:`which you can read more about here<resolve_prereleases_summary>`.
+In this example, 1.0-pre.1 and 1.5.1-pre1 will be included, but 2.0-pre1 would be excluded.
 
 .. note::
 
    While it is possible to hardcode the ``include_prerelease`` in the ``requires`` version range, it is not recommended generally.
    Pre-releases should be opt-in, and controlled by the user, who decides if they want to use pre-releases. 
-   Also, note that the ``include_prereleases`` receives no argument, hence it's not possible to deactivate prereleases with ``include_prerelease=False``.
+   Also, note that the ``include_prerelease`` receives no argument, hence it's not possible to deactivate prereleases with ``include_prerelease=False``.
 
 For more information about valid range expressions go to :ref:`Requires reference <version_ranges_reference>`

@@ -144,7 +144,9 @@ be defined there:
             # The final path will be relative to the self.build_folder
             self.layouts.build.buildenv_info.define_path("MYDATA_PATH2", "my/build/data/path")
             # The final path will be relative to the self.build_folder
-            self.layouts.build.conf_info.define_path("MYCONF", "my_conf_folder")
+            self.layouts.build.conf_info.define_path("user.myconf:my_path", "my_conf_folder")
+            # Both for user defined confs, or in the case of tool-requires, also built-in confs
+            self.layouts.build.conf_info.define_path("tools.android:ndk_path", "local/path/to/ndk")
 
 
 The ``layouts`` object contains ``source``, ``build`` and ``package`` scopes, and each one contains

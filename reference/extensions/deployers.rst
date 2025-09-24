@@ -22,6 +22,12 @@ Use the ``--deployer-folder`` argument to change the base folder output path for
 Built-in deployers
 ------------------
 
+.. warning::
+
+  The built-in deployers are in **preview**.
+  See :ref:`the Conan stability<stability>` section for more information.
+
+
 .. _reference_extensions_deployer_full_deploy:
 
 full_deploy
@@ -50,18 +56,27 @@ This deployer will output your dependencies in a tree folder such as:
 
 ``[OUTPUT_FOLDER]/direct_deploy/dep``
 
-.. warning::
+.. _reference_extensions_deployer_runtime_deploy:
 
-  The built-in deployers are in **preview**.
-  See :ref:`the Conan stability<stability>` section for more information.
+runtime_deploy
+^^^^^^^^^^^^^^
+
+New since `Conan 2.5.0 <https://github.com/conan-io/conan/releases/tag/2.5.0>`__
+
+Copies all shared libraries and executables from dependencies (such as .so, .dll, or .dylib files)
+into a flattened directory structure.
+
+Since Conan 2.20.0, subdirectories are maintained and preserved as-is.
+Files are only included in environment generators when correctly specified through ``cpp_info.bindirs``
+and ``cpp_info.libdirs`` configuration.
 
 
 configuration
 ^^^^^^^^^^^^^
 
-Both the ``full_deploy`` and the ``direct_deploy`` understand when the conf ``tools.deployer:symlinks`` is set to ``False``
-to disable deployers copying symlinks. This can be convenient in systems that do not support symlinks and could fail
-if deploying packages that contain symlinks.
+The ``full_deploy``, ``direct_deploy`` and ``runtime_deploy`` understand when the conf ``tools.deployer:symlinks``
+is set to ``False`` to disable deployers copying symlinks. This can be convenient in systems that do not support
+symlinks and could fail if deploying packages that contain symlinks.
 
 
 Custom deployers

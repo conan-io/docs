@@ -151,3 +151,16 @@ conan.tools.build.supported_cstd()
 .. currentmodule:: conan.tools.build.cstd
 
 .. autofunction:: supported_cstd
+
+
+Compiler
+^^^^^^^^
+
+conan.tools.build.check_min_compiler_version()
+""""""""""""""""""""""""""""""""""""""""""""""""
+.. include:: ../../common/experimental_warning.inc
+
+.. currentmodule:: conan.tools.build.compiler
+
+.. autofunction:: check_min_compiler_version
+

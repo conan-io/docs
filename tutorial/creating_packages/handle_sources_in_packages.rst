@@ -248,6 +248,9 @@ zip file has the correct ``sha256``. So we could modify the source method to thi
         # get(self, data["url"], sha256=data["sha256"], strip_root=data["strip_root"])
 
 
+The information of the ``conandata.yml`` applicable to the current version is also available in the serialized recipe information, 
+see the :ref:`graph info json format<reference_commands_graph_info_json_format>`
+
 
 .. seealso::
 

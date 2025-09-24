@@ -74,3 +74,6 @@ so the temporary build files do not pollute the source tree.
         conanfile.folders.generators = os.path.join(conanfile.folders.build, "conan")
         conanfile.cpp.build.bindirs = ["."]
         conanfile.cpp.build.libdirs = ["."]
+
+        if not conanfile.cpp.source.includedirs:
+            conanfile.cpp.source.includedirs = ["include"]

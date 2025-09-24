@@ -249,6 +249,30 @@ for instance:
                             "shared": "False"
                         }
                     },
+                    "vendor": false,
+                    "conandata": {
+                        "patches": {
+                            "1.2.11": [
+                                {
+                                    "patch_description": "separate static/shared builds, disable debug suffix, disable building examples",
+                                    "patch_file": "patches/1.2.x/0001-fix-cmake.patch",
+                                    "patch_type": "conan"
+                                },
+                                {
+                                    "patch_description": "fix condition for WIDECHAR usage",
+                                    "patch_file": "patches/1.2.x/0003-gzguts-fix-widechar-condition.patch",
+                                    "patch_source": "https://github.com/madler/zlib/issues/268",
+                                    "patch_type": "portability"
+                                }
+                            ]
+                        },
+                        "sources": {
+                            "1.2.11": {
+                                "sha256": "c3e5e9fdd5004dcb542feda5ee4f0ff0744628baf8ed2dd5d66f8ca1197cb1a1",
+                                "url": "https://zlib.net/fossils/zlib-1.2.11.tar.gz"
+                            }
+                        }
+                    },
                     "dependencies": {},
                     "context": "host",
                     "test": false

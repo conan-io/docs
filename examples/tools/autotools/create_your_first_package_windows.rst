@@ -58,7 +58,7 @@ execute the build in it.
   It is not necessary, and in fact it is not recommended for most cases to be already running inside an ``msys2``
   terminal. Conan will automatically run the build subprocess for autotools in the defined bash shell.
 
-  If already running in a bash shell, it is necessary to activate the ``tools.microsoft.bash:activate=True`` conf.
+  If already running in a bash shell, it is necessary to activate the ``tools.microsoft.bash:active=True`` conf.
 
 
 Let's build the package from sources with the current default configuration, making sure to deactivate the ``test_package``,

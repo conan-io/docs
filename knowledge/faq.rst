@@ -175,7 +175,7 @@ please read it carefully.
         It is recommended to define options values in profiles, not in recipes
 
 In general, it is more recommended to define options values in profile files, not in recipes.
-Recipe defined options always have precedence over options defined in profiles.
+Recipe defined options always have less precedence than options defined in profiles.
 
 
 .. _faq_version_conflicts_version_ranges:
@@ -222,3 +222,101 @@ The general best practices are:
 - Keep the versions aligned. If using a version range try to use the same version range everywhere.
 - Declare first dependencies that use fixed version, not version ranges
 - Use the ``conan graph info ... --format=html > graph.html`` graphical interactive output to understand and navigate conflicts.
+
+.. _faq_stdout_stderr_redirects:
+
+Conan is redirecting its output to stderr
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+As explained :ref:`in the commands reference<commands_output>`,
+by design Conan redirects its logging information to the standard error output (stderr),
+while the actual results of the commands are sent to the standard output (stdout).
+
+This is done to allow users to easily redirect the output of Conan commands to files or other
+processes without having the logging information mixed with the actual results.
+
+For example, running a command like:
+
+.. code-block:: text
+
+   $ conan graph info --requires=zlib/1.3.1 --format=json > graph.json
+
+   ...
+
+   ======== Computing dependency graph ========
+   Graph root
+       cli
+   Requirements
+       zlib/1.3.1#b8bc2603263cf7eccbd6e17e66b0ed76 - Cache
+
+   ======== Computing necessary packages ========
+   Connecting to remote 'conancenter' anonymously
+   Requirements
+       zlib/1.3.1#b8bc2603263cf7eccbd6e17e66b0ed76:dbb40f41e6e9a5c4a9a1fd8d9e6ccf6d92676c92#8976086f07d37e3f6288e2fccf9650ae - Cache
+
+will create a file named ``graph.json`` with the JSON output of the command, but it will not
+include any logging information, which will be printed to the console.
+
+Note that this approach is common in many command-line tools such as ``git`` and ``curl``,
+and it is not specific to Conan.
+
+
+Missing binary for a (tool) package that was just created with ``conan create``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+There is sometimes the case for a package, intended to be used as a ``tool_requires`` by other packages,
+whose recipe contains a ``test_package`` folder that requires such tool as:
+
+.. code-block:: python
+    :caption: test_package/conanfile.py
+
+    from conan import ConanFile
+
+
+    class secure_scannerTestConan(ConanFile):
+        settings = "os", "compiler", "build_type", "arch"
+
+        def build_requirements(self):
+            self.tool_requires(self.tested_reference_str)
+
+
+Then, users doing the creation of the package with:
+
+.. code-block:: bash
+
+    $ conan create
+    ...
+    mytool/0.1: Package created successfully
+
+    ======== Launching test_package ========
+    ...
+    ======== Computing necessary packages ========
+    ...
+    ERROR: Missing binary: mytool/0.1
+
+will find a "Missing binary" error in the ``test_package`` step. How is this possible, if the package
+binary was created a few lines above?
+
+The ``conan create`` command by default creates packages for the "host" context, using
+the "host" profile. But if the package we are creating is intended to be used as a tool,
+that is, as a ``tool_requires``, then it needs to be built for the "build" context.
+
+If for any reason, the "host" and the "build" context are not identical, then the binary that is built
+in the initial package creation will be a binary for the "host" context, but then the ``test_package``
+will require it as ``tool_requires()``, requiring it in the "build" context, and such binary will
+be missing, as it hasn't been built.
+
+This is evident in the case of a cross-compilation, from example, building on a Windows laptop a
+binary for the RaspberryPI with a cross-compiler. The "build" context will be the "Windows" one,
+while the "host" context will be the "RaspberryPI" one. A regular ``conan create .`` for "mytool/0.1",
+will create by default a binary for "RaspberryPI"! So when later, the ``test_package`` wants to use
+it as a ``tool_requires()`` it will look for the "Windows" binary, as it needs to run it in the current
+Windows machine, the "build" context.
+
+The ``--build-require`` argument specifies this. When this argument is provided, the
+current recipe binary will be built to run in the "build" context
+
+.. note::
+
+    When doing ``conan create`` for a package intended to be used as a ``tool_requires``, always
+    specify the ``conan create ... --build-require`` argument.
