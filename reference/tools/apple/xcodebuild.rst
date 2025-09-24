@@ -54,19 +54,21 @@ Where:
   ``os.sdk_version`` settings values.
 - ``verbosity`` is the verbosity level for the build and can take value 'verbose' or
   'quiet' if set by ``tools.build:verbosity`` in your **[conf]**
-- ``cli_args`` are the additional command line arguments passed via the ``cli_args`` parameter.
-  These can include Xcode-specific options like ``-xcconfig`` for configuration files or custom
-  build settings like ``BUILD_LIBRARY_FOR_DISTRIBUTION=YES``. You can also redirect build artifacts
+- ``cli_args`` are the additional command line arguments passed via the
+  ``cli_args`` parameter. These can include custom build settings like
+  ``BUILD_LIBRARY_FOR_DISTRIBUTION=YES``. You can also redirect build artifacts
   to the Conan build folder by passing ``SYMROOT`` and ``OBJROOT`` settings:
   
   .. code:: python
   
-      xb.build("app.xcodeproj", cli_args=[f"SYMROOT={self.build_folder}",
-                                         f"OBJROOT={self.build_folder}"])
+      def build(self):
+        xcodebuild = XcodeBuild(self)
+        xcodebuild.build("app.xcodeproj", cli_args=[f"SYMROOT={self.build_folder}",
+                                                    f"OBJROOT={self.build_folder}"])
 
 Additional parameters that are passed to ``xcodebuild`` (but before ``cli_args``):
 
-- deployment target setting according to the values of ``os`` and ``os.version`` from profile,
+- Deployment target setting according to the values of ``os`` and ``os.version`` from profile,
   e.g. ``MACOSX_DEPLOYMENT_TARGET=10.15`` or ``IPHONEOS_DEPLOYMENT_TARGET=15.0``
 
 conf
