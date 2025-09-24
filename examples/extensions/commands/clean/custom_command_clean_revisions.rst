@@ -199,21 +199,19 @@ Besides that, it deserves especial attention these lines:
 
 .. code-block:: python
 
-    all_rrevs = conan_api.list.recipe_revisions(recipe, remote=remote)
-    latest_rrev = all_rrevs[0] if all_rrevs else None
+    for sub_pkg_list in pkg_list.split():
+        latest = max(sub_pkg_list.items(), key=lambda item: item[0])[0]
 
     ...
 
-    packages = conan_api.list.packages_configurations(rrev, remote=remote)
+    latest_pref_list = [max([p for p in packages if p.package_id == pkg_id], key=lambda p: p.timestamp)
+                                    for pkg_id in {p.package_id for p in packages}]
 
-    ...
-
-    all_prevs = conan_api.list.package_revisions(package_ref, remote=remote)
-    latest_prev = all_prevs[0] if all_prevs else None
-
-Basically, these API calls are returning a list of recipe revisions and package ones
-respectively, but we're saving the first element as the latest one because these calls are
-getting an ordered list always.
+Basically, the ``pkg_list.split()`` is returning a list for the same recipe reference. Then, ``sub_pkg_list.items()`` returns
+a list of tuples ``(Recipe Reference, Packages References)``, so finally, ``max(..., key=...)`` is used to get the
+latest recipe reference based on its timestamp.
+Later, ``latest_pref_list`` is created to keep only the latest package revision for each package ID. It iterates over the set of package IDs
+to get the latest package revision based on its timestamp.
 
 
 If you want to know more about the Conan API, visit the :ref:`ConanAPI section<reference_python_api_conan_api>`
