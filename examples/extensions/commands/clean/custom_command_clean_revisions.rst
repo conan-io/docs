@@ -9,6 +9,10 @@ Custom command: Clean old recipe and package revisions
     meaning "all revisions but the latest" would probably be enough for this use case,
     without needing this custom command.
 
+.. warning::
+
+    Using this command requires Conan 2.21.0 or higher.
+
 
 Please, first clone the sources to recreate this project. You can find them in the
 `examples2 repository <https://github.com/conan-io/examples2>`_ in GitHub:
@@ -66,14 +70,15 @@ Finally, if you execute :command:`conan clean`:
 .. code-block:: bash
 
     $ conan clean
+    Found 4 pkg/version recipes matching */* in local cache
     Do you want to remove all the recipes revisions and their packages ones, except the latest package revision from the latest recipe one? (yes/no): yes
-    other/1.0
+    Keeping recipe revision: other/1.0#31da245c3399e4124e39bd4f77b5261f and its latest package revisions [Local cache]
     Removed package revision: other/1.0#31da245c3399e4124e39bd4f77b5261f:da39a3ee5e6b4b0d3255bfef95601890afd80709#a16985deb2e1aa73a8480faad22b722c [Local cache]
     Removed recipe revision: other/1.0#721995a35b1a8d840ce634ea1ac71161 and all its package revisions [Local cache]
-    hello/1.0
+    Keeping recipe revision: hello/1.0#9a77cdcff3a539b5b077dd811b2ae3b0 and its latest package revisions [Local cache]
     Removed package revision: hello/1.0#9a77cdcff3a539b5b077dd811b2ae3b0:da39a3ee5e6b4b0d3255bfef95601890afd80709#cee90a74944125e7e9b4f74210bfec3f [Local cache]
     Removed package revision: hello/1.0#9a77cdcff3a539b5b077dd811b2ae3b0:da39a3ee5e6b4b0d3255bfef95601890afd80709#7cddd50952de9935d6c3b5b676a34c48 [Local cache]
-    libcxx/0.1
+    Keeping recipe revision: libcxx/0.1#abcdef1234567890abcdef1234567890 and its latest package revisions [Local cache]
 
 Nothing should happen if you run it again:
 
@@ -81,9 +86,9 @@ Nothing should happen if you run it again:
 
     $ conan clean
     Do you want to remove all the recipes revisions and their packages ones, except the latest package revision from the latest recipe one? (yes/no): yes
-    other/1.0
-    hello/1.0
-    libcxx/0.1
+    Keeping recipe revision: other/1.0#31da245c3399e4124e39bd4f77b5261f and its latest package revisions [Local cache]
+    Keeping recipe revision: hello/1.0#9a77cdcff3a539b5b077dd811b2ae3b0 and its latest package revisions [Local cache]
+    Keeping recipe revision: libcxx/0.1#abcdef1234567890abcdef1234567890 and its latest package revisions [Local cache]
 
 Code tour
 ---------
@@ -94,13 +99,13 @@ The ``conan clean`` command has the following code:
     :caption: cmd_clean.py
 
     from conan.api.conan_api import ConanAPI
+    from conan.api.model import PackagesList, ListPattern
+    from conan.api.input import UserInput
     from conan.api.output import ConanOutput, Color
     from conan.cli.command import OnceArgument, conan_command
 
-
     recipe_color = Color.BRIGHT_BLUE
     removed_color = Color.BRIGHT_YELLOW
-
 
     @conan_command(group="Custom commands")
     def clean(conan_api: ConanAPI, parser, *args):
@@ -110,33 +115,45 @@ The ``conan clean`` command has the following code:
         """
         parser.add_argument('-r', '--remote', action=OnceArgument,
                             help='Will remove from the specified remote')
+        parser.add_argument('--force', default=False, action='store_true',
+                            help='Remove without requesting a confirmation')
         args = parser.parse_args(*args)
 
+        def confirmation(message):
+            return args.force or ui.request_boolean(message)
+
+        ui = UserInput(non_interactive=False)
         out = ConanOutput()
         remote = conan_api.remotes.get(args.remote) if args.remote else None
         output_remote = remote or "Local cache"
 
-        # Getting all the recipes
-        recipes = conan_api.search.recipes("*/*", remote=remote)
-        for recipe in recipes:
-            out.writeln(f"{str(recipe)}", fg=recipe_color)
-            all_rrevs = conan_api.list.recipe_revisions(recipe, remote=remote)
-            latest_rrev = all_rrevs[0] if all_rrevs else None
-            for rrev in all_rrevs:
-                if rrev != latest_rrev:
-                    conan_api.remove.recipe(rrev, remote=remote)
-                    out.writeln(f"Removed recipe revision: {rrev.repr_notime()} "
-                                f"and all its package revisions [{output_remote}]", fg=removed_color)
-                else:
-                    packages = conan_api.list.packages_configurations(rrev, remote=remote)
-                    for package_ref in packages:
-                        all_prevs = conan_api.list.package_revisions(package_ref, remote=remote)
-                        latest_prev = all_prevs[0] if all_prevs else None
-                        for prev in all_prevs:
-                        if prev != latest_prev:
-                            conan_api.remove.package(prev, remote=remote)
-                            out.writeln(f"Removed package revision: {prev.repr_notime()} [{output_remote}]", fg=removed_color)
+        # List all recipes revisions and all their packages revisions as well
+        pkg_list = conan_api.list.select(ListPattern("*/*#*:*#*", rrev=None, prev=None), remote=remote)
+        if pkg_list and not confirmation("Do you want to remove all the recipes revisions and their packages ones, "
+                                        "except the latest package revision from the latest recipe one?"):
+            out.writeln("Aborted")
+            return
 
+        # Split the package list into based on their recipe reference
+        for sub_pkg_list in pkg_list.split():
+            latest = max(sub_pkg_list.items(), key=lambda item: item[0])[0]
+            out.writeln(f"Keeping recipe revision: {latest.repr_notime()} "
+                        f"and its latest package revisions [{output_remote}]", fg=recipe_color)
+            for rref, packages in sub_pkg_list.items():
+                # For the latest recipe revision, keep the latest package revision only
+                if latest == rref:
+                    # Get the latest package timestamp for each package_id
+                    latest_pref_list = [max([p for p in packages if p.package_id == pkg_id], key=lambda p: p.timestamp)
+                                        for pkg_id in {p.package_id for p in packages}]
+                    for pref in packages:
+                        if pref not in latest_pref_list:
+                            conan_api.remove.package(pref, remote=remote)
+                            out.writeln(f"Removed package revision: {pref.repr_notime()} [{output_remote}]", fg=removed_color)
+                else:
+                    # Otherwise, remove all outdated recipe revisions and their packages
+                    conan_api.remove.recipe(rref, remote=remote)
+                    out.writeln(f"Removed recipe revision: {rref.repr_notime()} "
+                                f"and all its package revisions [{output_remote}]", fg=removed_color)
 
 
 Let's analyze the most important parts.
@@ -167,42 +184,34 @@ which are being used in this custom command:
 .. code-block:: python
 
     conan_api.remotes.get(args.remote)
-    conan_api.search.recipes("*/*", remote=remote)
-    conan_api.list.recipe_revisions(recipe, remote=remote)
+    conan_api.list.select(ListPattern("*/*#*:*#*", rrev=None, prev=None), remote=remote)
     conan_api.remove.recipe(rrev, remote=remote)
-    conan_api.list.packages_configurations(rrev, remote=remote)
-    conan_api.list.package_revisions(package_ref, remote=remote)
     conan_api.remove.package(prev, remote=remote)
 
 
 
 * ``conan_api.remotes.get(...)``: ``[RemotesAPI]`` Returns a RemoteRegistry given the remote name.
-* ``conan_api.search.recipes(...)``: ``[SearchAPI]`` Returns a list with all the recipes matching the given pattern.
-* ``conan_api.list.recipe_revisions(...)``: ``[ListAPI]`` Returns a list with all the recipe revisions given a recipe reference.
-* ``conan_api.list.packages_configurations(...)``: ``[ListAPI]`` Returns the list of different configurations (package_id's) for a recipe revision.
-* ``conan_api.list.package_revisions(...)``: ``[ListAPI]`` Returns the list of package revisions for a given recipe revision.
-* ``conan_api.remove.recipe(...)``: ``[RemoveAPI]`` Removes the given recipe revision.
+* ``conan_api.list.select(...)``: ``[ListAPI]`` Returns a list with all the recipes matching the given pattern.
+* ``conan_api.remove.recipe(...)``: ``[RemoveAPI]`` Removes the given recipe revision and all its package revisions.
 * ``conan_api.remove.package(...)``: ``[RemoveAPI]`` Removes the given package revision.
 
 Besides that, it deserves especial attention these lines:
 
 .. code-block:: python
 
-    all_rrevs = conan_api.list.recipe_revisions(recipe, remote=remote)
-    latest_rrev = all_rrevs[0] if all_rrevs else None
+    for sub_pkg_list in pkg_list.split():
+        latest = max(sub_pkg_list.items(), key=lambda item: item[0])[0]
 
     ...
 
-    packages = conan_api.list.packages_configurations(rrev, remote=remote)
+    latest_pref_list = [max([p for p in packages if p.package_id == pkg_id], key=lambda p: p.timestamp)
+                                    for pkg_id in {p.package_id for p in packages}]
 
-    ...
-
-    all_prevs = conan_api.list.package_revisions(package_ref, remote=remote)
-    latest_prev = all_prevs[0] if all_prevs else None
-
-Basically, these API calls are returning a list of recipe revisions and package ones
-respectively, but we're saving the first element as the latest one because these calls are
-getting an ordered list always.
+Basically, the ``pkg_list.split()`` is returning a list for the same recipe reference. Then, ``sub_pkg_list.items()`` returns
+a list of tuples ``(Recipe Reference, Packages References)``, so finally, ``max(..., key=...)`` is used to get the
+latest recipe reference based on its timestamp.
+Later, ``latest_pref_list`` is created to keep only the latest package revision for each package ID. It iterates over the set of package IDs
+to get the latest package revision based on its timestamp.
 
 
 If you want to know more about the Conan API, visit the :ref:`ConanAPI section<reference_python_api_conan_api>`
