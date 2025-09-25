@@ -132,6 +132,11 @@ Here you can see a complete example of all the hook functions available:
     def post_package_info(conanfile):
         conanfile.output.info("Running after of executing package_info() method.")
 
+    # Note that pre_package_id() hook doesn't exist yet, so far there hasn't been
+    # a use case
+    def post_package_id(conanfile):
+        conanfile.output.info("Running after executing packge_id() method.")
+
 Functions of the hooks are intended to be self-descriptive regarding to the execution of them. For example, the ``pre_package()`` function
 is called just before the ``package()`` method of the recipe is executed.
 
