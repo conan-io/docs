@@ -97,6 +97,18 @@ will create the following files:
 
 .. note::
 
+    To create ``.env`` dotenv files, use the **experimental** (new in Conan 2.21) ``tools.env:dotenv`` configuration.
+    These files are not intended to be activated as scripts, but loaded by tools such as IDEs.
+    The configuration specific files such as ``conanbuildenv-Release.env`` will be generated, as the
+    environment can be different for Release and Debug configurations.
+    These files at the moment do not use variable interpolation due to some VScode limitations, 
+    a warning is printed pointing to https://github.com/microsoft/vscode-cpptools/issues/13781 to
+    track progress. 
+    Please open a Github ticket to report any feedback about this feature.
+
+
+.. note::
+
     Disabling the automatic generation of these files for consumers can be achieved by passing ``--envs-generation=false`` to the ``conan install`` command.
     **This feature is experimental and subject to change**, and disabling this file can lead to unexpected build errors,
     if for example ``tool_requires`` are used. Ensure they are not needed if the generation is disabled.

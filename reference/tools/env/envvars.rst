@@ -58,6 +58,11 @@ aggregate and create a ``conanrun.bat|sh|ps1`` script:
         envvars.save_script("my_env_file")
 
 
+From Conan 2.21, if the **experimental** ``tools.env:dotenv`` configuration is active, then
+``.env`` files will also be generated. These files are not intended to be activated as scripts,
+but loaded by tools such as IDEs.
+
+
 You can also use ``scope=None`` argument to avoid appending the script to the aggregated ``conanbuild.bat|sh|ps1``:
 
 .. code:: python
