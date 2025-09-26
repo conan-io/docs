@@ -31,7 +31,7 @@ The valid values are:
 - **python-require**: The package is a python require.
 - **unknown**: The type of the package is unknown.
 
-Note that relationships between packages might not always be defined and lead to errors, for example,
+Note that relationships between packages might not always be defined and can lead to errors, for example,
 ``build-scripts`` cannot have regular ``requires`` dependencies to compiled libraries, and it is not
 known how these should be propagated through something that is intended to be used as a ``tool_requires``.
 If some package want to use both some build scripts and link with a given library should define a
