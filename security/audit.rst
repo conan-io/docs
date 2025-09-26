@@ -3,8 +3,7 @@
 Scanning dependencies with conan audit
 ======================================
 
-A new command, `conan audit`, was added in **Conan 2.14**. It provides a built-in way to
-**scan your dependencies for known CVEs**.
+The ``conan audit`` commands provide a built-in way to **scan your dependencies for known CVEs**.
 
 For a step-by-step guide on authentication, usage examples, output formats, and setting up
 private providers, see :ref:`Checking package vulnerabilities <devops_audit>`. In short:
@@ -32,6 +31,30 @@ private providers, see :ref:`Checking package vulnerabilities <devops_audit>`. I
 This command also supports using your own JFrog Platform as a private provider for
 vulnerability scanning. See the :ref:`Adding private providers
 <devops_audit_private_providers>` section for more details.
+
+Filtering queried packages
+--------------------------
+
+By default, the ``conan audit scan`` command will query all packages in the dependency graph.
+You can filter the packages to be queried based on their context using the ``--context`` option,
+which accepts ``"host"``, or ``"build"`` as values, and when omitted, defaults to quering both contexts.
+
+This allows you to skip checking for CVEs in build requirements, which are not part of the final product
+and therefore less relevant (but still important!) for vulnerability scanning.
+
+It's also possible to perform this filter using the ``conan audit list`` command,
+by leveraging the packages list filtering from the ``conan list`` command. For example:
+
+.. code-block:: bash
+
+   # Generate the dependency graph in JSON format
+   $ conan graph info . --format=json > graph.json
+   # Create a packages list for the resolved dependency graph, filtering to only contain the `host` context packages
+   $ conan list --graph=graph.json --graph-context=host --format=json > pkglist.json
+   # Scan the filtered packages list for vulnerabilities
+   $ conan audit list --list=pkglist.json
+
+
 
 .. seealso::
 
