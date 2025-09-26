@@ -1,9 +1,9 @@
 .. _security_audit:
 
-Scanning dependencies with conan audit
-======================================
+Scanning dependencies with ``conan audit``
+==========================================
 
-A new command, `conan audit`, was added in **Conan 2.14**. It provides a built-in way to
+A new command, ``conan audit``, was added in **Conan 2.14**. It provides a built-in way to
 **scan your dependencies for known CVEs**.
 
 For a step-by-step guide on authentication, usage examples, output formats, and setting up
