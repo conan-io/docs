@@ -35,10 +35,27 @@ when a package is being built directly by Conan (create, install)
             cmake.configure()
             cmake.build()
 
-``CMake`` ``configure()``, ``build()`` and ``install()`` methods have the ``subfolder`` parameter in case you need to generate the files
-and artifacts in a subfolder inside the ``build_folder`` or ``package_folder``.
-This allows you to have more than one ``CmakeList.txt`` in the same project without mixing the generated files
-or allows you to do a ``cmake install`` only of the components you really want to package.
+``CMake`` ``configure()``, ``build()`` and ``install()`` methods have the ``subfolder`` parameter in case you have
+more than one ``CmakeLists.txt`` in different folders.
+This feature allows you to call the ``configure`` ``build`` and ``install`` method of each ``CmakeLists.txt``
+separately and without mixing the generated files and artifacts, also creating these folders in the
+``build folder`` and ``package folder``
+
+In the following example, we can see what it would look like if we had two different ``CmakeLists.txt``
+in the ``folder1`` and ``folder2`` folders.
+
+.. code-block:: python
+
+    def build(self):
+        cmake = CMake(self)
+
+        # Configure and build source_folder/folder1/CmakeLists.txt
+        cmake.configure(subfolder="folder1")
+        cmake.build(subfolder="folder1")
+
+        # Configure and build source_folder/folder2/CmakeLists.txt
+        cmake.configure(subfolder="folder2")
+        cmake.build(subfolder="folder2")
 
 Reference
 ---------
