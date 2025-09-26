@@ -286,7 +286,7 @@ the prefix of the variable. It is useful to automatically get the append/prepend
     MyPath1=+(path)/other path/path12
 
     # Unset the variable "MyPath1"
-    MyPath1=!
+    mypkg/*:MyPath1=!
 
 
 Then, the result of applying this profile is:
@@ -295,7 +295,7 @@ Then, the result of applying this profile is:
 * ``MyPath1``:
     * Unix: ``/other path/path12:/some/path11``
     * Windows: ``/other path/path12;/some/path11``
-* ``mypkg*:PATH``: ``None``
+    * For the `mypkg` recipe the value will be unset
 
 .. warning::
 
@@ -653,7 +653,7 @@ Some of the capabilities of the profile templates are:
   .. code-block:: jinja
      :caption: *profile_vars*
 
-     {% set version = subprocess.check_output(['clang++', "-dumpversion]).strip() %}
+     {% set version = subprocess.check_output(['clang++', "-dumpversion"]).strip() %}
      [settings]
      compiler.version={{ version }}
 

@@ -153,7 +153,8 @@ Here you can find a brief explanation of each of the architectures defined as ``
 - **asm.js**: The subset of JavaScript that can be used as low-level target for compilers, not really a processor architecture, it's produced
   by Emscripten. Conan treats it as an architecture to align with build systems design (e.g. GNU auto tools and CMake).
 - **wasm**: The Web Assembly, not really a processor architecture, but byte-code format for Web, it's produced by Emscripten. Conan treats it
-  as an architecture to align with build systems design (e.g. GNU auto tools and CMake).
+  as an architecture to align with build systems design (e.g. GNU auto tools, CMake, etc).
+- **wasm64**: The Web Assembly 64 bit, same as **wasm** but for 64 bit. Conan will add the necessary flags to the compiler to produce 64 bit Web Assembly code.
 - **sh4le**: The Hitachi SH-4 SuperH architecture.
 - **e2k-v2**: The Elbrus 2000 v2 512 bit VLIW (Very Long Instruction Word) architecture (Elbrus 2CM, Elbrus 2C+ CPUs) originally developed by MCST (Moscow Center of SPARC Technologies).
 - **e2k-v3**: The Elbrus 2000 v3 512 bit VLIW (Very Long Instruction Word) architecture (Elbrus 2S, aka Elbrus 4C, CPU) originally developed by MCST (Moscow Center of SPARC Technologies).
@@ -172,17 +173,17 @@ C++ standard libraries (aka compiler.libcxx)
 ``compiler.libcxx`` sub-setting defines C++ standard libraries implementation to be used. The sub-setting applies only to certain compilers,
 e.g. it applies to *clang*, *apple-clang* and *gcc*, but doesn't apply to *Visual Studio*.
 
-- **libstdc++** (gcc, clang, apple-clang, sun-cc): `The GNU C++ Library <https://gcc.gnu.org/onlinedocs/libstdc++/>`__. NOTE that this implicitly
+- **libstdc++** (gcc, clang, apple-clang, sun-cc, intel-cc, mcst-lcc, emcc): `The GNU C++ Library <https://gcc.gnu.org/onlinedocs/libstdc++/>`__. NOTE that this implicitly
   defines **_GLIBCXX_USE_CXX11_ABI=0** to use old ABI. Might be a wise choice for old systems, such as CentOS 6. On Linux systems,
   you may need to install `libstdc++-dev <https://packages.debian.org/sid/libstdc++-dev>`_ (package name could be different in various distros)
   in order to use the standard library. NOTE that on Apple systems usage of **libstdc++** has been deprecated.
 
-- **libstdc++11** (gcc, clang, apple-clang): `The GNU C++ Library <https://gcc.gnu.org/onlinedocs/libstdc++/>`__. NOTE that this implicitly
+- **libstdc++11** (gcc, clang, intel-cc, mcst-lcc, emcc): `The GNU C++ Library <https://gcc.gnu.org/onlinedocs/libstdc++/>`__. NOTE that this implicitly
   defines **_GLIBCXX_USE_CXX11_ABI=1** to use new ABI. Might be a wise choice for newer systems, such as Ubuntu 20. On Linux systems,
   you may need to install `libstdc++-dev <https://packages.debian.org/sid/libstdc++-dev>`_ (package name could be different in various distros)
   in order to use the standard library. NOTE that on Apple systems usage of **libstdc++** has been deprecated.
 
-- **libc++** (clang, apple-clang): `LLVM libc++ <https://libcxx.llvm.org/>`__. On Linux systems, you may need to install `libc++-dev <https://packages.debian.org/sid/libc++-dev>`_
+- **libc++** (clang, apple-clang, intel-cc, emcc): `LLVM libc++ <https://libcxx.llvm.org/>`__. On Linux systems, you may need to install `libc++-dev <https://packages.debian.org/sid/libc++-dev>`_
   (package name could be different in various distros) in order to use the standard library.
 
 - **c++_shared** (clang, Android only): use `LLVM libc++ <https://libcxx.llvm.org/>`__ as a shared library. Refer to the `C++ Library Support <https://developer.android.com/ndk/guides/cpp-support>`__ for the
