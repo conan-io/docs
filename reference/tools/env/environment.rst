@@ -38,6 +38,28 @@ by default, but the ``separator`` argument can be provided to define a custom on
 The "path" variables (the ones declared with ``define_path``, ``append_path`` and ``prepend_path``) will be appended
 with the default system path separator, either ``:`` or ``;``, but it also allows defining which one.
 
+Generation of environment files
++++++++++++++++++++++++++++++++
+
+The generation of environment script files (like ``envfile.bat|.sh|.ps1|.env``) can be done indirectly
+by the ``EnvVars`` class, which can be obtained with:
+
+.. code:: python
+
+    from conan.tools.env import Environment
+
+    env1 = Environment()
+    ...
+    envvars = env1.vars(self)  # An EnvVars object
+    # Generate a .bat|.sh|.ps1|.env file depending on current
+    # settings and Conan configuration
+    envars.save_script("mybuild")
+    # or decide to be explicit and generate some of the files:
+    envvars.save_dotenv("myenv.env")
+
+These files can be used also automatically by subsequent ``self.run()`` calls.
+For more information see the ``EnvVars`` class documentation.
+
 
 Composition
 +++++++++++
