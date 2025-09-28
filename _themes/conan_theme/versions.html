@@ -13,14 +13,11 @@
         {% endif %}
     {% endfor %}
     <br>
-        <details>
-            <summary>Old Conan 1 releases</summary>
     {% for the_version, slug in versions.items() %}
         {% if the_version.startswith("en/1.") or the_version.startswith("1") %}
             <dd><a href="/{{ the_version }}/index.html">{{ the_version.replace("en/", "") }}</a></dd>
         {% endif %}
     {% endfor %}
-        </details>
     </dl>
     <dl>
         <dt>{{ _('Downloads') }}</dt>
