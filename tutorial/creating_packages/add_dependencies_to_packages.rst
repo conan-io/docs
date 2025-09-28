@@ -151,7 +151,7 @@ That will propagate the necessary compilation flags and headers ``includedirs`` 
   If a consumer of ``hello/1.0`` had a direct inclusion to ``fmt`` headers such as ``#include <fmt/color.h>``, then,
   such a consumer should declare its own ``self.requires("fmt/8.1.1")`` requirement, as that is a direct requirement.
   In other words, even if the dependency to ``hello/1.0`` was removed from that consumer, it would still depend on ``fmt``,
-  and consequently it cannot abouse the transitivity of the ``fmt`` headers from ``hello``, but declare them explicitly.
+  and consequently it cannot abuse the transitivity of the ``fmt`` headers from ``hello``, but declare them explicitly.
 
 
 .. seealso::
