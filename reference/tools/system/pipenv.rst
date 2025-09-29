@@ -4,7 +4,14 @@
 PipEnv
 ======
 
-The ``PipEnv`` helper installs Python packages with **pip** inside a dedicated virtual environment (**venv**),
+.. include:: ../../../common/experimental_warning.inc
+
+.. important::
+
+    This is **only** for executable Python packages.
+    This approach doesn't work for Python library packages that you would typically use via ``import``.
+
+The ``PipEnv`` helper installs executable Python packages with **pip** inside a dedicated virtual environment (**venv**),
 keeping them isolated so they don't interfere with system packages or the Conan package itself.
 
 .. currentmodule:: conan.tools.system
