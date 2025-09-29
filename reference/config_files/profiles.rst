@@ -39,7 +39,7 @@ They have this structure:
     zlib/1.2.12: zlib/[*]
 
     [replace_tool_requires]
-    7zip/*: 7zip/system
+    7zip/*: 7zip/*@system
 
     [platform_requires]
     dlib/1.3.22
