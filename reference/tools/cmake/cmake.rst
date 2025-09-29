@@ -36,7 +36,7 @@ when a package is being built directly by Conan (create, install)
             cmake.build()
 
 ``CMake`` ``configure()``, ``build()`` and ``install()`` methods have the ``subfolder`` parameter in case you have
-more than one ``CmakeLists.txt`` in different folders.
+more than one ``CMakeLists.txt`` in different folders.
 This feature allows you to call the ``configure`` ``build`` and ``install`` method of each ``CmakeLists.txt``
 separately and without mixing the generated files and artifacts, also creating these folders in the
 ``build folder`` and ``package folder``
