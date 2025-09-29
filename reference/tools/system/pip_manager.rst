@@ -76,7 +76,7 @@ If we run a ``conan build`` we can see how our Python package is installed and h
     1.9.1
 
 
-Use a tool installed as a python package and reuse it in other recipes
+Use a tool installed as a Python package and reuse it in other recipes
 ----------------------------------------------------------------------
 
 In this case, we want to locally embed the installation of a tool using pip and reuse it as a conan recipe.
