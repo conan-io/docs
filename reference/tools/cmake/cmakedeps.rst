@@ -252,6 +252,12 @@ The following properties affect the CMakeDeps generator:
 - **cmake_additional_variables_prefixes**: List of prefixes to be used when creating CMake variables in the config
   files. These variables are created with ``file_name`` as prefix by default, but setting this property will create
   additional variables with the specified prefixes alongside the default ``file_name`` one.
+- **cmake_extra_variables**: Dictionary of extra variables to be added to the generated config file.
+  The keys of the dictionary are the variable names and the values are the variable values,
+  which can be a plain string, a number or a dict-like python object which must specify
+  the ``value`` (string/number) , ``cache`` (boolean), ``type`` (CMake cache type) and optionally,
+  ``docstring`` (string: defaulted to variable name) and ``force`` (boolean) keys. Note that this has
+  less preference over those values defined in the ``tools.cmake.cmaketoolchain:extra_variables`` conf.
 
 Example:
 
