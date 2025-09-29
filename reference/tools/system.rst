@@ -5,4 +5,4 @@ conan.tools.system
    :maxdepth: 2
 
    system/package_manager
-   system/pip_manager
+   system/pipenv

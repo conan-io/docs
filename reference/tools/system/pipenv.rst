@@ -4,7 +4,8 @@
 PipEnv
 ======
 
-The ``PipEnv`` helper is a wrapper to install Python packages using pip within a virtualenv, installing packages in isolation without interfering with other packages in the system or the Conan package itself.
+The ``PipEnv`` helper installs Python packages with **pip** inside a dedicated virtual environment (**venv**),
+keeping them isolated so they don't interfere with system packages or the Conan package itself.
 
 .. currentmodule:: conan.tools.system
 
@@ -21,10 +22,10 @@ Using a Python package in a recipe
 ----------------------------------
 
 To use a tool installed with Python, we have to install it using the ``PipEnv.install()`` method.
-We also have to call the ``PipEnv.generate()`` method to create a ``Conan Environment`` to adds the ``Python virtualenv path`` to the system path.
+We also have to call the ``PipEnv.generate()`` method to create a **Conan Environment** that adds the **Python virtualenv path** to the system path.
 
 These two steps appear in the following recipe in the ``generate()`` method.
-Calling it in this method ensures that the ``Python package`` and the ``Conan Environment`` will be available in the following steps.
+Calling it in this method ensures that the **Python package** and the **Conan Environment** will be available in the following steps.
 In this case, in the build step, which is where we will use it.
 
 ..  code-block:: python
@@ -124,21 +125,7 @@ When creating a recipe to encapsulate a tool installed with Python, several thin
     $ conan create . --version 0.1
 
   -------- Installing package pip_meson/0.1 (1 of 1) --------
-  pip_meson/0.1: Building from source
-  pip_meson/0.1: Package pip_meson/0.1:da39a3ee5e6b4b0d3255bfef95601890afd80709
-  pip_meson/0.1: Copying sources to build folder
-  pip_meson/0.1: Building your package in /Users/user/.conan2/p/b/pip_m19e45e29ec612/b
-  pip_meson/0.1: Generating aggregated env files
-  pip_meson/0.1: Generated aggregated env files: ['conanbuild.sh', 'conanrun.sh']
-  pip_meson/0.1: Package 'da39a3ee5e6b4b0d3255bfef95601890afd80709' built
-  pip_meson/0.1: Build folder /Users/user/.conan2/p/b/pip_m19e45e29ec612/b/build
-  pip_meson/0.1: Generating the package
-  pip_meson/0.1: Packaging in folder /Users/user/.conan2/p/b/pip_m19e45e29ec612/p
-  pip_meson/0.1: package(): WARN: No files in this package!
-  pip_meson/0.1: Created package revision 0ba8627bd47edc3a501e8f0eb9a79e5e
-  pip_meson/0.1: Package 'da39a3ee5e6b4b0d3255bfef95601890afd80709' created
-  pip_meson/0.1: Full package reference: pip_meson/0.1#0f1f4d0fc28b2ef5951f42131ede4f99:da39a3ee5e6b4b0d3255bfef95601890afd80709#0ba8627bd47edc3a501e8f0eb9a79e5e
-  pip_meson/0.1: Package folder /Users/user/.conan2/p/b/pip_m19e45e29ec612/p
+  ...
   pip_meson/0.1: Calling finalize()
   pip_meson/0.1: RUN: /Users/user/.conan2/p/b/pip_m19e45e29ec612/f/pip_venv_pip_meson/bin/python -m pip install --disable-pip-version-check meson==1.9.1
   Collecting meson==1.9.1
