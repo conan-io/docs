@@ -61,7 +61,6 @@ try {
                         python3 -m venv venv_${branch}
                         . venv_${branch}/bin/activate
                         pip install -r requirements.txt
-                        conan profile detect
                         python3 .ci/scripts/generate_documentation.py --sources-folder=${sources_folder} --branch=${branch} --with-pdf
                     """
                 }
