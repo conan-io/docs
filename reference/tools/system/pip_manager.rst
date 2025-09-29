@@ -4,7 +4,7 @@
 PipEnv
 ======
 
-The ``PipEnv`` helper is a wrapper to install Python packages using pip within a virtualenv, installing packages in isolation without interfering witg other packages in the system or the Conan package itself.
+The ``PipEnv`` helper is a wrapper to install Python packages using pip within a virtualenv, installing packages in isolation without interfering with other packages in the system or the Conan package itself.
 
 .. currentmodule:: conan.tools.system
 
