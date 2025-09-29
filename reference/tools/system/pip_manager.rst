@@ -81,7 +81,7 @@ Use a tool installed as a python package and reuse it in other recipes
 
 In this case, we want to locally embed the installation of a tool using pip and reuse it as a conan recipe.
 
-To do this, we need to install our tool using ``PipEnv install``, but in this case we will specify that we want it
+To do this, we need to install our tool using ``PipEnv.install()``, but in this case we will specify that we want it
 to create the virtualenv in the ``package_folder``.
 
 In this case, we ``don't need to call the PipEnv generate method`` because we're not going to use the tool within this recipe.
