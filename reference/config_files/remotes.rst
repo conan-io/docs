@@ -35,6 +35,10 @@ The fields for each remote are:
 * ``disabled`` (Optional, ``bool`` value, ``false`` by default): If the remote is enabled or not to be used by commands
   like search, list, download and upload. Notice that a disabled remote can be used to authenticate against it even
   if it's disabled.
+* ``allowed_packages``: (Optional, ``list`` of ``string`` values): List of recipes that are allowed to be
+  downloaded from this remote. If the list is empty or not present, all packages are allowed. Uses fnmatch rules.
+* ``recipes_only``: (Optional, ``bool`` value, ``false`` by default): If true, only recipes will be
+  downloaded from this remote, no binaries will be downloaded.
 
 
 .. seealso::
