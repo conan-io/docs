@@ -53,7 +53,7 @@ in the ``folder1`` and ``folder2`` folders.
         cmake.configure(subfolder="folder1")
         cmake.build(subfolder="folder1")
 
-        # Configure and build source_folder/folder2/CmakeLists.txt
+        # Configure and build source_folder/folder2/CMakeLists.txt
         cmake.configure(subfolder="folder2")
         cmake.build(subfolder="folder2")
 
