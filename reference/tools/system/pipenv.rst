@@ -97,7 +97,7 @@ We just want to make it reusable.
 
 When creating a recipe to encapsulate a tool installed with Python, several things must be taken into account:
 
-- The packages are installed in the finalize method. This ensures that the contents of the package folder do not change when the installed tools are run,
+- The packages are installed in the `finalize()` method. This ensures that the contents of the package folder do not change when the installed tools are run,
   because Python packages normally generate certain files when executed.
 - We will add the properties ``build_policy = "missing"`` and ``upload_policy = "skip"`` to the recipe to ensure that it is only used locally
   and the resulting package will not be uploaded. This is important because **the generated package only works on the machine on which it was generated**
