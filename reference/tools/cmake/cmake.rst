@@ -41,7 +41,7 @@ This feature allows you to call the ``configure`` ``build`` and ``install`` meth
 separately and without mixing the generated files and artifacts, also creating these folders in the
 ``build folder`` and ``package folder``
 
-In the following example, we can see what it would look like if we had two different ``CmakeLists.txt``
+In the following example, we can see what it would look like if we had two different ``CMakeLists.txt``
 in the ``folder1`` and ``folder2`` folders.
 
 .. code-block:: python
