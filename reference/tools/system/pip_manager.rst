@@ -84,7 +84,7 @@ In this case, we want to locally embed the installation of a tool using pip and 
 To do this, we need to install our tool using ``PipEnv.install()``, but in this case we will specify that we want it
 to create the virtualenv in the ``package_folder``.
 
-In this case, we ``don't need to call the PipEnv generate method`` because we're not going to use the tool within this recipe.
+In this case, we don't need to call the ``PipEnv.generate()`` method because we're not going to use the tool within this recipe.
 We just want to make it reusable.
 
 When creating a recipe to encapsulate a tool installed with Python, several things must be taken into account:
