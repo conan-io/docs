@@ -115,7 +115,7 @@ values:
 * **arch_flag**: Flag from ``settings.arch``
 * **build_type_flags**: Flags from ``settings.build_type``
 * **sysroot_flag**: To pass the ``--sysroot`` flag to the compiler.
-* **apple_arch_flag**: Only when cross-building with Apple systems. Flags from ``settings.arch``.
+* **apple_arch_flag**: Only when cross-building with Apple systems. Flags from ``settings.arch``. For universal binaries, contains multiple ``-arch`` flags.
 * **apple_isysroot_flag**: Only when cross-building with Apple systems. Path to the root sdk.
 * **msvc_runtime_flag**: Flag from ``settings.compiler.runtime_type`` when compiler is ``msvc`` or
   ``settings.compiler.runtime`` when using the deprecated ``Visual Studio``.
@@ -238,6 +238,40 @@ For instance:
 
 The ``AutotoolsToolchain`` will listen to ``tools.gnu:extra_configure_args`` from the
 :ref:`reference_config_files_global_conf` to extend the ``configure_args`` attribute.
+
+
+Support for Universal Binaries in macOS
+---------------------------------------
+
+.. include:: ../../../common/experimental_warning.inc
+
+Starting in Conan 2.21.0, there's support for building universal binaries on
+macOS using AutotoolsToolchain. To specify multiple architectures for a
+universal binary in Conan, use the `|` separator when defining the architecture
+in the settings. This approach enables passing a list of architectures. For
+example, running:
+
+.. code:: bash
+
+    conan create . --name=mylibrary --version=1.0 -s="arch=armv8|x86_64"
+
+will create a universal binary for *mylibrary* containing both ``armv8`` and ``x86_64``
+architectures, by setting multiple ``-arch`` flags in the generated toolchain script.
+
+.. warning::
+
+    It is important to note that this method is not applicable to build systems
+    other than CMake or Autotools via ``CMakeToolchain`` and
+    ``AutotoolsToolchain``.
+
+    Attempting to use universal architecture settings on non-Apple platforms
+    will result in an error.
+
+    Be aware that this feature is primarily beneficial for building final
+    universal binaries for release purposes. The default Conan behavior of
+    managing one binary per architecture generally provides a more reliable and
+    trouble-free experience. Users should be cautious and not overly rely on
+    this feature for broader use cases.
 
 
 Reference

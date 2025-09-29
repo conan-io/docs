@@ -55,10 +55,11 @@ and ``MSBuild`` location) will be defined by the default provided by that compil
 - ``msvc`` compiler version '192': Visual Studio 16 2019 (toolset v142)
 - ``msvc`` compiler version '193': Visual Studio 17 2022 (toolset v143, compiler versions up to 19.39, toolset version 14.3X)
 - ``msvc`` compiler version '194': Visual Studio 17 2022 (toolset v143, compiler versions from 19.40, toolset version 14.4X, Visual Studio update 17.10)
+- ``msvc`` compiler version '195': Visual Studio 18 2027 (toolset v145, compiler versions from 19.50, toolset version 14.5X)
 
 Note that both ``compiler.version=193`` and ``compiler.version=194`` map to the ``v143`` toolset, but to different toolset versions ``14.3X``
 and ``14.4X``, due to the versioning scheme change done from Visual Studio update 17.10 that introduced compiler version 19.40 and toolset version 14.40
-while keeping the toolset ``v143`` nomenclature.
+while keeping the toolset ``v143`` nomenclature. Visual Studio 18 jumped to ``v145`` toolset, so the ``v144`` doesn't really exist.
 
 If you want to explicitly force a specific Visual Studio IDE version, you can do it with the ``tools.microsoft.msbuild:vs_version`` configuration:
 

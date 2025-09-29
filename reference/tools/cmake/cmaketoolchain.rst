@@ -704,8 +704,9 @@ the *conan_toolchain.cmake* file.
 
 .. warning::
 
-    It is important to note that this method is not applicable to build systems other than
-    CMake.
+    It is important to note that this method is not applicable to build systems
+    other than CMake or Autotools via ``CMakeToolchain`` and
+    ``AutotoolsToolchain``.
 
     Be aware that this feature is primarily beneficial for building final univeral
     binaries for release purposes. The default Conan behavior of managing one binary per
