@@ -49,11 +49,19 @@ try {
             branches_block.each { branch ->
                 parallelJobs[branch] = {
                     echo "Run parallel job for ${branch}"
+
+                    def safeBranch  = branch.replaceAll(/[^A-Za-z0-9._-]/, '_')
+                    def conanHome   = "${env.WORKSPACE}/.conan_home_${safeBranch}"
+                    echo "Using CONAN_HOME=${conanHome} for ${branch}"
+
                     sh """
                         export CONAN_WORKSPACE_ENABLE=will_break_next
+                        mkdir -p "${conanHome}"
+                        export CONAN_HOME="${conanHome}"
                         python3 -m venv venv_${branch}
                         . venv_${branch}/bin/activate
                         pip install -r requirements.txt
+                        conan profile detect
                         python3 .ci/scripts/generate_documentation.py --sources-folder=${sources_folder} --branch=${branch} --with-pdf
                     """
                 }
