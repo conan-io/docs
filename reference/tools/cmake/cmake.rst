@@ -35,26 +35,26 @@ when a package is being built directly by Conan (create, install)
             cmake.configure()
             cmake.build()
 
-``CMake`` ``configure()``, ``build()`` and ``install()`` methods have the ``subfolder`` parameter in case you have
+**Experimental** feature.  ``CMake.configure()``, ``CMake.build()`` and ``CMake.install()`` methods have the **subfolder** parameter in case you have
 more than one ``CMakeLists.txt`` in different folders.
-This feature allows you to call the ``configure`` ``build`` and ``install`` method of each ``CMakeLists.txt``
+This feature allows you to call the **configure** **build** and **install** method of each **CMakeLists.txt**
 separately and without mixing the generated files and artifacts, also creating these folders in the
-``build folder`` and ``package folder``
+**build folder** and **package folder**.
 
-In the following example, we can see what it would look like if we had two different ``CMakeLists.txt``
-in the ``folder1`` and ``folder2`` folders.
+In the following example, we can see what it would look like if we had two different **CMakeLists.txt**
+(**cmake_1/CMakeLists.txt** and **cmake_2/CMakeLists.txt**) in the **folder1** and **folder2** folders.
 
 .. code-block:: python
 
     def build(self):
         cmake = CMake(self)
 
-        # Configure and build source_folder/folder1/CMakeLists.txt
-        cmake.configure(subfolder="folder1")
+        # Configure and build source_folder/cmake_1/CMakeLists.txt in folder1
+        cmake.configure(build_script_folder="cmake_1", subfolder="folder1")
         cmake.build(subfolder="folder1")
 
-        # Configure and build source_folder/folder2/CMakeLists.txt
-        cmake.configure(subfolder="folder2")
+        # Configure and build source_folder/cmake_2/CMakeLists.txt in folder2
+        cmake.configure(build_script_folder="cmake_2" subfolder="folder2")
         cmake.build(subfolder="folder2")
 
 Reference
