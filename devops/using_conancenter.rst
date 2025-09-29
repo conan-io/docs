@@ -105,8 +105,11 @@ we recommend building your own binary packages from source:
 
 If the ``conancenter`` remote is used directly, your organization might require
 that the binaries are built from source, and not downloaded directly from ConanCenter.
-This can be achieved with the ``recipes_only`` field in the remote configuration,
-see :ref:`the remotes.json docs<reference_config_files_remotes_json>`.
+This can exceptionally be achieved with the ``recipes_only`` field
+:ref:`in the remote configuration<reference_config_files_remotes_json>`, but it is
+highly likely that you will also want to build the packages from source, and not
+depend on the recipes and binaries provided by ConanCenter. See the above link
+for more information.
 
 Control and customization
 -------------------------
