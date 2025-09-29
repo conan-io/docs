@@ -33,7 +33,7 @@ We also have to call the ``PipEnv.generate()`` method to create a **Conan Enviro
 
 These two steps appear in the following recipe in the ``generate()`` method.
 Calling it in this method ensures that the **Python package** and the **Conan Environment** will be available in the following steps.
-In this case, in the build step, which is where we will use it.
+In this case, in the build step, which is where we will use the installed tool.
 
 ..  code-block:: python
     :caption: conanfile.py
