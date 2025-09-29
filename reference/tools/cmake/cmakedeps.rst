@@ -288,6 +288,14 @@ Example:
         # Generate both MyFileNameConfig.cmake and FindMyFileName.cmake
         self.cpp_info.set_property("cmake_find_mode", "both")
 
+        # Add extra variables to the generated config file
+        self.cpp_info.set_property("cmake_extra_variables", {
+                                       "FOO": 42,
+                                       "CMAKE_GENERATOR_INSTANCE": "${GENERATOR_INSTANCE}/buildTools/",
+                                       "CACHE_VAR_DEFAULT_DOC": {"value": "hello world",
+                                                                 "cache": True, "type": "STRING"}
+                                   })
+
 
 Overwrite properties from the consumer side using CMakeDeps.set_property()
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
