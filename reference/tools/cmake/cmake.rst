@@ -49,7 +49,7 @@ in the ``folder1`` and ``folder2`` folders.
     def build(self):
         cmake = CMake(self)
 
-        # Configure and build source_folder/folder1/CmakeLists.txt
+        # Configure and build source_folder/folder1/CMakeLists.txt
         cmake.configure(subfolder="folder1")
         cmake.build(subfolder="folder1")
 
