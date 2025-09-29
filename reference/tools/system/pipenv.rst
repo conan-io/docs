@@ -22,7 +22,8 @@ keeping them isolated so they don't interfere with system packages or the Conan 
 
 It is designed to be used in two different ways:
 
-1. Using a Python package in a recipe.
+1. Using a Python CLI tool inside a recipe.
+2. Use a tool installed as a Python package locally and reuse it in other recipes.
 2. Use a tool installed as a Python package locally and reuse it in other recipes.
 
 Using a Python package in a recipe
