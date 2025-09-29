@@ -13,7 +13,6 @@ Table of contents:
    :titlesonly:
 
    introduction
-   whatsnew
    installation
    tutorial
    CI Tutorial <ci_tutorial/tutorial>
@@ -24,4 +23,5 @@ Table of contents:
    reference
    knowledge
    incubating
+   whatsnew
    changelog

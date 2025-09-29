@@ -1,7 +1,7 @@
 .. _security_audit:
 
-Scanning dependencies with conan audit
-======================================
+Scanning dependencies with ``conan audit``
+==========================================
 
 The ``conan audit`` commands provide a built-in way to **scan your dependencies for known CVEs**.
 

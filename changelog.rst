@@ -1,7 +1,7 @@
 Changelog
 =========
 
-For a more detailed description of the major changes that Conan 2 brings, compared with Conan 1.X, please read :ref:`whatsnew`
+This page lists the changes made to Conan in each version, with links to each pull request for more details.
 
 2.20.1 (04-Sept-2025)
 ---------------------

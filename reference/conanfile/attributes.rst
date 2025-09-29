@@ -1,8 +1,3 @@
-.. spelling::
-
-  ing
-  ver
-
 .. _conan_conanfile_attributes:
 
 Attributes
@@ -96,7 +91,7 @@ Output
 Output contents
 ---------------
 
-Use the ``self.output`` to print contents to the output.
+Use the ``self.output`` attribute to print contents to the output.
 
 ..  code-block:: python
 
@@ -217,7 +212,7 @@ alias
     :ref:`newer versioning features<devops_versioning>` for a more standardized and efficient
     package management experience. 
 
-In Conan 2, the `alias` attribute remains a part of the recipe, allowing users to define
+In Conan 2, the ``alias`` attribute remains a part of the recipe, allowing users to define
 an alias for a package version. Normally, you would create one using the ``conan new``
 command with the ``alias`` template and the exporting the recipe with conan export:
 

@@ -1,6 +1,5 @@
 .. _incubating:
 
-
 Incubating features
 ===================
 

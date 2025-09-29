@@ -8,11 +8,10 @@ FAQ
     There is a great community behind Conan with users helping each other in `Cpplang Slack`_.
     Please join us in the ``#conan`` channel!
 
-Troubleshooting
----------------
+.. _faq_missing_prebuilt_package:
 
 ERROR: Missing prebuilt package
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------------
 
 When installing packages (with :command:`conan install` or :command:`conan create`) it is possible
 that you get an error like the following one:
@@ -66,7 +65,7 @@ overcome this error:
 .. _error_invalid_setting:
 
 ERROR: Invalid setting
-^^^^^^^^^^^^^^^^^^^^^^
+----------------------
 
 It might happen sometimes, when you specify a setting not present in the defaults
 that you receive a message like this:
@@ -98,9 +97,10 @@ one that would handle your own private settings.
 
 .. _`Cpplang Slack`: https://cppalliance.org/slack/
 
+.. _faq_authentication_exception:
 
 ERROR: AuthenticationException:
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------------
 
 This error can happen, if there are no or false authentication credentials in the HTTP request from conan. To get more information try enabling the debug level for HTTP connections:
 
@@ -114,7 +114,7 @@ One source of error can be the ``.netrc`` file, which is `honored by the request
 .. _faq_different_revisions:
 
 ERROR: Obtaining different revisions in Linux and Windows
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+---------------------------------------------------------
 
 Git will (by default) checkout files in Windows systems using ``CRLF`` line endings, effectively producing different files than in Linux that files will use ``LF`` line endings. As files are different, the Conan recipe revision will be different from the revisions computed in other platforms such as Linux, resulting in missing the respective binaries in the other revision.
 
@@ -130,9 +130,8 @@ Other approach would be to change the ``.gitconfig`` to change it globally. Mode
 
 .. _faq_different_options_values:
 
-
 Defining options for dependencies in conanfile.py recipes doesn't work
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------------------------------------------------
 
 Conan expands the dependency graph depth-first, this is important to be able to implement many of the very special C/C++ propagation
 logic (headers, static and shared libraries, applications, tool-requires, test-requires, conflicts, overrides, etc.).
@@ -181,7 +180,7 @@ Recipe defined options always have less precedence than options defined in profi
 .. _faq_version_conflicts_version_ranges:
 
 Getting version conflicts even when using version ranges
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------------------------------------
 
 It is possible that when installing dependencies, there are version conflict error messages like:
 
@@ -226,7 +225,7 @@ The general best practices are:
 .. _faq_stdout_stderr_redirects:
 
 Conan is redirecting its output to stderr
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------------------
 
 As explained :ref:`in the commands reference<commands_output>`,
 by design Conan redirects its logging information to the standard error output (stderr),
@@ -260,9 +259,10 @@ include any logging information, which will be printed to the console.
 Note that this approach is common in many command-line tools such as ``git`` and ``curl``,
 and it is not specific to Conan.
 
+.. _faq_tool_package_missing_binary:
 
 Missing binary for a (tool) package that was just created with ``conan create``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------------------------------------------------------------
 
 There is sometimes the case for a package, intended to be used as a ``tool_requires`` by other packages,
 whose recipe contains a ``test_package`` folder that requires such tool as:
