@@ -42,6 +42,7 @@ sys.path.append(os.path.abspath('./_ext'))
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'sphinxcontrib.spelling',
     'sphinx_sitemap',
     'notfound.extension',
     'sphinx.ext.autodoc',
