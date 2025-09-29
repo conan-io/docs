@@ -20,7 +20,7 @@ It is designed to be used in two different ways:
 Using a Python package in a recipe
 ----------------------------------
 
-To use a tool installed with Python, we have to install it using the ``PipEnv install`` method.
+To use a tool installed with Python, we have to install it using the ``PipEnv.install()`` method.
 We also have to call the ``PipEnv generate`` method to create a ``Conan Environment`` to adds the ``Python virtualenv path`` to the system path.
 
 These two steps appear in the following recipe in the ``generate()`` method.
