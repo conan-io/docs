@@ -49,7 +49,7 @@ In this case, in the build step, which is where we will use it.
         def build(self):
             self.run("meson --version")
 
-If we run a ``conan build`` we can see how our ``pip package`` is installed and how it is called in the build step as if it were installed on the system.
+If we run a ``conan build`` we can see how our Python package is installed and how it is called in the build step as if it were installed on the system.
 
 .. code-block:: bash
 
