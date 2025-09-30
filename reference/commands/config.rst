@@ -101,6 +101,12 @@ You can force certain files to be copied over by using the ``!`` negation syntax
 
       $ conan config install http://github.com/user/conan_config/.git --type git
 
+- Install the configuration from a specific Git branch:
+
+  .. code-block:: text
+
+      $ conan config install http://github.com/user/conan_config/.git --args="--branch mybranch"
+
 - Install from a URL skipping SSL verification:
 
   .. code-block:: text
@@ -144,7 +150,7 @@ The packages containing configuration follow some special rules:
 - They cannot contain ``requires`` to other packages
 - The configuration packages are created with ``conan create`` and ``conan export-pkg`` as other packages, and uploaded to the servers with ``conan upload``
 
-To install configuration from a Conan configuration package, it is possible:
+To install a configuration from a Conan configuration package, it is possible:
 
 - To generate a lockfile file with ``--lockfile-out``. This lockfile file can be passed to ``conan config install-pkg --lockfile`` (it will automatically loaded it if is named ``conan.lock`` and found in the current directory) in the future to guarantee the same exact version.
 - Version ranges can be used ``conan config install-pkg "myconf/[>=1.0 <2]"`` is correct, and it will install the latest one in that range.
@@ -189,7 +195,7 @@ And if they had a layout with different ``global.conf`` for the different platfo
     nix/global.conf
 
 
-They, they could create and upload their configuration package as:
+They could create and upload their configuration package as:
 
 .. code-block:: bash
 
