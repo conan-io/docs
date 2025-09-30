@@ -3,6 +3,46 @@ Changelog
 
 This page lists the changes made to Conan in each version, with links to each pull request for more details.
 
+2.21.0 (29-Sept-2025)
+---------------------
+
+- Feature: Add support for universal binaries to AutotoolsToolchain. `#18992 <https://github.com/conan-io/conan/pull/18992>`_ . Docs `here <https://github.com/conan-io/docs/pull/4251>`__
+- Feature: Add support for universal binaries to GnuToolchain. `#18992 <https://github.com/conan-io/conan/pull/18992>`_ . Docs `here <https://github.com/conan-io/docs/pull/4251>`__
+- Feature: Add `--context={build,host}` filter to `conan audit scan`. `#18976 <https://github.com/conan-io/conan/pull/18976>`_ . Docs `here <https://github.com/conan-io/docs/pull/4239>`__
+- Feature: Default recipe paths to cwd if not specified when calling Conan. `#18964 <https://github.com/conan-io/conan/pull/18964>`_
+- Feature: Implement a new ``post_package_id()`` hook. `#18960 <https://github.com/conan-io/conan/pull/18960>`_ . Docs `here <https://github.com/conan-io/docs/pull/4243>`__
+- Feature: Add support for Xcode 26 and related. `#18953 <https://github.com/conan-io/conan/pull/18953>`_
+- Feature: Add support for MSVC VS 2026 (insiders at the moment). `#18948 <https://github.com/conan-io/conan/pull/18948>`_ . Docs `here <https://github.com/conan-io/docs/pull/4244>`__
+- Feature: Add the PipEnv tool to install python tools using pip in an isolated virtual environment. `#18923 <https://github.com/conan-io/conan/pull/18923>`_ . Docs `here <https://github.com/conan-io/docs/pull/4247>`__
+- Feature: Allow separate build and package directories for multiple CMake builds from single conanfile. `#18905 <https://github.com/conan-io/conan/pull/18905>`_ . Docs `here <https://github.com/conan-io/docs/pull/4250>`__
+- Feature: Add `recipes_only` field to remote to control whether a remote can be used to download binaries. `#18896 <https://github.com/conan-io/conan/pull/18896>`_ . Docs `here <https://github.com/conan-io/docs/pull/4238>`__
+- Feature: Add `cmake_extra_variables` property for `CMakeConfigDeps`. `#18822 <https://github.com/conan-io/conan/pull/18822>`_ . Docs `here <https://github.com/conan-io/docs/pull/4257>`__
+- Feature: Add `cmake_extra_variables` property for `CMakeDeps`. `#18822 <https://github.com/conan-io/conan/pull/18822>`_ . Docs `here <https://github.com/conan-io/docs/pull/4257>`__
+- Feature: Improve `conan report diff` html UX. `#18686 <https://github.com/conan-io/conan/pull/18686>`_ . Docs `here <https://github.com/conan-io/docs/pull/4235>`__
+- Feature: Allow passing build configuration in `XcodeBuild` explicitly via `configuration` parameter. `#18668 <https://github.com/conan-io/conan/pull/18668>`_ . Docs `here <https://github.com/conan-io/docs/pull/4171>`__
+- Feature: Allow passing arbitrary command line arguments to `XcodeBuild` via `cli_args`. `#18668 <https://github.com/conan-io/conan/pull/18668>`_ . Docs `here <https://github.com/conan-io/docs/pull/4171>`__
+- Feature: Add generation of ``dotenv`` environment files with ``tools.env:dotenv=True`` conf. `#18266 <https://github.com/conan-io/conan/pull/18266>`_ . Docs `here <https://github.com/conan-io/docs/pull/4246>`__
+- Fix: Avoid ``CMakePresets`` adding the  ``jobs`` field when ``tools.build:jobs=0``. `#18984 <https://github.com/conan-io/conan/pull/18984>`_
+- Fix: Warn when exporting recipes with versions containing alphanumeric majors. `#18980 <https://github.com/conan-io/conan/pull/18980>`_ . Docs `here <https://github.com/conan-io/docs/pull/4240>`__
+- Fix: Set `cpp.source.includedirs` to `include` in `basic_layout`. `#18958 <https://github.com/conan-io/conan/pull/18958>`_ . Docs `here <https://github.com/conan-io/docs/pull/4237>`__
+- Fix: ``workspace add`` can update the package version of an existing package in the workspace. `#18955 <https://github.com/conan-io/conan/pull/18955>`_
+- Fix: Move macOS bitcode flag testing to integration test. `#18930 <https://github.com/conan-io/conan/pull/18930>`_
+- Fix: Move `test_requires` to `build_requirements` method in tests. `#18929 <https://github.com/conan-io/conan/pull/18929>`_
+- Fix: Always run `validate` hooks even if recipe does not define `validate()` method. `#18928 <https://github.com/conan-io/conan/pull/18928>`_
+- Fix: Remove deprecated, old and undocumented features, marked for deprecations for a long time. `#18920 <https://github.com/conan-io/conan/pull/18920>`_ . Docs `here <https://github.com/conan-io/docs/pull/4224>`__
+- Fix: Ensure ``VCVars`` generated ``conanvcvars.bat`` has normalized path with backward slash (Windows). `#18907 <https://github.com/conan-io/conan/pull/18907>`_
+- Fix: Fix `compatibility.py` migration overwrite when no changes were necessary. `#18882 <https://github.com/conan-io/conan/pull/18882>`_
+- Fix: Cleaning ``files`` and ``upload-urls`` from "package lists" after a download or when skipping uploads. `#18878 <https://github.com/conan-io/conan/pull/18878>`_
+- Fix: Improve the error message and avoid the traceback when a ``build-scripts`` package tries to depend on a ``library`` in the "host" context. `#18869 <https://github.com/conan-io/conan/pull/18869>`_ . Docs `here <https://github.com/conan-io/docs/pull/4245>`__
+- Fix: Move legacy CMake vars from ``xxx-target-<config>.cmake`` to ``xxxx-config.cmake`` file. `#18860 <https://github.com/conan-io/conan/pull/18860>`_
+- Bugfix: Added Apple frameworks support for BazelDeps. `#19004 <https://github.com/conan-io/conan/pull/19004>`_
+- Bugfix: Ensure `conan graph build-order` errors out when passing both a recipe path and a ``--requires`` reference. `#18964 <https://github.com/conan-io/conan/pull/18964>`_
+- Bugfix: MesonToolchain no longer add quotes to ``linker_script`` definition. `#18922 <https://github.com/conan-io/conan/pull/18922>`_
+- Bugfix: Fix missing double quotes for MSBuild's commands. `#18911 <https://github.com/conan-io/conan/pull/18911>`_
+- Bugfix: Omit the ``test_requires`` when ``cyclonedx(..., add_test=False))`` in all cases, including :command:`conan install` consumption. `#18873 <https://github.com/conan-io/conan/pull/18873>`_
+- Bugfix: Command ``conan list`` with version-ranges can now listen to ``core.version_ranges:resolve_prereleases=True`` to list pre-releases. `#18868 <https://github.com/conan-io/conan/pull/18868>`_
+- Bugfix: Stabilize `PackagesList` methods. `#18833 <https://github.com/conan-io/conan/pull/18833>`_
+
 2.20.1 (04-Sept-2025)
 ---------------------
 
