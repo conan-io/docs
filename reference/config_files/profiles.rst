@@ -285,8 +285,8 @@ the prefix of the variable. It is useful to automatically get the append/prepend
     # Prepend another PATH to "MyPath1"
     MyPath1=+(path)/other path/path12
 
-    # Unset the variable "MyPath1"
-    mypkg/*:MyPath1=!
+    # Unset the variable "MyPath2"
+    MyPath2=!
 
 
 Then, the result of applying this profile is:
@@ -295,7 +295,7 @@ Then, the result of applying this profile is:
 * ``MyPath1``:
     * Unix: ``/other path/path12:/some/path11``
     * Windows: ``/other path/path12;/some/path11``
-    * For the `mypkg` recipe the value will be unset
+* ``MyPath2``: if system environment had defined ``MyPath2``, this will be unset by Conan
 
 .. warning::
 
@@ -308,6 +308,17 @@ Then, the result of applying this profile is:
 .. seealso::
 
    - This section allows to use patterns to limit which packages are affected by the buildenv. See :ref:`this section <reference_config_files_profile_patterns>` for more details.
+
+   For example:
+
+   .. code-block:: text
+
+       [buildenv]
+       MyPath=MyValue
+       mypkg/*:MyPath=MyOtherValue
+
+   This will result in ``MyPath=MyValue`` for all the packages, and ``MyPath=MyOtherValue`` only for the ``mypkg`` package.
+
 
 
 .. _reference_config_files_profiles_runenv:
