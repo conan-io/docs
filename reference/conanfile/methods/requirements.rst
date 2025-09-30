@@ -265,11 +265,12 @@ Each kind of requires sets some additional traits by default on top of the ones 
  * ``tool_requires``: ``headers=False``, ``libs=False``, ``build=True``, ``run=True``, ``visible=False``
  * ``test_requires``: ``headers=True``, ``libs=True``, ``build=False``, ``visible=False``, ``test=True``
 
-For example, taking all the logic shown into account, this means that if you have
-``self.requires("mypkg/1.0", visible=False)`` and ``mypkg/1.0`` has ``package_type="shared-library"``,
+For example, taking all the logic shown into account, this means that if in your library
+that has ``package_type="header-library"`` you have a requirement of the form
+``self.requires("mypkg/1.0")`` and ``mypkg/1.0`` has ``package_type="shared-library"``,
 the effective traits for that ``requires`` will be:
 
  * Inferred from ``mypkg``'s ``package_type``: ``run=True``
+ * Inferred from your package's ``package_type``: ``transitive_headers=True``, ``transitive_libs=True``
  * By the ``requires`` kind: ``build=False``
- * Overridden by the user: ``visible=False``
  * By default: ``headers=True``, ``libs=True``
