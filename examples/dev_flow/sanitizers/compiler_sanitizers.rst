@@ -15,7 +15,7 @@ Sanitizers are powerful tools for detecting runtime bugs like buffer overflows, 
 dangling pointers, use-of-uninitialized memory, and various types of undefined behavior. Compilers such as
 GCC, Clang, and MSVC support these tools through specific compiler and linker flags.
 
-This document explains recommended approaches for integrating compiler sanitizers into your Conan 2.x workflow.
+This page explains recommended approaches for integrating compiler sanitizers into your workflow with Conan.
 
 Modeling and applying sanitizers using settings
 -----------------------------------------------
