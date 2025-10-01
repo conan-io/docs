@@ -201,7 +201,7 @@ certificate (and the key) using the following configuration variables:
     sudo update-ca-certificates
 
 
-  Then, the certificate storage can ge defined with ``core.net.http:cacert_path=/etc/ssl/certs/ca-certificates.crt``.
+  Then, the certificate storage can be defined with ``core.net.http:cacert_path=/etc/ssl/certs/ca-certificates.crt``.
   The ``cacert_path`` Conan configuration is forwarded to the ``python-requests`` ``verify`` argument, see
   `Python-requests SSL certificates <https://requests.readthedocs.io/en/latest/user/advanced/#ssl-cert-verification>`_.
   That means that if the ``REQUESTS_CA_BUNDLE`` environment variable is defined, it might be taken into account too.
