@@ -1,5 +1,3 @@
-### Compiler sanitizers
-
 .. _examples_dev_flow_sanitizers_compiler_sanitizers:
 
 Compiler sanitizers
