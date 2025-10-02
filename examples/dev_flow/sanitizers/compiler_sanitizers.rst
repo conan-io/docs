@@ -15,6 +15,34 @@ Sanitizers are powerful tools for detecting runtime bugs like buffer overflows, 
 dangling pointers, use-of-uninitialized memory, and various types of undefined behavior. Compilers such as
 GCC, Clang, and MSVC support these tools through specific compiler and linker flags.
 
+Compiler Sanitizer Support Comparison
+-------------------------------------
+
+The following table summarizes the support for various sanitizers across different compilers:
+
++----------------------------------------+-----+-------+------+-----------------------------------------+
+| Sanitizer                              | GCC | Clang | MSVC | Notes                                   |
++========================================+=====+=======+======+=========================================+
+| **AddressSanitizer (ASan)**            | ✅  | ✅    | ✅   | MSVC: Not supported for 32-bit targets  |
++----------------------------------------+-----+-------+------+-----------------------------------------+
+| **ThreadSanitizer (TSan)**             | ✅  | ✅    | ❌   | Detects data races                      |
++----------------------------------------+-----+-------+------+-----------------------------------------+
+| **MemorySanitizer (MSan)**             | ❌  | ✅    | ❌   | Clang-only, requires `-O1`              |
++----------------------------------------+-----+-------+------+-----------------------------------------+
+| **UndefinedBehaviorSanitizer (UBSan)** | ✅  | ✅    | ❌   | Wide range of undefined behavior checks |
++----------------------------------------+-----+-------+------+-----------------------------------------+
+| **LeakSanitizer (LSan)**               | ✅  | ✅    | ❌   | Often integrated with ASan              |
++----------------------------------------+-----+-------+------+-----------------------------------------+
+| **HardwareAddressSanitizer (HWASan)**  | ❌  | ✅    | ❌   | ARM64 only, lower overhead than ASan    |
++----------------------------------------+-----+-------+------+-----------------------------------------+
+| **KernelAddressSanitizer (KASan)**     | ✅  | ✅    | ✅   | MSVC: Requires Windows 11               |
++----------------------------------------+-----+-------+------+-----------------------------------------+
+| **DataFlowSanitizer (DFSan)**          | ❌  | ✅    | ❌   | Dynamic data flow analysis              |
++----------------------------------------+-----+-------+------+-----------------------------------------+
+| **Control Flow Integrity (CFI)**       | ❌  | ✅    | ✅   | MSVC: `/guard:cf`                       |
++----------------------------------------+-----+-------+------+-----------------------------------------+
+
+
 This page explains recommended approaches for integrating compiler sanitizers into your workflow with Conan.
 
 Modeling and applying sanitizers using settings
@@ -55,6 +83,38 @@ This example defines a few common sanitizers. You can add any sanitizer your com
 The ``null`` value represents a build without sanitizers. The above models the use of ``-fsanitize=address``,
 ``-fsanitize=thread``, ``-fsanitize=memory``, ``-fsanitize=leak``, ``-fsanitize=undefined``, ``-fsanitize=hwaddress``,
 ``-fsanitize=kernel-address``, as well as combinations like ``-fsanitize=address,undefined`` and ``-fsanitize=thread,undefined``.
+
+Common Sanitizer Combinations
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
++-------------------+-----+-------+------+-----------------------------------------+
+| Combination       | GCC | Clang | MSVC | Compatibility                           |
++===================+=====+=======+======+=========================================+
+| **ASan + UBSan**  | ✅  | ✅    | ❌   | Most common combination                 |
++-------------------+-----+-------+------+-----------------------------------------+
+| **TSan + UBSan**  | ✅  | ✅    | ❌   | Good for multithreaded code             |
++-------------------+-----+-------+------+-----------------------------------------+
+| **ASan + LSan**   | ✅  | ✅    | ❌   | LSan often enabled by default with ASan |
++-------------------+-----+-------+------+-----------------------------------------+
+| **MSan + UBSan**  | ❌  | ✅    | ❌   | Requires careful dependency management  |
++-------------------+-----+-------+------+-----------------------------------------+
+
+Compiler-Specific Flags
+^^^^^^^^^^^^^^^^^^^^^^^
+
++-----------------------+------------------------+------------------------+----------------------+
+| Sanitizer             | GCC Flag               | Clang Flag             | MSVC Flag            |
++=======================+========================+========================+======================+
+| **AddressSanitizer**  | `-fsanitize=address`   | `-fsanitize=address`   | `/fsanitize=address` |
++-----------------------+------------------------+------------------------+----------------------+
+| **ThreadSanitizer**   | `-fsanitize=thread`    | `-fsanitize=thread`    | N/A                  |
++-----------------------+------------------------+------------------------+----------------------+
+| **MemorySanitizer**   | N/A                    | `-fsanitize=memory`    | N/A                  |
++-----------------------+------------------------+------------------------+----------------------+
+| **UndefinedBehavior** | `-fsanitize=undefined` | `-fsanitize=undefined` | N/A                  |
++-----------------------+------------------------+------------------------+----------------------+
+| **LeakSanitizer**     | `-fsanitize=leak`      | `-fsanitize=leak`      | N/A                  |
++-----------------------+------------------------+------------------------+----------------------+
 
 It may seem like a large number of options, but for Clang, these are only a portion. To obtain the complete list,
 refer to:
