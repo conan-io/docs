@@ -5,18 +5,21 @@ Compiler sanitizers
 
 .. warning::
 
-   Using sanitizers in production, especially with programs that run with elevated privileges (for example, SUID binaries on Linux), is dangerous.
-   The sanitizer runtime libraries depend on environment variables, which could allow privilege escalation attacks.
-   Use sanitizers only in development and testing environments.
+   Do not use sanitizers for production builds, especially for binaries with elevated privileges (e.g., SUID).
+   Sanitizer runtimes rely on environment variables and can enable privilege escalation.
+   Use only in development and testing.
 
 Sanitizers are powerful tools for detecting runtime bugs like buffer overflows, data races, memory leaks,
 dangling pointers, use-of-uninitialized memory, and various types of undefined behavior. Compilers such as
 GCC, Clang, and MSVC support these tools through specific compiler and linker flags.
 
+This page explains recommended approaches for integrating compiler sanitizers into your workflow with Conan.
+
 Compiler Sanitizer Support Comparison
 -------------------------------------
 
-The following table summarizes the support for various sanitizers across different compilers:
+Each compiler has different levels of support for various sanitizers, Clang being the most comprehensive so far.
+To help you choose the right sanitizer for your needs and compiler, here is a summary of the most common ones:
 
 +----------------------------------------+-----+-------+------+-----------------------------------------+
 | Sanitizer                              | GCC | Clang | MSVC | Notes                                   |
@@ -40,50 +43,14 @@ The following table summarizes the support for various sanitizers across differe
 | **Control Flow Integrity (CFI)**       | ❌  | ✅    | ✅   | MSVC: `/guard:cf`                       |
 +----------------------------------------+-----+-------+------+-----------------------------------------+
 
-
-This page explains recommended approaches for integrating compiler sanitizers into your workflow with Conan.
-
-Modeling and applying sanitizers using settings
------------------------------------------------
-
-If you want to model sanitizer options so that the package ID is affected by them, you can
-:ref:`customize new compiler sub-settings <reference_config_files_customizing_settings>`. You should not need
-to modify ``settings.yml`` directly; instead add :ref:`the settings_user.yml <examples_config_files_settings_user>`.
-
-This approach is preferred because enabling a sanitizer alters the package ID, allowing you to build and use
-the same binary package with or without sanitizers. This is ideal for development and debugging workflows.
-
-To better illustrate this, please clone the sources to recreate this project. You can find them in the
-`examples2 repository <https://github.com/conan-io/examples2>`_ on GitHub:
-
-.. code-block:: bash
-
-   git clone https://github.com/conan-io/examples2.git
-   cd examples2/examples/dev_flow/sanitizers/compiler_sanitizers
-
-In this example we will see how to prepare Conan to use sanitizers in different ways.
-
-Configuring sanitizers as part of settings
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-If you typically use a specific set of sanitizers or combinations for your builds, you can specify
-a sub-setting as a list of values in your ``settings_user.yml``. For example, for Clang:
-
-.. code-block:: yaml
-   :caption: settings_user.yml
-   :emphasize-lines: 3
-
-   compiler:
-     clang:
-       sanitizer: [null, Address, Leak, Thread, Memory, UndefinedBehavior, HardwareAssistanceAddress, KernelAddress, AddressUndefinedBehavior, ThreadUndefinedBehavior]
-
-This example defines a few common sanitizers. You can add any sanitizer your compiler supports.
-The ``null`` value represents a build without sanitizers. The above models the use of ``-fsanitize=address``,
-``-fsanitize=thread``, ``-fsanitize=memory``, ``-fsanitize=leak``, ``-fsanitize=undefined``, ``-fsanitize=hwaddress``,
-``-fsanitize=kernel-address``, as well as combinations like ``-fsanitize=address,undefined`` and ``-fsanitize=thread,undefined``.
+Besides MSVC having more limited support for sanitizers, it encourages the community to vote for new features
+at `Developer Community <https://developercommunity.visualstudio.com/cpp>`_.
 
 Common Sanitizer Combinations
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The sanitizers can often be combined to provide more comprehensive coverage, but not all combinations are supported by every compiler.
+Here are some common combinations and their compatibility mostly used with GCC and Clang:
 
 +-------------------+-----+-------+------+-----------------------------------------+
 | Combination       | GCC | Clang | MSVC | Compatibility                           |
@@ -97,8 +64,16 @@ Common Sanitizer Combinations
 | **MSan + UBSan**  | ❌  | ✅    | ❌   | Requires careful dependency management  |
 +-------------------+-----+-------+------+-----------------------------------------+
 
+**Notes on combinations**:
+
+* AddressSanitizer (ASan), ThreadSanitizer (TSan), and MemorySanitizer (MSan) are mutually exclusive with one another.
+* MemorySanitizer often requires special flags such as ``-O1``, ``-fno-omit-frame-pointer`` and fully-instrumented dependencies.
+
 Compiler-Specific Flags
 ^^^^^^^^^^^^^^^^^^^^^^^
+
+Each compiler requires specific flags to enable the desired sanitizers. Here is a summary of the most common
+sanitizers and their corresponding flags for GCC, Clang, and MSVC:
 
 +-----------------------+------------------------+------------------------+----------------------+
 | Sanitizer             | GCC Flag               | Clang Flag             | MSVC Flag            |
@@ -124,12 +99,34 @@ refer to:
 * GCC: `Instrumentation Options <https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html>`_.
 * MSVC: `MSVC Sanitizers <https://learn.microsoft.com/en-us/cpp/sanitizers/>`_.
 
-**Notes on combinations**:
+Modeling and applying sanitizers using settings
+-----------------------------------------------
 
-* AddressSanitizer (ASan), ThreadSanitizer (TSan), and MemorySanitizer (MSan) are mutually exclusive with one another.
-* Address + UndefinedBehavior (UBSan) is a common and supported combination.
-* Thread + UndefinedBehavior is also supported.
-* MemorySanitizer often requires special flags such as ``-O1``, ``-fno-omit-frame-pointer`` and fully-instrumented dependencies.
+If you want to model sanitizer options so that the package ID is affected by them, you can
+:ref:`customize new compiler sub-settings <reference_config_files_customizing_settings>`. You should not need
+to modify ``settings.yml`` directly; instead add :ref:`the settings_user.yml <examples_config_files_settings_user>`.
+
+This approach is preferred because enabling a sanitizer alters the package ID, allowing you to build and use
+the same binary package with or without sanitizers. This is ideal for development and debugging workflows.
+
+Configuring sanitizers as part of settings
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If you typically use a specific set of sanitizers or combinations for your builds, you can specify
+a sub-setting as a list of values in your ``settings_user.yml``. For example, for Clang:
+
+.. code-block:: yaml
+   :caption: settings_user.yml
+   :emphasize-lines: 3
+
+   compiler:
+     clang:
+       sanitizer: [null, Address, Leak, Thread, Memory, UndefinedBehavior, HardwareAssistanceAddress, KernelAddress, AddressUndefinedBehavior, ThreadUndefinedBehavior]
+
+This example defines a few common sanitizers. You can add any sanitizer your compiler supports.
+The ``null`` value represents a build without sanitizers. The above models the use of ``-fsanitize=address``,
+``-fsanitize=thread``, ``-fsanitize=memory``, ``-fsanitize=leak``, ``-fsanitize=undefined``, ``-fsanitize=hwaddress``,
+``-fsanitize=kernel-address``, as well as combinations like ``-fsanitize=address,undefined`` and ``-fsanitize=thread,undefined``.
 
 Adding sanitizers as part of the profile
 ----------------------------------------
@@ -179,6 +176,16 @@ pick up the flags defined in the ``[conf]`` section and apply them to the build.
 
 Building examples using sanitizers
 ----------------------------------
+
+To better illustrate this, first, please clone the sources to recreate this project. You can find them in the
+`examples2 repository <https://github.com/conan-io/examples2>`_ on GitHub:
+
+.. code-block:: bash
+
+   git clone https://github.com/conan-io/examples2.git
+   cd examples2/examples/dev_flow/sanitizers/compiler_sanitizers
+
+In this example we will see how to prepare Conan to use sanitizers in different ways.
 
 To show how to use sanitizers in your builds, let's consider two examples.
 
