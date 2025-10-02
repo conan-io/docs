@@ -281,48 +281,6 @@ Then, specify this toolchain file as part of your Conan profile:
 
 This way, you can keep your existing CMake toolchain file and still leverage Conan profiles to manage other settings.
 
-Managing sanitizers with Conan hooks
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Another approach is using :ref:`Conan hooks <reference_extensions_hooks>`. With hooks, you can inject compiler
-flags on-the-fly during the build process, allowing for dynamic configurations without modifying the original
-build files.
-
-For instance, add a ``pre_generate`` hook to append the necessary sanitizer flags based on the
-``compiler.sanitizer`` setting:
-
-.. code-block:: python
-   :caption: ~/.conan2/extensions/hooks/hook_sanitizer_flags.py
-
-   def pre_generate(conanfile):
-       sani = conanfile.settings.get_safe("compiler.sanitizer")
-       if not sani or sani == "null":
-           return
-       mapping = {
-           "Address": "address",
-           "Leak": "leak",
-           "Thread": "thread",
-           "Memory": "memory",
-           "UndefinedBehavior": "undefined",
-           "HardwareAssistanceAddress": "hwaddress",
-           "KernelAddress": "kernel-address",
-           "AddressUndefinedBehavior": "address,undefined",
-           "ThreadUndefinedBehavior": "thread,undefined",
-       }
-       fs = mapping.get(sani)
-       if not fs:
-           return
-       flag = f"-fsanitize={fs}"
-       for k in ("tools.build:cflags", "tools.build:cxxflags",
-                 "tools.build:exelinkflags", "tools.build:sharedlinkflags"):
-           conanfile.conf.append(k, flag)
-       # Optional: better stack traces
-       conanfile.conf.append("tools.build:cxxflags", "-fno-omit-frame-pointer")
-
-The ``pre_generate`` hook is executed before Conan generates toolchain files, so it can contribute to the final
-configuration for compiler and linker flags. This approach is flexible, but can increase maintenance complexity
-as it moves logic out of profile management.
-
 Additional recommendations
 --------------------------
 
