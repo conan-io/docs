@@ -9,14 +9,25 @@ Compiler sanitizers
    Sanitizer runtimes rely on environment variables and can enable privilege escalation.
    Use only in development and testing.
 
-Sanitizers are powerful tools for detecting runtime bugs like buffer overflows, data races, memory leaks,
-dangling pointers, use-of-uninitialized memory, and various types of undefined behavior. Compilers such as
-GCC, Clang, and MSVC support these tools through specific compiler and linker flags.
+Sanitizers are powerful runtime instrumentation tools that detect issues such as:
+
+* Buffer overflows (stack/heap), use-after-free, double-free
+* Data races in multithreaded code
+* Memory leaks
+* Use of uninitialized memory
+* A wide range of undefined behaviors
+
+Compilers such as GCC, Clang, and MSVC support sanitizers via compiler and linker flags.
 
 This page explains recommended approaches for integrating compiler sanitizers into your workflow with Conan.
 
 Compiler Sanitizer Support Comparison
 -------------------------------------
+
+.. important::
+
+   Always rebuild all dependencies from source when enabling sanitizers to ensure consistent instrumentation
+   and to avoid false positives (particularly critical for MemorySanitizer).
 
 Each compiler has different levels of support for various sanitizers, Clang being the most comprehensive so far.
 To help you choose the right sanitizer for your needs and compiler, here is a summary of the most common ones:
@@ -46,6 +57,14 @@ To help you choose the right sanitizer for your needs and compiler, here is a su
 Besides MSVC having more limited support for sanitizers, it encourages the community to vote for new features
 at `Developer Community <https://developercommunity.visualstudio.com/cpp>`_.
 
+Also, you con consider the typical use cases for each sanitizer:
+
+* AddressSanitizer (ASan): Great default for memory errors; often combined with UBSan for broader coverage.
+* ThreadSanitizer (TSan): Find data races in multithreaded code.
+* MemorySanitizer (MSan): Detects uninitialized memory reads (Clang-only). Requires all dependencies to be instrumented.
+* LeakSanitizer (LSan): Often included with ASan on Clang/GCC, can be enabled explicitly. Typically used to find memory leaks.
+* UndefinedBehaviorSanitizer (UBSan): Catches many undefined behaviors; often combined with ASan.
+
 Common Sanitizer Combinations
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -66,8 +85,9 @@ Here are some common combinations and their compatibility mostly used with GCC a
 
 **Notes on combinations**:
 
-* AddressSanitizer (ASan), ThreadSanitizer (TSan), and MemorySanitizer (MSan) are mutually exclusive with one another.
-* MemorySanitizer often requires special flags such as ``-O1``, ``-fno-omit-frame-pointer`` and fully-instrumented dependencies.
+* AddressSanitizer (ASan), ThreadSanitizer (TSan), and MemorySanitizer (MSan) **are mutually exclusive with one another**.
+* MemorySanitizer often requires special flags such as ``-O1``, ``-fno-omit-frame-pointer`` and fully-instrumented dependencies;
+  mixing with non-instrumented code leads to crashes/false positives.
 
 Compiler-Specific Flags
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -90,7 +110,7 @@ sanitizers and their corresponding flags for GCC, Clang, and MSVC:
 +-----------------------+------------------------+------------------------+----------------------+
 
 It may seem like a large number of options, but for Clang, these are only a portion. To obtain the complete list,
-refer to:
+please refer to the official documentation for each compiler:
 
 * Clang: `AddressSanitizer <https://clang.llvm.org/docs/AddressSanitizer.html>`_,
   `ThreadSanitizer <https://clang.llvm.org/docs/ThreadSanitizer.html>`_,
@@ -99,8 +119,15 @@ refer to:
 * GCC: `Instrumentation Options <https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html>`_.
 * MSVC: `MSVC Sanitizers <https://learn.microsoft.com/en-us/cpp/sanitizers/>`_.
 
+Enabling Sanitizers
+-------------------
+
+Conan cannot infer sanitizer flags from settings automatically.
+You have to pass the appropriate compiler and linker flags (e.g., ``-fsanitize=`` or ``/fsanitize=address``) via profiles or toolchains.
+Conan toolchains (e.g., ``CMakeToolchain``, ``MesonToolchain``) will propagate flags defined in ``[conf]`` sections.
+
 Modeling and applying sanitizers using settings
------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 If you want to model sanitizer options so that the package ID is affected by them, you can
 :ref:`customize new compiler sub-settings <reference_config_files_customizing_settings>`. You should not need
@@ -110,7 +137,7 @@ This approach is preferred because enabling a sanitizer alters the package ID, a
 the same binary package with or without sanitizers. This is ideal for development and debugging workflows.
 
 Configuring sanitizers as part of settings
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If you typically use a specific set of sanitizers or combinations for your builds, you can specify
 a sub-setting as a list of values in your ``settings_user.yml``. For example, for Clang:
@@ -129,7 +156,7 @@ The ``null`` value represents a build without sanitizers. The above models the u
 ``-fsanitize=kernel-address``, as well as combinations like ``-fsanitize=address,undefined`` and ``-fsanitize=thread,undefined``.
 
 Adding sanitizers as part of the profile
-----------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Another option is to add the sanitizer values as part of a profile. This way, you can easily switch between
 different configurations by using dedicated profiles.
@@ -173,8 +200,40 @@ during the build process. It is necessary to pass the expected sanitizer flags a
 Conan's built-in toolchains (like ``CMakeToolchain`` and ``MesonToolchain``) will automatically
 pick up the flags defined in the ``[conf]`` section and apply them to the build.
 
+Managing sanitizers with a CMake toolchain
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Building examples using sanitizers
+Besides using Conan profiles to manage sanitizer settings, you can also use other approaches.
+
+If you already have a :ref:`custom CMake toolchain file <conan_cmake_user_toolchain>` to manage compiler
+and build options, you can pass the necessary flags to enable sanitizers there instead of profiles.
+
+.. code-block:: cmake
+   :caption: cmake/my_toolchain.cmake
+
+   # Apply to all targets; consider per-target options for finer control
+   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=address,undefined -fno-omit-frame-pointer")
+   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address,undefined -fno-omit-frame-pointer")
+   set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fsanitize=address,undefined")
+   set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -fsanitize=address,undefined")
+
+Then, specify this toolchain file as part of your Conan profile:
+
+.. code-block:: ini
+   :caption: profiles/asan_ubsan
+
+   include(default)
+
+   [settings]
+   build_type=Debug
+   compiler.sanitizer=AddressUndefinedBehavior
+
+   [conf]
+   tools.cmake.cmaketoolchain:user_toolchain=cmake/my_toolchain.cmake
+
+This way, you can keep your existing CMake toolchain file and still leverage Conan profiles to manage other settings.
+
+Building Examples Using Sanitizers
 ----------------------------------
 
 To better illustrate this, first, please clone the sources to recreate this project. You can find them in the
@@ -188,12 +247,6 @@ To better illustrate this, first, please clone the sources to recreate this proj
 In this example we will see how to prepare Conan to use sanitizers in different ways.
 
 To show how to use sanitizers in your builds, let's consider two examples.
-
-.. note::
-
-   To build your project with a sanitizer, simply use the corresponding profile.
-   It is crucial to **rebuild all dependencies from source** to ensure they are also instrumented,
-   which prevents false positives and other issues.
 
 AddressSanitizer: index out of bounds
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -222,7 +275,7 @@ in an array, which should trigger ASan when running the program.
    }
 
 **Note:** The preprocessor check above is portable for GCC, Clang and MSVC.
-The define ``__SANITIZE_ADDRESS__`` is present when ASan is active;
+The define ``__SANITIZE_ADDRESS__`` is present when **ASan** is active;
 
 **To build and run this example using Conan:**
 
@@ -309,42 +362,6 @@ It is supported by GCC and Clang. MSVC does not support UBSan.
 
    Address sanitizer enabled
    .../main.cpp:16:9: runtime error: signed integer overflow: 2147483647 + 1 cannot be represented in type 'int'
-
-Passing the information to the compiler or build system
--------------------------------------------------------
-
-Besides using Conan profiles to manage sanitizer settings, you can also use other approaches.
-
-Managing sanitizers with a CMake toolchain
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-If you already have a :ref:`custom CMake toolchain file <conan_cmake_user_toolchain>` to manage compiler
-and build options, you can pass the necessary flags to enable sanitizers there instead of profiles.
-
-.. code-block:: cmake
-   :caption: cmake/my_toolchain.cmake
-
-   # Apply to all targets; consider per-target options for finer control
-   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=address,undefined -fno-omit-frame-pointer")
-   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address,undefined -fno-omit-frame-pointer")
-   set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fsanitize=address,undefined")
-   set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -fsanitize=address,undefined")
-
-Then, specify this toolchain file as part of your Conan profile:
-
-.. code-block:: ini
-   :caption: profiles/asan_ubsan
-
-   include(default)
-
-   [settings]
-   build_type=Debug
-   compiler.sanitizer=AddressUndefinedBehavior
-
-   [conf]
-   tools.cmake.cmaketoolchain:user_toolchain=cmake/my_toolchain.cmake
-
-This way, you can keep your existing CMake toolchain file and still leverage Conan profiles to manage other settings.
 
 Additional recommendations
 --------------------------
