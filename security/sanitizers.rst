@@ -1,7 +1,7 @@
-.. _examples_dev_flow_sanitizers_compiler_sanitizers:
+.. _security_sanitizers:
 
-Compiler sanitizers
-===================
+Sanitizers
+==========
 
 .. warning::
 

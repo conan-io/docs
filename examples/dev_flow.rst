@@ -8,5 +8,4 @@ Developer tools and flows
 
    dev_flow/debug/step_into_dependencies
    dev_flow/debug/debugging_visual
-   dev_flow/sanitizers/compiler_sanitizers
    dev_flow/tool_requires/mingw
