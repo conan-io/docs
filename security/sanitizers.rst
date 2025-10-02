@@ -289,7 +289,7 @@ To better illustrate this, first, please clone the sources to recreate this proj
 .. code-block:: bash
 
    git clone https://github.com/conan-io/examples2.git
-   cd examples2/examples/dev_flow/sanitizers/compiler_sanitizers
+   cd examples2/examples/security/sanitizers/compiler_sanitizers
 
 In this example we will see how to prepare Conan to use sanitizers in different ways.
 
