@@ -57,13 +57,13 @@ To help you choose the right sanitizer for your needs and compiler, here is a su
 Besides MSVC having more limited support for sanitizers, it encourages the community to vote for new features
 at `Developer Community <https://developercommunity.visualstudio.com/cpp>`_.
 
-Also, you con consider the typical use cases for each sanitizer:
+Also, you can consider the typical use cases for each sanitizer:
 
-* AddressSanitizer (ASan): Great default for memory errors; often combined with UBSan for broader coverage.
-* ThreadSanitizer (TSan): Find data races in multithreaded code.
-* MemorySanitizer (MSan): Detects uninitialized memory reads (Clang-only). Requires all dependencies to be instrumented.
-* LeakSanitizer (LSan): Often included with ASan on Clang/GCC, can be enabled explicitly. Typically used to find memory leaks.
-* UndefinedBehaviorSanitizer (UBSan): Catches many undefined behaviors; often combined with ASan.
+* **AddressSanitizer (ASan)**: Great default for memory errors; often combined with UBSan for broader coverage.
+* **ThreadSanitizer (TSan)**: Find data races in multithreaded code.
+* **MemorySanitizer (MSan)**: Detects uninitialized memory reads (Clang-only). Requires all dependencies to be instrumented.
+* **LeakSanitizer (LSan)**: Often included with ASan on Clang/GCC, can be enabled explicitly. Typically used to find memory leaks.
+* **UndefinedBehaviorSanitizer (UBSan)**: Catches many undefined behaviors; often combined with ASan.
 
 Common Sanitizer Combinations
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -118,6 +118,47 @@ please refer to the official documentation for each compiler:
   `UndefinedBehaviorSanitizer <https://clang.llvm.org/docs/UndefinedBehaviorSanitizer.html>`_.
 * GCC: `Instrumentation Options <https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html>`_.
 * MSVC: `MSVC Sanitizers <https://learn.microsoft.com/en-us/cpp/sanitizers/>`_.
+
+Binary Compatibility
+--------------------
+
+How sanitizers affect your binaries
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Sanitizers instrument your code at compile time, adding runtime checks and metadata.
+This changes your binary's **Application Binary Interface (ABI)**, making instrumented code incompatible with non-instrumented code.
+
+**Key changes sanitizers make:**
+
+- **Memory layout**: Sanitizers add shadow memory, guard zones, or tracking metadata around your data
+- **Function calls**: Standard library functions (``malloc``, ``free``, etc.) are wrapped or intercepted
+- **Runtime dependencies**: Instrumented code requires sanitizer runtime libraries (``libasan``, ``libtsan``, etc.)
+- **Linking**: Mixing instrumented and non-instrumented code can cause crashes, false positives, or undefined behavior
+
+Handling external code
+^^^^^^^^^^^^^^^^^^^^^^
+
+When using sanitizers, you must consider how to handle third-party dependencies.
+As mixing instrumented and non-instrumented code can lead to issues, here are some strategies:
+
+**Always require full instrumentation:**
+
+- **MemorySanitizer (MSan)**: Changes function ABIs to pass shadow state.
+- **DataFlowSanitizer (DFSan)**: Explicitly modifies the ABI by appending label parameters to functions.
+- **ThreadSanitizer (TSan)**: Changes memory layout and intercepts synchronization primitives.
+  Some code may not be instrumented by ThreadSanitizer, but not recommended.
+
+**Usually require full instrumentation:**
+
+- **AddressSanitizer (ASan)**: Adds redzones and shadow memory; Works with non-instrumented code, but not recommended.
+- **HardwareAddressSanitizer (HWASan)**: Similar to ASan but uses hardware tagging. Mixing is possible but not recommended.
+
+**Can often mix with non-instrumented code:**
+
+- **UndefinedBehaviorSanitizer (UBSan)**: Adds runtime checks for undefined behavior; Minimal ABI changes, safer to mix.
+- **LeakSanitizer (LSan)**: Detects memory leaks at program exit; When standalone, has minimal ABI impact.
+
+For reliable results, **always** rebuild your entire dependency tree with the same sanitizer configuration.
 
 Enabling Sanitizers
 -------------------
