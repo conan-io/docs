@@ -8,8 +8,6 @@ Compiler sanitizers
    Using sanitizers in production, especially with programs that run with elevated privileges (for example, SUID binaries on Linux), is dangerous.
    The sanitizer runtime libraries depend on environment variables, which could allow privilege escalation attacks.
    Use sanitizers only in development and testing environments.
-   runtimes rely on environment variables that could enable privilege escalation attacks.
-   Use sanitizers only in development and testing environments.
 
 Sanitizers are powerful tools for detecting runtime bugs like buffer overflows, data races, memory leaks,
 dangling pointers, use-of-uninitialized memory, and various types of undefined behavior. Compilers such as
