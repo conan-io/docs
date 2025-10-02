@@ -196,6 +196,12 @@ The ``null`` value represents a build without sanitizers. The above models the u
 ``-fsanitize=thread``, ``-fsanitize=memory``, ``-fsanitize=leak``, ``-fsanitize=undefined``, ``-fsanitize=hwaddress``,
 ``-fsanitize=kernel-address``, as well as combinations like ``-fsanitize=address,undefined`` and ``-fsanitize=thread,undefined``.
 
+As the ``sanitizer`` setting is a list, it can be choose by one single value at time.
+As an workaround to support mutiple sanitizers at same time, you can define combinations like
+``AddressUndefinedBehavior`` and ``ThreadUndefinedBehavior``, as listed above.
+There is no limitation on the number of combinations you can define, but keep in mind that these are only tags
+to help you manage your builds. You still need to pass the appropriate flags to the compiler and linker accordingly.
+
 Adding sanitizers as part of the profile
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
