@@ -329,10 +329,8 @@ The define ``__SANITIZE_ADDRESS__`` is present when **ASan** is active;
 .. code-block:: bash
 
    conan export index_out_of_bounds/
-   conan install --requires=index_out_of_bounds/0.1.0 -pr profiles/asan -of index_out_of_bounds/install --build=missing
-   # Activate run environment to ensure sanitizer runtime and paths are set
-   source index_out_of_bounds/install/conanrun.sh
-   index_out_of_bounds
+   conan build index_out_of_bounds --version=0.1.0 -pr profiles/asan -of index_out_of_bounds/install --build=missing
+   index_out_of_bounds/build/Debug/index_out_of_bounds
 
 **Expected output (abbreviated):**
 
@@ -399,9 +397,8 @@ It is supported by GCC and Clang. MSVC does not support UBSan.
 .. code-block:: bash
 
    conan export signed_integer_overflow/
-   conan install --requires=signed_integer_overflow/0.1.0 -pr profiles/asan_ubsan -of signed_integer_overflow/install --build=missing
-   source signed_integer_overflow/install/conanrun.sh
-   signed_integer_overflow
+   conan build signed_integer_overflow/ --version=0.1.0 -pr profiles/asan_ubsan -of signed_integer_overflow/install --build=missing
+   signed_integer_overflow/build/Debug/signed_integer_overflow
 
 **Expected output (abbreviated):**
 
@@ -409,6 +406,8 @@ It is supported by GCC and Clang. MSVC does not support UBSan.
 
    Address sanitizer enabled
    .../main.cpp:16:9: runtime error: signed integer overflow: 2147483647 + 1 cannot be represented in type 'int'
+
+When executing the example application, UBSan detects the signed integer overflow and reports it as expected.
 
 Additional recommendations
 --------------------------
