@@ -298,15 +298,15 @@ The focus of this CI tutorial is to introduce some important concepts, good prac
 - How large dependency graphs can be built efficiently in CI with the ``conan graph build-order``, and how build-orders for different configurations and products can be merged together.
 - Why ``lockfiles`` are necessary in CI when there are concurrent CI builds.
 - The importance of versioning, and the role of ``package_id`` to re-build only what is necessary in large dependency graphs.
-- Not using ``user/channel`` as variable and dynamic qualifiers of packages that change accross the CI pipeline, but using instead different server repositories.
-- Running package promotions (copies) accross server repositories when new package versions are validated.
+- Not using ``user/channel`` as variable and dynamic qualifiers of packages that change across the CI pipeline, but using instead different server repositories.
+- Running package promotions (copies) across server repositories when new package versions are validated.
 
 
 There are still many implementation details, strategies, use cases, and error scenarios that are not covered in this tutorial yet:
 
 - How to integrate breaking changes of a package that requires a new breaking major version.
 - Different versioning strategies, using pre-releases, using versions or relying on recipe revisions in certain cases.
-- How lockfiles can be stored and used accross different builds, if it is good to persist them and where.
+- How lockfiles can be stored and used across different builds, if it is good to persist them and where.
 - Different branching and merging strategies, nightly builds, releases flows.
 
 We plan to extend this CI tutorial, including more examples and use cases. If you have any question or feedback, please create a ticket in https://github.com/conan-io/conan/issues.

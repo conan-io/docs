@@ -15,7 +15,7 @@ There are 2 important arguments that affect how this build order is computed:
 
 By default, the ``conan graph build-order`` will return the order for the full dependency graph, and it will annotate
 in each element what needs to be done, for example ``"binary": "Cache"`` if the binary is already in the Conan Cache
-and doesnt need to be built from source, and ``"binary": "Build"``, if it needs to be built from source.
+and it doesn't need to be built from source, and ``"binary": "Build"``, if it needs to be built from source.
 Having the full order is necessary if we want to ``conan graph build-order-merge`` several build-orders into a single
 one later, because having the full information allows to preserve the relative order that would otherwise be lost and
 broken.
@@ -98,7 +98,7 @@ Let's consider installing `libpng` and wanting to see the build order for this r
 
 Firstly, we can see the ``zlib`` package, as ``libpng`` depends on it. The output is sorted by
 recipes as we passed with the `--order-by` argument; however, we might prefer to see it
-sorted by configurations instead. For that purpouse use the `--order-by` argument with
+sorted by configurations instead. For that purpose use the `--order-by` argument with
 value `configuration`.
 
 At the end of the json, after the ``order`` field, we see a ``profiles`` field, which contains the profile related command line arguments for the current "build-order". As in this case we didn't provide any arguments, it is empty. But if we used something like ``conan graph build-order ... -pr=default -s build_type=Debug > bo.json``, the ``args`` will contain those arguments (with json character escaping): ``"args": "-pr:h=\"default\" -s:h=\"build_type=Debug\""``

@@ -7,7 +7,7 @@ Save and restore packages from/to the cache
 
 With the ``conan cache save`` and ``conan cache restore`` commands, it is possible to create a .tgz from one or several packages from a Conan cache and later restore those packages into another Conan cache. There are some scenarios this can be useful:
 
-- In Continuous Integration, specially if doing distributed builds, it might be very convenient to be able to move temporary packages recently built. Most CI systems have the capability of transferring files between jobs for this purpose. The Conan cache is not concurrent, sometimes for paralllel jobs different caches have to be used. 
+- In Continuous Integration, specially if doing distributed builds, it might be very convenient to be able to move temporary packages recently built. Most CI systems have the capability of transferring files between jobs for this purpose. The Conan cache is not concurrent, sometimes for parallel jobs different caches have to be used.
 - For air-gapped setups, in which packages can only be transferred via client side.
 - Developers directly sharing some packages with other developers for testing or inspection.
 

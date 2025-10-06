@@ -18,12 +18,12 @@ It is possible to add new settings or subsettings in the  *settings.yml* file, s
 
 Where the ``null`` value allows leaving the setting undefined in profiles. If not including, it will be mandatory that profiles define a value for them.
 
-The custom settings will be used explicitly or implictly in recipes and packages:
+The custom settings will be used explicitly or implicitly in recipes and packages:
 
 .. code-block:: python
 
     class Pkg(ConanFile):
-        # If we explicilty want this package binaries to vary according to 'new_root_setting'
+        # If we explicitly want this package binaries to vary according to 'new_root_setting'
         settings = "os", "compiler", "build_type", "arch", "new_root_setting"
         # While all packages with 'os=Windows' will implicitly vary according to 'new_subsetting'
 

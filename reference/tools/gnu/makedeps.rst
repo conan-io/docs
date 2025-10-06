@@ -93,7 +93,7 @@ The resulting makefile variable assignments would look like this:
     CONAN_PROPERTY_MYLIB_MY_PROP = some value
     CONAN_PROPERTY_MYLIB_MYCOMP_COMP_PROP = comp_value
 
-When substituting package names, component names and property names into makefile variable names, the names are converted to uppercase and all characters except `A-Z`, `0-9` and `_` are replaced with `_` (see example above with a dot in the property name). The property value is not modified, it is put to the right side of the variable assignment literally. Any whitespace and special character remain unchagend, no quotation or escaping is applied, because GNU Make is not consistent in escaping spaces and cannot handle whitespaces in path names anyway. Because values with newlines would break the makefile they are skipped and a warning is displayed.
+When substituting package names, component names and property names into makefile variable names, the names are converted to uppercase and all characters except `A-Z`, `0-9` and `_` are replaced with `_` (see example above with a dot in the property name). The property value is not modified, it is put to the right side of the variable assignment literally. Any whitespace and special character remain unchanged, no quotation or escaping is applied, because GNU Make is not consistent in escaping spaces and cannot handle whitespaces in path names anyway. Because values with newlines would break the makefile they are skipped and a warning is displayed.
 
 
 Customization
