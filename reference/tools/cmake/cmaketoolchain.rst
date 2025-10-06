@@ -708,7 +708,7 @@ the *conan_toolchain.cmake* file.
     other than CMake or Autotools via ``CMakeToolchain`` and
     ``AutotoolsToolchain``.
 
-    Be aware that this feature is primarily beneficial for building final univeral
+    Be aware that this feature is primarily beneficial for building final universal
     binaries for release purposes. The default Conan behavior of managing one binary per
     architecture generally provides a more reliable and trouble-free experience. Users
     should be cautious and not overly rely on this feature for broader use cases.

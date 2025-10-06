@@ -90,7 +90,7 @@ A better, more explicit environment management, also introduced in Conan 1.X is 
 
 .. seealso::
 
-    - :ref:`Reference of enviroment tools <reference_tools_env>`
+    - :ref:`Reference of environment tools <reference_tools_env>`
 
 
 Multi-revision cache

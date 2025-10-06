@@ -19,7 +19,7 @@ This generator is designed as a replacement of the current ``CMakeDeps`` generat
 - Definition of IMPORTED_LOCATION and IMPORTED_IMPLIB for library targets.
 - Definition of LINK_LANGUAGES based on the recipe ``languages`` and ``cpp_info/component`` ``languages`` properties.
 - All these allows better propagation of linkage requirement and visibility, avoiding some linkage error of transitive shared libraries in Linux.
-- Better definition of ``requires`` relationships accross components inside the same package and with respect to other packages.
+- Better definition of ``requires`` relationships across components inside the same package and with respect to other packages.
 - It doesn't need any ``build_context_activated`` or ``build_context_suffix`` to use ``tool_requires`` dependencies.
 - Definition of ``cpp_info/component.exe`` information (should include the ``.location`` definition too), to define EXECUTABLE targets that can be run.
 - Executables from ``requires`` can also be used in non cross-build scenarios. When a ``tool_requires`` to the same depependency exists, then those executables will have priority.

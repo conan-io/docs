@@ -17,7 +17,7 @@ For example:
     def cmd_wrapper(cmd, **kwargs):
         return 'echo "{}"'.format(cmd)
 
-Would just intercept the commands and display them to terminal, which means that all commmands
+Would just intercept the commands and display them to terminal, which means that all commands
 in all recipes ``self.run()`` will not execute, but just be echoed.
 
 The ``**kwargs`` is a mandatory generic argument to be robust against future changes and injection

@@ -46,7 +46,7 @@ If we generate a package from this recipe for Linux we will get the following pa
                       settings
                         os: Linux
 
-If we do the same thing with Windows, now the package ID will be diffent:
+If we do the same thing with Windows, now the package ID will be different:
 
 .. code-block:: bash
    :emphasize-lines: 3, 12, 16
