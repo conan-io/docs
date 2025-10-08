@@ -38,7 +38,7 @@ In many cases, the ``generate()`` method might not be necessary, and declaring t
 
 But the ``generate()`` method can explicitly instantiate those generators, use them conditionally (like using one build system in Windows,
 and another build system integration in other platforms), customize them, or provide a complete custom
-generation. 
+generation.
 
 .. code:: python
 
@@ -200,6 +200,7 @@ Not all fields of the dependency conanfile are exposed, the current fields are:
 - **package_type**: The ``package_type`` of the dependency
 - **languages**: The ``languages`` of the dependency.
 - **extension_properties**: The ``extension_properties`` of the dependency. Should be treated as read-only.
+- **recipe**: The ``recipe`` type of the dependency (e.g., "Cache"). This should only be used for `informational <https://github.com/conan-io/conan/issues/18996>`_ or reporting purposes. Using it for any kind of conditional logic on the consumers side is considered bad practice and unsupported.
 
 
 Iterating dependencies
