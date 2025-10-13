@@ -18,7 +18,7 @@ ACCU 2025
 `Continuous Integration for Large Scale C/C++ Projects With Conan2` by Diego Rodriguez-Losada
 
     There are two main paradigms to develop large scale C, C++ projects: using mono-repos and package-based development, both have different pros and cons. Using package managers such as Conan allows easy retrieval of dependencies, including binaries, avoiding continuous and expensive rebuilds from source.
-    While this work easily for third party dependencies, when dependencies are very stable, quick evolution in a large dependency graph when there are different developers working concurrently in different packages, can be more challenging.
+    While this works easily for third party dependencies, when dependencies are very stable, quick evolution in a large dependency graph when there are different developers working concurrently in different packages, can be more challenging.
 
     With Conan 2 new tools it is possible to implement an efficient Continuous Integration process for large scale projects, computing what packages need to be built, and in what specific order and parallelism.
 
