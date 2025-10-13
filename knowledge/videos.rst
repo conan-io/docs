@@ -20,7 +20,7 @@ ACCU 2025
     There are two main paradigms to develop large scale C, C++ projects: using mono-repos and package-based development, both have different pros and cons. Using package managers such as Conan allows easy retrieval of dependencies, including binaries, avoiding continuous and expensive rebuilds from source.
     While this works easily for third party dependencies, when dependencies are very stable, quick evolution in a large dependency graph when there are different developers working concurrently in different packages, can be more challenging.
 
-    With Conan 2 new tools it is possible to implement an efficient Continuous Integration process for large scale projects, computing what packages need to be built, and in what specific order and parallelism.
+    With Conan 2's new tools it is possible to implement an efficient Continuous Integration process for large scale projects, computing what packages need to be built, and in what specific order and parallelism.
 
     The concept of "products pipeline" will be introduced as an scalable approach that allows to focus on the business value while allowing efficiency. The dependency graph build order for every different product can be computed, for every different configuration (platform, compiler, build_type, etc). This is done efficiently, taking into account the versioning scheme and the package types (header-only, static library, shared library, application) with a explicit novel model of the dependencies effect in the packages binaries.
 
