@@ -120,6 +120,16 @@ always used:
     $ conan create . -pr=myprofile
 
 
+Profile files can have comments, but only in new lines, with the first character being ``#``, trailing comments are not supported:
+
+.. code-block:: text
+
+    [settings]
+    # Valid comment
+    arch=x86_64
+    build_type=Release  # INVALID comment, do not use
+
+
 .. _reference_config_files_profiles_using_profiles:
 
 Using profiles
@@ -447,12 +457,18 @@ Other examples are:
     :caption: *myprofile*
 
     [replace_requires]
-    dep/*: dep/1.1               # To override dep/[>=1.0 <2] in recipes to a specific version dep/1.1)
-    dep/*: dep/*@system          # To override a dep/1.3 in recipes to dep/1.3@system
-    dep/*: dep/[>=1 <2]          # To override every dep requirement in recipes to a specific version range
-    dep/*@*/*: dep/*@system/*    # To override "dep/1.3@comp/stable" in recipes to the same version with other user but same channel
-    dep/1.1: dep/1.1@system      # To replace exact reference in recipes by the same one in the system
-    dep/1.1@*: dep/1.1@*/stable  # To replace dep/[>=1.0 <2]@comp version range in recipes by 1.1 version in stable chanel
+    # To override dep/[>=1.0 <2] in recipes to a specific version dep/1.1)
+    dep/*: dep/1.1
+    # To override a dep/1.3 in recipes to dep/1.3@system
+    dep/*: dep/*@system
+    # To override every dep requirement in recipes to a specific version range
+    dep/*: dep/[>=1 <2]
+    # To override "dep/1.3@comp/stable" in recipes to the same version with other user but same channel
+    dep/*@*/*: dep/*@system/*
+    # To replace exact reference in recipes by the same one in the system
+    dep/1.1: dep/1.1@system
+    # To replace dep/[>=1.0 <2]@comp version range in recipes by 1.1 version in stable channel
+    dep/1.1@*: dep/1.1@*/stable
 
 .. note:: **Best practices**
 
