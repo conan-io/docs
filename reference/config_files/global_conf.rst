@@ -192,27 +192,35 @@ Conan supports client TLS certificates. You can configure the path to your exist
 certificate (and the key) using the following configuration variables:
 
 * ``core.net.http:cacert_path``: Path containing a custom Cacert file.
+  When multiple certificates are necessary for different remotes, it is possible to aggregate them, for example adding
+  your own ``my-ca.crt`` certificate:
+
+  .. code-block:: text
+
+    sudo cp my-ca.crt /usr/local/share/ca-certificates/my-ca.crt
+    sudo update-ca-certificates
+
+
+  Then, the certificate storage can be defined with ``core.net.http:cacert_path=/etc/ssl/certs/ca-certificates.crt``.
+  The ``cacert_path`` Conan configuration is forwarded to the ``python-requests`` ``verify`` argument, see
+  `Python-requests SSL certificates <https://requests.readthedocs.io/en/latest/user/advanced/#ssl-cert-verification>`_.
+  That means that if the ``REQUESTS_CA_BUNDLE`` environment variable is defined, it might be taken into account too.
+  
 * ``core.net.http:client_cert``: Path or tuple of files containing a client certificate (and the key). See more details in
   `Python requests and Client Side Certificates <https://requests.readthedocs.io/en/latest/user/advanced/#client-side-certificates>`_
 
-For instance:
+  For instance:
 
-.. code-block:: text
-    :caption: **[CONAN_HOME]/global.conf**
+  .. code-block:: text
+      :caption: **[CONAN_HOME]/global.conf**
 
-    core.net.http:cacert_path=/path/to/cacert.pem
-    core.net.http:client_cert=('/path/client.cert', '/path/client.key')
-
-
-.. seealso::
-
-    * :ref:`Managing configuration in your recipes (self.conf_info) <conan_conanfile_model_conf_info>`
-
+      core.net.http:client_cert=('/path/client.cert', '/path/client.key')
 
 * ``tools.files.download:verify``: Setting ``tools.files.download:verify=False`` constitutes a security risk if enabled,
   as it disables certificate validation. Do not use it unless you understand the implications
   (And even then, properly scoping the conf to only the required recipes is a good idea)
   or if you are using it for development purposes
+
 
 Proxies
 +++++++

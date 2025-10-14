@@ -102,7 +102,7 @@ you can copy it after the ``conan export-pkg`` using the paths reported by ``con
 
 Creating metadata with hooks
 ----------------------------
-If there is some common metadata accross recipes, it is possible to capture it without modifying the recipes, using hooks.
+If there is some common metadata across recipes, it is possible to capture it without modifying the recipes, using hooks.
 Let's say that we have a simpler recipe:
 
 .. code-block:: python
@@ -270,7 +270,7 @@ Removing metadata
 -----------------
 At the moment it is not possible to remove metadata from the server side using Conan, as the metadata are "additive", it is possible to add new data, but not to remove it (otherwise it would not be possible to add new metadata without downloading first all the previous metadata, and that can be quite inefficient and more error prone, specially sensitive to possible race conditions).
 
-The recommendation to remove metatada from the server side would be to use the tools, web interface or APIs that the server might provide.
+The recommendation to remove metadata from the server side would be to use the tools, web interface or APIs that the server might provide.
 
 .. note::
 
@@ -279,7 +279,7 @@ The recommendation to remove metatada from the server side would be to use the t
    - Metadata shouldn't be necessary for using packages. It should be possible to consume recipes and packages without downloading their
      metadata. If metadata is mandatory for a package to be used, then it is not metadata and should be packaged as headers and binaries.
    - Metadata reading access should not be a frequent operation, or something that developers have to do. Metadata read is intended for
-     excepcional cases, when some build logs need to be recovered for compliance, or some test executables might be needed for debugging or
+     exceptional cases, when some build logs need to be recovered for compliance, or some test executables might be needed for debugging or
      re-checking a crash.
    - Conan does not do any compression or decompression of the metadata files. If there are a lot of metadata files, consider zipping them yourself, otherwise the upload of those many files can take a lot of time. If you need to handle different types of metadata (logs, tests, reports), zipping the files under each category might be better to be able to filter with the ``--metadata=xxx`` argument.
 

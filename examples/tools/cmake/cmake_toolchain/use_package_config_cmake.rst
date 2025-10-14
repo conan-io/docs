@@ -127,7 +127,7 @@ Important considerations
 
 The presented approach has one limitation, it doesn't work for multi-configuration IDEs.
 Implementing this approach won't allow developers to directly switch from IDEs like Visual Studio from Release to Debug
-and viceversa, and it will require a ``conan install`` to change. It is not an issue at all for single-config setups,
+and vice versa, and it will require a ``conan install`` to change. It is not an issue at all for single-config setups,
 but for VS developers it can be a bit inconvenient. The team is working on the VS plugin that might help to mitigate this.
 The reason is a CMake limitation, ``find_package()`` can only find one configuration, and with ``CMakeDeps`` being dropped 
 here, there is nothing that Conan can do to avoid this limitation.
@@ -135,6 +135,6 @@ here, there is nothing that Conan can do to avoid this limitation.
 It is important to know that it is also the package author and the package ``CMakeLists.txt`` responsibility to correctly
 manage transitivity to other dependencies, and this is not trivial in some cases. There are risks that if not done
 correctly the in-package ``xxx-config.cmake`` file can locate its transitive dependencies elsewhere, like in the system,
-but not in the transtive Conan package dependencies. 
+but not in the transitive Conan package dependencies.
 
 Finally, recall that these packages won't be usable by other build systems rather than CMake.

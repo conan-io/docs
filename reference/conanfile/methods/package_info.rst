@@ -68,7 +68,7 @@ Directories:
   .c, .cpp). By default it is empty. It might be used to store sources (for later debugging of packages, or to reuse those sources building
   them in other packages too).
 - **builddirs**: List of relative paths (starting from package root) of directories that can contain build scripts that could be used by the consumers. Empty by default.
-- **frameworkdirs**: List of relative paths (starting from the package root), of directories containing OSX frameworks. 
+- **frameworkdirs**: List of relative paths (starting from the package root), of directories containing OSX frameworks.
 
 Flags:
 
@@ -139,12 +139,14 @@ If your package is composed by more than one library, it is possible to declare 
 .. code-block:: python
 
     def package_info(self):
-        self.cpp_info.components["crypto"].set_property("cmake_file_name", "Crypto")
+        self.cpp_info.set_property("cmake_file_name", "OpenSSL")
+
+        self.cpp_info.components["crypto"].set_property("cmake_target_name", "OpenSSL::Crypto")
         self.cpp_info.components["crypto"].libs = ["libcrypto"]
         self.cpp_info.components["crypto"].defines = ["DEFINE_CRYPTO=1"]
         self.cpp_info.components["crypto"].requires = ["zlib::zlib"]  # Depends on all components in zlib package
 
-        self.cpp_info.components["ssl"].set_property("cmake_file_name", "SSL")
+        self.cpp_info.components["ssl"].set_property("cmake_target_name", "OpenSSL::SSL")
         self.cpp_info.components["ssl"].includedirs = ["include/headers_ssl"]
         self.cpp_info.components["ssl"].libs = ["libssl"]
         self.cpp_info.components["ssl"].requires = ["crypto",
@@ -190,7 +192,7 @@ Conan ``VirtualBuildEnv`` generator will be used by default in consumers, collec
 The ``VirtualRunEnv`` generator will also be used by default in consumers collecting the ``runenv_info`` from the "host" context creating the ``conanrun`` environment script, which can be explicitly used with ``self.run(<cmd>, env="conanrun")``.
 
 
-.. note:: 
+.. note::
 
     **Best practices**
 
@@ -338,5 +340,5 @@ and that by default ``self.generator_info`` is ``None``.
 
 
 .. seealso::
-    
+
     See :ref:`the defining package information tutorial<tutorial_creating_define_package_info>` for more information.

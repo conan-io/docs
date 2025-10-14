@@ -32,7 +32,7 @@ example we could have two different server package repositories called "testing"
 
     - Using different ``user/channel`` to try to denote maturity is strongly discouraged. It was described in the early
       Conan 1 days years ago, before the possibility of having multiple repositories, but it shouldn't be used anymore.
-    - Packages should be completely immutable accross pipelines and stages, a package cannot rename or change its ``user/channel``,
+    - Packages should be completely immutable across pipelines and stages, a package cannot rename or change its ``user/channel``,
       and re-building it from source to have a new ``user/channel`` is also a strongly discourage devops practice.
       
 
