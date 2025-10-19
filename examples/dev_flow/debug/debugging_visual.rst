@@ -150,7 +150,7 @@ Locating the sources path for the debugger
 Visual Studio won't be able to find te source files by itself after deleting the original build files. To be able to
 debug over the source files, there's an option to manually set the source folder path so that it's possible to debug over the source files. This
 requires that the source files for the dependency exist. In our case we can get the location of this source files
-by running a ```conan cache path``.
+by running a ``conan cache path``.
 
 .. code-block::
 
