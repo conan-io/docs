@@ -854,7 +854,7 @@ This page lists the changes made to Conan in each version, with links to each pu
 - Feature: Add verbose debug information (with ``-vvv``) for ``conan.tools.files.copy()`` calls. `#15513 <https://github.com/conan-io/conan/pull/15513>`_
 - Feature: Define ``python_requires = "tested_reference_str"`` for explicit ``test_package`` of ``python_requires``. `#15485 <https://github.com/conan-io/conan/pull/15485>`_ . Docs `here <https://github.com/conan-io/docs/pull/3537>`__
 - Feature: Adding `CMakeToolchain.presets_build/run_environment` to modify `CMakePresets` environment in `generate()` method. `#15470 <https://github.com/conan-io/conan/pull/15470>`_ . Docs `here <https://github.com/conan-io/docs/pull/3547>`__
-- Feature: Add `--allowed-packges` to remotes to limit what references a remote can supply. `#15464 <https://github.com/conan-io/conan/pull/15464>`_ . Docs `here <https://github.com/conan-io/docs/pull/3534>`__
+- Feature: Add `--allowed-packages` to remotes to limit what references a remote can supply. `#15464 <https://github.com/conan-io/conan/pull/15464>`_ . Docs `here <https://github.com/conan-io/docs/pull/3534>`__
 - Feature: Initial documentation to make ``RemotesAPI`` publicly available (experimental). `#15462 <https://github.com/conan-io/conan/pull/15462>`_
 - Feature: Add support for use of vcvars env variables when calling from powershell. `#15461 <https://github.com/conan-io/conan/pull/15461>`_ . Docs `here <https://github.com/conan-io/docs/pull/3541>`__
 - Feature: New ``Git(..., excluded=[])`` feature to avoid "dirty" errors in ``Git`` helper. `#15457 <https://github.com/conan-io/conan/pull/15457>`_ . Docs `here <https://github.com/conan-io/docs/pull/3538>`__
