@@ -14,30 +14,32 @@ It provides a clean integration that requires no Conan-specific modifications in
 
 .. important::
 
-    This integration supports **ROS2**, it has been developed using its **Humble version** and the aim is to **support newer versions going forward**.
+    This integration supports **ROS2**, it has been developed using the **Humble version** and the aim is to **support newer versions going forward**.
     If you have any issues with other ROS versions, please let us know by opening an issue in our GitHub repository.
 
 .. note::
 
     **Pre-requisites to run the example:**
 
-    1. In order to run the example, it is expected that you have an Ubuntu environment (22.04 LTS preferred) with `ROS2 Humble version installed <https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html>`_. For convenience, you can also use this Docker File instead:
+    1. In order to run the example, it is expected that you have an Ubuntu environment with `ROS2 installed <https://docs.ros.org/en/kilted/Installation/Ubuntu-Install-Debs.html>`_.
+       For convenience, you can also use this Dockerfile instead:
 
        .. code-block:: docker
 
-           FROM osrf/ros:humble-desktop
+           FROM osrf/ros:kilted-desktop
            RUN apt-get update && apt-get install -y \
            curl \
            python3-pip \
            git \
-           ros-humble-nav2-msgs \
+           ros-kilted-nav2-msgs \
            && rm -rf /var/lib/apt/lists/*
            RUN pip3 install --upgrade pip && pip3 install conan==2.*
            RUN conan profile detect
            CMD ["bash"]
 
+       Simply copy the Dockerfile, build your image with ``docker build -t conanio/ros-kilted .``, and finally run it with ``docker run -it conanio/ros-kilted``.
 
-    Simply copy the Dockerfile, build your image with ``docker build -t conanio/ros-humble .``, and finally run it with ``docker run -it conanio/ros-humble``.
+    There is also the possibility to run ROS2 on Windows. Follow the [installation instructions in the ROS 2 documentation](https://docs.ros.org/en/kilted/Installation/Windows-Install-Binary.html).
 
     2. The files for this example can be found at `our examples repository <https://github.com/conan-io/examples2/tree/main/examples/tools/ros/rosenv/workspace>`_.
        Clone it like so to get started:
@@ -153,7 +155,7 @@ we can build the `str_printer` package as usual with Colcon.
 
 .. code-block:: bash
 
-    $ source /opt/ros/humble/setup.bash
+    $ source /opt/ros/kilted/setup.bash
     $ source install/conan/conanrosenv.sh
     $ colcon build --packages-select str_printer
     Starting >>> str_printer
