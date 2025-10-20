@@ -164,7 +164,7 @@ For the latest development version, checkout the `develop2` branch of the reposi
     $ git clone https://github.com/conan-io/conan.git conan_src
     $ cd conan_src
     $ git fetch --all
-    $ git checkout -b develop2 origin/develop2
+    $ git checkout develop2
     $ python -m pip install -e .
 
 Now test your ``conan`` installation by running:
