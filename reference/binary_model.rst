@@ -1,7 +1,7 @@
 .. _reference_binary_model:
 
-The binary model
-================
+Binary model
+============
 
 This section introduces first how the ``package_id``, the package binaries identifier is computed, hashing the configuration (settings + options + dependencies versions). While the effect of ``settings`` and ``options`` is more straightforward, understanding the effects of the dependencies requires more explanations, so that will be done in its own section.
 
