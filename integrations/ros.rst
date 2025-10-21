@@ -14,7 +14,7 @@ It provides a clean integration that requires no Conan-specific modifications in
 
 .. important::
 
-    This integration supports **ROS2**, it has been developed using the **Humble version** and the aim is to **support newer versions going forward**.
+    This integration supports **ROS2**, it has been developed using the **Kilted version** and the aim is to **support newer versions going forward**.
     If you have any issues with other ROS versions, please let us know by opening an issue in our GitHub repository.
 
 .. note::
