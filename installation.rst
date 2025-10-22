@@ -140,7 +140,6 @@ You can do it with:
 
   $ git clone https://github.com/conan-io/conan conan_src
   $ cd conan_src
-  $ git checkout develop2 # or to the specific tag you want to
   $ pip install -e . 
   $ python pyinstaller.py
 
@@ -163,8 +162,6 @@ For the latest development version, checkout the `develop2` branch of the reposi
     # clone folder name matters, to avoid imports issues
     $ git clone https://github.com/conan-io/conan.git conan_src
     $ cd conan_src
-    $ git fetch --all
-    $ git checkout develop2
     $ python -m pip install -e .
 
 Now test your ``conan`` installation by running:
