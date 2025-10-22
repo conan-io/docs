@@ -230,6 +230,10 @@ For example, to get the options of zlib, the following command could be run:
         shared: False
 
 
+The ``--package-filter`` accepts the ``&`` placeholder as ``--package-filter="&""`` to refer to the current "consumer" recipes,
+without needing to explictly type its package name.
+
+
 Available formatters
 --------------------
 
