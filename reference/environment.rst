@@ -21,12 +21,13 @@ By default, if it is not defined, it will be ``<username>/.conan2``.
     like those that can happen in CI, need to use a separate cache, and defining ``CONAN_HOME`` is the way to do it.
 
 
-CONAN_DEFAULT_PROFILE
----------------------
+CONAN_DEFAULT_PROFILE, CONAN_DEFAULT_BUILD_PROFILE
+--------------------------------------------------
 
-The default profile will be the ``"default"`` file in the Conan cache. This environment variable allows to define
-a different default name. There are also ``conf`` items ``core:default_profile`` and ``core:default_build_profile``
-to define such default profile names, this env-var should be used only when the ``conf`` is not enough.
+The default profile will be the ``"default"`` file in the Conan cache. These environment variables allow to define
+a different default for the host and build profiles respectively. There are also equivalent ``conf`` items 
+``core:default_profile`` and ``core:default_build_profile`` to define such default profile names.
+In general, env-vars should be used only when the ``conf`` is not enough.
 
 
 Remote login variables
