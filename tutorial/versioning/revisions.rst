@@ -176,6 +176,12 @@ So creating ``chat`` will now force the first revision:
     chat/1.0: Hello World Release!
 
 
+.. note::
+
+   Note that pinning a revision when using version ranges has not effect and Conan will warn about it.
+
+
+
 Uploading revisions
 -------------------
 
