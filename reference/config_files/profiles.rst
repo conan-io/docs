@@ -908,6 +908,22 @@ define the ``compiler.runtime_type`` for ``msvc``, so doing something like ``myd
 doesn't automatically define ``mydep/*:compiler.runtime_type``.
 
 
+In some circumstances it might be desired to undefine some specific package settings, assuming that such a setting
+allows to be undefined. For this case, the syntax ``~`` can be used as:
+
+.. code-block:: text
+    :caption: myprofile
+
+    [settings]
+    build_type=Release
+    mypkg/*:build_type=~
+
+
+This syntax will define ``build_type=Release`` for all packages, except for ``mypkg`` (any version), that will leave
+``build_type`` undefined, as it was never assigned a value. In recipe code that means that ``self.settings.build_type``
+will be ``None``.
+
+
 Profile includes
 ----------------
 
