@@ -297,3 +297,14 @@ Those warnings are:
 
   - ``deprecated``: Messages for deprecated features such as legacy generators
   - ``network``: Messages related to network issues, such as retries
+
+
+Parallel download
++++++++++++++++++
+
+By default the download and unzip of pre-compiled package binaries from remote servers will happen in parallel,
+defaulting to the number of cpu-cores. The configuration ``core.download:parallel=<int-number>`` can change this
+behavior. If ``core.download:parallel=0``, then the behavior will be to not use parallelism and do a sequential
+download and unzip of precompiled package binaries.
+This ``core.download:parallel`` configuration also affects the ``conan download`` command, but for that command
+the default at the moment is not to use parallelism, but sequential download.
