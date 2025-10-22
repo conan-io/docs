@@ -167,6 +167,10 @@ or it can download from a Conan remote directly specifying the repository URL:
     $ conan config install-pkg myconf/version --url=<url/conan/remote/repo>
 
 
+When specifying the ``--url`` argument, a Conan remote named ``config_install_url`` is created on the fly.
+That means that if authentication is desired via env-vars, the env-var names will be ``CONAN_LOGIN_USERNAME_CONFIG_INSTALL_URL``
+or ``CONAN_PASSWORD_CONFIG_INSTALL_URL``.
+
 Conan configuration packages can also be parameterized depending on profiles, settings and options.
 For example, if some organization would like to manage their configuration slightly differently for Windows and other platforms they could do:
 
