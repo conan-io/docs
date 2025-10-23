@@ -308,3 +308,64 @@ behavior. If ``core.download:parallel=0``, then the behavior will be to not use 
 download and unzip of precompiled package binaries.
 This ``core.download:parallel`` configuration also affects the ``conan download`` command, but for that command
 the default at the moment is not to use parallelism, but sequential download.
+
+
+Environment deactivation functions
+++++++++++++++++++++++++++++++++++
+
+.. include:: ../../common/experimental_warning.inc
+
+
+When setting the configuration ``tools.env:deactivation_mode`` to ``function`` in your profile or in
+``global.conf``, the deactivation scripts will no longer be generated.
+
+Instead, an *in-memory* deactivation function will be available in the
+current shell session as soon as you activate the conan environment.
+
+Moving from the classical Conan workflow:
+
+.. tabs::
+
+    .. code-tab:: bash
+
+        $ source conanbuild.sh
+        $ ...
+        $ source deactivate_conanbuild.sh
+
+    .. code-tab:: powershell
+
+        $ .\conanbuild.ps1
+        $ ...
+        $ .\deactivate_conanbuild.ps1
+
+To the new workflow,
+
+.. tabs::
+
+    .. code-tab:: bash
+
+        $ source conanbuild.sh
+        $ ...
+        $ deactivate_conanbuild # from anywhere in the shell
+
+    .. code-tab:: powershell
+
+        $ .\conanbuild.ps1
+        $ ...
+        $ deactivate_conanbuild # from anywhere in the shell
+
+By executing this function, the environment will be restored and the function will no longer be
+available in the current shell session. This behavior emulates the well known ``virtualenv`` Python tool.
+
+.. attention::
+
+    This feature does not currently support Windows Command Prompt (``.bat`` files).
+    It is only available for PowerShell and Bash-like shells.
+
+
+.. code-block:: text
+    :caption: *global.conf*
+
+    tools.env:deactivation_mode=function
+
+**Default value:** None.
