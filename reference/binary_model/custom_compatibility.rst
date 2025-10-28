@@ -1,3 +1,5 @@
+.. _reference_binary_model_custom_compatibility:
+
 Customizing the binary compatibility
 ====================================
 

@@ -48,4 +48,5 @@ The format of the list returned is as shown below:
 
 .. seealso::
 
-    Read the :ref:`binary model reference<reference_binary_model>` for a full view of the Conan binary model.
+   - Read the :ref:`binary model reference<reference_binary_model>` for a full view of the Conan binary model.
+   - See more about :ref:`customizing the binary compatibility of your packages<reference_binary_model_custom_compatibility>`
