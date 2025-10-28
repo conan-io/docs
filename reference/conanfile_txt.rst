@@ -39,6 +39,12 @@ And specific recipe revisions can be pinned too:
     zlib/1.2.13#revision1
     boost/1.70.0#revision2
 
+
+.. note::
+
+   Note that pinning a revision when using version ranges has not effect and Conan will warn about it.
+
+
 [tool_requires]
 ---------------
 
