@@ -15,6 +15,10 @@ The ``PipEnv`` helper installs executable Python packages with **pip** inside a 
 keeping them isolated so they don't interfere with system packages or the Conan package itself.
 It is designed to use a Python CLI tool inside a recipe during the build step.
 
+By default, it attempts to create the virtualenv using the Python you have set on your system Path.
+To use a different one, you can set a Python path in the ``tools.system.pipenv:python_interpreter`` :ref:`configuration<reference_config_files_global_conf>`.
+
+
 .. currentmodule:: conan.tools.system
 
 .. autoclass:: PipEnv
