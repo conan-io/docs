@@ -4,7 +4,7 @@ Deployers
 =========
 
 Deployers are a mechanism to facilitate copying files from one folder, usually the Conan cache, to user folders.
-While Conan provides two built-in ones (``full_deploy`` and ``direct_deploy``), users can easily manage their own
+While Conan provides three built-in ones (``full_deploy``, ``direct_deploy`` and ``runtime_deploy``), users can easily manage their own
 with ``conan config install``.
 
 Deployers run before generators, and they can change the target folders.
