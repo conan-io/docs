@@ -8,8 +8,16 @@ Hosting your own copy of the packages you need in your server could be done by j
 
 - Create a fork of the ConanCenter Github repository: https://github.com/conan-io/conan-center-index
 - Create a list of the packages and versions you need for your projects. This list can be added to the fork too, and maintained there (packages can be added and removed with PRs when the teams need them).
-- Create a script that first ``conan export`` all the packages in your list, then ``conan create --build=missing`` them. Do not add ``user/channel`` to these packages, it is way simpler to use them as ``zlib/1.2.13`` without user-channel. The ``user/channel`` part would be mostly recommended for your own proprietary packages, but not for open source ConanCenter packages.
+- Create a script that first ``conan export`` all the packages in your list, then ``conan create --build=missing`` them. 
 - Upload your build packages to your own server, that you use in production, instead of ConanCenter.
+
+.. note::
+
+    **Best practices**
+
+    - Do not add ``user/channel`` to packages created from ConanCenter forks, it is way simpler to create and use them as ``zlib/1.2.13`` without user-channel. The ``user/channel`` part would be mostly recommended for your own proprietary packages, but not for open source ConanCenter packages. It adds more divergence from the upstream and consequently more maintenance with little added value.
+    - Do not mix packages and recipes created from your fork of ``conan-center-index`` Github repo with the ones from ConanCenter central server. Once you create some binaries for third parties from your fork, it is strongly recommended to fully disconnect from ConanCenter (you can remove the ``remote``, and you can add the ``remotes.json`` file with your own remotes to the configuration you can distribute and install with ``conan config install/install-pkg``), and create all your third-party packages from your fork.
+
 
 This is the basic flow idea. We will be adding examples and tools to further automate this flow as soon as possible.
 
