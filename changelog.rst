@@ -3,6 +3,46 @@ Changelog
 
 This page lists the changes made to Conan in each version, with links to each pull request for more details.
 
+2.22.0 (29-Oct-2025)
+--------------------
+
+- Feature: Make the remote name used by ``conan config install-pkg --url=<url>`` public. `#19132 <https://github.com/conan-io/conan/pull/19132>`_ . Docs `here <https://github.com/conan-io/docs/pull/4281>`__
+- Feature: Add support for macOS 15.7 and iOS 18.7. `#19130 <https://github.com/conan-io/conan/pull/19130>`_
+- Feature: Group arguments in CLI help. `#19126 <https://github.com/conan-io/conan/pull/19126>`_
+- Feature: Suggest possible typos for CLI arguments declared as string choices. `#19126 <https://github.com/conan-io/conan/pull/19126>`_
+- Feature: Add opt-in conf to control making `.sh` and `.ps1` env `deactivate` functionality into in-memory functions instead of files. `#19105 <https://github.com/conan-io/conan/pull/19105>`_ . Docs `here <https://github.com/conan-io/docs/pull/4286>`__
+- Feature: Document ``ExportAPI``. `#19103 <https://github.com/conan-io/conan/pull/19103>`_
+- Feature: Enable parallel download of packages by default, by defaulting ``core.download:parallel`` to the available CPU cores. `#19099 <https://github.com/conan-io/conan/pull/19099>`_ . Docs `here <https://github.com/conan-io/docs/pull/4282>`__
+- Feature: Support ``conan graph info --package-filter=&`` pattern. `#19080 <https://github.com/conan-io/conan/pull/19080>`_ . Docs `here <https://github.com/conan-io/docs/pull/4283>`__
+- Feature: Add new environment variable `CONAN_DEFAULT_BUILD_PROFILE` for default build profile. `#19040 <https://github.com/conan-io/conan/pull/19040>`_ . Docs `here <https://github.com/conan-io/docs/pull/4284>`__
+- Feature: Allow nullifying settings from profiles and command line. `#19035 <https://github.com/conan-io/conan/pull/19035>`_ . Docs `here <https://github.com/conan-io/docs/pull/4285>`__
+- Feature: Support compatibility plugin removal of nullable settings. `#19031 <https://github.com/conan-io/conan/pull/19031>`_ . Docs `here <https://github.com/conan-io/docs/pull/4278>`__
+- Feature: New ``tools.gnu:disable_flags`` configuration to allow disabling the injection of some build system flags. `#19014 <https://github.com/conan-io/conan/pull/19014>`_
+- Feature: Expose `recipe` in the `ConanFileInterface` for information purpose only. `#18995 <https://github.com/conan-io/conan/pull/18995>`_ . Docs `here <https://github.com/conan-io/docs/pull/4264>`__
+- Feature: New ``CMakeConfigDeps`` properties to inject extra dependencies and targets. `#18316 <https://github.com/conan-io/conan/pull/18316>`_
+- Fix: Better error message for ``CMakeConfigDeps`` when the package_type or component type is not defined for something with ``.location`` defined. `#19096 <https://github.com/conan-io/conan/pull/19096>`_
+- Fix: Change order of ``build_modules`` inclusion in ``CMakeConfigDeps`` so it happens after legacy-vars, to support some ConanCenter recipes abusing those variables. `#19094 <https://github.com/conan-io/conan/pull/19094>`_
+- Fix: Reintroduce `settings.yml` access to `config` Sub-API. `#19078 <https://github.com/conan-io/conan/pull/19078>`_
+- Fix: Raise an error if ``conan list * --lru=xx``, recommending the ``#<rev-pattern>`` argument. `#19077 <https://github.com/conan-io/conan/pull/19077>`_
+- Fix: Sanitize XcodeDeps file and variable names to use only valid xcconfig characters. `#19075 <https://github.com/conan-io/conan/pull/19075>`_
+- Fix: Explicitly set ``allow_empty=True`` in ``glob()`` function in ``BazelDeps`` (Bazel 8.x compatible). `#19068 <https://github.com/conan-io/conan/pull/19068>`_
+- Fix: Fix ``CMakeConfigDeps`` when a regular library ``requires()`` an application, using components. `#19052 <https://github.com/conan-io/conan/pull/19052>`_
+- Fix: Add missing final newline when saving lockfiles to disk. `#19043 <https://github.com/conan-io/conan/pull/19043>`_
+- Fix: Warn when adding requirement to version range with pinned revision, it has no effect. `#19041 <https://github.com/conan-io/conan/pull/19041>`_ . Docs `here <https://github.com/conan-io/docs/pull/4280>`__
+- Fix: Fix ``CMakeConfigDeps`` escaping. `#19034 <https://github.com/conan-io/conan/pull/19034>`_
+- Fix: Improved Python virtual environment creation in ``PipEnv`` by using the system-installed interpreter or a user-defined one via ``tools.system.pipenv:python_interpreter``. `#19030 <https://github.com/conan-io/conan/pull/19030>`_ . Docs `here <https://github.com/conan-io/docs/pull/4291>`__
+- Fix: Add VS2026 CMake generator mapping. `#19024 <https://github.com/conan-io/conan/pull/19024>`_
+- Fix: Avoid referencing xcconfig from skipped dependencies required in components in XcodeDeps. `#19023 <https://github.com/conan-io/conan/pull/19023>`_
+- Fix: Add ``execution["jobs"]`` to the generated CMake ``testPresets`` with same logic and value as ``buildPresets``. `#19021 <https://github.com/conan-io/conan/pull/19021>`_
+- Fix: Improve the error message when a workspace ``super-install`` defines intermediate packages in the cache depending on workspace packages. `#19013 <https://github.com/conan-io/conan/pull/19013>`_
+- Fix: Improve support for huge diffs in `conan report diff` HTML output. `#19012 <https://github.com/conan-io/conan/pull/19012>`_ . Docs `here <https://github.com/conan-io/docs/pull/4279>`__
+- Bugfix: ``MSBuildToolchain`` explicitly adds the specific toolset .props file when ``compiler.update`` is defined, otherwise, activating ``vcvars`` is not enough. `#19137 <https://github.com/conan-io/conan/pull/19137>`_
+- Bugfix: Fixes an issue where the Apt packages for the build arch would be reported missing, in cross-compiling scenarios, even though they are installed. `#19074 <https://github.com/conan-io/conan/pull/19074>`_
+- Bugfix: Solve unexpected conflict when pinning a ``recipe-revision`` directly in a conanfile that is not the latest, and having other dependencies resolving first to the latest recipe revision. `#19038 <https://github.com/conan-io/conan/pull/19038>`_
+- Bugfix: Fix ``<host_version>`` resolution in certain transitive cases. `#18947 <https://github.com/conan-io/conan/pull/18947>`_
+- Bugfix: Fix orphan nodes being created when expanding the dependency graph for some cases. `#18947 <https://github.com/conan-io/conan/pull/18947>`_
+- Bugfix: Error out if components miss requiring direct dependencies in more cases. `#18830 <https://github.com/conan-io/conan/pull/18830>`_
+
 2.21.0 (29-Sept-2025)
 ---------------------
 
