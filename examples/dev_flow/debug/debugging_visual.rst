@@ -22,7 +22,7 @@ the PDB hook.
 Creating a project and debugging as usual
 -----------------------------------------
 
-First we will debug our project as usual, as it is explained in more detail in the :ref:`previous example <examples_dev_flow_debug_step_into>`
+First we will debug our project as usual, as it is explained in more detail in the :ref:`previous example <examples_dev_flow_debug_step_into>`.
 We can start building our dependencies from sources as in the previous section, only this time we will build them as
 shared. To begin with, clone the sources needed for the example from the `examples2 repository <https://github.com/conan-io/examples2>`_
 in GitHub and create the project.
@@ -147,7 +147,7 @@ initially.
 Locating the sources path for the debugger
 ------------------------------------------
 
-Visual Studio won't be able to find te source files by itself after deleting the original build files. To be able to
+Visual Studio won't be able to find the source files by itself after deleting the original build files. To be able to
 debug over the source files, there's an option to manually set the source folder path so that it's possible to debug over the source files. This
 requires that the source files for the dependency exist. In our case we can get the location of this source files
 by running a ``conan cache path``.
