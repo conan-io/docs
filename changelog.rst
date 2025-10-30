@@ -3,6 +3,11 @@ Changelog
 
 This page lists the changes made to Conan in each version, with links to each pull request for more details.
 
+2.22.1 (30-Oct-2025)
+--------------------
+
+- Bugfix: Revert "Error out if components miss requiring direct dependencies in more cases". `#19168 <https://github.com/conan-io/conan/pull/19168>`_
+
 2.22.0 (29-Oct-2025)
 --------------------
 
