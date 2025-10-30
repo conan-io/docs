@@ -105,7 +105,7 @@ to get information of a DLL, in this case the path where its associated PDB is l
 in the package to locate its PDB to copy it to the package folder.
 
 For more information on how PDBs work with Visual and how we used it to create the hook can be found in the
-`hook readme <https://github.com/conan-io/conan-extensions/blob/main/hooks/README.md>`_.
+`hook readme https://github.com/conan-io/conan-extensions/blob/main/extensions/hooks/README.md>`_.
 
 Debugging without build files
 -----------------------------
@@ -178,5 +178,3 @@ Starting the debugger again will allow to step into the code of the dependency a
 
     Any modification to the source files will not allow debugging over them, as Visual Studio does a checksum check, so
     they need to be the exact same files as when the libraries were compiled.
-
-
