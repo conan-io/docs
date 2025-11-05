@@ -396,9 +396,9 @@ It is supported by GCC and Clang. MSVC does not support UBSan.
 
 .. code-block:: bash
 
-   conan export signed_integer_overflow/
-   conan build signed_integer_overflow/ --version=0.1.0 -pr profiles/asan_ubsan -of signed_integer_overflow/install --build=missing
-   signed_integer_overflow/build/Debug/signed_integer_overflow
+   cd signed_integer_overflow/
+   conan build . -pr ../profiles/asan_ubsan
+   build/Debug/signed_integer_overflow
 
 **Expected output (abbreviated):**
 
