@@ -1,7 +1,7 @@
 .. _security_sanitizers:
 
-Sanitizers
-==========
+C, C++ Compiler Sanitizers
+==========================
 
 .. warning::
 
