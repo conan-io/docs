@@ -26,8 +26,9 @@ Compiler Sanitizer Support Comparison
 
 .. important::
 
-   Always rebuild all dependencies from source when enabling sanitizers to ensure consistent instrumentation
-   and to avoid false positives (particularly critical for MemorySanitizer).
+   Always rebuild all dependencies when using MemorySanitizer (MSan) and generally for ThreadSanitizer (TSan)
+   to avoid false positives/negatives. For AddressSanitizer, UBSan, and LeakSanitizer, mixing instrumented
+   code with prebuilt libraries is typically safe, but may miss bugs inside those libraries.
 
 Each compiler has different levels of support for various sanitizers, Clang being the most comprehensive so far.
 To help you choose the right sanitizer for your needs and compiler, here is a summary of the most common ones:
