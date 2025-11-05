@@ -236,10 +236,14 @@ For Visual Studio (MSVC) we can obtain an equivalent profile for AddressSanitize
 .. code-block:: ini
    :caption: ~/.conan/profiles/asan
 
-   include(default)
-
    [settings]
+   arch=x86_64
+   os=Windows
    build_type=Debug
+   compiler=msvc
+   compiler.version=194
+   compiler.runtime=dynamic
+   compiler.runtime_type=Release
    compiler.sanitizer=Address
 
    [conf]
@@ -274,10 +278,14 @@ Then, specify this toolchain file as part of your Conan profile:
 .. code-block:: ini
    :caption: profiles/asan_ubsan
 
-   include(default)
-
    [settings]
+   arch=x86_64
+   os=Linux
    build_type=Debug
+   compiler=clang
+   compiler.cppstd=gnu20
+   compiler.libcxx=libstdc++11
+   compiler.version=20
    compiler.sanitizer=AddressUndefinedBehavior
 
    [conf]

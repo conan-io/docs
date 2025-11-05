@@ -29,10 +29,14 @@ in an array, which should trigger ASan when running the program. We will be usin
    :caption: profiles/asan
    :emphasize-lines: 10
 
-    include(default)
-
     [settings]
+    arch=x86_64
+    os=Linux
     build_type=Debug
+    compiler=clang
+    compiler.cppstd=gnu20
+    compiler.libcxx=libstdc++11
+    compiler.version=20
     compiler.sanitizer=Address
 
     [conf]
@@ -107,10 +111,14 @@ Create a dedicated profile:
    :caption: profiles/asan_ubsan
    :emphasize-lines: 7
 
-   include(default)
-
    [settings]
+   arch=x86_64
+   os=Linux
    build_type=Debug
+   compiler=clang
+   compiler.cppstd=gnu20
+   compiler.libcxx=libstdc++11
+   compiler.version=20
    compiler.sanitizer=AddressUndefinedBehavior
 
    [conf]
