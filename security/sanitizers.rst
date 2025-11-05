@@ -210,16 +210,16 @@ Another option is to add the sanitizer values as part of a profile. This way, yo
 different configurations by using dedicated profiles.
 
 .. code-block:: ini
-   :caption: compiler_sanitizers/profiles/clang_asan
+   :caption: compiler_sanitizers/profiles/gcc_asan
 
    [settings]
    arch=x86_64
    os=Linux
    build_type=Debug
-   compiler=clang
+   compiler=gcc
    compiler.cppstd=gnu20
    compiler.libcxx=libstdc++11
-   compiler.version=20
+   compiler.version=15
    compiler.sanitizer=Address
 
    [conf]
@@ -276,16 +276,16 @@ and build options, you can pass the necessary flags to enable sanitizers there i
 Then, specify this toolchain file as part of your Conan profile:
 
 .. code-block:: ini
-   :caption: profiles/clang_asan_ubsan
+   :caption: profiles/gcc_asan_ubsan
 
    [settings]
    arch=x86_64
    os=Linux
    build_type=Debug
-   compiler=clang
+   compiler=gcc
    compiler.cppstd=gnu20
    compiler.libcxx=libstdc++11
-   compiler.version=20
+   compiler.version=15
    compiler.sanitizer=AddressUndefinedBehavior
 
    [conf]

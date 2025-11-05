@@ -26,17 +26,17 @@ In this example, we will build a simple C++ program that intentionally accesses 
 in an array, which should trigger ASan when running the program. We will be using a Conan profile to enable ASan:
 
 .. code-block:: ini
-   :caption: profiles/clang_asan
+   :caption: profiles/gcc_asan
    :emphasize-lines: 10
 
     [settings]
     arch=x86_64
     os=Linux
     build_type=Debug
-    compiler=clang
+    compiler=gcc
     compiler.cppstd=gnu20
     compiler.libcxx=libstdc++11
-    compiler.version=20
+    compiler.version=15
     compiler.sanitizer=Address
 
     [conf]
@@ -85,7 +85,7 @@ The define ``__SANITIZE_ADDRESS__`` is present when **ASan** is active;
 .. code-block:: bash
 
    cd index_out_of_bounds/
-   conan build . -pr ../profiles/asan
+   conan build . -pr ../profiles/gcc_asan
    build/Debug/index_out_of_bounds
 
 **Expected output (abbreviated):**
@@ -108,17 +108,17 @@ This example demonstrates how to use UBSan to detect signed integer overflow. It
 Create a dedicated profile:
 
 .. code-block:: ini
-   :caption: profiles/clang_asan_ubsan
+   :caption: profiles/gcc_asan_ubsan
    :emphasize-lines: 7
 
    [settings]
    arch=x86_64
    os=Linux
    build_type=Debug
-   compiler=clang
+   compiler=gcc
    compiler.cppstd=gnu20
    compiler.libcxx=libstdc++11
-   compiler.version=20
+   compiler.version=15
    compiler.sanitizer=AddressUndefinedBehavior
 
    [conf]
@@ -157,7 +157,7 @@ It is supported by GCC and Clang. MSVC does not support UBSan.
 .. code-block:: bash
 
    cd signed_integer_overflow/
-   conan build . -pr ../profiles/asan_ubsan
+   conan build . -pr ../profiles/gcc_asan_ubsan
    build/Debug/signed_integer_overflow
 
 **Expected output (abbreviated):**
