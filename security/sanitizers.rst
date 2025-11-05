@@ -210,7 +210,7 @@ Another option is to add the sanitizer values as part of a profile. This way, yo
 different configurations by using dedicated profiles.
 
 .. code-block:: ini
-   :caption: compiler_sanitizers/profiles/asan
+   :caption: compiler_sanitizers/profiles/clang_asan
 
    [settings]
    arch=x86_64
@@ -234,7 +234,7 @@ different configurations by using dedicated profiles.
 For Visual Studio (MSVC) we can obtain an equivalent profile for AddressSanitizer:
 
 .. code-block:: ini
-   :caption: ~/.conan/profiles/asan
+   :caption: compiler_sanitizers/profiles/msvc_asan
 
    [settings]
    arch=x86_64
@@ -276,7 +276,7 @@ and build options, you can pass the necessary flags to enable sanitizers there i
 Then, specify this toolchain file as part of your Conan profile:
 
 .. code-block:: ini
-   :caption: profiles/asan_ubsan
+   :caption: profiles/clang_asan_ubsan
 
    [settings]
    arch=x86_64

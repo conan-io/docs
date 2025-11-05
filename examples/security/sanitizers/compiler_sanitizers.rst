@@ -26,7 +26,7 @@ In this example, we will build a simple C++ program that intentionally accesses 
 in an array, which should trigger ASan when running the program. We will be using a Conan profile to enable ASan:
 
 .. code-block:: ini
-   :caption: profiles/asan
+   :caption: profiles/clang_asan
    :emphasize-lines: 10
 
     [settings]
@@ -108,7 +108,7 @@ This example demonstrates how to use UBSan to detect signed integer overflow. It
 Create a dedicated profile:
 
 .. code-block:: ini
-   :caption: profiles/asan_ubsan
+   :caption: profiles/clang_asan_ubsan
    :emphasize-lines: 7
 
    [settings]
