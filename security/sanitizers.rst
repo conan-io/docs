@@ -415,21 +415,53 @@ Additional recommendations
 
 * Debug info and optimization:
 
-  * For ASan/TSan, ``-O1`` or ``-O2`` generally works; for MSan, prefer ``-O1`` and avoid aggressive inlining.
+  * For ASan/TSan and when using GCC or Clang, the compiler flags ``-O1`` or ``-O2`` generally works;
+    for MSan, prefer ``-O1`` and avoid aggressive inlining.
   * ``-fno-omit-frame-pointer`` helps stack traces.
 
 * Runtime symbolization:
 
+  Some sanitizers can be configured to provide better stack traces and error reports.
+  These features can be enabled via environment variables,
+  such as ``ASAN_OPTIONS`` and ``UBSAN_OPTIONS`` for compilers like GCC and Clang.
+
   * Useful settings for CI:
 
     * ``ASAN_OPTIONS=halt_on_error=1:detect_leaks=1:log_path=asan``.
+
+      This configuration makes AddressSanitizer stop execution on the first error,
+      enables leak detection, and logs the output to a file named ``asan``.
+
     * ``UBSAN_OPTIONS=print_stacktrace=1:halt_on_error=1:log_path=ubsan``.
+
+      This setup instructs UndefinedBehaviorSanitizer to print stack traces
+      in a human-readable format, halt on the first error,
+      and log the output to a file named ``ubsan``.
 
 * Suppressions:
 
+   If certain known issues are not relevant for your testing, you can create suppression files
+   to filter them out from the sanitizer reports.
+
   * For ASan: ``ASAN_OPTIONS=suppressions=asan.supp``.
+
+    Create a file named ``asan.supp`` with the following content:
+
+    .. code-block:: text
+
+       leak:FreeMyObject
+
+    This example suppresses leak reports originating from ``FreeMyObject``.
+
   * For UBSan: ``UBSAN_OPTIONS=suppressions=ubsan.supp``.
-  * Keep suppressions under version control and load them in CI jobs.
+
+      Create a file named ``ubsan.supp`` with the following content:
+
+      .. code-block:: text
+
+         signed-integer-overflow IncreaseCounter
+
+      This example suppresses signed integer overflow reports from ``IncreaseCounter``.
 
 * Third-party dependencies:
 
