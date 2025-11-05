@@ -1,7 +1,7 @@
 .. _examples_security_sanitizers_compiler_sanitizers:
 
-Building Examples Using Sanitizers
-==================================
+Integrating Compiler Sanitizers with Conan
+==========================================
 
 To better illustrate the :ref:`sanitizers integration with Conan <security_sanitizers>`,
 this section provides practical examples using AddressSanitizer (ASan) and
