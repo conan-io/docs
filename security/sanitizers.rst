@@ -328,9 +328,9 @@ The define ``__SANITIZE_ADDRESS__`` is present when **ASan** is active;
 
 .. code-block:: bash
 
-   conan export index_out_of_bounds/
-   conan build index_out_of_bounds --version=0.1.0 -pr profiles/asan -of index_out_of_bounds/install --build=missing
-   index_out_of_bounds/build/Debug/index_out_of_bounds
+   cd index_out_of_bounds/
+   conan build . -pr ../profiles/asan
+   build/Debug/index_out_of_bounds
 
 **Expected output (abbreviated):**
 
