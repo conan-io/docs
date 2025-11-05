@@ -182,18 +182,22 @@ Configuring sanitizers as part of settings
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If you typically use a specific set of sanitizers or combinations for your builds, you can specify
-a sub-setting as a list of values in your ``settings_user.yml``. For example, for Clang:
+a sub-setting as a list of values in your ``settings_user.yml``. For example, for Clang, GCC and MSVC:
 
 .. code-block:: yaml
    :caption: settings_user.yml
    :emphasize-lines: 3
 
    compiler:
-     clang:
-       sanitizer: [null, Address, Leak, Thread, Memory, UndefinedBehavior, HardwareAssistanceAddress, KernelAddress, AddressUndefinedBehavior, ThreadUndefinedBehavior]
+      clang:
+        sanitizer: [null, Address, Leak, Thread, Memory, UndefinedBehavior, HardwareAssistanceAddress, KernelAddress, AddressUndefinedBehavior, ThreadUndefinedBehavior]
+      gcc:
+        sanitizer: [null, Address, Thread, UndefinedBehavior, KernelAddress, AddressUndefinedBehavior, ThreadUndefinedBehavior]
+      msvc:
+        sanitizer: [null, Address, KernelAddress]
 
 This example defines a few common sanitizers. You can add any sanitizer your compiler supports.
-The ``null`` value represents a build without sanitizers. The above models the use of ``-fsanitize=address``,
+The ``null`` value represents a build without sanitizers. The above models for Clang the use of ``-fsanitize=address``,
 ``-fsanitize=thread``, ``-fsanitize=memory``, ``-fsanitize=leak``, ``-fsanitize=undefined``, ``-fsanitize=hwaddress``,
 ``-fsanitize=kernel-address``, as well as combinations like ``-fsanitize=address,undefined`` and ``-fsanitize=thread,undefined``.
 
