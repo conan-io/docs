@@ -212,10 +212,14 @@ different configurations by using dedicated profiles.
 .. code-block:: ini
    :caption: compiler_sanitizers/profiles/asan
 
-   include(default)
-
    [settings]
+   arch=x86_64
+   os=Linux
    build_type=Debug
+   compiler=clang
+   compiler.cppstd=gnu20
+   compiler.libcxx=libstdc++11
+   compiler.version=20
    compiler.sanitizer=Address
 
    [conf]
