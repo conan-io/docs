@@ -293,6 +293,10 @@ Then, specify this toolchain file as part of your Conan profile:
 
 This way, you can keep your existing CMake toolchain file and still leverage Conan profiles to manage other settings.
 
+Note that this approach only works if all dependencies are built using CMake and the ``CMakeToolchain`` integration.
+If you have dependencies using other build systems (e.g., Meson, Autotools), those dependencies will not receive the sanitizer flags
+defined in your custom CMake toolchain file.
+
 Practical Usage Examples
 ------------------------
 
