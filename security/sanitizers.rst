@@ -192,7 +192,7 @@ a sub-setting as a list of values in your ``settings_user.yml``. For example, fo
       clang:
         sanitizer: [null, Address, Leak, Thread, Memory, UndefinedBehavior, HardwareAssistanceAddress, KernelAddress, AddressUndefinedBehavior, ThreadUndefinedBehavior]
       gcc:
-        sanitizer: [null, Address, Thread, UndefinedBehavior, KernelAddress, AddressUndefinedBehavior, ThreadUndefinedBehavior]
+        sanitizer: [null, Address, Leak, Thread, UndefinedBehavior, KernelAddress, AddressUndefinedBehavior, ThreadUndefinedBehavior]
       msvc:
         sanitizer: [null, Address, KernelAddress]
 
