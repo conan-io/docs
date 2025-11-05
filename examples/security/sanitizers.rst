@@ -1,4 +1,4 @@
-.. _examples_security_sanitizers_compiler_sanitizers:
+.. _examples_security_sanitizers:
 
 Using Compiler Sanitizers with Conan
 ====================================

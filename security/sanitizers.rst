@@ -297,7 +297,7 @@ Practical Usage Examples
 ------------------------
 
 For practical examples of using sanitizers with Conan, please refer to the
-:ref:`Building Examples Using Sanitizers <examples_security_sanitizers_compiler_sanitizers>` section in the examples.
+:ref:`Building Examples Using Sanitizers <examples_security_sanitizers>` section in the examples.
 
 Additional recommendations
 --------------------------
