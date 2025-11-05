@@ -8,7 +8,7 @@ Build a simple Bazel project using Conan
     This example is Bazel 6.x compatible.
 
 In this example, we are going to create a Hello World program
-that uses one of the most popular C++ libraries: `fmt <https://fmt.dev/latest/index.html/>`_.
+that uses one of the most popular C++ libraries: `fmt <https://fmt.dev/latest>`_.
 
 .. note::
 

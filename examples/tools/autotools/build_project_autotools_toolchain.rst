@@ -11,7 +11,7 @@ Build a simple Autotools project with Conan dependencies
 
 
 In this example, we are going to create a string formatter application
-that uses one of the most popular C++ libraries: `fmt <https://fmt.dev/latest/index.html/>`_.
+that uses one of the most popular C++ libraries: `fmt <https://fmt.dev/latest>`_.
 
 We'll use `Autotools <https://www.gnu.org/software/automake/manual/html_node/Autotools-Introduction.html>`_ as build system and `pkg-config <https://www.freedesktop.org/wiki/Software/pkg-config/>`_ as a helper tool in this case, so you should get them installed
 on Linux and Mac before going forward with this example.
