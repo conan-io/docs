@@ -40,3 +40,8 @@ The ``conan pkglist find-remote`` command will take a package list of packages i
 (key ``"Local Cache"``) and look for them in the defined remotes. For every exact occurrence in a remote
 matching the recipe, version, recipe-revision, etc, an entry in the resulting "package lists"
 will be added for that specific remote.
+
+
+.. seealso::
+
+  - :ref:`Read the "package lists" example usages <examples_commands_pkglists>`
