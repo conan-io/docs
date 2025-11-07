@@ -510,7 +510,7 @@ In this case, whatever version of ``cmake`` declared in recipes, will be replace
 This section allows the user to redefine requires of recipes replacing them with platform-provided dependencies, this means that Conan will not try to download the
 reference or look for it in the cache and will assume that it is installed in your system and ready to be used.
 
-For example, if the zlib 1.2.11 library is already installed in your system or it is part of your build toolchain and you would like Conan to use it,
+For example, if the zlib 1.3.1 library is already installed in your system or it is part of your build toolchain and you would like Conan to use it,
 you could specify so as:
 
 .. code-block:: text
