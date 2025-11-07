@@ -36,23 +36,23 @@ To help you choose the right sanitizer for your needs and compiler, here is a su
 +----------------------------------------+-----+-------+------+-----------------------------------------+
 | Sanitizer                              | GCC | Clang | MSVC | Notes                                   |
 +========================================+=====+=======+======+=========================================+
-| **AddressSanitizer (ASan)**            | ✅  | ✅    | ✅   | MSVC: Supports x86 and x64              |
+| **AddressSanitizer (ASan)**            | YES | YES   | YES  | MSVC: Supports x86 and x64              |
 +----------------------------------------+-----+-------+------+-----------------------------------------+
-| **ThreadSanitizer (TSan)**             | ✅  | ✅    | ❌   | Detects data races                      |
+| **ThreadSanitizer (TSan)**             | YES | YES   | NO   | Detects data races                      |
 +----------------------------------------+-----+-------+------+-----------------------------------------+
-| **MemorySanitizer (MSan)**             | ❌  | ✅    | ❌   | Clang-only, requires `-O1`              |
+| **MemorySanitizer (MSan)**             | NO  | YES   | NO   | Clang-only, requires `-O1`              |
 +----------------------------------------+-----+-------+------+-----------------------------------------+
-| **UndefinedBehaviorSanitizer (UBSan)** | ✅  | ✅    | ❌   | Wide range of undefined behavior checks |
+| **UndefinedBehaviorSanitizer (UBSan)** | YES | YES   | NO   | Wide range of undefined behavior checks |
 +----------------------------------------+-----+-------+------+-----------------------------------------+
-| **LeakSanitizer (LSan)**               | ✅  | ✅    | ❌   | Often integrated with ASan              |
+| **LeakSanitizer (LSan)**               | YES | YES   | NO   | Often integrated with ASan              |
 +----------------------------------------+-----+-------+------+-----------------------------------------+
-| **HardwareAddressSanitizer (HWASan)**  | ❌  | ✅    | ❌   | ARM64 only, lower overhead than ASan    |
+| **HardwareAddressSanitizer (HWASan)**  | NO  | YES   | NO   | ARM64 only, lower overhead than ASan    |
 +----------------------------------------+-----+-------+------+-----------------------------------------+
-| **KernelAddressSanitizer (KASan)**     | ✅  | ✅    | ✅   | MSVC: Requires Windows 11               |
+| **KernelAddressSanitizer (KASan)**     | YES | YES   | YES  | MSVC: Requires Windows 11               |
 +----------------------------------------+-----+-------+------+-----------------------------------------+
-| **DataFlowSanitizer (DFSan)**          | ❌  | ✅    | ❌   | Dynamic data flow analysis              |
+| **DataFlowSanitizer (DFSan)**          | NO  | YES   | NO   | Dynamic data flow analysis              |
 +----------------------------------------+-----+-------+------+-----------------------------------------+
-| **Control Flow Integrity (CFI)**       | ❌  | ✅    | ✅   | MSVC: `/guard:cf`                       |
+| **Control Flow Integrity (CFI)**       | NO  | YES   | YES  | MSVC: `/guard:cf`                       |
 +----------------------------------------+-----+-------+------+-----------------------------------------+
 
 Besides MSVC having more limited support for sanitizers, it encourages the community to vote for new features
@@ -75,13 +75,13 @@ Here are some common combinations and their compatibility mostly used with GCC a
 +-------------------+-----+-------+------+-----------------------------------------+
 | Combination       | GCC | Clang | MSVC | Compatibility                           |
 +===================+=====+=======+======+=========================================+
-| **ASan + UBSan**  | ✅  | ✅    | ❌   | Most common combination                 |
+| **ASan + UBSan**  | YES | YES   | NO   | Most common combination                 |
 +-------------------+-----+-------+------+-----------------------------------------+
-| **TSan + UBSan**  | ✅  | ✅    | ❌   | Good for multithreaded code             |
+| **TSan + UBSan**  | YES | YES   | NO   | Good for multithreaded code             |
 +-------------------+-----+-------+------+-----------------------------------------+
-| **ASan + LSan**   | ✅  | ✅    | ❌   | LSan often enabled by default with ASan |
+| **ASan + LSan**   | YES | YES   | NO   | LSan often enabled by default with ASan |
 +-------------------+-----+-------+------+-----------------------------------------+
-| **MSan + UBSan**  | ❌  | ✅    | ❌   | Requires careful dependency management  |
+| **MSan + UBSan**  | NO  | YES   | NO   | Requires careful dependency management  |
 +-------------------+-----+-------+------+-----------------------------------------+
 
 **Notes on combinations**:
