@@ -3,6 +3,11 @@ Changelog
 
 This page lists the changes made to Conan in each version, with links to each pull request for more details.
 
+2.22.2 (07-Nov-2025)
+--------------------
+
+- Bugfix: Fix assert when finding compatible binaries of a package that exists in both contexts with different settings. `#19208 <https://github.com/conan-io/conan/pull/19208>`_
+
 2.22.1 (30-Oct-2025)
 --------------------
 
