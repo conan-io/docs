@@ -16,3 +16,4 @@ Examples
    examples/dev_flow
    examples/commands
    examples/runners
+   examples/security
