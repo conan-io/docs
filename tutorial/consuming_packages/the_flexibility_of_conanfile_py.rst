@@ -127,14 +127,14 @@ same results as before.
     $ cmake .. -G "Visual Studio 15 2017" -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
     $ cmake --build . --config Release
     ...
-    Building with CMake version: 3.22.6
+    Building with CMake version: 3.27.9
     ...
     [100%] Built target compressor
 
     $ Release\compressor.exe
     Uncompressed size is: 233
     Compressed size is: 147
-    ZLIB VERSION: 1.2.11
+    ZLIB VERSION: 1.3.1
     $ deactivate_conanbuild.bat
 
 .. code-block:: bash
@@ -148,14 +148,14 @@ same results as before.
     $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
     $ cmake --build .
     ...
-    Building with CMake version: 3.22.6
+    Building with CMake version: 3.27.9
     ...
     [100%] Built target compressor
 
     $ ./compressor
     Uncompressed size is: 233
     Compressed size is: 147
-    ZLIB VERSION: 1.2.11
+    ZLIB VERSION: 1.3.1
     $ source deactivate_conanbuild.sh
 
 So far, we have achieved the same functionality we had using a *conanfile.txt*. Let's see
@@ -234,14 +234,14 @@ Check that running the same commands as in the previous examples without the
     $ cmake .. -G "Visual Studio 15 2017" -DCMAKE_TOOLCHAIN_FILE=generators\conan_toolchain.cmake
     $ cmake --build . --config Release
     ...
-    Building with CMake version: 3.22.6
+    Building with CMake version: 3.27.9
     ...
     [100%] Built target compressor
 
     $ Release\compressor.exe
     Uncompressed size is: 233
     Compressed size is: 147
-    ZLIB VERSION: 1.2.11
+    ZLIB VERSION: 1.3.1
     $ generators\deactivate_conanbuild.bat
 
 .. code-block:: bash
@@ -255,14 +255,14 @@ Check that running the same commands as in the previous examples without the
     $ cmake ../.. -DCMAKE_TOOLCHAIN_FILE=generators/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
     $ cmake --build .
     ...
-    Building with CMake version: 3.22.6
+    Building with CMake version: 3.27.9
     ...
     [100%] Built target compressor
 
     $ ./compressor
     Uncompressed size is: 233
     Compressed size is: 147
-    ZLIB VERSION: 1.2.11
+    ZLIB VERSION: 1.3.1
     $ source ./generators/deactivate_conanbuild.sh
 
 There's no need to always write this logic in the `conanfile.py`. There are some
@@ -431,9 +431,9 @@ So now we can just call ``conan build .``:
     Graph root
         conanfile.py: ...\conanfile.py
     Requirements
-        zlib/1.2.11#bfceb3f8904b735f75c2b0df5713b1e6 - Downloaded (conancenter)
+        zlib/1.3.1#bfceb3f8904b735f75c2b0df5713b1e6 - Downloaded (conancenter)
     Build requirements
-        cmake/3.22.6#32cced101c6df0fab43e8d00bd2483eb - Downloaded (conancenter)
+        cmake/3.27.9#32cced101c6df0fab43e8d00bd2483eb - Downloaded (conancenter)
 
     ======== Calling build() ========
     conanfile.py: Calling build()

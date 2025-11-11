@@ -248,7 +248,7 @@ Now we are ready to build and run our **compressor** app:
     $ Release\compressor.exe
     Uncompressed size is: 233
     Compressed size is: 147
-    ZLIB VERSION: 1.2.11
+    ZLIB VERSION: 1.3.1
 
 .. code-block:: bash
     :caption: Linux, macOS
@@ -261,7 +261,7 @@ Now we are ready to build and run our **compressor** app:
     $ ./compressor
     Uncompressed size is: 233
     Compressed size is: 147
-    ZLIB VERSION: 1.2.11
+    ZLIB VERSION: 1.3.1
 
 
 Note that ``CMakeToolchain`` might generate CMake **preset** files, that allows users with a modern CMake (``>=3.23``) to 
