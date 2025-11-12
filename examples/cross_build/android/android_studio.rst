@@ -19,7 +19,7 @@ Then create a ``new project`` selecting ``Native C++`` from the templates.
 
 In the next wizard window, select a name for your application, for example `MyConanApplication`, you can leave the
 "Minimum SDK" with the suggested value (21 in our case), but remember the value as we are using it later in the Conan
-profile at ``os.api_level```
+profile at ``os.api_level``
 
 In the "Build configuration language" you can choose between ``Groovy DSL (build.gradle)`` or ``Kotlin DSL (build.gradle.kts)`` 
 in order to use `conanInstall` task bellow.
