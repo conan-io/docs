@@ -127,7 +127,7 @@ translated from the current ``settings``:
   be further tweaked by the ``user_presets_path`` attribute, as documented below. The
   version schema of the generated ``CMakeUserPresets.json`` is "4" and requires CMake >=
   3.23.
-  The file name of this file can be configured with the ``CMakeToolchain.user_presets_path = "CMakeUserPresets.json"```
+  The file name of this file can be configured with the ``CMakeToolchain.user_presets_path = "CMakeUserPresets.json"``
   attribute, so if you want to generate a "ConanPresets.json" instead to be included from your own file, 
   you can define ``tc.user_presets_path = "ConanPresets.json"`` in the ``generate()`` method.
   See :ref:`extending your own CMake presets<examples-tools-cmake-toolchain-build-project-extend-presets>` for a full example.
@@ -155,7 +155,7 @@ per the example below.
 
 
 Just pass the ``CONAN_RUNTIME_LIB_DIRS`` variable to the ``DIRECTORIES`` argument
-in the ``install(RUNTIME_DEPENDENCY_SET ...)``` invocation. 
+in the ``install(RUNTIME_DEPENDENCY_SET ...)`` invocation. 
 
 .. code:: cmake
 
@@ -470,7 +470,7 @@ and added in this order:
 - **cppstd**: defines ``CMAKE_CXX_STANDARD``, ``CMAKE_CXX_EXTENSIONS``
 - **parallel**: defines ``/MP`` parallel build flag for Visual.
 - **extra_flags**: Adds extra definitions, compile and link flags from ``tools.build:cxxflags``, ``tools.build:cflags``, ``tools.build:defines``, ``tools.build:sharedlinkflags``, etc.
-- **cmake_flags_init**: defines ``CMAKE_XXX_FLAGS`` variables based on previously defined Conan variables. The blocks above only define ``CONAN_XXX`` variables, and this block will define CMake ones like ``set(CMAKE_CXX_FLAGS_INIT "${CONAN_CXX_FLAGS}" CACHE STRING "" FORCE)```.
+- **cmake_flags_init**: defines ``CMAKE_XXX_FLAGS`` variables based on previously defined Conan variables. The blocks above only define ``CONAN_XXX`` variables, and this block will define CMake ones like ``set(CMAKE_CXX_FLAGS_INIT "${CONAN_CXX_FLAGS}" CACHE STRING "" FORCE)``.
 - **extra_variables**: Definition of extra CMake variables from ``tools.cmake.cmaketoolchain:extra_variables``
 - **try_compile**: Stop processing the toolchain, skipping the blocks below this one, if ``IN_TRY_COMPILE`` CMake property is defined.
 - **find_paths**: Defines ``CMAKE_FIND_PACKAGE_PREFER_CONFIG``, ``CMAKE_MODULE_PATH``, ``CMAKE_PREFIX_PATH`` so the generated files from ``CMakeDeps`` are found.
