@@ -304,9 +304,7 @@ defined in your custom CMake toolchain file.
 Managing sanitizers as a custom CMake Build Type
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Similar to managing sanitizers with a custom CMake toolchain, but without ``compiler.sanitizer`` custom settings,
-is to define sanitizers as part of a custom CMake build type. This way, you can select the desired sanitizer configuration
-by specifying the build type during the CMake configuration step.
+Another option, without using the custom ``compiler.sanitizer`` setting, is to define sanitizers as a custom CMake build type. In this approach, you select the sanitizer configuration by choosing the build type during the CMake configure step.
 To achieve this, you can create a custom CMake toolchain file that maps build types to sanitizer flags. For example:
 
 .. code-block:: cmake
