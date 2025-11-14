@@ -57,3 +57,38 @@ The ``Premake`` build helper is affected by these ``[conf]`` variables:
 - ``tools.build:verbosity`` which accepts one of ``quiet`` or ``verbose`` and sets the ``--quiet`` flag in ``Premake.configure()``
 
 - ``tools.compilation:verbosity`` which accepts one of ``quiet`` or ``verbose`` and sets the ``--verbose`` flag in ``Premake.build()``
+
+Extra configuration
+-------------------
+
+By default, typical Premake configurations are ``Release`` and ``Debug``. 
+This configurations could vary depending on the used Premake script.
+
+For example,
+
+.. code-block:: lua
+
+    workspace "MyProject"
+        configurations { "Debug", "Release", "DebugDLL", "ReleaseDLL" }
+
+If you wish to use a different configuration than ``Release`` or ``Debug``, you can override the configuration from ``PremakeDeps`` 
+and ``Premake`` generator:
+
+.. code-block:: python
+
+    class MyRecipe(Conanfile):
+        ...
+        def _premake_configuration(self):
+            return str(self.settings.build_type) + ("DLL" if self.options.shared else "") 
+
+        def generate(self):
+            deps = PremakeDeps(self)
+            deps.configuration = self._premake_configuration
+            deps.generate()
+            tc = PremakeToolchain(self)
+            tc.generate()
+
+        def build(self):
+            premake = Premake(self)
+            premake.configure()
+            premake.build(workspace="MyProject", configuration=self._premake_configuration)
