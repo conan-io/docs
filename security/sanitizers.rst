@@ -333,7 +333,7 @@ Also, you will need to update your ``settings_user.yml`` to include the new buil
    :caption: settings_user.yml
    :emphasize-lines: 1
 
-   build_type: [DebugASan, DebugUBSan, DebugASanUBSan,]
+   build_type: [DebugASan, DebugUBSan, DebugASanUBSan]
 
 Then, in your Conan profile, specify this toolchain file:
 
