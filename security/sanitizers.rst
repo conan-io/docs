@@ -313,11 +313,11 @@ To achieve this, you can create a custom CMake toolchain file that maps build ty
    :caption: cmake/sanitizer_toolchain.cmake
 
    if(CMAKE_BUILD_TYPE STREQUAL "DebugASan")
-       set(SANITIZER_FLAGS "-fsanitize=address -fno-omit-frame-pointer")
+       set(SANITIZER_FLAGS "-g -fsanitize=address -fno-omit-frame-pointer")
    elseif(CMAKE_BUILD_TYPE STREQUAL "DebugUBSan")
-       set(SANITIZER_FLAGS "-fsanitize=undefined -fno-omit-frame-pointer")
+       set(SANITIZER_FLAGS "-g -fsanitize=undefined -fno-omit-frame-pointer")
    elseif(CMAKE_BUILD_TYPE STREQUAL "DebugASanUBSan")
-       set(SANITIZER_FLAGS "-fsanitize=address,undefined -fno-omit-frame-pointer")
+       set(SANITIZER_FLAGS "-g -fsanitize=address,undefined -fno-omit-frame-pointer")
    else()
        set(SANITIZER_FLAGS "")
    endif()
