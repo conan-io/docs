@@ -352,6 +352,10 @@ Then, in your Conan profile, specify this toolchain file:
    [conf]
    tools.cmake.cmaketoolchain:user_toolchain=["<path_to>/sanitizer_toolchain.cmake"]
 
+Be aware that this approach uses a custom build type, as a result, Conan will not automatically
+apply the standard flags associated with the Debug build type. Therefore, in your custom toolchain file,
+you need to also define the flags that correspond to the desired based build type, for example, that ``-g``
+flag that matches the Debug ``build_type`` in gcc-like compilers.
 
 Using this approach, you can easily switch between different sanitizer configurations and standard build types,
 preserving the package ID differentiation based on the build type.
