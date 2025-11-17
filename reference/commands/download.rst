@@ -20,7 +20,7 @@ The ``conan download`` command can download packages to 1 server repository spec
 It has 2 possible and mutually exclusive inputs:
 
 - The ``conan download <pattern>`` pattern-based matching of recipes, with a pattern similar to the ``conan list <pattern>``.
-- The ``conan download --list=<pkglist>`` that will upload the artifacts specified in the ``pkglist`` json file
+- The ``conan download --list=<pkglist>`` that will download the artifacts specified in the ``pkglist`` json file
 
 
 
