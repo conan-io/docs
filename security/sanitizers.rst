@@ -36,7 +36,7 @@ To help you choose the right sanitizer for your needs and compiler, here is a su
 +----------------------------------------+-----+-------+------+-----------------------------------------+
 | Sanitizer                              | GCC | Clang | MSVC | Notes                                   |
 +========================================+=====+=======+======+=========================================+
-| **AddressSanitizer (ASan)**            | YES | YES   | YES  | MSVC: Supports x86 and x64              |
+| **AddressSanitizer (ASan)**            | YES | YES   | YES  | MSVC: Supports x86, x64 and ARM64       |
 +----------------------------------------+-----+-------+------+-----------------------------------------+
 | **ThreadSanitizer (TSan)**             | YES | YES   | NO   | Detects data races                      |
 +----------------------------------------+-----+-------+------+-----------------------------------------+
