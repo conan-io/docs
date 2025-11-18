@@ -36,7 +36,7 @@ To help you choose the right sanitizer for your needs and compiler, here is a su
 +----------------------------------------+-----+-------+------+-----------------------------------------+
 | Sanitizer                              | GCC | Clang | MSVC | Notes                                   |
 +========================================+=====+=======+======+=========================================+
-| **AddressSanitizer (ASan)**            | YES | YES   | YES  | MSVC: Supports x86 and x64              |
+| **AddressSanitizer (ASan)**            | YES | YES   | YES  | MSVC: Supports x86, x64 and ARM64       |
 +----------------------------------------+-----+-------+------+-----------------------------------------+
 | **ThreadSanitizer (TSan)**             | YES | YES   | NO   | Detects data races                      |
 +----------------------------------------+-----+-------+------+-----------------------------------------+
@@ -56,7 +56,8 @@ To help you choose the right sanitizer for your needs and compiler, here is a su
 +----------------------------------------+-----+-------+------+-----------------------------------------+
 
 Besides MSVC having more limited support for sanitizers, it encourages the community to vote for new features
-at `Developer Community <https://developercommunity.visualstudio.com/cpp>`_.
+at `Developer Community <https://developercommunity.visualstudio.com/cpp>`_. Very recently Visual Studio 2026 added
+support for AddressSanitizer on ARM64 architecture. This support should be straightforward when using Conan with MSVC.
 
 Also, you can consider the typical use cases for each sanitizer:
 
