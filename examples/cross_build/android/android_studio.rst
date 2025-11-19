@@ -203,7 +203,7 @@ If we focus on the ``conan install`` task we can see:
             compiler=clang
             compiler.version=18
             compiler.libcxx=c++_static
-            compiler.cppstd=14
+            compiler.cppstd=17
 
             [conf]
             tools.android:ndk_path=/opt/homebrew/share/android-ndk
@@ -214,14 +214,14 @@ If we focus on the ``conan install`` task we can see:
 
             [settings]
             os=Android
-            os.api_level=21
+            os.api_level=27
             compiler=clang
-            compiler.version=12
+            compiler.version=18
             compiler.libcxx=c++_static
-            compiler.cppstd=14
+            compiler.cppstd=17
 
             [tool_requires]
-            *: android-ndk/r26d
+            *: android-ndk/r27
 
 
       You might need to modify:
@@ -252,8 +252,8 @@ To make Conan work we need to pass CMake a custom toolchain. We can do it introd
 
        defaultConfig {
            applicationId "com.example.myconanapp"
-           minSdk 21
-           targetSdk 21
+           minSdk 27
+           targetSdk 27
            versionCode 1
            versionName "1.0"
 
