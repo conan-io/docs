@@ -21,7 +21,7 @@ In the next wizard window, select a name for your application, for example `MyCo
 "Minimum SDK" with the suggested value (21 in our case), but remember the value as we are using it later in the Conan
 profile at ``os.api_level```
 
-In the "Build configuration language" you can choose between ``Groovy DSL (build.gradle)`` or ``Kotlin DSL (build.gradle.kts)`` 
+In the "Build configuration language" you can choose between ``Groovy DSL (build.gradle)`` or ``Kotlin DSL (build.gradle.kts)``
 in order to use `conanInstall` task bellow.
 
 Select a "C++ Standard" in the next window, again, remember the choice as later we should use the same in the profile at
@@ -126,7 +126,7 @@ Paste the ``task conanInstall`` contents after the ``plugins`` and before the ``
 
     .. code-tab:: kotlin
         :caption: build.gradle.kts
-        
+
 
         plugins {
          ...
@@ -176,9 +176,9 @@ Paste the ``task conanInstall`` contents after the ``plugins`` and before the ``
 
         android {
            compileSdk 32
-        
+
            defaultConfig {
-        
+
         ...
 
 
@@ -196,22 +196,22 @@ If we focus on the ``conan install`` task we can see:
          .. code-tab:: text System NDK
 
             include(default)
-            
+
             [settings]
             os=Android
-            os.api_level=21
+            os.api_level=27
             compiler=clang
-            compiler.version=12
+            compiler.version=18
             compiler.libcxx=c++_static
             compiler.cppstd=14
-            
+
             [conf]
             tools.android:ndk_path=/opt/homebrew/share/android-ndk
 
          .. code-tab:: text Conan NDK package
 
             include(default)
-            
+
             [settings]
             os=Android
             os.api_level=21
@@ -219,7 +219,7 @@ If we focus on the ``conan install`` task we can see:
             compiler.version=12
             compiler.libcxx=c++_static
             compiler.cppstd=14
-            
+
             [tool_requires]
             *: android-ndk/r26d
 
@@ -277,7 +277,7 @@ the IDE is currently running:
    :caption: conan_android_toolchain.cmake
 
 
-    # During multiple stages of CMake configuration, the toolchain file is processed and command-line 
+    # During multiple stages of CMake configuration, the toolchain file is processed and command-line
     # variables may not be always available. The script exits prematurely if essential variables are absent.
 
     if ( NOT ANDROID_ABI OR NOT CMAKE_BUILD_TYPE )
