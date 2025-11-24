@@ -31,7 +31,13 @@
     {%- block breadcrumbs_aside %}
       <li class="wy-breadcrumbs-aside">
         {%- if hasdoc(pagename) and display_vcs_links %}
-          {%- if display_github %}
+          {%- set latest_2x = none %}
+          {%- for v, s in versions.items() %}
+            {%- if v.startswith("2") and latest_2x == none %}
+              {%- set latest_2x = v %}
+            {%- endif %}
+          {%- endfor %}
+          {%- if current_version.startswith("2.") and latest_2x == current_version and display_github %}
             {%- if check_meta and 'github_url' in meta %}
               <!-- User defined GitHub URL -->
               <a href="{{ meta['github_url'] }}" class="fa fa-github"> {{ _('Edit on GitHub') }}</a>
