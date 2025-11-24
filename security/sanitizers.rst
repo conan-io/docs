@@ -36,7 +36,7 @@ To help you choose the right sanitizer for your needs and compiler, here is a su
 +----------------------------------------+-----+-------+------+-----------------------------------------+
 | Sanitizer                              | GCC | Clang | MSVC | Notes                                   |
 +========================================+=====+=======+======+=========================================+
-| **AddressSanitizer (ASan)**            | YES | YES   | YES  | MSVC: Supports x86 and x64              |
+| **AddressSanitizer (ASan)**            | YES | YES   | YES  | MSVC: Supports x86, x64 and ARM64       |
 +----------------------------------------+-----+-------+------+-----------------------------------------+
 | **ThreadSanitizer (TSan)**             | YES | YES   | NO   | Detects data races                      |
 +----------------------------------------+-----+-------+------+-----------------------------------------+
@@ -56,7 +56,8 @@ To help you choose the right sanitizer for your needs and compiler, here is a su
 +----------------------------------------+-----+-------+------+-----------------------------------------+
 
 Besides MSVC having more limited support for sanitizers, it encourages the community to vote for new features
-at `Developer Community <https://developercommunity.visualstudio.com/cpp>`_.
+at `Developer Community <https://developercommunity.visualstudio.com/cpp>`_. Very recently Visual Studio 2026 added
+support for AddressSanitizer on ARM64 architecture. This support should be straightforward when using Conan with MSVC.
 
 Also, you can consider the typical use cases for each sanitizer:
 
@@ -260,8 +261,8 @@ during the build process. It is necessary to pass the expected sanitizer flags a
 Conan's built-in toolchains (like ``CMakeToolchain`` and ``MesonToolchain``) will automatically
 pick up the flags defined in the ``[conf]`` section and apply them to the build.
 
-Managing sanitizers with a CMake toolchain
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Managing sanitizers with a custom CMake toolchain
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Besides using Conan profiles to manage sanitizer settings, you can also use other approaches.
 
@@ -293,13 +294,70 @@ Then, specify this toolchain file as part of your Conan profile:
    compiler.sanitizer=AddressUndefinedBehavior
 
    [conf]
-   tools.cmake.cmaketoolchain:user_toolchain=cmake/my_toolchain.cmake
+   tools.cmake.cmaketoolchain:user_toolchain=["<path_to>/cmake/my_toolchain.cmake"]
 
 This way, you can keep your existing CMake toolchain file and still leverage Conan profiles to manage other settings.
 
 Note that this approach only works if all dependencies are built using CMake and the ``CMakeToolchain`` integration.
 If you have dependencies using other build systems (e.g., Meson, Autotools), those dependencies will not receive the sanitizer flags
 defined in your custom CMake toolchain file.
+
+Managing sanitizers as a custom CMake Build Type
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Another option, without using the custom ``compiler.sanitizer`` setting, is to define sanitizers as a custom CMake build type. In this approach, you select the sanitizer configuration by choosing the build type during the CMake configure step.
+To achieve this, you can create a custom CMake toolchain file that maps build types to sanitizer flags. For example:
+
+.. code-block:: cmake
+   :caption: cmake/sanitizer_toolchain.cmake
+
+   if(CMAKE_BUILD_TYPE STREQUAL "DebugASan")
+       set(SANITIZER_FLAGS "-g -fsanitize=address -fno-omit-frame-pointer")
+   elseif(CMAKE_BUILD_TYPE STREQUAL "DebugUBSan")
+       set(SANITIZER_FLAGS "-g -fsanitize=undefined -fno-omit-frame-pointer")
+   elseif(CMAKE_BUILD_TYPE STREQUAL "DebugASanUBSan")
+       set(SANITIZER_FLAGS "-g -fsanitize=address,undefined -fno-omit-frame-pointer")
+   else()
+       set(SANITIZER_FLAGS "")
+   endif()
+
+   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${SANITIZER_FLAGS}")
+   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${SANITIZER_FLAGS}")
+   set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${SANITIZER_FLAGS}")
+   set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} ${SANITIZER_FLAGS}")
+
+Also, you will need to update your ``settings_user.yml`` to include the new build types:
+
+.. code-block:: yaml
+   :caption: settings_user.yml
+   :emphasize-lines: 1
+
+   build_type: [DebugASan, DebugUBSan, DebugASanUBSan]
+
+Then, in your Conan profile, specify this toolchain file:
+
+.. code-block:: ini
+   :caption: profiles/gcc_asan_ubsan
+
+   [settings]
+   arch=x86_64
+   os=Linux
+   build_type=DebugASan
+   compiler=gcc
+   compiler.cppstd=gnu20
+   compiler.libcxx=libstdc++11
+   compiler.version=15
+
+   [conf]
+   tools.cmake.cmaketoolchain:user_toolchain=["<path_to>/sanitizer_toolchain.cmake"]
+
+Be aware that this approach uses a custom build type, as a result, Conan will not automatically
+apply the standard flags associated with the Debug build type. Therefore, in your custom toolchain file,
+you need to also define the flags that correspond to the desired based build type, for example, that ``-g``
+flag that matches the Debug ``build_type`` in gcc-like compilers.
+
+Using this approach, you can easily switch between different sanitizer configurations and standard build types,
+preserving the package ID differentiation based on the build type.
 
 Practical Usage Examples
 ------------------------
