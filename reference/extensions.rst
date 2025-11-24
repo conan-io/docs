@@ -46,9 +46,8 @@ Contents:
    extensions/python_api
    extensions/deployers
    extensions/hooks
+   extensions/plugins
    extensions/binary_compatibility
-   extensions/profile_plugin
-   extensions/authorization_plugins
    extensions/command_wrapper
    extensions/package_signing
    
