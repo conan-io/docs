@@ -85,6 +85,8 @@ The ``CMake()`` build helper is affected by these ``[conf]`` variables:
 
 - ``tools.cmake:cmake_program`` specify the location of the CMake executable, instead of using the one found in the ``PATH``.
 
+- ``tools.cmake:ctest_args`` (Since Conan 2.23.0) will inject a list of arguments to the ``CMake.ctest()`` runner. For example, ``tools.cmake:ctest_args=["--debug", "--output-junit myfile"]`` will add these arguments to the ctest command.
+
 - ``tools.cmake:install_strip`` (**deprecated** use ``tools.build:install_strip``) will pass ``--strip`` to the ``cmake --install`` call if set to ``True``.
 
 - ``tools.build:install_strip`` (Since Conan 2.18.0) will pass ``--strip`` to the ``cmake --install`` call if set to ``True``.
