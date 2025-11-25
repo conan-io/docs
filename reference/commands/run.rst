@@ -13,7 +13,7 @@ to run, and Conan will activate the necessary environments and execute it.
 
 The command can receive either a ``conanfile.py``/``conanfile.txt`` or have the requirements specified directly from the CLI via ``--requires`` and ``--tool-requires`` arguments.
 
-For example, if we to call an specific version of openssl we would:
+For example, if we call a specific version of ``openssl`` we would:
 
 .. code-block:: bash
 
