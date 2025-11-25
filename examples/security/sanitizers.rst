@@ -46,14 +46,14 @@ in an array, which should trigger ASan when running the program. We will be usin
     tools.build:sharedlinkflags+=["-fsanitize=address"]
 
     [runenv]
-    ASAN_OPTIONS="halt_on_error=1:detect_leaks=1"
+    ASAN_OPTIONS=halt_on_error=1:detect_leaks=1
 
 Note that in this profile we set the ``compiler.sanitizer=Address`` does not
 define what compiler flags to use, but it is a settings to make explicit that
 both ASan and UBSan are intended to be used.
 
 And for further illustration, we also use environment variable
-``ASAN_OPTIONS="halt_on_error=1:detect_leaks=1"`` for runtime configuration,
+``ASAN_OPTIONS=halt_on_error=1:detect_leaks=1`` for runtime configuration,
 to manage ASan to halt execution on the first error and to
 detect memory leaks when the program exits.
 
