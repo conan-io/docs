@@ -57,7 +57,7 @@ Here we can see an example of a plugin implementation.
         if url.startswith("https://my-sources-user-password.my-org/"):
             return {'user': 'my-user', 'password': 'my-password'}
         elif url.startswith("https://my-private-token-sources.my-org/"):
-            return {'token': 'my-secure-token', 'headers': {'my-header-1': 'my-value-1'}}
+            return {'token': 'my-secure-token'}
 
 Additionally, returning a ``headers`` dictionary will add the contents as HTTP headers for the sources request,
 as some servers might need some specific custom headers:
