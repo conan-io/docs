@@ -38,13 +38,16 @@ the ``credentials.json`` file should be used instead, see :ref:`reference_config
         "credentials": [
             {
                 "url": "https://server/that/need/credentials", 
-                "token": "mytoken"
+                "token": "mytoken",
+                "headers": {"my-header-1": "my-value-1", "my-header-2": "my-value-2"}
             }
         ]
     }
 
 Using the ``token`` field, will add an ``Authorization = Bearer {token}`` header. This would be the preferred
 way of authentication, as it is typically more secure than using user/password.
+
+You can also specify any custom headers that may be required to request the sources to the server using the ``headers`` field.
 
 If for some reason HTTP-Basic auth with user/password is necessary it can be provided with the ``user`` and
 ``password`` fields:

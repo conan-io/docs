@@ -39,7 +39,8 @@ Here we can see an example of a plugin implementation.
 Auth source plugin
 +++++++++++++++++++
 This one is a Python script that receives an ``url`` as a parameter and outputs a dictionary with the credentials or
-access token. It can also return ``None`` to indicate that Conan should proceed with its normal login flow.
+access token and an optional ``headers`` dictionary to add headers to the HTTP server request.
+It can also return ``None`` to indicate that Conan should proceed with its normal login flow.
 
 This plugin is located at the path ``<CONAN_HOME>/extensions/plugins/auth_source.py`` and must be manually created with the name
 ``auth_source.py``, containing a function named ``auth_source_plugin(url, **kwargs)``.
@@ -57,7 +58,7 @@ Here we can see an example of a plugin implementation.
         if url.startswith("https://my-sources-user-password.my-org/"):
             return {'user': 'my-user', 'password': 'my-password'}
         elif url.startswith("https://my-private-token-sources.my-org/"):
-            return {'token': 'my-secure-token'}
+            return {'token': 'my-secure-token', 'headers': {'my-header-1': 'my-value-1'}}
 
 
 .. note::
