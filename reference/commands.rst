@@ -30,6 +30,7 @@ and these :ref:`custom command examples <examples_extensions_custom_commands>`
    commands/search
    commands/version
    commands/workspace
+   commands/run
 
 - :doc:`conan cache <commands/cache>`: Return the path of recipes and packages in the cache
 - :doc:`conan config <commands/config>`: Manage Conan configuration (remotes, settings, plugins, etc)
@@ -45,6 +46,7 @@ and these :ref:`custom command examples <examples_extensions_custom_commands>`
 - :doc:`conan search <commands/search>`: Search packages matching a name
 - :doc:`conan version <commands/version>`: Give information about the Conan client version
 - :doc:`conan workspace (incubating) <commands/workspace>`: Manage Conan workspaces
+- :doc:`conan run <commands/run>`: Execute binaries with automatic environment activation
 
 
 **Creator commands:**
@@ -64,7 +66,6 @@ and these :ref:`custom command examples <examples_extensions_custom_commands>`
     commands/source
     commands/test
     commands/upload
-    commands/run
 
 - :doc:`conan build <commands/build>`: Install package and call its build method
 - :doc:`conan create <commands/create>`: Create a package from a recipe
