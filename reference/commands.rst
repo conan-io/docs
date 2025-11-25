@@ -64,6 +64,7 @@ and these :ref:`custom command examples <examples_extensions_custom_commands>`
     commands/source
     commands/test
     commands/upload
+    commands/run
 
 - :doc:`conan build <commands/build>`: Install package and call its build method
 - :doc:`conan create <commands/create>`: Create a package from a recipe
