@@ -430,3 +430,24 @@ The 4 different attributes are:
 .. seealso::
 
     Read the :ref:`binary model reference<reference_binary_model>` for a full view of the Conan binary model.
+
+
+context
+-------
+
+.. include:: ../../common/experimental_warning.inc
+
+
+The ``conanfile.py`` recipe attribute ``context`` will contain either the "build" or "host" value to represent the context where
+the current package instance is being evaluated. Recall that it is possible that some recipes might exist both in the "build" and "host"
+contexts, depending on the usage.
+
+This attribute shouldn't be necessary for the vast majority of cases, so it is recommended to avoid using it. 
+One potential exception for this recommendation would be to break otherwise infinite dependency cycles, defining 
+some conditional dependency as:
+
+.. code-block:: python
+
+    def requirements(self):
+        if self.context == "host":
+            self.tool_requires("mytool/1.0")
