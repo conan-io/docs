@@ -3,6 +3,43 @@ Changelog
 
 This page lists the changes made to Conan in each version, with links to each pull request for more details.
 
+2.23.0 (25-Nov-2025)
+--------------------
+
+- Feature: Adding optional ``cli_args`` to meson install. `#19301 <https://github.com/conan-io/conan/pull/19301>`_
+- Feature: implement ``VCVars`` support for latest VS 18 2026. `#19294 <https://github.com/conan-io/conan/pull/19294>`_
+- Feature: Implement ``ClangCL`` support for VS 18 2026, add ``v145`` to the clang vs-runtime. `#19289 <https://github.com/conan-io/conan/pull/19289>`_
+- Feature: Improve ``conan pkglist find-remote`` to handle partial information, like not providing revisions. `#19265 <https://github.com/conan-io/conan/pull/19265>`_
+- Feature: Add message when compatibility does not find a matching package. `#19262 <https://github.com/conan-io/conan/pull/19262>`_
+- Feature: Improve ``Workspace`` error reporting for user code, and allow workspace conanfile to execute ``self.run()`` commands. `#19260 <https://github.com/conan-io/conan/pull/19260>`_
+- Feature: Introduce ``workspace_packages`` so ``workspace super-install`` can collect information from workspace packages. `#19245 <https://github.com/conan-io/conan/pull/19245>`_ . Docs `here <https://github.com/conan-io/docs/pull/4325>`__
+- Feature: New parameter to support custom Premake configuration names. `#19242 <https://github.com/conan-io/conan/pull/19242>`_ . Docs `here <https://github.com/conan-io/docs/pull/4313>`__
+- Feature: Add collapse all and expand level buttons to `conan report diff` `html` output. `#19240 <https://github.com/conan-io/conan/pull/19240>`_
+- Feature: Add support for apple os versions 26.1 and corresponding SDKs. `#19239 <https://github.com/conan-io/conan/pull/19239>`_
+- Feature: Show `provides` conflicts in `conan graph info -f=html`. `#19222 <https://github.com/conan-io/conan/pull/19222>`_
+- Feature: Allow ``source_credentials.json`` and the source auth plugin to define headers. `#19206 <https://github.com/conan-io/conan/pull/19206>`_ . Docs `here <https://github.com/conan-io/docs/pull/4326>`__
+- Feature: Let ``conan install/create`` output the resulting ``graph.json/html`` even when there are build failures, to allow listing possible packages that have been built. `#19204 <https://github.com/conan-io/conan/pull/19204>`_
+- Feature: Document the ``Remote()`` constructor as public API. `#19200 <https://github.com/conan-io/conan/pull/19200>`_
+- Feature: ``CMake.ctest()`` runner new ``tools.cmake:ctest_args`` conf. `#19198 <https://github.com/conan-io/conan/pull/19198>`_ . Docs `here <https://github.com/conan-io/docs/pull/4324>`__
+- Feature: Add some more useful output to `conan audit`. `#19197 <https://github.com/conan-io/conan/pull/19197>`_
+- Feature: Allow ``distro 1.19`` python pip package dependency for broader compatibility. `#19192 <https://github.com/conan-io/conan/pull/19192>`_
+- Feature: Support metadata files addition without previously downloading other metadata files. `#19185 <https://github.com/conan-io/conan/pull/19185>`_
+- Feature: Add rename info for files in `conan report diff`. `#19171 <https://github.com/conan-io/conan/pull/19171>`_
+- Feature: Add `conan run` command to run commands from packages `#18972 <https://github.com/conan-io/conan/pull/18972>`_ . Docs `here <https://github.com/conan-io/docs/pull/4327>`__
+- Feature: Compatibility checks are now performed in a single request to each remote `#18396 <https://github.com/conan-io/conan/pull/18396>`_
+- Fix: Propagate `verbosity` confs to `CMakeToolchain`. `#19296 <https://github.com/conan-io/conan/pull/19296>`_
+- Fix: Fix 15.7 version in settings.yml. `#19250 <https://github.com/conan-io/conan/pull/19250>`_
+- Fix: Remove empty value from `--verbose` choice help string. `#19244 <https://github.com/conan-io/conan/pull/19244>`_
+- Fix: Improve error message referencing  non existing ``git_excluded``, use ``core.scm:excluded`` instead. `#19232 <https://github.com/conan-io/conan/pull/19232>`_ . Docs `here <https://github.com/conan-io/docs/pull/4311>`__
+- Fix: [MesonToolchain] Omits the `'sys_root'` property field. `#19229 <https://github.com/conan-io/conan/pull/19229>`_
+- Fix: CMakeConfigDeps management of ``cmake_extra_interface_libs`` per component. `#19187 <https://github.com/conan-io/conan/pull/19187>`_
+- Fix: Added deployer arguments to `workspace super-install` command. `#18792 <https://github.com/conan-io/conan/pull/18792>`_
+- Fix: Added `format_graph_json` formatter to `workspace super-install` command. `#18792 <https://github.com/conan-io/conan/pull/18792>`_
+- Bugfix: Make ``layout()`` have higher precedence for ``self.layouts.build.xxxenv_info/conf_info``. `#19268 <https://github.com/conan-io/conan/pull/19268>`_
+- Bugfix: Fix bug in ``conan new cmake_lib`` template without arguments, incorrect function name. `#19257 <https://github.com/conan-io/conan/pull/19257>`_
+- Bugfix: `Conanfile.run`'s `quiet` parameter now silences the output of the command `#18972 <https://github.com/conan-io/conan/pull/18972>`_ . Docs `here <https://github.com/conan-io/docs/pull/4327>`__
+- Bugfix: Verbosity level `quiet` now also silences the output of tools ran by Conan `#18972 <https://github.com/conan-io/conan/pull/18972>`_ . Docs `here <https://github.com/conan-io/docs/pull/4327>`__
+
 2.22.2 (07-Nov-2025)
 --------------------
 
