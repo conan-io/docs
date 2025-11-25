@@ -135,7 +135,7 @@ Let's imagine that we have a workspace with 2 packages, ``pkga/1.2.3`` and ``pkg
 
 
 .. code-block:: python
-   :caption: pkg/conanfile.py
+   :caption: pkgb/conanfile.py
 
    from conan import ConanFile
    class PkgB(ConanFile):
