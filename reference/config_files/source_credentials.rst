@@ -46,6 +46,11 @@ the ``credentials.json`` file should be used instead, see :ref:`reference_config
 Using the ``token`` field, will add an ``Authorization = Bearer {token}`` header. This would be the preferred
 way of authentication, as it is typically more secure than using user/password.
 
+<<<<<<< HEAD
+=======
+You can also specify any custom headers that may be required to request the sources to the server using the _optional_ ``headers`` field.
+
+>>>>>>> 4c66dd48612656b7fcb8ff7922cf06cf7fd6b357
 If for some reason HTTP-Basic auth with user/password is necessary it can be provided with the ``user`` and
 ``password`` fields:
 
