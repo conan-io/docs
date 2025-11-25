@@ -1,3 +1,4 @@
+.. _reference_commands_run:
 
 conan run
 =========
@@ -26,7 +27,3 @@ This command is useful when you want to execute somme specific binary from any p
 .. note::
     This command activates both the ``host`` and ``build`` contexts, so that both contexts binaries are made available at once.
     In case that a packege exists in both contexts, the ``host`` context binaries take precedence.
-
-.. seealso::
-
-    See here for more advanced examples of ``conan run`` usages
