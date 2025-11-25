@@ -72,8 +72,22 @@ level:
     {
         "credentials": [
             {
-                "url": "https://server/that/need/credentials", 
+                "url": "https://server/that/need/credentials",
                 "token": "{{mytk}}"
+            }
+        ]
+    }
+
+In some special cases, the server might need some specific custom headers. You can also specify them using a ``headers`` dictionary.
+
+.. code-block:: json
+
+    {
+        "credentials": [
+            {
+                "url": "https://server/that/need/credentials", 
+                "token": "mytoken",
+                "headers": {"my-header-1": "my-value-1", "my-header-2": "my-value-2"}
             }
         ]
     }
