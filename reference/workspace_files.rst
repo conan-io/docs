@@ -92,10 +92,15 @@ The ``ConanFile`` that represents the workspace super-build project is defined a
    :caption: conanws.py
 
    from conan import ConanFile, Workspace
+   from conan.tools.cmake import cmake_layout
 
    class MyWs(ConanFile):
       settings = "os", "compiler", "arch", "build_type"
       generators = "CMakeToolchain", "CMakeDeps"
+
+      def layout(self):
+         cmake_layout(self)
+
 
    class Ws(Workspace):
       def root_conanfile(self):
@@ -106,6 +111,13 @@ It defines that our super-build project will be a CMake project that uses the ``
 and find the external package dependencies.
 It is not necessary that the ``ConanFile`` defines ``requires`` at all, they will be computed by aggregating the requires of all packages
 in the workspace.
+
+.. important::
+
+   The ``ConanFile`` inside ``conanws.py`` is a special conanfile, used exclusively for the workspace super-build definition of layout and 
+   generators. It shouldn't have any kind of requirements, not regular ``requires``, ``tool_requires`` or ``test_requires``. It obtains
+   its dependencies collecting and aggregating the workspace packages requirements. 
+   It shouldn't have ``build()`` or ``package()`` methods either.
 
 
 conanws.py super-build workspace packages
