@@ -71,8 +71,10 @@ For example,
     workspace "MyProject"
         configurations { "Debug", "Release", "DebugDLL", "ReleaseDLL" }
 
-If you wish to use a different configuration than ``Release`` or ``Debug``, you can override the configuration from ``PremakeDeps`` 
-and ``Premake`` generator:
+If you wish to use a different configuration than ``Release`` or ``Debug``, you can override the configuration from the ``Premake`` generator.
+
+If the project also have dependencies, you will also need to override the
+``configuration`` property of the ``PremakeDeps`` generator accordingly, with the same value.
 
 .. code-block:: python
 
