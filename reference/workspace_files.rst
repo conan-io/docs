@@ -102,7 +102,7 @@ The ``ConanFile`` that represents the workspace super-build project is defined a
          return MyWs
 
 
-To define that our super-build project will be a CMake project that uses the ``CMakeToolchain`` and ``CMakeDeps`` generators to integrate
+It defines that our super-build project will be a CMake project that uses the ``CMakeToolchain`` and ``CMakeDeps`` generators to integrate
 and find the external package dependencies.
 It is not necessary that the ``ConanFile`` defines ``requires`` at all, they will be computed by aggregating the requires of all packages
 in the workspace.
