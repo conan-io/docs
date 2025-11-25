@@ -22,7 +22,7 @@ For example, if we call a specific version of ``openssl`` we would:
     Installing and building dependencies, this might take a while...
     OpenSSL 3.5.4 30 Sep 2025 (Library: OpenSSL 3.5.4 30 Sep 2025)
 
-This command is useful when you want to execute somme specific binary from any package.
+This command is useful when you want to execute some specific binary from any package.
 
 .. note::
     This command activates both the ``host`` and ``build`` contexts, so that both contexts binaries are made available at once.
