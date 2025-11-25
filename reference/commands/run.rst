@@ -26,4 +26,4 @@ This command is useful when you want to execute some specific binary from any pa
 
 .. note::
     This command activates both the ``host`` and ``build`` contexts, so that both contexts binaries are made available at once.
-    In case that a packege exists in both contexts, the ``host`` context binaries take precedence.
+    In case that a package exists in both contexts, the ``host`` context binaries take precedence.
