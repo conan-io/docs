@@ -74,7 +74,8 @@ conf
 ``MSBuildToolchain`` is affected by these ``[conf]`` variables:
 
 - ``tools.microsoft.msbuildtoolchain:compile_options`` dict-like object of extra compile options to be added to ``<ClCompile>`` section.
-  The dict will be translated as follows: ``<[KEY]>[VALUE]</[KEY]>``.
+  The dict will be translated as follows: ``<[KEY]>[VALUE]</[KEY]>`` and inserted inside the ``<ClCompile>`` element. If the ``compile_options``
+  attribute is defined, it will be updated with the values from this dict.
 - ``tools.microsoft:winsdk_version`` value will define the ``<WindowsTargetPlatformVersion>`` element in the toolchain file.
 - ``tools.build:cxxflags`` list of extra C++ flags that will be appended to ``<AdditionalOptions>`` section from ``<ClCompile>`` and ``<ResourceCompile>`` one.
 - ``tools.build:cflags`` list of extra of pure C flags that will be appended to ``<AdditionalOptions>`` section from ``<ClCompile>`` and ``<ResourceCompile>`` one.
@@ -128,3 +129,28 @@ in its contents:
         ...
     </PropertyGroup>
     </Project>
+
+
+* **compile_options**: Additional compile options added to the generated ``.props`` files. You can
+  define the properties in a key-value syntax like:
+
+.. code:: python
+
+    def generate(self):
+        msbuild = MSBuildToolchain(self)
+        msbuild.compile_options = {'ExceptionHandling': 'Async'}
+        msbuild.generate()
+
+Then, the generated *conantoolchain_<config>.props* file will contain the defined compile option
+in its contents:
+
+.. code-block:: xml
+
+    <ClCompile>
+        ...
+        <LanguageStandard>...</LanguageStandard>
+        <ExceptionHandling>Async</ExceptionHandling>
+    </ClCompile>
+
+
+Note this attribute will be updated with the ``conf`` from ``tools.microsoft.msbuildtoolchain:compile_options``.
