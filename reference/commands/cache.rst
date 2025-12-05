@@ -212,6 +212,16 @@ For example, to verify the integrity of the whole Conan local cache, do:
     zlib/1.3.1:6fe7fa69f760aee504e0be85c12b2327c716f9e7: Integrity checked: ok
 
 
+This command can also return a pkglist when the ``--format=json`` option is used.
+This is useful for generating a list of packages that can later be used, for example,
+to remove all potentially corrupted packages in a single operation:
+
+.. code-block:: text
+
+    $ conan cache check-integrity "*" --format=json --out-file pkglist.json
+    $ conan remove --list pkglist.json
+
+
 conan cache backup-upload
 -------------------------
 
