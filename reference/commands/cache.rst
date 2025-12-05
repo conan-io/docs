@@ -213,7 +213,7 @@ For example, to verify the integrity of the whole Conan local cache, do:
 
 
 This command can also return a pkglist when the ``--format=json`` option is used.
-This is useful for generating a list of packages that can later be used, for example,
+This returns the packages the are corrupted, which is useful for generating a list of packages that can later be used, for example,
 to remove all potentially corrupted packages in a single operation:
 
 .. code-block:: text
