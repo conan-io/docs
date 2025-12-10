@@ -35,6 +35,8 @@ and the rest of the members are considered private and can change without notice
    python_api/RemoveAPI
    python_api/UploadAPI
 
+.. include:: ../../common/subapi_instantiation_warning.inc
+
 There are also some model classes that represent the data structures used in the API.
 Note that as with the API, only the **documented** public members are guaranteed to be stable,
 and the rest of the members are considered private and can change without notice.
