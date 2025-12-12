@@ -208,7 +208,7 @@ a single generated ``conan_toolchain.cmake`` and a single common set of dependen
 
 In the ``build_order(self, order)`` method above, the ``order`` argument is an ordered list of lists representing
 the topologically sorted order of building. The elements of the inner lists represent packages in the workspace,
-and are dictionaries with the reference ``ref`` (of type ``RecipeReference``) and the source folder ``folder`` of
+and are dictionaries with the reference ``ref`` (of type :ref:`RecipeReference<conan.api.model.RecipeReference>`) and the source folder ``folder`` of
 every package. This ``folder`` will be the ``source_folder``, specified in the recipe ``layout()``. 
 
 .. note::
