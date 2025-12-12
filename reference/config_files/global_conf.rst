@@ -89,8 +89,20 @@ Conan also injects ``detect_api`` (non-stable, read the reference) to the jinja 
 For more information on how to use it, please check :ref:`the detect_api section
 <reference_config_files_profiles_detect_api>` in the profiles reference.
 
-The Python packages passed to render the template are ``os`` and ``platform`` for all platforms and ``distro`` in Linux platforms.
+The Python packages passed to render the template are ``os``, ``platform`` and ``hashlib`` for all platforms and ``distro`` in Linux platforms.
 Additionally, the variables ``conan_version`` and ``conan_home_folder`` are also available.
+
+The ``os``, ``platform`` and ``distro`` can be useful to perform different system checks, while the ``hashlib`` library can be convenient
+to compute unique hashes based on the ``conan_home_folder`` to define unique strings, for example for unique shorter paths in Windows in
+CI systems when sometimes the path length can be an issue, for example:
+
+.. code-block:: python
+
+  # compute a unique hash based on the current home folder
+  {% set h = hashlib.new("sha256", conan_home_folder.encode(),
+                         usedforsecurity=False).hexdigest() %}
+  # and use the first 6 characters to compose a short path for package storage
+  core.cache:storage_path=C:/conan_{{h[:6]}}
 
 
 Configuration data types
