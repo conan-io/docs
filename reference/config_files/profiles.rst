@@ -275,6 +275,9 @@ when you're composing profiles or even local variables:
 * ``=+`` == ``prepend``: puts values at the beginning of the existing value.
 * ``=!`` == ``unset``: gets rid of any variable value.
 
+Note that it is different to define an empty variable, like ``MyVar1=``, which defines it with a value of an empty string, 
+that requesting it to be explicitly unset with the ``MyVar1=!`` syntax.
+
 Another essential point to mention is the possibility of defining variables as `PATH` ones by simply putting ``(path)`` as
 the prefix of the variable. It is useful to automatically get the append/prepend of the `PATH` in different systems
 (Windows uses ``;`` as separation, and UNIX ``:``).
@@ -289,6 +292,9 @@ the prefix of the variable. It is useful to automatically get the append/prepend
     # Append another value to "MyVar1"
     MyVar1+=MyValue12
 
+    # Define a variable with an empty string value
+    MyVar2=
+
     # Define a PATH variable "MyPath1"
     MyPath1=(path)/some/path11
 
@@ -302,6 +308,7 @@ the prefix of the variable. It is useful to automatically get the append/prepend
 Then, the result of applying this profile is:
 
 * ``MyVar1``: ``My Value; other MyValue12``
+* ``MyVar2``: An empty string value
 * ``MyPath1``:
     * Unix: ``/other path/path12:/some/path11``
     * Windows: ``/other path/path12;/some/path11``
