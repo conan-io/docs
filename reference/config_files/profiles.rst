@@ -275,7 +275,7 @@ when you're composing profiles or even local variables:
 * ``=+`` == ``prepend``: puts values at the beginning of the existing value.
 * ``=!`` == ``unset``: gets rid of any variable value.
 
-Note that it is different to define an empy variable, like ``MyVar1=``, which defines it with a value of an empty string, 
+Note that it is different to define an empty variable, like ``MyVar1=``, which defines it with a value of an empty string, 
 that requesting it to be explicitly unset with the ``MyVar1=!`` syntax.
 
 Another essential point to mention is the possibility of defining variables as `PATH` ones by simply putting ``(path)`` as
