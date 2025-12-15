@@ -252,7 +252,7 @@ of configuration when doing a Conan setup:
         - myconf_a/0.1
         - myconf_b/0.1
         - myconf_c/[>=1 <2]
-    remotes:
+    urls:
         - https://my/conan/remote/repo/url
 
 
