@@ -258,7 +258,7 @@ of configuration when doing a Conan setup:
 
 .. important::
 
-    When installing more than 1 configuration package, the order of installation is important, as the later installed packages can overwritten
+    When installing more than 1 configuration package, the order of installation is important, as the later installed packages can overwrite
     configuration files installed by the previous ones. Consequently, if you decide to make the configuration part of the packages ``package_id``
     via ``core.package_id:config_mode`` conf, the order is taken into account.
     
