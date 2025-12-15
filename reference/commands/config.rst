@@ -242,7 +242,7 @@ The ``conan config install-pkg`` admits also as an input a yaml ``conanconfig.ym
 
 and be used like ``conan config install-pkg .`` or even just ``conan config install-pkg``.
 
-The file also admit the definition of ``urls`` with the same meaning as the ``--url`` command line argument, to simplify the initial installation
+The file also admits the definition of ``urls`` with the same meaning as the ``--url`` command line argument, to simplify the initial installation
 of configuration when doing a Conan setup:
 
 .. code-block:: yaml
