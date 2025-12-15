@@ -64,6 +64,9 @@ The ``conanws.py`` has a default implementation, but it is possible to override 
          self.output.info(f"Removing {path}")
          return super().remove(path, *args, **kwargs)
 
+See :ref:`conan workspace complete<workspace_complete_command>` command to open/add multiple packages that are missing
+in the package to connect different packages already existing in the workspace.
+
 
 conan workspace info
 --------------------
@@ -124,6 +127,9 @@ conan workspace open
 The new ``conan workspace open`` command implements a new concept. The packages containing an ``scm`` information in
 the ``conandata.yml`` (with ``git.coordinates_to_conandata()``) can be automatically cloned and checkout inside the
 current workspace from their Conan recipe reference (including recipe revision).
+
+See :ref:`conan workspace complete<workspace_complete_command>` command to open/add multiple packages that are missing
+in the package to connect different packages already existing in the workspace.
 
 
 conan workspace root
@@ -194,7 +200,41 @@ arguments. Only the subgraph of those packages, including their dependencies and
 dependencies will be installed.
 
 
+.. _workspace_complete_command:
+
+conan workspace complete
+------------------------
+
+.. autocommand::
+    :command: conan workspace complete -h
+
+
+The ``conan workspace complete`` command is intended to complete the ``conan workspace open/add`` commands.
+When there are packages in a workspace that have dependencies to some packages in the Conan cache, and in turn
+those cache packages depend on packages that are in the workspace, this creates an undesired and risky situation.
+
+Packages in the Conan cache must be reproducible, including their dependencies. Having binaries in the Conan cache
+that build against headers and libraries in a workspace, that are not really packages yet, and might never be, is
+a dangerous situation. It means that it is very easy to have Conan packages in the cache that build and link against
+code and binaries that never exist in Conan, that are never uploaded as packages. When the cache packages are uploaded
+and later deployed to production they will link and/or run with different packages, which can cause different issues,
+from compile or link problems to very difficult to debug and understand runtime errors.
+
+So when a Conan ``workspace`` command detects this situation, it will raise an error like:
+
+.. code-block::
+
+    ERROR: Workspace definition error. Package mypkg/version in the Conan cache 
+    has dependencies to packages in the workspace: ["dep1/1.0", "dep2/0.2"]
+    Try the 'conan workspace complete' to open/add intermediate packages
+
+This could be solved by manually doing a ``conan workspace open/add <dep>`` for the missing packages, and
+add them to the workspace, then repeat the previous command until the error is gone. The ``conan workspace complete``
+command is basically a helper to do this process automatically, detecting what are the missing packages
+and adding all of them to the workspace.
+
+
 .. seealso::
 
-    Read the :ref:`Workspace tutorial<tutorial_workspaces>` section.
-    Read the :ref:`conan new workspace<reference_commands_new>` command section.
+    - Read the :ref:`Workspace tutorial<tutorial_workspaces>` section.
+    - Read the :ref:`conan new workspace<reference_commands_new>` command section.
