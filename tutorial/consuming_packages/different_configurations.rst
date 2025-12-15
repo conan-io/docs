@@ -138,7 +138,7 @@ built in *Debug* configuration:
     $ Debug\compressor.exe
     Uncompressed size is: 233
     Compressed size is: 147
-    ZLIB VERSION: 1.2.11
+    ZLIB VERSION: 1.3.1
     Debug configuration!
 
 .. code-block:: bash
@@ -151,7 +151,7 @@ built in *Debug* configuration:
     $ ./compressor
     Uncompressed size is: 233
     Compressed size is: 147
-    ZLIB VERSION: 1.2.11
+    ZLIB VERSION: 1.3.1
     Debug configuration!
 
 
