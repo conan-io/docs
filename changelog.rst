@@ -3,6 +3,33 @@ Changelog
 
 This page lists the changes made to Conan in each version, with links to each pull request for more details.
 
+2.24.0 (15-Dec-2025)
+--------------------
+
+- Feature: MesonToolchain `needs_exe_wrapper` property now listens to `can_run()` function. `#19382 <https://github.com/conan-io/conan/pull/19382>`_
+- Feature: Workspace super-install now follows `layout()`. `#19376 <https://github.com/conan-io/conan/pull/19376>`_ . Docs `here <https://github.com/conan-io/docs/pull/4336>`__
+- Feature: Make diff symbols in `conan report diff ... -f=html` non-selectable. `#19375 <https://github.com/conan-io/conan/pull/19375>`_
+- Feature: Add more public sub Python APIs, some more typing and fix docstrings. `#19370 <https://github.com/conan-io/conan/pull/19370>`_ . Docs `here <https://github.com/conan-io/docs/pull/4334>`__
+- Feature: Represent missing packages in `graph.html` output. `#19360 <https://github.com/conan-io/conan/pull/19360>`_
+- Feature: `conan cache check-integrity`: new JSON output format. `#19343 <https://github.com/conan-io/conan/pull/19343>`_ . Docs `here <https://github.com/conan-io/docs/pull/4332>`__
+- Feature: New ``conan workspace complete`` command to open/add intermediate packages to the workspace. `#19331 <https://github.com/conan-io/conan/pull/19331>`_ . Docs `here <https://github.com/conan-io/docs/pull/4339>`__
+- Feature: Inject ``hashlib`` in the ``global.conf`` jinja2 rendering to be able to compute hashes (for paths, for example). `#19319 <https://github.com/conan-io/conan/pull/19319>`_ . Docs `here <https://github.com/conan-io/docs/pull/4338>`__
+- Feature: Introduce new ``conanconfig.yml`` file that can store packages for multiple automatic ``conan config install-pkg``. `#17793 <https://github.com/conan-io/conan/pull/17793>`_ . Docs `here <https://github.com/conan-io/docs/pull/4340>`__
+- Fix: `defines` and `frameworks` now also generate `CMakeConfigDeps` targets. `#19357 <https://github.com/conan-io/conan/pull/19357>`_
+- Fix: Warn on version ranges in reference pattern, which have no effect (ie ``-o="foo/[>1]:shared=True"``). `#19356 <https://github.com/conan-io/conan/pull/19356>`_
+- Fix: Improve ``MSBuildToolchain`` docstrings for ``compile_options``. `#19351 <https://github.com/conan-io/conan/pull/19351>`_ . Docs `here <https://github.com/conan-io/docs/pull/4330>`__
+- Fix: Conan profile detect can detect Visual Studio 18 (2026). `#19348 <https://github.com/conan-io/conan/pull/19348>`_
+- Fix: Avoid ``AutotoolsToolchain/GnuToolchain`` to define ``--sysroot`` for QNX ``qcc`` compiler, define ``-Wc,-isysroot`` instead. `#18897 <https://github.com/conan-io/conan/pull/18897>`_
+- Fix: Fixed ``conan_config.json`` storage to use only RecipeReferences (not PackageReferences). `#17793 <https://github.com/conan-io/conan/pull/17793>`_ . Docs `here <https://github.com/conan-io/docs/pull/4340>`__
+- Fix: ``conan config install-pkg`` will report for order-changing updates to existing configuration installs, allowing to ``-force`` to change the order. `#17793 <https://github.com/conan-io/conan/pull/17793>`_ . Docs `here <https://github.com/conan-io/docs/pull/4340>`__
+- Bugfix: Do correct scoping of ``conan install --requires=dep/[*] -o myoption=value``. `#19367 <https://github.com/conan-io/conan/pull/19367>`_
+- Bugfix: fix new ``core.graph:compatibility_mode=optimized`` with multiple repos. `#19349 <https://github.com/conan-io/conan/pull/19349>`_
+- Bugfix: Fix crash for ``conan workspace build`` with external global editables. `#19338 <https://github.com/conan-io/conan/pull/19338>`_
+- Bugfix: Bugfix: Fix CMakeConfigDeps flags handling of generator expressions with separators. `#19330 <https://github.com/conan-io/conan/pull/19330>`_
+- Bugfix: Fix logic in ``EnvVars`` generation of ``.sh`` and ``.ps1`` scripts for "unset" vs "empty" definition. `#19328 <https://github.com/conan-io/conan/pull/19328>`_ . Docs `here <https://github.com/conan-io/docs/pull/4337>`__
+- Bugfix: Fix ``Workspace`` crash when passing per-package configuration. `#19327 <https://github.com/conan-io/conan/pull/19327>`_
+- Bugfix: Fix version range pattern replacement in `replace_requires`. `#19324 <https://github.com/conan-io/conan/pull/19324>`_
+
 2.23.0 (25-Nov-2025)
 --------------------
 
