@@ -157,7 +157,8 @@ To install a configuration from a Conan configuration package, it is possible:
 - ``conan config install-pkg`` always look in the server for the latest version or revision.
 - If the same version and revision was downloaded and installed from the server, ``conan config install-pkg`` will be a no-op unless ``--force`` is used, in this case the configuration will be overwritten.
 
-It is also possible to make the version of the configuration affect all packages ``package_id`` and be part of the binary model, by activating the ``core.package_id:config_mode`` conf (this is also experimental), to any available mode, like ``minor_mode``.
+It is also possible to make the version of the configuration affect all packages ``package_id`` and be part of the binary model, by activating the ``core.package_id:config_mode`` conf (this is also experimental), to any available mode, like ``minor_mode``. Note that the order of the installation of packages in case multiple configuration packages are installed is important. This is why Conan will raise an error if the relative order of installed configuration packages changes as the result of installing updates for those configuration packages.
+
 
 As the ``conan config install-pkg`` command downloads the package from a Conan remote server, it can download from an already existing remote,
 or it can download from a Conan remote directly specifying the repository URL:
@@ -218,6 +219,56 @@ Then, developers could do:
 
 
 And they will get the correct configuration for their platform.
+
+.. seealso::
+
+  - If you lock installed configuration packages in a lockfile, you could use the 
+    :ref:`conan lock upgrade-config<reference_commands_lock_upgrade_config>` command
+    to update such a lockfile.
+
+
+conanconfig.yml
++++++++++++++++
+
+The ``conan config install-pkg`` admits also as an input a yaml ``conanconfig.yml`` file that can contain more than one package requirement, something like:
+
+.. code-block:: yaml
+
+    packages:
+        - myconf_a/0.1
+        - myconf_b/0.1
+        - myconf_c/[>=1 <2]
+
+
+and be used like ``conan config install-pkg .`` or even just ``conan config install-pkg``.
+
+The file also admits the definition of ``urls`` with the same meaning as the ``--url`` command line argument, to simplify the initial installation
+of configuration when doing a Conan setup:
+
+.. code-block:: yaml
+    :caption: conanconfig.yml
+
+    packages:
+        - myconf_a/0.1
+        - myconf_b/0.1
+        - myconf_c/[>=1 <2]
+    urls:
+        - https://my/conan/remote/repo/url
+
+
+.. important::
+
+    When installing more than 1 configuration package, the order of installation is important, as the later installed packages can overwrite
+    configuration files installed by the previous ones. Consequently, if you decide to make the configuration part of the packages ``package_id``
+    via ``core.package_id:config_mode`` conf, the order is taken into account.
+    
+    Then any installation or re-installation of packages or updates that change this order will be raised as an error. For example if 
+    after installing the configuration from the ``conanconfig.yml`` above we try to do a ``conan config install-pkg myconf_a/0.2``, that
+    will be raised as an error, because that would make ``myconf_a`` to be the latest installed one, not the first.
+    
+    But on the other hand, doing an update with the previous file will not be an error, because it will re-install the ``myconf_a``, ``myconf_b``
+    and ``myconf_c`` in order. Likewise, doing an update only for ``myconf_c`` wouldn't be an error, because it is the last one and
+    preserves the relative order.
 
 
 conan config list
