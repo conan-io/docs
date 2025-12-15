@@ -210,7 +210,7 @@ conan workspace complete
 
 
 The ``conan workspace complete`` command is intended to complete the ``conan workspace open/add`` commands.
-When there are packages in a workspace that have dependencies to some packages in the Conan cache, and in turn
+When there are packages in a workspace that have dependencies on some packages in the Conan cache, and in turn
 those cache packages depend on packages that are in the workspace, this creates an undesired and risky situation.
 
 Packages in the Conan cache must be reproducible, including their dependencies. Having binaries in the Conan cache
