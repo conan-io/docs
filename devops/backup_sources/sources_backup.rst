@@ -41,6 +41,13 @@ This feature is controlled by a few :ref:`global.conf<reference_config_files_glo
   the source won't be uploaded to the backup remote when calling :command:`conan upload`. *Empty by default*
 
 
+.. note::
+
+   When adding a backup source remote to ``core.sources:download_urls``, if the server is not reachable,
+   (or if it requires authentication and it is not provided), Conan will **NOT** skip it and continue to the next URL in the list,
+   instead it will raise an error and the download will fail. If your remote backup server is down
+   and you want to be able to continue downloading from the original URLs, remove the backup remote from the list temporarily.
+
 Usage
 -----
 
