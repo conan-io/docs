@@ -48,7 +48,7 @@ Now we can check in the ``engine`` folder its recipe:
             if self.settings.arch == "x86":
                 self.requires("sound32/[>=1.0 <2.0]")
 
-Lets move to the ``engine`` folder and install its dependencies:
+Let's move to the ``engine`` folder and install its dependencies:
 
 .. code-block:: bash
 
@@ -113,9 +113,9 @@ it will be used:
     $ conan graph info . --filter=requires # --lockfile=conan.lock is implicit
     # display info for matrix/1.0
     $ conan create . --version=1.0 # --lockfile=conan.lock is implicit
-    # creates the engine/1.0 package, using matrix/1.0 as dependency
+    # creates the engine/1.0 package, using matrix/1.0 as a dependency
     
-If using a lockfile is intended, like in CI, it is better that the argument ``--lockfile=conan.lock`` explicit.
+If using a lockfile is intended, like in CI, it is better that the argument ``--lockfile=conan.lock``is explicit.
 
 
 Multi-configuration lockfiles
@@ -175,14 +175,14 @@ as long as the necessary dependencies for that configuration find a matching ver
 
 .. important::
 
-    Lockfiles contains sorted lists of requirements, ordered by versions and revisions, so
-    latest versions and revisions are the ones that are prioritized when resolving against a lockfile.
+    Lockfiles contain sorted lists of requirements, ordered by versions and revisions, so
+    the latest versions and revisions are the ones that are prioritized when resolving against a lockfile.
     A lockfile can contain two or more different versions of the same package, just because different
     version ranges require them. The sorting will provide the right logic so each range resolves to
-    each valid versions.
+    each valid version.
     
     If a version in the lockfile doesn't fit in a valid range, it will not be used. It is not possible
-    for lockfiles to force a dependency that goes against what ``conanfile`` requires define, as they 
+    for lockfiles to force a dependency that goes against what ``conanfile`` requires section defines, as they 
     are "snapshots" of an existing/realizable dependency graph, but cannot define an "impossible" 
     dependency graph.
 
@@ -190,16 +190,16 @@ as long as the necessary dependencies for that configuration find a matching ver
 Evolving lockfiles
 ------------------
 
-Even if lockfiles enforce and constraint the versions that can be resolved for a graph, it doesn't
+Even if lockfiles enforce and constrain the versions that can be resolved for a graph, it doesn't
 mean that lockfiles cannot evolve. Actually, controlled evolution of lockfiles is paramount to
 important processes like Continuous Integration, when the effect of one change in the graph wants
-to be tested in isolation of other possible concurrent changes.
+to be tested in isolation from other possible concurrent changes.
 
-In this section we will introduce some of the basic functionality of lockfiles that allows such
+In this section, we will introduce some of the basic functionality of lockfiles that allows such
 evolution.
 
 First, if we would like now to introduce and test the new ``matrix/1.1`` version in our ``engine``, 
-without necessarily pulling many other dependencies that could have got new versions too, we could
+without necessarily pulling many other dependencies that could have gotten new versions too, we could
 manually add ``matrix/1.1`` to the lockfile:
 
 .. code-block:: bash
@@ -274,7 +274,7 @@ purpose:
 It is relevant to note that the ``-lockfile-clean`` could remove locked versions in
 given configurations. For example, if instead of the above, the ``x86_64`` architecture
 is used, the ``--lockfile-clean`` will prune the "unused" ``sound32``, because in that 
-configuration is not used. It is possible to evaluate new lockfiles for every different
+configuration it is not used. It is possible to evaluate new lockfiles for every different
 configuration, and then merge them:
 
 .. code-block:: bash
