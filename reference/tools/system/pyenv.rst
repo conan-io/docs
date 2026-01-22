@@ -29,7 +29,7 @@ Using a Python package in a recipe
 ----------------------------------
 
 To use a tool installed with Python, we have to install it using the ``PyEnv.install()`` method.
-You can define the python version defining the ``py_version`` parammeter to create the virtualenv using `UV <https://docs.astral.sh/uv/>`.
+You can define the python version by setting the ``py_version`` parammeter to create the virtualenv using `UV <https://docs.astral.sh/uv/>`.
 
 We also have to call the ``PyEnv.generate()`` method to create a **Conan Environment** that adds the **Python virtualenv path** to the system path.
 
