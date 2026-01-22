@@ -104,7 +104,7 @@ This page lists the changes made to Conan in each version, with links to each pu
 - Fix: Add missing final newline when saving lockfiles to disk. `#19043 <https://github.com/conan-io/conan/pull/19043>`_
 - Fix: Warn when adding requirement to version range with pinned revision, it has no effect. `#19041 <https://github.com/conan-io/conan/pull/19041>`_ . Docs `here <https://github.com/conan-io/docs/pull/4280>`__
 - Fix: Fix ``CMakeConfigDeps`` escaping. `#19034 <https://github.com/conan-io/conan/pull/19034>`_
-- Fix: Improved Python virtual environment creation in ``PipEnv`` by using the system-installed interpreter or a user-defined one via ``tools.system.pipenv:python_interpreter``. `#19030 <https://github.com/conan-io/conan/pull/19030>`_ . Docs `here <https://github.com/conan-io/docs/pull/4291>`__
+- Fix: Improved Python virtual environment creation in ``PyEnv`` by using the system-installed interpreter or a user-defined one via ``tools.system.pyenv:python_interpreter``. `#19030 <https://github.com/conan-io/conan/pull/19030>`_ . Docs `here <https://github.com/conan-io/docs/pull/4291>`__
 - Fix: Add VS2026 CMake generator mapping. `#19024 <https://github.com/conan-io/conan/pull/19024>`_
 - Fix: Avoid referencing xcconfig from skipped dependencies required in components in XcodeDeps. `#19023 <https://github.com/conan-io/conan/pull/19023>`_
 - Fix: Add ``execution["jobs"]`` to the generated CMake ``testPresets`` with same logic and value as ``buildPresets``. `#19021 <https://github.com/conan-io/conan/pull/19021>`_
@@ -127,7 +127,7 @@ This page lists the changes made to Conan in each version, with links to each pu
 - Feature: Implement a new ``post_package_id()`` hook. `#18960 <https://github.com/conan-io/conan/pull/18960>`_ . Docs `here <https://github.com/conan-io/docs/pull/4243>`__
 - Feature: Add support for Xcode 26 and related. `#18953 <https://github.com/conan-io/conan/pull/18953>`_
 - Feature: Add support for MSVC VS 2026 (insiders at the moment). `#18948 <https://github.com/conan-io/conan/pull/18948>`_ . Docs `here <https://github.com/conan-io/docs/pull/4244>`__
-- Feature: Add the PipEnv tool to install python tools using pip in an isolated virtual environment. `#18923 <https://github.com/conan-io/conan/pull/18923>`_ . Docs `here <https://github.com/conan-io/docs/pull/4247>`__
+- Feature: Add the PyEnv tool to install python tools using pip in an isolated virtual environment. `#18923 <https://github.com/conan-io/conan/pull/18923>`_ . Docs `here <https://github.com/conan-io/docs/pull/4247>`__
 - Feature: Allow separate build and package directories for multiple CMake builds from single conanfile. `#18905 <https://github.com/conan-io/conan/pull/18905>`_ . Docs `here <https://github.com/conan-io/docs/pull/4250>`__
 - Feature: Add `recipes_only` field to remote to control whether a remote can be used to download binaries. `#18896 <https://github.com/conan-io/conan/pull/18896>`_ . Docs `here <https://github.com/conan-io/docs/pull/4238>`__
 - Feature: Add `cmake_extra_variables` property for `CMakeConfigDeps`. `#18822 <https://github.com/conan-io/conan/pull/18822>`_ . Docs `here <https://github.com/conan-io/docs/pull/4257>`__
