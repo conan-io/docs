@@ -8,7 +8,9 @@ PyEnv
 
 .. important::
 
-    This is **only** for executable Python packages and its Python dependencies.
+    This is **only** for:
+    - **Executable Python packages and its Python dependencies.** (for example, meson build system)
+    - **Python package used during the source build process.** (for example, html5lib as a build dependency)
     This approach doesn't work for Python library packages that you would typically use via ``import`` inside your recipe.
 
 The ``PyEnv`` helper installs executable Python packages with **pip** inside a dedicated virtual environment (**venv**),
@@ -28,7 +30,7 @@ To use a different one, you can set a Python path in the ``tools.system.pyenv:py
 Using a Python package in a recipe
 ----------------------------------
 
-To use a tool installed with Python, we have to install it using the ``PyEnv.install()`` method.
+To install a python package or use a tool installed with Python, we have to install it using the ``PyEnv.install()`` method.
 You can define the python version by setting the ``py_version`` parammeter to create the virtualenv using `UV <https://docs.astral.sh/uv/>`.
 
 We also have to call the ``PyEnv.generate()`` method to create a **Conan Environment** that adds the **Python virtualenv path** to the system path.
