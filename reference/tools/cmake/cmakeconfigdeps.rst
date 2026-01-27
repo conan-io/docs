@@ -129,7 +129,7 @@ But besides these common fields, there are a few new fields, exclusively used at
 
 .. code-block:: python
 
-   # EXPERIMENTAL FIELDS, used exclusively by new CMakeConfigDeps (-c tools.cmake.cmakedeps:new)
+   # EXPERIMENTAL FIELDS, used exclusively by new CMakeConfigDeps
    self.cpp_info.type  # The type of this artifact "shared-library", "static-library", etc (same as package_type)
    self.cpp_info.location # full location (path and filename with extension) of the artifact or the Apple Framework library one
    self.cpp_info.link_location  # Location of the import library for Windows .lib associated to a dll
