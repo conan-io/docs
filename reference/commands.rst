@@ -48,7 +48,7 @@ and these :ref:`custom command examples <examples_extensions_custom_commands>`
 - :doc:`conan version <commands/version>`: Give information about the Conan client version
 - :doc:`conan workspace (incubating) <commands/workspace>`: Manage Conan workspaces
 - :doc:`conan run <commands/run>`: Execute binaries with automatic environment activation
-- :doc:`conan run <commands/require>`: Adds/removes requirements to/from your local conanfile
+- :doc:`conan require <commands/require>`: Adds/removes requirements to/from your local conanfile
 
 
 **Creator commands:**
