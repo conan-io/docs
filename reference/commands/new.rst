@@ -139,11 +139,15 @@ Examples
 
 .. code-block:: text
 
-    $ conan new -d requires fmt/12.1.0
+    $ conan new
 
+Generates a simple CMake consumer *conanfile.py*. Notice that neither the CMakeLists.txt nor the sources are created.
 
-Generates a simple CMake consumer *conanfile.py* that requires ``fmt/12.1.0``. Notice that neither the CMakeLists.txt
-nor the sources are created.
+.. note::
+
+    You could be interested in the :ref:`conan require<reference_commands_require>` command to add some
+    remote/local requirements to your recipe.
+
 
 .. code-block:: text
 
