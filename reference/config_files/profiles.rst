@@ -677,6 +677,11 @@ Some of the capabilities of the profile templates are:
      compiler={{ compiler }}
      compiler.version={{ compiler_version }}
 
+  If you want to use the original profile file name, instead of the current profile name, for example,
+  if the current profile file is called ``common``, and another profile called ``windows-arm`` was doing
+  an ``include(common)``, then the ``root_profile_name`` variable will be equal to ``windows-arm``, even
+  inside the ``common`` file.
+
 - Executing external commands and using their output. The ``subprocess`` module is added to the
   context, so you can use it to execute commands and capture their output.
   Note that Conan startup times for some commands can be affected if the command takes a long
@@ -730,6 +735,19 @@ Some of the capabilities of the profile templates are:
 - Any other feature supported by *jinja2* is possible: for loops, if-else, etc. This
   would be useful to define custom per-package settings or options for multiple packages
   in a large dependency graph.
+
+
+As a summary, this is the rendering context for profile files (all the items Conan injects):
+
+- ``platform``, ``os``, ``subprocess``: The Python ``platform``, ``os`` and ``subprocess`` modules
+- ``profile_dir``: The folder where the current profile file is located
+- ``profile_name``: The current profile file filename
+- ``root_profile_name``: The initial profile that was loaded. It is different of the current ``profile_name`` when there is an ``include(otherprofile)``
+- ``conan_version``: The current Conan version
+- ``detect_api``: This is a full automatic detection API, see below
+- ``context``: The current Conan context, can be ``host``, ``build`` or be ``None``
+
+
 
 .. _reference_config_files_profiles_detect_api:
 
