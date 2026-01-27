@@ -261,7 +261,7 @@ In general, a more recommended approach is to create a full package from those p
 and upload that package, and then manage it as any other regular package. See the tutorial about
 :ref:`creating packages from pre-compiled binaries here<creating_packages_other_prebuilt>`.
 
-But in some scenarios, it might still be desired to use that library from its installed location
+But in some scenarios, it might still be desirable to use that library from its installed location
 ``/home/myuser/mymath`` without putting the artifacts inside a Conan package. This can be done
 with a "wrapper" recipe, similar to the one above, but that do not have any ``system_requirements()``
 method.
