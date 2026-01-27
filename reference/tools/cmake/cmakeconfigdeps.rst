@@ -73,7 +73,7 @@ By default, for a ``hello`` requires, you need to use ``find_package(hello)`` an
 Generated files
 ---------------
 
-- **xxx-config.cmake**: By default, ``the CMakeConfigDeps`` generator will create config files declaring the targets for the dependencies
+- **xxx-config.cmake**: By default, the ``CMakeConfigDeps`` generator will create config files declaring the targets for the dependencies
   and their components (if declared).
 
 - This generator is only intended to generate ``xxx-config.cmake`` config files, it will not generate ``Find*.cmake`` find modules, and support for it is not planned. Use the ``CMakeDeps`` generator for that, or patch the consumers to use CMake config files instead of modules
