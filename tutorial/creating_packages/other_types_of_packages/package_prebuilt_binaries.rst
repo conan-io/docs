@@ -140,7 +140,7 @@ Now you can try to generate a binary package for ``build_type=Debug`` running th
 You can repeat this process any number of times for different configurations.
 
 
-Packaging already pre-built Binaries
+Packaging already pre-built binaries
 ------------------------------------
 
 Please, first clone the sources to recreate this project. You can find them in the

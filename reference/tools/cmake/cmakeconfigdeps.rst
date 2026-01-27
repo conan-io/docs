@@ -182,6 +182,13 @@ The following properties affect the ``CMakeConfigDeps`` generator:
   the ``value`` (string/number) , ``cache`` (boolean), ``type`` (CMake cache type) and optionally,
   ``docstring`` (string: defaulted to variable name) and ``force`` (boolean) keys. Note that this has
   less preference over those values defined in the ``tools.cmake.cmaketoolchain:extra_variables`` conf.
+- **cmake_link_feature**: Sets the link feature for the generated target. This can be any of the built-in
+  link features supported by CMake like ``WHOLE_ARCHIVE`` etc., or a custom one, provided you also set
+  the expected ``CMAKE_LINK_LIBRARY_USING_<FEATURE>_SUPPORTED`` and ``CMAKE_LINK_LIBRARY_USING_<FEATURE>`` variables.
+  (Possibly using the **cmake_extra_variables** property). Supported when using CMake 3.24 or newer.
+  This property performs **no** checks on the given feature, it is up to the recipe author to ensure
+  that the feature is usable.
+
 
 Example:
 
@@ -211,6 +218,8 @@ Example:
                                        "CACHE_VAR_DEFAULT_DOC": {"value": "hello world",
                                                                  "cache": True, "type": "STRING"}
                                    })
+
+        self.cpp_info.set_property("cmake_link_feature", "WHOLE_ARCHIVE")
 
     # Or if using components
     def package_info(self):

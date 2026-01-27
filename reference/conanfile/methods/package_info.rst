@@ -70,6 +70,8 @@ Directories:
 - **builddirs**: List of relative paths (starting from package root) of directories that can contain build scripts that could be used by the consumers. Empty by default.
 - **frameworkdirs**: List of relative paths (starting from the package root), of directories containing OSX frameworks.
 
+There is one exception that would allow using absolute paths in ``self.cpp_info.xxxxdirs`` fields: for recipes that serve as a "wrapper" of a library installed in the system, but not by Conan. See the :ref:`example of a recipe wrapping a library installed in the system<examples_tools_system_package_manager_wrapper>`.
+
 Flags:
 
 - **defines**: Ordered list of preprocessor directives. It is common that the consumers have to specify some sort of defines in some cases,
