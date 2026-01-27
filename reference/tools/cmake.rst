@@ -7,6 +7,7 @@ conan.tools.cmake
    :maxdepth: 2
 
    cmake/cmakedeps
+   cmake/cmakeconfigdeps
    cmake/cmaketoolchain
    cmake/cmake
    cmake/cmake_layout
