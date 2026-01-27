@@ -263,7 +263,7 @@ and upload that package, and then manage it as any other regular package. See th
 
 But in some scenarios, it might still be desirable to use that library from its installed location
 ``/home/myuser/mymath`` without putting the artifacts inside a Conan package. This can be done
-with a "wrapper" recipe, similar to the one above, but that do not have any ``system_requirements()``
+with a "wrapper" recipe, similar to the one above, but which does not have any ``system_requirements()``
 method.
 
 It could be something like:
