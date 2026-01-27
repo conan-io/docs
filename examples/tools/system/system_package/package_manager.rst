@@ -305,7 +305,7 @@ is installed in the system in different locations based on the platform:
         self.cpp_info.libs = ["mymath"]
 
 
-It might be even possible to parametrize those absolute paths with some environment variable
+It might even be possible to parametrize those absolute paths with some environment variable
 specific for that platform too.
 
 .. note::
