@@ -27,8 +27,9 @@ conan require add
 
 Add a new requirement to your local *conanfile.py* as a version range.
 
-By default, it looks for the recipe name in any of your remotes. When a match is found, it's used the latest version
-and it's written as a version range simulating a caret ``^`` operator but in a explicit way:
+By default, it looks for the recipe name in any of your remotes. When a remote contains any result for the recipe
+required, the latest version is used and written as a version range between the version found and the next major one
+(if possible, as versions based on commits do not have that major version):
 
 .. code-block:: bash
 
