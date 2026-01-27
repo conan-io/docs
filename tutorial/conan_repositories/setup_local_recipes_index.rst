@@ -15,6 +15,15 @@ upload packages or store binaries. The purpose of this remote is:
   For detailed setup and usage instructions, see the dedicated section in the Conan DevOps
   Guide :ref:`devops_local_recipes_index`.
 
+
+.. warning::
+
+    Recall that the ``local-recipes-index`` is a "source" repository, and as such it has
+    several limitations with respect to full package servers. Please read carefully the
+    instructions and warnings in :ref:`devops_local_recipes_index` before using this
+    type of remote.
+
+
 Setup
 -----
 
