@@ -10,7 +10,7 @@ This generator (available as experimental from Conan 2.25) is designed as a repl
 
 .. note::
     
-    To simplify the testing and validation of the ``CMakeDeps`` -> ``CMakeConfigDeps`` migration, the ``-c tools.cmake.cmakedeps:new=will_break_next`` configuration can be used, that does a hot replacement of every ``CMakeDeps`` in recipes by ``CMakeConfigDeps``, without needing to edit the recipes at all.
+    To simplify the testing and validation of the ``CMakeDeps`` -> ``CMakeConfigDeps`` migration, the ``-c tools.cmake.cmakedeps:new=will_break_next`` configuration can be used. It performs a hot replacement of every ``CMakeDeps`` in recipes by ``CMakeConfigDeps``, without needing to edit the recipes at all. Note that this configuration is not necessary if the recipe explicitly uses ``CMakeConfigDeps``.
 
 
 
