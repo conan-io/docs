@@ -20,6 +20,13 @@ Note that each template has some required and some [optional] user-defined varia
 
 The available templates are:
 
+- *default* (no argument is required):
+  Creates a simple and empty CMake consumer recipe. The use case would be an user having
+  a local CMakeLists.txt and the sources, and want to build them likely using requirements
+  through Conan:
+
+  Its variables are: name, version, [requires1, requires2, ...], [tool_requires1, tool_requires2, ...]
+
 - **basic**:
   Creates a simple recipe with some example code and helpful comments,
   and is a good starting point to avoid writing boilerplate code.
@@ -129,6 +136,14 @@ By default, all ``name`` and ``version`` variables are set to ``mypkg`` and ``0.
 
 Examples
 --------
+
+.. code-block:: text
+
+    $ conan new -d requires fmt/12.1.0
+
+
+Generates a simple CMake consumer *conanfile.py* that requires ``fmt/12.1.0``. Notice that neither the CMakeLists.txt
+nor the sources are created.
 
 .. code-block:: text
 
