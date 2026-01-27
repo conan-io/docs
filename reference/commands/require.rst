@@ -41,12 +41,20 @@ It admits several arguments as new requirements:
 
 .. code-block:: bash
 
-    conan require add fmt zlib
+    $ conan require add fmt zlib
     Connecting to remote 'conancenter' anonymously
     Found 21 pkg/version recipes matching fmt/* in conancenter
     Found 5 pkg/version recipes matching zlib/* in conancenter
     Added 'fmt/[>=12.1.0 <13]' as a new requires.
     Added 'zlib/[>=1.3.1 <2]' as a new requires.
+
+Or even, you can directly put the requirement version:
+
+.. code-block:: bash
+
+    $ conan require add boost/1.89.0
+    Added 'boost/[>=1.89.0 <2]' as a new requires.
+
 
 Tool and test requirements are also supported:
 
