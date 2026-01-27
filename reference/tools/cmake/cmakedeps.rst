@@ -3,6 +3,17 @@
 CMakeDeps
 =========
 
+.. note::
+
+    There is a new experimental ``CMakeConfigDeps`` generator that implements many improvements and
+    fixes over this ``CMakeDeps`` generator. Fixes, support, new features and maintenance is expected
+    mainly in ``CMakeConfigDeps``, so if you have issues with ``CMakeDeps``, give a try to
+    ``CMakeConfigDeps`` first.
+
+    To simplify the testing and validation of the ``CMakeDeps`` -> ``CMakeConfigDeps`` migration, the ``-c tools.cmake.cmakedeps:new=will_break_next`` configuration can be used, that does a hot replacement of every ``CMakeDeps`` in recipes by ``CMakeConfigDeps``, without needing to edit the recipes at all.
+    
+    See :ref:`CMakeConfigDeps generator<conan_tools_cmakeconfigdeps>`
+
 
 The ``CMakeDeps`` generator produces the necessary files for each dependency to be able to use the cmake
 ``find_package()`` function to locate the dependencies. It can be used like:
