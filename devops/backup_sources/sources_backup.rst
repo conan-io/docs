@@ -16,7 +16,7 @@ The *sources backup* feature is intended for storing the downloaded recipe sourc
 allowing future reproducibility of your builds even in the case where the original download URLs are no longer accessible.
 
 The backup is triggered for calls to the :ref:`download<conan_tools_files_get>` and :ref:`get<conan_tools_files_get>` methods
-when a ``sha256`` file signature is provided.
+when a ``sha256`` file hash is provided.
 
 
 .. _backup_sources_config:
@@ -61,13 +61,13 @@ In summary, it looks something like:
   :ref:`See below<backup_sources_setup_remote>` if you are in need for configuring your own.
 - The remote's URL can then be set in ``core.sources:download_urls`` and ``core.sources:upload_url``.
 - In your recipe's ``source()`` method, ensure the relevant ``get``/``download``
-  calls supply the ``sha256`` signature of the downloaded files.
+  calls supply the ``sha256`` hash of the downloaded files.
 - Set ``core.sources:download_cache`` in your :ref:`global.conf<reference_config_files_global_conf>` file if a custom location is desired,
   else the default cache folder will be used
 - Run Conan normally, creating packages etc.
 - Once some sources have been locally downloaded, the folder pointed to by ``core.sources:download_cache`` will contain, for each downloaded file:
-   - A blob file (no extensions) with the name of the ``sha256`` signature provided in ``get``/``download``.
-   - A ``.json`` file which will also have the name of the ``sha256`` signature,
+   - A blob file (no extensions) with the name of the ``sha256`` hash provided in ``get``/``download``.
+   - A ``.json`` file which will also have the name of the ``sha256`` hash,
      that will contain information about which references and which mirrors this blob belongs to.
 - Calling ``conan upload`` will now optionally upload the backups for the matching references if ``core.sources:upload_url`` is set.
 
