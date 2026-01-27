@@ -102,7 +102,7 @@ This is a brief summary of the improvements and fixes of ``CMakeConfigDeps`` ove
 - It doesn't need any ``build_context_activated`` or ``build_context_suffix`` to use ``tool_requires`` dependencies.
 - Checking CMake ``COMPONENTS`` definition by default.
 - Definition of ``cpp_info/components`` ``.exe`` information (should include the ``.location`` definition too), to define ``EXECUTABLE`` targets that can be run.
-- Executables from ``requires`` can also be used in non cross-build scenarios. When a ``tool_requires`` to the same depependency exists, then those executables will have priority.
+- Executables from ``requires`` can also be used in non cross-build scenarios. When a ``tool_requires`` to the same dependency exists, then those executables will have priority.
 - Creation of a new ``conan_cmakedeps_paths.cmake`` that contains definitions of ``<pkg>_DIR`` paths for direct finding of the dependencies. This file is also planned to be used in ``cmake-conan`` to extend its usage and avoid some current limitations due to the fact that a CMake driven installation cannot inject a toolchain later.
 - Better management of the system OSX Frameworks through ``cpp_info.frameworks``.
 - Definition of ``cpp_info/component.package_framework`` information (should include the ``.location`` definition too,
