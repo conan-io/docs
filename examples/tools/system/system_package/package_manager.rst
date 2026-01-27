@@ -242,7 +242,7 @@ Wrapping a library installed in the system as a Conan package
 -------------------------------------------------------------
 
 As a variant of the above case, it is also possible to apply the above strategy to libraries that 
-are installed in the system, but not necessarily installed by the system package manager. And not
+are installed in the system, but not necessarily installed by the system package manager, nor
 necessarily in the common system locations where the compilers will find them by default.
 
 Suppose that there is an existing library, already compiled in a user folder such as:
