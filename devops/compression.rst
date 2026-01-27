@@ -7,7 +7,7 @@ Conan compresses different artifacts before uploading them to the servers for fa
 and lower storage needs. Specifically for C and C++ packages that could contain hundreds of different files,
 for example multiple header files, it is very inefficient to upload and store them one by one.
 
-For this reason Conan create some compressed artifacts like ``conan_export.tgz``, ``conan_sources.tgz`` and
+For this reason Conan creates some compressed artifacts like ``conan_export.tgz``, ``conan_sources.tgz`` and
 ``conan_package.tgz``, for the recipe extra files, the exported sources and the final package binary 
 respectively. These are the files that are uploaded to the servers, together with the ``conanfile.py``, the
 ``conanmanifest.txt`` and the ``conaninfo.txt`` files. 
@@ -16,7 +16,7 @@ The compression happens when a locally created artifact is being uploaded with t
 If the recipe and package artifacts have been downloaded from the server, the compressed artifacts are cached
 and it is not necessary to compress them again. Furthermore, uploading them to a server that contains those
 artifacts will skip the actual upload transfer when the ``revisions`` match, or even avoid the transfer when
-uploading to a repository without the revision, but the file already exist in the server if the server has
+uploading to a repository without the revision, but the file already exists in the server if the server has
 file de-duplication capabilities, like Artifactory.
 
 These artifacts are automatically extracted when a package is downloaded or installed. 
@@ -27,7 +27,7 @@ These artifacts are automatically extracted when a package is downloaded or inst
     manipulate, change, remove or alter them.
 
 Conan has traditionally used only the built-in ``tgz`` format to compress the artifacts, and allowed the
-``core.gzip:compresslevel`` to select different compression levels (a tradeoff between speed and compress ratio).
+``core.gzip:compresslevel`` to select different compression levels (a tradeoff between speed and compression ratio).
 
 From Conan 2.25 it is possible to (experimentally) select other compression formats that might be more efficient.
 
