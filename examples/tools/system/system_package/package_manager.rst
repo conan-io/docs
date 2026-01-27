@@ -286,7 +286,7 @@ It could be something like:
             self.cpp_info.libs = ["mymath"]
 
 
-Note that it is also possible to still do conditions based on settings, in case that library
+Note that it is also possible to still do conditions based on settings, in case that the library
 is installed in the system in different locations based on the platform:
 
 .. code-block:: python
