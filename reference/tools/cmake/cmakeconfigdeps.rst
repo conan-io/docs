@@ -296,7 +296,7 @@ Disable ``CMakeConfigDeps`` to use ``xxx-config.cmake`` files inside the package
 --------------------------------------------------------------------------------
 
 Some projects may want to disable the ``CMakeConfigDeps`` generator for downstream consumers. This can be done by setting ``cmake_find_mode`` to ``"none"``.
-If the project wants to provide its own configuration targets, it should append them to the ``buildirs`` attribute of ``cpp_info``.
+If the project wants to provide its own configuration targets, it should append them to the ``builddirs`` attribute of ``cpp_info``.
 
 This method is intended to work with downstream consumers using the ``CMakeToolchain`` generator or by including the generated ``conan_cmakedeps_paths.cmake`` file, which will be populated with the ``builddirs`` attribute.
 
