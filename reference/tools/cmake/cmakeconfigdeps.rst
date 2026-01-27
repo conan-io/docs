@@ -115,7 +115,7 @@ Targets generation
 ------------------
 
 ``CMakeConfigDeps`` can both generate CMake files from the dependencies ``package_info()`` information
-or use the in-package ``xxx-config.cmake`` files (when ``self.cpp_info.set_property("cmake_find_mode", "none"))`` is defined, that indicates that the generator will not create any files.
+or use the in-package ``xxx-config.cmake`` files (when ``self.cpp_info.set_property("cmake_find_mode", "none")`` is defined, that indicates that the generator will not create any files.
 
 This section explains how ``CMakeConfigDeps`` generates CMake targets from the information of the ``package_info()`` dependencies method.
 
