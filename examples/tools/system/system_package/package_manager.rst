@@ -234,3 +234,90 @@ Don't worry if the displayed version is different from the one shown here or the
 It depends on the version installed in your system and where you built the application.
 
 That's it! You have successfully packaged a system library and consumed it in a Conan package.
+
+
+.. _examples_tools_system_package_manager_wrapper:
+
+Wrapping a library installed in the system as a Conan package
+-------------------------------------------------------------
+
+As a variant of the above case, it is also possible to apply the above strategy to libraries that 
+are installed in the system, but not necessarily installed by the system package manager. And not
+necessarily in the common system locations where the compilers will find them by default.
+
+Suppose that there is an existing library, already compiled in a user folder such as:
+
+.. code-block:: text
+
+    /home/myuser/mymath
+                    └── include
+                        ├── mymath.h
+                    └── lib
+                        ├── mymath.lib
+
+And ``/home/myuser/mymath`` is not added to the compilers default paths or anything like that.
+
+In general, a more recommended approach is to create a full package from those precompiled binaries,
+and upload that package, and then manage it as any other regular package. See the tutorial about
+:ref:`creating packages from pre-compiled binaries here<creating_packages_other_prebuilt>`.
+
+But in some scenarios, it might still be desired to use that library from its installed location
+``/home/myuser/mymath`` without putting the artifacts inside a Conan package. This can be done
+with a "wrapper" recipe, similar to the one above, but that do not have any ``system_requirements()``
+method.
+
+It could be something like:
+
+
+.. code-block:: python
+
+    from conan import ConanFile
+
+    class MyMath(ConanFile):
+        name = "mymath"
+        version = "1.2"  # In this case an actual version might make more sense
+        package_type = "static-library"
+
+        def package_info(self):
+            self.cpp_info.bindirs = []
+            # Absolute paths are allowed here
+            self.cpp_info.includedirs = ["/home/myuser/mymath/include"]
+            self.cpp_info.libdirs = ["/home/myuser/mymath/lib"]
+            self.cpp_info.libs = ["mymath"]
+
+
+Note that it is also possible to still do conditions based on settings, in case that library
+is installed in the system in different locations based on the platform:
+
+.. code-block:: python
+
+    settings = "os"
+
+    def package_info(self):
+        self.cpp_info.bindirs = []
+        # Absolute paths are allowed here
+        if self.settings.os == "Windows":
+            self.cpp_info.includedirs = ["C:/Users/myuser/mymath/include"]
+            self.cpp_info.libdirs = ["C:/Users/myuser/mymath/lib"]
+        else:
+            self.cpp_info.includedirs = ["/home/myuser/mymath/include"]
+            self.cpp_info.libdirs = ["/home/myuser/mymath/lib"]
+        self.cpp_info.libs = ["mymath"]
+
+
+It might be even possible to parametrize those absolute paths with some environment variable
+specific for that platform too.
+
+.. note::
+
+    **Best practices**
+
+    - The use of "wrapper" recipes like this one should be minimized, as it makes reproducibility and
+      traceability harder. Creating a real package putting the headers and libraries inside it, uploading
+      it to the server, makes it possible to achieve such traceability and reproducibility.
+    - This type of "wrapper" recipe can be convenient together with the ``[replace_requires]`` feature,
+      for specific platform constraints, like a platform that mandates that some ``openssl`` library must
+      be the one contained in a sysroot, not the one from the Conan package ``openssl/version``, but in
+      general, such a dependency to ``openssl/version`` is required by other packages. In those cases, writing
+      a wrapper recipe around the sysroot ``openssl`` and using ``[replace_requires]`` to force the dependency
+      graph to resolve to it could make sense.
