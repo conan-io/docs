@@ -3,6 +3,41 @@ Changelog
 
 This page lists the changes made to Conan in each version, with links to each pull request for more details.
 
+2.25.0 (28-Jan-2025)
+--------------------
+
+- Feature: Make the download of package binaries more atomic to make cancellations more robust. `#19510 <https://github.com/conan-io/conan/pull/19510>`_
+- Feature: Add public docs for `InstallAPI` subapi. `#19497 <https://github.com/conan-io/conan/pull/19497>`_
+- Feature: :command:`conan new` with no positional arguments creates a default CMake basic conanfile. `#19496 <https://github.com/conan-io/conan/pull/19496>`_ . Docs `here <https://github.com/conan-io/docs/pull/4356>`__
+- Feature: Further optimize the number of DB calls for upload, download, and package builds. `#19485 <https://github.com/conan-io/conan/pull/19485>`_
+- Feature: Add public documentation for ``CacheAPI`` and ``ConfigAPI`` subapis. `#19479 <https://github.com/conan-io/conan/pull/19479>`_
+- Feature: Deprecate `MesonToolchain.preprocessor_definitions` in favor of `extra_defines`. `#19468 <https://github.com/conan-io/conan/pull/19468>`_
+- Feature: Add `conan require` command to add/remove requirements to/from your local conanfile. `#19457 <https://github.com/conan-io/conan/pull/19457>`_ . Docs `here <https://github.com/conan-io/docs/pull/4354>`__
+- Feature: Support for CPS CMake round trip with components with ``requires``. `#19446 <https://github.com/conan-io/conan/pull/19446>`_
+- Feature: Add a way to specify link features (`$<LINK_LIBRARY:...>`) in `CMakeConfigDeps`. `#19444 <https://github.com/conan-io/conan/pull/19444>`_ . Docs `here <https://github.com/conan-io/docs/pull/4353>`__
+- Feature: Update settings with new versions of supported tools. `#19442 <https://github.com/conan-io/conan/pull/19442>`_
+- Feature: CPS CMake-Conan round trip support for components. `#19428 <https://github.com/conan-io/conan/pull/19428>`_
+- Feature: Move ``CMakeConfigDeps`` from incubating to experimental. `#19421 <https://github.com/conan-io/conan/pull/19421>`_ . Docs `here <https://github.com/conan-io/docs/pull/4349>`__
+- Feature: Support CPS shared libs from CMake. `#19417 <https://github.com/conan-io/conan/pull/19417>`_
+- Feature: Support full CPS CMake round trip in ``CMakeConfigDeps``. `#19410 <https://github.com/conan-io/conan/pull/19410>`_
+- Feature: Optimize package cache DB access, reducing connections and queries by half for the dependency graph construction. `#19398 <https://github.com/conan-io/conan/pull/19398>`_
+- Feature: Add `root_profile_name` to the profile jinja2 context to allow tracing back the root profile from included profiles. `#19393 <https://github.com/conan-io/conan/pull/19393>`_ . Docs `here <https://github.com/conan-io/docs/pull/4350>`__
+- Feature: Optimize package cache DB access by doing batch updates of the LRU recipes and packages. `#19392 <https://github.com/conan-io/conan/pull/19392>`_
+- Feature: Define the Python version used by PipEnv using UV `#19388 <https://github.com/conan-io/conan/pull/19388>`_ . Docs `here <https://github.com/conan-io/docs/pull/4347>`__
+- Feature: (Experimental) Support built-in `xz` and `zstd` compression for Conan artifacts. `#19337 <https://github.com/conan-io/conan/pull/19337>`_ . Docs `here <https://github.com/conan-io/docs/pull/4355>`__
+- Fix: Check Python version in `PyEnv` init. `#19520 <https://github.com/conan-io/conan/pull/19520>`_
+- Fix: Populate `<library>_DEFINITIONS` legacy variables in `CMakeConfigDeps` for compatibility with old `check_symbol_exists` and similar `#19519 <https://github.com/conan-io/conan/pull/19519>`_
+- Fix: Use ``dnf`` as the default system package manager for Almalinux, Rocky and Oracle Linux instead of legacy ``yum``. `#19487 <https://github.com/conan-io/conan/pull/19487>`_
+- Fix: Display packages even when a system package manager install is a no-op. `#19483 <https://github.com/conan-io/conan/pull/19483>`_
+- Fix: Remove ``--lockfile-out`` generation arguments in ``workspace`` commands that cannot generate a lockfile (orchestrated ``conan workspace install/build/complete``). `#19475 <https://github.com/conan-io/conan/pull/19475>`_
+- Fix: Reduce the sqlite DB connection scope to try to optimize DB locking. Remove the ``yield`` DB return that could create operational issues. `#19394 <https://github.com/conan-io/conan/pull/19394>`_
+- Bugfix: Avoid potential `None` and `PackageType` comparison when deducing `cpp_info`. `#19494 <https://github.com/conan-io/conan/pull/19494>`_
+- Bugfix: Solve ``PipEnv`` failure when using version ranges. `#19478 <https://github.com/conan-io/conan/pull/19478>`_
+- Bugfix: Correct pattern comparison for symlink with `files.copy` function. `#19437 <https://github.com/conan-io/conan/pull/19437>`_
+- Bugfix: Solve issue in ``CMakeConfigDeps`` when building transitive libraries in the "build" context. `#19429 <https://github.com/conan-io/conan/pull/19429>`_
+- Bugfix: Allow updating to newer remote revisions that already exist in the Conan cache with an older timestamp. `#19402 <https://github.com/conan-io/conan/pull/19402>`_
+- Bugfix: Fix unintended packages showing up when using  `conan list ... --graph-context={build-only,host-only}` when there are package binary mismatches `#19368 <https://github.com/conan-io/conan/pull/19368>`_
+
 2.24.0 (15-Dec-2025)
 --------------------
 
