@@ -3,6 +3,11 @@ Changelog
 
 This page lists the changes made to Conan in each version, with links to each pull request for more details.
 
+2.25.1 (29-Jan-2025)
+--------------------
+
+- Fix: Do "retry" over the ``os.replace()`` in Windows to avoid antivirus blocking issues. `#19532 <https://github.com/conan-io/conan/pull/19532>`_
+
 2.25.0 (28-Jan-2025)
 --------------------
 
