@@ -458,11 +458,19 @@ def copy_legacy_redirects(app, docname): # Sphinx expects two arguments
             with open(target_path, "w") as f:
                 f.write(html)
 
+                
+def fix_epub_generation(app):
+    # Ensure there's an epub handler
+    if "html" in app.registry.translation_handlers:
+        app.registry.translation_handlers["epub"] = app.registry.translation_handlers["html"]
+ 
+
 def get_conan_version():
     out, _ = subprocess.Popen("conan --version", stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, shell=True).communicate()
     return out
 
 def setup(app):
     app.connect('build-finished', copy_legacy_redirects)
+    fix_epub_generation(app)
     # Run Conan once, so autocommands are executed without migrations
     print("Running with Conan version: ", get_conan_version().decode().strip())
