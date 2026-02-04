@@ -124,6 +124,15 @@ Conan will not normalize or change in any way the source files, it is not its re
 
     * text eol=lf
 
+Above will mark all files in repo with ``text`` attribute and force ``lf`` as end of line. Treating binary files as ``text`` lead to data corruption although. If there are binary files alongside, make sure to exclude them back:
+
+.. code-block:: ini
+
+    * text eol=lf
+
+    *.png binary
+    *.jpg binary
+    *.jpeg binary
 
 Other approach would be to change the ``.gitconfig`` to change it globally. Modern editors (even Notepad) in Windows can perfectly work with files with ``LF``, it is no longer necessary to change the line endings.
 
