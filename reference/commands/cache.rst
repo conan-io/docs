@@ -273,3 +273,23 @@ This is a developer and debugging command, intended for occasional developer usa
     Navigating the Conan cache is not an intended or supported use case. Using the ``conan cache ref`` command in any automation, CI or scripting
     is strongly discouraged. 
     The ``conan cache ref`` is intended exclusively to be a helper command for developers while debugging.
+
+
+conan cache sign
+----------------
+
+.. autocommand::
+    :command: conan cache sign -h
+
+
+Read more in :ref:`reference_extensions_package_signing`.
+
+
+conan cache verify
+------------------
+
+.. autocommand::
+    :command: conan cache verify -h
+
+
+Read more in :ref:`reference_extensions_package_signing`.
