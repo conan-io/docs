@@ -281,6 +281,7 @@ conan cache sign
 .. autocommand::
     :command: conan cache sign -h
 
+Signs the packages matching the pattern/reference or package list provided.
 
 Read more in :ref:`reference_extensions_package_signing`.
 
@@ -291,5 +292,6 @@ conan cache verify
 .. autocommand::
     :command: conan cache verify -h
 
+Verifies the signatures of the packages matching the pattern/reference or a package list.
 
 Read more in :ref:`reference_extensions_package_signing`.

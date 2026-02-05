@@ -26,7 +26,10 @@ To enable package signing, the plugin should be placed in the cache at ``extensi
 Implementation
 ==============
 
-The plugin is a Python file that must define two functions:
+The plugin is a Python file that must define the following two functions:
+
+For signing packages
+++++++++++++++++++++
 
 .. code-block:: python
 
@@ -48,12 +51,16 @@ The plugin is a Python file that must define two functions:
                   "signature": "pkgsign-manifest.json.sig"}}  # This is the signature file, typically signing the manifest file
         ]
 
-Conan will generate a JSON manifest file called `pkgsign-manifest.json` in the signature folder right before calling the ``sign()`` method of the plugin.
-This file is useful to check the integrity of the package and to perform the sign over it and just signing this file (recommended).
+The manifest file: ``pkgsign-manifest.json``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Here is an example of the contents of the `pkgsign-manifest.json` file:
+Conan will **generate a JSON manifest file** called ``pkgsign-manifest.json`` in the signature folder right before calling the ``sign()`` method of the plugin.
+This file is useful to check the integrity of the package and to **perform the sign over it by just signing this file (recommended)**.
+
+Here is an example of the contents:
 
 .. code-block:: json
+   :caption: *<signature_folder>/pkgsign-manifest.json*
 
     {
       "files":[
@@ -76,18 +83,23 @@ Here is an example of the contents of the `pkgsign-manifest.json` file:
       ]
     }
 
-The function should return a list of signatures (see the example above) that will be saved to a JSON file called ``pkgsign-signatures.json``.
-This file is intended to list the signature metadata like the **provider** or **method** and the files that are part of the signature in the `sign_artifacts` field.
+The signatures file: ``pkgsign-signatures.json``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-- ``method``: The signing method indicates the tool used to sign the package so it can be verified later. For example: gpg, cosign, x509, openssl...
-- ``provider``: The name of the organization that signed the package. This is useful to later verify the package with a matching public key provided by the organization.
-- ``sign_artifacts``: A list of the files that are part of the signature. This is useful to identify the files involved in the signature and use them in the verification step.
+The function **should return a list of signatures** (see the example above) that will be **automatically saved by Conan into a JSON file** called ``pkgsign-signatures.json``.
+This file is intended to list the signature metadata like the ``provider`` or ``method`` and the files that are part of the signature in the ``sign_artifacts`` field.
 
-Additionally, more than one signature can be supported, in case you need to sign with different formats or transition from one signature method to another.
+- ``method``: The signing method **indicates the tool used to sign the package so it can be verified later**. For example: gpg, cosign, x509, openssl...
+- ``provider``: The **name of the organization** that signed the package. This is useful to later **verify the package with a matching public key** provided by the organization.
+- ``sign_artifacts``: A list of the **files that are part of the signature**. This is useful to identify the files involved in the signature and use them in the verification step.
 
-Here is an example of the contents of the `pkgsign-signatures.json` file:
+Additionally, **more than one signature is supported**, in case you need to sign with different formats or transition from one signature method to another.
+
+Here is an example of the contents:
 
 .. code-block:: json
+   :caption: *<signature_folder>/pkgsign-signatures.json*
+
 
     {
       "signatures": [
@@ -102,7 +114,10 @@ Here is an example of the contents of the `pkgsign-signatures.json` file:
       ]
     }
 
-For verifying package signatures, the following function should be implemented in the plugin:
+For verifying packages
+++++++++++++++++++++++
+
+The following function should be implemented in the plugin:
 
 .. code-block:: python
 
@@ -117,7 +132,7 @@ For verifying package signatures, the following function should be implemented i
         # signatures in signature_folder.
         pass
 
-Before calling the ``verify()`` function, Conan will perform an integrity check calculating the checksums of the package files
+Before calling the ``verify()`` function, **Conan will perform an integrity check** calculating the checksums of the package files
 and checking against the manifest `pkgsign-signatures.json` file (if the file is present).
 
 .. note::
@@ -129,30 +144,22 @@ and checking against the manifest `pkgsign-signatures.json` file (if the file is
 Commands
 ========
 
-conan cache sign
-^^^^^^^^^^^^^^^^
+This command will trigger the ``sign()`` method of the configured signing plugin.
 
-Signs the packages matching the pattern/reference or package list provided.
 
 .. code-block:: bash
 
     $ conan cache sign mypkg/1.0.0
 
-This command will trigger the ``sign()`` method of the configured signing plugin.
-
-conan cache verify
-^^^^^^^^^^^^^^^^^^
-
-Verifies the signatures of the packages matching the pattern/reference or a package list.
+And this one will trigger the ``verify()`` method of the plugin.
 
 .. code-block:: bash
 
     $ conan cache verify mypkg/1.0.0
 
-This command triggers the ``verify()`` method of the plugin.
-
 
 Plugin implementation examples
 ==============================
+
 - `Signing packages with OpenSSL <https://github.com/conan-io/examples2/tree/main/examples/extensions/plugins/openssl_sign>`_
-- Sigstore package singing plugin for Conan packages [TODO]
+- Sigstore package singing plugin [TODO]
