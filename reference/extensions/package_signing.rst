@@ -127,7 +127,7 @@ The following function should be implemented in the plugin:
         :param ref: The package reference being verified.
         :param artifacts_folder: Path to the folder containing the package artifacts.
         :param signature_folder: Path to the folder containing the signatures.
-        :param files: List of filenames to verify.
+        :param files: Dictionary of names and paths of the files in the package.
         """
         # Logic to verify that files in artifacts_folder match the
         # signatures in signature_folder.
