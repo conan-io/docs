@@ -162,4 +162,4 @@ Plugin implementation examples
 ==============================
 
 - `Signing packages with OpenSSL <https://github.com/conan-io/examples2/tree/main/examples/extensions/plugins/openssl_sign>`_
-- Sigstore package singing plugin [TODO]
+- Sigstore package signing plugin [TODO]
