@@ -8,7 +8,7 @@ Package signing
   The package signing plugin is in **preview**.
   See :ref:`the Conan stability<stability>` section for more information.
 
-This plugin is a Conan extension mechanism to sign and verify packages. For example with cosign sigstore, openssl...
+This plugin is a Conan extension mechanism to sign and verify packages. For example using Cosign (Sigstore), OpenSSL, GPG, etc.
 
 This capability allows users to:
 
@@ -134,7 +134,7 @@ The following function should be implemented in the plugin:
         pass
 
 Before calling the ``verify()`` function, **Conan will perform an integrity check** calculating the checksums of the package files
-and checking against the manifest `pkgsign-signatures.json` file (if the file is present).
+and checking against the manifest `pkgsign-manifest.json` file (if the file is present).
 
 .. note::
 
@@ -163,4 +163,4 @@ Plugin implementation examples
 ==============================
 
 - `Signing packages with OpenSSL <https://github.com/conan-io/examples2/tree/main/examples/extensions/plugins/openssl_sign>`_
-- Sigstore package singing plugin [TODO]
+- Sigstore package signing plugin [TODO]
