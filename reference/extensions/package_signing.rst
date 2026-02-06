@@ -169,6 +169,24 @@ And this one will trigger the ``verify()`` method of the plugin.
     $ conan cache verify mypkg/1.0.0
 
 
+Here is a usual flow for signing and verifying packages:
+
+.. code-block:: bash
+
+    $ conan create --name=mypkg --version=1.0.0
+    $ conan cache sign mypkg/1.0.0
+    $ conan upload mypkg/1.0.0 --remote=myremote
+    $ conan install --requires=mypkg/1.0.0  # This will trigger verify()
+    # When the packages is signed, the verify() can be done at anytime
+    $ conan cache verify mypkg/1.0.0
+
+.. caution::
+
+    The :command:`conan upload` command will not automatically sign the packages since Conan 2.26.0.
+    Please make sure to use the :command:`conan cache sign` command to sign the packages before uploading them,
+    and update your plugin to conform to the new implementation.
+
+
 Plugin implementation examples
 ==============================
 
