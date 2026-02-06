@@ -177,7 +177,7 @@ Here is a usual flow for signing and verifying packages:
     $ conan cache sign mypkg/1.0.0
     $ conan upload mypkg/1.0.0 --remote=myremote
     $ conan install --requires=mypkg/1.0.0  # This will trigger verify()
-    # When the packages is signed, the verify() can be done at anytime
+    # When the packages is signed, the verify() can be done at anytime with:
     $ conan cache verify mypkg/1.0.0
 
 .. caution::
@@ -189,6 +189,8 @@ Here is a usual flow for signing and verifying packages:
 
 Plugin implementation examples
 ==============================
+
+Here you can find some implementation examples of the plugin so they can serve as guidance to develop your own one:
 
 - `Signing packages with OpenSSL <https://github.com/conan-io/examples2/tree/main/examples/extensions/plugins/openssl_sign>`_
 - Sigstore package signing plugin [TODO]
