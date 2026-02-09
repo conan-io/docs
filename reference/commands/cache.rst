@@ -281,10 +281,24 @@ conan cache sign
 .. autocommand::
     :command: conan cache sign -h
 
-Signs the packages matching the pattern/reference or package list provided.
+Signs the packages matching the pattern/reference or package list provided. For example:
 
-Read more in :ref:`reference_extensions_package_signing`.
+.. code-block:: text
 
+    $ conan list zlib/1.2.11:* --format=json > list.json
+
+    $ conan cache sign --list=list.json
+    [Package sign] Results:
+
+    zlib/1.2.11
+    revisions
+        bfceb3f8904b735f75c2b0df5713b1e6
+        packages
+            7bfde258ff4f62f75668d0896dbddedaa7480a0f
+
+    [Package sign] Summary: OK=1, FAILED=0
+
+This command requires a configured package signing plugin, read more in :ref:`reference_extensions_package_signing`.
 
 conan cache verify
 ------------------
@@ -294,4 +308,4 @@ conan cache verify
 
 Verifies the signatures of the packages matching the pattern/reference or a package list.
 
-Read more in :ref:`reference_extensions_package_signing`.
+This command requires as configured package signing plugin, read more in :ref:`reference_extensions_package_signing`.
