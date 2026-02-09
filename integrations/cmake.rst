@@ -42,8 +42,8 @@ This flow is important, the ``conan install`` command generates CMake presets an
 toolchain files that helps locating the dependencies, besides trying to align as best as possible with the profile 
 information. This is the recommended flow for most cases.
 
-In extraordinary and exceptional scenarios, it might be desired that it is the ``CMake`` execution that 
-calls ``conan install`` to simplify the flow, for example for some IDE integrations like the CLion one, so
+In extraordinary and exceptional scenarios, it might be desired for the ``CMake`` execution to 
+call ``conan install`` to simplify the flow, for example for some IDE integrations like the CLion one, so
 the users don't need to call ``conan install`` themselves.
 
 For this purpose, the  `cmake-conan integration <https://github.com/conan-io/cmake-conan>`_ exists.
