@@ -51,7 +51,7 @@ It uses the CMake "dependency providers" feature to intercept the first ``find_p
 to ``conan install`` to fetch the dependencies at that point.
 
 This ``cmake-conan`` project stability is not guaranteed, and it has some known issues and limitations.
-refer to the Github repository for more details. And note that calling ``conan install`` explicitly before
+Refer to the Github repository for more details. And note that calling ``conan install`` explicitly before
 calling ``cmake`` is still the preferred and most recommended flow for most cases.
 
 
