@@ -44,9 +44,9 @@ For signing packages
         # and write them to signature_folder.
         #
         # The signature_folder should only store the files that are part of the signature.
-        # This files will be uploaded with the package and downloaded when
+        # These files will be uploaded with the package and downloaded when
         # it is installed (usually the metadata is not downloaded by default,
-        # but the the metadata/sign folder is excluded) so the signature verification
+        # but the metadata/sign folder is) so the signature verification
         # is always done.
         #
         return [
@@ -95,7 +95,7 @@ Here is an example of the contents:
 The signatures file: ``pkgsign-signatures.json``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The function **should return a list of signatures** (see the example above) that will be **automatically saved by Conan into a JSON file** called ``pkgsign-signatures.json``.
+The ``sign()`` function **should return a list of signatures** (see the example above) that will be **automatically saved by Conan into a JSON file** called ``pkgsign-signatures.json``.
 This file is intended to list the signature metadata like the ``provider`` or ``method`` and the files that are part of the signature in the ``sign_artifacts`` field.
 
 - ``method``: The signing method **indicates the tool used to sign the package so it can be verified later**. For example: gpg, cosign, x509, openssl...
@@ -144,7 +144,7 @@ The following function should be implemented in the plugin:
 This function does not return any value. Instead, it is expected that it raises a ``ConanException`` if the verification of the signature fails.
 
 Before calling the ``verify()`` function, **Conan will perform an integrity check** calculating the checksums of the package files
-and checking against the manifest `pkgsign-manifest.json` file (if the file is present).
+and checking against the manifest ``pkgsign-manifest.json`` file (if the file is present).
 
 .. note::
 
@@ -177,7 +177,7 @@ Here is a usual flow for signing and verifying packages:
     $ conan cache sign mypkg/1.0.0
     $ conan upload mypkg/1.0.0 --remote=myremote
     $ conan install --requires=mypkg/1.0.0  # This will trigger verify()
-    # When the packages is signed, the verify() can be done at anytime with:
+    # When the package is signed, the verify() can be done at anytime with:
     $ conan cache verify mypkg/1.0.0
 
 .. caution::
