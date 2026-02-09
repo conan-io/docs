@@ -47,7 +47,7 @@ call ``conan install`` to simplify the flow, for example for some IDE integratio
 the users don't need to call ``conan install`` themselves.
 
 For this purpose, the  `cmake-conan integration <https://github.com/conan-io/cmake-conan>`_ exists.
-It uses the CMake "dependency providers" to intercept the first ``find_package()`` and do a call
+It uses the CMake "dependency providers" feature to intercept the first ``find_package()`` and do a call
 to ``conan install`` to fetch the dependencies at that point.
 
 This ``cmake-conan`` project stability is not guaranteed, and it has some known issues and limitations.
