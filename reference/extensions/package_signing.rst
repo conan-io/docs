@@ -44,7 +44,7 @@ For signing packages
         # and write them to signature_folder.
         #
         # The signature_folder should only store the files that are part of the signature.
-        # This files will be uploaded with the package and downloaded when
+        # These files will be uploaded with the package and downloaded when
         # it is installed (usually the metadata is not downloaded by default,
         # but the the metadata/sign folder is) so the signature verification
         # is always done.
