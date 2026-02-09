@@ -95,7 +95,7 @@ Here is an example of the contents:
 The signatures file: ``pkgsign-signatures.json``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The function **should return a list of signatures** (see the example above) that will be **automatically saved by Conan into a JSON file** called ``pkgsign-signatures.json``.
+The ``sign()`` function **should return a list of signatures** (see the example above) that will be **automatically saved by Conan into a JSON file** called ``pkgsign-signatures.json``.
 This file is intended to list the signature metadata like the ``provider`` or ``method`` and the files that are part of the signature in the ``sign_artifacts`` field.
 
 - ``method``: The signing method **indicates the tool used to sign the package so it can be verified later**. For example: gpg, cosign, x509, openssl...
