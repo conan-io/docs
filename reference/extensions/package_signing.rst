@@ -177,7 +177,7 @@ Here is a usual flow for signing and verifying packages:
     $ conan cache sign mypkg/1.0.0
     $ conan upload mypkg/1.0.0 --remote=myremote
     $ conan install --requires=mypkg/1.0.0  # This will trigger verify()
-    # When the packages is signed, the verify() can be done at anytime with:
+    # When the package is signed, the verify() can be done at anytime with:
     $ conan cache verify mypkg/1.0.0
 
 .. caution::
