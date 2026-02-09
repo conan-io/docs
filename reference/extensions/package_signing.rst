@@ -144,7 +144,7 @@ The following function should be implemented in the plugin:
 This function does not return any value. Instead, it is expected that it raises a ``ConanException`` if the verification of the signature fails.
 
 Before calling the ``verify()`` function, **Conan will perform an integrity check** calculating the checksums of the package files
-and checking against the manifest `pkgsign-manifest.json` file (if the file is present).
+and checking against the manifest ``pkgsign-manifest.json`` file (if the file is present).
 
 .. note::
 
