@@ -826,6 +826,7 @@ the associated runtime, you can use:
     - ``detect_clang_compiler(compiler_exe="clang")``: Return the tuple ('clang'|'apple-clang', version, executable) for ``clang`` or ``apple-clang``.
     - ``detect_msvc_compiler()``: Detect the compiler ('msvc', version, None) default version of the latest VS IDE installed
     - ``detect_cl_compiler(compiler_exe="cl")``: Detect the compiler ('msvc', version, executable) for the ``cl.exe`` compiler
+    - ``detect_emcc_compiler(compiler_exe="emcc")``: Return the tuple ('emcc', version, executable) for the ``emcc`` Emscripten compiler
     - ``detect_sdk_version(sdk)``: Detect the Apple SDK version (``None`` for non Apple platforms), for the given ``sdk``. Equivalent to ``xcrun -sdk {sdk} --show-sdk-version``
 
 
