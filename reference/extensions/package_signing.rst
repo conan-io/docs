@@ -155,7 +155,7 @@ and checking against the manifest ``pkgsign-manifest.json`` file (if the file is
 Commands
 ========
 
-This command will trigger the ``sign()`` method of the configured signing plugin.
+The ``conan cache sign`` command will trigger the ``sign()`` method of the configured signing plugin:
 
 
 .. code-block:: bash
