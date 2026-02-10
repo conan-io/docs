@@ -59,7 +59,7 @@ calling ``cmake`` is still the preferred and most recommended flow for most case
 
     - Check the :ref:`Building your project using CMakePresets
       <examples-tools-cmake-toolchain-build-project-presets>` example
-    - Reference for :ref:`CMakeDeps <conan_tools_cmakedeps>`, :ref:`CMakeConfigDeps generator<conan_tools_cmakeconfigdeps>`,
+    - Reference for :ref:`CMakeDeps <conan_tools_cmakedeps>`, :ref:`CMakeConfigDeps generator <conan_tools_cmakeconfigdeps>`,
       :ref:`CMakeToolchain <conan_tools_cmaketoolchain>` and :ref:`CMake build helper
       <conan_tools_cmake_helper>`
     - :ref:`Conan tutorial <tutorial>`
