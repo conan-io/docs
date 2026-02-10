@@ -162,7 +162,7 @@ The ``conan cache sign`` command will trigger the ``sign()`` method of the confi
 
     $ conan cache sign mypkg/1.0.0
 
-And this one will trigger the ``verify()`` method of the plugin.
+And the ``conan cache verify`` command will trigger the ``verify()`` method of the plugin:
 
 .. code-block:: bash
 
