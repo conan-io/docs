@@ -287,12 +287,12 @@ Signs the packages matching the pattern/reference or package list provided. For 
 
 .. code-block:: text
 
-    $ conan list zlib/1.2.11:* --format=json > list.json
+    $ conan list zlib/1.3.1:* --format=json > list.json
 
     $ conan cache sign --list=list.json
     [Package sign] Results:
 
-    zlib/1.2.11
+    zlib/1.3.1
     revisions
         bfceb3f8904b735f75c2b0df5713b1e6
         packages
