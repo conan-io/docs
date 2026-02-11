@@ -273,3 +273,43 @@ This is a developer and debugging command, intended for occasional developer usa
     Navigating the Conan cache is not an intended or supported use case. Using the ``conan cache ref`` command in any automation, CI or scripting
     is strongly discouraged. 
     The ``conan cache ref`` is intended exclusively to be a helper command for developers while debugging.
+
+
+conan cache sign
+----------------
+
+.. include:: ../../common/experimental_warning.inc
+
+.. autocommand::
+    :command: conan cache sign -h
+
+Signs the packages matching the pattern/reference or package list provided. For example:
+
+.. code-block:: text
+
+    $ conan list zlib/1.3.1:* --format=json > list.json
+
+    $ conan cache sign --list=list.json
+    [Package sign] Results:
+
+    zlib/1.3.1
+    revisions
+        bfceb3f8904b735f75c2b0df5713b1e6
+        packages
+            7bfde258ff4f62f75668d0896dbddedaa7480a0f
+
+    [Package sign] Summary: OK=1, FAILED=0
+
+This command requires a configured package signing plugin, read more in :ref:`reference_extensions_package_signing`.
+
+conan cache verify
+------------------
+
+.. include:: ../../common/experimental_warning.inc
+
+.. autocommand::
+    :command: conan cache verify -h
+
+Verifies the signatures of the packages matching the pattern/reference or a package list.
+
+This command requires as configured package signing plugin, read more in :ref:`reference_extensions_package_signing`.
