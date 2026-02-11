@@ -278,6 +278,8 @@ This is a developer and debugging command, intended for occasional developer usa
 conan cache sign
 ----------------
 
+.. include:: ../../common/experimental_warning.inc
+
 .. autocommand::
     :command: conan cache sign -h
 
@@ -302,6 +304,8 @@ This command requires a configured package signing plugin, read more in :ref:`re
 
 conan cache verify
 ------------------
+
+.. include:: ../../common/experimental_warning.inc
 
 .. autocommand::
     :command: conan cache verify -h
