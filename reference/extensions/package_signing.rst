@@ -156,8 +156,7 @@ and checking against the manifest ``pkgsign-manifest.json`` file (if the file is
 Commands
 ========
 
-This command will trigger the ``sign()`` method of the configured signing plugin and sign the recipe and packages:
-
+The :command:`conan cache sign` command will trigger the ``sign()`` method of the configured signing plugin and sign the recipe and packages:
 
 .. code-block:: bash
 
@@ -177,7 +176,7 @@ This command will trigger the ``sign()`` method of the configured signing plugin
 
     [Package sign] Summary: OK=3, FAILED=0
 
-And this one will trigger the ``verify()`` method of the plugin and verify the recipe and packages as well:
+And the :command:`conan cache verify` command will trigger the ``verify()`` method of the plugin and verify the recipe and packages as well:
 
 .. code-block:: bash
 
