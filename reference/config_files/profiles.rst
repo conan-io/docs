@@ -527,6 +527,23 @@ you could specify so as:
     zlib/1.3.1
 
 
+.. important::
+
+    In practice, it can be very challenging to achieve a full transparent replacement of a package in the Conan dependency graph
+    by a system or platform installed alternative, because there can be information missing for correctly using it, like dependencies
+    and transitive dependencies, build-system integrations specifics such as the CMake ``find_package()`` file names or CMake targets,
+    etc.
+
+    That means that it might not be possible to achieve such a ``[platform_requires]`` for regular packages, as opposed to the
+    ``[platform_tool_requires]`` because for many tools, it is enough that they are just in the system path. But this is not the case
+    for regular libraries.
+
+    For these cases, the recommendation is to write a "wrapper" Conan ``conanfile.py`` recipe that models the platform installed
+    dependency, defines if it has dependencies and provides the necessary information to consume it in its ``package_info()`` method.
+    Then, use the ``[replace_requires]`` feature instead.
+
+
+
 .. _reference_config_files_profiles_platform_tool_requires:
 
 [platform_tool_requires]
