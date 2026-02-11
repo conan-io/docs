@@ -100,7 +100,9 @@ This file is intended to list the signature metadata like the ``provider`` or ``
 
 - ``method``: The signing method **indicates the tool used to sign the package so it can be verified later**. For example: gpg, cosign, x509, openssl...
 - ``provider``: The **name of the organization** that signed the package. This is useful to later **verify the package with a matching public key** provided by the organization.
-- ``sign_artifacts``: A dictionary of the **files that are part of the signature**. This is useful to identify the files involved in the signature and use them in the verification step.
+- ``sign_artifacts``: A dictionary of the **files that are part of the signature**. Normally this should include a ``manifest`` key with the manifest ``pkgsign-manifest.json`` file,
+  and a ``signature`` key with the signature file ``pkgsign-manifest.json.sig`` (or any other signature format). This is useful to identify the files involved in the signature so
+  that they can be used later in the ``verify()`` function.
 
 Additionally, **more than one signature is supported**, in case you need to sign with different formats or transition from one signature method to another.
 
@@ -108,7 +110,6 @@ Here is an example of the contents:
 
 .. code-block:: json
    :caption: *<signature_folder>/pkgsign-signatures.json*
-
 
     {
       "signatures": [
@@ -148,25 +149,53 @@ and checking against the manifest ``pkgsign-manifest.json`` file (if the file is
 
 .. note::
 
-    Note that the ``**kwargs`` argument in both functions is important to avoid future changes adding new arguments
-    that would otherwise break the plugin, please make sure to add it to your methods.
+    Note that the ``**kwargs`` argument in both functions is required to ensure forward compatibility. 
+    Future versions of Conan may pass additional parameters, and omitting ``**kwargs`` could break your plugin.
 
 
 Commands
 ========
 
-This command will trigger the ``sign()`` method of the configured signing plugin.
+This command will trigger the ``sign()`` method of the configured signing plugin and sign the recipe and packages:
 
 
 .. code-block:: bash
 
     $ conan cache sign mypkg/1.0.0
+    [Package sign] Results:
 
-And this one will trigger the ``verify()`` method of the plugin.
+    mypkg/1.0
+      revisions
+        294e801a0e1da10084441487e95b80e8
+          packages
+            7b737f1649e252dd60b2aefeabe5b6ef5e1a4750
+              revisions
+                7722a3748274ae073736f20d84428fe9
+            dee9f7f985eb1c20e3c41afaa8c35e2a34b5ae0b
+              revisions
+                829868ff6774b7da8c1eace8d76e71f1
+
+    [Package sign] Summary: OK=3, FAILED=0
+
+And this one will trigger the ``verify()`` method of the plugin and verify the recipe and packages as well:
 
 .. code-block:: bash
 
     $ conan cache verify mypkg/1.0.0
+    [Package sign] Results:
+
+    mypkg/1.0
+      revisions
+        294e801a0e1da10084441487e95b80e8
+          packages
+            7b737f1649e252dd60b2aefeabe5b6ef5e1a4750
+              revisions
+                7722a3748274ae073736f20d84428fe9
+            dee9f7f985eb1c20e3c41afaa8c35e2a34b5ae0b
+              revisions
+                829868ff6774b7da8c1eace8d76e71f1
+
+    [Package sign] Summary: OK=3, FAILED=0
 
 
 Here is a usual flow for signing and verifying packages:
@@ -176,21 +205,13 @@ Here is a usual flow for signing and verifying packages:
     $ conan create --name=mypkg --version=1.0.0
     $ conan cache sign mypkg/1.0.0
     $ conan upload mypkg/1.0.0 --remote=myremote
-    $ conan install --requires=mypkg/1.0.0  # This will trigger verify()
+    ...
+    $ conan install --requires=mypkg/1.0.0  # This will trigger verify() when the package is downloaded from a remote
     # When the package is signed, the verify() can be done at anytime with:
     $ conan cache verify mypkg/1.0.0
 
 .. caution::
 
-    The :command:`conan upload` command will not automatically sign the packages since Conan 2.26.0.
-    Please make sure to use the :command:`conan cache sign` command to sign the packages before uploading them,
-    and update your plugin to conform to the new implementation.
-
-
-Plugin implementation examples
-==============================
-
-Here you can find some implementation examples of the plugin so they can serve as guidance to develop your own one:
-
-- `Signing packages with OpenSSL <https://github.com/conan-io/examples2/tree/main/examples/extensions/plugins/openssl_sign>`_
-- Sigstore package signing plugin [TODO]
+    The :command:`conan upload` command **will not automatically sign** the packages since Conan 2.26.0.
+    Please make sure to use the :command:`conan cache sign` command to **sign the packages before uploading them**,
+    and **update your plugin** to conform to the new implementation.
