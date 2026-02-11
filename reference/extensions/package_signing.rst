@@ -5,7 +5,7 @@ Package signing
 
 .. warning::
 
-  The package signing plugin is in **preview**.
+  The package signing plugin feature is **experimental**.
   See :ref:`the Conan stability<stability>` section for more information.
 
 This plugin is a Conan extension mechanism to sign and verify packages. For example using Cosign (Sigstore), OpenSSL, GPG, etc.
