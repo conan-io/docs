@@ -254,7 +254,7 @@ see the :ref:`graph info json format<reference_commands_graph_info_json_format>`
 
 .. seealso::
 
-    - `JFrog Academy Conan 2 Essentials Module 2 (Lessons 8-13): Package Creation and Uploading <https://academy.jfrog.com/path/conan-cc-package-manager/conan-2-essentials-module-2-package-creation-and-uploading?utm_source=Conan+Docs>`__
+    - `JFrog Academy Conan 2 Essentials Module 2, Lesson 8: Package Creation and Uploading <https://academy.jfrog.com/path/conan-cc-package-manager/conan-2-essentials-module-2-package-creation-and-uploading?utm_source=Conan+Docs>`__
     - :ref:`Patching sources<examples_tools_files_patches>`
     - :ref:`Capturing Git SCM source information<examples_tools_scm_git_capture>` instead of copying sources with ``exports_sources``.
     - :ref:`source() method reference<reference_conanfile_methods_source>`
