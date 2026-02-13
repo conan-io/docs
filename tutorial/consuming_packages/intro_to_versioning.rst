@@ -218,5 +218,5 @@ allowed range ``zlib/[~1.2]``, because the ``conan.lock`` lockfile is forcing it
 
 .. seealso::
 
-    - `JFrog Academy Conan 2 Essentials: Intro To Versioning <https://academy.jfrog.com/conan-2-essentials/2182693?utm_source=Conan+Docs>`__
+    - `JFrog Academy Conan 2 Essentials Module 1, Lesson 6: Intro To Versioning <https://academy.jfrog.com/path/conan-cc-package-manager/conan-2-essentials?utm_source=Conan+Docs>`__
     - :ref:`Introduction to Versioning<tutorial_versioning>`

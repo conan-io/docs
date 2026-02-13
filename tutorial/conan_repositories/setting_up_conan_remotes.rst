@@ -40,4 +40,4 @@ There are several options to set up a Conan repository:
 
 .. seealso::
 
-    - `JFrog Academy Conan 2 Essentials: Working with Conan Repositories <https://academy.jfrog.com/conan-2-essentials/2131740?utm_source=Conan+Docs>`__
+    - `JFrog Academy Conan 2 Essentials Module 2, Lesson 13: Working with Conan Repositories <https://academy.jfrog.com/path/conan-cc-package-manager/conan-2-essentials-module-2-package-creation-and-uploading?utm_source=Conan+Docs>`__

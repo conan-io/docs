@@ -263,4 +263,4 @@ We can run ``conan create`` again specifying a different ``compiler.cppstd`` and
 
 .. seealso::
 
-    - `JFrog Academy Conan 2 Essentials: Creating A Recipe For Header-Only Libraries <https://academy.jfrog.com/conan-2-essentials/2269961?utm_source=Conan+Docs>`__
+    - `JFrog Academy Conan 2 Essentials Module 3, Lesson 14: Creating A Recipe For Header-Only Libraries <https://academy.jfrog.com/path/conan-cc-package-manager/conan-2-essentials-module-3-advanced-package-creation-scenarios?utm_source=Conan+Docs>`__

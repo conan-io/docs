@@ -273,7 +273,7 @@ See :ref:`Building with CMake presets<examples-tools-cmake-toolchain-build-proje
 
 .. seealso::
 
-    - `JFrog Academy Conan 2 Essentials: Building A Simple CMake Project From Conan <https://academy.jfrog.com/conan-2-essentials/2131739?utm_source=Conan+Docs>`__
+    - `JFrog Academy Conan 2 Essentials Module 1, Lesson 1: Building A Simple CMake Project From Conan <https://academy.jfrog.com/path/conan-cc-package-manager/conan-2-essentials?utm_source=Conan+Docs>`__
     - :ref:`Building with CMake presets<examples-tools-cmake-toolchain-build-project-presets>`
     - :ref:`Getting started with Autotools<examples_tools_autotools_autotools_toolchain_build_project_autotools_toolchain>`
     - :ref:`Getting started with Meson<examples_tools_meson_toolchain_build_simple_meson_project>`

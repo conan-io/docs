@@ -241,7 +241,7 @@ the environment activation:
 
 .. seealso::
 
-    - `JFrog Academy Conan 2 Essentials: Using Build Tools As Conan Packages <https://academy.jfrog.com/conan-2-essentials/2164300?utm_source=Conan+Docs>`__
+    - `JFrog Academy Conan 2 Essentials Module 1, Lesson 4: Using Build Tools As Conan Packages <https://academy.jfrog.com/path/conan-cc-package-manager/conan-2-essentials?utm_source=Conan+Docs>`__
     - :ref:`Using [platform_tool_requires] in your profiles <reference_config_files_profiles_platform_tool_requires>`.
     - :ref:`Creating recipes for tool_requires: packaging build tools <tutorial_other_tool_requires_packages>`.
     - :ref:`examples_graph_tool_requires_protobuf`
