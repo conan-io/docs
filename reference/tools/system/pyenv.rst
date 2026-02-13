@@ -94,9 +94,11 @@ Using multiple PyEnv instances
 ------------------------------
 
 You can have two or more PyEnv virtual environments at the same time by creating separate instances
-and passing the ``name`` parameter to each. The ``name`` defines the folder name used for that venv,
-so each instance gets its own directory. After installing packages with ``install()`` on each instance,
-call ``generate()`` on all of them so every venv is added to the PATH.
+and passing the ``name`` parameter to each. This is only necessary when you need to install packages
+that cannot be resolved in a single virtualenv, for example due to dependency or version conflicts
+between them. The ``name`` defines the folder name used for that venv, so each instance gets its own
+directory. After installing packages with ``install()`` on each instance, call ``generate()`` on all
+of them so every venv is added to the PATH.
 
 ..  code-block:: python
     :caption: conanfile.py
