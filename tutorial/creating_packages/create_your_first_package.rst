@@ -336,7 +336,7 @@ An **important** note: the Conan cache is private to the Conan client - modifyin
 
 .. seealso:: 
 
-  - `JFrog Academy Conan 2 Essentials: Creating Your First Conan Package <https://academy.jfrog.com/conan-2-essentials/2218950?utm_source=Conan+Docs>`__
+  - `JFrog Academy Conan 2 Essentials Module 2, Lesson 8: Creating Your First Conan Package <https://academy.jfrog.com/path/conan-cc-package-manager/conan-2-essentials-module-2-package-creation-and-uploading?utm_source=Conan+Docs>`__
   - :ref:`Create your first Conan package with Visual Studio/MSBuild<examples_tools_microsoft_create_first_package>`.
   - :ref:`Create your first Conan package with Meson<examples_tools_meson_create_first_package>`.
   - :ref:`Create your first Conan package with Autotools (only Linux)<examples_tools_autotools_create_first_package>`.

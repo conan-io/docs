@@ -406,4 +406,4 @@ being available.
 
 .. seealso::
 
-    - `JFrog Academy Conan 2 Essentials: Creating a Recipe For Prebuilt Binaries <https://academy.jfrog.com/conan-2-essentials/2269962?utm_source=Conan+Docs>`__
+    - `JFrog Academy Conan 2 Essentials Module 3, Lesson 15: Creating a Recipe For Prebuilt Binaries <https://academy.jfrog.com/path/conan-cc-package-manager/conan-2-essentials-module-3-advanced-package-creation-scenarios?utm_source=Conan+Docs>`__

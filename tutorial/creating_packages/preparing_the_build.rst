@@ -194,6 +194,6 @@ could do in the ``generate()`` method like:
 
 .. seealso::
 
-    - `JFrog Academy Conan 2 Essentials: Dependencies, Generators And Building <https://academy.jfrog.com/conan-2-essentials/2218962?utm_source=Conan+Docs>`__
+    - `JFrog Academy Conan 2 Essentials Module 2, Lesson 9: Dependencies, Generators And Building <https://academy.jfrog.com/path/conan-cc-package-manager/conan-2-essentials-module-2-package-creation-and-uploading?utm_source=Conan+Docs>`__
     - Use the ``generate()`` method to :ref:`import files from dependencies<copy_resources_on_generate>`.
     - :ref:`generate() method reference<reference_conanfile_methods_generate>`

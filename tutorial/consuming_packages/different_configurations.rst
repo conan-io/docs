@@ -333,7 +333,7 @@ matched our specified configuration.
 
 .. seealso::
 
-    - `JFrog Academy Conan 2 Essentials: Building For Multiple Configurations With Conan And CMake Presets <https://academy.jfrog.com/conan-2-essentials/2131740?utm_source=Conan+Docs>`__
+    - `JFrog Academy Conan 2 Essentials Module 1, Lesson 2: Building For Multiple Configurations With Conan And CMake Presets <https://academy.jfrog.com/path/conan-cc-package-manager/conan-2-essentials?utm_source=Conan+Docs>`__
     - :ref:`VirtualRunEnv reference <conan_tools_env_virtualrunenv>`
     - :ref:`Cross-compiling using --profile:build and --profile:host <consuming_packages_cross_building_with_conan>`
     - :ref:`creating_packages_configure_options_settings`
