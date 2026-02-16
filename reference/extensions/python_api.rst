@@ -31,6 +31,7 @@ and the rest of the members are considered private and can change without notice
    python_api/GraphAPI
    python_api/InstallAPI
    python_api/ListAPI
+   python_api/LocalAPI
    python_api/LockfileAPI
    python_api/NewAPI
    python_api/ProfilesAPI
