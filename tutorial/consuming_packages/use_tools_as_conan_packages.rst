@@ -140,7 +140,7 @@ You can check the output:
     conanfile.txt: Generating aggregated env files
 
 Now, if you check the folder you will see that Conan generated a new
-file called ``conanbuild.sh/bat``. This is the result of automatically invoking a
+file called ``conanbuild.{sh,bat}``. This is the result of automatically invoking a
 ``VirtualBuildEnv`` generator when we declared the ``tool_requires`` in the
 **conanfile.txt**. This file sets some environment variables like a new ``PATH`` that
 we can use to inject the location of CMake v3.27.9 into our environment.
@@ -206,7 +206,7 @@ you previously did, but this time Conan will use CMake 3.27.9 to build it:
 
 
 Note that when we activated the environment, a new file named
-``deactivate_conanbuild.sh/bat`` was created in the same folder. If you source this file
+``deactivate_conanbuild.{sh,bat}`` was created in the same folder. If you source this file
 you can restore the environment as it was before.
 
 .. code-block:: bash
