@@ -239,7 +239,7 @@ directories declared in *DYLD_LIBRARY_PATH*, and on Linux it will use *LD_LIBRAR
 Conan provides a mechanism to define those variables and make it possible, for executables, to
 find and load these shared libraries. This mechanism is the ``VirtualRunEnv`` generator.
 If you check the output folder, you will see that Conan generated a new file called
-``conanrun.sh/bat``. This is the result of automatically invoking that ``VirtualRunEnv``
+``conanrun.{sh,bat}``. This is the result of automatically invoking that ``VirtualRunEnv``
 generator when we activated the ``shared`` option when doing the :command:`conan install`. This
 generated script will set the *PATH*, *LD_LIBRARY_PATH*, *DYLD_LIBRARY_PATH* and
 *DYLD_FRAMEWORK_PATH* environment variables so that executables can find the shared
@@ -267,7 +267,7 @@ Activate the virtual environment, and run the executables again:
 
 
 Just as in the previous example with the ``VirtualBuildEnv`` generator, when we run the
-``conanrun.sh/bat`` script, a deactivation script called ``deactivate_conanrun.sh/bat`` is
+``conanrun.{sh,bat}`` script, a deactivation script called ``deactivate_conanrun.{sh,bat}`` is
 created to restore the environment. Source or run it to do so:
 
 
