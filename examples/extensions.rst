@@ -14,3 +14,4 @@ Conan extensions examples
    extensions/commands/custom_commands
    extensions/deployers/builtin_deployers
    extensions/deployers/custom_deployers
+   extensions/package_signing/package_signing
