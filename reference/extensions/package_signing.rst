@@ -211,3 +211,10 @@ Here is a usual flow for signing and verifying packages:
     The :command:`conan upload` command **will not automatically sign** the packages since Conan 2.26.0.
     Please make sure to use the :command:`conan cache sign` command to **sign the packages before uploading them**,
     and **update your plugin** to conform to the new implementation.
+
+Plugin implementation examples
+==============================
+
+Here you can find some implementation examples of the plugin so they can serve as guidance to develop your own one:
+
+- :ref:`examples_extensions_package_signing_openssl`.
