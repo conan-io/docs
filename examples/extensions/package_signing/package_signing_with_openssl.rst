@@ -15,7 +15,7 @@ Generating the signing keys
 
 In order to sign and verify the packages with the plugin, first we will need a public and private key.
 
-To generate the ques using the ``openssl`` executable, we can run:
+To generate the keys using the ``openssl`` executable, we can run:
 
 .. code-block:: bash
 
