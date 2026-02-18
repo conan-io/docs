@@ -71,7 +71,6 @@ Your final folder structure should look like this:
                    └── public_key.pem
 
 The ``my-organization`` folder serves as the **provider** in this example, and it is used by the plugin to identify the organization that owns the keys.
-This will be used later by the ``verify()`` function to **verify the package with the matching public key**.
 
 .. tip::
 
