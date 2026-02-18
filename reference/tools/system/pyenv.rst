@@ -32,7 +32,7 @@ Using a Python package in a recipe
 
 To install a python package or use a tool installed with Python, we have to install it using the ``PyEnv.install()`` method.
 
-When the `py_version`` parameter is defined, Conan will automatically use `UV <https://docs.astral.sh/uv/>` to create and manage a temporary virtual environment
+When the ``py_version`` parameter is defined, Conan will automatically use `UV <https://docs.astral.sh/uv/>`_ to create and manage a temporary virtual environment
 with that specific Python version.
 **UV requires Python 3.8 or higher**, make sure you use a compatible Python version if you want to define the ``py_version``.
 
