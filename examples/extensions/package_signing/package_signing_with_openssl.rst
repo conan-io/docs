@@ -21,7 +21,7 @@ To generate the keys using the ``openssl`` executable, we can run:
 
     $ openssl genpkey -algorithm RSA -out private_key.pem -pkeyopt rsa_keygen_bits:2048
 
-This will generate the private key to sign the packages with.
+This will generate the private key used to sign the packages.
 
 Now, we can get the public key from it with this command:
 
