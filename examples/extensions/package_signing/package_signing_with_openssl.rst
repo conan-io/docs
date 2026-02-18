@@ -8,7 +8,7 @@ You will need to have ``openssl`` installed at the system level and available in
 
 .. include:: ../../../common/experimental_warning.inc
 
-This example is available in the examples2 repository: https://github.com/conan-io/examples2/tree/main/examples/extensions/plugins/openssl_sign
+This example is available in the examples2 repository: `examples/extensions/plugins/openssl_sign <https://github.com/conan-io/examples2/tree/main/examples/extensions/plugins/openssl_sign>`_.
 
 Generating the signing keys
 +++++++++++++++++++++++++++
