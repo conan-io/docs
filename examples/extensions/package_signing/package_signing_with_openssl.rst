@@ -29,7 +29,7 @@ Now, we can get the public key from it with this command:
 
     $ openssl pkey -in private_key.pem -pubout -out public_key.pem
 
-This public key will be used by the plugin to verify the packages.
+The plugin will use this public key to verify the packages.
 
 
 Configuring the plugin
