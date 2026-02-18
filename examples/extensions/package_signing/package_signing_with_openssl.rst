@@ -4,7 +4,7 @@ Signing packages with OpenSSL
 =============================
 
 This is an example of a Package Signing Plugin implementation using the `OpensSSL digest tool <https://docs.openssl.org/3.1/man1/openssl-dgst/>`_.
-You will need to have ``openssl`` installed and available on your path.
+You will need to have ``openssl`` installed at the system level and available in your ``PATH``.
 
 .. include:: ../../../common/experimental_warning.inc
 
