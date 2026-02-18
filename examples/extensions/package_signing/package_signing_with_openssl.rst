@@ -13,7 +13,7 @@ This example is available in the examples2 repository: https://github.com/conan-
 Generating the signing keys
 +++++++++++++++++++++++++++
 
-In order to sign and verify the packages with the plugin, first we will need a public and private key.
+To sign and verify the packages using the plugin, first, we will need a public and private key.
 
 To generate the keys using the ``openssl`` executable, we can run:
 
