@@ -79,6 +79,93 @@ This will be used later by the ``verify()`` function to **verify the package wit
     configuration using the :ref:`conan config install<reference_commands_conan_config_install>` command.
 
 
+Implementation
+++++++++++++++
+
+The plugin's implementation is very straightforward.
+
+For signing packages, the `sign()` function is defined, where the packages are signed by the :command:`openssl dgst` command:
+
+.. code-block:: python
+
+    def sign(ref, artifacts_folder, signature_folder, **kwargs)
+        ...
+        openssl_sign_cmd = [
+            "openssl",
+            "dgst",
+            "-sha256",
+            "-sign", privkey_filepath,
+            "-out", signature_filepath,
+            manifest_filepath
+        ]
+        try:
+            _run_command(openssl_sign_cmd)
+            ConanOutput().success(f"Package signed for reference {ref}")
+        except Exception as exc:
+            raise ConanException(f"Error signing artifact: {exc}")
+        ...
+
+There, the manifest ``pkgsign-manifest.json`` (created right before ``sign()`` function is called) is used to sign the package,
+as it contains the filenames and checksums of the artifacts of the package.
+
+The signature file is saved into the ``signature_filepath`` (the signature folder at ``<package_folder>/metadata/sign``), and finally, the
+metadata of the signature is returned as a dictionary in a list:
+
+.. code-block:: python
+
+    def sign(ref, artifacts_folder, signature_folder, **kwargs)
+        ...
+        return [{"method": "openssl-dgst",
+             "provider": "my-organization",
+             "sign_artifacts": {
+                "manifest": "pkgsign-manifest.json",
+                "signature": signature_filename}}]
+
+This information saved in a file ``pkgsign-signatures.json`` placed in the signature folder, so it can be used in the `verify()` to
+verify the package signature against the correct provider keys, with the correct signing method (``openssl-dgst`` for this example)
+and using the signature files in ``sign_artifacts``.
+
+For verifying packages, the `verify()` function is defined.
+
+First, the ``pkgsign-signatures.json`` is loaded to read the metadata of the signatures (multiple signatures are supported):
+
+.. code-block:: python
+
+    def verify(ref, artifacts_folder, signature_folder, files, **kwargs):
+        ...
+        signatures = json.loads(f.read()).get("signatures")
+        ...
+        for signature in signatures:
+            signature_filename = signature.get("sign_artifacts").get("signature")
+            signature_filepath = os.path.join(signature_folder, signature_filename)
+            ...
+            provider = signature.get("provider")
+            signature_method = signature.get("method")
+            ...
+
+Then, the ``provider`` information is used to select the correct public key for verification that use the right signature verification
+``method`` (``openssl-dgst`` for this example) and run the :command:`openssl dgst -verify` command:
+
+.. code-block:: python
+
+    def verify(ref, artifacts_folder, signature_folder, files, **kwargs):
+        ...
+        openssl_verify_cmd = [
+            "openssl",
+            "dgst",
+            "-sha256",
+            "-verify", pubkey_filepath,
+            "-signature", signature_filepath,
+            manifest_filepath,
+        ]
+        try:
+            _run_command(openssl_verify_cmd)
+            ConanOutput().success(f"Package verified for reference {ref}")
+        except Exception as exc:
+            raise ConanException(f"Error verifying signature {signature_filepath}: {exc}")
+
+The ``verify()`` function does not return any value in case the package is correct. If the verification fails, then a ``ConanException()`` should be raised.
+
 Signing packages
 ++++++++++++++++
 
