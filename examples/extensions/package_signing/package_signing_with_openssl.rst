@@ -89,7 +89,7 @@ For signing the recipe and package, use the dedicated command:
 
     [Package sign] Summary: OK=2, FAILED=0
 
-As you see, The command is executing the ``sign()`` function of the plugin that uses the ``openssl`` executable to sign the recipe and the package with a command similar to:
+As you see, the command is executing the ``sign()`` function of the plugin that uses the ``openssl`` executable to sign the recipe and the package with a command similar to:
 
 .. code-block:: bash
 
