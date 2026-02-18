@@ -10,6 +10,13 @@ You will need to have ``openssl`` installed at the system level and available in
 
 This example is available in the examples2 repository: `examples/extensions/plugins/openssl_sign <https://github.com/conan-io/examples2/tree/main/examples/extensions/plugins/openssl_sign>`_.
 
+.. note::
+
+   OpenSSL is used here for demonstration purposes only. The Package Signing
+   plugin mechanism is backend-agnostic, and you could implement a similar
+   plugin using other tools available in your system (for example, ``gpg``),
+   with minimal changes to the signing and verification commands.
+
 Generating the signing keys
 +++++++++++++++++++++++++++
 
@@ -43,8 +50,25 @@ Configuring the plugin
 
 1. Copy the ``examples/extensions/plugins/openssl_sign/sign.py`` file to your Conan home at ``CONAN_HOME/extensions/plugins/sign/sign.py``.
 
-2. Now, place the private key ``private_key.pem`` and the public key ``public_key.pem`` inside a folder ``my-organization`` next to the ``sign.py``
-   file (``CONAN_HOME/extensions/plugins/sign/my-organization/<copy_keys_here>``).
+1. Copy the ``sign.py`` file to your Conan home:
+
+   ``CONAN_HOME/extensions/plugins/sign/sign.py``
+
+2. Place the generated keys in a folder named after your provider
+   (``my-organization`` in this example), next to ``sign.py``:
+
+Your final folder structure should look like this:
+
+.. code-block:: text
+
+   CONAN_HOME/
+   └── extensions/
+       └── plugins/
+           └── sign/
+               ├── sign.py
+               └── my-organization/
+                   ├── private_key.pem
+                   └── public_key.pem
 
 The ``my-organization`` folder serves as the **provider** in this example, and it is used by the plugin to identify the organization that owns the keys.
 This will be used later by the ``verify()`` function to **verify the package with the matching public key**.
@@ -94,8 +118,6 @@ As you see, the command is executing the ``sign()`` function of the plugin that 
 .. code-block:: bash
 
     $ openssl dgst -sha256 -sign private_key.pem -out pkgsign-manifest.json.sig pkgsign-manifest.json
-
-````
 
 And it is also using the conan-generated ``pkgsign-manifest.json`` file to create the signature.
 You can read more about this manifest file at :ref:`reference_extensions_package_signing`.
