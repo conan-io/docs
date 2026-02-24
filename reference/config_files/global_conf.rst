@@ -458,6 +458,12 @@ Moving from the classical Conan workflow:
         $ ...
         $ .\deactivate_conanbuild.ps1
 
+    .. code-tab:: batch
+
+        $ .\conanbuild.bat
+        $ ...
+        $ .\deactivate_conanbuild.bat
+
 To the new workflow,
 
 .. tabs::
@@ -474,14 +480,14 @@ To the new workflow,
         $ ...
         $ deactivate_conanbuild # from anywhere in the shell
 
+    .. code-tab:: batch
+
+        $ .\conanbuild.bat
+        $ ...
+        $ deactivate_conanbuild # from anywhere in the shell
+
 By executing this function, the environment will be restored and the function will no longer be
 available in the current shell session. This behavior emulates the well known ``virtualenv`` Python tool.
-
-.. attention::
-
-    This feature does not currently support Windows Command Prompt (``.bat`` files).
-    It is only available for PowerShell and Bash-like shells.
-
 
 .. code-block:: text
     :caption: *global.conf*
