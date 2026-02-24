@@ -369,6 +369,7 @@ add_rpath_link
 
 Setting this attribute to ``True`` will add the ``-Wl,-rpath-link,`` flag to the linker flags, pointing to all library directories for all dependencies in the host context. Should only be added on platforms where the linker supports the ``-rpath-link`` flag, like Linux.
 This is needed in some cases when linking executables (typically when cross-building), when there are indirect shared library dependencies.
+This attribute will unconditionally add the ``-Wl,-rpath-link`` flags, so if the recipe is intended to be built on other platforms different to Linux/gcc (or more correctly, the Gnu ``ld`` linker), then it would be necessary to define this attribute conditionally to the platform and compiler, otherwise it can produce errors in other compilers that don't recognize this flag.
 
 .. note::
     Should not be needed when using the newer `CMakeConfigDeps` generator.
