@@ -161,6 +161,10 @@ The following properties affect the ``CMakeConfigDeps`` generator:
 
 - **cmake_file_name**: The config file generated for the current package will follow the ``<VALUE>-config.cmake`` pattern,
   so to find the package you write ``find_package(<VALUE>)``.
+- **cmake_file_name_variants**: List of upper/lower case variants of the cmake file name that consumers can use to find the package.
+  This is useful to increase the compatibility with different CMake ``find_package()`` calls that might be used in the consumers.
+  An error will be raised if the list contains words that are not variants of the ``cmake_file_name`` value unless
+  the consumer explicitly sets a custom ``cmake_file_name``, in which case the variants will be ignored.
 - **cmake_target_name**: Name of the target to be consumed.
 - **cmake_target_aliases**: List of aliases that Conan will create for an already existing target.
 - **cmake_find_mode**: Defaulted to ``config``. Possible values are:
@@ -220,6 +224,9 @@ Example:
                                    })
 
         self.cpp_info.set_property("cmake_link_feature", "WHOLE_ARCHIVE")
+        # Additional names that consumers of this library might usually use in their find_package() calls,
+        # so they can find the same config file with different lower/upper case variants.
+        self.cpp_info.set_property("cmake_file_name_variants", ["myfilename", "MYFILENAME"])
 
     # Or if using components
     def package_info(self):
