@@ -187,6 +187,114 @@ effect because it's the first one evaluated, and after that, Conan is overriding
 general one, so it deserves to pay special attention to the order.
 
 
+Configuration precedence
+========================
+
+There are different places where a configuration such as ``tools.build:verbosity`` can be defined:
+
+- Globally, in the ``global.conf`` file
+- In a ``tool_requires`` recipe that defines a ``self.conf_info`` in their ``package_info()`` method.
+  (Recall that only **direct** ``tool_requires`` propagate ``conf_info`` to their consumers).
+- In a profile file ``[conf]`` section
+- In the command line ``-c tools.build:verbosity=<value>``
+
+In general, the rule is that the "closest to the user" has higher precedence. 
+
+That means that:
+
+- The command line arguments like ``-c tools.build:verbosity=<value>`` will have higher precedence and overwrite
+  possible values already defined in ``tool_requires``, in ``global.conf`` or profiles ``[conf]`` section. The idea is that the user
+  explicitly requested that typing it in the command line, so they want that value to prevail.
+- Then, the profile ``[conf]`` section will have precedence over the ``tool_requires`` and ``global.conf`` definitions, as the profiles
+  are also inputs by the user.
+- Then, the ``global.conf`` will have precedence over ``tool_requires`` defined ``conf_info``. The idea is that the user can define the
+  behavior they want without having to modify or rewrite recipes.
+- Finally, the one with less precedence is the ``tool_requires`` configuration defined in ``package_info()`` method with ``self.conf_info``.
+
+The core configurations such as ``core:skip_warnings`` can be defined in:
+
+- Globally, in the ``global.conf``, with less precedence
+- In the command line, with ``-cc/--core-conf core:skip_warnings=<value>`` with higher precedence over the ``global.conf``.
+
+Note that ``core`` configurations cannot be defined in profiles or in recipes.
+
+
+Important configurations with ``!`` specifier
+---------------------------------------------
+
+There are some scenarios when it is desired that a recipe defined configuration in ``package_info()`` via the ``conf_info``
+has higher precedence over a value defined downstream by the user in profiles or command line.
+
+The "important configuration" definition allows this, specifying with the ``!`` qualifier over the configuration name that
+such value should have relatively higher priority.
+Imagine we are writing a ``tool_requires`` for the Msys2 subsystem, and we would like that recipe to define the ``tools.microsoft.bash:path``
+value so it points to itself.
+But for some reason we also have ``tools.microsoft.bash:path`` in our profiles, pointing to a Msys2 that still some
+packages that do not use the new ``msys2/1.0`` still need. We could define a recipe like:
+
+.. code-block:: python
+
+    from conan import ConanFile
+
+    class Pkg(ConanFile):
+        name = "msys2"
+        version = "1.0"
+
+        def package_info(self):
+          bash = os.path.join(self.package_folder, "bash.exe")
+          # Note the ! after the name of the configuration
+          # That makes this definition "important", and have higher 
+          # precedence than in profiles
+          self.conf_info.define("tools.microsoft.bash:path!", bash)
+          # You can apply the same ! specifier in other "conf_info"
+          # operations, for paths, append/prepend, etc
+
+with some consumers that requires it:
+
+.. code-block:: python
+
+    from conan import ConanFile
+
+    class Pkg(ConanFile):
+        name = "mylib"
+        version = "1.0"
+
+        def build_requirements(self):
+          if self.settings_build.os == "Windows":
+            self.tool_requires("msys2/1.0")
+
+And then have a profile like
+
+.. code-block:: ini
+
+  [conf]
+  tools.microsoft.bash:path=<point/to/system/msys2/installation>
+
+Then, the ``mylib/1.0`` will get the ``tools.microsoft.bash:path`` pointing to the ``msys2`` path,
+while other recipes that do not ``tool_requires`` the ``msys2`` will still get the system one.
+
+If for some reason a profile or command line would still want to force an override also the
+important configurations from packages upstream, they can do it using the same syntax:
+
+.. code-block:: ini
+
+  [conf]
+  # This will force all packages to use the system msys2, even if they
+  # are tool-requiring the ``msys2/1.0`` package
+  # Note the ! after the configuration name
+  tools.microsoft.bash:path!=<point/to/system/msys2/installation>
+
+
+.. important::
+
+  **Best practices**
+
+  The usage of important ``!`` configuration should be exceptional, and reduced to limited cases when
+  there are no other alternatives. Modifying the default precedence, in which users expects their inputs
+  from command line or profiles to be always applied can be confusing for them. Please use this feature 
+  sparingly and being aware of these implications.
+
+
 Information about built-in confs
 ================================
 
