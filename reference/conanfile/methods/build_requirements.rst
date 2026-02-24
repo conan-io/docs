@@ -49,7 +49,7 @@ Recall that ``tool_requires`` are intended exclusively for depending on tools li
 .. include:: ../../../common/experimental_warning.inc
 
 This syntax is useful when you're using the same package recipe as a *requires* and as a *tool_requires* and you want to avoid
-conflicting downstream if any user decides to override the original *requires* version in the *host* context, i.e., the user could end up with
+version mismatches if any user decides to override the original *requires* version in the *host* context, i.e., the user could end up with
 two different versions in the host and build contexts of the same dependency.
 
 In a nutshell, the ``<host_version>`` specifier allows us to ensure that the version resolved for the *tool_requires*
@@ -79,8 +79,8 @@ Then, if any user wants to use *mylib/0.1*, but another version of *protobuf*, t
         name = "myapp"
         version = "0.1"
         def requirements(self):
-            self.requires("mylib/0.1")
             self.requires("protobuf/3.21.9", override=True)
+            self.requires("mylib/0.1")
 
 The ``<host_version>`` defined upstream is ensuring that the host and build contexts are using the same version of that requirement.
 
@@ -100,9 +100,16 @@ should the *requires* and *tool_requires* have different names. For instance:
             self.tool_requires("libgettext/<host_version:gettext>")
 
 
-.. seealso::
+.. warning::
 
-    - :ref:`examples_graph_tool_requires_protobuf`
+   It's important to note that the reference match is only performed over the package name,
+   not the full reference, so variations on the ``user`` and ``channel`` fields are allowed, for example,
+   having ``self.requires("protobuf/3.18.1@mycompany/fork")`` and ``self.tool_requires("protobuf/<host_version>")``
+   will work and look for a ``protobuf/3.18.1`` package in the build context, without ``user`` nor ``channel`` fields.
+
+   If we want to also keep the same ``user`` and ``channel`` fields, we'd need to
+   specify it in the tool requirements reference as well, i.e., ``self.tool_requires("protobuf/<host_version>@mycompany/fork")``.
+
 
 .. _reference_conanfile_methods_build_requirements_test_requires:
 
