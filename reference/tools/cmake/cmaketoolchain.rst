@@ -364,6 +364,16 @@ If for some reason using absolute paths was desired, it is possible to do it wit
         tc.generate()
 
 
+add_rpath_link
+^^^^^^^^^^^^^^
+
+Setting this attribute to ``True`` will add the ``-Wl,-rpath-link,`` flag to the linker flags, pointing to all library directories for all dependencies in the host context. Should only be added on platforms where the linker supports the ``-rpath-link`` flag, like Linux.
+This is needed in some cases when linking executables (typically when cross-building), when there are indirect shared library dependencies.
+This attribute will unconditionally add the ``-Wl,-rpath-link`` flags, so if the recipe is intended to be built on other platforms different to Linux/gcc (or more correctly, the Gnu ``ld`` linker), then it would be necessary to define this attribute conditionally to the platform and compiler, otherwise it can produce errors in other compilers that don't recognize this flag.
+
+.. note::
+    Should not be needed when using the newer `CMakeConfigDeps` generator.
+
 
 .. _conan_cmake_user_toolchain:
 
@@ -786,6 +796,7 @@ This block injects ``$`` which will be expanded later. It also defines a cache v
 - **tools.build:sharedlinkflags** list of extra linker flags that will be appended to ``CMAKE_SHARED_LINKER_FLAGS_INIT``.
 - **tools.build:exelinkflags** list of extra linker flags that will be appended to ``CMAKE_EXE_LINKER_FLAGS_INIT``.
 - **tools.build:defines** list of preprocessor definitions that will be used by ``add_definitions()``.
+- **tools.build:tools.build:add_rpath_link**: add ``-Wl,-rpath-link,`` linker flag. Set this to ``True`` to pass this flag pointing to all library directories of all host dependencies. Notice that it should not be needed when using the newer `CMakeConfigDeps` generator.
 - **tools.apple:sdk_path** value for ``CMAKE_OSX_SYSROOT``. In the general case it's not needed and will be passed to CMake by the settings values.
 - **tools.apple:enable_bitcode** boolean value to enable/disable Bitcode Apple Clang flags, e.g., ``CMAKE_XCODE_ATTRIBUTE_ENABLE_BITCODE``.
 - **tools.apple:enable_arc** boolean value to enable/disable ARC Apple Clang flags, e.g., ``CMAKE_XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC``.

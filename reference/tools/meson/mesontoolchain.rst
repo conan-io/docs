@@ -204,6 +204,8 @@ conf
 - ``tools.build:linker_scripts`` list of linker scripts, each of which will be prefixed with ``-T`` and passed
   to ``c_link_args`` and ``cpp_link_args``. Only use this flag with linkers that supports specifying
   linker scripts with the ``-T`` flag, such as ``ld``, ``gold``, and ``lld``.
+- ``tools.build:tools.build:add_rpath_link``: add ``-Wl,-rpath-link,`` linker flag. Set this to ``True`` to pass this flag pointing
+  to all library directories of all host dependencies.
 - ``tools.build:defines`` list of preprocessor definitions, each of which will be prefixed with ``-D`` and passed to ``cpp_args`` and ``c_args``.
 - ``tools.build:compiler_executables`` dict-like Python object which specifies the compiler as key
   and the compiler executable path as value. Those keys will be mapped as follows:
