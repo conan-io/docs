@@ -514,10 +514,11 @@ In this case, whatever version of ``cmake`` declared in recipes, will be replace
 
 .. include:: ../../common/experimental_warning.inc
 
-This section allows the user to redefine requires of recipes replacing them with platform-provided dependencies, this means that Conan will not try to download the
+This section allows the user to redefine requires of recipes replacing them with platform-provided dependencies,
+which means that Conan will not try to download the
 reference or look for it in the cache and will assume that it is installed in your system and ready to be used.
 
-For example, if the zlib 1.3.1 library is already installed in your system or it is part of your build toolchain and you would like Conan to use it,
+For example, if the ``zlib/1.3.1`` library is already installed in your system or it is part of your build toolchain and you would like Conan to use it,
 you could specify so as:
 
 .. code-block:: text
@@ -542,6 +543,18 @@ you could specify so as:
     dependency, defines if it has dependencies and provides the necessary information to consume it in its ``package_info()`` method.
     Then, use the ``[replace_requires]`` feature instead.
 
+
+A recipe revision can also be used in the reference, to help keep track of changes in the system dependency,
+but it is not mandatory, and Conan will use the default ``#platform`` revision if not specified.
+
+.. code-block:: text
+    :caption: *myprofile*
+
+    [platform_requires]
+    zlib/1.3.1#myrevision
+
+This will ensure that lockfiles are able to track changes over this platform dependency,
+and it will be easier to specify when the system dependency has changed and needs to be re-evaluated.
 
 
 .. _reference_config_files_profiles_platform_tool_requires:
@@ -607,7 +620,7 @@ declaration:
     Requirements
         pkg/2.0#3488ec5c2829b44387152a6c4b013767 - Cache
     Build requirements
-        cmake/3.24.2 - Platform
+        cmake/3.24.2#platform - Platform
 
     -------- Computing necessary packages --------
 
@@ -616,7 +629,19 @@ declaration:
     Requirements
         pkg/2.0#3488ec5c2829b44387152a6c4b013767:20496b332552131b67fb99bf425f95f64d0d0818 - Build
     Build requirements
-        cmake/3.24.2 - Platform
+        cmake/3.24.2#platform - Platform
+
+A recipe revision can also be used in the reference, to help keep track of changes in the system dependency,
+but it is not mandatory, and Conan will use the default ``#platform`` revision if not specified.
+
+.. code-block:: text
+    :caption: *myprofile*
+
+    [platform_tool_requires]
+    cmake/3.24.2#myrevision
+
+This will ensure that lockfiles are able to track changes over this platform dependency,
+and it will be easier to specify when the system dependency has changed and needs to be re-evaluated.
 
 ..  note::
 
