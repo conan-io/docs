@@ -107,11 +107,52 @@ will create the following files:
     Please open a Github ticket to report any feedback about this feature.
 
 
-.. note::
 
-    Disabling the automatic generation of these files for consumers can be achieved by passing ``--envs-generation=false`` to the ``conan install`` command.
-    **This feature is experimental and subject to change**, and disabling this file can lead to unexpected build errors,
-    if for example ``tool_requires`` are used. Ensure they are not needed if the generation is disabled.
+.. _reference_tools_env_virtualbuildenv_disable:
+
+Disabling VirtualBuildEnv
+-------------------------
+
+It is possible to disable the generation of the ``VirtualBuildEnv`` and ``VirtualRunEnv`` files with 
+different mechanisms:
+
+- By passing ``--envs-generation=false`` to the ``conan install`` command, it will disable the generation
+  of environment files (both ``VirtualBuildEnv`` and ``VirtualRunEnv``) for the current consumer only
+  (dependencies that need to be built from source will generate their own environment files as needed).
+  **This feature is experimental and subject to change**.
+- Recipes can instantiate a ``VirtualBuildEnv(self)`` in their ``generate()`` method, without calling
+  their ``generate()`` method. That will inhibit the creation of environment files for that specific
+  recipe:
+
+  .. code-block:: python
+
+    def generate(self):
+        VirtualBuildEnv(self)
+        # do not call its generate() method
+        # discouraged, in most cases, it is desired
+        # to call generate()
+        VirtualRunEnv(self)
+        # Same for VirtualRunEnv
+
+- Recipes can directly define their ``virtualbuildenv = False`` attribute to inhibit the automatic
+  default creation of ``VirtualBuildEnv`` files for this recipe:
+
+  .. code-block:: python
+
+    class Pkg(ConanFile):
+        virtualbuildenv = False
+        # Also for VirtualRunEnv
+        virtualrunenv = False
+
+
+.. warning::
+
+    In general, disabling the generation of environment files is **discouraged**. Environment files are the
+    mechanism use for things like ``[tool_requires]`` defined in the profiles to be able to inject those 
+    tools dynamically in dependencies, even if those dependencies didn't directly declare such 
+    ``tool_requires``. Without proper ``VirtualBuildEnv`` files in the recipe, the ``tool_requires`` will
+    fail to apply.
+
 
 Reference
 ---------
