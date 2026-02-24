@@ -138,7 +138,7 @@ The ``package_id_embed_mode, package_id_non_embed_mode, package_id_unknown_mode`
         package_id_non_embed_mode = "patch_mode"
         package_id_unknown_mode = "minor_mode"
         build_mode = "patch_mode"  # when this is used with tool_requires
-        # For exceptional cases when we explictly want to make consumers
+        # For exceptional cases when we explicitly want to make consumers
         # depend on this dependency option value
         package_id_abi_options = ["shared"]
 
