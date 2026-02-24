@@ -71,6 +71,22 @@ Files are only included in environment generators when correctly specified throu
 and ``cpp_info.libdirs`` configuration.
 
 
+.. _reference_extensions_deployer_cyclone:
+
+cyclone_1.6 and cyclone_1.4
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``cyclone_1.6`` and ``cyclone_1.4`` deployers are available to generate a CycloneDX 1.6 or 1.4 SBOM file
+respectively, with the information of the dependencies in the graph.
+The generated file will be named ``sbom-cyclonedx-1.{6, 4}.json`` and it will be located in the deployer output folder.
+These deployers will use the ``cyclonedx_1_6`` and ``cyclonedx_1_4`` functions from the :ref:`conan.tools.sbom.cyclonedx<conan_tools_sbom>` module
+with default arguments.
+
+If you want to customize the generated SBOM, you can either create your own custom deployer
+that calls these functions with the desired arguments,
+or use the documented hook approach from the previous link to generate the SBOM.
+
+
 configuration
 ^^^^^^^^^^^^^
 
