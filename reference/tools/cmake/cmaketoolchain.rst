@@ -795,7 +795,7 @@ This block injects ``$`` which will be expanded later. It also defines a cache v
 - **tools.build:sharedlinkflags** list of extra linker flags that will be appended to ``CMAKE_SHARED_LINKER_FLAGS_INIT``.
 - **tools.build:exelinkflags** list of extra linker flags that will be appended to ``CMAKE_EXE_LINKER_FLAGS_INIT``.
 - **tools.build:defines** list of preprocessor definitions that will be used by ``add_definitions()``.
-- **tools.build:tools.build:add_rpath_link**: add ``-Wl,-rpath-link,`` linker flag. Set this to ``True`` to pass this flag pointing to all library directories of all host dependencies. Note: should not be needed when using the newer `CMakeConfigDeps` generator.
+- **tools.build:tools.build:add_rpath_link**: add ``-Wl,-rpath-link,`` linker flag. Set this to ``True`` to pass this flag pointing to all library directories of all host dependencies. Notice that it should not be needed when using the newer `CMakeConfigDeps` generator.
 - **tools.apple:sdk_path** value for ``CMAKE_OSX_SYSROOT``. In the general case it's not needed and will be passed to CMake by the settings values.
 - **tools.apple:enable_bitcode** boolean value to enable/disable Bitcode Apple Clang flags, e.g., ``CMAKE_XCODE_ATTRIBUTE_ENABLE_BITCODE``.
 - **tools.apple:enable_arc** boolean value to enable/disable ARC Apple Clang flags, e.g., ``CMAKE_XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC``.
