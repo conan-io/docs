@@ -110,6 +110,19 @@ should the *requires* and *tool_requires* have different names. For instance:
    If we want to also keep the same ``user`` and ``channel`` fields, we'd need to
    specify it in the tool requirements reference as well, i.e., ``self.tool_requires("protobuf/<host_version>@mycompany/fork")``.
 
+The ``<host_version>`` feature also works when the requirement is replaced using the :ref:`[replace_requires]<reference_config_files_profiles_replace_requires>`
+section in your profile, so that the replaced version would be used in both contexts at once.
+
+.. note::
+
+   If your ``[replace_requires]`` is replacing not only the version, but also the ``user``/``channel`` fields,
+   (so for example replacing ``protobuf/*: protobuf/3.18.1@mycompany/fork``)
+   and you would like to also use the same ``user`` and ``channel`` fields in the build context,
+   you should use the :ref:`[replace_tool_requires]<reference_config_files_profiles_replace_tool_requires>`
+   to replace it in the build context as well, otherwise the ``<host_version>`` will look for
+   ``protobuf/3.18.1`` without the ``user`` and ``channel`` fields in the build context as explained in the previous warning,
+   which could lead to unexpected results.
+
 
 .. _reference_conanfile_methods_build_requirements_test_requires:
 
