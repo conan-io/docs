@@ -345,7 +345,7 @@ example<examples_conanfile_package_info_components>` in the examples section.
 
 .. seealso::
 
-    - `JFrog Academy Conan 2 Essentials: The package() And package_info() Methods <https://academy.jfrog.com/conan-2-essentials/2218963?utm_source=Conan+Docs>`__
+    - `JFrog Academy Conan 2 Essentials Module 2, Lesson 10: The package() And package_info() Methods <https://academy.jfrog.com/path/conan-cc-package-manager/conan-2-essentials-module-2-package-creation-and-uploading?utm_source=Conan+Docs>`__
     - :ref:`Propagating environment and configuration information to consumers example<examples_conanfile_package_info_conf_and_env>`
     - :ref:`Define components for Conan packages that provide multiple libraries example<examples_conanfile_package_info_components>`
     - :ref:`package_info() reference<reference_conanfile_methods_package_info>`

@@ -219,7 +219,7 @@ You could check that we built the application for the correct architecture by ru
 
 .. seealso::
 
-    - `JFrog Academy Conan 2 Essentials: Cross-Compiling Your Applications With Conan <https://academy.jfrog.com/conan-2-essentials/2182684?utm_source=Conan+Docs>`__
+    - `JFrog Academy Conan 2 Essentials Module 1, Lesson 5: Cross-Compiling Your Applications With Conan <https://academy.jfrog.com/path/conan-cc-package-manager/conan-2-essentials?utm_source=Conan+Docs>`__
     - :ref:`Creating a Conan package for a toolchain<example_cross_build_toolchain_package>`
     - :ref:`Cross building to Android with the NDK<examples_cross_build_android_ndk>`
     - :ref:`VirtualBuildEnv reference <conan_tools_env_virtualbuildenv>`

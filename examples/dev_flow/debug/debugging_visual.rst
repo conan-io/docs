@@ -104,7 +104,7 @@ The hook makes use of the ``dumpbin`` tool which is included in the Visual Studi
 to get information of a DLL, in this case the path where its associated PDB is located. It will be used for every DLL
 in the package to locate its PDB to copy it to the package folder.
 
-For more information on how PDBs work with Visual and how we used it to create the hook can be found in the
+For more information on how PDBs work with Visual Studio and how we used it to create the hook can be found in the
 `hook readme <https://github.com/conan-io/conan-extensions/blob/main/extensions/hooks/README.md>`_.
 
 Debugging without build files
