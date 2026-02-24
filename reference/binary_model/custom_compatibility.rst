@@ -138,9 +138,12 @@ The ``package_id_embed_mode, package_id_non_embed_mode, package_id_unknown_mode`
         package_id_non_embed_mode = "patch_mode"
         package_id_unknown_mode = "minor_mode"
         build_mode = "patch_mode"  # when this is used with tool_requires
+        # For exceptional cases when we explictly want to make consumers
+        # depend on this dependency option value
+        package_id_abi_options = ["shared"]
 
 
-Read more in :ref:`reference_conanfile_attributes_package_id_modes`
+Read more in :ref:`reference_conanfile_attributes_package_id_modes` and in :ref:`reference_conanfile_attributes_package_id_abi_options`.
 
 Custom package_id from recipe dependencies
 ++++++++++++++++++++++++++++++++++++++++++

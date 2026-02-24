@@ -432,6 +432,86 @@ The 4 different attributes are:
     Read the :ref:`binary model reference<reference_binary_model>` for a full view of the Conan binary model.
 
 
+.. _reference_conanfile_attributes_package_id_abi_options:
+
+package_id_abi_options
+----------------------
+
+There are some scenarios when it might be desired to make the value of a given option to influence the
+``package_id`` of the binaries consuming this package.
+
+This is generally not necessary in most of the cases, as the default binary model is good for the majority of 
+scenarios. For example, in all ``embed`` modes, the full dependency reference, including its ``package_id``, 
+that already encodes the dependency options, are already factored in into the consumer ``package_id``. 
+So for that case, the dependency's options already have this effect on the consumer ``package_id``.
+
+But there might be some cases for ``non_embed``, like a static library that could be linking a dependency
+sometimes as a static library and sometimes as a shared library. In platforms such as Linux or Mac, the
+linkage doesn't really change the consumer. But this case for Windows ``msvc`` compiler, when the dependency
+is conditionally defining ``dllimport`` in their headers, the calling convention changes, and the binary
+of the consumer is different.
+
+For shared libraries in Windows, it is common to find this idiom:
+
+.. code-block:: cpp
+
+    #ifdef WIN32
+        #define HELLO_EXPORT __declspec(dllexport)
+    #else
+        #define HELLO_EXPORT
+    #endif
+
+    HELLO_EXPORT void hello();
+
+To export the ``hello()`` symbol into the shared library, as in Windows MSVC the symbols are not exported
+by default.
+This is not an issue, as the consumer packages and callers of ``hello()`` will not change its linkage.
+
+But in some cases, some libraries might decide to define something like:
+
+.. code-block:: cpp
+
+    #ifdef WIN32
+        #ifdef libhello_EXPORTS
+            /* We are building this library */
+            #define HELLO_EXPORT __declspec(dllexport)
+        #else
+            /* We are using this library */
+            #define HELLO_EXPORT __declspec(dllimport)
+        #endif
+    #else
+        #define HELLO_EXPORT
+    #endif
+
+    HELLO_EXPORT void hello();
+
+And control via ``libhello_EXPORTS`` if the package is being built or consumed. In this case, the consumer 
+will have a different linkage when linking this shared library with the ``dllimport``, than when linking
+this library as a static library.
+
+For those case, the package recipe can define which of its own options affect the consumers ``package_id``,
+irrespective of the ``non_embed`` mode, so they can still generate different binaries for the different
+linkages, without necessarily resorting to a full ``embed`` mode that will require unnecessary rebuilds of 
+binaries from source.
+
+This can be defined with:
+
+.. code-block:: python
+    :emphasize-lines: 8
+
+    from conan import ConanFile
+
+    class Pkg(ConanFile):
+        name = "pkg"
+        version = "1.0.0"
+        options = {"shared": [False, True]}
+        
+        package_id_abi_options = ["shared"]
+
+And that will make all the consumers of ``pkg/1.0.0`` to automatically factor the ``pkg/*:shared=True/False`` value
+in their own ``package_id``.
+
+
 context
 -------
 
