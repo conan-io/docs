@@ -285,6 +285,16 @@ important configurations from packages upstream, they can do it using the same s
   tools.microsoft.bash:path!=<point/to/system/msys2/installation>
 
 
+.. important::
+
+  **Best practices**
+
+  The usage of important ``!`` configuration should be exceptional, and reduced to limited cases when
+  there are no other alternatives. Modifying the default precedence, in which users expects their inputs
+  from command line or profiles to be always applied can be confusing for them. Please use this feature 
+  sparingly and being aware of these implications.
+
+
 Information about built-in confs
 ================================
 
