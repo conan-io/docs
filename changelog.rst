@@ -3,6 +3,44 @@ Changelog
 
 This page lists the changes made to Conan in each version, with links to each pull request for more details.
 
+2.26.0 (25-Feb-2026)
+--------------------
+
+- Feature: Expose PyEnv `env_dir` (venv root), `env_exe` (venv python executable), and `bin_path` (bin/Scripts directory). `#19628 <https://github.com/conan-io/conan/pull/19628>`_
+- Feature: Document publicly ``LocalAPI``. `#19623 <https://github.com/conan-io/conan/pull/19623>`_ . Docs `here <https://github.com/conan-io/docs/pull/4375>`__
+- Feature: Create deployers that generate CycloneDX SBOMs. `#19611 <https://github.com/conan-io/conan/pull/19611>`_ . Docs `here <https://github.com/conan-io/docs/pull/4391>`__
+- Feature: New ``important!`` conf that allows ``tool-requires`` ``conf_info`` to have higher relative priority over profiles ``conf``. `#19610 <https://github.com/conan-io/conan/pull/19610>`_ . Docs `here <https://github.com/conan-io/docs/pull/4380>`__
+- Feature: Don't check for user/channel match in ``<host_version>``. `#19599 <https://github.com/conan-io/conan/pull/19599>`_ . Docs `here <https://github.com/conan-io/docs/pull/4382>`__
+- Feature: Allow disabling environment script generation from recipes using `virtualxxxenv = False`. `#19594 <https://github.com/conan-io/conan/pull/19594>`_ . Docs `here <https://github.com/conan-io/docs/pull/4388>`__
+- Feature: Add `detect_api.detect_emcc_compiler` to detect EMSDK Emscripten compiler version. `#19592 <https://github.com/conan-io/conan/pull/19592>`_ . Docs `here <https://github.com/conan-io/docs/pull/4367>`__
+- Feature: Generate `.sh` scripts with variable existence checks to harden scripts and avoid extra separators for empty variables. `#19591 <https://github.com/conan-io/conan/pull/19591>`_
+- Feature: Optimize LRU database updates by using filesystem folder mtimes. `#19582 <https://github.com/conan-io/conan/pull/19582>`_
+- Feature: Enable access to the `author` attribute in the `ConanFileInterface` class. `#19577 <https://github.com/conan-io/conan/pull/19577>`_
+- Feature: Add `tools.build:add_rpath_link` conf (Meson and CMake toolchains) to pass `-rpath-link` with all directories of host dependencies `#19574 <https://github.com/conan-io/conan/pull/19574>`_ . Docs `here <https://github.com/conan-io/docs/pull/4390>`__
+- Feature: Add `cmake_file_name_variants` support to `CMakeConfigDeps` to allow packages to define additional lower/upper-case variants that consumers may use when calling `find_package`. `#19530 <https://github.com/conan-io/conan/pull/19530>`_ . Docs `here <https://github.com/conan-io/docs/pull/4384>`__
+- Feature: Add `.bat` support for ``tools.env:deactivation_mode=function``. `#19474 <https://github.com/conan-io/conan/pull/19474>`_ . Docs `here <https://github.com/conan-io/docs/pull/4386>`__
+- Feature: New `package_id_abi_options` to allow specific dependency options to affect the consumer `package_id` when headers variability (e.g. `shared`) can impact consumer binaries, even in non-embed cases. `#19438 <https://github.com/conan-io/conan/pull/19438>`_ . Docs `here <https://github.com/conan-io/docs/pull/4387>`__
+- Feature: New `conan cache sign` and `conan cache verify` commands for signing and verifying packages. `#19345 <https://github.com/conan-io/conan/pull/19345>`_ . Docs `here <https://github.com/conan-io/docs/pull/4365>`__
+- Fix: Use lazy imports to avoid circular dependency so PyInstaller bundles `conan.tools.system`. `#19670 <https://github.com/conan-io/conan/pull/19670>`_
+- Fix: Fix legacy definitions syntax for ``CMakeConfigDeps`` `#19662 <https://github.com/conan-io/conan/pull/19662>`_
+- Fix: Add support for `.txz` and `.tzst` extensions to conan cache save help output. `#19660 <https://github.com/conan-io/conan/pull/19660>`_ . Docs `here <https://github.com/conan-io/docs/pull/4379>`__
+- Fix: Allow requires-only components to create a target with ``CMakeConfigDeps`` `#19645 <https://github.com/conan-io/conan/pull/19645>`_
+- Fix: ``MSBuildDeps`` bug with transitive build requirements and components. `#19625 <https://github.com/conan-io/conan/pull/19625>`_
+- Fix: Improve the ``-DCMAKE_TOOLCHAIN_FILE`` tip in CMakeToolchain generator to abstract it to a ``<output_folder>``. `#19602 <https://github.com/conan-io/conan/pull/19602>`_
+- Fix: Fix CPS parsing of package preprocessor definitions. `#19539 <https://github.com/conan-io/conan/pull/19539>`_
+- Fix: Deprecate Python 3.7 warning for Conan. `#19535 <https://github.com/conan-io/conan/pull/19535>`_ . Docs `here <https://github.com/conan-io/docs/pull/4381>`__
+- Fix: Update terminology to use “hash” instead of “signature”. `#19522 <https://github.com/conan-io/conan/pull/19522>`_ . Docs `here <https://github.com/conan-io/docs/pull/4358>`__
+- Bugfix: Solve ``CMakeConfigDeps`` issue with in-package config.cmake files that were ignoring ``cmake_file_name_variants``. `#19669 <https://github.com/conan-io/conan/pull/19669>`_
+- Bugfix: Fix ``conan list --graph-context={build,host}-only`` for consumer recipes without a name `#19657 <https://github.com/conan-io/conan/pull/19657>`_
+- Bugfix: Force parsing of ``conf`` like ``tools.microsoft:msvc_update`` as a string, to avoid parsing it as float and dropping trailing zero. `#19647 <https://github.com/conan-io/conan/pull/19647>`_
+- Bugfix: Avoid ``--build=compatible`` to rebuild an already existing binary `#19643 <https://github.com/conan-io/conan/pull/19643>`_
+- Bugfix: Correctly escape ``CMakeToolchain.variables`` for CMake syntax. `#19642 <https://github.com/conan-io/conan/pull/19642>`_
+- Bugfix: Fix serialization of `cpp_info` when it uses the type field. `#19604 <https://github.com/conan-io/conan/pull/19604>`_
+- Bugfix: Ensure ``CPS`` component Cmake targets follow expected name pattern. `#19584 <https://github.com/conan-io/conan/pull/19584>`_
+- Bugfix: Fix corruption of `[buildenv]` information when using per-package patterns across multiple packages. `#19571 <https://github.com/conan-io/conan/pull/19571>`_
+- Bugfix: Add default ``#platform`` revision to ``platform_{tool_}requires``. `#19561 <https://github.com/conan-io/conan/pull/19561>`_ . Docs `here <https://github.com/conan-io/docs/pull/4383>`__
+- Bugfix: Add missing `riscv64` mappings for `yum` and `apt`. `#19560 <https://github.com/conan-io/conan/pull/19560>`_
+
 2.25.2 (04-Feb-2026)
 --------------------
 
