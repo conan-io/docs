@@ -1,0 +1,475 @@
+conan.tools.files basic operations
+==================================
+
+.. important::
+
+    Some of the features used in this section are still **under development**, while they are
+    recommended and usable and we will try not to break them in future releases, some breaking
+    changes might still happen if necessary to prepare for the *Conan 2.0 release*.
+
+.. _conan_tools_files_copy:
+
+conan.tools.files.copy()
+------------------------
+
+Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>`_
+
+.. code-block:: python
+
+    def copy(conanfile, pattern, src, dst, keep_path=True, excludes=None, ignore_case=True)
+
+
+Copy the files matching the ``pattern`` (fnmatch) at the ``src`` folder to a ``dst`` folder.
+
+Parameters:
+    - **conanfile**: Conanfile object.
+    - **pattern**: An fnmatch file pattern of the files that should be copied. It must not start with ``..`` relative path or an exception will be raised.
+    - **src**: Source folder in which those files will be searched. This folder will be stripped from the
+      dst parameter. E.g., `lib/Debug/x86`.
+    - **dst**: Destination local folder. It must be different from ``src`` value or an exception will be raised.
+    - **keep_path**: Means if you want to keep the relative path when you copy the files from the **src**
+      folder to the **dst** one.
+    - **excludes**: A tuple/list of fnmatch patterns or even a single one to be excluded from the copy.
+    - **ignore_case**: If enabled, it will do a case-insensitive pattern matching.
+
+.. note::
+
+    The files that are **symlinks to files** or **symlinks to folders** with be treated like any other file, so they will only
+    be copied if the specified pattern matches with the file.
+
+    At the destination folder, the symlinks will be created pointing to the exact same file or folder, absolute or relative,
+    being the responsibility of the user to manipulate the symlink to, for example, transform the symlink into a relative path
+    before copying it so it points to the destination folder.
+
+    Check :ref:`here<conan_tools_files_symlinks>` the reference of tools to manage symlinks.
+
+
+conan.tools.files.load()
+------------------------
+
+Available since: `1.35.0 <https://github.com/conan-io/conan/releases/tag/1.35.0>`_
+
+.. code-block:: python
+
+    def load(conanfile, path, encoding="utf-8")
+
+Utility function to load files in one line. It will manage the open and close of the file, and load binary encodings. Returns the content of
+the file.
+
+.. code-block:: python
+
+    from conan.tools.files import load
+
+    content = load(self, "myfile.txt")
+
+Parameters:
+    - **conanfile**: Conanfile object.
+    - **path**: Path to the file.
+    - **encoding**: Specifies the input file text encoding.
+
+
+conan.tools.files.save()
+------------------------
+
+Available since: `1.35.0 <https://github.com/conan-io/conan/releases/tag/1.35.0>`_
+
+.. code-block:: python
+
+    def save(conanfile, path, content, append=False, encoding="utf-8"):
+
+
+Utility function to save files in one line. It will manage the open and close of the file and creating directories if necessary.
+
+.. code-block:: python
+
+    from conan.tools.files import save
+
+    save(self, "path/to/otherfile.txt", "contents of the file")
+
+
+Parameters:
+    - **conanfile**: Conanfile object.
+    - **path**: Path to the file.
+    - **content**: Content that should be saved into the file.
+    - **append**: If ``True``, it will append the content.
+    - **encoding**: Specifies the output file text encoding.
+
+
+
+conan.tools.files.rename()
+--------------------------
+
+Available since: `1.37.0 <https://github.com/conan-io/conan/releases/tag/1.37.0>`_
+
+.. code-block:: python
+
+    def rename(conanfile, src, dst)
+
+Utility function to rename a file or folder *src* to *dst*. On Windows, it is very common that ``os.rename()`` raises an "Access is denied" exception, so this tool uses:command:`robocopy` if available. If that is not the case, or the rename is done in a non-Windows machine, it falls back to the ``os.rename()`` implementation.
+
+.. code-block:: python
+
+    from conan.tools.files import rename
+
+    def source(self):
+        rename(self, "lib-sources-abe2h9fe", "sources")  # renaming a folder
+
+Parameters:
+    - **conanfile**: Conanfile object.
+    - **src**: Path to be renamed.
+    - **dst**: Path to be renamed to.
+
+
+conan.tools.files.replace_in_file()
+-----------------------------------
+
+Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>`_
+
+.. code-block:: python
+
+    def replace_in_file(conanfile, file_path, search, replace, strict=True, encoding="utf-8")
+
+
+Replace a string ``search`` in the contents of the file ``file_path`` with the string ``replace``.
+
+.. code-block:: python
+
+    from conan.tools.files import replace_in_file
+
+    replace_in_file(self, os.path.join(self.source_folder, "folder", "file.txt"), "foo", "bar")
+
+
+Parameters:
+    - **conanfile**: Conanfile object.
+    - **file_path**: File path of the file to perform the replace in.
+    - **search**: String you want to be replaced.
+    - **replace**: String to replace the searched string.
+    - **strict**: If ``True``, it raises an error if the searched string is not found, so nothing is
+      actually replaced.
+    - **encoding**: Specifies the input and output files text encoding.
+
+
+conan.tools.files.rm()
+----------------------
+
+Available since: `1.50.0 <https://github.com/conan-io/conan/releases/tag/1.50.0>`_
+
+.. code-block:: python
+
+    def rm(conanfile, pattern, folder, recursive=False)
+
+
+Remove the files following the ``pattern`` (fnmatch) from the specified ``folder``.
+
+.. code-block:: python
+
+    from conan.tools.files import rm
+
+    rm(self, "*.tmp", self.build_folder, recursive=True)
+
+
+Parameters:
+    - **conanfile**: Conanfile object.
+    - **pattern**: Pattern that the files to be removed have to match (fnmatch).
+    - **folder**: Folder to search/remove the files.
+    - **recursive**: If ``recursive`` is specified it will search in the subfolders.
+
+
+
+conan.tools.files.mkdir()
+-------------------------
+
+Available since: `1.35.0 <https://github.com/conan-io/conan/releases/tag/1.35.0>`_
+
+.. code-block:: python
+
+    def mkdir(conanfile, path)
+
+Utility functions to create a directory. The existence of the specified directory is checked, so ``mkdir()`` will do nothing if the
+directory already exists.
+
+.. code-block:: python
+
+    from conan.tools.files import mkdir
+
+    mkdir(self, "mydir") # Creates mydir if it does not already exist
+    mkdir(self, "mydir") # Does nothing
+
+
+Parameters:
+    - **conanfile**: Conanfile object.
+    - **path**: Path to the directory.
+
+
+conan.tools.files.rmdir()
+-------------------------
+
+Available since: `1.47.0 <https://github.com/conan-io/conan/releases/tag/1.47.0>`_
+
+.. code-block:: python
+
+    def rmdir(conanfile, path)
+
+Utility functions to remove a directory. The existence of the specified directory is checked, so ``rmdir()`` will do nothing if the
+directory doesn't exists.
+
+.. code-block:: python
+
+    from conan.tools.files import rmdir
+
+    rmdir(self, "mydir") # Remove mydir if it exist
+    rmdir(self, "mydir") # Does nothing
+
+
+Parameters:
+    - **conanfile**: Conanfile object.
+    - **path**: Path to the directory.
+
+The behavior regarding the path is the same as Python ``shutil.rmtree``. The provided path can be
+relative to the current folder (the current folder depends in which method this tool is used), or
+it can be an absolute path.
+
+
+conan.tools.files.chdir()
+-------------------------
+
+Available since: `1.40.0 <https://github.com/conan-io/conan/releases/tag/1.40.0>`_
+
+.. code-block:: python
+
+    def chdir(conanfile, newdir):
+
+This is a context manager that allows to temporary change the current directory in your conanfile:
+
+.. code-block:: python
+
+    from conan.tools.files import chdir
+
+    def build(self):
+        with chdir(self, "./subdir"):
+            do_something()
+
+Parameters:
+    - **conanfile**: Conanfile object.
+    - **newdir**: Directory path name to change the current directory.
+
+
+conan.tools.files.unzip()
+-------------------------
+
+Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>`_
+
+.. code-block:: python
+
+    def unzip(conanfile, filename, destination=".", keep_permissions=False, pattern=None,
+              strip_root=False):
+
+
+This function extract different compressed formats (``.tar.gz``, ``.tar``, ``.tzb2``, ``.tar.bz2``, ``.tgz``, ``.txz``,
+``tar.xz``, and ``.zip``) into the given destination folder.
+
+It also accepts gzipped files, with extension ``.gz`` (not matching any of the above), and it will unzip them into a file with the same name
+but without the extension, or to a filename defined by the ``destination`` argument.
+
+.. code-block:: python
+
+    from conan.tools.files import unzip
+
+    tools.unzip("myfile.zip")
+    # or to extract in "myfolder" sub-folder
+    tools.unzip("myfile.zip", "myfolder")
+
+You can keep the permissions of the files using the ``keep_permissions=True`` parameter.
+
+.. code-block:: python
+
+    from conan.tools.files import unzip
+
+    unzip(self, "myfile.zip", "myfolder", keep_permissions=True)
+
+Use the ``pattern`` argument if you want to filter specific files and paths to decompress from the archive.
+
+.. code-block:: python
+
+    from conan.tools.files import unzip
+
+    # Extract only files inside relative folder "small"
+    unzip(self, "bigfile.zip", pattern="small/*")
+    # Extract only txt files
+    unzip(self, "bigfile.zip", pattern="*.txt")
+
+Parameters:
+    - **conanfile**: Conanfile object.
+    - **filename**: File to be unzipped.
+    - **destination**: Destination folder for unzipped files.
+    - **keep_permissions**: Keep permissions of files. **WARNING:** Can be dangerous if the zip
+      was not created in a NIX system, the bits could produce undefined permission schema. Use only this option if you are sure that
+      the zip was created correctly.
+    - **pattern**: Extract from the archive only paths matching the pattern. This should be a Unix
+      shell-style wildcard. See `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_ documentation for more details.
+    - **strip_root**: When ``True`` and the ZIP file contains one folder containing all the contents,
+      it will strip the root folder moving all its contents to the root. E.g: *mylib-1.2.8/main.c* will be extracted as *main.c*. If the compressed
+      file contains more than one folder or only a file it will raise a ``ConanException``.
+
+
+conan.tools.files.update_conandata()
+------------------------------------
+
+Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>`_
+
+.. code-block:: python
+
+    def update_conandata(conanfile, data)
+
+Parameters:
+
+- **conanfile**: Conanfile object.
+- **data**: A dictionary (can be nested), of values to update
+
+
+This function reads the ``conandata.yml`` inside the exported folder in the conan cache, if it exists.
+If the ``conandata.yml`` does not exist, it will create it.
+Then, it updates the conandata dictionary with the provided ``data`` one, which is updated recursively,
+prioritizing the ``data`` values, but keeping other existing ones. Finally the ``conandata.yml`` is saved
+in the same place.
+
+This helper can only be used within the ``export()`` method, it can raise otherwise. One application is
+to capture in the ``conandata.yml`` the scm coordinates (like Git remote url and commit), to be able to
+recover it later in the ``source()`` method and have reproducible recipes that can build from sources
+without actually storing the sources in the recipe.
+
+Example:
+
+.. code-block:: python
+
+    from conan import ConanFile
+    from conan.tools.files import update_conandata
+
+    class Pkg(ConanFile):
+        name = "pkg"
+        version = "0.1"
+
+        def export(self):
+            # This is an example, doesn't make sense to have static data, instead you
+            # could put the data directly in a conandata.yml file.
+            # This would be useful for storing dynamic data, obtained at export() time from elsewhere
+            update_conandata(self, {"mydata": {"value": {"nested1": 123, "nested2": "some-string"}}})
+    
+        def source(self):
+            data = self.conan_data["sources"]["mydata"]
+
+
+conan.tools.files.collect_libs()
+--------------------------------
+
+Available since: `1.46.0 <https://github.com/conan-io/conan/releases/tag/1.46.0>`_
+
+.. code-block:: python
+
+    def collect_libs(conanfile, folder=None)
+
+Returns a sorted list of library names from the libraries (files with extensions *.so*, *.lib*, *.a* and *.dylib*) located inside the
+``conanfile.cpp_info.libdirs`` (by default) or the **folder** argument (see below) relative to the package folder. Useful to collect not
+inter-dependent libraries or with complex names like ``libmylib-x86-debug-en.lib``.
+
+.. code-block:: python
+
+    from conan.tools.files import collect_libs
+
+    def package_info(self):
+        self.cpp_info.libdirs = ["lib", "other_libdir"]  # Default value is 'lib'
+        self.cpp_info.libs = collect_libs(self)
+
+For UNIX libraries starting with **lib**, like *libmath.a*, this tool will collect the library name **math**.
+
+Regarding symlinks, this tool will keep only the "most generic" file among the resolved real file and all symlinks pointing to this real file.
+For example among files below, this tool will select *libmath.dylib* file and therefore only append *math* in the returned list:
+
+.. code-block:: shell
+
+    -rwxr-xr-x libmath.1.0.0.dylib
+    lrwxr-xr-x libmath.1.dylib -> libmath.1.0.0.dylib
+    lrwxr-xr-x libmath.dylib -> libmath.1.dylib
+
+**Parameters:**
+    - **conanfile** (Required): A ``ConanFile`` object to get the ``package_folder`` and ``cpp_info``.
+    - **folder** (Optional, Defaulted to ``None``): String indicating the subfolder name inside ``conanfile.package_folder`` where
+      the library files are.
+
+.. warning::
+
+    This tool collects the libraries searching directly inside the package folder and returns them in no specific order. If libraries are
+    inter-dependent, then ``package_info()`` method should order them to achieve correct linking order.
+
+
+
+conan.tools.files.move_folder_contents()
+----------------------------------------
+
+Available since Conan 1.60.0
+
+.. code-block:: python
+
+    def move_folder_contents(conanfile, src_folder, dst_folder)
+
+
+This function allows to replace the ``dst_folder`` contents with the contents of ``src_folder``, also when ``src_folder`` is a
+children of ``dst_folder``.
+
+
+**Parameters:**
+    - **conanfile** (Required): A ``ConanFile`` object, always ``self`` inside a recipe.
+    - **src_folder** (Required): The folder which contents we want to move to ``dst_folder``
+    - **dst_folder** (Required): The destination folder.
+
+This helper function can help when using the ``scm`` capture strategy instead of ``exports``, and  a ``git clone``
+is cloning a whole repository, but we want to process only a subfolder of it.
+This situation can happen in mono-repo like projects, and also when using the ``self.folders.root = ".."`` ``layout()`` definition
+because the ``conanfile.py`` is not located in the root of the repo, but in one subfolder.
+
+For example, for a project repository containing 2 subprojects, each one with its own ``conanfile.py`` package definition:
+
+.. code-block:: text
+
+     project
+      |- pkg1
+           | - conanfile.py
+           | - CMakeLists, cpp/h files, etc
+      |- pkg2
+           | - conanfile.py
+           | - CMakeLists, cpp/h files, etc
+
+
+Assuming the ``project`` is a Git repo, each ``conanfile.py`` recipe would look like:
+
+.. code-block:: python
+
+     class Pkg(ConanFile):
+        name = <package-name>
+        version = <package-version>
+
+        # Each package will have its ``requires``
+
+        def export(self):
+            git = Git(self, self.recipe_folder)
+            scm_url, scm_commit = git.get_url_and_commit()
+            folder = os.path.basename(self.recipe_folder)
+            # Captures the Git repo and commit of "project", and folder name (pkg1/pkg2)
+            update_conandata(self, {{"sources": {{"commit": scm_commit, "url": scm_url,
+                                                  "folder": folder}}}})
+
+        def layout(self):
+            # this defines the location of each package sources wrt to itself
+            self.folders.source = "."
+
+        def source(self):
+            git = Git(self)
+            sources = self.conan_data["sources"]
+            git.clone(url=sources["url"], target=".")
+            git.checkout(commit=sources["commit"])
+            # This created in the cache the full original "project" structure, containing
+            # both "pkg1" and "pkg2" subfolders, but we only want the contents of the "pkg1"
+            src_folder = os.path.join(self.source_folder, sources["folder"]) # the "pkg1" subfolder
+            # replace the current self.source_folder with the "pkg1" subfolder contents
+            move_folder_contents(self, src_folder, self.source_folder)
+            # now we have the same relative layout in the cache as we had in the project clone
