@@ -3,6 +3,11 @@ Changelog
 
 This page lists the changes made to Conan in each version, with links to each pull request for more details.
 
+2.26.1 (27-Feb-2026)
+--------------------
+
+- Bugfix: Avoid missing binaries due to default platform requires revision. `#19680 <https://github.com/conan-io/conan/pull/19680>`_
+
 2.26.0 (25-Feb-2026)
 --------------------
 
