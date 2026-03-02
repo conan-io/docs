@@ -48,6 +48,19 @@ packages from the recipe for apple-clang 11, but you are using apple-clang 14.
 Also you may want to check your `package ID mode` as it may
 have an influence on the packages available for it.
 
+These would be the things to check:
+
+- Run a ``conan graph explain`` with exactly the same arguments as you did. It will give you hints
+  about the differences between the binaries that exists in the cache and remotes and the binaries
+  you are requesting to install.
+- You an also use a ``conan list <pkgname/version>:*`` command to list binaries in your cache and
+  in your remotes and manually compare differences
+- If the binaries are missing because dependencies versions diverge, maybe your current Conan 
+  cache is using older revisions or versions, try adding an ``--update`` argument to the ``conan install``
+  command.
+- If finally the binary that is being requested doesn't really exists anywhere, you might want to
+  build it from sources.
+
 By default, Conan doesn't build packages from sources. There are several possibilities to
 overcome this error:
 
