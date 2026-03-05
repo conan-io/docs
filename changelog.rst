@@ -3,6 +3,12 @@ Changelog
 
 This page lists the changes made to Conan in each version, with links to each pull request for more details.
 
+2.26.2 (05-Mar-2026)
+--------------------
+
+- Bugfix: Fix exception when `conan cache check-integrity` finds a corrupted recipe. `#19713 <https://github.com/conan-io/conan/pull/19713>`_
+- Bugfix: Revert regression in escaping ``CMakeToolchain.variables``, those variables will not be automatically escaped. `#19706 <https://github.com/conan-io/conan/pull/19706>`_
+
 2.26.1 (27-Feb-2026)
 --------------------
 
