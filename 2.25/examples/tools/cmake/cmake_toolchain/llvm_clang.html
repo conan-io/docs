@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CMakeToolchain: Using LLVM/Clang Windows compiler &mdash; conan 2.25.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=2da93098" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/tabs.css?v=a5c4661c" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/conan.css?v=7d9e9f1e" />
+
+  
+    <link rel="shortcut icon" href="../../../../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/examples/tools/cmake/cmake_toolchain/llvm_clang.html" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../_static/documentation_options.js?v=aea92517"></script>
+        <script src="../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="File interaction" href="../../files/files.html" />
+    <link rel="prev" title="Using CMakeToolchain with different generators: Ninja example" href="use_different_toolchain_generator.html" />
+
+
+<script
+  data-cfasync="false"
+  data-tracker-overrides="GoogleConsentMode:security_storage=on;ad_storage=SaleOfInfo,Advertising;ad_user_data=SaleOfInfo,Advertising;ad_personalization=SaleOfInfo,Advertising;analytics_storage=Analytics,SaleOfInfo;functionality_storage=Functional,SaleOfInfo;personalization_storage=Functional,SaleOfInfo"
+  src="https://transcend-cdn.com/cm/f0071674-c641-4cf3-9d31-303ec0c86b1b/airgap.js" data-languages="en"
+></script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://gtm.jfrog.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+<script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "GTM-WK44ZFM");
+      gtag('set', 'developer_id.dODQ2Mj', true);
+</script>
+
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html">
+            
+              <img src="../../../../_static/conan-docs-logo-2.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.25
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../ci_tutorial/tutorial.html">CI Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../devops/devops.html">Devops guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../security/security.html">Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../integrations.html">Integrations</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../../examples.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../../conanfile.html">ConanFile methods examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../extensions.html">Conan extensions examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../../tools.html">Conan recipe tools examples</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../cmake.html">CMake</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="build_project_cmake_presets.html">CMakeToolchain: Building your project using CMakePresets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="extend_own_cmake_presets.html">CMakeToolchain: Extending your CMakePresets with Conan generated ones</a></li>
+<li class="toctree-l4"><a class="reference internal" href="inject_cmake_variables.html">CMakeToolchain: Inject arbitrary CMake variables into dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="use_package_config_cmake.html">CMakeToolchain: Using xxx-config.cmake files inside packages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="use_different_toolchain_generator.html">Using CMakeToolchain with different generators: Ninja example</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">CMakeToolchain: Using LLVM/Clang Windows compiler</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../files/files.html">File interaction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../meson/meson.html">Meson</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../google/bazel.html">Bazel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autotools/autotools.html">Autotools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scm/git/capture_scm/git_capture_scm.html">Capturing Git scm information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../microsoft/msbuild.html">MSBuild</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../system/system.html">System Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../cross_build.html">Cross-building examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../config_files.html">Configuration files examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../graph.html">Graph examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev_flow.html">Developer tools and flows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../commands.html">Conan commands examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../runners.html">Conan runners examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../security.html">Conan security examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../knowledge.html">Knowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../incubating.html">Incubating features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../whatsnew.html">What’s new in Conan 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit;z-index:1" id="conan-banners">
+            
+            <div style="border: 2px solid #4a7d7e; background-color: #e6f2f2; padding: 8px">
+                <p>
+                  📖 The complete Conan 2 training is now available for free on
+                  JFrog Academy: <a
+                  href="https://academy.jfrog.com/path/conan-cc-package-manager?utm_source=Conan+Docs"
+                  target="_blank">Essentials</a> and <a
+                  href="https://academy.jfrog.com/path/conan-2-advanced?utm_source=Conan+Docs"
+                  target="_blank">Advanced</a>.
+                </p>
+              </div>                                                  
+          </div>
+          
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/examples/tools/cmake/cmake_toolchain/llvm_clang.html">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../../examples.html">Examples</a></li>
+          <li class="breadcrumb-item"><a href="../../../tools.html">Conan recipe tools examples</a></li>
+          <li class="breadcrumb-item"><a href="../cmake.html">CMake</a></li>
+      <li class="breadcrumb-item active">CMakeToolchain: Using LLVM/Clang Windows compiler</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cmaketoolchain-using-llvm-clang-windows-compiler">
+<span id="examples-tools-cmake-toolchain-llvm-clang"></span><h1>CMakeToolchain: Using LLVM/Clang Windows compiler<a class="headerlink" href="#cmaketoolchain-using-llvm-clang-windows-compiler" title="Link to this heading">¶</a></h1>
+<p>The Clang compiler in Windows can come from 2 different installations or distributions:</p>
+<ul class="simple">
+<li><p>The LLVM/Clang compiler, that uses the MSVC runtime</p></li>
+<li><p>The Msys2 Clang compiler that uses the Msys2 runtime (libstdc++6.dll)</p></li>
+</ul>
+<p>This example explains the LLVM/Clang with the MSVC runtime. This Clang distribution can in turn
+be used in three different ways:</p>
+<ul class="simple">
+<li><p>Using the Clang component installed by Visual Studio installer as part of VS</p></li>
+<li><p>Using the LLVM/Clang downloaded compiler (it still uses the MSVC runtime), via the GNU-like frontend <code class="docutils literal notranslate"><span class="pre">clang</span></code></p></li>
+<li><p>Using the LLVM/Clang downloaded compiler (it still uses the MSVC runtime), via the MSVC-like frontend <code class="docutils literal notranslate"><span class="pre">clang-cl</span></code></p></li>
+</ul>
+<p>Let’s start from a simple <code class="docutils literal notranslate"><span class="pre">cmake_exe</span></code> template:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>new<span class="w"> </span>cmake_exe<span class="w"> </span>-d<span class="w"> </span><span class="nv">name</span><span class="o">=</span>mypkg<span class="w"> </span>-d<span class="w"> </span><span class="nv">version</span><span class="o">=</span><span class="m">0</span>.1
+</pre></div>
+</div>
+<p>This creates a simple CMake based project and Conan package recipe that uses <code class="docutils literal notranslate"><span class="pre">CMakeToolchain</span></code>.</p>
+<section id="llvm-clang-with-clang-gnu-like-frontend">
+<h2>LLVM/Clang with <code class="docutils literal notranslate"><span class="pre">clang</span></code> GNU-like frontend<a class="headerlink" href="#llvm-clang-with-clang-gnu-like-frontend" title="Link to this heading">¶</a></h2>
+<p>To build this configuration we will use the following profile:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">llvm_clang</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[settings]</span>
+<span class="na">os</span><span class="o">=</span><span class="s">Windows</span>
+<span class="na">arch</span><span class="o">=</span><span class="s">x86_64</span>
+<span class="na">build_type</span><span class="o">=</span><span class="s">Release</span>
+<span class="na">compiler</span><span class="o">=</span><span class="s">clang</span>
+<span class="na">compiler.version</span><span class="o">=</span><span class="s">18</span>
+<span class="na">compiler.cppstd</span><span class="o">=</span><span class="s">14</span>
+<span class="na">compiler.runtime</span><span class="o">=</span><span class="s">dynamic</span>
+<span class="na">compiler.runtime_type</span><span class="o">=</span><span class="s">Release</span>
+<span class="na">compiler.runtime_version</span><span class="o">=</span><span class="s">v144</span>
+
+<span class="k">[buildenv]</span>
+<span class="na">PATH</span><span class="o">=</span><span class="s">+(path)C:/ws/LLVM/18.1/bin</span>
+
+<span class="k">[conf]</span>
+<span class="na">tools.cmake.cmaketoolchain</span><span class="o">:</span><span class="s">generator=Ninja</span>
+<span class="na">tools.compilation</span><span class="o">:</span><span class="s">verbosity=verbose</span>
+
+<span class="k">[tool_requires]</span>
+<span class="na">ninja/[*]</span>
+</pre></div>
+</div>
+</div>
+<p>Quick explanation of the profile:</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">compiler.runtime</span></code> definition is the important differentiator to distinguish between Msys2-Clang and LLVM/Clang
+with the MSVC runtime. The LLVM/Clang defines this <code class="docutils literal notranslate"><span class="pre">compiler.runtime</span></code>, while the Msys2-Clang doesn’t.</p></li>
+<li><p>The MSVC runtime can be either dynamic or static. It is important also to define the runtime version (toolset version <code class="docutils literal notranslate"><span class="pre">v144</span></code>)
+of this runtime, as it is possible to use different ones.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">[buildenv]</span></code> allows to point to the LLVM/Clang compiler, in case it is not already in the path. <strong>Note</strong> the <code class="docutils literal notranslate"><span class="pre">PATH=+(path)</span></code>
+syntax, to <strong>prepend</strong> that path, so it has higher priority, otherwise it is possible that CMake would find and use the Clang
+component installed inside Visual Studio.</p></li>
+<li><p>We are using the <code class="docutils literal notranslate"><span class="pre">Ninja</span></code> CMake generator, and installing it from a <code class="docutils literal notranslate"><span class="pre">[tool_requires]</span></code>, but this might not be necessary if Ninja
+is installed in your system.</p></li>
+</ul>
+<p>Let’s build it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>build<span class="w"> </span>.<span class="w"> </span>-pr<span class="o">=</span>llvm_clang
+...
+--<span class="w"> </span>The<span class="w"> </span>CXX<span class="w"> </span>compiler<span class="w"> </span>identification<span class="w"> </span>is<span class="w"> </span>Clang<span class="w"> </span><span class="m">18</span>.1.8<span class="w"> </span>with<span class="w"> </span>GNU-like<span class="w"> </span>command-line
+--<span class="w"> </span>Check<span class="w"> </span><span class="k">for</span><span class="w"> </span>working<span class="w"> </span>CXX<span class="w"> </span>compiler:<span class="w"> </span>C:/ws/LLVM/18.1/bin/clang++.exe<span class="w"> </span>-<span class="w"> </span>skipped
+...
+<span class="o">[</span><span class="m">1</span>/3<span class="o">]</span><span class="w"> </span>C:<span class="se">\w</span>s<span class="se">\L</span>LVM<span class="se">\1</span><span class="m">8</span>.1<span class="se">\b</span>in<span class="se">\c</span>lang++.exe<span class="w">   </span>-O3<span class="w"> </span>-DNDEBUG<span class="w"> </span>-std<span class="o">=</span>c++14<span class="w"> </span>-D_DLL<span class="w"> </span>-D_MT<span class="w"> </span>-Xclang<span class="w"> </span>--dependent-lib<span class="o">=</span>msvcrt<span class="w"> </span>-MD<span class="w"> </span>-MT<span class="w"> </span>CMakeFiles/mypkg.dir/src/main.cpp.obj<span class="w"> </span>-MF<span class="w"> </span>CMakeFiles<span class="se">\m</span>ypkg.dir<span class="se">\s</span>rc<span class="se">\m</span>ain.cpp.obj.d<span class="w"> </span>-o<span class="w"> </span>CMakeFiles/mypkg.dir/src/main.cpp.obj<span class="w"> </span>-c<span class="w"> </span>C:/Users/Diego/conanws/kk/clang/src/main.cpp
+<span class="o">[</span><span class="m">2</span>/3<span class="o">]</span><span class="w"> </span>C:<span class="se">\w</span>s<span class="se">\L</span>LVM<span class="se">\1</span><span class="m">8</span>.1<span class="se">\b</span>in<span class="se">\c</span>lang++.exe<span class="w">   </span>-O3<span class="w"> </span>-DNDEBUG<span class="w"> </span>-std<span class="o">=</span>c++14<span class="w"> </span>-D_DLL<span class="w"> </span>-D_MT<span class="w"> </span>-Xclang<span class="w"> </span>--dependent-lib<span class="o">=</span>msvcrt<span class="w"> </span>-MD<span class="w"> </span>-MT<span class="w"> </span>CMakeFiles/mypkg.dir/src/mypkg.cpp.obj<span class="w"> </span>-MF<span class="w"> </span>CMakeFiles<span class="se">\m</span>ypkg.dir<span class="se">\s</span>rc<span class="se">\m</span>ypkg.cpp.obj.d<span class="w"> </span>-o<span class="w"> </span>CMakeFiles/mypkg.dir/src/mypkg.cpp.obj<span class="w"> </span>-c<span class="w"> </span>C:/Users/Diego/conanws/kk/clang/src/mypkg.cpp
+<span class="o">[</span><span class="m">3</span>/3<span class="o">]</span><span class="w"> </span>cmd.exe<span class="w"> </span>/C<span class="w"> </span><span class="s2">&quot;cd . &amp;&amp; C:\ws\LLVM\18.1\bin\clang++.exe -fuse-ld=lld-link -nostartfiles -nostdlib -O3 -DNDEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrt -Xlinker /subsystem:console CMakeFiles/mypkg.dir/src/mypkg.cpp.obj CMakeFiles/mypkg.dir/src/main.cpp.obj -o mypkg.exe -Xlinker /MANIFEST:EMBED -Xlinker /implib:mypkg.lib -Xlinker /pdb:mypkg.pdb -Xlinker /version:0.0   -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 -loldnames  &amp;&amp; cd .&quot;</span>
+</pre></div>
+</div>
+<p>See how the desired LLVM/Clang compiler installed in the <code class="docutils literal notranslate"><span class="pre">C:/ws</span></code> folder is used, and how the <code class="docutils literal notranslate"><span class="pre">GNU-like</span></code> command line syntax is used.
+The GNU-like syntax requires the <code class="docutils literal notranslate"><span class="pre">--dependent-lib=msvcrt</span></code> (added automatically by CMake) compiler and linker flags to define linking against the dynamic MSVC runtime, as otherwise LLVM/Clang link it statically. Also note that the <code class="docutils literal notranslate"><span class="pre">-MD</span> <span class="pre">-MT</span></code> flags are not related to the &lt;MSVC runtime, in the GNU-like frontend, they have a completely different meaning.</p>
+<p>We can run our executable, and see how the Clang compiler version and the MSVC runtime match the defined ones:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>build<span class="se">\R</span>elease<span class="se">\m</span>ypkg.exe
+mypkg/0.1:<span class="w"> </span>Hello<span class="w"> </span>World<span class="w"> </span>Release!
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>_M_X64<span class="w"> </span>defined
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>__x86_64__<span class="w"> </span>defined
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>MSVC<span class="w"> </span>runtime:<span class="w"> </span>MultiThreadedDLL
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>_MSC_VER1943
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>_MSVC_LANG201402
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>__cplusplus201402
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>__clang_major__18
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>__clang_minor__1
+</pre></div>
+</div>
+</section>
+<section id="llvm-clang-with-clang-cl-msvc-like-frontend">
+<h2>LLVM/Clang with <code class="docutils literal notranslate"><span class="pre">clang-cl</span></code> MSVC-like frontend<a class="headerlink" href="#llvm-clang-with-clang-cl-msvc-like-frontend" title="Link to this heading">¶</a></h2>
+<p>To build this configuration we will use the following profile:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">llvm_clang_cl</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[settings]</span>
+<span class="na">os</span><span class="o">=</span><span class="s">Windows</span>
+<span class="na">arch</span><span class="o">=</span><span class="s">x86_64</span>
+<span class="na">build_type</span><span class="o">=</span><span class="s">Release</span>
+<span class="na">compiler</span><span class="o">=</span><span class="s">clang</span>
+<span class="na">compiler.version</span><span class="o">=</span><span class="s">18</span>
+<span class="na">compiler.cppstd</span><span class="o">=</span><span class="s">14</span>
+<span class="na">compiler.runtime</span><span class="o">=</span><span class="s">dynamic</span>
+<span class="na">compiler.runtime_type</span><span class="o">=</span><span class="s">Release</span>
+<span class="na">compiler.runtime_version</span><span class="o">=</span><span class="s">v144</span>
+
+<span class="k">[buildenv]</span>
+<span class="na">PATH</span><span class="o">=</span><span class="s">+(path)C:/ws/LLVM/18.1/bin</span>
+
+<span class="k">[conf]</span>
+<span class="na">tools.cmake.cmaketoolchain</span><span class="o">:</span><span class="s">generator=Ninja</span>
+<span class="na">tools.build:compiler_executables = {&quot;c&quot;</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;clang-cl&quot;</span><span class="na">, &quot;cpp&quot;</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;clang-cl&quot;</span><span class="na">}</span>
+<span class="na">tools.compilation</span><span class="o">:</span><span class="s">verbosity=verbose</span>
+
+<span class="k">[tool_requires]</span>
+<span class="na">ninja/[*]</span>
+</pre></div>
+</div>
+</div>
+<p>The profile is almost identical to the above one, the main difference is the definition of <code class="docutils literal notranslate"><span class="pre">tools.build:compiler_executables</span></code>,
+defining the <code class="docutils literal notranslate"><span class="pre">clang-cl</span></code> compiler.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The definition of <code class="docutils literal notranslate"><span class="pre">tools.build:compiler_executables</span></code> using the <code class="docutils literal notranslate"><span class="pre">clang-cl</span></code> compiler is what is used by Conan to differentiate
+among the frontends, also in other build systems.
+This frontend is not a <code class="docutils literal notranslate"><span class="pre">setting</span></code>, because the compiler is still the same, and the resulting binary should be binary compatible.</p>
+</div>
+<p>Let’s build it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>build<span class="w"> </span>.<span class="w"> </span>-pr<span class="o">=</span>llvm_clang_cl
+...
+--<span class="w"> </span>The<span class="w"> </span>CXX<span class="w"> </span>compiler<span class="w"> </span>identification<span class="w"> </span>is<span class="w"> </span>Clang<span class="w"> </span><span class="m">18</span>.1.8<span class="w"> </span>with<span class="w"> </span>MSVC-like<span class="w"> </span>command-line
+--<span class="w"> </span>Check<span class="w"> </span><span class="k">for</span><span class="w"> </span>working<span class="w"> </span>CXX<span class="w"> </span>compiler:<span class="w"> </span>C:/ws/LLVM/18.1/bin/clang-cl.exe<span class="w"> </span>-<span class="w"> </span>skipped
+...
+<span class="o">[</span><span class="m">1</span>/3<span class="o">]</span><span class="w"> </span>C:<span class="se">\w</span>s<span class="se">\L</span>LVM<span class="se">\1</span><span class="m">8</span>.1<span class="se">\b</span>in<span class="se">\c</span>lang-cl.exe<span class="w">  </span>/nologo<span class="w"> </span>-TP<span class="w">   </span>/DWIN32<span class="w"> </span>/D_WINDOWS<span class="w"> </span>/GR<span class="w"> </span>/EHsc<span class="w"> </span>/O2<span class="w"> </span>/Ob2<span class="w"> </span>/DNDEBUG<span class="w"> </span>-std:c++14<span class="w"> </span>-MD<span class="w"> </span>/showIncludes<span class="w"> </span>/FoCMakeFiles<span class="se">\m</span>ypkg.dir<span class="se">\s</span>rc<span class="se">\m</span>ain.cpp.obj<span class="w"> </span>/FdCMakeFiles<span class="se">\m</span>ypkg.dir<span class="se">\ </span>-c<span class="w"> </span>--<span class="w"> </span>C:<span class="se">\p</span>roject<span class="se">\s</span>rc<span class="se">\m</span>ain.cpp
+<span class="o">[</span><span class="m">2</span>/3<span class="o">]</span><span class="w"> </span>C:<span class="se">\w</span>s<span class="se">\L</span>LVM<span class="se">\1</span><span class="m">8</span>.1<span class="se">\b</span>in<span class="se">\c</span>lang-cl.exe<span class="w">  </span>/nologo<span class="w"> </span>-TP<span class="w">   </span>/DWIN32<span class="w"> </span>/D_WINDOWS<span class="w"> </span>/GR<span class="w"> </span>/EHsc<span class="w"> </span>/O2<span class="w"> </span>/Ob2<span class="w"> </span>/DNDEBUG<span class="w"> </span>-std:c++14<span class="w"> </span>-MD<span class="w"> </span>/showIncludes<span class="w"> </span>/FoCMakeFiles<span class="se">\m</span>ypkg.dir<span class="se">\s</span>rc<span class="se">\m</span>ypkg.cpp.obj<span class="w"> </span>/FdCMakeFiles<span class="se">\m</span>ypkg.dir<span class="se">\ </span>-c<span class="w"> </span>--<span class="w"> </span>C:<span class="se">\p</span>roject<span class="se">\s</span>rc<span class="se">\m</span>ypkg.cpp
+<span class="o">[</span><span class="m">3</span>/3<span class="o">]</span><span class="w"> </span>cmd.exe<span class="w"> </span>/C<span class="w"> </span><span class="s2">&quot;cd . &amp;&amp; C:\ws\cmake\cmake-3.27.9-windows-x86_64\bin\cmake.exe -E vs_link_exe --intdir=CMakeFiles\mypkg.dir --rc=C:\PROGRA~2\WI3CF2~1\10\bin\100226~1.0\x64\rc.exe --mt=C:\PROGRA~2\WI3CF2~1\10\bin\100226~1.0\x64\mt.exe --manifests  -- C:\ws\LLVM\18.1\bin\lld-link.exe /nologo CMakeFiles\mypkg.dir\src\mypkg.cpp.obj CMakeFiles\mypkg.dir\src\main.cpp.obj  /out:mypkg.exe /implib:mypkg.lib /pdb:mypkg.pdb /version:0.0 /machine:x64 /INCREMENTAL:NO /subsystem:console  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib &amp;&amp; cd .&quot;</span>
+</pre></div>
+</div>
+<p>See how the desired LLVM/Clang compiler installed in the <code class="docutils literal notranslate"><span class="pre">C:/ws</span></code> folder is used, and how the <code class="docutils literal notranslate"><span class="pre">MSVC-like</span></code> command line syntax is used.
+This MSVC-like syntax uses the <code class="docutils literal notranslate"><span class="pre">-MD/-MT</span></code> flags to differentiate across the dynamic/static MSVC runtimes.</p>
+<p>We can run our executable, and see how the Clang compiler version and the MSVC runtime match the defined ones:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>build<span class="se">\R</span>elease<span class="se">\m</span>ypkg.exe
+mypkg/0.1:<span class="w"> </span>Hello<span class="w"> </span>World<span class="w"> </span>Release!
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>_M_X64<span class="w"> </span>defined
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>__x86_64__<span class="w"> </span>defined
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>MSVC<span class="w"> </span>runtime:<span class="w"> </span>MultiThreadedDLL
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>_MSC_VER1943
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>_MSVC_LANG201402
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>__cplusplus201402
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>__clang_major__18
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>__clang_minor__1
+</pre></div>
+</div>
+<p>As expected, the output is identical to the previous one, as nothing changed except the compiler frontend.</p>
+</section>
+<section id="msvc-clang-component-clangcl-visual-studio-toolset">
+<h2>MSVC Clang component (ClangCL Visual Studio toolset)<a class="headerlink" href="#msvc-clang-component-clangcl-visual-studio-toolset" title="Link to this heading">¶</a></h2>
+<p>To build this configuration we will use the following profile:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">llvm_clang_vs</span><a class="headerlink" href="#id3" title="Link to this code">¶</a></div>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[settings]</span>
+<span class="na">os</span><span class="o">=</span><span class="s">Windows</span>
+<span class="na">arch</span><span class="o">=</span><span class="s">x86_64</span>
+<span class="na">build_type</span><span class="o">=</span><span class="s">Release</span>
+<span class="na">compiler</span><span class="o">=</span><span class="s">clang</span>
+<span class="na">compiler.version</span><span class="o">=</span><span class="s">19</span>
+<span class="na">compiler.cppstd</span><span class="o">=</span><span class="s">14</span>
+<span class="na">compiler.runtime</span><span class="o">=</span><span class="s">dynamic</span>
+<span class="na">compiler.runtime_type</span><span class="o">=</span><span class="s">Release</span>
+<span class="na">compiler.runtime_version</span><span class="o">=</span><span class="s">v144</span>
+
+<span class="k">[conf]</span>
+<span class="na">tools.cmake.cmaketoolchain</span><span class="o">:</span><span class="s">generator=Visual Studio 17</span>
+<span class="na">tools.compilation</span><span class="o">:</span><span class="s">verbosity=verbose</span>
+</pre></div>
+</div>
+</div>
+<p>This profile will use the CMake “Visual Studio” generator. This indicates that the Clang compiler will be the one
+provided by Visual Studio, and installed as a component of Visual Studio via the Visual Studio installer.
+Note the <code class="docutils literal notranslate"><span class="pre">compiler.version=19</span></code> is a different version than the one used above, which was <code class="docutils literal notranslate"><span class="pre">compiler.version=18</span></code>,
+as the version inside Visual is defined automatically by its installer.</p>
+<p>This setup will always use the MSVC-like <code class="docutils literal notranslate"><span class="pre">clang-cl</span></code> frontend, and the <code class="docutils literal notranslate"><span class="pre">ClangCL</span></code> toolset will be activated to
+let Visual Studio that this is the compiler that it should use.
+It is not necessary to define the <code class="docutils literal notranslate"><span class="pre">tools.build:compiler_executable</span></code> here.</p>
+<p>Let’s build it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>build<span class="w"> </span>.<span class="w"> </span>-pr<span class="o">=</span>llvm_clang_vs
+...
+--<span class="w"> </span>Conan<span class="w"> </span>toolchain:<span class="w"> </span><span class="nv">CMAKE_GENERATOR_TOOLSET</span><span class="o">=</span>ClangCL
+--<span class="w"> </span>The<span class="w"> </span>CXX<span class="w"> </span>compiler<span class="w"> </span>identification<span class="w"> </span>is<span class="w"> </span>Clang<span class="w"> </span><span class="m">19</span>.1.1<span class="w"> </span>with<span class="w"> </span>MSVC-like<span class="w"> </span>command-line
+...
+ClCompile:
+<span class="w">    </span>C:<span class="se">\P</span>rogram<span class="w"> </span>Files<span class="se">\M</span>icrosoft<span class="w"> </span>Visual<span class="w"> </span>Studio<span class="se">\2</span><span class="m">022</span><span class="se">\C</span>ommunity<span class="se">\V</span>C<span class="se">\T</span>ools<span class="se">\L</span>lvm<span class="se">\x</span><span class="m">64</span><span class="se">\b</span>in<span class="se">\c</span>lang-cl.exe<span class="w"> </span>/c<span class="w"> </span>/nologo<span class="w"> </span>/W1<span class="w"> </span>/WX-<span class="w"> </span>/diagnostics:column<span class="w"> </span>/O2<span class="w"> </span>/Ob2<span class="w"> </span>/D<span class="w"> </span>_MBCS<span class="w"> </span>/D<span class="w"> </span>WIN
+<span class="m">32</span><span class="w"> </span>/D<span class="w"> </span>_WINDOWS<span class="w"> </span>/D<span class="w"> </span>NDEBUG<span class="w"> </span>/D<span class="w"> </span><span class="s2">&quot;CMAKE_INTDIR=\&quot;Release\&quot;&quot;</span><span class="w"> </span>/EHsc<span class="w"> </span>/MD<span class="w"> </span>/GS<span class="w"> </span>/fp:precise<span class="w"> </span>/GR<span class="w"> </span>/std:c++14<span class="w"> </span>/Fo<span class="s2">&quot;mypkg.dir\Release\\&quot;</span><span class="w"> </span>/Gd<span class="w"> </span>/TP<span class="w"> </span>--target<span class="o">=</span>amd64-pc-windows-
+msvc<span class="w">  </span>C:<span class="se">\p</span>roject<span class="se">\s</span>rc<span class="se">\m</span>ypkg.cpp<span class="w"> </span>C:<span class="se">\p</span>roject<span class="se">\s</span>rc<span class="se">\m</span>ain.cpp
+Link:
+C:<span class="se">\P</span>rogram<span class="w"> </span>Files<span class="se">\M</span>icrosoft<span class="w"> </span>Visual<span class="w"> </span>Studio<span class="se">\2</span><span class="m">022</span><span class="se">\C</span>ommunity<span class="se">\V</span>C<span class="se">\T</span>ools<span class="se">\L</span>lvm<span class="se">\x</span><span class="m">64</span><span class="se">\b</span>in<span class="se">\l</span>ld-link.exe<span class="w"> </span>/OUT:<span class="s2">&quot;C:\project\build\Release\mypkg.exe&quot;</span><span class="w"> </span>/
+INCREMENTAL:NO<span class="w"> </span>kernel32.lib<span class="w"> </span>user32.lib<span class="w"> </span>gdi32.lib<span class="w"> </span>winspool.lib<span class="w"> </span>shell32.lib<span class="w"> </span>ole32.lib<span class="w"> </span>oleaut32.lib<span class="w"> </span>uuid.lib<span class="w"> </span>comdlg32.lib<span class="w"> </span>advapi32.lib<span class="w"> </span>/MANIFEST<span class="w"> </span>/MANIFESTUAC:
+<span class="s2">&quot;level=&#39;asInvoker&#39; uiAccess=&#39;false&#39;&quot;</span><span class="w"> </span>/manifest:embed<span class="w"> </span>/PDB:<span class="s2">&quot;C:/Users/Diego/conanws/kk/clang/build/Release/mypkg.pdb&quot;</span><span class="w"> </span>/SUBSYSTEM:CONSOLE<span class="w"> </span>/DYNAMICBASE<span class="w"> </span>/NXCOMP
+AT<span class="w"> </span>/IMPLIB:<span class="s2">&quot;C:/Users/Diego/conanws/kk/clang/build/Release/mypkg.lib&quot;</span><span class="w">   </span>/machine:x64<span class="w"> </span>mypkg.dir<span class="se">\R</span>elease<span class="se">\m</span>ypkg.obj
+mypkg.dir<span class="se">\R</span>elease<span class="se">\m</span>ain.obj
+mypkg.vcxproj<span class="w"> </span>-&gt;<span class="w"> </span>C:<span class="se">\p</span>roject<span class="se">\b</span>uild<span class="se">\R</span>elease<span class="se">\m</span>ypkg.exe
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">CMAKE_GENERATOR_TOOLSET=ClangCL</span></code> is defined, and also the internal VS Clang component is used, and the <code class="docutils literal notranslate"><span class="pre">19.1.1</span></code> version is also displayed.
+Then, the regular <code class="docutils literal notranslate"><span class="pre">MSVC-like</span></code> syntax, including the definition of the runtime via <code class="docutils literal notranslate"><span class="pre">/MD</span></code> flags is used.</p>
+<p>We can run our executable, and see how the Clang compiler version (<code class="docutils literal notranslate"><span class="pre">19</span></code>) and the MSVC runtime match the defined ones:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>build<span class="se">\R</span>elease<span class="se">\m</span>ypkg.exe
+mypkg/0.1:<span class="w"> </span>Hello<span class="w"> </span>World<span class="w"> </span>Release!
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>_M_X64<span class="w"> </span>defined
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>__x86_64__<span class="w"> </span>defined
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>MSVC<span class="w"> </span>runtime:<span class="w"> </span>MultiThreadedDLL
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>_MSC_VER1943
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>_MSVC_LANG201402
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>__cplusplus201402
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>__clang_major__19
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>__clang_minor__1
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="use_different_toolchain_generator.html" class="btn btn-neutral float-left" title="Using CMakeToolchain with different generators: Ninja example" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../files/files.html" class="btn btn-neutral float-right" title="File interaction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2026, JFrog.
+      <span class="lastupdated">Last updated on Feb 25, 2026.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 2.25
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.26/index.html">2.26</a></dd>
+        
+    
+        
+            <dd><a href="/2.25/index.html">2.25</a></dd>
+        
+    
+        
+            <dd><a href="/2.24/index.html">2.24</a></dd>
+        
+    
+        
+            <dd><a href="/2.23/index.html">2.23</a></dd>
+        
+    
+        
+            <dd><a href="/2.22/index.html">2.22</a></dd>
+        
+    
+        
+            <dd><a href="/2.21/index.html">2.21</a></dd>
+        
+    
+        
+            <dd><a href="/2.20/index.html">2.20</a></dd>
+        
+    
+        
+            <dd><a href="/2.19/index.html">2.19</a></dd>
+        
+    
+        
+            <dd><a href="/2.18/index.html">2.18</a></dd>
+        
+    
+        
+            <dd><a href="/2.17/index.html">2.17</a></dd>
+        
+    
+        
+            <dd><a href="/2.16/index.html">2.16</a></dd>
+        
+    
+        
+            <dd><a href="/2.15/index.html">2.15</a></dd>
+        
+    
+        
+            <dd><a href="/2.14/index.html">2.14</a></dd>
+        
+    
+        
+            <dd><a href="/2.13/index.html">2.13</a></dd>
+        
+    
+        
+            <dd><a href="/2.12/index.html">2.12</a></dd>
+        
+    
+        
+            <dd><a href="/2.11/index.html">2.11</a></dd>
+        
+    
+        
+            <dd><a href="/2.10/index.html">2.10</a></dd>
+        
+    
+        
+            <dd><a href="/2.9/index.html">2.9</a></dd>
+        
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+        <details>
+            <summary>Conan 1 releases</summary>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.66/index.html">1.66</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+        </details>
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/2.25/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://gtm.jfrog.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>
