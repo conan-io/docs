@@ -78,6 +78,12 @@ level:
         ]
     }
 
+Note that ``mytoken`` environment variable must be defined, otherwise ``mytk=None``, and
+that will translate to a literal ``token="None"`` that is obviously an invalid token and 
+will cause an authentication failure. If you want to condition the existence of the credential
+itself, you need to protect the whole credential entry (both ``url``, and ``token``) with a
+``{% if mytk %}-{% endif %}`` block.
+
 In some special cases, the server might need some specific custom headers. You can also specify them using a ``headers`` dictionary.
 
 .. code-block:: json
