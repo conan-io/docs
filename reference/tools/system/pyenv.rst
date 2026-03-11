@@ -89,3 +89,41 @@ If we run a ``conan build`` we can see how our Python package is installed when 
     conanfile.py (pip_install/0.1): Calling build()
     conanfile.py (pip_install/0.1): RUN: meson --version
     1.9.1
+
+Using multiple PyEnv instances
+------------------------------
+
+You can have two or more PyEnv virtual environments at the same time by creating separate instances
+and passing the ``name`` parameter to each. This is only necessary when you need to install packages
+that cannot be resolved in a single virtualenv, for example due to dependency or version conflicts
+between them. The ``name`` defines the folder name used for that venv, so each instance gets its own
+directory. After installing packages with ``install()`` on each instance, call ``generate()`` on all
+of them so every venv is added to the PATH.
+
+..  code-block:: python
+    :caption: conanfile.py
+
+    from conan import ConanFile
+    from conan.tools.system import PyEnv
+    from conan.tools.layout import basic_layout
+
+
+    class MultiPipPackage(ConanFile):
+        name = "multi_pip"
+        version = "0.1"
+
+        def layout(self):
+            basic_layout(self)
+
+        def generate(self):
+            meson_env = PyEnv(self, name="meson_venv")
+            meson_env.install(["meson==1.9.1"])
+            meson_env.generate()
+
+            ninja_env = PyEnv(self, name="ninja_venv")
+            ninja_env.install(["ninja"])
+            ninja_env.generate()
+
+        def build(self):
+            self.run("meson --version")
+            self.run("ninja --version")
