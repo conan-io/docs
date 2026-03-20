@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>C, C++ Compiler Sanitizers &mdash; conan 2.22.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=2da93098" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=a5c4661c" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/conan.css?v=7d9e9f1e" />
+
+  
+    <link rel="shortcut icon" href="../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/security/sanitizers.html" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=20f2d4d9"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Integrations" href="../integrations.html" />
+    <link rel="prev" title="Security guidelines" href="guidelines.html" />
+
+
+<script
+  data-cfasync="false"
+  data-tracker-overrides="GoogleConsentMode:security_storage=on;ad_storage=SaleOfInfo,Advertising;ad_user_data=SaleOfInfo,Advertising;ad_personalization=SaleOfInfo,Advertising;analytics_storage=Analytics,SaleOfInfo;functionality_storage=Functional,SaleOfInfo;personalization_storage=Functional,SaleOfInfo"
+  src="https://transcend-cdn.com/cm/f0071674-c641-4cf3-9d31-303ec0c86b1b/airgap.js" data-languages="en"
+></script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://gtm.jfrog.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+<script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "GTM-WK44ZFM");
+      gtag('set', 'developer_id.dODQ2Mj', true);
+</script>
+
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/conan-docs-logo-2.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.22
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ci_tutorial/tutorial.html">CI Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devops/devops.html">Devops guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="security.html">Security</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="audit.html">Scanning dependencies with <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">audit</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="sboms.html">Software Bills of Materials (SBOM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guidelines.html">Security guidelines</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">C, C++ Compiler Sanitizers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../knowledge.html">Knowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../incubating.html">Incubating features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What’s new in Conan 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit;z-index:1" id="conan-banners">
+            
+            <div style="border: 2px solid #4a7d7e; background-color: #e6f2f2; padding: 8px">
+                <p>
+                  📖 The complete Conan 2 training is now available for free on
+                  JFrog Academy: <a
+                  href="https://academy.jfrog.com/path/conan-cc-package-manager?utm_source=Conan+Docs"
+                  target="_blank">Essentials</a> and <a
+                  href="https://academy.jfrog.com/path/conan-2-advanced?utm_source=Conan+Docs"
+                  target="_blank">Advanced</a>.
+                </p>
+              </div>                                                  
+          </div>
+          
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/security/sanitizers.html">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="security.html">Security</a></li>
+      <li class="breadcrumb-item active">C, C++ Compiler Sanitizers</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="c-c-compiler-sanitizers">
+<span id="security-sanitizers"></span><h1>C, C++ Compiler Sanitizers<a class="headerlink" href="#c-c-compiler-sanitizers" title="Link to this heading">¶</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do not use sanitizers for production builds, especially for binaries with elevated privileges (e.g., SUID).
+Sanitizer runtimes rely on environment variables and can enable privilege escalation.
+Use only in development and testing.</p>
+</div>
+<p>Sanitizers are powerful runtime instrumentation tools that detect issues such as:</p>
+<ul class="simple">
+<li><p>Buffer overflows (stack/heap), use-after-free, double-free</p></li>
+<li><p>Data races in multithreaded code</p></li>
+<li><p>Memory leaks</p></li>
+<li><p>Use of uninitialized memory</p></li>
+<li><p>A wide range of undefined behaviors</p></li>
+</ul>
+<p>Compilers such as GCC, Clang, and MSVC support sanitizers via compiler and linker flags.</p>
+<p>This page explains recommended approaches for integrating compiler sanitizers into your workflow with Conan.</p>
+<section id="compiler-sanitizer-support-comparison">
+<h2>Compiler Sanitizer Support Comparison<a class="headerlink" href="#compiler-sanitizer-support-comparison" title="Link to this heading">¶</a></h2>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Always rebuild all dependencies when using MemorySanitizer (MSan) and generally for ThreadSanitizer (TSan)
+to avoid false positives/negatives. For AddressSanitizer, UBSan, and LeakSanitizer, mixing instrumented
+code with prebuilt libraries is typically safe, but may miss bugs inside those libraries.</p>
+</div>
+<p>Each compiler has different levels of support for various sanitizers, Clang being the most comprehensive so far.
+To help you choose the right sanitizer for your needs and compiler, here is a summary of the most common ones:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Sanitizer</p></th>
+<th class="head"><p>GCC</p></th>
+<th class="head"><p>Clang</p></th>
+<th class="head"><p>MSVC</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>AddressSanitizer (ASan)</strong></p></td>
+<td><p>YES</p></td>
+<td><p>YES</p></td>
+<td><p>YES</p></td>
+<td><p>MSVC: Supports x86, x64 and ARM64</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>ThreadSanitizer (TSan)</strong></p></td>
+<td><p>YES</p></td>
+<td><p>YES</p></td>
+<td><p>NO</p></td>
+<td><p>Detects data races</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>MemorySanitizer (MSan)</strong></p></td>
+<td><p>NO</p></td>
+<td><p>YES</p></td>
+<td><p>NO</p></td>
+<td><p>Clang-only, requires <cite>-O1</cite></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>UndefinedBehaviorSanitizer (UBSan)</strong></p></td>
+<td><p>YES</p></td>
+<td><p>YES</p></td>
+<td><p>NO</p></td>
+<td><p>Wide range of undefined behavior checks</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>LeakSanitizer (LSan)</strong></p></td>
+<td><p>YES</p></td>
+<td><p>YES</p></td>
+<td><p>NO</p></td>
+<td><p>Often integrated with ASan</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>HardwareAddressSanitizer (HWASan)</strong></p></td>
+<td><p>NO</p></td>
+<td><p>YES</p></td>
+<td><p>NO</p></td>
+<td><p>ARM64 only, lower overhead than ASan</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>KernelAddressSanitizer (KASan)</strong></p></td>
+<td><p>YES</p></td>
+<td><p>YES</p></td>
+<td><p>YES</p></td>
+<td><p>MSVC: Requires Windows 11</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>DataFlowSanitizer (DFSan)</strong></p></td>
+<td><p>NO</p></td>
+<td><p>YES</p></td>
+<td><p>NO</p></td>
+<td><p>Dynamic data flow analysis</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Control Flow Integrity (CFI)</strong></p></td>
+<td><p>NO</p></td>
+<td><p>YES</p></td>
+<td><p>YES</p></td>
+<td><p>MSVC: <cite>/guard:cf</cite></p></td>
+</tr>
+</tbody>
+</table>
+<p>Besides MSVC having more limited support for sanitizers, it encourages the community to vote for new features
+at <a class="reference external" href="https://developercommunity.visualstudio.com/cpp">Developer Community</a>. Very recently Visual Studio 2026 added
+support for AddressSanitizer on ARM64 architecture. This support should be straightforward when using Conan with MSVC.</p>
+<p>Also, you can consider the typical use cases for each sanitizer:</p>
+<ul class="simple">
+<li><p><strong>AddressSanitizer (ASan)</strong>: Great default for memory errors; often combined with UBSan for broader coverage.</p></li>
+<li><p><strong>ThreadSanitizer (TSan)</strong>: Find data races in multithreaded code.</p></li>
+<li><p><strong>MemorySanitizer (MSan)</strong>: Detects uninitialized memory reads (Clang-only). Requires all dependencies to be instrumented.</p></li>
+<li><p><strong>LeakSanitizer (LSan)</strong>: Often included with ASan on Clang/GCC, can be enabled explicitly. Typically used to find memory leaks.</p></li>
+<li><p><strong>UndefinedBehaviorSanitizer (UBSan)</strong>: Catches many undefined behaviors; often combined with ASan.</p></li>
+</ul>
+<section id="common-sanitizer-combinations">
+<h3>Common Sanitizer Combinations<a class="headerlink" href="#common-sanitizer-combinations" title="Link to this heading">¶</a></h3>
+<p>The sanitizers can often be combined to provide more comprehensive coverage, but not all combinations are supported by every compiler.
+Here are some common combinations and their compatibility mostly used with GCC and Clang:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Combination</p></th>
+<th class="head"><p>GCC</p></th>
+<th class="head"><p>Clang</p></th>
+<th class="head"><p>MSVC</p></th>
+<th class="head"><p>Compatibility</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>ASan + UBSan</strong></p></td>
+<td><p>YES</p></td>
+<td><p>YES</p></td>
+<td><p>NO</p></td>
+<td><p>Most common combination</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>TSan + UBSan</strong></p></td>
+<td><p>YES</p></td>
+<td><p>YES</p></td>
+<td><p>NO</p></td>
+<td><p>Good for multithreaded code</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>ASan + LSan</strong></p></td>
+<td><p>YES</p></td>
+<td><p>YES</p></td>
+<td><p>NO</p></td>
+<td><p>LSan often enabled by default with ASan</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>MSan + UBSan</strong></p></td>
+<td><p>NO</p></td>
+<td><p>YES</p></td>
+<td><p>NO</p></td>
+<td><p>Requires careful dependency management</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Notes on combinations</strong>:</p>
+<ul class="simple">
+<li><p>AddressSanitizer (ASan), ThreadSanitizer (TSan), and MemorySanitizer (MSan) <strong>are mutually exclusive with one another</strong>.</p></li>
+<li><p>MemorySanitizer often requires special flags such as <code class="docutils literal notranslate"><span class="pre">-O1</span></code>, <code class="docutils literal notranslate"><span class="pre">-fno-omit-frame-pointer</span></code> and fully-instrumented dependencies;
+mixing with non-instrumented code leads to crashes/false positives.</p></li>
+</ul>
+</section>
+<section id="compiler-specific-flags">
+<h3>Compiler-Specific Flags<a class="headerlink" href="#compiler-specific-flags" title="Link to this heading">¶</a></h3>
+<p>Each compiler requires specific flags to enable the desired sanitizers. Here is a summary of the most common
+sanitizers and their corresponding flags for GCC, Clang, and MSVC:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Sanitizer</p></th>
+<th class="head"><p>GCC Flag</p></th>
+<th class="head"><p>Clang Flag</p></th>
+<th class="head"><p>MSVC Flag</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>AddressSanitizer</strong></p></td>
+<td><p><cite>-fsanitize=address</cite></p></td>
+<td><p><cite>-fsanitize=address</cite></p></td>
+<td><p><cite>/fsanitize=address</cite></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>ThreadSanitizer</strong></p></td>
+<td><p><cite>-fsanitize=thread</cite></p></td>
+<td><p><cite>-fsanitize=thread</cite></p></td>
+<td><p>N/A</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>MemorySanitizer</strong></p></td>
+<td><p>N/A</p></td>
+<td><p><cite>-fsanitize=memory</cite></p></td>
+<td><p>N/A</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>UndefinedBehavior</strong></p></td>
+<td><p><cite>-fsanitize=undefined</cite></p></td>
+<td><p><cite>-fsanitize=undefined</cite></p></td>
+<td><p>N/A</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>LeakSanitizer</strong></p></td>
+<td><p><cite>-fsanitize=leak</cite></p></td>
+<td><p><cite>-fsanitize=leak</cite></p></td>
+<td><p>N/A</p></td>
+</tr>
+</tbody>
+</table>
+<p>It may seem like a large number of options, but for Clang, these are only a portion. To obtain the complete list,
+please refer to the official documentation for each compiler:</p>
+<ul class="simple">
+<li><p>Clang: <a class="reference external" href="https://clang.llvm.org/docs/AddressSanitizer.html">AddressSanitizer</a>,
+<a class="reference external" href="https://clang.llvm.org/docs/ThreadSanitizer.html">ThreadSanitizer</a>,
+<a class="reference external" href="https://clang.llvm.org/docs/MemorySanitizer.html">MemorySanitizer</a>,
+<a class="reference external" href="https://clang.llvm.org/docs/UndefinedBehaviorSanitizer.html">UndefinedBehaviorSanitizer</a>.</p></li>
+<li><p>GCC: <a class="reference external" href="https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html">Instrumentation Options</a>.</p></li>
+<li><p>MSVC: <a class="reference external" href="https://learn.microsoft.com/en-us/cpp/sanitizers/">MSVC Sanitizers</a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="binary-compatibility">
+<h2>Binary Compatibility<a class="headerlink" href="#binary-compatibility" title="Link to this heading">¶</a></h2>
+<section id="how-sanitizers-affect-your-binaries">
+<h3>How sanitizers affect your binaries<a class="headerlink" href="#how-sanitizers-affect-your-binaries" title="Link to this heading">¶</a></h3>
+<p>Sanitizers instrument your code at compile time, adding runtime checks and metadata.
+This changes your binary’s <strong>Application Binary Interface (ABI)</strong>, making instrumented code incompatible with non-instrumented code.</p>
+<p><strong>Key changes sanitizers make:</strong></p>
+<ul class="simple">
+<li><p><strong>Memory layout</strong>: Sanitizers add shadow memory, guard zones, or tracking metadata around your data</p></li>
+<li><p><strong>Function calls</strong>: Standard library functions (<code class="docutils literal notranslate"><span class="pre">malloc</span></code>, <code class="docutils literal notranslate"><span class="pre">free</span></code>, etc.) are wrapped or intercepted</p></li>
+<li><p><strong>Runtime dependencies</strong>: Instrumented code requires sanitizer runtime libraries (<code class="docutils literal notranslate"><span class="pre">libasan</span></code>, <code class="docutils literal notranslate"><span class="pre">libtsan</span></code>, etc.)</p></li>
+<li><p><strong>Linking</strong>: Mixing instrumented and non-instrumented code can cause crashes, false positives, or undefined behavior</p></li>
+</ul>
+</section>
+<section id="handling-external-code">
+<h3>Handling external code<a class="headerlink" href="#handling-external-code" title="Link to this heading">¶</a></h3>
+<p>When using sanitizers, you must consider how to handle third-party dependencies.
+As mixing instrumented and non-instrumented code can lead to issues, here are some strategies:</p>
+<p><strong>Always require full instrumentation:</strong></p>
+<ul class="simple">
+<li><p><strong>MemorySanitizer (MSan)</strong>: Changes function ABIs to pass shadow state.</p></li>
+<li><p><strong>DataFlowSanitizer (DFSan)</strong>: Explicitly modifies the ABI by appending label parameters to functions.</p></li>
+<li><p><strong>ThreadSanitizer (TSan)</strong>: Changes memory layout and intercepts synchronization primitives.
+Some code may not be instrumented by ThreadSanitizer, but not recommended.</p></li>
+</ul>
+<p><strong>Usually require full instrumentation:</strong></p>
+<ul class="simple">
+<li><p><strong>AddressSanitizer (ASan)</strong>: Adds redzones and shadow memory; Works with non-instrumented code, but not recommended.</p></li>
+<li><p><strong>HardwareAddressSanitizer (HWASan)</strong>: Similar to ASan but uses hardware tagging. Mixing is possible but not recommended.</p></li>
+</ul>
+<p><strong>Can often mix with non-instrumented code:</strong></p>
+<ul class="simple">
+<li><p><strong>UndefinedBehaviorSanitizer (UBSan)</strong>: Adds runtime checks for undefined behavior; Minimal ABI changes, safer to mix.</p></li>
+<li><p><strong>LeakSanitizer (LSan)</strong>: Detects memory leaks at program exit; When standalone, has minimal ABI impact.</p></li>
+</ul>
+<p>For reliable results, <strong>always</strong> rebuild your entire dependency tree with the same sanitizer configuration.</p>
+</section>
+</section>
+<section id="enabling-sanitizers">
+<h2>Enabling Sanitizers<a class="headerlink" href="#enabling-sanitizers" title="Link to this heading">¶</a></h2>
+<p>Conan cannot infer sanitizer flags from settings automatically.
+You have to pass the appropriate compiler and linker flags (e.g., <code class="docutils literal notranslate"><span class="pre">-fsanitize=</span></code> or <code class="docutils literal notranslate"><span class="pre">/fsanitize=address</span></code>) via profiles or toolchains.
+Conan toolchains (e.g., <code class="docutils literal notranslate"><span class="pre">CMakeToolchain</span></code>, <code class="docutils literal notranslate"><span class="pre">MesonToolchain</span></code>) will propagate flags defined in <code class="docutils literal notranslate"><span class="pre">[conf]</span></code> sections.</p>
+<section id="modeling-and-applying-sanitizers-using-settings">
+<h3>Modeling and applying sanitizers using settings<a class="headerlink" href="#modeling-and-applying-sanitizers-using-settings" title="Link to this heading">¶</a></h3>
+<p>If you want to model sanitizer options so that the package ID is affected by them, you can
+<a class="reference internal" href="../reference/config_files/settings.html#reference-config-files-customizing-settings"><span class="std std-ref">customize new compiler sub-settings</span></a>. You should not need
+to modify <code class="docutils literal notranslate"><span class="pre">settings.yml</span></code> directly; instead add <a class="reference internal" href="../examples/config_files/settings/settings_user.html#examples-config-files-settings-user"><span class="std std-ref">the settings_user.yml</span></a>.</p>
+<p>This approach is preferred because enabling a sanitizer alters the package ID, allowing you to build and use
+the same binary package with or without sanitizers. This is ideal for development and debugging workflows.</p>
+<section id="configuring-sanitizers-as-part-of-settings">
+<h4>Configuring sanitizers as part of settings<a class="headerlink" href="#configuring-sanitizers-as-part-of-settings" title="Link to this heading">¶</a></h4>
+<p>If you typically use a specific set of sanitizers or combinations for your builds, you can specify
+a sub-setting as a list of values in your <code class="docutils literal notranslate"><span class="pre">settings_user.yml</span></code>. For example, for Clang, GCC and MSVC:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">settings_user.yml</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">compiler</span><span class="p">:</span>
+<span class="w">   </span><span class="nt">clang</span><span class="p">:</span>
+<span class="hll"><span class="w">     </span><span class="nt">sanitizer</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">null</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">Address</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">Leak</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">Thread</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">Memory</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">UndefinedBehavior</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">HardwareAssistanceAddress</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">KernelAddress</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">AddressUndefinedBehavior</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">ThreadUndefinedBehavior</span><span class="p p-Indicator">]</span>
+</span><span class="w">   </span><span class="nt">gcc</span><span class="p">:</span>
+<span class="w">     </span><span class="nt">sanitizer</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">null</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">Address</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">Leak</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">Thread</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">UndefinedBehavior</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">KernelAddress</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">AddressUndefinedBehavior</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">ThreadUndefinedBehavior</span><span class="p p-Indicator">]</span>
+<span class="w">   </span><span class="nt">msvc</span><span class="p">:</span>
+<span class="w">     </span><span class="nt">sanitizer</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">null</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">Address</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">KernelAddress</span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+</div>
+<p>This example defines a few common sanitizers. You can add any sanitizer your compiler supports.
+The <code class="docutils literal notranslate"><span class="pre">null</span></code> value represents a build without sanitizers. The above models for Clang the use of <code class="docutils literal notranslate"><span class="pre">-fsanitize=address</span></code>,
+<code class="docutils literal notranslate"><span class="pre">-fsanitize=thread</span></code>, <code class="docutils literal notranslate"><span class="pre">-fsanitize=memory</span></code>, <code class="docutils literal notranslate"><span class="pre">-fsanitize=leak</span></code>, <code class="docutils literal notranslate"><span class="pre">-fsanitize=undefined</span></code>, <code class="docutils literal notranslate"><span class="pre">-fsanitize=hwaddress</span></code>,
+<code class="docutils literal notranslate"><span class="pre">-fsanitize=kernel-address</span></code>, as well as combinations like <code class="docutils literal notranslate"><span class="pre">-fsanitize=address,undefined</span></code> and <code class="docutils literal notranslate"><span class="pre">-fsanitize=thread,undefined</span></code>.</p>
+<p>As the <code class="docutils literal notranslate"><span class="pre">sanitizer</span></code> setting is a list, it can be choose by one single value at time.
+As an workaround to support mutiple sanitizers at same time, you can define combinations like
+<code class="docutils literal notranslate"><span class="pre">AddressUndefinedBehavior</span></code> and <code class="docutils literal notranslate"><span class="pre">ThreadUndefinedBehavior</span></code>, as listed above.
+There is no limitation on the number of combinations you can define, but keep in mind that these are only tags
+to help you manage your builds. You still need to pass the appropriate flags to the compiler and linker accordingly.</p>
+</section>
+</section>
+<section id="adding-sanitizers-as-part-of-the-profile">
+<h3>Adding sanitizers as part of the profile<a class="headerlink" href="#adding-sanitizers-as-part-of-the-profile" title="Link to this heading">¶</a></h3>
+<p>Another option is to add the sanitizer values as part of a profile. This way, you can easily switch between
+different configurations by using dedicated profiles.</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">compiler_sanitizers/profiles/gcc_asan</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[settings]</span>
+<span class="na">arch</span><span class="o">=</span><span class="s">x86_64</span>
+<span class="na">os</span><span class="o">=</span><span class="s">Linux</span>
+<span class="na">build_type</span><span class="o">=</span><span class="s">Debug</span>
+<span class="na">compiler</span><span class="o">=</span><span class="s">gcc</span>
+<span class="na">compiler.cppstd</span><span class="o">=</span><span class="s">gnu20</span>
+<span class="na">compiler.libcxx</span><span class="o">=</span><span class="s">libstdc++11</span>
+<span class="na">compiler.version</span><span class="o">=</span><span class="s">15</span>
+<span class="na">compiler.sanitizer</span><span class="o">=</span><span class="s">Address</span>
+
+<span class="k">[conf]</span>
+<span class="na">tools.build</span><span class="o">:</span><span class="s">cflags+=[&quot;-fsanitize=address&quot;, &quot;-fno-omit-frame-pointer&quot;]</span>
+<span class="na">tools.build</span><span class="o">:</span><span class="s">cxxflags+=[&quot;-fsanitize=address&quot;, &quot;-fno-omit-frame-pointer&quot;]</span>
+<span class="na">tools.build</span><span class="o">:</span><span class="s">exelinkflags+=[&quot;-fsanitize=address&quot;]</span>
+<span class="na">tools.build</span><span class="o">:</span><span class="s">sharedlinkflags+=[&quot;-fsanitize=address&quot;]</span>
+
+<span class="k">[runenv]</span>
+<span class="na">ASAN_OPTIONS</span><span class="o">=</span><span class="s">&quot;halt_on_error=1:detect_leaks=1&quot;</span>
+</pre></div>
+</div>
+</div>
+<p>For Visual Studio (MSVC) we can obtain an equivalent profile for AddressSanitizer:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">compiler_sanitizers/profiles/msvc_asan</span><a class="headerlink" href="#id3" title="Link to this code">¶</a></div>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[settings]</span>
+<span class="na">arch</span><span class="o">=</span><span class="s">x86_64</span>
+<span class="na">os</span><span class="o">=</span><span class="s">Windows</span>
+<span class="na">build_type</span><span class="o">=</span><span class="s">Debug</span>
+<span class="na">compiler</span><span class="o">=</span><span class="s">msvc</span>
+<span class="na">compiler.version</span><span class="o">=</span><span class="s">194</span>
+<span class="na">compiler.runtime</span><span class="o">=</span><span class="s">dynamic</span>
+<span class="na">compiler.runtime_type</span><span class="o">=</span><span class="s">Release</span>
+<span class="na">compiler.sanitizer</span><span class="o">=</span><span class="s">Address</span>
+
+<span class="k">[conf]</span>
+<span class="na">tools.build</span><span class="o">:</span><span class="s">cxxflags+=[&quot;/fsanitize=address&quot;, &quot;/Zi&quot;]</span>
+<span class="na">tools.build</span><span class="o">:</span><span class="s">exelinkflags+=[&quot;/fsanitize=address&quot;]</span>
+</pre></div>
+</div>
+</div>
+<p>The Conan client is not capable of deducing the necessary flags from the settings and applying them automatically
+during the build process. It is necessary to pass the expected sanitizer flags according to the
+<code class="docutils literal notranslate"><span class="pre">compiler.sanitizer</span></code> value as part of the compiler and linker flags.
+Conan’s built-in toolchains (like <code class="docutils literal notranslate"><span class="pre">CMakeToolchain</span></code> and <code class="docutils literal notranslate"><span class="pre">MesonToolchain</span></code>) will automatically
+pick up the flags defined in the <code class="docutils literal notranslate"><span class="pre">[conf]</span></code> section and apply them to the build.</p>
+</section>
+<section id="managing-sanitizers-with-a-custom-cmake-toolchain">
+<h3>Managing sanitizers with a custom CMake toolchain<a class="headerlink" href="#managing-sanitizers-with-a-custom-cmake-toolchain" title="Link to this heading">¶</a></h3>
+<p>Besides using Conan profiles to manage sanitizer settings, you can also use other approaches.</p>
+<p>If you already have a <a class="reference internal" href="../reference/tools/cmake/cmaketoolchain.html#conan-cmake-user-toolchain"><span class="std std-ref">custom CMake toolchain file</span></a> to manage compiler
+and build options, you can pass the necessary flags to enable sanitizers there instead of profiles.</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">cmake/my_toolchain.cmake</span><a class="headerlink" href="#id4" title="Link to this code">¶</a></div>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="c"># Apply to all targets; consider per-target options for finer control</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_C_FLAGS</span><span class="w"> </span><span class="s2">&quot;${CMAKE_C_FLAGS} -fsanitize=address,undefined -fno-omit-frame-pointer&quot;</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_FLAGS</span><span class="w"> </span><span class="s2">&quot;${CMAKE_CXX_FLAGS} -fsanitize=address,undefined -fno-omit-frame-pointer&quot;</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_EXE_LINKER_FLAGS</span><span class="w"> </span><span class="s2">&quot;${CMAKE_EXE_LINKER_FLAGS} -fsanitize=address,undefined&quot;</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_SHARED_LINKER_FLAGS</span><span class="w"> </span><span class="s2">&quot;${CMAKE_SHARED_LINKER_FLAGS} -fsanitize=address,undefined&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Then, specify this toolchain file as part of your Conan profile:</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">profiles/gcc_asan_ubsan</span><a class="headerlink" href="#id5" title="Link to this code">¶</a></div>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[settings]</span>
+<span class="na">arch</span><span class="o">=</span><span class="s">x86_64</span>
+<span class="na">os</span><span class="o">=</span><span class="s">Linux</span>
+<span class="na">build_type</span><span class="o">=</span><span class="s">Debug</span>
+<span class="na">compiler</span><span class="o">=</span><span class="s">gcc</span>
+<span class="na">compiler.cppstd</span><span class="o">=</span><span class="s">gnu20</span>
+<span class="na">compiler.libcxx</span><span class="o">=</span><span class="s">libstdc++11</span>
+<span class="na">compiler.version</span><span class="o">=</span><span class="s">15</span>
+<span class="na">compiler.sanitizer</span><span class="o">=</span><span class="s">AddressUndefinedBehavior</span>
+
+<span class="k">[conf]</span>
+<span class="na">tools.cmake.cmaketoolchain</span><span class="o">:</span><span class="s">user_toolchain=[&quot;&lt;path_to&gt;/cmake/my_toolchain.cmake&quot;]</span>
+</pre></div>
+</div>
+</div>
+<p>This way, you can keep your existing CMake toolchain file and still leverage Conan profiles to manage other settings.</p>
+<p>Note that this approach only works if all dependencies are built using CMake and the <code class="docutils literal notranslate"><span class="pre">CMakeToolchain</span></code> integration.
+If you have dependencies using other build systems (e.g., Meson, Autotools), those dependencies will not receive the sanitizer flags
+defined in your custom CMake toolchain file.</p>
+</section>
+<section id="managing-sanitizers-as-a-custom-cmake-build-type">
+<h3>Managing sanitizers as a custom CMake Build Type<a class="headerlink" href="#managing-sanitizers-as-a-custom-cmake-build-type" title="Link to this heading">¶</a></h3>
+<p>Another option, without using the custom <code class="docutils literal notranslate"><span class="pre">compiler.sanitizer</span></code> setting, is to define sanitizers as a custom CMake build type. In this approach, you select the sanitizer configuration by choosing the build type during the CMake configure step.
+To achieve this, you can create a custom CMake toolchain file that maps build types to sanitizer flags. For example:</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">cmake/sanitizer_toolchain.cmake</span><a class="headerlink" href="#id6" title="Link to this code">¶</a></div>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">if</span><span class="p">(</span><span class="s">CMAKE_BUILD_TYPE</span><span class="w"> </span><span class="s">STREQUAL</span><span class="w"> </span><span class="s2">&quot;DebugASan&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="nb">set</span><span class="p">(</span><span class="s">SANITIZER_FLAGS</span><span class="w"> </span><span class="s2">&quot;-g -fsanitize=address -fno-omit-frame-pointer&quot;</span><span class="p">)</span>
+<span class="nb">elseif</span><span class="p">(</span><span class="s">CMAKE_BUILD_TYPE</span><span class="w"> </span><span class="s">STREQUAL</span><span class="w"> </span><span class="s2">&quot;DebugUBSan&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="nb">set</span><span class="p">(</span><span class="s">SANITIZER_FLAGS</span><span class="w"> </span><span class="s2">&quot;-g -fsanitize=undefined -fno-omit-frame-pointer&quot;</span><span class="p">)</span>
+<span class="nb">elseif</span><span class="p">(</span><span class="s">CMAKE_BUILD_TYPE</span><span class="w"> </span><span class="s">STREQUAL</span><span class="w"> </span><span class="s2">&quot;DebugASanUBSan&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="nb">set</span><span class="p">(</span><span class="s">SANITIZER_FLAGS</span><span class="w"> </span><span class="s2">&quot;-g -fsanitize=address,undefined -fno-omit-frame-pointer&quot;</span><span class="p">)</span>
+<span class="nb">else</span><span class="p">()</span>
+<span class="w">    </span><span class="nb">set</span><span class="p">(</span><span class="s">SANITIZER_FLAGS</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_C_FLAGS</span><span class="w"> </span><span class="s2">&quot;${CMAKE_C_FLAGS} ${SANITIZER_FLAGS}&quot;</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_FLAGS</span><span class="w"> </span><span class="s2">&quot;${CMAKE_CXX_FLAGS} ${SANITIZER_FLAGS}&quot;</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_EXE_LINKER_FLAGS</span><span class="w"> </span><span class="s2">&quot;${CMAKE_EXE_LINKER_FLAGS} ${SANITIZER_FLAGS}&quot;</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_SHARED_LINKER_FLAGS</span><span class="w"> </span><span class="s2">&quot;${CMAKE_SHARED_LINKER_FLAGS} ${SANITIZER_FLAGS}&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Also, you will need to update your <code class="docutils literal notranslate"><span class="pre">settings_user.yml</span></code> to include the new build types:</p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">settings_user.yml</span><a class="headerlink" href="#id7" title="Link to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="hll"><span class="nt">build_type</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">DebugASan</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">DebugUBSan</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">DebugASanUBSan</span><span class="p p-Indicator">]</span>
+</span></pre></div>
+</div>
+</div>
+<p>Then, in your Conan profile, specify this toolchain file:</p>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">profiles/gcc_asan_ubsan</span><a class="headerlink" href="#id8" title="Link to this code">¶</a></div>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[settings]</span>
+<span class="na">arch</span><span class="o">=</span><span class="s">x86_64</span>
+<span class="na">os</span><span class="o">=</span><span class="s">Linux</span>
+<span class="na">build_type</span><span class="o">=</span><span class="s">DebugASan</span>
+<span class="na">compiler</span><span class="o">=</span><span class="s">gcc</span>
+<span class="na">compiler.cppstd</span><span class="o">=</span><span class="s">gnu20</span>
+<span class="na">compiler.libcxx</span><span class="o">=</span><span class="s">libstdc++11</span>
+<span class="na">compiler.version</span><span class="o">=</span><span class="s">15</span>
+
+<span class="k">[conf]</span>
+<span class="na">tools.cmake.cmaketoolchain</span><span class="o">:</span><span class="s">user_toolchain=[&quot;&lt;path_to&gt;/sanitizer_toolchain.cmake&quot;]</span>
+</pre></div>
+</div>
+</div>
+<p>Be aware that this approach uses a custom build type, as a result, Conan will not automatically
+apply the standard flags associated with the Debug build type. Therefore, in your custom toolchain file,
+you need to also define the flags that correspond to the desired based build type, for example, that <code class="docutils literal notranslate"><span class="pre">-g</span></code>
+flag that matches the Debug <code class="docutils literal notranslate"><span class="pre">build_type</span></code> in gcc-like compilers.</p>
+<p>Using this approach, you can easily switch between different sanitizer configurations and standard build types,
+preserving the package ID differentiation based on the build type.</p>
+</section>
+</section>
+<section id="practical-usage-examples">
+<h2>Practical Usage Examples<a class="headerlink" href="#practical-usage-examples" title="Link to this heading">¶</a></h2>
+<p>For practical examples of using sanitizers with Conan, please refer to the
+<a class="reference internal" href="../examples/security/sanitizers.html#examples-security-sanitizers"><span class="std std-ref">Building Examples Using Sanitizers</span></a> section in the examples.</p>
+</section>
+<section id="additional-recommendations">
+<h2>Additional recommendations<a class="headerlink" href="#additional-recommendations" title="Link to this heading">¶</a></h2>
+<ul>
+<li><p>Debug info and optimization:</p>
+<ul class="simple">
+<li><p>For ASan/TSan and when using GCC or Clang, the compiler flags <code class="docutils literal notranslate"><span class="pre">-O1</span></code> or <code class="docutils literal notranslate"><span class="pre">-O2</span></code> generally works;
+for MSan, prefer <code class="docutils literal notranslate"><span class="pre">-O1</span></code> and avoid aggressive inlining.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-fno-omit-frame-pointer</span></code> helps stack traces.</p></li>
+</ul>
+</li>
+<li><p>Runtime symbolization:</p>
+<p>Some sanitizers can be configured to provide better stack traces and error reports.
+These features can be enabled via environment variables,
+such as <code class="docutils literal notranslate"><span class="pre">ASAN_OPTIONS</span></code> and <code class="docutils literal notranslate"><span class="pre">UBSAN_OPTIONS</span></code> for compilers like GCC and Clang.</p>
+<ul>
+<li><p>Useful settings for CI:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">ASAN_OPTIONS=halt_on_error=1:detect_leaks=1:log_path=asan</span></code>.</p>
+<p>This configuration makes AddressSanitizer stop execution on the first error,
+enables leak detection, and logs the output to a file named <code class="docutils literal notranslate"><span class="pre">asan</span></code>.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">UBSAN_OPTIONS=print_stacktrace=1:halt_on_error=1:log_path=ubsan</span></code>.</p>
+<p>This setup instructs UndefinedBehaviorSanitizer to print stack traces
+in a human-readable format, halt on the first error,
+and log the output to a file named <code class="docutils literal notranslate"><span class="pre">ubsan</span></code>.</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Suppressions:</p>
+<blockquote>
+<div><p>If certain known issues are not relevant for your testing, you can create suppression files
+to filter them out from the sanitizer reports.</p>
+</div></blockquote>
+<ul>
+<li><p>For ASan: <code class="docutils literal notranslate"><span class="pre">ASAN_OPTIONS=suppressions=asan.supp</span></code>.</p>
+<p>Create a file named <code class="docutils literal notranslate"><span class="pre">asan.supp</span></code> with the following content:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>leak:FreeMyObject
+</pre></div>
+</div>
+<p>This example suppresses leak reports originating from <code class="docutils literal notranslate"><span class="pre">FreeMyObject</span></code>.</p>
+</li>
+<li><p>For UBSan: <code class="docutils literal notranslate"><span class="pre">UBSAN_OPTIONS=suppressions=ubsan.supp</span></code>.</p>
+<blockquote>
+<div><p>Create a file named <code class="docutils literal notranslate"><span class="pre">ubsan.supp</span></code> with the following content:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>signed-integer-overflow IncreaseCounter
+</pre></div>
+</div>
+<p>This example suppresses signed integer overflow reports from <code class="docutils literal notranslate"><span class="pre">IncreaseCounter</span></code>.</p>
+</div></blockquote>
+</li>
+</ul>
+</li>
+<li><p>Third-party dependencies:</p>
+<ul class="simple">
+<li><p>Mixed instrumented/uninstrumented code can lead to false positives or crashes, especially with MSan.</p></li>
+<li><p>Prefer building dependencies with the same sanitizer or limit sanitizers to leaf applications.</p></li>
+</ul>
+</li>
+<li><p>MSVC and Windows notes:</p>
+<ul class="simple">
+<li><p>ASan with MSVC/Clang-cl uses <code class="docutils literal notranslate"><span class="pre">/fsanitize=address</span></code> and PDBs via <code class="docutils literal notranslate"><span class="pre">/Zi</span></code>. Not supported for 32-bit targets.</p></li>
+<li><p>KAsan requires Windows 11.</p></li>
+<li><p>Some features are limited when using whole program optimization (<code class="docutils literal notranslate"><span class="pre">/GL</span></code>) or certain runtime libraries.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="guidelines.html" class="btn btn-neutral float-left" title="Security guidelines" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../integrations.html" class="btn btn-neutral float-right" title="Integrations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2024, JFrog.
+      <span class="lastupdated">Last updated on Feb 25, 2026.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 2.22
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.26/index.html">2.26</a></dd>
+        
+    
+        
+            <dd><a href="/2.25/index.html">2.25</a></dd>
+        
+    
+        
+            <dd><a href="/2.24/index.html">2.24</a></dd>
+        
+    
+        
+            <dd><a href="/2.23/index.html">2.23</a></dd>
+        
+    
+        
+            <dd><a href="/2.22/index.html">2.22</a></dd>
+        
+    
+        
+            <dd><a href="/2.21/index.html">2.21</a></dd>
+        
+    
+        
+            <dd><a href="/2.20/index.html">2.20</a></dd>
+        
+    
+        
+            <dd><a href="/2.19/index.html">2.19</a></dd>
+        
+    
+        
+            <dd><a href="/2.18/index.html">2.18</a></dd>
+        
+    
+        
+            <dd><a href="/2.17/index.html">2.17</a></dd>
+        
+    
+        
+            <dd><a href="/2.16/index.html">2.16</a></dd>
+        
+    
+        
+            <dd><a href="/2.15/index.html">2.15</a></dd>
+        
+    
+        
+            <dd><a href="/2.14/index.html">2.14</a></dd>
+        
+    
+        
+            <dd><a href="/2.13/index.html">2.13</a></dd>
+        
+    
+        
+            <dd><a href="/2.12/index.html">2.12</a></dd>
+        
+    
+        
+            <dd><a href="/2.11/index.html">2.11</a></dd>
+        
+    
+        
+            <dd><a href="/2.10/index.html">2.10</a></dd>
+        
+    
+        
+            <dd><a href="/2.9/index.html">2.9</a></dd>
+        
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+        <details>
+            <summary>Conan 1 releases</summary>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.66/index.html">1.66</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+        </details>
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/2.22/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://gtm.jfrog.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

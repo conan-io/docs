@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checking package vulnerabilities &mdash; conan 2.25.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=2da93098" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=a5c4661c" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/conan.css?v=7d9e9f1e" />
+
+  
+    <link rel="shortcut icon" href="../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/devops/audit.html" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=aea92517"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Package compression format" href="compression.html" />
+    <link rel="prev" title="Package promotions" href="package_promotions.html" />
+
+
+<script
+  data-cfasync="false"
+  data-tracker-overrides="GoogleConsentMode:security_storage=on;ad_storage=SaleOfInfo,Advertising;ad_user_data=SaleOfInfo,Advertising;ad_personalization=SaleOfInfo,Advertising;analytics_storage=Analytics,SaleOfInfo;functionality_storage=Functional,SaleOfInfo;personalization_storage=Functional,SaleOfInfo"
+  src="https://transcend-cdn.com/cm/f0071674-c641-4cf3-9d31-303ec0c86b1b/airgap.js" data-languages="en"
+></script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://gtm.jfrog.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+<script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "GTM-WK44ZFM");
+      gtag('set', 'developer_id.dODQ2Mj', true);
+</script>
+
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/conan-docs-logo-2.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.25
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ci_tutorial/tutorial.html">CI Tutorial</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="devops.html">Devops guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="using_conancenter.html">Using ConanCenter packages in production environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devops_local_recipes_index.html">Local Recipes Index Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="backup_sources/sources_backup.html">Backing up third-party sources with Conan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metadata.html">Managing package metadata files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="versioning/versioning.html">Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="save_restore.html">Save and restore packages from/to the cache</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vendoring.html">Vendoring dependencies in Conan packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="package_promotions.html">Package promotions</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Checking package vulnerabilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compression.html">Package compression format</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../security/security.html">Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../knowledge.html">Knowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../incubating.html">Incubating features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">What’s new in Conan 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit;z-index:1" id="conan-banners">
+            
+            <div style="border: 2px solid #4a7d7e; background-color: #e6f2f2; padding: 8px">
+                <p>
+                  📖 The complete Conan 2 training is now available for free on
+                  JFrog Academy: <a
+                  href="https://academy.jfrog.com/path/conan-cc-package-manager?utm_source=Conan+Docs"
+                  target="_blank">Essentials</a> and <a
+                  href="https://academy.jfrog.com/path/conan-2-advanced?utm_source=Conan+Docs"
+                  target="_blank">Advanced</a>.
+                </p>
+              </div>                                                  
+          </div>
+          
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/devops/audit.html">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="devops.html">Devops guide</a></li>
+      <li class="breadcrumb-item active">Checking package vulnerabilities</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="checking-package-vulnerabilities">
+<span id="devops-audit"></span><h1>Checking package vulnerabilities<a class="headerlink" href="#checking-package-vulnerabilities" title="Link to this heading">¶</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This feature is experimental and subject to breaking changes.
+See <a class="reference internal" href="../introduction.html#stability"><span class="std std-ref">the Conan stability</span></a> section for more information.</p>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">audit</span></code> command (introduced in Conan 2.14.0) is used to check for known
+vulnerabilities in your Conan packages.</p>
+<p>By default, Conan provides access to a ConanCenter provider, which is a public provider that checks
+for vulnerabilities in ConanCenter packages, which uses JFrog Advanced Security to scan packages.</p>
+<section id="requesting-a-token">
+<h2>Requesting a token<a class="headerlink" href="#requesting-a-token" title="Link to this heading">¶</a></h2>
+<p>To use the command, you will first need to register for the free service at
+<a class="reference external" href="https://audit.conan.io/register">https://audit.conan.io/register</a>. After registering, you will receive an email
+with an activation link. Clicking this link will take you to a page where your
+personal access token is displayed.</p>
+<p>Once you have your token, you can authenticate the <code class="docutils literal notranslate"><span class="pre">conancenter</span></code> provider with
+it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>audit<span class="w"> </span>provider<span class="w"> </span>auth<span class="w"> </span>conancenter<span class="w"> </span>--token<span class="o">=</span>&lt;your_token&gt;
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Using <code class="docutils literal notranslate"><span class="pre">--token</span></code> in the command line may expose your token in the shell history. To
+prevent this, set it as an environment variable named after the provider in uppercase.
+For example, for <cite>conancenter</cite>, use:
+<code class="docutils literal notranslate"><span class="pre">CONAN_AUDIT_PROVIDER_TOKEN_CONANCENTER=&lt;token&gt;</span></code>.</p>
+</div>
+</section>
+<section id="scanning-packages">
+<h2>Scanning packages<a class="headerlink" href="#scanning-packages" title="Link to this heading">¶</a></h2>
+<p>Once you have authenticated, you can check for vulnerabilities in your packages with the
+<code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">audit</span> <span class="pre">scan</span></code> and <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">audit</span> <span class="pre">list</span></code> commands.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">audit</span> <span class="pre">scan</span></code> will check for the vulnerabilities of the given package(s) and their dependencies.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">audit</span> <span class="pre">list</span></code> will list the vulnerabilities of the given package(s) without checking their dependencies.</p></li>
+</ul>
+</div></blockquote>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>audit<span class="w"> </span>list<span class="w"> </span>openssl/1.1.1w
+
+Requesting<span class="w"> </span>vulnerability<span class="w"> </span>info<span class="w"> </span><span class="k">for</span>:<span class="w"> </span>openssl/1.1.1w
+
+******************
+*<span class="w"> </span>openssl/1.1.1w<span class="w"> </span>*
+******************
+
+<span class="m">2</span><span class="w"> </span>vulnerabilities<span class="w"> </span>found:
+
+-<span class="w"> </span>CVE-2023-5678<span class="w"> </span><span class="o">(</span>Severity:<span class="w"> </span>Medium,<span class="w"> </span>CVSS:<span class="w"> </span><span class="m">5</span>.3<span class="o">)</span>
+
+<span class="w">  </span>Issue<span class="w"> </span>summary:<span class="w"> </span>Generating<span class="w"> </span>excessively<span class="w"> </span>long<span class="w"> </span>X9.42<span class="w"> </span>DH<span class="w"> </span>keys<span class="w"> </span>or<span class="w"> </span>checking
+<span class="w">  </span>excessively<span class="w"> </span>long<span class="w"> </span>X9.42<span class="w"> </span>DH<span class="w"> </span>keys<span class="w"> </span>or<span class="w"> </span>parameters<span class="w"> </span>may<span class="w"> </span>be<span class="w"> </span>very<span class="w"> </span>slow.<span class="w">  </span>Impact<span class="w"> </span>summary:
+<span class="w">  </span>Applications<span class="w"> </span>that<span class="w"> </span>use<span class="w"> </span>the<span class="w"> </span>functions<span class="w"> </span>DH_generate_key<span class="o">()</span><span class="w"> </span>to<span class="w"> </span>generate<span class="w"> </span>an<span class="w"> </span>X9.42<span class="w"> </span>DH
+<span class="w">  </span>key<span class="w"> </span>may<span class="w"> </span>exper...
+<span class="w">  </span>url:<span class="w"> </span>https://git.openssl.org/gitweb/?p<span class="o">=</span>openssl.git<span class="p">;</span><span class="nv">a</span><span class="o">=</span>commitdiff<span class="p">;</span><span class="nv">h</span><span class="o">=</span>db925ae2e65d0d925adef429afc37f75bd1c2017
+
+-<span class="w"> </span>CVE-2024-0727<span class="w"> </span><span class="o">(</span>Severity:<span class="w"> </span>Medium,<span class="w"> </span>CVSS:<span class="w"> </span><span class="m">5</span>.5<span class="o">)</span>
+
+<span class="w">  </span>Issue<span class="w"> </span>summary:<span class="w"> </span>Processing<span class="w"> </span>a<span class="w"> </span>maliciously<span class="w"> </span>formatted<span class="w"> </span>PKCS12<span class="w"> </span>file<span class="w"> </span>may<span class="w"> </span>lead<span class="w"> </span>OpenSSL
+<span class="w">  </span>to<span class="w"> </span>crash<span class="w"> </span>leading<span class="w"> </span>to<span class="w"> </span>a<span class="w"> </span>potential<span class="w"> </span>Denial<span class="w"> </span>of<span class="w"> </span>Service<span class="w"> </span>attack<span class="w">  </span>Impact<span class="w"> </span>summary:
+<span class="w">  </span>Applications<span class="w"> </span>loading<span class="w"> </span>files<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>PKCS12<span class="w"> </span>format<span class="w"> </span>from<span class="w"> </span>untrusted<span class="w"> </span>sources<span class="w"> </span>might
+<span class="w">  </span>terminate<span class="w"> </span>...
+<span class="w">  </span>url:<span class="w"> </span>https://github.com/alexcrichton/openssl-src-rs/commit/add20f73b6b42be7451af2e1044d4e0e778992b2
+
+Total<span class="w"> </span>vulnerabilities<span class="w"> </span>found:<span class="w"> </span><span class="m">2</span>
+
+
+Summary:
+
+-<span class="w"> </span>openssl/1.1.1w<span class="w"> </span><span class="m">2</span><span class="w"> </span>vulnerabilities<span class="w"> </span>found
+
+Vulnerability<span class="w"> </span>information<span class="w"> </span>provided<span class="w"> </span>by<span class="w"> </span>JFrog.<span class="w"> </span>Please<span class="w"> </span>check<span class="w"> </span>https://jfrog.com/advanced-security/<span class="w"> </span><span class="k">for</span><span class="w"> </span>more<span class="w"> </span>information.
+You<span class="w"> </span>can<span class="w"> </span>send<span class="w"> </span>questions<span class="w"> </span>and<span class="w"> </span>report<span class="w"> </span>issues<span class="w"> </span>about<span class="w"> </span>the<span class="w"> </span>returned<span class="w"> </span>vulnerabilities<span class="w"> </span>to<span class="w"> </span>conan-research@jfrog.com.
+</pre></div>
+</div>
+<p>To scan the entire dependency graph of a package, the simplest way is using the <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">audit</span> <span class="pre">scan</span></code> command
+and providing a path to your conanfile, just as you would do with other Conan commands such as <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">install</span></code>.</p>
+<p>For example, for a project with a conanfile.txt:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[requires]</span>
+<span class="na">libpng/1.5.30</span>
+<span class="na">openssl/1.1.1w</span>
+</pre></div>
+</div>
+<p>You can run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ conan audit scan .
+</pre></div>
+</div>
+<p>Note that all of these commands support various output formats, such as JSON and HTML.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ conan audit scan . -f=html &gt; report.html
+</pre></div>
+</div>
+<p>This generates an HTML report with the vulnerabilities found in the given package(s) and their dependencies,
+which will look something like:</p>
+<a class="reference internal image-reference" href="../_images/audit-report.png"><img alt="Conan audit report" class="align-center" src="../_images/audit-report.png" style="width: 100%;" /></a>
+<p>The scan also has the threshold option <code class="docutils literal notranslate"><span class="pre">--severity-level</span></code>, which allows you to set a minimum severity level for the vulnerabilities.
+In case the threshold value is surpassed by any of the vulnerabilities found, the command will return a non-zero exit code.
+By default, it’s set to 9.0 (Critical), but you can set it to a lower value to include lower severity vulnerabilities in the report.
+To disable the threshold, set it to 100.0.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ conan audit scan . --severity-level=5.0
+...
+The package openssl/1.1.1w has a CVSS score 5.3 and exceeded the threshold severity level 5.0.
+</pre></div>
+</div>
+</section>
+<section id="adding-private-providers">
+<span id="devops-audit-private-providers"></span><h2>Adding private providers<a class="headerlink" href="#adding-private-providers" title="Link to this heading">¶</a></h2>
+<p>You can add your own private providers to the list of providers used by the <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">audit</span></code> subcommands.
+For now, only JFrog Advanced Security providers are supported.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To use these private providers, your Artifactory license should include a subscription
+to JFrog Curation</p>
+</div>
+<p>To add a provider, the recommended way is to first create a specific user in Artifactory to use as the read-only user,
+which can be given no extra permissions. Then, after creating an access token for the user, you can add the provider
+with the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>audit<span class="w"> </span>provider<span class="w"> </span>add<span class="w"> </span>myprovider<span class="w"> </span>--type<span class="o">=</span>private<span class="w"> </span>--url<span class="o">=</span>https://your.artifactory.url<span class="w"> </span>--token<span class="o">=</span>&lt;your_token&gt;
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Instead of using the <code class="docutils literal notranslate"><span class="pre">--token</span></code> argument in the command line, which may expose your
+token in the shell history, you can authenticate with the provider using an environment
+variable. Set the <code class="docutils literal notranslate"><span class="pre">CONAN_AUDIT_PROVIDER_TOKEN_&lt;PROVIDER_NAME&gt;</span></code> environment variable
+with the token value, replacing <cite>&lt;PROVIDER_NAME&gt;</cite> with the provider name in uppercase
+and using underscores (<cite>_</cite>) instead of hyphens (<cite>-</cite>).</p>
+<p>For example, for <cite>myprovider</cite>, use: <code class="docutils literal notranslate"><span class="pre">CONAN_AUDIT_PROVIDER_TOKEN_MYPROVIDER=&lt;token&gt;</span></code>.</p>
+</div>
+<p>Note the <code class="docutils literal notranslate"><span class="pre">--type=private</span></code> argument, which specifies that the provider is a private provider, and that the supplied URL
+should be the base URL of the Artifactory instance.</p>
+<p>You can now use the provider with the <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">audit</span> <span class="pre">scan</span></code> and <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">audit</span> <span class="pre">list</span></code>
+commands <strong>without any limitation on the number of requests</strong>, by specifying the provider
+name using the <code class="docutils literal notranslate"><span class="pre">-p</span></code> / <code class="docutils literal notranslate"><span class="pre">--provider</span></code> argument.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ conan audit scan . -p=myprovider
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p>For detailed reference documentation on all <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">audit</span></code> subcommands and their
+options, consult the <a class="reference internal" href="../reference/commands/audit.html#reference-commands-audit"><span class="std std-ref">conan audit command reference</span></a>.</p></li>
+<li><p>Read more in the dedicated <a class="reference external" href="https://blog.conan.io/introducing-conan-audit-command/">blog post</a>.</p></li>
+<li><p>Please check the <a class="reference internal" href="../security/security.html#security"><span class="std std-ref">conan audit command reference</span></a> for other security
+related features.</p></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="package_promotions.html" class="btn btn-neutral float-left" title="Package promotions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="compression.html" class="btn btn-neutral float-right" title="Package compression format" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2026, JFrog.
+      <span class="lastupdated">Last updated on Feb 25, 2026.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 2.25
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.26/index.html">2.26</a></dd>
+        
+    
+        
+            <dd><a href="/2.25/index.html">2.25</a></dd>
+        
+    
+        
+            <dd><a href="/2.24/index.html">2.24</a></dd>
+        
+    
+        
+            <dd><a href="/2.23/index.html">2.23</a></dd>
+        
+    
+        
+            <dd><a href="/2.22/index.html">2.22</a></dd>
+        
+    
+        
+            <dd><a href="/2.21/index.html">2.21</a></dd>
+        
+    
+        
+            <dd><a href="/2.20/index.html">2.20</a></dd>
+        
+    
+        
+            <dd><a href="/2.19/index.html">2.19</a></dd>
+        
+    
+        
+            <dd><a href="/2.18/index.html">2.18</a></dd>
+        
+    
+        
+            <dd><a href="/2.17/index.html">2.17</a></dd>
+        
+    
+        
+            <dd><a href="/2.16/index.html">2.16</a></dd>
+        
+    
+        
+            <dd><a href="/2.15/index.html">2.15</a></dd>
+        
+    
+        
+            <dd><a href="/2.14/index.html">2.14</a></dd>
+        
+    
+        
+            <dd><a href="/2.13/index.html">2.13</a></dd>
+        
+    
+        
+            <dd><a href="/2.12/index.html">2.12</a></dd>
+        
+    
+        
+            <dd><a href="/2.11/index.html">2.11</a></dd>
+        
+    
+        
+            <dd><a href="/2.10/index.html">2.10</a></dd>
+        
+    
+        
+            <dd><a href="/2.9/index.html">2.9</a></dd>
+        
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+        <details>
+            <summary>Conan 1 releases</summary>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.66/index.html">1.66</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+        </details>
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/2.25/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://gtm.jfrog.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

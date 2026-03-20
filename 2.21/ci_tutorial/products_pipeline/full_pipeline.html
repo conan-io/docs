@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Products pipeline: distributed full pipeline with lockfiles &mdash; conan 2.21.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=2da93098" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../_static/tabs.css?v=a5c4661c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/conan.css?v=7d9e9f1e" />
+
+  
+    <link rel="shortcut icon" href="../../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/ci_tutorial/products_pipeline/full_pipeline.html" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=210d0441"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Devops guide" href="../../devops/devops.html" />
+    <link rel="prev" title="Products pipeline: multi-product multi-configuration builds" href="multi_product.html" />
+
+
+<script
+  data-cfasync="false"
+  data-tracker-overrides="GoogleConsentMode:security_storage=on;ad_storage=SaleOfInfo,Advertising;ad_user_data=SaleOfInfo,Advertising;ad_personalization=SaleOfInfo,Advertising;analytics_storage=Analytics,SaleOfInfo;functionality_storage=Functional,SaleOfInfo;personalization_storage=Functional,SaleOfInfo"
+  src="https://transcend-cdn.com/cm/f0071674-c641-4cf3-9d31-303ec0c86b1b/airgap.js" data-languages="en"
+></script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://gtm.jfrog.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+<script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "GTM-WK44ZFM");
+      gtag('set', 'developer_id.dODQ2Mj', true);
+</script>
+
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/conan-docs-logo-2.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.21
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../tutorial.html">CI Tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../project_setup.html">Project setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../packages_pipeline.html">Packages pipeline</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../products_pipeline.html">Products pipeline</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="single_configuration.html">Products pipeline: single configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="build_order.html">Products pipeline: the build-order</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multi_product.html">Products pipeline: multi-product multi-configuration builds</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Products pipeline: distributed full pipeline with lockfiles</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../devops/devops.html">Devops guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../security/security.html">Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../knowledge.html">Knowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../incubating.html">Incubating features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../whatsnew.html">What’s new in Conan 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit;z-index:1" id="conan-banners">
+            
+            <div style="border: 2px solid #4a7d7e; background-color: #e6f2f2; padding: 8px">
+                <p>
+                  📖 The complete Conan 2 training is now available for free on
+                  JFrog Academy: <a
+                  href="https://academy.jfrog.com/path/conan-cc-package-manager?utm_source=Conan+Docs"
+                  target="_blank">Essentials</a> and <a
+                  href="https://academy.jfrog.com/path/conan-2-advanced?utm_source=Conan+Docs"
+                  target="_blank">Advanced</a>.
+                </p>
+              </div>                                                  
+          </div>
+          
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/ci_tutorial/products_pipeline/full_pipeline.html">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../tutorial.html">Continuous Integration (CI) tutorial</a></li>
+          <li class="breadcrumb-item"><a href="../products_pipeline.html">Products pipeline</a></li>
+      <li class="breadcrumb-item active">Products pipeline: distributed full pipeline with lockfiles</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="products-pipeline-distributed-full-pipeline-with-lockfiles">
+<h1>Products pipeline: distributed full pipeline with lockfiles<a class="headerlink" href="#products-pipeline-distributed-full-pipeline-with-lockfiles" title="Link to this heading">¶</a></h1>
+<p>This section will present the full and complete implementation of a multi-product, multi-configuration
+distributed CI pipeline. It will cover important implementation details:</p>
+<ul class="simple">
+<li><p>Using lockfiles to guarantee a consistent and fixed set of dependencies for all configurations.</p></li>
+<li><p>Uploading built packages to the <code class="docutils literal notranslate"><span class="pre">products</span></code> repository.</p></li>
+<li><p>Capturing “package lists” and using them to run the final promotion.</p></li>
+<li><p>How to iterate the “build-order” programmatically</p></li>
+</ul>
+<p>Let’s start as usual cleaning the local cache and defining the correct repos:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># First clean the local &quot;build&quot; folder</span>
+$<span class="w"> </span><span class="nb">pwd</span><span class="w">  </span><span class="c1"># should be &lt;path&gt;/examples2/ci/game</span>
+$<span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>build<span class="w">  </span><span class="c1"># clean the temporary build folder</span>
+$<span class="w"> </span>mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build<span class="w"> </span><span class="c1"># To put temporary files</span>
+
+$<span class="w"> </span>conan<span class="w"> </span>remove<span class="w"> </span><span class="s2">&quot;*&quot;</span><span class="w"> </span>-c<span class="w">  </span><span class="c1"># Make sure no packages from last run</span>
+<span class="c1"># NOTE: The products repo is first, it will have higher priority.</span>
+$<span class="w"> </span>conan<span class="w"> </span>remote<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>products
+</pre></div>
+</div>
+<p>Similarly to what we did in the <code class="docutils literal notranslate"><span class="pre">packages</span> <span class="pre">pipeline</span></code> when we wanted to ensure that the dependencies are exactly the same when building the different configurations and products, the first necessary step is to compute a <code class="docutils literal notranslate"><span class="pre">conan.lock</span></code> lockfile that we can pass to the different CI build agents to enforce the same set of dependencies everywhere. This can be done incrementally for the different <code class="docutils literal notranslate"><span class="pre">products</span></code> and configurations, aggregating it in the final single <code class="docutils literal notranslate"><span class="pre">conan.lock</span></code> lockfile. This approach assumes that both <code class="docutils literal notranslate"><span class="pre">game/1.0</span></code> and <code class="docutils literal notranslate"><span class="pre">mapviewer/1.0</span></code> will be using the same versions and revisions of the common dependencies.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>lock<span class="w"> </span>create<span class="w"> </span>--requires<span class="o">=</span>game/1.0<span class="w"> </span>--lockfile-out<span class="o">=</span>conan.lock
+$<span class="w"> </span>conan<span class="w"> </span>lock<span class="w"> </span>create<span class="w"> </span>--requires<span class="o">=</span>game/1.0<span class="w"> </span>-s<span class="w"> </span><span class="nv">build_type</span><span class="o">=</span>Debug<span class="w"> </span>--lockfile<span class="o">=</span>conan.lock<span class="w"> </span>--lockfile-out<span class="o">=</span>conan.lock
+$<span class="w"> </span>conan<span class="w"> </span>lock<span class="w"> </span>create<span class="w"> </span>--requires<span class="o">=</span>mapviewer/1.0<span class="w"> </span>--lockfile<span class="o">=</span>conan.lock<span class="w"> </span>--lockfile-out<span class="o">=</span>conan.lock
+$<span class="w"> </span>conan<span class="w"> </span>lock<span class="w"> </span>create<span class="w"> </span>--requires<span class="o">=</span>mapviewer/1.0<span class="w"> </span>-s<span class="w"> </span><span class="nv">build_type</span><span class="o">=</span>Debug<span class="w"> </span>--lockfile<span class="o">=</span>conan.lock<span class="w"> </span>--lockfile-out<span class="o">=</span>conan.lock
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Recall that the <code class="docutils literal notranslate"><span class="pre">conan.lock</span></code> arguments are mostly optional, as that is the default lockfile name.
+The first command can be typed as <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">lock</span> <span class="pre">create</span> <span class="pre">--requires=game/1.0</span></code>. Also, all commands, including
+<code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">install</span></code>, if they find a existing <code class="docutils literal notranslate"><span class="pre">conan.lock</span></code> file they will use it automatically, without an
+explicit <code class="docutils literal notranslate"><span class="pre">--lockfile=conan.lock</span></code>. The commands in this tutorial are shown explicitly complete for
+completeness and didactical reasons.</p>
+</div>
+<p>Then, we can compute the build order for each product and configuration. These commands are identical to the ones in the
+previous section, with the only difference of adding a <code class="docutils literal notranslate"><span class="pre">--lockfile=conan.lock</span></code> argument:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>graph<span class="w"> </span>build-order<span class="w"> </span>--requires<span class="o">=</span>game/1.0<span class="w"> </span>--lockfile<span class="o">=</span>conan.lock<span class="w"> </span>--build<span class="o">=</span>missing<span class="w"> </span>--order-by<span class="o">=</span>recipe<span class="w"> </span>--format<span class="o">=</span>json<span class="w"> </span>&gt;<span class="w"> </span>game_release.json
+$<span class="w"> </span>conan<span class="w"> </span>graph<span class="w"> </span>build-order<span class="w"> </span>--requires<span class="o">=</span>game/1.0<span class="w"> </span>--lockfile<span class="o">=</span>conan.lock<span class="w"> </span>--build<span class="o">=</span>missing<span class="w"> </span>-s<span class="w"> </span><span class="nv">build_type</span><span class="o">=</span>Debug<span class="w"> </span>--order-by<span class="o">=</span>recipe<span class="w"> </span>--format<span class="o">=</span>json<span class="w"> </span>&gt;<span class="w"> </span>game_debug.json
+$<span class="w"> </span>conan<span class="w"> </span>graph<span class="w"> </span>build-order<span class="w"> </span>--requires<span class="o">=</span>mapviewer/1.0<span class="w"> </span>--lockfile<span class="o">=</span>conan.lock<span class="w"> </span>--build<span class="o">=</span>missing<span class="w"> </span>--order-by<span class="o">=</span>recipe<span class="w"> </span>--format<span class="o">=</span>json<span class="w"> </span>&gt;<span class="w"> </span>mapviewer_release.json
+$<span class="w"> </span>conan<span class="w"> </span>graph<span class="w"> </span>build-order<span class="w"> </span>--requires<span class="o">=</span>mapviewer/1.0<span class="w"> </span>--lockfile<span class="o">=</span>conan.lock<span class="w"> </span>--build<span class="o">=</span>missing<span class="w"> </span>-s<span class="w"> </span><span class="nv">build_type</span><span class="o">=</span>Debug<span class="w"> </span>--order-by<span class="o">=</span>recipe<span class="w"> </span>--format<span class="o">=</span>json<span class="w"> </span>&gt;<span class="w"> </span>mapviewer_debug.json
+</pre></div>
+</div>
+<p>Likewise the <code class="docutils literal notranslate"><span class="pre">build-order-merge</span></code> command will be identical to the previous one.
+In this case, as this command doesn’t really compute a dependency graph, a <code class="docutils literal notranslate"><span class="pre">conan.lock</span></code> argument is not necessary,
+dependencies are not being resolved:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>graph<span class="w"> </span>build-order-merge<span class="w"> </span>--file<span class="o">=</span>game_release.json<span class="w"> </span>--file<span class="o">=</span>game_debug.json<span class="w"> </span>--file<span class="o">=</span>mapviewer_release.json<span class="w"> </span>--file<span class="o">=</span>mapviewer_debug.json<span class="w"> </span>--reduce<span class="w"> </span>--format<span class="o">=</span>json<span class="w"> </span>&gt;<span class="w"> </span>build_order.json
+</pre></div>
+</div>
+<p>So far, this process has been almost identical to the previous section one, just with the difference of capturing and using a lockfile.
+Now, we will explain the “core” of the <code class="docutils literal notranslate"><span class="pre">products</span></code> pipeline: iterating the build-order and distributing the build, and gathering the
+resulting built packages.</p>
+<p>This would be an example of some Python code that performs the iteration sequentially (a real CI system would distribute the builds to different agents in parallel):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">build_order</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;build_order.json&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">build_order</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">build_order</span><span class="p">)</span>
+<span class="n">to_build</span> <span class="o">=</span> <span class="n">build_order</span><span class="p">[</span><span class="s2">&quot;order&quot;</span><span class="p">]</span>
+
+<span class="n">pkg_lists</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># to aggregate the uploaded package-lists</span>
+<span class="k">for</span> <span class="n">level</span> <span class="ow">in</span> <span class="n">to_build</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">recipe</span> <span class="ow">in</span> <span class="n">level</span><span class="p">:</span>  <span class="c1"># This could be executed in parallel</span>
+        <span class="n">ref</span> <span class="o">=</span> <span class="n">recipe</span><span class="p">[</span><span class="s2">&quot;ref&quot;</span><span class="p">]</span>
+        <span class="c1"># For every ref, multiple binary packages are being built.</span>
+        <span class="c1"># This can be done in parallel too. Often it is for different platforms</span>
+        <span class="c1"># they will need to be distributed to different build agents</span>
+        <span class="k">for</span> <span class="n">packages_level</span> <span class="ow">in</span> <span class="n">recipe</span><span class="p">[</span><span class="s2">&quot;packages&quot;</span><span class="p">]:</span>
+            <span class="c1"># This could be executed in parallel too</span>
+            <span class="k">for</span> <span class="n">package</span> <span class="ow">in</span> <span class="n">packages_level</span><span class="p">:</span>
+                <span class="n">build_args</span> <span class="o">=</span> <span class="n">package</span><span class="p">[</span><span class="s2">&quot;build_args&quot;</span><span class="p">]</span>
+                <span class="n">filenames</span> <span class="o">=</span> <span class="n">package</span><span class="p">[</span><span class="s2">&quot;filenames&quot;</span><span class="p">]</span>
+                <span class="n">build_type</span> <span class="o">=</span> <span class="s2">&quot;-s build_type=Debug&quot;</span> <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="s2">&quot;debug&quot;</span> <span class="ow">in</span> <span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+                <span class="n">run</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;conan install </span><span class="si">{</span><span class="n">build_args</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">build_type</span><span class="si">}</span><span class="s2"> --lockfile=conan.lock --format=json&quot;</span><span class="p">,</span> <span class="n">file_stdout</span><span class="o">=</span><span class="s2">&quot;graph.json&quot;</span><span class="p">)</span>
+                <span class="n">run</span><span class="p">(</span><span class="s2">&quot;conan list --graph=graph.json --format=json&quot;</span><span class="p">,</span> <span class="n">file_stdout</span><span class="o">=</span><span class="s2">&quot;built.json&quot;</span><span class="p">)</span>
+                <span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;uploaded</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">pkg_lists</span><span class="p">)</span><span class="si">}</span><span class="s2">.json&quot;</span>
+                <span class="n">run</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;conan upload -l=built.json -r=products -c --format=json&quot;</span><span class="p">,</span> <span class="n">file_stdout</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+                <span class="n">pkg_lists</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>This code is specific for the <code class="docutils literal notranslate"><span class="pre">--order-by=recipe</span></code> build-order, if chosing the <code class="docutils literal notranslate"><span class="pre">--order-by=configuration</span></code>, the json
+is different and it would require a different iteration.</p></li>
+</ul>
+</div>
+<p>These are the tasks that the above Python code is doing:</p>
+<ul class="simple">
+<li><p>For every <code class="docutils literal notranslate"><span class="pre">package</span></code> in the build-order, a <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">install</span> <span class="pre">--require=&lt;pkg&gt;</span> <span class="pre">--build=&lt;pkg&gt;</span></code> is issued, and the result of this command is stored in a <code class="docutils literal notranslate"><span class="pre">graph.json</span></code> file</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">list</span></code> command transform this <code class="docutils literal notranslate"><span class="pre">graph.json</span></code> into a package list called <code class="docutils literal notranslate"><span class="pre">built.json</span></code>. Note that this package list actually stores both the built packages and the necessary transitive dependencies. This is done for simplicity, as later these package lists will be used for running a promotion, and we also want to promote the dependencies such as <code class="docutils literal notranslate"><span class="pre">ai/1.1.0</span></code> that were built in the <code class="docutils literal notranslate"><span class="pre">packages</span> <span class="pre">pipeline</span></code> and not by this job.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">upload</span></code> command uploads the package list to the <code class="docutils literal notranslate"><span class="pre">products</span></code> repo. Note that the <code class="docutils literal notranslate"><span class="pre">upload</span></code> first checks what packages already exist in the repo, avoiding costly transfers if they already exist.</p></li>
+<li><p>The result of the <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">upload</span></code> command is captured in a new package list called <code class="docutils literal notranslate"><span class="pre">uploaded&lt;index&gt;.json</span></code>, that we will accumulate later, that will serve for the final promotion.</p></li>
+</ul>
+<p>In practice this translates to the following commands (that you can execute to continue the tutorial):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># engine/1.0 release</span>
+$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>--requires<span class="o">=</span>engine/1.0<span class="w"> </span>--build<span class="o">=</span>engine/1.0<span class="w"> </span>--lockfile<span class="o">=</span>conan.lock<span class="w"> </span>--format<span class="o">=</span>json<span class="w"> </span>&gt;<span class="w"> </span>graph.json
+$<span class="w"> </span>conan<span class="w"> </span>list<span class="w"> </span>--graph<span class="o">=</span>graph.json<span class="w"> </span>--format<span class="o">=</span>json<span class="w"> </span>&gt;<span class="w"> </span>built.json
+$<span class="w"> </span>conan<span class="w"> </span>upload<span class="w"> </span>-l<span class="o">=</span>built.json<span class="w"> </span>-r<span class="o">=</span>products<span class="w"> </span>-c<span class="w"> </span>--format<span class="o">=</span>json<span class="w"> </span>&gt;<span class="w"> </span>uploaded1.json
+
+<span class="c1"># engine/1.0 debug</span>
+$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>--requires<span class="o">=</span>engine/1.0<span class="w"> </span>--build<span class="o">=</span>engine/1.0<span class="w"> </span>--lockfile<span class="o">=</span>conan.lock<span class="w"> </span>-s<span class="w"> </span><span class="nv">build_type</span><span class="o">=</span>Debug<span class="w"> </span>--format<span class="o">=</span>json<span class="w"> </span>&gt;<span class="w"> </span>graph.json
+$<span class="w"> </span>conan<span class="w"> </span>list<span class="w"> </span>--graph<span class="o">=</span>graph.json<span class="w"> </span>--format<span class="o">=</span>json<span class="w"> </span>&gt;<span class="w"> </span>built.json
+$<span class="w"> </span>conan<span class="w"> </span>upload<span class="w"> </span>-l<span class="o">=</span>built.json<span class="w"> </span>-r<span class="o">=</span>products<span class="w"> </span>-c<span class="w"> </span>--format<span class="o">=</span>json<span class="w"> </span>&gt;<span class="w"> </span>uploaded2.json
+
+<span class="c1"># game/1.0 release</span>
+$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>--requires<span class="o">=</span>game/1.0<span class="w"> </span>--build<span class="o">=</span>game/1.0<span class="w"> </span>--lockfile<span class="o">=</span>conan.lock<span class="w"> </span>--format<span class="o">=</span>json<span class="w"> </span>&gt;<span class="w"> </span>graph.json
+$<span class="w"> </span>conan<span class="w"> </span>list<span class="w"> </span>--graph<span class="o">=</span>graph.json<span class="w"> </span>--format<span class="o">=</span>json<span class="w"> </span>&gt;<span class="w"> </span>built.json
+$<span class="w"> </span>conan<span class="w"> </span>upload<span class="w"> </span>-l<span class="o">=</span>built.json<span class="w"> </span>-r<span class="o">=</span>products<span class="w"> </span>-c<span class="w"> </span>--format<span class="o">=</span>json<span class="w"> </span>&gt;<span class="w"> </span>uploaded3.json
+
+<span class="c1"># game/1.0 debug</span>
+$<span class="w"> </span>conan<span class="w"> </span>install<span class="w"> </span>--requires<span class="o">=</span>game/1.0<span class="w"> </span>--build<span class="o">=</span>game/1.0<span class="w"> </span>--lockfile<span class="o">=</span>conan.lock<span class="w"> </span>-s<span class="w"> </span><span class="nv">build_type</span><span class="o">=</span>Debug<span class="w"> </span>--format<span class="o">=</span>json<span class="w"> </span>&gt;<span class="w"> </span>graph.json
+$<span class="w"> </span>conan<span class="w"> </span>list<span class="w"> </span>--graph<span class="o">=</span>graph.json<span class="w"> </span>--format<span class="o">=</span>json<span class="w"> </span>&gt;<span class="w"> </span>built.json
+$<span class="w"> </span>conan<span class="w"> </span>upload<span class="w"> </span>-l<span class="o">=</span>built.json<span class="w"> </span>-r<span class="o">=</span>products<span class="w"> </span>-c<span class="w"> </span>--format<span class="o">=</span>json<span class="w"> </span>&gt;<span class="w"> </span>uploaded4.json
+</pre></div>
+</div>
+<p>After this step the newly built packages will be in the <code class="docutils literal notranslate"><span class="pre">products</span></code> repo and we will have 4 <code class="docutils literal notranslate"><span class="pre">uploaded1.json</span></code> - <code class="docutils literal notranslate"><span class="pre">uploaded4.json</span></code> files.</p>
+<p>Simplifying the different release and debug configurations, the state of our repositories would be something like:</p>
+<div align="center" class="align-center"><div class="graphviz"><object data="../../_images/graphviz-b1bec8652c4d97ca147b0168121425cbc8349d61.svg" type="image/svg+xml" class="graphviz">
+<p class="warning">digraph repositories {
+    node [fillcolor=&quot;lightskyblue&quot;, style=filled, shape=box]
+    rankdir=&quot;LR&quot;;
+    subgraph cluster_0 {
+      label=&quot;Packages server&quot;;
+      style=filled;
+      color=lightgrey;
+      subgraph cluster_1 {
+        label = &quot;packages\n repository&quot;
+        shape = &quot;box&quot;;
+        style=filled;
+        color=lightblue;
+        &quot;packages&quot; [style=invis];
+        &quot;ai/1.1.0\n (Release)&quot;;
+        &quot;ai/1.1.0\n (Debug)&quot;;
+      }
+      subgraph cluster_2 {
+        label = &quot;products\n repository&quot;
+        shape = &quot;box&quot;;
+        style=filled;
+        color=lightblue;
+        &quot;products&quot; [style=invis];
+        &quot;ai/promoted&quot; [label=&quot;ai/1.1.0\n(new version)&quot;];
+        &quot;engine/promoted&quot; [label=&quot;engine/1.0\n(new binary)&quot;];
+        &quot;game/promoted&quot; [label=&quot;game/1.0\n(new binary)&quot;, fillcolor=&quot;lightgreen&quot;];
+
+
+        node [fillcolor=&quot;lightskyblue&quot;, style=filled, shape=box]
+        &quot;game/promoted&quot; -&gt; &quot;engine/promoted&quot; -&gt; &quot;ai/promoted&quot;;
+      }
+      subgraph cluster_3 {
+        rankdir=&quot;BT&quot;;
+        shape = &quot;box&quot;;
+        label = &quot;develop repository&quot;;
+        color=lightblue;
+        rankdir=&quot;BT&quot;;
+
+        node [fillcolor=&quot;lightskyblue&quot;, style=filled, shape=box]
+        &quot;game/1.0&quot; -&gt; &quot;engine/1.0&quot; -&gt; &quot;ai/1.0&quot; -&gt; &quot;mathlib/1.0&quot;;
+        &quot;engine/1.0&quot; -&gt; &quot;graphics/1.0&quot; -&gt; &quot;mathlib/1.0&quot;;
+        &quot;mapviewer/1.0&quot; -&gt; &quot;graphics/1.0&quot;;
+        &quot;game/1.0&quot; [fillcolor=&quot;lightgreen&quot;];
+        &quot;mapviewer/1.0&quot; [fillcolor=&quot;lightgreen&quot;];
+      }
+      {
+        edge[style=invis];
+        &quot;packages&quot; -&gt; &quot;products&quot; -&gt; &quot;game/1.0&quot; ;
+        rankdir=&quot;BT&quot;;
+      }
+    }
+}</p></object></div>
+</div>
+<p>We can now accumulate the different <code class="docutils literal notranslate"><span class="pre">uploadedX.json</span></code> files into a single package list <code class="docutils literal notranslate"><span class="pre">uploaded.json</span></code> that contains everything:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>pkglist<span class="w"> </span>merge<span class="w"> </span>-l<span class="w"> </span>uploaded0.json<span class="w"> </span>-l<span class="w"> </span>uploaded1.json<span class="w"> </span>-l<span class="w"> </span>uploaded2.json<span class="w"> </span>-l<span class="w"> </span>uploaded3.json<span class="w"> </span>--format<span class="o">=</span>json<span class="w"> </span>&gt;<span class="w"> </span>uploaded.json
+</pre></div>
+</div>
+<p>And finally, if everything worked well, and we consider this new set of versions and new package binaries is ready to be used by developers and other CI jobs, then we can run the final promotion from the <code class="docutils literal notranslate"><span class="pre">products</span></code> to the <code class="docutils literal notranslate"><span class="pre">develop</span></code> repository:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">Promoting from products-&gt;develop</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Promotion using Conan download/upload commands</span>
+<span class="c1"># (slow, can be improved with art:promote custom command)</span>
+$<span class="w"> </span>conan<span class="w"> </span>download<span class="w"> </span>--list<span class="o">=</span>uploaded.json<span class="w"> </span>-r<span class="o">=</span>products<span class="w"> </span>--format<span class="o">=</span>json<span class="w"> </span>&gt;<span class="w"> </span>promote.json
+$<span class="w"> </span>conan<span class="w"> </span>upload<span class="w"> </span>--list<span class="o">=</span>promote.json<span class="w"> </span>-r<span class="o">=</span>develop<span class="w"> </span>-c
+</pre></div>
+</div>
+</div>
+<p>And our final <code class="docutils literal notranslate"><span class="pre">develop</span></code> repository state will be:</p>
+<div align="center" class="align-center"><div class="graphviz"><object data="../../_images/graphviz-083e5e93b60b429ccb0954b4b26be5371675db89.svg" type="image/svg+xml" class="graphviz">
+<p class="warning">digraph repositories {
+    node [fillcolor=&quot;lightskyblue&quot;, style=filled, shape=box]
+    rankdir=&quot;LR&quot;;
+    subgraph cluster_0 {
+      label=&quot;Packages server&quot;;
+      style=filled;
+      color=lightgrey;
+      subgraph cluster_1 {
+        label = &quot;packages\n repository&quot;
+        shape = &quot;box&quot;;
+        style=filled;
+        color=lightblue;
+        &quot;packages&quot; [style=invis];
+        &quot;ai/1.1.0\n (Release)&quot;;
+        &quot;ai/1.1.0\n (Debug)&quot;;
+      }
+      subgraph cluster_2 {
+        label = &quot;products\n repository&quot;
+        shape = &quot;box&quot;;
+        style=filled;
+        color=lightblue;
+        &quot;products&quot; [style=invis];
+      }
+      subgraph cluster_3 {
+        rankdir=&quot;BT&quot;;
+        shape = &quot;box&quot;;
+        label = &quot;develop repository&quot;;
+        color=lightblue;
+        rankdir=&quot;BT&quot;;
+
+        node [fillcolor=&quot;lightskyblue&quot;, style=filled, shape=box]
+        &quot;game/1.0&quot; -&gt; &quot;engine/1.0&quot; -&gt; &quot;ai/1.0&quot; -&gt; &quot;mathlib/1.0&quot;;
+        &quot;engine/1.0&quot; -&gt; &quot;graphics/1.0&quot; -&gt; &quot;mathlib/1.0&quot;;
+        &quot;mapviewer/1.0&quot; -&gt; &quot;graphics/1.0&quot;;
+        &quot;game/1.0&quot; [fillcolor=&quot;lightgreen&quot;];
+        &quot;mapviewer/1.0&quot; [fillcolor=&quot;lightgreen&quot;];
+        &quot;ai/promoted&quot; [label=&quot;ai/1.1.0\n(new version)&quot;];
+        &quot;engine/promoted&quot; [label=&quot;engine/1.0\n(new binary)&quot;];
+        &quot;game/promoted&quot; [label=&quot;game/1.0\n(new binary)&quot;, fillcolor=&quot;lightgreen&quot;];
+        &quot;game/promoted&quot; -&gt; &quot;engine/promoted&quot; -&gt; &quot;ai/promoted&quot; -&gt; &quot;mathlib/1.0&quot;;
+         &quot;engine/promoted&quot; -&gt; &quot;graphics/1.0&quot;;
+      }
+      {
+        edge[style=invis];
+        &quot;packages&quot; -&gt; &quot;products&quot; -&gt; &quot;game/1.0&quot; ;
+        rankdir=&quot;BT&quot;;
+      }
+    }
+}</p></object></div>
+</div>
+<p>This state of the <code class="docutils literal notranslate"><span class="pre">develop</span></code> repository will have the following behavior:</p>
+<ul class="simple">
+<li><p>Developers installing <code class="docutils literal notranslate"><span class="pre">game/1.0</span></code> or <code class="docutils literal notranslate"><span class="pre">engine/1.0</span></code> will by default resolve to latest <code class="docutils literal notranslate"><span class="pre">ai/1.1.0</span></code> and use it. They will find pre-compiled binaries for the dependencies too, and they can continue developing using the latest set of dependencies.</p></li>
+<li><p>Developers and CI that were using a lockfile that was locking <code class="docutils literal notranslate"><span class="pre">ai/1.0</span></code> version, will still be able to keep working with that dependency without anything breaking, as the new versions and package binaries do not break or invalidate the previous existing binaries.</p></li>
+</ul>
+<p>At this point, the question of what to do with the lockfile used in the Ci could arise. Note that the <code class="docutils literal notranslate"><span class="pre">conan.lock</span></code> now contains the <code class="docutils literal notranslate"><span class="pre">ai/1.1.0</span></code> version locked. There could be different strategies, like storing this lockfile in the “products” git repositories, making it easily available when developers checkout those repos. Note, however, that this lockfile matches the latest state of the <code class="docutils literal notranslate"><span class="pre">develop</span></code> repo, so developers checking out one of the “products” git repositories and doing a <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">install</span></code> against the <code class="docutils literal notranslate"><span class="pre">develop</span></code> server repository will naturally resolve to the same dependencies stored in the lockfile.</p>
+<p>It is a good idea to at least store this lockfile in any release bundle, if the “products” are bundled somehow (a installer, a debian/rpm/choco/etc package), to include or attach to this bundled release for the final users of the software, the lockfile used to produce it, so no matter what changes in development repositories, those lockfiles can be recovered from the release information later in time.</p>
+<section id="final-remarks">
+<h2>Final remarks<a class="headerlink" href="#final-remarks" title="Link to this heading">¶</a></h2>
+<p>As commented in this CI tutorial introduction, this doesn’t pretend to be a silver bullet, a CI system that you can deploy as-is in your organization.
+This tutorial so far presents a “happy path” of a Continuous Integration process for developers, and how their changes in packages that are part of larger products can be tested and validated as part of those products.</p>
+<p>The focus of this CI tutorial is to introduce some important concepts, good practices and tools such as:</p>
+<ul class="simple">
+<li><p>The importance of defining the organization “products”, the main deliverables that need to be checked and built against new dependencies versions created by developers.</p></li>
+<li><p>How new dependencies versions of developers shouldn’t be uploaded to the main development repositories until validated, to not break other developers and CI jobs.</p></li>
+<li><p>How multiple repositories can be used to build a CI pipeline that isolate non validated changes and new versions.</p></li>
+<li><p>How large dependency graphs can be built efficiently in CI with the <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">graph</span> <span class="pre">build-order</span></code>, and how build-orders for different configurations and products can be merged together.</p></li>
+<li><p>Why <code class="docutils literal notranslate"><span class="pre">lockfiles</span></code> are necessary in CI when there are concurrent CI builds.</p></li>
+<li><p>The importance of versioning, and the role of <code class="docutils literal notranslate"><span class="pre">package_id</span></code> to re-build only what is necessary in large dependency graphs.</p></li>
+<li><p>Not using <code class="docutils literal notranslate"><span class="pre">user/channel</span></code> as variable and dynamic qualifiers of packages that change across the CI pipeline, but using instead different server repositories.</p></li>
+<li><p>Running package promotions (copies) across server repositories when new package versions are validated.</p></li>
+</ul>
+<p>There are still many implementation details, strategies, use cases, and error scenarios that are not covered in this tutorial yet:</p>
+<ul class="simple">
+<li><p>How to integrate breaking changes of a package that requires a new breaking major version.</p></li>
+<li><p>Different versioning strategies, using pre-releases, using versions or relying on recipe revisions in certain cases.</p></li>
+<li><p>How lockfiles can be stored and used across different builds, if it is good to persist them and where.</p></li>
+<li><p>Different branching and merging strategies, nightly builds, releases flows.</p></li>
+</ul>
+<p>We plan to extend this CI tutorial, including more examples and use cases. If you have any question or feedback, please create a ticket in <a class="reference external" href="https://github.com/conan-io/conan/issues">https://github.com/conan-io/conan/issues</a>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="multi_product.html" class="btn btn-neutral float-left" title="Products pipeline: multi-product multi-configuration builds" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../devops/devops.html" class="btn btn-neutral float-right" title="Devops guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2024, JFrog.
+      <span class="lastupdated">Last updated on Feb 25, 2026.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 2.21
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.26/index.html">2.26</a></dd>
+        
+    
+        
+            <dd><a href="/2.25/index.html">2.25</a></dd>
+        
+    
+        
+            <dd><a href="/2.24/index.html">2.24</a></dd>
+        
+    
+        
+            <dd><a href="/2.23/index.html">2.23</a></dd>
+        
+    
+        
+            <dd><a href="/2.22/index.html">2.22</a></dd>
+        
+    
+        
+            <dd><a href="/2.21/index.html">2.21</a></dd>
+        
+    
+        
+            <dd><a href="/2.20/index.html">2.20</a></dd>
+        
+    
+        
+            <dd><a href="/2.19/index.html">2.19</a></dd>
+        
+    
+        
+            <dd><a href="/2.18/index.html">2.18</a></dd>
+        
+    
+        
+            <dd><a href="/2.17/index.html">2.17</a></dd>
+        
+    
+        
+            <dd><a href="/2.16/index.html">2.16</a></dd>
+        
+    
+        
+            <dd><a href="/2.15/index.html">2.15</a></dd>
+        
+    
+        
+            <dd><a href="/2.14/index.html">2.14</a></dd>
+        
+    
+        
+            <dd><a href="/2.13/index.html">2.13</a></dd>
+        
+    
+        
+            <dd><a href="/2.12/index.html">2.12</a></dd>
+        
+    
+        
+            <dd><a href="/2.11/index.html">2.11</a></dd>
+        
+    
+        
+            <dd><a href="/2.10/index.html">2.10</a></dd>
+        
+    
+        
+            <dd><a href="/2.9/index.html">2.9</a></dd>
+        
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+        <details>
+            <summary>Conan 1 releases</summary>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.66/index.html">1.66</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+        </details>
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/2.21/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://gtm.jfrog.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AutoTools: Using LLVM/Clang Windows compiler &mdash; conan 2.19.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=2da93098" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/tabs.css?v=a5c4661c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/conan.css?v=7d9e9f1e" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/conan-favicon.png"/>
+    <link rel="canonical" href="https://docs.conan.io/examples/tools/autotools/llvm_clang.html" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=8a779a3c"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Capturing Git scm information" href="../scm/git/capture_scm/git_capture_scm.html" />
+    <link rel="prev" title="Create your first Conan package with Autotools in Windows (msys2)" href="create_your_first_package_windows.html" />
+
+
+<script
+  data-cfasync="false"
+  data-tracker-overrides="GoogleConsentMode:security_storage=on;ad_storage=SaleOfInfo,Advertising;ad_user_data=SaleOfInfo,Advertising;ad_personalization=SaleOfInfo,Advertising;analytics_storage=Analytics,SaleOfInfo;functionality_storage=Functional,SaleOfInfo;personalization_storage=Functional,SaleOfInfo"
+  src="https://transcend-cdn.com/cm/f0071674-c641-4cf3-9d31-303ec0c86b1b/airgap.js" data-languages="en"
+></script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://gtm.jfrog.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+<script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "GTM-WK44ZFM");
+      gtag('set', 'developer_id.dODQ2Mj', true);
+</script>
+
+ 
+
+
+
+</script>
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html">
+            
+              <img src="../../../_static/conan-docs-logo-2.svg" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                2.19
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../whatsnew.html">What’s new in Conan 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ci_tutorial/tutorial.html">CI Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../devops/devops.html">Devops guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../security/security.html">Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integrations.html">Integrations</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../examples.html">Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../conanfile.html">ConanFile methods examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../extensions.html">Conan extensions examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../tools.html">Conan recipe tools examples</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../cmake/cmake.html">CMake</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../files/files.html">File interaction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../meson/meson.html">Meson</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../google/bazel.html">Bazel</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="autotools.html">Autotools</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="build_project_autotools_toolchain.html">Build a simple Autotools project with Conan dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="create_your_first_package.html">Create your first Conan package with Autotools</a></li>
+<li class="toctree-l4"><a class="reference internal" href="create_your_first_package_windows.html">Create your first Conan package with Autotools in Windows (msys2)</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">AutoTools: Using LLVM/Clang Windows compiler</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../scm/git/capture_scm/git_capture_scm.html">Capturing Git scm information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../microsoft/msbuild.html">MSBuild</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../system/system.html">System Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../cross_build.html">Cross-building examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../config_files.html">Configuration files examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../graph.html">Graph examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../dev_flow.html">Developer tools and flows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../commands.html">Conan commands examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../runners.html">Conan runners examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../knowledge.html">Knowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../incubating.html">Incubating features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">conan</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div class="admonition warning wy-text-center" style="position:sticky;top:0;background: #fcfcfc;padding: inherit;z-index:1" id="conan-banners">
+            
+            <div style="border: 2px solid #4a7d7e; background-color: #e6f2f2; padding: 8px">
+                <p>
+                  📖 The complete Conan 2 training is now available for free on
+                  JFrog Academy: <a
+                  href="https://academy.jfrog.com/path/conan-cc-package-manager?utm_source=Conan+Docs"
+                  target="_blank">Essentials</a> and <a
+                  href="https://academy.jfrog.com/path/conan-2-advanced?utm_source=Conan+Docs"
+                  target="_blank">Advanced</a>.
+                </p>
+              </div>                                                  
+          </div>
+          
+          <div>
+            <div class="admonition warning wy-text-center" style="position:sticky">
+              <p>This document is for an <b>outdated</b> Conan version.
+              <a href="https://docs.conan.io/2/examples/tools/autotools/llvm_clang.html">Click here to read the <b>latest</b> documentation</a></p>
+             </div>
+          </div>
+          
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../examples.html">Examples</a></li>
+          <li class="breadcrumb-item"><a href="../../tools.html">Conan recipe tools examples</a></li>
+          <li class="breadcrumb-item"><a href="autotools.html">Autotools</a></li>
+      <li class="breadcrumb-item active">AutoTools: Using LLVM/Clang Windows compiler</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="autotools-using-llvm-clang-windows-compiler">
+<span id="examples-tools-autotools-llvm-clang"></span><h1>AutoTools: Using LLVM/Clang Windows compiler<a class="headerlink" href="#autotools-using-llvm-clang-windows-compiler" title="Link to this heading">¶</a></h1>
+<p>The Clang compiler in Windows can come from 2 different installations or distributions:</p>
+<ul class="simple">
+<li><p>The LLVM/Clang compiler, that uses the MSVC runtime</p></li>
+<li><p>The Msys2 Clang compiler that uses the Msys2 runtime (libstdc++6.dll)</p></li>
+</ul>
+<p>This example explains the LLVM/Clang with the MSVC runtime. This Clang distribution can in turn
+be used in two different ways:</p>
+<ul class="simple">
+<li><p>Using the LLVM/Clang downloaded compiler (it still uses the MSVC runtime), via the GNU-like frontend <code class="docutils literal notranslate"><span class="pre">clang</span></code></p></li>
+<li><p>Using the LLVM/Clang downloaded compiler (it still uses the MSVC runtime), via the MSVC-like frontend <code class="docutils literal notranslate"><span class="pre">clang-cl</span></code></p></li>
+</ul>
+<p>Let’s start from a simple <code class="docutils literal notranslate"><span class="pre">autotools_exe</span></code> template:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>new<span class="w"> </span>autotools_exe<span class="w"> </span>-d<span class="w"> </span><span class="nv">name</span><span class="o">=</span>mypkg<span class="w"> </span>-d<span class="w"> </span><span class="nv">version</span><span class="o">=</span><span class="m">0</span>.1
+</pre></div>
+</div>
+<p>This creates a simple Autotools based project and Conan package recipe that uses <code class="docutils literal notranslate"><span class="pre">AutotoolsToolchain</span></code>.</p>
+<section id="autotools-llvm-clang-with-clang-gnu-like-frontend">
+<h2>Autotools: LLVM/Clang with <code class="docutils literal notranslate"><span class="pre">clang</span></code> GNU-like frontend<a class="headerlink" href="#autotools-llvm-clang-with-clang-gnu-like-frontend" title="Link to this heading">¶</a></h2>
+<p>To build this configuration we will use the following profile:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">llvm_clang</span><a class="headerlink" href="#id1" title="Link to this code">¶</a></div>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[settings]</span>
+<span class="na">os</span><span class="o">=</span><span class="s">Windows</span>
+<span class="na">arch</span><span class="o">=</span><span class="s">x86_64</span>
+<span class="na">build_type</span><span class="o">=</span><span class="s">Release</span>
+<span class="na">compiler</span><span class="o">=</span><span class="s">clang</span>
+<span class="na">compiler.version</span><span class="o">=</span><span class="s">18</span>
+<span class="na">compiler.cppstd</span><span class="o">=</span><span class="s">14</span>
+<span class="na">compiler.runtime</span><span class="o">=</span><span class="s">dynamic</span>
+<span class="na">compiler.runtime_type</span><span class="o">=</span><span class="s">Release</span>
+<span class="na">compiler.runtime_version</span><span class="o">=</span><span class="s">v144</span>
+
+<span class="k">[buildenv]</span>
+<span class="na">PATH</span><span class="o">=</span><span class="s">+(path)C:\ws\LLVM\18.1\bin</span>
+
+<span class="k">[conf]</span>
+<span class="na">tools.compilation</span><span class="o">:</span><span class="s">verbosity=verbose</span>
+<span class="na">tools.build:compiler_executables = {&quot;c&quot;</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;clang&quot;</span><span class="na">, &quot;cpp&quot;</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;clang++&quot;</span><span class="na">}</span>
+<span class="na">tools.microsoft.bash</span><span class="o">:</span><span class="s">subsystem=msys2</span>
+<span class="na">tools.microsoft.bash</span><span class="o">:</span><span class="s">path=C:\ws\msys64\usr\bin\bash.exe</span>
+</pre></div>
+</div>
+</div>
+<p>Quick explanation of the profile:</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">compiler.runtime</span></code> definition is the important differentiator to distinguish between Msys2-Clang and LLVM/Clang
+with the MSVC runtime. The LLVM/Clang defines this <code class="docutils literal notranslate"><span class="pre">compiler.runtime</span></code>, while the Msys2-Clang doesn’t.</p></li>
+<li><p>The MSVC runtime can be either dynamic or static. It is important also to define the runtime version (toolset version <code class="docutils literal notranslate"><span class="pre">v144</span></code>)
+of this runtime, as it is possible to use different ones.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">[buildenv]</span></code> allows to point to the LLVM/Clang compiler, in case it is not already in the path. <strong>Note</strong> the <code class="docutils literal notranslate"><span class="pre">PATH=+(path)</span></code>
+syntax, to <strong>prepend</strong> that path, so it has higher priority</p></li>
+<li><p>While defining <code class="docutils literal notranslate"><span class="pre">tools.microsoft.bash:path</span></code>, the full path to the <code class="docutils literal notranslate"><span class="pre">msys2</span></code> <code class="docutils literal notranslate"><span class="pre">bash.exe</span></code> has been used. Otherwise, it is possible that
+it can find another <code class="docutils literal notranslate"><span class="pre">bash.exe</span></code> in the Windows system that will not be valid.</p></li>
+</ul>
+<p>Let’s build it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>build<span class="w"> </span>.<span class="w"> </span>-pr<span class="o">=</span>llvm_clang
+...
+conanfile.py<span class="w"> </span><span class="o">(</span>mypkg/0.1<span class="o">)</span>:<span class="w"> </span>Calling<span class="w"> </span>build<span class="o">()</span>
+conanfile.py<span class="w"> </span><span class="o">(</span>mypkg/0.1<span class="o">)</span>:<span class="w"> </span>RUN:<span class="w"> </span>autoreconf<span class="w"> </span>--force<span class="w"> </span>--install
+conanfile.py<span class="w"> </span><span class="o">(</span>mypkg/0.1<span class="o">)</span>:<span class="w"> </span>RUN:<span class="w"> </span><span class="s2">&quot;/c/projectpath/clang/configure&quot;</span><span class="w"> </span>--prefix<span class="o">=</span>/<span class="w"> </span>--bindir<span class="o">=</span><span class="si">${</span><span class="nv">prefix</span><span class="si">}</span>/bin<span class="w"> </span>--sbindir<span class="o">=</span><span class="si">${</span><span class="nv">prefix</span><span class="si">}</span>/bin<span class="w"> </span>--libdir<span class="o">=</span><span class="si">${</span><span class="nv">prefix</span><span class="si">}</span>/lib<span class="w"> </span>--includedir<span class="o">=</span><span class="si">${</span><span class="nv">prefix</span><span class="si">}</span>/include<span class="w"> </span>--oldincludedir<span class="o">=</span><span class="si">${</span><span class="nv">prefix</span><span class="si">}</span>/include
+conanfile.py<span class="w"> </span><span class="o">(</span>mypkg/0.1<span class="o">)</span>:<span class="w"> </span>RUN:<span class="w"> </span>make<span class="w"> </span>-j8
+...
+clang++<span class="w"> </span>-DPACKAGE_NAME<span class="o">=</span><span class="se">\&quot;</span>mypkg<span class="se">\&quot;</span><span class="w"> </span>-DPACKAGE_TARNAME<span class="o">=</span><span class="se">\&quot;</span>mypkg<span class="se">\&quot;</span><span class="w"> </span>-DPACKAGE_VERSION<span class="o">=</span><span class="se">\&quot;</span><span class="m">0</span>.1<span class="se">\&quot;</span><span class="w"> </span>-DPACKAGE_STRING<span class="o">=</span><span class="se">\&quot;</span>mypkg<span class="se">\ </span><span class="m">0</span>.1<span class="se">\&quot;</span><span class="w"> </span>-DPACKAGE_BUGREPORT<span class="o">=</span><span class="se">\&quot;\&quot;</span><span class="w"> </span>-DPACKAGE_URL<span class="o">=</span><span class="se">\&quot;\&quot;</span><span class="w"> </span>-DPACKAGE<span class="o">=</span><span class="se">\&quot;</span>mypkg<span class="se">\&quot;</span><span class="w"> </span>-DVERSION<span class="o">=</span><span class="se">\&quot;</span><span class="m">0</span>.1<span class="se">\&quot;</span><span class="w"> </span>-I.<span class="w"> </span>-I/c/projectpath/clang/src<span class="w">   </span>-DNDEBUG<span class="w">  </span>-std<span class="o">=</span>c++14<span class="w"> </span>-D_DLL<span class="w"> </span>-D_MT<span class="w"> </span>-Xclang<span class="w"> </span>--dependent-lib<span class="o">=</span>msvcrt<span class="w"> </span>-O3<span class="w"> </span>-c<span class="w"> </span>-o<span class="w"> </span>main.o<span class="w"> </span>/c/projectpath/clang/src/main.cpp
+<span class="nv">source</span><span class="o">=</span><span class="s1">&#39;/c/projectpath/clang/src/mypkg.cpp&#39;</span><span class="w"> </span><span class="nv">object</span><span class="o">=</span><span class="s1">&#39;mypkg.o&#39;</span><span class="w"> </span><span class="nv">libtool</span><span class="o">=</span>no<span class="w"> </span><span class="se">\</span>
+<span class="nv">DEPDIR</span><span class="o">=</span>.deps<span class="w"> </span><span class="nv">depmode</span><span class="o">=</span>none<span class="w"> </span>/bin/sh<span class="w"> </span>/c/projectpath/clang/depcomp<span class="w"> </span><span class="se">\</span>
+clang++<span class="w"> </span>-DPACKAGE_NAME<span class="o">=</span><span class="se">\&quot;</span>mypkg<span class="se">\&quot;</span><span class="w"> </span>-DPACKAGE_TARNAME<span class="o">=</span><span class="se">\&quot;</span>mypkg<span class="se">\&quot;</span><span class="w"> </span>-DPACKAGE_VERSION<span class="o">=</span><span class="se">\&quot;</span><span class="m">0</span>.1<span class="se">\&quot;</span><span class="w"> </span>-DPACKAGE_STRING<span class="o">=</span><span class="se">\&quot;</span>mypkg<span class="se">\ </span><span class="m">0</span>.1<span class="se">\&quot;</span><span class="w"> </span>-DPACKAGE_BUGREPORT<span class="o">=</span><span class="se">\&quot;\&quot;</span><span class="w"> </span>-DPACKAGE_URL<span class="o">=</span><span class="se">\&quot;\&quot;</span><span class="w"> </span>-DPACKAGE<span class="o">=</span><span class="se">\&quot;</span>mypkg<span class="se">\&quot;</span><span class="w"> </span>-DVERSION<span class="o">=</span><span class="se">\&quot;</span><span class="m">0</span>.1<span class="se">\&quot;</span><span class="w"> </span>-I.<span class="w"> </span>-I/c/projectpath/clang/src<span class="w">   </span>-DNDEBUG<span class="w">  </span>-std<span class="o">=</span>c++14<span class="w"> </span>-D_DLL<span class="w"> </span>-D_MT<span class="w"> </span>-Xclang<span class="w"> </span>--dependent-lib<span class="o">=</span>msvcrt<span class="w"> </span>-O3<span class="w"> </span>-c<span class="w"> </span>-o<span class="w"> </span>mypkg.o<span class="w"> </span>/c/projectpath/clang/src/mypkg.cpp
+clang++<span class="w">  </span>-std<span class="o">=</span>c++14<span class="w"> </span>-D_DLL<span class="w"> </span>-D_MT<span class="w"> </span>-Xclang<span class="w"> </span>--dependent-lib<span class="o">=</span>msvcrt<span class="w"> </span>-O3<span class="w">  </span>-fuse-ld<span class="o">=</span>lld-link<span class="w"> </span>-o<span class="w"> </span>mypkg.exe<span class="w"> </span>main.o<span class="w"> </span>mypkg.o
+</pre></div>
+</div>
+<p>Note how the <code class="docutils literal notranslate"><span class="pre">clang++</span></code> compiler is used, the runtime is selected with <code class="docutils literal notranslate"><span class="pre">-D_DLL</span> <span class="pre">-D_MT</span> <span class="pre">-Xclang</span> <span class="pre">--dependent-lib=msvcrt</span></code>.</p>
+<p>We can run our executable, and see how the Clang compiler version and the MSVC runtime match the defined ones:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>build-release<span class="se">\s</span>rc<span class="se">\m</span>ypkg.exe
+mypkg/0.1:<span class="w"> </span>Hello<span class="w"> </span>World<span class="w"> </span>Release!
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>_M_X64<span class="w"> </span>defined
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>__x86_64__<span class="w"> </span>defined
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>MSVC<span class="w"> </span>runtime:<span class="w"> </span>MultiThreadedDLL
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>_MSC_VER1943
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>_MSVC_LANG201402
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>__cplusplus201402
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>__clang_major__18
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>__clang_minor__1
+</pre></div>
+</div>
+</section>
+<section id="autotools-llvm-clang-with-clang-cl-msvc-like-frontend">
+<h2>Autotools: LLVM/Clang with <code class="docutils literal notranslate"><span class="pre">clang-cl</span></code> MSVC-like frontend<a class="headerlink" href="#autotools-llvm-clang-with-clang-cl-msvc-like-frontend" title="Link to this heading">¶</a></h2>
+<p>To build this configuration we will use the following profile:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">llvm_clang_cl</span><a class="headerlink" href="#id2" title="Link to this code">¶</a></div>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[settings]</span>
+<span class="na">os</span><span class="o">=</span><span class="s">Windows</span>
+<span class="na">arch</span><span class="o">=</span><span class="s">x86_64</span>
+<span class="na">build_type</span><span class="o">=</span><span class="s">Release</span>
+<span class="na">compiler</span><span class="o">=</span><span class="s">clang</span>
+<span class="na">compiler.version</span><span class="o">=</span><span class="s">18</span>
+<span class="na">compiler.cppstd</span><span class="o">=</span><span class="s">14</span>
+<span class="na">compiler.runtime</span><span class="o">=</span><span class="s">dynamic</span>
+<span class="na">compiler.runtime_type</span><span class="o">=</span><span class="s">Release</span>
+<span class="na">compiler.runtime_version</span><span class="o">=</span><span class="s">v144</span>
+
+<span class="k">[buildenv]</span>
+<span class="na">PATH</span><span class="o">=</span><span class="s">+(path)C:/ws/LLVM/18.1/bin</span>
+
+<span class="k">[conf]</span>
+<span class="na">tools.compilation</span><span class="o">:</span><span class="s">verbosity=verbose</span>
+<span class="na">tools.microsoft.bash</span><span class="o">:</span><span class="s">subsystem=msys2</span>
+<span class="na">tools.build:compiler_executables = {&quot;c&quot;</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;clang-cl&quot;</span><span class="na">, &quot;cpp&quot;</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;clang-cl&quot;</span><span class="na">}</span>
+<span class="na">tools.microsoft.bash</span><span class="o">:</span><span class="s">path=C:\ws\msys64\usr\bin\bash.exe</span>
+</pre></div>
+</div>
+</div>
+<p>The profile is almost identical to the above one, the main difference is the definition of <code class="docutils literal notranslate"><span class="pre">tools.build:compiler_executables</span></code>,
+defining the <code class="docutils literal notranslate"><span class="pre">clang-cl</span></code> compiler.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The definition of <code class="docutils literal notranslate"><span class="pre">tools.build:compiler_executables</span></code> using the <code class="docutils literal notranslate"><span class="pre">clang-cl</span></code> compiler is what is used by Conan to differentiate
+among the frontends, also in other build systems.
+This frontend is not a <code class="docutils literal notranslate"><span class="pre">setting</span></code>, because the compiler is still the same, and the resulting binary should be binary compatible.</p>
+</div>
+<p>Let’s build it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>conan<span class="w"> </span>build<span class="w"> </span>.<span class="w"> </span>-pr<span class="o">=</span>llvm_clang_cl
+...
+clang-cl<span class="w"> </span>-DPACKAGE_NAME<span class="o">=</span><span class="se">\&quot;</span>mypkg<span class="se">\&quot;</span><span class="w"> </span>-DPACKAGE_TARNAME<span class="o">=</span><span class="se">\&quot;</span>mypkg<span class="se">\&quot;</span><span class="w"> </span>-DPACKAGE_VERSION<span class="o">=</span><span class="se">\&quot;</span><span class="m">0</span>.1<span class="se">\&quot;</span><span class="w"> </span>-DPACKAGE_STRING<span class="o">=</span><span class="se">\&quot;</span>mypkg<span class="se">\ </span><span class="m">0</span>.1<span class="se">\&quot;</span><span class="w"> </span>-DPACKAGE_BUGREPORT<span class="o">=</span><span class="se">\&quot;\&quot;</span><span class="w"> </span>-DPACKAGE_URL<span class="o">=</span><span class="se">\&quot;\&quot;</span><span class="w"> </span>-DPACKAGE<span class="o">=</span><span class="se">\&quot;</span>mypkg<span class="se">\&quot;</span><span class="w"> </span>-DVERSION<span class="o">=</span><span class="se">\&quot;</span><span class="m">0</span>.1<span class="se">\&quot;</span><span class="w"> </span>-I.<span class="w"> </span>-I/c/projectpath/clang/src<span class="w">   </span>-DNDEBUG<span class="w">  </span>-std:c++14<span class="w"> </span>-MD<span class="w"> </span>-O2<span class="w"> </span>-c<span class="w"> </span>-o<span class="w"> </span>main.obj<span class="w"> </span><span class="sb">`</span>cygpath<span class="w"> </span>-w<span class="w"> </span><span class="s1">&#39;/c/projectpath/clang/src/main.cpp&#39;</span><span class="sb">`</span>
+<span class="nv">source</span><span class="o">=</span><span class="s1">&#39;/c/projectpath/clang/src/mypkg.cpp&#39;</span><span class="w"> </span><span class="nv">object</span><span class="o">=</span><span class="s1">&#39;mypkg.obj&#39;</span><span class="w"> </span><span class="nv">libtool</span><span class="o">=</span>no<span class="w"> </span><span class="se">\</span>
+<span class="nv">DEPDIR</span><span class="o">=</span>.deps<span class="w"> </span><span class="nv">depmode</span><span class="o">=</span>msvc7msys<span class="w"> </span>/bin/sh<span class="w"> </span>/c/projectpath/clang/depcomp<span class="w"> </span><span class="se">\</span>
+clang-cl<span class="w"> </span>-DPACKAGE_NAME<span class="o">=</span><span class="se">\&quot;</span>mypkg<span class="se">\&quot;</span><span class="w"> </span>-DPACKAGE_TARNAME<span class="o">=</span><span class="se">\&quot;</span>mypkg<span class="se">\&quot;</span><span class="w"> </span>-DPACKAGE_VERSION<span class="o">=</span><span class="se">\&quot;</span><span class="m">0</span>.1<span class="se">\&quot;</span><span class="w"> </span>-DPACKAGE_STRING<span class="o">=</span><span class="se">\&quot;</span>mypkg<span class="se">\ </span><span class="m">0</span>.1<span class="se">\&quot;</span><span class="w"> </span>-DPACKAGE_BUGREPORT<span class="o">=</span><span class="se">\&quot;\&quot;</span><span class="w"> </span>-DPACKAGE_URL<span class="o">=</span><span class="se">\&quot;\&quot;</span><span class="w"> </span>-DPACKAGE<span class="o">=</span><span class="se">\&quot;</span>mypkg<span class="se">\&quot;</span><span class="w"> </span>-DVERSION<span class="o">=</span><span class="se">\&quot;</span><span class="m">0</span>.1<span class="se">\&quot;</span><span class="w"> </span>-I.<span class="w"> </span>-I/c/projectpath/clang/src<span class="w">   </span>-DNDEBUG<span class="w">  </span>-std:c++14<span class="w"> </span>-MD<span class="w"> </span>-O2<span class="w"> </span>-c<span class="w"> </span>-o<span class="w"> </span>mypkg.obj<span class="w"> </span><span class="sb">`</span>cygpath<span class="w"> </span>-w<span class="w"> </span><span class="s1">&#39;/c/projectpath/clang/src/mypkg.cpp&#39;</span><span class="sb">`</span>
+clang-cl<span class="w">  </span>-std:c++14<span class="w"> </span>-MD<span class="w"> </span>-O2<span class="w">   </span>-o<span class="w"> </span>mypkg.exe<span class="w"> </span>main.obj<span class="w"> </span>mypkg.obj
+...
+</pre></div>
+</div>
+<p>See how the desired <code class="docutils literal notranslate"><span class="pre">clang-cl</span></code> is used, and how the <code class="docutils literal notranslate"><span class="pre">MSVC-like</span></code> command line syntax is used, like <code class="docutils literal notranslate"><span class="pre">-std:c++14</span></code>.
+This MSVC-like syntax uses the <code class="docutils literal notranslate"><span class="pre">-MD/-MT</span></code> flags to differentiate across the dynamic/static MSVC runtimes.</p>
+<p>We can run our executable, and see how the Clang compiler version and the MSVC runtime match the defined ones:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>build<span class="se">\R</span>elease<span class="se">\m</span>ypkg.exe
+mypkg/0.1:<span class="w"> </span>Hello<span class="w"> </span>World<span class="w"> </span>Release!
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>_M_X64<span class="w"> </span>defined
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>__x86_64__<span class="w"> </span>defined
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>MSVC<span class="w"> </span>runtime:<span class="w"> </span>MultiThreadedDLL
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>_MSC_VER1943
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>_MSVC_LANG201402
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>__cplusplus201402
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>__clang_major__18
+<span class="w">    </span>mypkg/0.1:<span class="w"> </span>__clang_minor__1
+</pre></div>
+</div>
+<p>As expected, the output is identical to the previous one, as nothing changed except the compiler frontend.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It might be possible to build using the <code class="docutils literal notranslate"><span class="pre">clang-cl</span></code> distributed as a Visual Studio component for autotools-like projects.
+But it is necessary to provide the full path to that Clang component within the Visual Studio installed folder, so it can
+be found, via <code class="docutils literal notranslate"><span class="pre">[buildenv]</span></code> and or <code class="docutils literal notranslate"><span class="pre">tools.build:compiler_executables</span></code>, because it is basically an LLVM/Clang compiler,
+packaged and distributed by the Visual Studio installer.</p>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="create_your_first_package_windows.html" class="btn btn-neutral float-left" title="Create your first Conan package with Autotools in Windows (msys2)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../scm/git/capture_scm/git_capture_scm.html" class="btn btn-neutral float-right" title="Capturing Git scm information" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016-2024, JFrog.
+      <span class="lastupdated">Last updated on Feb 25, 2026.
+      </span></p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: 2.19
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+    <dt>Versions</dt>
+    
+        
+            <dd><a href="/2.26/index.html">2.26</a></dd>
+        
+    
+        
+            <dd><a href="/2.25/index.html">2.25</a></dd>
+        
+    
+        
+            <dd><a href="/2.24/index.html">2.24</a></dd>
+        
+    
+        
+            <dd><a href="/2.23/index.html">2.23</a></dd>
+        
+    
+        
+            <dd><a href="/2.22/index.html">2.22</a></dd>
+        
+    
+        
+            <dd><a href="/2.21/index.html">2.21</a></dd>
+        
+    
+        
+            <dd><a href="/2.20/index.html">2.20</a></dd>
+        
+    
+        
+            <dd><a href="/2.19/index.html">2.19</a></dd>
+        
+    
+        
+            <dd><a href="/2.18/index.html">2.18</a></dd>
+        
+    
+        
+            <dd><a href="/2.17/index.html">2.17</a></dd>
+        
+    
+        
+            <dd><a href="/2.16/index.html">2.16</a></dd>
+        
+    
+        
+            <dd><a href="/2.15/index.html">2.15</a></dd>
+        
+    
+        
+            <dd><a href="/2.14/index.html">2.14</a></dd>
+        
+    
+        
+            <dd><a href="/2.13/index.html">2.13</a></dd>
+        
+    
+        
+            <dd><a href="/2.12/index.html">2.12</a></dd>
+        
+    
+        
+            <dd><a href="/2.11/index.html">2.11</a></dd>
+        
+    
+        
+            <dd><a href="/2.10/index.html">2.10</a></dd>
+        
+    
+        
+            <dd><a href="/2.9/index.html">2.9</a></dd>
+        
+    
+        
+            <dd><a href="/2.8/index.html">2.8</a></dd>
+        
+    
+        
+            <dd><a href="/2.7/index.html">2.7</a></dd>
+        
+    
+        
+            <dd><a href="/2.6/index.html">2.6</a></dd>
+        
+    
+        
+            <dd><a href="/2.5/index.html">2.5</a></dd>
+        
+    
+        
+            <dd><a href="/2.4/index.html">2.4</a></dd>
+        
+    
+        
+            <dd><a href="/2.3/index.html">2.3</a></dd>
+        
+    
+        
+            <dd><a href="/2.2/index.html">2.2</a></dd>
+        
+    
+        
+            <dd><a href="/2.1/index.html">2.1</a></dd>
+        
+    
+        
+            <dd><a href="/2.0/index.html">2.0</a></dd>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/2/index.html">2</a></dd>
+        
+    
+    <br>
+        <details>
+            <summary>Conan 1 releases</summary>
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            <dd><a href="/1/index.html">1</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.66/index.html">1.66</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.65/index.html">1.65</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.64/index.html">1.64</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.63/index.html">1.63</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.62/index.html">1.62</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.61/index.html">1.61</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.60/index.html">1.60</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.59/index.html">1.59</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.58/index.html">1.58</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.57/index.html">1.57</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.56/index.html">1.56</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.55/index.html">1.55</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.54/index.html">1.54</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.53/index.html">1.53</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.52/index.html">1.52</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.51/index.html">1.51</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.50/index.html">1.50</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.49/index.html">1.49</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.48/index.html">1.48</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.47/index.html">1.47</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.46/index.html">1.46</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.45/index.html">1.45</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.44/index.html">1.44</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.43/index.html">1.43</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.42/index.html">1.42</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.41/index.html">1.41</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.40/index.html">1.40</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.39/index.html">1.39</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.38/index.html">1.38</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.37/index.html">1.37</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.36/index.html">1.36</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.35/index.html">1.35</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.34/index.html">1.34</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+        
+    
+        
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+        
+    
+        
+    
+        </details>
+    </dl>
+    <dl>
+        <dt>Downloads</dt>
+        
+            <dd><a href="/2.19/conan.pdf">PDF</a></dd>
+        
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+<noscript><iframe src="https://gtm.jfrog.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>
