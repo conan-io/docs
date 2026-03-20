@@ -182,3 +182,4 @@ name using the ``-p`` / ``--provider`` argument.
       <https://blog.conan.io/introducing-conan-audit-command/>`_.
     - Please check the :ref:`conan audit command reference <security>` for other security
       related features.
+    - Check out our :ref:`security conference in using std::cpp 2025<using_stdcpp2025_audit>` for a deeper insight in package vulnerabilities.

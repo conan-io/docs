@@ -64,3 +64,4 @@ by leveraging the packages list filtering from the ``conan list`` command. For e
       <reference_commands_audit>`.
     - Read more in the dedicated `blog post
       <https://blog.conan.io/introducing-conan-audit-command/>`_.
+    - Check out our :ref:`security conference in using std::cpp 2025<using_stdcpp2025_audit>` for a deeper insight of package vulnerabilities.
