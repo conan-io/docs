@@ -134,6 +134,14 @@ packages section<settings_and_options_difference>`:
 * ``options`` are package-specific configuration and can be defaulted in recipes. In this case, we
   have the option of creating the package as a shared or static library, with static being the default.
 
+  .. important::
+
+    The ``shared`` option implicitly defines that this package is a ``package_type = "library"`` and
+    it will be either a ``shared-library`` or a ``static-library`` depending on the value.
+    Defining a ``package_type`` is important, so if this option is not defined, it is strongly
+    recommended to define a explicit ``package_type`` see :ref:`package_type reference <reference_conanfile_attributes_package_type>`.
+
+
 After that, the ``exports_sources`` attribute is set to define which sources are part of
 the Conan package. These are the sources for the library you want to package. In this case,
 the sources for our "hello" library.

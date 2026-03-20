@@ -10,7 +10,8 @@ affect the final packaged binaries.
 package_type
 ------------
 
-Optional. Declaring the ``package_type`` will help Conan:
+Optional, but very strongly recommended.
+Declaring the ``package_type`` will help Conan:
 
 - To choose better the default ``package_id_mode`` for each dependency, that is, how a change
   in a dependency should affect the ``package_id`` to the current package.
@@ -36,6 +37,12 @@ Note that relationships between packages might not always be defined and can lea
 known how these should be propagated through something that is intended to be used as a ``tool_requires``.
 If some package want to use both some build scripts and link with a given library should define a
 ``tool_requires()`` to the ``build-scripts`` package and a regular ``requires()`` to the compiled library.
+
+.. important::
+
+    The ``package_type`` defines how different information of C and C++ packages is propagated
+    down the dependency graph: visibility of headers, linkage requirements, etc. It is very
+    recommended to define it, and it should be defined in most cases.
 
 
 .. _conan_conanfile_properties_settings:
