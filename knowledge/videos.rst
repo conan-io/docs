@@ -56,6 +56,7 @@ Using std::cpp 2025
 
 
 .. _using_stdcpp2024:
+.. _cppcon2024:
 
 Using std::cpp 2024
 -------------------
