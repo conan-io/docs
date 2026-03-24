@@ -292,6 +292,7 @@ conf
 - ``tools.build:cflags`` list of extra of pure C flags that will be used by ``CFLAGS``.
 - ``tools.build:sharedlinkflags`` list of extra linker flags that will be used by ``LDFLAGS``.
 - ``tools.build:exelinkflags`` list of extra linker flags that will be used by ``LDFLAGS``.
+- ``tools.build:rcflags```list of extra RC flags to define ``RCFLAGS``
 - ``tools.build:defines`` list of preprocessor definitions that will be used by ``CPPFLAGS``.
 - ``tools.build:linker_scripts`` list of linker scripts, each of which will be prefixed with ``-T`` and added to ``LDFLAGS``.
   Only use this flag with linkers that supports specifying linker scripts with the ``-T`` flag, such as ``ld``, ``gold``, and ``lld``.

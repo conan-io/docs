@@ -479,7 +479,7 @@ and added in this order:
 - **vs_debugger_environment**: Defines ``CMAKE_VS_DEBUGGER_ENVIRONMENT`` from "bindirs" folders of dependencies, exclusively for Visual Studio.
 - **cppstd**: defines ``CMAKE_CXX_STANDARD``, ``CMAKE_CXX_EXTENSIONS``
 - **parallel**: defines ``/MP`` parallel build flag for Visual.
-- **extra_flags**: Adds extra definitions, compile and link flags from ``tools.build:cxxflags``, ``tools.build:cflags``, ``tools.build:defines``, ``tools.build:sharedlinkflags``, etc.
+- **extra_flags**: Adds extra definitions, compile and link flags from ``tools.build:cxxflags``, ``tools.build:cflags``, ``tools.build:defines``, ``tools.build:sharedlinkflags``, ``tools.build:rcflags``, etc.
 - **cmake_flags_init**: defines ``CMAKE_XXX_FLAGS`` variables based on previously defined Conan variables. The blocks above only define ``CONAN_XXX`` variables, and this block will define CMake ones like ``set(CMAKE_CXX_FLAGS_INIT "${CONAN_CXX_FLAGS}" CACHE STRING "" FORCE)``.
 - **extra_variables**: Definition of extra CMake variables from ``tools.cmake.cmaketoolchain:extra_variables``
 - **try_compile**: Stop processing the toolchain, skipping the blocks below this one, if ``IN_TRY_COMPILE`` CMake property is defined.
@@ -751,7 +751,6 @@ CMakeToolchain is affected by these ``[conf]`` variables:
 - **tools.cmake.cmaketoolchain:system_processor** is not necessary in most cases and is only used to force-define ``CMAKE_SYSTEM_PROCESSOR``.
 - **tools.cmake.cmaketoolchain:enabled_blocks** define which blocks are enabled and discard the others.
 - **tools.cmake.cmaketoolchain:extra_variables**: dict-like python object which specifies the CMake variable name and value. The value can be a plain string, a number or a dict-like python object which must specify the ``value`` (string/number) , ``cache`` (boolean), ``type`` (CMake cache type) and optionally, ``docstring`` (string: defaulted to variable name) and ``force`` (boolean) keys. It can override CMakeToolchain defined variables, for which users are at their own risk. E.g.
-    
 .. code-block:: text
 
     [conf]
@@ -795,6 +794,7 @@ This block injects ``$`` which will be expanded later. It also defines a cache v
 - **tools.build:cflags** list of extra of pure C flags that will be appended to ``CMAKE_C_FLAGS_INIT``.
 - **tools.build:sharedlinkflags** list of extra linker flags that will be appended to ``CMAKE_SHARED_LINKER_FLAGS_INIT``.
 - **tools.build:exelinkflags** list of extra linker flags that will be appended to ``CMAKE_EXE_LINKER_FLAGS_INIT``.
+- **tools.build:rcflags** list of extra RC flags that will be appended to ``CMAKE_RC_FLAGS_INIT``.
 - **tools.build:defines** list of preprocessor definitions that will be used by ``add_definitions()``.
 - **tools.build:tools.build:add_rpath_link**: add ``-Wl,-rpath-link,`` linker flag. Set this to ``True`` to pass this flag pointing to all library directories of all host dependencies. Notice that it should not be needed when using the newer `CMakeConfigDeps` generator.
 - **tools.apple:sdk_path** value for ``CMAKE_OSX_SYSROOT``. In the general case it's not needed and will be passed to CMake by the settings values.
