@@ -282,6 +282,15 @@ allows that as a compatible binary, then, Conan will build from source that depe
 The ``--build=[pattern]`` uses a pattern, so it should use something like ``--build="zlib/*"`` to match any
 version of the ``zlib`` package, as doing ``--build=zlib`` will not work.
 
+The ``--build=missing:[pattern]`` form uses the same kind of package patterns as
+in :ref:`Profile patterns <reference_config_files_profile_patterns>`
+(``fnmatch``-style wildcards, references like ``name/version@user/channel``,
+etc.). Also, you can use the ``&`` syntax to match the **consumer** conanfile
+(the root of the graph). That is useful with ``conan create .`` when you only
+want to build the package being created if its binary is missing, without
+retyping its name: ``--build=missing:&`` (equivalent to
+``--build=missing:current_pkg/current_version`` in the case of ``conan create .``).
+
 .. note::
 
     **Best practices**
