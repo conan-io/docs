@@ -967,6 +967,21 @@ For example, to define a ``shared=True`` option for all packages except to `zlib
     !zlib/*:shared=True
 
 
+From Conan 2.27 it is also possible to do an exclusion of multiple patterns, with the ``!(<pattern1>|<pattern2>)``
+**experimental** syntax, exclusively for ``[tool_requires]`` (it will not work in other sections), like:
+
+
+.. code-block:: text
+    :caption: *myprofile*
+
+    [tool_requires]
+    !(gcc/*|ninja/*): cmake/3.20
+
+That means that all packages except ``gcc`` and ``ninja`` will get a tool-requires to ``cmake``. This feature
+is intended to avoid circular dependencies in the build-context (try to avoid abusing it for other use cases),
+that is, it should be mostly in the "build" profile, but likely not in the "host" profile.
+
+
 Note that for the ``msvc`` compiler, the ``compiler.runtime_type`` setting is  automatically initialized from
 the ``build_type`` setting value by the ``profile.py`` plugin, as it is a good default for the vast majority 
 of cases. That means that a user defining ``-s build_type=MinSizeRel`` will by default get a 
