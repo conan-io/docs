@@ -3,6 +3,34 @@ Changelog
 
 This page lists the changes made to Conan in each version, with links to each pull request for more details.
 
+2.27.0 (25-Mar-2026)
+--------------------
+
+- Feature: Feature: Allow negated OR patterns ``!(<pattern1>|<pattern2>|...)`` in profile ``[tool_requires]`` for breaking cycles in build context. `#19780 <https://github.com/conan-io/conan/pull/19780>`_ . Docs `here <https://github.com/conan-io/docs/pull/4403>`__
+- Feature: Feature: Add CVE version info to ``conan audit`` results. `#19774 <https://github.com/conan-io/conan/pull/19774>`_
+- Feature: Disable CMake user package registry exports by default (`cmake_policy(SET CMP0090 NEW)` and `CMAKE_EXPORT_PACKAGE_REGISTRY OFF` when unset). `#19766 <https://github.com/conan-io/conan/pull/19766>`_
+- Feature: Legacy Conan 1.X alias support has been removed. `#19740 <https://github.com/conan-io/conan/pull/19740>`_
+- Feature: PyEnv output based on verbosity level `#19731 <https://github.com/conan-io/conan/pull/19731>`_
+- Feature: The HTML graph representation learned to show transitive requirements. `#19725 <https://github.com/conan-io/conan/pull/19725>`_
+- Feature: Add support for Clang 22. `#19709 <https://github.com/conan-io/conan/pull/19709>`_
+- Feature: Show cycles/loops in ``conan graph info --format=html`` with a red arrow. `#19694 <https://github.com/conan-io/conan/pull/19694>`_
+- Feature: Add ``tools.build:rcflags`` configuration to inject flags for RC. `#19693 <https://github.com/conan-io/conan/pull/19693>`_ . Docs `here <https://github.com/conan-io/docs/pull/4401>`__
+- Feature: Add support for Apple OS 26.3 releases. `#19691 <https://github.com/conan-io/conan/pull/19691>`_
+- Feature: Feature: New ``tools.cmake:configure_args`` configuration to inject arbitrary arguments into the CMake ``configure`` step via the command line, allowing users to inject CMake variables and arguments such as ``--fresh``. `#19639 <https://github.com/conan-io/conan/pull/19639>`_ . Docs `here <https://github.com/conan-io/docs/pull/4404>`__
+- Fix: Allow ``NMake`` integrations to handle defines such as ``WINVER=0x0601`` as numeric, not strings. `#19779 <https://github.com/conan-io/conan/pull/19779>`_
+- Fix: Correct definition of ``set_property()`` in ``CMakeConfigDeps`` for build context. `#19760 <https://github.com/conan-io/conan/pull/19760>`_
+- Fix: Show a clear error message when defining ``[platform_xxx_requires]`` with a version range. `#19750 <https://github.com/conan-io/conan/pull/19750>`_
+- Fix: Only group build packages in ``conan graph info .. -f=html``. `#19744 <https://github.com/conan-io/conan/pull/19744>`_
+- Fix: Solve issue with overrides and lockfiles. `#19739 <https://github.com/conan-io/conan/pull/19739>`_
+- Fix: Improve the error message for authentication with source credentials. `#19737 <https://github.com/conan-io/conan/pull/19737>`_ . Docs `here <https://github.com/conan-io/docs/pull/4397>`__
+- Fix: Fix missing libraries in legacy ``<packagename>_LIBRARIES`` variable definition in ``CMakeConfigDeps`` generator. `#19724 <https://github.com/conan-io/conan/pull/19724>`_
+- Fix: Relax the ``CMakeConfigDeps`` requirement to explicitly declare the CMake ``C`` language in ``CXX`` projects when linking C dependencies, since this is already implicit in CMake. `#19704 <https://github.com/conan-io/conan/pull/19704>`_
+- Fix: Create stubs correctly for user CMake presets when ``user_presets_path`` is specified. `#19251 <https://github.com/conan-io/conan/pull/19251>`_
+- Bugfix: Solve assertion with ``--build=editable`` and usage of ``tools.build:download_source=True`` conf. `#19758 <https://github.com/conan-io/conan/pull/19758>`_
+- Bugfix: Fix ``detect_emcc_compiler`` on first run and on Windows. `#19735 <https://github.com/conan-io/conan/pull/19735>`_
+- Bugfix: Define correct bash usage for ``win_bash_run=True`` with ``self.run(..., scope="run")``. `#19703 <https://github.com/conan-io/conan/pull/19703>`_
+- Bugfix: Solve path issues with ``tools.gnu:make_program`` in Windows subsystems. `#15047 <https://github.com/conan-io/conan/pull/15047>`_
+
 2.26.2 (05-Mar-2026)
 --------------------
 
