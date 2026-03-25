@@ -217,4 +217,5 @@ Plugin implementation examples
 
 Here you can find some implementation examples of the plugin so they can serve as guidance to develop your own:
 
+- :ref:`examples_extensions_package_signing_sigstore`.
 - :ref:`examples_extensions_package_signing_openssl`.
