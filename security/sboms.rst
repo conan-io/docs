@@ -132,4 +132,5 @@ Unfortunately, it is not available natively in Conan, so it will be necessary to
 .. seealso::
 
     - :ref:`How to install the build info extension and how to generate your build info <integrations_jfrog>`.
+    - Check out our :ref:`security conference in using std::cpp 2025<using_stdcpp2025_audit>` to learn more about SBOM.
 

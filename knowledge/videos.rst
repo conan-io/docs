@@ -15,7 +15,8 @@ Videos
 
 ACCU 2025
 ---------
-`Continuous Integration for Large Scale C/C++ Projects With Conan2` by Diego Rodriguez-Losada
+`"Continuous Integration for Large Scale C/C++ Projects With Conan2"` - Diego Rodriguez-Losada
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     There are two main paradigms to develop large scale C, C++ projects: using mono-repos and package-based development, both have different pros and cons. Using package managers such as Conan allows easy retrieval of dependencies, including binaries, avoiding continuous and expensive rebuilds from source.
     While this works easily for third party dependencies, when dependencies are very stable, quick evolution in a large dependency graph when there are different developers working concurrently in different packages, can be more challenging.
@@ -34,11 +35,56 @@ ACCU 2025
 .. youtube:: A3X1MpvYTrM
 
 
+.. _using_stdcpp2025_cps:
+
+Using std::cpp 2025
+-------------------
+
+`"An introduction to the Common Package Specification (CPS) for C and C++"` - Diego Rodriguez-Losada
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    The Common Package Specification format is an effort to create a standard
+    description of binary packages to improve the reuse of C and C++ software
+    and the interoperability of different build systems and tools.
+
+    This talk briefly introduces the specification and its main concepts,
+    the project, and summarize the efforts of the team so far.
+
+    This specification already has some experimental support in different open
+    source tools, like CMake and Conan C++ package manager. This will be
+    demonstrated, showing how it can achieve such interoperability of build
+    systems.
+
+.. youtube:: C1OCKEl7x_w
+
+.. _using_stdcpp2025_audit:
+
+`"Open source C++ packages vulnerabilities and tools"` - Luis Caro Campos
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    The highest priority of the C++ language is security in the language
+    itself. But what happens after a security issue is identified in some
+    existing open source C or C++ library?
+
+    This talk gives an introduction of CVEs for C and C++ packages, report
+    the state of the art and introduce different tools in this domain.
+
+    It also presents the Software Build of Materials (SBOMs) concept, and
+    the main standards such as CycloneDX and SPDX.
+
+    The talk finish demonstrating some of these concepts with Conan C++
+    package manager and the JFrog platform security tools.
+
+.. youtube:: sTqbfdiOSUY
+
+
+.. _using_stdcpp2024:
 .. _cppcon2024:
 
 Using std::cpp 2024
 -------------------
-`Unlock the power of Conan 2 - 15 new features you didn’t know about! Luis Caro / Diego Rodriguez-Losada`
+`"Unlock the power of Conan 2 - 15 new features you didn’t know about!"` - Luis Caro & Diego Rodriguez-Losada
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     | Conan 2.0 was released over a year ago with a large number of new features and improvements. Since its release, the team has continued to add improvements based on user feedback, releasing many more new features than in the previous years combined.
     | Join Diego and Luis from the Conan team for an overview of practical examples of what Conan 2 can do for your C and C++ package management development workflows. Some highlights include: transparent fall back to system-provided dependencies, managing metadata files, and the flexible and fully transparent CMake integrations, and more!
@@ -49,7 +95,8 @@ Using std::cpp 2024
 
 ACCU 2022
 ---------
-`Advanced Dependencies Model in Conan 2.0 C, C++ Package Manager by Diego Rodriguez-Losada`
+`"Advanced Dependencies Model in Conan 2.0 C, C++ Package Manager"` - Diego Rodriguez-Losada
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     Conan 2.0 introduces a new dependencies model with requirements "traits" like visibility,
     definition and propagation of headers and libraries independently, and more that allow modeling all these advanced use cases.
@@ -61,7 +108,8 @@ ACCU 2022
 
 CppCon 2022
 -----------
-`What's New in Conan 2.0 C/C++ Package Manager - Diego Rodriguez-Losada`
+`"What's New in Conan 2.0 C/C++ Package Manager"` - Diego Rodriguez-Losada
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     During the years since Conan 1.0 was released, we have continued to learn from the C++ ecosystem as we watched it grow;
     learning many lessons, challenges and trends in the industry from the feedback from tens of thousands of conversations with users and customers,
@@ -74,7 +122,8 @@ CppCon 2022
 
 Meeting C++ 2023
 ----------------
-`CMake and Conan: past, present and future - Diego Rodriguez-Losada`
+`"CMake and Conan: past, present and future"` - Diego Rodriguez-Losada
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     | This talk will quickly review the past approaches, their pitfalls, and how modern CMake and Conan integrations have improved over them:
     | From variables, to targets, to transparent targets integration with modern Conan generators
@@ -86,9 +135,10 @@ Meeting C++ 2023
 
 .. _using_stdcpp2021:
 
-Using std::cpp
---------------
-`Why you shouldn’t write your own C++ package manager Luis Caro Campos JFrog`
+Using std::cpp 2021
+-------------------
+`"Why you shouldn’t write your own C++ package manager"` - Luis Caro Campos
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     |  This talk will provide a quick overview of how Conan deals with intrinsic C++ complexities:
     |  Headers vs binary symbols
@@ -103,6 +153,7 @@ Using std::cpp
 
 Meeting C++ online book & tool fair
 -----------------------------------
-`Conan 2.0 demo - Chris McArthur`
+`"Conan 2.0 demo"` - Chris McArthur
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. youtube:: 1q5oIOupwjg
