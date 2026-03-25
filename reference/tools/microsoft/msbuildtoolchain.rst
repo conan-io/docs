@@ -81,6 +81,7 @@ conf
 - ``tools.build:cflags`` list of extra of pure C flags that will be appended to ``<AdditionalOptions>`` section from ``<ClCompile>`` and ``<ResourceCompile>`` one.
 - ``tools.build:sharedlinkflags`` list of extra linker flags that will be appended to ``<AdditionalOptions>`` section from ``<Link>`` one.
 - ``tools.build:exelinkflags`` list of extra linker flags that will be appended to ``<AdditionalOptions>`` section from ``<Link>`` one.
+- ``tools.build:rcflags`` list of extra RC flags that will be appended to ``<AdditionalOptions>`` section in ``<ResourceCompile>`` one.
 - ``tools.build:defines`` list of preprocessor definitions that will be appended to ``<PreprocessorDefinitions>`` section from ``<ResourceCompile>`` one.
 
 
