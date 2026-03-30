@@ -3,43 +3,30 @@
 Signing packages with Sigstore (Cosign)
 =======================================
 
-This page describes the `conan Sigstore plugin <https://github.com/danimtb/conan_sigstore_plugin>`_, a reference implementation of the package signing plugin interface that signs Conan manifests using `Sigstore <https://www.sigstore.dev/>`_ via `Cosign <https://github.com/sigstore/cosign>`_.
+This is an example of a package signing plugin implementation using `Sigstore <https://www.sigstore.dev/>`_ via `Cosign <https://github.com/sigstore/cosign>`_.
+You need **Cosign** (version 3.0.0 or newer) on your ``PATH``. See the `Cosign releases <https://github.com/sigstore/cosign/releases>`_ page for binaries.
 
-You need **Cosign** (version greater than 3.0.0) installed on the system and available on your ``PATH``. See the `Cosign releases <https://github.com/sigstore/cosign/releases>`_ page for installation packages.
 
 .. include:: ../../../common/experimental_warning.inc
 
-The plugin source and full README (including CI and tests) live in the repository: `danimtb/conan_sigstore_plugin <https://github.com/danimtb/conan_sigstore_plugin>`_.
+This example is available in the examples2 repository: `examples/extensions/plugins/sigstore_sign <https://github.com/conan-io/examples2/tree/main/examples/extensions/plugins/sigstore_sign>`_.
 
 .. note::
 
-   Sigstore and Cosign are used here as one possible backend. The package signing
-   plugin mechanism is backend-agnostic; other tools (for example OpenSSL or GPG)
-   can be integrated with the same Conan hooks by implementing ``sign()`` and
-   ``verify()`` as described in :ref:`reference_extensions_package_signing`.
-
-Installing the plugin
-+++++++++++++++++++++
-
-Install the extension into your Conan home with :ref:`conan config install<reference_commands_conan_config_install>`:
-
-.. code-block:: bash
-
-    $ conan config install https://github.com/danimtb/conan_sigstore_plugin.git
-
-Conan places the plugin under ``CONAN_HOME/extensions/plugins/sign/`` (for example ``sign.py`` and related files).
+   Cosign is used here for demonstration only. The package signing plugin mechanism is backend-agnostic; you could implement a similar plugin with other tools (for example OpenSSL or GPG) by changing the commands invoked from ``sign()`` and ``verify()``, as described in :ref:`reference_extensions_package_signing`.
 
 
 Generating the signing key pair
 +++++++++++++++++++++++++++++++
 
-Cosign can generate a password-protected key pair. From a shell:
+Generate a Cosign key pair (Cosign prompts for a passphrase to protect the private key):
 
 .. code-block:: bash
 
-    $ cosign generate-key-pair --output-key-prefix mykey
+    $ cosign generate-key-pair --output-key-prefix signing
 
-This writes ``mykey.key`` (private) and ``mykey.pub`` (public). You will be prompted for a passphrase; **the same passphrase must be available non-interactively when signing**, typically via the ``COSIGN_PASSWORD`` environment variable (see below).
+This creates ``signing.key`` (private) and ``signing.pub`` (public).
+Use the passphrase later to set the ``COSIGN_PASSWORD`` environment variable when configuring the plugin (see below).
 
 
 Configuring the plugin
@@ -47,64 +34,121 @@ Configuring the plugin
 
 .. caution::
 
-   Storing a private key on disk next to the plugin is convenient for examples only. **Do not rely on that pattern in production.**
-   Prefer environment-backed secrets, a hardware or cloud key, or a remote signing service. **Keep private keys out of the Conan cache, out of packages, and out of source control.**
+    This example stores a private key next to the plugin for simplicity. **Do not do this in production.**
+    Instead, load the signing key from environment variables or a secret manager, or delegate signing to a remote signing service.
+    **Always keep the private key out of the Conan cache and out of source control**.
 
-Create or edit ``sigstore-config.yaml`` in the signing plugin directory:
+1. Copy ``sign.py`` and ``signing-config.json`` from the examples2 folder into your Conan home:
 
-``CONAN_HOME/extensions/plugins/sign/sigstore-config.yaml``
+   ``CONAN_HOME/extensions/plugins/sign/sign.py``
 
-If the file is missing the first time the plugin runs, a template may be created for you to customize.
+   ``CONAN_HOME/extensions/plugins/sign/signing-config.json``
 
-Minimal example (adjust paths to absolute locations of your keys):
+2. Place the generated keys in a folder named after the **provider** used by the plugin. This example uses ``my-organization`` (the name is hardcoded in ``sign.py``):
 
-.. code-block:: yaml
+   ``CONAN_HOME/extensions/plugins/sign/my-organization/signing.key``
 
-    sign:
-      enabled: true
-      provider: "mycompany"
-      private_key: "/absolute/path/to/mykey.key"
-      use_rekor: false
+   ``CONAN_HOME/extensions/plugins/sign/my-organization/signing.pub``
 
-    verify:
-      enabled: true
-      providers:
-        mycompany:
-          public_key: "/absolute/path/to/mykey.pub"
-      use_rekor: false
+3. Set the ``COSIGN_PASSWORD`` environment variable. The plugin **requires** this variable to be present when signing: 
+   Cosign reads it instead of prompting on the terminal. Set it to the **private key passphrase** you chose when generating the key pair.
+   If the key has **no** passphrase, set ``COSIGN_PASSWORD`` to an empty value.
 
-Each **provider** name ties signing (private key) to verification (public key). You can list multiple providers under ``verify.providers`` if more than one signer is trusted.
+Your layout should look like this:
 
-Set ``use_rekor: true`` only if you intend to record or check signatures against the `Rekor <https://github.com/sigstore/rekor>`_ transparency log (public Rekor is optional for this plugin).
+.. code-block:: text
 
-
-Environment variables
-+++++++++++++++++++++
-
-Environment variables override the YAML file when both are set:
-
-* ``COSIGN_PASSWORD`` — passphrase for the private key (effectively required for unattended signing).
-* ``CONAN_SIGSTORE_PLUGIN_ENABLE_SIGN`` — enable or disable signing (signing is on by default).
-* ``CONAN_SIGSTORE_PLUGIN_ENABLE_VERIFY`` — enable or disable verification (on by default).
-* ``CONAN_SIGSTORE_PLUGIN_ENABLE_REKOR`` — force Rekor usage for sign/verify when set, in line with the plugin’s Rekor support.
+   CONAN_HOME/
+   └── extensions/
+       └── plugins/
+           └── sign/
+               ├── sign.py
+               ├── signing-config.json
+               └── my-organization/
+                   ├── signing.key
+                   └── signing.pub
 
 
-How signing and verification work
-+++++++++++++++++++++++++++++++++++
+.. tip::
 
-When you run :command:`conan cache sign`, Conan generates ``pkgsign-manifest.json`` (checksums of package files), then the plugin signs that manifest with Cosign. Signature metadata is stored in ``pkgsign-signatures.json``; the Sigstore **bundle** (for example ``artifact.sigstore.json``) is included in ``sign_artifacts`` together with the manifest reference. The signing **method** reported in metadata is ``sigstore``.
+    The package signing plugin lives under the Conan configuration directory, so you can distribute it with :ref:`conan config install<reference_commands_conan_config_install>` (for example from a fork or internal repo that contains the same files).
 
-When you :command:`conan install` from a remote or run :command:`conan cache verify`, Conan checks file checksums against the manifest, then the plugin verifies the Cosign signature using the public key for the provider named in the metadata. Optional Rekor checks apply when enabled.
 
-More detail and the exact JSON shape of ``pkgsign-signatures.json`` are documented in the `plugin README <https://github.com/danimtb/conan_sigstore_plugin/blob/main/README.md>`_.
+Implementation
+++++++++++++++
 
-For the manifest format and plugin API, see :ref:`reference_extensions_package_signing`.
+.. note::
+
+   **Method name convention:** Use the literal string ``sigstore`` (lowercase) in the ``method`` field when your plugin uses this
+   Cosign/Sigstore tools. This is a convenient way to identify the signing method used to sign the package and so the verifier
+   can pick the right backend.
+
+For signing, ``sign()`` invokes :command:`cosign sign-blob` on Conan's ``pkgsign-manifest.json``, writes a Sigstore **bundle**
+(``artifact.sigstore.json``) next to the manifest, and returns metadata for ``pkgsign-signatures.json``:
+
+.. code-block:: python
+
+    def sign(ref, artifacts_folder, signature_folder, **kwargs):
+        ...
+        cosign_sign_cmd = [
+            "cosign",
+            "sign-blob",
+            "--key",
+            privkey_filepath,
+            "--bundle",
+            bundle_filepath,
+            "-y",
+            f"--signing-config={_signing_config_path()}",
+            manifest_filepath,
+        ]
+        try:
+            _run_command(cosign_sign_cmd)
+            ConanOutput().success(f"Package signed for reference {ref}")
+        except Exception as exc:
+            raise ConanException(f"Error signing artifact: {exc}") from exc
+
+        return [
+            {
+                "method": "sigstore",
+                "provider": provider,
+                "sign_artifacts": {
+                    "manifest": "pkgsign-manifest.json",
+                    "bundle": "artifact.sigstore.json",
+                },
+            }
+        ]
+
+For verification, ``verify()`` reads ``pkgsign-signatures.json``, resolves the manifest and bundle paths, loads the public key for the recorded **provider**, and runs :command:`cosign verify-blob` with ``--private-infrastructure=true`` so verification matches offline signing:
+
+.. code-block:: python
+
+    def verify(ref, artifacts_folder, signature_folder, files, **kwargs):
+        ...
+        cosign_verify_cmd = [
+            "cosign",
+            "verify-blob",
+            "--key",
+            pubkey_filepath,
+            "--bundle",
+            bundle_filepath,
+            "--private-infrastructure=true",
+            manifest_filepath,
+        ]
+        try:
+            _run_command(cosign_verify_cmd)
+            ConanOutput().success(f"Package verified for reference {ref}")
+        except Exception as exc:
+            raise ConanException(f"Error verifying signature {bundle_filepath}: {exc}") from exc
+
+If verification fails, the plugin raises ``ConanException``. On success it does not return a value.
+
+You can read more about ``pkgsign-manifest.json`` at :ref:`reference_extensions_package_signing`.
 
 
 Signing packages
 ++++++++++++++++
 
-Create a package, then sign recipe and binaries with :command:`conan cache sign`:
+Create a package and sign it:
 
 .. code-block:: bash
 
@@ -112,26 +156,37 @@ Create a package, then sign recipe and binaries with :command:`conan cache sign`
     $ conan create
     $ conan cache sign hello/1.0
 
-Successful runs show per-reference signing and a short summary (for example ``OK=2, FAILED=0`` when both recipe and a matching package revision are signed).
+    hello/1.0: Compressing conan_sources.tgz
+    hello/1.0:dee9f7f985eb1c20e3c41afaa8c35e2a34b5ae0b: Compressing conan_package.tgz
+    Running command: cosign sign-blob --key .../sign/my-organization/signing.key --bundle .../metadata/sign/artifact.sigstore.json -y --signing-config=.../sign/signing-config.json .../metadata/sign/pkgsign-manifest.json
+    Package signed for reference hello/1.0
+    ...
+    [Package sign] Summary: OK=2, FAILED=0
 
 .. note::
 
-   Starting with Conan 2.26.0, :command:`conan upload` does not sign packages automatically. Sign with :command:`conan cache sign` before upload if remotes should receive signatures. See :ref:`reference_extensions_package_signing`.
+   Starting with Conan 2.26.0, :command:`conan upload` does not sign packages automatically. Use :command:`conan cache sign` before upload
+   when remotes should store signatures. See :ref:`reference_extensions_package_signing`.
 
 
 Verifying packages
 ++++++++++++++++++
 
-Verify locally cached artifacts:
+Verify recipe and package binaries in the cache:
 
 .. code-block:: bash
 
     $ conan cache verify hello/1.0
 
-Conan verifies checksums of package files, then the plugin verifies the Sigstore/Cosign material for each signature entry. Packages downloaded from a remote are also verified on install when verification is enabled.
+    [Package sign] Checksum verified for file conan_sources.tgz (...)
+    ...
+    Running command: cosign verify-blob --key .../sign/my-organization/signing.pub --bundle .../metadata/sign/artifact.sigstore.json --private-infrastructure=true .../metadata/sign/pkgsign-manifest.json
+    Package verified for reference hello/1.0
+    ...
+    [Package sign] Summary: OK=2, FAILED=0
+
+Packages downloaded from a remote are verified on install (for example :command:`conan install`).
 
 .. seealso::
 
-   To implement your own backend or adapt this plugin, use
-   :ref:`reference_extensions_package_signing` and the
-   `conan_sigstore_plugin <https://github.com/danimtb/conan_sigstore_plugin>`_ source as a starting point.
+    Plugin API and manifest details: :ref:`reference_extensions_package_signing`.
