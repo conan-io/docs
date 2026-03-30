@@ -3,8 +3,10 @@
 Signing packages with Sigstore (Cosign)
 =======================================
 
-This is an example of a package signing plugin implementation using `Sigstore <https://www.sigstore.dev/>`_ via `Cosign <https://github.com/sigstore/cosign>`_.
-You need **Cosign** (version 3.0.0 or newer) on your ``PATH``. See the `Cosign releases <https://github.com/sigstore/cosign/releases>`_ page for binaries.
+This is an example of a package signing plugin implementation using `Sigstore <https://www.sigstore.dev/>`_ via
+`Cosign <https://github.com/sigstore/cosign>`_.
+You need **Cosign** (version 3.0.0 or newer) on your ``PATH``.
+See the `Cosign releases <https://github.com/sigstore/cosign/releases>`_ page for binaries.
 
 
 .. include:: ../../../common/experimental_warning.inc
@@ -13,7 +15,9 @@ This example is available in the examples2 repository: `examples/extensions/plug
 
 .. note::
 
-   Cosign is used here for demonstration only. The package signing plugin mechanism is backend-agnostic; you could implement a similar plugin with other tools (for example OpenSSL or GPG) by changing the commands invoked from ``sign()`` and ``verify()``, as described in :ref:`reference_extensions_package_signing`.
+   Cosign is used here for demonstration only. The package signing plugin mechanism is backend-agnostic; you could implement
+   a similar plugin with other tools (for example OpenSSL or GPG) by changing the commands invoked from ``sign()`` and ``verify()``,
+   as described in :ref:`reference_extensions_package_signing`.
 
 
 Generating the signing key pair
@@ -44,7 +48,8 @@ Configuring the plugin
 
    ``CONAN_HOME/extensions/plugins/sign/signing-config.json``
 
-2. Place the generated keys in a folder named after the **provider** used by the plugin. This example uses ``my-organization`` (the name is hardcoded in ``sign.py``):
+2. Place the generated keys in a folder named after the **provider** used by the plugin. This example uses ``my-organization``
+   (the name is hardcoded in ``sign.py``):
 
    ``CONAN_HOME/extensions/plugins/sign/my-organization/signing.key``
 
@@ -71,7 +76,9 @@ Your layout should look like this:
 
 .. tip::
 
-    The package signing plugin lives under the Conan configuration directory, so you can distribute it with :ref:`conan config install<reference_commands_conan_config_install>` (for example from a fork or internal repo that contains the same files).
+    The package signing plugin lives under the Conan configuration directory, so you can distribute it with
+    :ref:`conan config install<reference_commands_conan_config_install>` (for example from a fork or internal
+    repo that contains the same files).
 
 
 Implementation
@@ -118,7 +125,8 @@ For signing, ``sign()`` invokes :command:`cosign sign-blob` on Conan's ``pkgsign
             }
         ]
 
-For verification, ``verify()`` reads ``pkgsign-signatures.json``, resolves the manifest and bundle paths, loads the public key for the recorded **provider**, and runs :command:`cosign verify-blob` with ``--private-infrastructure=true`` so verification matches offline signing:
+For verification, ``verify()`` reads ``pkgsign-signatures.json``, resolves the manifest and bundle paths, loads the public key for
+the recorded **provider**, and runs :command:`cosign verify-blob` (without Rekor support):
 
 .. code-block:: python
 
