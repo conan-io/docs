@@ -10,3 +10,4 @@ Package Signing Plugin
 
 
    package_signing_with_openssl
+   package_signing_with_sigstore
