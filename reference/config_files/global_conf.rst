@@ -323,15 +323,6 @@ certificate (and the key) using the following configuration variables:
 
   Then, the certificate storage can be defined with ``core.net.http:cacert_path=/etc/ssl/certs/ca-certificates.crt``.
 
-  On other platforms (or when using the self-contained Conan binary), the default Mozilla CA bundle
-  shipped by ``certifi`` can be used as a starting point:
-
-  .. code-block:: bash
-
-    cp "$(python -m certifi)" combined-ca-bundle.pem
-    cat my-corporate-ca.crt >> combined-ca-bundle.pem
-
-  Then set ``core.net.http:cacert_path=/path/to/combined-ca-bundle.pem``.
 
   The ``cacert_path`` Conan configuration is forwarded to the ``python-requests`` ``verify`` argument, see
   `Python-requests SSL certificates <https://requests.readthedocs.io/en/latest/user/advanced/#ssl-cert-verification>`_.
