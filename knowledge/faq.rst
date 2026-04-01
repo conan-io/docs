@@ -342,3 +342,49 @@ current recipe binary will be built to run in the "build" context
 
     When doing ``conan create`` for a package intended to be used as a ``tool_requires``, always
     specify the ``conan create ... --build-require`` argument.
+
+
+.. _faq_ssl_corporate_certificates:
+
+Using Conan with both corporate and public remotes (SSL certificates)
+---------------------------------------------------------------------
+
+In corporate environments it is common to need access to both a private Artifactory remote
+(secured with a self-signed or internal CA certificate) and a public remote such as
+ConanCenter at the same time.
+
+The problem appears because:
+
+* Without any custom CA configuration Conan may reject the corporate remote
+  (``CERTIFICATE_VERIFY_FAILED``).
+* Setting ``core.net.http:cacert_path`` to point **only** to the corporate CA makes ConanCenter
+  unreachable, because the public root CAs are no longer in the trust bundle.
+
+The solution is to build a **single combined CA bundle** that contains both the public root
+certificates **and** the corporate CA, and then configure Conan to use it via
+``core.net.http:cacert_path`` (see :ref:`reference_config_files_global_conf_ssl_certificates`).
+
+The combined bundle can be created by appending the corporate CA (in PEM format) to the default
+public CA bundle. The ``certifi`` Python package ships the Mozilla root CA bundle that Conan uses
+by default:
+
+.. code-block:: bash
+
+    # 1. Copy the default public CA bundle to a working location
+    cp "$(python -m certifi)" combined-ca-bundle.pem
+
+    # 2. Append the corporate CA (PEM format) to the bundle
+    cat my-corporate-ca.crt >> combined-ca-bundle.pem
+
+You can append as many additional CAs as needed. Then point Conan at the combined file:
+
+.. code-block:: text
+    :caption: **[CONAN_HOME]/global.conf**
+
+    core.net.http:cacert_path=/path/to/combined-ca-bundle.pem
+
+.. seealso::
+
+    :ref:`reference_config_files_global_conf_ssl_certificates` for the full reference on
+    ``core.net.http:cacert_path``, ``core.net.http:client_cert``, and alternative ways to
+    aggregate certificates (including ``update-ca-certificates`` on Debian/Ubuntu).

@@ -322,6 +322,17 @@ certificate (and the key) using the following configuration variables:
 
 
   Then, the certificate storage can be defined with ``core.net.http:cacert_path=/etc/ssl/certs/ca-certificates.crt``.
+
+  On other platforms (or when using the self-contained Conan binary), the default Mozilla CA bundle
+  shipped by ``certifi`` can be used as a starting point:
+
+  .. code-block:: bash
+
+    cp "$(python -m certifi)" combined-ca-bundle.pem
+    cat my-corporate-ca.crt >> combined-ca-bundle.pem
+
+  Then set ``core.net.http:cacert_path=/path/to/combined-ca-bundle.pem``.
+
   The ``cacert_path`` Conan configuration is forwarded to the ``python-requests`` ``verify`` argument, see
   `Python-requests SSL certificates <https://requests.readthedocs.io/en/latest/user/advanced/#ssl-cert-verification>`_.
   That means that if the ``REQUESTS_CA_BUNDLE`` environment variable is defined, it might be taken into account too.
@@ -340,6 +351,12 @@ certificate (and the key) using the following configuration variables:
   as it disables certificate validation. Do not use it unless you understand the implications
   (And even then, properly scoping the conf to only the required recipes is a good idea)
   or if you are using it for development purposes
+
+.. seealso::
+
+    If you need to use both a corporate remote (with a private CA) and a public remote like
+    ConanCenter, see :ref:`faq_ssl_corporate_certificates` for step-by-step instructions on
+    creating a combined CA bundle.
 
 
 Proxies
