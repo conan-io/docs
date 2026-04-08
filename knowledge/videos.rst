@@ -10,8 +10,32 @@ Videos
     be outdated. Always use the documentation and reference as the source of truth, not the
     videos.
 
-.. _accu2025:
+.. _using_stdcpp2026_cuda:
 
+Using std::cpp 2026
+-------------------
+
+`"Using std::cpp 2026: Cross-Platform C++ AI Development with Conan, CMake, and CUDA"` - Luis Caro
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    Every year, the ISO C++ survey delivers the same verdict: dependency management is the #1 pain
+    point for developers. For AI and machine learning development, introducing CUDA into the mix
+    can cause that "pain point" to become a bigger bottleneck when developers these days are
+    demanding “one-line, cross-platform” solutions.
+
+    Setting up a cross-platform AI development environment can involve a fragile "ritual" of manual
+    installs, environment variables, and platform-specific hacks. Moving from a Windows dev-box to
+    a Linux CI server or a Jetson Orin at the edge? That’s often a week of lost productivity,
+    especially for large teams that need to support multiple versions of CUDA on multiple platforms.
+
+    This talk demonstrates how to use Conan and CMake to model the CUDA compatibility matrix
+    directly in your code, achieving an ideal pipeline that works both on development machines, and
+    CI, regardless of your target platform: One source checkout. One command. Identical builds on
+    every platform.
+
+.. youtube:: jnKeUE2C8_I
+
+.. _accu2025:
 
 ACCU 2025
 ---------

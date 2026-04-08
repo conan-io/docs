@@ -341,6 +341,12 @@ certificate (and the key) using the following configuration variables:
   (And even then, properly scoping the conf to only the required recipes is a good idea)
   or if you are using it for development purposes
 
+.. seealso::
+
+    If you need to use both a corporate remote (with a private CA) and a public remote like
+    ConanCenter, see :ref:`faq_ssl_corporate_certificates` for step-by-step instructions on
+    creating a combined CA bundle.
+
 
 Proxies
 +++++++
