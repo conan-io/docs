@@ -1,6 +1,7 @@
 import argparse
 import json
 import os
+import shutil
 
 from common import chdir, conan_versions, latest_v2_folder, latest_v1_folder, latest_v2_branch, run
 
@@ -38,6 +39,20 @@ def replace_in_file(file_path, old, new):
         print(f"Error replacing in file {file_path}: {e}")
 
 
+def copy_md_mirrors(html_dir, md_dir):
+    """Copy generated .md files into the HTML output directory,
+    placing them alongside their .html counterparts."""
+    for root, dirs, files in os.walk(md_dir):
+        for filename in files:
+            if not filename.endswith(".md"):
+                continue
+            md_path = os.path.join(root, filename)
+            rel_path = os.path.relpath(md_path, md_dir)
+            dest_path = os.path.join(html_dir, rel_path)
+            os.makedirs(os.path.dirname(dest_path), exist_ok=True)
+            shutil.copy2(md_path, dest_path)
+
+
 with chdir(f"{sources_folder}"):
 
     replace_in_file(os.path.join(branch_folder, "conf.py"), "language = None", "language = 'en'")
@@ -70,6 +85,16 @@ with chdir(f"{sources_folder}"):
 
     # generate html
     run(f"sphinx-build -W -b html -d {branch_folder}/_build/.doctrees {branch_folder}/ {output_folder}/{branch_folder}")
+
+    # generate markdown mirrors for LLM consumption (llms.txt spec)
+    if branch_folder.startswith("2"):
+        md_output = f"{output_folder}/{branch_folder}_md"
+        try:
+            run(f"sphinx-build -b markdown -d {branch_folder}/_build/.doctrees {branch_folder}/ {md_output}")
+            copy_md_mirrors(html_dir=f"{output_folder}/{branch_folder}", md_dir=md_output)
+            print(f"Markdown mirrors generated for {branch_folder}")
+        except Exception as e:
+            print(f"Warning: markdown mirror generation failed for {branch_folder}: {e}")
 
     # generate pdf
     if with_pdf:
