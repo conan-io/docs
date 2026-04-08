@@ -804,6 +804,7 @@ This block injects ``$`` which will be expanded later. It also defines a cache v
 - **tools.apple:enable_visibility** boolean value to enable/disable Visibility Apple Clang flags, e.g., ``CMAKE_XCODE_ATTRIBUTE_GCC_SYMBOLS_PRIVATE_EXTERN``.
 - **tools.build:sysroot** defines the value of ``CMAKE_SYSROOT``.
 - **tools.microsoft:winsdk_version** Defines the ``CMAKE_SYSTEM_VERSION`` or the ``CMAKE_GENERATOR_PLATFORM`` according to CMake policy ``CMP0149``.
+- **tools.microsoft:msvc_update** allows defining the latest digits of ``CMAKE_GENERATOR_TOOLSET`` without being part of the package-id. For example defining it to ``tools.microsoft:msvc_update=0.35717`` for ``compiler.version=195`` will generate ``CMAKE_GENERATOR_TOOLSET = "v145,version=14.50.35717"``.
 - **tools.build:compiler_executables** dict-like Python object which specifies the
   compiler as key and the compiler executable path as value. Those keys will be mapped as
   follows:
