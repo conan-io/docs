@@ -1,4 +1,5 @@
 import os
+import shutil
 import argparse
 from pathlib import Path
 
@@ -62,8 +63,11 @@ if path_latest_v2.exists():
 
 run(f"cp -R {output_folder}/* {pages_folder}")
 
-#run(f"rm -rf {pages_folder}")
-
-
+# Copy llms.txt and llms-full.txt to the site root so they are available at
+# https://docs.conan.io/llms.txt (standard spec location agents look for)
+for filename in ("llms.txt", "llms-full.txt"):
+    src = os.path.join(pages_folder, latest_v2_folder, filename)
+    if os.path.exists(src):
+        shutil.copy2(src, os.path.join(pages_folder, filename))
 
 # gh-pages prepared to push
