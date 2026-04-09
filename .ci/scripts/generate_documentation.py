@@ -53,6 +53,29 @@ def copy_md_mirrors(html_dir, md_dir):
             shutil.copy2(md_path, dest_path)
 
 
+def generate_llms_full_txt(html_dir, md_dir):
+    """Concatenate all generated .md files into a single llms-full.txt
+    for bulk ingestion by IDEs, RAG systems, and LLM agents."""
+    output_path = os.path.join(html_dir, "llms-full.txt")
+    md_files = []
+    for root, dirs, files in os.walk(md_dir):
+        dirs.sort()
+        for filename in sorted(files):
+            if filename.endswith(".md"):
+                md_files.append(os.path.join(root, filename))
+
+    with open(output_path, "w") as out:
+        for md_path in md_files:
+            rel_path = os.path.relpath(md_path, md_dir)
+            with open(md_path, "r") as f:
+                content = f.read()
+            out.write(f"--- {rel_path} ---\n\n")
+            out.write(content)
+            out.write("\n\n")
+
+    print(f"llms-full.txt generated with {len(md_files)} files")
+
+
 with chdir(f"{sources_folder}"):
 
     replace_in_file(os.path.join(branch_folder, "conf.py"), "language = None", "language = 'en'")
@@ -92,7 +115,8 @@ with chdir(f"{sources_folder}"):
         try:
             run(f"sphinx-build -b markdown -d {branch_folder}/_build/.doctrees {branch_folder}/ {md_output}")
             copy_md_mirrors(html_dir=f"{output_folder}/{branch_folder}", md_dir=md_output)
-            print(f"Markdown mirrors generated for {branch_folder}")
+            generate_llms_full_txt(html_dir=f"{output_folder}/{branch_folder}", md_dir=md_output)
+            print(f"Markdown mirrors and llms-full.txt generated for {branch_folder}")
         except Exception as e:
             print(f"Warning: markdown mirror generation failed for {branch_folder}: {e}")
 
