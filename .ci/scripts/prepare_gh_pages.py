@@ -64,7 +64,7 @@ if path_latest_v2.exists():
 run(f"cp -R {output_folder}/* {pages_folder}")
 
 # llms.txt lives in this repo (master branch), not in the release branches.
-# Copy it into every generated 2.x version folder and the site root.
+# Copy it to the site root and the latest 2.x folder (/2/).
 script_dir = os.path.dirname(os.path.abspath(__file__))
 repo_root = os.path.dirname(os.path.dirname(script_dir))
 llms_txt_src = os.path.join(repo_root, "llms.txt")
