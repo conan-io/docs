@@ -13,61 +13,66 @@
 
 ## Getting Started
 
-- [Installation](https://docs.conan.io/2/installation.md): Install Conan via pip, installers, or from source
-- [Introduction](https://docs.conan.io/2/introduction.md): Architecture overview, binary management, decentralized model, stability guarantees
+- [Installation](https://docs.conan.io/2/installation.html.md): Install Conan via pip, installers, or from source
+- [Introduction](https://docs.conan.io/2/introduction.html.md): Architecture overview, binary management, decentralized model, stability guarantees
 
 ## Tutorial
 
-- [Consuming packages](https://docs.conan.io/2/tutorial/consuming_packages.md): Use existing libraries with Conan, build with CMake, handle multiple configurations
-- [Creating packages](https://docs.conan.io/2/tutorial/creating_packages.md): Create your own Conan packages from source, define settings, options, and dependencies
-- [Working with Conan repositories](https://docs.conan.io/2/tutorial/conan_repositories.md): Set up remotes, upload packages, contribute to ConanCenter
-- [Developing packages locally](https://docs.conan.io/2/tutorial/developing_packages.md): Local development flow, editable packages, package layout, workspaces
-- [Versioning](https://docs.conan.io/2/tutorial/versioning.md): Version ranges, revisions, lockfiles, dependency conflicts
+- [Consuming packages](https://docs.conan.io/2/tutorial/consuming_packages.html.md): Use existing libraries with Conan, build with CMake, handle multiple configurations
+- [Creating packages](https://docs.conan.io/2/tutorial/creating_packages.html.md): Create your own Conan packages from source, define settings, options, and dependencies
+- [Working with Conan repositories](https://docs.conan.io/2/tutorial/conan_repositories.html.md): Set up remotes, upload packages, contribute to ConanCenter
+- [Developing packages locally](https://docs.conan.io/2/tutorial/developing_packages.html.md): Local development flow, editable packages, package layout, workspaces
+- [Versioning](https://docs.conan.io/2/tutorial/versioning.html.md): Version ranges, revisions, lockfiles, dependency conflicts
 
 ## CI/CD and DevOps
 
-- [CI Tutorial](https://docs.conan.io/2/ci_tutorial/tutorial.md): Set up Conan in CI pipelines, packages pipeline, products pipeline
-- [DevOps guide](https://docs.conan.io/2/devops/devops.md): Production deployment patterns for teams and organizations
-- [Using ConanCenter in production](https://docs.conan.io/2/devops/using_conancenter.md): Best practices for using open source packages in production
-- [Package promotions](https://docs.conan.io/2/devops/package_promotions.md): Promote packages across repositories and environments
-- [Save and restore packages](https://docs.conan.io/2/devops/save_restore.md): Backup and transfer packages between Conan caches
-- [Metadata](https://docs.conan.io/2/devops/metadata.md): Managing package metadata files
+- [CI Tutorial](https://docs.conan.io/2/ci_tutorial/tutorial.html.md): Set up Conan in CI pipelines, packages pipeline, products pipeline
+- [DevOps guide](https://docs.conan.io/2/devops/devops.html.md): Production deployment patterns for teams and organizations
+- [Using ConanCenter in production](https://docs.conan.io/2/devops/using_conancenter.html.md): Best practices for using open source packages in production
+- [Package promotions](https://docs.conan.io/2/devops/package_promotions.html.md): Promote packages across repositories and environments
+- [Save and restore packages](https://docs.conan.io/2/devops/save_restore.html.md): Backup and transfer packages between Conan caches
+- [Metadata](https://docs.conan.io/2/devops/metadata.html.md): Managing package metadata files
 
 ## Integrations
 
-- [CMake](https://docs.conan.io/2/integrations/cmake.md): CMake integration with generators (CMakeDeps, CMakeToolchain) and presets
-- [Visual Studio / MSBuild](https://docs.conan.io/2/integrations/visual_studio.md): MSBuild generators and Visual Studio integration
-- [Meson](https://docs.conan.io/2/integrations/meson.md): Meson build system integration
-- [Bazel](https://docs.conan.io/2/integrations/bazel.md): Bazel build system integration
-- [Autotools](https://docs.conan.io/2/integrations/autotools.md): Autotools (configure/make) integration
-- [Makefile](https://docs.conan.io/2/integrations/makefile.md): Plain Makefile integration
-- [Xcode](https://docs.conan.io/2/integrations/xcode.md): Xcode project integration for macOS/iOS
-- [Premake](https://docs.conan.io/2/integrations/premake.md): Premake build system integration
-- [Android](https://docs.conan.io/2/integrations/android.md): Android NDK cross-compilation
-- [ROS](https://docs.conan.io/2/integrations/ros.md): ROS (Robot Operating System) integration
-- [JFrog](https://docs.conan.io/2/integrations/jfrog.md): JFrog Artifactory and Platform integration
-- [GitHub Actions](https://docs.conan.io/2/integrations/github.md): GitHub CI integration
+- [CMake](https://docs.conan.io/2/integrations/cmake.html.md): CMake integration with generators (CMakeDeps, CMakeToolchain) and presets
+- [Visual Studio / MSBuild](https://docs.conan.io/2/integrations/visual_studio.html.md): MSBuild generators and Visual Studio integration
+- [Meson](https://docs.conan.io/2/integrations/meson.html.md): Meson build system integration
+- [Bazel](https://docs.conan.io/2/integrations/bazel.html.md): Bazel build system integration
+- [Autotools](https://docs.conan.io/2/integrations/autotools.html.md): Autotools (configure/make) integration
+- [Makefile](https://docs.conan.io/2/integrations/makefile.html.md): Plain Makefile integration
+- [Xcode](https://docs.conan.io/2/integrations/xcode.html.md): Xcode project integration for macOS/iOS
+- [Premake](https://docs.conan.io/2/integrations/premake.html.md): Premake build system integration
+- [Android](https://docs.conan.io/2/integrations/android.html.md): Android NDK cross-compilation
+- [ROS](https://docs.conan.io/2/integrations/ros.html.md): ROS (Robot Operating System) integration
+- [JFrog](https://docs.conan.io/2/integrations/jfrog.html.md): JFrog Artifactory and Platform integration
+- [GitHub Actions](https://docs.conan.io/2/integrations/github.html.md): GitHub CI integration
 
 ## Reference
 
-- [Commands](https://docs.conan.io/2/reference/commands.md): All Conan CLI commands (install, create, upload, search, etc.)
-- [conanfile.py](https://docs.conan.io/2/reference/conanfile.md): Complete conanfile.py reference (attributes, methods, build helpers)
-- [conanfile.txt](https://docs.conan.io/2/reference/conanfile_txt.md): conanfile.txt format reference for consumers
-- [Configuration files](https://docs.conan.io/2/reference/config_files.md): global.conf, settings.yml, profiles, remotes.json
-- [Recipe tools](https://docs.conan.io/2/reference/tools.md): Built-in helpers (conan.tools.cmake, conan.tools.meson, conan.tools.microsoft, etc.)
-- [Binary model](https://docs.conan.io/2/reference/binary_model.md): How Conan computes package_id and binary compatibility
-- [Extensions](https://docs.conan.io/2/reference/extensions.md): Custom commands, hooks, plugins, deployers, profile plugins
-- [Environment variables](https://docs.conan.io/2/reference/environment.md): Conan environment variables reference
-- [conan_server](https://docs.conan.io/2/reference/conan_server.md): Self-hosted Conan package server
+- [Commands](https://docs.conan.io/2/reference/commands.html.md): All Conan CLI commands (install, create, upload, search, etc.)
+- [conanfile.py](https://docs.conan.io/2/reference/conanfile.html.md): Complete conanfile.py reference (attributes, methods, build helpers)
+- [conanfile.txt](https://docs.conan.io/2/reference/conanfile_txt.html.md): conanfile.txt format reference for consumers
+- [Configuration files](https://docs.conan.io/2/reference/config_files.html.md): global.conf, settings.yml, profiles, remotes.json
+- [Recipe tools](https://docs.conan.io/2/reference/tools.html.md): Built-in helpers (conan.tools.cmake, conan.tools.meson, conan.tools.microsoft, etc.)
+- [Binary model](https://docs.conan.io/2/reference/binary_model.html.md): How Conan computes package_id and binary compatibility
+- [Extensions](https://docs.conan.io/2/reference/extensions.html.md): Custom commands, hooks, plugins, deployers, profile plugins
+- [Environment variables](https://docs.conan.io/2/reference/environment.html.md): Conan environment variables reference
+- [Runners](https://docs.conan.io/2/reference/runners.html.md): Docker and remote build execution runners
+- [Workspace files](https://docs.conan.io/2/reference/workspace_files.html.md): Workspace configuration file reference
+- [conan_server](https://docs.conan.io/2/reference/conan_server.html.md): Self-hosted Conan package server
+
+## Migrating to Conan 2
+
+- [What's new in Conan 2](https://docs.conan.io/2/whatsnew.html.md): Latest features, changes, and migration guide from Conan 1.x
 
 ## Security
 
-- [Security](https://docs.conan.io/2/security/security.md): Package signing, source verification, audit, SBOM, compiler sanitizers
+- [Security](https://docs.conan.io/2/security/security.html.md): Package signing, source verification, audit, SBOM, compiler sanitizers
 
 ## Optional
 
-- [Examples](https://docs.conan.io/2/examples.md): Hands-on examples for specific features (cross-building, graph, dev flow, extensions)
-- [Knowledge base](https://docs.conan.io/2/knowledge.md): FAQ, cheat sheet, core guidelines, videos, community resources
-- [What's new in Conan 2](https://docs.conan.io/2/whatsnew.md): Latest features and changes
-- [Changelog](https://docs.conan.io/2/changelog.md): Full release history
-- [Incubating features](https://docs.conan.io/2/incubating.md): Experimental and preview features
+- [Examples](https://docs.conan.io/2/examples.html.md): Hands-on examples for specific features (cross-building, graph, dev flow, extensions)
+- [Knowledge base](https://docs.conan.io/2/knowledge.html.md): FAQ, cheat sheet, core guidelines, videos, community resources
+- [Changelog](https://docs.conan.io/2/changelog.html.md): Full release history
+- [Incubating features](https://docs.conan.io/2/incubating.html.md): Experimental and preview features
