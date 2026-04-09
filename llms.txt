@@ -2,11 +2,11 @@
 
 > Conan is an open source, decentralized package manager for C and C++ that works on all platforms (Windows, Linux, macOS, FreeBSD, etc.) and with all build systems and compilers. It manages pre-compiled binaries, avoiding repeated builds from source, and accelerates development and CI.
 
-- [Full documentation as single file](https://docs.conan.io/2/llms-full.txt): All pages concatenated for bulk ingestion by LLMs, RAG, and IDEs
+- [Full documentation as single file](https://docs.conan.io/2/llms-full.txt): All pages concatenated into one file for bulk ingestion
 
 - The latest version is Conan @LATEST_CONAN_VERSION@.
 - Conan 2 is the current major version. Conan 1.x is legacy and should not be used for new projects.
-- Conan is NOT a build system. It integrates with CMake, MSBuild, Meson, Autotools, Bazel, and others.
+- Conan is NOT a build system. It integrates with CMake, MSBuild, Meson, Autotools, Bazel, and others via generators.
 - Packages are defined by a `conanfile.py` recipe (or `conanfile.txt` for consumers). One recipe can generate binaries for multiple configurations (OS, arch, compiler, build type).
 - Conan uses a client-server architecture. Packages are stored in remotes (JFrog Artifactory or conan_server). ConanCenter is the central public repository for open source libraries.
 - The binary model computes a `package_id` based on settings, options, and dependencies to determine binary compatibility.
@@ -43,19 +43,22 @@
 - [Makefile](https://docs.conan.io/2/integrations/makefile.md): Plain Makefile integration
 - [Xcode](https://docs.conan.io/2/integrations/xcode.md): Xcode project integration for macOS/iOS
 - [Premake](https://docs.conan.io/2/integrations/premake.md): Premake build system integration
+- [Android](https://docs.conan.io/2/integrations/android.md): Android NDK cross-compilation
+- [ROS](https://docs.conan.io/2/integrations/ros.md): ROS (Robot Operating System) integration
 - [JFrog](https://docs.conan.io/2/integrations/jfrog.md): JFrog Artifactory and Platform integration
 - [GitHub Actions](https://docs.conan.io/2/integrations/github.md): GitHub CI integration
 
 ## Reference
 
 - [Commands](https://docs.conan.io/2/reference/commands.md): All Conan CLI commands (install, create, upload, search, etc.)
-- [conanfile.py](https://docs.conan.io/2/reference/conanfile.md): Complete conanfile.py reference (attributes, methods, generators)
+- [conanfile.py](https://docs.conan.io/2/reference/conanfile.md): Complete conanfile.py reference (attributes, methods, build helpers)
 - [conanfile.txt](https://docs.conan.io/2/reference/conanfile_txt.md): conanfile.txt format reference for consumers
 - [Configuration files](https://docs.conan.io/2/reference/config_files.md): global.conf, settings.yml, profiles, remotes.json
 - [Recipe tools](https://docs.conan.io/2/reference/tools.md): Built-in helpers (conan.tools.cmake, conan.tools.meson, conan.tools.microsoft, etc.)
 - [Binary model](https://docs.conan.io/2/reference/binary_model.md): How Conan computes package_id and binary compatibility
 - [Extensions](https://docs.conan.io/2/reference/extensions.md): Custom commands, hooks, plugins, deployers, profile plugins
 - [Environment variables](https://docs.conan.io/2/reference/environment.md): Conan environment variables reference
+- [conan_server](https://docs.conan.io/2/reference/conan_server.md): Self-hosted Conan package server
 
 ## Security
 
