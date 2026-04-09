@@ -91,4 +91,9 @@ sitemap_src = os.path.join(pages_folder, latest_v2_folder, "sitemap.xml")
 if os.path.exists(sitemap_src):
     shutil.copy2(sitemap_src, os.path.join(pages_folder, "sitemap.xml"))
 
+# robots.txt lives in this repo (master branch), copy it to the site root.
+robots_txt_src = os.path.join(repo_root, "robots.txt")
+if os.path.exists(robots_txt_src):
+    shutil.copy2(robots_txt_src, os.path.join(pages_folder, "robots.txt"))
+
 # gh-pages prepared to push
