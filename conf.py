@@ -170,7 +170,9 @@ html_theme_path = conan_theme.get_html_theme_path()
 
 # for sphinx-sitemap, and for the canonical url
 # This helps with SEO by asking crawlers to prefer serving latest
-html_baseurl = "https://docs.conan.io/"
+html_baseurl = "https://docs.conan.io/2/"
+sitemap_url_scheme = "{link}"
+sitemap_excludes = ["search", "genindex", "404", "Page Not Found"]
 
 
 # Theme options are theme-specific and customize the look and feel of a theme
