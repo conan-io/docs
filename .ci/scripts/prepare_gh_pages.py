@@ -1,4 +1,5 @@
 import os
+import shutil
 import argparse
 from pathlib import Path
 
@@ -62,8 +63,10 @@ if path_latest_v2.exists():
 
 run(f"cp -R {output_folder}/* {pages_folder}")
 
-#run(f"rm -rf {pages_folder}")
-
-
+# Copy sitemap.xml from the latest 2.x folder to the site root so search
+# engines can discover it at the conventional https://docs.conan.io/sitemap.xml
+sitemap_src = os.path.join(pages_folder, latest_v2_folder, "sitemap.xml")
+if os.path.exists(sitemap_src):
+    shutil.copy2(sitemap_src, os.path.join(pages_folder, "sitemap.xml"))
 
 # gh-pages prepared to push
