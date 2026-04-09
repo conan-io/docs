@@ -4,6 +4,7 @@
 
 - [Full documentation as single file](https://docs.conan.io/2/llms-full.txt): All pages concatenated for bulk ingestion by LLMs, RAG, and IDEs
 
+- The latest version is Conan @LATEST_CONAN_VERSION@.
 - Conan 2 is the current major version. Conan 1.x is legacy and should not be used for new projects.
 - Conan is NOT a build system. It integrates with CMake, MSBuild, Meson, Autotools, Bazel, and others.
 - Packages are defined by a `conanfile.py` recipe (or `conanfile.txt` for consumers). One recipe can generate binaries for multiple configurations (OS, arch, compiler, build type).
