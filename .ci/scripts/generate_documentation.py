@@ -69,7 +69,7 @@ with chdir(f"{sources_folder}"):
         # run('pip3 install colorama')
 
     # generate html
-    run(f"sphinx-build -W -b html -d {branch_folder}/_build/.doctrees {branch_folder}/ {output_folder}/{branch_folder}")
+    run(f"sphinx-build -W -b html -d {branch_folder}/_build/.doctrees {branch_folder}/ {output_folder}/{branch_folder} -D html_baseurl=https://docs.conan.io/2/ -D sitemap_url_scheme={{link}}")
 
     # generate pdf
     if with_pdf:
