@@ -110,7 +110,8 @@ with chdir(f"{sources_folder}"):
     run(f"sphinx-build -W -b html -d {branch_folder}/_build/.doctrees {branch_folder}/ {output_folder}/{branch_folder}")
 
     # generate markdown mirrors for LLM consumption (llms.txt spec)
-    if branch_folder.startswith("2"):
+    # only for the latest 2.x version — mirrors are served under /2/ (latest alias)
+    if branch == latest_v2_branch:
         md_output = f"{output_folder}/{branch_folder}_md"
         try:
             run(f"sphinx-build -b markdown -d {branch_folder}/_build/.doctrees {branch_folder}/ {md_output}")
