@@ -39,12 +39,15 @@ def replace_in_file(file_path, old, new):
         print(f"Error replacing in file {file_path}: {e}")
 
 
+EXCLUDED_MD_FILES = {"404.html.md"}
+
+
 def copy_md_mirrors(html_dir, md_dir):
     """Copy generated .html.md files into the HTML output directory,
     placing them alongside their .html counterparts."""
     for root, dirs, files in os.walk(md_dir):
         for filename in files:
-            if not filename.endswith(".html.md"):
+            if not filename.endswith(".html.md") or filename in EXCLUDED_MD_FILES:
                 continue
             md_path = os.path.join(root, filename)
             rel_path = os.path.relpath(md_path, md_dir)
@@ -61,7 +64,7 @@ def generate_llms_full_txt(html_dir, md_dir):
     for root, dirs, files in os.walk(md_dir):
         dirs.sort()
         for filename in sorted(files):
-            if filename.endswith(".html.md"):
+            if filename.endswith(".html.md") and filename not in EXCLUDED_MD_FILES:
                 md_files.append(os.path.join(root, filename))
 
     with open(output_path, "w", encoding="utf-8") as out:
