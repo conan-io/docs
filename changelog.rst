@@ -3,6 +3,11 @@ Changelog
 
 This page lists the changes made to Conan in each version, with links to each pull request for more details.
 
+2.27.1 (13-Apr-2026)
+--------------------
+
+- Bugfix: Revert quote escaping changes in defines for `NMake` integrations. `#19859 <https://github.com/conan-io/conan/pull/19859>`_
+
 2.27.0 (25-Mar-2026)
 --------------------
 
