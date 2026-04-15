@@ -28,9 +28,6 @@ If you need to run binaries from your build dependencies, the recommended approa
 to apply the env from a ``VirtualBuildEnv``, such as:
 
 .. code-block:: python
-
-   from conan.tools.env import VirtualBuildEnv
-
    def deploy(self):
       venv = VirtualBuildEnv(self)
       with venv.vars().apply():
