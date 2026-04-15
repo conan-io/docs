@@ -133,7 +133,7 @@ to apply the env from a ``VirtualBuildEnv``, such as:
     def deploy(graph, output_folder: str, **kwargs):
         venv = VirtualBuildEnv(graph.root.conanfile)
         with venv.vars().apply():
-            self.run(f"mytool")
+            self.run("mytool")
 
 
 Your custom deployer can now be invoked as if it were a built-in deployer using the filename in which it's found,
