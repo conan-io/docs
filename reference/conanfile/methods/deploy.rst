@@ -24,6 +24,17 @@ A basic ``deploy()`` method would copy all files from the package folder to the 
 
 Refer to the documentation of the :ref:`conan install command<reference_commands_install_generators_deployers>` for more information.
 
+If you need to run binaries from your build dependencies, the recommended approach is
+to apply the env from a ``VirtualBuildEnv``, such as:
+
+.. code-block:: python
+
+    def deploy(self):
+        venv = VirtualBuildEnv(self)
+        with venv.vars().apply():
+            self.run("mytool")
+
+
 .. note::
 
     **Best practices**

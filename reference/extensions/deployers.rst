@@ -122,6 +122,20 @@ if ``**kwargs`` is not defined.
 
 You can access your conanfile object with ``graph.root.conanfile``.
 See :ref:`ConanFile.dependencies<conan_conanfile_model_dependencies>` for information on how to iterate over its dependencies.
+
+If you need to run binaries from your build dependencies, the recommended approach is
+to apply the env from a ``VirtualBuildEnv``, such as:
+
+.. code-block:: python
+
+    from conan.tools.env import VirtualBuildEnv
+
+    def deploy(graph, output_folder: str, **kwargs):
+        venv = VirtualBuildEnv(graph.root.conanfile)
+        with venv.vars().apply():
+            self.run("mytool")
+
+
 Your custom deployer can now be invoked as if it were a built-in deployer using the filename in which it's found,
 in this case ``conan install . --deployer=my_custom_deployer``. Note that supplying the **.py** extension is optional.
 
