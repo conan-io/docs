@@ -29,7 +29,7 @@ to apply the env from a ``VirtualBuildEnv``, such as:
 
 .. code-block:: python
 
-from conan.tools.env import VirtualBuildEnv
+   from conan.tools.env import VirtualBuildEnv
 
    def deploy(self):
       venv = VirtualBuildEnv(self)
