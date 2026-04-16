@@ -46,7 +46,7 @@ The ``Autotools`` build helper is affected by these ``[conf]`` variables:
 
 - ``tools.gnu:make_program`` allows to define which ``make`` executable is being used. This will default for ``mingw32-make`` for MinGW builds or to ``make`` for any other build.
 
-- ``tools.build:install_strip`` (Since Conan 2.20.0) will define in the ``Autotools.install()`` method the ``make install-strip`` target if set to ``True``, otherwise it will use the ``make install`` target.
+- ``tools.build:install_strip`` (Since Conan 2.20.0; list values since Conan 2.28.0): when enabled for Autotools, ``Autotools.install()`` uses the ``install-strip`` make target instead of ``install``. Use ``True`` so every integration that reads this configuration may strip; use a list such as ``["autotools"]`` so only the Autotools helper strips. ``False`` or an unset value keeps the plain ``install`` target.
 
 
 
