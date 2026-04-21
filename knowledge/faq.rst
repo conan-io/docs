@@ -388,3 +388,17 @@ You can append as many additional CAs as needed. Then point Conan at the combine
     :ref:`reference_config_files_global_conf_ssl_certificates` for the full reference on
     ``core.net.http:cacert_path``, ``core.net.http:client_cert``, and alternative ways to
     aggregate certificates (including ``update-ca-certificates`` on Debian/Ubuntu).
+
+
+Conan doesn't skip failing remotes
+----------------------------------
+
+This frequent question happens when users have defined some remotes, some of them are not available for any reasons, and Conan fails with an error reporting about that unresponsive or disconnected server remote.
+
+There are different scenarios in which silently skipping a server can cause production issues, for example when trying to build a new binary of an application that had some new versions of some new dependencies in that server. If that server doesn't work properly and the pipeline continues it will result in a binary without the new versions without the bug fixes on upgrades. There could be extra checks later, validation gates, etc, to try to avoid that binary without the fixes in production, but those are often too late or just non existing.
+
+So Conan will always treat the defined and available servers as "must be alive", and fail immediately if they do not work. Conan already provides some mechanisms to control the remote servers that are used for package resolution:
+
+- ``conan remote enable/disable`` to temporarily enable, disable servers
+- Explicit listing of the remotes you want to use conan install ``-r=remote1 -r=remote8 -r=remote3``, in the order you want the precedence
+- ``conan config install/install-pkg`` for easy configuration of remotes for different projects or needs.
