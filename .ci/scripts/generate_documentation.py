@@ -111,8 +111,23 @@ with chdir(f"{sources_folder}"):
         # run('pip3 install colorama')
 
     # generate html
-    sitemap_opts = " -D html_baseurl=https://docs.conan.io/2/ -D sitemap_url_scheme={link}" if branch_folder.startswith("2") else ""
-    run(f"sphinx-build -W -b html -d {branch_folder}/_build/.doctrees {branch_folder}/ {output_folder}/{branch_folder}{sitemap_opts}")
+    is_v2 = branch_folder.startswith("2")
+    is_latest_v2 = (branch == latest_v2_branch)
+    sitemap_opts = " -D html_baseurl=https://docs.conan.io/2/ -D sitemap_url_scheme={link}" if is_v2 else ""
+    # Pagefind search enabled on all 2.x; 1.x keeps the classic Sphinx form.
+    pagefind_opts = " -A use_pagefind=1" if is_v2 else ""
+    if is_latest_v2:
+        pagefind_opts += " -A is_latest_v2=1"
+    run(f"sphinx-build -W -b html -d {branch_folder}/_build/.doctrees {branch_folder}/ {output_folder}/{branch_folder}{sitemap_opts}{pagefind_opts}")
+
+    if is_v2:
+        pagefind_exclude = ".headerlink,.wy-breadcrumbs,.rst-versions,.wy-nav-side,.wy-nav-top,.rst-footer-buttons,#conan-banners"
+        run(
+            f"python3 -m pagefind "
+            f"--site {output_folder}/{branch_folder} "
+            f"--root-selector '[role=\"main\"]' "
+            f"--exclude-selectors '{pagefind_exclude}'"
+        )
 
     # generate markdown mirrors for LLM consumption (llms.txt spec)
     # only for the latest 2.x version — mirrors are served under /2/ (latest alias)

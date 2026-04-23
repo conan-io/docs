@@ -58,8 +58,15 @@ if path_latest_v2.exists():
     contents_404 = contents_404.replace('"search.html"', f"\"{prefix_latest}/search.html\"")
     contents_404 = contents_404.replace('"genindex.html"', f"\"{prefix_latest}/genindex.html\"")
 
+    # The global 404.html is served for any URL, so document.baseURI varies
+    # and the relative bundle path breaks. Pin it to the latest 2.x absolute.
+    contents_404 = contents_404.replace(
+        'new URL("pagefind/", document.baseURI).href',
+        f'"{prefix_latest}/pagefind/"',
+    )
+
     with open(path_404, 'w') as file:
-        file.write(contents_404)        
+        file.write(contents_404)
 
 run(f"cp -R {output_folder}/* {pages_folder}")
 

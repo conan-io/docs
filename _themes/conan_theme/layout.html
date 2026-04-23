@@ -125,6 +125,10 @@
     <link rel="prev" title="{{ prev.title|striptags|e }}" href="{{ prev.link|e }}" />
     {%- endif %}
   {%- endblock %}
+  {%- if use_pagefind %}
+  <link rel="stylesheet" href="{{ pathto('_static/css/pagefind-search.css', 1) }}" type="text/css" />
+  {%- endif %}
+
   {%- block extrahead %} {% endblock %}
 </head>
 
