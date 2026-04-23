@@ -32,9 +32,8 @@
   var modal = document.getElementById('pagefind-modal');
   var trigger = document.getElementById('pagefind-trigger');
   var mountedUi = null;
-  // bundlePath must be absolute — Pagefind's internal dynamic import() of
-  // pagefind.js resolves relative paths against the module URL, not the
-  // document, so a plain "pagefind/" ends up looking for pagefind/pagefind/...
+  // bundlePath must be absolute — Pagefind's dynamic import() resolves relative
+  // paths against the module URL, not the document.
   var bundlePath = new URL("{{ _pf_bundle }}", document.baseURI).href;
   var uiScriptLoaded = false;
 
@@ -104,8 +103,8 @@
     if (e.target.hasAttribute('data-pagefind-close')) closeModal();
   });
 
-  // Append the current query to result links so the landing page highlights
-  // the term. PagefindUI 1.5's highlightOnClick option is not implemented.
+  // Rewrite result links to include the query so the landing page can
+  // highlight it; PagefindUI 1.5's highlightOnClick is not implemented.
   document.getElementById('pagefind-search').addEventListener('click', function (e) {
     var link = e.target.closest && e.target.closest('a[href]');
     if (!link) return;
@@ -121,7 +120,7 @@
 })();
 </script>
 
-{#- Apply highlight + scroll when a page is opened from a search result. #}
+{#- Highlight + scroll when the page was opened from a search result. #}
 <script type="module">
   (async () => {
     var params = new URLSearchParams(window.location.search);

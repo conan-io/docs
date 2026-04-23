@@ -1,8 +1,5 @@
-/* ==========================================================================
-   Pagefind search — Conan theme, modern compact look
-   All Pagefind-ui rules prefixed with #pagefind-search to beat Svelte-scoped
-   selectors (e.g. .pagefind-ui__x.svelte-XXXX.svelte-XXXX).
-   ========================================================================== */
+/* Pagefind-ui overrides prefixed with #pagefind-search to win specificity
+   against Svelte-scoped selectors (.pagefind-ui__x.svelte-XXXX.svelte-XXXX). */
 
 /* ---------- Sidebar trigger ---------- */
 .pagefind-search-wrapper { margin: 0 0 10px 0; }
@@ -109,8 +106,7 @@ body.pagefind-modal-open { overflow: hidden; }
     align-items: flex-start;
     gap: 10px;
     margin: 0;
-    /* right padding reserves space for the absolute-positioned close button (28px + 10px margin + 8px breathing) */
-    padding: 10px 48px 10px 14px;
+    padding: 10px 48px 10px 14px;   /* right padding clears the close button */
     background: #fff7ed;
     border-bottom: 1px solid #fde68a;
     color: #7c2d12;
@@ -146,7 +142,7 @@ body.pagefind-modal-open { overflow: hidden; }
     --pagefind-ui-font: "Lato", "proxima-nova", "Helvetica Neue", Arial, sans-serif;
 }
 
-/* ---------- Kill Pagefind's built-in magnifier ---------- */
+/* Suppress Pagefind's built-in magnifier — we draw our own on the input. */
 #pagefind-search .pagefind-ui__form { position: relative !important; margin: 0 !important; padding: 0 !important; border: 0 !important; }
 #pagefind-search .pagefind-ui__form::before,
 #pagefind-search .pagefind-ui__form:before {
@@ -185,7 +181,7 @@ body.pagefind-modal-open { overflow: hidden; }
 }
 #pagefind-search .pagefind-ui__search-input::placeholder { color: #9aa4af !important; opacity: 1 !important; }
 
-/* ---------- Clear button (reset the big rounded Pagefind default) ---------- */
+/* Clear button — override Pagefind's 58px pill default. */
 #pagefind-search .pagefind-ui__search-clear {
     position: absolute !important;
     top: 50% !important;
@@ -234,7 +230,6 @@ body.pagefind-modal-open { overflow: hidden; }
     gap: 2px !important;
 }
 
-/* Each result — block layout, no thumb offset */
 #pagefind-search .pagefind-ui__result {
     display: block !important;
     padding: 10px 12px !important;
@@ -252,7 +247,6 @@ body.pagefind-modal-open { overflow: hidden; }
     background: #f5f8fb !important;
 }
 
-/* Inner wrapper — force block, no flex, no offset */
 #pagefind-search .pagefind-ui__result-inner {
     display: block !important;
     flex: unset !important;
@@ -378,8 +372,7 @@ body.pagefind-modal-open { overflow: hidden; }
 #pagefind-search::-webkit-scrollbar-thumb { background: #d9dee4; border-radius: 5px; }
 #pagefind-search::-webkit-scrollbar-thumb:hover { background: #bfc5cc; }
 
-/* ---------- In-page highlight (when arriving from a search result) ---------- */
-/* Pagefind-highlight.js wraps matches in <mark class="pagefind-highlight"> */
+/* In-page highlight applied by pagefind-highlight.js when landing from search. */
 mark.pagefind-highlight,
 mark.pagefind__highlight {
     background: #fff3b0;
@@ -401,7 +394,7 @@ mark.pagefind__highlight {
     opacity: 1 !important;
 }
 
-/* ---------- Mobile: fullscreen modal, bigger tap targets ---------- */
+/* Mobile: fullscreen modal, bigger tap targets. */
 @media (max-width: 640px) {
     .pagefind-modal {
         padding: 0;
@@ -410,7 +403,7 @@ mark.pagefind__highlight {
     .pagefind-modal-panel {
         max-width: 100%;
         max-height: 100vh;
-        max-height: 100dvh;               /* dynamic viewport, avoids iOS keyboard chrome */
+        max-height: 100dvh;               /* dodges iOS keyboard chrome */
         height: 100%;
         border-radius: 0;
         box-shadow: none;
@@ -423,11 +416,11 @@ mark.pagefind__highlight {
     }
     #pagefind-search { padding: 12px; }
     #pagefind-search .pagefind-ui__search-input {
-        font-size: 16px !important;        /* avoids iOS zoom-on-focus */
+        font-size: 16px !important;        /* prevents iOS zoom-on-focus */
         padding: 14px 60px 14px 42px !important;
     }
     #pagefind-search .pagefind-ui__result {
-        padding: 12px 10px !important;     /* larger tap area */
+        padding: 12px 10px !important;
     }
     .pagefind-stale-warning {
         padding: 10px 48px 10px 12px;
