@@ -58,8 +58,17 @@ if path_latest_v2.exists():
     contents_404 = contents_404.replace('"search.html"', f"\"{prefix_latest}/search.html\"")
     contents_404 = contents_404.replace('"genindex.html"', f"\"{prefix_latest}/genindex.html\"")
 
+    # The global 404.html is served for ANY not-found URL. Pagefind's bundle
+    # path in the searchbox template resolves relative to document.baseURI,
+    # so at an arbitrary URL (docs.conan.io/random-path/) it'd resolve to
+    # docs.conan.io/random-path/pagefind/ → 404. Pin it to the latest 2.x.
+    contents_404 = contents_404.replace(
+        'new URL("pagefind/", document.baseURI).href',
+        f'"{prefix_latest}/pagefind/"',
+    )
+
     with open(path_404, 'w') as file:
-        file.write(contents_404)        
+        file.write(contents_404)
 
 run(f"cp -R {output_folder}/* {pages_folder}")
 
