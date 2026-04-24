@@ -7,8 +7,10 @@ From https://github.com/ryan-roemer/sphinx-bootstrap-theme.
 from os import path
 from sys import version_info as python_version
 
+from docutils import nodes
 from sphinx import version_info as sphinx_version
 from sphinx.locale import _
+from sphinx.transforms.post_transforms import SphinxPostTransform
 from sphinx.util.logging import getLogger
 
 
@@ -35,6 +37,27 @@ def config_initiated(app, config):
 def extend_html_context(app, pagename, templatename, context, doctree):
      # Add ``sphinx_version_info`` tuple for use in Jinja templates
      context['sphinx_version_info'] = sphinx_version
+
+
+class CopySectionIdsToTitles(SphinxPostTransform):
+    """Mirror each <section id="..."> onto its first inner title node so the
+    HTML writer emits <hN id="..."> too. Pagefind builds sub-results from
+    headings carrying an id; Sphinx places ids only on the wrapping section."""
+    default_priority = 900
+    builders = ('html',)
+
+    def run(self, **kwargs):
+        for section in self.document.findall(nodes.section):
+            section_ids = section.get('ids') or []
+            if not section_ids:
+                continue
+            for child in section.children:
+                if isinstance(child, nodes.title):
+                    existing = set(child.get('ids') or [])
+                    for sid in section_ids:
+                        if sid not in existing:
+                            child['ids'].append(sid)
+                    break
 
 
 # See http://www.sphinx-doc.org/en/stable/theming.html#distribute-your-theme-as-a-python-package
@@ -73,5 +96,10 @@ def setup(app):
 
     # Extend the default context when rendering the templates.
     app.connect("html-page-context", extend_html_context)
+
+    # Ensure each section's id is also on its heading, so Pagefind can build
+    # sub-results with the heading text as title. Harmless for non-Pagefind
+    # builds. Requires conan_theme to be in conf.py's extensions list.
+    app.add_post_transform(CopySectionIdsToTitles)
 
     return {'parallel_read_safe': True, 'parallel_write_safe': True}
