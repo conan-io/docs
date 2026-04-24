@@ -1,6 +1,7 @@
 import os
+import sys
 
-from common import run, conan_versions
+from common import run, conan_versions, latest_v2_branch
 
 
 """
@@ -10,7 +11,15 @@ from common import run, conan_versions
     branch -> regenerate every branch of the docs.
 
     2. If we did not touch those folders just regenerate the branch we pushed
+
+    With --latest-v2-only, print just the latest v2 branch (used to decide which
+    branches get their PDF regenerated when a global rebuild is triggered).
 """
+
+if "--latest-v2-only" in sys.argv:
+    print(latest_v2_branch)
+    sys.exit(0)
+
 current_branch = os.getenv("BRANCH_NAME")
 
 current_commit = run("git rev-parse HEAD", capture=True).strip()

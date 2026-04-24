@@ -25,8 +25,13 @@ node('LinuxDocs') {
     if (publishDocs) {
         String branches = sh(script: 'python3 .ci/scripts/get_branches.py', returnStdout: true).trim().readLines().join(',')
         echo "Will generate docs for ${branches}"
+        // Only regenerate the PDF for the latest v2 branch. Older versions keep
+        // their existing conan.pdf from gh-pages. Trigger a manual publish with
+        // a custom pdf_branches if you need to rebuild older PDFs.
+        String pdfBranches = sh(script: 'python3 .ci/scripts/get_branches.py --latest-v2-only', returnStdout: true).trim()
         build(job: 'Conan-Docs-Publish', propagate: true, wait: true, parameters: [
             [$class: 'StringParameterValue', name: 'branches', value: branches],
+            [$class: 'StringParameterValue', name: 'pdf_branches', value: pdfBranches],
             [$class: 'BooleanParameterValue', name: 'publish', value: true]
         ])
     }

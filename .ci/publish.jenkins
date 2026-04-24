@@ -26,6 +26,11 @@ try {
         List branches = params.branches.split(',')
         echo "Generating docs for ${branches}"
 
+        // Branches to (re)generate PDF for. Others keep their existing conan.pdf
+        // from gh-pages. Empty means regenerate all (legacy behavior).
+        List pdfBranches = (params.pdf_branches ?: '').split(',').findAll { it }
+        echo "Regenerating PDFs for ${pdfBranches ?: 'ALL branches (default)'}"
+
         checkout scm
 
         stage('Prepare sources as worktrees') {
@@ -54,6 +59,8 @@ try {
                     def conanHome   = "${env.WORKSPACE}/.conan_home_${safeBranch}"
                     echo "Using CONAN_HOME=${conanHome} for ${branch}"
 
+                    def withPdfFlag = (pdfBranches.isEmpty() || pdfBranches.contains(branch)) ? '--with-pdf' : ''
+
                     sh """
                         export CONAN_WORKSPACE_ENABLE=will_break_next
                         mkdir -p "${conanHome}"
@@ -61,7 +68,7 @@ try {
                         python3 -m venv venv_${branch}
                         . venv_${branch}/bin/activate
                         pip install -r requirements.txt
-                        python3 .ci/scripts/generate_documentation.py --sources-folder=${sources_folder} --branch=${branch} --with-pdf
+                        python3 .ci/scripts/generate_documentation.py --sources-folder=${sources_folder} --branch=${branch} ${withPdfFlag}
                     """
                 }
             }
