@@ -121,6 +121,12 @@ with chdir(f"{sources_folder}"):
     run(f"sphinx-build -W -b html -d {branch_folder}/_build/.doctrees {branch_folder}/ {output_folder}/{branch_folder}{sitemap_opts}{pagefind_opts}")
 
     if is_v2:
+        # Drop Sphinx utility pages before Pagefind indexes them. They have
+        # near-empty content and would otherwise pollute search results.
+        for stale in ("search.html", "genindex.html", "py-modindex.html"):
+            stale_path = os.path.join(output_folder, branch_folder, stale)
+            if os.path.exists(stale_path):
+                os.remove(stale_path)
         pagefind_exclude = ".headerlink,.wy-breadcrumbs,.rst-versions,.wy-nav-side,.wy-nav-top,.rst-footer-buttons,#conan-banners"
         run(
             f"python3 -m pagefind "

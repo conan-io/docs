@@ -232,26 +232,36 @@ body.pagefind-modal-open { overflow: hidden; }
 
 #pagefind-search .pagefind-ui__result {
     display: block !important;
-    padding: 10px 12px !important;
+    padding: 0 !important;
     margin: 0 !important;
     border: none !important;
-    border-top: none !important;
-    border-bottom: none !important;
-    border-radius: 8px !important;
+    border-top: 1px solid #eef1f4 !important;
+    border-radius: 0 !important;
     text-align: left !important;
-    transition: background-color .12s ease;
     list-style: none !important;
     gap: 0 !important;
 }
-#pagefind-search .pagefind-ui__result:hover {
-    background: #f5f8fb !important;
+#pagefind-search .pagefind-ui__result:first-child {
+    border-top: none !important;
+}
+#pagefind-search a.pagefind-selected {
+    color: #3e8dbf !important;
+    outline: 2px solid rgba(62, 141, 191, 0.35);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+#pagefind-search a.pagefind-selected {
+    color: #3e8dbf !important;
+    outline: 2px solid rgba(62, 141, 191, 0.35);
+    outline-offset: 2px;
+    border-radius: 4px;
 }
 
 #pagefind-search .pagefind-ui__result-inner {
     display: block !important;
     flex: unset !important;
     margin: 0 !important;
-    padding: 0 !important;
+    padding: 12px 4px 14px 4px !important;
     align-items: initial !important;
     text-align: left !important;
     width: 100% !important;
@@ -276,7 +286,7 @@ body.pagefind-modal-open { overflow: hidden; }
     display: block !important;
     text-align: left !important;
     font-family: "Lato", "proxima-nova", "Helvetica Neue", Arial, sans-serif !important;
-    font-size: 14px !important;
+    font-size: 13.5px !important;
     font-weight: 600 !important;
     color: #1f2937 !important;
     line-height: 1.3 !important;
@@ -286,9 +296,40 @@ body.pagefind-modal-open { overflow: hidden; }
     width: 100% !important;
     min-width: 0 !important;
 }
+
+/* Page-level title styled as a group header with a leading list icon. */
+#pagefind-search .pagefind-ui__result-inner > .pagefind-ui__result-title,
+#pagefind-search .pagefind-ui__result-inner > a.pagefind-ui__result-link {
+    position: relative;
+    padding-left: 22px !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    margin-bottom: 2px !important;
+}
+#pagefind-search .pagefind-ui__result-inner > .pagefind-ui__result-title::before,
+#pagefind-search .pagefind-ui__result-inner > a.pagefind-ui__result-link::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 14px;
+    height: 14px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%231f2937' stroke-width='2.5' stroke-linecap='round'><line x1='4' y1='6' x2='20' y2='6'/><line x1='4' y1='12' x2='20' y2='12'/><line x1='4' y1='18' x2='20' y2='18'/></svg>");
+}
 #pagefind-search .pagefind-ui__result:hover .pagefind-ui__result-title,
 #pagefind-search .pagefind-ui__result:hover .pagefind-ui__result-link {
     color: #3e8dbf !important;
+}
+
+/* Hide the page-level excerpt when there are sub-results — the section
+   excerpts below are already contextual. Keep it when the page has no
+   sub-matches (rare but possible). */
+#pagefind-search .pagefind-ui__result:has(.pagefind-ui__result-nested)
+    > .pagefind-ui__result-inner > .pagefind-ui__result-excerpt {
+    display: none !important;
 }
 
 /* Excerpt */
@@ -316,29 +357,38 @@ body.pagefind-modal-open { overflow: hidden; }
     border-radius: 2px !important;
 }
 
-/* Sub-results */
+/* Sub-results — indented list under the page group header. */
 #pagefind-search .pagefind-ui__result-nested {
     display: block !important;
-    margin: 6px 0 0 !important;
-    padding: 6px 10px !important;
-    border-left: 2px solid #e6e9ee !important;
+    margin: 0 !important;
+    padding: 6px 8px 6px 22px !important;  /* aligns with the list icon above */
+    border: none !important;
     background: transparent !important;
-    border-radius: 0 6px 6px 0 !important;
+    border-radius: 6px !important;
     text-align: left !important;
+}
+#pagefind-search .pagefind-ui__result-nested + .pagefind-ui__result-nested {
+    margin-top: 2px !important;
 }
 #pagefind-search .pagefind-ui__result-nested:hover {
     background: #f5f8fb !important;
-    border-left-color: #3e8dbf !important;
 }
 #pagefind-search .pagefind-ui__result-nested .pagefind-ui__result-link {
     font-size: 13px !important;
-    font-weight: 500 !important;
+    font-weight: 600 !important;
+    color: #1f2937 !important;
+    padding-left: 0 !important;
+}
+#pagefind-search .pagefind-ui__result-nested .pagefind-ui__result-link::before {
+    content: none !important;   /* no icon on sub-results */
+}
+#pagefind-search .pagefind-ui__result-nested:hover .pagefind-ui__result-link {
     color: #3e8dbf !important;
 }
 #pagefind-search .pagefind-ui__result-nested .pagefind-ui__result-excerpt {
-    font-size: 12px !important;
+    font-size: 12.5px !important;
     color: #6b7280 !important;
-    -webkit-line-clamp: 1 !important;
+    -webkit-line-clamp: 2 !important;
     margin: 2px 0 0 !important;
 }
 
