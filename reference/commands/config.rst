@@ -168,6 +168,13 @@ or it can download from a Conan remote directly specifying the repository URL:
     $ conan config install-pkg myconf/version --url=<url/conan/remote/repo>
 
 
+In the same way that ``conan remote add`` can define ``--insecure`` to disable the SSL verification for that remote, it is possible to disable it for ``conan config install-pkg`` with:
+
+.. code:: bash
+
+    $ conan config install-pkg myconf/version --url=<url/conan/remote/repo> --insecure
+
+
 When specifying the ``--url`` argument, a Conan remote named ``config_install_url`` is created on the fly.
 That means that if authentication is desired via env-vars, the env-var names will be ``CONAN_LOGIN_USERNAME_CONFIG_INSTALL_URL``
 or ``CONAN_PASSWORD_CONFIG_INSTALL_URL``.
@@ -254,6 +261,19 @@ of configuration when doing a Conan setup:
         - myconf_c/[>=1 <2]
     urls:
         - https://my/conan/remote/repo/url
+
+
+Like in the ``remotes.json`` file, the ``urls`` in the ``conanconfig.yml`` file can also add the ``verify_ssl`` specifier to disable SSL verification,
+with the same behavior as the command line argument ``--insecure``:
+
+.. code-block:: yaml
+    :caption: conanconfig.yml
+    
+    packages:
+        - myconf/0.1
+    urls:
+        - url: https://some.server.com
+          verify_ssl: false
 
 
 .. important::
