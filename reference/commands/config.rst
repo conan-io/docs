@@ -264,7 +264,7 @@ of configuration when doing a Conan setup:
 
 
 Like in the ``remotes.json`` file, the ``urls`` in the ``conanconfig.yml`` file can also add the ``verify_ssl`` specifier to disable SSL verification,
-with the same behavior ast the command line argument ``--insecure``:
+with the same behavior as the command line argument ``--insecure``:
 
 .. code-block:: yaml
     :caption: conanconfig.yml
