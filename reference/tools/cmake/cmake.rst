@@ -89,6 +89,6 @@ The ``CMake()`` build helper is affected by these ``[conf]`` variables:
 
 - ``tools.cmake:install_strip`` (**deprecated** use ``tools.build:install_strip``) will pass ``--strip`` to the ``cmake --install`` call if set to ``True``.
 
-- ``tools.build:install_strip`` (Since Conan 2.18.0) will pass ``--strip`` to the ``cmake --install`` call if set to ``True``.
+- ``tools.build:install_strip`` (Since Conan 2.18.0; list values since Conan 2.28.0): when enabled for CMake, passes ``--strip`` to ``cmake --install``. Use ``True`` so every integration that reads this configuration may strip; use a list such as ``["cmake"]`` so only the CMake helper strips. ``False`` or an unset value disables stripping in this helper.
 
 - ``tools.cmake:configure_args`` (Since Conan 2.27) allows injecting extra arguments (list) to the ``cmake ...`` configure command line executed by ``cmake.configure()``. This allows to inject arguments such as ``--fresh`` to force a fresh build when doing local development (``conan build -c tools.cmake:configure_args="['--fresh']"`` command), or to inject arbitrary CMake variables, specifying ``-DMYCMAKE_VAR=VALUE`` as it would be specified in the command line.
