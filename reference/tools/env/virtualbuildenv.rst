@@ -110,7 +110,7 @@ will create the following files:
 
     The ``VirtualBuildEnv`` generator will not propagate the bindirs of tool requires which have the
     ``run`` trait set to ``False``, for either recipes that have ``required_conan_version=">=2.28"``
-    or greater, or globally with the ``core:required_conan_version=">=2.28"`` conf.
+    or greater, or globally with the ``core:policies=["required_conan_version=>2.28"]`` conf.
 
 
 .. _reference_tools_env_virtualbuildenv_disable:
