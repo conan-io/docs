@@ -109,6 +109,7 @@ following:
 
 - If the policy ``required_conan_version = ">=2.28"`` is defined in the recipe or the equivalent global ``core:policies`` is defined, then
   the default ``consistent`` trait will be:
+
   - ``consistent=True`` for the "host" context. In general, dependencies in the host context are libraries, and the libraries must be
     consistent among them, even if they are not propagated downstream. That means that it is not expected to have multiple instances
     (nodes) of the same package in the dependencies.
