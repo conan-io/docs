@@ -51,4 +51,5 @@ Contents:
    extensions/authorization_plugins
    extensions/command_wrapper
    extensions/package_signing
+   extensions/compiler_flags_plugin
    
