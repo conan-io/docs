@@ -291,6 +291,16 @@ with the same behavior as the command line argument ``--insecure``:
     preserves the relative order.
 
 
+Configuration packages in lockfiles
++++++++++++++++++++++++++++++++++++
+
+When a configuration package is stored in a lockfile, with the ``--lockfile-out`` argument, it will create an entry in the lockfile ``config_requires`` entry.
+This entry has different purposes:
+
+- When installing configuration packages with ``conan config install-pkg`` using command line arguments or a ``conanconfig.yml`` file that contains version ranges, or even pinned versions, but no recipe-revision, the provided lockfile can constraint that input to force and guarantee the exact version and recipe revision for that package defined in the lockfile.
+- When using a lockfile as input in regular ``conan install/build/create/graph-info``, etc, it will perform a check of the installed configuration packages, and if they are not aligned with the lockfile defined ``config_requires`` it will raise an error. Users then can issue a ``conan config install-pkg`` command to install the required configuration packages so their environments align. The idea is that lockfiles ``config_requires`` are there to guarantee the same configuration. The check goes in both directions, configuration packages already installed in the current user cache must satisfy the lockfile constraints, and lockfile declared ``config_requires`` must be installed. If for any reason, this behaviour wouldn't be desired, it is possible to use a different lockfile just for the configurations, independent from the regular packages lockfiles, avoiding in this way a populated ``config_requires`` when using regular packages installation commands.
+
+
 conan config list
 -----------------
 
