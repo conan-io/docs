@@ -35,14 +35,13 @@ If both the policy and the recipe attribute are defined, the behavior will be en
       * The ``VirtualBuildEnv`` generator used to include the ``bindir`` paths of tool requires
         regardless of their ``run`` trait in the generated environment. With the bugfix enabled,
         only tool requires with the ``run`` trait set to ``True`` will have their ``bindir`` paths
-        propagated in the ``VirtualBuildEnv`` generator.
+        propagated.
    * Behaviour change https://github.com/conan-io/conan/pull/19286:
       * For the new ``consistent`` trait, its default value currently keeps the old graph expansion behaviour,
         which had some inconsistencies regarding the handling of private dependencies.
         With the new behaviour enabled, the graph expansion is more consistent and private dependencies are handled in a more intuitive way,
-        but some graphs can be expanded differently.
-
-
+        but some graphs can be expanded differently. For a detailed explanation of the changes,
+        see :ref:`the trait documentation section<reference_conanfile_methods_requirements_consistent>`.
 
 .. note::
    This policy is independent of the ``core:required_conan_version`` conf,
