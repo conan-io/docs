@@ -16,6 +16,7 @@ Reference
    reference/config_files
    reference/environment
    reference/extensions
+   reference/policies
    reference/tools
    reference/runners
    reference/workspace_files

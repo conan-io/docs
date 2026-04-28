@@ -15,6 +15,7 @@ Introduction to configuration
 * General HTTP(python-requests) configuration.
 * Number of retries when downloading/uploading recipes.
 * Related tools configurations (used by toolchains, helpers, etc.)
+* :ref:`Policies<reference_policies>`, which are a set of rules to enforce certain behaviors from Conan.
 * Others (required Conan version, CLI non-interactive, etc.)
 
 Let's briefly explain the three types of existing configurations:
@@ -299,6 +300,13 @@ Information about built-in confs
 ================================
 
 This section provides extra information about specific confs.
+
+Policies
+--------
+
+The ``core:policies`` conf allows to define policies that will be applied globally to modify the
+behaviour of Conan in certain aspects. Check :ref:`the policies section <reference_policies>`
+for more information.
 
 Networking confs
 ----------------
