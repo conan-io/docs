@@ -77,7 +77,8 @@ Flags:
 - **defines**: Ordered list of preprocessor directives. It is common that the consumers have to specify some sort of defines in some cases,
   so that including the library headers matches the binaries.
 - **cflags**, **cxxflags**, **sharedlinkflags**, **exelinkflags**: List of flags that the consumer should activate for proper behavior.
-  Rarely used.
+  Rarely used. These flags can be handled by the :ref:`compiler flags plugin<reference_extensions_compiler_flags_plugin>` when mixing different
+  compilers that create compatible binaries.
 
 Properties:
 
