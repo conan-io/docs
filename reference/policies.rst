@@ -22,14 +22,26 @@ required_conan_version>=version
 This policy is unique, as the version specified in the policy is used to enable different behaviors based on the version.
 This allows to opt-in to bugfixes that can be considered breaking changes, without having to wait for a new Conan release to include them by default.
 
-The same behaviours are also enabled recipe-wise when the ``required_conan_version`` attribute is defined in the recipe.
+The same behaviours are also enabled recipe-wise when the ``required_conan_version`` attribute is defined in the recipe,
+such that the policy can be enabled for specific recipes, without having to enable it globally.
+If both the policy and the recipe attribute are defined, the behavior will be enabled if either of them matches the required version range.
 
 * If using ``required_conan_version>=2.28`` or later, the following bugfixes will be enabled:
-   * Bugfix in the computation of ``package_id`` for static libraries and non-embed mode, that was taking into account transitive (non-direct) dependencies,
-     even if they were not being embedded and not contributing headers at all. See the docs for the :ref:`effect of dependencies in the package_id<reference_binary_model_dependencies>` for more information, and the `pull request 19705 <https://github.com/conan-io/conan/pull/19705>`_ 
-     for the implementation details.
-   * Bugfix https://github.com/conan-io/conan/pull/19849 for VirtualBuildEnv bindir path propagation based on requirement run trait
-   * https://github.com/conan-io/conan/pull/19286 defaults the new ``consistent`` trait to True for the host context, even when ``visible=False``
+   * Bugfix https://github.com/conan-io/conan/pull/19705:
+      * The computation of ``package_id`` for static libraries and non-embed mode was taking into account transitive (non-direct) dependencies,
+        even if they were not being embedded and not contributing headers at all.
+        See the docs for the :ref:`effect of dependencies in the package_id<reference_binary_model_dependencies>`.
+   * Bugfix https://github.com/conan-io/conan/pull/19849:
+      * The ``VirtualBuildEnv`` generator used to include the ``bindir`` paths of tool requires
+        regardless of their ``run`` trait in the generated environment. With the bugfix enabled,
+        only tool requires with the ``run`` trait set to ``True`` will have their ``bindir`` paths
+        propagated in the ``VirtualBuildEnv`` generator.
+   * Behaviour change https://github.com/conan-io/conan/pull/19286:
+      * For the new ``consistent`` trait, its default value currently keeps the old graph expansion behaviour,
+        which had some inconsistencies regarding the handling of private dependencies.
+        With the new behaviour enabled, the graph expansion is more consistent and private dependencies are handled in a more intuitive way,
+        but some graphs can be expanded differently.
+
 
 
 .. note::
