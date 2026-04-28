@@ -25,7 +25,9 @@ This allows to opt-in to bugfixes that can be considered breaking changes, witho
 The same behaviours are also enabled recipe-wise when the ``required_conan_version`` attribute is defined in the recipe.
 
 * If using ``required_conan_version>=2.28`` or later, the following bugfixes will be enabled:
-   * Bugfix https://github.com/conan-io/conan/pull/19705 for transitive static libraries package_id
+   * Bugfix in the computation of ``package_id`` for static libraries and non-embed mode, that was taking into account transitive (non-direct) dependencies,
+     even if they were not being embedded and not contributing headers at all. See the docs for the :ref:`effect of dependencies in the package_id<reference_binary_model_dependencies>` for more information, and the `pull request 19705 <https://github.com/conan-io/conan/pull/19705>`_ 
+     for the implementation details.
    * Bugfix https://github.com/conan-io/conan/pull/19849 for VirtualBuildEnv bindir path propagation based on requirement run trait
    * https://github.com/conan-io/conan/pull/19286 defaults the new ``consistent`` trait to True for the host context, even when ``visible=False``
 
