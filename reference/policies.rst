@@ -2,14 +2,10 @@
 
 Policies
 ========
-
 Policies are a set of rules to enforce certain behaviors from Conan.
-Policies are handled by the ``core:policies`` configuration in your ``global.conf``.
+Policies are handled by the ``core:policies`` configuration in your ``global.conf``,
+which is a list of strings, where each string is the name of a policy to be enabled.
 
-Some policies are meant to be used only as a fallback mechanism for deleted deprecated behaviour,
-while others are meant to be used to opt-in to bugfixes that can be considered breaking changes.
-
-This page documents the currently available policies.
 
 .. code-block::
    :caption: ``global.conf``
@@ -23,12 +19,19 @@ List of current policies
 -----------------------------------
 *Introduced in Conan 2.28*
 
-If the policy is defined, different behaviors can be enabled:
-   - If ``required_conan_version>=2.28``, bugfix https://github.com/conan-io/conan/pull/19705 for transitive static libraries package_id
-   - If ``required_conan_version>=2.28``, bugfix https://github.com/conan-io/conan/pull/19849 for VirtualBuildEnv bindir path propagation based on requirement run trait
-   - If ``required_conan_version>=2.28``, https://github.com/conan-io/conan/pull/19286 defaults the new ``consistent`` trait to True for the host context, even when ``visible=False``
+This policy is unique, as the version specified in the policy is used to enable different behaviors based on the version specified.
+This allows to opt-in to bugfixes that can be considered breaking changes, without having to wait for a new Conan release to include them by default.
 
-More explanation of this policy, and differences with ``core:required_conan_version``
+* If using ``required_conan_version>=2.28`` or later, the following bugfixes will be enabled:
+   * Bugfix https://github.com/conan-io/conan/pull/19705 for transitive static libraries package_id
+   * Bugfix https://github.com/conan-io/conan/pull/19849 for VirtualBuildEnv bindir path propagation based on requirement run trait
+   * https://github.com/conan-io/conan/pull/19286 defaults the new ``consistent`` trait to True for the host context, even when ``visible=False``
+
+The same behaviours are also enabled recipe-wise when the ``required_conan_version`` attribute is defined in the recipe.
+
+.. note::
+   This policy is independent of the ``core:required_conan_version`` conf,
+   which is exclusively used to define the minimum required Conan version.
 
 ``deprecated_build_order_args``
 -------------------------------
@@ -39,7 +42,8 @@ If the policy is defined, the old behaviour for ``conan graph build-order`` is k
 Note that when the argument is provided, the output format is different, such that the order is
 returned inside the ``order`` key of the json output, instead of being the top-level list.
 
-**Will be removed in Conan 2.32**, where the ``--order-by`` argument will be mandatory and the old behavior will be removed.
+.. warning::
+   **Will be removed in Conan 2.32**, where the ``--order-by`` argument will be mandatory and the old behavior will be removed.
 
 ``deprecated_empty_version_range``
 ----------------------------------
@@ -48,4 +52,5 @@ returned inside the ``order`` key of the json output, instead of being the top-l
 If the policy is enabled, Conan will accept empty version ranges (e.g., ``pkg/[]``) as valid,
 and they will be treated as "any version" (equivalent to ``pkg/[*]``).
 
-**Will be removed in Conan 2.32**, where empty version ranges will be considered invalid and treated as a syntax error.
+.. warning::
+   **Will be removed in Conan 2.32**, where empty version ranges will be considered invalid and treated as a syntax error.
