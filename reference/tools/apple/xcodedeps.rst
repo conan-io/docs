@@ -111,10 +111,6 @@ This generator supports packages with components. That means that:
 * The current package ``requires`` will be fully dependent on and all components. Recall
   that the ``package_info()`` only applies for consumers, but not to the current package.
 
-When the direct dependency declares components, one wrapper *xcconfig* file is generated
-per component (*conan_<pkg>_<component>.xcconfig*) and its corresponding props file
-(*conan_<pkg>_<component>_<config>_<arch>.xcconfig*) contains the inlined data for that
-component plus its transitive closure.
 
 
 Custom configurations
