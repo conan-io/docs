@@ -65,9 +65,7 @@ case). The above commands generate the following files:
 Note that even though *libpng* depends on *zlib*, no *conan_zlib*\* files are generated. The
 *XcodeDeps* generator only emits *xcconfig* files for **direct** dependencies, and inlines all
 transitive data (include directories, library names, flags, etc.) into the props file of the
-direct dependency. This avoids deep ``#include`` chains across packages, which lack include guards
-in the *xcconfig* format and have been known to cause Xcode's ``SWBBuildService`` to crash by
-recursion in projects with large dependency graphs.
+direct dependency.
 
 The first ``conan install`` with the default *Release* and *x86_64* configuration generates:
 
