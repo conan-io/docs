@@ -3,6 +3,58 @@ Changelog
 
 This page lists the changes made to Conan in each version, with links to each pull request for more details.
 
+2.28.0 (28-Apr-2026)
+--------------------
+
+- Feature: ``conan upload --allow-disabled`` to allow uploading to a disabled remote. `#19916 <https://github.com/conan-io/conan/pull/19916>`_
+- Feature: Allow using patch-ng 1.19 to incorporate fixes `#19913 <https://github.com/conan-io/conan/pull/19913>`_
+- Feature: Use a OR policy between ``core:policies`` and recipe ``required_conan_version``. `#19907 <https://github.com/conan-io/conan/pull/19907>`_ . Docs `here <https://github.com/conan-io/docs/pull/4439>`__
+- Feature: ``conan config install-pkg --insecure`` new feature. Also supported for ``conanconfig.yml`` files `#19900 <https://github.com/conan-io/conan/pull/19900>`_ . Docs `here <https://github.com/conan-io/docs/pull/4432>`__
+- Feature: Introduce policies in ``core:policies`` conf to control Conan behaviour. `#19892 <https://github.com/conan-io/conan/pull/19892>`_ . Docs `here <https://github.com/conan-io/docs/pull/4436>`__
+- Feature: Colorize output of `conan config list` and `conan config show` `#19889 <https://github.com/conan-io/conan/pull/19889>`_
+- Feature: Add ability to show transitive requires in `conan graph info ... -f=html` output `#19884 <https://github.com/conan-io/conan/pull/19884>`_
+- Feature: Add ability to show node subgraph in `conan graph info ... -f=html` output `#19884 <https://github.com/conan-io/conan/pull/19884>`_
+- Feature: Add ability to filter by file extensions in `conan report diff ... -f=html` output `#19884 <https://github.com/conan-io/conan/pull/19884>`_
+- Feature: New compiler flags ``flags_map()`` Python plugin to be able to translate, remove or handle compiler flags coming from compatible binaries built with a different compiler trying to inject compiler flags for that compiler. `#19879 <https://github.com/conan-io/conan/pull/19879>`_ . Docs `here <https://github.com/conan-io/docs/pull/4437>`__
+- Feature: `tools.build:install_strip` now accepts a list of possible build systems `#19874 <https://github.com/conan-io/conan/pull/19874>`_ . Docs `here <https://github.com/conan-io/docs/pull/4424>`__
+- Feature: Add new "certified" variant to settings ``VxWorks`` and new "safe" variant to ``Neutrino`` `#19861 <https://github.com/conan-io/conan/pull/19861>`_
+- Feature: Allow patterns for recipe names in `--update` flag `#19856 <https://github.com/conan-io/conan/pull/19856>`_
+- Feature: Add --strict flag to `conan remote auth`. `#19848 <https://github.com/conan-io/conan/pull/19848>`_ . Docs `here <https://github.com/conan-io/docs/pull/4434>`__
+- Feature: Avoid detecting default package manager when overridden from profile `#19847 <https://github.com/conan-io/conan/pull/19847>`_
+- Feature: Add new experimental contextual output for :command:`conan export` command `#19836 <https://github.com/conan-io/conan/pull/19836>`_
+- Feature: Added default package manager for CachyOS. `#19788 <https://github.com/conan-io/conan/pull/19788>`_
+- Feature: Introduce new ``consistent=True`` requirement trait to be able to have diamond structures for ``visible=False`` requirements. `#19286 <https://github.com/conan-io/conan/pull/19286>`_ . Docs `here <https://github.com/conan-io/docs/pull/4440>`__
+- Fix: Test publishing Conan wheels to test PyPi. `#19906 <https://github.com/conan-io/conan/pull/19906>`_
+- Fix: Ignore local package lockfiles in ``conan workspace install/build`` and use consistently a global lockfile if provided or found by default. `#19896 <https://github.com/conan-io/conan/pull/19896>`_
+- Fix: Force ``--order-by`` in ``conan graph build-order``. Old deprecated behaviour can be restored until Conan 2.32 with the ``deprecated_build_order_args`` policy `#19892 <https://github.com/conan-io/conan/pull/19892>`_ . Docs `here <https://github.com/conan-io/docs/pull/4436>`__
+- Fix: Remove support for empty version ranges. Old deprecated behaviour can be restored until Conan 2.32 with the ``deprecated_empty_version_range`` policy `#19892 <https://github.com/conan-io/conan/pull/19892>`_ . Docs `here <https://github.com/conan-io/docs/pull/4436>`__
+- Fix: Remove deprecated ``system_tools`` profile section `#19877 <https://github.com/conan-io/conan/pull/19877>`_
+- Fix: Remove deprecated ``detect_compiler`` method in detect api `#19877 <https://github.com/conan-io/conan/pull/19877>`_
+- Fix: Remove deprecated ``deploy`` folder in conan home `#19877 <https://github.com/conan-io/conan/pull/19877>`_
+- Fix: Remove deprecated methods from ``PackagesList`` `#19877 <https://github.com/conan-io/conan/pull/19877>`_
+- Fix: Remove deprecated ``cmake_set_interface_link_directories`` property `#19877 <https://github.com/conan-io/conan/pull/19877>`_
+- Fix: Remove deprecated ``Node::dependencies`` method `#19877 <https://github.com/conan-io/conan/pull/19877>`_
+- Fix: Warn when credentials environment variables are set but not used because the server accepted anonymous access and point users to add `--force` to force authentication. `#19872 <https://github.com/conan-io/conan/pull/19872>`_
+- Fix: Documenting ``CommandAPI`` and better docs for ``ProfilesAPI`` `#19871 <https://github.com/conan-io/conan/pull/19871>`_
+- Fix: Fix output of options with "error" in its name in `conan list` command. `#19867 <https://github.com/conan-io/conan/pull/19867>`_
+- Fix: Forward underlying system package manager error messages `#19858 <https://github.com/conan-io/conan/pull/19858>`_
+- Fix: Deprecate ``build_requires``, use ``tool_requires`` instead `#19849 <https://github.com/conan-io/conan/pull/19849>`_ . Docs `here <https://github.com/conan-io/docs/pull/4431>`__
+- Fix: Inline transitive dependencies to avoid Xcode recursion crashes. `#19844 <https://github.com/conan-io/conan/pull/19844>`_ . Docs `here <https://github.com/conan-io/docs/pull/4435>`__
+- Fix: `finalize()` output folder should be printed only once `#19834 <https://github.com/conan-io/conan/pull/19834>`_
+- Fix: Change default ``core.download:retry_wait`` from 0 to 1 second. Document ``retry`` conf defaults for ``conan config list`` `#19830 <https://github.com/conan-io/conan/pull/19830>`_
+- Fix: Use user locale in `conan list ... -f=html` output. `#19828 <https://github.com/conan-io/conan/pull/19828>`_
+- Fix: Avoid subtle errors with casing errors like ``requires("myPkg/[*]")`` using version ranges. `#19799 <https://github.com/conan-io/conan/pull/19799>`_
+- Fix: Add support for Xcode 26.4 with Apple Clang 21. `#19795 <https://github.com/conan-io/conan/pull/19795>`_
+- Fix: Add ``-ur/-ubr/-upr`` for ``conan lock upgrade`` as short forms for ``--update-requires``, etc. `#19791 <https://github.com/conan-io/conan/pull/19791>`_
+- Fix: Propagate build requirement run trait to upstream shared dependency. `#19751 <https://github.com/conan-io/conan/pull/19751>`_
+- Fix: Make components from same package full link in ``CMakeConfigDeps``. `#19641 <https://github.com/conan-io/conan/pull/19641>`_
+- Bugfix: Solve crash of ``conan workspace install/build --lockfile=mylock --lockfile-partial`` `#19896 <https://github.com/conan-io/conan/pull/19896>`_
+- Bugfix: ``conan install --lockfile=xxxx`` will raise if the lockfile contains ``config_requires`` and the current installed configuration packages do not align with it `#19875 <https://github.com/conan-io/conan/pull/19875>`_ . Docs `here <https://github.com/conan-io/docs/pull/4433>`__
+- Bugfix: Change propagation on bindirs for ``VirtualBuildEnv`` respecting requirement ``run`` trait, based on the new ``required_conan_version=">=2.28"`` recipe version or ``global.conf`` using ``core:policies=["required_conan_version>=2.28"]`` `#19849 <https://github.com/conan-io/conan/pull/19849>`_ . Docs `here <https://github.com/conan-io/docs/pull/4431>`__
+- Bugfix: Solve incorrect ``.ps1`` file generation when unsetting the conf with ``-c tools.env.virtualenv:powershell=!``. `#19820 <https://github.com/conan-io/conan/pull/19820>`_
+- Bugfix: Fix ``transitive_libs=True`` when using ``CMakeConfigDeps`` for shared libraries. `#19815 <https://github.com/conan-io/conan/pull/19815>`_
+- Bugfix: Change computation of ``package_id`` for transitive static libraries, based on the new ``required_conan_version=">=2.28"`` recipe version or ``global.conf`` using ``core:policies=["required_conan_version>=2.28"]``. `#19705 <https://github.com/conan-io/conan/pull/19705>`_ . Docs `here <https://github.com/conan-io/docs/pull/4438>`__
+
 2.27.1 (13-Apr-2026)
 --------------------
 
