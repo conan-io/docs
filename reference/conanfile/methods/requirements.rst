@@ -92,6 +92,7 @@ when we want to use different versions of the same package during the build.
     In these cases where different visibility rules reach the same package, the visible transitive
     dependency will be used and propagated downstream.
 
+.. _reference_conanfile_methods_requirements_consistent:
 
 consistent
 ~~~~~~~~~~
@@ -110,7 +111,7 @@ following:
 - If the policy ``required_conan_version = ">=2.28"`` is defined in the recipe or the equivalent global ``core:policies`` is defined, then
   the default ``consistent`` trait will be:
 
-  - ``consistent=True`` for the "host" context. In general, dependencies in the host context are libraries, and the libraries must be
+  - ``consistent=True`` for the "host" context. In general, dependencies in the host context are libraries, and the libraries must be 
     consistent among them, even if they are not propagated downstream. That means that it is not expected to have multiple instances
     (nodes) of the same package in the dependencies.
   - ``consistent=False`` for the "build" context. In general dependencies in the build context are tools, so it doesn't matter much
@@ -125,6 +126,13 @@ following:
   ``libs`` or ``run``, then, those transitive dependencies will still be considered overlapping and conflict or be considered the same
   dependency, closing a diamond structure in the graph, instead of being separate nodes in the graph for the same package, keeping a tree
   structure.
+
+.. figure:: ../../../images/consistent.png
+   :align: center
+   
+   ``consistent=False`` (left) ``consistent=True`` (right)
+
+See `pull request 19286 <https://github.com/conan-io/conan/pull/19286>`_ for discusion and more information.
 
 
 transitive_headers
