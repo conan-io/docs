@@ -44,6 +44,22 @@ This means it was using "non-embed" mode. The default of non-embed mode is ``min
 - New ``zlib`` minor versions, like ``zlib/1.4.0`` will result in a "minor-mode" identifier like ``zlib/1.4.Z``, and then, it will require a new ``openssl/3.1.2`` package binary, with a new ``package_id``
 
 
+.. note:: 
+
+  There was a bug in Conan versions previous to Conan 2.28 in this **non-embed mode**, in which transitive dependencies could affect the ``package_id`` of consumers,
+  even if they were not direct dependencies, they were not being embedded, and they were not propagating headers to it. This was causing sub-optimal behavior, that could require 
+  some unnecessary builds from source for new ``package_ids``. To avoid breaking existing users, this bug fix was introduced as opt-in via
+  policies:
+
+  - If a recipe defines ``required_conan_version = ">=2.28"`` or higher, it will automatically enable the new fixed ``package_id`` computation.
+    Recipes that don't update their required conan version will still use the older ``package_id``.
+  - If the global configuration in ``global.conf`` defines the ``core.policies=["required_conan_version>=2.28"]`` it will have the same behavior,
+    enabling this bugfix for all packages. See the :ref:`documentation for policies<reference_policies>` for more information.
+  - The recommendation is to activate the new behavior via policies. It will save resources like build time, and it will also be more future-proof,
+    Conan future versions might enable this behavior unconditionally.
+
+
+
 Embed mode
 ----------
 
