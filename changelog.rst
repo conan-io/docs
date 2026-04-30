@@ -3,6 +3,11 @@ Changelog
 
 This page lists the changes made to Conan in each version, with links to each pull request for more details.
 
+2.28.1 (30-Apr-2026)
+--------------------
+
+- Bugfix: Fix regression for downloads without sha256. `#19934 <https://github.com/conan-io/conan/pull/19934>`_
+
 2.28.0 (28-Apr-2026)
 --------------------
 
