@@ -59,6 +59,12 @@ Good practices
   once they have passed some quality checks. But it is very important that this promotion does not change in any way those
   packages, which must be completely immutable, not even changing its ``user/channel``, this is why the above point discourages
   using user and channel, packages and artifacts must be immutable.
+- Define **dependencies options values** in **profile files**, not in recipes. Do not define ``default_options``
+  for dependencies like ``default_options = {"mydep*:myoption": "value"}``. Do not use ``configure()`` to define
+  options values for dependencies, and avoid using the ``options`` requirement trait as much as possible. Use the
+  dependencies default options, if necessary change those defaults directly in the dependencies to default to your
+  most used configurations and use **profile** files whenever is necessary to diverge from those defaults. See
+  :ref:`this FAQ about options values for dependencies<faq_different_options_values>` for more information.
 
 .. _guidelines_bad_alphanumeric_majors:
 
