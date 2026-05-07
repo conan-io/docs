@@ -198,6 +198,22 @@ please read it carefully.
 In general, it is more recommended to define options values in profile files, not in recipes.
 Recipe defined options always have less precedence than options defined in profiles.
 
+.. important::
+
+    Defining options values for dependencies in recipes does not have strong guarantees:
+    
+    - This applies to any recipe definition of dependencies options, via ``default_options``,
+      ``configure()``, or requirements ``options=`` trait.
+    - It is not possible to change the options of non-visible transitive dependencies, for example
+      ``test_requires`` or ``tool_requires`` of dependencies cannot be affected by any 
+      definition of options values in downstream recipes, because they are private.
+    - The "locality" of the definition makes it a bad location for large projects with developers
+      working on different packages in the dependency graph. 
+    
+    So in general, defining options values for dependencies in recipes is **discouraged**.
+    The strongly recommended way
+    to define options values for dependencies is in **profile files**.
+
 
 .. _faq_version_conflicts_version_ranges:
 

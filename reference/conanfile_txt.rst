@@ -122,6 +122,12 @@ List of options scoped for each package with a pattern like **package_name*:opti
 For example using ``*:shared=True`` will define ``shared=True`` for all packages in the dependency graph that have this
 option defined.
 
+.. warning::
+
+    Defining options values in conanfile.txt does not have strong guarantees, please check 
+    :ref:`this FAQ about options values for dependencies<faq_different_options_values>`. The recommended way
+    to define options values is in **profile files**.
+
     
 [layout]
 --------

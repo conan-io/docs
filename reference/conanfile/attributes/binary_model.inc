@@ -229,9 +229,9 @@ a valid ``reference_pattern`` a ``name/version`` or any pattern with ``*`` like 
 
 .. warning::
 
-    Defining options values in recipes does not have strong guarantees, please check 
+    Defining options values for dependencies in recipes does not have strong guarantees, please check 
     :ref:`this FAQ about options values for dependencies<faq_different_options_values>`. The recommended way
-    to define options values is in profile files.
+    to define ``default_options`` values for dependencies is in **profile files**.
 
 You can also set the options conditionally to a final value with ``configure()`` instead of using ``default_options``:
 
