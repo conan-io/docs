@@ -32,7 +32,7 @@ downloading installers from `Download Page <https://conan.io/downloads.html>`_ a
 After unzipping these installers, Artifactory can be launched by double-clicking
 the ``artifactory.bat`` on Windows or ``artifactory.sh`` script in the *app/bin* subfolder, depending on the OS. 
 
-Once Artifactory has started, navigate to the default URL `http://localhost:8081` where
+Once Artifactory has started, navigate to the default URL `http://localhost:8082` where
 the Web UI should be running. The default user and password are ``admin:password``.
 
 Creating and Using a Conan Repo
