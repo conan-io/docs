@@ -45,6 +45,25 @@ If some package want to use both some build scripts and link with a given librar
     recommended to define it, and it should be defined in most cases.
 
 
+.. note::
+
+   The ``package_type`` attribute can also be computed dynamically in both
+   the ``config_options()`` and ``configure()`` methods, for example, a recipe might not support
+   building shared libraries in a specific platform. This can be defined as:
+
+   .. code-block:: python
+
+       package_type = "library"
+       options = {"shared": [True, False]}
+
+       def config_options(self):
+           if self.settings.os == "Windows":
+               del self.options.shared
+               self.package_type = "static-library"
+
+   where care should be taken when accessing the ``shared`` option, as it will be removed for Windows,
+   so the ``self.options.get_safe("shared")`` accessor should be used as appropiate.
+
 .. _conan_conanfile_properties_settings:
 
 settings
@@ -52,7 +71,8 @@ settings
 
 List of strings with the first level settings (from :ref:`reference_config_files_settings_yml`) that the recipe
 needs, because:
-- They are read for building (e.g: `if self.settings.compiler == "gcc"`)
+
+- They are read for building (e.g: ``if self.settings.compiler == "gcc"``)
 - They affect the ``package_id``. If a value of the declared setting changes, the ``package_id`` has to be different.
 
 The most common is to declare:
