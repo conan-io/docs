@@ -263,6 +263,12 @@ They can be used in the same way:
         for require, dependency in self.dependencies.build.items():
             # do something, only build deps here
 
+.. note::
+
+    By default, indexing into ``self.dependencies[...]`` returns dependencies in the *host* context.
+    If you need to access dependencies that belong to the *build* context (e.g. ``cmake``),
+    use the ``self.dependencies.build[...]`` filter helper, as shown in the example above.
+
 
 Dependencies ``cpp_info`` interface
 +++++++++++++++++++++++++++++++++++
