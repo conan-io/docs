@@ -53,7 +53,7 @@ This means it was using "non-embed" mode. The default of non-embed mode is ``min
 
   - If a recipe defines ``required_conan_version = ">=2.28"`` or higher, it will automatically enable the new fixed ``package_id`` computation.
     Recipes that don't update their required Conan version will still use the older ``package_id``.
-  - If the global configuration in ``global.conf`` defines the ``core.policies=["required_conan_version>=2.28"]`` it will have the same behavior,
+  - If the global configuration in ``global.conf`` defines the ``core:policies=["required_conan_version>=2.28"]`` it will have the same behavior,
     enabling this bugfix for all packages. See the :ref:`documentation for policies<reference_policies>` for more information.
   - The recommendation is to activate the new behavior via policies. It will save resources like build time, and it will also be more future-proof,
     future Conan versions might enable this behavior unconditionally.
