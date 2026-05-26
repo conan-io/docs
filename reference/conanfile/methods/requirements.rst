@@ -92,6 +92,25 @@ when we want to use different versions of the same package during the build.
     In these cases where different visibility rules reach the same package, the visible transitive
     dependency will be used and propagated downstream.
 
+
+.. important::
+
+   **Best practices**
+
+   In general it is recommended to use the ``visible`` trait defaults, that is, ``visible=True`` for
+   normal host ``requires()`` and ``visible=False`` for ``test_requires()`` and ``tool_requires()``:
+
+   - Changing that default visibility can create different issues and problems if not handle properly.
+   - It is not recommended nor necessary to define ``visible=False`` for shared libraries packages that
+     requires other static library packages, or similar C, C++ libraries usages, the default Conan behavior will already skip downloading
+     that transitive static library if not needed and will not propagate downstream the linkage requirements.
+     In general, you can use the default ``visible=True`` for most regular ``requires()`` dependencies.
+   - Using ``visible=False`` in regular ``requires`` must guarantee complete API and ABI encapsulation.
+     If those are not met, issues from compilation errors, to linkage errors, to runtime errors can happen.
+   - Using ``visible=True`` for ``tool_requires`` or ``test_requires`` is also discouraged. The recommended
+     way to inject ``tool_requires`` from outside a recipe is using profiles.
+
+
 .. _reference_conanfile_methods_requirements_consistent:
 
 consistent

@@ -157,9 +157,16 @@ It is possible to further modify individual traits of ``tool_requires()`` and ``
     Defining options values for dependencies in recipes does not have strong guarantees, please check 
     :ref:`this FAQ about options values for dependencies<faq_different_options_values>`. The recommended way
     to define options values for dependencies is in **profile files**.
+
     For the ``tool_requires/test_requires`` defining the ``options`` trait is more feasible than with regular
     requires, because they are not visible and not propagated, but don't apply ``options`` trait to regular
     requires if possible, and use **profile files** instead.
+
+    Still, both ``tool_requires`` and ``test_requires`` are private (``visible=False``), only the recipe 
+    that declares them has visibility and can use them. The consumers of the package will not see or know about 
+    their existence. Consequently, they cannot be affected by consumers ``options``values definitions, it doesn't 
+    matter that a consumer of the package defines options like ``cmake*:some_option=somevalue``, because ``cmake``
+    is ``visible=False`` and it will never receive that value from downstream consumers.
 
 
 The ``test_requires()`` allows the ``force=True`` trait in case there are transitive test requirements with conflicting versions, and likewise ``tool_requires()`` support the ``override=True`` trait, for overriding possible transitive dependencies of the direct tool requirements.

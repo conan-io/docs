@@ -127,7 +127,15 @@ won't be retrieved. They cannot conflict.
 .. code-block:: python
 
     class MyPkg(ConanFile):
+        name = "mypkg"
         test_requires = "gtest/1.17.0", "other_test_tool/0.2@user/testing"
+
+
+Note that ``test_requires`` are private (``visible=False``), only the recipe that declares them has
+visibility and can use them. The consumers of ``MyPkg`` will not see or know about the existence of
+``gtest`` or ``other_test_tool``. Consequently, they cannot be affected by consumers ``options``
+values definitions, it doesn't matter that a consumer of ``mypkg`` defines options like ``gtest*:some_option=somevalue``,
+because ``gtest`` will never receive that value.
 
 
 This is the declarative way to add ``test_requires``.
