@@ -84,7 +84,8 @@ will cause an authentication failure. If you want to condition the existence of 
 itself, you need to protect the whole credential entry (both ``url``, and ``token``) with a
 ``{% if mytk %}-{% endif %}`` block.
 
-In some special cases, the server might need some specific custom headers. You can also specify them using a ``headers`` dictionary.
+In some special cases, the server might need some specific custom headers. You can also specify them using a ``headers`` dictionary,
+either on its own, or together with the ``token`` or ``user/password`` fields:
 
 .. code-block:: json
 
