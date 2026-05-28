@@ -187,6 +187,22 @@ The result is that you're specifying a general ``generator`` for all your packag
 effect because it's the first one evaluated, and after that, Conan is overriding that specific pattern with the most
 general one, so it deserves to pay special attention to the order.
 
+global_user.conf
+================
+
+.. include:: ../../common/experimental_warning.inc
+
+
+Similar to how the ``settings_user.yml`` can complete the default ``settings.yml``, the (new in Conan 2.29) ``global_user.conf``
+allow developers to have their own ``[CONAN_HOME]/global_user.conf`` file in the Conan cache, with the following properties:
+
+- It also allows ``jinja2`` templating syntax, with the same inputs as the ``global.conf`` file.
+- Its contents compose and overwrite the existing values in ``global.conf`` with higher precedence.
+- It is designed for developers to be able to customize and deviate from the organization/team common ``global.conf``.
+- This file is not intended to be managed or installed by ``conan config install/install-pkg`` commands.
+- The existence of this file allows developers to sync and update their organization ``global.conf`` with ``conan config install/install-pkg`` without losing their customization
+- A ``conan config clean`` will remove the ``global_user.conf`` file, as its purpose is to completely reset the Conan home configuration.
+
 
 Configuration precedence
 ========================
