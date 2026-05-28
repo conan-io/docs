@@ -33,6 +33,18 @@ Moreover, it could not have the ``ref`` field, and let Conan read the *name/vers
       - path: dep2
 
 
+.. warning::
+
+   Support for ``python_requires`` in a workspace is limited and highly **experimental** (the whole feature is still incubating, so
+   no guarantees about ``python_requires`` either).
+
+   In case of having ``python_requires`` in the workspace, they should be declared first, before other packages that use
+   them, the order is important. They also must declare the proper ``package_type = "python-require"``.
+
+   Also, it will only work when using ``conanws.yml``, but not with a dynamic definition using ``conanws.py`` ``packages()``
+   method.
+
+
 conanws.py
 ----------
 
