@@ -10,7 +10,7 @@ API, a generic CLI tool and generic repositories to host any kind of source or b
 artifact.
 
 This is a very brief introduction to Artifactory CE. For the complete Artifactory CE
-documentation, visit `Artifactory docs <https://jfrog.com/help/>`_.
+documentation, visit `Artifactory docs <https://docs.jfrog.com/artifactory/docs/getting-started>`_.
 
 Running Artifactory CE
 ----------------------
@@ -24,8 +24,8 @@ The latest image is ``releases-docker.jfrog.io/jfrog/artifactory-cpp-ce:latest``
 
 
 This is running Artifactory CE with an embedded Derby database. For better performance in production, you might want to check
-the `Single node Artifactory installation <https://jfrog.com/help/r/jfrog-installation-setup-documentation/install-artifactory-single-node-with-docker>`_ 
-and the full `Artifactory installation guide <https://jfrog.com/help/r/jfrog-installation-setup-documentation>`_.
+the `Single node Artifactory installation <https://docs.jfrog.com/installation/docs/docker>`_ 
+and the full `Artifactory installation guide <https://docs.jfrog.com/installation/docs/installing-artifactory>`_.
 
 For versions older than Artifactory 7.77, alternative installation methods like
 downloading installers from `Download Page <https://conan.io/downloads.html>`_ are available.
