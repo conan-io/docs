@@ -60,11 +60,12 @@ def generate_llms_full_txt(html_dir, md_dir):
     """Concatenate all generated .html.md files into a single llms-full.txt
     for bulk ingestion by IDEs, RAG systems, and LLM agents."""
     output_path = os.path.join(html_dir, "llms-full.txt")
+    excluded = EXCLUDED_MD_FILES | {"changelog.html.md"}
     md_files = []
     for root, dirs, files in os.walk(md_dir):
         dirs.sort()
         for filename in sorted(files):
-            if filename.endswith(".html.md") and filename not in EXCLUDED_MD_FILES:
+            if filename.endswith(".html.md") and filename not in excluded:
                 md_files.append(os.path.join(root, filename))
 
     with open(output_path, "w", encoding="utf-8") as out:
