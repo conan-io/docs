@@ -105,6 +105,8 @@ Version ranges can be defined in several places:
 - In profiles ``[tool_requires]`` section
 
 
+.. _tutorial_versioning_semantic:
+
 Semantic versioning
 -------------------
 

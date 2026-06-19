@@ -6,6 +6,13 @@ Version
 This is a helper class to work with versions, it splits the version string based on dots and hyphens.
 It exposes all the version components as properties and offers total ordering through compare operators.
 
+
+.. note::
+
+    This is the reference for ``Version``. For more detailed explanations and usage, visit 
+    the section about :ref:`semantic versionining in the tutorial<tutorial_versioning_semantic>`
+
+
 .. code-block:: python
    :caption: Comparing versions
 
@@ -29,7 +36,7 @@ Get all the main digits.
 
 .. code-block:: python
 
-    v = Version("1.2.3.4-alpha.3+b1")
+    v = Version("1.2.3.4-alpha.3+b.1")
     assert [str(i) for i in v.main] == ['1', '2', '3', '4', '5']
 
 major
@@ -39,7 +46,7 @@ Get the major digit.
 
 .. code-block:: python
 
-    v = Version("1.2.3.4-alpha.3+b1")
+    v = Version("1.2.3.4-alpha.3+b.1")
     assert str(v.major) == "1"
 
 minor
@@ -49,7 +56,7 @@ Get the minor digit.
 
 .. code-block:: python
 
-    v = Version("1.2.3.4-alpha.3+b1")
+    v = Version("1.2.3.4-alpha.3+b.1")
     assert str(v.minor) == "2"
 
 
@@ -60,7 +67,7 @@ Get the patch digit.
 
 .. code-block:: python
 
-    v = Version("1.2.3.4-alpha.3+b1")
+    v = Version("1.2.3.4-alpha.3+b.1")
     assert str(v.patch) == "3"
 
 
@@ -71,7 +78,7 @@ Get the micro digit.
 
 .. code-block:: python
 
-    v = Version("1.2.3.4-alpha.3+b1")
+    v = Version("1.2.3.4-alpha.3+b.1")
     assert str(v.micro) == "4"
 
 
@@ -82,7 +89,7 @@ Get the pre-release digit.
 
 .. code-block:: python
 
-    v = Version("1.2.3.4-alpha.3+b1")
+    v = Version("1.2.3.4-alpha.3+b.1")
     assert str(v.pre) == "alpha.3"
 
 build
@@ -92,8 +99,14 @@ Get the build digit.
 
 .. code-block:: python
 
-    v = Version("1.2.3.4-alpha.3+b1")
-    assert str(v.build) == "b1"
+    v = Version("1.2.3.4-alpha.3+b.1")
+    assert str(v.build) == "b.1"
+
+.. note::
+
+    If any field in the Version contains letters, it will be treated alphabetically, so the relative
+    order of numbers within those field will not be correct. Make sure to separate with dots the digits,
+    like ``alpha.3`` and ``build.1`` instead of ``alpha3`` and ``build1`` for correct ordering.
 
 
 Methods
