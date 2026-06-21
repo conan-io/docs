@@ -504,8 +504,8 @@ In this case, whatever version of ``cmake`` declared in recipes, will be replace
 
    * This section should be added to the profile whose context is the one that requires the tool, i.e., if the
      tool is required in the host context, then it should be added to the host profile, so that the requirement
-     itself can be replaced.
-
+     itself can be replaced. For example, if a ``zlib`` recipe in the host context has a ``tool_requires("cmake/xxx")``, a ``replace_tool_requires`` in the **host profile** will replace it.
+   * If what you want to replace are transitive dependencies of the tools that live inside ``tool_requires`` packages, those live in the **build context**. To replace them, you must add the replacements to the **build profile**. Both ``[replace_requires]`` and ``[replace_tool_requires]`` in the build profile will affect the build context in the same way, replacing ``requires`` and ``tool_requires`` of the tools themselves.
 
 .. _reference_config_files_profiles_platform_requires:
 
