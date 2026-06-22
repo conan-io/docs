@@ -469,6 +469,7 @@ core.download:download_cache
 
 Absolute path to a folder where the Conan packages will be stored *compressed*.
 This is useful to avoid recurrent downloads of the same packages, especially in CI.
+Please check the :ref:`download cache <devops_download_cache>` dedicated section for more information.
 
 .. code-block:: text
     :caption: *global.conf*
