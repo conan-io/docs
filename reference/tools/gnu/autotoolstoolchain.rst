@@ -117,8 +117,10 @@ values:
 * **sysroot_flag**: To pass the ``--sysroot`` flag to the compiler.
 * **apple_arch_flag**: Only when cross-building with Apple systems. Flags from ``settings.arch``. For universal binaries, contains multiple ``-arch`` flags.
 * **apple_isysroot_flag**: Only when cross-building with Apple systems. Path to the root sdk.
+* **apple_min_version_flag**: Only for Apple systems, defines the ``-m{ios,macosx,watchos,tvos,...}-version-min=xxx`` flag.
 * **msvc_runtime_flag**: Flag from ``settings.compiler.runtime_type`` when compiler is ``msvc`` or
   ``settings.compiler.runtime`` when using the deprecated ``Visual Studio``.
+
 
 The following attributes are ready-only and will contain the calculated values for the current configuration and customized
 attributes. Some recipes might need to read them to generate custom build files (not strictly Autotools) with the configuration:
