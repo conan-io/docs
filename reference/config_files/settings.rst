@@ -110,12 +110,12 @@ This compiler is aimed to handle the new Intel oneAPI DPC++/C++/Classic compiler
 you have 3 different **modes** of working:
 
 * ``icx`` for Intel oneAPI C++.
-* ``dpcpp`` for Intel oneAPI DPC++.
+* ``dpcpp`` for Intel oneAPI DPC++ (deprecated by Intel, prefer ``icx`` with ``sycl`` linkage, see :ref:`SYCL docs<oneapi_sycl_support>`)
 * ``classic`` for Intel C++ Classic ones.
 
 Besides that, Intel releases some versions with revisions numbers so the ``update`` field is supposed to be any
-possible minor number for the Intel compiler version used, e.g, ``compiler.version=2021.1`` and
-``compiler.update=311`` mean Intel version is ``2021.1.311``.
+possible minor number for the Intel compiler version used, e.g, ``compiler.version=2026.0`` and
+``compiler.update=1`` mean Intel version is ``2026.0.1``.
 
 
 Architectures
