@@ -186,6 +186,15 @@ The following properties affect the ``CMakeConfigDeps`` generator:
   the ``value`` (string/number) , ``cache`` (boolean), ``type`` (CMake cache type) and optionally,
   ``docstring`` (string: defaulted to variable name) and ``force`` (boolean) keys. Note that this has
   less preference over those values defined in the ``tools.cmake.cmaketoolchain:extra_variables`` conf.
+- **cmake_extra_dependencies**: List of extra package names for which a ``find_dependency()`` call will be
+  added to the generated ``<pkg>-config.cmake`` file. Useful when the package depends on libraries located
+  via CMake's ``find_package()`` but not declared as Conan ``requires`` (for example, system-provided
+  dependencies like ``OpenMPI``). This property is only honored at the package level (setting it on a
+  component has no effect).
+- **cmake_extra_interface_libs**: List of extra libraries to be appended to the generated CMake target's
+  ``INTERFACE_LINK_LIBRARIES``. Useful to declare additional libraries (such as system libraries, or
+  libraries located by the packages declared in ``cmake_extra_dependencies``) that have to be linked
+  together with the package's own libraries. Can be defined both at the package level and per-component.
 - **cmake_link_feature**: Sets the link feature for the generated target. This can be any of the built-in
   link features supported by CMake like ``WHOLE_ARCHIVE`` etc., or a custom one, provided you also set
   the expected ``CMAKE_LINK_LIBRARY_USING_<FEATURE>_SUPPORTED`` and ``CMAKE_LINK_LIBRARY_USING_<FEATURE>`` variables.
@@ -228,12 +237,24 @@ Example:
         # so they can find the same config file with different lower/upper case variants.
         self.cpp_info.set_property("cmake_file_name_variants", ["myfilename", "MYFILENAME"])
 
+        # Emit ``find_dependency(MyOpenMPI REQUIRED)`` in the generated <pkg>-config.cmake,
+        # so consumers can locate dependencies not provided as Conan requires.
+        self.cpp_info.set_property("cmake_extra_dependencies", ["MyOpenMPI"])
+
+        # Append extra libraries to the generated target's INTERFACE_LINK_LIBRARIES
+        self.cpp_info.set_property("cmake_extra_interface_libs", ["MyOpenMPI::MyOpenMPI"])
+
     # Or if using components
     def package_info(self):
         self.cpp_info.components["mycomponent"].set_property("cmake_target_name", "Foo::Var")
 
         # Create a new target "VarComponent" that is an alias to the "Foo::Var" component target
         self.cpp_info.components["mycomponent"].set_property("cmake_target_aliases", ["VarComponent"])
+
+        # ``cmake_extra_interface_libs`` can also be set on a single component,
+        # in which case it is appended only to that component's INTERFACE_LINK_LIBRARIES.
+        self.cpp_info.components["mycomponent"].set_property("cmake_extra_interface_libs",
+                                                             ["MyOpenMPI::MyOpenMPI"])
 
 
 Using ``CMakeConfigDeps.set_property()`` method you can overwrite the property values set by the
