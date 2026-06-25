@@ -482,6 +482,10 @@ Other examples are:
    - Please make rational use of this feature. It is not a versioning mechanism and is not intended to replace actual requires in recipes.
    - The usage of this feature is intended for **temporarily** solving conflicts or replacing a specific dependency by a system one in some cross-build scenarios.
 
+.. important::
+
+   ``[replace_requires]`` does **not** apply to requires that are explicitly specified via command-line arguments (e.g., ``--requires=dep/1.0`` or ``conan create . --requires=dep/1.0``). CLI-specified requirements have higher priority and are never replaced. Transitive dependencies of CLI-specified requires can still be replaced.
+
 
 .. _reference_config_files_profiles_replace_tool_requires:
 
