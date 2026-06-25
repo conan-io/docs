@@ -3,6 +3,11 @@ Changelog
 
 This page lists the changes made to Conan in each version, with links to each pull request for more details.
 
+2.30.0 (DD-Mon-2026)
+--------------------
+
+- Feature: Allow ``=~`` as an alias for the ``=!`` (unset) operator in configuration. `#20084 <https://github.com/conan-io/conan/pull/20084>`_ . Docs `here <https://github.com/conan-io/docs/pull/XXXX>`__
+
 2.29.1 (12-Jun-2026)
 --------------------
 

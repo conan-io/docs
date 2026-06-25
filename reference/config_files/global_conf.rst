@@ -137,7 +137,7 @@ any of your profiles:
 * ``+=`` == ``append``: appends values at the end of the existing value (only for lists).
 * ``=+`` == ``prepend``: puts values at the beginning of the existing value (only for lists).
 * ``*=`` == ``update``: updates the specified keys only, leaving the rest unmodified (only for dictionaries)
-* ``=!`` == ``unset``: gets rid of any configuration value.
+* ``=!`` == ``unset``: gets rid of any configuration value. The ``=~`` operator is an alias for ``=!``.
 
 .. code-block:: text
     :caption: *global.conf*
@@ -151,8 +151,9 @@ any of your profiles:
     # Prepend the value ["-f0"] => ["-f0", "-f1", "-f2"]
     user.myconf.build:flags=+["-f0"]
 
-    # Unset the value
+    # Unset the value (both notations are equivalent)
     user.myconf.build:flags=!
+    user.myconf.build:flags=~
 
     # Define the value => {"a": 1, "b": 2}
     user.myconf.build:other={"a": 1, "b": 2}
