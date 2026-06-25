@@ -72,8 +72,8 @@ At first, ensure you are using a *profile* like this one:
         tools.intel:installation_path=C:\Program Files (x86)\Intel\oneAPI
 
 
-Compiler detection
-++++++++++++++++++
+Compiler mode
++++++++++++++
 
 Conan selects the appropriate compiler executables based on the ``compiler.mode`` setting:
 
