@@ -108,6 +108,7 @@ via the build configuration:
         compiler.mode=icx
         compiler.version=2026.0
         compiler.libcxx=libstdc++
+        compiler.cppstd=gnu17
         build_type=Release
 
         [conf]
@@ -125,6 +126,7 @@ via the build configuration:
         compiler.mode=icx
         compiler.version=2026.0
         compiler.runtime=dynamic
+        compiler.cppstd=17
         build_type=Release
 
         [conf]
