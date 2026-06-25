@@ -3,11 +3,6 @@ Changelog
 
 This page lists the changes made to Conan in each version, with links to each pull request for more details.
 
-2.30.0 (DD-Mon-2026)
---------------------
-
-- Feature: Add support for Intel oneAPI compiler version ``2026.0``. `#20049 <https://github.com/conan-io/conan/pull/20049>`_
-
 2.29.1 (12-Jun-2026)
 --------------------
 
