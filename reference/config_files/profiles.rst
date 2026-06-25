@@ -519,6 +519,7 @@ Replacement rules can be unset in profile composition using ``!`` as the replace
 
     [replace_tool_requires]
     # Remove a specific rule from a base profile
+    # The "cmake/*" expression must match exactly the previous rule, it will not invalidate a "cmake/3.30" rule.
     cmake/*: !
     # Clear all tool replacement rules
     *: !
