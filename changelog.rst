@@ -3,6 +3,11 @@ Changelog
 
 This page lists the changes made to Conan in each version, with links to each pull request for more details.
 
+2.30.0 (DD-Mon-2026)
+--------------------
+
+- Feature: Allow unsetting ``[replace_requires]`` and ``[replace_tool_requires]`` profile rules during profile composition using ``pattern: !`` syntax. `#20040 <https://github.com/conan-io/conan/pull/20040>`_ . Docs `here <https://github.com/conan-io/docs/pull/XXXX>`__
+
 2.29.1 (12-Jun-2026)
 --------------------
 
