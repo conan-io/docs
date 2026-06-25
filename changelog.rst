@@ -3,11 +3,6 @@ Changelog
 
 This page lists the changes made to Conan in each version, with links to each pull request for more details.
 
-2.30.0 (DD-Mon-2026)
---------------------
-
-- Feature: New ``build_system_requirements()`` method to install build-machine system packages only when building from source, using build architecture. `#20070 <https://github.com/conan-io/conan/pull/20070>`_ . Docs `here <https://github.com/conan-io/docs/pull/XXXX>`__
-
 2.29.1 (12-Jun-2026)
 --------------------
 
