@@ -96,6 +96,17 @@ There are three objects available in the ``layout()`` method:
         # is "foo"
         self.cpp.package.libs = ["foo"]
 
+When defining ``.location`` or ``.link_location`` in ``self.cpp.build`` or
+``self.cpp.source`` for editable packages, Conan automatically relativizes these paths with respect
+to the build/source folder. This ensures that the location correctly resolves relative to the
+package's build or source directory:
+
+.. code-block:: python
+
+    def layout(self):
+        cmake_layout(self)
+        # location is relative to self.build_folder for editable packages
+        self.cpp.build.location = "lib/myexe"
 
 .. seealso::
 

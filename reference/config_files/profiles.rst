@@ -477,11 +477,26 @@ Other examples are:
     # To replace dep/[>=1.0 <2]@comp version range in recipes by 1.1 version in stable channel
     dep/1.1@*: dep/1.1@*/stable
 
+When composing multiple profiles (e.g., ``-pr=base -pr=override``), it is possible to unset replacement rules defined in earlier profiles using the ``!`` marker as the replacement target:
+
+.. code-block:: text
+    :caption: *override_profile*
+
+    [replace_requires]
+    # Remove a specific replacement rule inherited from a base profile
+    # The "zlib/*" expression must match exactly the previous rule, it will not invalidate a "zlib/1.3.1" rule.
+    zlib/*: !
+    # Clear all replacement rules
+    *: !
+
 .. note:: **Best practices**
 
    - Please make rational use of this feature. It is not a versioning mechanism and is not intended to replace actual requires in recipes.
    - The usage of this feature is intended for **temporarily** solving conflicts or replacing a specific dependency by a system one in some cross-build scenarios.
 
+.. important::
+
+   ``[replace_requires]`` does **not** apply to requires that are explicitly specified via command-line arguments (e.g., ``conan install --requires=dep/1.0`` or ``conan create``). CLI-specified requirements have higher priority and are never replaced. Transitive dependencies of CLI-specified requires can still be replaced.
 
 .. _reference_config_files_profiles_replace_tool_requires:
 
@@ -500,12 +515,30 @@ Same usage as the `replace_requires` section but in this case for `tool_requires
 
 In this case, whatever version of ``cmake`` declared in recipes, will be replaced by the reference `cmake/3.25.2`.
 
+Replacement rules can be unset in profile composition using ``!`` as the replacement target:
+
+.. code-block:: text
+    :caption: *override_profile*
+
+    [replace_tool_requires]
+    # Remove a specific rule from a base profile
+    # The "cmake/*" expression must match exactly the previous rule, it will not invalidate a "cmake/3.30" rule.
+    cmake/*: !
+    # Clear all tool replacement rules
+    *: !
+
 ..  note::
 
    * This section should be added to the profile whose context is the one that requires the tool, i.e., if the
      tool is required in the host context, then it should be added to the host profile, so that the requirement
      itself can be replaced. For example, if a ``zlib`` recipe in the host context has a ``tool_requires("cmake/xxx")``, a ``replace_tool_requires`` in the **host profile** will replace it.
    * If what you want to replace are transitive dependencies of the tools that live inside ``tool_requires`` packages, those live in the **build context**. To replace them, you must add the replacements to the **build profile**. Both ``[replace_requires]`` and ``[replace_tool_requires]`` in the build profile will affect the build context in the same way, replacing ``requires`` and ``tool_requires`` of the tools themselves.
+
+
+.. important::
+
+   ``[replace_tool_requires]`` does **not** apply to requires that are explicitly specified via command-line arguments (e.g., ``conan install --tool-requires=dep/1.0`` or ``conan create``). CLI-specified requirements have higher priority and are never replaced. Transitive dependencies of CLI-specified requires can still be replaced.
+
 
 .. _reference_config_files_profiles_platform_requires:
 

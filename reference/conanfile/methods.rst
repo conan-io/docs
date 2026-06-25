@@ -8,10 +8,11 @@ What follows is a list of methods that you can define in your recipes to customi
 .. toctree::
    :maxdepth: 1
    :hidden:
-   
+
    methods/build
    methods/build_id
    methods/build_requirements
+   methods/build_system_requirements
    methods/compatibility
    methods/configure
    methods/config_options
@@ -35,9 +36,12 @@ What follows is a list of methods that you can define in your recipes to customi
    methods/validate_build
 
 
+
+
 - :doc:`build() <methods/build>`: Contains the build instructions to build a package from source
 - :doc:`build_id() <methods/build_id>`: Allows reusing the same build to create different package binaries
 - :doc:`build_requirements() <methods/build_requirements>`: Defines ``tool_requires`` and ``test_requires``
+- :doc:`build_system_requirements() <methods/build_system_requirements>`: Installs system packages when building from source (uses build arch)
 - :doc:`compatibility() <methods/compatibility>`: Defines binary compatibility at the recipe level
 - :doc:`configure() <methods/configure>`: Allows configuring settings and options while computing dependencies
 - :doc:`config_options() <methods/config_options>`: Configure options while computing dependency graph

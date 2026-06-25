@@ -137,7 +137,7 @@ any of your profiles:
 * ``+=`` == ``append``: appends values at the end of the existing value (only for lists).
 * ``=+`` == ``prepend``: puts values at the beginning of the existing value (only for lists).
 * ``*=`` == ``update``: updates the specified keys only, leaving the rest unmodified (only for dictionaries)
-* ``=!`` == ``unset``: gets rid of any configuration value.
+* ``=!`` == ``unset``: gets rid of any configuration value. The ``=~`` operator is an alias for ``=!``.
 
 .. code-block:: text
     :caption: *global.conf*
@@ -151,8 +151,9 @@ any of your profiles:
     # Prepend the value ["-f0"] => ["-f0", "-f1", "-f2"]
     user.myconf.build:flags=+["-f0"]
 
-    # Unset the value
+    # Unset the value (both notations are equivalent)
     user.myconf.build:flags=!
+    user.myconf.build:flags=~
 
     # Define the value => {"a": 1, "b": 2}
     user.myconf.build:other={"a": 1, "b": 2}
@@ -317,6 +318,7 @@ Information about built-in confs
 
 This section provides extra information about specific confs.
 
+
 Policies
 --------
 
@@ -400,6 +402,50 @@ of those patterns will not receive the ``proxies`` definition. Note the ``*`` in
 If ``core.net.http:clean_system_proxy`` is ``True``, then the environment variables ``"http_proxy", "https_proxy", "ftp_proxy", "all_proxy", "no_proxy"``,
 will be temporary removed from the environment, so they are not taken into account when resolving proxies.
 
+
+MSYS2 subsystem environments
+-----------------------------
+
+The ``tools.microsoft.bash:subsystem`` configuration accepts ``msys2`` as a generic value, but also
+supports explicit MSYS2 environment names using the ``msys2-<environment>`` syntax. This allows
+selecting a specific MSYS2 environment (and its associated ``MSYSTEM`` variable) rather than relying
+on the architecture-based default.
+
+This specific ``MSYSTEM`` variable can become important for recipes using autotools in Windows with ``win_bash=True``, 
+and compiling with different ``msys2`` compilers. For other build systems such as CMake, explicitly defining
+the path to the compiler used could be enough.
+
+Supported values:
+
+- ``msys2`` (default): uses architecture-based MSYSTEM (``MINGW64`` for x86_64, ``MINGW32`` for x86).
+- ``msys2-ucrt64``: selects the UCRT64 environment (``UCRT64``).
+- ``msys2-clang64``: selects the CLANG64 environment (``CLANG64``).
+- ``msys2-clangarm64``: selects the CLANGARM64 environment.
+- ``msys2-mingw64``: selects the MINGW64 environment explicitly.
+- ``msys2-mingw32``: selects the MINGW32 environment explicitly.
+- ``msys2-clang32``: selects the CLANG32 environment.
+
+Example profile:
+
+.. code-block:: text
+    :caption: *windows_ucrt64*
+
+    [settings]
+    os=Windows
+    arch=x86_64
+    ...
+
+    [conf]
+    tools.microsoft.bash:subsystem=msys2-ucrt64
+    tools.microsoft.bash:path=C:\msys64\usr\bin\bash.exe
+
+The ``msys2-<environment>`` format sets the ``MSYSTEM`` environment variable accordingly when running
+bash commands, enabling proper activation of the selected MSYS2 toolchain.
+
+Recall that the ``tools.microsoft.bash:subsystem`` conf doesn't have any effect on the ``package_id``
+computation. If users want to model binaries for the different environments, it is necessary to define
+accordingly the ``os.subsystem`` setting. At the moment it only accepts ``msys2`` value, so users wanting
+more control can extend it via the custom ``settings_user.yml`` file.
 
 
 Storage configurations

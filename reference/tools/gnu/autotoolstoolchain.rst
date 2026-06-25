@@ -51,7 +51,9 @@ This launchers will append information to the ``CPPFLAGS``, ``LDFLAGS``, ``CXXFL
 ``CFLAGS`` environment variables that translate the settings and options to the
 corresponding build flags like ``-stdlib=libstdc++``, ``-std=gnu14``, architecture flags,
 etc. It will also append the folder where the Conan generators are located to the
-``PKG_CONFIG_PATH`` environment variable.
+``PKG_CONFIG_PATH`` environment variable. On Apple platforms, ``ASFLAGS`` is also set with
+architecture and sysroot flags to ensure the assembler uses the same cross-compilation
+settings as the C/C++ compilers.
 
 Since `Conan 2.4.0 <https://github.com/conan-io/conan/releases/tag/2.4.0>`__,
 in  a cross-building context, the environment variables ``CC_FOR_BUILD`` and ``CXX_FOR_BUILD`` are also set if the
@@ -120,6 +122,10 @@ values:
 * **apple_min_version_flag**: Only for Apple systems, defines the ``-m{ios,macosx,watchos,tvos,...}-version-min=xxx`` flag.
 * **msvc_runtime_flag**: Flag from ``settings.compiler.runtime_type`` when compiler is ``msvc`` or
   ``settings.compiler.runtime`` when using the deprecated ``Visual Studio``.
+* **asflags**: List of assembler flags set in the ``ASFLAGS`` environment variable. On Apple platforms,
+  populated with ``arch_flag``, ``sysroot_flag``, ``apple_isysroot_flag``, ``apple_arch_flag``, and
+  ``apple_min_version_flag``. Empty on non-Apple platforms. Applies to both ``AutotoolsToolchain``
+  and ``GnuToolchain``.
 
 
 The following attributes are ready-only and will contain the calculated values for the current configuration and customized
