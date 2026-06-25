@@ -117,6 +117,9 @@ Besides that, Intel releases some versions with revisions numbers so the ``updat
 possible minor number for the Intel compiler version used, e.g, ``compiler.version=2021.1`` and
 ``compiler.update=311`` mean Intel version is ``2021.1.311``. Supported versions include the ``2021.x``,
 ``2022.x``, ``2023.x``, ``2024.x``, ``2025.x``, and ``2026.x`` families.
+Conan does not use the ``compiler.update`` number in the toolchain definitions, it is just a declaration of its value
+when users want that specific udpate to be part of the packages ``package_id`` and have different binaries for 
+different compiler updates.
 
 
 Architectures
