@@ -63,16 +63,17 @@ At first, ensure you are using a *profile* like this one:
         compiler=intel-cc
         compiler.mode=icx
         compiler.version=2026.0
+        compiler.runtime=dynamic
         build_type=Release
 
         [conf]
         tools.intel:installation_path=C:\Program Files (x86)\Intel\oneAPI
 
 
-Compiler auto-detection
-+++++++++++++++++++++++
+Compiler detection
+++++++++++++++++++
 
-Conan automatically selects the appropriate compiler executables based on the ``compiler.mode`` setting:
+Conan selects the appropriate compiler executables based on the ``compiler.mode`` setting:
 
 - **icx mode**: Uses ``icx``/``icpx`` on Linux, or ``icx-cl`` on Windows (for MSVC compatibility)
 - **dpcpp mode**: Uses ``icx``/``dpcpp``
@@ -123,6 +124,7 @@ via the build configuration:
         compiler=intel-cc
         compiler.mode=icx
         compiler.version=2026.0
+        compiler.runtime=dynamic
         build_type=Release
 
         [conf]
