@@ -3,11 +3,6 @@ Changelog
 
 This page lists the changes made to Conan in each version, with links to each pull request for more details.
 
-2.30.0 (DD-Mon-2026)
---------------------
-
-- Bugfix: ``cpp_info.location`` and ``cpp_info.link_location`` are now correctly relativized to the build/source folder for editable package layouts. `#20088 <https://github.com/conan-io/conan/pull/20088>`_ . Docs `here <https://github.com/conan-io/docs/pull/XXXX>`__
-
 2.29.1 (12-Jun-2026)
 --------------------
 
