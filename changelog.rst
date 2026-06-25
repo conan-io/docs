@@ -3,6 +3,11 @@ Changelog
 
 This page lists the changes made to Conan in each version, with links to each pull request for more details.
 
+2.30.0 (DD-Mon-2026)
+--------------------
+
+- Feature: New explicit MSYS2 environment modeling for ``tools.microsoft.bash:subsystem``, supporting ``msys2-ucrt64``, ``msys2-clang64``, ``msys2-clangarm64``, ``msys2-mingw64``, ``msys2-mingw32``, ``msys2-clang32``. `#20074 <https://github.com/conan-io/conan/pull/20074>`_ . Docs `here <https://github.com/conan-io/docs/pull/XXXX>`__
+
 2.29.1 (12-Jun-2026)
 --------------------
 

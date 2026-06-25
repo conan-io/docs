@@ -317,6 +317,41 @@ Information about built-in confs
 
 This section provides extra information about specific confs.
 
+MSYS2 subsystem environments
+-----------------------------
+
+The ``tools.microsoft.bash:subsystem`` configuration accepts ``msys2`` as a generic value, but also
+supports explicit MSYS2 environment names using the ``msys2-<environment>`` syntax. This allows
+selecting a specific MSYS2 environment (and its associated ``MSYSTEM`` variable) rather than relying
+on the architecture-based default.
+
+Supported values:
+
+- ``msys2`` (default): uses architecture-based MSYSTEM (``MINGW64`` for x86_64, ``MINGW32`` for x86).
+- ``msys2-ucrt64``: selects the UCRT64 environment (``UCRT64``).
+- ``msys2-clang64``: selects the CLANG64 environment (``CLANG64``).
+- ``msys2-clangarm64``: selects the CLANGARM64 environment.
+- ``msys2-mingw64``: selects the MINGW64 environment explicitly.
+- ``msys2-mingw32``: selects the MINGW32 environment explicitly.
+- ``msys2-clang32``: selects the CLANG32 environment.
+
+Example profile:
+
+.. code-block:: text
+    :caption: *windows_ucrt64*
+
+    [settings]
+    os=Windows
+    arch=x86_64
+    ...
+
+    [conf]
+    tools.microsoft.bash:subsystem=msys2-ucrt64
+    tools.microsoft.bash:path=C:\msys64\usr\bin\bash.exe
+
+The ``msys2-<environment>`` format sets the ``MSYSTEM`` environment variable accordingly when running
+bash commands, enabling proper activation of the selected MSYS2 toolchain.
+
 Policies
 --------
 
