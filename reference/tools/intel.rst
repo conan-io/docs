@@ -50,6 +50,7 @@ At first, ensure you are using a *profile* like this one:
         compiler.mode=icx
         compiler.version=2026.0
         compiler.libcxx=libstdc++
+        compiler.cppstd=gnu17
         build_type=Release
 
         [conf]
@@ -64,6 +65,7 @@ At first, ensure you are using a *profile* like this one:
         compiler.mode=icx
         compiler.version=2026.0
         compiler.runtime=dynamic
+        compiler.cppstd=17
         build_type=Release
 
         [conf]
