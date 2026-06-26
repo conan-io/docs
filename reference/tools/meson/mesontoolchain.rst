@@ -193,6 +193,16 @@ conf
 - ``tools.meson.mesontoolchain:backend``. the meson `backend
   <https://mesonbuild.com/Configuring-a-build-directory.html>`_ to use. Possible values:
   ``ninja``, ``vs``, ``vs2010``, ``vs2015``, ``vs2017``, ``vs2019``, ``xcode``.
+- ``tools.meson.mesontoolchain:extra_variables`` dict of dicts to inject extra variables into
+  the generated Meson files at generation time. Supported keys are ``properties``,
+  ``binaries``, and ``project_options``. Profile or global configuration values take priority
+  over attributes set in the conanfile. For example:
+
+  .. code-block:: text
+
+    [conf]
+    tools.meson.mesontoolchain:extra_variables={"binaries": {"exe_wrapper": "/usr/bin/qemu-aarch64"}, "properties": {"needs_exe_wrapper": "true"}}
+
 - ``tools.apple:sdk_path`` argument for SDK path in case of Apple cross-compilation. It is used as value
   of the flag ``-isysroot``.
 - ``tools.android:ndk_path`` argument for NDK path in case of Android cross-compilation. It is used to get
