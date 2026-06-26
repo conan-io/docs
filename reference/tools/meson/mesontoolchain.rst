@@ -195,8 +195,8 @@ conf
   ``ninja``, ``vs``, ``vs2010``, ``vs2015``, ``vs2017``, ``vs2019``, ``xcode``.
 - ``tools.meson.mesontoolchain:extra_variables`` dict of dicts to inject extra variables into
   the generated Meson files at generation time. Supported keys are ``properties``,
-  ``binaries``, and ``project_options``. Profile or global configuration values take priority
-  over attributes set in the conanfile. For example:
+  ``binaries``, and ``project_options``. This configuration take priority
+  over attributes set in the Conanfile. For example:
 
   .. code-block:: text
 
