@@ -5,8 +5,7 @@ Build a simple Bazel 7.x project using Conan
 
 .. warning::
 
-    This example is Bazel >= 7.1 compatible. For Bazel 9.x, use the ``include("//conan:conan_deps.MODULE.bazel")``
-    approach shown below.
+    This example is Bazel >= 7.2 compatible.
 
 In this example, we are going to create a Hello World program
 that uses one of the most popular C++ libraries: `fmt <https://fmt.dev/latest>`_.
