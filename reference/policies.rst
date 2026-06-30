@@ -42,6 +42,13 @@ If both the policy and the recipe attribute are defined, the behavior will be en
         With the new behaviour enabled, the graph expansion is more consistent and private dependencies are handled in a more intuitive way,
         but some graphs can be expanded differently. For a detailed explanation of the changes,
         see :ref:`the trait documentation section<reference_conanfile_methods_requirements_consistent>`.
+* If using ``required_conan_version>=2.30`` or later, the following bugfixes will be enabled:
+   * Bugfix https://github.com/conan-io/conan/pull/20073:
+      * The ``transitive_headers`` trait propagation of some diamond structures was not working correctly
+        and unexpected headers were being propagated to consumers.
+        With the bugfix enabled, the propagation of transitive headers is fixed and works as expected in all
+        cases, but the consumer package_id can change if it was previously affected by this bug.
+
 
 .. note::
    This policy is independent of the ``core:required_conan_version`` conf,
