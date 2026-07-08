@@ -3,14 +3,14 @@
 Python
 ======
 
-Conan can also be used to manage the C/C++ dependencies of Python packages that
-ship compiled extensions (via `pybind11 <https://pybind11.readthedocs.io/>`_,
-`nanobind <https://nanobind.readthedocs.io/>`_, the Python C API, etc.).
-
 .. _integrations_python_conan_py_build:
 
 conan-py-build
 --------------
+
+Conan can be used to manage the C/C++ dependencies of Python packages that
+ship compiled extensions (via `pybind11 <https://pybind11.readthedocs.io/>`_,
+`nanobind <https://nanobind.readthedocs.io/>`_, the Python C API, etc.).
 
 `conan-py-build <https://github.com/conan-io/conan-py-build>`_ is a
 `PEP 517 <https://peps.python.org/pep-0517/>`_ build backend that plugs Conan
