@@ -225,7 +225,7 @@ The line above is printed by the C++ extension in bold green, courtesy of
 
 .. seealso::
 
-    - :ref:`Python integration<integrations_python>`
+    - :ref:`conan-py-build integration<integrations_python_conan_py_build>`
     - `conan-py-build documentation <https://conan-py-build.conan.io>`_, for configuration
       options like dynamic versioning, custom Conan profiles, entry points, and shared
       library handling with ``auditwheel``/``delocate``/``delvewheel``.
