@@ -46,7 +46,7 @@ Let's have a look at the *pyproject.toml* file:
     [project]
     name = "myadder"
     version = "0.1.0"
-    description = "A simple Python package with a C++ extension (pybind11 + fmt) built through Conan"
+    description = "A simple Python package with a C++ extension"
     license = "MIT"
     license-files = ["LICENSE"]
     requires-python = ">=3.8"
