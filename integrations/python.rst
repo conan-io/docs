@@ -47,3 +47,20 @@ wheels with bundled shared libraries.
       examples (Meson, nanobind, cibuildwheel).
     - `Introducing conan-py-build <https://blog.conan.io/cpp/conan/python/2026/05/05/Introducing-conan-py-build.html>`_
       blog post.
+
+.. _integrations_python_pyenv:
+
+PyEnv
+-----
+
+The :ref:`PyEnv<conan_tools_system_pyenv>` tool installs executable Python
+packages with ``pip`` inside a dedicated virtual environment, isolating them
+from the system Python and from the Conan package itself. It's meant for
+Python CLI tools needed during a recipe's build, such as a build system or
+code generator invoked from ``build()``, not for Python libraries imported
+by the recipe.
+
+.. seealso::
+
+    - :ref:`PyEnv reference<conan_tools_system_pyenv>`, for the full API and
+      a recipe example.

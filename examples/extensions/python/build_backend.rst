@@ -9,4 +9,4 @@ Python build backend
    :maxdepth: 2
 
 
-   python_build_backend/build_python_extension_with_conan
+   build_backend/build_python_extension_with_conan
