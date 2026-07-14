@@ -182,3 +182,7 @@ In this example, 1.0-pre.1 and 1.5.1-pre1 will be included, but 2.0-pre1 would b
    Also, note that the ``include_prerelease`` receives no argument, hence it's not possible to deactivate prereleases with ``include_prerelease=False``.
 
 For more information about valid range expressions go to :ref:`Requires reference <version_ranges_reference>`
+
+Note that version ranges only control which version is resolved. Whether a new version within
+the range requires the consumer to rebuild depends on the ``package_type`` of both packages —
+see :ref:`The effect of dependencies on package_id<reference_binary_model_dependencies>`.
