@@ -10,9 +10,18 @@ For libraries:
 - **Non-embed mode**: When an application or a shared library depends on another shared library, or when a static library depends on another static library, the "consumer" library does not do a copy of the binary artifacts of the "dependency" at all. We call it non-embed mode, the dependency binaries are not being linked or embedded in the consumer. This assumes that there are not inlined functionalities in the dependency headers, and the headers are pure interface and not implementation.
 - **Embed mode**: When an application or a shared library depends on a header-only or a static-library, the dependencies binaries are copied or partially copied (depending on the linker) in the consumer binary. Also when a static library depends on a header-only library, it is considered that there will be embedding in the consumer binary of such headers, as they will also contain the implementation, it is impossible that they are a pure interface.
 
+For header-only libraries:
+
+- Header only libraries are always independent of their dependencies, because they do not link them. No change in the dependencies versions changes the final package of the header-only library.
+
 For applications (``tool_requires``):
 
 - **Build mode**: When some package uses a ``tool_requires`` of another package, the binary artifacts in the dependency are never copied or embedded.
+
+When the package types are not known (the recipes do not define the ``shared`` option, or they do not define ``package_type`` attribute):
+
+- **Unknown mode**: This mode is generally not recommended, as it is the result of not having enough information about the package types, and it results in a excesively optimistic ``package_id`` computation with a ``semver`` approach for binary rebuilds, which is generally insufficient for C and C++ libraries. The recommendation is to clear specify the ``shared`` option or to explicitly define ``package_type``.
+
 
 Non-embed mode
 --------------
@@ -168,3 +177,68 @@ Now we will have two ``app/0.1`` different binaries:
 We will have these two different binaries, one of them linking with the first revision of the ``dep/0.1`` dependency (with the "Hello World" message), and the other binary with the other ``package_id`` linked with the second revision of the ``dep/0.1`` dependency (with the "Hello Moon" message).
 
 The above described mode is called ``full_mode``, and it is the default for the ``embed_mode``.
+
+
+Package types and default modes
+-------------------------------
+
+The "embed/non-embed/unknown" modes are derived from the recipes definitions of ``package_type``.
+Recall that ``package_type`` can be explicitly defined as a recipe attribute, but it can also be
+implicity derived from the ``shared`` option. The resulting ``package_id_mode`` defines when a binary
+package needs to be built from source, depending on the chanages of the dependency version.
+
+.. important::
+  
+  It is very important to have a correct definition of ``package_type``, and it is extremely recommended to define it, either explicitly with ``package_type`` recipe attribute, or by the definition of the ``shared`` options.
+
+The following summarizes the defaults:
+
+- Embed mode
+
+  - Package types:
+
+    - A ``shared-library`` or ``application`` consuming a ``static-library``
+    - An ``application``, ``shared-library`` or ``static-library`` consuming a ``header-library``
+  
+  - Default ``package_id_mode``: ``full_mode`` any change (version, recipe, or binary) forces a consumer rebuild
+
+- Non-embed mode
+
+  - Package types:
+
+    - A ``static-library`` linking with another ``static-library``
+    - An ``application`` or ``shared-librayr`` linking another ``shared-library``.
+  
+  - Default ``package_id_mode``: ``minor_mode``: patch-version changes are ignored; minor or major changes force a rebuild
+
+- Header-only library
+
+  - Package types:
+
+    - A ``header-library`` depending on any other ``static-library``, ``shared-library`` or ``headed-library``.
+  
+  - Default ``package_id_mode``: None. Header-only libraries are not affected in their ``package_id`` by their dependencies versions.
+
+- Build mode
+
+  - Package types:
+
+    - Any package doing a ``tool_requires`` to other package (in recipe or by profile injection via ``[tool_requires]``)
+  
+  - Default ``package_id_mode``: None. By default, tools do not change the binary they help to produce (the binary is the same built with different versions of CMake, for example. For compilers this might not be true, but that effect is already captured by ``compiler.version`` setting).
+
+- Unknown mode
+
+  - Package types:
+
+    - When any of the package types are not defined
+
+  - Default ``package_id_mode``: ``semver_mode``: for versions ``>=1.0`` only major changes force a rebuild; for ``<1.0`` any change forces a rebuild
+
+
+.. note::
+
+    There are different ways to change the defaults, like defining
+    ``core.package_id:default_embed_mode``, ``core.package_id:default_non_embed_mode``, and
+    ``core.package_id:default_unknown_mode`` in ``global.conf``, or defining the equivalent
+    recipe attributes. All of this will be explained in following sections.
