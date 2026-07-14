@@ -214,6 +214,27 @@ would be:
         if self.settings.os == "Windows":
             self.options.rm_safe("fPIC")
 
+.. warning::
+
+    Some names are not allowed as option names because they conflict with existing ``Options`` class
+    methods. Some of them are already documented or available methods:
+
+    - ``update``: used by ``self.options.update()`` to extend options from a ``python_requires`` base
+      class. See the :ref:`init() method<reference_conanfile_methods_init>`.
+    - ``clear``: used internally to clear all options, e.g. for header-only packages.
+    - ``items``: used to iterate over option name/value pairs.
+    - The ``get_safe`` and ``rm_safe`` operations.
+
+    But there can be also other private methods that could eventually collide (Conan will try to reduce
+    them, but at the moment they are still there and could shadow user definitions):
+
+    - Some verbs related to storage and serialization: ``loads``, ``dumps`` and ``serialize``.
+    - The ``possible_values`` access
+    - Anything that is private (starts with ``_`` underscore, or starts with ``conan``)
+
+    Using any of these names as option keys will cause the option value to be shadowed by the
+    corresponding method, leading to unexpected behavior.
+
 .. seealso::
 
     - Read the :ref:`Getting started, creating packages<creating_packages_create_your_first_conan_package>` to know how to declare and how to
