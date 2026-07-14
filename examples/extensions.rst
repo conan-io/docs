@@ -15,3 +15,4 @@ Conan extensions examples
    extensions/deployers/builtin_deployers
    extensions/deployers/custom_deployers
    extensions/package_signing/package_signing
+   extensions/python/build_backend
