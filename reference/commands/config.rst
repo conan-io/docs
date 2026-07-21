@@ -128,6 +128,17 @@ You can force certain files to be copied over by using the ``!`` negation syntax
       $ conan config install /path/to/some/config.zip
 
 
+.. note::
+
+    Since Conan 2.31, ``conan config install`` will warn if a ``config_version.json`` file
+    already exists in the Conan home (which is created by ``conan config install-pkg`` to
+    track installed configuration package versions). Mixing ``conan config install`` with
+    ``conan config install-pkg`` is not recommended, as the plain ``conan config install``
+    is not tracked in ``config_version.json`` and may result in a configuration that is
+    inconsistent with the tracked versions. In that case, consider running
+    ``conan config clean`` first, or avoid mixing the two commands.
+
+
 .. _reference_commands_conan_config_install_pkg:
 
 conan config install-pkg
