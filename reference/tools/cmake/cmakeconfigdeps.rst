@@ -201,6 +201,11 @@ The following properties affect the ``CMakeConfigDeps`` generator:
   (Possibly using the **cmake_extra_variables** property). Supported when using CMake 3.24 or newer.
   This property performs **no** checks on the given feature, it is up to the recipe author to ensure
   that the feature is usable.
+- **nosoname**: boolean value that should be used only by dependencies that are defined as ``SHARED`` and
+  represent a library built without the ``soname`` flag option. When set to ``True``, the generated
+  target will have the ``IMPORTED_NO_SONAME_<CONFIG>`` CMake property set to ``TRUE``, so CMake skips
+  the SONAME check when linking. Can be set at the package level or per-component. Ignored for non-shared
+  library types. Available since Conan 2.31.
 
 
 Example:
