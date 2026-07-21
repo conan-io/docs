@@ -22,6 +22,8 @@ libraries and store them on a remote server alongside all the precompiled binari
 
 .. note::
 
-   The Conan 2 Essentials training course is available for free at the JFrog Academy,
-   which covers the same topics as this documentation but in a more interactive way.
-   You can access it `here <https://academy.jfrog.com/conan-2-essentials?utm_source=Conan+Docs>`__.
+   The **Conan 2 Essentials** and **Conan 2 Advanced** training paths are available for free at the JFrog Academy.
+   They cover the same topics as this documentation in a more interactive way.
+   `Conan 2 Essentials <https://academy.jfrog.com/path/conan-cc-package-manager?utm_source=Conan+Docs>`__ |
+   `Conan 2 Advanced <https://academy.jfrog.com/path/conan-2-advanced?utm_source=Conan+Docs>`__ |
+   See :ref:`academy` for the full course overview.

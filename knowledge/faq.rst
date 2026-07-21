@@ -48,6 +48,19 @@ packages from the recipe for apple-clang 11, but you are using apple-clang 14.
 Also you may want to check your `package ID mode` as it may
 have an influence on the packages available for it.
 
+These would be the things to check:
+
+- Run a ``conan graph explain`` with exactly the same arguments as you did. It will give you hints
+  about the differences between the binaries that exists in the cache and remotes and the binaries
+  you are requesting to install.
+- You an also use a ``conan list <pkgname/version>:*`` command to list binaries in your cache and
+  in your remotes and manually compare differences
+- If the binaries are missing because dependencies versions diverge, maybe your current Conan 
+  cache is using older revisions or versions, try adding an ``--update`` argument to the ``conan install``
+  command.
+- If finally the binary that is being requested doesn't really exists anywhere, you might want to
+  build it from sources.
+
 By default, Conan doesn't build packages from sources. There are several possibilities to
 overcome this error:
 
@@ -124,6 +137,15 @@ Conan will not normalize or change in any way the source files, it is not its re
 
     * text eol=lf
 
+Above will mark all files in repo with ``text`` attribute and force ``lf`` as end of line. Treating binary files as ``text`` lead to data corruption although. If there are binary files alongside, make sure to exclude them back:
+
+.. code-block:: ini
+
+    * text eol=lf
+
+    *.png binary
+    *.jpg binary
+    *.jpeg binary
 
 Other approach would be to change the ``.gitconfig`` to change it globally. Modern editors (even Notepad) in Windows can perfectly work with files with ``LF``, it is no longer necessary to change the line endings.
 
@@ -175,6 +197,22 @@ please read it carefully.
 
 In general, it is more recommended to define options values in profile files, not in recipes.
 Recipe defined options always have less precedence than options defined in profiles.
+
+.. important::
+
+    Defining options values for dependencies in recipes does not have strong guarantees:
+    
+    - This applies to any recipe definition of dependencies options, via ``default_options``,
+      ``configure()``, or requirements ``options=`` trait.
+    - It is not possible to change the options of non-visible transitive dependencies, for example
+      ``test_requires`` or ``tool_requires`` of dependencies cannot be affected by any 
+      definition of options values in downstream recipes, because they are private.
+    - The "locality" of the definition makes it a bad location for large projects with developers
+      working on different packages in the dependency graph. 
+    
+    So in general, defining options values for dependencies in recipes is **discouraged**.
+    The strongly recommended way
+    to define options values for dependencies is in **profile files**.
 
 
 .. _faq_version_conflicts_version_ranges:
@@ -320,3 +358,63 @@ current recipe binary will be built to run in the "build" context
 
     When doing ``conan create`` for a package intended to be used as a ``tool_requires``, always
     specify the ``conan create ... --build-require`` argument.
+
+
+.. _faq_ssl_corporate_certificates:
+
+Using Conan with both corporate and public remotes (SSL certificates)
+---------------------------------------------------------------------
+
+In corporate environments it is common to need access to both a private Artifactory remote
+(secured with a self-signed or internal CA certificate) and a public remote such as
+ConanCenter at the same time.
+
+The problem appears because:
+
+* Without any custom CA configuration Conan may reject the corporate remote
+  (``CERTIFICATE_VERIFY_FAILED``).
+* Setting ``core.net.http:cacert_path`` to point **only** to the corporate CA makes ConanCenter
+  unreachable, because the public root CAs are no longer in the trust bundle.
+
+The solution is to build a **single combined CA bundle** that contains both the public root
+certificates **and** the corporate CA, and then configure Conan to use it via
+``core.net.http:cacert_path`` (see :ref:`reference_config_files_global_conf_ssl_certificates`).
+
+The combined bundle can be created by appending the corporate CA (in PEM format) to the default
+public CA bundle. The ``certifi`` Python package ships the Mozilla root CA bundle that Conan uses
+by default:
+
+.. code-block:: bash
+
+    # 1. Copy the default public CA bundle to a working location
+    cp "$(python -m certifi)" combined-ca-bundle.pem
+
+    # 2. Append the corporate CA (PEM format) to the bundle
+    cat my-corporate-ca.crt >> combined-ca-bundle.pem
+
+You can append as many additional CAs as needed. Then point Conan at the combined file:
+
+.. code-block:: text
+    :caption: **[CONAN_HOME]/global.conf**
+
+    core.net.http:cacert_path=/path/to/combined-ca-bundle.pem
+
+.. seealso::
+
+    :ref:`reference_config_files_global_conf_ssl_certificates` for the full reference on
+    ``core.net.http:cacert_path``, ``core.net.http:client_cert``, and alternative ways to
+    aggregate certificates (including ``update-ca-certificates`` on Debian/Ubuntu).
+
+
+Conan doesn't skip failing remotes
+----------------------------------
+
+This frequent question happens when users have defined some remotes, some of them are not available for any reasons, and Conan fails with an error reporting about that unresponsive or disconnected server remote.
+
+There are different scenarios in which silently skipping a server can cause production issues, for example when trying to build a new binary of an application that had some new versions of some new dependencies in that server. If that server doesn't work properly and the pipeline continues it will result in a binary without the new versions without the bug fixes on upgrades. There could be extra checks later, validation gates, etc, to try to avoid that binary without the fixes in production, but those are often too late or just non existing.
+
+So Conan will always treat the defined and available servers as "must be alive", and fail immediately if they do not work. Conan already provides some mechanisms to control the remote servers that are used for package resolution:
+
+- ``conan remote enable/disable`` to temporarily enable, disable servers
+- Explicit listing of the remotes you want to use conan install ``-r=remote1 -r=remote8 -r=remote3``, in the order you want the precedence
+- ``conan config install/install-pkg`` for easy configuration of remotes for different projects or needs.

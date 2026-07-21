@@ -80,8 +80,8 @@ current active configuration, like ``deactivate_conanrunenv-release-x86_64.bat``
 
 .. note::
 
-    Disabling the automatic generation of these files for consumers can be achieved by passing ``--env-generation=false`` to the ``conan install`` command.
-    **This feature is experimental and subject to change**, and disabling this file can lead to unexpected runtime errors.
+    For disabling the automatic generation of environment files, check :ref:`reference_tools_env_virtualbuildenv_disable`
+
 
 Reference
 ---------

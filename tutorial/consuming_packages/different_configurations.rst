@@ -138,7 +138,7 @@ built in *Debug* configuration:
     $ Debug\compressor.exe
     Uncompressed size is: 233
     Compressed size is: 147
-    ZLIB VERSION: 1.2.11
+    ZLIB VERSION: 1.3.1
     Debug configuration!
 
 .. code-block:: bash
@@ -151,7 +151,7 @@ built in *Debug* configuration:
     $ ./compressor
     Uncompressed size is: 233
     Compressed size is: 147
-    ZLIB VERSION: 1.2.11
+    ZLIB VERSION: 1.3.1
     Debug configuration!
 
 
@@ -239,7 +239,7 @@ directories declared in *DYLD_LIBRARY_PATH*, and on Linux it will use *LD_LIBRAR
 Conan provides a mechanism to define those variables and make it possible, for executables, to
 find and load these shared libraries. This mechanism is the ``VirtualRunEnv`` generator.
 If you check the output folder, you will see that Conan generated a new file called
-``conanrun.sh/bat``. This is the result of automatically invoking that ``VirtualRunEnv``
+``conanrun.{sh,bat}``. This is the result of automatically invoking that ``VirtualRunEnv``
 generator when we activated the ``shared`` option when doing the :command:`conan install`. This
 generated script will set the *PATH*, *LD_LIBRARY_PATH*, *DYLD_LIBRARY_PATH* and
 *DYLD_FRAMEWORK_PATH* environment variables so that executables can find the shared
@@ -267,7 +267,7 @@ Activate the virtual environment, and run the executables again:
 
 
 Just as in the previous example with the ``VirtualBuildEnv`` generator, when we run the
-``conanrun.sh/bat`` script, a deactivation script called ``deactivate_conanrun.sh/bat`` is
+``conanrun.{sh,bat}`` script, a deactivation script called ``deactivate_conanrun.{sh,bat}`` is
 created to restore the environment. Source or run it to do so:
 
 
@@ -333,7 +333,7 @@ matched our specified configuration.
 
 .. seealso::
 
-    - `JFrog Academy Conan 2 Essentials: Building For Multiple Configurations With Conan And CMake Presets <https://academy.jfrog.com/conan-2-essentials/2131740?utm_source=Conan+Docs>`__
+    - `JFrog Academy Conan 2 Essentials Module 1, Lesson 2: Building For Multiple Configurations With Conan And CMake Presets <https://academy.jfrog.com/path/conan-cc-package-manager/conan-2-essentials?utm_source=Conan+Docs>`__
     - :ref:`VirtualRunEnv reference <conan_tools_env_virtualrunenv>`
     - :ref:`Cross-compiling using --profile:build and --profile:host <consuming_packages_cross_building_with_conan>`
     - :ref:`creating_packages_configure_options_settings`

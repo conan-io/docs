@@ -26,3 +26,4 @@ Remember to enable the option if you wish to add any of them to your SBOM!
 .. seealso::
 
     - :ref:`Software Bills of Materials (SBOM) <security_sboms>`.
+    - :ref:`Generate SBOMs with the built-in deployers<reference_extensions_deployer_cyclone>`.

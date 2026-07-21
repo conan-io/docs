@@ -15,6 +15,7 @@ Introduction to configuration
 * General HTTP(python-requests) configuration.
 * Number of retries when downloading/uploading recipes.
 * Related tools configurations (used by toolchains, helpers, etc.)
+* :ref:`Policies<reference_policies>`, which are a set of rules to enforce certain behaviors from Conan.
 * Others (required Conan version, CLI non-interactive, etc.)
 
 Let's briefly explain the three types of existing configurations:
@@ -89,8 +90,20 @@ Conan also injects ``detect_api`` (non-stable, read the reference) to the jinja 
 For more information on how to use it, please check :ref:`the detect_api section
 <reference_config_files_profiles_detect_api>` in the profiles reference.
 
-The Python packages passed to render the template are ``os`` and ``platform`` for all platforms and ``distro`` in Linux platforms.
+The Python packages passed to render the template are ``os``, ``platform`` and ``hashlib`` for all platforms and ``distro`` in Linux platforms.
 Additionally, the variables ``conan_version`` and ``conan_home_folder`` are also available.
+
+The ``os``, ``platform`` and ``distro`` can be useful to perform different system checks, while the ``hashlib`` library can be convenient
+to compute unique hashes based on the ``conan_home_folder`` to define unique strings, for example for unique shorter paths in Windows in
+CI systems when sometimes the path length can be an issue, for example:
+
+.. code-block:: python
+
+  # compute a unique hash based on the current home folder
+  {% set h = hashlib.new("sha256", conan_home_folder.encode(),
+                         usedforsecurity=False).hexdigest() %}
+  # and use the first 6 characters to compose a short path for package storage
+  core.cache:storage_path=C:/conan_{{h[:6]}}
 
 
 Configuration data types
@@ -124,7 +137,7 @@ any of your profiles:
 * ``+=`` == ``append``: appends values at the end of the existing value (only for lists).
 * ``=+`` == ``prepend``: puts values at the beginning of the existing value (only for lists).
 * ``*=`` == ``update``: updates the specified keys only, leaving the rest unmodified (only for dictionaries)
-* ``=!`` == ``unset``: gets rid of any configuration value.
+* ``=!`` == ``unset``: gets rid of any configuration value. The ``=~`` operator is an alias for ``=!``.
 
 .. code-block:: text
     :caption: *global.conf*
@@ -138,8 +151,9 @@ any of your profiles:
     # Prepend the value ["-f0"] => ["-f0", "-f1", "-f2"]
     user.myconf.build:flags=+["-f0"]
 
-    # Unset the value
+    # Unset the value (both notations are equivalent)
     user.myconf.build:flags=!
+    user.myconf.build:flags=~
 
     # Define the value => {"a": 1, "b": 2}
     user.myconf.build:other={"a": 1, "b": 2}
@@ -174,11 +188,143 @@ The result is that you're specifying a general ``generator`` for all your packag
 effect because it's the first one evaluated, and after that, Conan is overriding that specific pattern with the most
 general one, so it deserves to pay special attention to the order.
 
+global_user.conf
+================
+
+.. include:: ../../common/experimental_warning.inc
+
+
+Similar to how the ``settings_user.yml`` can complete the default ``settings.yml``, the (new in Conan 2.29) ``global_user.conf``
+allow developers to have their own ``[CONAN_HOME]/global_user.conf`` file in the Conan cache, with the following properties:
+
+- It also allows ``jinja2`` templating syntax, with the same inputs as the ``global.conf`` file.
+- Its contents compose and overwrite the existing values in ``global.conf`` with higher precedence.
+- It is designed for developers to be able to customize and deviate from the organization/team common ``global.conf``.
+- This file is not intended to be managed or installed by ``conan config install/install-pkg`` commands.
+- The existence of this file allows developers to sync and update their organization ``global.conf`` with ``conan config install/install-pkg`` without losing their customization
+- A ``conan config clean`` will remove the ``global_user.conf`` file, as its purpose is to completely reset the Conan home configuration.
+
+
+Configuration precedence
+========================
+
+There are different places where a configuration such as ``tools.build:verbosity`` can be defined:
+
+- Globally, in the ``global.conf`` file
+- In a ``tool_requires`` recipe that defines a ``self.conf_info`` in their ``package_info()`` method.
+  (Recall that only **direct** ``tool_requires`` propagate ``conf_info`` to their consumers).
+- In a profile file ``[conf]`` section
+- In the command line ``-c tools.build:verbosity=<value>``
+
+In general, the rule is that the "closest to the user" has higher precedence. 
+
+That means that:
+
+- The command line arguments like ``-c tools.build:verbosity=<value>`` will have higher precedence and overwrite
+  possible values already defined in ``tool_requires``, in ``global.conf`` or profiles ``[conf]`` section. The idea is that the user
+  explicitly requested that typing it in the command line, so they want that value to prevail.
+- Then, the profile ``[conf]`` section will have precedence over the ``tool_requires`` and ``global.conf`` definitions, as the profiles
+  are also inputs by the user.
+- Then, the ``global.conf`` will have precedence over ``tool_requires`` defined ``conf_info``. The idea is that the user can define the
+  behavior they want without having to modify or rewrite recipes.
+- Finally, the one with less precedence is the ``tool_requires`` configuration defined in ``package_info()`` method with ``self.conf_info``.
+
+The core configurations such as ``core:skip_warnings`` can be defined in:
+
+- Globally, in the ``global.conf``, with less precedence
+- In the command line, with ``-cc/--core-conf core:skip_warnings=<value>`` with higher precedence over the ``global.conf``.
+
+Note that ``core`` configurations cannot be defined in profiles or in recipes.
+
+
+Important configurations with ``!`` specifier
+---------------------------------------------
+
+There are some scenarios when it is desired that a recipe defined configuration in ``package_info()`` via the ``conf_info``
+has higher precedence over a value defined downstream by the user in profiles or command line.
+
+The "important configuration" definition allows this, specifying with the ``!`` qualifier over the configuration name that
+such value should have relatively higher priority.
+Imagine we are writing a ``tool_requires`` for the Msys2 subsystem, and we would like that recipe to define the ``tools.microsoft.bash:path``
+value so it points to itself.
+But for some reason we also have ``tools.microsoft.bash:path`` in our profiles, pointing to a Msys2 that still some
+packages that do not use the new ``msys2/1.0`` still need. We could define a recipe like:
+
+.. code-block:: python
+
+    from conan import ConanFile
+
+    class Pkg(ConanFile):
+        name = "msys2"
+        version = "1.0"
+
+        def package_info(self):
+          bash = os.path.join(self.package_folder, "bash.exe")
+          # Note the ! after the name of the configuration
+          # That makes this definition "important", and have higher 
+          # precedence than in profiles
+          self.conf_info.define("tools.microsoft.bash:path!", bash)
+          # You can apply the same ! specifier in other "conf_info"
+          # operations, for paths, append/prepend, etc
+
+with some consumers that requires it:
+
+.. code-block:: python
+
+    from conan import ConanFile
+
+    class Pkg(ConanFile):
+        name = "mylib"
+        version = "1.0"
+
+        def build_requirements(self):
+          if self.settings_build.os == "Windows":
+            self.tool_requires("msys2/1.0")
+
+And then have a profile like
+
+.. code-block:: ini
+
+  [conf]
+  tools.microsoft.bash:path=<point/to/system/msys2/installation>
+
+Then, the ``mylib/1.0`` will get the ``tools.microsoft.bash:path`` pointing to the ``msys2`` path,
+while other recipes that do not ``tool_requires`` the ``msys2`` will still get the system one.
+
+If for some reason a profile or command line would still want to force an override also the
+important configurations from packages upstream, they can do it using the same syntax:
+
+.. code-block:: ini
+
+  [conf]
+  # This will force all packages to use the system msys2, even if they
+  # are tool-requiring the ``msys2/1.0`` package
+  # Note the ! after the configuration name
+  tools.microsoft.bash:path!=<point/to/system/msys2/installation>
+
+
+.. important::
+
+  **Best practices**
+
+  The usage of important ``!`` configuration should be exceptional, and reduced to limited cases when
+  there are no other alternatives. Modifying the default precedence, in which users expects their inputs
+  from command line or profiles to be always applied can be confusing for them. Please use this feature 
+  sparingly and being aware of these implications.
+
 
 Information about built-in confs
 ================================
 
 This section provides extra information about specific confs.
+
+
+Policies
+--------
+
+The ``core:policies`` conf allows to define policies that will be applied globally to modify the
+behaviour of Conan in certain aspects. Check :ref:`the policies section <reference_policies>`
+for more information.
 
 Networking confs
 ----------------
@@ -221,6 +367,12 @@ certificate (and the key) using the following configuration variables:
   (And even then, properly scoping the conf to only the required recipes is a good idea)
   or if you are using it for development purposes
 
+.. seealso::
+
+    If you need to use both a corporate remote (with a private CA) and a public remote like
+    ConanCenter, see :ref:`faq_ssl_corporate_certificates` for step-by-step instructions on
+    creating a combined CA bundle.
+
 
 Proxies
 +++++++
@@ -250,6 +402,50 @@ of those patterns will not receive the ``proxies`` definition. Note the ``*`` in
 If ``core.net.http:clean_system_proxy`` is ``True``, then the environment variables ``"http_proxy", "https_proxy", "ftp_proxy", "all_proxy", "no_proxy"``,
 will be temporary removed from the environment, so they are not taken into account when resolving proxies.
 
+
+MSYS2 subsystem environments
+-----------------------------
+
+The ``tools.microsoft.bash:subsystem`` configuration accepts ``msys2`` as a generic value, but also
+supports explicit MSYS2 environment names using the ``msys2-<environment>`` syntax. This allows
+selecting a specific MSYS2 environment (and its associated ``MSYSTEM`` variable) rather than relying
+on the architecture-based default.
+
+This specific ``MSYSTEM`` variable can become important for recipes using autotools in Windows with ``win_bash=True``, 
+and compiling with different ``msys2`` compilers. For other build systems such as CMake, explicitly defining
+the path to the compiler used could be enough.
+
+Supported values:
+
+- ``msys2`` (default): uses architecture-based MSYSTEM (``MINGW64`` for x86_64, ``MINGW32`` for x86).
+- ``msys2-ucrt64``: selects the UCRT64 environment (``UCRT64``).
+- ``msys2-clang64``: selects the CLANG64 environment (``CLANG64``).
+- ``msys2-clangarm64``: selects the CLANGARM64 environment.
+- ``msys2-mingw64``: selects the MINGW64 environment explicitly.
+- ``msys2-mingw32``: selects the MINGW32 environment explicitly.
+- ``msys2-clang32``: selects the CLANG32 environment.
+
+Example profile:
+
+.. code-block:: text
+    :caption: *windows_ucrt64*
+
+    [settings]
+    os=Windows
+    arch=x86_64
+    ...
+
+    [conf]
+    tools.microsoft.bash:subsystem=msys2-ucrt64
+    tools.microsoft.bash:path=C:\msys64\usr\bin\bash.exe
+
+The ``msys2-<environment>`` format sets the ``MSYSTEM`` environment variable accordingly when running
+bash commands, enabling proper activation of the selected MSYS2 toolchain.
+
+Recall that the ``tools.microsoft.bash:subsystem`` conf doesn't have any effect on the ``package_id``
+computation. If users want to model binaries for the different environments, it is necessary to define
+accordingly the ``os.subsystem`` setting. At the moment it only accepts ``msys2`` value, so users wanting
+more control can extend it via the custom ``settings_user.yml`` file.
 
 
 Storage configurations
@@ -338,6 +534,12 @@ Moving from the classical Conan workflow:
         $ ...
         $ .\deactivate_conanbuild.ps1
 
+    .. code-tab:: batch
+
+        $ .\conanbuild.bat
+        $ ...
+        $ .\deactivate_conanbuild.bat
+
 To the new workflow,
 
 .. tabs::
@@ -354,14 +556,14 @@ To the new workflow,
         $ ...
         $ deactivate_conanbuild # from anywhere in the shell
 
+    .. code-tab:: batch
+
+        $ .\conanbuild.bat
+        $ ...
+        $ deactivate_conanbuild # from anywhere in the shell
+
 By executing this function, the environment will be restored and the function will no longer be
 available in the current shell session. This behavior emulates the well known ``virtualenv`` Python tool.
-
-.. attention::
-
-    This feature does not currently support Windows Command Prompt (``.bat`` files).
-    It is only available for PowerShell and Bash-like shells.
-
 
 .. code-block:: text
     :caption: *global.conf*

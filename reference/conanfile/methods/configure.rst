@@ -134,6 +134,13 @@ it is not possible to do that conditionally. For this purpose, it is also possib
             self.options["*"].shared = True
 
 
+.. warning::
+
+    Defining options values for dependencies in recipes does not have strong guarantees, please check 
+    :ref:`this FAQ about options values for dependencies<faq_different_options_values>`. The recommended way
+    to define options values for dependencies is in **profile files**.
+
+
 .. note::
 
     **Best practices**

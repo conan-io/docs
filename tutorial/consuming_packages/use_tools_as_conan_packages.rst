@@ -33,7 +33,7 @@ The structure of the project is the same as the one of the previous example:
 
 The main difference is the addition of the :ref:`reference_config_files_profiles_tool_requires` section in the
 **conanfile.txt** file. In this section, we declare that we want to build our application
-using CMake **v3.22.6**.
+using CMake **v3.27.9**.
 
 .. code-block:: ini
     :caption: **conanfile.txt**
@@ -80,7 +80,7 @@ We also added a message to the *CMakeLists.txt* to output the CMake version:
     target_link_libraries(${PROJECT_NAME} ZLIB::ZLIB)
 
 Now, as in the previous example, we will use Conan to install **Zlib** and **CMake
-3.22.6** and generate the files to find both of them. We will generate those
+3.27.9** and generate the files to find both of them. We will generate those
 files in the folder *build*. To do that, just run:
 
 .. code-block:: bash
@@ -140,10 +140,10 @@ You can check the output:
     conanfile.txt: Generating aggregated env files
 
 Now, if you check the folder you will see that Conan generated a new
-file called ``conanbuild.sh/bat``. This is the result of automatically invoking a
+file called ``conanbuild.{sh,bat}``. This is the result of automatically invoking a
 ``VirtualBuildEnv`` generator when we declared the ``tool_requires`` in the
 **conanfile.txt**. This file sets some environment variables like a new ``PATH`` that
-we can use to inject the location of CMake v3.22.6 into our environment.
+we can use to inject the location of CMake v3.27.9 into our environment.
 
 Activate the virtual environment, and run ``cmake --version`` to check that you
 have installed the new CMake version in the path.
@@ -168,12 +168,12 @@ Run ``cmake`` and check the version:
 .. code-block:: bash
     
     $ cmake --version
-    cmake version 3.22.6
+    cmake version 3.27.9
     ...
 
-As you can see, after activating the environment, the CMake v3.22.6 binary folder was
+As you can see, after activating the environment, the CMake v3.27.9 binary folder was
 added to the path and is the currently active version now. Now you can build your project as
-you previously did, but this time Conan will use CMake 3.22.6 to build it:
+you previously did, but this time Conan will use CMake 3.27.9 to build it:
 
 .. code-block:: bash
     :caption: Windows
@@ -182,13 +182,13 @@ you previously did, but this time Conan will use CMake 3.22.6 to build it:
     $ cmake .. -G "Visual Studio 15 2017" -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
     $ cmake --build . --config Release
     ...
-    Building with CMake version: 3.22.6
+    Building with CMake version: 3.27.9
     ...
     [100%] Built target compressor
     $ Release\compressor.exe
     Uncompressed size is: 233
     Compressed size is: 147
-    ZLIB VERSION: 1.2.11
+    ZLIB VERSION: 1.3.1
 
 .. code-block:: bash
     :caption: Linux, macOS
@@ -196,17 +196,17 @@ you previously did, but this time Conan will use CMake 3.22.6 to build it:
     $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
     $ cmake --build .
     ...
-    Building with CMake version: 3.22.6
+    Building with CMake version: 3.27.9
     ...
     [100%] Built target compressor
     $ ./compressor
     Uncompressed size is: 233
     Compressed size is: 147
-    ZLIB VERSION: 1.2.11
+    ZLIB VERSION: 1.3.1
 
 
 Note that when we activated the environment, a new file named
-``deactivate_conanbuild.sh/bat`` was created in the same folder. If you source this file
+``deactivate_conanbuild.{sh,bat}`` was created in the same folder. If you source this file
 you can restore the environment as it was before.
 
 .. code-block:: bash
@@ -241,7 +241,7 @@ the environment activation:
 
 .. seealso::
 
-    - `JFrog Academy Conan 2 Essentials: Using Build Tools As Conan Packages <https://academy.jfrog.com/conan-2-essentials/2164300?utm_source=Conan+Docs>`__
+    - `JFrog Academy Conan 2 Essentials Module 1, Lesson 4: Using Build Tools As Conan Packages <https://academy.jfrog.com/path/conan-cc-package-manager/conan-2-essentials?utm_source=Conan+Docs>`__
     - :ref:`Using [platform_tool_requires] in your profiles <reference_config_files_profiles_platform_tool_requires>`.
     - :ref:`Creating recipes for tool_requires: packaging build tools <tutorial_other_tool_requires_packages>`.
     - :ref:`examples_graph_tool_requires_protobuf`

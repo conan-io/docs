@@ -30,6 +30,12 @@ conan remote auth
    If a remote which allows anonymous access matches the pattern given to the command, Conan won't try to authenticate with it by default.
    If you want to authenticate with a remote that allows anonymous access, you can use the ``--force`` option.
 
+.. note::
+
+   By default, ``conan remote auth`` exits with code 0 even if some remotes fail
+   to authenticate. Use ``--strict`` to exit with a non-zero code when any
+   matched remote fails.
+
 conan remote disable
 --------------------
 

@@ -6,7 +6,7 @@ conan.tools.intel
 IntelCC
 -------
 
-This tool helps you to manage the new Intel oneAPI `DPC++/C++ <https://software.intel.com/content/www/us/en/develop/documentation/oneapi-dpcpp-cpp-compiler-dev-guide-and-reference/top.html>`_ and
+This tool helps you to manage the Intel oneAPI `DPC++/C++ <https://software.intel.com/content/www/us/en/develop/documentation/oneapi-dpcpp-cpp-compiler-dev-guide-and-reference/top.html>`_ and
 `Classic <https://software.intel.com/content/www/us/en/develop/documentation/cpp-compiler-developer-guide-and-reference/top.html>`_ ecosystem in Conan.
 
 .. warning::
@@ -22,10 +22,12 @@ This tool helps you to manage the new Intel oneAPI `DPC++/C++ <https://software.
     Remember, you need to have installed previously the `Intel oneAPI software <https://www.intel.com/content/www/us/en/developer/tools/oneapi/toolkits.html>`_.
 
 
-
 This generator creates a ``conanintelsetvars.sh|bat`` wrapping the Intel script ``setvars.sh|bat`` that sets the Intel oneAPI
 environment variables needed. That script is the first step to start using the Intel compilers because it's setting some
 important variables in your local environment.
+
+When your profile specifies ``compiler=intel-cc``, Conan automatically invokes the ``IntelCC`` generator.
+You don't need to declare it explicitly in your conanfile.
 
 .. note::
 
@@ -35,72 +37,105 @@ important variables in your local environment.
     oneAPI environment manually.
 
 
-In summary, the ``IntelCC`` generator:
-
-#. Reads your profile ``[settings]`` and ``[conf]``.
-#. Uses that information to generate a ``conanintelsetvars.sh|bat`` script with the command to load the Intel ``setvars.sh|bat`` script.
-#. Then, you or the chosen generator will be able to run that script and use any Intel compiler to compile the project.
-
-.. note::
-
-    You can launch the ``conanintelsetvars.sh|bat`` before calling your intel compiler to build a project.
-    Conan will also call it in the conanfile ``build(self)`` method when running any command with ``self.run``.
-
-
 At first, ensure you are using a *profile* like this one:
 
-.. code-block:: text
-    :caption: *intelprofile*
+.. tabs::
 
-    [settings]
-    ...
-    compiler=intel-cc
-    compiler.mode=dpcpp
-    compiler.version=2021.3
-    compiler.libcxx=libstdc++
-    build_type=Release
+   .. code-tab:: text Linux profile
 
-    [buildenv]
-    CC=dpcpp
-    CXX=dpcpp
+        [settings]
+        os=Linux
+        arch=x86_64
+        compiler=intel-cc
+        compiler.mode=icx
+        compiler.version=2026.0
+        compiler.libcxx=libstdc++
+        compiler.cppstd=gnu17
+        build_type=Release
 
-    [conf]
-    tools.intel:installation_path=/opt/intel/oneapi
+        [conf]
+        tools.intel:installation_path=/opt/intel/oneapi
 
+   .. code-tab:: text Windows profile
 
-The ``IntelCC`` generator can be used by name in conanfiles:
+        [settings]
+        os=Windows
+        arch=x86_64
+        compiler=intel-cc
+        compiler.mode=icx
+        compiler.version=2026.0
+        compiler.runtime=dynamic
+        compiler.cppstd=17
+        build_type=Release
 
-.. code-block:: python
-    :caption: *conanfile.py*
-
-    class Pkg(ConanFile):
-        generators = "IntelCC"
-
-
-.. code-block:: text
-    :caption: *conanfile.txt*
-
-    [generators]
-    IntelCC
-
-And it can also be fully instantiated in the conanfile ``generate()`` method:
-
-.. code-block:: python
-    :caption: *conanfile.py*
-
-    from conan import ConanFile
-    from conan.tools.intel import IntelCC
-
-    class App(ConanFile):
-        settings = "os", "arch", "compiler", "build_type"
-
-        def generate(self):
-            intelcc = IntelCC(self)
-            intelcc.generate()
+        [conf]
+        tools.intel:installation_path=C:\Program Files (x86)\Intel\oneAPI
 
 
-Now, running the command :command:`conan install . -pr intelprofile` generates the ``conanintelsetvars.sh|bat`` script
-which runs the Intel *setvars* script and loads all the variables into your local environment.
+Compiler mode
++++++++++++++
+
+Conan selects the appropriate compiler executables based on the ``compiler.mode`` setting:
+
+- **icx mode**: Uses ``icx``/``icpx`` on Linux, or ``icx-cl`` on Windows (for MSVC compatibility)
+- **dpcpp mode**: Uses ``icx``/``dpcpp``
+- **classic mode**: Uses ``icc``/``icpc``
+
+You typically don't need to specify ``tools.build:compiler_executables`` in your profile.
+If you do specify it, it will take precedence over the auto-detected values.
+
+
+.. _oneapi_sycl_support:
+
+SYCL support
+++++++++++++
+
+.. warning::
+
+    The ``dpcpp`` compiler is **deprecated** by Intel. The recommended way to compile SYCL code
+    is to use ``icpx`` with the ``-fsycl`` flag.
+
+To enable SYCL compilation, use the ``compiler.mode=icx`` setting and add the ``-fsycl`` flag
+via the build configuration:
+
+
+.. tabs::
+
+   .. code-tab:: text Linux profile
+
+        [settings]
+        os=Linux
+        arch=x86_64
+        compiler=intel-cc
+        compiler.mode=icx
+        compiler.version=2026.0
+        compiler.libcxx=libstdc++
+        compiler.cppstd=gnu17
+        build_type=Release
+
+        [conf]
+        tools.build:cxxflags=["-fsycl"]
+        tools.build:exelinkflags=["-fsycl"]
+        tools.build:sharedlinkflags=["-fsycl"]
+        tools.intel:installation_path=/opt/intel/oneapi
+
+   .. code-tab:: text Windows profile
+
+        [settings]
+        os=Windows
+        arch=x86_64
+        compiler=intel-cc
+        compiler.mode=icx
+        compiler.version=2026.0
+        compiler.runtime=dynamic
+        compiler.cppstd=17
+        build_type=Release
+
+        [conf]
+        tools.build:cxxflags=["-fsycl"]
+        tools.build:exelinkflags=["-fsycl"]
+        tools.build:sharedlinkflags=["-fsycl"]
+        tools.intel:installation_path=C:\Program Files (x86)\Intel\oneAPI
 
 
 Custom configurations
@@ -114,14 +149,10 @@ Apply different installation paths and command arguments simply by changing the 
     [settings]
     ...
     compiler=intel-cc
-    compiler.mode=dpcpp
-    compiler.version=2021.3
+    compiler.mode=icx
+    compiler.version=2026.0
     compiler.libcxx=libstdc++
     build_type=Release
-
-    [buildenv]
-    CC=dpcpp
-    CXX=dpcpp
 
     [conf]
     tools.intel:installation_path=/opt/intel/oneapi
@@ -134,6 +165,22 @@ will contain something like:
     :caption: conanintelsetvars.sh
 
     . "/opt/intel/oneapi/setvars.sh" --config="full/path/to/your/config.txt" --force
+
+
+The ``IntelCC`` generator can also be fully instantiated in the conanfile ``generate()`` method:
+
+.. code-block:: python
+    :caption: *conanfile.py*
+
+    from conan import ConanFile
+    from conan.tools.intel import IntelCC
+
+    class App(ConanFile):
+        settings = "os", "arch", "compiler", "build_type"
+
+        def generate(self):
+            intelcc = IntelCC(self)
+            intelcc.generate()
 
 
 Reference

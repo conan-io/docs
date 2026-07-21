@@ -127,7 +127,7 @@ translated from the current ``settings``:
   be further tweaked by the ``user_presets_path`` attribute, as documented below. The
   version schema of the generated ``CMakeUserPresets.json`` is "4" and requires CMake >=
   3.23.
-  The file name of this file can be configured with the ``CMakeToolchain.user_presets_path = "CMakeUserPresets.json"```
+  The file name of this file can be configured with the ``CMakeToolchain.user_presets_path = "CMakeUserPresets.json"``
   attribute, so if you want to generate a "ConanPresets.json" instead to be included from your own file, 
   you can define ``tc.user_presets_path = "ConanPresets.json"`` in the ``generate()`` method.
   See :ref:`extending your own CMake presets<examples-tools-cmake-toolchain-build-project-extend-presets>` for a full example.
@@ -155,7 +155,7 @@ per the example below.
 
 
 Just pass the ``CONAN_RUNTIME_LIB_DIRS`` variable to the ``DIRECTORIES`` argument
-in the ``install(RUNTIME_DEPENDENCY_SET ...)``` invocation. 
+in the ``install(RUNTIME_DEPENDENCY_SET ...)`` invocation. 
 
 .. code:: cmake
 
@@ -364,6 +364,16 @@ If for some reason using absolute paths was desired, it is possible to do it wit
         tc.generate()
 
 
+add_rpath_link
+^^^^^^^^^^^^^^
+
+Setting this attribute to ``True`` will add the ``-Wl,-rpath-link,`` flag to the linker flags, pointing to all library directories for all dependencies in the host context. Should only be added on platforms where the linker supports the ``-rpath-link`` flag, like Linux.
+This is needed in some cases when linking executables (typically when cross-building), when there are indirect shared library dependencies.
+This attribute will unconditionally add the ``-Wl,-rpath-link`` flags, so if the recipe is intended to be built on other platforms different to Linux/gcc (or more correctly, the Gnu ``ld`` linker), then it would be necessary to define this attribute conditionally to the platform and compiler, otherwise it can produce errors in other compilers that don't recognize this flag.
+
+.. note::
+    Should not be needed when using the newer `CMakeConfigDeps` generator.
+
 
 .. _conan_cmake_user_toolchain:
 
@@ -469,8 +479,8 @@ and added in this order:
 - **vs_debugger_environment**: Defines ``CMAKE_VS_DEBUGGER_ENVIRONMENT`` from "bindirs" folders of dependencies, exclusively for Visual Studio.
 - **cppstd**: defines ``CMAKE_CXX_STANDARD``, ``CMAKE_CXX_EXTENSIONS``
 - **parallel**: defines ``/MP`` parallel build flag for Visual.
-- **extra_flags**: Adds extra definitions, compile and link flags from ``tools.build:cxxflags``, ``tools.build:cflags``, ``tools.build:defines``, ``tools.build:sharedlinkflags``, etc.
-- **cmake_flags_init**: defines ``CMAKE_XXX_FLAGS`` variables based on previously defined Conan variables. The blocks above only define ``CONAN_XXX`` variables, and this block will define CMake ones like ``set(CMAKE_CXX_FLAGS_INIT "${CONAN_CXX_FLAGS}" CACHE STRING "" FORCE)```.
+- **extra_flags**: Adds extra definitions, compile and link flags from ``tools.build:cxxflags``, ``tools.build:cflags``, ``tools.build:defines``, ``tools.build:sharedlinkflags``, ``tools.build:rcflags``, etc.
+- **cmake_flags_init**: defines ``CMAKE_XXX_FLAGS`` variables based on previously defined Conan variables. The blocks above only define ``CONAN_XXX`` variables, and this block will define CMake ones like ``set(CMAKE_CXX_FLAGS_INIT "${CONAN_CXX_FLAGS}" CACHE STRING "" FORCE)``.
 - **extra_variables**: Definition of extra CMake variables from ``tools.cmake.cmaketoolchain:extra_variables``
 - **try_compile**: Stop processing the toolchain, skipping the blocks below this one, if ``IN_TRY_COMPILE`` CMake property is defined.
 - **find_paths**: Defines ``CMAKE_FIND_PACKAGE_PREFER_CONFIG``, ``CMAKE_MODULE_PATH``, ``CMAKE_PREFIX_PATH`` so the generated files from ``CMakeDeps`` are found.
@@ -741,7 +751,7 @@ CMakeToolchain is affected by these ``[conf]`` variables:
 - **tools.cmake.cmaketoolchain:system_processor** is not necessary in most cases and is only used to force-define ``CMAKE_SYSTEM_PROCESSOR``.
 - **tools.cmake.cmaketoolchain:enabled_blocks** define which blocks are enabled and discard the others.
 - **tools.cmake.cmaketoolchain:extra_variables**: dict-like python object which specifies the CMake variable name and value. The value can be a plain string, a number or a dict-like python object which must specify the ``value`` (string/number) , ``cache`` (boolean), ``type`` (CMake cache type) and optionally, ``docstring`` (string: defaulted to variable name) and ``force`` (boolean) keys. It can override CMakeToolchain defined variables, for which users are at their own risk. E.g.
-    
+
 .. code-block:: text
 
     [conf]
@@ -785,13 +795,16 @@ This block injects ``$`` which will be expanded later. It also defines a cache v
 - **tools.build:cflags** list of extra of pure C flags that will be appended to ``CMAKE_C_FLAGS_INIT``.
 - **tools.build:sharedlinkflags** list of extra linker flags that will be appended to ``CMAKE_SHARED_LINKER_FLAGS_INIT``.
 - **tools.build:exelinkflags** list of extra linker flags that will be appended to ``CMAKE_EXE_LINKER_FLAGS_INIT``.
+- **tools.build:rcflags** list of extra RC flags that will be appended to ``CMAKE_RC_FLAGS_INIT``.
 - **tools.build:defines** list of preprocessor definitions that will be used by ``add_definitions()``.
+- **tools.build:tools.build:add_rpath_link**: add ``-Wl,-rpath-link,`` linker flag. Set this to ``True`` to pass this flag pointing to all library directories of all host dependencies. Notice that it should not be needed when using the newer `CMakeConfigDeps` generator.
 - **tools.apple:sdk_path** value for ``CMAKE_OSX_SYSROOT``. In the general case it's not needed and will be passed to CMake by the settings values.
 - **tools.apple:enable_bitcode** boolean value to enable/disable Bitcode Apple Clang flags, e.g., ``CMAKE_XCODE_ATTRIBUTE_ENABLE_BITCODE``.
 - **tools.apple:enable_arc** boolean value to enable/disable ARC Apple Clang flags, e.g., ``CMAKE_XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC``.
 - **tools.apple:enable_visibility** boolean value to enable/disable Visibility Apple Clang flags, e.g., ``CMAKE_XCODE_ATTRIBUTE_GCC_SYMBOLS_PRIVATE_EXTERN``.
 - **tools.build:sysroot** defines the value of ``CMAKE_SYSROOT``.
 - **tools.microsoft:winsdk_version** Defines the ``CMAKE_SYSTEM_VERSION`` or the ``CMAKE_GENERATOR_PLATFORM`` according to CMake policy ``CMP0149``.
+- **tools.microsoft:msvc_update** allows defining the latest digits of ``CMAKE_GENERATOR_TOOLSET`` without being part of the package-id. For example defining it to ``tools.microsoft:msvc_update=0.35717`` for ``compiler.version=195`` will generate ``CMAKE_GENERATOR_TOOLSET = "v145,version=14.50.35717"``.
 - **tools.build:compiler_executables** dict-like Python object which specifies the
   compiler as key and the compiler executable path as value. Those keys will be mapped as
   follows:

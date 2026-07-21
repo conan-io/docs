@@ -113,6 +113,7 @@ conf
 - ``tools.build:defines`` list of preprocessor definitions that will be used by ``CL``.
 - ``tools.build:sharedlinkflags`` list of extra linker flags that will be used by ``_LINK_``.
 - ``tools.build:exelinkflags`` list of extra linker flags that will be used by ``_LINK_``.
+- ``tools.build:rcflags`` list of extra RC flags that will define a ``RCFLAGS`` env variable
 - ``tools.build:compiler_executables`` dict-like Python object which specifies the compiler as key
   and the compiler executable path as value. Those keys will be mapped as follows:
 

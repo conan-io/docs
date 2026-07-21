@@ -71,9 +71,9 @@ could use the default profile that in our case looks like this:
     arch=x86_64
     build_type=Release
     compiler=gcc
-    compiler.cppstd=gnu14
+    compiler.cppstd=gnu17
     compiler.libcxx=libstdc++11
-    compiler.version=9
+    compiler.version=12
 
 And the profile for the Raspberry Pi that is the **host** machine:
 
@@ -86,12 +86,12 @@ And the profile for the Raspberry Pi that is the **host** machine:
     arch=armv7hf
     compiler=gcc
     build_type=Release
-    compiler.cppstd=gnu14
+    compiler.cppstd=gnu17
     compiler.libcxx=libstdc++11
-    compiler.version=9
+    compiler.version=12
     [buildenv]
-    CC=arm-linux-gnueabihf-gcc-9
-    CXX=arm-linux-gnueabihf-g++-9
+    CC=arm-linux-gnueabihf-gcc-12
+    CXX=arm-linux-gnueabihf-g++-12
     LD=arm-linux-gnueabihf-ld
 
 .. important::
@@ -177,7 +177,7 @@ dependency built for the *armv7hf* architecture and a **cmake/3.27.9** version t
 64-bit architecture.
 
 .. code-block:: bash
-    
+
     $ conan install . --build missing -pr:b=default -pr:h=./profiles/raspberry
 
 Then, let's call CMake to build the application. As we did in the previous example, we have
@@ -190,15 +190,15 @@ application.
     $ cd build
     $ source Release/generators/conanbuild.sh
     Capturing current environment in deactivate_conanbuildenv-release-armv7hf.sh
-    Configuring environment variables    
+    Configuring environment variables
     $ cmake .. -DCMAKE_TOOLCHAIN_FILE=Release/generators/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
     $ cmake --build .
     ...
-    -- Conan toolchain: C++ Standard 14 with extensions ON
-    -- The C compiler identification is GNU 9.4.0
+    -- Conan toolchain: C++ Standard 17 with extensions ON
+    -- The C compiler identification is GNU 12.4.0
     -- Detecting C compiler ABI info
     -- Detecting C compiler ABI info - done
-    -- Check for working C compiler: /usr/bin/arm-linux-gnueabihf-gcc-9 - skipped
+    -- Check for working C compiler: /usr/bin/arm-linux-gnueabihf-gcc-12 - skipped
     -- Detecting C compile features
     -- Detecting C compile features - done    [100%] Built target compressor
     ...
@@ -219,7 +219,7 @@ You could check that we built the application for the correct architecture by ru
 
 .. seealso::
 
-    - `JFrog Academy Conan 2 Essentials: Cross-Compiling Your Applications With Conan <https://academy.jfrog.com/conan-2-essentials/2182684?utm_source=Conan+Docs>`__
+    - `JFrog Academy Conan 2 Essentials Module 1, Lesson 5: Cross-Compiling Your Applications With Conan <https://academy.jfrog.com/path/conan-cc-package-manager/conan-2-essentials?utm_source=Conan+Docs>`__
     - :ref:`Creating a Conan package for a toolchain<example_cross_build_toolchain_package>`
     - :ref:`Cross building to Android with the NDK<examples_cross_build_android_ndk>`
     - :ref:`VirtualBuildEnv reference <conan_tools_env_virtualbuildenv>`

@@ -58,9 +58,10 @@ by leveraging the packages list filtering from the ``conan list`` command. For e
 
 .. seealso::
 
-    - `JFrog Academy Conan 2 Essentials: Scanning C++ packages for Vulnerabilities using Conan Audit <https://academy.jfrog.com/conan-2-essentials/2164300?utm_source=Conan+Docs>`__
+    - `JFrog Academy Conan 2 Essentials Module 1, Lesson 7: Scanning C++ packages for Vulnerabilities using Conan Audit <https://academy.jfrog.com/path/conan-cc-package-manager/conan-2-essentials?utm_source=Conan+Docs>`__
     - For detailed reference documentation on all ``conan audit`` subcommands and their
       options, consult the :ref:`conan audit command reference
       <reference_commands_audit>`.
     - Read more in the dedicated `blog post
       <https://blog.conan.io/introducing-conan-audit-command/>`_.
+    - Check out our :ref:`security conference in using std::cpp 2025<using_stdcpp2025_audit>` for a deeper insight of package vulnerabilities.

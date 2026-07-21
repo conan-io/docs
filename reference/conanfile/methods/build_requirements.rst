@@ -49,7 +49,7 @@ Recall that ``tool_requires`` are intended exclusively for depending on tools li
 .. include:: ../../../common/experimental_warning.inc
 
 This syntax is useful when you're using the same package recipe as a *requires* and as a *tool_requires* and you want to avoid
-conflicting downstream if any user decides to override the original *requires* version in the *host* context, i.e., the user could end up with
+version mismatches if any user decides to override the original *requires* version in the *host* context, i.e., the user could end up with
 two different versions in the host and build contexts of the same dependency.
 
 In a nutshell, the ``<host_version>`` specifier allows us to ensure that the version resolved for the *tool_requires*
@@ -79,8 +79,8 @@ Then, if any user wants to use *mylib/0.1*, but another version of *protobuf*, t
         name = "myapp"
         version = "0.1"
         def requirements(self):
-            self.requires("mylib/0.1")
             self.requires("protobuf/3.21.9", override=True)
+            self.requires("mylib/0.1")
 
 The ``<host_version>`` defined upstream is ensuring that the host and build contexts are using the same version of that requirement.
 
@@ -100,9 +100,29 @@ should the *requires* and *tool_requires* have different names. For instance:
             self.tool_requires("libgettext/<host_version:gettext>")
 
 
-.. seealso::
+.. warning::
 
-    - :ref:`examples_graph_tool_requires_protobuf`
+   It's important to note that the reference match is only performed over the package name,
+   not the full reference, so variations on the ``user`` and ``channel`` fields are allowed, for example,
+   having ``self.requires("protobuf/3.18.1@mycompany/fork")`` and ``self.tool_requires("protobuf/<host_version>")``
+   will work and look for a ``protobuf/3.18.1`` package in the build context, without ``user`` nor ``channel`` fields.
+
+   If we want to also keep the same ``user`` and ``channel`` fields, we'd need to
+   specify it in the tool requirements reference as well, i.e., ``self.tool_requires("protobuf/<host_version>@mycompany/fork")``.
+
+The ``<host_version>`` feature also works when the requirement is replaced using the :ref:`[replace_requires]<reference_config_files_profiles_replace_requires>`
+section in your profile, so that the replaced version would be used in both contexts at once.
+
+.. note::
+
+   If your ``[replace_requires]`` is replacing not only the version, but also the ``user``/``channel`` fields,
+   (so for example replacing ``protobuf/*: protobuf/3.18.1@mycompany/fork``)
+   and you would like to also use the same ``user`` and ``channel`` fields in the build context,
+   you should use the :ref:`[replace_tool_requires]<reference_config_files_profiles_replace_tool_requires>`
+   to replace it in the build context as well, otherwise the ``<host_version>`` will look for
+   ``protobuf/3.18.1`` without the ``user`` and ``channel`` fields in the build context as explained in the previous warning,
+   which could lead to unexpected results.
+
 
 .. _reference_conanfile_methods_build_requirements_test_requires:
 
@@ -130,6 +150,23 @@ It is possible to further modify individual traits of ``tool_requires()`` and ``
 
     def build_requirements(self):
        self.tool_requires("cmake/3.23.5", options={"shared": False})
+
+
+.. warning::
+
+    Defining options values for dependencies in recipes does not have strong guarantees, please check 
+    :ref:`this FAQ about options values for dependencies<faq_different_options_values>`. The recommended way
+    to define options values for dependencies is in **profile files**.
+
+    For the ``tool_requires/test_requires`` defining the ``options`` trait is more feasible than with regular
+    requires, because they are not visible and not propagated, but don't apply ``options`` trait to regular
+    requires if possible, and use **profile files** instead.
+
+    Still, both ``tool_requires`` and ``test_requires`` are private (``visible=False``), only the recipe 
+    that declares them has visibility and can use them. The consumers of the package will not see or know about 
+    their existence. Consequently, they cannot be affected by consumers ``options``values definitions, it doesn't 
+    matter that a consumer of the package defines options like ``cmake*:some_option=somevalue``, because ``cmake``
+    is ``visible=False`` and it will never receive that value from downstream consumers.
 
 
 The ``test_requires()`` allows the ``force=True`` trait in case there are transitive test requirements with conflicting versions, and likewise ``tool_requires()`` support the ``override=True`` trait, for overriding possible transitive dependencies of the direct tool requirements.

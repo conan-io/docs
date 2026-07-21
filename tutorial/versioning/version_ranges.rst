@@ -105,6 +105,8 @@ Version ranges can be defined in several places:
 - In profiles ``[tool_requires]`` section
 
 
+.. _tutorial_versioning_semantic:
+
 Semantic versioning
 -------------------
 
@@ -153,6 +155,9 @@ include versions like 1.0, 1.2.3 and 1.9, but will not include 0.3, 2.0 or 2.1 v
 The tilde ``~`` operator can be used to define an "approximately" equal version range. ``requires = "pkg/[~1]"``
 will include versions 1.3 and 1.8.1, but will exclude versions like 0.8 or 2.0. Likewise
 ``requires = "pkg/[~2.5]"`` will include 2.5.0 and 2.5.3, but exclude 2.1, 2.7, 2.8.
+As conan semver implementation allows multiple digits, 
+expressions like ``requires = "pkg/[~2.5.2]"`` will be equivalent to ``requires = "pkg/[>=2.5.2 < 2.6.0]"``
+and ``requires = "pkg/[~2.5.1.3]"`` will be equivalent to ``requires = "pkg/[>=2.5.1.3 < 2.6.0.0]"``.
 
 The caret ``^`` operator is very similar to the tilde, but allows variability over the digit following the first non-zero digit.
 ``requires = "pkg/[^1.2]"`` will include 1.2.1, 1.3 and 1.51, but will exclude 1.0, 2, 2.0.
@@ -177,3 +182,7 @@ In this example, 1.0-pre.1 and 1.5.1-pre1 will be included, but 2.0-pre1 would b
    Also, note that the ``include_prerelease`` receives no argument, hence it's not possible to deactivate prereleases with ``include_prerelease=False``.
 
 For more information about valid range expressions go to :ref:`Requires reference <version_ranges_reference>`
+
+Note that version ranges only control which version is resolved. Whether a new version within
+the range requires the consumer to rebuild depends on the ``package_type`` of both packages —
+see :ref:`The effect of dependencies on package_id<reference_binary_model_dependencies>`.

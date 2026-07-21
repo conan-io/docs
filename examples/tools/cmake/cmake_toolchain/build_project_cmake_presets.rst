@@ -53,7 +53,7 @@ If you are using a multi-configuration generator:
     $ cmake --preset conan-default
     $ cmake --build --preset conan-debug
     $ build\Debug\foo.exe
-    foo/1.0: Hello World Release!
+    foo/1.0: Hello World Debug!
 
     $ cmake --build --preset conan-release
     $ build\Release\foo.exe

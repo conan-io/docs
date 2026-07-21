@@ -139,6 +139,10 @@ The functions with *(test package)* belong to the *conanfile.py* in the *test_pa
 ``build_id()``, ``generate()``, ``build()`` inside the *Install packages* step will be skipped if the project is
 already installed. Typically, it should be installed just as it was installed in the previous "install packages" step.
 
+When using the ``cmake_layout()`` functionality inside ``test_package``, the conf ``tools.cmake.cmake_layout:test_folder`` can be used
+to define the location of the build artifacts for the ``test_package``. See :ref:`cmake_layout() docs<cmake_layout>`.
+Likewise, the full path to the build artifacts will be defined by the ``self.folders.build_folder_vars`` attribute.
+
 
 Build modes
 -----------
@@ -148,8 +152,8 @@ with some differences.
 
 By default, ``conan create`` defines the ``--build=current_pkg/current_version`` to force the build
 from source for the current revision. This assumes that the source code (recipe, C/C++ code) was
-changed and it will create a new revision. If that is not the case, then the ``--build=missing:current_pkg/current_version``
-would be recommended to avoid rebuilding from source an already existing binary.
+changed and it will create a new revision. If that is not the case, then the ``--build=missing:current_pkg/current_version``,
+or ``--build="missing:&"`` would be recommended to avoid rebuilding from source an already existing binary.
 
 When a ``--build=xxx`` argument is defined in the command line, then the automatically defined
 ``--build=current_pkg/current_version`` is no longer passed, and it should be passed as a explicit argument too.

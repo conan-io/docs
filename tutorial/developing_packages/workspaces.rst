@@ -200,11 +200,26 @@ The other important part is the ``conanws.py`` file:
 The role of the ``class MyWs(ConanFile)`` embedded conanfile is important, it defines
 the super-project necessary generators and layout.
 
-The ``conan workspace super-install`` does not install the different editables separately, for
-this command, the editables do not exist, they are just treated as a single "node" in
+The ``conan workspace super-install`` does not install the different packages separately, for
+this command, the packages of the workspace no longer exist as independent entities, they are just treated as a single "node" in
 the dependency graph, as they will be part of the super-project build. So there is only
 a single generated ``conan_toolchain.cmake`` and a single common set of dependencies
 ``xxx-config.cmake`` files for all super-project external dependencies.
+
+In the ``build_order(self, order)`` method above, the ``order`` argument is an ordered list of lists representing
+the topologically sorted order of building. The elements of the inner lists represent packages in the workspace,
+and are dictionaries with the reference ``ref`` (of type :ref:`RecipeReference<conan.api.model.RecipeReference>`) and the source folder ``folder`` of
+every package. This ``folder`` will be the ``source_folder``, specified in the recipe ``layout()``. 
+
+.. note::
+    
+    **Best practices**
+    
+    For workspace recipes, the recommendation is to keep a simple layout, with the ``conanfile.py`` in the root of each
+    package repository, the source folder also being the root of the repository and the ``CMakeLists.txt`` in the root
+    of the repository.
+    That simplifies many tasks, like ``git clone <repo> && cd repo && conan install/build``, and also makes workspaces
+    easier to define and manage.
 
 
 The template above worked without external dependencies, but everything would work

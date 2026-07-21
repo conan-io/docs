@@ -12,7 +12,7 @@ versioning approach with a specific meaning for changing each digit.
 Conan implements versioning based on the "semver" specification, but with some extended capabilities that were demanded by the C and C++
 ecosystems:
 
-- Conan versions can have any number of digits, like ``MAJOR.MINOR.PATH.MICRO.SUBMICRO...``
+- Conan versions can have any number of digits, like ``MAJOR.MINOR.PATCH.MICRO.SUBMICRO...``
 - Conan versions can contain also letters, not only digits, and they are also ordered in alphabetical order, so ``1.a.2`` is older tha ``1.b.1`` for example.
 - The version ranges can be equally defined for any number of digits, like ``dependency/[>=1.0.0.0 <1.0.0.10]``
 

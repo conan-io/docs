@@ -5,7 +5,7 @@ Build a simple Bazel 7.x project using Conan
 
 .. warning::
 
-    This example is Bazel >= 7.1 compatible.
+    This example is Bazel >= 7.2 compatible.
 
 In this example, we are going to create a Hello World program
 that uses one of the most popular C++ libraries: `fmt <https://fmt.dev/latest>`_.
@@ -59,12 +59,13 @@ Let's have a look at each file's content:
 .. code-block:: python
     :caption: **MODULE.bazel**
 
-    load_conan_dependencies = use_extension("//conan:conan_deps_module_extension.bzl", "conan_extension")
-    use_repo(load_conan_dependencies, "fmt")
+    include("//conan:conan_deps.MODULE.bazel")
 
 
 .. code-block:: python
     :caption: **main/BUILD**
+
+    load("@rules_cc//cc:cc_binary.bzl", "cc_binary")
 
     cc_binary(
         name = "demo",
@@ -92,9 +93,10 @@ Let's have a look at each file's content:
 Conan uses the :ref:`conan_tools_google_bazeltoolchain` to generate a ``conan_bzl.rc`` file which defines the
 ``conan-config`` bazel-build configuration. This file and the configuration are passed as parameters to the
 ``bazel build`` command. Apart from that, Conan uses the :ref:`conan_tools_google_bazeldeps` generator
-to create all the bazel files (*[DEP]/BUILD.bazel*, *conan_deps_module_extension.bzl* and
-*conan_deps_repo_rules.bzl*) which define the rule and all the dependencies to create/load them as Bazel repositories.
-The *MODULE.bazel* above is ready to load the *conan_deps_module_extension.bzl* file which will tell the
+to create all the bazel files (*[DEP]/BUILD.bazel*, *[DEP]/BUILD.rules_cc.bazel*, *conan_deps.MODULE.bazel*,
+*conan_deps_module_extension.bzl*, and *conan_deps_repo_rules.bzl*) which define the rule and all the dependencies
+to create/load them as Bazel repositories.
+The *MODULE.bazel* above includes the generated *conan_deps.MODULE.bazel* snippet, which will tell the
 *main/BUILD* all the information about the ``@fmt//:fmt`` bazel target.
 
 As the first step, we should install all the dependencies listed in the ``conanfile.txt``.

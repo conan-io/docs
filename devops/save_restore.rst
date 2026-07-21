@@ -33,6 +33,10 @@ The name of the file can be changed with the optional ``--file=xxxx`` argument. 
 - If the user doesn't want any of those folders to be saved, they can be cleaned before saving them with ``conan cache clean`` command
 - The command saves the cache files and artifacts as well as the metadata (revisions, package_id) to be able to restore those packages in another cache. But it doesn't save any other cache state like ``settings.yml``, ``global.conf``, ``remotes``, etc. If the saved packages require any other specific configuration, it should be managed with ``conan config install``.
 
+
+The compression format can be defined by the file extension, supported formats are ``.tgz``, ``.txz`` (experimental) and ``.tzst`` (experimental, requires Python>=3.14).
+The compression level can be defined via the ``core:compresslevel`` configuration.
+
 We can move this ``conan_cache_save.tgz`` file to another Conan cache and restore it as:
 
 .. code-block:: bash

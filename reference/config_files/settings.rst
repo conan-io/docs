@@ -55,7 +55,7 @@ and ``MSBuild`` location) will be defined by the default provided by that compil
 - ``msvc`` compiler version '192': Visual Studio 16 2019 (toolset v142)
 - ``msvc`` compiler version '193': Visual Studio 17 2022 (toolset v143, compiler versions up to 19.39, toolset version 14.3X)
 - ``msvc`` compiler version '194': Visual Studio 17 2022 (toolset v143, compiler versions from 19.40, toolset version 14.4X, Visual Studio update 17.10)
-- ``msvc`` compiler version '195': Visual Studio 18 2027 (toolset v145, compiler versions from 19.50, toolset version 14.5X)
+- ``msvc`` compiler version '195': Visual Studio 18 2026 (toolset v145, compiler versions from 19.50, toolset version 14.5X)
 
 Note that both ``compiler.version=193`` and ``compiler.version=194`` map to the ``v143`` toolset, but to different toolset versions ``14.3X``
 and ``14.4X``, due to the versioning scheme change done from Visual Studio update 17.10 that introduced compiler version 19.40 and toolset version 14.40
@@ -110,12 +110,16 @@ This compiler is aimed to handle the new Intel oneAPI DPC++/C++/Classic compiler
 you have 3 different **modes** of working:
 
 * ``icx`` for Intel oneAPI C++.
-* ``dpcpp`` for Intel oneAPI DPC++.
+* ``dpcpp`` for Intel oneAPI DPC++ (deprecated by Intel, prefer ``icx`` with ``sycl`` linkage, see :ref:`SYCL docs<oneapi_sycl_support>`)
 * ``classic`` for Intel C++ Classic ones.
 
 Besides that, Intel releases some versions with revisions numbers so the ``update`` field is supposed to be any
-possible minor number for the Intel compiler version used, e.g, ``compiler.version=2021.1`` and
-``compiler.update=311`` mean Intel version is ``2021.1.311``.
+possible minor number for the Intel compiler version used, e.g, ``compiler.version=2026.0`` and
+``compiler.update=1`` mean Intel version is ``2026.0.1``. Supported versions include the ``2021.x``,
+``2022.x``, ``2023.x``, ``2024.x``, ``2025.x``, and ``2026.x`` families.
+Conan does not use the ``compiler.update`` number in the toolchain definitions, it is just a declaration of its value
+when users want that specific udpate to be part of the packages ``package_id`` and have different binaries for 
+different compiler updates.
 
 
 Architectures

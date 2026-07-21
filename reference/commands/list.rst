@@ -23,11 +23,6 @@ Using it you can list:
 * Package IDs and their configurations (``name/version@user/channel#rrev:pkgids``).
 * Package revisions (``name/version@user/channel#rrev:pkgids#prev``).
 
-.. warning::
-
-  The json output of the ``conan list --format=json`` is in **preview**.
-  See :ref:`the Conan stability<stability>` section for more information.
-
 
 Let's see some examples on how to use this pattern:
 
@@ -448,3 +443,8 @@ full references into other commands (like for example ``conan cache path``):
 The ``--format=compact`` will show the list of values for ``settings``, and it will only show the differences ("diff")
 for options, that is, it will compute the common denominator of options for all displayed packages, and will print
 only those values that deviate from that common denominator.
+
+
+.. seealso::
+
+  - :ref:`Read the "package lists" example usages <examples_commands_pkglists>`

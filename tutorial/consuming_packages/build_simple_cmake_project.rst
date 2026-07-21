@@ -248,7 +248,7 @@ Now we are ready to build and run our **compressor** app:
     $ Release\compressor.exe
     Uncompressed size is: 233
     Compressed size is: 147
-    ZLIB VERSION: 1.2.11
+    ZLIB VERSION: 1.3.1
 
 .. code-block:: bash
     :caption: Linux, macOS
@@ -261,7 +261,7 @@ Now we are ready to build and run our **compressor** app:
     $ ./compressor
     Uncompressed size is: 233
     Compressed size is: 147
-    ZLIB VERSION: 1.2.11
+    ZLIB VERSION: 1.3.1
 
 
 Note that ``CMakeToolchain`` might generate CMake **preset** files, that allows users with a modern CMake (``>=3.23``) to 
@@ -273,7 +273,7 @@ See :ref:`Building with CMake presets<examples-tools-cmake-toolchain-build-proje
 
 .. seealso::
 
-    - `JFrog Academy Conan 2 Essentials: Building A Simple CMake Project From Conan <https://academy.jfrog.com/conan-2-essentials/2131739?utm_source=Conan+Docs>`__
+    - `JFrog Academy Conan 2 Essentials Module 1, Lesson 1: Building A Simple CMake Project From Conan <https://academy.jfrog.com/path/conan-cc-package-manager/conan-2-essentials?utm_source=Conan+Docs>`__
     - :ref:`Building with CMake presets<examples-tools-cmake-toolchain-build-project-presets>`
     - :ref:`Getting started with Autotools<examples_tools_autotools_autotools_toolchain_build_project_autotools_toolchain>`
     - :ref:`Getting started with Meson<examples_tools_meson_toolchain_build_simple_meson_project>`

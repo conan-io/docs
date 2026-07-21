@@ -7,7 +7,7 @@ conan lock upgrade
     :command: conan lock upgrade -h
 
 
-The ``conan lock upgrade`` command is able to upgrade ``requires``, ``build_requires``, ``python_requires`` or ``config_requires`` items from an existing lockfile.
+The ``conan lock upgrade`` command is able to upgrade ``requires``, ``build_requires``, ``python_requires`` items from an existing lockfile.
 
 For example, if we have the following ``conan.lock``:
 

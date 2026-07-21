@@ -265,6 +265,9 @@ only require down to the recipe revision as we defined above.
     Having more than 1 package revision for any given recipe revision + ``package_id``
     is a smell or a potential bad practice. It means that something was rebuilt when 
     it was not necessary, wasting computing and storage resources. There are ways to
-    avoid doing it, like ``conan create . --build=missing:hello*`` will only build that
-    package binary if it doesn't exist already (or running ``conan graph info`` can 
-    also return information of what needs to be built.)
+    avoid doing it: for example ``conan create . --build=missing:hello*`` only builds
+    ``hello`` from source when its binary is still missing. You can also use
+    ``--build=missing:&``: the ``&`` pattern refers to the package being created, so
+    if a compatible binary for it already exists, ``conan create`` will not rebuild
+    it. ``conan graph info`` can also show what would need to be
+    built.

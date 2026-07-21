@@ -275,6 +275,9 @@ when you're composing profiles or even local variables:
 * ``=+`` == ``prepend``: puts values at the beginning of the existing value.
 * ``=!`` == ``unset``: gets rid of any variable value.
 
+Note that it is different to define an empty variable, like ``MyVar1=``, which defines it with a value of an empty string, 
+that requesting it to be explicitly unset with the ``MyVar1=!`` syntax.
+
 Another essential point to mention is the possibility of defining variables as `PATH` ones by simply putting ``(path)`` as
 the prefix of the variable. It is useful to automatically get the append/prepend of the `PATH` in different systems
 (Windows uses ``;`` as separation, and UNIX ``:``).
@@ -289,6 +292,9 @@ the prefix of the variable. It is useful to automatically get the append/prepend
     # Append another value to "MyVar1"
     MyVar1+=MyValue12
 
+    # Define a variable with an empty string value
+    MyVar2=
+
     # Define a PATH variable "MyPath1"
     MyPath1=(path)/some/path11
 
@@ -302,6 +308,7 @@ the prefix of the variable. It is useful to automatically get the append/prepend
 Then, the result of applying this profile is:
 
 * ``MyVar1``: ``My Value; other MyValue12``
+* ``MyVar2``: An empty string value
 * ``MyPath1``:
     * Unix: ``/other path/path12:/some/path11``
     * Windows: ``/other path/path12;/some/path11``
@@ -470,11 +477,26 @@ Other examples are:
     # To replace dep/[>=1.0 <2]@comp version range in recipes by 1.1 version in stable channel
     dep/1.1@*: dep/1.1@*/stable
 
+When composing multiple profiles (e.g., ``-pr=base -pr=override``), it is possible to unset replacement rules defined in earlier profiles using the ``!`` marker as the replacement target:
+
+.. code-block:: text
+    :caption: *override_profile*
+
+    [replace_requires]
+    # Remove a specific replacement rule inherited from a base profile
+    # The "zlib/*" expression must match exactly the previous rule, it will not invalidate a "zlib/1.3.1" rule.
+    zlib/*: !
+    # Clear all replacement rules
+    *: !
+
 .. note:: **Best practices**
 
    - Please make rational use of this feature. It is not a versioning mechanism and is not intended to replace actual requires in recipes.
    - The usage of this feature is intended for **temporarily** solving conflicts or replacing a specific dependency by a system one in some cross-build scenarios.
 
+.. important::
+
+   ``[replace_requires]`` does **not** apply to requires that are explicitly specified via command-line arguments (e.g., ``conan install --requires=dep/1.0`` or ``conan create``). CLI-specified requirements have higher priority and are never replaced. Transitive dependencies of CLI-specified requires can still be replaced.
 
 .. _reference_config_files_profiles_replace_tool_requires:
 
@@ -493,11 +515,29 @@ Same usage as the `replace_requires` section but in this case for `tool_requires
 
 In this case, whatever version of ``cmake`` declared in recipes, will be replaced by the reference `cmake/3.25.2`.
 
+Replacement rules can be unset in profile composition using ``!`` as the replacement target:
+
+.. code-block:: text
+    :caption: *override_profile*
+
+    [replace_tool_requires]
+    # Remove a specific rule from a base profile
+    # The "cmake/*" expression must match exactly the previous rule, it will not invalidate a "cmake/3.30" rule.
+    cmake/*: !
+    # Clear all tool replacement rules
+    *: !
+
 ..  note::
 
    * This section should be added to the profile whose context is the one that requires the tool, i.e., if the
      tool is required in the host context, then it should be added to the host profile, so that the requirement
-     itself can be replaced.
+     itself can be replaced. For example, if a ``zlib`` recipe in the host context has a ``tool_requires("cmake/xxx")``, a ``replace_tool_requires`` in the **host profile** will replace it.
+   * If what you want to replace are transitive dependencies of the tools that live inside ``tool_requires`` packages, those live in the **build context**. To replace them, you must add the replacements to the **build profile**. Both ``[replace_requires]`` and ``[replace_tool_requires]`` in the build profile will affect the build context in the same way, replacing ``requires`` and ``tool_requires`` of the tools themselves.
+
+
+.. important::
+
+   ``[replace_tool_requires]`` does **not** apply to requires that are explicitly specified via command-line arguments (e.g., ``conan install --tool-requires=dep/1.0`` or ``conan create``). CLI-specified requirements have higher priority and are never replaced. Transitive dependencies of CLI-specified requires can still be replaced.
 
 
 .. _reference_config_files_profiles_platform_requires:
@@ -507,10 +547,11 @@ In this case, whatever version of ``cmake`` declared in recipes, will be replace
 
 .. include:: ../../common/experimental_warning.inc
 
-This section allows the user to redefine requires of recipes replacing them with platform-provided dependencies, this means that Conan will not try to download the
+This section allows the user to redefine requires of recipes replacing them with platform-provided dependencies,
+which means that Conan will not try to download the
 reference or look for it in the cache and will assume that it is installed in your system and ready to be used.
 
-For example, if the zlib 1.2.11 library is already installed in your system or it is part of your build toolchain and you would like Conan to use it,
+For example, if the ``zlib/1.3.1`` library is already installed in your system or it is part of your build toolchain and you would like Conan to use it,
 you could specify so as:
 
 .. code-block:: text
@@ -518,6 +559,35 @@ you could specify so as:
 
     [platform_requires]
     zlib/1.3.1
+
+
+.. important::
+
+    In practice, it can be very challenging to achieve a full transparent replacement of a package in the Conan dependency graph
+    by a system or platform installed alternative, because there can be information missing for correctly using it, like dependencies
+    and transitive dependencies, build-system integrations specifics such as the CMake ``find_package()`` file names or CMake targets,
+    etc.
+
+    That means that it might not be possible to achieve such a ``[platform_requires]`` for regular packages, as opposed to the
+    ``[platform_tool_requires]`` because for many tools, it is enough that they are just in the system path. But this is not the case
+    for regular libraries.
+
+    For these cases, the recommendation is to write a "wrapper" Conan ``conanfile.py`` recipe that models the platform installed
+    dependency, defines if it has dependencies and provides the necessary information to consume it in its ``package_info()`` method.
+    Then, use the ``[replace_requires]`` feature instead.
+
+
+A recipe revision can also be used in the reference, to help keep track of changes in the system dependency,
+but it is not mandatory, and Conan will use the default ``#platform`` revision if not specified.
+
+.. code-block:: text
+    :caption: *myprofile*
+
+    [platform_requires]
+    zlib/1.3.1#myrevision
+
+This will ensure that lockfiles are able to track changes over this platform dependency,
+and it will be easier to specify when the system dependency has changed and needs to be re-evaluated.
 
 
 .. _reference_config_files_profiles_platform_tool_requires:
@@ -583,7 +653,7 @@ declaration:
     Requirements
         pkg/2.0#3488ec5c2829b44387152a6c4b013767 - Cache
     Build requirements
-        cmake/3.24.2 - Platform
+        cmake/3.24.2#platform - Platform
 
     -------- Computing necessary packages --------
 
@@ -592,7 +662,19 @@ declaration:
     Requirements
         pkg/2.0#3488ec5c2829b44387152a6c4b013767:20496b332552131b67fb99bf425f95f64d0d0818 - Build
     Build requirements
-        cmake/3.24.2 - Platform
+        cmake/3.24.2#platform - Platform
+
+A recipe revision can also be used in the reference, to help keep track of changes in the system dependency,
+but it is not mandatory, and Conan will use the default ``#platform`` revision if not specified.
+
+.. code-block:: text
+    :caption: *myprofile*
+
+    [platform_tool_requires]
+    cmake/3.24.2#myrevision
+
+This will ensure that lockfiles are able to track changes over this platform dependency,
+and it will be easier to specify when the system dependency has changed and needs to be re-evaluated.
 
 ..  note::
 
@@ -670,6 +752,11 @@ Some of the capabilities of the profile templates are:
      compiler={{ compiler }}
      compiler.version={{ compiler_version }}
 
+  If you want to use the original profile file name, instead of the current profile name, for example,
+  if the current profile file is called ``common``, and another profile called ``windows-arm`` was doing
+  an ``include(common)``, then the ``root_profile_name`` variable will be equal to ``windows-arm``, even
+  inside the ``common`` file.
+
 - Executing external commands and using their output. The ``subprocess`` module is added to the
   context, so you can use it to execute commands and capture their output.
   Note that Conan startup times for some commands can be affected if the command takes a long
@@ -723,6 +810,19 @@ Some of the capabilities of the profile templates are:
 - Any other feature supported by *jinja2* is possible: for loops, if-else, etc. This
   would be useful to define custom per-package settings or options for multiple packages
   in a large dependency graph.
+
+
+As a summary, this is the rendering context for profile files (all the items Conan injects):
+
+- ``platform``, ``os``, ``subprocess``: The Python ``platform``, ``os`` and ``subprocess`` modules
+- ``profile_dir``: The folder where the current profile file is located
+- ``profile_name``: The current profile file filename
+- ``root_profile_name``: The initial profile that was loaded. It is different of the current ``profile_name`` when there is an ``include(otherprofile)``
+- ``conan_version``: The current Conan version
+- ``detect_api``: This is a full automatic detection API, see below
+- ``context``: The current Conan context, can be ``host``, ``build`` or be ``None``
+
+
 
 .. _reference_config_files_profiles_detect_api:
 
@@ -801,6 +901,7 @@ the associated runtime, you can use:
     - ``detect_clang_compiler(compiler_exe="clang")``: Return the tuple ('clang'|'apple-clang', version, executable) for ``clang`` or ``apple-clang``.
     - ``detect_msvc_compiler()``: Detect the compiler ('msvc', version, None) default version of the latest VS IDE installed
     - ``detect_cl_compiler(compiler_exe="cl")``: Detect the compiler ('msvc', version, executable) for the ``cl.exe`` compiler
+    - ``detect_emcc_compiler(compiler_exe="emcc")``: Return the tuple ('emcc', version, executable) for the ``emcc`` Emscripten compiler
     - ``detect_sdk_version(sdk)``: Detect the Apple SDK version (``None`` for non Apple platforms), for the given ``sdk``. Equivalent to ``xcrun -sdk {sdk} --show-sdk-version``
 
 
@@ -897,6 +998,21 @@ For example, to define a ``shared=True`` option for all packages except to `zlib
 
     [options]
     !zlib/*:shared=True
+
+
+From Conan 2.27 it is also possible to do an exclusion of multiple patterns, with the ``!(<pattern1>|<pattern2>)``
+**experimental** syntax, exclusively for ``[tool_requires]`` (it will not work in other sections), like:
+
+
+.. code-block:: text
+    :caption: *myprofile*
+
+    [tool_requires]
+    !(gcc/*|ninja/*): cmake/3.20
+
+That means that all packages except ``gcc`` and ``ninja`` will get a tool-requires to ``cmake``. This feature
+is intended to avoid circular dependencies in the build-context (try to avoid abusing it for other use cases),
+that is, it should be mostly in the "build" profile, but likely not in the "host" profile.
 
 
 Note that for the ``msvc`` compiler, the ``compiler.runtime_type`` setting is  automatically initialized from

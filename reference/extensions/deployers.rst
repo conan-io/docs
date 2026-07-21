@@ -71,6 +71,22 @@ Files are only included in environment generators when correctly specified throu
 and ``cpp_info.libdirs`` configuration.
 
 
+.. _reference_extensions_deployer_cyclone:
+
+cyclone_1.6 and cyclone_1.4
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``cyclone_1.6`` and ``cyclone_1.4`` deployers are available to generate a CycloneDX 1.6 or 1.4 SBOM file
+respectively, with the information of the dependencies in the graph.
+The generated file will be named ``sbom-cyclonedx-1.{6, 4}.json`` and it will be located in the deployer output folder.
+These deployers will use the ``cyclonedx_1_6`` and ``cyclonedx_1_4`` functions from the :ref:`conan.tools.sbom.cyclonedx<conan_tools_sbom>` module
+with default arguments.
+
+If you want to customize the generated SBOM, you can either create your own custom deployer
+that calls these functions with the desired arguments,
+or use the documented hook approach from the previous link to generate the SBOM.
+
+
 configuration
 ^^^^^^^^^^^^^
 
@@ -106,6 +122,20 @@ if ``**kwargs`` is not defined.
 
 You can access your conanfile object with ``graph.root.conanfile``.
 See :ref:`ConanFile.dependencies<conan_conanfile_model_dependencies>` for information on how to iterate over its dependencies.
+
+If you need to run binaries from your build dependencies, the recommended approach is
+to apply the env from a ``VirtualBuildEnv``, such as:
+
+.. code-block:: python
+
+    from conan.tools.env import VirtualBuildEnv
+
+    def deploy(graph, output_folder: str, **kwargs):
+        venv = VirtualBuildEnv(graph.root.conanfile)
+        with venv.vars().apply():
+            self.run("mytool")
+
+
 Your custom deployer can now be invoked as if it were a built-in deployer using the filename in which it's found,
 in this case ``conan install . --deployer=my_custom_deployer``. Note that supplying the **.py** extension is optional.
 

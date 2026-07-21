@@ -73,7 +73,10 @@ method<conan_tools_system_package_manager_apt>`.
   :ref:`configuration<conan_tools_system_package_manager_config>`. If the parameter
   ``host_package`` is ``True`` it will install the packages for the host machine
   architecture (the machine that will run the software), it has an effect when cross
-  building. This method will return the return code of the executed commands.
+  building. When ``host_package`` is ``False``, packages are installed for the build
+  machine. In both cases you can include an explicit architecture suffix in the package
+  name (see :ref:`conan_tools_system_package_manager_explicit_arch_suffix`). This method
+  will return the return code of the executed commands.
 * ``install_substitutes(packages_substitutes, update=False, check=True)``: try to install
   one of the lists of substitutes packages passed as a parameter, e.g., ``install_substitutes(["pkg1", "pkg2"], ["pkg3"])``.
   It succeeds if one of the substitutes list is completely installed, so it's intended to be used when you have
@@ -187,6 +190,31 @@ The default mapping that Conan uses for *APT* packages architecture is:
                           "armv8": "arm64",
                           "s390x": "s390x"} if arch_names is None else arch_names
 
+.. _conan_tools_system_package_manager_explicit_arch_suffix:
+
+Explicit architecture suffixes
+++++++++++++++++++++++++++++++
+
+When cross-building, Conan can automatically append the architecture suffix to package
+names based on the Conan ``settings``. You can also include the architecture directly in
+the package name. This is useful when you need packages for a foreign architecture on
+the native build machine — for example, 32-bit libraries on an ``x86_64`` system to run
+32-bit build tools — using ``host_package=False``:
+
+..  code-block:: python
+    :caption: conanfile.py
+
+    def system_requirements(self):
+        apt = Apt(self)
+        apt.install(["libc6:i386", "libstdc++6:i386"], check=True, host_package=False)
+
+Conan parses the ``:`` suffix and uses it for both ``check()`` and ``install()``, so
+already installed packages are detected correctly. Version constraints are also
+supported, for example ``libc6:i386=2.39-0ubuntu8.7``.
+
+An explicit suffix in the package name takes precedence over the automatic mapping
+described above.
+
 .. _conan_tools_system_package_manager_yum:
 
 conan.tools.system.package_manager.Yum
@@ -217,6 +245,12 @@ The default mapping Conan uses for *Yum* packages architecture is:
                           "armv7hf": "armv7hl",
                           "armv8": "aarch64",
                           "s390x": "s390x"} if arch_names is None else arch_names
+
+*Yum* and *Dnf* also support :ref:`explicit architecture suffixes
+<conan_tools_system_package_manager_explicit_arch_suffix>` using ``.`` as separator
+(for example ``glibc.i686``). The name is only split when the suffix matches a known
+architecture from the mapping above, so package names that contain dots (such as
+``libfoo.bar``) are not affected.
 
 conan.tools.system.package_manager.Dnf
 --------------------------------------

@@ -271,7 +271,7 @@ purpose:
         "python_requires": []
     }
 
-It is relevant to note that the ``-lockfile-clean`` could remove locked versions in
+It is relevant to note that the ``--lockfile-clean`` could remove locked versions in
 given configurations. For example, if instead of the above, the ``x86_64`` architecture
 is used, the ``--lockfile-clean`` will prune the "unused" ``sound32``, because in that 
 configuration is not used. It is possible to evaluate new lockfiles for every different

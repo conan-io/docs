@@ -99,7 +99,7 @@ the options values for the dependency that we want ``self.dependencies.build.get
 
 Finally, the most important part is that the usage of those tools is completely the responsibility of the user. The ``bin``
 folder of both ``tool_requires`` containing the executables will be in the path thanks to the ``VirtualBuildEnv`` generator
-that by default updates the PATH env-var. In this case the executables are different like ``mygcc1.sh```and ``mygcc2.sh``,
+that by default updates the PATH env-var. In this case the executables are different like ``mygcc1.sh`` and ``mygcc2.sh``,
 so it is not an issue, and each one will be found inside its package.
 
 But if the executable file was exactly the same like ``gcc.exe``, then it would be necessary to obtain the full folder

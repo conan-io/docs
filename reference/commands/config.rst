@@ -157,7 +157,8 @@ To install a configuration from a Conan configuration package, it is possible:
 - ``conan config install-pkg`` always look in the server for the latest version or revision.
 - If the same version and revision was downloaded and installed from the server, ``conan config install-pkg`` will be a no-op unless ``--force`` is used, in this case the configuration will be overwritten.
 
-It is also possible to make the version of the configuration affect all packages ``package_id`` and be part of the binary model, by activating the ``core.package_id:config_mode`` conf (this is also experimental), to any available mode, like ``minor_mode``.
+It is also possible to make the version of the configuration affect all packages ``package_id`` and be part of the binary model, by activating the ``core.package_id:config_mode`` conf (this is also experimental), to any available mode, like ``minor_mode``. Note that the order of the installation of packages in case multiple configuration packages are installed is important. This is why Conan will raise an error if the relative order of installed configuration packages changes as the result of installing updates for those configuration packages.
+
 
 As the ``conan config install-pkg`` command downloads the package from a Conan remote server, it can download from an already existing remote,
 or it can download from a Conan remote directly specifying the repository URL:
@@ -165,6 +166,13 @@ or it can download from a Conan remote directly specifying the repository URL:
 .. code:: bash
 
     $ conan config install-pkg myconf/version --url=<url/conan/remote/repo>
+
+
+In the same way that ``conan remote add`` can define ``--insecure`` to disable the SSL verification for that remote, it is possible to disable it for ``conan config install-pkg`` with:
+
+.. code:: bash
+
+    $ conan config install-pkg myconf/version --url=<url/conan/remote/repo> --insecure
 
 
 When specifying the ``--url`` argument, a Conan remote named ``config_install_url`` is created on the fly.
@@ -218,6 +226,79 @@ Then, developers could do:
 
 
 And they will get the correct configuration for their platform.
+
+.. seealso::
+
+  - If you lock installed configuration packages in a lockfile, you could use the 
+    :ref:`conan lock upgrade-config<reference_commands_lock_upgrade_config>` command
+    to update such a lockfile.
+
+
+conanconfig.yml
++++++++++++++++
+
+The ``conan config install-pkg`` admits also as an input a yaml ``conanconfig.yml`` file that can contain more than one package requirement, something like:
+
+.. code-block:: yaml
+
+    packages:
+        - myconf_a/0.1
+        - myconf_b/0.1
+        - myconf_c/[>=1 <2]
+
+
+and be used like ``conan config install-pkg .`` or even just ``conan config install-pkg``.
+
+The file also admits the definition of ``urls`` with the same meaning as the ``--url`` command line argument, to simplify the initial installation
+of configuration when doing a Conan setup:
+
+.. code-block:: yaml
+    :caption: conanconfig.yml
+
+    packages:
+        - myconf_a/0.1
+        - myconf_b/0.1
+        - myconf_c/[>=1 <2]
+    urls:
+        - https://my/conan/remote/repo/url
+
+
+Like in the ``remotes.json`` file, the ``urls`` in the ``conanconfig.yml`` file can also add the ``verify_ssl`` specifier to disable SSL verification,
+with the same behavior as the command line argument ``--insecure``:
+
+.. code-block:: yaml
+    :caption: conanconfig.yml
+    
+    packages:
+        - myconf/0.1
+    urls:
+        - url: https://some.server.com
+          verify_ssl: false
+
+
+.. important::
+
+    When installing more than 1 configuration package, the order of installation is important, as the later installed packages can overwrite
+    configuration files installed by the previous ones. Consequently, if you decide to make the configuration part of the packages ``package_id``
+    via ``core.package_id:config_mode`` conf, the order is taken into account.
+    
+    Then any installation or re-installation of packages or updates that change this order will be raised as an error. For example if 
+    after installing the configuration from the ``conanconfig.yml`` above we try to do a ``conan config install-pkg myconf_a/0.2``, that
+    will be raised as an error, because that would make ``myconf_a`` to be the latest installed one, not the first.
+    
+    But on the other hand, doing an update with the previous file will not be an error, because it will re-install the ``myconf_a``, ``myconf_b``
+    and ``myconf_c`` in order. Likewise, doing an update only for ``myconf_c`` wouldn't be an error, because it is the last one and
+    preserves the relative order.
+
+
+Configuration packages in lockfiles
++++++++++++++++++++++++++++++++++++
+
+When a configuration package is stored in a lockfile, with the ``--lockfile-out`` argument, it will create an entry in the lockfile ``config_requires`` entry.
+This entry has different purposes:
+
+- When installing configuration packages with ``conan config install-pkg`` using command line arguments or a ``conanconfig.yml`` file that contains version ranges, or even pinned versions, but no recipe-revision, the provided lockfile can constraint that input to force and guarantee the exact version and recipe revision for that package defined in the lockfile.
+- When using a lockfile as input in regular ``conan install/build/create/graph-info``, etc, it will perform a check of the installed configuration packages, and if they are not aligned with the lockfile defined ``config_requires`` it will raise an error. Users then can issue a ``conan config install-pkg`` command to install the required configuration packages so their environments align. The idea is that lockfiles ``config_requires`` are there to guarantee the same configuration. The check goes in both directions, configuration packages already installed in the current user cache must satisfy the lockfile constraints, and lockfile declared ``config_requires`` must be installed. If for any reason, this behaviour wouldn't be desired, it is possible to use a different lockfile just for the configurations, independent from the regular packages lockfiles, avoiding in this way a populated ``config_requires`` when using regular packages installation commands.
 
 
 conan config list

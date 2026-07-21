@@ -51,7 +51,9 @@ This launchers will append information to the ``CPPFLAGS``, ``LDFLAGS``, ``CXXFL
 ``CFLAGS`` environment variables that translate the settings and options to the
 corresponding build flags like ``-stdlib=libstdc++``, ``-std=gnu14``, architecture flags,
 etc. It will also append the folder where the Conan generators are located to the
-``PKG_CONFIG_PATH`` environment variable.
+``PKG_CONFIG_PATH`` environment variable. On Apple platforms, ``ASFLAGS`` is also set with
+architecture and sysroot flags to ensure the assembler uses the same cross-compilation
+settings as the C/C++ compilers.
 
 Since `Conan 2.4.0 <https://github.com/conan-io/conan/releases/tag/2.4.0>`__,
 in  a cross-building context, the environment variables ``CC_FOR_BUILD`` and ``CXX_FOR_BUILD`` are also set if the
@@ -117,8 +119,14 @@ values:
 * **sysroot_flag**: To pass the ``--sysroot`` flag to the compiler.
 * **apple_arch_flag**: Only when cross-building with Apple systems. Flags from ``settings.arch``. For universal binaries, contains multiple ``-arch`` flags.
 * **apple_isysroot_flag**: Only when cross-building with Apple systems. Path to the root sdk.
+* **apple_min_version_flag**: Only for Apple systems, defines the ``-m{ios,macosx,watchos,tvos,...}-version-min=xxx`` flag.
 * **msvc_runtime_flag**: Flag from ``settings.compiler.runtime_type`` when compiler is ``msvc`` or
   ``settings.compiler.runtime`` when using the deprecated ``Visual Studio``.
+* **asflags**: List of assembler flags set in the ``ASFLAGS`` environment variable. On Apple platforms,
+  populated with ``arch_flag``, ``sysroot_flag``, ``apple_isysroot_flag``, ``apple_arch_flag``, and
+  ``apple_min_version_flag``. Empty on non-Apple platforms. Applies to both ``AutotoolsToolchain``
+  and ``GnuToolchain``.
+
 
 The following attributes are ready-only and will contain the calculated values for the current configuration and customized
 attributes. Some recipes might need to read them to generate custom build files (not strictly Autotools) with the configuration:
@@ -292,6 +300,7 @@ conf
 - ``tools.build:cflags`` list of extra of pure C flags that will be used by ``CFLAGS``.
 - ``tools.build:sharedlinkflags`` list of extra linker flags that will be used by ``LDFLAGS``.
 - ``tools.build:exelinkflags`` list of extra linker flags that will be used by ``LDFLAGS``.
+- ``tools.build:rcflags```list of extra RC flags to define ``RCFLAGS``
 - ``tools.build:defines`` list of preprocessor definitions that will be used by ``CPPFLAGS``.
 - ``tools.build:linker_scripts`` list of linker scripts, each of which will be prefixed with ``-T`` and added to ``LDFLAGS``.
   Only use this flag with linkers that supports specifying linker scripts with the ``-T`` flag, such as ``ld``, ``gold``, and ``lld``.

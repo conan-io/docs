@@ -23,3 +23,4 @@ If you plan to use Conan in production in your project, team, or organization, t
    vendoring
    package_promotions
    audit
+   compression

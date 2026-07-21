@@ -19,12 +19,12 @@ and create a file named ``android`` with the following contents:
     [settings]
     # Just an example, you need to use your real settings
     os=Android
-    os.api_level=21
+    os.api_level=27
     arch=armv8
     compiler=clang
-    compiler.version=12
+    compiler.version=18
     compiler.libcxx=c++_shared
-    compiler.cppstd=14
+    compiler.cppstd=17
 
     [conf]
     # Use your path here
@@ -43,7 +43,7 @@ You might need to modify:
 - ``tools.android:ndk_path`` conf: Write the location of the unzipped NDK.
 
 
-If you are in Windows, it is necessary to have a make-like build system like MinGW-Make or Ninja. 
+If you are in Windows, it is necessary to have a make-like build system like MinGW-Make or Ninja.
 We can provision for Ninja directly in our profile with ``[tool_requires]``:
 
 .. code-block:: text
@@ -51,7 +51,7 @@ We can provision for Ninja directly in our profile with ``[tool_requires]``:
     ...
     [conf]
     # Use your path here
-    tools.android:ndk_path=C:\ws\android\android-ndk-r23b
+    tools.android:ndk_path=C:\ws\android\android-ndk-r27
     tools.cmake.cmaketoolchain:generator=Ninja
 
     [tool_requires]
@@ -92,12 +92,12 @@ There is already a Conan package in ConanCenter containing the AndroidNDK, so wr
 
   [settings]
   os=Android
-  os.api_level=21
+  os.api_level=27
   arch=armv8
   compiler=clang
   compiler.version=18
   compiler.libcxx=c++_shared
-  compiler.cppstd=14
+  compiler.cppstd=17
   build_type=Release
 
   # You might need Ninja conf and tool-requires in Windows too
@@ -113,4 +113,3 @@ build the package. Note that to use packages from ConanCenter in production the 
   - Check the example :ref:`Integrating Conan in Android Studio<examples_cross_build_android_studio>` to know how to use your
     c++ libraries in a native Android application.
   - Check the tutorial :ref:`How to cross-compile your applications using Conan<consuming_packages_cross_building_with_conan>`.
-  

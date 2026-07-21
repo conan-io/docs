@@ -305,5 +305,5 @@ CMake and on Linux and macOS using Autotools. This can be easily handled in the
 
 .. seealso::
 
-    - `JFrog Academy Conan 2 Essentials: Dependencies, Generators And Building <https://academy.jfrog.com/conan-2-essentials/2218962?utm_source=Conan+Docs>`__
+    - `JFrog Academy Conan 2 Essentials Module 2, Lesson 9: Dependencies, Generators And Building <https://academy.jfrog.com/path/conan-cc-package-manager/conan-2-essentials-module-2-package-creation-and-uploading?utm_source=Conan+Docs>`__
     - :ref:`Patching sources <examples_tools_files_patches>`

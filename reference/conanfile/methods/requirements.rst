@@ -93,6 +93,67 @@ when we want to use different versions of the same package during the build.
     dependency will be used and propagated downstream.
 
 
+.. important::
+
+   **Best practices**
+
+   In general it is recommended to use the ``visible`` trait defaults, that is, ``visible=True`` for
+   normal host ``requires()`` and ``visible=False`` for ``test_requires()`` and ``tool_requires()``:
+
+   - Changing that default visibility can create different issues and problems if not handle properly.
+   - It is not recommended nor necessary to define ``visible=False`` for shared libraries packages that
+     requires other static library packages, or similar C, C++ libraries usages, the default Conan behavior will already skip downloading
+     that transitive static library if not needed and will not propagate downstream the linkage requirements.
+     In general, you can use the default ``visible=True`` for most regular ``requires()`` dependencies.
+   - Using ``visible=False`` in regular ``requires`` must guarantee complete API and ABI encapsulation.
+     If those are not met, issues from compilation errors, to linkage errors, to runtime errors can happen.
+   - Using ``visible=True`` for ``tool_requires`` or ``test_requires`` is also discouraged. The recommended
+     way to inject ``tool_requires`` from outside a recipe is using profiles.
+
+
+.. _reference_conanfile_methods_requirements_consistent:
+
+consistent
+~~~~~~~~~~
+
+This is a new trait introduced in Conan 2.28, and **experimental**.
+It takes effect only when ``visible=False``, it is not possible to have a requirement with ``visible=True`` and ``consistent=False``.
+It was introduced to dissambiguate the intention of the ``visible=False`` trait.
+
+Its main purpose is to model and provide an opt-in and opt-out for the graph computation behavior regarding how transitive dependencies
+of the same package name can be considered the same node in the dependency graph or be different nodes in the dependency graph.
+
+Previous to Conan 2.28, when defining ``visible=False`` for requirements in the "host" context, the behavior was not well defined,
+depending on different factors like if using version ranges or the order of requirements. From Conan 2.28 the behavior is the
+following:
+
+- If the policy ``required_conan_version = ">=2.28"`` is defined in the recipe or the equivalent global ``core:policies`` is defined, then
+  the default ``consistent`` trait will be:
+
+  - ``consistent=True`` for the "host" context. In general, dependencies in the host context are libraries, and the libraries must be 
+    consistent among them, even if they are not propagated downstream. That means that it is not expected to have multiple instances
+    (nodes) of the same package in the dependencies.
+  - ``consistent=False`` for the "build" context. In general dependencies in the build context are tools, so it doesn't matter much
+    if they have different transitive dependencies.
+  - Users can always explicitly define the ``self.[tool_]requires("pkg/version", visible=False, consistent=True|False)`` in their 
+    recipes to change this default.
+- Test requires with the ``test=True`` trait also default the ``consistent=True`` trait, as test-requires must be consistent, even 
+  if the policy is not defined.
+- It is possible for recipes to opt-in the new trait explicitly without activating the policy with ``self.requires("pkg/version", visible=False, consistent=True)``
+  for the host context and ``self.tool_requires("tool/version", consistent=True)`` for the build context.
+- Even if ``consistent=False``, if Conan detects that some transitive libraries are propagating conflicting traits such as ``headers``,
+  ``libs`` or ``run``, then, those transitive dependencies will still be considered overlapping and conflict or be considered the same
+  dependency, closing a diamond structure in the graph, instead of being separate nodes in the graph for the same package, keeping a tree
+  structure.
+
+.. figure:: ../../../images/consistent.png
+   :align: center
+   
+   ``consistent=False`` (left) ``consistent=True`` (right)
+
+See `pull request 19286 <https://github.com/conan-io/conan/pull/19286>`_ for discusion and more information.
+
+
 transitive_headers
 ~~~~~~~~~~~~~~~~~~
 

@@ -103,15 +103,15 @@ On the other hand, the ``report-installed`` mode will do a check if the package 
     }
 
 
-Build time system requirements 
+Build time system requirements
 ------------------------------
 
 In some scenarios, it might be possible that some system-requirements are only necessary exclusively at
-build time. For those scenarios, there are 2 possibilities:
+build time. For those scenarios, there are several possibilities:
 
-- Add the logic that install the build-time system requirements in a different method, like the ``build()``
-  method or the ``generate()`` method.
+- Use the ``build_system_requirements()`` method (from Conan 2.30), that is similar to this ``system_requirements()``
+  but exclusively installed when it is necessary to build from source (and using the "build" architecture). See :ref:`docs for build_system_requirements()<reference_conanfile_methods_build_system_requirements>`
 - Wrap the installation and logic for the build-time system requirement in its own package recipe, and use
-  that recipe as a ``tool_requires``. 
-  
+  that recipe as a ``tool_requires``.
+
 There are examples :ref:`for build-time system requirements in this section <examples_tools_system_consuming_system_packages>`
