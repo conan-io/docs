@@ -162,6 +162,20 @@ If your package is composed by more than one library, it is possible to declare 
 Dependencies among components and to components of other requirements can be defined using the ``requires`` attribute and the name
 of the component. The dependency graph for components will be calculated and values will be aggregated in the correct order for each field.
 
+Conan validates that every direct dependency of a recipe is used in some ``(cpp_info/components).requires``, raising an error otherwise.
+If a direct dependency is intentionally not propagated (for example, it is only used internally at build time), it can be added to
+``self.cpp_info.ignored_requires`` to silence that validation:
+
+.. code-block:: python
+
+    def requirements(self):
+        self.requires("other/1.0")
+        self.requires("another/1.0")  # only used internally at build time
+
+    def package_info(self):
+        self.cpp_info.components["cmp1"].requires = ["other::other"]
+        self.cpp_info.ignored_requires = ["another"]
+
 
 .. _reference_conanfile_methods_package_info_buildenv_info:
 .. _reference_conanfile_methods_package_info_runenv_info:
