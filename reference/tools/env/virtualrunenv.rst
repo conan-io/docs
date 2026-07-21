@@ -82,6 +82,20 @@ current active configuration, like ``deactivate_conanrunenv-release-x86_64.bat``
 
     For disabling the automatic generation of environment files, check :ref:`reference_tools_env_virtualbuildenv_disable`
 
+On Windows, ``VirtualRunEnv`` can also copy the runtime binaries of dependencies into a single folder and point ``PATH`` to that folder instead of to every dependency ``bindirs`` location. This can help avoid ``PATH`` overflow limits for large dependency graphs. Use the ``win_copy_folder`` argument with a relative path when instantiating the generator:
+
+.. code-block:: python
+
+    from conan import ConanFile
+    from conan.tools.env import VirtualRunEnv
+
+    class Pkg(ConanFile):
+        settings = "os", "compiler", "arch", "build_type"
+
+        def generate(self):
+            runenv = VirtualRunEnv(self, win_copy_folder="imported-bin")
+            runenv.generate()
+
 
 Reference
 ---------
