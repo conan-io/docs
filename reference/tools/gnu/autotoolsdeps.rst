@@ -51,7 +51,7 @@ These launchers will define aggregated variables ``CPPFLAGS``, ``LIBS``, ``LDFLA
 accumulate all dependencies information, including transitive dependencies, with flags like ``-I<path>``, ``-L<path>``, etc.
 
 .. important::
-    On Windows with ``msvc``, ``AutotoolsDeps`` now emits linker flags in ``LINK`` rather than ``LDFLAGS`` so the Autotools wrapper can process the flags correctly.
+    On Windows with ``msvc``, ``AutotoolsDeps`` emits linker flags in ``_LINK_`` rather than ``LDFLAGS``, so the Autotools wrapper can process the flags correctly. ``_LINK_`` is used instead of ``LINK`` to avoid a conflict with the ``LINK`` variable that Automake defines for C targets.
 
 At this moment, only the ``requires`` information is generated, the ``tool_requires`` one is not managed by this generator yet.
 
