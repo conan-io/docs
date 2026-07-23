@@ -34,7 +34,7 @@ Through the ``conan workspace`` command, we can open, add, and/or remove ``packa
 
 .. seealso::
 
-    Read the :ref:`workspace files<reference_workspace_files>` section.
+    Read the :ref:`workspace <reference_workspace>` section.
     Read the :ref:`conan workspace command<reference_commands_workspace>` section.
 
 .. _tutorial_workspaces_monolithic:

@@ -1,7 +1,7 @@
-.. _reference_workspace_files:
+.. _reference_workspace:
 
-Workspace files
-===============
+Workspace
+=========
 
 .. include:: ../common/experimental_warning.inc
 
@@ -35,8 +35,7 @@ Moreover, it could not have the ``ref`` field, and let Conan read the *name/vers
 
 .. warning::
 
-   Support for ``python_requires`` in a workspace is limited and highly **experimental** (the whole feature is still incubating, so
-   no guarantees about ``python_requires`` either).
+   Support for ``python_requires`` in a workspace is limited and highly **experimental**.
 
    Discovering the workspace packages does not resolve ``python_requires``, as remotes and the Conan cache are not
    necessarily available at that point. If a package's ``name``/``version`` is declared directly (or via its own
@@ -45,6 +44,22 @@ Moreover, it could not have the ``ref`` field, and let Conan read the *name/vers
 
    Python-requires are also expected to declare ``package_type = "python-require"`` directly as a class attribute, not
    inherited, so they can be filtered out from the workspace packages.
+
+.. note::
+
+   **Best practices**
+   
+   Workspaces are in general not expected to contain ``python-require`` recipes. The purpose of a workspace is to be
+   able to develop the C/C++ code of several packages simultaneously in a convenient way. The recipes should be rarely
+   modified in this flow, and it is not expected that the common Python code that lives in a ``python-require`` needs
+   to be modified by developers in a Workspace together with the C/C++ code. 
+   
+   By the time a developer is putting several different packages into a Workspace to work on them, the common recipe
+   logic living in a ``python-require`` is expected to be read-only, not editable, and managed as an external dependency,
+   not an editable one within the workspace.
+
+   A ``python-require`` might still be added to a workspace, with some limitations and caveats, but still the intention 
+   is that this is a very exceptional scenario, and not something that regular developers would do.
 
 
 conanws.py

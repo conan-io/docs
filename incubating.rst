@@ -26,7 +26,7 @@ Moved to :ref:`tutorial_workspaces`
 Workspace files syntax
 ++++++++++++++++++++++
 
-Moved to :ref:`reference_workspace_files`
+Moved to :ref:`reference_workspace`
 
 
 Workspace commands
