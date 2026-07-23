@@ -102,6 +102,12 @@ Usage:
 
     replace_in_file(self, os.path.join(self.source_folder, "folder", "file.txt"), "foo", "bar")
 
+Regular expressions and backreferences can be used by enabling ``regex``:
+
+.. code-block:: python
+
+    replace_in_file(self, "file.txt", r"version=(\d+)", r"version=v\1", regex=True)
+
 
 conan.tools.files.chmod()
 -----------------------------------
