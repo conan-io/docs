@@ -19,4 +19,4 @@ Reference
    reference/policies
    reference/tools
    reference/runners
-   reference/workspace_files
+   reference/workspace
