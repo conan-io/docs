@@ -65,6 +65,15 @@ We can run ``conan create .`` and verify that if the replace was done:
     hello/1.0: Hello Friends! Release!
     ...
 
+
+Regular expressions and backreferences are also supported by enabling ``regex``. For example, the following call
+captures the numeric part of ``version=123`` with ``(\d+)`` and reuses it in the replacement with ``\1``, producing
+``version=v123``:
+
+.. code-block:: python
+
+    replace_in_file(self, "file.txt", r"version=(\d+)", r"version=v\1", regex=True)
+
 in build() method
 ^^^^^^^^^^^^^^^^^
 
