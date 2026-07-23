@@ -37,6 +37,11 @@ Use the ``pc`` file information to fill a ``cpp_info`` object:
         pkg_config.fill_cpp_info(self.cpp_info, is_system=False, system_libs=["m", "rt"])
 
 
+If ``pkg_config_path`` is not provided, ``PkgConfig`` relies on the ``PKG_CONFIG_PATH`` environment
+variable to locate the ``.pc`` files. This variable can be defined in the profile ``[buildenv]``
+section, a common approach for cross-compilation with a sysroot that already provides ``.pc`` files.
+See :ref:`examples_tools_gnu_pkg_config_sysroot` for a full example.
+
 
 Reference
 ---------
