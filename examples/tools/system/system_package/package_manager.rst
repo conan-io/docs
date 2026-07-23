@@ -118,6 +118,10 @@ Another important detail is the **package_info** method. In this method, we are 
 :ref:`PkgConfig<conan_tools_gnu_pkgconfig>` tool to fill the **cpp_info** data, based on the file ``ncurses.pc``
 installed by the system package manager.
 
+See :ref:`examples_tools_gnu_pkg_config_sysroot` for a variant of this pattern in a
+cross-compilation scenario, where the ``.pc`` files are provided by a sysroot pointed to
+by ``PKG_CONFIG_PATH`` in the profile ``[buildenv]``.
+
 Now, let's install the ncurses library using the **conanfile.py** file:
 
 .. code-block:: bash

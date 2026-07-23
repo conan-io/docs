@@ -43,6 +43,9 @@ Some generators, like the built-in ``NMakeDeps``, contains the equivalent to thi
 
 This aggregation could be useful in cases where the build system cannot easily use independent dependencies or components. For example ``NMake`` or ``Autotools`` mechanism to provide dependencies information would be via ``LIBS``, ``CXXFLAGS`` and similar variables. These variables are global, so passing all the information from all dependencies is the only possibility.
 
+CppInfo interface
+-----------------
+
 The public documented interface (besides the defined one in :ref:`the package_info()<reference_conanfile_methods_package_info>`) is:
 
 - ``CppInfo(conanfile)``: Constructor. Receives a ``conanfile`` as argument, typically ``self``
@@ -51,3 +54,12 @@ The public documented interface (besides the defined one in :ref:`the package_in
   with fewer dependencies within the same package. Returns an ``OrderedDict`` of sorted
   components in the format ``{component_name: component}``.
 - ``merge(other_cppinfo: CppInfo)``: modifies the current ``CppInfo`` object, updating it with the information of the parameter ``other_cppinfo``, allowing to aggregate information from multiple dependencies.
+- ``save(path)`` serializes the ``CppInfo`` object into json and saves it to the ``path``.
+- ``CppInfo.load(path)`` static method returns a ``CppInfo`` object result of loading the ``path`` file and deserializing its json contents (result of a ``cpp_info.save(path)``)
+
+.. note::
+
+  **Best practices**
+
+  Regular recipes should not use these special ``CppInfo`` methods in most cases. Most of them are intended for custom generators only, not recipes.
+  The ``save()/load()`` operations shouldn't be needed in recipes in most cases either, only for some exceptional circumstances like the :ref:`PkgConfig fill_cpp_info example<examples_tools_gnu_pkg_config_sysroot>`.
