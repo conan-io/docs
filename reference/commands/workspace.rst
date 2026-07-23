@@ -3,7 +3,7 @@
 conan workspace
 ===============
 
-.. include:: ../../common/incubating_warning.inc
+.. include:: ../../common/experimental_warning.inc
 
 
 The ``conan workspace`` command allows to open, add, and remove packages from the current workspace. Check the

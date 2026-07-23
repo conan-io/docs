@@ -19,6 +19,8 @@ See :ref:`CMakeConfigDeps generator<conan_tools_cmakeconfigdeps>`
 Workspaces
 ----------
 
+Workspaces are not incubating anymore, but generally available as experimental.
+
 Moved to :ref:`tutorial_workspaces`
 
 Workspace files syntax

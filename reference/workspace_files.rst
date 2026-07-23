@@ -3,7 +3,7 @@
 Workspace files
 ===============
 
-.. include:: ../common/incubating_warning.inc
+.. include:: ../common/experimental_warning.inc
 
 Workspaces are defined by the ``conanws.yml`` and/or ``conanws.py`` files that will define the "root" workspace folder.
 
