@@ -102,7 +102,7 @@ the package folder in ``package()``, and reloaded in ``package_info()``:
 
         def package_info(self):
             # This method executes at package consumption time, it will
-            # have available the build environment, but it can load a file
+            # NOT have available the build environment, but it can load a file
             # generated at build/package time
             self.cpp_info = CppInfo(self).load("cpp_info.json")
 
