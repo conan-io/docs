@@ -3,7 +3,7 @@
 Workspaces
 ==========
 
-.. include:: ../../common/incubating_warning.inc
+.. include:: ../../common/experimental_warning.inc
 
 
 In the previous section, we worked with *editable packages* and how to define a custom layout. Let's introduce the concept
@@ -11,13 +11,6 @@ of *workspace* and how to use it.
 
 Introduction
 ------------
-
-.. important::
-
-   The workspace feature can be enabled defining the environment variable ``CONAN_WORKSPACE_ENABLE=will_break_next``.
-   The value ``will_break_next`` is used to emphasize that it will change in next releases, and this feature is for testing only,
-   it cannot be used in production.
-
 
 A Conan *workspace* gives you the chance to manage several packages as ``editable`` mode in an
 *orchestrated* or *monolithic* (also called *super-build*) way:
@@ -41,7 +34,7 @@ Through the ``conan workspace`` command, we can open, add, and/or remove ``packa
 
 .. seealso::
 
-    Read the :ref:`workspace files<reference_workspace_files>` section.
+    Read the :ref:`workspace <reference_workspace>` section.
     Read the :ref:`conan workspace command<reference_commands_workspace>` section.
 
 .. _tutorial_workspaces_monolithic:
