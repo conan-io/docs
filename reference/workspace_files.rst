@@ -38,11 +38,13 @@ Moreover, it could not have the ``ref`` field, and let Conan read the *name/vers
    Support for ``python_requires`` in a workspace is limited and highly **experimental** (the whole feature is still incubating, so
    no guarantees about ``python_requires`` either).
 
-   In case of having ``python_requires`` in the workspace, they should be declared first, before other packages that use
-   them, the order is important. They also must declare the proper ``package_type = "python-require"``.
+   Discovering the workspace packages does not resolve ``python_requires``, as remotes and the Conan cache are not
+   necessarily available at that point. If a package's ``name``/``version`` is declared directly (or via its own
+   ``set_name()``/``set_version()``), it works out of the box. If it is inherited from a ``python_requires``, it cannot
+   be deduced automatically, and a ``get_ref()`` method must be defined in ``conanws.py`` (see below).
 
-   Also, it will only work when using ``conanws.yml``, but not with a dynamic definition using ``conanws.py`` ``packages()``
-   method.
+   Python-requires are also expected to declare ``package_type = "python-require"`` directly as a class attribute, not
+   inherited, so they can be filtered out from the workspace packages.
 
 
 conanws.py
@@ -89,6 +91,28 @@ methods, using the ``Workspace.load_conanfile()`` helper:
                conanfile = self.load_conanfile(f)
                result.append({"path": f, "ref": f"{conanfile.name}/{conanfile.version}"})
          return result
+
+
+get_ref()
++++++++++
+
+If a package's ``name``/``version`` cannot be deduced because it is inherited from a ``python_requires`` (which is not
+resolved while discovering the workspace packages), ``conanws.py`` can define a ``get_ref(folder)`` method to provide
+the reference explicitly:
+
+.. code-block:: python
+   :caption: conanws.py
+
+   from conan import Workspace
+
+   class MyWorkspace(Workspace):
+      def get_ref(self, folder):
+         return {"pkga": "pkga/1.0", "pkgb": "pkgb/2.0"}.get(folder)
+
+``get_ref()`` can return a ``name/version[@user/channel]`` string, a ``RecipeReference``, or ``None`` if it doesn't
+apply to that ``folder``. When the reference for a package cannot be deduced by any of these means (``ref`` in
+``conanws.yml``, ``name``/``version`` attributes, ``set_name()``/``set_version()``, or ``get_ref()``), Conan raises an
+error listing all the available alternatives.
 
 
 conanws.py super-build ``ConanFile``
