@@ -11,6 +11,7 @@ Conan recipe tools examples
    tools/meson/meson
    tools/google/bazel
    tools/autotools/autotools
+   tools/gnu/gnu
    tools/scm/git/capture_scm/git_capture_scm
    tools/microsoft/msbuild
    tools/system/system
