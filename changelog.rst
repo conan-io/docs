@@ -12,7 +12,7 @@ This page lists the changes made to Conan in each version, with links to each pu
 - Feature: Support GCC 14.4 and 15.3 in ``settings.yml``. `#20184 <https://github.com/conan-io/conan/pull/20184>`_
 - Feature: Support intel-cc 2025.2, 2025.3 and 2026.1 in ``settings.yml``. `#20184 <https://github.com/conan-io/conan/pull/20184>`_
 - Feature: Change the ``Workspace`` approach to not process ``python_requires`` just to derive ``name/version``. Proposed a new ``get_ref(folder)`` method in the ``conanws.py`` file to be able to define versions dynamically. `#20176 <https://github.com/conan-io/conan/pull/20176>`_ . Docs `here <https://github.com/conan-io/docs/pull/4497>`__
-- Feature: Define new `cpp_info.not_required` attribute to avoid downstream propagation of dependencies. `#20171 <https://github.com/conan-io/conan/pull/20171>`_ . Docs `here <https://github.com/conan-io/docs/pull/4496>`__
+- Feature: Define new `cpp_info.ignored_requires` attribute to avoid downstream propagation of dependencies. `#20171 <https://github.com/conan-io/conan/pull/20171>`_ . Docs `here <https://github.com/conan-io/docs/pull/4496>`__
 - Feature: Add `NO_SONAME` support to `CMakeConfigDeps` to skip SONAME generation. `#20168 <https://github.com/conan-io/conan/pull/20168>`_ . Docs `here <https://github.com/conan-io/docs/pull/4492>`__
 - Feature: Assert invalid parameters in `ConanFile.run()` method. `#20156 <https://github.com/conan-io/conan/pull/20156>`_
 - Feature: Add `.tar.zst` (Zstandard) archive support to the `unzip()` tool function. `#20140 <https://github.com/conan-io/conan/pull/20140>`_
