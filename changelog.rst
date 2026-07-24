@@ -3,6 +3,11 @@ Changelog
 
 This page lists the changes made to Conan in each version, with links to each pull request for more details.
 
+2.31.1 (24-Jul-2026)
+--------------------
+
+- Fix: Fixed `replace_in_file()` raising a false "pattern not found" error when the replacement produced the same content as the original (no-op replace). `#20211 <https://github.com/conan-io/conan/pull/20211>`_
+
 2.31.0 (23-Jul-2026)
 --------------------
 
