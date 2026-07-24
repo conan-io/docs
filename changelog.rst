@@ -3,6 +3,39 @@ Changelog
 
 This page lists the changes made to Conan in each version, with links to each pull request for more details.
 
+2.31.0 (23-Jul-2026)
+--------------------
+
+- Feature: Get Workspace feature out of incubating. `#20202 <https://github.com/conan-io/conan/pull/20202>`_ . Docs `here <https://github.com/conan-io/docs/pull/4501>`__
+- Feature: `replace_in_file` now supports regex patterns. `#20194 <https://github.com/conan-io/conan/pull/20194>`_ . Docs `here <https://github.com/conan-io/docs/pull/4498>`__
+- Feature: Warn when `conan config install` is used after `conan config install-pkg`. `#20188 <https://github.com/conan-io/conan/pull/20188>`_ . Docs `here <https://github.com/conan-io/docs/pull/4493>`__
+- Feature: Support GCC 14.4 and 15.3 in ``settings.yml``. `#20184 <https://github.com/conan-io/conan/pull/20184>`_
+- Feature: Support intel-cc 2025.2, 2025.3 and 2026.1 in ``settings.yml``. `#20184 <https://github.com/conan-io/conan/pull/20184>`_
+- Feature: Change the ``Workspace`` approach to not process ``python_requires`` just to derive ``name/version``. Proposed a new ``get_ref(folder)`` method in the ``conanws.py`` file to be able to define versions dynamically. `#20176 <https://github.com/conan-io/conan/pull/20176>`_ . Docs `here <https://github.com/conan-io/docs/pull/4497>`__
+- Feature: Define new `cpp_info.ignored_requires` attribute to avoid downstream propagation of dependencies. `#20171 <https://github.com/conan-io/conan/pull/20171>`_ . Docs `here <https://github.com/conan-io/docs/pull/4496>`__
+- Feature: Add `NO_SONAME` support to `CMakeConfigDeps` to skip SONAME generation. `#20168 <https://github.com/conan-io/conan/pull/20168>`_ . Docs `here <https://github.com/conan-io/docs/pull/4492>`__
+- Feature: Assert invalid parameters in `ConanFile.run()` method. `#20156 <https://github.com/conan-io/conan/pull/20156>`_
+- Feature: Add `.tar.zst` (Zstandard) archive support to the `unzip()` tool function. `#20140 <https://github.com/conan-io/conan/pull/20140>`_
+- Feature: Reduce verbose terminal output produced during the `package()` step. `#20134 <https://github.com/conan-io/conan/pull/20134>`_
+- Feature: Add `tools.build:asmflags` config and `CMakeToolchain.extra_asmflags` to populate `CMAKE_ASM_FLAGS`. `#20127 <https://github.com/conan-io/conan/pull/20127>`_
+- Feature: Add ``micro`` modes to ``package_id_modes`` to model changes over MAJOR.MINOR.PATCH.MICRO ``micro`` digit. `#20102 <https://github.com/conan-io/conan/pull/20102>`_ . Docs `here <https://github.com/conan-io/docs/pull/4491>`__
+- Feature: New ``win_runtime_copy`` capability of ``VirtualRunEnv``, so it can copy on Windows the runtime files of dependencies (the ``cpp_info.bindirs`` directories contents) to a single location and point to it, avoiding path overflows (like in Windows) for large graphs. `#18638 <https://github.com/conan-io/conan/pull/18638>`_ . Docs `here <https://github.com/conan-io/docs/pull/4494>`__
+- Fix: Update remaining `audit.conan.io/<page>` links to `conan.io/audit/<page>`. `#20203 <https://github.com/conan-io/conan/pull/20203>`_
+- Fix: Fix upload with empty uploads from pattern, to make it equal to package lists behavior `#20197 <https://github.com/conan-io/conan/pull/20197>`_
+- Fix: Avoid conflict with Automake's `LINK` var when using `AutotoolsDeps` with MSVC by using `_LINK_` for linker flags. `#20192 <https://github.com/conan-io/conan/pull/20192>`_ . Docs `here <https://github.com/conan-io/docs/pull/4495>`__
+- Fix: Add support for VS 2026 in the `Premake` generator (requires Premake 5.0 beta 8). `#20189 <https://github.com/conan-io/conan/pull/20189>`_
+- Fix: Fix rpath flags from `AutotoolsDeps` being dropped by Libtool on macOS, causing missing `LC_RPATH` in executables. `#20179 <https://github.com/conan-io/conan/pull/20179>`_
+- Fix: Avoid option names shadowing internal `Options` implementation methods. `#20172 <https://github.com/conan-io/conan/pull/20172>`_ . Docs `here <https://github.com/conan-io/docs/pull/4490>`__
+- Fix: Fix deprecation warning for emcc/em++ >= 6.0.1, changing ``-sMEMORY64`` flag with the modern ``-m64`` one. `#20152 <https://github.com/conan-io/conan/pull/20152>`_
+- Fix: Avoid a corner-case in component requires when `replace_requires` creates diamond divergent requirements. `#20139 <https://github.com/conan-io/conan/pull/20139>`_
+- Fix: Fix Artifactory search patterns not matching `*@user/channel`, now requiring explicit `*/*@user/channel`. `#20136 <https://github.com/conan-io/conan/pull/20136>`_
+- Fix: Use `LINK` env-var in Windows for AutotoolsDeps ``msvc`` compiler. `#20130 <https://github.com/conan-io/conan/pull/20130>`_ . Docs `here <https://github.com/conan-io/docs/pull/4495>`__
+- Bugfix: Require `default_components`, or all existing components, in `PkgConfigDeps` when root `pkg_config_name="none"`. `#20169 <https://github.com/conan-io/conan/pull/20169>`_
+- Bugfix: Apply sorting to ``include()`` profiles settings patterns. `#20164 <https://github.com/conan-io/conan/pull/20164>`_
+- Bugfix: Raise an exception when `layout()` fails in the Docker runner. `#20154 <https://github.com/conan-io/conan/pull/20154>`_
+- Bugfix: Fix early return in `workspace complete` that could skip necessary packages. `#20150 <https://github.com/conan-io/conan/pull/20150>`_
+- Bugfix: Fix crash in `replace_requires` when the graph had an override to a replaced requirement that did not apply. `#20146 <https://github.com/conan-io/conan/pull/20146>`_
+
 2.30.0 (29-Jun-2026)
 --------------------
 
