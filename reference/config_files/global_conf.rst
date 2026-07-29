@@ -138,7 +138,7 @@ All the values will be interpreted by Conan as the result of the python built-in
         user.myorg:docker_image_tag=1.10
 
     Note that this mostly affects ``user.*`` confs, since built-in ``core.*`` and
-    ``tools.*`` confs typically declare a type (via ``check_type``) that would reject
+    ``tools.*`` confs internally declare their type and would not convert
     a float. For ``user.*`` confs no type is enforced by default, so the evaluated
     value is passed through as-is.
 
