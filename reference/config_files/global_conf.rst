@@ -126,6 +126,41 @@ All the values will be interpreted by Conan as the result of the python built-in
     tools.microsoft.msbuildtoolchain:compile_options={"ExceptionHandling": "Async"}
 
 
+.. warning::
+
+    Because the value is passed through ``eval()``, an input that looks like a numeric
+    literal will be evaluated as such. For example, a version string like ``1.10`` will
+    be evaluated to the float ``1.1``, silently losing the trailing zero:
+
+    .. code-block:: text
+
+        # This becomes the float 1.1, NOT the string "1.10"
+        user.myorg:docker_image_tag=1.10
+
+    Note that this mostly affects ``user.*`` confs, since built-in ``core.*`` and
+    ``tools.*`` confs internally declare their type and would not convert
+    a float. For ``user.*`` confs no type is enforced by default, so the evaluated
+    value is passed through as-is.
+
+    The recommended workaround is to prefix the value with a non-numeric character
+    (for example ``v``) so ``eval()`` cannot turn it into a number, and then strip
+    that character in the recipe:
+
+    .. code-block:: text
+
+        # In the profile / global.conf / -c CLI argument
+        user.myorg:docker_image_tag=v1.10
+
+    .. code-block:: python
+
+        # In the recipe
+        tag = self.conf.get("user.myorg:docker_image_tag", check_type=str).lstrip("v")
+
+    Wrapping the value in quotes (``"1.10"``) also works from a *global.conf* or profile
+    ``[conf]`` section (``eval()`` will return the string ``1.10``), but this typically
+    does not survive shell quoting when passed on the command line with ``-c``.
+
+
 .. _configuration_data_operators:
 
 Configuration data operators
