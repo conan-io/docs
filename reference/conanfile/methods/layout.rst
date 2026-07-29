@@ -114,6 +114,53 @@ package's build or source directory:
     - :ref:`here<tutorial_package_layout>`.
 
 
+.. _reference_conanfile_methods_layout_conan_source:
+
+Ordering and ``conan source`` compatibility
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The ``layout()`` method is also called by the :command:`conan source` command, which
+runs without a host profile. This has two implications for how ``layout()`` should be
+written:
+
+- **Order matters**: define the inputs, source-related parts first
+  (``self.folders.source``, ``self.folders.root``, ``self.folders.subproject``). These are
+  independent of settings and options, so they will always be correctly defined even
+  when :command:`conan source` is invoked.
+
+- **Do not fail when settings/options are not defined**: the build-related parts
+  (``self.folders.build``, ``self.folders.generators``, ``self.cpp.build``...) typically
+  depend on ``self.settings`` or ``self.options``, which are empty during
+  :command:`conan source`. The ``layout()`` method must not raise in that case. There
+  are two common approaches:
+
+  - Use ``self.settings.get_safe(...)`` / ``self.options.get_safe(...)``, which return
+    ``None`` when the value is not defined instead of raising. This is the approach
+    used by the built-in ``cmake_layout()``, which produces a build folder like
+    ``build/None`` when :command:`conan source` is invoked. That value is not used by
+    :command:`conan source`, so it is harmless.
+  - Early-return from ``layout()`` after defining the source parts when settings are
+    not available, for example ``if not self.settings.get_safe(): return``.
+
+.. code-block:: python
+
+    def layout(self):
+        # 1) Source parts: independent of settings/options, define them first
+        self.folders.source = "src"
+
+        # 2) Build parts: may depend on settings/options, use get_safe to avoid
+        #    failing during `conan source` when settings are empty
+        build_type = self.settings.get_safe("build_type")
+        # might be "build/None", but won't really be used in "conan source" commands
+        self.folders.build = f"build/{build_type}" 
+        self.folders.generators = f"build/{build_type}/generators"
+        self.cpp.build.libdirs = [f"build/{build_type}"]
+
+        # The "cpp_info" editable information needs also configuration, goes
+        # together with the build parts
+        self.cpp.source.includedirs = ["include"]
+
+
 Environment variables and configuration
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
