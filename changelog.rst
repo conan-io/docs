@@ -3,6 +3,11 @@ Changelog
 
 This page lists the changes made to Conan in each version, with links to each pull request for more details.
 
+2.31.2 (04-Aug-2026)
+--------------------
+
+- Bugfix: ``conan upload .. --dry-run -f=json > to_upload.json`` now allows round-trip for ``conan upload -l=to_upload.json`` without re-preparing the artifacts. `#20237 <https://github.com/conan-io/conan/pull/20237>`_
+
 2.31.1 (24-Jul-2026)
 --------------------
 
