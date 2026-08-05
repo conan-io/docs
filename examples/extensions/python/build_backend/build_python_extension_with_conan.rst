@@ -72,15 +72,14 @@ create a C++ package:
 .. code-block:: python
     :caption: **conanfile.py**
 
-    import sys
-
     from conan import ConanFile
-    from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain, cmake_layout
+    from conan.tools.cmake import CMake, cmake_layout
 
 
     class MyAdderConan(ConanFile):
         name = "myadder"
         settings = "os", "compiler", "build_type", "arch"
+        generators = "CMakeToolchain", "CMakeDeps"
 
         def layout(self):
             cmake_layout(self)
@@ -88,13 +87,6 @@ create a C++ package:
         def requirements(self):
             self.requires("pybind11/3.0.1")
             self.requires("fmt/12.1.0")
-
-        def generate(self):
-            tc = CMakeToolchain(self)
-            tc.cache_variables["Python3_EXECUTABLE"] = sys.executable
-            tc.generate()
-            deps = CMakeDeps(self)
-            deps.generate()
 
         def build(self):
             cmake = CMake(self)
@@ -112,8 +104,10 @@ to configure and build the extension with CMake.
 
 .. important::
 
-    Setting ``Python3_EXECUTABLE`` to ``sys.executable`` keeps CMake on the
-    same interpreter ``pip`` uses, avoiding a wrong ABI build.
+    ``conan-py-build`` automatically points ``CMakeToolchain`` at the same Python
+    interpreter driving the build (``Python3_EXECUTABLE``/``Python_EXECUTABLE``),
+    so the recipe doesn't need to set it and CMake can't pick up a different,
+    ABI-incompatible Python.
 
 .. important::
 
