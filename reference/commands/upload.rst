@@ -23,6 +23,19 @@ If the ``--format=json`` formatter is specified, the result will be a "PackageLi
 The ``--dry-run`` argument will prepare the packages for upload, zip files if necessary, check in the server to see what needs to be uploaded and what is already in the server, but it will not execute the actual upload. 
 
 
+.. note::
+   The ``--dry-run`` flag is useful as the resulting package list json can be used to feed a ``conan upload --list=<pkglist>`` call,
+   allowing for the split of the preparation of artifacts step and the actual upload step, which can be useful in CI pipelines.
+
+   .. code-block:: bash
+
+       # Recipes are loaded and artifacts prepared, but no upload is performed
+       $ conan upload <pattern> --dry-run -r=myremote -f=json > pkglist.json
+       # Nothing is re-prepared, only the actual upload is performed
+       $ conan upload --list=pkglist.json -r=myremote
+
+
+
 Upload policies and efficient uploads
 -------------------------------------
 
