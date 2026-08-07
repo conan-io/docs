@@ -26,6 +26,11 @@ For example, if we call a specific version of ``openssl`` we would:
 
 This command is useful when you want to execute some specific binary from any package.
 
+.. note::
+    This command activates both the ``host`` and ``build`` contexts, so that both contexts binaries are made available at once.
+    In case that a package exists in both contexts, the ``host`` context binaries take precedence.
+
+
 Running executables from profile ``[tool_requires]``
 ----------------------------------------------------
 
@@ -45,8 +50,3 @@ Starting in Conan 2.32, ``conan run`` can be invoked without a ``conanfile`` and
 .. code-block:: bash
 
     $ conan run "cmake --version" -pr:h=myprofile
-
-
-.. note::
-    This command activates both the ``host`` and ``build`` contexts, so that both contexts binaries are made available at once.
-    In case that a package exists in both contexts, the ``host`` context binaries take precedence.
