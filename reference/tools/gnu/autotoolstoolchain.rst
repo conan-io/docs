@@ -320,6 +320,12 @@ conf
   * ``rc``: will set ``RC`` in *conanautotoolstoolchain.sh|bat* script.
   * ``cuda``: will set ``NVCC`` in *conanautotoolstoolchain.sh|bat* script.
   * ``fortran``: will set ``FC`` in *conanautotoolstoolchain.sh|bat* script.
+  * ``objc`` *(since Conan 2.32)*: will set ``OBJC`` in *conanautotoolstoolchain.sh|bat* script.
+  * ``objcpp`` *(since Conan 2.32)*: will set ``OBJCXX`` in *conanautotoolstoolchain.sh|bat* script.
+  * ``asm`` *(since Conan 2.32)*: will set ``AS`` in *conanautotoolstoolchain.sh|bat* script.
+
+  Since Conan 2.32, keys not listed above are reported with a ``risk`` warning and
+  silently ignored by ``AutotoolsToolchain`` and ``GnuToolchain``.
 
 
 .. note::
