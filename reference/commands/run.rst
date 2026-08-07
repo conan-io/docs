@@ -26,6 +26,27 @@ For example, if we call a specific version of ``openssl`` we would:
 
 This command is useful when you want to execute some specific binary from any package.
 
+Running executables from profile ``[tool_requires]``
+----------------------------------------------------
+
+.. include:: ../../common/experimental_warning.inc
+
+Starting in Conan 2.32, ``conan run`` can be invoked without a ``conanfile`` and without
+``--requires`` / ``--tool-requires`` arguments. In that case, executables provided by the
+``[tool_requires]`` section of the active profile can be executed directly:
+
+.. code-block:: text
+    :caption: *myprofile*
+
+    include(default)
+    [tool_requires]
+    cmake/3.29.3
+
+.. code-block:: bash
+
+    $ conan run "cmake --version" -pr:h=myprofile
+
+
 .. note::
     This command activates both the ``host`` and ``build`` contexts, so that both contexts binaries are made available at once.
     In case that a package exists in both contexts, the ``host`` context binaries take precedence.
