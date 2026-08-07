@@ -821,4 +821,4 @@ This block injects ``$`` which will be expanded later. It also defines a cache v
   * ``ispc``: will set ``CMAKE_ISPC_COMPILER`` in *conan_toolchain.cmake*.
 
   Since Conan 2.32, keys not listed above (including uppercase variants such as ``RC``)
-  are reported with a ``risk`` warning and silently ignored by ``CMakeToolchain``.
+  are reported with a ``risk`` warning.

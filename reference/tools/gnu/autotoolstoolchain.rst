@@ -324,8 +324,7 @@ conf
   * ``objcpp`` *(since Conan 2.32)*: will set ``OBJCXX`` in *conanautotoolstoolchain.sh|bat* script.
   * ``asm`` *(since Conan 2.32)*: will set ``AS`` in *conanautotoolstoolchain.sh|bat* script.
 
-  Since Conan 2.32, keys not listed above are reported with a ``risk`` warning and
-  silently ignored by ``AutotoolsToolchain`` and ``GnuToolchain``.
+  Since Conan 2.32, keys not listed above are reported with a ``risk`` warning.
 
 
 .. note::
