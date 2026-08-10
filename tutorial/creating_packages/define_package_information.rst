@@ -301,9 +301,19 @@ And re-create the package:
 You can see how Conan now declares the target ``hello::myhello`` instead of the default
 ``hello::hello`` and the *test_package* builds successfully.
 
+Similarly, if the CMake config file name differs from the Conan package name, set the
+``cmake_file_name`` property so consumers can call ``find_package()`` with the right name,
+for example if the consumers are expected to do ``find_package(MyHello CONFIG REQUIRED)``
+
+.. code-block:: python
+    :caption: *conanfile.py*
+
+    def package_info(self):
+        self.cpp_info.set_property("cmake_file_name", "MyHello")
+
 The target name is not the only property you can set in the ``CMakeDeps`` generator. For a
 complete list of properties that affect the ``CMakeDeps`` generator behaviour, please check
-the :ref:`reference<CMakeDeps Properties>`. 
+the :ref:`reference<CMakeDeps Properties>`.
 
 Propagating environment or configuration information to consumers
 -----------------------------------------------------------------
