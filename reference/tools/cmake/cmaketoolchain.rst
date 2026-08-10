@@ -470,7 +470,10 @@ and added in this order:
 - **compilers**: Defines ``CMAKE_<LANG>_COMPILER`` for different languages, as defined by ``tools.build:compiler_executables`` configuration.
 - **android_system**: Defines ``ANDROID_PLATFORM``, ``ANDROID_STL``, ``ANDROID_ABI`` and includes ``ANDROID_NDK_PATH/build/cmake/android.toolchain.cmake``
   where ``ANDROID_NDK_PATH`` comes defined in ``tools.android:ndk_path`` configuration value.
-- **apple_system**: Defines ``CMAKE_OSX_ARCHITECTURES`` (see the :ref:`universal binaries section<conan_tools_cmaketoolchain_universal_binaries>`), ``CMAKE_OSX_SYSROOT`` for Apple systems.
+- **apple_system**: Defines ``CMAKE_OSX_ARCHITECTURES`` (see the :ref:`universal binaries section<conan_tools_cmaketoolchain_universal_binaries>`), ``CMAKE_OSX_SYSROOT`` for Apple systems. It also
+  defines a default for ``CMAKE_Swift_COMPILER_TARGET`` from the Apple settings, so Swift code can be cross-built for iOS, watchOS,
+  tvOS, visionOS and Mac Catalyst. This only takes effect with the ``Ninja`` generator, as the Xcode generator ignores this
+  variable, so ``Ninja`` is the recommended generator for Swift.
 - **fpic**: Defines the ``CMAKE_POSITION_INDEPENDENT_CODE`` when there is a ``options.fPIC``
 - **arch_flags**: Defines C/C++ flags like ``-m32, -m64`` when necessary.
 - **linker_scripts**: Defines the flags for any provided linker scripts.
