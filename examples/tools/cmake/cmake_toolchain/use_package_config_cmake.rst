@@ -51,6 +51,16 @@ This is a very typical recipe, the main difference is the ``package_info()`` met
 - It is defining that it will contain the build scripts (like the ``xxx-config.cmake`` package) inside that folder, to
   be located by consumers.
 
+.. note::
+
+    If the in-package ``xxx-config.cmake`` file has a different name than the Conan
+    package name, set the ``cmake_file_name`` property with the right value, so that
+    ``find_package()`` can locate it:
+
+    .. code-block:: python
+
+        self.cpp_info.set_property("cmake_file_name", "MyPkg")
+
 So the responsibility of defining the package details has been transferred to the ``CMakeLists.txt`` that contains:
 
 .. code-block:: cmake
