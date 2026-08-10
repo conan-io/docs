@@ -814,7 +814,7 @@ This block injects ``$`` which will be expanded later. It also defines a cache v
 
   * ``c``: will set ``CMAKE_C_COMPILER`` in *conan_toolchain.cmake*.
   * ``cpp``: will set ``CMAKE_CXX_COMPILER`` in *conan_toolchain.cmake*.
-  * ``RC``: will set ``CMAKE_RC_COMPILER`` in *conan_toolchain.cmake*.
+  * ``rc``: will set ``CMAKE_RC_COMPILER`` in *conan_toolchain.cmake*.
   * ``objc``: will set ``CMAKE_OBJC_COMPILER`` in *conan_toolchain.cmake*.
   * ``objcpp``: will set ``CMAKE_OBJCXX_COMPILER`` in *conan_toolchain.cmake*.
   * ``cuda``: will set ``CMAKE_CUDA_COMPILER`` in *conan_toolchain.cmake*.
@@ -822,3 +822,6 @@ This block injects ``$`` which will be expanded later. It also defines a cache v
   * ``asm``: will set ``CMAKE_ASM_COMPILER`` in *conan_toolchain.cmake*.
   * ``hip``: will set ``CMAKE_HIP_COMPILER`` in *conan_toolchain.cmake*.
   * ``ispc``: will set ``CMAKE_ISPC_COMPILER`` in *conan_toolchain.cmake*.
+
+  Since Conan 2.32, keys not listed above (including uppercase variants such as ``RC``)
+  are reported with a ``risk`` warning.
