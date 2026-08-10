@@ -10,7 +10,7 @@ which is a list of strings, where each string is the name of a policy to be enab
 .. code-block::
    :caption: ``global.conf``
 
-   core:policies = ["required_conan_version>=2.28", "deprecated_build_order_args"]
+   core:policies = ["required_conan_version>=2.28"]
 
 List of current policies
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -53,53 +53,3 @@ If both the policy and the recipe attribute are defined, the behavior will be en
 .. note::
    This policy is independent of the ``core:required_conan_version`` conf,
    which is exclusively used to define the minimum required Conan version.
-
-deprecated_build_order_args
----------------------------
-*Introduced in Conan 2.28*
-
-If the policy is defined, the old behaviour for ``conan graph build-order`` is kept where the
-``--order-by`` argument is not required, and the output is ordered by recipe by default.
-Note that when the argument is provided, the output format is different, such that the order is
-returned inside the ``order`` key of the json output, instead of being the top-level list.
-
-With ``core:policies=["deprecated_build_order_args"]``, the following command will work without the ``--order-by`` argument:
-
-.. code-block:: shell
-
-   $ conan graph build-order ... -f=json
-
-   [
-       [{...}, {...}],
-       [{...}]
-   ]
-
-Without the policy, the ``--order-by`` argument is mandatory, and the output will be:
-
-.. code-block:: shell
-
-   $ conan graph build-order ... -f=json --order-by=recipe
-
-   {
-       "order": [
-           [{...}, {...}],
-           [{...}]
-       ],
-       "order_by": "recipe",
-       ...
-   }
-
-
-
-.. warning::
-   **Will be removed in Conan 2.32**, where the ``--order-by`` argument will be mandatory and the old behavior will be removed.
-
-deprecated_empty_version_range
-------------------------------
-*Introduced in Conan 2.28*
-
-If the policy is enabled, Conan will accept empty version ranges (e.g., ``pkg/[]``) as valid,
-and they will be treated as "any version" (equivalent to ``pkg/[*]``).
-
-.. warning::
-   **Will be removed in Conan 2.32**, where empty version ranges will be considered invalid and treated as a syntax error.
