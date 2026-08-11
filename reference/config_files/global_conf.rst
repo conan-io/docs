@@ -512,6 +512,11 @@ This is useful to avoid recurrent downloads of the same packages, especially in 
 
 **Default value:** Not defined.
 
+.. note::
+
+   When this conf is defined and an artifact is uploaded to a remote,
+   Conan will also populate the download cache of the client with the same artifact.
+
 
 UX confs
 --------
