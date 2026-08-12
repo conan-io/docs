@@ -58,8 +58,9 @@ In this case, in the build step, which is where we will use the installed tool.
             basic_layout(self)
 
         def generate(self):
-            PyEnv(self).install(["meson==1.9.1"])
-            PyEnv(self).generate()
+            pyenv = PyEnv(self)
+            pyenv.install(["meson==1.9.1"])
+            pyenv.generate()
 
         def build(self):
             self.run("meson --version")
