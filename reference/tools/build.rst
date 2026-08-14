@@ -34,6 +34,13 @@ conan.tools.build.can_run()
 .. autofunction:: can_run
 
 
+conan.tools.build.architecture_bits()
+"""""""""""""""""""""""""""""""""""""
+
+.. currentmodule:: conan.tools.build.flags
+
+.. autofunction:: architecture_bits
+
 
 Cppstd
 ^^^^^^
@@ -163,4 +170,3 @@ conan.tools.build.check_min_compiler_version()
 .. currentmodule:: conan.tools.build.compiler
 
 .. autofunction:: check_min_compiler_version
-
