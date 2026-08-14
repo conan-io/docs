@@ -71,6 +71,21 @@ generator is used.
 
     - Check the :ref:`Qbs helper <conan_tools_qbs_helper>` for details.
 
+Properties
+----------
+
+The following property affects the ``QbsDeps`` generator:
+
+- **qbs_file_name** property will define the name of the generated module file
+  (``xxxxx.json``), overriding the ``pkg_config_name`` property and the package name.
+  This is useful to avoid naming collisions between a Qbs module and the Conan package
+  it depends on, e.g. the ``protobuf`` Qbs module and the ``protobuf`` Conan package.
+
+.. code-block:: python
+
+    def package_info(self):
+        self.cpp_info.set_property("qbs_file_name", "MyFirstLib")
+
 Reference
 ---------
 
