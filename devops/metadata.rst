@@ -276,8 +276,8 @@ recipe or package revision into an arbitrary folder, bypassing the Conan cache. 
 useful for custom commands and CI workflows that need to inspect metadata (build logs,
 test outputs...) without changing the local cache state:
 
-- ``DownloadAPI.recipe_metadata(ref, remote, metadata, folder)``
-- ``DownloadAPI.package_metadata(pref, remote, metadata, folder)``
+- :meth:`DownloadAPI.recipe_metadata <conan.api.subapi.download.DownloadAPI.recipe_metadata>`
+- :meth:`DownloadAPI.package_metadata <conan.api.subapi.download.DownloadAPI.package_metadata>`
 
 Both methods require a fully resolved reference (with recipe revision, and package
 revision for the package case), the target ``Remote``, the metadata patterns to fetch,
