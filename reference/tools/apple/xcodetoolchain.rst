@@ -67,15 +67,20 @@ Those files are:
   variables with conditional logic depending on the build configuration, architecture and sdk set.
 - *conantoolchain.xcconfig*: aggregates all the *conantoolchain_<config>_<arch>.xcconfig*
   files for the different installed configurations.
-- *conan_global_flags.xcconfig*: this file will only be generated in case of any
-  configuration variables related to compiler or linker flags are set. Check :ref:`the
-  configuration section<xcodetoolchain_conf>` below for more details.
-
+- *conan_global_flags_<config>_<arch>.xcconfig*: declares ``GCC_PREPROCESSOR_DEFINITIONS``,
+  ``OTHER_CFLAGS``, ``OTHER_CPLUSPLUSFLAGS`` and ``OTHER_LDFLAGS`` variables with conditional
+  logic depending on the build configuration, architecture and sdk set. This file will only
+  be generated in case any configuration variables related to compiler or linker flags are
+  set. Check :ref:`the configuration section<xcodetoolchain_conf>` below for more details.
+- *conan_global_flags.xcconfig*: aggregates all the
+  *conan_global_flags_<config>_<arch>.xcconfig* files for the different installed
+  configurations (*since Conan 2.32*).
 
 Every invocation to ``conan install`` with different configuration will create a new
-*conantoolchain_<config>_<arch>.xcconfig* file that is aggregated in the
-*conantoolchain.xcconfig*, so you can have different configurations included in your Xcode
-project.
+*conantoolchain_<config>_<arch>.xcconfig* and, if any compiler or linker flags are set, a new
+*conan_global_flags_<config>_<arch>.xcconfig* file. Both are aggregated in
+*conantoolchain.xcconfig* and *conan_global_flags.xcconfig* respectively, so you can have
+different configurations included in your Xcode project.
 
 The XcodeToolchain files can declare the following Xcode build settings based on Conan settings values:
 
