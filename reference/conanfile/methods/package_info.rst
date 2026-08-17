@@ -82,7 +82,7 @@ Flags:
 
 Properties:
 
-- **set_property()** allows to define some built-in and user general properties to be propagated with the ``cpp_info`` model for consumers. They might contain build-system specific information. Some built-in properties are ``cmake_file_name``, ``cmake_target_name``, ``pkg_config_name``, that can define specific behavior for ``CMakeDeps`` or ``PkgConfigDeps`` generators. For more information about these, read the specific build system integration documentation.
+- **set_property()** allows to define some built-in and user general properties to be propagated with the ``cpp_info`` model for consumers. They might contain build-system specific information. Some built-in properties are ``cmake_file_name``, ``cmake_target_name``, ``pkg_config_name``, ``qbs_file_name``, that can define specific behavior for ``CMakeDeps``, ``PkgConfigDeps`` or ``QbsDeps`` generators. For more information about these, read the specific build system integration documentation.
 
 Structure:
 
