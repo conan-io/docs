@@ -266,6 +266,52 @@ Note that the "package-list" will only contain associated to the "remote" origin
 There are other possibilities, like a custom command that can automatically collect and download dependencies metadata from the servers.
 
 
+Downloading metadata to an arbitrary folder
++++++++++++++++++++++++++++++++++++++++++++
+
+.. include:: ../common/experimental_warning.inc
+
+Since Conan 2.32, the Python API provides two methods to fetch only the metadata of a
+recipe or package revision into an arbitrary folder, bypassing the Conan cache. This is
+useful for custom commands and CI workflows that need to inspect metadata (build logs,
+test outputs...) without changing the local cache state:
+
+- :meth:`DownloadAPI.recipe_metadata <conan.api.subapi.download.DownloadAPI.recipe_metadata>`
+- :meth:`DownloadAPI.package_metadata <conan.api.subapi.download.DownloadAPI.package_metadata>`
+
+Both methods require a fully resolved reference (with recipe revision, and package
+revision for the package case), the target ``Remote``, the metadata patterns to fetch,
+and the destination folder. The metadata files are written under ``<folder>/metadata/``.
+This can be wrapped in a custom command as follows:
+
+.. code-block:: python
+
+    import os
+    from conan.api.model import PkgReference, RecipeReference
+    from conan.cli.command import conan_command
+
+
+    @conan_command(group="custom commands")
+    def metadata_download(conan_api, parser, *args):
+        """Download the metadata of a recipe/package revision into cwd (no cache)."""
+        parser.add_argument("reference")
+        parser.add_argument("-r", "--remote", required=True)
+        a = parser.parse_args(*args)
+        remote = conan_api.remotes.get(a.remote)
+        if ":" in a.reference:
+            pref = PkgReference.loads(a.reference)
+            if pref.ref.revision is None:
+                pref.ref = conan_api.list.latest_recipe_revision(pref.ref, remote)
+            if pref.revision is None:
+                pref = conan_api.list.latest_package_revision(pref, remote)
+            conan_api.download.package_metadata(pref, remote, ["*"], os.getcwd())
+        else:
+            ref = RecipeReference.loads(a.reference)
+            if ref.revision is None:
+                ref = conan_api.list.latest_recipe_revision(ref, remote)
+            conan_api.download.recipe_metadata(ref, remote, ["*"], os.getcwd())
+
+
 Removing metadata
 -----------------
 At the moment it is not possible to remove metadata from the server side using Conan, as the metadata are "additive", it is possible to add new data, but not to remove it (otherwise it would not be possible to add new metadata without downloading first all the previous metadata, and that can be quite inefficient and more error prone, specially sensitive to possible race conditions).
