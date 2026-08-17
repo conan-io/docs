@@ -107,3 +107,21 @@ This toolchain is also affected by these **[conf]** variables:
 If you set any of these variables, the toolchain will use them to generate the
 ``conan_global_flags.xcconfig`` file that will be included from the ``conan_config.xcconfig``
 file.
+
+build_settings
+++++++++++++++
+
+The ``build_settings`` attribute lets a recipe set any Xcode build setting
+directly. Settings already covered by a **[conf]** variable, such as
+``OTHER_CFLAGS``, ``OTHER_CPLUSPLUSFLAGS``, ``OTHER_LDFLAGS`` and
+``GCC_PREPROCESSOR_DEFINITIONS``, should instead be set with the
+``tools.build:*`` variables from the :ref:`conf section<xcodetoolchain_conf>`
+above:
+
+.. code:: python
+
+    def generate(self):
+        tc = XcodeToolchain(self)
+        tc.build_settings["OTHER_SWIFT_FLAGS"] = "$(inherited) -cxx-interoperability-mode=default"
+        tc.build_settings["GCC_WARN_UNUSED_VARIABLE"] = "YES"
+        tc.generate()
