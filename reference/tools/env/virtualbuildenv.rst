@@ -97,6 +97,14 @@ will create the following files:
 
 .. note::
 
+    On Linux and macOS, setting the (new in Conan 2.32) ``tools.env.virtualenv:fish`` configuration
+    to ``True`` will **additionally** create ``.fish`` launchers, on top of (never instead of) the
+    ``.sh`` ones. These are only meant to be manually ``source``-d by the final consumer in an
+    interactive Fish session: Conan itself never uses them to wrap ``self.run()`` commands.
+
+
+.. note::
+
     To create ``.env`` dotenv files, use the **experimental** (new in Conan 2.21) ``tools.env:dotenv`` configuration.
     These files are not intended to be activated as scripts, but loaded by tools such as IDEs.
     The configuration specific files such as ``conanbuildenv-Release.env`` will be generated, as the
