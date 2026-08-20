@@ -208,9 +208,35 @@ To declare that a recipe provides the functionality of several different recipes
 If the attribute is omitted, the value of the attribute is assumed to be equal to the current package name. Thus, it's redundant for
 ``libjpeg`` recipe to declare that it provides ``libjpeg``, it's already implicitly assumed by Conan.
 
+.. _conan_conanfile_attributes_runtime_artifacts:
+
 runtime_artifacts
 -----------------
 
 This attribute declares that the package has runtime artifacts that consumers should be aware of.
 This is useful for ``package_type="static-library"`` recipes that nevertheless also contain shared libraries,
-so that runtime their folders are exposed to the consumers.
+so that at runtime their folders are exposed to the consumers.
+
+By default, a ``static-library`` dependency gets the ``run`` requirement trait set to ``False`` (see
+:ref:`package_type trait inferring<reference_conanfile_package_type_trait_inferring>`), so its binary can be
+skipped when only linked transitively, and its folders are not added to the runtime environment by
+generators like :ref:`VirtualRunEnv<conan_tools_env_virtualrunenv>`, nor collected by deployers like
+:ref:`runtime_deploy<reference_extensions_deployer_runtime_deploy>`. Declaring ``runtime_artifacts = True``
+forces ``run=True`` for every consumer of the package, regardless of its ``package_type``:
+
+.. code-block:: python
+
+    from conan import ConanFile
+
+    class Pkg(ConanFile):
+        name = "mypkg"
+        version = "1.0"
+        # This is a static library, but it also ships a shared library (e.g. a plugin) that
+        # consumers need available at runtime
+        package_type = "static-library"
+        runtime_artifacts = True
+
+.. seealso::
+
+    - :ref:`The run requirement trait<reference_conanfile_methods_requirements>`.
+    - :ref:`How package_type infers the run trait<reference_conanfile_package_type_trait_inferring>`.
