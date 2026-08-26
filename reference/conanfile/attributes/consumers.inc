@@ -208,10 +208,10 @@ To declare that a recipe provides the functionality of several different recipes
 If the attribute is omitted, the value of the attribute is assumed to be equal to the current package name. Thus, it's redundant for
 ``libjpeg`` recipe to declare that it provides ``libjpeg``, it's already implicitly assumed by Conan.
 
-.. _conan_conanfile_attributes_runtime_artifacts:
+.. _conan_conanfile_attributes_package_type_traits:
 
-runtime_artifacts
------------------
+package_type_traits
+-------------------
 
 This attribute declares that the package has runtime artifacts that consumers should be aware of.
 This is useful for ``package_type="static-library"`` recipes that nevertheless also contain shared libraries,

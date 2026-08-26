@@ -19,7 +19,8 @@ the compiled executables and applications. The information is obtained from:
     Only dependencies whose ``run`` requirement trait is ``True`` contribute their folders to this
     environment. This is normally inferred from the dependency's ``package_type`` (e.g. ``shared-library``
     or ``application``), but a ``static-library`` that also ships runtime artifacts, like a shared library,
-    can opt in by declaring :ref:`runtime_artifacts=True<conan_conanfile_attributes_runtime_artifacts>` in
+    can opt in by declaring ``"run": True`` inside
+    :ref:`package_type_traits<conan_conanfile_attributes_runtime_artifacts>` in
     its recipe.
 
 It can be used by name in conanfiles:

@@ -285,8 +285,8 @@ And that will force the download of the binary for ``mydep/0.1`` when the binary
 .. seealso::
 
     If a dependency should always be treated as needed at runtime by every consumer, for example a
-    ``static-library`` that also ships a shared library, consider declaring
-    :ref:`runtime_artifacts=True<conan_conanfile_attributes_runtime_artifacts>` in that dependency's own
+    ``static-library`` that also ships a shared library, consider declaring ``"run": True`` inside
+    :ref:`package_type_traits<conan_conanfile_attributes_runtime_artifacts>` in that dependency's own
     recipe instead. Unlike ``no_skip``, which is opted into per ``requires()`` and only forces the binary
     download, ``runtime_artifacts`` is declared once by the dependency and also sets ``run=True``, so its
     folders are exposed in the runtime environment and it is correctly picked up by deployers like
@@ -317,8 +317,8 @@ The inferring rules are:
 
 .. note::
 
-    A dependency that declares
-    :ref:`runtime_artifacts=True<conan_conanfile_attributes_runtime_artifacts>` in its own recipe always
+    A dependency that declares ``"run": True`` inside
+    :ref:`package_type_traits<conan_conanfile_attributes_runtime_artifacts>` in its own recipe always
     gets ``run=True``, overriding the ``package_type``-based default above. This is meant for packages
     that ship extra artifacts needed at runtime regardless of their ``package_type``, like a
     ``static-library`` that also contains a shared library.

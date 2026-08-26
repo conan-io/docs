@@ -74,8 +74,8 @@ and ``cpp_info.libdirs`` configuration.
 
     ``runtime_deploy`` only copies dependencies whose requirement has the ``run`` trait set to ``True``.
     A ``static-library`` dependency is skipped by default, even if it internally ships a shared library
-    needed at runtime. To include such a dependency, declare
-    :ref:`runtime_artifacts=True<conan_conanfile_attributes_runtime_artifacts>` in its recipe.
+    needed at runtime. To include such a dependency, declare ``"run": True`` inside
+    :ref:`package_type_traits<conan_conanfile_attributes_runtime_artifacts>` in its recipe.
 
 
 .. _reference_extensions_deployer_cyclone:
