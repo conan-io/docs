@@ -3,6 +3,51 @@ Changelog
 
 This page lists the changes made to Conan in each version, with links to each pull request for more details.
 
+2.32.0 (31-Aug-2026)
+--------------------
+
+- Feature: Add `!settings.build_type` syntax to exclude `build_type` from `cmake_layout`'s `build_folder_vars`. `#17331 <https://github.com/conan-io/conan/pull/17331>`_ . Docs `here <https://github.com/conan-io/docs/pull/4527>`__
+- Feature: Accept CMake 4.4 `--preset-file` presets generated outside the CMake root. `#20158 <https://github.com/conan-io/conan/pull/20158>`_ . Docs `here <https://github.com/conan-io/docs/pull/4528>`__
+- Feature: Populate the download cache with uploaded artifacts if `core.download:download_cache` is set. `#20163 <https://github.com/conan-io/conan/pull/20163>`_ . Docs `here <https://github.com/conan-io/docs/pull/4518>`__
+- Feature: Rework the `conan graph build-order` HTML formatter with search and full offline support. `#20174 <https://github.com/conan-io/conan/pull/20174>`_
+- Feature: Allow :command:`conan run` without a conanfile to run executables from the profile's `[tool_requires]`. `#20214 <https://github.com/conan-io/conan/pull/20214>`_ . Docs `here <https://github.com/conan-io/docs/pull/4511>`__
+- Feature: Add `qbs_file_name` property to override the generated Qbs module name and avoid collisions. `#20215 <https://github.com/conan-io/conan/pull/20215>`_ . Docs `here <https://github.com/conan-io/docs/pull/4520>`__
+- Feature: Feature: Allow `copy()` to accept multiple patterns, also used by `exports`/`exports_sources`, for speedup. `#20217 <https://github.com/conan-io/conan/pull/20217>`_ . Docs `here <https://github.com/conan-io/docs/pull/4512>`__
+- Feature: Add `--ref` argument to `conan editable add <path>` as a shortcut to define name, version, etc. `#20218 <https://github.com/conan-io/conan/pull/20218>`_
+- Feature: Add `package_type_traits` attribute to force requirement traits by `package_type` (`run` only for now). `#20228 <https://github.com/conan-io/conan/pull/20228>`_ . Docs `here <https://github.com/conan-io/docs/pull/4526>`__
+- Feature: Make `conan report diff -f=html` use a dark theme by default. `#20229 <https://github.com/conan-io/conan/pull/20229>`_
+- Feature: Improve ``source`` step output. `#20234 <https://github.com/conan-io/conan/pull/20234>`_
+- Feature: Add `recipe_metadata()`/`package_metadata()` API to download metadata to a user folder. `#20240 <https://github.com/conan-io/conan/pull/20240>`_ . Docs `here <https://github.com/conan-io/docs/pull/4514>`__
+- Feature: Compute `CMAKE_Swift_COMPILER_TARGET` in `CMakeToolchain` for Apple Swift cross-builds. `#20243 <https://github.com/conan-io/conan/pull/20243>`_ . Docs `here <https://github.com/conan-io/docs/pull/4515>`__
+- Feature: Add `architecture_bits` build helper to detect when the target architecture is 64-bit. `#20246 <https://github.com/conan-io/conan/pull/20246>`_ . Docs `here <https://github.com/conan-io/docs/pull/4522>`__
+- Feature: ``conan workspace open`` with no arguments will read the ``conanws`` file and try to open the defined references there into their respective folders if they are not present. `#20247 <https://github.com/conan-io/conan/pull/20247>`_ . Docs `here <https://github.com/conan-io/docs/pull/4529>`__
+- Feature: ``conan workspace open`` and ``conan workspace add --ref`` learned a new ``--folder`` argument to indicate the relative location wrt the workspace root for the cloning of the repository. `#20247 <https://github.com/conan-io/conan/pull/20247>`_ . Docs `here <https://github.com/conan-io/docs/pull/4529>`__
+- Feature: `XcodeToolchain` now accepts arbitrary extra xcconfig settings via `tc.build_settings`, for build settings with no dedicated conf. `#20256 <https://github.com/conan-io/conan/pull/20256>`_ . Docs `here <https://github.com/conan-io/docs/pull/4524>`__
+- Feature: Add ``raise_on_errors=True`` arg to ``CommandAPI.run``, it now raises on all errors returned by commands. `#20266 <https://github.com/conan-io/conan/pull/20266>`_
+- Feature: Parse reference attributes from `--ref` in `workspace add`. `#20269 <https://github.com/conan-io/conan/pull/20269>`_
+- Feature: Add support for `Xcode 2.26`. `#20280 <https://github.com/conan-io/conan/pull/20280>`_
+- Feature: Add support for `gcc 16.2`. `#20280 <https://github.com/conan-io/conan/pull/20280>`_
+- Feature: Add basic LoongArch64 architecture support and host detection. `#20288 <https://github.com/conan-io/conan/pull/20288>`_
+- Fix: Remove the deprecated `--order-by` behavior and empty version ranges, as planned for Conan 2.32. `#20207 <https://github.com/conan-io/conan/pull/20207>`_ . Docs `here <https://github.com/conan-io/docs/pull/4517>`__
+- Fix: Make `conan lock upgrade-config`'s `path` argument point to a `conanconfig.yml` file, not a `conanfile.py`. `#20208 <https://github.com/conan-io/conan/pull/20208>`_ . Docs `here <https://github.com/conan-io/docs/pull/4510>`__
+- Fix: Warn when `tools.build:compiler_executables` keys are unknown or unused by `CMakeToolchain`/`AutotoolsToolchain`. `#20219 <https://github.com/conan-io/conan/pull/20219>`_ . Docs `here <https://github.com/conan-io/docs/pull/4513>`__
+- Fix: Add `objc`, `objcpp` and `asm` as `tools.build:compiler_executables` for `AutotoolsToolchain`. `#20219 <https://github.com/conan-io/conan/pull/20219>`_ . Docs `here <https://github.com/conan-io/docs/pull/4513>`__
+- Fix: Improve `copy()` performance when using lists of patterns. `#20226 <https://github.com/conan-io/conan/pull/20226>`_
+- Fix: Remove the Vigenère cipher used to store JWTs, since it provided no real security benefit. `#20227 <https://github.com/conan-io/conan/pull/20227>`_
+- Fix: Correct filename parsing in `conan report diff -f=html` for non-ASCII filenames. `#20229 <https://github.com/conan-io/conan/pull/20229>`_
+- Fix: `XcodeToolchain`'s extra flags (`tools.build:cflags/cxxflags/ldflags/defines`) no longer get overwritten when installing more than one configuration for the same project. `#20255 <https://github.com/conan-io/conan/pull/20255>`_ . Docs `here <https://github.com/conan-io/docs/pull/4523>`__
+- Fix: Make `test_linker_script` test resilient to the exact linker error text, which changed with Meson >= 1.12. `#20257 <https://github.com/conan-io/conan/pull/20257>`_
+- Fix: Match the `dll.a` extension (MinGW) in `deduce_full_cpp_info`. `#20259 <https://github.com/conan-io/conan/pull/20259>`_
+- Fix: Generate valid CycloneDX SBOMs for recipes without a `description` attribute. `#20263 <https://github.com/conan-io/conan/pull/20263>`_
+- Fix: Add support for lockfile reading in :command:`conan source` for Python requires. `#20264 <https://github.com/conan-io/conan/pull/20264>`_
+- Fix: Add support for python requires in remotes for `conan workspace create`. `#20265 <https://github.com/conan-io/conan/pull/20265>`_
+- Fix: Failed creates in ``workspace`` subcommands now raise errors as expected. `#20266 <https://github.com/conan-io/conan/pull/20266>`_
+- Fix: Correct a typo in the CycloneDX component recipe revision. `#20271 <https://github.com/conan-io/conan/pull/20271>`_
+- Fix: Do not force `CONFIG` requires for transitive dependencies in `CMakeConfigDeps`. `#20283 <https://github.com/conan-io/conan/pull/20283>`_
+- Bugfix: Make `CMakeConfigDeps` generate common files only for the host context, avoiding lost CMake variables. `#20198 <https://github.com/conan-io/conan/pull/20198>`_
+- Bugfix: Keep the local recipe index cache folder when `conan remote add` fails on a duplicate without `--force`. `#20210 <https://github.com/conan-io/conan/pull/20210>`_
+- Bugfix: intel-cc default compilers on Windows. Classic mode now defaults to `icl` (not `icc`/`icpc`), icx mode to `icx` (not `icx-cl`, which is absent in older oneAPI), and CMakeToolchain now honors `CC`/`CXX` from `[buildenv]` over the hard-coded defaults. `#20233 <https://github.com/conan-io/conan/pull/20233>`_
+
 2.31.2 (04-Aug-2026)
 --------------------
 
