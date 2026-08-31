@@ -234,6 +234,8 @@ forces ``run=True`` for every consumer of the package, regardless of its ``packa
         # This is a static library, but it also ships a shared library (e.g. a plugin) that
         # consumers need available at runtime
         package_type = "static-library"
+        # Only supports run: True value at the moment
+        # No other combination of trait: value should be set
         package_type_traits = {"run": True}
 
 .. seealso::
