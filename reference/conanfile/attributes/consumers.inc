@@ -217,6 +217,17 @@ This attribute declares that the package has runtime artifacts that consumers sh
 This is useful for ``package_type="static-library"`` recipes that nevertheless also contain shared libraries, or by  ``package_type="header-library"`` that have some kind of resource that library needs at runtime,
 so that at runtime their folders are exposed to the consumers.
 
+It is important to still declare the ``package_type`` that best describes the package for linkage and
+``package_id`` purposes (see :ref:`the effect of dependencies on package_id<reference_binary_model_dependencies>`
+and :ref:`package_type trait inferring<reference_conanfile_package_type_trait_inferring>`), and use
+``package_type_traits`` only to fix the specific trait that ``package_type`` got wrong, instead of changing
+the ``package_type`` itself. For example, a package that is fundamentally a static library, meant to be
+embedded and to force a rebuild of its direct consumers like any other static library, should keep
+``package_type = "static-library"``, even if it also happens to ship a shared library or some other resource
+needed at runtime. Declaring it instead as ``package_type = "shared-library"`` would also change the
+``package_id`` computation mode and the linkage information propagated to consumers, when the only thing
+that actually needs fixing is the ``run`` trait.
+
 By default, a ``static-library`` dependency gets the ``run`` requirement trait set to ``False`` (see
 :ref:`package_type trait inferring<reference_conanfile_package_type_trait_inferring>`), so its binary can be
 skipped when only linked transitively, and its folders are not added to the runtime environment by
@@ -234,9 +245,14 @@ forces ``run=True`` for every consumer of the package, regardless of its ``packa
         # This is a static library, but it also ships a shared library (e.g. a plugin) that
         # consumers need available at runtime
         package_type = "static-library"
-        # Only supports run: True value at the moment
-        # No other combination of trait: value should be set
         package_type_traits = {"run": True}
+
+.. note::
+
+    At the moment, ``run`` is the only key read from ``package_type_traits``, and ``True`` is the only
+    value that has an effect. Setting any other trait or value currently does nothing, so it shouldn't be
+    relied upon: unsupported keys are silently ignored today, but might be validated, or start having an
+    effect, in future Conan versions.
 
 .. seealso::
 
