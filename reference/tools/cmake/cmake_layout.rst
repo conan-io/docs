@@ -112,3 +112,24 @@ The ``CMakePresets.json`` file generated at the :ref:`CMakeToolchain<conan_tools
 generator, will also take this ``tools.cmake.cmake_layout:build_folder_vars`` config into account to generate different
 names for the presets, being very handy to install N configurations and building our project for any of them by
 selecting the chosen preset.
+
+By default, ``settings.build_type`` is always taken into account to compute the ``conanfile.folders.build``
+folder for single-configuration generators, even if it is not explicitly listed in ``build_folder_vars``. It is
+possible to opt out of this default behavior with the ``!settings.build_type`` exclusion marker:
+
+.. code:: bash
+
+    conan install . -c tools.cmake.cmake_layout:build_folder_vars="['!settings.build_type']"
+
+With this configuration, the ``build_type`` won't be added to the ``conanfile.folders.build`` folder nor to the
+generated preset name, even for single-configuration generators, resulting in a plain ``build`` folder and a
+``conan-default`` preset regardless of the ``build_type`` value. It can be combined with other settings and
+options:
+
+.. code:: bash
+
+    conan install . -c tools.cmake.cmake_layout:build_folder_vars="['settings.compiler.cppstd', '!settings.build_type']"
+
+producing a ``build/17`` folder and a ``conan-17`` preset name, still excluding the ``build_type`` from both.
+This is useful to avoid having different ``Debug``/``Release`` folders and presets when that separation is not
+desired. Currently, ``!settings.build_type`` is the only supported exclusion marker.
