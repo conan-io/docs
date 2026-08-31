@@ -214,7 +214,7 @@ package_type_traits
 -------------------
 
 This attribute declares that the package has runtime artifacts that consumers should be aware of.
-This is useful for ``package_type="static-library"`` recipes that nevertheless also contain shared libraries,
+This is useful for ``package_type="static-library"`` recipes that nevertheless also contain shared libraries, or by  ``package_type="header-library"`` that have some kind of resource that library needs at runtime,
 so that at runtime their folders are exposed to the consumers.
 
 By default, a ``static-library`` dependency gets the ``run`` requirement trait set to ``False`` (see
