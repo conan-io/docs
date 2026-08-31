@@ -20,7 +20,7 @@ the compiled executables and applications. The information is obtained from:
     environment. This is normally inferred from the dependency's ``package_type`` (e.g. ``shared-library``
     or ``application``), but a ``static-library`` that also ships runtime artifacts, like a shared library,
     can opt in by declaring ``"run": True`` inside
-    :ref:`package_type_traits<conan_conanfile_attributes_runtime_artifacts>` in
+    :ref:`package_type_traits<conan_conanfile_attributes_package_type_traits>` in
     its recipe.
 
 It can be used by name in conanfiles:
