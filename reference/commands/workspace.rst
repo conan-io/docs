@@ -44,6 +44,11 @@ conan workspace [add | remove]
 Use these commands to add or remove editable packages to the current workspace. The ``conan workspace add <path>``
 folder must contain a ``conanfile.py``. That path can be relative to your current workspace.
 
+When adding a package, the reference ``conan workspace add --ref <ref>`` can be used instead of the individual
+arguments  ``--name``, ``--version``, etc.
+Also, the optional ``--folder`` argument can be used to control the relative path (to the workspace root) where 
+the package will be added. Subfolders are allowed, e.g. ``--folder=libs/mypkg``.
+
 The ``conanws.py`` has a default implementation, but it is possible to override the default behavior:
 
 .. code-block:: python
@@ -127,6 +132,23 @@ conan workspace open
 The new ``conan workspace open`` command implements a new concept. The packages containing an ``scm`` information in
 the ``conandata.yml`` (with ``git.coordinates_to_conandata()``) can be automatically cloned and checkout inside the
 current workspace from their Conan recipe reference (including recipe revision).
+
+The optional ``--folder`` argument can be used together with an explicit reference to control the relative path
+(to the workspace root) where the package will be cloned. Subfolders are allowed, e.g. ``--folder=libs/mypkg``:
+
+.. code-block:: bash
+
+   $ conan workspace open mypkg/1.0 --folder=libs/mypkg
+
+
+If ``conan workspace open`` is called without a reference argument, it will read the current ``conanws`` file and
+automatically open every package it defines whose folder doesn't already exist yet, cloning each one into its
+workspace-defined path:
+
+.. code-block:: bash
+
+   $ conan workspace open
+
 
 See :ref:`conan workspace complete<workspace_complete_command>` command to open/add multiple packages that are missing
 in the package to connect different packages already existing in the workspace.
