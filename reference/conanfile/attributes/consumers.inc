@@ -221,7 +221,7 @@ By default, a ``static-library`` dependency gets the ``run`` requirement trait s
 :ref:`package_type trait inferring<reference_conanfile_package_type_trait_inferring>`), so its binary can be
 skipped when only linked transitively, and its folders are not added to the runtime environment by
 generators like :ref:`VirtualRunEnv<conan_tools_env_virtualrunenv>`, nor collected by deployers like
-:ref:`runtime_deploy<reference_extensions_deployer_runtime_deploy>`. Declaring ``runtime_artifacts = True``
+:ref:`runtime_deploy<reference_extensions_deployer_runtime_deploy>`. Declaring ``package_type_traits = {"run": True}``
 forces ``run=True`` for every consumer of the package, regardless of its ``package_type``:
 
 .. code-block:: python
@@ -234,7 +234,7 @@ forces ``run=True`` for every consumer of the package, regardless of its ``packa
         # This is a static library, but it also ships a shared library (e.g. a plugin) that
         # consumers need available at runtime
         package_type = "static-library"
-        runtime_artifacts = True
+        package_type_traits = {"run": True}
 
 .. seealso::
 

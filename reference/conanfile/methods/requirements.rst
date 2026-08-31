@@ -288,7 +288,7 @@ And that will force the download of the binary for ``mydep/0.1`` when the binary
     ``static-library`` that also ships a shared library, consider declaring ``"run": True`` inside
     :ref:`package_type_traits<conan_conanfile_attributes_package_type_traits>` in that dependency's own
     recipe instead. Unlike ``no_skip``, which is opted into per ``requires()`` and only forces the binary
-    download, ``runtime_artifacts`` is declared once by the dependency and also sets ``run=True``, so its
+    download, ``package_type_traits`` is declared once by the dependency and also sets ``run=True``, so its
     folders are exposed in the runtime environment and it is correctly picked up by deployers like
     :ref:`runtime_deploy<reference_extensions_deployer_runtime_deploy>`.
 
