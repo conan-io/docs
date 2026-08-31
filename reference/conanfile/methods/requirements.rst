@@ -244,6 +244,8 @@ It is possible to define options values for dependencies as a trait:
     to define options values is in profile files.
 
 
+.. _reference_conanfile_methods_requirements_no_skip:
+
 no_skip
 ~~~~~~~
 
@@ -275,10 +277,20 @@ And that will force the download of the binary for ``mydep/0.1`` when the binary
 
   **Best practices**
 
-  The usage of ``no_skip=True`` should be exceptional, for very limited and extraordinary use cases, the default Conan 
+  The usage of ``no_skip=True`` should be exceptional, for very limited and extraordinary use cases, the default Conan
   "skipping binaries" behavior should be good for the vast majority of cases. Typically, it wouldn't make sense in isolation,
   but if used jointly with other traits such as ``visible=False``. Avoid using it except when absolutely
   necessary, and it should only be used in very particular recipes. If used in many recipes, it is most likely an abuse.
+
+.. seealso::
+
+    If a dependency should always be treated as needed at runtime by every consumer, for example a
+    ``static-library`` that also ships a shared library, consider declaring ``"run": True`` inside
+    :ref:`package_type_traits<conan_conanfile_attributes_package_type_traits>` in that dependency's own
+    recipe instead. Unlike ``no_skip``, which is opted into per ``requires()`` and only forces the binary
+    download, ``package_type_traits`` is declared once by the dependency and also sets ``run=True``, so its
+    folders are exposed in the runtime environment and it is correctly picked up by deployers like
+    :ref:`runtime_deploy<reference_extensions_deployer_runtime_deploy>`.
 
 
 
@@ -302,6 +314,14 @@ The inferring rules are:
  * ``static-library``: ``run=False``
  * ``header-library``: ``headers=True``, ``libs=False``, ``run=False``
  * ``build-scripts``: ``headers=False``, ``libs=False``, ``run=True``, ``visible=False``
+
+.. note::
+
+    A dependency that declares ``"run": True`` inside
+    :ref:`package_type_traits<conan_conanfile_attributes_package_type_traits>` in its own recipe always
+    gets ``run=True``, overriding the ``package_type``-based default above. This is meant for packages
+    that ship extra artifacts needed at runtime regardless of their ``package_type``, like a
+    ``static-library`` that also contains a shared library.
 
 This means that if in your recipe you have ``self.requires("mypkg/1.0")``, and ``mypkg/1.0`` has
 ``package_type="application"``, then the effective traits for that ``requires`` will be

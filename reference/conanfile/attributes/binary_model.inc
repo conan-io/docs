@@ -47,6 +47,14 @@ If some package want to use both some build scripts and link with a given librar
 
 .. note::
 
+    The runtime propagation implied by ``package_type`` can be overridden by declaring ``"run": True`` inside
+    :ref:`package_type_traits<conan_conanfile_attributes_package_type_traits>` attribute. This is useful, for
+    example, for a ``static-library`` that also ships a shared library that consumers need available at
+    runtime, which would otherwise not be exposed, as ``static-library`` implies ``run=False``.
+
+
+.. note::
+
    The ``package_type`` attribute can also be computed dynamically in both
    the ``config_options()`` and ``configure()`` methods, for example, a recipe might not support
    building shared libraries in a specific platform. This can be defined as:
