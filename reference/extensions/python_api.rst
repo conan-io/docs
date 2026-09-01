@@ -15,8 +15,16 @@ or in Python scripts or applications, providing a more flexible and powerful way
 
 It is organized in submodules, each one providing a specific set of functionalities.
 
-Note that only the **documented** public members of these classes are guaranteed to be stable,
-and the rest of the members are considered private and can change without notice.
+.. note::
+
+   Only the **documented** public members of these classes are guaranteed to be stable,
+   and the rest of the members are considered private and can change without notice.
+
+.. note::
+
+   Although instantiating the ``ConanAPI`` class is possible in standalone scripts,
+   the recommended way to use the Python API is through :ref:`custom commands<reference_commands_custom_commands>`,
+   which provide a more stable and controlled environment for interacting with Conan.
 
 .. toctree::
    :maxdepth: 1
