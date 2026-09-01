@@ -31,9 +31,6 @@ node('LinuxDocs') {
         },
         pdf: {
             sh(script: 'make latex')
-        },
-        spelling: {
-            sh(script: 'make spelling')
         }
     }
 
