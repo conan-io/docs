@@ -1,0 +1,12 @@
+
+|b2_logo| B2 (Boost Build)
+______________________________
+
+With this generator ``b2`` you can generate a ``conanbuildinfo.jam`` file to be used with your B2 system.
+    
+
+Check the :ref:`generator b2<b2_generator>`
+
+
+
+.. |b2_logo| image:: ../images/boost_build.png
