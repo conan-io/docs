@@ -43,7 +43,6 @@ sys.path.append(os.path.abspath('./_ext'))
 # ones.
 extensions = [
     'conan_theme',
-    'sphinxcontrib.spelling',
     'sphinx_sitemap',
     'notfound.extension',
     'sphinx.ext.autodoc',
