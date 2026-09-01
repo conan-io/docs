@@ -25,7 +25,7 @@ This page lists the changes made to Conan in each version, with links to each pu
 - Feature: `XcodeToolchain` now accepts arbitrary extra xcconfig settings via `tc.build_settings`, for build settings with no dedicated conf. `#20256 <https://github.com/conan-io/conan/pull/20256>`_ . Docs `here <https://github.com/conan-io/docs/pull/4524>`__
 - Feature: Add ``raise_on_errors=True`` arg to ``CommandAPI.run``, it now raises on all errors returned by commands. `#20266 <https://github.com/conan-io/conan/pull/20266>`_
 - Feature: Parse reference attributes from `--ref` in `workspace add`. `#20269 <https://github.com/conan-io/conan/pull/20269>`_
-- Feature: Add support for `Xcode 2.26`. `#20280 <https://github.com/conan-io/conan/pull/20280>`_
+- Feature: Add support for `Xcode 26.6`. `#20280 <https://github.com/conan-io/conan/pull/20280>`_
 - Feature: Add support for `gcc 16.2`. `#20280 <https://github.com/conan-io/conan/pull/20280>`_
 - Feature: Add basic LoongArch64 architecture support and host detection. `#20288 <https://github.com/conan-io/conan/pull/20288>`_
 - Fix: Remove the deprecated `--order-by` behavior and empty version ranges, as planned for Conan 2.32. `#20207 <https://github.com/conan-io/conan/pull/20207>`_ . Docs `here <https://github.com/conan-io/docs/pull/4517>`__
