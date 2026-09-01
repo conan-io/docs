@@ -40,6 +40,23 @@ configuration. For example, you can set the value to ``powershell.exe -NoProfile
 ``pwsh -NoProfile`` by including the arguments as part of the configuration value. These
 arguments will be considered when executing the generated ``.ps1`` launchers.
 
+On Linux and macOS, it is also possible to (new in Conan 2.32) **additionally** generate Fish
+shell ``.fish`` launchers, on top of (never instead of) the ``.sh`` one, by setting the
+``tools.env.virtualenv:fish`` configuration to ``True``. Unlike
+``tools.env.virtualenv:powershell``, this configuration is a plain boolean:
+
+.. code-block:: text
+    :caption: *global.conf*
+
+    tools.env.virtualenv:fish=True
+
+Fish launchers are only meant to be manually ``source``-d by the final consumer in their own
+interactive Fish session. Conan itself never uses them to wrap ``self.run()`` commands, not even
+when explicitly requested (see below), since Fish is not sh/cmd-syntax compatible: the ``.sh``
+(or ``.bat``) launcher is always used for that instead. Because of that, Fish launchers also
+always expose their deactivation as a ``deactivate_xxx`` Fish function, regardless of the
+``tools.env:deactivation_mode`` configuration.
+
 Also, by default, Conan will automatically append that launcher file path to a list that will be used to
 create a ``conanbuild.bat|sh|ps1`` file aggregating all the launchers in order. The ``conanbuild.sh|bat|ps1`` launcher
 will be created after the execution of the ``generate()`` method.
@@ -91,6 +108,13 @@ You can change the default launcher with the ``env`` argument of ``self.run()``:
         # my_env_file.bat && foo
         # powershell my_env_file.ps1 ; cmd c/ foo
         self.run("foo", env=["my_env_file"])
+
+.. note::
+
+    A ``.fish`` launcher, if generated, is never used here, even when passed explicitly via
+    ``env=["my_env_file.fish"]``: Conan always wraps ``self.run()`` with the ``.sh``/``.bat``
+    launcher instead. Fish launchers are for a final consumer to ``source`` by hand in their own
+    shell, not for Conan to use internally.
 
 
 Applying the environment variables

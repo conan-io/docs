@@ -89,14 +89,19 @@ files in the folder *build*. To do that, just run:
 
 .. note::
 
-    **PowerShell** users need to add ``--conf=tools.env.virtualenv:powershell=<executable>`` 
-    (e.g., ``powershell.exe`` or ``pwsh``) to the previous command to generate ``.ps1`` files 
-    instead of ``.bat`` files. Setting this configuration to ``True`` or ``False`` is deprecated 
-    as of Conan 2.11.0. 
+    **PowerShell** users need to add ``--conf=tools.env.virtualenv:powershell=<executable>``
+    (e.g., ``powershell.exe`` or ``pwsh``) to the previous command to generate ``.ps1`` files
+    instead of ``.bat`` files. Setting this configuration to ``True`` or ``False`` is deprecated
+    as of Conan 2.11.0.
 
-    To avoid the need to add this line every time, we recommend configuring it in the ``[conf]`` 
-    section of your profile. For detailed information, please refer to the 
+    To avoid the need to add this line every time, we recommend configuring it in the ``[conf]``
+    section of your profile. For detailed information, please refer to the
     :ref:`profiles section<reference_config_files_profiles>`.
+
+    **Fish** shell users on Linux or macOS can add ``--conf=tools.env.virtualenv:fish=True`` to
+    additionally generate a ``.fish`` launcher alongside the ``.sh`` one (new in Conan 2.32).
+    It is meant to be sourced by hand in an interactive Fish session; Conan will still use the
+    ``.sh`` launcher internally, e.g. for the ``self.run()`` calls in recipes.
 
 You can check the output:
 
