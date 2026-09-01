@@ -113,9 +113,9 @@ Now we are ready to build and run our **compressor** app:
     :caption: Windows
 
     $ cd build
-    $ meson setup --native-file conan_meson_native.ini .. meson-src
-    $ meson compile -C meson-src
-    $ meson-src\compressor.exe
+    $ meson setup --native-file conan_meson_native.ini ..
+    $ meson compile
+    $ compressor.exe
     Uncompressed size is: 233
     Compressed size is: 147
     ZLIB VERSION: 1.2.11
@@ -124,9 +124,9 @@ Now we are ready to build and run our **compressor** app:
     :caption: Linux, macOS
 
     $ cd build
-    $ meson setup --native-file conan_meson_native.ini .. meson-src
-    $ meson compile -C meson-src
-    $ ./meson-src/compressor
+    $ meson setup --native-file conan_meson_native.ini ..
+    $ meson compile
+    $ ./compressor
     Uncompressed size is: 233
     Compressed size is: 147
     ZLIB VERSION: 1.2.11
