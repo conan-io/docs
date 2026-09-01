@@ -27,7 +27,7 @@ Clone the project from github:
 
 .. code-block:: bash
 
-   $ git clone https://github.com/lasote/conan-gtest-example
+   $ git clone https://github.com/conan-io/examples
 
 
 Create a ``.circleci/config.yml`` file and paste this code in it:
@@ -38,7 +38,7 @@ Create a ``.circleci/config.yml`` file and paste this code in it:
   version: 2
   gcc-6:
     docker:
-      - image: conanio/gcc6
+      - image: conanio/gcc9
     steps:
       - checkout
       - run:
@@ -46,6 +46,7 @@ Create a ``.circleci/config.yml`` file and paste this code in it:
           command: |
             sudo pip install --upgrade conan
             conan user
+            cd libraries/gtest/encryption
             conan create . user/channel
   workflows:
     version: 2
