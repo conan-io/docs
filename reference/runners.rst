@@ -17,3 +17,4 @@ Runners:
     :maxdepth: 1
 
     runners/docker
+    runners/ssh
