@@ -2,6 +2,7 @@ import argparse
 import json
 import os
 import shutil
+import sysconfig
 
 from common import chdir, conan_versions, latest_v2_folder, latest_v1_folder, latest_v2_branch, run
 
@@ -104,12 +105,20 @@ with chdir(f"{sources_folder}"):
         run(f"rm -rf {branch_folder}/conan_sources")
         run(f"git clone --single-branch -b {conan_branch} --depth 1 {conan_repo_url} {branch_folder}/conan_sources")
 
-        run(f"pip install -e {branch_folder}/conan_sources")
+        run(f"pip install {branch_folder}/conan_sources")
 
-        # for some reason even adding this to autodoc_mock_imports
-        # does not work, se we have to install the real dependency
-        # TODO: move this to jenkins
-        # run('pip3 install colorama')
+        # Some older Conan versions have a real circular import between
+        # conans.model.conf and the conan package's own __init__.py. It only
+        # surfaces if something imports conans.model.conf directly before
+        # anything has imported the top-level conan package (which is what
+        # autodoc does, depending on the order Sphinx processes .rst files).
+        # sphinx-build runs as its own separate process, so pre-importing
+        # conan here has no effect on it. sitecustomize.py is auto-loaded by
+        # every new Python process in this environment, so writing to it
+        # forces the safe import order regardless of process boundaries.
+        sitecustomize_path = os.path.join(sysconfig.get_path("purelib"), "sitecustomize.py")
+        with open(sitecustomize_path, "a") as f:
+            f.write("import conan\n")
 
     # generate html
     is_v2 = branch_folder.startswith("2")
