@@ -1,0 +1,43 @@
+name: Docs test build
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - develop2
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/${{ github.repository_owner }}/docs-ci:latest
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout docs
+        uses: actions/checkout@v4
+
+      - name: Clone Conan sources for autodoc
+        run: git clone --single-branch -b "${{ github.ref_name }}" --depth 1 https://github.com/conan-io/conan.git conan_sources
+
+      - name: Install Conan sources
+        run: |
+          pip install -e conan_sources
+          conan --version
+
+      - name: Build HTML
+        run: make html
+
+      - name: Build LaTeX sources
+        run: make latex
+
+      - name: Upload build output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-build-${{ github.sha }}
+          path: |
+            _build/html
+            _build/latex
+          retention-days: 7
