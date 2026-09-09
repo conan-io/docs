@@ -11,3 +11,4 @@ and the rest of the members are considered private and can change without notice
    model/remote
    model/list
    model/references
+   model/graph

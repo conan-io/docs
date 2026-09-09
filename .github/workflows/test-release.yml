@@ -69,3 +69,4 @@ jobs:
     with:
       branches: ${{ github.ref_name }}
       pdf_branches: ${{ github.ref_name }}
+      publish: true
