@@ -8,8 +8,7 @@ latest_v1_folder = "1"
 latest_v1_branch = "master"
 
 conan_versions = {
-    # the first of the dictionary
-    # must be always the latest version
+    # the first of the dictionary must be always the latest version
     "2.32": "release/2.32",
     "2.31": "release/2.31",
     "2.30": "release/2.30",
