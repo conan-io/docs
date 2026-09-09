@@ -1,0 +1,68 @@
+name: Docs test & publish (master)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/${{ github.repository_owner }}/docs-ci:latest
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout docs
+        uses: actions/checkout@v4
+
+      - name: Build HTML
+        run: make html
+
+      - name: Build LaTeX sources
+        run: make latex
+
+  decide:
+    needs: test
+    runs-on: ubuntu-latest
+    outputs:
+      branches: ${{ steps.decide.outputs.branches }}
+      pdf_branches: ${{ steps.decide.outputs.pdf_branches }}
+    steps:
+      - name: Checkout docs
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Decide branches to regenerate
+        id: decide
+        working-directory: .ci/scripts
+        run: |
+          changed=$(git diff --name-only HEAD^1..HEAD)
+
+          changed_ci=false
+          changed_theme=false
+          echo "$changed" | grep -q '^\.ci' && changed_ci=true
+          echo "$changed" | grep -q '^_themes' && changed_theme=true
+
+          pdf_branches=$(python3 -c "from common import latest_v2_branch; print(latest_v2_branch)")
+
+          # Only rebuild the full version history when .ci/ or _themes/
+          # changed on master - mirrors get_branches.py's original logic.
+          if [ "$changed_ci" = "false" ] && [ "$changed_theme" = "false" ]; then
+            branches="master"
+          else
+            branches=$(python3 -c "from common import conan_versions; print(','.join(conan_versions.values()))")
+          fi
+
+          echo "branches=$branches" >> "$GITHUB_OUTPUT"
+          echo "pdf_branches=$pdf_branches" >> "$GITHUB_OUTPUT"
+
+  publish:
+    needs: decide
+    uses: ./.github/workflows/publish.yml
+    with:
+      branches: ${{ needs.decide.outputs.branches }}
+      pdf_branches: ${{ needs.decide.outputs.pdf_branches }}

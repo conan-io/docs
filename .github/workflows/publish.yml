@@ -1,0 +1,171 @@
+name: Docs publish (artifact preview)
+
+on:
+  workflow_dispatch:
+    inputs:
+      branches:
+        description: 'Comma-separated branches to regenerate (e.g. master,release/2.32)'
+        required: true
+        default: 'master'
+        type: string
+      pdf_branches:
+        description: 'Comma-separated branches to regenerate PDF for (empty = regenerate for all requested branches)'
+        required: false
+        default: ''
+        type: string
+      publish:
+        description: 'Push to gh-pages and deploy to GitHub Pages for real (false = artifact preview only)'
+        required: false
+        default: false
+        type: boolean
+  workflow_call:
+    inputs:
+      branches:
+        description: 'Comma-separated branches to regenerate (e.g. master,release/2.32)'
+        required: true
+        type: string
+      pdf_branches:
+        description: 'Comma-separated branches to regenerate PDF for (empty = regenerate for all requested branches)'
+        required: false
+        default: ''
+        type: string
+      publish:
+        description: 'Push to gh-pages and deploy to GitHub Pages for real (false = artifact preview only)'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  prepare-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      branches: ${{ steps.set.outputs.branches }}
+      branches_csv: ${{ steps.set.outputs.branches_csv }}
+    steps:
+      - id: set
+        run: |
+          branches="${{ inputs.branches }}"
+          json=$(python3 -c "import json,sys; print(json.dumps(sys.argv[1].split(',')))" "$branches")
+          echo "branches=$json" >> "$GITHUB_OUTPUT"
+          echo "branches_csv=$branches" >> "$GITHUB_OUTPUT"
+
+  generate:
+    needs: prepare-matrix
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/${{ github.repository_owner }}/docs-ci:latest
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    strategy:
+      fail-fast: false
+      matrix:
+        branch: ${{ fromJson(needs.prepare-matrix.outputs.branches) }}
+    steps:
+      - name: Checkout docs (CI scripts)
+        uses: actions/checkout@v4
+        with:
+          ref: master
+
+      - name: Determine if this branch needs PDF
+        id: pdf_check
+        run: |
+          pdf_branches="${{ inputs.pdf_branches }}"
+          branch="${{ matrix.branch }}"
+          if [ -z "$pdf_branches" ] || echo ",$pdf_branches," | grep -q ",$branch,"; then
+            echo "with_pdf=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "with_pdf=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Prepare sources as worktree
+        working-directory: .ci/scripts
+        run: python3 prepare_sources.py --sources-folder=../../sources_folder --branches="${{ matrix.branch }}"
+
+      - name: Generate documentation
+        working-directory: .ci/scripts
+        env:
+          CONAN_WORKSPACE_ENABLE: will_break_next
+        run: |
+          with_pdf=""
+          if [ "${{ steps.pdf_check.outputs.with_pdf }}" = "true" ]; then
+            with_pdf="--with-pdf"
+          fi
+          python3 generate_documentation.py --sources-folder=../../sources_folder --branch="${{ matrix.branch }}" $with_pdf
+
+      - name: Sanitize artifact name
+        id: name
+        run: echo "safe=$(echo '${{ matrix.branch }}' | tr '/.' '__')" >> "$GITHUB_OUTPUT"
+
+      - name: Upload generated output
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-output-${{ steps.name.outputs.safe }}
+          path: sources_folder/output
+          retention-days: 1
+
+  assemble:
+    needs: [prepare-matrix, generate]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    container:
+      image: ghcr.io/${{ github.repository_owner }}/docs-ci:latest
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout docs (CI scripts)
+        uses: actions/checkout@v4
+        with:
+          ref: master
+
+      - name: Download all generated outputs
+        uses: actions/download-artifact@v4
+        with:
+          pattern: docs-output-*
+          path: downloaded
+          merge-multiple: true
+
+      - name: Merge into sources_folder/output
+        run: |
+          mkdir -p sources_folder/output
+          cp -a downloaded/. sources_folder/output/
+
+      - name: Prepare gh-pages folder
+        working-directory: .ci/scripts
+        run: python3 prepare_gh_pages.py --sources-folder=../../sources_folder --gh-pages-folder=../../gh_pages_out
+
+      - name: Replace HTML tags
+        working-directory: .ci/scripts
+        shell: bash
+        run: |
+          IFS=',' read -ra BR <<< "${{ needs.prepare-matrix.outputs.branches_csv }}"
+          for b in "${BR[@]}"; do
+            python3 replace_html_tags.py --gh-pages-folder=../../gh_pages_out --branch="$b"
+          done
+
+      - name: Upload gh-pages artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: gh-pages-preview-${{ github.run_id }}
+          path: gh_pages_out
+          retention-days: 7
+
+      # From here on, only runs when inputs.publish is true. Everything
+      # above (including the artifact upload) always runs, so a plain
+      # workflow_dispatch/workflow_call test keeps working exactly as
+      # before with publish left at its default (false).
+
+      - name: Push to gh-pages branch
+        if: inputs.publish == true
+        working-directory: gh_pages_out
+        run: |
+          rm -rf .git
+          git init -q
+          git checkout -q -b gh-pages
+          git add .
+          git -c user.email="conanci@jfrog.com" \
+              -c user.name="ConanCI bot" \
+              commit -q -m "Automatic deploy (build number ${{ github.run_id }})"
+          git push -q --force "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" gh-pages
