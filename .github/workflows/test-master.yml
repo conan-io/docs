@@ -66,3 +66,4 @@ jobs:
     with:
       branches: ${{ needs.decide.outputs.branches }}
       pdf_branches: ${{ needs.decide.outputs.pdf_branches }}
+      publish: true
