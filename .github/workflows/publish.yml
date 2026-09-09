@@ -109,6 +109,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      packages: read
     container:
       image: ghcr.io/${{ github.repository_owner }}/docs-ci:latest
       credentials:
