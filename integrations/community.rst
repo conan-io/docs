@@ -16,6 +16,9 @@ Community
   Source and support in `cruiz Github page <https://github.com/markfinal/cruiz>`_.
 - **Gradle Conan plugin**: A plugin to use Conan from the Gradle build system. See it in the `Gradle plugins site <https://plugins.gradle.org/plugin/net.sf.loggersoft.cpp-conan>`_.
   Project `wiki here <https://sourceforge.net/p/gradle-cpp/wiki/cpp-conan/>`_, for source, suppport (tickets), go to `project Sourceforge page <https://sourceforge.net/projects/gradle-cpp/>`_ 
+- **nvim-conan Neovim integration**: A Conan 2 integration for managing packages, profiles, remotes and common Conan workflows directly from Neovim.
+  For source and support go to the `nvim-conan Github page <https://github.com/mm4cN/nvim-conan>`_.
+  Created by `@mm4cN <https://github.com/mm4cN>`_
 
 
 .. note::
