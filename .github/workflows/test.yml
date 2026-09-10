@@ -5,6 +5,9 @@ on:
   push:
     branches:
       - develop2
+  pull_request:
+    branches:
+      - develop2
 
 jobs:
   test:
@@ -19,7 +22,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Clone Conan sources for autodoc
-        run: git clone --single-branch -b "${{ github.ref_name }}" --depth 1 https://github.com/conan-io/conan.git conan_sources
+        run: |
+          # github.ref_name is the PR merge ref (e.g. "4536/merge") on
+          # pull_request events, not a real branch, so it can't be used to
+          # clone conan-io/conan directly. Use base_ref (always "develop2"
+          # here) when set, falling back to ref_name for push events.
+          target="${{ github.base_ref || github.ref_name }}"
+          git clone --single-branch -b "$target" --depth 1 https://github.com/conan-io/conan.git conan_sources
 
       - name: Install Conan sources
         run: |
